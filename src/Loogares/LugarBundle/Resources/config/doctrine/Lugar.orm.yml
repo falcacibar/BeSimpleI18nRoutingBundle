@@ -1,0 +1,110 @@
+Loogares\LugarBundle\Entity\Lugar:
+    type: entity
+    table: lugares
+    #oneToOne:
+    #    usuario:
+    #        targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        #nobmre
+        nombre:
+            type: string
+            length: 50
+        #slug
+        usuario_id:
+            type: integer
+        slug:
+            type: string
+            length: 100
+        #direccion
+        calle:
+            type: string
+            length: 255
+        numero:
+            type: string
+            length: 10
+        #detalle
+        detalle:
+            type: text
+        #descripcion
+        descripcion:
+            type: text
+        #comuna
+        comuna_id:
+            type: integer
+        #barrio
+        sector_id:
+            type: integer
+        #id tipo
+        tipo_lugar_id:
+            type: integer
+        #id estado
+        estado_lugar_id:
+            type: integer
+        #∫tiene dueno
+        dueno_id:
+            type: integer
+        #mapx
+        mapx: 
+            type: float
+        #mapy
+        mapy:
+            type: float
+        #profesional
+        profesional:
+            type: string
+            length: 50
+        #agno construccion
+        agno_construccion:
+            type: string
+            length: 50
+        #materiales
+        materiales: 
+            type: string
+            length: 255
+        #sitio web
+        sitio_web:
+            type: string
+            length: 100 
+        #facebook
+        facebook:
+            type: string
+            length: 100
+        #twitter
+        twitter: 
+            type: string
+            length: 100
+        #mail
+        mail: 
+            type: string
+            length: 100
+        #puntuacion
+        estrellas:
+            type: float
+        #vistas
+        visitas:
+            type: integer
+        #evaluacion
+        utiles:
+            type: integer
+        #fecha
+        fecha_agregado:
+            type: date
+        #fechaultimarecomendacion
+        fecha_ultima_recomendacion:
+            type: datetime
+        #numerorecomendationes
+        total_recomendaciones:
+            type: integer
+        #precio
+        precio:
+            type: integer
+        #precioinicial
+        precio_inicial:
+            type: integer
+        #orden sector
+        prioridad_web:
+            type: integer

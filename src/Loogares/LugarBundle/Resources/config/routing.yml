@@ -1,0 +1,11 @@
+LoogaresLugarBundle_homepage:
+    pattern:  /agregar
+    defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
+
+LoogaresLugarBundle_listado:
+    pattern: /listado
+    defaults: { _controller: LoogaresLugarBundle:Lugar:listado }
+
+LoogaresLugarBundle_lugar:
+    pattern: /lugar/{slug}
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }

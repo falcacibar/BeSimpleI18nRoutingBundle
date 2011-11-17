@@ -1,0 +1,12 @@
+Loogares\UsuarioBundle\Entity\Usuario:
+    type: entity
+    table: usuarios
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        #nobmre
+        nombre:
+            type: string
+            length: 50
