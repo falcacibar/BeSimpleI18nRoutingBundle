@@ -1,0 +1,25 @@
+Loogares\UsuarioBundle\Entity\Util:
+    type: entity
+    table: util
+    manyToOne:
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
+            joinTable:
+                name: util
+                joinColumns:
+                    recomendacion:
+                        referencedColumnName: id
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+            joinTable:
+                name: util
+                joinColumns:
+                    usuario:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        fecha:
+            type: datetime

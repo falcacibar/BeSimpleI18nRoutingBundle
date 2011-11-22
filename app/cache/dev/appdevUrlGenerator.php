@@ -13,6 +13,9 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
 class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerator
 {
     static private $declaredRouteNames = array(
+       '_assetic_3060b16' => true,
+       '_assetic_3060b16_0' => true,
+       '_assetic_3060b16_1' => true,
        '_wdt' => true,
        '_profiler_search' => true,
        '_profiler_purge' => true,
@@ -48,6 +51,21 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         list($variables, $defaults, $requirements, $tokens) = $this->{'get'.$escapedName.'RouteInfo'}();
 
         return $this->doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $absolute);
+    }
+
+    private function get_assetic_3060b16RouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'assetic.controller:render',  'name' => '3060b16',  'pos' => NULL,  '_format' => 'css',), array (), array (  0 =>   array (    0 => 'text',    1 => '/assets/css/compressed.css',  ),));
+    }
+
+    private function get_assetic_3060b16_0RouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'assetic.controller:render',  'name' => '3060b16',  'pos' => 0,  '_format' => 'css',), array (), array (  0 =>   array (    0 => 'text',    1 => '/assets/css/compressed_part_1_base_1.css',  ),));
+    }
+
+    private function get_assetic_3060b16_1RouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'assetic.controller:render',  'name' => '3060b16',  'pos' => 1,  '_format' => 'css',), array (), array (  0 =>   array (    0 => 'text',    1 => '/assets/css/compressed_part_1_lugar_2.css',  ),));
     }
 
     private function get_wdtRouteInfo()

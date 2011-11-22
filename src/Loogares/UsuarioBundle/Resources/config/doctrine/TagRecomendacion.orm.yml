@@ -1,0 +1,22 @@
+Loogares\UsuarioBundle\Entity\TagRecomendacion:
+    type: entity
+    table: tag_recomendacion
+    manyToOne:
+        recomendacion:
+            targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
+            joinTable:
+                name: tag_recomendacion
+                joinColumns:
+                    recomendacion:
+                        referencedColumnName: id
+        tag:
+            targetEntity: Loogares\UsuarioBundle\Entity\EstadoRecomendacion
+            joinTable:
+                name: tag_recomendacion
+                joinColumns:
+                    tag:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }

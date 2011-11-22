@@ -1,0 +1,24 @@
+Loogares\ExtraBundle\Entity\Comuna:
+    type: entity
+    table: comuna
+    manyToOne:
+        pais:
+            targetEntity: Loogares\ExtraBundle\Entity\Ciudad
+            joinTable:
+                name: comuna
+                joinColumns:
+                    ciudad:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        slug:
+            type: string
+        mapa:
+            type: string
+        habilitado:
+            type: smallint

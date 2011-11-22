@@ -1,28 +1,38 @@
-<style>
-    h1{ font-size: 24px; }
-</style>
+{% extends "::base.html.twig" %}
 
-<!--
-header
-    Nombre
-    Foto
-    Estrellas
-    Recomendaciones
-    Rcomeinda boton
-    Direccion, ciudad
-    url
-    facebook
-    categorias
-    sector
--->
 
-<h1>Lugar: {{ lugar.nombre }}</h1>
-<p>{{ lugar.estrellas }} estrellas</p>
+{% block title %}:D{% endblock %}
+
+{% block content %}
+<!-- Ficha, top part -->
+<div id="lugar-ficha">
+    
+    <div id="lugar-info">
+        <div id="lugar-foto">foto</div>
+        <div id="lugar-mapa">mapa</div>
+            <h2>{{ lugar.nombre }}</h2>
+            <div class="estrellas">{{ lugar.estrellas }} Estrellas | {{ lugar.totalRecomendaciones}} Recomendaciones</div>
+            <div id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }} - Ciudad</div>
+            <div id="lugar-telefono">123719827</div>
+            <div id="lugar-categorias">Categorias: {{ smt.categoria.nombre }}</div>
+            <div id="lugar-algo">asdads</div>
+            <div id="lugar-algo">asdads</div>
+            <div id="lugar-algo">asdads</div>
+            <div id="primero-recomendar"></div>
+        <div id="share-stuff"></div>
+        <div id="social-stuff"></div>
+    </div>
+</div>
+<p> estrellas</p>
 <p>{{ lugar.totalRecomendaciones}} recomendaciones</p>
-<h2>{{ lugar.calle }} {{ lugar.numero }} - Ciudad</h2>
 <p>{{ lugar.sitioWeb }}</p>
 <p>{{ lugar.facebook }}</p>
 <p>{{ lugar.twitter }}</p>
 <p>{{ lugar.mail }}</p>
 <p>categorias</p>
 <p>sector</p>
+
+<h1>
+{{ smt.categoria.nombre }}
+</h1>
+{% endblock %}

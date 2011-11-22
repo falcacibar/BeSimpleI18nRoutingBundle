@@ -1,0 +1,22 @@
+Loogares\LugarBundle\Entity\CaracteristicaCategoria:
+    type: entity
+    table: caracteristica_categoria
+    manyToOne:
+        caracteristica:
+            targetEntity: Loogares\LugarBundle\Entity\Caracteristica
+            joinTable:
+                name: caracteristica_categoria
+                joinColumns:
+                    caracteristica:
+                        referencedColumnName: id
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Categoria
+            joinTable:
+                name: caracteristica_categoria
+                joinColumns:
+                    categoria:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }

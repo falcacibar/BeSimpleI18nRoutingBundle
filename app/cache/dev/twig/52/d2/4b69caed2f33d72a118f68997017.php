@@ -11,6 +11,7 @@ class __TwigTemplate_52d24b69caed2f33d72a118f68997017 extends Twig_Template
         $this->blocks = array(
             'title' => array($this, 'block_title'),
             'stylesheets' => array($this, 'block_stylesheets'),
+            'content' => array($this, 'block_content'),
             'body' => array($this, 'block_body'),
             'javascripts' => array($this, 'block_javascripts'),
         );
@@ -33,19 +34,70 @@ class __TwigTemplate_52d24b69caed2f33d72a118f68997017 extends Twig_Template
         // line 6
         $this->displayBlock('stylesheets', $context, $blocks);
         // line 7
+        echo "        ";
+        if (isset($context['assetic']['debug']) && $context['assetic']['debug']) {
+            // asset "3060b16_0"
+            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_3060b16_0") : $this->env->getExtension('assets')->getAssetUrl("_controller/assets/css/compressed_part_1_base_1.css");
+            // line 10
+            echo "            <link rel=\"stylesheet\" href=\"";
+            echo twig_escape_filter($this->env, $this->getContext($context, 'asset_url'), "html");
+            echo "\" type=\"text/css\" media=\"screen\" />
+        ";
+            // asset "3060b16_1"
+            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_3060b16_1") : $this->env->getExtension('assets')->getAssetUrl("_controller/assets/css/compressed_part_1_lugar_2.css");
+            echo "            <link rel=\"stylesheet\" href=\"";
+            echo twig_escape_filter($this->env, $this->getContext($context, 'asset_url'), "html");
+            echo "\" type=\"text/css\" media=\"screen\" />
+        ";
+        } else {
+            // asset "3060b16"
+            $context["asset_url"] = isset($context['assetic']['use_controller']) && $context['assetic']['use_controller'] ? $this->env->getExtension('routing')->getPath("_assetic_3060b16") : $this->env->getExtension('assets')->getAssetUrl("_controller/assets/css/compressed.css");
+            echo "            <link rel=\"stylesheet\" href=\"";
+            echo twig_escape_filter($this->env, $this->getContext($context, 'asset_url'), "html");
+            echo "\" type=\"text/css\" media=\"screen\" />
+        ";
+        }
+        unset($context["asset_url"]);
+        // line 12
         echo "        <link rel=\"shortcut icon\" href=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("favicon.ico"), "html");
         echo "\" />
     </head>
     <body>
-        ";
-        // line 10
+        <div id=\"wrapper\">
+            <div id=\"header\">
+                <div id=\"logo\">
+                    <h1>Loogares.com</h1>
+                </div>
+                <div id=\"login-facebook\">No estas conectado a Facebook, Hazlo ya! >> FACEBOOKBTN <strong>Registrate | Entra</strong></div>
+                <div id=\"search-bar\">
+                    que buscas? :o
+                    <input type=\"text\" />
+                    <input type=\"text\" />
+                </div>
+                <ul id=\"main-nav\">
+                    <li>Santiago</li>
+                    <li>Que Visitar</li>
+                    <li>Donde comer</li>
+                    <li>Que comprar</li>
+                    <li>Como entretenerse</li>
+                    <li>Como cuidarse</li>
+                    <li>Donde dormir</li>
+                    <li>Servicios</li>
+                </ul>
+            </div>
+            ";
+        // line 37
+        $this->displayBlock('content', $context, $blocks);
+        // line 38
+        echo "            ";
         $this->displayBlock('body', $context, $blocks);
-        // line 11
-        echo "        ";
+        // line 39
+        echo "            ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 12
-        echo "    </body>
+        // line 40
+        echo "        </div>
+    </body>
 </html>
 ";
     }
@@ -61,12 +113,17 @@ class __TwigTemplate_52d24b69caed2f33d72a118f68997017 extends Twig_Template
     {
     }
 
-    // line 10
+    // line 37
+    public function block_content($context, array $blocks = array())
+    {
+    }
+
+    // line 38
     public function block_body($context, array $blocks = array())
     {
     }
 
-    // line 11
+    // line 39
     public function block_javascripts($context, array $blocks = array())
     {
     }

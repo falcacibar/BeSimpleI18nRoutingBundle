@@ -18,6 +18,7 @@
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="JMSSecurityExtraBundle">JMS\SecurityExtraBundle\JMSSecurityExtraBundle</parameter>
       <parameter key="LoogaresUsuarioBundle">Loogares\UsuarioBundle\LoogaresUsuarioBundle</parameter>
+      <parameter key="LoogaresExtraBundle">Loogares\ExtraBundle\LoogaresExtraBundle</parameter>
       <parameter key="LoogaresLugarBundle">Loogares\LugarBundle\LoogaresLugarBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -341,6 +342,24 @@
     <parameter key="assetic.node.bin">/usr/bin/node</parameter>
     <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
     <parameter key="assetic.filter.cssrewrite.class">Assetic\Filter\CssRewriteFilter</parameter>
+    <parameter key="assetic.filter.yui_css.class">Assetic\Filter\Yui\CssCompressorFilter</parameter>
+    <parameter key="assetic.filter.yui_css.java">/usr/bin/java</parameter>
+    <parameter key="assetic.filter.yui_css.jar">/private/var/www/symf/app/java/yuicompressor-2.4.7.jar</parameter>
+    <parameter key="assetic.filter.yui_css.charset">UTF-8</parameter>
+    <parameter key="assetic.filter.sass.class">Assetic\Filter\Sass\SassFilter</parameter>
+    <parameter key="assetic.filter.sass.bin">/usr/bin/sass</parameter>
+    <parameter key="assetic.filter.sass.style">null</parameter>
+    <parameter key="assetic.filter.sass.compass">null</parameter>
+    <parameter key="assetic.filter.compass.class">Assetic\Filter\CompassFilter</parameter>
+    <parameter key="assetic.filter.compass.bin">/usr/bin/compass</parameter>
+    <parameter key="assetic.filter.compass.debug">true</parameter>
+    <parameter key="assetic.filter.compass.style">null</parameter>
+    <parameter key="assetic.filter.compass.images_dir">null</parameter>
+    <parameter key="assetic.filter.compass.javascripts_dir">null</parameter>
+    <parameter key="assetic.filter.compass.http_path">null</parameter>
+    <parameter key="assetic.filter.compass.http_images_path">null</parameter>
+    <parameter key="assetic.filter.compass.http_javascripts_path">null</parameter>
+    <parameter key="assetic.filter.compass.plugins" type="collection"/>
     <parameter key="assetic.twig_extension.functions" type="collection"/>
     <parameter key="assetic.controller.class">Symfony\Bundle\AsseticBundle\Controller\AsseticController</parameter>
     <parameter key="assetic.routing_loader.class">Symfony\Bundle\AsseticBundle\Routing\AsseticLoader</parameter>
@@ -1588,6 +1607,7 @@
           <call method="setEntityNamespaces">
             <argument type="collection">
               <argument key="LoogaresUsuarioBundle">Loogares\UsuarioBundle\Entity</argument>
+              <argument key="LoogaresExtraBundle">Loogares\ExtraBundle\Entity</argument>
               <argument key="LoogaresLugarBundle">Loogares\LugarBundle\Entity</argument>
             </argument>
           </call>
@@ -1626,11 +1646,13 @@
                     <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
                       <argument type="collection">
                         <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
+                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
                         <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
                       </argument>
                       <call method="setNamespacePrefixes">
                         <argument type="collection">
                           <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
+                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
                           <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
                         </argument>
                       </call>
@@ -1646,11 +1668,35 @@
                     <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
                       <argument type="collection">
                         <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
+                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
                         <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
                       </argument>
                       <call method="setNamespacePrefixes">
                         <argument type="collection">
                           <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
+                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
+                          <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
+                        </argument>
+                      </call>
+                      <call method="setGlobalBasename">
+                        <argument>mapping</argument>
+                      </call>
+                    </service>
+                  </argument>
+                  <argument>Loogares\ExtraBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
+                      <argument type="collection">
+                        <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
+                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
+                        <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
+                      </argument>
+                      <call method="setNamespacePrefixes">
+                        <argument type="collection">
+                          <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
+                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
                           <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
                         </argument>
                       </call>
@@ -1683,6 +1729,9 @@
       <argument type="service" id="service_container"/>
       <argument type="collection">
         <argument key="cssrewrite">assetic.filter.cssrewrite</argument>
+        <argument key="yui_css">assetic.filter.yui_css</argument>
+        <argument key="sass">assetic.filter.sass</argument>
+        <argument key="compass">assetic.filter.compass</argument>
       </argument>
     </service>
     <service id="assetic.asset_manager" class="Assetic\Factory\LazyAssetManager">
@@ -1986,6 +2035,33 @@
               <argument type="service">
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
+                  <argument>LoogaresExtraBundle</argument>
+                  <argument>/private/var/www/symf/app/Resources/LoogaresExtraBundle/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>LoogaresExtraBundle</argument>
+                  <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+            </argument>
+          </service>
+        </argument>
+        <argument>twig</argument>
+      </call>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
+            <tag name="assetic.templating.twig"/>
+            <tag name="assetic.formula_resource" loader="twig"/>
+            <argument type="collection">
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
                   <argument>LoogaresLugarBundle</argument>
                   <argument>/private/var/www/symf/app/Resources/LoogaresLugarBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
@@ -2121,6 +2197,52 @@
     </service>
     <service id="assetic.filter.cssrewrite" class="Assetic\Filter\CssRewriteFilter">
       <tag name="assetic.filter" alias="cssrewrite"/>
+    </service>
+    <service id="assetic.filter.yui_css" class="Assetic\Filter\Yui\CssCompressorFilter">
+      <tag name="assetic.filter" alias="yui_css"/>
+      <argument>/private/var/www/symf/app/java/yuicompressor-2.4.7.jar</argument>
+      <argument>/usr/bin/java</argument>
+      <call method="setCharset">
+        <argument>UTF-8</argument>
+      </call>
+    </service>
+    <service id="assetic.filter.sass" class="Assetic\Filter\Sass\SassFilter">
+      <tag name="assetic.filter" alias="sass"/>
+      <argument>/usr/bin/sass</argument>
+      <call method="setStyle">
+        <argument>null</argument>
+      </call>
+      <call method="setCompass">
+        <argument>null</argument>
+      </call>
+    </service>
+    <service id="assetic.filter.compass" class="Assetic\Filter\CompassFilter">
+      <tag name="assetic.filter" alias="compass"/>
+      <argument>/usr/bin/compass</argument>
+      <call method="setDebugInfo">
+        <argument>true</argument>
+      </call>
+      <call method="setStyle">
+        <argument>null</argument>
+      </call>
+      <call method="setImagesDir">
+        <argument>null</argument>
+      </call>
+      <call method="setJavascriptsDir">
+        <argument>null</argument>
+      </call>
+      <call method="setHttpPath">
+        <argument>null</argument>
+      </call>
+      <call method="setHttpImagesPath">
+        <argument>null</argument>
+      </call>
+      <call method="setHttpJavascriptsPath">
+        <argument>null</argument>
+      </call>
+      <call method="setPlugins">
+        <argument type="collection"/>
+      </call>
     </service>
     <service id="assetic.controller" class="Symfony\Bundle\AsseticBundle\Controller\AsseticController" scope="prototype">
       <argument type="service" id="request"/>

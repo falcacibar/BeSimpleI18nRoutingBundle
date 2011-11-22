@@ -1,0 +1,25 @@
+Loogares\LugarBundle\Entity\CategoriaLugar:
+    type: entity
+    table: categoria_lugar
+    manyToOne:
+        categoria:
+            targetEntity: Loogares\LugarBundle\Entity\Categoria
+            joinTable:
+                name: categoria_lugar
+                joinColumns:
+                    categoria:
+                        referencedColumnName: id
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+            joinTable:
+                name: categoria_lugar
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        principal:
+            type: smallint

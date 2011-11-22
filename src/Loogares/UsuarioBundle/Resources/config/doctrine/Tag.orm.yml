@@ -1,0 +1,12 @@
+Loogares\UsuarioBundle\Entity\Tag:
+    type: entity
+    table: tag
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        tag:
+            type: string
+        slug:
+            type: string

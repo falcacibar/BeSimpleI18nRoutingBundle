@@ -164,6 +164,21 @@ class Lugar
      */
     private $prioridad_web;
 
+    /**
+     * @var Loogares\LugarBundle\Entity\EstadoLugar
+     */
+    private $estado_lugar;
+
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Get id
@@ -773,5 +788,25 @@ class Lugar
     public function getPrioridadWeb()
     {
         return $this->prioridad_web;
+    }
+
+    /**
+     * Set estado_lugar
+     *
+     * @param Loogares\LugarBundle\Entity\EstadoLugar $estadoLugar
+     */
+    public function setEstadoLugar(\Loogares\LugarBundle\Entity\EstadoLugar $estadoLugar)
+    {
+        $this->estado_lugar = $estadoLugar;
+    }
+
+    /**
+     * Get estado_lugar
+     *
+     * @return Loogares\LugarBundle\Entity\EstadoLugar 
+     */
+    public function getEstadoLugar()
+    {
+        return $this->estado_lugar;
     }
 }

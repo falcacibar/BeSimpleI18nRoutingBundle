@@ -1,0 +1,15 @@
+Loogares\LugarBundle\Entity\Subcategoria:
+    type: entity
+    table: subcategoria
+    manyToOne:
+        categoria:
+            targetEntity: Loogares\LugarBundle\Entity\Categoria
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        slug:
+            type: string

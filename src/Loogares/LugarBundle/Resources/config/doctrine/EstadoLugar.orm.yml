@@ -1,0 +1,10 @@
+Loogares\LugarBundle\Entity\EstadoLugar:
+    type: entity
+    table: estado_lugar
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string

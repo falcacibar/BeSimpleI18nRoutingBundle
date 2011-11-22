@@ -1,0 +1,19 @@
+Loogares\LugarBundle\Entity\Categoria:
+    type: entity
+    table: categorias
+    manyToOne:
+        tipo_categoria:
+            targetEntity: Loogares\LugarBundle\Entity\TipoCategoria
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        slug:
+            type: string
+        mostrar_precio:
+            type: smallint
+        tipo_categoria_id:
+            type: integer

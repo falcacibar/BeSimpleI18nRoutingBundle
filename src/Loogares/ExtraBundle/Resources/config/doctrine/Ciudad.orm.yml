@@ -1,0 +1,26 @@
+Loogares\ExtraBundle\Entity\Ciudad:
+    type: entity
+    table: ciudad
+    manyToOne:
+        pais:
+            targetEntity: Loogares\ExtraBundle\Entity\Pais
+            joinTable:
+                name: ciudad
+                joinColumns:
+                    pais:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        slug:
+            type: string
+        mapa:
+            type: string
+        lugar_habilitado:
+            type: string
+        habilitado:
+            type: smallint

@@ -25,6 +25,21 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         $allow = array();
         $pathinfo = urldecode($pathinfo);
 
+        // _assetic_3060b16
+        if ($pathinfo === '/assets/css/compressed.css') {
+            return array (  '_controller' => 'assetic.controller:render',  'name' => '3060b16',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_3060b16',);
+        }
+
+        // _assetic_3060b16_0
+        if ($pathinfo === '/assets/css/compressed_part_1_base_1.css') {
+            return array (  '_controller' => 'assetic.controller:render',  'name' => '3060b16',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_3060b16_0',);
+        }
+
+        // _assetic_3060b16_1
+        if ($pathinfo === '/assets/css/compressed_part_1_lugar_2.css') {
+            return array (  '_controller' => 'assetic.controller:render',  'name' => '3060b16',  'pos' => 1,  '_format' => 'css',  '_route' => '_assetic_3060b16_1',);
+        }
+
         // _wdt
         if (preg_match('#^/_wdt/(?P<token>[^/]+?)$#xs', $pathinfo, $matches)) {
             return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController::toolbarAction',)), array('_route' => '_wdt'));

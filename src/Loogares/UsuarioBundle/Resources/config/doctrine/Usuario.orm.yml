@@ -1,6 +1,22 @@
 Loogares\UsuarioBundle\Entity\Usuario:
     type: entity
     table: usuarios
+    manyToOne:
+        tipo_usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\TipoUsuario
+            joinTable:
+                name: usuario
+                joinColumns:
+                    tipo_usuario:
+                        referencedColumnName: id
+    manyToOne:
+        comuna:
+            targetEntity: Loogares\ExtraBundle\Entity\Comuna
+            joinTable:
+                name: usuario
+                joinColumns:
+                    comuna:
+                        referencedColumnName: id
     id:
         id:
             type: integer
@@ -10,3 +26,49 @@ Loogares\UsuarioBundle\Entity\Usuario:
         nombre:
             type: string
             length: 50
+        apellido:
+            type: string
+        usuario:
+            type: string
+        password:
+            type: string
+            legnth: 40
+        slug:
+            type: string
+        mail:
+            type: string
+        telefono:
+            type: string
+        sexo:
+            type: string
+        link1: 
+            type: string
+        link2:
+            type: string
+        link3:
+            type: string
+        imagen_full:
+            type: string
+        fecha_nacimiento:
+            type: datetime
+        fecha_registro:
+            type: datetime
+        fecha_ultima_actividad:
+            type: datetime
+        confirmado:
+            type: integer
+        newsletter_activo:
+            type: smallint
+        hash_confirmacion:
+            type: string
+            length: 40
+        cookie:
+            type: string
+        facebook_uid:
+            type: integer
+        facebook_no_publicar:
+            type: integer
+        facebook_data:
+            type: string
+        fecha_facebook_ultima_actividad:
+            type: string

@@ -1,0 +1,18 @@
+Loogares\LugarBundle\Entity\Caracteristica:
+    type: entity
+    table: caracteristica
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        texto:
+            type: string
+        icono:
+            type: string
+        color:
+            type: string
+        orden:
+            type: string

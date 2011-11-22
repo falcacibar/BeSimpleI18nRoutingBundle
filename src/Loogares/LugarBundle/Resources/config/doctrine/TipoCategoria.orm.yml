@@ -1,0 +1,14 @@
+Loogares\LugarBundle\Entity\TipoCategoria:
+    type: entity
+    table: tipo_categoria
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        slug:
+            type: string
+        prioridad_web:
+            type: string

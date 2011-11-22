@@ -1,0 +1,3 @@
+LoogaresExtraBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: LoogaresExtraBundle:Default:index }

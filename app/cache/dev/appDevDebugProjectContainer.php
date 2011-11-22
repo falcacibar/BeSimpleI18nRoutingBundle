@@ -69,6 +69,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SensioFrameworkExtraBundle', '/private/var/www/symf/app/Resources/SensioFrameworkExtraBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SensioFrameworkExtraBundle', '/private/var/www/symf/vendor/bundles/Sensio/Bundle/FrameworkExtraBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'JMSSecurityExtraBundle', '/private/var/www/symf/app/Resources/JMSSecurityExtraBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'JMSSecurityExtraBundle', '/private/var/www/symf/vendor/bundles/JMS/SecurityExtraBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'LoogaresUsuarioBundle', '/private/var/www/symf/app/Resources/LoogaresUsuarioBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'LoogaresUsuarioBundle', '/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'LoogaresExtraBundle', '/private/var/www/symf/app/Resources/LoogaresExtraBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'LoogaresExtraBundle', '/private/var/www/symf/src/Loogares/ExtraBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'LoogaresLugarBundle', '/private/var/www/symf/app/Resources/LoogaresLugarBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'LoogaresLugarBundle', '/private/var/www/symf/src/Loogares/LugarBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'WebProfilerBundle', '/private/var/www/symf/app/Resources/WebProfilerBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'WebProfilerBundle', '/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SensioDistributionBundle', '/private/var/www/symf/app/Resources/SensioDistributionBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SensioDistributionBundle', '/private/var/www/symf/vendor/bundles/Sensio/Bundle/DistributionBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
@@ -89,6 +90,30 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'assetic.filter.compass' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Assetic\Filter\CompassFilter A Assetic\Filter\CompassFilter instance.
+     */
+    protected function getAssetic_Filter_CompassService()
+    {
+        $this->services['assetic.filter.compass'] = $instance = new \Assetic\Filter\CompassFilter('/usr/bin/compass');
+
+        $instance->setDebugInfo(true);
+        $instance->setStyle(NULL);
+        $instance->setImagesDir(NULL);
+        $instance->setJavascriptsDir(NULL);
+        $instance->setHttpPath(NULL);
+        $instance->setHttpImagesPath(NULL);
+        $instance->setHttpJavascriptsPath(NULL);
+        $instance->setPlugins(array());
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'assetic.filter.cssrewrite' service.
      *
      * This service is shared.
@@ -102,6 +127,41 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'assetic.filter.sass' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Assetic\Filter\Sass\SassFilter A Assetic\Filter\Sass\SassFilter instance.
+     */
+    protected function getAssetic_Filter_SassService()
+    {
+        $this->services['assetic.filter.sass'] = $instance = new \Assetic\Filter\Sass\SassFilter('/usr/bin/sass');
+
+        $instance->setStyle(NULL);
+        $instance->setCompass(NULL);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'assetic.filter.yui_css' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Assetic\Filter\Yui\CssCompressorFilter A Assetic\Filter\Yui\CssCompressorFilter instance.
+     */
+    protected function getAssetic_Filter_YuiCssService()
+    {
+        $this->services['assetic.filter.yui_css'] = $instance = new \Assetic\Filter\Yui\CssCompressorFilter('/private/var/www/symf/app/java/yuicompressor-2.4.7.jar', '/usr/bin/java');
+
+        $instance->setCharset('UTF-8');
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'assetic.filter_manager' service.
      *
      * This service is shared.
@@ -111,7 +171,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_FilterManagerService()
     {
-        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('cssrewrite' => 'assetic.filter.cssrewrite'));
+        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('cssrewrite' => 'assetic.filter.cssrewrite', 'yui_css' => 'assetic.filter.yui_css', 'sass' => 'assetic.filter.sass', 'compass' => 'assetic.filter.compass'));
     }
 
     /**
@@ -222,16 +282,17 @@ class appDevDebugProjectContainer extends Container
         $c = new \Doctrine\Common\Cache\ArrayCache();
         $c->setNamespace('sf2orm_default_391cf1235379821073e224e294177003');
 
-        $d = new \Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver(array(0 => '/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine', 1 => '/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine'));
-        $d->setNamespacePrefixes(array('/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine' => 'Loogares\\UsuarioBundle\\Entity', '/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine' => 'Loogares\\LugarBundle\\Entity'));
+        $d = new \Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver(array(0 => '/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine', 1 => '/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine', 2 => '/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine'));
+        $d->setNamespacePrefixes(array('/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine' => 'Loogares\\UsuarioBundle\\Entity', '/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine' => 'Loogares\\ExtraBundle\\Entity', '/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine' => 'Loogares\\LugarBundle\\Entity'));
         $d->setGlobalBasename('mapping');
 
         $e = new \Doctrine\ORM\Mapping\Driver\DriverChain();
         $e->addDriver($d, 'Loogares\\UsuarioBundle\\Entity');
+        $e->addDriver($d, 'Loogares\\ExtraBundle\\Entity');
         $e->addDriver($d, 'Loogares\\LugarBundle\\Entity');
 
         $f = new \Doctrine\ORM\Configuration();
-        $f->setEntityNamespaces(array('LoogaresUsuarioBundle' => 'Loogares\\UsuarioBundle\\Entity', 'LoogaresLugarBundle' => 'Loogares\\LugarBundle\\Entity'));
+        $f->setEntityNamespaces(array('LoogaresUsuarioBundle' => 'Loogares\\UsuarioBundle\\Entity', 'LoogaresExtraBundle' => 'Loogares\\ExtraBundle\\Entity', 'LoogaresLugarBundle' => 'Loogares\\LugarBundle\\Entity'));
         $f->setMetadataCacheImpl($a);
         $f->setQueryCacheImpl($b);
         $f->setResultCacheImpl($c);
@@ -2099,6 +2160,7 @@ class appDevDebugProjectContainer extends Container
                 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle',
                 'JMSSecurityExtraBundle' => 'JMS\\SecurityExtraBundle\\JMSSecurityExtraBundle',
                 'LoogaresUsuarioBundle' => 'Loogares\\UsuarioBundle\\LoogaresUsuarioBundle',
+                'LoogaresExtraBundle' => 'Loogares\\ExtraBundle\\LoogaresExtraBundle',
                 'LoogaresLugarBundle' => 'Loogares\\LugarBundle\\LoogaresLugarBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
@@ -2430,6 +2492,26 @@ class appDevDebugProjectContainer extends Container
             'assetic.node.bin' => '/usr/bin/node',
             'assetic.sass.bin' => '/usr/bin/sass',
             'assetic.filter.cssrewrite.class' => 'Assetic\\Filter\\CssRewriteFilter',
+            'assetic.filter.yui_css.class' => 'Assetic\\Filter\\Yui\\CssCompressorFilter',
+            'assetic.filter.yui_css.java' => '/usr/bin/java',
+            'assetic.filter.yui_css.jar' => '/private/var/www/symf/app/java/yuicompressor-2.4.7.jar',
+            'assetic.filter.yui_css.charset' => 'UTF-8',
+            'assetic.filter.sass.class' => 'Assetic\\Filter\\Sass\\SassFilter',
+            'assetic.filter.sass.bin' => '/usr/bin/sass',
+            'assetic.filter.sass.style' => NULL,
+            'assetic.filter.sass.compass' => NULL,
+            'assetic.filter.compass.class' => 'Assetic\\Filter\\CompassFilter',
+            'assetic.filter.compass.bin' => '/usr/bin/compass',
+            'assetic.filter.compass.debug' => true,
+            'assetic.filter.compass.style' => NULL,
+            'assetic.filter.compass.images_dir' => NULL,
+            'assetic.filter.compass.javascripts_dir' => NULL,
+            'assetic.filter.compass.http_path' => NULL,
+            'assetic.filter.compass.http_images_path' => NULL,
+            'assetic.filter.compass.http_javascripts_path' => NULL,
+            'assetic.filter.compass.plugins' => array(
+
+            ),
             'assetic.twig_extension.functions' => array(
 
             ),

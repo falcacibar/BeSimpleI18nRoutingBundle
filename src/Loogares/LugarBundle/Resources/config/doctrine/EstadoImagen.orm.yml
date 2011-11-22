@@ -1,0 +1,10 @@
+Loogares\LugarBundle\Entity\EstadoImagen:
+    type: entity
+    table: estado_imagen
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string

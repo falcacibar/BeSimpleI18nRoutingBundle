@@ -1,0 +1,10 @@
+Loogares\UsuarioBundle\Entity\TipoUsuario:
+    type: entity
+    table: tipo_usuario
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string

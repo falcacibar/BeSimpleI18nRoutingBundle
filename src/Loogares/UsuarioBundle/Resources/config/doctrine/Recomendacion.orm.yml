@@ -1,0 +1,42 @@
+Loogares\UsuarioBundle\Entity\Recomendacion:
+    type: entity
+    table: recomendacion
+    manyToOne:
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+            joinTable:
+                name: recomendacion
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+            joinTable:
+                name: recomendacion
+                joinColumns:
+                    usuario:
+                        referencedColumnName: id
+        estado_recomendacion:
+            targetEntity: Loogares\UsuarioBundle\Entity\EstadoRecomendacion
+            joinTable:
+                name: recomendacion
+                joinColumns:
+                    estado_recomendacion:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        texto:
+            type: text
+        estrellas:
+            type: float
+        precio:
+            type: integer
+        fecha_creacion:
+            type: datetime
+        fecha_ultima_modificacion:
+            type: datetime
+        fecha_ultima_vez_destacada:
+            type: datetime

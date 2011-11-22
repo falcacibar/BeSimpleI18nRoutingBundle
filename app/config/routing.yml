@@ -1,3 +1,7 @@
+LoogaresExtraBundle:
+    resource: "@LoogaresExtraBundle/Resources/config/routing.yml"
+    prefix:   /
+
 LoogaresUsuarioBundle:
     resource: "@LoogaresUsuarioBundle/Resources/config/routing.yml"
     prefix:   /

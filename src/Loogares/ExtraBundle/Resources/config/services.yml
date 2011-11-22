@@ -1,0 +1,7 @@
+parameters:
+#    loogares_extra.example.class: Loogares\ExtraBundle\Example
+
+services:
+#    loogares_extra.example:
+#        class: %loogares_extra.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

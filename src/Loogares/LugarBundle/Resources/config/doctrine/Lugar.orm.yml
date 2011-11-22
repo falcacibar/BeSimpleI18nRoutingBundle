@@ -1,13 +1,34 @@
 Loogares\LugarBundle\Entity\Lugar:
     type: entity
     table: lugares
-    #oneToOne:
-    #    usuario:
-    #        targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+    manyToOne:
+        estado_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\EstadoLugar
+            joinTable:
+                name: lugares
+                joinColumns:
+                    estado_lugar:
+                        referencedColumnName: id
+    manyToOne:
+        comuna:
+            targetEntity: Loogares\ExtraBundle\Entity\Comuna
+            joinTable:
+                name: lugares
+                joinColumns:
+                    comuna:
+                        referencedColumnName: id
+    manyToOne:
+        estado_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\EstadoLugar
+            joinTable:
+                name: lugares
+                joinColumns:
+                    estado_lugar:
+                        referencedColumnName: id
     id:
         id:
             type: integer
-            generator: { strategy: auto }
+            generator: { strategy: none }
     fields:
         #nobmre
         nombre:

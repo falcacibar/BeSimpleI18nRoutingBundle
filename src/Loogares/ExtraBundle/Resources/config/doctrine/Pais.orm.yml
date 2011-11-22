@@ -1,0 +1,16 @@
+Loogares\ExtraBundle\Entity\Pais:
+    type: entity
+    table: pais
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        slug:
+            type: string
+        mapa:
+            type: string
+        habilitado:
+            type: smallint
