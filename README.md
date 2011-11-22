@@ -1,7 +1,3 @@
-Loogares Symfony Edition
-------------------------
-
-
 Generacion de Entidades:
 ====
 php app/console doctrine:generate:entities
