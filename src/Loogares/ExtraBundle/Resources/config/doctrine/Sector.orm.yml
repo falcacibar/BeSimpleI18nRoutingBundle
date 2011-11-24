@@ -2,12 +2,12 @@ Loogares\ExtraBundle\Entity\Sector:
     type: entity
     table: sector
     manyToOne:
-        pais:
+        ciudad:
             targetEntity: Loogares\ExtraBundle\Entity\Ciudad
             joinTable:
                 name: ciudad
                 joinColumns:
-                    pais:
+                    ciudad:
                         referencedColumnName: id
     id:
         id:
@@ -22,5 +22,5 @@ Loogares\ExtraBundle\Entity\Sector:
             type: string
         prioridad_sector:
             type: integer
-        habilitado:
-            type: smallint
+        mostrar_lugar:
+            type: integer

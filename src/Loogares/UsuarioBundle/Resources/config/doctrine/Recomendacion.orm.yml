@@ -16,12 +16,12 @@ Loogares\UsuarioBundle\Entity\Recomendacion:
                 joinColumns:
                     usuario:
                         referencedColumnName: id
-        estado_recomendacion:
-            targetEntity: Loogares\UsuarioBundle\Entity\EstadoRecomendacion
+        estado:
+            targetEntity: Loogares\ExtraBundle\Entity\Estado
             joinTable:
                 name: recomendacion
                 joinColumns:
-                    estado_recomendacion:
+                    estado:
                         referencedColumnName: id
     id:
         id:

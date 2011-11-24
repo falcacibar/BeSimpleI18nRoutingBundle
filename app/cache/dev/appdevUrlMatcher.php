@@ -99,6 +99,11 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // LoogaresExtraBundle_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]+?)$#xs', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Loogares\\ExtraBundle\\Controller\\DefaultController::indexAction',)), array('_route' => 'LoogaresExtraBundle_homepage'));
+        }
+
         // LoogaresUsuarioBundle_homepage
         if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]+?)$#xs', $pathinfo, $matches)) {
             return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Loogares\\UsuarioBundle\\Controller\\DefaultController::indexAction',)), array('_route' => 'LoogaresUsuarioBundle_homepage'));

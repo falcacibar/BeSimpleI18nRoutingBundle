@@ -1,0 +1,27 @@
+Loogares\LugarBundle\Entity\ReportarUsuario:
+    type: entity
+    table: reportar_usuario
+    manyToOne:
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+            joinTable:
+                name: lugares
+                joinColumns:
+                    usuario:
+                        referencedColumnName: id
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+            joinTable:
+                name: lugares
+                joinColumns:
+                    usuario:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        reporte:
+            type: text
+        fecha:
+            type: datetime

@@ -2,14 +2,6 @@ Loogares\LugarBundle\Entity\Lugar:
     type: entity
     table: lugares
     manyToOne:
-        estado_lugar:
-            targetEntity: Loogares\LugarBundle\Entity\EstadoLugar
-            joinTable:
-                name: lugares
-                joinColumns:
-                    estado_lugar:
-                        referencedColumnName: id
-    manyToOne:
         comuna:
             targetEntity: Loogares\ExtraBundle\Entity\Comuna
             joinTable:
@@ -17,13 +9,26 @@ Loogares\LugarBundle\Entity\Lugar:
                 joinColumns:
                     comuna:
                         referencedColumnName: id
-    manyToOne:
-        estado_lugar:
-            targetEntity: Loogares\LugarBundle\Entity\EstadoLugar
+        sector:
+            targetEntity: Loogares\ExtraBundle\Entity\Sector
             joinTable:
                 name: lugares
                 joinColumns:
-                    estado_lugar:
+                    sector:
+                        referencedColumnName: id
+        tipo_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\TipoLugar
+            joinTable:
+                name: lugares
+                joinColumns:
+                    tipo_lugar:
+                        referencedColumnName: id
+        estado:
+            targetEntity: Loogares\ExtraBundle\Entity\Estado
+            joinTable:
+                name: lugares
+                joinColumns:
+                    estado:
                         referencedColumnName: id
     id:
         id:
@@ -53,18 +58,6 @@ Loogares\LugarBundle\Entity\Lugar:
         #descripcion
         descripcion:
             type: text
-        #comuna
-        comuna_id:
-            type: integer
-        #barrio
-        sector_id:
-            type: integer
-        #id tipo
-        tipo_lugar_id:
-            type: integer
-        #id estado
-        estado_lugar_id:
-            type: integer
         #∫tiene dueno
         dueno_id:
             type: integer
@@ -102,6 +95,12 @@ Loogares\LugarBundle\Entity\Lugar:
         mail: 
             type: string
             length: 100
+        telefono1:
+            type: string
+        telefono2:
+            type: string
+        telefono3:
+            type: string
         #puntuacion
         estrellas:
             type: float

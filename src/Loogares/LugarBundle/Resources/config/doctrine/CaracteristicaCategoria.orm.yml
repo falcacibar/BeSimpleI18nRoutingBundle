@@ -9,7 +9,7 @@ Loogares\LugarBundle\Entity\CaracteristicaCategoria:
                 joinColumns:
                     caracteristica:
                         referencedColumnName: id
-        lugar:
+        categoria:
             targetEntity: Loogares\LugarBundle\Entity\Categoria
             joinTable:
                 name: caracteristica_categoria

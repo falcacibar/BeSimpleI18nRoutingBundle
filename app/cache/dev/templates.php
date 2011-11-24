@@ -62,6 +62,7 @@
   'SwiftmailerBundle:Collector:swiftmailer.html.twig' => '/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/SwiftmailerBundle/Resources/views/Collector/swiftmailer.html.twig',
   'DoctrineBundle:Collector:db.html.twig' => '/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/DoctrineBundle/Resources/views/Collector/db.html.twig',
   'LoogaresUsuarioBundle:Default:index.html.twig' => '/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/views/Default/index.html.twig',
+  'LoogaresExtraBundle:Default:index.html.twig' => '/private/var/www/symf/src/Loogares/ExtraBundle/Resources/views/Default/index.html.twig',
   'LoogaresLugarBundle:Default:agregar.html.twig' => '/private/var/www/symf/src/Loogares/LugarBundle/Resources/views/Default/agregar.html.twig',
   'LoogaresLugarBundle:Default:index.html.twig' => '/private/var/www/symf/src/Loogares/LugarBundle/Resources/views/Default/index.html.twig',
   'LoogaresLugarBundle:Default:listado.html.twig' => '/private/var/www/symf/src/Loogares/LugarBundle/Resources/views/Default/listado.html.twig',

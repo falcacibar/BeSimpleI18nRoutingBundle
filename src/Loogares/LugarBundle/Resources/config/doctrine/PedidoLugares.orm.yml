@@ -1,0 +1,29 @@
+Loogares\LugarBundle\Entity\PedidoLugares:
+    type: entity
+    table: pedido_lugar
+    manyToOne:
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+            joinTable:
+                name: pedido_lugar
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+        pedido_reffer:
+            targetEntity: Loogares\LugarBundle\Entity\PedidoReffer
+            joinTable:
+                name: pedido_lugar
+                joinColumns:
+                    pedido_reffer:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        tipo_pedido:
+            type: smallint
+        prioridad_web:
+            type: smallint
+        link:
+            type: string

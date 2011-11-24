@@ -2,12 +2,12 @@ Loogares\LugarBundle\Entity\SubcategoriaLugar:
     type: entity
     table: subcategoria_lugar
     manyToOne:
-        categoria:
-            targetEntity: Loogares\LugarBundle\Entity\Categoria
+        subcategoria:
+            targetEntity: Loogares\LugarBundle\Entity\SubCategoria
             joinTable:
                 name: categoria_lugar
                 joinColumns:
-                    categoria:
+                    subcategoria:
                         referencedColumnName: id
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar

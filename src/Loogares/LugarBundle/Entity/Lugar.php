@@ -50,26 +50,6 @@ class Lugar
     private $descripcion;
 
     /**
-     * @var integer $comuna_id
-     */
-    private $comuna_id;
-
-    /**
-     * @var integer $sector_id
-     */
-    private $sector_id;
-
-    /**
-     * @var integer $tipo_lugar_id
-     */
-    private $tipo_lugar_id;
-
-    /**
-     * @var integer $estado_lugar_id
-     */
-    private $estado_lugar_id;
-
-    /**
      * @var integer $dueno_id
      */
     private $dueno_id;
@@ -120,6 +100,21 @@ class Lugar
     private $mail;
 
     /**
+     * @var string $telefono1
+     */
+    private $telefono1;
+
+    /**
+     * @var string $telefono2
+     */
+    private $telefono2;
+
+    /**
+     * @var string $telefono3
+     */
+    private $telefono3;
+
+    /**
      * @var float $estrellas
      */
     private $estrellas;
@@ -165,9 +160,24 @@ class Lugar
     private $prioridad_web;
 
     /**
-     * @var Loogares\LugarBundle\Entity\EstadoLugar
+     * @var Loogares\ExtraBundle\Entity\Comuna
      */
-    private $estado_lugar;
+    private $comuna;
+
+    /**
+     * @var Loogares\ExtraBundle\Entity\Sector
+     */
+    private $sector;
+
+    /**
+     * @var Loogares\LugarBundle\Entity\TipoLugar
+     */
+    private $tipo_lugar;
+
+    /**
+     * @var Loogares\ExtraBundle\Entity\Estado
+     */
+    private $estado;
 
 
     /**
@@ -328,86 +338,6 @@ class Lugar
     public function getDescripcion()
     {
         return $this->descripcion;
-    }
-
-    /**
-     * Set comuna_id
-     *
-     * @param integer $comunaId
-     */
-    public function setComunaId($comunaId)
-    {
-        $this->comuna_id = $comunaId;
-    }
-
-    /**
-     * Get comuna_id
-     *
-     * @return integer 
-     */
-    public function getComunaId()
-    {
-        return $this->comuna_id;
-    }
-
-    /**
-     * Set sector_id
-     *
-     * @param integer $sectorId
-     */
-    public function setSectorId($sectorId)
-    {
-        $this->sector_id = $sectorId;
-    }
-
-    /**
-     * Get sector_id
-     *
-     * @return integer 
-     */
-    public function getSectorId()
-    {
-        return $this->sector_id;
-    }
-
-    /**
-     * Set tipo_lugar_id
-     *
-     * @param integer $tipoLugarId
-     */
-    public function setTipoLugarId($tipoLugarId)
-    {
-        $this->tipo_lugar_id = $tipoLugarId;
-    }
-
-    /**
-     * Get tipo_lugar_id
-     *
-     * @return integer 
-     */
-    public function getTipoLugarId()
-    {
-        return $this->tipo_lugar_id;
-    }
-
-    /**
-     * Set estado_lugar_id
-     *
-     * @param integer $estadoLugarId
-     */
-    public function setEstadoLugarId($estadoLugarId)
-    {
-        $this->estado_lugar_id = $estadoLugarId;
-    }
-
-    /**
-     * Get estado_lugar_id
-     *
-     * @return integer 
-     */
-    public function getEstadoLugarId()
-    {
-        return $this->estado_lugar_id;
     }
 
     /**
@@ -611,6 +541,66 @@ class Lugar
     }
 
     /**
+     * Set telefono1
+     *
+     * @param string $telefono1
+     */
+    public function setTelefono1($telefono1)
+    {
+        $this->telefono1 = $telefono1;
+    }
+
+    /**
+     * Get telefono1
+     *
+     * @return string 
+     */
+    public function getTelefono1()
+    {
+        return $this->telefono1;
+    }
+
+    /**
+     * Set telefono2
+     *
+     * @param string $telefono2
+     */
+    public function setTelefono2($telefono2)
+    {
+        $this->telefono2 = $telefono2;
+    }
+
+    /**
+     * Get telefono2
+     *
+     * @return string 
+     */
+    public function getTelefono2()
+    {
+        return $this->telefono2;
+    }
+
+    /**
+     * Set telefono3
+     *
+     * @param string $telefono3
+     */
+    public function setTelefono3($telefono3)
+    {
+        $this->telefono3 = $telefono3;
+    }
+
+    /**
+     * Get telefono3
+     *
+     * @return string 
+     */
+    public function getTelefono3()
+    {
+        return $this->telefono3;
+    }
+
+    /**
      * Set estrellas
      *
      * @param float $estrellas
@@ -791,22 +781,82 @@ class Lugar
     }
 
     /**
-     * Set estado_lugar
+     * Set comuna
      *
-     * @param Loogares\LugarBundle\Entity\EstadoLugar $estadoLugar
+     * @param Loogares\ExtraBundle\Entity\Comuna $comuna
      */
-    public function setEstadoLugar(\Loogares\LugarBundle\Entity\EstadoLugar $estadoLugar)
+    public function setComuna(\Loogares\ExtraBundle\Entity\Comuna $comuna)
     {
-        $this->estado_lugar = $estadoLugar;
+        $this->comuna = $comuna;
     }
 
     /**
-     * Get estado_lugar
+     * Get comuna
      *
-     * @return Loogares\LugarBundle\Entity\EstadoLugar 
+     * @return Loogares\ExtraBundle\Entity\Comuna 
      */
-    public function getEstadoLugar()
+    public function getComuna()
     {
-        return $this->estado_lugar;
+        return $this->comuna;
+    }
+
+    /**
+     * Set sector
+     *
+     * @param Loogares\ExtraBundle\Entity\Sector $sector
+     */
+    public function setSector(\Loogares\ExtraBundle\Entity\Sector $sector)
+    {
+        $this->sector = $sector;
+    }
+
+    /**
+     * Get sector
+     *
+     * @return Loogares\ExtraBundle\Entity\Sector 
+     */
+    public function getSector()
+    {
+        return $this->sector;
+    }
+
+    /**
+     * Set tipo_lugar
+     *
+     * @param Loogares\LugarBundle\Entity\TipoLugar $tipoLugar
+     */
+    public function setTipoLugar(\Loogares\LugarBundle\Entity\TipoLugar $tipoLugar)
+    {
+        $this->tipo_lugar = $tipoLugar;
+    }
+
+    /**
+     * Get tipo_lugar
+     *
+     * @return Loogares\LugarBundle\Entity\TipoLugar 
+     */
+    public function getTipoLugar()
+    {
+        return $this->tipo_lugar;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param Loogares\ExtraBundle\Entity\Estado $estado
+     */
+    public function setEstado(\Loogares\ExtraBundle\Entity\Estado $estado)
+    {
+        $this->estado = $estado;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return Loogares\ExtraBundle\Entity\Estado 
+     */
+    public function getEstado()
+    {
+        return $this->estado;
     }
 }

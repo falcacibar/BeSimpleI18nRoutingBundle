@@ -12,5 +12,7 @@ Loogares\ExtraBundle\Entity\Pais:
             type: string
         mapa:
             type: string
-        habilitado:
+        mostrar_usuario:
+            type: smallint
+        mostrar_lugar:
             type: smallint

@@ -10,7 +10,7 @@ Loogares\UsuarioBundle\Entity\TagRecomendacion:
                     recomendacion:
                         referencedColumnName: id
         tag:
-            targetEntity: Loogares\UsuarioBundle\Entity\EstadoRecomendacion
+            targetEntity: Loogares\UsuarioBundle\Entity\Tag
             joinTable:
                 name: tag_recomendacion
                 joinColumns:

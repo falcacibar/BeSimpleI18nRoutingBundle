@@ -1,0 +1,14 @@
+Loogares\LugarBundle\Entity\PedidoReffer:
+    type: entity
+    table: pedido_reffer
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        link:
+            type: string
+        imagen:
+            type: string

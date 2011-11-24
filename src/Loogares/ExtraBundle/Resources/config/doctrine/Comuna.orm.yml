@@ -20,5 +20,5 @@ Loogares\ExtraBundle\Entity\Comuna:
             type: string
         mapa:
             type: string
-        habilitado:
+        mostrar_lugar:
             type: smallint

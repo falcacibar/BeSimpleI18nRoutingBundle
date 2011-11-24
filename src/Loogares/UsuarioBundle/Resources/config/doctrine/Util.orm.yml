@@ -2,7 +2,7 @@ Loogares\UsuarioBundle\Entity\Util:
     type: entity
     table: util
     manyToOne:
-        usuario:
+        recomendacion:
             targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
             joinTable:
                 name: util

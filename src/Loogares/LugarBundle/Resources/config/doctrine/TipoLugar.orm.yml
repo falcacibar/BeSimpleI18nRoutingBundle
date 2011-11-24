@@ -1,0 +1,14 @@
+Loogares\LugarBundle\Entity\TipoLugar:
+    type: entity
+    table: tipo_lugar
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        slug:
+            type: string
+        prioridad_web:
+            type: smallint

@@ -1,0 +1,26 @@
+Loogares\LugarBundle\Entity\Horario:
+    type: entity
+    table: horario
+    manyToOne:
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+            joinTable:
+                name: pedido_lugar
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        dia:
+            type: smallint
+        apertura_am:
+            type: string
+        cierre_am:
+            type: string
+        apertura_pm:
+            type: string
+        cierre_pm:
+            type: string

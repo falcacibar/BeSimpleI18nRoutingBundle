@@ -1,0 +1,10 @@
+Loogares\ExtraBundle\Entity\Estado:
+    type: entity
+    table: estado
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string

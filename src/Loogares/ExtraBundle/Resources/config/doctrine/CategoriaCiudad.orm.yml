@@ -1,0 +1,22 @@
+Loogares\ExtraBundle\Entity\CategoriaCiudad:
+    type: entity
+    table: categoria_ciudad
+    manyToOne:
+        ciudad:
+            targetEntity: Loogares\ExtraBundle\Entity\Ciudad
+            joinTable:
+                name: lugares
+                joinColumns:
+                    ciudad:
+                        referencedColumnName: id
+        categoria:
+            targetEntity: Loogares\LugarBundle\Entity\Categoria
+            joinTable:
+                name: lugares
+                joinColumns:
+                    categoria:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
