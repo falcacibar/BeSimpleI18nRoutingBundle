@@ -1,4 +1,4 @@
-Loogares\LugarBundle\Entity\SubCategoria:
+Loogares\LugarBundle\Entity\Subcategoria:
     type: entity
     table: subcategoria
     manyToOne:
