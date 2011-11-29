@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
   <parameters>
-    <parameter key="kernel.root_dir">/private/var/www/symf/app</parameter>
+    <parameter key="kernel.root_dir">/Library/WebServer/Documents/loogares/app</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.debug">true</parameter>
     <parameter key="kernel.name">app</parameter>
-    <parameter key="kernel.cache_dir">/private/var/www/symf/app/cache/dev</parameter>
-    <parameter key="kernel.logs_dir">/private/var/www/symf/app/logs</parameter>
+    <parameter key="kernel.cache_dir">/Library/WebServer/Documents/loogares/app/cache/dev</parameter>
+    <parameter key="kernel.logs_dir">/Library/WebServer/Documents/loogares/app/logs</parameter>
     <parameter key="kernel.bundles" type="collection">
       <parameter key="FrameworkBundle">Symfony\Bundle\FrameworkBundle\FrameworkBundle</parameter>
       <parameter key="SecurityBundle">Symfony\Bundle\SecurityBundle\SecurityBundle</parameter>
@@ -54,7 +54,7 @@
     <parameter key="translation.loader.yml.class">Symfony\Component\Translation\Loader\YamlFileLoader</parameter>
     <parameter key="translation.loader.xliff.class">Symfony\Component\Translation\Loader\XliffFileLoader</parameter>
     <parameter key="debug.event_dispatcher.class">Symfony\Bundle\FrameworkBundle\Debug\TraceableEventDispatcher</parameter>
-    <parameter key="debug.container.dump">/private/var/www/symf/app/cache/dev/appDevDebugProjectContainer.xml</parameter>
+    <parameter key="debug.container.dump">/Library/WebServer/Documents/loogares/app/cache/dev/appDevDebugProjectContainer.xml</parameter>
     <parameter key="kernel.secret">ThisTokenIsNotSoSecretChangeIt</parameter>
     <parameter key="kernel.trust_proxy_headers">false</parameter>
     <parameter key="session.class">Symfony\Component\HttpFoundation\Session</parameter>
@@ -80,7 +80,7 @@
     <parameter key="validator.mapping.loader.yaml_files_loader.class">Symfony\Component\Validator\Mapping\Loader\YamlFilesLoader</parameter>
     <parameter key="validator.validator_factory.class">Symfony\Bundle\FrameworkBundle\Validator\ConstraintValidatorFactory</parameter>
     <parameter key="validator.mapping.loader.xml_files_loader.mapping_files" type="collection">
-      <parameter>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/../../../Component/Form/Resources/config/validation.xml</parameter>
+      <parameter>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/../../../Component/Form/Resources/config/validation.xml</parameter>
     </parameter>
     <parameter key="validator.mapping.loader.yaml_files_loader.mapping_files" type="collection"/>
     <parameter key="profiler.class">Symfony\Component\HttpKernel\Profiler\Profiler</parameter>
@@ -94,7 +94,7 @@
     <parameter key="data_collector.memory.class">Symfony\Component\HttpKernel\DataCollector\MemoryDataCollector</parameter>
     <parameter key="profiler_listener.only_exceptions">false</parameter>
     <parameter key="profiler_listener.only_master_requests">false</parameter>
-    <parameter key="profiler.storage.dsn">sqlite:/private/var/www/symf/app/cache/dev/profiler.db</parameter>
+    <parameter key="profiler.storage.dsn">sqlite:/Library/WebServer/Documents/loogares/app/cache/dev/profiler.db</parameter>
     <parameter key="profiler.storage.username"></parameter>
     <parameter key="profiler.storage.password"></parameter>
     <parameter key="profiler.storage.lifetime">86400</parameter>
@@ -113,7 +113,7 @@
     <parameter key="router.cache_warmer.class">Symfony\Bundle\FrameworkBundle\CacheWarmer\RouterCacheWarmer</parameter>
     <parameter key="router.options.matcher.cache_class">app%kernel.environment%UrlMatcher</parameter>
     <parameter key="router.options.generator.cache_class">app%kernel.environment%UrlGenerator</parameter>
-    <parameter key="router.resource">/private/var/www/symf/app/config/routing_dev.yml</parameter>
+    <parameter key="router.resource">/Library/WebServer/Documents/loogares/app/config/routing_dev.yml</parameter>
     <parameter key="request_listener.http_port">80</parameter>
     <parameter key="request_listener.https_port">443</parameter>
     <parameter key="templating.engine.delegating.class">Symfony\Bundle\FrameworkBundle\Templating\DelegatingEngine</parameter>
@@ -237,7 +237,7 @@
       <parameter key="debug">true</parameter>
       <parameter key="strict_variables">true</parameter>
       <parameter key="exception_controller">Symfony\Bundle\TwigBundle\Controller\ExceptionController::showAction</parameter>
-      <parameter key="cache">/private/var/www/symf/app/cache/dev/twig</parameter>
+      <parameter key="cache">/Library/WebServer/Documents/loogares/app/cache/dev/twig</parameter>
       <parameter key="charset">UTF-8</parameter>
     </parameter>
     <parameter key="monolog.logger.class">Symfony\Bridge\Monolog\Logger</parameter>
@@ -313,7 +313,7 @@
     </parameter>
     <parameter key="doctrine.default_entity_manager">default</parameter>
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
-    <parameter key="doctrine.orm.proxy_dir">/private/var/www/symf/app/cache/dev/doctrine/orm/Proxies</parameter>
+    <parameter key="doctrine.orm.proxy_dir">/Library/WebServer/Documents/loogares/app/cache/dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
     <parameter key="assetic.asset_factory.class">Symfony\Bundle\AsseticBundle\Factory\AssetFactory</parameter>
     <parameter key="assetic.asset_manager.class">Assetic\Factory\LazyAssetManager</parameter>
@@ -327,7 +327,7 @@
     <parameter key="assetic.filter_manager.class">Symfony\Bundle\AsseticBundle\FilterManager</parameter>
     <parameter key="assetic.worker.ensure_filter.class">Assetic\Factory\Worker\EnsureFilterWorker</parameter>
     <parameter key="assetic.node.paths" type="collection"/>
-    <parameter key="assetic.cache_dir">/private/var/www/symf/app/cache/dev/assetic</parameter>
+    <parameter key="assetic.cache_dir">/Library/WebServer/Documents/loogares/app/cache/dev/assetic</parameter>
     <parameter key="assetic.twig_extension.class">Symfony\Bundle\AsseticBundle\Twig\AsseticExtension</parameter>
     <parameter key="assetic.twig_formula_loader.class">Assetic\Extension\Twig\TwigFormulaLoader</parameter>
     <parameter key="assetic.helper.dynamic.class">Symfony\Bundle\AsseticBundle\Templating\DynamicAsseticHelper</parameter>
@@ -336,15 +336,15 @@
     <parameter key="assetic.debug">true</parameter>
     <parameter key="assetic.use_controller">true</parameter>
     <parameter key="assetic.enable_profiler">false</parameter>
-    <parameter key="assetic.read_from">/private/var/www/symf/app/../web</parameter>
-    <parameter key="assetic.write_to">/private/var/www/symf/app/../web</parameter>
+    <parameter key="assetic.read_from">/Library/WebServer/Documents/loogares/app/../web</parameter>
+    <parameter key="assetic.write_to">/Library/WebServer/Documents/loogares/app/../web</parameter>
     <parameter key="assetic.java.bin">/usr/bin/java</parameter>
     <parameter key="assetic.node.bin">/usr/bin/node</parameter>
     <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
     <parameter key="assetic.filter.cssrewrite.class">Assetic\Filter\CssRewriteFilter</parameter>
     <parameter key="assetic.filter.yui_css.class">Assetic\Filter\Yui\CssCompressorFilter</parameter>
     <parameter key="assetic.filter.yui_css.java">/usr/bin/java</parameter>
-    <parameter key="assetic.filter.yui_css.jar">/private/var/www/symf/app/java/yuicompressor-2.4.7.jar</parameter>
+    <parameter key="assetic.filter.yui_css.jar">/Library/WebServer/Documents/loogares/app/java/yuicompressor-2.4.7.jar</parameter>
     <parameter key="assetic.filter.yui_css.charset">UTF-8</parameter>
     <parameter key="assetic.filter.sass.class">Assetic\Filter\Sass\SassFilter</parameter>
     <parameter key="assetic.filter.sass.bin">/usr/bin/sass</parameter>
@@ -636,7 +636,7 @@
               <service class="Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinder" public="false">
                 <argument type="service" id="kernel"/>
                 <argument type="service" id="templating.name_parser"/>
-                <argument>/private/var/www/symf/app/Resources</argument>
+                <argument>/Library/WebServer/Documents/loogares/app/Resources</argument>
               </service>
             </argument>
             <argument type="service" id="templating.locator"/>
@@ -662,7 +662,7 @@
               <service class="Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinder" public="false">
                 <argument type="service" id="kernel"/>
                 <argument type="service" id="templating.name_parser"/>
-                <argument>/private/var/www/symf/app/Resources</argument>
+                <argument>/Library/WebServer/Documents/loogares/app/Resources</argument>
               </service>
             </argument>
           </service>
@@ -681,7 +681,7 @@
     <service id="filesystem" class="Symfony\Component\HttpKernel\Util\Filesystem"/>
     <service id="file_locator" class="Symfony\Component\HttpKernel\Config\FileLocator">
       <argument type="service" id="kernel"/>
-      <argument>/private/var/www/symf/app/Resources</argument>
+      <argument>/Library/WebServer/Documents/loogares/app/Resources</argument>
     </service>
     <service id="translator.default" class="Symfony\Bundle\FrameworkBundle\Translation\Translator">
       <argument type="service" id="service_container"/>
@@ -692,7 +692,7 @@
         <argument key="translation.loader.xliff">xliff</argument>
       </argument>
       <argument type="collection">
-        <argument key="cache_dir">/private/var/www/symf/app/cache/dev/translations</argument>
+        <argument key="cache_dir">/Library/WebServer/Documents/loogares/app/cache/dev/translations</argument>
         <argument key="debug">true</argument>
       </argument>
       <argument type="service" id="session"/>
@@ -903,7 +903,7 @@
             <argument type="service">
               <service class="Symfony\Component\Validator\Mapping\Loader\XmlFilesLoader" public="false">
                 <argument type="collection">
-                  <argument>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/../../../Component/Form/Resources/config/validation.xml</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/../../../Component/Form/Resources/config/validation.xml</argument>
                 </argument>
               </service>
             </argument>
@@ -921,7 +921,7 @@
       <tag name="monolog.logger" channel="profiler"/>
       <argument type="service">
         <service class="Symfony\Component\HttpKernel\Profiler\SqliteProfilerStorage" public="false">
-          <argument>sqlite:/private/var/www/symf/app/cache/dev/profiler.db</argument>
+          <argument>sqlite:/Library/WebServer/Documents/loogares/app/cache/dev/profiler.db</argument>
           <argument></argument>
           <argument></argument>
           <argument>86400</argument>
@@ -1102,7 +1102,7 @@
     </service>
     <service id="templating.locator" class="Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator" public="false">
       <argument type="service" id="file_locator"/>
-      <argument>/private/var/www/symf/app/cache/dev</argument>
+      <argument>/Library/WebServer/Documents/loogares/app/cache/dev</argument>
     </service>
     <service id="templating.helper.slots" class="Symfony\Component\Templating\Helper\SlotsHelper">
       <tag name="templating.helper" alias="slots"/>
@@ -1140,7 +1140,7 @@
     <service id="templating.helper.code" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\CodeHelper">
       <tag name="templating.helper" alias="code"/>
       <argument>null</argument>
-      <argument>/private/var/www/symf/app</argument>
+      <argument>/Library/WebServer/Documents/loogares/app</argument>
     </service>
     <service id="templating.helper.translator" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\TranslatorHelper">
       <tag name="templating.helper" alias="translator"/>
@@ -1429,7 +1429,7 @@
         <argument key="debug">true</argument>
         <argument key="strict_variables">true</argument>
         <argument key="exception_controller">Symfony\Bundle\TwigBundle\Controller\ExceptionController::showAction</argument>
-        <argument key="cache">/private/var/www/symf/app/cache/dev/twig</argument>
+        <argument key="cache">/Library/WebServer/Documents/loogares/app/cache/dev/twig</argument>
         <argument key="charset">UTF-8</argument>
       </argument>
       <call method="addExtension">
@@ -1513,7 +1513,7 @@
       <argument type="service" id="templating.locator"/>
       <argument type="service" id="templating.name_parser"/>
       <call method="addPath">
-        <argument>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/TwigBundle/DependencyInjection/../../../Bridge/Twig/Resources/views/Form</argument>
+        <argument>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/TwigBundle/DependencyInjection/../../../Bridge/Twig/Resources/views/Form</argument>
       </call>
     </service>
     <service id="twig.exception_listener" class="Symfony\Component\HttpKernel\EventListener\ExceptionListener">
@@ -1523,7 +1523,7 @@
       <argument type="service" id="monolog.logger.request"/>
     </service>
     <service id="monolog.handler.main" class="Monolog\Handler\StreamHandler">
-      <argument>/private/var/www/symf/app/logs/dev.log</argument>
+      <argument>/Library/WebServer/Documents/loogares/app/logs/dev.log</argument>
       <argument>100</argument>
       <argument>true</argument>
     </service>
@@ -1615,7 +1615,7 @@
             <argument type="service">
               <service class="Doctrine\Common\Cache\ArrayCache" public="false">
                 <call method="setNamespace">
-                  <argument>sf2orm_default_391cf1235379821073e224e294177003</argument>
+                  <argument>sf2orm_default_b3eafb7abc7002e1c08bc02f22484399</argument>
                 </call>
               </service>
             </argument>
@@ -1624,7 +1624,7 @@
             <argument type="service">
               <service class="Doctrine\Common\Cache\ArrayCache" public="false">
                 <call method="setNamespace">
-                  <argument>sf2orm_default_391cf1235379821073e224e294177003</argument>
+                  <argument>sf2orm_default_b3eafb7abc7002e1c08bc02f22484399</argument>
                 </call>
               </service>
             </argument>
@@ -1633,7 +1633,7 @@
             <argument type="service">
               <service class="Doctrine\Common\Cache\ArrayCache" public="false">
                 <call method="setNamespace">
-                  <argument>sf2orm_default_391cf1235379821073e224e294177003</argument>
+                  <argument>sf2orm_default_b3eafb7abc7002e1c08bc02f22484399</argument>
                 </call>
               </service>
             </argument>
@@ -1645,15 +1645,15 @@
                   <argument type="service">
                     <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
                       <argument type="collection">
-                        <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
+                        <argument>/Library/WebServer/Documents/loogares/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
+                        <argument>/Library/WebServer/Documents/loogares/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
+                        <argument>/Library/WebServer/Documents/loogares/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
                       </argument>
                       <call method="setNamespacePrefixes">
                         <argument type="collection">
-                          <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
-                          <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
-                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
+                          <argument key="/Library/WebServer/Documents/loogares/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
+                          <argument key="/Library/WebServer/Documents/loogares/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
+                          <argument key="/Library/WebServer/Documents/loogares/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
                         </argument>
                       </call>
                       <call method="setGlobalBasename">
@@ -1667,15 +1667,15 @@
                   <argument type="service">
                     <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
                       <argument type="collection">
-                        <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
+                        <argument>/Library/WebServer/Documents/loogares/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
+                        <argument>/Library/WebServer/Documents/loogares/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
+                        <argument>/Library/WebServer/Documents/loogares/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
                       </argument>
                       <call method="setNamespacePrefixes">
                         <argument type="collection">
-                          <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
-                          <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
-                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
+                          <argument key="/Library/WebServer/Documents/loogares/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
+                          <argument key="/Library/WebServer/Documents/loogares/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
+                          <argument key="/Library/WebServer/Documents/loogares/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
                         </argument>
                       </call>
                       <call method="setGlobalBasename">
@@ -1689,15 +1689,15 @@
                   <argument type="service">
                     <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
                       <argument type="collection">
-                        <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
+                        <argument>/Library/WebServer/Documents/loogares/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
+                        <argument>/Library/WebServer/Documents/loogares/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
+                        <argument>/Library/WebServer/Documents/loogares/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
                       </argument>
                       <call method="setNamespacePrefixes">
                         <argument type="collection">
-                          <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
-                          <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
-                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
+                          <argument key="/Library/WebServer/Documents/loogares/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
+                          <argument key="/Library/WebServer/Documents/loogares/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
+                          <argument key="/Library/WebServer/Documents/loogares/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
                         </argument>
                       </call>
                       <call method="setGlobalBasename">
@@ -1711,7 +1711,7 @@
             </argument>
           </call>
           <call method="setProxyDir">
-            <argument>/private/var/www/symf/app/cache/dev/doctrine/orm/Proxies</argument>
+            <argument>/Library/WebServer/Documents/loogares/app/cache/dev/doctrine/orm/Proxies</argument>
           </call>
           <call method="setProxyNamespace">
             <argument>Proxies</argument>
@@ -1749,7 +1749,7 @@
             </argument>
             <argument type="service">
               <service class="Assetic\Cache\ConfigCache" public="false">
-                <argument>/private/var/www/symf/app/cache/dev/assetic/config</argument>
+                <argument>/Library/WebServer/Documents/loogares/app/cache/dev/assetic/config</argument>
               </service>
             </argument>
             <argument>true</argument>
@@ -1766,7 +1766,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>FrameworkBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/FrameworkBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/FrameworkBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1774,7 +1774,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>FrameworkBundle</argument>
-                  <argument>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/FrameworkBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1793,7 +1793,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SecurityBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/SecurityBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/SecurityBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1801,7 +1801,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SecurityBundle</argument>
-                  <argument>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/SecurityBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/SecurityBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1820,7 +1820,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>TwigBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/TwigBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/TwigBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1828,7 +1828,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>TwigBundle</argument>
-                  <argument>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/TwigBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/TwigBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1847,7 +1847,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>MonologBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/MonologBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/MonologBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1855,7 +1855,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>MonologBundle</argument>
-                  <argument>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/MonologBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/MonologBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1874,7 +1874,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SwiftmailerBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/SwiftmailerBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/SwiftmailerBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1882,7 +1882,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SwiftmailerBundle</argument>
-                  <argument>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/SwiftmailerBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/SwiftmailerBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1901,7 +1901,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>DoctrineBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/DoctrineBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/DoctrineBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1909,7 +1909,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>DoctrineBundle</argument>
-                  <argument>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/DoctrineBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/DoctrineBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1928,7 +1928,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>AsseticBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/AsseticBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/AsseticBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1936,7 +1936,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>AsseticBundle</argument>
-                  <argument>/private/var/www/symf/vendor/bundles/Symfony/Bundle/AsseticBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/bundles/Symfony/Bundle/AsseticBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1955,7 +1955,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SensioFrameworkExtraBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/SensioFrameworkExtraBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/SensioFrameworkExtraBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1963,7 +1963,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SensioFrameworkExtraBundle</argument>
-                  <argument>/private/var/www/symf/vendor/bundles/Sensio/Bundle/FrameworkExtraBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/bundles/Sensio/Bundle/FrameworkExtraBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1982,7 +1982,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>JMSSecurityExtraBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/JMSSecurityExtraBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/JMSSecurityExtraBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -1990,7 +1990,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>JMSSecurityExtraBundle</argument>
-                  <argument>/private/var/www/symf/vendor/bundles/JMS/SecurityExtraBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/bundles/JMS/SecurityExtraBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2009,7 +2009,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>LoogaresLugarBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/LoogaresLugarBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/LoogaresLugarBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2017,7 +2017,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>LoogaresLugarBundle</argument>
-                  <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/src/Loogares/LugarBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2036,7 +2036,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>LoogaresUsuarioBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/LoogaresUsuarioBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/LoogaresUsuarioBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2044,7 +2044,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>LoogaresUsuarioBundle</argument>
-                  <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/src/Loogares/UsuarioBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2063,7 +2063,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>LoogaresExtraBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/LoogaresExtraBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/LoogaresExtraBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2071,7 +2071,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>LoogaresExtraBundle</argument>
-                  <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/src/Loogares/ExtraBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2090,7 +2090,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>WebProfilerBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/WebProfilerBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/WebProfilerBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2098,7 +2098,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>WebProfilerBundle</argument>
-                  <argument>/private/var/www/symf/vendor/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2117,7 +2117,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SensioDistributionBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/SensioDistributionBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/SensioDistributionBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2125,7 +2125,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SensioDistributionBundle</argument>
-                  <argument>/private/var/www/symf/vendor/bundles/Sensio/Bundle/DistributionBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/bundles/Sensio/Bundle/DistributionBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2144,7 +2144,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SensioGeneratorBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/SensioGeneratorBundle/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/app/Resources/SensioGeneratorBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2152,7 +2152,7 @@
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
                   <argument>SensioGeneratorBundle</argument>
-                  <argument>/private/var/www/symf/vendor/bundles/Sensio/Bundle/GeneratorBundle/Resources/views</argument>
+                  <argument>/Library/WebServer/Documents/loogares/vendor/bundles/Sensio/Bundle/GeneratorBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>
@@ -2168,7 +2168,7 @@
             <tag name="assetic.formula_resource" loader="twig"/>
             <argument type="service" id="templating.loader"/>
             <argument></argument>
-            <argument>/private/var/www/symf/app/Resources/views</argument>
+            <argument>/Library/WebServer/Documents/loogares/app/Resources/views</argument>
             <argument>/^[^.]+\.[^.]+\.twig$/</argument>
           </service>
         </argument>
@@ -2185,7 +2185,7 @@
           </argument>
         </service>
       </argument>
-      <argument>/private/var/www/symf/app/../web</argument>
+      <argument>/Library/WebServer/Documents/loogares/app/../web</argument>
       <argument>true</argument>
       <call method="addWorker">
         <argument type="service">
@@ -2200,7 +2200,7 @@
     </service>
     <service id="assetic.filter.yui_css" class="Assetic\Filter\Yui\CssCompressorFilter">
       <tag name="assetic.filter" alias="yui_css"/>
-      <argument>/private/var/www/symf/app/java/yuicompressor-2.4.7.jar</argument>
+      <argument>/Library/WebServer/Documents/loogares/app/java/yuicompressor-2.4.7.jar</argument>
       <argument>/usr/bin/java</argument>
       <call method="setCharset">
         <argument>UTF-8</argument>
@@ -2252,7 +2252,7 @@
       <argument type="service" id="profiler"/>
     </service>
     <service id="assetic.cache" class="Assetic\Cache\FilesystemCache" public="false">
-      <argument>/private/var/www/symf/app/cache/dev/assetic/assets</argument>
+      <argument>/Library/WebServer/Documents/loogares/app/cache/dev/assetic/assets</argument>
     </service>
     <service id="assetic.request_listener" class="Symfony\Bundle\AsseticBundle\EventListener\RequestListener">
       <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
@@ -2312,7 +2312,7 @@
       <argument>2</argument>
     </service>
     <service id="sensio.distribution.webconfigurator" class="Sensio\Bundle\DistributionBundle\Configurator\Configurator">
-      <argument>/private/var/www/symf/app</argument>
+      <argument>/Library/WebServer/Documents/loogares/app</argument>
     </service>
     <service id="monolog.logger.request" class="Symfony\Bridge\Monolog\Logger">
       <argument>request</argument>
@@ -2407,9 +2407,9 @@
     </service>
     <service id="router" class="Symfony\Bundle\FrameworkBundle\Routing\Router">
       <argument type="service" id="service_container"/>
-      <argument>/private/var/www/symf/app/config/routing_dev.yml</argument>
+      <argument>/Library/WebServer/Documents/loogares/app/config/routing_dev.yml</argument>
       <argument type="collection">
-        <argument key="cache_dir">/private/var/www/symf/app/cache/dev</argument>
+        <argument key="cache_dir">/Library/WebServer/Documents/loogares/app/cache/dev</argument>
         <argument key="debug">true</argument>
         <argument key="generator_class">Symfony\Component\Routing\Generator\UrlGenerator</argument>
         <argument key="generator_base_class">Symfony\Component\Routing\Generator\UrlGenerator</argument>
@@ -2433,7 +2433,7 @@
       <argument type="service">
         <service class="Doctrine\Common\Annotations\AnnotationReader" public="false"/>
       </argument>
-      <argument>/private/var/www/symf/app/cache/dev/annotations</argument>
+      <argument>/Library/WebServer/Documents/loogares/app/cache/dev/annotations</argument>
       <argument>true</argument>
     </service>
     <service id="security.encoder_factory" class="Symfony\Component\Security\Core\Encoder\EncoderFactory">
