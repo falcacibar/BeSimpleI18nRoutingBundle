@@ -6,6 +6,9 @@ LoogaresLugarBundle_listado:
     pattern: /listado
     defaults: { _controller: LoogaresLugarBundle:Lugar:listado }
 
-LoogaresLugarBundle_lugar:
+
+_lugar:
     pattern: /lugar/{slug}
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
+    requirements:
+        page: pag\d+

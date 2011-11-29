@@ -119,9 +119,9 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Loogares\\LugarBundle\\Controller\\LugarController::listadoAction',  '_route' => 'LoogaresLugarBundle_listado',);
         }
 
-        // LoogaresLugarBundle_lugar
+        // _lugar
         if (0 === strpos($pathinfo, '/lugar') && preg_match('#^/lugar/(?P<slug>[^/]+?)$#xs', $pathinfo, $matches)) {
-            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Loogares\\LugarBundle\\Controller\\LugarController::lugarAction',)), array('_route' => 'LoogaresLugarBundle_lugar'));
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Loogares\\LugarBundle\\Controller\\LugarController::lugarAction',)), array('_route' => '_lugar'));
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

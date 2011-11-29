@@ -20,7 +20,7 @@ class TagRecomendacion
     private $recomendacion;
 
     /**
-     * @var Loogares\UsuarioBundle\Entity\EstadoRecomendacion
+     * @var Loogares\UsuarioBundle\Entity\Tag
      */
     private $tag;
 
@@ -68,9 +68,9 @@ class TagRecomendacion
     /**
      * Set tag
      *
-     * @param Loogares\UsuarioBundle\Entity\EstadoRecomendacion $tag
+     * @param Loogares\UsuarioBundle\Entity\Tag $tag
      */
-    public function setTag(\Loogares\UsuarioBundle\Entity\EstadoRecomendacion $tag)
+    public function setTag(\Loogares\UsuarioBundle\Entity\Tag $tag)
     {
         $this->tag = $tag;
     }
@@ -78,7 +78,7 @@ class TagRecomendacion
     /**
      * Get tag
      *
-     * @return Loogares\UsuarioBundle\Entity\EstadoRecomendacion 
+     * @return Loogares\UsuarioBundle\Entity\Tag 
      */
     public function getTag()
     {

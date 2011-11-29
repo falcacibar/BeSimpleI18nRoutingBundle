@@ -259,4 +259,58 @@ class Recomendacion
     {
         return $this->estado;
     }
+    /**
+     * @var Loogares\UsuarioBundle\Entity\Util
+     */
+    private $util;
+
+    public function __construct()
+    {
+        $this->util = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add util
+     *
+     * @param Loogares\UsuarioBundle\Entity\Util $util
+     */
+    public function addUtil(\Loogares\UsuarioBundle\Entity\Util $util)
+    {
+        $this->util[] = $util;
+    }
+
+    /**
+     * Get util
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getUtil()
+    {
+        return $this->util;
+    }
+    /**
+     * @var Loogares\UsuarioBundle\Entity\TagRecomendacion
+     */
+    private $tag;
+
+
+    /**
+     * Add tag
+     *
+     * @param Loogares\UsuarioBundle\Entity\TagRecomendacion $tag
+     */
+    public function addTagRecomendacion(\Loogares\UsuarioBundle\Entity\TagRecomendacion $tag)
+    {
+        $this->tag[] = $tag;
+    }
+
+    /**
+     * Get tag
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
 }

@@ -17,9 +17,9 @@
       <parameter key="AsseticBundle">Symfony\Bundle\AsseticBundle\AsseticBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="JMSSecurityExtraBundle">JMS\SecurityExtraBundle\JMSSecurityExtraBundle</parameter>
+      <parameter key="LoogaresLugarBundle">Loogares\LugarBundle\LoogaresLugarBundle</parameter>
       <parameter key="LoogaresUsuarioBundle">Loogares\UsuarioBundle\LoogaresUsuarioBundle</parameter>
       <parameter key="LoogaresExtraBundle">Loogares\ExtraBundle\LoogaresExtraBundle</parameter>
-      <parameter key="LoogaresLugarBundle">Loogares\LugarBundle\LoogaresLugarBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
@@ -1607,8 +1607,8 @@
           <call method="setEntityNamespaces">
             <argument type="collection">
               <argument key="LoogaresUsuarioBundle">Loogares\UsuarioBundle\Entity</argument>
-              <argument key="LoogaresExtraBundle">Loogares\ExtraBundle\Entity</argument>
               <argument key="LoogaresLugarBundle">Loogares\LugarBundle\Entity</argument>
+              <argument key="LoogaresExtraBundle">Loogares\ExtraBundle\Entity</argument>
             </argument>
           </call>
           <call method="setMetadataCacheImpl">
@@ -1646,14 +1646,14 @@
                     <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
                       <argument type="collection">
                         <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
                         <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
+                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
                       </argument>
                       <call method="setNamespacePrefixes">
                         <argument type="collection">
                           <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
-                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
                           <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
+                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
                         </argument>
                       </call>
                       <call method="setGlobalBasename">
@@ -1668,36 +1668,14 @@
                     <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
                       <argument type="collection">
                         <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
                         <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
+                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
                       </argument>
                       <call method="setNamespacePrefixes">
                         <argument type="collection">
                           <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
-                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
                           <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
-                        </argument>
-                      </call>
-                      <call method="setGlobalBasename">
-                        <argument>mapping</argument>
-                      </call>
-                    </service>
-                  </argument>
-                  <argument>Loogares\ExtraBundle\Entity</argument>
-                </call>
-                <call method="addDriver">
-                  <argument type="service">
-                    <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
-                      <argument type="collection">
-                        <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
-                        <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
-                      </argument>
-                      <call method="setNamespacePrefixes">
-                        <argument type="collection">
-                          <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
                           <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
-                          <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
                         </argument>
                       </call>
                       <call method="setGlobalBasename">
@@ -1706,6 +1684,28 @@
                     </service>
                   </argument>
                   <argument>Loogares\LugarBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Symfony\Bridge\Doctrine\Mapping\Driver\YamlDriver" public="false">
+                      <argument type="collection">
+                        <argument>/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine</argument>
+                        <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine</argument>
+                        <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine</argument>
+                      </argument>
+                      <call method="setNamespacePrefixes">
+                        <argument type="collection">
+                          <argument key="/private/var/www/symf/src/Loogares/UsuarioBundle/Resources/config/doctrine">Loogares\UsuarioBundle\Entity</argument>
+                          <argument key="/private/var/www/symf/src/Loogares/LugarBundle/Resources/config/doctrine">Loogares\LugarBundle\Entity</argument>
+                          <argument key="/private/var/www/symf/src/Loogares/ExtraBundle/Resources/config/doctrine">Loogares\ExtraBundle\Entity</argument>
+                        </argument>
+                      </call>
+                      <call method="setGlobalBasename">
+                        <argument>mapping</argument>
+                      </call>
+                    </service>
+                  </argument>
+                  <argument>Loogares\ExtraBundle\Entity</argument>
                 </call>
               </service>
             </argument>
@@ -2008,6 +2008,33 @@
               <argument type="service">
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
+                  <argument>LoogaresLugarBundle</argument>
+                  <argument>/private/var/www/symf/app/Resources/LoogaresLugarBundle/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>LoogaresLugarBundle</argument>
+                  <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+            </argument>
+          </service>
+        </argument>
+        <argument>twig</argument>
+      </call>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
+            <tag name="assetic.templating.twig"/>
+            <tag name="assetic.formula_resource" loader="twig"/>
+            <argument type="collection">
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
                   <argument>LoogaresUsuarioBundle</argument>
                   <argument>/private/var/www/symf/app/Resources/LoogaresUsuarioBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
@@ -2045,33 +2072,6 @@
                   <argument type="service" id="templating.loader"/>
                   <argument>LoogaresExtraBundle</argument>
                   <argument>/private/var/www/symf/src/Loogares/ExtraBundle/Resources/views</argument>
-                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
-                </service>
-              </argument>
-            </argument>
-          </service>
-        </argument>
-        <argument>twig</argument>
-      </call>
-      <call method="addResource">
-        <argument type="service">
-          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
-            <tag name="assetic.templating.twig"/>
-            <tag name="assetic.formula_resource" loader="twig"/>
-            <argument type="collection">
-              <argument type="service">
-                <service class="%assetic.directory_resource.class%" public="false">
-                  <argument type="service" id="templating.loader"/>
-                  <argument>LoogaresLugarBundle</argument>
-                  <argument>/private/var/www/symf/app/Resources/LoogaresLugarBundle/views</argument>
-                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
-                </service>
-              </argument>
-              <argument type="service">
-                <service class="%assetic.directory_resource.class%" public="false">
-                  <argument type="service" id="templating.loader"/>
-                  <argument>LoogaresLugarBundle</argument>
-                  <argument>/private/var/www/symf/src/Loogares/LugarBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>

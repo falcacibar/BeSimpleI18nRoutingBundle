@@ -1,38 +1,101 @@
 {% extends "::base.html.twig" %}
 
 
-{% block title %}:D{% endblock %}
+{% block title %}Loogares.com | {{ lugar.nombre }}{% endblock %}
 
 {% block content %}
 <!-- Ficha, top part -->
+<h1>
+</h1>
 <div id="lugar-ficha">
-    
     <div id="lugar-info">
         <div id="lugar-foto">foto</div>
         <div id="lugar-mapa">mapa</div>
-            <h2>{{ lugar.nombre }}</h2>
+            <h2>{{ lugar.nombre }} - ID: {{lugar.id}} </h2>
             <div class="estrellas">{{ lugar.estrellas }} Estrellas | {{ lugar.totalRecomendaciones}} Recomendaciones</div>
             <div id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }} - Ciudad</div>
-            <div id="lugar-telefono">123719827</div>
-            <div id="lugar-categorias">Categorias: {{ smt.categoria.nombre }}</div>
-            <div id="lugar-algo">asdads</div>
-            <div id="lugar-algo">asdads</div>
-            <div id="lugar-algo">asdads</div>
-            <div id="primero-recomendar"></div>
-        <div id="share-stuff"></div>
-        <div id="social-stuff"></div>
+            <div id="lugar-sector"></div>
+            <div id="lugar-telefono">Telefono: ---</div>
+            <div id="lugar-horarios">
+                {% for horario in lugar.horarios %}
+                    AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
+                    PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
+                {% endfor %}
+            </div>
+            <div id="lugar-categorias">
+                Categorias: {% for categoria in lugar.categorias %} {{ categoria }} {% endfor %}
+            </div>
+            <div id="lugar-url">{{ lugar.sitioWeb }}</div>
+            <div id="lugar-facebook">{{ lugar.facebook }}</div>
+            <div id="lugar-twitter">{{ lugar.twitter }}</div>
+
+            <div id="primero-recomendar">Primero Recomendar: {{ lugar.primero.usuario.usuario }}</div>
+
+            <div id="recomendaciones">
+                <h2>Recomendaciones</h2>
+                <p>Mostrando Recomendaciones de {{ lugar.mostrandoComentariosDe }} a {{ lugar.mostrandoComentariosDe + 9 }} || {{ lugar.totalRecomendaciones }} recomendaciones totales</p>
+                <p style="display:inline;">Ir a Pagina</p>
+                <ul style="display:inline;">
+                {% for i in range(1,lugar.totalPaginas) %}
+                    {% if i == 1 and lugar.paginaActual != 1 %}
+                        <li><a href="{{ path('_lugar', {'slug': lugar.slug, 'pagina': lugar.paginaActual - 1, 'orden': lugar.orden }) }}">«</a></li>
+                    {% endif %}
+
+                    {% if lugar.paginaActual == i %}
+                        <li><strong>{{ i }}</strong></li>
+                    {% else %}
+                        <li><a href="{{ path('_lugar', {'slug': lugar.slug, 'pagina': i, 'orden': lugar.orden }) }}">{{ i }}</a></li>
+                    {% endif %}
+
+                    {% if i == lugar.totalPaginas and lugar.paginaActual != lugar.totalPaginas %}
+                        <li><a href="{{ path('_lugar', {'slug': lugar.slug, 'pagina': lugar.paginaActual + 1, 'orden': lugar.orden }) }}">»</a></li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+                <br/><br/>
+                <ul style="display: inline">
+                    <li>
+                        {% if lugar.orden == 'mejor-evaluadas' %}
+                            <strong>Mejores Evaluaciones</strong>
+                        {% else %}
+                            <a href="{{ path('_lugar', {'slug' : lugar.slug, 'pagina': '1', 'orden': 'mejor-evaluadas'}) }}">Mejores Evaluaciones</a>
+                        {% endif %}
+                    </li>
+                    <li>|</li>
+                    <li>
+                        {% if lugar.orden == 'ultimas' %}
+                            <strong>Ultimas Recomendaciones</strong>
+                        {% else %}
+                            <a href="{{ path('_lugar', {'slug' : lugar.slug, 'pagina': '1', 'orden': 'ultimas'}) }}">Ultimas Recomendaciones</a>
+                        {% endif %}
+                    </li>
+                    <li>|</li>
+                    <li>
+                        {% if lugar.orden == 'mas-utiles' %}
+                            <strong>Mas Utiles</strong>
+                        {% else %}
+                            <a href="{{ path('_lugar', {'slug' : lugar.slug, 'pagina': '1', 'orden': 'mas-utiles'}) }}">Mas Utiles</a>
+                        {% endif %}
+                    </li>
+                </ul>
+                <p>
+                    Resultados por Paginas:
+                    <select>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </select>
+                {% for recomendacion in lugar.recomendaciones %}
+                <div class="recomendacion">
+                    <p><strong>Nombre:</strong> {{ recomendacion.nombre }}</p>
+                    <p><strong>Recomendacion: </strong> {{ recomendacion.texto }}
+                    <p><strong>Fecha:</strong> {{ recomendacion.fechaCreacion | date("F jS \\a\\t g:ia") }}</p>
+                    <p><strong>Estrellas:</strong> {{ recomendacion.estrellas }}</p>
+                    <p><strong>Util:</strong> {{ recomendacion.util }}</p>
+                </div>
+                {% endfor %}
+            </div>
     </div>
 </div>
-<p> estrellas</p>
-<p>{{ lugar.totalRecomendaciones}} recomendaciones</p>
-<p>{{ lugar.sitioWeb }}</p>
-<p>{{ lugar.facebook }}</p>
-<p>{{ lugar.twitter }}</p>
-<p>{{ lugar.mail }}</p>
-<p>categorias</p>
-<p>sector</p>
 
-<h1>
-{{ smt.categoria.nombre }}
-</h1>
 {% endblock %}

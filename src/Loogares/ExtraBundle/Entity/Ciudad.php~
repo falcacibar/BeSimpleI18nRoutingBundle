@@ -184,4 +184,29 @@ class Ciudad
     {
         return $this->pais;
     }
+    /**
+     * @var string $mostrar_lugar
+     */
+    private $mostrar_lugar;
+
+
+    /**
+     * Set mostrar_lugar
+     *
+     * @param string $mostrarLugar
+     */
+    public function setMostrarLugar($mostrarLugar)
+    {
+        $this->mostrar_lugar = $mostrarLugar;
+    }
+
+    /**
+     * Get mostrar_lugar
+     *
+     * @return string 
+     */
+    public function getMostrarLugar()
+    {
+        return $this->mostrar_lugar;
+    }
 }

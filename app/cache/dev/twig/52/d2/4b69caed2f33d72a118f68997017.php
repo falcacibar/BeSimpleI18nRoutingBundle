@@ -62,10 +62,48 @@ class __TwigTemplate_52d24b69caed2f33d72a118f68997017 extends Twig_Template
         echo "        <link rel=\"shortcut icon\" href=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("favicon.ico"), "html");
         echo "\" />
+        <style>
+            body{
+                background: #333;
+                font-family: Helvetica;
+                font-size: 14px;
+                text-shadow: 0 1px 0 #fff;
+            }
+
+            h1{
+                padding: 0;
+                margin: 0;
+            }
+            #wrapper{
+                background: #f0f0f0;
+                width: 940px;
+                padding: 0;
+                padding: 10px 15px;
+                margin: 0 auto;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+            }
+
+            .recomendacion{
+                background: #CCF6FF;
+                padding: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                margin: 15px 0;
+            }
+
+            ul{
+                padding: 0;
+            }
+
+            li{
+                display: inline;
+            }
+        </style>
     </head>
     <body>
         <div id=\"wrapper\">
-            <div id=\"header\">
+<!--             <div id=\"header\">
                 <div id=\"logo\">
                     <h1>Loogares.com</h1>
                 </div>
@@ -85,17 +123,17 @@ class __TwigTemplate_52d24b69caed2f33d72a118f68997017 extends Twig_Template
                     <li>Donde dormir</li>
                     <li>Servicios</li>
                 </ul>
-            </div>
+            </div> -->
             ";
-        // line 37
+        // line 75
         $this->displayBlock('content', $context, $blocks);
-        // line 38
+        // line 76
         echo "            ";
         $this->displayBlock('body', $context, $blocks);
-        // line 39
+        // line 77
         echo "            ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 40
+        // line 78
         echo "        </div>
     </body>
 </html>
@@ -113,17 +151,17 @@ class __TwigTemplate_52d24b69caed2f33d72a118f68997017 extends Twig_Template
     {
     }
 
-    // line 37
+    // line 75
     public function block_content($context, array $blocks = array())
     {
     }
 
-    // line 38
+    // line 76
     public function block_body($context, array $blocks = array())
     {
     }
 
-    // line 39
+    // line 77
     public function block_javascripts($context, array $blocks = array())
     {
     }

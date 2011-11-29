@@ -9,6 +9,7 @@ Loogares\UsuarioBundle\Entity\Util:
                 joinColumns:
                     recomendacion:
                         referencedColumnName: id
+            inversedBy: recomendacion
         usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\Usuario
             joinTable:

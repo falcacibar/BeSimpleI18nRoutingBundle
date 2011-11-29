@@ -184,4 +184,29 @@ class Comuna
     {
         return $this->mostrar_lugar;
     }
+    /**
+     * @var Loogares\ExtraBundle\Entity\Ciudad
+     */
+    private $ciudad;
+
+
+    /**
+     * Set ciudad
+     *
+     * @param Loogares\ExtraBundle\Entity\Ciudad $ciudad
+     */
+    public function setCiudad(\Loogares\ExtraBundle\Entity\Ciudad $ciudad)
+    {
+        $this->ciudad = $ciudad;
+    }
+
+    /**
+     * Get ciudad
+     *
+     * @return Loogares\ExtraBundle\Entity\Ciudad 
+     */
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
 }

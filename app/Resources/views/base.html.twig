@@ -10,10 +10,48 @@
             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
         {% endstylesheets %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <style>
+            body{
+                background: #333;
+                font-family: Helvetica;
+                font-size: 14px;
+                text-shadow: 0 1px 0 #fff;
+            }
+
+            h1{
+                padding: 0;
+                margin: 0;
+            }
+            #wrapper{
+                background: #f0f0f0;
+                width: 940px;
+                padding: 0;
+                padding: 10px 15px;
+                margin: 0 auto;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+            }
+
+            .recomendacion{
+                background: #CCF6FF;
+                padding: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                margin: 15px 0;
+            }
+
+            ul{
+                padding: 0;
+            }
+
+            li{
+                display: inline;
+            }
+        </style>
     </head>
     <body>
         <div id="wrapper">
-            <div id="header">
+<!--             <div id="header">
                 <div id="logo">
                     <h1>Loogares.com</h1>
                 </div>
@@ -33,7 +71,7 @@
                     <li>Donde dormir</li>
                     <li>Servicios</li>
                 </ul>
-            </div>
+            </div> -->
             {% block content %}{% endblock %}
             {% block body %}{% endblock %}
             {% block javascripts %}{% endblock %}

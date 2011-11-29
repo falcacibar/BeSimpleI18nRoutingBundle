@@ -23,6 +23,13 @@ Loogares\UsuarioBundle\Entity\Recomendacion:
                 joinColumns:
                     estado:
                         referencedColumnName: id
+    oneToMany:
+        util:
+            targetEntity: Loogares\UsuarioBundle\Entity\Util
+            mappedBy: recomendacion
+        tag:
+            targetEntity: Loogares\UsuarioBundle\Entity\TagRecomendacion
+            mappedBy: recomendacion
     id:
         id:
             type: integer

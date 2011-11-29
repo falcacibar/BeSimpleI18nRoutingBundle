@@ -2,7 +2,7 @@ Loogares\ExtraBundle\Entity\Comuna:
     type: entity
     table: comuna
     manyToOne:
-        pais:
+        ciudad:
             targetEntity: Loogares\ExtraBundle\Entity\Ciudad
             joinTable:
                 name: comuna

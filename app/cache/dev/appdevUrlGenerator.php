@@ -30,7 +30,7 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
        'LoogaresUsuarioBundle_homepage' => true,
        'LoogaresLugarBundle_homepage' => true,
        'LoogaresLugarBundle_listado' => true,
-       'LoogaresLugarBundle_lugar' => true,
+       '_lugar' => true,
     );
 
     /**
@@ -139,8 +139,8 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         return array(array (), array (  '_controller' => 'Loogares\\LugarBundle\\Controller\\LugarController::listadoAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/listado',  ),));
     }
 
-    private function getLoogaresLugarBundle_lugarRouteInfo()
+    private function get_lugarRouteInfo()
     {
-        return array(array (  0 => 'slug',), array (  '_controller' => 'Loogares\\LugarBundle\\Controller\\LugarController::lugarAction',), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'slug',  ),  1 =>   array (    0 => 'text',    1 => '/lugar',  ),));
+        return array(array (  0 => 'slug',), array (  '_controller' => 'Loogares\\LugarBundle\\Controller\\LugarController::lugarAction',), array (  'page' => 'pag\\d+',), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'slug',  ),  1 =>   array (    0 => 'text',    1 => '/lugar',  ),));
     }
 }

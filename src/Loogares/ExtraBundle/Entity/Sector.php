@@ -234,4 +234,29 @@ class Sector
     {
         return $this->mostrar;
     }
+    /**
+     * @var integer $mostrar_lugar
+     */
+    private $mostrar_lugar;
+
+
+    /**
+     * Set mostrar_lugar
+     *
+     * @param integer $mostrarLugar
+     */
+    public function setMostrarLugar($mostrarLugar)
+    {
+        $this->mostrar_lugar = $mostrarLugar;
+    }
+
+    /**
+     * Get mostrar_lugar
+     *
+     * @return integer 
+     */
+    public function getMostrarLugar()
+    {
+        return $this->mostrar_lugar;
+    }
 }

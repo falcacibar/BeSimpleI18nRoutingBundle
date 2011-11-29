@@ -48,7 +48,10 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
+        mappings:
+            LoogaresUsuarioBundle: ~
+            LoogaresLugarBundle: ~
+            LoogaresExtraBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:

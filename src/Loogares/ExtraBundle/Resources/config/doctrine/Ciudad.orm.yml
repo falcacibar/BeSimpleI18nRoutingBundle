@@ -20,7 +20,5 @@ Loogares\ExtraBundle\Entity\Ciudad:
             type: string
         mapa:
             type: string
-        lugar_habilitado:
+        mostrar_lugar:
             type: string
-        habilitado:
-            type: smallint

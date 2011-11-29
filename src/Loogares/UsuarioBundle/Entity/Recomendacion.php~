@@ -259,4 +259,33 @@ class Recomendacion
     {
         return $this->estado;
     }
+    /**
+     * @var Loogares\UsuarioBundle\Entity\Util
+     */
+    private $util;
+
+    public function __construct()
+    {
+        $this->util = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add util
+     *
+     * @param Loogares\UsuarioBundle\Entity\Util $util
+     */
+    public function addUtil(\Loogares\UsuarioBundle\Entity\Util $util)
+    {
+        $this->util[] = $util;
+    }
+
+    /**
+     * Get util
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getUtil()
+    {
+        return $this->util;
+    }
 }
