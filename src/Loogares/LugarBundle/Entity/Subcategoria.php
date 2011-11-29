@@ -5,9 +5,9 @@ namespace Loogares\LugarBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Loogares\LugarBundle\Entity\SubCategoria
+ * Loogares\LugarBundle\Entity\Subcategoria
  */
-class SubCategoria
+class Subcategoria
 {
     /**
      * @var integer $id

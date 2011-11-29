@@ -1,0 +1,16 @@
+#DS Store de Mac
+.DS_Store
+
+#Carpeta Cache
+app/cache/*
+
+#Entidades
+src/Loogares/LugarBundle/Entity/*
+src/Loogares/UsuarioBundle/Entity/*
+src/Loogares/ExtraBundle/Entity/*
+
+#Logs
+app/logs/*
+
+#Parametros
+app/config/parameters.ini

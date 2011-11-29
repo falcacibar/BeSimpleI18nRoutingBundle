@@ -288,4 +288,29 @@ class Recomendacion
     {
         return $this->util;
     }
+    /**
+     * @var Loogares\UsuarioBundle\Entity\TagRecomendacion
+     */
+    private $tag;
+
+
+    /**
+     * Add tag
+     *
+     * @param Loogares\UsuarioBundle\Entity\TagRecomendacion $tag
+     */
+    public function addTagRecomendacion(\Loogares\UsuarioBundle\Entity\TagRecomendacion $tag)
+    {
+        $this->tag[] = $tag;
+    }
+
+    /**
+     * Get tag
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
 }
