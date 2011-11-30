@@ -27,7 +27,7 @@ Loogares\UsuarioBundle\Entity\Recomendacion:
         util:
             targetEntity: Loogares\UsuarioBundle\Entity\Util
             mappedBy: recomendacion
-        tag:
+        tag_recomendacion:
             targetEntity: Loogares\UsuarioBundle\Entity\TagRecomendacion
             mappedBy: recomendacion
     id:

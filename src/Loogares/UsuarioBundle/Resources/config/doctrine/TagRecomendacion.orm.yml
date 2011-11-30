@@ -9,7 +9,7 @@ Loogares\UsuarioBundle\Entity\TagRecomendacion:
                 joinColumns:
                     recomendacion:
                         referencedColumnName: id
-                inveserdBy: recomendacion
+            inveserdBy: recomendacion
         tag:
             targetEntity: Loogares\UsuarioBundle\Entity\Tag
             joinTable:
