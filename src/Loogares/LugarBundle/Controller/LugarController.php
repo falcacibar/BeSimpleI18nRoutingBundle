@@ -30,50 +30,68 @@ class LugarController extends Controller
                 $orden = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
 
                 $em = $this->getDoctrine()->getEntityManager();
-                $qb = $em->createQueryBuilder();
+                  $qb = $em->createQueryBuilder();
 
-                $qb->select('u')
-                  ->from('Loogares\LugarBundle\Entity\Lugar', 'u')
-                  ->where('u.slug = ?1')
-                  ->setParameter(1, $slug);
-                $q = $qb->getQuery();
+                $q = $em->createQuery("SELECT u 
+                                       FROM Loogares\LugarBundle\Entity\Lugar u 
+                                       WHERE u.slug = ?1");
+                $q->setParameter(1, $slug);
                 $lugarResult = $q->getResult();
 
                 //Id del Lugar
                 $idLugar = $lugarResult[0]->getId();
 
                 //Query para categorias del lugar
-                $q = $em->createQuery("SELECT u from Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");
+                $q = $em->createQuery("SELECT u 
+                                       FROM Loogares\LugarBundle\Entity\CategoriaLugar u 
+                                       WHERE u.lugar = ?1");
                 $q->setParameter(1, $idLugar);
                 $categoriasResult = $q->getResult();
 
                 //Query para horarios del lugar
-                $q = $em->createQuery("SELECT u from Loogares\LugarBundle\Entity\Horario u WHERE u.lugar = ?1");
+                $q = $em->createQuery("SELECT u 
+                                       FROM Loogares\LugarBundle\Entity\Horario u 
+                                       WHERE u.lugar = ?1");
                 $q->setParameter(1, $idLugar);
                 $horarioResult = $q->getResult();
 
                 //Query para sacar la primera recomendacion
-                $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 ORDER BY u.id ASC");
+                $q = $em->createQuery("SELECT u 
+                                       FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+                                       WHERE u.lugar = ?1 
+                                       ORDER BY u.id ASC");
                 $q->setParameter(1, $idLugar)
                   ->setMaxResults(1);
                 $primeroRecomendarResult = $q->getResult();
 
                 //Query para sacar el Total de las recomendaciones
-                $q = $em->createQuery("SELECT count(u.id) from Loogares\UsuarioBundle\Entity\Recomendacion u where u.lugar = ?1");
+                $q = $em->createQuery("SELECT count(u.id) 
+                                       FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+                                       WHERE u.lugar = ?1");
                 $q->setParameter(1, $idLugar);
                 $totalRecomendacionesResult = $q->getSingleScalarResult();
 
                 if($orden == 'ultimas'){
-                        $q = $em->createQuery("SELECT u, count(a.id) as utiles from Loogares\UsuarioBundle\Entity\Recomendacion u LEFT JOIN u.util a where u.lugar = ?1 GROUP BY u.id order by u.fecha_creacion desc");
+                        $q = $em->createQuery("SELECT u, count(a.id) AS utiles 
+                                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+                                               LEFT JOIN u.util a 
+                                               WHERE u.lugar = ?1 
+                                               GROUP BY u.id 
+                                               ORDER BY u.fecha_creacion DESC");
                 }else if($orden == 'mas-utiles'){
-                        $q = $em->createQuery("SELECT u, count(a.id) as utiles from Loogares\UsuarioBundle\Entity\Recomendacion u LEFT JOIN u.util a where u.lugar = ?1 GROUP BY u.id order by utiles desc");
+                        $q = $em->createQuery("SELECT u, count(a.id) AS utiles 
+                                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+                                               LEFT JOIN u.util a 
+                                               WHERE u.lugar = ?1 
+                                               GROUP BY u.id 
+                                               ORDER BY utiles DESC");
                 }else if($orden == 'mejor-evaluadas'){
-                        $q = $em->createQuery("SELECT u, count(a.id) as utiles, c from Loogares\UsuarioBundle\Entity\Recomendacion u
+                        $q = $em->createQuery("SELECT u, count(a.id) AS utiles 
+                                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u
                                                LEFT JOIN u.util a
-                                               LEFT JOIN u.tag c
                                                WHERE u.lugar = ?1
                                                GROUP BY u.id
-                                               ORDER BY u.estrellas desc, u.fecha_creacion desc");
+                                               ORDER BY u.estrellas desc, u.fecha_creacion DESC");
                 }
 
                 //Query para las recomendaciones a mostrar
@@ -81,14 +99,6 @@ class LugarController extends Controller
                   ->setFirstResult(($paginaActual - 1) * 10)
                   ->setParameter(1, $idLugar);
                 $recomendacionesResult = $q->getResult();
-
-                $q = $em->createQuery("SELECT u, count(a.id) as utiles from Loogares\UsuarioBundle\Entity\Recomendacion u LEFT JOIN u.util a where u.lugar = ?1 GROUP BY u.id order by utiles desc");
-                $q->setParameter(1, 2375);
-                $asd = $q->getResult();
-
-                foreach($recomendacionesResult as $key => $value){
-                        echo $value[0][1]->getTag();
-                }
 
                 $i = 0;
                 $test = array();
@@ -102,7 +112,6 @@ class LugarController extends Controller
                         $recomendaciones[$i]->estrellas = $value[0]->getEstrellas();
                         $i++;
                 }
-
  
                 /*
                 *  Armado de Datos para pasar a Twig
