@@ -1,6 +1,10 @@
 Loogares\UsuarioBundle\Entity\Tag:
     type: entity
     table: tag
+    oneToMany:
+        tag_recomendacion:
+            targetEntity: Loogares\UsuarioBundle\Entity\TagRecomendacion
+            mappedBy: recomendacion
     id:
         id:
             type: integer

@@ -5,9 +5,6 @@ namespace Loogares\LugarBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Loogares\LugarBundle\Entity\Lugar;
-use Loogares\UsuarioBundle\Entity\Recomendacion;
-use Loogares\UsuarioBundle\Entity\Usuario;
-
 
 class LugarController extends Controller
 {
@@ -28,6 +25,7 @@ class LugarController extends Controller
     public function lugarAction($slug){
                 $paginaActual = (!isset($_GET['pagina']))?1:$_GET['pagina'];
                 $orden = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
+                $offset = ($paginaActual - 1) * 10;
 
                 $em = $this->getDoctrine()->getEntityManager();
                   $qb = $em->createQueryBuilder();
@@ -72,47 +70,53 @@ class LugarController extends Controller
                 $totalRecomendacionesResult = $q->getSingleScalarResult();
 
                 if($orden == 'ultimas'){
-                        $q = $em->createQuery("SELECT u, count(a.id) AS utiles 
-                                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
-                                               LEFT JOIN u.util a 
-                                               WHERE u.lugar = ?1 
-                                               GROUP BY u.id 
-                                               ORDER BY u.fecha_creacion DESC");
+                        $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
                 }else if($orden == 'mas-utiles'){
-                        $q = $em->createQuery("SELECT u, count(a.id) AS utiles 
-                                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
-                                               LEFT JOIN u.util a 
-                                               WHERE u.lugar = ?1 
-                                               GROUP BY u.id 
-                                               ORDER BY utiles DESC");
+                        $orderBy = "ORDER BY utiles DESC";
                 }else if($orden == 'mejor-evaluadas'){
-                        $q = $em->createQuery("SELECT u, count(a.id) AS utiles 
-                                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u
-                                               LEFT JOIN u.util a
-                                               WHERE u.lugar = ?1
-                                               GROUP BY u.id
-                                               ORDER BY u.estrellas desc, u.fecha_creacion DESC");
+                        $orderBy = "ORDER BY recomendacion.estrellas desc, recomendacion.fecha_creacion DESC";
                 }
 
                 //Query para las recomendaciones a mostrar
-                $q->setMaxResults(10)
-                  ->setFirstResult(($paginaActual - 1) * 10)
-                  ->setParameter(1, $idLugar);
-                $recomendacionesResult = $q->getResult();
 
+
+                //Query para sacar todos los tags asociados a la recomendacion, Doctrine, ih8u
+                // $q = $em->createQuery("SELECT u, (b.tag)
+                //                        FROM Loogares\UsuarioBundle\Entity\Recomendacion u
+                //                        LEFT JOIN u.tag_recomendacion a
+                //                        LEFT JOIN a.tag b
+                //                        WHERE u.lugar = ?1
+                //                        GROUP BY u.id
+                //                        ORDER BY u.fecha_creacion");
+
+
+                // $q->setParameter(1, $idLugar);
+                // $asd = $q->getResult();
+
+                $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.*
+                                                                         FROM recomendacion
+                                                                         LEFT JOIN util
+                                                                         ON util.recomendacion_id = recomendacion.id
+                                                                         LEFT JOIN tag_recomendacion
+                                                                         ON tag_recomendacion.recomendacion_id = recomendacion.id
+                                                                         LEFT JOIN tag
+                                                                         ON tag_recomendacion.tag_id = tag.id
+                                                                         LEFT JOIN usuarios
+                                                                         ON recomendacion.usuario_id = usuarios.id
+                                                                         WHERE recomendacion.lugar_id = $idLugar
+                                                                         GROUP BY recomendacion.id 
+                                                                         $orderBy
+                                                                         LIMIT 10
+                                                                         OFFSET $offset");
+
+
+                //Odio Doctrine, hacemos un array nuevo con los cant(utiles) + datos de las recomendaciones que necesitamos
                 $i = 0;
-                $test = array();
+                echo "<pre>";
                 foreach($recomendacionesResult as $key => $value){
-                        $recomendaciones[$i] = new \stdClass();
-                        $util = $value['utiles'];
-                        $recomendaciones[$i]->util = $util;
-                        $recomendaciones[$i]->nombre = $value[0]->getUsuario()->getNombre();
-                        $recomendaciones[$i]->fechaCreacion = $value[0]->getFechaCreacion();
-                        $recomendaciones[$i]->texto = $value[0]->getTexto();
-                        $recomendaciones[$i]->estrellas = $value[0]->getEstrellas();
-                        $i++;
+                       
                 }
- 
+                echo "</pre>";
                 /*
                 *  Armado de Datos para pasar a Twig
                 */
@@ -125,10 +129,10 @@ class LugarController extends Controller
 
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->horarios = $horarioResult;
-                $data->primero = $primeroRecomendarResult[0];
-                $data->recomendaciones = $recomendaciones;
+                $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'';
+                $data->recomendaciones = $recomendacionesResult;
                 //Total de Pagina que debemos mostrar/generar
-                $data->totalPaginas = (int) $totalRecomendacionesResult / 10;
+                $data->totalPaginas = ($totalRecomendacionesResult > 10)?(int) $totalRecomendacionesResult / 10:1;
                 $data->totalRecomendaciones = $totalRecomendacionesResult;
                 //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
                 $data->mostrandoComentariosDe = $paginaActual * ($paginaActual != 1)?(10 + 1):1;
