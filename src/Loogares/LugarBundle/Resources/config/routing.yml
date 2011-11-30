@@ -2,7 +2,7 @@ LoogaresLugarBundle_homepage:
     pattern:  /agregar
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
-LoogaresLugarBundle_listado:
+_listado:
     pattern: /listado
     defaults: { _controller: LoogaresLugarBundle:Lugar:listado }
 
