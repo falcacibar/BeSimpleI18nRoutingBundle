@@ -3,26 +3,15 @@ Loogares\UsuarioBundle\Entity\Usuario:
     table: usuarios
     manyToOne:
         tipo_usuario:
-            targetEntity: Loogares\UsuarioBundle\Entity\TipoUsuario
-            joinTable:
-                name: usuario
-                joinColumns:
-                    tipo_usuario:
-                        referencedColumnName: id
+            targetEntity: TipoUsuario
     manyToOne:
         comuna:
             targetEntity: Loogares\ExtraBundle\Entity\Comuna
-            joinTable:
-                name: usuario
-                joinColumns:
-                    comuna:
-                        referencedColumnName: id
     id:
         id:
             type: integer
             generator: { strategy: auto }
     fields:
-        #nobmre
         nombre:
             type: string
             length: 50
@@ -39,18 +28,24 @@ Loogares\UsuarioBundle\Entity\Usuario:
             type: string
         telefono:
             type: string
+            nullable: true
         sexo:
             type: string
+            nullable: true
         link1: 
             type: string
+            nullable: true
         link2:
             type: string
+            nullable: true
         link3:
             type: string
+            nullable: true
         imagen_full:
             type: string
         fecha_nacimiento:
             type: datetime
+            nullable: true
         fecha_registro:
             type: datetime
         fecha_ultima_actividad:
@@ -66,9 +61,13 @@ Loogares\UsuarioBundle\Entity\Usuario:
             type: string
         facebook_uid:
             type: integer
+            nullable: true
         facebook_no_publicar:
             type: integer
+            nullable: true
         facebook_data:
             type: string
+            nullable: true
         fecha_facebook_ultima_actividad:
             type: string
+            nullable: true
