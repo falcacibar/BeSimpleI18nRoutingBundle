@@ -5,7 +5,7 @@ namespace Loogares\UsuarioBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-class UsuariosController extends Controller
+class UsuarioController extends Controller
 {
     
     public function indexAction($name)

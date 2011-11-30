@@ -1,8 +1,8 @@
 LoogaresUsuarioBundle_homepage:
     pattern:  /hello/{name}
-    defaults: { _controller: LoogaresUsuarioBundle:Usuarios:index }
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:index }
 
 showUsuario:
     pattern:  /{slug}
-    defaults: { _controller: LoogaresUsuarioBundle:Usuarios:show }    
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:show }    
 
