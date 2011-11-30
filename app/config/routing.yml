@@ -4,7 +4,7 @@ LoogaresExtraBundle:
 
 LoogaresUsuarioBundle:
     resource: "@LoogaresUsuarioBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /usuarios
 
 LoogaresLugarBundle:
     resource: "@LoogaresLugarBundle/Resources/config/routing.yml"

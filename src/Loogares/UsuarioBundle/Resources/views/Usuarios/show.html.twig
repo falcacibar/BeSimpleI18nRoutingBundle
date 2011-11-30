@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Usuario | {{parent()}}{% endblock %}
+{% block body %}
+	<h2>Usuario: </h2>
+
+	<ul>
+		<li style="display:block">Nombre: {{usuario.nombre}}</li>
+		<li style="display:block">Apellido: {{usuario.apellido}}</li>
+		<li style="display:block">Usuario: {{usuario.usuario}}</li>
+		<li style="display:block">Password: {{usuario.password}}</li>
+		<li style="display:block">Email: {{usuario.mail}}</li>
+	</ul>
+{% endblock %}
