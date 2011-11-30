@@ -22,7 +22,7 @@ class LugarController extends Controller
         $repo = $this->getDoctrine()
                      ->getRepository('LoogaresLugarBundle:Lugar');
         
-        return $this->render('LoogaresLugarBundle:Default:listado.html.twig', array('lugares' => $result));
+        return $this->render('LoogaresLugarBundle:Lugar:listado.html.twig', array('lugares' => $result));
     }    
 
     public function lugarAction($slug){
@@ -127,7 +127,7 @@ class LugarController extends Controller
                 $data->orden = $orden;
 
                 //Render ALL THE VIEWS
-                return $this->render('LoogaresLugarBundle:Default:lugar.html.twig', array('lugar' => $data));            
+                return $this->render('LoogaresLugarBundle:Lugar:lugar.html.twig', array('lugar' => $data));            
     }
     
     public function agregarAction()
@@ -167,6 +167,6 @@ class LugarController extends Controller
         $em->flush();
 
         #return new Response('dohohoho');
-        return $this->render('LoogaresLugarBundle:Default:agregar.html.twig', array('lugar' => $lugar->getNombre()));
+        return $this->render('LoogaresLugarBundle:Lugar:agregar.html.twig', array('lugar' => $lugar->getNombre()));
     }
 }
