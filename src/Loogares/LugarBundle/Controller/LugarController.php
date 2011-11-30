@@ -93,7 +93,7 @@ class LugarController extends Controller
                 // $q->setParameter(1, $idLugar);
                 // $asd = $q->getResult();
 
-                $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.*
+                $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.*
                                                                          FROM recomendacion
                                                                          LEFT JOIN util
                                                                          ON util.recomendacion_id = recomendacion.id
@@ -111,12 +111,14 @@ class LugarController extends Controller
 
 
                 //Odio Doctrine, hacemos un array nuevo con los cant(utiles) + datos de las recomendaciones que necesitamos
-                $i = 0;
-                echo "<pre>";
-                foreach($recomendacionesResult as $key => $value){
-                       
+
+                for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
+                        $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
+                        for($j = 0; $j < sizeOf($recomendacionesResult[$i]['tags']); $j++){
+                                $recomendacionesResult[$i]['tags'][$j] = $recomendacionesResult[$i]['tags'][$j];
+                        }
                 }
-                echo "</pre>";
+
                 /*
                 *  Armado de Datos para pasar a Twig
                 */

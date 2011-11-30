@@ -99,7 +99,12 @@
                         <p><strong>Fecha:</strong> {{ recomendacion.fecha_creacion | date("F jS \\a\\t g:ia") }}</p>
                         <p><strong>Estrellas:</strong> {{ recomendacion.estrellas }}</p>
                         <p><strong>Util:</strong> {{ recomendacion.utiles }}</p>
-                        <p><strong>Tags:</strong> {{ recomendacion.tags }}</p>
+                        <p>
+                            <strong>Tags:</strong> 
+                            {% for tag in recomendacion.tags %}
+                                <a href='BUSCAR EL TAG: {{tag}}'>{{ tag }}</a>{% if loop.last == false %}, {% endif %}
+                            {% endfor %}
+                        </p>
                     </div>
                     {% endfor %}
                 </div>
