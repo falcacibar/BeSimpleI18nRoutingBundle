@@ -1,14 +1,36 @@
-{% extends '::base.html.twig' %}
+{% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
 
-{% block title %}Usuario | {{parent()}}{% endblock %}
+{% block title %}{{usuario.usuario}} | {{parent()}}{% endblock %}
 {% block body %}
-	<h2>Usuario: </h2>
+	{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
+	<div id="main-usuario">
+		<div id="data-usuario">
+			<div id="image-usuario"></div>
+			<h3>{{usuario.usuario}}</h3>
 
-	<ul>
-		<li style="display:block">Nombre: {{usuario.nombre}}</li>
-		<li style="display:block">Apellido: {{usuario.apellido}}</li>
-		<li style="display:block">Usuario: {{usuario.usuario}}</li>
-		<li style="display:block">Password: {{usuario.password}}</li>
-		<li style="display:block">Email: {{usuario.mail}}</li>
-	</ul>
+			<ul>
+				<li>{{usuario.nombre}} {{usuario.apellido}}</li>
+				<li>{{usuario.sexoResult}}, {{usuario.edadResult}} años</li>
+			</ul>
+
+			<ul class="bold">
+				<li>{{usuario.totalRecomendaciones}} recomendaciones</li>
+				<li>1 primeras recomendaciones</li>
+				<li>{{usuario.totalLugaresAgregados}} lugares agregados</li>
+				<li>{{usuario.totalImagenesLugar}} fotos agregadas</li>
+			</ul>
+
+			<p class="bold">En Loogares.com desde: <br /> {{usuario.desdeResult}}</p>
+			{% if usuario.links|length > 0 %}
+				<ul class="bold">
+				{% for link in usuario.links %}
+					<li><a href="{{link}}" target="blank">{{link}}</a></li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+		<div id="content-usuario">
+			{% include 'LoogaresUsuarioBundle:Usuarios:content_usuario.html.twig' %}
+		</div>
+	</div>
 {% endblock %}

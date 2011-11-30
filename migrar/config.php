@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost';
+$host = '127.0.0.1';
 try {  
   # MySQL with PDO_MYSQL  
-  $DBH = new PDO("mysql:host=$host;dbname=loogares", 'root', 'root'); 
+  $DBH = new PDO("mysql:host=$host;dbname=loogares", 'root', 'L0og4r3s'); 
   $DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );  
 }  
 catch(PDOException $e) {  
@@ -14,7 +14,7 @@ $DBH->exec("SET FOREIGN_KEY_CHECKS = 0");
 
 try {  
   # MySQL with PDO_MYSQL  
-  $LBH = new PDO("mysql:host=$host;dbname=loogares_old", 'root', 'root');  
+  $LBH = new PDO("mysql:host=$host;dbname=loogares_old", 'root', 'L0og4r3s');  
 }  
 catch(PDOException $e) {  
     echo $e->getMessage();  
