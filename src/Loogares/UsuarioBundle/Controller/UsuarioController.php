@@ -16,39 +16,39 @@ class UsuarioController extends Controller
     public function showAction($slug)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $q = $em->createQuery("SELECT u 
-                               FROM Loogares\UsuarioBundle\Entity\Usuario u 
-                               WHERE u.slug = :slug");
-        $q->setParameter('slug', $slug);        
-
-        try {
-            $usuarioResult = $q->getSingleResult();
-        } catch (\Doctrine\Orm\NoResultException $e) {
+        $pr = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
+        $usuarioResult = $pr->findOneBySlug($slug); 
+        if(!$usuarioResult) {
             throw $this->createNotFoundException('No user found for slug '.$slug);
         }
+        
+        //Total recomendaciones usuario
+        $recomendaciones = $pr->getUserReviews($usuarioResult->getId()); 
+        $totalRecomendaciones = count($recomendaciones);
 
-        //Query para obtener el total de recomendaciones del usuario
-        $q = $em->createQuery("SELECT r
-                               FROM Loogares\UsuarioBundle\Entity\Recomendacion r 
-                               WHERE r.usuario = ?1");
-        $q->setParameter(1, $usuarioResult->getId());
-        $totalRecomendaciones = count($q->getResult());
+        //Primeras recomendaciones usuario
+        $primerasRecomendaciones = 0;
+        $primRec  = array();
+        foreach($recomendaciones as $r) {
+            if($pr->verificarPrimeroRecomendar($usuarioResult->getId(), $r->getLugar()->getId())) {
+                $primerasRecomendaciones++;
+            }
+        }
 
+        $resultado = $this->getDoctrine()->getConnection()->fetchAll("SELECT *
+                               FROM recomendacion r
+                               INNER JOIN lugares l
+                               ON l.id = r.lugar_id
+                               WHERE r.lugar_id = 2487
+                               ORDER BY r.fecha_creacion ASC");
         
 
-        //Query para obtener el total de lugares agregados por el usuario
-        $q = $em->createQuery("SELECT COUNT(l) total 
-                               FROM Loogares\LugarBundle\Entity\Lugar l 
-                               WHERE l.usuario_id = ?1");
-        $q->setParameter(1, $usuarioResult->getId());
-        $totalLugaresAgregados = $q->getSingleResult();
+        //Total de lugares agregados por el usuario
+        $totalLugaresAgregados = $pr->getLugaresAgregadosUsuario($usuarioResult->getId());
 
-        //Query para obtener el total de fotos de lugares agregadas por el usuario
-        $q = $em->createQuery("SELECT COUNT(im) total 
-                               FROM Loogares\LugarBundle\Entity\ImagenLugar im 
-                               WHERE im.usuario = ?1");
-        $q->setParameter(1, $usuarioResult->getId());
-        $totalImagenesLugar= $q->getSingleResult();
+        //Total de fotos de lugares agregadas por el usuario
+        $totalImagenesLugar= $pr->getFotosLugaresAgregadasUsuario($usuarioResult->getId());
 
         //Cálculo de edad
         if($usuarioResult->getFechaNacimiento() != null) {
@@ -82,19 +82,20 @@ class UsuarioController extends Controller
         if($usuarioResult->getLink3() != null || $usuarioResult->getLink3() != '') {
             $links[] = $usuarioResult->getLink3();
         }
-
-
+        
         /*
          *  Armado de Datos para pasar a Twig
          */
         $data = $usuarioResult;
         $data->totalRecomendaciones = $totalRecomendaciones;
+        $data->totalPrimerasRecomendaciones = $primerasRecomendaciones;
         $data->totalLugaresAgregados = $totalLugaresAgregados['total'];
         $data->totalImagenesLugar = $totalImagenesLugar['total'];
         $data->edadResult = $edad;
         $data->sexoResult = $sexoResult;
         $data->desdeResult = $usuarioResult->getFechaRegistro()->format('d-m-Y');
         $data->links = $links;
+        $data->resultado = $resultado;
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
     }
 }

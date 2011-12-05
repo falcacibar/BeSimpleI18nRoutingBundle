@@ -1,5 +1,6 @@
 Loogares\UsuarioBundle\Entity\Usuario:
     type: entity
+    repositoryClass: Loogares\UsuarioBundle\Repository\UsuarioRepository
     table: usuarios
     manyToOne:
         tipo_usuario:
