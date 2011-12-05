@@ -59,8 +59,6 @@ class LugarController extends Controller
                 $q->setParameter(1, $idLugar);
                 $categoriasResult = $q->getResult();
 
-                $categoriasResult[0]->getCategoria()->getCategoriaLugar()->getLugarId();
-
                 //Query para horarios del lugar
                 $q = $em->createQuery("SELECT u 
                                        FROM Loogares\LugarBundle\Entity\Horario u 
@@ -125,6 +123,12 @@ class LugarController extends Controller
                 //Armamos un array con todas las categorias
                 foreach($categoriasResult as $value){
                         $data->categorias[] = $value->getCategoria()->getNombre();
+                        //Query para categorias del lugar
+                        $q = $em->createQuery("SELECT u 
+                                               FROM Loogares\LugarBundle\Entity\CategoriaLugar u 
+                                               WHERE u.lugar = ?1");
+                        $q->setParameter(1, $idLugar);
+                        $categoriasResult = $q->getResult();
                 }
 
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos

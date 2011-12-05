@@ -26,7 +26,7 @@
                 {% endfor %}
             </div>
             <div id="lugar-categorias">
-                Categorias: {% for categoria in lugar.categorias %} {{ categoria }} {% endfor %}
+                Categorias: {% for categoria in lugar.categorias %} <a href='BUSCAR LA CATEGORIA: {{categoria}}'>{{ categoria }}</a>{% if loop.last == false %}, {% endif %} {% endfor %}
             </div>
             <div id="lugar-url">{{ lugar.sitioWeb }}</div>
             <div id="lugar-facebook">{{ lugar.facebook }}</div>
