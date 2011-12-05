@@ -36,6 +36,7 @@ class UsuarioController extends Controller
             }
         }
 
+<<<<<<< HEAD
         $resultado = $this->getDoctrine()->getConnection()->fetchAll("SELECT *
                                FROM recomendacion r
                                INNER JOIN lugares l
@@ -46,6 +47,14 @@ class UsuarioController extends Controller
 
         //Total de lugares agregados por el usuario
         $totalLugaresAgregados = $pr->getLugaresAgregadosUsuario($usuarioResult->getId());
+=======
+        //Query para obtener el total de lugares agregados por el usuario
+        $q = $em->createQuery("SELECT COUNT(l) total 
+                               FROM Loogares\LugarBundle\Entity\Lugar l 
+                               WHERE l.usuario_id = ?1");
+        $q->setParameter(1, $usuarioResult->getId());
+        $totalLugaresAgregados = $q->getSingleResult();
+>>>>>>> ae5d540846abfe01d5a7c50a8e404cd2eef8c1a2
 
         //Total de fotos de lugares agregadas por el usuario
         $totalImagenesLugar= $pr->getFotosLugaresAgregadasUsuario($usuarioResult->getId());
@@ -58,6 +67,7 @@ class UsuarioController extends Controller
         } else {
             $edad = null;
         }
+        
 
         //Nombre del sexo
         if($usuarioResult->getSexo() != null) {

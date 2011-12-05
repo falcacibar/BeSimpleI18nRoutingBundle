@@ -59,6 +59,20 @@ class LugarController extends Controller
                 $q->setParameter(1, $idLugar);
                 $categoriasResult = $q->getResult();
 
+                //Query para categorias del lugar
+                $q = $em->createQuery("SELECT u 
+                                       FROM Loogares\LugarBundle\Entity\SubcategoriaLugar u 
+                                       WHERE u.lugar = ?1");
+                $q->setParameter(1, $idLugar);
+                $subCategoriaResult = $q->getResult();
+
+                //Caracteristicas del lugar
+                $q = $em->createQuery("SELECT u 
+                                       FROM Loogares\LugarBundle\Entity\CaracteristicaLugar u 
+                                       WHERE u.lugar = ?1");
+                $q->setParameter(1, $idLugar);
+                $caracteristicaLugarResult = $q->getResult();
+
                 //Query para horarios del lugar
                 $q = $em->createQuery("SELECT u 
                                        FROM Loogares\LugarBundle\Entity\Horario u 
@@ -91,6 +105,7 @@ class LugarController extends Controller
                         $orderBy = "ORDER BY recomendacion.estrellas desc, recomendacion.fecha_creacion DESC";
                 }
 
+                
                 //Query para las recomendaciones a mostrar
                 $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.*
                                                                          FROM recomendacion
@@ -109,10 +124,20 @@ class LugarController extends Controller
                                                                          OFFSET $offset");
 
 
-                //Odio Doctrine, hacemos un array nuevo con los cant(utiles) + datos de las recomendaciones que necesitamos
-
+                //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
                         $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
+                }
+                $telefonos = array();
+                //Array con telefonos del lugar
+                if($lugarResult[0]->getTelefono1() != null || $lugarResult[0]->getTelefono1() != '') {
+                    $telefonos[] = $lugarResult[0]->getTelefono1();
+                }
+                if($lugarResult[0]->getTelefono2() != null || $lugarResult[0]->getTelefono2() != '') {
+                    $telefonos[] = $lugarResult[0]->getTelefono2();
+                }
+                if($lugarResult[0]->getTelefono3() != null || $lugarResult[0]->getTelefono3() != '') {
+                    $telefonos[] = $lugarResult[0]->getTelefono3();
                 }
 
                 /*
@@ -121,24 +146,30 @@ class LugarController extends Controller
                 $data = $lugarResult[0];
 
                 //Armamos un array con todas las categorias
-                foreach($categoriasResult as $value){
-                        $data->categorias[] = $value->getCategoria()->getNombre();
-                        //Query para categorias del lugar
-                        $q = $em->createQuery("SELECT u 
-                                               FROM Loogares\LugarBundle\Entity\CategoriaLugar u 
-                                               WHERE u.lugar = ?1");
-                        $q->setParameter(1, $idLugar);
-                        $categoriasResult = $q->getResult();
+                foreach($categoriasResult as $cat){
+                        $data->categorias[] = $cat->getCategoria()->getNombre();
+                }
+
+                $data->subcategorias = array();
+                foreach($subCategoriaResult as $subcat){
+                    foreach($data->categorias as $cat){
+                        if($cat == $subcat->getSubCategoria()->getCategoria()->getNombre()){
+                            $data->subcategorias[]['categoria'] = $cat;
+                            $data->subcategorias[sizeOf($data->subcategorias) - 1]['subcategorias'][] = $subcat->getSubCategoria()->getNombre();
+                        }
+                    }
                 }
 
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->horarios = $horarioResult;
+                $data->telefonos = $telefonos;
+                $data->caracteristicaslugar = $caracteristicaLugarResult;
                 //Imagen a mostrar
                 $data->imagen_full = $imagenLugarResult[0]->getImagenFull();
                 $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'';
                 $data->recomendaciones = $recomendacionesResult;
                 //Total de Pagina que debemos mostrar/generar
-                $data->totalPaginas = ($totalRecomendacionesResult > 10)?(int) $totalRecomendacionesResult / 10:1;
+                $data->totalPaginas = ($totalRecomendacionesResult > 10)?floor($totalRecomendacionesResult / 10):1;
                 $data->totalRecomendaciones = $totalRecomendacionesResult;
                 //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
                 $data->mostrandoComentariosDe = $paginaActual * ($paginaActual != 1)?(10 + 1):1;
@@ -151,41 +182,9 @@ class LugarController extends Controller
     
     public function agregarAction()
     {
-        $lugar = new Lugar();
-        $lugar->setNombre('Lugar X');
-        //$lugar->setUsuario('2');
-        $lugar->setSlug('lugar-x');
-        $lugar->setDireccion('A esquina B');
-        $lugar->setDetalle('asdasd');
-        $lugar->setIdComuna('1');
-        $lugar->setIdBarrio('2');
-        $lugar->setMapx('123');
-        $lugar->setMapy('123');
-        $lugar->setProfesional('pedro');
-        $lugar->setAgnoConstruccion('11');
-        $lugar->setMateriales('Ningunoo');
-        $lugar->setSitioWeb('www.google.cl');
-        $lugar->setFacebook('/facebook');
-        $lugar->setTwitter('twitters');
-        $lugar->setMail('loogares@loogares.com');
-        $lugar->setEstrellas('5');
-        $lugar->setPrecio('11');
-        $lugar->setPrecioInicial('222');
-        $lugar->setTotalRecomendaciones('2');
-        $lugar->setFechaUltimaRecomendacion(new \DateTime("now"));
-        $lugar->setUtiles('2');
-        $lugar->setVisitas('1');
-        $lugar->setDescripcion('descripcion');
-        $lugar->setPrioridadWeb('1');
-        $lugar->setIdTipoLugar('2');
-        $lugar->setIdEstado('2');
-        $lugar->setTieneDueno('0');
-
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->persist($lugar);
-        $em->flush();
+        
 
         #return new Response('dohohoho');
-        return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array('lugar' => $lugar->getNombre()));
+        return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig');
     }
 }
