@@ -23,8 +23,7 @@
                 margin: 0;
             }
             #wrapper{
-                clear:both;
-                overflow:auto;
+                overflow: hidden;
                 background: #f0f0f0;
                 width: 940px;
                 padding: 0;
@@ -48,6 +47,17 @@
 
             li{
                 display: inline;
+            }
+
+            #lugar-ficha{
+                width: 500px;
+                float: left;
+            }
+
+            #mapa-sidebar{
+                float: left;
+                width: 430px;
+                margin-left: 10px;
             }
         </style>
     </head>
@@ -75,8 +85,9 @@
                 </ul>
             </div> -->
             {% block content %}{% endblock %}
-            {% block body %}{% endblock %}
-            {% block javascripts %}{% endblock %}
+            
         </div>
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

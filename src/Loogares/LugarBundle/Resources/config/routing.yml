@@ -12,3 +12,25 @@ _lugar:
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
     requirements:
         page: pag\d+
+
+_ajax:
+    pattern: /ajax
+    defaults: { _controller: LoogaresLugarBundle:Default:index }
+
+_otrosLugaresEnElArea:
+    pattern: /ajax/{accion}
+    defaults: { _controller: LoogaresLugarBundle:Ajax:otrosLugaresEnElArea }
+    requirements:
+        accion: otrosLugaresEnElArea
+
+_filtroDeLugares:
+    pattern: /ajax/{accion}
+    defaults: { _controller: LoogaresLugarBundle:Ajax:filtroDeLugares }
+    requirements:
+        accion: filtroDeLugares
+
+_sugerirUnLugar:
+    pattern: /ajax/{accion}
+    defaults: { _controller: LoogaresLugarBundle:Ajax:sugerirUnLugar }
+    requirements:
+        accion: sugerirUnLugar

@@ -4,6 +4,10 @@ Loogares\LugarBundle\Entity\Categoria:
     manyToOne:
         tipo_categoria:
             targetEntity: Loogares\LugarBundle\Entity\TipoCategoria
+    oneToMany:
+        categoria_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\CategoriaLugar
+            mappedBy: categorias
     id:
         id:
             type: integer

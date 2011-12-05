@@ -3,19 +3,22 @@
 
 {% block title %}{{lugar.nombre}} | {{parent()}}{% endblock %}
 
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
+    <script src='../../assets/js/googleMapFicha.js'></script>
+{% endblock %}
+
 {% block content %}
 <!-- Ficha, top part -->
-<h1>
-</h1>
 <div id="lugar-ficha">
     <div id="lugar-info">
-        <div id="lugar-foto">foto</div>
-        <div id="lugar-mapa">mapa</div>
+        <div id="lugar-foto"><a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="../../assets/images/lugares/{{lugar.imagen_full}}" width="256" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a></div>
             <h2>{{ lugar.nombre }} - ID: {{lugar.id}} </h2>
             <div class="estrellas">{{ lugar.estrellas }} Estrellas | {{ lugar.totalRecomendaciones}} Recomendaciones</div>
             <div id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }} - Ciudad</div>
             <div id="lugar-sector"></div>
-            <div id="lugar-telefono">Telefono: ---</div>
+            <div id="lugar-telefono">Telefono: {{lugar.telefono1}}, {{lugar.telefono2}}</div>
             <div id="lugar-horarios">
                 {% for horario in lugar.horarios %}
                     AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
@@ -93,25 +96,50 @@
                             <option>20</option>
                         </select>
                     {% for recomendacion in lugar.recomendaciones %}
-                    <div class="recomendacion">
-                        <p><strong>Nombre:</strong> {{ recomendacion.nombre }}</p>
-                        <p><strong>Recomendacion: </strong> {{ recomendacion.texto }}
-                        <p><strong>Fecha:</strong> {{ recomendacion.fecha_creacion | date("F jS \\a\\t g:ia") }}</p>
-                        <p><strong>Estrellas:</strong> {{ recomendacion.estrellas }}</p>
-                        <p><strong>Util:</strong> {{ recomendacion.utiles }}</p>
-                        <p>
-                            <strong>Tags:</strong> 
-                            {% for tag in recomendacion.tags %}
-                                <a href='BUSCAR EL TAG: {{tag}}'>{{ tag }}</a>{% if loop.last == false %}, {% endif %}
-                            {% endfor %}
-                        </p>
-                    </div>
+                        <div class="recomendacion">
+                            <p><strong>Nombre:</strong> {{ recomendacion.nombre }}</p>
+                            <p><strong>Recomendacion: </strong> {{ recomendacion.texto }}
+                            <p><strong>Fecha:</strong> {{ recomendacion.fecha_creacion | date("F jS \\a\\t g:ia") }}</p>
+                            <p><strong>Estrellas:</strong> {{ recomendacion.estrellas }}</p>
+                            <p><strong>Util:</strong> {{ recomendacion.utiles }}</p>
+                            {% if recomendacion.tags[0] %}
+                                <p>
+                                    <strong>Tags:</strong> 
+                                    {% for tag in recomendacion.tags %}
+                                        <a href='BUSCAR EL TAG: {{tag}}'>{{ tag }}</a>{% if loop.last == false %}, {% endif %}
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                        </div>
                     {% endfor %}
                 </div>
             {% else %}
                 <h1>No hay recomendaciones, queris recomendar? :D</h1>
             {% endif %}
-    </div>
+        </div>
+</div>
+<div id="mapa-sidebar">
+        <div id="mapaOtros" class="borde-ccc mb-10 mt-10" style="height:298px;width:298px;"></div>
+        <div id="otros-lugaresMapa">
+            <input type="hidden" id="idLugar" value="2375" />
+            <input id="coordenadas0" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}">
+            <input id="coordenadasX" type="hidden" value="{{lugar.mapx}}">
+            <input id="coordenadasY" type="hidden" value="{{lugar.mapy}}">
+            <input id="puntodestacado" type="hidden" value="">
+            <input id="nombre0" type="hidden" value="{{ lugar.nombre }}">
+            <input id="direccion0" type="hidden" value="{{ lugar.calle }} {{lugar.numero}}">
+            <input id="baseurl" type="hidden" value="localhost" />
+            <input id="cantidadLugares" type="hidden" value="10" />
+        </div>
+
+        <div id="mapaAjax"></div>
+        <div id="otros-lugares">
+
+        <h2 class="fs-14 mt-20 mb-20">Otros Lugares en el área</h2>
+        <input id="cantidadLugares" type="hidden" value="20">
+        </div>
+
+
 </div>
 
 {% endblock %}

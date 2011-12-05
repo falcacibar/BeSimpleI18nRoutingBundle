@@ -22,13 +22,17 @@ class LugarController extends Controller
         return $this->render('LoogaresLugarBundle:Lugares:listado.html.twig', array('lugares' => $result));
     }    
 
+    public function ajaxTestAction(){
+        return $this->render('LoogaresLugarBundle:Lugares:ajax.html.twig');    
+    }
+
     public function lugarAction($slug){
                 $paginaActual = (!isset($_GET['pagina']))?1:$_GET['pagina'];
                 $orden = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
                 $offset = ($paginaActual - 1) * 10;
 
                 $em = $this->getDoctrine()->getEntityManager();
-                  $qb = $em->createQueryBuilder();
+                $qb = $em->createQueryBuilder();
 
                 $q = $em->createQuery("SELECT u 
                                        FROM Loogares\LugarBundle\Entity\Lugar u 
@@ -39,12 +43,23 @@ class LugarController extends Controller
                 //Id del Lugar
                 $idLugar = $lugarResult[0]->getId();
 
+                //Ultima foto del Lugar
+                $q = $em->createQuery("SELECT u
+                                       FROM Loogares\LugarBundle\Entity\ImagenLugar u
+                                       WHERE u.lugar = ?1
+                                       ORDER BY u.fecha_modificacion");
+                $q->setMaxResults(1)
+                  ->setParameter(1, $idLugar);
+                $imagenLugarResult = $q->getResult();
+
                 //Query para categorias del lugar
                 $q = $em->createQuery("SELECT u 
                                        FROM Loogares\LugarBundle\Entity\CategoriaLugar u 
                                        WHERE u.lugar = ?1");
                 $q->setParameter(1, $idLugar);
                 $categoriasResult = $q->getResult();
+
+                $categoriasResult[0]->getCategoria()->getCategoriaLugar()->getLugarId();
 
                 //Query para horarios del lugar
                 $q = $em->createQuery("SELECT u 
@@ -69,6 +84,7 @@ class LugarController extends Controller
                 $q->setParameter(1, $idLugar);
                 $totalRecomendacionesResult = $q->getSingleScalarResult();
 
+                //Definicion del orden para la siguiente consulta
                 if($orden == 'ultimas'){
                         $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
                 }else if($orden == 'mas-utiles'){
@@ -78,21 +94,6 @@ class LugarController extends Controller
                 }
 
                 //Query para las recomendaciones a mostrar
-
-
-                //Query para sacar todos los tags asociados a la recomendacion, Doctrine, ih8u
-                // $q = $em->createQuery("SELECT u, (b.tag)
-                //                        FROM Loogares\UsuarioBundle\Entity\Recomendacion u
-                //                        LEFT JOIN u.tag_recomendacion a
-                //                        LEFT JOIN a.tag b
-                //                        WHERE u.lugar = ?1
-                //                        GROUP BY u.id
-                //                        ORDER BY u.fecha_creacion");
-
-
-                // $q->setParameter(1, $idLugar);
-                // $asd = $q->getResult();
-
                 $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.*
                                                                          FROM recomendacion
                                                                          LEFT JOIN util
@@ -114,9 +115,6 @@ class LugarController extends Controller
 
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
                         $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
-                        for($j = 0; $j < sizeOf($recomendacionesResult[$i]['tags']); $j++){
-                                $recomendacionesResult[$i]['tags'][$j] = $recomendacionesResult[$i]['tags'][$j];
-                        }
                 }
 
                 /*
@@ -131,6 +129,8 @@ class LugarController extends Controller
 
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->horarios = $horarioResult;
+                //Imagen a mostrar
+                $data->imagen_full = $imagenLugarResult[0]->getImagenFull();
                 $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'';
                 $data->recomendaciones = $recomendacionesResult;
                 //Total de Pagina que debemos mostrar/generar

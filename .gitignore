@@ -9,8 +9,14 @@ src/Loogares/LugarBundle/Entity/*
 src/Loogares/UsuarioBundle/Entity/*
 src/Loogares/ExtraBundle/Entity/*
 
+#imagenes
+web/assets/images/*
+
 #Logs
 app/logs/*
 
 #Parametros
 app/config/parameters.ini
+
+#migrar
+migrar/*

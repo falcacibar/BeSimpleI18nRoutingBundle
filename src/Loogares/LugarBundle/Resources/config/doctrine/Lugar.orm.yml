@@ -30,12 +30,16 @@ Loogares\LugarBundle\Entity\Lugar:
                 joinColumns:
                     estado:
                         referencedColumnName: id
+    manyToMany:
+        imagenes_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\ImagenLugar
+            mappedBy: lugares
     id:
         id:
             type: integer
             generator: { strategy: none }
     fields:
-        #nobmre
+        #nombre
         nombre:
             type: string
             length: 50
