@@ -34,8 +34,6 @@ class UsuarioController extends Controller
         $q->setParameter(1, $usuarioResult->getId());
         $totalRecomendaciones = count($q->getResult());
 
-        
-
         //Query para obtener el total de lugares agregados por el usuario
         $q = $em->createQuery("SELECT COUNT(l) total 
                                FROM Loogares\LugarBundle\Entity\Lugar l 
@@ -58,6 +56,7 @@ class UsuarioController extends Controller
         } else {
             $edad = null;
         }
+        
 
         //Nombre del sexo
         if($usuarioResult->getSexo() != null) {

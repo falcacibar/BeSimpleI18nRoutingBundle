@@ -1,1 +1,114 @@
-Agregamos {{ lugar }} a nuestra DB!
+{% extends "::base.html.twig" %}
+
+{% block title %}Agregar Lugar | {{parent()}}{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .agregar-lugar li{
+            display: block; 
+        }
+
+        .placeholder{
+            color: #ccc;
+        }
+
+        input{
+            padding: 4px;
+            border: none;
+            border: 1px solid #ccc;
+        }
+
+        input:focus{
+            outline: none;
+        }
+
+        .input-active{
+            border: 1px solid #3f0;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+
+
+    <script>
+        $('input[type=text]').each(function(){
+            $this = $(this);
+            placeholder = $this.attr('data-placeholder');
+
+            $this.val(placeholder);
+            $this.addClass('placeholder');
+        }).focus(function(){
+            $this = $(this);
+            placeholder = $this.attr('data-placeholder');
+            $this.removeClass('placeholder').addClass('input-active');
+
+            if($this.val() == placeholder){
+                $this.val('');
+            }
+        }).blur(function(){
+            $this = $(this);
+            placeholder = $this.attr('data-placeholder');
+            $this.removeClass('input-active');
+
+            if($this.val() == ''){
+                $this.val(placeholder);
+                $this.addClass('placeholder');
+            }            
+        })
+    </script>
+{% endblock %}
+
+{% block content %}
+<ul class="agregar-lugar">
+    <li>
+        <label>Nombre</label>
+        <input type="text" name="nombre" id="nombre" data-placeholder="Ej. Bar El Tufo"/>
+    </li>
+    <li>
+        <label>Categorias</label>
+        <select name="categorias" class="categorias"/>
+        </select>
+        <span>Otra categoria</span>
+    </li>
+    <li>
+        <label>Ciudad</label>
+        <select name="ciudades" id="ciudades">
+    </li>
+    <li>
+        <label>Comuna</label>
+        <select name="comunas" id="comunas">
+        </select>
+    </li>
+    <li>
+        <label>Direccion</label>
+        <input type="text" name="calle" id="calle" data-placeholder="Ej. Tarapallá"/>
+        <input type="text" name="numero" id="numero" data-placeholder="1949 o s/n"/>
+        <span>cargar mapa</span>
+    </li>
+    <li>
+        <label>Sector</label>
+        <select name="sectores" id="sectores">
+        </select>
+    </li>
+    <li>
+        <label>Telefono</label>
+        <input type="text" name="telefono" class="telefono" data-placeholder="Ej. +56 2 2130894"/>
+        <span>Mas telefonos</span>
+    </li>
+    <li>
+        <label>Sitio Web</label>
+        <input type="text" name="www" id="www" data-placeholder="Ej. http://www.bareltufo.cl"/>
+    </li>
+    <li>
+        <label>Facebook</label>
+        <input type="text" name="facebook" id="facebook" data-placeholder="Ej. http://www.facebook.com/pages/bareltufo"/>
+    </li>
+    <li>
+        <label>Twitter</label>
+        <input type="text" name="twitter" id="twitter" data-placeholder="http://www.twitter.com/barelfuto"/>
+    </li>
+</ul>
+<input type="submit" value="Guardar Datos"/>
+{% endblock %}
