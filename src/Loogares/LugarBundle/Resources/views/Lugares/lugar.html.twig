@@ -15,19 +15,43 @@
     <div id="lugar-info">
         <div id="lugar-foto"><a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="../../assets/images/lugares/{{lugar.imagen_full}}" width="256" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a></div>
             <h2>{{ lugar.nombre }} - ID: {{lugar.id}} </h2>
-            <div class="estrellas">{{ lugar.estrellas }} Estrellas | {{ lugar.totalRecomendaciones}} Recomendaciones</div>
-            <div id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }} - Ciudad</div>
-            <div id="lugar-sector"></div>
-            <div id="lugar-telefono">Telefono: {{lugar.telefono1}}, {{lugar.telefono2}}</div>
+            <div class="estrellas">{{ lugar.estrellas }} Estrellas | {{ lugar.totalRecomendaciones }} Recomendaciones</div>
+            <div id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }} - {{ lugar.comuna.ciudad.nombre }}</div>
+            <div id="lugar-sector">Sector: {{ lugar.sector.nombre }}</div>
+            <div id="lugar-telefono">
+                Telefono:
+                {% for telefono in lugar.telefonos %}
+                    {{telefono}}{% if loop.last == false %}, {% endif %}
+                {% endfor %}
+            </div>
+            <div id="lugar-caracteristicas">
+                Caracteristicas: 
+                {% for caracteristicalugar in lugar.caracteristicaslugar %}
+                    {{caracteristicalugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
+                {% endfor %}
+            </div>
             <div id="lugar-horarios">
                 {% for horario in lugar.horarios %}
                     AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
                     PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
                 {% endfor %}
             </div>
+            <div id="precio">Precio: {{lugar.precio}}</div>
             <div id="lugar-categorias">
-                Categorias: {% for categoria in lugar.categorias %} <a href='BUSCAR LA CATEGORIA: {{categoria}}'>{{ categoria }}</a>{% if loop.last == false %}, {% endif %} {% endfor %}
+                Categorias: 
+                {% for categoria in lugar.categorias %} 
+                    <a href='BUSCAR LA CATEGORIA: {{categoria}}'>{{ categoria }}</a>{% if loop.last == false %}, {% endif %} 
+                {% endfor %}
             </div>
+
+            {% if lugar.subcategorias != false %}
+            <div id="lugar-subcategorias">
+                {% for subcategorias in lugar.subcategorias %}
+                    <p>Subcategorias {{subcategorias.categoria}}: {% for subcategoria in subcategorias.subcategorias %} {{subcategoria}}{% if loop.last == false %}, {% endif %}  {% endfor %} </p>
+                {% endfor %}
+            </div>
+            {% endif %}
+           
             <div id="lugar-url">{{ lugar.sitioWeb }}</div>
             <div id="lugar-facebook">{{ lugar.facebook }}</div>
             <div id="lugar-twitter">{{ lugar.twitter }}</div>

@@ -6,12 +6,13 @@ _listado:
     pattern: /listado
     defaults: { _controller: LoogaresLugarBundle:Lugar:listado }
 
+_agregar:
+    pattern: /lugar/agregar
+    defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
 _lugar:
     pattern: /lugar/{slug}
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
-    requirements:
-        page: pag\d+
 
 _ajax:
     pattern: /ajax
