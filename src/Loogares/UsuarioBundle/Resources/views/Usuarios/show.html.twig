@@ -10,14 +10,14 @@
 
 			<ul>
 				<li>{{usuario.nombre}} {{usuario.apellido}}</li>
-				<li>{% if usuario.sexoResult != '' %}
-						{{usuario.sexoResult}}, 
+				{% if usuario.sexoResult != '' or usuario.edadResult != '0' %}
+				<li>
+					{% if usuario.sexoResult != '' %}
+						{{usuario.sexoResult}}{% endif %}{% if usuario.edadResult != '0'%}, {{usuario.edadResult}} años
 					{% endif %}
-					{{usuario.edadResult}} años
 				</li>
+				{% endif %}
 			</ul>
-
-			Largo resultado: {{usuario.resultado|length}}
 
 			<ul class="bold">
 				<li>{{usuario.totalRecomendaciones}} recomendaciones</li>

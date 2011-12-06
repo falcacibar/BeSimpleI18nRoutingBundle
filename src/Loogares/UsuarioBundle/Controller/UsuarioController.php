@@ -28,21 +28,8 @@ class UsuarioController extends Controller
         $totalRecomendaciones = count($recomendaciones);
 
         //Primeras recomendaciones usuario
-        $primerasRecomendaciones = 0;
-        $primRec  = array();
-        foreach($recomendaciones as $r) {
-            if($pr->verificarPrimeroRecomendar($usuarioResult->getId(), $r->getLugar()->getId())) {
-                $primerasRecomendaciones++;
-            }
-        }
-
-        $resultado = $this->getDoctrine()->getConnection()->fetchAll("SELECT *
-                               FROM recomendacion r
-                               INNER JOIN lugares l
-                               ON l.id = r.lugar_id
-                               WHERE r.lugar_id = 2487
-                               ORDER BY r.fecha_creacion ASC");
-        
+        $primerasRecomendaciones = $pr->getPrimerasRecomendaciones($usuarioResult->getId());
+        $totalPrimerasRecomendaciones = count($primerasRecomendaciones);   
 
         //Total de lugares agregados por el usuario
         $totalLugaresAgregados = $pr->getLugaresAgregadosUsuario($usuarioResult->getId());
@@ -53,11 +40,17 @@ class UsuarioController extends Controller
         //Cálculo de edad
         if($usuarioResult->getFechaNacimiento() != null) {
             $birthday = $usuarioResult->getFechaNacimiento()->format('d-m-Y');
-            list($d,$m,$Y)    = explode("-",$birthday);
-            $edad = date("md") < $m.$d ? date("Y")-$Y-1 : date("Y")-$Y;
+            if($birthday != '30-11--0001') {
+                list($d,$m,$Y)    = explode("-",$birthday);
+                $edad = date("md") < $m.$d ? date("Y")-$Y-1 : date("Y")-$Y;
+            }
+            else {
+                $edad = '0';
+            }            
         } else {
-            $edad = null;
+            $edad = '0';
         }
+        
 
         //Nombre del sexo
         if($usuarioResult->getSexo() != null) {
@@ -88,14 +81,13 @@ class UsuarioController extends Controller
          */
         $data = $usuarioResult;
         $data->totalRecomendaciones = $totalRecomendaciones;
-        $data->totalPrimerasRecomendaciones = $primerasRecomendaciones;
+        $data->totalPrimerasRecomendaciones = $totalPrimerasRecomendaciones;
         $data->totalLugaresAgregados = $totalLugaresAgregados['total'];
         $data->totalImagenesLugar = $totalImagenesLugar['total'];
         $data->edadResult = $edad;
         $data->sexoResult = $sexoResult;
         $data->desdeResult = $usuarioResult->getFechaRegistro()->format('d-m-Y');
         $data->links = $links;
-        $data->resultado = $resultado;
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
     }
 }

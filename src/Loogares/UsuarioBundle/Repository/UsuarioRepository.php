@@ -47,21 +47,19 @@ class UsuarioRepository extends EntityRepository
         return $q->getSingleResult();
 	}
 
-	public function verificarPrimeroRecomendar($idUsuario, $idLugar) {
+	public function getPrimerasRecomendaciones($id) {
 		$em = $this->getEntityManager();
 
 		//Verificamos si usuario es el primero en recomendar en el lugar
-		$q = $em->createQuery("SELECT r
-							   FROM LoogaresUsuarioBundle:Recomendacion r
-							   WHERE r.lugar = ?1
-							   ORDER BY r.fecha_creacion")->setMaxResults(1);
-
-		$q->setParameter(1,$idLugar);
-
-		if($q->getSingleResult()->getUsuario()->getId() == $idUsuario)
-			return true;
-		else
-			return false;
+		$q = $em->createQuery("SELECT l.nombre, r1.texto 
+							   FROM LoogaresUsuarioBundle:Recomendacion r1 
+							   JOIN r1.lugar l
+							   WHERE r1.usuario = ?1
+							   AND r1.fecha_creacion = (SELECT MIN(r2.fecha_creacion) 
+							   FROM LoogaresUsuarioBundle:Recomendacion r2 
+							   WHERE r2.lugar = r1.lugar)");
+		$q->setParameter(1,$id);
+		return $q->getResult();
 	}
 
 
