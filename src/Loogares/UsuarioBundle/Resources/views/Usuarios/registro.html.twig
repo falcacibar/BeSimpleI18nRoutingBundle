@@ -1,0 +1,19 @@
+{% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
+
+{% block title %}Registro de usuario | {{parent()}}{% endblock %}
+{% block content %}
+
+	<div id="registro-corriente">
+		<h3>¡Regístrate en Loogares.com!</h3>
+		<form action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
+		    {{ form_widget(form) }}
+
+		    <input type="submit" />
+		</form>
+	</div>
+
+	<div id="registro-facebook">
+		<h3>¡O regístrate rápidamente con tu Facebook!</h3>
+	</div>
+
+{% endblock %}

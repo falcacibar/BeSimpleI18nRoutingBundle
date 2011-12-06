@@ -3,8 +3,8 @@ Loogares\UsuarioBundle\Entity\Usuario:
     repositoryClass: Loogares\UsuarioBundle\Repository\UsuarioRepository
     table: usuarios
     manyToOne:
-        tipo_usuario:
-            targetEntity: TipoUsuario
+        tipoUsuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\TipoUsuario
     manyToOne:
         comuna:
             targetEntity: Loogares\ExtraBundle\Entity\Comuna
@@ -22,7 +22,7 @@ Loogares\UsuarioBundle\Entity\Usuario:
             type: string
         password:
             type: string
-            legnth: 40
+            length: 40
         slug:
             type: string
         mail:
@@ -71,4 +71,4 @@ Loogares\UsuarioBundle\Entity\Usuario:
             nullable: true
         fecha_facebook_ultima_actividad:
             type: string
-            nullable: true
+            nullable: true  

@@ -2,7 +2,11 @@ LoogaresUsuarioBundle_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:index }
 
+registroUsuario:
+    pattern: /registro
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:registro }
+
 showUsuario:
     pattern:  /{slug}
-    defaults: { _controller: LoogaresUsuarioBundle:Usuario:show }    
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:show }
 

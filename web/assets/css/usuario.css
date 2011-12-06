@@ -65,6 +65,17 @@ p {
 	width:78%;
 }
 
+#registro-corriente {
+	float:left;
+	width:48%;
+	border-right:1px solid #ccc;
+}
+
+#registro-facebook {
+	float:right;
+	width:50%;
+}
+
 .no-right-border {
 	border-right-width:0;
 }
