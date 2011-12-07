@@ -4,6 +4,16 @@ ul{
 p {
 	margin:0;
 }
+
+input[type=text], input[type=password]{
+	border:1px solid #ccc;
+	background:white;
+	height:18px;
+	line-height:16px;
+}
+
+/* Perfil de usuario */
+
 #menu-usuario {
 	border-bottom:1px solid #ccc;
 	height:32px;
@@ -65,6 +75,8 @@ p {
 	width:78%;
 }
 
+/* Registro de usuario */
+
 #registro-corriente {
 	float:left;
 	width:48%;
@@ -74,6 +86,32 @@ p {
 #registro-facebook {
 	float:right;
 	width:50%;
+}
+
+#registro-corriente .form-registro div{
+	margin:10px 0;
+}
+
+#registro-corriente .form-registro div div.tip-registro{
+	font-size:0.8em;
+	width:260px;
+	float:left;
+	margin: 0 0 10px 0;
+}
+
+#registro-corriente .form-registro div.submit-registro{
+	float:left;
+}
+
+#registro-corriente .form-registro div label{
+	width:110px;
+	float:left;
+	font-size:0.9em;
+	margin-top:3px;
+}
+
+#registro-corriente .form-registro div input[type=text], #registro-corriente .form-registro div input[type=password] {
+	width:250px;
 }
 
 .no-right-border {

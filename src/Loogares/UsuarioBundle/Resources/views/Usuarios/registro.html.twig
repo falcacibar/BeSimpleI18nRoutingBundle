@@ -1,4 +1,10 @@
 {% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
+{% block javascripts %}
+	{{parent()}}
+	<script type="text/javascript">
+		$('input[type=text]').placeholder();
+	</script>
+{% endblock %}
 
 {% block title %}Registro de usuario | {{parent()}}{% endblock %}
 {% block content %}
@@ -6,9 +12,31 @@
 	<div id="registro-corriente">
 		<h3>¡Regístrate en Loogares.com!</h3>
 		<form action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
-		    {{ form_widget(form) }}
+			<div class="form-registro">
+				{{ form_errors(form) }}
 
-		    <input type="submit" />
+			    {{ form_row(form.usuario) }}
+			    {{ form_row(form.mail) }}
+			    {{ form_row(form.password) }}
+			    <input type="text" id="asd" date-placeholder="asdasd"/>
+
+			    <div>
+			    	<label></label>
+			    	<div class="tip-registro">El password debe tener un mínimo de 6 caracteres.</div>
+			    </div>
+
+			    {{ form_rest(form) }}
+
+			    <div>
+			    	<label></label>
+			    	<div class="tip-registro">Al hacer click en Registrar confirmo ser mayor de 14 años y acepto los Términos de uso de Loogares.com</div>
+				</div>
+
+				<div class="submit-registro">
+					<label></label><input type="submit" value="Registrar" formnovalidate />
+				</div>
+		    </div>
+		    
 		</form>
 	</div>
 
