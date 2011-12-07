@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class UsuarioRepository extends EntityRepository
 {
 
-	public function getUserReviews($id) {
+	public function getUsuarioRecomendaciones($id) {
 		$em = $this->getEntityManager();
 
 		//Query para obtener el total de recomendaciones del usuario
@@ -61,6 +61,4 @@ class UsuarioRepository extends EntityRepository
 		$q->setParameter(1,$id);
 		return $q->getResult();
 	}
-
-
 }

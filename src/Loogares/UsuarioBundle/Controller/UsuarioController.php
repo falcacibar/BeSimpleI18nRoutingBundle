@@ -3,18 +3,18 @@
 namespace Loogares\UsuarioBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Loogares\UsuarioBundle\Entity\Usuario;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class UsuarioController extends Controller
 {
     
-    public function indexAction($name)
-    {
+    public function indexAction($name) {
         return $this->render('LoogaresUsuarioBundle:Usuarios:index.html.twig', array('name' => $name));
     }
 
-    public function showAction($slug)
-    {
+    public function showAction($slug) {
         $em = $this->getDoctrine()->getEntityManager();
         $pr = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
@@ -24,7 +24,7 @@ class UsuarioController extends Controller
         }
         
         //Total recomendaciones usuario
-        $recomendaciones = $pr->getUserReviews($usuarioResult->getId()); 
+        $recomendaciones = $pr->getUsuarioRecomendaciones($usuarioResult->getId()); 
         $totalRecomendaciones = count($recomendaciones);
 
         //Primeras recomendaciones usuario
@@ -89,5 +89,30 @@ class UsuarioController extends Controller
         $data->desdeResult = $usuarioResult->getFechaRegistro()->format('d-m-Y');
         $data->links = $links;
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
+    }
+
+    public function registroAction(Request $request) {
+
+        $usuario = new Usuario();        
+
+        $form = $this->createFormBuilder($usuario)
+                     ->add('usuario', 'text')
+                     ->add('mail', 'text')
+                     ->add('password', 'password')
+                     ->add('nombre', 'text')
+                     ->add('apellido', 'text')
+                     ->getForm();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+
+            if ($form->isValid()) {
+                // perform some action, such as saving the task to the database
+
+                return $this->redirect($this->generateUrl('showUsuario', array('slug' => 'sebastian-vicencio')));
+            }
+        }
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:registro.html.twig', array('form' => $form->createView()));  
     }
 }
