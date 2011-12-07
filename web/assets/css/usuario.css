@@ -92,7 +92,7 @@ input[type=text], input[type=password]{
 	margin:10px 0;
 }
 
-#registro-corriente .form-registro div div.tip-registro{
+#registro-corriente .form-registro div span.tip-registro{
 	font-size:0.8em;
 	width:260px;
 	float:left;
@@ -110,8 +110,17 @@ input[type=text], input[type=password]{
 	margin-top:3px;
 }
 
+#registro-corriente .form-registro .errores-registro{
+	color:red;
+	font-size:0.9em;
+}
+
 #registro-corriente .form-registro div input[type=text], #registro-corriente .form-registro div input[type=password] {
 	width:250px;
+}
+
+.placeholder{
+	color: #ccc;
 }
 
 .no-right-border {

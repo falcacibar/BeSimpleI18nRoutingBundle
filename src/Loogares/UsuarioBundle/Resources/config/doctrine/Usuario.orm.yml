@@ -49,8 +49,10 @@ Loogares\UsuarioBundle\Entity\Usuario:
             nullable: true
         fecha_registro:
             type: datetime
+            nullable: true
         fecha_ultima_actividad:
             type: datetime
+            nullable: true
         confirmado:
             type: integer
         newsletter_activo:
@@ -58,8 +60,10 @@ Loogares\UsuarioBundle\Entity\Usuario:
         hash_confirmacion:
             type: string
             length: 40
+            nullable: true
         cookie:
             type: string
+            nullable: true
         facebook_uid:
             type: integer
             nullable: true

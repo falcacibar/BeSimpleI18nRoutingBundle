@@ -16,26 +16,26 @@ class UsuarioController extends Controller
 
     public function showAction($slug) {
         $em = $this->getDoctrine()->getEntityManager();
-        $pr = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
-        $usuarioResult = $pr->findOneBySlug($slug); 
+        $usuarioResult = $ur->findOneBySlug($slug); 
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No user found for slug '.$slug);
         }
         
         //Total recomendaciones usuario
-        $recomendaciones = $pr->getUsuarioRecomendaciones($usuarioResult->getId()); 
+        $recomendaciones = $ur->getUsuarioRecomendaciones($usuarioResult->getId()); 
         $totalRecomendaciones = count($recomendaciones);
 
         //Primeras recomendaciones usuario
-        $primerasRecomendaciones = $pr->getPrimerasRecomendaciones($usuarioResult->getId());
+        $primerasRecomendaciones = $ur->getPrimerasRecomendaciones($usuarioResult->getId());
         $totalPrimerasRecomendaciones = count($primerasRecomendaciones);   
 
         //Total de lugares agregados por el usuario
-        $totalLugaresAgregados = $pr->getLugaresAgregadosUsuario($usuarioResult->getId());
+        $totalLugaresAgregados = $ur->getLugaresAgregadosUsuario($usuarioResult->getId());
 
         //Total de fotos de lugares agregadas por el usuario
-        $totalImagenesLugar= $pr->getFotosLugaresAgregadasUsuario($usuarioResult->getId());
+        $totalImagenesLugar= $ur->getFotosLugaresAgregadasUsuario($usuarioResult->getId());
 
         //Cálculo de edad
         if($usuarioResult->getFechaNacimiento() != null) {
@@ -107,9 +107,26 @@ class UsuarioController extends Controller
             $form->bindRequest($request);
 
             if ($form->isValid()) {
-                // perform some action, such as saving the task to the database
+                $em = $this->getDoctrine()->getEntityManager();
+                $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
-                return $this->redirect($this->generateUrl('showUsuario', array('slug' => 'sebastian-vicencio')));
+                //Form válido, generamos slug y fecha creación
+                $nombreUsuario = $usuario->getUsuario();
+                $nombreUsuario = strtolower($ur->getUsuarioSinCaracteresRaros($nombreUsuario));
+                $nombreUsuario = str_replace(" ","-",$nombreUsuario);
+                $usuario->setSlug($nombreUsuario);
+                $usuario->setImagenFull("default.png");
+                //$usuario->setFechaRegistro();
+                $usuario->setNewsletterActivo(1);
+
+                //Usuario queda como no confirmado
+                $usuario->setConfirmado(0);
+
+                //Agregamos registro a la base de datos
+                $em->persist($usuario);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('showUsuario', array('slug' => $usuario->getSlug())));
             }
         }
 

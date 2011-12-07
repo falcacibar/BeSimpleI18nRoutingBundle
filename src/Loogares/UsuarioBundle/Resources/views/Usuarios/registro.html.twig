@@ -1,12 +1,7 @@
 {% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
-{% block javascripts %}
-	{{parent()}}
-	<script type="text/javascript">
-		$('input[type=text]').placeholder();
-	</script>
-{% endblock %}
 
-{% block title %}Registro de usuario | {{parent()}}{% endblock %}
+{% block title %}¡Regístrate en Loogares.com! | {{parent()}}{% endblock %}
+
 {% block content %}
 
 	<div id="registro-corriente">
@@ -15,21 +10,50 @@
 			<div class="form-registro">
 				{{ form_errors(form) }}
 
-			    {{ form_row(form.usuario) }}
-			    {{ form_row(form.mail) }}
-			    {{ form_row(form.password) }}
-			    <input type="text" id="asd" date-placeholder="asdasd"/>
+				{% if form_errors(form.usuario) or form_errors(form.mail) or form_errors(form.password) or form_errors(form.nombre) or form_errors(form.apellido) %}
+				<div class="errores-registro">
+					{{ form_errors(form.usuario) }}
+					{{ form_errors(form.mail) }}
+					{{ form_errors(form.password) }}
+					{{ form_errors(form.nombre) }}
+					{{ form_errors(form.apellido) }}
+				</div>
+				{% endif %}
 
-			    <div>
+				<div>
+					{{ form_label(form.usuario) }}
+					{{ form_widget(form.usuario, { 'attr': {'data-placeholder': 'Ej. juanito'} } ) }}
+				</div>
+
+				<div>
+					{{ form_label(form.mail) }}
+					{{ form_widget(form.mail, { 'attr': {'data-placeholder': 'Ej. juanito@empresa.com'}}) }}
+				</div>
+
+				<div>
+					{{ form_label(form.password) }}
+					{{ form_widget(form.password) }}
+				</div>
+				<div>
 			    	<label></label>
-			    	<div class="tip-registro">El password debe tener un mínimo de 6 caracteres.</div>
+			    	<span class="tip-registro">El password debe tener un mínimo de 6 caracteres.</span>
 			    </div>
+
+				<div>
+					{{ form_label(form.nombre) }}
+					{{ form_widget(form.nombre, { 'attr': {'data-placeholder': 'Ej. Juan'}}) }}
+				</div>
+
+				<div>
+					{{ form_label(form.apellido) }}
+					{{ form_widget(form.apellido, { 'attr': {'data-placeholder': 'Ej. Valdéz'}}) }}
+				</div>			    
 
 			    {{ form_rest(form) }}
 
 			    <div>
 			    	<label></label>
-			    	<div class="tip-registro">Al hacer click en Registrar confirmo ser mayor de 14 años y acepto los Términos de uso de Loogares.com</div>
+			    	<span class="tip-registro">Al hacer click en Registrar confirmo ser mayor de 14 años y acepto los Términos de uso de Loogares.com</span>
 				</div>
 
 				<div class="submit-registro">
@@ -44,4 +68,21 @@
 		<h3>¡O regístrate rápidamente con tu Facebook!</h3>
 	</div>
 
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	<script type="text/javascript">
+		$.each($('#registro-corriente .form-registro div input[type=text]'), function(){
+			$(this).placeholder();
+		});
+
+		$('.submit-registro input').click(function(){
+			$.each($('#registro-corriente .form-registro div input[type=text]'), function(){
+				if($(this).attr('data-placeholder') == $(this).val()){
+					$(this).val('');
+				};
+			});
+		});
+	</script>
 {% endblock %}
