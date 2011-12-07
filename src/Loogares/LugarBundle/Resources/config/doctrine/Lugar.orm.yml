@@ -1,5 +1,6 @@
 Loogares\LugarBundle\Entity\Lugar:
     type: entity
+    repositoryClass: Loogares\LugarBundle\Repository\LugarRepository
     table: lugares
     manyToOne:
         comuna:

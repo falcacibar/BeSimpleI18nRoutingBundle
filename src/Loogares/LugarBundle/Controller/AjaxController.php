@@ -35,7 +35,7 @@ class AjaxController extends Controller
             $otrosLugaresResult[$i]['categorias'] = explode(',',$otrosLugaresResult[$i]['categorias']);
         }
 
-        return $this->render('LoogaresLugarBundle:Lugares:otrosLugares.html.twig', array('lugares' => $otrosLugaresResult));
+        return $this->render('LoogaresLugarBundle:Ajax:otrosLugares.html.twig', array('lugares' => $otrosLugaresResult));
     }
 
     public function filtroDeLugaresAction(){
@@ -44,5 +44,16 @@ class AjaxController extends Controller
 
     public function sugerirUnLugarAction(){
         return new Response('<h1>Sugerir un Lugar</h1>');
+    }
+
+    public function generarComunasPorCiudadAction(){
+      $idCiudad = $_POST['ciudad'];
+    
+      $em = $this->getDoctrine()->getEntityManager();
+      $q = $em->createQuery('SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u where u.ciudad = ?1');
+      $q->setParameter(1, $idCiudad);
+      $comunasPorCiudadResult = $q->getResult();
+
+      return $this->render('LoogaresLugarBundle:Ajax:generarComunasPorCiudad.html.twig', array('comunas' => $comunasPorCiudadResult));
     }
 }

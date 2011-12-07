@@ -35,3 +35,9 @@ _sugerirUnLugar:
     defaults: { _controller: LoogaresLugarBundle:Ajax:sugerirUnLugar }
     requirements:
         accion: sugerirUnLugar
+
+_otrosLugaresEnElArea:
+    pattern: /ajax/{accion}
+    defaults: { _controller: LoogaresLugarBundle:Ajax:generarComunasPorCiudad }
+    requirements:
+        accion: generarComunasPorCiudad

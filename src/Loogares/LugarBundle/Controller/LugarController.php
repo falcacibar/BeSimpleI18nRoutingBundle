@@ -182,9 +182,73 @@ class LugarController extends Controller
     
     public function agregarAction()
     {
-        
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
+        $tipoCategorias = $lr->getTipoCategorias();
+        $categorias = $lr->getCategorias();
+        $ciudades = $lr->getCiudades();
+        $comunas = $lr->getComunas();
+        $sectores = $lr->getSectores();
+
+
+        $categoriaSelect = "<select class='categoria' name='categoria'><option>Elige una Categoria</option>";
+        foreach($tipoCategorias as $tipoCategoria){
+            $tipoCategoriaNombre = $tipoCategoria->getNombre();
+
+            $categoriaSelect .= "<optgroup label='$tipoCategoriaNombre'>";
+            foreach($categorias as $categoria){
+                $categoriaId = $categoria->getId();
+                $categoriaNombre = $categoria->getNombre();
+                if($categoria->getTipoCategoria()->getId() == $tipoCategoria->getId()){
+                    $categoriaSelect .= "<option value='$categoriaId'>$categoriaNombre</option>";
+                }
+            }
+            $categoriaSelect .= "</optgroup>";
+        }
+        $categoriaSelect .= "</select>";
+
+
+        $ciudadSelect = "<select class='ciudad' name='ciudad'>";
+        $comunaSelect = "<select class='comuna' name='comuna'><option>Elige una Comuna</option>";
+        $sectorSelect = "<select class='sector' name='sector'><option>Elige un Sector</option>";
+        foreach($ciudades as $ciudad){
+            $ciudadId = $ciudad->getId();
+            $ciudadNombre = $ciudad->getNombre();
+            $ciudadSelect .= "<option ".(($ciudadId == 1)?"selected":"")." value='$ciudadId'>$ciudadNombre</option>";
+
+            $comunaSelect .= "<optgroup label='$ciudadNombre'>";
+            foreach($comunas as $comuna){
+                $comunaId = $comuna->getId();
+                $comunaNombre = $comuna->getNombre();
+                if($comuna->getCiudad()->getId() == $ciudadId){
+                    $comunaSelect .= "<option value='$comunaId'>$comunaNombre</option>";
+                     
+                }
+            }
+            $comunaSelect .= "</optgroup>";
+
+            $sectorSelect .= "<optgroup label='$ciudadNombre'>";
+            foreach($sectores as $sector){
+                $sectorId = $sector->getId();
+                $sectorNombre = $sector->getNombre();
+                if($sector->getCiudad()->getId() == $ciudadId){
+                    $sectorSelect .= "<option value='$sectorId'>$sectorNombre</option>";
+                     
+                }
+            }
+            $sectorSelect .= "</optgroup>";
+        }
+        $ciudadSelect .= "</select>";
+        $comunaSelect .= "</select>";
+
+        $data['categoriaSelect'] = $categoriaSelect;
+        $data['ciudadSelect'] = $ciudadSelect;
+        $data['comunaSelect'] = $comunaSelect;
+        $data['sectorSelect'] = $sectorSelect;
+
+        $data['categorias'] = $lr->getCategorias();
         #return new Response('dohohoho');
-        return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig');
+        return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array('data' => $data));
     }
 }

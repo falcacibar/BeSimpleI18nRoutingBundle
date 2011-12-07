@@ -4,8 +4,13 @@
 
 {% block stylesheets %}
     <style>
+        body{
+            font-size: 12px !important;
+        }
+
         .agregar-lugar li{
             display: block; 
+            margin: 4px;
         }
 
         .placeholder{
@@ -16,6 +21,11 @@
             padding: 4px;
             border: none;
             border: 1px solid #ccc;
+            width: 200px;
+        }
+
+        select{
+            width: 209px;
         }
 
         input:focus{
@@ -25,6 +35,15 @@
         .input-active{
             border: 1px solid #3f0;
         }
+
+        label{
+            width: 100px;
+            display: inline-block;
+        }
+
+        .more-info{
+            margin-left: 105px;
+        }
     </style>
 {% endblock %}
 
@@ -33,30 +52,101 @@
 
 
     <script>
+        function actualizarComunas(){
+            var ciudadSeleccionada = $('.ciudad > option:selected').text();
+            $.each(optGroupComunas, function(i){
+                if(optGroupComunas[i].match(ciudadSeleccionada)){
+                    $('.comuna > optgroup').remove('optgroup');
+                    $('.comuna').append(optGroupComunas[i]);
+                }
+            });
+
+            $.each(optGroupSectores, function(i){
+                if(optGroupSectores[i].match(ciudadSeleccionada)){
+                    $('.sector > optgroup').remove('optgroup');
+                    $('.sector').append(optGroupSectores[i]);
+                }
+            });
+        }
+
+        /* INITIALIZATION */
+
+        var optGroupComunas = [],
+            optGroupSectores = [];
+
+        $('.comuna > optgroup').each(function(i){
+            optGroupComunas[i] = $(this).outerHTML();
+            $(this).remove();
+        });
+
+        $('.sector > optgroup').each(function(i){
+            optGroupSectores[i] = $(this).outerHTML();
+            $(this).remove();
+        });
+
+        actualizarComunas();
+
+        /* INITIALIZATION COMPLETE 0101 */
         $('input[type=text]').each(function(){
-            $this = $(this);
-            placeholder = $this.attr('data-placeholder');
-
-            $this.val(placeholder);
-            $this.addClass('placeholder');
-        }).focus(function(){
-            $this = $(this);
-            placeholder = $this.attr('data-placeholder');
-            $this.removeClass('placeholder').addClass('input-active');
-
-            if($this.val() == placeholder){
-                $this.val('');
-            }
-        }).blur(function(){
-            $this = $(this);
-            placeholder = $this.attr('data-placeholder');
-            $this.removeClass('input-active');
-
-            if($this.val() == ''){
-                $this.val(placeholder);
-                $this.addClass('placeholder');
-            }            
+            $(this).placeholder();
         })
+
+        $('.more-info').click(function(e){
+            e.preventDefault();
+
+            /*
+            * rel = Relacion del more-info con su select/input
+            * itemCount es un contador del total de Categorias en la pagina
+            * $item es el primer item encontrado (en base a la clase) de la relacion
+            * $otroItemLi es un Clon del primer select/input (jQuery Object)
+            * $masItem es el boton de agregar mas categorias (jQuery Object)
+            */
+
+            var rel = $(this).find('a').attr('rel'),
+                itemCount = $('.'+rel).length,
+                $item = $('.'+rel+':first'),
+                $otroItemLi =  $item.parent().clone(),
+                $masItem = $(this);
+                
+            
+            //Al maximo de categorias adicionales (2) le restamos el total de categorias existentes
+            $masItem.find('span').text(2 - itemCount);
+
+            //Al Li de la nueva categoria, le agregamos el Quitar para poder sacarlo de ser necesario
+            $otroItemLi.append('<span class="quitar-more-info"><a href="">Quitar</a></span>')
+
+            //Si hay menos de 3 Categorias, agregamos una nueva, le cambiamos el Id para que represente un incremento
+            if(itemCount <= 3){
+                $otroItemLi.find('.'+rel).attr('name', rel+(itemCount+1));
+                if(rel == 'telefono'){
+                    $otroItemLi.find('.'+rel).removeClass('input-active').placeholder();
+                }
+                $item.parent().after($otroItemLi);
+            }
+
+            //Si tenemos 3 categorias, escondemos el boton para agregar mas, +1 representa a la nueva agregada
+            if(3 == itemCount + 1){
+                $masItem.hide();
+            }
+        });
+
+
+        $('.quitar-more-info').live('click', function(e){
+            e.preventDefault();
+            rel = $(this).find('a').attr('rel')
+            $(this).parent().remove();
+            var categoriaCount = $('.'+rel).length;
+            if(categoriaCount <= 3){
+                $(this).show();
+                $('#otra-categoria span').text(3 - categoriaCount)
+            }
+        });
+
+
+
+        $('.ciudad').change(function(){
+            actualizarComunas();
+        });
     </script>
 {% endblock %}
 
@@ -68,18 +158,18 @@
     </li>
     <li>
         <label>Categorias</label>
-        <select name="categorias" class="categorias"/>
-        </select>
-        <span>Otra categoria</span>
+        {{ data.categoriaSelect | raw}}
+    </li>
+    <li>
+        <span class="more-info"><a rel="categoria" href="">Otra categoria (Max <span>2</span>)</a></span>
     </li>
     <li>
         <label>Ciudad</label>
-        <select name="ciudades" id="ciudades">
+        {{ data.ciudadSelect | raw}}
     </li>
     <li>
         <label>Comuna</label>
-        <select name="comunas" id="comunas">
-        </select>
+        {{ data.comunaSelect | raw}}
     </li>
     <li>
         <label>Direccion</label>
@@ -89,13 +179,14 @@
     </li>
     <li>
         <label>Sector</label>
-        <select name="sectores" id="sectores">
-        </select>
+        {{ data.sectorSelect | raw }}
     </li>
     <li>
         <label>Telefono</label>
         <input type="text" name="telefono" class="telefono" data-placeholder="Ej. +56 2 2130894"/>
-        <span>Mas telefonos</span>
+    </li>
+    <li>
+         <span class="more-info"><a rel="telefono" href="">Mas telefonos</a></span>
     </li>
     <li>
         <label>Sitio Web</label>
