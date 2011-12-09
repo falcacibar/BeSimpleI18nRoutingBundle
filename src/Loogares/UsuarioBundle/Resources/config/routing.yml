@@ -6,7 +6,12 @@ registroUsuario:
     pattern: /registro
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:registro }
 
+confirmarUsuario:
+    pattern:  /confirmar/{hash}
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:confirmar }
+
 showUsuario:
     pattern:  /{slug}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:show }
+
 

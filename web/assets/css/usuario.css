@@ -106,8 +106,8 @@ input[type=text], input[type=password]{
 #registro-corriente .form-registro div label{
 	width:110px;
 	float:left;
-	font-size:0.9em;
-	margin-top:3px;
+	font-size:0.8em;
+	margin-top:5px;
 }
 
 #registro-corriente .form-registro .errores-registro{

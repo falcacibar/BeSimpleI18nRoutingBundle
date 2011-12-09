@@ -21,12 +21,12 @@
 				{% endif %}
 
 				<div>
-					{{ form_label(form.usuario) }}
+					{{ form_label(form.usuario, 'Nombre de usuario') }}
 					{{ form_widget(form.usuario, { 'attr': {'data-placeholder': 'Ej. juanito'} } ) }}
 				</div>
 
 				<div>
-					{{ form_label(form.mail) }}
+					{{ form_label(form.mail, 'E-mail') }}
 					{{ form_widget(form.mail, { 'attr': {'data-placeholder': 'Ej. juanito@empresa.com'}}) }}
 				</div>
 

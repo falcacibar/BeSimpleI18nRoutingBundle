@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.ini }
-    - { resource: security.yml }
+    - { resource: apis.ini }
+    - { resource: security.yml } 
 
 framework:
     #esi:             ~

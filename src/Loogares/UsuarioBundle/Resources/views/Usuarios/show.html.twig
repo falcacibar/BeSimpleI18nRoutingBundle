@@ -4,6 +4,11 @@
 {% block content %}
 	{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
 	<div id="main-usuario">
+		{% if app.session.hasFlash('confirmacion-registro') %}
+		    <div class="flash-notice">
+		        {{ app.session.flash('confirmacion-registro') }}
+		    </div>
+		{% endif %}
 		<div id="data-usuario">
 			<div id="image-usuario"></div>
 			<h3>{{usuario.usuario}}</h3>

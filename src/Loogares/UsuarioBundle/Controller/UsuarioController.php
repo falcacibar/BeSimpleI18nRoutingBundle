@@ -110,26 +110,78 @@ class UsuarioController extends Controller
                 $em = $this->getDoctrine()->getEntityManager();
                 $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
-                //Form válido, generamos slug y fecha creación
+                // Form válido, generamos slug y fecha creación
                 $nombreUsuario = $usuario->getUsuario();
                 $nombreUsuario = strtolower($ur->getUsuarioSinCaracteresRaros($nombreUsuario));
                 $nombreUsuario = str_replace(" ","-",$nombreUsuario);
                 $usuario->setSlug($nombreUsuario);
                 $usuario->setImagenFull("default.png");
-                //$usuario->setFechaRegistro();
-                $usuario->setNewsletterActivo(1);
+                $usuario->setFechaRegistro(new \DateTime());
 
-                //Usuario queda como no confirmado
+                // Password codificado en SHA2 (por ahora MD5 por compatibilidad)
+                $usuario->setPassword(md5($usuario->getPassword()));                
+
+                // Usuario queda como no confirmado y se genera hash confirmación
                 $usuario->setConfirmado(0);
+                $usuario->setNewsletterActivo(1);
+                $hashConfirmacion = md5($usuario->getMail().$usuario->getId().time());
+                $usuario->setHashConfirmacion($hashConfirmacion);
 
-                //Agregamos registro a la base de datos
+                // Agregamos registro a la base de datos
                 $em->persist($usuario);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('showUsuario', array('slug' => $usuario->getSlug())));
+                // Se envía mail de confirmación a usuario
+                //$confirmacionURL = 
+
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('Hello Email')
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo('sebastian.vicencio@loogares.com')
+                        ->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.html.twig', array('usuario' => $usuario)), 'text/html')
+                        ->addPart($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.txt.twig', array('usuario' => $usuario)), 'text/plain');
+                $this->get('mailer')->send($message);
+
+                // Armado de datos para pasar a Twig
+                $data = array('nombre' => $usuario->getNombre(), 'apellido' => $usuario->getApellido());
+                return $this->render('LoogaresUsuarioBundle:Usuarios:mensaje_registro.html.twig', array('usuario' => $data)); 
             }
         }
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:registro.html.twig', array('form' => $form->createView()));  
+    }
+
+    public function confirmarAction($hash) {
+
+        /* Verificamos que el $hash pertenezca a un usuario */
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
+        $usuarioResult = $ur->findOneBy(array('hash_confirmacion' => $hash));
+        if(!$usuarioResult) {
+            $this->get('session')->setFlash('confirmacion-registro','Código de confirmación incorrecto');
+            return $this->redirect($this->generateUrl('showUsuario', array('slug' => 'sebastian-vicencio')));
+        }
+
+        // Si el usuario ya estaba confirmado
+        if($usuarioResult->getConfirmado() == 1) {
+            $this->get('session')->setFlash('confirmacion-registro', 'Confirmación realizada con anterioridad');
+            return $this->redirect($this->generateUrl('showUsuario', array('slug' => $usuarioResult->getSlug())));
+        }    
+        
+        // Hash correcto y usuario no confirmado
+        $usuarioResult->setConfirmado(1);
+        $em->flush();
+
+        // Se agrega usuario a lista de correos de Mailchimp
+
+
+
+        // Usuario inicia sesión automáticamente
+
+
+
+        $this->get('session')->setFlash('confirmacion-registro', '¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún lugar para recomendar?');
+        return $this->redirect($this->generateUrl('showUsuario', array('slug' => $usuarioResult->getSlug())));
     }
 }
