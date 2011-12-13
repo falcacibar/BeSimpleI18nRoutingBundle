@@ -191,22 +191,22 @@ class LugarController extends Controller
         $comunas = $lr->getComunas();
         $sectores = $lr->getSectores();
 
-
-        $categoriaSelect = "<select class='categoria' name='categoria'><option>Elige una Categoria</option>";
+        $categoriaSelect = "<select class='categoria' id='categoria' name='categoria'><option value='elegir'>Elige una Categoria</option>";
         foreach($tipoCategorias as $tipoCategoria){
             $tipoCategoriaNombre = $tipoCategoria->getNombre();
 
             $categoriaSelect .= "<optgroup label='$tipoCategoriaNombre'>";
             foreach($categorias as $categoria){
                 $categoriaId = $categoria->getId();
+                $categoriaSlug = $categoria->getSlug();
                 $categoriaNombre = $categoria->getNombre();
                 if($categoria->getTipoCategoria()->getId() == $tipoCategoria->getId()){
-                    $categoriaSelect .= "<option value='$categoriaId'>$categoriaNombre</option>";
+                    $categoriaSelect .= "<option value='$categoriaSlug'>$categoriaNombre</option>";
                 }
             }
             $categoriaSelect .= "</optgroup>";
         }
-        $categoriaSelect .= "</select>";
+        $categoriaSelect .= "</select><div class='subcategorias'><ul></ul></div>";
 
 
         $ciudadSelect = "<select class='ciudad' name='ciudad'>";
@@ -241,6 +241,7 @@ class LugarController extends Controller
         }
         $ciudadSelect .= "</select>";
         $comunaSelect .= "</select>";
+        $sectorSelect .= "</select>";
 
         $data['categoriaSelect'] = $categoriaSelect;
         $data['ciudadSelect'] = $ciudadSelect;

@@ -11,7 +11,6 @@ jQuery.fn.placeholder = function(){
     $this.val(placeholder);
     $this.addClass('placeholder');
 
-    
     $this.focus(function(){
         var $this = $(this),
             placeholder = $this.attr('data-placeholder');
@@ -24,12 +23,24 @@ jQuery.fn.placeholder = function(){
         var $this = $(this),
             placeholder = $this.attr('data-placeholder');
 
+        $this.removeClass('input-active');
+        
         if($this.val() == ''){
-            $this.removeClass('input-active');
             $this.val(placeholder);
             $this.addClass('placeholder');
         }            
     });
 
     return $this;
+}
+
+jQuery.fn.checkDefaultClass = function(val){
+    var $cloned = $(this).clone();
+    $cloned.removeClass(val).removeClass('no-default').removeClass('caracteristica');
+    if($cloned.attr('class').length == 0){
+        return true;
+    }else{
+        return false;
+    }
+    
 }
