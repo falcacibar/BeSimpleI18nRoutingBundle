@@ -24,3 +24,6 @@ assetic:
 
 swiftmailer:
     delivery_address:  sebastian.vicencio@loogares.com
+    transport: gmail
+    username: elpuclitico
+    password: sebavielmas

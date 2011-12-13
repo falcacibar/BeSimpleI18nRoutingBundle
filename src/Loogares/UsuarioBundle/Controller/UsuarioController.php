@@ -128,6 +128,7 @@ class UsuarioController extends Controller
                 $usuario->setNewsletterActivo(1);
                 $hashConfirmacion = md5($usuario->getMail().$usuario->getId().time());
                 $usuario->setHashConfirmacion($hashConfirmacion);
+                $usuario->setSalt('');
 
                 // Agregamos registro a la base de datos
                 $em->persist($usuario);

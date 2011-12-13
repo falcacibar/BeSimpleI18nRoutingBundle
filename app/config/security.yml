@@ -38,4 +38,4 @@ security:
                 key: remember
 
     access_control:
-        - { path: ^/lugar/agregar, roles: ROLE_USER }
+        
