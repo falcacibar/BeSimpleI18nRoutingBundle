@@ -75,4 +75,7 @@ Loogares\UsuarioBundle\Entity\Usuario:
             nullable: true
         fecha_facebook_ultima_actividad:
             type: string
-            nullable: true  
+            nullable: true
+        salt:
+            type: string
+            length: 255  

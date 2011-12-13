@@ -19,6 +19,7 @@ $loader->registerNamespaces(array(
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
     'Twig_'            => __DIR__.'/../vendor/twig/lib',
+    'Mailchimp_' => __DIR__.'/../vendor/mailchimp/lib',
 ));
 
 // intl

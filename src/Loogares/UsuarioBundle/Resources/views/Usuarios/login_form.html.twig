@@ -1,0 +1,38 @@
+<div id="login-block">
+            {% if error %}
+                <div class="errores-form">{{ error.message }}</div>
+            {% endif %}
+
+            <form action="{{ path('login_check') }}" method="post" class="form-login">
+                <div>
+                    <label for="mail">E-mail:</label>
+                    <input type="text" id="mail" name="_mail" value="{{ last_mail }}" />
+                </div>
+
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="_password" />
+                </div>
+
+                <div>
+                    <label></label>
+                    <span class="tip"><a href="">¿Olvidaste tu password?</a></span>
+                </div> <br/>
+
+                <div class="recordarme">
+                    <label></label>
+                    <input type="checkbox" id="remember_me" name="_remember_me" />
+                    <span class="tip">Recordarme</span>
+                    
+                </div>
+
+                {#
+                    If you want to control the URL the user is redirected to on success (more details below)
+                    <input type="hidden" name="_target_path" value="/account" />
+                #}
+                <div class="submit">
+                    <label></label>
+                    <input type="submit" name="login" value="Entrar"/>
+                </div>
+            </form>
+        </div>

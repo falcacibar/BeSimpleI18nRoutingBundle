@@ -77,30 +77,8 @@ input[type=text], input[type=password]{
 
 /* Registro de usuario */
 
-#registro-corriente {
-	float:left;
-	width:48%;
-	border-right:1px solid #ccc;
-}
-
-#registro-facebook {
-	float:right;
-	width:50%;
-}
-
 #registro-corriente .form-registro div{
 	margin:10px 0;
-}
-
-#registro-corriente .form-registro div span.tip-registro{
-	font-size:0.8em;
-	width:260px;
-	float:left;
-	margin: 0 0 10px 0;
-}
-
-#registro-corriente .form-registro div.submit-registro{
-	float:left;
 }
 
 #registro-corriente .form-registro div label{
@@ -110,13 +88,99 @@ input[type=text], input[type=password]{
 	margin-top:5px;
 }
 
-#registro-corriente .form-registro .errores-registro{
+#registro-corriente .form-registro div input[type=text], #registro-corriente .form-registro div input[type=password] {
+	width:250px;
+}
+
+#registro-facebook .caja-facebook {
+	width:458px;
+	height:65px;
+	background:#ccc;
+	border:1px solid black;
+	margin-bottom:30px;
+}
+
+/* Login de usuario */
+
+.form-login div {
+	margin:10px 0;
+}
+
+.form-login div label {
+	width:82px;
+	float:left;
+	font-size:0.8em;
+	margin-top:5px;
+}
+
+.form-login div input[type=text], .form-login div input[type=password] {
+	width:220px;
+}
+
+.form-login div input[type=checkbox] {
+	float:left;
+	margin-right:5px;
+}
+
+.form-login div.recordarme span {
+	margin-top:2px;
+}
+
+#login-registro p.texto-login-registro {
+	font-size:0.9em;
+}
+
+#login-registro a.registrar-boton {
+	margin:10px auto;
+	color:black;
+	text-decoration:none;
+}
+
+#login-registro a.registrar-boton div {
+	background:#ccc;
+	width:222px;
+	height:45px;
+	margin:15px auto;
+	padding-top: 20px;
+	text-align:center;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	font-size:1.2em;
+	font-weight:bold;
+}
+
+/* Extras */
+
+.errores-form {
 	color:red;
 	font-size:0.9em;
 }
 
-#registro-corriente .form-registro div input[type=text], #registro-corriente .form-registro div input[type=password] {
-	width:250px;
+.columna-izquierda {
+	float:left;
+	width:48%;
+	border-right:1px solid #ccc;
+}
+
+.columna-derecha {
+	float:right;
+	width:50%;
+}
+
+h3.titulo {
+	margin-bottom:30px;
+	padding-bottom:10px;
+}
+
+div span.tip {
+	font-size:0.8em;
+	width:260px;
+	float:left;
+	margin: 0 0 10px 0;
+}
+
+div.submit {
+	float:left;
 }
 
 .placeholder{

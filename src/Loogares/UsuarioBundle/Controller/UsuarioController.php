@@ -5,6 +5,8 @@ namespace Loogares\UsuarioBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Loogares\UsuarioBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContext;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 
 class UsuarioController extends Controller
@@ -13,7 +15,7 @@ class UsuarioController extends Controller
     public function indexAction($name) {
         return $this->render('LoogaresUsuarioBundle:Usuarios:index.html.twig', array('name' => $name));
     }
-
+    
     public function showAction($slug) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
@@ -132,12 +134,10 @@ class UsuarioController extends Controller
                 $em->flush();
 
                 // Se envía mail de confirmación a usuario
-                //$confirmacionURL = 
-
                 $message = \Swift_Message::newInstance()
-                        ->setSubject('Hello Email')
+                        ->setSubject('Confirma tu cuenta en Loogares.com')
                         ->setFrom('noreply@loogares.com')
-                        ->setTo('sebastian.vicencio@loogares.com')
+                        ->setTo($usuario->getMail())
                         ->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.html.twig', array('usuario' => $usuario)), 'text/html')
                         ->addPart($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.txt.twig', array('usuario' => $usuario)), 'text/plain');
                 $this->get('mailer')->send($message);
@@ -148,16 +148,33 @@ class UsuarioController extends Controller
             }
         }
 
-        return $this->render('LoogaresUsuarioBundle:Usuarios:registro.html.twig', array('form' => $form->createView()));  
+
+        // Manejo del login incluido en la vista de registro
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:registro.html.twig', array(
+            'form' => $form->createView(),
+            'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
+            'error'         => $error,
+            ));  
     }
 
     public function confirmarAction($hash) {
 
-        /* Verificamos que el $hash pertenezca a un usuario */
+        // Verificamos que el $hash pertenezca a un usuario
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
         $usuarioResult = $ur->findOneBy(array('hash_confirmacion' => $hash));
+
+        //Si el usuario con el $hash no existe
         if(!$usuarioResult) {
             $this->get('session')->setFlash('confirmacion-registro','Código de confirmación incorrecto');
             return $this->redirect($this->generateUrl('showUsuario', array('slug' => 'sebastian-vicencio')));
@@ -174,7 +191,15 @@ class UsuarioController extends Controller
         $em->flush();
 
         // Se agrega usuario a lista de correos de Mailchimp
-
+        $mc = new \MCAPI_MCAPI($this->container->getParameter('mailchimp_apikey'));
+        $merge_vars = array(
+            'EMAIL' => utf8_encode($usuarioResult->getMail()),
+            'FNAME' => utf8_encode($usuarioResult->getNombre()),
+            'LNAME' => utf8_encode($usuarioResult->getApellido()),
+            'USER' => utf8_encode($usuarioResult->getUsuario()),
+            'IDUSER' => '4000'
+        );
+        $r = $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true);
 
 
         // Usuario inicia sesión automáticamente
@@ -183,5 +208,25 @@ class UsuarioController extends Controller
 
         $this->get('session')->setFlash('confirmacion-registro', '¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún lugar para recomendar?');
         return $this->redirect($this->generateUrl('showUsuario', array('slug' => $usuarioResult->getSlug())));
+    }
+
+    public function loginAction()
+    {
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            return $this->redirect($this->generateUrl('showUsuario', array('slug' => $this->get('security.context')->getToken()->getUser()->getSlug())));
+            
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
+            'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
+            'error'         => $error,
+        ));
     }
 }
