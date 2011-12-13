@@ -52,4 +52,12 @@ class LugarRepository extends EntityRepository
 
       return $sectorResult;
     }
+
+    public function getCaracteristicas(){
+      $em = $this->getEntityManager();
+      $q = $em->createQuery('SELECT u FROM Loogares\LugarBundle\Entity\Caracteristica u');
+      $caracteristicasResult = $q->getResult();
+
+      return $caracteristicasResult;
+    }
 }

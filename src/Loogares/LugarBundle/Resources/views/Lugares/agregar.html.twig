@@ -17,18 +17,27 @@
             color: #ccc;
         }
 
-        input{
+        .subcategorias{
+            display: block;
+            margin-left: 100px;
+        }
+
+        input, textarea{
             padding: 4px;
             border: none;
             border: 1px solid #ccc;
             width: 200px;
         }
 
+        .caracteristica input{
+            width: 10px;   
+        }
+
         select{
             width: 209px;
         }
 
-        input:focus{
+        input:focus, textarea{
             outline: none;
         }
 
@@ -39,19 +48,65 @@
         label{
             width: 100px;
             display: inline-block;
+            vertical-align: top;
+        }
+
+        li{
+            display: block;
         }
 
         .more-info{
             margin-left: 105px;
         }
+
+        li.no-default{
+            display: none;
+        }
+
+        .caracteristicas{
+            position: relative;
+            display: inline-block;
+
+        }
+
+        .subcategorias ul{
+            width: 400px;
+            display: inline-block;
+        }
+
+        .caracteristicas ul{
+            width: 400px;
+            display: inline-block;
+            margin-top: 10px;
+            margin-left: -5px;
+        }
+
+            .caracteristicas ul label, .subcategorias ul label{
+                margin-top: 0;
+                float: left;
+                width: 180px;
+                font-size: 10px;
+            }
+
+        .caracteristicas label, .subcategorias label{
+            vertical-align: top;
+            margin-top: 10px;
+        }
+        
     </style>
 {% endblock %}
 
 {% block javascripts %}
-    {{parent()}}
-
-
+    <script src="../../assets/js/masterObject.js"></script>
     <script>
+        String.prototype.camelCase = function() {
+            str = this;
+            return str
+                .replace(/[\s\-](.)/g, function($1) { return $1.toUpperCase(); })
+                .replace(/[\s\-]/g, '')
+                .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
+        }
+
         function actualizarComunas(){
             var ciudadSeleccionada = $('.ciudad > option:selected').text();
             $.each(optGroupComunas, function(i){
@@ -72,7 +127,9 @@
         /* INITIALIZATION */
 
         var optGroupComunas = [],
-            optGroupSectores = [];
+            optGroupSectores = [],
+            selected = {},
+            caracteristicasASacar = [];
 
         $('.comuna > optgroup').each(function(i){
             optGroupComunas[i] = $(this).outerHTML();
@@ -87,9 +144,10 @@
         actualizarComunas();
 
         /* INITIALIZATION COMPLETE 0101 */
-        $('input[type=text]').each(function(){
+        $('input[type=text], textarea').each(function(){
             $(this).placeholder();
         })
+
 
         $('.more-info').click(function(e){
             e.preventDefault();
@@ -102,22 +160,37 @@
             * $masItem es el boton de agregar mas categorias (jQuery Object)
             */
 
-            var rel = $(this).find('a').attr('rel'),
+            var $this = $(this),
+                rel = $this.find('a').attr('rel'),
                 itemCount = $('.'+rel).length,
-                $item = $('.'+rel+':first'),
+                $item = $('.'+rel+':last'),
                 $otroItemLi =  $item.parent().clone(),
-                $masItem = $(this);
+                $masItem = $this;
                 
-            
+            //Categorias ya seleccionadas
+           
+            $('.categoria').each(function(i){
+                if($(this).val() != 'elige'){
+                    $otroItemLi.find('select').find("option[value='"+$(this).val()+"']").attr('disabled', 'disabled');
+                }
+            });
+
+            $otroItemLi.find('.subcategorias ul').html('');
+
             //Al maximo de categorias adicionales (2) le restamos el total de categorias existentes
             $masItem.find('span').text(2 - itemCount);
-
-            //Al Li de la nueva categoria, le agregamos el Quitar para poder sacarlo de ser necesario
-            $otroItemLi.append('<span class="quitar-more-info"><a href="">Quitar</a></span>')
+            if($otroItemLi.find('span').length == 0){
+                //Al Li de la nueva categoria, le agregamos el Quitar para poder sacarlo de ser necesario
+                if(rel == 'categoria'){
+                    $otroItemLi.find('.subcategorias').before('<span class="quitar-more-info"><a href="">Quitar</a></span>');
+                }else{
+                    $otroItemLi.append('<span class="quitar-more-info"><a href="">Quitar</a></span>');
+                }
+            }
 
             //Si hay menos de 3 Categorias, agregamos una nueva, le cambiamos el Id para que represente un incremento
             if(itemCount <= 3){
-                $otroItemLi.find('.'+rel).attr('name', rel+(itemCount+1));
+                $otroItemLi.find('.'+rel).attr('name', rel+(itemCount+1)).attr('id', rel+(itemCount+1));
                 if(rel == 'telefono'){
                     $otroItemLi.find('.'+rel).removeClass('input-active').placeholder();
                 }
@@ -133,15 +206,157 @@
 
         $('.quitar-more-info').live('click', function(e){
             e.preventDefault();
-            rel = $(this).find('a').attr('rel')
-            $(this).parent().remove();
-            var categoriaCount = $('.'+rel).length;
-            if(categoriaCount <= 3){
-                $(this).show();
-                $('#otra-categoria span').text(3 - categoriaCount)
-            }
+
+            //guardamos el valor del que sacamos, para habilitarlo en los otros campos
+            var itemValue= $(this).parent().find('select, input').val(),
+                rel = $(this).parent().find('select, input').attr('class').split(' ')[0],
+                itemCount = $('.'+rel).length - 1;
+
+            //sacamos el Li
+            $(this).parent().fadeOut(function(){$(this).remove()});
+
+            $('a[rel="'+rel+'"] span').text(3 - itemCount);
+
+            $('.'+rel).each(function(){
+                $(this).find('option[value="'+itemValue+'"]').removeAttr('disabled');
+            });
+
+            $('a[rel="'+rel+'"]').parent().show();
+            
         });
 
+        $('.categoria').live('change', function(){
+            $this = $(this);
+            var categoria = $(this).val().camelCase();
+            anterior = selected[$this.attr('id')];
+
+            //Deshabilitar en los demas dropdown
+            $('.categoria').not($this).each(function(){
+                //Deshabilitamos en el resto de los dropdowns el valor que seleccionamos recien
+                $(this).find('option[value="'+$this.val()+'"]').attr('disabled', 'disabled');
+
+                //Habilitamos el valor anterior
+                $(this).find('option[value="'+selected[$this.attr('id')]+'"]').removeAttr('disabled');
+            });
+
+            $('.categoria').each(function(){
+                if( anterior != undefined ){
+
+                    //Por cada categoria que deshabilitamos
+                    habilitar = categorias[anterior.camelCase()].deshabilitar;
+                    $.each(habilitar, function(i){
+                        $('.categoria').each(function(){
+                            $aHabilitar = $(this).find('option[value="'+habilitar[i]+'"]');
+                            //Por cada categoria, reviamos si otra Categoria la deshabilito, comprobamos si la clase que la deshabilito
+                            //Es la ultima, si es, la habilitamos, si no, permanece deshabilitado
+                            if($aHabilitar.checkDefaultClass(anterior)){
+                                //Enable it
+                               $aHabilitar.removeAttr('disabled');
+                            }
+                        });
+                    }); //End Habilitar
+
+                    //Sacamos los camposo especiales.
+                    camposEspeciales = categorias[anterior.camelCase()].camposEspeciales
+                    $.each(camposEspeciales, function(i){
+                        $('#'+camposEspeciales[i]).parent().fadeOut().css('display', 'block');
+                    });
+
+                    //Subcategorias
+                    $this.parent().find('.subcategorias ul').html('');
+
+                    //caracteristicas
+                    caracteristicas = categorias[anterior.camelCase()].caracteristicas;
+                    $.each(caracteristicas, function(i){
+                        //Por cada subcategoria de la seccion que sacamos...
+                        $('input[value="'+caracteristicas[i]+'"]').each(function(){
+                            $aHabilitar = $(this);
+
+                            //Vemos si pertenece a otra categoria, para eso revisamos si tiene otra clase que no sea no-default
+                            if($aHabilitar.checkDefaultClass(anterior)){
+                                //Almacenamos las que queremos sacar
+                                caracteristicasASacar[i] = $aHabilitar;
+                            }else(
+                                $aHabilitar.removeClass(anterior.camelCase())
+                            )
+                        });
+                    });
+
+                    
+                    if(caracteristicasASacar.length == $('.caracteristica').length ){
+                        $('.caracteristicas').fadeOut(function(){
+                            $.each(caracteristicasASacar, function(i){
+                                caracteristicasASacar[i].parent().remove();
+                            });
+                        });
+                    }else{
+                        $.each(caracteristicasASacar, function(i){
+                            caracteristicasASacar[i].parent().fadeOut(function(){$(this).remove()});
+                        });
+                    }
+                }
+            })
+
+            camposEspeciales = categorias[categoria].camposEspeciales
+            $.each(camposEspeciales, function(i){
+                $('#'+camposEspeciales[i]).parent().fadeIn().css('display', 'block');
+            });
+
+            subCategorias = categorias[categoria].subCategorias;
+            $.each(subCategorias, function(i){
+                checkBoxHTML = "<li>"+
+                                   "<label class='checkbox-label subcategoria'>"+
+                                   "<input type='checkbox'"+
+                                   "class='"+categoria+"'"+
+                                   "name=subcategoria[]"+
+                                   "value='"+subCategorias[i]+"'/>"+
+                                   subCategorias[i]+"</label>"+
+                               "</li>";
+
+                $this.parent().find('.subcategorias ul').append(checkBoxHTML);
+            });
+
+            caracteristicas = categorias[categoria].caracteristicas;
+            if(caracteristicas != ''){ $('.caracteristicas').fadeIn().css('display', 'block') }
+            $.each(caracteristicas, function(i){
+                if($('input[value="'+caracteristicas[i]+'"]').val() != caracteristicas[i]){
+                    checkBoxHTML = "<li>"+
+                                       "<label class='checkbox-label caracteristica'>"+
+                                       "<input type='checkbox'"+
+                                       " class='"+categoria+"'"+
+                                       " name=caracteristica[]"+
+                                       " value='"+caracteristicas[i]+"'/>"+
+                                       caracteristicas[i]+"</label>"+
+                                   "</li>";
+                    
+                    $('.caracteristicas ul').append(checkBoxHTML).fadeIn();
+                }else{
+                    $('input[value="'+caracteristicas[i]+'"]').addClass(categoria)
+                }
+            });
+
+            deshabilitar = categorias[categoria].deshabilitar;
+            $.each(deshabilitar, function(i){
+                $('.categoria').each(function(){
+                    $(this).find('option[value="'+deshabilitar[i]+'"]').attr('disabled', 'disabled').addClass(categoria);
+                });
+            });
+            
+            //Seteamos el valor previo correspondiente al ID del dropdown que cambiamos
+            selected[$this.attr('id')] = $this.val();
+        });
+
+
+        //Validacion Subcategorias
+        $('.subcategorias').change(function(e){
+            $subcat = $(this).parent().find('.subcategoria');
+            console.log($subcat.find(':checked').length)
+            if($subcat.find(':checked').length == 3){
+                $subcat.find(':not(:checked)').attr('disabled', 'disabled');
+            }else if($subcat.find(':checked').length < 3){
+                $subcat.find(':not(:checked)').removeAttr('disabled', 'disabled');
+            }
+        });
 
 
         $('.ciudad').change(function(){
@@ -186,7 +401,7 @@
         <input type="text" name="telefono" class="telefono" data-placeholder="Ej. +56 2 2130894"/>
     </li>
     <li>
-         <span class="more-info"><a rel="telefono" href="">Mas telefonos</a></span>
+         <span class="more-info"><a rel="telefono" href="">Mas telefonos (Max <span>2</span>)</a></span>
     </li>
     <li>
         <label>Sitio Web</label>
@@ -199,6 +414,27 @@
     <li>
         <label>Twitter</label>
         <input type="text" name="twitter" id="twitter" data-placeholder="http://www.twitter.com/barelfuto"/>
+    </li>
+    <li class="no-default">
+        <label>Arquitecto</label>
+        <input type="text" name="arquitecto" id="arquitecto" data-placeholder="Ej. William Morris"/>
+    </li>
+    <li class="no-default">
+        <label>Año de Construccion</label>
+        <input type="text" name="anio-construccion" id="anio-construccion" data-placeholder="Ej. 1985, Siglo XX"/>
+    </li>
+    <li class="no-default">
+        <label>Descripcion</label>
+        <textarea name="descripcion" id="descripcion" data-placeholder="Breve Descripcion Blah Blah"></textarea>
+    </li>
+    <li class="no-default">
+        <label>Materiales</label>
+        <input type="text" name="materiales" id="materiales" data-placeholder="Ej. Cobre, Granito, etc"/>
+    </li>
+    <li class="no-default caracteristicas">
+        <label>Caracteristicas</label>
+        <ul>
+        </ul>
     </li>
 </ul>
 <input type="submit" value="Guardar Datos"/>
