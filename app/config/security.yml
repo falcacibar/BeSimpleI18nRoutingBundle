@@ -36,6 +36,8 @@ security:
                 target: /
             remember_me:
                 key: remember
-
+#            fos_facebook:
+ #               app_url: "http://apps.facebook.com/Loogares.com/"
+  #              server_url: "http://localhost/loogares/app_dev.php/" 
     access_control:
-        
+        - { path: ^/lugar/agregar, roles: ROLE_USER }

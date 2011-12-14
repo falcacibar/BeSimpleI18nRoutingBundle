@@ -94,10 +94,34 @@ input[type=text], input[type=password]{
 
 #registro-facebook .caja-facebook {
 	width:458px;
-	height:65px;
+	height:90px;
 	background:#ccc;
 	border:1px solid black;
 	margin-bottom:30px;
+}
+
+#registro-facebook .caja-facebook .imagen-registro-facebook {
+	float:left;
+	width:135px;
+	padding:10px;
+	height:27px;
+}
+
+#registro-facebook .caja-facebook .texto-registro-facebook {
+	float:right;
+	width:283px;
+	padding:10px;
+	font-size:0.9em;
+}
+
+#registro-facebook .caja-facebook .facebook-boton {
+	text-align:center;
+	padding:10px;
+}
+
+#registro-facebook .caja-facebook .caja-facebook-boton {
+	float:left;
+	width:100%;
 }
 
 /* Login de usuario */
