@@ -1,0 +1,5 @@
+Loogares\LugarBundle\Entity\Lugar:
+    properties:
+        nombre:
+            - NotBlank:
+                message:  ;o
