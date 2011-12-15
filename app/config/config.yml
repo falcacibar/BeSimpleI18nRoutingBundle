@@ -1,7 +1,9 @@
 imports:
     - { resource: parameters.ini }
     - { resource: apis.ini }
-    - { resource: security.yml } 
+    - { resource: security.yml }
+    hello_bundle:
+        resource: @LoogaresExtraBundle/Resources/config/services.yml 
 
 framework:
     #esi:             ~

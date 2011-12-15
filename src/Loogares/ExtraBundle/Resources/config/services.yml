@@ -1,7 +1,6 @@
 parameters:
-#    loogares_extra.example.class: Loogares\ExtraBundle\Example
+    loogares_fn.class: Loogares\ExtraBundle\Functions\LoogaresFunctions
 
 services:
-#    loogares_extra.example:
-#        class: %loogares_extra.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    fn:
+        class: %loogares_fn.class%
