@@ -116,12 +116,11 @@ class UsuarioController extends Controller
 
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getEntityManager();
-                $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
                 // Form válido, generamos slug y fecha creación
+                $fn = $this->get('fn');
                 $nombreUsuario = $usuario->getUsuario();
-                $nombreUsuario = strtolower($ur->getUsuarioSinCaracteresRaros($nombreUsuario));
-                $nombreUsuario = str_replace(" ","-",$nombreUsuario);
+                $nombreUsuario = $fn->generarSlug($nombreUsuario);
                 $usuario->setSlug($nombreUsuario);
                 $usuario->setImagenFull("default.png");
                 $usuario->setFechaRegistro(new \DateTime());
