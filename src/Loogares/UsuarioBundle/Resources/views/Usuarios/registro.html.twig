@@ -23,6 +23,16 @@
 				{% endif %}
 
 				<div>
+					{{ form_label(form.nombre) }}
+					{{ form_widget(form.nombre, { 'attr': {'data-placeholder': 'Ej. Juan'}}) }}
+				</div>
+
+				<div>
+					{{ form_label(form.apellido) }}
+					{{ form_widget(form.apellido, { 'attr': {'data-placeholder': 'Ej. Valdéz'}}) }}
+				</div>
+						
+				<div>
 					{{ form_label(form.usuario, 'Nombre de usuario') }}
 					{{ form_widget(form.usuario, { 'attr': {'data-placeholder': 'Ej. juanito'} } ) }}
 				</div>
@@ -38,17 +48,7 @@
 				<div>
 			    	<label></label>
 			    	<span class="tip">El password debe tener un mínimo de 6 caracteres.</span>
-			    </div>
-
-				<div>
-					{{ form_label(form.nombre) }}
-					{{ form_widget(form.nombre, { 'attr': {'data-placeholder': 'Ej. Juan'}}) }}
-				</div>
-
-				<div>
-					{{ form_label(form.apellido) }}
-					{{ form_widget(form.apellido, { 'attr': {'data-placeholder': 'Ej. Valdéz'}}) }}
-				</div>			    
+			    </div>					    
 
 			    {{ form_rest(form) }}
 
