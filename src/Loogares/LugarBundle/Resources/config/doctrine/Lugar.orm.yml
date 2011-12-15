@@ -31,6 +31,13 @@ Loogares\LugarBundle\Entity\Lugar:
                 joinColumns:
                     estado:
                         referencedColumnName: id
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+            joinTable:
+                name: lugares
+                joinColumns:
+                    estado:
+                        referencedColumnName: id
     manyToMany:
         imagenes_lugar:
             targetEntity: Loogares\LugarBundle\Entity\ImagenLugar
@@ -38,15 +45,13 @@ Loogares\LugarBundle\Entity\Lugar:
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }
     fields:
         #nombre
         nombre:
             type: string
             length: 50
         #slug
-        usuario_id:
-            type: integer
         slug:
             type: string
             length: 100

@@ -29,12 +29,16 @@
             width: 200px;
         }
 
-        .caracteristica input{
+        .caracteristica input, table input{
             width: 10px;   
         }
 
         select{
             width: 209px;
+        }
+
+        .subcategoria input{
+            width: 10px;
         }
 
         input:focus, textarea{
@@ -55,7 +59,7 @@
             display: block;
         }
 
-        .more-info{
+        span.display-more{
             margin-left: 105px;
         }
 
@@ -81,7 +85,7 @@
             margin-left: -5px;
         }
 
-            .caracteristicas ul label, .subcategorias ul label{
+            .caracteristicas ul label, .subcategorias ul label, table label{
                 margin-top: 0;
                 float: left;
                 width: 180px;
@@ -91,6 +95,23 @@
         .caracteristicas label, .subcategorias label{
             vertical-align: top;
             margin-top: 10px;
+        }
+
+        table tbody tr td select{
+            width: 80px;
+        }
+
+        .horario-pm{
+            display: none;
+        }
+
+        table td, table th{
+            width: 10px !important;
+        }
+
+        table label{
+            position: absolute;
+            margin-top: -7px;
         }
         
     </style>
@@ -131,6 +152,8 @@
             selected = {},
             caracteristicasASacar = [];
 
+        $('input[type=text], textarea').each(function(){ $(this).placeholder() });
+
         $('.comuna > optgroup').each(function(i){
             optGroupComunas[i] = $(this).outerHTML();
             $(this).remove();
@@ -143,87 +166,128 @@
 
         actualizarComunas();
 
-        /* INITIALIZATION COMPLETE 0101 */
-        $('input[type=text], textarea').each(function(){
-            $(this).placeholder();
-        })
 
 
-        $('.more-info').click(function(e){
-            e.preventDefault();
 
-            /*
-            * rel = Relacion del more-info con su select/input
-            * itemCount es un contador del total de Categorias en la pagina
-            * $item es el primer item encontrado (en base a la clase) de la relacion
-            * $otroItemLi es un Clon del primer select/input (jQuery Object)
-            * $masItem es el boton de agregar mas categorias (jQuery Object)
-            */
+        // $('.more-info').click(function(e){
+        //     e.preventDefault();
 
-            var $this = $(this),
-                rel = $this.find('a').attr('rel'),
-                itemCount = $('.'+rel).length,
-                $item = $('.'+rel+':last'),
-                $otroItemLi =  $item.parent().clone(),
-                $masItem = $this;
+        //     /*
+        //     * rel = Relacion del more-info con su select/input
+        //     * itemCount es un contador del total de Categorias en la pagina
+        //     * $item es el primer item encontrado (en base a la clase) de la relacion
+        //     * $otroItemLi es un Clon del primer select/input (jQuery Object)
+        //     * $masItem es el boton de agregar mas categorias (jQuery Object)
+        //     */
+
+        //     var $this = $(this),
+        //         rel = $this.find('a').attr('rel'),
+        //         itemCount = $('.'+rel).length,
+        //         $item = $('.'+rel+':last'),
+        //         $otroItemLi =  $item.parent().clone(),
+        //         $masItem = $this;
                 
-            //Categorias ya seleccionadas
+        //     //Categorias ya seleccionadas
            
-            $('.categoria').each(function(i){
-                if($(this).val() != 'elige'){
-                    $otroItemLi.find('select').find("option[value='"+$(this).val()+"']").attr('disabled', 'disabled');
-                }
-            });
+        //     $('.categoria').each(function(i){
+        //         if($(this).val() != 'elige'){
+        //             $otroItemLi.find('select').find("option[value='"+$(this).val()+"']").attr('disabled', 'disabled');
+        //         }
+        //     });
 
-            $otroItemLi.find('.subcategorias ul').html('');
+        //     $otroItemLi.find('.subcategorias ul').html('');
 
-            //Al maximo de categorias adicionales (2) le restamos el total de categorias existentes
-            $masItem.find('span').text(2 - itemCount);
-            if($otroItemLi.find('span').length == 0){
-                //Al Li de la nueva categoria, le agregamos el Quitar para poder sacarlo de ser necesario
-                if(rel == 'categoria'){
-                    $otroItemLi.find('.subcategorias').before('<span class="quitar-more-info"><a href="">Quitar</a></span>');
-                }else{
-                    $otroItemLi.append('<span class="quitar-more-info"><a href="">Quitar</a></span>');
-                }
-            }
+        //     //Al maximo de categorias adicionales (2) le restamos el total de categorias existentes
+        //     $masItem.find('span').text(2 - itemCount);
+        //     if($otroItemLi.find('span').length == 0){
+        //         //Al Li de la nueva categoria, le agregamos el Quitar para poder sacarlo de ser necesario
+        //         if(rel == 'categoria'){
+        //             $otroItemLi.find('.subcategorias').before('<span class="quitar-more-info"><a href="">Quitar</a></span>');
+        //         }else{
+        //             $otroItemLi.append('<span class="quitar-more-info"><a href="">Quitar</a></span>');
+        //         }
+        //     }
 
-            //Si hay menos de 3 Categorias, agregamos una nueva, le cambiamos el Id para que represente un incremento
-            if(itemCount <= 3){
-                $otroItemLi.find('.'+rel).attr('name', rel+(itemCount+1)).attr('id', rel+(itemCount+1));
-                if(rel == 'telefono'){
-                    $otroItemLi.find('.'+rel).removeClass('input-active').placeholder();
-                }
-                $item.parent().after($otroItemLi);
-            }
+        //     //Si hay menos de 3 Categorias, agregamos una nueva, le cambiamos el Id para que represente un incremento
+        //     if(itemCount <= 3){
+        //         $otroItemLi.find('.'+rel).attr('name', rel+(itemCount+1)).attr('id', rel+(itemCount+1));
+        //         if(rel == 'telefono'){
+        //             $otroItemLi.find('.'+rel).removeClass('input-active').placeholder();
+        //         }
+        //         $item.parent().after($otroItemLi);
+        //     }
 
-            //Si tenemos 3 categorias, escondemos el boton para agregar mas, +1 representa a la nueva agregada
-            if(3 == itemCount + 1){
-                $masItem.hide();
-            }
-        });
+        //     //Si tenemos 3 categorias, escondemos el boton para agregar mas, +1 representa a la nueva agregada
+        //     if(3 == itemCount + 1){
+        //         $masItem.hide();
+        //     }
+        // });
 
 
-        $('.quitar-more-info').live('click', function(e){
+        // $('.quitar-more-info').live('click', function(e){
+        //     e.preventDefault();
+
+        //     //guardamos el valor del que sacamos, para habilitarlo en los otros campos
+        //     var itemValue= $(this).parent().find('select, input').val(),
+        //         rel = $(this).parent().find('select, input').attr('class').split(' ')[0],
+        //         itemCount = $('.'+rel).length - 1;
+
+        //     //sacamos el Li
+        //     $(this).parent().fadeOut(function(){$(this).remove()});
+
+        //     $('a[rel="'+rel+'"] span').text(3 - itemCount);
+
+        //     $('.'+rel).each(function(){
+        //         $(this).find('option[value="'+itemValue+'"]').removeAttr('disabled');
+        //     });
+
+        //     $('a[rel="'+rel+'"]').parent().show();
+        // });
+
+        $('.quitar').click(function(e){
             e.preventDefault();
 
-            //guardamos el valor del que sacamos, para habilitarlo en los otros campos
-            var itemValue= $(this).parent().find('select, input').val(),
-                rel = $(this).parent().find('select, input').attr('class').split(' ')[0],
-                itemCount = $('.'+rel).length - 1;
+            var $this = $(this);
+                rel = $this.attr('rel') || '',
+                count = 0;
 
-            //sacamos el Li
-            $(this).parent().fadeOut(function(){$(this).remove()});
+            $this.parent().parent().fadeOut();
+            $this.parent().parent().prev('li').find('span').fadeIn();
 
-            $('a[rel="'+rel+'"] span').text(3 - itemCount);
+            if(rel.indexOf(['categoria', 'telefono'])){
+                count = parseInt($('a.display-more-info[rel="'+rel+'"]').find('span').text());
 
-            $('.'+rel).each(function(){
-                $(this).find('option[value="'+itemValue+'"]').removeAttr('disabled');
-            });
+                if(count == 0){
+                    $('a.display-more-info[rel="'+rel+'"]').parent().parent().fadeIn().css('display', 'block');
+                    console.log($('a.display-more-info[rel="'+rel+'"]').parent().parent())
+                }
 
-            $('a[rel="'+rel+'"]').parent().show();
-            
+                $('a[rel='+rel+']').find('span').text(count + 1)
+            }
         });
+
+        $('.display-next-li').click(function(e){
+            e.preventDefault(); 
+            $(this).parent().parent().next('li').fadeIn().css('display', 'block');
+            $(this).parent().fadeOut();
+        });
+
+        $('.display-more-info').click(function(e){
+            e.preventDefault();
+            
+            var $this = $(this),
+                rel = $this.attr('rel');
+                count = parseInt($this.find('span').text()) - 1;
+                if(count == 0){
+                    $this.parent().parent().fadeOut();
+                }
+
+                if(count >= 0){
+                    $('.'+rel+':not(:hidden):last').parent().next('li').fadeIn().css('display', 'block');
+                    $this.find('span').text(count);
+                }
+        });
+
 
         $('.categoria').live('change', function(){
             $this = $(this);
@@ -234,21 +298,21 @@
             $('.categoria').not($this).each(function(){
                 //Deshabilitamos en el resto de los dropdowns el valor que seleccionamos recien
                 $(this).find('option[value="'+$this.val()+'"]').attr('disabled', 'disabled');
-
+                
                 //Habilitamos el valor anterior
                 $(this).find('option[value="'+selected[$this.attr('id')]+'"]').removeAttr('disabled');
             });
 
             $('.categoria').each(function(){
                 if( anterior != undefined ){
-
                     //Por cada categoria que deshabilitamos
                     habilitar = categorias[anterior.camelCase()].deshabilitar;
                     $.each(habilitar, function(i){
-                        $('.categoria').each(function(){
+                        $('.categoria').not($this).each(function(){
                             $aHabilitar = $(this).find('option[value="'+habilitar[i]+'"]');
                             //Por cada categoria, reviamos si otra Categoria la deshabilito, comprobamos si la clase que la deshabilito
                             //Es la ultima, si es, la habilitamos, si no, permanece deshabilitado
+                            console.log($aHabilitar)
                             if($aHabilitar.checkDefaultClass(anterior)){
                                 //Enable it
                                $aHabilitar.removeAttr('disabled');
@@ -306,9 +370,9 @@
             $.each(subCategorias, function(i){
                 checkBoxHTML = "<li>"+
                                    "<label class='checkbox-label subcategoria'>"+
-                                   "<input type='checkbox'"+
-                                   "class='"+categoria+"'"+
-                                   "name=subcategoria[]"+
+                                   "<input type='checkbox' "+
+                                   "class='"+categoria+" '"+
+                                   "name=subcategoria[] "+
                                    "value='"+subCategorias[i]+"'/>"+
                                    subCategorias[i]+"</label>"+
                                "</li>";
@@ -335,15 +399,44 @@
                 }
             });
 
-            deshabilitar = categorias[categoria].deshabilitar;
-            $.each(deshabilitar, function(i){
-                $('.categoria').each(function(){
-                    $(this).find('option[value="'+deshabilitar[i]+'"]').attr('disabled', 'disabled').addClass(categoria);
+            // deshabilitar = categorias[categoria].deshabilitar;
+            // $.each(deshabilitar, function(i){
+            //     $('.categoria').not($this).each(function(){
+            //         $(this).find('option[value="'+deshabilitar[i]+'"]').attr('disabled', 'disabled').addClass(categoria);
+            //     });
+            // });
+
+            $('.categoria').each(function(){
+                var val = $(this).val().camelCase(),
+                    $this = $(this);
+                deshabilitar = categorias[val].deshabilitar;
+                $.each(deshabilitar, function(j){
+                    $('.categoria').not($this).each(function(i){
+                        $(this).find('option[value="'+deshabilitar[j]+'"]').attr('disabled', 'disabled').addClass(val);
+                    }); 
                 });
             });
             
             //Seteamos el valor previo correspondiente al ID del dropdown que cambiamos
             selected[$this.attr('id')] = $this.val();
+        });
+
+        $('.jornada-doble').click(function(){
+            if($(this).is(':checked')){
+                $(this).parent().parent().parent().find('.horario-pm').fadeIn();
+                $('table').find('th.horario-pm').fadeIn();
+            }else{
+                $(this).parent().parent().parent().find('.horario-pm').fadeOut();
+                $('table').find('th.horario-pm').fadeOut();
+            }
+        });
+
+        $('.habilitar-horario').click(function(){
+            if($(this).is(':checked')){
+                $(this).parent().next('li').fadeIn().css('display', 'block');
+            }else{
+                $(this).parent().next('li').fadeOut();
+            }
         });
 
 
@@ -362,21 +455,60 @@
         $('.ciudad').change(function(){
             actualizarComunas();
         });
+
+/*        $('input[type=submit]').click(function(e){
+            e.preventDefault();
+            if($('.placeholder:not(:hidden)').length > 0){
+                alert('Placeholders in use');
+            }else{
+                $(this).parent().submit();
+            }
+        });*/
     </script>
 {% endblock %}
 
 {% block content %}
+<form action="{{ path('_agregar') }}" method="post" {{ form_enctype(form) }}>
+{{ form_errors(form) }}
+
+{% if form_errors(form.nombre) %}
+    <div class="errores-form">
+        {{ form_errors(form.nombre) }}
+    </div>
+{% endif %}
+
+{% if camposExtraErrores %}
+    <div class="errores-form">
+        {% for errores in camposExtraErrores %}
+            {{ errores }}
+        {% endfor %}
+    </div>
+{% endif %}
+
 <ul class="agregar-lugar">
     <li>
         <label>Nombre</label>
-        <input type="text" name="nombre" id="nombre" data-placeholder="Ej. Bar El Tufo"/>
+        <input type="text" name="form[nombre]" id="form_nombre" data-placeholder="Ej. Bar El Tufo"/>
     </li>
     <li>
         <label>Categorias</label>
         {{ data.categoriaSelect | raw}}
+        <div class='subcategorias'><ul></ul></div>
+    </li>
+    <li class="no-default">
+        <label>Categorias</label>
+        {{ data.categoriaSelect | raw}}
+        <span><a class="quitar" rel="categoria" href="">Quitar</a></span>
+        <div class='subcategorias'><ul></ul></div>
+    </li>
+    <li class="no-default">
+        <label>Categorias</label>
+        {{ data.categoriaSelect | raw}}
+        <span><a class="quitar" rel="categoria" href="">Quitar</a></span>
+        <div class='subcategorias'><ul></ul></div>
     </li>
     <li>
-        <span class="more-info"><a rel="categoria" href="">Otra categoria (Max <span>2</span>)</a></span>
+        <span class="display-more"><a class="display-more-info" rel="categoria" href="">Otra categoria (Max <span>2</span>)</a></span>
     </li>
     <li>
         <label>Ciudad</label>
@@ -388,9 +520,14 @@
     </li>
     <li>
         <label>Direccion</label>
-        <input type="text" name="calle" id="calle" data-placeholder="Ej. Tarapallá"/>
-        <input type="text" name="numero" id="numero" data-placeholder="1949 o s/n"/>
-        <span>cargar mapa</span>
+        <input type="text" name="form[calle]" id="form_calle" data-placeholder="Ej. Tarapallá"/>
+        <input type="text" name="form[numero]" id="form_numero" data-placeholder="1949 o s/n"/>
+        <span><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
+    </li>
+     <li class="no-default">
+        <label>Detalle</label>
+        <input type="text" name="form[detalle]" id="form_detalle" data-placeholder="Ej. Local 21, Mall Parque Arauco"/>
+        <span><a class="quitar" href="">Quitar</a></span>
     </li>
     <li>
         <label>Sector</label>
@@ -398,38 +535,237 @@
     </li>
     <li>
         <label>Telefono</label>
-        <input type="text" name="telefono" class="telefono" data-placeholder="Ej. +56 2 2130894"/>
+        <input type="text" name="form[telefono1]" id="form_telefono1" class="telefono" data-placeholder="Ej. +56 2 2130894"/>
+    </li>
+    <li class="no-default">
+        <label>Telefono</label>
+        <input type="text" name="form[telefono2]" id="form_telefono2" class="telefono" data-placeholder="Ej. +56 2 2130894"/>
+        <span><a class="quitar" rel="telefono" href="">Quitar</a></span>
+    </li>
+    <li class="no-default">
+        <label>Telefono</label>
+        <input type="text" name="form[telefono3]" id="form_telefono3" class="telefono" data-placeholder="Ej. +56 2 2130894"/>
+        <span><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li>
-         <span class="more-info"><a rel="telefono" href="">Mas telefonos (Max <span>2</span>)</a></span>
+         <span class="display-more"><a class="display-more-info" rel="telefono" href="">Mas telefonos (Max <span>2</span>)</a></span>
     </li>
-    <li>
+        <li>
         <label>Sitio Web</label>
-        <input type="text" name="www" id="www" data-placeholder="Ej. http://www.bareltufo.cl"/>
+        <input type="text" name="form[sitio_web]" id="form_sitio_web" data-placeholder="Ej. http://www.bareltufo.cl"/>
     </li>
     <li>
         <label>Facebook</label>
-        <input type="text" name="facebook" id="facebook" data-placeholder="Ej. http://www.facebook.com/pages/bareltufo"/>
+        <input type="text" name="form[facebook]" id="form_facebook" data-placeholder="Ej. http://www.facebook.com/pages/bareltufo"/>
     </li>
     <li>
         <label>Twitter</label>
-        <input type="text" name="twitter" id="twitter" data-placeholder="http://www.twitter.com/barelfuto"/>
+        <input type="text" name="form[twitter]" id="form_twitter" data-placeholder="http://www.twitter.com/barelfuto"/>
+    </li>
+    <li>
+        <label>Sabes los horarios de atencion?</label>
+        <input type="checkbox" name="habilitar-horario" class="habilitar-horario"/>
+    </li>
+   <li class="no-default">
+        <table>
+            <thead>
+                <th></th>
+                <th>AM Abre</th>
+                <th>AM Cierre</th>
+                <th class="horario-pm">PM Abre</th>
+                <th class="horario-pm">PM Cierre</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lunes</td>
+                    <td>
+                        <select name="horario-lunes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="horario-lunes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-lunes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-lunes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td> 
+                </tr>
+                <tr>
+                    <td>Martes</td>
+                    <td>
+                        <select name="horario-martes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="horario-martes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-martes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-martes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                </tr>
+                <tr>
+                    <td>Miercoles</td>
+                    <td>
+                        <select name="horario-miercoles[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="horario-miercoles[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-miercoles[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-miercoles[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                </tr>
+                <tr>
+                    <td>Jueves</td>
+                    <td>
+                        <select name="horario-jueves[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="horario-jueves[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-jueves[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-jueves[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                </tr>
+                <tr>
+                    <td>Viernes</td>
+                    <td>
+                        <select name="horario-viernes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="horario-viernes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-viernes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-viernes[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                </tr>
+                <tr>
+                    <td>Sabado</td>
+                    <td>
+                        <select name="horario-sabado[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="horario-sabado[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-sabado[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-sabado[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                </tr>
+                <tr>
+                    <td>Domingo</td>
+                    <td>
+                        <select name="horario-domingo[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="horario-domingo[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-domingo[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td class="horario-pm">
+                        <select name="horario-domingo[]">
+                            {{ data.horarios | raw}}
+                        </select>
+                    </td>
+                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                </tr>
+                <tr>
+            </tbody>
+        </table>
+        <small>Si no se indica ningún horario para un determinado día, se entenderá que ese día está cerrado.
+Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.</small>
     </li>
     <li class="no-default">
         <label>Arquitecto</label>
-        <input type="text" name="arquitecto" id="arquitecto" data-placeholder="Ej. William Morris"/>
+        <input type="text" name="form[profesional]" id="form_profesional" data-placeholder="Ej. William Morris"/>
     </li>
     <li class="no-default">
         <label>Año de Construccion</label>
-        <input type="text" name="anio-construccion" id="anio-construccion" data-placeholder="Ej. 1985, Siglo XX"/>
+        <input type="text" name="form[agno_construccion]" id="form_agno_construccion" data-placeholder="Ej. 1985, Siglo XX"/>
     </li>
     <li class="no-default">
         <label>Descripcion</label>
-        <textarea name="descripcion" id="descripcion" data-placeholder="Breve Descripcion Blah Blah"></textarea>
+        <textarea name="form[descripcion]" id="form_descripcion" data-placeholder="Breve Descripcion Blah Blah"></textarea>
     </li>
     <li class="no-default">
         <label>Materiales</label>
-        <input type="text" name="materiales" id="materiales" data-placeholder="Ej. Cobre, Granito, etc"/>
+        <input type="text" name="form[materiales]" id="form_materiales" data-placeholder="Ej. Cobre, Granito, etc"/>
     </li>
     <li class="no-default caracteristicas">
         <label>Caracteristicas</label>
@@ -437,5 +773,8 @@
         </ul>
     </li>
 </ul>
-<input type="submit" value="Guardar Datos"/>
+
+{{ form_widget(form._token) }}
+<input type="submit" value="Guardar Datos" formnovalidate/>
+</form>
 {% endblock %}
