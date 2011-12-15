@@ -11,8 +11,15 @@ confirmarUsuario:
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:confirmar }
 
 login:
+    pattern:   /{_locale}
+    defaults:  { _controller: LoogaresUsuarioBundle:Usuario:login, _locale: es }
+    requirements:
+        _locale: es|en
+
+login_translated:
     pattern:   /
     defaults:  { _controller: LoogaresUsuarioBundle:Usuario:login }
+    
     
 login_check:
     pattern:   /login_check

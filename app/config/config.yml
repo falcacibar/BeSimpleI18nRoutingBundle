@@ -5,7 +5,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     charset:         UTF-8
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -61,3 +61,12 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+
+# FOS Facebook Configuration
+fos_facebook:
+    file:   %kernel.root_dir%/../vendor/facebook/src/base_facebook.php
+    alias:  facebook
+    app_id: %facebook_appid%
+    secret: %facebook_appsecret%
+    cookie: true
+    permissions: [email, user_birthday, user_location]

@@ -100,7 +100,13 @@ class UsuarioController extends Controller
         $form = $this->createFormBuilder($usuario)
                      ->add('usuario', 'text')
                      ->add('mail', 'text')
-                     ->add('password', 'password')
+                     ->add('password', 'repeated', array(
+                                'type' => 'password',
+                                'invalid_message' => 'Los passwords no coinciden. Por favor, corrígelos.',
+                                'first_name' => 'Password',
+                                'second_name' => 'Confirmar password',
+                                'error_bubbling' => true
+                            ))
                      ->add('nombre', 'text')
                      ->add('apellido', 'text')
                      ->getForm();

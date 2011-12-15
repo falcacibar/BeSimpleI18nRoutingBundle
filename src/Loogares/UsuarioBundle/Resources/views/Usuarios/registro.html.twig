@@ -7,8 +7,11 @@
 		<h3 class="titulo">¡Regístrate en Loogares.com!</h3>
 		<form action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
 			<div class="form-registro">
-				{{ form_errors(form) }}
-
+				{% if form_errors(form) %}
+					<div class="errores-form">
+						{{form_errors(form)}}
+					</div>
+				{% endif %}
 				{% if form_errors(form.usuario) or form_errors(form.mail) or form_errors(form.password) or form_errors(form.nombre) or form_errors(form.apellido) %}
 				<div class="errores-form">
 					{{ form_errors(form.usuario) }}
@@ -30,7 +33,6 @@
 				</div>
 
 				<div>
-					{{ form_label(form.password) }}
 					{{ form_widget(form.password) }}
 				</div>
 				<div>
@@ -65,7 +67,16 @@
 
 	<div id="registro-facebook" class="columna-derecha">
 		<h3 class="titulo">¡O regístrate rápidamente con tu Facebook!</h3>
-		<div class="caja-facebook"></div>
+		
+		<div class="caja-facebook">
+			<div class="imagen-registro-facebook"></div>
+			<div class="texto-registro-facebook">Haz click en el botón de abajo y regístrate en un solo paso con tu cuenta de Facebook.</div>
+			<div class="caja-facebook-boton">
+				{% set tituloFacebook = 'Regístrate con Facebook' %}
+				<div class="facebook-boton">{{ facebook_login_button({'autologoutlink': true, 'label' : tituloFacebook }) }}</div>
+			</div>
+		</div>
+		
 		<h3 class="titulo">¿Ya eres parte de Loogares.com? ¡Entra ahora!</h3>
 		{% include 'LoogaresUsuarioBundle:Usuarios:login_form.html.twig' %}
 	</div>
@@ -86,5 +97,20 @@
 				};
 			});
 		});
+
+		function goLogIn(){
+      		window.location = "{{ path('_security_check') }}";
+  		}
+
+  		function onFbInit() {
+     		if (typeof(FB) != 'undefined' && FB != null ) {
+	          	FB.Event.subscribe('auth.login', function(response) {
+	            	   setTimeout(goLogIn,500);
+	          	});
+	          	FB.Event.subscribe('auth.logout', function(response) {
+	            	   window.location = "{{ path('_security_logout') }}";
+	          	});
+          	}
+     	}
 	</script>
 {% endblock %}
