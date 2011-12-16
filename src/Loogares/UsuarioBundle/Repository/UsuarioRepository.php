@@ -15,70 +15,89 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UsuarioRepository extends EntityRepository implements UserProviderInterface
 {
 
-	public function loadUserByUsername($mail) {
-     return $this->getEntityManager()
-         		 ->createQuery('SELECT u
-         				FROM LoogaresUsuarioBundle:Usuario u
-         				WHERE u.mail = :mail
-         				OR u.usuario = :mail')
-        		 ->setParameters(array('mail' => $mail))
-        		 ->getOneOrNullResult();
+    public function loadUserByUsername($mail) {
+       return $this->getEntityManager()
+           		 ->createQuery('SELECT u
+           				FROM LoogaresUsuarioBundle:Usuario u
+           				WHERE u.mail = :mail
+           				OR u.slug = :mail')
+          		 ->setParameters(array('mail' => $mail))
+          		 ->getOneOrNullResult();
     }
- 
+   
     public function refreshUser(UserInterface $user) {
         return $this->loadUserByUsername($user->getMail());
     }
- 
+   
     public function supportsClass($class) {
         return $class === 'Loogares\UsuarioBundle\Entity\Usuario';
     }
 
-	public function getUsuarioRecomendaciones($id) {
-		$em = $this->getEntityManager();
+    public function findOneByIdOrSlug($param) {
+        $usuarioResult = $this->find($param);          
+        if(!$usuarioResult) {
+            $usuarioResult = $this->findOneBySlug($param);
+        }
+        return $usuarioResult; 
+    }
 
-		//Query para obtener el total de recomendaciones del usuario
-        $q = $em->createQuery("SELECT r
-                               FROM Loogares\UsuarioBundle\Entity\Recomendacion r 
-                               WHERE r.usuario = ?1");
-        $q->setParameter(1, $id);
+    public function getIdOrSlug($usuario){
+        if($usuario->getSlug() != '')
+          return $usuario->getSlug();
 
-        return $q->getResult();
-	}
+        return $usuario->getId();
+    }
 
-	public function getLugaresAgregadosUsuario($id) {
-		$em = $this->getEntityManager();
+  	public function getUsuarioRecomendaciones($id) {
+  		$em = $this->getEntityManager();
 
-		 //Query para obtener el total de lugares agregados por el usuario
-        $q = $em->createQuery("SELECT COUNT(l) total 
-                               FROM Loogares\LugarBundle\Entity\Lugar l 
-                               WHERE l.usuario_id = ?1");
-        $q->setParameter(1, $id);
-        return $q->getSingleResult();
-	}
+  		//Query para obtener el total de recomendaciones del usuario
+          $q = $em->createQuery("SELECT r
+                                 FROM Loogares\UsuarioBundle\Entity\Recomendacion r 
+                                 WHERE r.usuario = ?1");
+          $q->setParameter(1, $id);
 
-	public function getFotosLugaresAgregadasUsuario($id) {
-		$em = $this->getEntityManager();
+          return $q->getResult();
+  	}
 
-		//Query para obtener el total de fotos de lugares agregadas por el usuario
-        $q = $em->createQuery("SELECT COUNT(im) total 
-                               FROM Loogares\LugarBundle\Entity\ImagenLugar im 
-                               WHERE im.usuario = ?1");
-        $q->setParameter(1, $id);
-        return $q->getSingleResult();
-	}
+  	public function getLugaresAgregadosUsuario($id) {
+  		$em = $this->getEntityManager();
 
-	public function getPrimerasRecomendaciones($id) {
-		$em = $this->getEntityManager();
+  		 //Query para obtener el total de lugares agregados por el usuario
+          $q = $em->createQuery("SELECT COUNT(l) total 
+                                 FROM Loogares\LugarBundle\Entity\Lugar l 
+                                 WHERE l.usuario = ?1");
+          $q->setParameter(1, $id);
+          return $q->getSingleResult();
+  	}
 
-		//Verificamos si usuario es el primero en recomendar en el lugar
-		$q = $em->createQuery("SELECT l.nombre, r1.texto 
-							   FROM LoogaresUsuarioBundle:Recomendacion r1 
-							   JOIN r1.lugar l
-							   WHERE r1.usuario = ?1
-							   AND r1.fecha_creacion = (SELECT MIN(r2.fecha_creacion) 
-							   FROM LoogaresUsuarioBundle:Recomendacion r2 
-							   WHERE r2.lugar = r1.lugar)");
-		$q->setParameter(1,$id);
-		return $q->getResult();
-	}	
+  	public function getFotosLugaresAgregadasUsuario($id) {
+  		$em = $this->getEntityManager();
+
+  		//Query para obtener el total de fotos de lugares agregadas por el usuario
+          $q = $em->createQuery("SELECT COUNT(im) total 
+                                 FROM Loogares\LugarBundle\Entity\ImagenLugar im 
+                                 WHERE im.usuario = ?1");
+          $q->setParameter(1, $id);
+          return $q->getSingleResult();
+  	}
+
+  	public function getPrimerasRecomendaciones($id) {
+  		$em = $this->getEntityManager();
+
+  		//Verificamos si usuario es el primero en recomendar en el lugar
+  		$q = $em->createQuery("SELECT l.nombre, r1.texto 
+  							   FROM LoogaresUsuarioBundle:Recomendacion r1 
+  							   JOIN r1.lugar l
+  							   WHERE r1.usuario = ?1
+  							   AND r1.fecha_creacion = (SELECT MIN(r2.fecha_creacion) 
+  							   FROM LoogaresUsuarioBundle:Recomendacion r2 
+  							   WHERE r2.lugar = r1.lugar)");
+  		$q->setParameter(1,$id);
+  		return $q->getResult();
+  	}
+    
+    public function getDatosUsuario($usuario) {
+      
+    }	
 }

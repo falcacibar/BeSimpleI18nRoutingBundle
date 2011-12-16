@@ -1,6 +1,6 @@
-¡Felicitaciones {{usuario.usuario}}!
+¡Felicitaciones {{usuario.nombre}} {{usuario.apellido}}!
 Estás a punto de convertirte en un Loogareño. Para confirmar tu cuenta, ingresa el siguiente link en tu navegador:
-{#{{url('confirmarUsuario', { 'hash': usuario.hash_confirmacion })}}#}
+{{url('confirmarUsuario', { 'hash': usuario.hashConfirmacion })}}
 
 Si quieres contactarnos escríbenos a contacto@loogares.com
 

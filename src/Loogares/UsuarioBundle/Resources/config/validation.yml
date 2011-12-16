@@ -8,10 +8,6 @@ Loogares\UsuarioBundle\Entity\Usuario:
             - NotBlank:
                 message: El campo E-mail no puede ser vacío.
             - Email: { message: "Email inválido." }
-        usuario:
-            - NotBlank:
-                message: El campo Nombre de usuario no puede ser vacío.
-            - MinLength: { limit: 4, message: "El usuario debe tener un mínimo de {{ limit }} caracteres." }
         password:
             - NotBlank:
                 message: El campo Password no puede ser vacío.

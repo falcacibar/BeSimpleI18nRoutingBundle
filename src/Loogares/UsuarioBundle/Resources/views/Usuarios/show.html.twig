@@ -1,6 +1,6 @@
 {% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
 
-{% block title %}{{usuario.usuario}} | {{parent()}}{% endblock %}
+{% block title %}{{usuario.nombre}} {{usuario.apellido}} | {{parent()}}{% endblock %}
 {% block content %}
 	{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
 	<div id="main-usuario">
@@ -9,18 +9,19 @@
 		        {{ app.session.flash('confirmacion-registro') }}
 		    </div>
 		{% endif %}
+
 		<div id="data-usuario">
 			<div id="image-usuario"></div>
-			<h3>{{usuario.usuario}}</h3>
+			<h3>{{usuario.nombre}} {{usuario.apellido}}</h3>
 
 			<ul>
 				<li>{{usuario.nombre}} {{usuario.apellido}}</li>
 				{% if usuario.sexoResult != '' or usuario.edadResult != '0' %}
-				<li>
-					{% if usuario.sexoResult != '' %}
-						{{usuario.sexoResult}}{% endif %}{% if usuario.edadResult != '0'%}, {{usuario.edadResult}} años
-					{% endif %}
-				</li>
+					<li>
+						{% if usuario.sexoResult != '' %}
+							{{usuario.sexoResult}}{% endif %}{% if usuario.edadResult != '0'%}, {{usuario.edadResult}} años
+						{% endif %}
+					</li>				
 				{% endif %}
 			</ul>
 
