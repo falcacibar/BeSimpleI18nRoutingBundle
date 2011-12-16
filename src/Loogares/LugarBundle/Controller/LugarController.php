@@ -3,8 +3,11 @@
 namespace Loogares\LugarBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContext;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Loogares\LugarBundle\Entity\Lugar;
+use Loogares\LugarBundle\Entity\Categoria;
 
 class LugarController extends Controller
 {
@@ -180,10 +183,87 @@ class LugarController extends Controller
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));            
     }
     
-    public function agregarAction()
-    {
+    public function agregarAction(Request $request){
+
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $errors = array();
+        $camposExtraErrors = false;
+        $formErrors = array();
+
+        $lugar = new Lugar();
+        $categoria = new Categoria();
+
+        $form = $this->createFormBuilder($lugar)
+             ->add('nombre', 'text')
+             ->add('calle', 'text')
+             ->add('numero', 'text')
+             ->add('descripcion', 'text')
+             ->add('detalle', 'text')
+             ->add('telefono1', 'text')
+             ->add('telefono2', 'text')
+             ->add('telefono3', 'text')
+             ->add('sitio_web', 'text')
+             ->add('facebook', 'text')
+             ->add('twitter', 'text')
+             ->add('mail', 'text')
+             ->add('mail', 'text')
+             ->add('profesional', 'text')
+             ->add('agno_construccion', 'text')
+             ->add('materiales', 'text')
+             ->add('_token', 'csrf')
+             ->getForm();
+    
+        if ($request->getMethod() == 'POST') {
+            if($_POST['comuna'] == 'elige'){
+                $camposExtraErrors[] = "Porfavor Elige una Comuna";
+            }
+
+            if($_POST['ciudad'] == 'elige'){
+                $camposExtraErrors[] = "Porfavor Elige una Ciudad";
+            }
+
+            if($_POST['sector'] == 'elige'){
+                $camposExtraErrors[] = "Porfavor Elige un Sector";
+            }
+        
+            if($_POST['categoria'] == 'elige'){
+                $camposExtraErrors[] = "Porfavor Elige al Menos una Categoria";
+            }
+
+            $form->bindRequest($request);
+
+            if($form->isValid() && $camposExtraErrors == false){
+                $fn = $this->get('fn');
+
+                $comuna = $lr->getComunas($_POST['comuna']);    
+                $sector = $lr->getSectores($_POST['sector']);
+                $estado = $lr->getEstado('probando');
+                $usuario = $this->get('security.context')->getToken()->getUser();
+                $tipo_lugar = $lr->getTipoLugar('que-visitar');
+
+                $lugar->setComuna($comuna[0]);
+                $lugar->setSector($sector[0]);
+                $lugar->setUsuario($usuario);
+                $lugar->setEstado($estado[0]);
+                $lugar->setTipoLugar($tipo_lugar[0]);
+
+                $lugar->setSlug($fn->generarSlug($lugar->getNombre()));
+                $lugar->setFechaAgregado(new \DateTime());
+                $lugar->setMapx('1');
+                $lugar->setMapy('1');
+
+                $em->persist($lugar);
+                //$em->flush();
+
+                print_r($_POST['categoria']);
+
+                $data['id'] = $lugar->getNombre();
+
+                
+                return $this->render('LoogaresLugarBundle:Lugares:mensaje_lugar.html.twig', array('lugar' => $data));   
+            }
+        }
 
         $tipoCategorias = $lr->getTipoCategorias();
         $categorias = $lr->getCategorias();
@@ -191,7 +271,7 @@ class LugarController extends Controller
         $comunas = $lr->getComunas();
         $sectores = $lr->getSectores();
 
-        $categoriaSelect = "<select class='categoria' id='categoria' name='categoria'><option value='elegir'>Elige una Categoria</option>";
+        $categoriaSelect = "<select class='categoria' name='categoria[]'><option value='elige'>Elige una Categoria</option>";
         foreach($tipoCategorias as $tipoCategoria){
             $tipoCategoriaNombre = $tipoCategoria->getNombre();
 
@@ -206,23 +286,24 @@ class LugarController extends Controller
             }
             $categoriaSelect .= "</optgroup>";
         }
-        $categoriaSelect .= "</select><div class='subcategorias'><ul></ul></div>";
+        $categoriaSelect .= "</select>";
 
 
-        $ciudadSelect = "<select class='ciudad' name='ciudad'>";
-        $comunaSelect = "<select class='comuna' name='comuna'><option>Elige una Comuna</option>";
-        $sectorSelect = "<select class='sector' name='sector'><option>Elige un Sector</option>";
+        $ciudadSelect = "<select class='ciudad' name='ciudad' id='ciudad'>";
+        $comunaSelect = "<select class='comuna' name='comuna' id='comuna'><option value='elige'>Elige una Comuna</option>";
+        $sectorSelect = "<select class='sector' name='sector' id='sector'><option value='elige'>Elige un Sector</option>";
         foreach($ciudades as $ciudad){
-            $ciudadId = $ciudad->getId();
+            $ciudadSlug = $ciudad->getSlug();
             $ciudadNombre = $ciudad->getNombre();
-            $ciudadSelect .= "<option ".(($ciudadId == 1)?"selected":"")." value='$ciudadId'>$ciudadNombre</option>";
+            $ciudadId = $ciudad->getId();
+            $ciudadSelect .= "<option ".(($ciudadId == 1)?"selected":"")." value='$ciudadSlug'>$ciudadNombre</option>";
 
             $comunaSelect .= "<optgroup label='$ciudadNombre'>";
             foreach($comunas as $comuna){
-                $comunaId = $comuna->getId();
+                $comunaSlug= $comuna->getSlug();
                 $comunaNombre = $comuna->getNombre();
                 if($comuna->getCiudad()->getId() == $ciudadId){
-                    $comunaSelect .= "<option value='$comunaId'>$comunaNombre</option>";
+                    $comunaSelect .= "<option value='$comunaSlug'>$comunaNombre</option>";
                      
                 }
             }
@@ -232,8 +313,9 @@ class LugarController extends Controller
             foreach($sectores as $sector){
                 $sectorId = $sector->getId();
                 $sectorNombre = $sector->getNombre();
+                $sectorSlug = $sector->getSlug();
                 if($sector->getCiudad()->getId() == $ciudadId){
-                    $sectorSelect .= "<option value='$sectorId'>$sectorNombre</option>";
+                    $sectorSelect .= "<option value='$sectorSlug'>$sectorNombre</option>";
                      
                 }
             }
@@ -247,9 +329,71 @@ class LugarController extends Controller
         $data['ciudadSelect'] = $ciudadSelect;
         $data['comunaSelect'] = $comunaSelect;
         $data['sectorSelect'] = $sectorSelect;
-
+        $data['horarios'] = '<option value="cerrado">Cerrado</option>
+                            <option value="06:00">06:00</option>
+                            <option value="06:30">06:30</option>    
+                            <option value="07:00">07:00</option>
+                            <option value="07:30">07:30</option>
+                            <option value="08:00">08:00</option>
+                            <option value="08:30">08:30</option>    
+                            <option value="09:00">09:00</option>
+                            <option value="09:30">09:30</option>    
+                            <option value="10:00">10:00</option>
+                            <option value="10:30">10:30</option>    
+                            <option value="11:00">11:00</option>
+                            <option value="11:30">11:30</option>    
+                            <option value="12:00">12:00</option>
+                            <option value="12:30">12:30</option>    
+                            <option value="13:00">13:00</option>
+                            <option value="13:30">13:30</option>    
+                            <option value="14:00">14:00</option>
+                            <option value="14:30">14:30</option>    
+                            <option value="15:00">15:00</option>
+                            <option value="15:30">15:30</option>    
+                            <option value="16:00">16:00</option>
+                            <option value="16:30">16:30</option>    
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>    
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>    
+                            <option value="19:00">19:00</option>
+                            <option value="19:30">19:30</option>    
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>    
+                            <option value="21:00">21:00</option>
+                            <option value="21:30">21:30</option>    
+                            <option value="22:00">22:00</option>
+                            <option value="22:30">22:30</option>    
+                            <option value="23:00">23:00</option>
+                            <option value="23:30">23:30</option>    
+                            <option value="00:00">00:00</option>
+                            <option value="00:30">00:30</option>    
+                            <option value="01:00">01:00</option>
+                            <option value="01:30">01:30</option>    
+                            <option value="02:00">02:00</option>
+                            <option value="02:30">02:30</option>    
+                            <option value="03:00">03:00</option>
+                            <option value="03:30">03:30</option>    
+                            <option value="04:00">04:00</option>
+                            <option value="04:30">04:30</option>    
+                            <option value="05:00">05:00</option>
+                            <option value="05:30">05:30</option>';
         $data['categorias'] = $lr->getCategorias();
-        #return new Response('dohohoho');
-        return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array('data' => $data));
+
+
+        //Errores
+        foreach($this->get('validator')->validate( $form ) as $formError){
+            $formErrors[] = $formError->getMessage();
+        }
+
+        if(is_array($camposExtraErrors) && is_array($formErrors)){
+            $errors = array_merge($formErrors, $camposExtraErrors);
+        }
+
+        return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
+            'data' => $data,
+            'form' => $form->createView(),
+            'errors' => $errors
+        ));
     }
 }

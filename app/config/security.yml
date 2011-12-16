@@ -12,7 +12,7 @@ security:
 
     providers:
         main:           
-            entity: { class: Loogares\UsuarioBundle\Entity\Usuario, property: mail }
+            entity: { class: Loogares\UsuarioBundle\Entity\Usuario }
 
     firewalls:
         dev:

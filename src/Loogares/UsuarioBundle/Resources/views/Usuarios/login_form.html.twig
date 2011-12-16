@@ -1,6 +1,6 @@
 <div id="login-block">
             {% if error %}
-                <div class="errores-form">{{ error.message }}</div>
+                <div class="errores">{{ error.message }}</div>
             {% endif %}
 
             <form action="{{ path('login_check') }}" method="post" class="form-login">

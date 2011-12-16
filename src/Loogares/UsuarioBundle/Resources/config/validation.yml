@@ -7,7 +7,7 @@ Loogares\UsuarioBundle\Entity\Usuario:
         mail:
             - NotBlank:
                 message: El campo E-mail no puede ser vacío.
-            - Email: { message: "Email inválido." }    
+            - Email: { message: "Email inválido." }
         usuario:
             - NotBlank:
                 message: El campo Nombre de usuario no puede ser vacío.
@@ -19,10 +19,8 @@ Loogares\UsuarioBundle\Entity\Usuario:
         nombre:
             - NotBlank:
                 message: El campo Nombre no puede ser vacío.
-            - Type: { type: string, message: "El nombre debe ser texto." }    
+            - Type: { type: string, message: "El nombre debe ser texto." }
         apellido:
             - NotBlank:
                 message: El campo Apellido no puede ser vacío.
-            - Type: { type: string, message: "El apellido debe ser texto." } 
-        
-        
+            - Type: { type: string, message: "El apellido debe ser texto." }

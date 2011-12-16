@@ -4,11 +4,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}Loogares.com{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        {% stylesheets output='assets/css/compressed.css' filter='sass' 
+        {% stylesheets output='assets/css/compressed.css' filter='?yui_css,sass' 
             'assets/css/*.sass' 
         %}
-            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
         {% endstylesheets %}
+        <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         <style>
             body{

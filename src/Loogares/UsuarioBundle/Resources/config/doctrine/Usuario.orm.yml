@@ -15,7 +15,6 @@ Loogares\UsuarioBundle\Entity\Usuario:
     fields:
         nombre:
             type: string
-            length: 50
         apellido:
             type: string
         usuario:
@@ -33,13 +32,13 @@ Loogares\UsuarioBundle\Entity\Usuario:
         sexo:
             type: string
             nullable: true
-        link1: 
+        web: 
             type: string
             nullable: true
-        link2:
+        facebook:
             type: string
             nullable: true
-        link3:
+        twitter:
             type: string
             nullable: true
         imagen_full:
@@ -49,12 +48,11 @@ Loogares\UsuarioBundle\Entity\Usuario:
             nullable: true
         fecha_registro:
             type: datetime
-            nullable: true
         fecha_ultima_actividad:
             type: datetime
             nullable: true
         confirmado:
-            type: integer
+            type: smallint
         newsletter_activo:
             type: smallint
         hash_confirmacion:
@@ -68,14 +66,13 @@ Loogares\UsuarioBundle\Entity\Usuario:
             type: integer
             nullable: true
         facebook_no_publicar:
-            type: integer
+            type: smallint
             nullable: true
         facebook_data:
             type: string
             nullable: true
         fecha_facebook_ultima_actividad:
-            type: string
+            type: datetime
             nullable: true
         salt:
             type: string
-            length: 255  

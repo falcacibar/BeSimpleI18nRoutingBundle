@@ -1,13 +1,25 @@
-$blue: #f00
-$margin: 20px
+@mixin border-radius($val)
+    -moz-border-radius: $val
+    border-radius: $val
 
-.content-navigation
-  border-color: $blue
-  color: darken($blue, 9%)
+$errorRed: red
+$errorColor: lighten($errorRed, 15%)
+$errorBorder: lighten($errorRed, 35%)
+$errorBg: lighten($errorRed, 45%)
 
-.border
-  padding: $margin / 3
-  margin: $margin / 2
-  border-color: $blue
+/*Error Display*/
+.errores
+    @include border-radius(5px)
+    color: $errorColor
+    padding: 10px
+    background: $errorBg
+    border: 1px solid $errorBorder
+    display: block
+    width: 400px
 
-    
+    p
+        padding-left: 10px
+        
+    p:before
+        content: " "
+        font-size: 16px

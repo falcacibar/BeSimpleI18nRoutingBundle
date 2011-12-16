@@ -68,14 +68,14 @@ class UsuarioController extends Controller
 
         //Array con links de usuario
         $links = array();
-        if($usuarioResult->getLink1() != null || $usuarioResult->getLink1() != '') {
-            $links[] = $usuarioResult->getLink1();
+        if($usuarioResult->getWeb() != null || $usuarioResult->getWeb() != '') {
+            $links[] = $usuarioResult->getWeb();
         }
-        if($usuarioResult->getLink2() != null || $usuarioResult->getLink2() != '') {
-            $links[] = $usuarioResult->getLink2();
+        if($usuarioResult->getFacebook() != null || $usuarioResult->getFacebook() != '') {
+            $links[] = $usuarioResult->getFacebook();
         }
-        if($usuarioResult->getLink3() != null || $usuarioResult->getLink3() != '') {
-            $links[] = $usuarioResult->getLink3();
+        if($usuarioResult->getTwitter() != null || $usuarioResult->getTwitter() != '') {
+            $links[] = $usuarioResult->getTwitter();
         }
         
         /*
@@ -95,6 +95,11 @@ class UsuarioController extends Controller
 
     public function registroAction(Request $request) {
 
+        // Usuario loggeado es redirigido a su perfil
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            return $this->redirect($this->generateUrl('showUsuario', array('slug' => $this->get('security.context')->getToken()->getUser()->getSlug())));
+
+        // Construcción del form del nuevo usuario, con objeto $usuario asociado
         $usuario = new Usuario();        
 
         $form = $this->createFormBuilder($usuario)
@@ -111,17 +116,17 @@ class UsuarioController extends Controller
                      ->add('apellido', 'text')
                      ->getForm();
 
+        // Si el request es POST, se procesa registro
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getEntityManager();
-                $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
                 // Form válido, generamos slug y fecha creación
+                $fn = $this->get('fn');
                 $nombreUsuario = $usuario->getUsuario();
-                $nombreUsuario = strtolower($ur->getUsuarioSinCaracteresRaros($nombreUsuario));
-                $nombreUsuario = str_replace(" ","-",$nombreUsuario);
+                $nombreUsuario = $fn->generarSlug($nombreUsuario);
                 $usuario->setSlug($nombreUsuario);
                 $usuario->setImagenFull("default.png");
                 $usuario->setFechaRegistro(new \DateTime());
@@ -219,6 +224,7 @@ class UsuarioController extends Controller
 
     public function loginAction()
     {
+        // Usuario loggeado es redirigido a su perfil
         if($this->get('security.context')->isGranted('ROLE_USER'))
             return $this->redirect($this->generateUrl('showUsuario', array('slug' => $this->get('security.context')->getToken()->getUser()->getSlug())));
             

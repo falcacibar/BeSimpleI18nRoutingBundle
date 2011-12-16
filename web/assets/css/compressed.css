@@ -1,9 +1,16 @@
-.content-navigation {
-  border-color: red;
-  color: #d10000; }
-
-.border {
-  padding: 6.667px;
-  margin: 10px;
-  border-color: red; }
+/*Error Display */
+.errores {
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: #ff4d4d;
+  padding: 10px;
+  background: #ffe5e5;
+  border: 1px solid #ffb3b3;
+  display: block;
+  width: 400px; }
+  .errores p {
+    padding-left: 10px; }
+  .errores p:before {
+    content: " ";
+    font-size: 16px; }
 

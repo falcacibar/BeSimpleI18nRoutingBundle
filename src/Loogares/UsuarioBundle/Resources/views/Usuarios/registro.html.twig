@@ -8,7 +8,7 @@
 		<form action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
 			<div class="form-registro">
 				{% if form_errors(form) %}
-					<div class="errores-form">
+					<div class="errores">
 						{{form_errors(form)}}
 					</div>
 				{% endif %}
@@ -22,6 +22,16 @@
 				</div>
 				{% endif %}
 
+				<div>
+					{{ form_label(form.nombre) }}
+					{{ form_widget(form.nombre, { 'attr': {'data-placeholder': 'Ej. Juan'}}) }}
+				</div>
+
+				<div>
+					{{ form_label(form.apellido) }}
+					{{ form_widget(form.apellido, { 'attr': {'data-placeholder': 'Ej. Valdéz'}}) }}
+				</div>
+						
 				<div>
 					{{ form_label(form.usuario, 'Nombre de usuario') }}
 					{{ form_widget(form.usuario, { 'attr': {'data-placeholder': 'Ej. juanito'} } ) }}
@@ -38,17 +48,7 @@
 				<div>
 			    	<label></label>
 			    	<span class="tip">El password debe tener un mínimo de 6 caracteres.</span>
-			    </div>
-
-				<div>
-					{{ form_label(form.nombre) }}
-					{{ form_widget(form.nombre, { 'attr': {'data-placeholder': 'Ej. Juan'}}) }}
-				</div>
-
-				<div>
-					{{ form_label(form.apellido) }}
-					{{ form_widget(form.apellido, { 'attr': {'data-placeholder': 'Ej. Valdéz'}}) }}
-				</div>			    
+			    </div>					    
 
 			    {{ form_rest(form) }}
 
