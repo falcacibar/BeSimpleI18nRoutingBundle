@@ -8,8 +8,10 @@ jQuery.fn.placeholder = function(){
     var $this = $(this),
         placeholder = $this.attr('data-placeholder');
 
-    $this.val(placeholder);
-    $this.addClass('placeholder');
+    if($this.val() == ''){ 
+        $this.val(placeholder).addClass('placeholder'); 
+    };
+    
 
     $this.focus(function(){
         var $this = $(this),

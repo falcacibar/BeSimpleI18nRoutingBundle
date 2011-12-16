@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Loogares\LugarBundle\Entity\Lugar;
+use Loogares\LugarBundle\Entity\Categoria;
 
 class LugarController extends Controller
 {
@@ -186,8 +187,12 @@ class LugarController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $errors = array();
+        $camposExtraErrors = false;
+        $formErrors = array();
 
         $lugar = new Lugar();
+        $categoria = new Categoria();
 
         $form = $this->createFormBuilder($lugar)
              ->add('nombre', 'text')
@@ -202,26 +207,35 @@ class LugarController extends Controller
              ->add('facebook', 'text')
              ->add('twitter', 'text')
              ->add('mail', 'text')
+             ->add('mail', 'text')
              ->add('profesional', 'text')
              ->add('agno_construccion', 'text')
              ->add('materiales', 'text')
              ->add('_token', 'csrf')
              ->getForm();
-        
-        $camposExtraErrores = false;
+    
         if ($request->getMethod() == 'POST') {
             if($_POST['comuna'] == 'elige'){
-                $camposExtraErrores[] = "Porfavor Elige una Comuna";
+                $camposExtraErrors[] = "Porfavor Elige una Comuna";
             }
 
             if($_POST['ciudad'] == 'elige'){
-                $camposExtraErrores[] = "Porfavor Elige una Ciudad";
+                $camposExtraErrors[] = "Porfavor Elige una Ciudad";
+            }
+
+            if($_POST['sector'] == 'elige'){
+                $camposExtraErrors[] = "Porfavor Elige un Sector";
+            }
+        
+            if($_POST['categoria'] == 'elige'){
+                $camposExtraErrors[] = "Porfavor Elige al Menos una Categoria";
             }
 
             $form->bindRequest($request);
 
-            if($form->isValid() && $camposExtraErrores == false){
-                // Setear Ciudad, COmuna, Usuario, Estado (NULL)
+            if($form->isValid() && $camposExtraErrors == false){
+                $fn = $this->get('fn');
+
                 $comuna = $lr->getComunas($_POST['comuna']);    
                 $sector = $lr->getSectores($_POST['sector']);
                 $estado = $lr->getEstado('probando');
@@ -233,24 +247,20 @@ class LugarController extends Controller
                 $lugar->setUsuario($usuario);
                 $lugar->setEstado($estado[0]);
                 $lugar->setTipoLugar($tipo_lugar[0]);
-                $lugar->setPrecio(0);
-                $lugar->setSlug('aaa');
-                $lugar->setDuenoId(0);
-                $lugar->setMail('asd@asd.com');
-                $lugar->setVisitas(0);
-                $lugar->setUtiles(0);
-                $lugar->setPrecioInicial(0);
-                $lugar->setPrioridadWeb(0);
-                $lugar->setTotalRecomendaciones(0);
+
+                $lugar->setSlug($fn->generarSlug($lugar->getNombre()));
                 $lugar->setFechaAgregado(new \DateTime());
-                $lugar->setFechaUltimaRecomendacion(new \DateTime());
                 $lugar->setMapx('1');
                 $lugar->setMapy('1');
-                $lugar->setEstrellas('0');
 
                 $em->persist($lugar);
-                $em->flush();
-                $data['nombre'] = $lugar->getNombre();
+                //$em->flush();
+
+                print_r($_POST['categoria']);
+
+                $data['id'] = $lugar->getNombre();
+
+                
                 return $this->render('LoogaresLugarBundle:Lugares:mensaje_lugar.html.twig', array('lugar' => $data));   
             }
         }
@@ -261,7 +271,7 @@ class LugarController extends Controller
         $comunas = $lr->getComunas();
         $sectores = $lr->getSectores();
 
-        $categoriaSelect = "<select class='categoria' name='categoria[]'><option value='elegir'>Elige una Categoria</option>";
+        $categoriaSelect = "<select class='categoria' name='categoria[]'><option value='elige'>Elige una Categoria</option>";
         foreach($tipoCategorias as $tipoCategoria){
             $tipoCategoriaNombre = $tipoCategoria->getNombre();
 
@@ -370,10 +380,20 @@ class LugarController extends Controller
                             <option value="05:30">05:30</option>';
         $data['categorias'] = $lr->getCategorias();
 
+
+        //Errores
+        foreach($this->get('validator')->validate( $form ) as $formError){
+            $formErrors[] = $formError->getMessage();
+        }
+
+        if(is_array($camposExtraErrors) && is_array($formErrors)){
+            $errors = array_merge($formErrors, $camposExtraErrors);
+        }
+
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
             'form' => $form->createView(),
-            'camposExtraErrores' => $camposExtraErrores
+            'errors' => $errors
         ));
     }
 }

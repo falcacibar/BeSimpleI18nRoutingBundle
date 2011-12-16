@@ -456,14 +456,11 @@
             actualizarComunas();
         });
 
-/*        $('input[type=submit]').click(function(e){
+        $('input[type=submit]').click(function(e){
             e.preventDefault();
-            if($('.placeholder:not(:hidden)').length > 0){
-                alert('Placeholders in use');
-            }else{
-                $(this).parent().submit();
-            }
-        });*/
+            $('.placeholder').val('').removeClass('placeholder');
+            $(this).parent().submit();
+        });
     </script>
 {% endblock %}
 
@@ -471,19 +468,14 @@
 <form action="{{ path('_agregar') }}" method="post" {{ form_enctype(form) }}>
 {{ form_errors(form) }}
 
-{% if form_errors(form.nombre) %}
-    <div class="errores-form">
-        {{ form_errors(form.nombre) }}
-    </div>
-{% endif %}
-
-{% if camposExtraErrores %}
-    <div class="errores-form">
-        {% for errores in camposExtraErrores %}
-            {{ errores }}
+{% if errors %}
+    <div class="errores">
+        {% for error in errors %}
+            <p>{{ error }}</p>
         {% endfor %}
     </div>
 {% endif %}
+
 
 <ul class="agregar-lugar">
     <li>
@@ -493,7 +485,9 @@
     <li>
         <label>Categorias</label>
         {{ data.categoriaSelect | raw}}
-        <div class='subcategorias'><ul></ul></div>
+        <div class='subcategorias'>
+            <ul></ul>
+        </div>
     </li>
     <li class="no-default">
         <label>Categorias</label>
@@ -550,7 +544,7 @@
     <li>
          <span class="display-more"><a class="display-more-info" rel="telefono" href="">Mas telefonos (Max <span>2</span>)</a></span>
     </li>
-        <li>
+    <li>
         <label>Sitio Web</label>
         <input type="text" name="form[sitio_web]" id="form_sitio_web" data-placeholder="Ej. http://www.bareltufo.cl"/>
     </li>
@@ -560,7 +554,11 @@
     </li>
     <li>
         <label>Twitter</label>
-        <input type="text" name="form[twitter]" id="form_twitter" data-placeholder="http://www.twitter.com/barelfuto"/>
+        <input type="text" name="form[twitter]" id="form_twitter" data-placeholder="Ej. http://www.twitter.com/barelfuto"/>
+    </li>
+    <li>
+        <label>Mail</label>
+        <input type="text" name="form[mail]" id="form_mail" data-placeholder="Ej. usuario@logoares.com"/>
     </li>
     <li>
         <label>Sabes los horarios de atencion?</label>

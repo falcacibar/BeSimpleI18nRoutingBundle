@@ -8,7 +8,7 @@
 		<form action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
 			<div class="form-registro">
 				{% if form_errors(form) %}
-					<div class="errores-form">
+					<div class="errores">
 						{{form_errors(form)}}
 					</div>
 				{% endif %}
