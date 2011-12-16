@@ -12,9 +12,8 @@
 						{{form_errors(form)}}
 					</div>
 				{% endif %}
-				{% if form_errors(form.usuario) or form_errors(form.mail) or form_errors(form.password) or form_errors(form.nombre) or form_errors(form.apellido) %}
-				<div class="errores-form">
-					{{ form_errors(form.usuario) }}
+				{% if form_errors(form.mail) or form_errors(form.password) or form_errors(form.nombre) or form_errors(form.apellido) %}
+				<div class="errores">
 					{{ form_errors(form.mail) }}
 					{{ form_errors(form.password) }}
 					{{ form_errors(form.nombre) }}
@@ -30,11 +29,6 @@
 				<div>
 					{{ form_label(form.apellido) }}
 					{{ form_widget(form.apellido, { 'attr': {'data-placeholder': 'Ej. Valdéz'}}) }}
-				</div>
-						
-				<div>
-					{{ form_label(form.usuario, 'Nombre de usuario') }}
-					{{ form_widget(form.usuario, { 'attr': {'data-placeholder': 'Ej. juanito'} } ) }}
 				</div>
 
 				<div>

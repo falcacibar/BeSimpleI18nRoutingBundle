@@ -7,6 +7,7 @@ use Loogares\UsuarioBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 
 class UsuarioController extends Controller
@@ -16,13 +17,13 @@ class UsuarioController extends Controller
         return $this->render('LoogaresUsuarioBundle:Usuarios:index.html.twig', array('name' => $name));
     }
     
-    public function showAction($slug) {
+    public function showAction($param) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
-        $usuarioResult = $ur->findOneBySlug($slug); 
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
-            throw $this->createNotFoundException('No user found for slug '.$slug);
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         }
         
         //Total recomendaciones usuario
@@ -95,15 +96,17 @@ class UsuarioController extends Controller
 
     public function registroAction(Request $request) {
 
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
         // Usuario loggeado es redirigido a su perfil
-        if($this->get('security.context')->isGranted('ROLE_USER'))
-            return $this->redirect($this->generateUrl('showUsuario', array('slug' => $this->get('security.context')->getToken()->getUser()->getSlug())));
+        if($this->get('security.context')->isGranted('ROLE_USER')) 
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
 
         // Construcción del form del nuevo usuario, con objeto $usuario asociado
         $usuario = new Usuario();        
 
         $form = $this->createFormBuilder($usuario)
-                     ->add('usuario', 'text')
                      ->add('mail', 'text')
                      ->add('password', 'repeated', array(
                                 'type' => 'password',
@@ -120,14 +123,10 @@ class UsuarioController extends Controller
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
+            if ($form->isValid()) {               
 
-                // Form válido, generamos slug y fecha creación
-                $fn = $this->get('fn');
-                $nombreUsuario = $usuario->getUsuario();
-                $nombreUsuario = $fn->generarSlug($nombreUsuario);
-                $usuario->setSlug($nombreUsuario);
+                // Form válido, generamos campos requeridos
+                $usuario->setSlug('');
                 $usuario->setImagenFull("default.png");
                 $usuario->setFechaRegistro(new \DateTime());
 
@@ -140,6 +139,11 @@ class UsuarioController extends Controller
                 $hashConfirmacion = md5($usuario->getMail().$usuario->getId().time());
                 $usuario->setHashConfirmacion($hashConfirmacion);
                 $usuario->setSalt('');
+
+                // Seteamos tipo_usuario a ROLE_USER
+                $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")
+                                  ->findOneByNombre('ROLE_USER');
+                $usuario->setTipoUsuario($tipoUsuario);
 
                 // Agregamos registro a la base de datos
                 $em->persist($usuario);
@@ -189,13 +193,13 @@ class UsuarioController extends Controller
         //Si el usuario con el $hash no existe
         if(!$usuarioResult) {
             $this->get('session')->setFlash('confirmacion-registro','Código de confirmación incorrecto');
-            return $this->redirect($this->generateUrl('showUsuario', array('slug' => 'sebastian-vicencio')));
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => 'sebastian-vicencio')));
         }
 
         // Si el usuario ya estaba confirmado
         if($usuarioResult->getConfirmado() == 1) {
             $this->get('session')->setFlash('confirmacion-registro', 'Confirmación realizada con anterioridad');
-            return $this->redirect($this->generateUrl('showUsuario', array('slug' => $usuarioResult->getSlug())));
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
         }    
         
         // Hash correcto y usuario no confirmado
@@ -215,18 +219,22 @@ class UsuarioController extends Controller
 
 
         // Usuario inicia sesión automáticamente
-
+        $token = new UsernamePasswordToken($usuarioResult, $usuarioResult->getPassword(),'main', $usuarioResult->getRoles());
+        $this->container->get('security.context')->setToken($token);
 
 
         $this->get('session')->setFlash('confirmacion-registro', '¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún lugar para recomendar?');
-        return $this->redirect($this->generateUrl('showUsuario', array('slug' => $usuarioResult->getSlug())));
+        return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
     }
 
     public function loginAction()
     {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
         // Usuario loggeado es redirigido a su perfil
         if($this->get('security.context')->isGranted('ROLE_USER'))
-            return $this->redirect($this->generateUrl('showUsuario', array('slug' => $this->get('security.context')->getToken()->getUser()->getSlug())));
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
             
         $request = $this->getRequest();
         $session = $request->getSession();

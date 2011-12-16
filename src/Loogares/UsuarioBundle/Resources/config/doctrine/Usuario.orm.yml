@@ -3,9 +3,8 @@ Loogares\UsuarioBundle\Entity\Usuario:
     repositoryClass: Loogares\UsuarioBundle\Repository\UsuarioRepository
     table: usuarios
     manyToOne:
-        tipoUsuario:
+        tipo_usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\TipoUsuario
-    manyToOne:
         comuna:
             targetEntity: Loogares\ExtraBundle\Entity\Comuna
     id:
@@ -16,8 +15,6 @@ Loogares\UsuarioBundle\Entity\Usuario:
         nombre:
             type: string
         apellido:
-            type: string
-        usuario:
             type: string
         password:
             type: string

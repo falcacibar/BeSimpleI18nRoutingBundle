@@ -28,7 +28,7 @@ logout:
     pattern:   /logout
 
 showUsuario:
-    pattern:  /{slug}
+    pattern:  /{param}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:show }
 
 
