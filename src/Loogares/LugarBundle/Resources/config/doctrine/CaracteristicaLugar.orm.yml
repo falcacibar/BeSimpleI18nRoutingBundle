@@ -19,4 +19,4 @@ Loogares\LugarBundle\Entity\CaracteristicaLugar:
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }

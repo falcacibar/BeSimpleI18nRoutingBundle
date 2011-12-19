@@ -13,9 +13,35 @@ use Doctrine\ORM\EntityRepository;
 class LugarRepository extends EntityRepository
 {
 
-    public function getCategorias(){
+    public function getLugares($slug = null){
         $em = $this->getEntityManager();
-        $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u order by u.nombre asc");
+        if($slug){
+          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.slug = '$slug'");
+        }else{
+          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u");
+        }
+        $lugarResult = $q->getResult();
+
+        return $lugarResult;
+    }
+
+    public function getLugaresPorNombre($nombre = null){
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.nombre = '$nombre'");
+        
+        $lugarResult = $q->getResult();
+
+        return $lugarResult;
+    }
+
+    public function getCategorias($slug = null){
+        $em = $this->getEntityManager();
+        if($slug){
+           $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u where u.slug = '$slug' order by u.nombre asc");  
+        }else{
+          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u order by u.nombre asc"); 
+        }
+       
         $categoriasResult = $q->getResult();
 
         return $categoriasResult;
@@ -87,5 +113,32 @@ class LugarRepository extends EntityRepository
       $tipoLugarResult = $q->getResult();
 
       return $tipoLugarResult;
+    }
+
+    public function getCaracteristicaPorNombre($nombre){
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Caracteristica u where u.nombre = ?1");
+      $q->setParameter(1, $nombre);
+
+      $caracteristicaResult = $q->getResult();
+      return $caracteristicaResult;      
+    }
+
+    public function getSubcategoriaPorNombre($nombre){
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\SubCategoria u where u.nombre = ?1");
+      $q->setParameter(1, $nombre);
+
+      $subCategoriaResult = $q->getResult();
+      return $subCategoriaResult;      
+    }
+
+    public function getSubCategorias($slug){
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\SubCategoria u where u.slug = ?1");
+      $q->setParameter(1, $slug);
+
+      $subCategoriaResult = $q->getResult();
+      return $subCategoriaResult;    
     }
 }

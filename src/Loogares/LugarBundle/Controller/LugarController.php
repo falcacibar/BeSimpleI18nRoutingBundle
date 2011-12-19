@@ -7,7 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Loogares\LugarBundle\Entity\Lugar;
-use Loogares\LugarBundle\Entity\Categoria;
+use Loogares\LugarBundle\Entity\CategoriaLugar;
+use Loogares\LugarBundle\Entity\CaracteristicaLugar;
+use Loogares\Lugarbundle\Entity\Horario;
+use Loogares\Lugarbundle\Entity\SubcategoriaLugar;
 
 class LugarController extends Controller
 {
@@ -36,12 +39,9 @@ class LugarController extends Controller
 
                 $em = $this->getDoctrine()->getEntityManager();
                 $qb = $em->createQueryBuilder();
-
-                $q = $em->createQuery("SELECT u 
-                                       FROM Loogares\LugarBundle\Entity\Lugar u 
-                                       WHERE u.slug = ?1");
-                $q->setParameter(1, $slug);
-                $lugarResult = $q->getResult();
+                $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
+                
+                $lugarResult = $lr->getLugares($slug);
 
                 //Id del Lugar
                 $idLugar = $lugarResult[0]->getId();
@@ -168,8 +168,8 @@ class LugarController extends Controller
                 $data->telefonos = $telefonos;
                 $data->caracteristicaslugar = $caracteristicaLugarResult;
                 //Imagen a mostrar
-                $data->imagen_full = $imagenLugarResult[0]->getImagenFull();
-                $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'';
+                $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
+                $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';
                 $data->recomendaciones = $recomendacionesResult;
                 //Total de Pagina que debemos mostrar/generar
                 $data->totalPaginas = ($totalRecomendacionesResult > 10)?floor($totalRecomendacionesResult / 10):1;
@@ -192,7 +192,7 @@ class LugarController extends Controller
         $formErrors = array();
 
         $lugar = new Lugar();
-        $categoria = new Categoria();
+                
 
         $form = $this->createFormBuilder($lugar)
              ->add('nombre', 'text')
@@ -215,27 +215,11 @@ class LugarController extends Controller
              ->getForm();
     
         if ($request->getMethod() == 'POST') {
-            if($_POST['comuna'] == 'elige'){
-                $camposExtraErrors[] = "Porfavor Elige una Comuna";
-            }
-
-            if($_POST['ciudad'] == 'elige'){
-                $camposExtraErrors[] = "Porfavor Elige una Ciudad";
-            }
-
-            if($_POST['sector'] == 'elige'){
-                $camposExtraErrors[] = "Porfavor Elige un Sector";
-            }
-        
-            if($_POST['categoria'] == 'elige'){
-                $camposExtraErrors[] = "Porfavor Elige al Menos una Categoria";
-            }
-
             $form->bindRequest($request);
 
             if($form->isValid() && $camposExtraErrors == false){
                 $fn = $this->get('fn');
-
+ 
                 $comuna = $lr->getComunas($_POST['comuna']);    
                 $sector = $lr->getSectores($_POST['sector']);
                 $estado = $lr->getEstado('probando');
@@ -248,20 +232,95 @@ class LugarController extends Controller
                 $lugar->setEstado($estado[0]);
                 $lugar->setTipoLugar($tipo_lugar[0]);
 
-                $lugar->setSlug($fn->generarSlug($lugar->getNombre()));
+                $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugar->getNombre());
+
+                if(sizeOf($lugaresConElMismoNombre) != 0){
+                    $lugarSlug = $fn->generarSlug($lugar->getNombre()) . (sizeOf($lugaresConElMismoNombre)+1) . "-" . $_POST['ciudad'];
+                }else{
+                    $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'];
+                }
+
+                $lugar->setSlug($lugarSlug);
                 $lugar->setFechaAgregado(new \DateTime());
                 $lugar->setMapx('1');
                 $lugar->setMapy('1');
 
                 $em->persist($lugar);
-                //$em->flush();
 
-                print_r($_POST['categoria']);
+                foreach($_POST['categoria'] as $postCategoria){
+                    $categoriaLugar[] = new CategoriaLugar();
+                    $size = sizeOf($categoriaLugar) - 1;
+                    if($postCategoria != "elige"){
+                        $categoria = $lr->getCategorias($postCategoria);
+                        if($categoria){
+                            $categoriaLugar[$size]->setCategoria($categoria[0]);
+                            $categoriaLugar[$size]->setLugar($lugar);
+                            if($_POST['categoria'][0] == $postCategoria){
+                                $categoriaLugar[$size]->setPrincipal(1);
+                            }else{
+                                $categoriaLugar[$size]->setPrincipal(0);
+                            }
+                            $em->persist($categoriaLugar[$size]);
+                        }
+                    }
+                }
 
+                if(isset($_POST['caracteristica']) && is_array($_POST['caracteristica'])){
+                    foreach($_POST['caracteristica'] as $postCaracteristica){
+                        $caracteristicaLugar[] = new CaracteristicaLugar();
+                        $size = sizeOf($caracteristicaLugar) - 1;
+                        $caracteristica = $lr->getCaracteristicaPorNombre($postCaracteristica);
+                        if($caracteristica){
+                            $caracteristicaLugar[$size]->setLugar($lugar);
+                            $caracteristicaLugar[$size]->setCaracteristica($caracteristica[0]);
+                            $em->persist($caracteristicaLugar[$size]);
+                        }
+                    }
+                }
+                if(isset($_POST['subcategoria']) && is_array($_POST['subcategoria'])){
+                    foreach($_POST['subcategoria'] as $postSubCategoria){
+                        $subCategoriaLugar[] = new SubcategoriaLugar();
+                        $size = sizeOf($subCategoriaLugar) - 1;
+                        $subCategoria = $lr->getSubCategoriaPorNombre($postSubCategoria);
+                        if($subCategoria){
+                            $subCategoriaLugar[$size]->setLugar($lugar);
+                            $subCategoriaLugar[$size]->setSubCategoria($subCategoria[0]);
+                            $em->persist($subCategoriaLugar[$size]);
+                        }
+                    }
+                }
+
+                $dias = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo');
+
+                foreach($dias as $key => $value){
+                    $horario[] = new Horario();
+                    $size = sizeOf($horario) - 1;
+                    $postHorario = $_POST['horario-'.$value];
+                    if($postHorario[0] != 'cerrado' || $postHorario[1] != 'cerrado' || $postHorario[2] != 'cerrado' || $postHorario[3] != 'cerrado' ){
+                        $horario[$size]->setLugar($lugar);
+                        $horario[$size]->setDia($key);
+                        if($postHorario[0] != 'cerrado' && $postHorario[1] != 'cerrado'){
+                            $horario[$size]->setAperturaAm($postHorario[0]);
+                            $horario[$size]->setCierreAm($postHorario[1]);
+                        }
+
+                        if($postHorario[2]!= 'cerrado' && $postHorario[3] != 'cerrado'){
+                            $horario[$size]->setAperturaPm($postHorario[2]);
+                            $horario[$size]->setCierrePm($postHorario[3]);
+                        }
+
+                        $em->persist($horario[$size]);
+                    }
+                }
+
+
+
+                $em->flush();
                 $data['id'] = $lugar->getNombre();
 
-                
-                return $this->render('LoogaresLugarBundle:Lugares:mensaje_lugar.html.twig', array('lugar' => $data));   
+                //$this->get('session')->setFlash('nuevo-lugar','This is a random message, sup.');
+                //return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+                return $this->render('LoogaresLugarBundle:Lugares:mensaje_lugar.html.twig', array('lugar' => $data));
             }
         }
 

@@ -45,7 +45,7 @@ table {
 /* Colores */
 /* Mixin */
 body {
-  background: url("/web/assets/images/extras/fondo.gif") repeat-x white;
+  background: url("../images/extras/fondo.gif") repeat-x white;
   color: #444444;
   float: left;
   font-family: Arial;
@@ -95,7 +95,7 @@ body {
           color: white;
           text-decoration: underline; }
       .barra_ciudad .centrado_ciudad .login .facebook_login {
-        background: url("/web/assets/images/extras/botones_sprite.png") 0px 0px;
+        background: url("../images/extras/botones_sprite.png") 0px 0px;
         float: left;
         height: 15px;
         width: 48px; }
@@ -117,12 +117,12 @@ body {
           color: #444444;
           text-decoration: underline; }
       .barra_ciudad .centrado_ciudad .redes_sociales .facebook_btn {
-        background: url("/web/assets/images/extras/botones_sprite.png") -48px 0px;
+        background: url("../images/extras/botones_sprite.png") -48px 0px;
         float: left;
         height: 16px;
         width: 17px; }
       .barra_ciudad .centrado_ciudad .redes_sociales .twitter_btn {
-        background: url("/web/assets/images/extras/botones_sprite.png") -65px 0px;
+        background: url("../images/extras/botones_sprite.png") -65px 0px;
         float: left;
         height: 16px;
         margin: 0 0 0 5px;
@@ -190,12 +190,12 @@ body {
         padding: 7px;
         width: 16px; }
       .menu .centrado_menu .buscar .icono_buscar {
-        background: url("/web/assets/images/extras/botones_sprite.png") -82px 0px;
+        background: url("../images/extras/botones_sprite.png") -82px 0px;
         float: left;
         height: 15px;
         width: 15px; }
         .menu .centrado_menu .buscar .icono_buscar:hover {
-          background: url("/web/assets/images/extras/botones_sprite.png") -82px -16px;
+          background: url("../images/extras/botones_sprite.png") -82px -16px;
           float: left;
           height: 15px;
           width: 15px; }
