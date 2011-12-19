@@ -6,7 +6,7 @@ jQuery.fn.outerHTML = function(s) {
 
 jQuery.fn.placeholder = function(){
     var $this = $(this),
-        placeholder = $this.attr('data-placeholder');
+        placeholder = $this.attr('placeholder');
 
     if($this.val() == ''){ 
         $this.val(placeholder).addClass('placeholder'); 
@@ -15,7 +15,7 @@ jQuery.fn.placeholder = function(){
 
     $this.focus(function(){
         var $this = $(this),
-            placeholder = $this.attr('data-placeholder');
+            placeholder = $this.attr('placeholder');
 
         if($this.val() == placeholder){
             $this.removeClass('placeholder').addClass('input-active');
@@ -23,7 +23,7 @@ jQuery.fn.placeholder = function(){
         }
     }).blur(function(){
         var $this = $(this),
-            placeholder = $this.attr('data-placeholder');
+            placeholder = $this.attr('placeholder');
 
         $this.removeClass('input-active');
         
