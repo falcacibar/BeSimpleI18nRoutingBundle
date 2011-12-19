@@ -9,40 +9,11 @@
 		        {{ app.session.flash('confirmacion-registro') }}
 		    </div>
 		{% endif %}
+		
+		{% include 'LoogaresUsuarioBundle:Usuarios:datos_usuario.html.twig' %}
 
-		<div id="data-usuario">
-			<div id="image-usuario"></div>
-			<h3>{{usuario.nombre}} {{usuario.apellido}}</h3>
-
-			<ul>
-				<li>{{usuario.nombre}} {{usuario.apellido}}</li>
-				{% if usuario.sexoResult != '' or usuario.edadResult != '0' %}
-					<li>
-						{% if usuario.sexoResult != '' %}
-							{{usuario.sexoResult}}{% endif %}{% if usuario.edadResult != '0'%}, {{usuario.edadResult}} años
-						{% endif %}
-					</li>				
-				{% endif %}
-			</ul>
-
-			<ul class="bold">
-				<li>{{usuario.totalRecomendaciones}} recomendaciones</li>
-				<li>{{usuario.totalPrimerasRecomendaciones}} primeras recomendaciones</li>
-				<li>{{usuario.totalLugaresAgregados}} lugares agregados</li>
-				<li>{{usuario.totalImagenesLugar}} fotos agregadas</li>
-			</ul>
-
-			<p class="bold">En Loogares.com desde: <br /> {{usuario.desdeResult}}</p>
-			{% if usuario.links|length > 0 %}
-				<ul class="bold">
-				{% for link in usuario.links %}
-					<li><a href="{{link}}" target="blank">{{link}}</a></li>
-				{% endfor %}
-				</ul>
-			{% endif %}
-		</div>
 		<div id="content-usuario">
-			{% include 'LoogaresUsuarioBundle:Usuarios:content_usuario.html.twig' %}
+			{% include 'LoogaresUsuarioBundle:Usuarios:'~usuario.tipo~'_usuario.html.twig' %}
 		</div>
 	</div>
 {% endblock %}
