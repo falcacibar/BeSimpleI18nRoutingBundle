@@ -1,15 +1,232 @@
-/*Error Display */
-.errores {
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  color: #ff4d4d;
-  padding: 10px;
-  background: #ffe5e5;
-  border: 1px solid #ffb3b3;
-  display: block;
-  width: 400px; }
-  .errores p {
-    padding-left: 10px; }
-  .errores p:before {
-    content: " ";
-    font-size: 16px; }
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* Colores */
+/* Mixin */
+body {
+  background: url("/web/assets/images/iconos-botones-fondos/fondo.gif") repeat-x white;
+  color: #444444;
+  float: left;
+  font-family: Arial;
+  font-size: 13px; }
+
+/* Header */
+.barra_ciudad {
+  background: #686868;
+  float: left;
+  height: 25px;
+  width: 100%; }
+  .barra_ciudad .centrado_ciudad {
+    margin: 0px auto;
+    width: 960px;
+    height: 25px; }
+    .barra_ciudad .centrado_ciudad .logo_ciudad {
+      background: white;
+      border: 1px solid #cccccc;
+      float: left;
+      height: 65px;
+      padding: 5px 15px;
+      position: relative;
+      width: 100px;
+      z-index: 10; }
+    .barra_ciudad .centrado_ciudad .menu_ciudad {
+      color: white;
+      float: left;
+      font-size: 12px;
+      margin: 6px 10px;
+      width: 298px; }
+      .barra_ciudad .centrado_ciudad .menu_ciudad a {
+        color: white;
+        text-decoration: none; }
+        .barra_ciudad .centrado_ciudad .menu_ciudad a:hover {
+          color: white;
+          text-decoration: underline; }
+    .barra_ciudad .centrado_ciudad .login {
+      color: white;
+      float: left;
+      font-size: 11px;
+      margin: 5px 10px 5px 240px;
+      width: 170px; }
+      .barra_ciudad .centrado_ciudad .login a {
+        color: white;
+        text-decoration: none; }
+        .barra_ciudad .centrado_ciudad .login a:hover {
+          color: white;
+          text-decoration: underline; }
+      .barra_ciudad .centrado_ciudad .login .facebook_login {
+        background: url("/web/assets/images/iconos-botones-fondos/botones_sprite.png") 0px 0px;
+        float: left;
+        height: 15px;
+        width: 48px; }
+      .barra_ciudad .centrado_ciudad .login .usuario_login {
+        float: left;
+        display: block;
+        margin: 2px 0 0 20px; }
+    .barra_ciudad .centrado_ciudad .redes_sociales {
+      background: #cccccc;
+      float: left;
+      font-size: 12px;
+      height: 20px;
+      padding: 5px 10px 0;
+      width: 70px; }
+      .barra_ciudad .centrado_ciudad .redes_sociales a {
+        color: #444444;
+        text-decoration: none; }
+        .barra_ciudad .centrado_ciudad .redes_sociales a:hover {
+          color: #444444;
+          text-decoration: underline; }
+      .barra_ciudad .centrado_ciudad .redes_sociales .facebook_btn {
+        background: url("/web/assets/images/iconos-botones-fondos/botones_sprite.png") -48px 0px;
+        float: left;
+        height: 16px;
+        width: 17px; }
+      .barra_ciudad .centrado_ciudad .redes_sociales .twitter_btn {
+        background: url("/web/assets/images/iconos-botones-fondos/botones_sprite.png") -65px 0px;
+        float: left;
+        height: 16px;
+        margin: 0 0 0 5px;
+        width: 17px; }
+      .barra_ciudad .centrado_ciudad .redes_sociales .blog {
+        float: left;
+        display: block;
+        margin: 2px 0 0 5px; }
+
+.menu {
+  background: white;
+  border-bottom: 1px solid #cccccc;
+  float: left;
+  height: 40px;
+  position: absolute;
+  top: 25px;
+  width: 100%; }
+  .menu .centrado_menu {
+    margin: 0px auto;
+    width: 960px;
+    height: 40px; }
+    .menu .centrado_menu .logo_ciudad_menu {
+      background: white;
+      border-left: 1px solid #cccccc;
+      border-right: 1px solid #cccccc;
+      float: left;
+      height: 30px;
+      padding: 5px 40px;
+      width: 50px; }
+    .menu .centrado_menu .menu_categorias {
+      color: #444444;
+      float: left;
+      font-size: 12px;
+      text-transform: lowercase;
+      width: 580px; }
+      .menu .centrado_menu .menu_categorias li {
+        display: inline; }
+        .menu .centrado_menu .menu_categorias li a {
+          color: #444444;
+          float: left;
+          padding: 14px 5px 14px 6px;
+          text-decoration: none; }
+          .menu .centrado_menu .menu_categorias li a:hover {
+            border-top: 2px solid #0099ff;
+            color: #444444;
+            padding: 12px 5px 12px 6px; }
+    .menu .centrado_menu .buscar {
+      border: 1px solid #999999;
+      float: left;
+      height: 30px;
+      margin: 4px; }
+      .menu .centrado_menu .buscar:hover {
+        border: 1px solid #444444; }
+      .menu .centrado_menu .buscar .buscador {
+        border: 0px;
+        height: 30px;
+        float: left;
+        padding: 0px 3px;
+        width: 200px; }
+      .menu .centrado_menu .buscar .caja_icono {
+        border-left: 1px solid #999999;
+        cursor: pointer;
+        float: left;
+        height: 16px;
+        padding: 7px;
+        width: 16px; }
+      .menu .centrado_menu .buscar .icono_buscar {
+        background: url("/web/assets/images/iconos-botones-fondos/botones_sprite.png") -82px 0px;
+        float: left;
+        height: 15px;
+        width: 15px; }
+        .menu .centrado_menu .buscar .icono_buscar:hover {
+          background: url("/web/assets/images/iconos-botones-fondos/botones_sprite.png") -82px -16px;
+          float: left;
+          height: 15px;
+          width: 15px; }
+      .menu .centrado_menu .buscar .placeholder {
+        color: #999999; }
+        .menu .centrado_menu .buscar .placeholder:hover {
+          color: #cccccc; }
+
+.fixed {
+  position: fixed;
+  top: 0; }
+
+.contenedor {
+  float: left;
+  padding: 60px 0px 20px;
+  width: 100%; }
+  .contenedor .contenido {
+    margin: 0 auto;
+    width: 960px; }
+
+.footer_top {
+  background: #999999;
+  height: 60px;
+  float: left;
+  width: 100%; }
+
+.footer {
+  background: #444444;
+  height: 200px;
+  float: right;
+  width: 100%; }
+  .footer .contenido_footer {
+    margin: 30px auto;
+    width: 960px; }

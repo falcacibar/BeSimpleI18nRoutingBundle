@@ -10,65 +10,50 @@
         {% endstylesheets %}
         <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-        <style>
-            body{
-                background: #333;
-                font-family: Helvetica;
-                font-size: 14px;
-                text-shadow: 0 1px 0 #fff;
-            }
 
-            h1{
-                padding: 0;
-                margin: 0;
-            }
-            #wrapper{
-                overflow: hidden;
-                background: #f0f0f0;
-                width: 940px;
-                padding: 0;
-                padding: 10px 15px;
-                margin: 0 auto;
-                -moz-border-radius: 5px;
-                border-radius: 5px;               
-            }
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+		<script>
+		$(function () {
 
-            .recomendacion{
-                background: #CCF6FF;
-                padding: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-                margin: 15px 0;
-            }
+		  var msie6 = $.browser == 'msie' && $.browser.version < 7;
 
-            ul{
-                padding: 0;
-            }
+		  if (!msie6) {
+		    var top = $('.menu').offset().top - parseFloat($('.menu').css('margin-top').replace(/auto/, 0));
+		    $(window).scroll(function (event) {
+		      // what the y position of the scroll is
+		      var y = $(this).scrollTop();
 
-            li{
-                display: inline;
-            }
-
-            #lugar-ficha{
-                width: 500px;
-                float: left;
-            }
-
-            #mapa-sidebar{
-                float: left;
-                width: 430px;
-                margin-left: 10px;
-            }
-        </style>
+		      // whether that's below the form
+		      if (y >= top) {
+		        // if so, ad the fixed class
+		        $('.menu').addClass('fixed');
+		      } else {
+		        // otherwise remove it
+		        $('.menu').removeClass('fixed');
+		      }
+		    });
+		  }  
+		});
+		</script>
+	    
     </head>
     <body>
         {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
-        <div id="wrapper">
-	
-			{% include '::header.html.twig' %}
-            {% block content %}{% endblock %}
+
+		{% include '::header.html.twig' %}
+
+        <div class="contenedor">
+			
+			<div class="contenido">
+            	
+				{% block content %}{% endblock %}
             
-        </div>
+			</div>
+        
+		</div>
+
+		{% include '::footer.html.twig' %}
+
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
         <script src='../../assets/js/lib.js'></script>
         {% block javascripts %}{% endblock %}

@@ -1,25 +1,282 @@
-@mixin border-radius($val)
-    -moz-border-radius: $val
-    border-radius: $val
+/* CSS Reset */
 
-$errorRed: red
-$errorColor: lighten($errorRed, 15%)
-$errorBorder: lighten($errorRed, 35%)
-$errorBg: lighten($errorRed, 45%)
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video
+	margin: 0
+	padding: 0
+	border: 0
+	font-size: 100%
+	font: inherit
+	vertical-align: baseline
+	
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section
+	display: block
+	
+body
+	line-height: 1
+	
+ol, ul
+	list-style: none
+	
+blockquote, q
+	quotes: none
+	
+blockquote:before, blockquote:after,
+q:before, q:after
+	content: ''
+	content: none
+	
+table
+	border-collapse: collapse
+	border-spacing: 0
 
-/*Error Display*/
-.errores
-    @include border-radius(5px)
-    color: $errorColor
-    padding: 10px
-    background: $errorBg
-    border: 1px solid $errorBorder
-    display: block
-    width: 400px
+/* Colores */
+$azul: #0099FF
+$blanco: #FFF
+$gris: #686868
+$gris_medio: #444
+$gris_medio_claro: #999
+$gris_claro: #CCC
 
-    p
-        padding-left: 10px
-        
-    p:before
-        content: " "
-        font-size: 16px
+/* Mixin */
+
+@mixin centrado
+	margin: 0px auto
+	width: 960px
+	
+body
+	background: url('/web/assets/images/iconos-botones-fondos/fondo.gif') repeat-x $blanco
+	color: $gris_medio
+	float: left
+	font:
+		family: Arial
+		size: 13px
+	
+/* Header */
+.barra_ciudad
+	background: $gris
+	float: left
+	height: 25px
+	width: 100%
+	
+	.centrado_ciudad
+		@include centrado
+		height: 25px
+		
+		.logo_ciudad
+			background: $blanco
+			border: 1px solid $gris_claro
+			float: left
+			height: 65px
+			padding: 5px 15px
+			position: relative
+			width: 100px
+			z-index: 10
+			
+		.menu_ciudad
+			color: $blanco
+			float: left
+			font:
+				size: 12px
+			margin: 6px 10px
+			width: 298px
+
+			a
+				color: $blanco
+				text-decoration: none
+
+				&:hover
+					color: $blanco
+					text-decoration: underline
+		
+		.login
+			color: $blanco
+			float: left
+			font:
+				size: 11px
+			margin: 5px 10px 5px 240px
+			width: 170px
+			
+			a
+				color: $blanco
+				text-decoration: none
+				
+				&:hover
+					color: $blanco
+					text-decoration: underline
+
+			.facebook_login
+				background: url('/web/assets/images/iconos-botones-fondos/botones_sprite.png') 0px 0px
+				float: left
+				height: 15px
+				width: 48px
+				
+			.usuario_login
+				float: left
+				display: block
+				margin: 2px 0 0 20px
+				
+		.redes_sociales
+			background: $gris_claro
+			float: left
+			font:
+				size: 12px
+			height: 20px
+			padding: 5px 10px 0
+			width: 70px
+			
+			a
+				color: $gris_medio
+				text-decoration: none
+				
+				&:hover
+					color: $gris_medio
+					text-decoration: underline
+
+			.facebook_btn
+				background: url('/web/assets/images/iconos-botones-fondos/botones_sprite.png') -48px 0px
+				float: left
+				height: 16px
+				width: 17px
+
+			.twitter_btn
+				background: url('/web/assets/images/iconos-botones-fondos/botones_sprite.png') -65px 0px
+				float: left
+				height: 16px
+				margin: 0 0 0 5px
+				width: 17px
+				
+			.blog
+				float: left
+				display: block
+				margin: 2px 0 0 5px
+
+.menu
+	background: $blanco
+	border-bottom: 1px solid $gris_claro
+	float: left
+	height: 40px
+	position: absolute
+	top: 25px
+	width: 100%
+		
+	.centrado_menu
+		@include centrado
+		height: 40px
+	
+		.logo_ciudad_menu
+			background: $blanco
+			border-left: 1px solid $gris_claro
+			border-right: 1px solid $gris_claro
+			float: left
+			height: 30px
+			padding: 5px 40px
+			width: 50px
+		
+		.menu_categorias
+			color: $gris_medio
+			float: left
+			font:
+				size: 12px
+			text-transform: lowercase
+			width: 580px
+				
+			li
+				display: inline
+			
+				a
+					color: $gris_medio
+					float: left
+					padding: 14px 5px 14px 6px
+					text-decoration: none
+				
+					&:hover
+						border-top: 2px solid $azul
+						color: $gris_medio
+						padding: 12px 5px 12px 6px
+					
+		.buscar
+			border: 1px solid $gris_medio_claro
+			float: left
+			height: 30px
+			margin: 4px
+			
+			&:hover
+				border: 1px solid $gris_medio
+		
+			.buscador
+				border: 0px
+				height: 30px
+				float: left
+				padding: 0px 3px
+				width: 200px
+				
+			.caja_icono
+				border-left: 1px solid $gris_medio_claro
+				cursor: pointer
+				float: left
+				height: 16px
+				padding: 7px
+				width: 16px
+
+			.icono_buscar
+				background: url('/web/assets/images/iconos-botones-fondos/botones_sprite.png') -82px 0px
+				float: left
+				height: 15px
+				width: 15px
+				
+				&:hover
+					background: url('/web/assets/images/iconos-botones-fondos/botones_sprite.png') -82px -16px
+					float: left
+					height: 15px
+					width: 15px
+				
+				
+			.placeholder
+				color: $gris_medio_claro
+		
+				&:hover
+					color: $gris_claro
+
+.fixed
+	position: fixed
+	top: 0
+		
+.contenedor
+	float: left
+	padding: 60px 0px 20px
+	width: 100%
+	
+	.contenido
+		margin: 0 auto
+		width: 960px
+	
+.footer_top
+	background: $gris_medio_claro
+	height: 60px
+	float: left
+	width: 100%
+	
+.footer
+	background: $gris_medio
+	height: 200px
+	float: right
+	width: 100%
+	
+	.contenido_footer
+		margin: 30px auto
+		width: 960px
+	
