@@ -41,3 +41,6 @@ security:
   #              server_url: "http://localhost/loogares/app_dev.php/" 
     access_control:
         - { path: ^/lugar/agregar, roles: ROLE_USER }
+
+    acl:
+        connection: default

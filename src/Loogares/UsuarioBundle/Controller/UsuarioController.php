@@ -11,16 +11,10 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 
 class UsuarioController extends Controller
-{
-    
-    public function indexAction($name) {
-        return $this->render('LoogaresUsuarioBundle:Usuarios:index.html.twig', array('name' => $name));
-    }
-    
+{    
     public function showAction($param) {
         
-        return $this->forward('LoogaresUsuarioBundle:Usuario:actividad', array('param' => $param));
-          
+        return $this->forward('LoogaresUsuarioBundle:Usuario:actividad', array('param' => $param));          
     }
 
     public function actividadAction($param) {
@@ -31,9 +25,14 @@ class UsuarioController extends Controller
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         }
+
+        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = 'actividad';
+
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
+
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
     }
 
@@ -45,10 +44,136 @@ class UsuarioController extends Controller
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         }
+
+        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+
+        if(!$loggeadoCorrecto)
+            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
         
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = 'recomendaciones';
+
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
+
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
+    }
+
+    public function fotosAction($param) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        if(!$usuarioResult) {
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
+        }
+        
+        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+
+        if(!$loggeadoCorrecto)
+            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+
+        $data = $ur->getDatosUsuario($usuarioResult);
+        $data->tipo = 'fotos';
+
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
+    }
+
+    public function editarAction($param) {
+        return $this->forward('LoogaresUsuarioBundle:Usuario:editarCuenta', array('param' => $param));
+    }
+
+    public function editarCuentaAction(Request $request, $param) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        if(!$usuarioResult)
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
+        
+        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        if(!$loggeadoCorrecto)
+            throw $this->createNotFoundException('No puedes editar informacion de otro usuario');
+        
+        $data = $ur->getDatosUsuario($usuarioResult);
+
+        $form = $this->createFormBuilder($usuarioResult)
+                     ->add('mail', 'text')
+                     ->add('nombre', 'text')
+                     ->add('apellido', 'text')
+                     ->getForm();
+
+        // Si el request es POST, se procesa registro
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+
+            if ($form->isValid()) {  
+                return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+            }
+        }
+        $data->edicion = 'cuenta';       
+        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
+            'usuario' => $data,
+            'form' => $form->createView()
+        )); 
+    }
+
+    public function editarFotoAction($param) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        if(!$usuarioResult) {
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
+        }
+
+        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        if(!$loggeadoCorrecto)
+            throw $this->createNotFoundException('No puedes editar informacion de otro usuario');
+        
+        $data = $ur->getDatosUsuario($usuarioResult);
+        $data->tipo = '';
+        $data->edicion = 'foto';
+        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array('usuario' => $data));  
+    }
+
+    public function editarPasswordAction($param) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        if(!$usuarioResult) {
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
+        }
+
+        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        if(!$loggeadoCorrecto)
+            throw $this->createNotFoundException('No puedes editar informacion de otro usuario');
+        
+        $data = $ur->getDatosUsuario($usuarioResult);
+        $data->tipo = '';
+        $data->edicion = 'password';
+        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array('usuario' => $data));  
+    }
+
+    public function editarBorrarAction($param) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        if(!$usuarioResult) {
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
+        }
+
+        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        if(!$loggeadoCorrecto)
+            throw $this->createNotFoundException('No puedes editar informacion de otro usuario');
+        
+        $data = $ur->getDatosUsuario($usuarioResult);
+        $data->tipo = '';
+        $data->edicion = 'borrar';
+        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array('usuario' => $data));  
     }
 
     public function registroAction(Request $request) {

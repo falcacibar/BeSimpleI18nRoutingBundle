@@ -1,0 +1,24 @@
+{% if usuario.slug != '' %}
+{% 	set slug = usuario.slug %}
+{% else %}
+{% 	set slug = usuario.id %}
+{% endif %}
+
+<h1>Edita los datos de tu perfil</h1>
+
+<div id="menu-edicion">
+	<ul>
+		<li class="{{(usuario.edicion == 'cuenta') ? 'selected' : ''}}">
+			<a href="{{path('editarCuentaUsuario', { 'param': slug })}}">Cuenta</a>
+		</li>
+		<li class="{{(usuario.edicion == 'foto') ? 'selected' : ''}}">
+			<a href="{{path('editarFotoUsuario', { 'param': slug })}}">Foto de perfil</a>
+		</li>
+		<li class="{{(usuario.edicion == 'password') ? 'selected' : ''}}">
+			<a href="{{path('editarPasswordUsuario', { 'param': slug })}}">Password</a>
+		</li>
+		<li class="{{(usuario.edicion == 'borrar') ? 'selected' : ''}}">
+			<a href="{{path('editarBorrarUsuario', { 'param': slug })}}">Borrar cuenta</a>
+		</li>
+	</ul>
+</div>

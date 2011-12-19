@@ -1,0 +1,14 @@
+{% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
+
+{% block title %}Edita tus datos, {{usuario.nombre}} {{usuario.apellido}} | {{parent()}}{% endblock %}
+{% block content %}
+	{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
+	<div id="main-usuario">
+		
+		{% include 'LoogaresUsuarioBundle:Usuarios:datos_usuario.html.twig' %}
+
+		<div id="content-usuario">
+			{% include 'LoogaresUsuarioBundle:Usuarios:editar_'~usuario.edicion~'_usuario.html.twig' %}
+		</div>
+	</div>
+{% endblock %}

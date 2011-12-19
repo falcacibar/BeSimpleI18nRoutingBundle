@@ -166,5 +166,5 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         $data->links = $links;
 
         return $data;
-    }	
+    }
 }

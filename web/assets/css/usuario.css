@@ -4,6 +4,9 @@ ul{
 p {
 	margin:0;
 }
+#main-usuario a, #menu-usuario a {
+	color:#333;
+}
 
 input[type=text], input[type=password]{
 	border:1px solid #ccc;
@@ -32,6 +35,10 @@ input[type=text], input[type=password]{
 	line-height:32px;
 	float:left;
 	padding:0 10px;
+}
+
+#menu-usuario ul li.no-right-border {
+	border-right-width:0;
 }
 
 #main-usuario {
@@ -67,12 +74,43 @@ input[type=text], input[type=password]{
 	-moz-border-radius:2px;
 }
 
+.editar-link {
+	font-weight:bold;
+	font-size:0.9em;
+}
+
 .bold{
 	font-weight:bold;
 }
 
 #content-usuario {
-	width:78%;
+	width:76%;
+	float:right;
+}
+
+/* Edición de usuario */
+
+#menu-edicion {
+	border-bottom:1px solid #ccc;
+	height:32px;
+}
+
+#menu-edicion ul {
+	float:left;
+}
+
+#menu-edicion ul li{
+	border:1px solid #ccc;
+	border-bottom:none;	
+	margin-right:3px;
+	height:32px;
+	line-height:32px;
+	padding:0 10px;
+	float:left;
+}
+
+#edicion-cuenta {
+	margin-top:30px;
 }
 
 /* Registro de usuario */
@@ -211,6 +249,6 @@ div.submit {
 	color: #ccc;
 }
 
-.no-right-border {
-	border-right-width:0;
+li.selected{
+	background-color:#ccc;
 }

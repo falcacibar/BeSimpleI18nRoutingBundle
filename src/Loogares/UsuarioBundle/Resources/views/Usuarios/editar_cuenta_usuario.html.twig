@@ -1,0 +1,40 @@
+{% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
+
+<div id="edicion-cuenta">
+	<form action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
+		<div class="form-registro">
+			{% if form_errors(form) %}
+				<div class="errores">
+					{{form_errors(form)}}
+				</div>
+			{% endif %}
+			{% if form_errors(form.mail) or form_errors(form.nombre) or form_errors(form.apellido) %}
+			<div class="errores">
+				{{ form_errors(form.mail) }}
+				{{ form_errors(form.nombre) }}
+				{{ form_errors(form.apellido) }}
+			</div>
+			{% endif %}
+			<div>
+				{{ form_label(form.nombre) }}
+				{{ form_widget(form.nombre, { 'attr': {'data-placeholder': 'Ej. Juan'}}) }}
+			</div>
+
+			<div>
+				{{ form_label(form.apellido) }}
+				{{ form_widget(form.apellido, { 'attr': {'data-placeholder': 'Ej. Valdéz'}}) }}
+			</div>
+
+			<div>
+				{{ form_label(form.mail, 'E-mail') }}
+				{{ form_widget(form.mail, { 'attr': {'data-placeholder': 'Ej. juanito@empresa.com'}}) }}
+			</div>    
+
+		    {{ form_rest(form) }}
+
+			<div class="submit">
+				<label></label><input type="submit" value="Registrar" formnovalidate />
+			</div>
+	    </div>		    
+	</form>
+</div>
