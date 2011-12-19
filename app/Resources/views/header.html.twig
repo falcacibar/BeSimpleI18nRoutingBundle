@@ -22,17 +22,7 @@
 		<div class="logo_ciudad_menu">
 			<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
 		</div>
-		<div class="menu_categorias">
-			<ul>
-				<li><a href="#">Dónde Comer</a></li>
-				<li><a href="#">Qué Visitar</a></li>
-				<li><a href="#">Qué Comprar</a></li>
-				<li><a href="#">Cómo Entretenerse</a></li>
-				<li><a href="#">Cómo Cuidarse</a></li>
-				<li><a href="#">Dónde Dormir</a></li>
-				<li><a href="#">Servicios</a></li>
-			</ul>
-		</div>
+		{% render "LoogaresExtraBundle:Default:menu" %}
 		<div class="buscar">
 			<input class="buscador placeholder" type="text" data-placeholder="Completos, Lastarria, bares, La Moneda" />
 			<div class="caja_icono">

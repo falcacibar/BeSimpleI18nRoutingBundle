@@ -141,4 +141,12 @@ class LugarRepository extends EntityRepository
       $subCategoriaResult = $q->getResult();
       return $subCategoriaResult;    
     }
+
+    public function getTipoCategoriaPorPrioridad() {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\TipoCategoria u order by u.prioridad_web asc");
+      $tipoCategoriasResult = $q->getResult();
+
+      return $tipoCategoriasResult;
+    }
 }

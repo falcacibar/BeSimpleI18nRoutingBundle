@@ -12,4 +12,15 @@ class DefaultController extends Controller
     {
         return $this->render('LoogaresExtraBundle:Default:index.html.twig', array('name' => $name));
     }
+
+    public function menuAction(){
+
+    	$em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $tipoCategorias = $lr->getTipoCategoriaPorPrioridad();
+
+        $data = $tipoCategorias;
+    	return $this->render('::menu.html.twig', array('menu' => $data));
+    }
 }
