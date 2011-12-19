@@ -20,7 +20,8 @@ time, mark, audio, video
 	font: inherit
 	vertical-align: baseline
 	
-/* HTML5 display-role reset for older browsers */
+/* HTML5 display-role reset para navegadores antiguos */
+
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section
 	display: block
@@ -44,30 +45,60 @@ table
 	border-spacing: 0
 
 /* Colores */
+
 $azul: #0099FF
 $blanco: #FFF
-$gris: #686868
-$gris_medio: #444
-$gris_medio_claro: #999
-$gris_claro: #CCC
+$gris_444: #444
+$gris_686: #686868
+$gris_999: #999
+$gris_ccc: #CCC
+$gris_ddd: #DDD
+$rojo: #FF3300
 
 /* Mixin */
 
 @mixin centrado
 	margin: 0px auto
 	width: 960px
-	
+
+@mixin gradiente_botones ($color_1, $color_2)
+	background-image: linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -o-linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -moz-linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -webkit-linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -ms-linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, $color_1), color-stop(0.7, $color_2))
+	border: 1px solid $color_1
+	cursor: pointer
+
+@mixin link_blanco
+	color: $blanco
+	text-decoration: none
+
+@mixin link_blanco_hover
+	color: $blanco
+	text-decoration: underline
+
+@mixin link_azul
+	color: $azul
+	text-decoration: none
+
+@mixin link_azul_hover
+	color: $azul
+	text-decoration: underline
+
 body
 	background: url('../images/extras/fondo.gif') repeat-x $blanco
-	color: $gris_medio
+	color: $gris_444
 	float: left
 	font:
 		family: Arial
 		size: 13px
 	
 /* Header */
+
 .barra_ciudad
-	background: $gris
+	background: $gris_444
 	float: left
 	height: 25px
 	width: 100%
@@ -78,7 +109,7 @@ body
 		
 		.logo_ciudad
 			background: $blanco
-			border: 1px solid $gris_claro
+			border: 1px solid $gris_ccc
 			float: left
 			height: 65px
 			padding: 5px 15px
@@ -95,12 +126,10 @@ body
 			width: 298px
 
 			a
-				color: $blanco
-				text-decoration: none
+				@include link_blanco
 
 				&:hover
-					color: $blanco
-					text-decoration: underline
+					@include link_blanco_hover
 		
 		.login
 			color: $blanco
@@ -111,12 +140,10 @@ body
 			width: 170px
 			
 			a
-				color: $blanco
-				text-decoration: none
-				
+				@include link_blanco
+
 				&:hover
-					color: $blanco
-					text-decoration: underline
+					@include link_blanco_hover
 
 			.facebook_login
 				background: url('../images/extras/botones_sprite.png') 0px 0px
@@ -130,7 +157,7 @@ body
 				margin: 2px 0 0 20px
 				
 		.redes_sociales
-			background: $gris_claro
+			background: $gris_ccc
 			float: left
 			font:
 				size: 12px
@@ -139,11 +166,11 @@ body
 			width: 70px
 			
 			a
-				color: $gris_medio
+				color: $gris_444
 				text-decoration: none
 				
 				&:hover
-					color: $gris_medio
+					color: $gris_444
 					text-decoration: underline
 
 			.facebook_btn
@@ -166,7 +193,7 @@ body
 
 .menu
 	background: $blanco
-	border-bottom: 1px solid $gris_claro
+	border-bottom: 1px solid $gris_ccc
 	float: left
 	height: 40px
 	position: absolute
@@ -179,15 +206,15 @@ body
 	
 		.logo_ciudad_menu
 			background: $blanco
-			border-left: 1px solid $gris_claro
-			border-right: 1px solid $gris_claro
+			border-left: 1px solid $gris_ccc
+			border-right: 1px solid $gris_ccc
 			float: left
 			height: 30px
 			padding: 5px 40px
 			width: 50px
 		
 		.menu_categorias
-			color: $gris_medio
+			color: $gris_444
 			float: left
 			font:
 				size: 12px
@@ -198,24 +225,24 @@ body
 				display: inline
 			
 				a
-					color: $gris_medio
+					color: $gris_444
 					float: left
-					padding: 14px 5px 14px 6px
+					padding: 14px 6px
 					text-decoration: none
 				
 					&:hover
 						border-top: 2px solid $azul
-						color: $gris_medio
-						padding: 12px 5px 12px 6px
+						color: $gris_444
+						padding: 12px 6px
 					
 		.buscar
-			border: 1px solid $gris_medio_claro
+			border: 1px solid $gris_999
 			float: left
 			height: 30px
-			margin: 4px
+			margin: 4px 4px 4px 0
 			
 			&:hover
-				border: 1px solid $gris_medio
+				border: 1px solid $gris_444
 		
 			.buscador
 				border: 0px
@@ -225,7 +252,7 @@ body
 				width: 200px
 				
 			.caja_icono
-				border-left: 1px solid $gris_medio_claro
+				border-left: 1px solid $gris_999
 				cursor: pointer
 				float: left
 				height: 16px
@@ -246,32 +273,148 @@ body
 				
 				
 			.placeholder
-				color: $gris_medio_claro
+				color: $gris_999
 		
 				&:hover
-					color: $gris_claro
+					color: $gris_ccc
 
 .fixed
 	position: fixed
 	top: 0
-		
+
+/* Contenidos */
+
 .contenedor
 	float: left
-	padding: 60px 0px 20px
+	padding: 90px 0px 20px
 	width: 100%
 	
 	.contenido
 		margin: 0 auto
 		width: 960px
+
+		.titulo
+			font:
+				size: 16px
+			margin: 0 0 30px 0
+
+		.columna_izquierda
+			border-right: 1px solid $gris_ddd
+			float: left
+			padding: 0 20px 0 0
+			width: 459px
+
+		.columna_derecha
+			float: left
+			padding: 0 0px 0 20px
+			width: 460px
+
+		.login
+			float: left
+			width: 459px
+
+			.login_form
+				font:
+					size: 12px
+
+				div
+
+					label
+						display: block
+						float: left
+						margin: 5px 0
+						width: 90px
+					
+					input
+						border: 1px solid $gris_999
+						height: 20px
+						margin: 0 0 10px
+						padding: 3px 5px
+						width: 250px
+
+						&:hover
+							border: 1px solid $gris_444
+
+						&.checkbox
+							float: left
+							margin: 0 0 10px 0
+							width: 20px
+
+					.tip
+						float: left
+						font:
+							size: 11px
+						margin: 0 0 10px
+						width: 360px
+
+						a
+							@include link_azul
+
+							&:hover
+								@include link_azul_hover
+
+					.checkbox_tip
+						float: left
+						font:
+							size: 12px
+						margin: 5px 5px 10px
+						width: 250px
+					
+				.submit
+					float: left
+					width: 459px
+
+					.boton_entrar
+						@include gradiente_botones (#FF3300, #FF6600)
+						color: $blanco
+						font:
+							size: 12px
+						height: 30px
+						text-shadow: 1px 1px 1px $gris_444
+						width: 60px
+
+						&:hover
+							@include gradiente_botones (#FF4400, #FF7700)
+							height: 30px
+							text-shadow: 1px 1px 1px $gris_444
+							width: 60px
+
+		.texto_registro
+			font:
+				size: 13px
+			line-height: 18px
+		
+		a
+			@include link_blanco
+		
+			.boton_registro
+				@include gradiente_botones (#FF3300, #FF6600)						
+				color: $blanco
+				font:
+					size: 25px
+				height: 30px
+				margin: 20px 135px
+				padding: 15px 10px
+				text-align: center
+				text-shadow: 1px 1px 1px $gris_444
+				width: 175px
+
+				&:hover
+					@include gradiente_botones (#FF4400, #FF7700)
+					height: 30px
+					text-shadow: 1px 1px 1px $gris_444
+					width: 175px
+
+/* Footer */
 	
 .footer_top
-	background: $gris_medio_claro
+	background: $gris_999
 	height: 60px
 	float: left
 	width: 100%
 	
 .footer
-	background: $gris_medio
+	background: $gris_444
 	height: 200px
 	float: right
 	width: 100%

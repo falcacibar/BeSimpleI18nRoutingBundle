@@ -1,9 +1,9 @@
-<div id="login-block">
+<div class="login">
             {% if error %}
                 <div class="errores">{{ error.message }}</div>
             {% endif %}
 
-            <form action="{{ path('login_check') }}" method="post" class="form-login">
+            <form action="{{ path('login_check') }}" method="post" class="login_form">
                 <div>
                     <label for="mail">E-mail:</label>
                     <input type="text" id="mail" name="_mail" value="{{ last_mail }}" />
@@ -17,13 +17,12 @@
                 <div>
                     <label></label>
                     <span class="tip"><a href="">¿Olvidaste tu password?</a></span>
-                </div> <br/>
+                </div>
 
-                <div class="recordarme">
+                <div>
                     <label></label>
-                    <input type="checkbox" id="remember_me" name="_remember_me" />
-                    <span class="tip">Recordarme</span>
-                    
+                    <input class="checkbox" type="checkbox" id="remember_me" name="_remember_me" />
+                    <span class="checkbox_tip">Recordar sesión</span>
                 </div>
 
                 {#
@@ -32,7 +31,7 @@
                 #}
                 <div class="submit">
                     <label></label>
-                    <input type="submit" name="login" value="Entrar"/>
+                    <input class="boton_entrar" type="submit" name="login" value="Entrar"/>
                 </div>
             </form>
-        </div>
+</div>

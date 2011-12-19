@@ -19,7 +19,7 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline; }
 
-/* HTML5 display-role reset for older browsers */
+/* HTML5 display-role reset para navegadores antiguos */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block; }
@@ -53,7 +53,7 @@ body {
 
 /* Header */
 .barra_ciudad {
-  background: #686868;
+  background: #444444;
   float: left;
   height: 25px;
   width: 100%; }
@@ -163,17 +163,17 @@ body {
         .menu .centrado_menu .menu_categorias li a {
           color: #444444;
           float: left;
-          padding: 14px 5px 14px 6px;
+          padding: 14px 6px;
           text-decoration: none; }
           .menu .centrado_menu .menu_categorias li a:hover {
             border-top: 2px solid #0099ff;
             color: #444444;
-            padding: 12px 5px 12px 6px; }
+            padding: 12px 6px; }
     .menu .centrado_menu .buscar {
       border: 1px solid #999999;
       float: left;
       height: 30px;
-      margin: 4px; }
+      margin: 4px 4px 4px 0; }
       .menu .centrado_menu .buscar:hover {
         border: 1px solid #444444; }
       .menu .centrado_menu .buscar .buscador {
@@ -208,14 +208,130 @@ body {
   position: fixed;
   top: 0; }
 
+/* Contenidos */
 .contenedor {
   float: left;
-  padding: 60px 0px 20px;
+  padding: 90px 0px 20px;
   width: 100%; }
   .contenedor .contenido {
     margin: 0 auto;
     width: 960px; }
+    .contenedor .contenido .titulo {
+      font-size: 16px;
+      margin: 0 0 30px 0; }
+    .contenedor .contenido .columna_izquierda {
+      border-right: 1px solid #dddddd;
+      float: left;
+      padding: 0 20px 0 0;
+      width: 459px; }
+    .contenedor .contenido .columna_derecha {
+      float: left;
+      padding: 0 0px 0 20px;
+      width: 460px; }
+    .contenedor .contenido .login {
+      float: left;
+      width: 459px; }
+      .contenedor .contenido .login .login_form {
+        font-size: 12px; }
+        .contenedor .contenido .login .login_form div label {
+          display: block;
+          float: left;
+          margin: 5px 0;
+          width: 90px; }
+        .contenedor .contenido .login .login_form div input {
+          border: 1px solid #999999;
+          height: 20px;
+          margin: 0 0 10px;
+          padding: 3px 5px;
+          width: 250px; }
+          .contenedor .contenido .login .login_form div input:hover {
+            border: 1px solid #444444; }
+          .contenedor .contenido .login .login_form div input.checkbox {
+            float: left;
+            margin: 0 0 10px 0;
+            width: 20px; }
+        .contenedor .contenido .login .login_form div .tip {
+          float: left;
+          font-size: 11px;
+          margin: 0 0 10px;
+          width: 360px; }
+          .contenedor .contenido .login .login_form div .tip a {
+            color: #0099ff;
+            text-decoration: none; }
+            .contenedor .contenido .login .login_form div .tip a:hover {
+              color: #0099ff;
+              text-decoration: underline; }
+        .contenedor .contenido .login .login_form div .checkbox_tip {
+          float: left;
+          font-size: 12px;
+          margin: 5px 5px 10px;
+          width: 250px; }
+        .contenedor .contenido .login .login_form .submit {
+          float: left;
+          width: 459px; }
+          .contenedor .contenido .login .login_form .submit .boton_entrar {
+            background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
+            border: 1px solid #ff3300;
+            cursor: pointer;
+            color: white;
+            font-size: 12px;
+            height: 30px;
+            text-shadow: 1px 1px 1px #444444;
+            width: 60px; }
+            .contenedor .contenido .login .login_form .submit .boton_entrar:hover {
+              background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
+              border: 1px solid #ff4400;
+              cursor: pointer;
+              height: 30px;
+              text-shadow: 1px 1px 1px #444444;
+              width: 60px; }
+    .contenedor .contenido .texto_registro {
+      font-size: 13px;
+      line-height: 18px; }
+    .contenedor .contenido a {
+      color: white;
+      text-decoration: none; }
+      .contenedor .contenido a .boton_registro {
+        background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+        background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+        background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+        background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+        background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
+        border: 1px solid #ff3300;
+        cursor: pointer;
+        color: white;
+        font-size: 25px;
+        height: 30px;
+        margin: 20px 135px;
+        padding: 15px 10px;
+        text-align: center;
+        text-shadow: 1px 1px 1px #444444;
+        width: 175px; }
+        .contenedor .contenido a .boton_registro:hover {
+          background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+          background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+          background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+          background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+          background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+          background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
+          border: 1px solid #ff4400;
+          cursor: pointer;
+          height: 30px;
+          text-shadow: 1px 1px 1px #444444;
+          width: 175px; }
 
+/* Footer */
 .footer_top {
   background: #999999;
   height: 60px;
