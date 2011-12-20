@@ -1,5 +1,5 @@
 var categorias = {
-    elegir: {
+    elige: {
        camposEspeciales: [],
        subCategorias: [],
        caracteristicas: [],
@@ -7,13 +7,13 @@ var categorias = {
     },
 // Qué Visitar
     arquitectura: {
-       camposEspeciales: ['arquitecto', 'anio-construccion', 'materiales'],
+       camposEspeciales: ['profesional', 'agno_construccion', 'materiales'],
        subCategorias: [],
        caracteristicas: [],
        deshabilitar: ['arte-urbano-graffiti', 'atractivos-turisticos', 'monumentos-esculturas', 'parques', 'plazas']
     },
     arteUrbanoGraffiti: {
-       camposEspeciales: ['artista', 'anio-construccion', 'materiales'],
+       camposEspeciales: ['profesional', 'agno_construccion', 'materiales'],
        subCategorias: [],
        caracteristicas: [],
        deshabilitar: ['arquitectura', 'atractivos-turisticos', 'monumentos-esculturas', 'parques', 'plazas']
@@ -55,7 +55,7 @@ var categorias = {
        deshabilitar: []
     },
     monumentosEsculturas: {
-       camposEspeciales: ['escultor', 'anio-construccion', 'materiales'],
+       camposEspeciales: ['profesional', 'angno_construccion', 'materiales'],
        subCategorias: [],
        caracteristicas: [],
        deshabilitar: ['arquitectura', 'arte-urbano-graffiti', 'atractivos-turisticos', 'parques', 'plazas']
@@ -67,7 +67,7 @@ var categorias = {
        deshabilitar: []
     },
     parques: {
-       camposEspeciales: ['paisajista', 'anio'],
+       camposEspeciales: ['profesional', 'agno_construccion'],
        subCategorias: [],
        caracteristicas: ['Estacionamiento Autos', 'Estacionamiento Bicicletas'],
        deshabilitar: ['arquitectura', 'arte-urbano-graffiti', 'atractivos-turisticos', 'monumentos-esculturas', 'plazas']
@@ -85,7 +85,7 @@ var categorias = {
        deshabilitar: []
     },
     plazas: {
-       camposEspeciales: ['paisajista', 'anio'],
+       camposEspeciales: ['profesional', 'agno_construccion'],
        subCategorias: [],
        caracteristicas: ['Estacionamiento Bicicletas'],
        deshabilitar: ['arquitectura', 'arte-urbano-graffiti', 'atractivos-turisticos', 'monumentos-esculturas', 'parques']
@@ -94,7 +94,7 @@ var categorias = {
 	baresPubs: {
 	   camposEspeciales: [],
 	   subCategorias: ['Bares / Pubs', 'Bares con Transmisión Deportiva', 'Karaoke', 'Cervecerías', 'Pubs Irlandeses / Ingleses', 'Wine Bar', 'Hookah Bar'],
-       caracteristicas: ['Aire Acondicionado', 'Discapacitados', 'Estacionamiento Autos', 'Estacionamiento Bicicletas', 'Fumadores', 'Gay Friendly', 'Happy Hour', 'No Fumadores', 'Pago con Cheque de Restaurante', 'Pago con Redcompra', 'Pago con Tarjeta', 'Terraza', 'Wifi'],
+     caracteristicas: ['Aire Acondicionado', 'Discapacitados', 'Estacionamiento Autos', 'Estacionamiento Bicicletas', 'Fumadores', 'Gay Friendly', 'Happy Hour', 'No Fumadores', 'Pago con Cheque de Restaurante', 'Pago con Redcompra', 'Pago con Tarjeta', 'Terraza', 'Wifi'],
 	   deshabilitar: ['apart-hotel', 'bed-breakfast', 'hostales', 'hoteles', 'hoteles-boutique', 'moteles', 'residenciales']
 	},
 	cafesTeterias: {

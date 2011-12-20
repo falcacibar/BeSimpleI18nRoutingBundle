@@ -37,12 +37,17 @@ jQuery.fn.placeholder = function(){
 }
 
 jQuery.fn.checkDefaultClass = function(val){
-    var $cloned = $(this).clone();
-    $cloned.removeClass(val).removeClass('no-default').removeClass('caracteristica');
-    if($cloned.attr('class').length == 0){
-        return true;
+/*    var $cloned = $(this).clone();
+    $cloned.removeClass(val).removeClass('no-default');
+    if($cloned.attr('class') == 'undefined'){
+        return true
     }else{
-        return false;
-    }
-    
+        if($cloned.attr('class').length == 0)
+            return true;
+        else
+            return false;
+    }*/
+    $cloned = $(this).clone();
+    $cloned.removeClass(val).removeClass('no-default');
+    console.log($cloned)
 }

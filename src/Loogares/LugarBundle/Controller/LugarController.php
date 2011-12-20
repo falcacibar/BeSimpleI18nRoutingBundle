@@ -313,8 +313,6 @@ class LugarController extends Controller
                     }
                 }
 
-
-
                 $em->flush();
                 $data['id'] = $lugar->getNombre();
 

@@ -4,139 +4,6 @@
 
 {% block stylesheets %}
     <style>
-
-        .agregar-lugar li{
-            display: block; 
-            margin: 4px;
-        }
-
-        .placeholder{
-            color: #ccc;
-        }
-
-        .subcategorias{
-            display: block;
-            margin-left: 100px;
-        }
-
-        input, textarea{
-            padding: 4px;
-            border: none;
-            border: 1px solid #ccc;
-            width: 200px;
-        }
-
-        .caracteristica input, table input{
-            width: 10px;   
-        }
-
-        select{
-            width: 209px;
-        }
-
-        .subcategoria input{
-            width: 10px;
-        }
-
-        input:focus, textarea{
-            outline: none;
-        }
-
-        .input-active{
-            border: 1px solid #3f0;
-        }
-
-        .input-error{
-            border: 1px solid red;
-        }
-
-        label{
-            width: 100px;
-            display: inline-block;
-            vertical-align: top;
-        }
-
-        li{
-            display: block;
-        }
-
-        span.display-more{
-            margin-left: 105px;
-        }
-
-        li.no-default{
-            display: none;
-        }
-
-        .caracteristicas{
-            position: relative;
-            display: inline-block;
-
-        }
-
-        .subcategorias ul{
-            width: 400px;
-            display: inline-block;
-        }
-
-        .caracteristicas ul{
-            width: 400px;
-            display: inline-block;
-            margin-top: 10px;
-            margin-left: -5px;
-        }
-
-            .caracteristicas ul label, .subcategorias ul label, table label{
-                margin-top: 0;
-                float: left;
-                width: 180px;
-                font-size: 10px;
-            }
-
-        .caracteristicas label, .subcategorias label{
-            vertical-align: top;
-            margin-top: 10px;
-        }
-
-        table tbody tr td select{
-            width: 80px;
-        }
-
-        .horario-pm{
-            display: none;
-        }
-
-        table td, table th{
-            width: 10px !important;
-        }
-
-        table label{
-            position: absolute;
-            margin-top: -7px;
-        }
-        
-        #form-errors{
-            background: #555;
-            padding: 10px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            color: #ccc;
-        }
-
-            #form-errors label{
-                width: 100%;
-            }
-
-        .errors{
-            margin-left: 5px;
-            font-size: 10px;
-            position: absolute;
-            top: 7px;
-            color: red;
-        }
-
-        li{ position: relative; !important }
-
     </style>
 {% endblock %}
 
@@ -189,81 +56,6 @@
 
         actualizarComunas();
 
-        // $('.more-info').click(function(e){
-        //     e.preventDefault();
-
-        //     /*
-        //     * rel = Relacion del more-info con su select/input
-        //     * itemCount es un contador del total de Categorias en la pagina
-        //     * $item es el primer item encontrado (en base a la clase) de la relacion
-        //     * $otroItemLi es un Clon del primer select/input (jQuery Object)
-        //     * $masItem es el boton de agregar mas categorias (jQuery Object)
-        //     */
-
-        //     var $this = $(this),
-        //         rel = $this.find('a').attr('rel'),
-        //         itemCount = $('.'+rel).length,
-        //         $item = $('.'+rel+':last'),
-        //         $otroItemLi =  $item.parent().clone(),
-        //         $masItem = $this;
-                
-        //     //Categorias ya seleccionadas
-           
-        //     $('.categoria').each(function(i){
-        //         if($(this).val() != 'elige'){
-        //             $otroItemLi.find('select').find("option[value='"+$(this).val()+"']").attr('disabled', 'disabled');
-        //         }
-        //     });
-
-        //     $otroItemLi.find('.subcategorias ul').html('');
-
-        //     //Al maximo de categorias adicionales (2) le restamos el total de categorias existentes
-        //     $masItem.find('span').text(2 - itemCount);
-        //     if($otroItemLi.find('span').length == 0){
-        //         //Al Li de la nueva categoria, le agregamos el Quitar para poder sacarlo de ser necesario
-        //         if(rel == 'categoria'){
-        //             $otroItemLi.find('.subcategorias').before('<span class="quitar-more-info"><a href="">Quitar</a></span>');
-        //         }else{
-        //             $otroItemLi.append('<span class="quitar-more-info"><a href="">Quitar</a></span>');
-        //         }
-        //     }
-
-        //     //Si hay menos de 3 Categorias, agregamos una nueva, le cambiamos el Id para que represente un incremento
-        //     if(itemCount <= 3){
-        //         $otroItemLi.find('.'+rel).attr('name', rel+(itemCount+1)).attr('id', rel+(itemCount+1));
-        //         if(rel == 'telefono'){
-        //             $otroItemLi.find('.'+rel).removeClass('input-active').placeholder();
-        //         }
-        //         $item.parent().after($otroItemLi);
-        //     }
-
-        //     //Si tenemos 3 categorias, escondemos el boton para agregar mas, +1 representa a la nueva agregada
-        //     if(3 == itemCount + 1){
-        //         $masItem.hide();
-        //     }
-        // });
-
-
-        // $('.quitar-more-info').live('click', function(e){
-        //     e.preventDefault();
-
-        //     //guardamos el valor del que sacamos, para habilitarlo en los otros campos
-        //     var itemValue= $(this).parent().find('select, input').val(),
-        //         rel = $(this).parent().find('select, input').attr('class').split(' ')[0],
-        //         itemCount = $('.'+rel).length - 1;
-
-        //     //sacamos el Li
-        //     $(this).parent().fadeOut(function(){$(this).remove()});
-
-        //     $('a[rel="'+rel+'"] span').text(3 - itemCount);
-
-        //     $('.'+rel).each(function(){
-        //         $(this).find('option[value="'+itemValue+'"]').removeAttr('disabled');
-        //     });
-
-        //     $('a[rel="'+rel+'"]').parent().show();
-        // });
-
         $('.quitar').click(function(e){
             e.preventDefault();
 
@@ -279,7 +71,6 @@
 
                 if(count == 0){
                     $('a.display-more-info[rel="'+rel+'"]').parent().parent().fadeIn().css('display', 'block');
-                    console.log($('a.display-more-info[rel="'+rel+'"]').parent().parent())
                 }
 
                 $('a[rel='+rel+']').find('span').text(count + 1)
@@ -311,19 +102,43 @@
 
         $('.categoria').live('change', function(){
             $this = $(this);
-            var categoria = $(this).val().camelCase();
-            anterior = selected[$this.attr('id')];
+            var categoria = $(this).val().camelCase(),
+                anterior = selected[$this.attr('id')];
 
             //Deshabilitar en los demas dropdown
             $('.categoria').not($this).each(function(){
                 //Deshabilitamos en el resto de los dropdowns el valor que seleccionamos recien
-                $(this).find('option[value="'+$this.val()+'"]').attr('disabled', 'disabled');
+                $(this).find('option[value="'+$this.val()+'"]').attr('disabled', 'disabled').addClass(categoria);
                 
                 //Habilitamos el valor anterior
                 $(this).find('option[value="'+selected[$this.attr('id')]+'"]').removeAttr('disabled');
             });
 
-            $('.categoria').each(function(){
+            $('.caracteristica').fadeOut().parent().remove();
+
+            $('.categoria').not(':hidden').each(function(){
+                thisCat = $(this).val().camelCase();
+                caracteristicas = categorias[thisCat].caracteristicas;
+                if(caracteristicas != ''){ 
+                    $('.caracteristicas').parent().fadeIn().css('display', 'block');
+                }else{
+                    $('.caracteristicas').parent().fadeOut();
+                }
+                $.each(caracteristicas, function(i){
+                    if($('input[value="'+caracteristicas[i]+'"]').val() != caracteristicas[i]){
+                        checkBoxHTML = "<li>"+
+                                           "<label class='checkbox-label caracteristica'>"+
+                                           "<input type='checkbox'"+
+                                           " class='"+categoria+"'"+
+                                           " name=caracteristica[]"+
+                                           " value='"+caracteristicas[i]+"'/>"+
+                                           "<span>"+caracteristicas[i]+"</span></label>"+
+                                       "</li>";
+                        
+                        $('.caracteristicas ul').append(checkBoxHTML);
+                        $('.caracteristicas').parent().fadeIn();
+                    }
+                });
                 if( anterior != undefined ){
                     //Por cada categoria que deshabilitamos
                     habilitar = categorias[anterior.camelCase()].deshabilitar;
@@ -332,7 +147,7 @@
                             $aHabilitar = $(this).find('option[value="'+habilitar[i]+'"]');
                             //Por cada categoria, reviamos si otra Categoria la deshabilito, comprobamos si la clase que la deshabilito
                             //Es la ultima, si es, la habilitamos, si no, permanece deshabilitado
-                            console.log($aHabilitar)
+                            
                             if($aHabilitar.checkDefaultClass(anterior)){
                                 //Enable it
                                $aHabilitar.removeAttr('disabled');
@@ -343,47 +158,17 @@
                     //Sacamos los camposo especiales.
                     camposEspeciales = categorias[anterior.camelCase()].camposEspeciales
                     $.each(camposEspeciales, function(i){
-                        $('#'+camposEspeciales[i]).parent().fadeOut().css('display', 'block');
+                        $('#form_'+camposEspeciales[i]).parent().fadeOut().css('display', 'block');
                     });
 
                     //Subcategorias
                     $this.parent().find('.subcategorias ul').html('');
-
-                    //caracteristicas
-                    caracteristicas = categorias[anterior.camelCase()].caracteristicas;
-                    $.each(caracteristicas, function(i){
-                        //Por cada subcategoria de la seccion que sacamos...
-                        $('input[value="'+caracteristicas[i]+'"]').each(function(){
-                            $aHabilitar = $(this);
-
-                            //Vemos si pertenece a otra categoria, para eso revisamos si tiene otra clase que no sea no-default
-                            if($aHabilitar.checkDefaultClass(anterior)){
-                                //Almacenamos las que queremos sacar
-                                caracteristicasASacar[i] = $aHabilitar;
-                            }else(
-                                $aHabilitar.removeClass(anterior.camelCase())
-                            )
-                        });
-                    });
-
-                    
-                    if(caracteristicasASacar.length == $('.caracteristica').length ){
-                        $('.caracteristicas').fadeOut(function(){
-                            $.each(caracteristicasASacar, function(i){
-                                caracteristicasASacar[i].parent().remove();
-                            });
-                        });
-                    }else{
-                        $.each(caracteristicasASacar, function(i){
-                            caracteristicasASacar[i].parent().fadeOut(function(){$(this).remove()});
-                        });
-                    }
                 }
-            })
+            });// end each
 
             camposEspeciales = categorias[categoria].camposEspeciales
             $.each(camposEspeciales, function(i){
-                $('#'+camposEspeciales[i]).parent().fadeIn().css('display', 'block');
+                $('#form_'+camposEspeciales[i]).parent().fadeIn().css('display', 'block');
             });
 
             subCategorias = categorias[categoria].subCategorias;
@@ -394,37 +179,12 @@
                                    "class='"+categoria+" '"+
                                    "name=subcategoria[] "+
                                    "value='"+subCategorias[i]+"'/>"+
-                                   subCategorias[i]+"</label>"+
+                                   "<span>"+subCategorias[i]+"</span></label>"+
                                "</li>";
 
                 $this.parent().find('.subcategorias ul').append(checkBoxHTML);
+                $this.parent().find('.subcategorias').fadeIn();
             });
-
-            caracteristicas = categorias[categoria].caracteristicas;
-            if(caracteristicas != ''){ $('.caracteristicas').fadeIn().css('display', 'block') }
-            $.each(caracteristicas, function(i){
-                if($('input[value="'+caracteristicas[i]+'"]').val() != caracteristicas[i]){
-                    checkBoxHTML = "<li>"+
-                                       "<label class='checkbox-label caracteristica'>"+
-                                       "<input type='checkbox'"+
-                                       " class='"+categoria+"'"+
-                                       " name=caracteristica[]"+
-                                       " value='"+caracteristicas[i]+"'/>"+
-                                       caracteristicas[i]+"</label>"+
-                                   "</li>";
-                    
-                    $('.caracteristicas ul').append(checkBoxHTML).fadeIn();
-                }else{
-                    $('input[value="'+caracteristicas[i]+'"]').addClass(categoria)
-                }
-            });
-
-            // deshabilitar = categorias[categoria].deshabilitar;
-            // $.each(deshabilitar, function(i){
-            //     $('.categoria').not($this).each(function(){
-            //         $(this).find('option[value="'+deshabilitar[i]+'"]').attr('disabled', 'disabled').addClass(categoria);
-            //     });
-            // });
 
             $('.categoria').each(function(){
                 var val = $(this).val().camelCase(),
@@ -463,7 +223,6 @@
         //Validacion Subcategorias
         $('.subcategorias').change(function(e){
             $subcat = $(this).parent().find('.subcategoria');
-            console.log($subcat.find(':checked').length)
             if($subcat.find(':checked').length == 3){
                 $subcat.find(':not(:checked)').attr('disabled', 'disabled');
             }else if($subcat.find(':checked').length < 3){
@@ -483,22 +242,39 @@
                 if(($(this).val() == $(this).attr('placeholder') || $(this).val() == '') || ($(this).val() == 'elige')){
                     errores += "<p>"+$(this).attr('title')+"</p>";
                     $(this).addClass('input-error');
-                    $(this).after('<small class="errors">'+$(this).attr('title')+'</small>')
+                    if($(this).hasClass('calle')){
+                        $(this).next('input').after('<small class="errors">'+$(this).attr('title')+'</small>');
+                    }else{
+                       $(this).after('<small class="errors">'+$(this).attr('title')+'</small>'); 
+                    }
+                    
                 }else{
                     $(this).removeClass('input-error');
                 }
             });
 
             if( !($('input[name="form[numero]"]').val().match(/(\d+|s\/n)/g)) ){
-                errores += "Ingrese solo numeros o s/n en el numero del Lugar";
+                errores += "<p>Ingrese solo numeros o s/n en el numero del Lugar</p>";
                 $('input[name="form[numero]"]').addClass('input-error');
                 $('input[name="form[numero]"]').after('<small class="errors">Ingrese solo numeros o s/n en el numero del Lugar</small>')
             }
 
+            $.each($('.categoria:not(:hidden)'), function(){
+                $this = $(this);
+                if($this.parent().find('.subcategorias ul').children().length > 0){
+                    if($this.parent().find('.subcategorias').find('ul > li').length > 0 && $this.parent().find('.subcategorias').find('ul > li > label').children(':checked').length == 0){
+                        $this.addClass('input-error');
+                        $this.parent().find('.subcategorias ul').after('<small class="errors">Something something</small>');
+                        errores += "<p>Seleccione al menos una Subcategoria por Categoria</p>";
+                    }
+                }
+            });
+
             $('#form-errors').html(errores);
 
             if(errores != ''){
-                $('body').animate({'scrollTop': 0}, 400)
+                $('body').animate({'scrollTop': 0}, 400);
+                $('#form-errors').fadeIn();
             }else{
                 $(this).submit();
             }
@@ -536,13 +312,13 @@
     <li class="no-default">
         <label>Categorias</label>
         {{ data.categoriaSelect | raw}}
-        <span><a class="quitar" rel="categoria" href="">Quitar</a></span>
+        <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'><ul></ul></div>
     </li>
     <li class="no-default">
         <label>Categorias</label>
         {{ data.categoriaSelect | raw}}
-        <span><a class="quitar" rel="categoria" href="">Quitar</a></span>
+        <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'><ul></ul></div>
     </li>
     <li>
@@ -558,19 +334,16 @@
     </li>
     <li>
         <label>Direccion</label>
-        <input type="text" name="form[calle]" title="Ingresa la Calle del Lugar" class="required" id="form_calle" placeholder="Ej. Tarapallá"/>
+        <input type="text" name="form[calle]" title="Ingresa la Calle del Lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
+        <input type="text" name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="1949 o s/n"/>
     </li>
     <li>
-        <label>Numero</label>
-        <input type="text" name="form[numero]" class="required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="1949 o s/n"/>
-    </li>
-    <li>
-        <span><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
+         <span class="display-more"><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
     </li>
     <li class="no-default">
         <label>Detalle</label>
         <input type="text" name="form[detalle]" id="form_detalle" placeholder="Ej. Local 21, Mall Parque Arauco"/>
-        <span><a class="quitar" href="">Quitar</a></span>
+        <span class="quitar-info"><a class="quitar" href="">Quitar</a></span>
     </li>
     <li>
         <label>Sector</label>
@@ -583,12 +356,12 @@
     <li class="no-default">
         <label>Telefono</label>
         <input type="text" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="Ej. +56 2 2130894"/>
-        <span><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li class="no-default">
         <label>Telefono</label>
         <input type="text" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="Ej. +56 2 2130894"/>
-        <span><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li>
          <span class="display-more"><a class="display-more-info" rel="telefono" href="">Mas telefonos (Max <span>2</span>)</a></span>
@@ -614,7 +387,7 @@
         <input type="checkbox" name="habilitar-horario" class="habilitar-horario"/>
     </li>
    <li class="no-default">
-        <table>
+        <table class="agregar-horarios">
             <thead>
                 <th></th>
                 <th>AM Abre</th>
@@ -799,8 +572,8 @@
 Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.</small>
     </li>
     <li class="no-default">
-        <label>Arquitecto</label>
-        <input type="text" name="form[profesional]" id="form_profesional" placeholder="Ej. William Morris"/>
+        <label>Profesional</label>
+        <input type="text" name="form[profesional]" id="form_profesional" placeholder="Ej. Nombre del Arquitecto, Paisajista, etc"/>
     </li>
     <li class="no-default">
         <label>Año de Construccion</label>
@@ -814,10 +587,11 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
         <label>Materiales</label>
         <input type="text" name="form[materiales]" id="form_materiales" placeholder="Ej. Cobre, Granito, etc"/>
     </li>
-    <li class="no-default caracteristicas">
+    <li class="no-default">
         <label>Caracteristicas</label>
-        <ul>
+        <div class="caracteristicas"><ul>
         </ul>
+        </div>
     </li>
 </ul>
 
