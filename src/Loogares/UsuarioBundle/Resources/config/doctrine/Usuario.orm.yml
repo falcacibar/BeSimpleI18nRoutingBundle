@@ -51,7 +51,7 @@ Loogares\UsuarioBundle\Entity\Usuario:
         confirmado:
             type: smallint
         newsletter_activo:
-            type: smallint
+            type: boolean
         hash_confirmacion:
             type: string
             length: 40

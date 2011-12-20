@@ -8,6 +8,10 @@ p {
 	color:#333;
 }
 
+#main-usuario li.selected a , #menu-usuario li.selected a {
+	color:white;
+}
+
 input[type=text], input[type=password]{
 	border:1px solid #ccc;
 	background:white;
@@ -34,7 +38,10 @@ input[type=text], input[type=password]{
 	height:32px;
 	line-height:32px;
 	float:left;
-	padding:0 10px;
+}
+
+#menu-usuario ul li a {	
+	padding:10px;
 }
 
 #menu-usuario ul li.no-right-border {
@@ -90,9 +97,15 @@ input[type=text], input[type=password]{
 
 /* Edición de usuario */
 
+h1.edicion-titulo {
+	font-size:1.4em;
+	font-weight:bold;
+}
+
 #menu-edicion {
 	border-bottom:1px solid #ccc;
 	height:32px;
+	margin-top:20px;
 }
 
 #menu-edicion ul {
@@ -105,12 +118,57 @@ input[type=text], input[type=password]{
 	margin-right:3px;
 	height:32px;
 	line-height:32px;
-	padding:0 10px;
 	float:left;
 }
 
-#edicion-cuenta {
+#menu-edicion ul li a {
+	padding:10px;
+}
+
+.edicion {
 	margin-top:30px;
+}
+
+.form-edicion div {
+	margin:10px 0;
+}
+
+.form-edicion div label {
+	width:160px;
+	float:left;
+	font-size:0.9em;
+	margin-top:5px;
+}
+
+.form-edicion input[type=radio] {
+	float:left;
+}
+
+.form-edicion div input[type=text], .form-edicion div input[type=password] {
+	width:300px;
+}
+
+.edicion-fecha-nacimiento #form_fecha_nacimiento_year {
+	width:100px;
+}
+
+.edicion-fecha-nacimiento #form_fecha_nacimiento_month {
+	width:150px;
+}
+
+.edicion-fecha-nacimiento #form_fecha_nacimiento_day {
+	width:50px;
+}
+
+#form_sexo label {
+	margin-top:3px;
+	width:auto;
+	margin-right:10px;
+}
+
+.edicion-fecha-nacimiento select {
+	border: 1px solid #ccc;
+	line-height:16px;
 }
 
 /* Registro de usuario */
@@ -250,5 +308,7 @@ div.submit {
 }
 
 li.selected{
-	background-color:#ccc;
+	background-color:#000066;
+	color:white;
+	font-weight:bold;
 }

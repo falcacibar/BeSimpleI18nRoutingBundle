@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 class UsuarioController extends Controller
@@ -26,7 +27,10 @@ class UsuarioController extends Controller
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         }
 
-        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        else
+            $loggeadoCorrecto = false;
         
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = 'actividad';
@@ -45,7 +49,10 @@ class UsuarioController extends Controller
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         }
 
-        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        else
+            $loggeadoCorrecto = false;
 
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
@@ -67,7 +74,10 @@ class UsuarioController extends Controller
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         }
         
-        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        else
+            $loggeadoCorrecto = false;
 
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
@@ -85,6 +95,7 @@ class UsuarioController extends Controller
     }
 
     public function editarCuentaAction(Request $request, $param) {
+
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
@@ -94,24 +105,43 @@ class UsuarioController extends Controller
         
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         if(!$loggeadoCorrecto)
-            throw $this->createNotFoundException('No puedes editar informacion de otro usuario');
+            throw new AccessDeniedException('No puedes editar información de otro usuario');      
         
-        $data = $ur->getDatosUsuario($usuarioResult);
-
-        $form = $this->createFormBuilder($usuarioResult)
+        $usuario = $usuarioResult;
+        $form = $this->createFormBuilder($usuario)
                      ->add('mail', 'text')
                      ->add('nombre', 'text')
                      ->add('apellido', 'text')
+                     ->add('slug', 'text')
+                     ->add('fecha_nacimiento', 'birthday', array(
+                                'years' => range('1911', date('Y')),
+                                'input' => 'datetime',
+                                'pattern' => '{{ day }} {{ month }} {{ year }}',
+                                'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')
+                         ))
+                     ->add('sexo', 'choice', array(
+                                'choices' => array('m' => 'Hombre', 'f' => 'Mujer', '' => 'No quiero definir'),
+                                'expanded' => true
+                         ))
+                     ->add('web', 'text')
+                     ->add('facebook', 'text')
+                     ->add('twitter', 'text')
+                     ->add('newsletter_activo', 'checkbox', array(
+                                'label' => 'Recibir newsletter por E-mail'
+                         ))
                      ->getForm();
+                     
 
-        // Si el request es POST, se procesa registro
+        // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
             if ($form->isValid()) {  
-                return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+                return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuario))));
             }
         }
+
+        $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'cuenta';       
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
@@ -119,7 +149,7 @@ class UsuarioController extends Controller
         )); 
     }
 
-    public function editarFotoAction($param) {
+    public function editarFotoAction(Request $request, $param) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
@@ -130,7 +160,7 @@ class UsuarioController extends Controller
 
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         if(!$loggeadoCorrecto)
-            throw $this->createNotFoundException('No puedes editar informacion de otro usuario');
+            throw new AccessDeniedException('No puedes editar información de otro usuario');
         
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = '';
@@ -138,7 +168,7 @@ class UsuarioController extends Controller
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array('usuario' => $data));  
     }
 
-    public function editarPasswordAction($param) {
+    public function editarPasswordAction(Request $request, $param) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
@@ -149,15 +179,38 @@ class UsuarioController extends Controller
 
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         if(!$loggeadoCorrecto)
-            throw $this->createNotFoundException('No puedes editar informacion de otro usuario');
+            throw new AccessDeniedException('No puedes editar información de otro usuario');
         
+        $form = $this->createFormBuilder($usuarioResult)
+                     ->add('password', 'password')
+                     ->add('password', 'repeated', array(
+                                'type' => 'password',
+                                'invalid_message' => 'Los passwords no coinciden. Por favor, corrígelos.',
+                                'first_name' => 'Password nuevo *',
+                                'second_name' => 'Confirmar password *',
+                                'error_bubbling' => true
+                            ))
+                     ->getForm();
+                     
+
+        // Si el request es POST, se procesa edición de datos
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+
+            if ($form->isValid()) {  
+                return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+            }
+        }
+
         $data = $ur->getDatosUsuario($usuarioResult);
-        $data->tipo = '';
         $data->edicion = 'password';
-        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array('usuario' => $data));  
+        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
+            'usuario' => $data,
+            'form' => $form->createView()
+        ));  
     }
 
-    public function editarBorrarAction($param) {
+    public function editarBorrarAction(Request $request, $param) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
@@ -168,7 +221,7 @@ class UsuarioController extends Controller
 
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         if(!$loggeadoCorrecto)
-            throw $this->createNotFoundException('No puedes editar informacion de otro usuario');
+            throw new AccessDeniedException('No puedes editar información de otro usuario');
         
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = '';
