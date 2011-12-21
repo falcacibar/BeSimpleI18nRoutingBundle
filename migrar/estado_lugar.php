@@ -23,7 +23,7 @@ foreach($data as $entry){
         $sql .= '"'.$value.'", ';
     }
     $sql =  substr($sql, 0, -2);
-    $sql = "INSERT INTO estado_lugar values(" . $sql . ");";
+    $sql = "INSERT INTO estado values(" . $sql . ");";
     //echo $sql;
     if(!$DBH->exec($sql)){
         $i++;

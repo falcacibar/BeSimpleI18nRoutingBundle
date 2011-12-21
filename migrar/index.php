@@ -124,6 +124,7 @@
     </ol>
     <ol id="usuarios">
         <li><a href="usuarios.php">usuarios</a></li>
+        <li><a href="tipo_usuario.php">tipo_usuario</a></li>
         <li><a href="recomendaciones.php">recomendacion</a></li>
         <li><a href="tag.php">tag</a></li>
         <li><a href="tag_recomendacion.php">tag_recomendacion</a></li>
