@@ -307,6 +307,20 @@
                 }
             });
 
+            console.log($('.mapy').val())
+
+            //Worst Conditional Ever
+            if(
+                ( $('.mapx').val() == '' || $('.mapy').val() == '' ) 
+                && 
+                ( $('.calle').val() != $('.calle').attr('placeholder') && $('.numero').val() != $('.numero').attr('placeholder'))
+                && 
+                $('.comuna').val() != 'elige')
+                {
+                errores += "<p>Cargue la direccion en el mapa, o arrastre el cursor donde esta el local</p>";
+                $('.mapa_info').before('<small class="errors">Carga una direccion o arrastra el icono en el mapa.</small>');
+            }
+
             $('.errores-container').html(errores);
 
             if(errores != ''){
@@ -314,9 +328,8 @@
                 $('.errores-container').fadeIn();
             }else{
                 $('.placeholder').val('');
-                $(this).submit();
+                return true;
             }
-
             return false;
         });
 
@@ -630,8 +643,9 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
     </li>
     <li class="no-default">
         <label>Caracteristicas</label>
-        <div class="caracteristicas"><ul>
-        </ul>
+        <div class="caracteristicas">
+            <ul>
+            </ul>
         </div>
     </li>
     <li>
@@ -644,7 +658,7 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
     <div id="mapa" class="gmaps">
 
     </div>
-        <div class="mapa_info">
+    <div class="mapa_info">
         <span>Ubicación en el mapa</span>
         Una vez cargado el mapa, puedes arrastrar el ícono para corregir su posición.
     </div>

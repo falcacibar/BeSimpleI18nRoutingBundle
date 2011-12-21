@@ -12,19 +12,20 @@ function onCargarMapaAgregar(defaultpos){
 		
 		if(defaultpos){
 			address = 'Baquedano, Providencia, Santiago de Chile';
-		} else {
+		}else{
 			var calle = $('.calle').val();
 			var numero = $('.numero').val();
-			var comuna = $('.comuna > option:selected').text()
-			var ciudad = $('.ciudad > option:selected').text()
+			var comuna = $('.comuna > option:selected').text();
+			var ciudad = $('.ciudad > option:selected').text();
 			
 			address = ( calle + ' ' + parseInt(numero) + ', ' + comuna + ', ' + ciudad);
 		}
 		
 		if(address){
-				
 			var map = new GMap2(document.getElementById("mapa"));
-			map.setCenter(new GLatLng(-33.43692082916139, -70.63445091247559),10);
+			if(defaultpos){
+				map.setCenter(new GLatLng(-33.43692082916139, -70.63445091247559),10);
+			}
 			//map.setUIToDefault();
 			map.addControl(new GSmallZoomControl());
 	
@@ -46,9 +47,14 @@ function onCargarMapaAgregar(defaultpos){
 				letteredIcon.image = "/symf/web/assets/images/gmaps/puntodestacado.png";
 				markerOptions = {icon: letteredIcon, draggable: true};
 				var marker = new GMarker(point, markerOptions);
-				$(".mapx").val(point.lat());
-				$(".mapy").val(point.lng());
-				console.log(point)
+				if(defaultpos){
+					$(".mapx").val('');
+					$(".mapy").val('');
+					defaultpos = null;
+				}else{
+					$(".mapx").val(point.lat());
+					$(".mapy").val(point.lng());
+				}
 				 //if they drag the marker
 				GEvent.addListener(marker, 'dragend',
 					function(p) {
@@ -63,7 +69,9 @@ function onCargarMapaAgregar(defaultpos){
 			//Con este metodo hacemos el geocoding y llamamos al metodo createMarker:
 			function addToMap(response){
 				if(!response || response.Status.code != 200) {
-					 alert("La direcci\u00F3n ingresada no fue encontrada en el mapa.");
+					$(".mapx").val('');
+					$(".mapy").val('');
+					alert("La direcci\u00F3n ingresada no fue encontrada en el mapa.");
 				} else {
 					// Nos da el objeto:
 					place = response.Placemark[0];
@@ -81,9 +89,4 @@ function onCargarMapaAgregar(defaultpos){
 			$(".mapy").val('');
 		}
   	}
-	
-	if(defaultpos){
-		$(".mapx").val('');
-		$(".mapy").val('');
-	}
 }

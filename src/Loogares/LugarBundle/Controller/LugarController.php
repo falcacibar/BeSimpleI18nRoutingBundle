@@ -345,7 +345,7 @@ class LugarController extends Controller
 
         $ciudadSelect = "<select class='ciudad required' title='Seleccione una Ciudad valida' name='ciudad' id='ciudad'>";
         $comunaSelect = "<select class='comuna required' title='Seleccione una Comuna valida' name='comuna' id='comuna'><option value='elige'>Elige una Comuna</option>";
-        $sectorSelect = "<select class='sector required' title='Seleccione un Sector valido' name='sector' id='sector'><option value='elige'>Elige un Sector</option>";
+        $sectorSelect = "<select class='sector' name='sector' id='sector'><option value='elige'>Elige un Sector</option>";
         foreach($ciudades as $ciudad){
             $ciudadSlug = $ciudad->getSlug();
             $ciudadNombre = $ciudad->getNombre();
