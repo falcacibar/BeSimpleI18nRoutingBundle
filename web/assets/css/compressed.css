@@ -512,7 +512,7 @@ small {
       font-weight: bold;
       display: block; }
   .mapa_agregar .gmaps {
-    background: fuchsia;
+    background: #dddddd;
     height: 350px;
     width: 478px;
     display: block;
