@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 
-$STH = $LBH->query('select * from lugares order by Id asc');
+$STH = $LBH->query('select * from Lugares order by Id asc');
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 
 $data = array();
@@ -33,7 +33,7 @@ while($row = $STH->fetch()){
 
     $data[] = array(
         'id' => $idLugar,
-        'comuna_id' => $row['Id_Estado'],
+        'comuna_id' => $row['Comuna'],
         'sector_id' => $row['Barrio'],
         'tipo_lugar_id' => $row['Id_Tipo'],
         'estado_id' => $row['Id_Estado'],
@@ -53,7 +53,7 @@ while($row = $STH->fetch()){
         'sitio_web' => ($row['Sitio_Web'] == '')?"":$row['Sitio_Web'],
         'facebook' => ($row['Facebook'] == '')?"":$row['Facebook'],
         'twitter' => ($row['Twitter'] == '')?"":$row['Twitter'],
-        'mail' => ($row['Mail'] == '')?"":$row['Mail'],
+        'mail' => ($row['mail'] == '')?"":$row['mail'],
         'telefono1' => '',
         'telefono2' => '',
         'telefono3' => '',
@@ -65,7 +65,7 @@ while($row = $STH->fetch()){
         'total_recomendaciones' => ($row['NumeroRecomendaciones'] > 0)?$row['NumeroRecomendaciones']:0,
         'precio' => ($row['Precio'] > 0)? $row['Precio']:0,
         'precio_inicial' => ($row['PrecioInicial'] > 0)? $row['PrecioInicial']:0,
-        'prioridad_web' => ($row['Orden_Sector'] > 0)? $row['Orden_Sector']:0,
+        'prioridad_web' => ($row['Orden_Sector'] > 0)? $row['Orden_Sector']:0
     );
 
     $i = 1;
@@ -88,12 +88,11 @@ foreach($data as $entry){
     }
     $sql =  substr($sql, 0, -2);
     $sql = "INSERT INTO lugares values(" . $sql . ");";
+
     if(!$DBH->exec($sql)){
         $i++;
         echo "$sql </br>";
     }
-    //$STH = $DBH->prepare("INSERT INTO lugares values(" . $string . ")");
-    //$STH->execute($data[0]);
 }
 
 echo $i;
