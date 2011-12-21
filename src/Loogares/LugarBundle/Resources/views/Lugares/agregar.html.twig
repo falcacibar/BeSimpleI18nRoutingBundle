@@ -313,6 +313,7 @@
                 $('body').animate({'scrollTop': 0}, 400);
                 $('.errores-container').fadeIn();
             }else{
+                $('.placeholder').val('');
                 $(this).submit();
             }
 
@@ -378,9 +379,7 @@
     </li>
     <li>
          <span class="display-more"><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
-    </li>
-    <li>
-        <a href="" class="cargar-mapa">Cargar Mapa</a>
+         <span class="display-more"><a href="" class="cargar-mapa">Cargar Mapa</a></span>
     </li>
     <li class="no-default">
         <label>Detalle</label>
@@ -426,7 +425,7 @@
     </li>
     <li>
         <label>Horario</label>
-        <span>Sabes los horarios de atencion?</span><input type="checkbox" name="habilitar-horario" class="habilitar-horario"/>
+        <small>Sabes los horarios de atencion?</small><input type="checkbox" name="habilitar-horario" class="habilitar-horario"/>
     </li>
    <li class="no-default">
         <table class="agregar-horarios">
@@ -634,6 +633,10 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
         <div class="caracteristicas"><ul>
         </ul>
         </div>
+    </li>
+    <li>
+        <input type="hidden" class="mapx" name="form[mapx]" id="form_mapx"/>
+        <input type="hidden" class="mapy" name="form[mapy]" id="form_mapy"/>
     </li>
     <li><input type="submit" value="Guardar Datos" formnovalidate/></li>
 </ul>

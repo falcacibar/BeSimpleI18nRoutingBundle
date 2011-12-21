@@ -207,7 +207,8 @@ class LugarController extends Controller
              ->add('facebook', 'text')
              ->add('twitter', 'text')
              ->add('mail', 'text')
-             ->add('mail', 'text')
+             ->add('mapx', 'text')
+             ->add('mapy', 'text')
              ->add('profesional', 'text')
              ->add('agno_construccion', 'text')
              ->add('materiales', 'text')
@@ -242,9 +243,6 @@ class LugarController extends Controller
 
                 $lugar->setSlug($lugarSlug);
                 $lugar->setFechaAgregado(new \DateTime());
-                $lugar->setMapx('1');
-                $lugar->setMapy('1');
-
                 $em->persist($lugar);
 
                 foreach($_POST['categoria'] as $postCategoria){
@@ -314,10 +312,9 @@ class LugarController extends Controller
                 }
 
                 $em->flush();
-                $data['id'] = $lugar->getNombre();
 
-                //$this->get('session')->setFlash('nuevo-lugar','This is a random message, sup.');
-                //return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+                $this->get('session')->setFlash('nuevo-lugar','This is a random message, sup.');
+                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
                 return $this->render('LoogaresLugarBundle:Lugares:mensaje_lugar.html.twig', array('lugar' => $data));
             }
         }

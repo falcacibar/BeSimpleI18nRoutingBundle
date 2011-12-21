@@ -18,7 +18,7 @@ function onCargarMapaAgregar(defaultpos){
 			var comuna = $('.comuna > option:selected').text()
 			var ciudad = $('.ciudad > option:selected').text()
 			
-			address = ( calle + ' ' + parseInt(numero) + ', ' + comuna + ', ' + ciudad)
+			address = ( calle + ' ' + parseInt(numero) + ', ' + comuna + ', ' + ciudad);
 		}
 		
 		if(address){
@@ -48,6 +48,7 @@ function onCargarMapaAgregar(defaultpos){
 				var marker = new GMarker(point, markerOptions);
 				$(".mapx").val(point.lat());
 				$(".mapy").val(point.lng());
+				console.log(point)
 				 //if they drag the marker
 				GEvent.addListener(marker, 'dragend',
 					function(p) {
