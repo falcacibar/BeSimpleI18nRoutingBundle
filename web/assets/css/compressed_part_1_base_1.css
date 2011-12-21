@@ -346,3 +346,48 @@ body {
   .footer .contenido_footer {
     margin: 30px auto;
     width: 960px; }
+
+/* AGREGADO POR EL SUR */
+.errores-container {
+  background: #ffe5e5;
+  border: 1px solid #ffd6d6;
+  color: #ff6666;
+  display: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 387px;
+  box-shadow: 0 1px 0 red;
+  margin-bottom: 10px; }
+  .errores-container p {
+    padding: 4px 0; }
+    .errores-container p:before {
+      content: "»";
+      font-weight: bold;
+      margin-right: 5px; }
+
+.errors {
+  color: #ff3333;
+  display: block;
+  text-align: right;
+  margin-right: 73px;
+  font-size: 10px; }
+
+input[type=text], textarea {
+  padding: 6px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+  box-shadow: inset 0 -1px 0 #eeeeee, inset 0 1px 4px #dddddd;
+  width: 280px;
+  outline: none; }
+
+select {
+  width: 284px; }
+
+li {
+  margin: 8px 0; }
+  li.no-default {
+    display: none; }
+  li label {
+    width: 150px;
+    display: inline-block; }

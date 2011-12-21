@@ -1,94 +1,54 @@
 .agregar-lugar {
   width: 480px; }
-  .agregar-lugar input[type=text], .agregar-lugar textarea {
-    padding: 6px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    border: 1px solid #cccccc;
-    box-shadow: inset 0 -1px 0 #eeeeee, inset 0 1px 4px #dddddd;
-    width: 240px; }
-  .agregar-lugar select {
-    width: 254px; }
-  .agregar-lugar li {
-    margin: 8px 0; }
-    .agregar-lugar li.no-default {
-      display: none; }
-    .agregar-lugar li label {
-      width: 150px;
-      display: inline-block; }
-    .agregar-lugar li span.display-more, .agregar-lugar li span.quitar-info {
-      font-size: 10px;
-      display: block;
-      text-align: right;
-      margin: 1px 73px 0 0; }
-      .agregar-lugar li span.display-more a, .agregar-lugar li span.quitar-info a {
-        color: #0066cc; }
-    .agregar-lugar li span.quitar-info {
-      display: inline-block;
-      margin: 0; }
-    .agregar-lugar li .numero {
-      width: 80px; }
-    .agregar-lugar li .calle {
-      width: 141px; }
-    .agregar-lugar li .subcategorias {
-      width: 400px;
-      margin: 5px 0 0 152px;
-      display: none; }
-      .agregar-lugar li .subcategorias li {
-        display: inline-block;
-        margin: 1px; }
-        .agregar-lugar li .subcategorias li label {
-          display: inline-block;
-          width: 170px;
-          font-size: 10px; }
-          .agregar-lugar li .subcategorias li label span:hover {
-            border-bottom: 1px dotted #0066cc; }
-    .agregar-lugar li .caracteristicas {
-      width: 400px;
-      margin: -13px 0 0 150px; }
-      .agregar-lugar li .caracteristicas li {
-        display: inline-block;
-        margin: 1px; }
-        .agregar-lugar li .caracteristicas li label {
-          width: 180px;
-          font-size: 10px; }
-          .agregar-lugar li .caracteristicas li label span:hover {
-            border-bottom: 1px dotted #0066cc; }
-  .agregar-lugar .agregar-horarios th {
-    font-weight: bold; }
-  .agregar-lugar .agregar-horarios td, .agregar-lugar .agregar-horarios th {
-    width: 10px;
-    padding: 3px; }
-  .agregar-lugar .agregar-horarios td select {
+  .agregar-lugar span.display-more, .agregar-lugar span.quitar-info {
+    font-size: 10px;
+    display: block;
+    text-align: right;
+    margin: 1px 73px 0 0; }
+    .agregar-lugar span.display-more a, .agregar-lugar span.quitar-info a {
+      color: #0066cc; }
+  .agregar-lugar span.quitar-info {
+    display: inline-block;
+    margin: 0; }
+  .agregar-lugar .numero {
     width: 80px; }
-  .agregar-lugar .agregar-horarios td label {
-    position: absolute;
-    margin: 2px 0 0 4px;
-    font-size: 10px; }
+  .agregar-lugar .calle {
+    width: 141px; }
+  .agregar-lugar .subcategorias {
+    width: 400px;
+    margin: 5px 0 0 152px;
+    display: none; }
+    .agregar-lugar .subcategorias li {
+      display: inline-block;
+      margin: 1px; }
+      .agregar-lugar .subcategorias li label {
+        display: inline-block;
+        width: 170px;
+        font-size: 10px; }
+        .agregar-lugar .subcategorias li label span:hover {
+          border-bottom: 1px dotted #0066cc; }
+  .agregar-lugar .caracteristicas {
+    width: 400px;
+    margin: -13px 0 0 150px; }
+    .agregar-lugar .caracteristicas li {
+      display: inline-block;
+      margin: 1px; }
+      .agregar-lugar .caracteristicas li label {
+        width: 180px;
+        font-size: 10px; }
+        .agregar-lugar .caracteristicas li label span:hover {
+          border-bottom: 1px dotted #0066cc; }
 
-/*Generales */
-#form-errors {
-  background: #ffe5e5;
-  border: 1px solid #ffd6d6;
-  color: #ff6666;
-  display: none;
-  border-radius: 5px;
-  padding: 10px;
-  width: 387px;
-  box-shadow: 0 1px 0 red;
-  margin-bottom: 10px; }
-  #form-errors p {
-    padding: 4px 0; }
-    #form-errors p:before {
-      content: "»";
-      font-weight: bold;
-      margin-right: 5px; }
-
-.errors {
-  color: #ff3333;
-  display: block;
-  text-align: right;
-  margin-right: 73px;
+.agregar-horarios th {
+  font-weight: bold; }
+.agregar-horarios td, .agregar-horarios th {
+  width: 10px;
+  padding: 3px; }
+.agregar-horarios td select {
+  width: 80px; }
+.agregar-horarios td label {
+  position: absolute;
+  margin: 2px 0 0 4px;
   font-size: 10px; }
 
 .placeholder {
