@@ -13,28 +13,15 @@ function onCargarMapaAgregar(defaultpos){
 		if(defaultpos){
 			address = 'Baquedano, Providencia, Santiago de Chile';
 		} else {
-
-			var calle = $('[name=calle]').val()
-			var numero = $('[name=numero]').val()
-			var comuna = $("select[name=comuna] option:selected").text()
-			var ciudad = $("select[name=ciudad] option:selected").text()
+			var calle = $('.calle').val();
+			var numero = $('.numero').val();
+			var comuna = $('.comuna > option:selected').text()
+			var ciudad = $('.ciudad > option:selected').text()
 			
-			address = ( calle + ' ' + parseInt(numero) + ', ' + comuna /*+ ', ' + ciudad*/)
-			
-			if( $('[name=calle_es_default]').val()==1 || calle=='' || calle==null ||
-				$('[name=numero_es_default]').val()==1 || numero=='' || numero==null ||
-				/*$('[name=ciudad]').val()=='' ||*/
-				$('[name=comuna]').val()=='' ) {
-				address = null
-			}
-			
+			address = ( calle + ' ' + parseInt(numero) + ', ' + comuna + ', ' + ciudad)
 		}
 		
 		if(address){
-			$('[name=coordenadas_es_default]').val('1')
-			if(!defaultpos)
-				$('[name=coordenadas_es_default]').val('0')
-				
 				
 			var map = new GMap2(document.getElementById("mapa"));
 			map.setCenter(new GLatLng(-33.43692082916139, -70.63445091247559),10);
@@ -56,16 +43,17 @@ function onCargarMapaAgregar(defaultpos){
 				//Si queremos darle alguna letra o numero especial al icono del lugar:
 				//var letter = String.fromCharCode("A".charCodeAt(0) + index);
 				var letteredIcon = new GIcon(baseIcon);
-				letteredIcon.image = WEBROOT + "/images/gmaps/puntodestacado.png";
+				letteredIcon.image = "/symf/web/assets/images/gmaps/puntodestacado.png";
 				markerOptions = {icon: letteredIcon, draggable: true};
 				var marker = new GMarker(point, markerOptions);
-				$("#coordenadas").val(point.lat() +", "+ point.lng());
+				$(".mapx").val(point.lat());
+				$(".mapy").val(point.lng());
 				 //if they drag the marker
 				GEvent.addListener(marker, 'dragend',
 					function(p) {
 						map.panTo(p);
-						$("#coordenadas").val(p.lat() +", "+ p.lng());
-                        $('[name=coordenadas_es_default]').val(0)
+						$(".mapx").val(point.lat());
+						$(".mapy").val(point.lng());
 					}
 				);
 				return marker;
@@ -85,15 +73,16 @@ function onCargarMapaAgregar(defaultpos){
 					map.addOverlay(createMarker(point));
 				}
 			}
-			
 			geocoder.getLocations(address, addToMap);
-			
 		} else{
 			alert('Debes indicar Comuna, Calle y N\u00b0 para poder cargar el mapa.')
-			$('#coordenadas').val('')
+			$(".mapx").val('');
+			$(".mapy").val('');
 		}
-
   	}
 	
-	if(defaultpos) $('#coordenadas').val('')
+	if(defaultpos){
+		$(".mapx").val('');
+		$(".mapy").val('');
+	}
 }

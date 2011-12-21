@@ -113,9 +113,9 @@ body
             float: left
             height: 65px
             padding: 5px 15px
-            position: relative
+            position: absolute
             width: 100px
-            z-index: 10
+            z-index: 11
             
         .menu_ciudad
             color: $blanco
@@ -124,6 +124,7 @@ body
                 size: 12px
             margin: 6px 10px
             width: 298px
+            padding-left: 130px
 
             a
                 @include link_blanco
@@ -138,7 +139,7 @@ body
                 size: 11px
             margin: 5px 10px 5px 240px
             width: 170px
-            
+
             a
                 @include link_blanco
 
@@ -150,11 +151,12 @@ body
                 float: left
                 height: 15px
                 width: 48px
+                margin-left: 20px
                 
             .usuario_login
                 float: left
                 display: block
-                margin: 2px 0 0 20px
+                margin: 2px 0 0 12px
                 
         .redes_sociales
             background: $gris_ccc
@@ -199,6 +201,7 @@ body
     position: absolute
     top: 25px
     width: 100%
+    z-index: 10
         
     .centrado_menu
         @include centrado
@@ -217,9 +220,10 @@ body
             color: $gris_444
             float: left
             font:
-                size: 12px
+                size: 11px
             text-transform: lowercase
             width: 580px
+            margin: 0 auto
                 
             li
                 display: inline
@@ -240,9 +244,30 @@ body
             float: left
             height: 30px
             margin: 4px 4px 4px 0
+            position: relative
             
             &:hover
                 border: 1px solid $gris_444
+
+            &:before
+                content: ''
+                border-left: 1px $gris_ccc solid
+                padding-right: 2px
+                position: absolute
+                height: 40px
+                left: -7px
+                top: -5px
+                display: block
+        
+            &:after
+                content: ''
+                border-left: 1px $gris_ccc solid
+                padding-right: 2px
+                position: absolute
+                height: 40px
+                left: 243px
+                top: -5px
+                display: block
         
             .buscador
                 border: 0px
@@ -292,6 +317,7 @@ body
     .contenido
         margin: 0 auto
         width: 960px
+        position: relative
 
         .titulo
             font:
@@ -431,9 +457,9 @@ body
     display: none
     border-radius: 5px
     padding: 10px
-    width: 387px
+    width: 940px
     box-shadow: 0 1px 0 red
-    margin-bottom: 10px
+    margin: 10px auto
 
     p
         padding: 4px 0
@@ -443,16 +469,19 @@ body
             font-weight: bold
             margin-right: 5px
 
-.errors
+small.errors
     color: lighten(red, 10%)
     display: block
     text-align: right
-    margin-right: 73px
+    margin-right: 87px
     font-size: 10px
 
+small.errors.categoria
+    margin-right: 100px
 
-input[type=text], textarea
-    padding: 6px
+
+input[type=text], textarea, input[type=password]
+    padding: 8px
     -moz-border-radius: 2px
     border-radius: 2px
     border: 1px solid #ccc
@@ -461,15 +490,25 @@ input[type=text], textarea
     outline: none
 
 select
-    width: 284px
+    width: 298px
 
-li
-    margin: 8px 0
+label
+    line-height: 23px
+    display: inline-block
 
-    &.no-default
-        display: none
+.placeholder
+    color: #ccc
 
-    label
-        width: 150px
-        display: inline-block
+.input-active
+    border: 1px solid #0066cc
+
+input:focus, textarea
+    outline: none
+
+.input-error
+    box-shadow: inset 0 -1px 0 lighten(red, 40%), inset 0 1px 4px lighten(red, 40%) !important
+    border: 1px solid lighten(red, 30%) !important
+
+small
+    font-size: 10px
     

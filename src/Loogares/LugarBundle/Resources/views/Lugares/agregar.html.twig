@@ -4,11 +4,47 @@
 
 {% block stylesheets %}
     <style>
+
+        .subcategorias{display: none;}
+
+        .placeholder{
+            color: #ccc;
+        }
+
+        input:focus, textarea{
+            outline: none;
+        }
+
+        .input-active{
+            border: 1px solid #3f0;
+        }
+
+        li.no-default{
+            display: none;
+        }   
+
+        table td, table th{
+            width: 10px !important;
+            padding: 4px 2px;
+        }
+        table select{
+            width: 80px !important;
+        }
+
+        table label{
+            position: absolute;
+            margin-left: 4px;
+            margin-top: 2px;
+            font-size: 10px;
+        }
     </style>
 {% endblock %}
 
 {% block javascripts %}
     <script src="../../assets/js/masterObject.js"></script>
+    <script src="../../assets/js/googleMapAgregar.js"></script>
+    <script src="../../assets/js/jquery.sticky.js"></script>
+    <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
     <script>
         String.prototype.camelCase = function() {
             str = this;
@@ -55,6 +91,7 @@
         });
 
         actualizarComunas();
+        onCargarMapaAgregar('ye');
 
         $('.quitar').click(function(e){
             e.preventDefault();
@@ -264,23 +301,25 @@
                 if($this.parent().find('.subcategorias ul').children().length > 0){
                     if($this.parent().find('.subcategorias').find('ul > li').length > 0 && $this.parent().find('.subcategorias').find('ul > li > label').children(':checked').length == 0){
                         $this.addClass('input-error');
-                        $this.parent().find('.subcategorias ul').after('<small class="errors">Something something</small>');
+                        $this.parent().find('.subcategorias ul').after('<small class="errors categoria">Seleccione al menos una Subcategoria</small>');
                         errores += "<p>Seleccione al menos una Subcategoria por Categoria</p>";
                     }
                 }
             });
 
-            $('#form-errors').html(errores);
+            $('.errores-container').html(errores);
 
             if(errores != ''){
                 $('body').animate({'scrollTop': 0}, 400);
-                $('#form-errors').fadeIn();
+                $('.errores-container').fadeIn();
             }else{
                 $(this).submit();
             }
 
             return false;
         });
+
+        $('.cargar-mapa').click(function(e){e.preventDefault();onCargarMapaAgregar();});
     </script>
 {% endblock %}
 
@@ -296,7 +335,7 @@
     </div>
 {% endif %}
 
-<div id="form-errors"></div>
+<div class="errores-container"></div>
 <ul class="agregar-lugar">
     <li>
         <label>Nombre</label>
@@ -339,6 +378,9 @@
     </li>
     <li>
          <span class="display-more"><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
+    </li>
+    <li>
+        <a href="" class="cargar-mapa">Cargar Mapa</a>
     </li>
     <li class="no-default">
         <label>Detalle</label>
@@ -383,8 +425,8 @@
         <input type="text" name="form[mail]" id="form_mail" placeholder="Ej. usuario@logoares.com"/>
     </li>
     <li>
-        <label>Sabes los horarios de atencion?</label>
-        <input type="checkbox" name="habilitar-horario" class="habilitar-horario"/>
+        <label>Horario</label>
+        <span>Sabes los horarios de atencion?</span><input type="checkbox" name="habilitar-horario" class="habilitar-horario"/>
     </li>
    <li class="no-default">
         <table class="agregar-horarios">
@@ -593,9 +635,19 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
         </ul>
         </div>
     </li>
+    <li><input type="submit" value="Guardar Datos" formnovalidate/></li>
 </ul>
+<div class="mapa_agregar">
+    <div id="mapa" class="gmaps">
+
+    </div>
+        <div class="mapa_info">
+        <span>Ubicación en el mapa</span>
+        Una vez cargado el mapa, puedes arrastrar el ícono para corregir su posición.
+    </div>
+</div>
 
 {{ form_widget(form._token) }}
-<input type="submit" value="Guardar Datos" formnovalidate/>
+
 </form>
 {% endblock %}
