@@ -8,12 +8,12 @@
 		<form action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
 			<div class="form-registro">
 				{% if form_errors(form) %}
-					<div class="errores">
+					<div class="errores-container">
 						{{form_errors(form)}}
 					</div>
 				{% endif %}
 				{% if form_errors(form.mail) or form_errors(form.password) or form_errors(form.nombre) or form_errors(form.apellido) %}
-				<div class="errores">
+				<div class="errores-container">
 					{{ form_errors(form.mail) }}
 					{{ form_errors(form.password) }}
 					{{ form_errors(form.nombre) }}

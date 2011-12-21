@@ -10,12 +10,17 @@ while($row = $STH->fetch()){
         $row[$key] = preg_replace('/"/',"'",$row[$key]);
     }
 
+    $tipo_usuario = '2';
+    if($row['Mail'] == 'contacto@loogares.com') {
+        $tipo_usuario = '1';
+    }
+
     $data[] = array(
         'id' => $row['Id'],
         'comuna_id' => '',
+        'tipo_usuario_id' => $tipo_usuario,
         'nombre' => $row['Nombre'],
         'apellido' => $row['Apellido'],
-        'usuario' => $row['User_Name'],
         'password' => $row['Pass'],
         'slug' => $row['slug'],
         'mail' => $row['Mail'],
