@@ -1,5 +1,7 @@
 <div id="data-usuario">
-	<div id="image-usuario"></div>
+	<div id="image-usuario">
+		<a href="{{ asset('assets/images/usuarios/'~usuario.getImagenFull()) }}"><img src="{{ asset('assets/images/usuarios/'~usuario.getImagenFull()) }}"></img></a>
+	</div>
 	<h3>{{usuario.nombre}} {{usuario.apellido}}</h3>
 
 	<ul>

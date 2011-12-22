@@ -63,8 +63,8 @@
 		{% include '::footer.html.twig' %}
 
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-        <script src='../../assets/js/lib.js'></script>
-        <script src="../../assets/js/jquery.validate.min.js"></script>
+        <script src="{{asset('assets/js/lib.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

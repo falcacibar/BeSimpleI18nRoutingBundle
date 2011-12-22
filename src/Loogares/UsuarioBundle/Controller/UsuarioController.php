@@ -182,7 +182,6 @@ class UsuarioController extends Controller
             throw new AccessDeniedException('No puedes editar información de otro usuario');
         
         $form = $this->createFormBuilder($usuarioResult)
-                     ->add('password', 'password')
                      ->add('password', 'repeated', array(
                                 'type' => 'password',
                                 'invalid_message' => 'Los passwords no coinciden. Por favor, corrígelos.',
@@ -197,8 +196,20 @@ class UsuarioController extends Controller
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
-            if ($form->isValid()) {  
-                return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+            if ($form->isValid()) {
+
+                // Verificación de password actual
+                //if($request->request->get('passwordActual') == )
+
+                // Encode de password a MD5 (SHA2 más adelante)
+                $usuarioResult->setPassword(md5($usuarioResult->getPassword()));
+                $em->flush();
+
+                // Mensaje de éxito en la edición
+                $this->get('session')->setFlash('edicion-password','Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.');
+                
+                // Redirección a vista de edición de password 
+                return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
             }
         }
 
@@ -342,7 +353,7 @@ class UsuarioController extends Controller
         $em->flush();
 
         // Se agrega usuario a lista de correos de Mailchimp
-        $mc = new \MCAPI_MCAPI($this->container->getParameter('mailchimp_apikey'));
+        /*$mc = new \MCAPI_MCAPI($this->container->getParameter('mailchimp_apikey'));
         $merge_vars = array(
             'EMAIL' => utf8_encode($usuarioResult->getMail()),
             'FNAME' => utf8_encode($usuarioResult->getNombre()),
@@ -350,7 +361,7 @@ class UsuarioController extends Controller
             'USER' => utf8_encode($usuarioResult->getUsuario()),
             'IDUSER' => '4000'
         );
-        $r = $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true);
+        $r = $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true);*/
 
 
         // Usuario inicia sesión automáticamente
