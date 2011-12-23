@@ -37,62 +37,20 @@
             margin-top: 2px;
             font-size: 10px;
         }
+
+        .agregar-lugar .caracteristicas ul li,.agregar-lugar .subcategorias ul li{
+            display: none;
+        }
+
+
     </style>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="../../assets/js/masterObject.js"></script>
-    <script src="../../assets/js/googleMapAgregar.js"></script>
-    <script src="../../assets/js/jquery.sticky.js"></script>
+    <script src="{{asset('assets/js/masterObject.js')}}"></script>
+    <script src="{{asset('assets/js/googleMapAgregar.js')}}"></script>
     <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
     <script>
-        String.prototype.camelCase = function() {
-            str = this;
-            return str
-                .replace(/[\s\-](.)/g, function($1) { return $1.toUpperCase(); })
-                .replace(/[\s\-]/g, '')
-                .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
-        }
-
-        function actualizarComunas(){
-            var ciudadSeleccionada = $('.ciudad > option:selected').text();
-            $.each(optGroupComunas, function(i){
-                if(optGroupComunas[i].match(ciudadSeleccionada)){
-                    $('.comuna > optgroup').remove('optgroup');
-                    $('.comuna').append(optGroupComunas[i]);
-                }
-            });
-
-            $.each(optGroupSectores, function(i){
-                if(optGroupSectores[i].match(ciudadSeleccionada)){
-                    $('.sector > optgroup').remove('optgroup');
-                    $('.sector').append(optGroupSectores[i]);
-                }
-            });
-        }
-
-        /* INITIALIZATION */
-
-        var optGroupComunas = [],
-            optGroupSectores = [],
-            selected = {},
-            caracteristicasASacar = [];
-
-        $('input[type=text], textarea').each(function(){ $(this).placeholder() });
-
-        $('.comuna > optgroup').each(function(i){
-            optGroupComunas[i] = $(this).outerHTML();
-            $(this).remove();
-        });
-
-        $('.sector > optgroup').each(function(i){
-            optGroupSectores[i] = $(this).outerHTML();
-            $(this).remove();
-        });
-
-        actualizarComunas();
-        onCargarMapaAgregar('ye');
-
         $('.quitar').click(function(e){
             e.preventDefault();
 
@@ -151,31 +109,26 @@
                 $(this).find('option[value="'+selected[$this.attr('id')]+'"]').removeAttr('disabled');
             });
 
-            $('.caracteristica').fadeOut().parent().remove();
+            $('.caracteristicas').parent().fadeOut();
 
             $('.categoria').not(':hidden').each(function(){
-                thisCat = $(this).val().camelCase();
-                caracteristicas = categorias[thisCat].caracteristicas;
-                if(caracteristicas != ''){ 
+                var thisCat = $(this).val().camelCase(),
+                    caracteristicas = categorias[thisCat].caracteristicas;
+                    subCategorias = categorias[thisCat].subCategorias;
+
+                if(caracteristicas != ''){
                     $('.caracteristicas').parent().fadeIn().css('display', 'block');
-                }else{
-                    $('.caracteristicas').parent().fadeOut();
                 }
+
+                if(subCategorias != ''){
+                    $this.parent().find('.subcategorias').stop(true,true).fadeIn().css('display', 'inline-block');
+                }
+
                 $.each(caracteristicas, function(i){
-                    if($('input[value="'+caracteristicas[i]+'"]').val() != caracteristicas[i]){
-                        checkBoxHTML = "<li>"+
-                                           "<label class='checkbox-label caracteristica'>"+
-                                           "<input type='checkbox'"+
-                                           " class='"+categoria+"'"+
-                                           " name=caracteristica[]"+
-                                           " value='"+caracteristicas[i]+"'/>"+
-                                           "<span>"+caracteristicas[i]+"</span></label>"+
-                                       "</li>";
-                        
-                        $('.caracteristicas ul').append(checkBoxHTML);
-                        $('.caracteristicas').parent().fadeIn();
-                    }
+                    $('input[value="'+caracteristicas[i]+'"]').parent().parent().fadeIn();
+                    $('.caracteristicas').parent().fadeIn();
                 });
+
                 if( anterior != undefined ){
                     //Por cada categoria que deshabilitamos
                     habilitar = categorias[anterior.camelCase()].deshabilitar;
@@ -199,28 +152,18 @@
                     });
 
                     //Subcategorias
-                    $this.parent().find('.subcategorias ul').html('');
-                }
+                }//end anterior
             });// end each
+
+            $this.parent().find('.subcategorias ul li').fadeOut().find('input:checked').click();
+
+            $.each(subCategorias, function(i){
+                $this.parent().find('.subcategorias input[value="'+subCategorias[i]+'"]').parent().parent().stop(true, true).fadeIn().css('display', 'inline-block');
+            });
 
             camposEspeciales = categorias[categoria].camposEspeciales
             $.each(camposEspeciales, function(i){
                 $('#form_'+camposEspeciales[i]).parent().fadeIn().css('display', 'block');
-            });
-
-            subCategorias = categorias[categoria].subCategorias;
-            $.each(subCategorias, function(i){
-                checkBoxHTML = "<li>"+
-                                   "<label class='checkbox-label subcategoria'>"+
-                                   "<input type='checkbox' "+
-                                   "class='"+categoria+" '"+
-                                   "name=subcategoria[] "+
-                                   "value='"+subCategorias[i]+"'/>"+
-                                   "<span>"+subCategorias[i]+"</span></label>"+
-                               "</li>";
-
-                $this.parent().find('.subcategorias ul').append(checkBoxHTML);
-                $this.parent().find('.subcategorias').fadeIn();
             });
 
             $('.categoria').each(function(){
@@ -267,7 +210,6 @@
             }
         });
 
-
         $('.ciudad').change(function(){
             actualizarComunas();
         });
@@ -307,8 +249,6 @@
                 }
             });
 
-            console.log($('.mapy').val())
-
             //Worst Conditional Ever
             if(
                 ( $('.mapx').val() == '' || $('.mapy').val() == '' ) 
@@ -334,6 +274,81 @@
         });
 
         $('.cargar-mapa').click(function(e){e.preventDefault();onCargarMapaAgregar();});
+
+        /* Fncs */
+
+        String.prototype.camelCase = function() {
+            str = this;
+            return str
+                .replace(/[\s\-](.)/g, function($1) { return $1.toUpperCase(); })
+                .replace(/[\s\-]/g, '')
+                .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
+        }
+
+        function actualizarComunas(){
+            var ciudadSeleccionada = $('.ciudad > option:selected').text();
+            $.each(optGroupComunas, function(i){
+                if(optGroupComunas[i].match(ciudadSeleccionada)){
+                    $('.comuna > optgroup').remove('optgroup');
+                    $('.comuna').append(optGroupComunas[i]);
+                }
+            });
+
+            $.each(optGroupSectores, function(i){
+                if(optGroupSectores[i].match(ciudadSeleccionada)){
+                    $('.sector > optgroup').remove('optgroup');
+                    $('.sector').append(optGroupSectores[i]);
+                }
+            });
+        }
+
+        /* INITIALIZATION */
+
+        var optGroupComunas = [],
+            optGroupSectores = [],
+            selected = {},
+            caracteristicasASacar = [];
+
+        $('input[type=text], textarea').each(function(){ $(this).placeholder() });
+
+        $('.comuna > optgroup').each(function(i){
+            optGroupComunas[i] = $(this).outerHTML();
+            $(this).remove();
+        });
+
+        $('.sector > optgroup').each(function(i){
+            optGroupSectores[i] = $(this).outerHTML();
+            $(this).remove();
+        });
+
+        actualizarComunas();
+       
+        {% if editar %}
+            $('.comuna').find('option[value="{{editar.comuna.slug}}"]').attr('selected', 'selected');
+            $('.ciudad').find('option[value="{{editar.comuna.ciudad.slug}}"]').attr('selected', 'selected');
+            {% if editar.sector %}$('.sector').find('option[value="{{editar.sector.slug}}"]').attr('selected', 'selected');{% endif %}
+            onCargarMapaAgregar();
+
+            {% for categoriaLugar in editar.categoriaLugar %}
+                $currentSelect = $('.categoria').eq({{loop.index}}-1);
+                $currentSelect.find('option[value="{{categoriaLugar.categoria.slug}}"]').attr('selected', 'selected').change();
+                {% if loop.last == false %}$('a.display-more-info[rel=categoria]').click();{% endif %}
+
+                {% for subcategoriaLugar in editar.subcategoriaLugar %}
+                    {% if subcategoriaLugar.subcategoria.categoria.id == categoriaLugar.categoria.id %}
+                        $currentSelect.parent().find('.subcategorias input[value="{{subcategoriaLugar.subcategoria.nombre}}"]').click();
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            {% for caracteristicaLugar in editar.caracteristicaLugar %}
+                $('.caracteristicas').find('input[value="{{caracteristicaLugar.caracteristica.nombre}}"]').click();
+            {% endfor %}
+            
+            
+        {% else %}
+            onCargarMapaAgregar('default');
+        {% endif %}
     </script>
 {% endblock %}
 
@@ -353,29 +368,61 @@
 <ul class="agregar-lugar">
     <li>
         <label>Nombre</label>
-        <input type="text" title="Ingresa el Nombre del Lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
+        <input type="text" {% if editar %}value="{{editar.nombre}}"{%endif%} title="Ingresa el Nombre del Lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
     </li>
     <li>
         <label>Categorias</label>
         {{ data.categoriaSelect | raw}}
         <div class='subcategorias'>
-            <ul></ul>
+            <ul>
+                {% for subCategoria in subCategorias %}
+                    <li>
+                        <label class="checkbox-label subcategoria">
+                            <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
+                            <span>{{subCategoria.nombre}}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </li>
     <li class="no-default">
         <label>Categorias</label>
         {{ data.categoriaSelect | raw}}
         <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
-        <div class='subcategorias'><ul></ul></div>
+        <div class='subcategorias'>
+            <ul>
+                {% for subCategoria in subCategorias %}
+                    <li>
+                        <label class="checkbox-label subcategoria">
+                            <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
+                            <span>{{subCategoria.nombre}}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </li>
     <li class="no-default">
         <label>Categorias</label>
         {{ data.categoriaSelect | raw}}
         <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
-        <div class='subcategorias'><ul></ul></div>
+        <div class='subcategorias'>
+            <ul>
+                {% for subCategoria in subCategorias %}
+                    <li>
+                        <label class="checkbox-label subcategoria">
+                            <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
+                            <span>{{subCategoria.nombre}}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </li>
-    <li>
-        <span class="display-more"><a class="display-more-info" rel="categoria" href="">Otra categoria (Max <span>2</span>)</a></span>
+    <li>        
+        <span class="display-more"><a class="display-more-info" rel="categoria" href="">Otra categoria (Max 
+        <span>2</span>)</a></span>
     </li>
     <li>
         <label>Ciudad</label>
@@ -387,17 +434,20 @@
     </li>
     <li>
         <label>Direccion</label>
-        <input type="text" name="form[calle]" title="Ingresa la Calle del Lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
-        <input type="text" name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="1949 o s/n"/>
+        <input type="text" {% if editar %}value="{{editar.calle}}"{%endif%} name="form[calle]" title="Ingresa la Calle del Lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
+        <input type="text" {% if editar %}value="{{editar.numero}}"{%endif%} name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="1949 o s/n"/>
     </li>
-    <li>
-         <span class="display-more"><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
-         <span class="display-more"><a href="" class="cargar-mapa">Cargar Mapa</a></span>
+        <li>
+         
+                <span class="display-more"><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
+         
+            <span class="display-more"><a href="" class="cargar-mapa">Cargar Mapa</a></span>
     </li>
     <li class="no-default">
         <label>Detalle</label>
-        <input type="text" name="form[detalle]" id="form_detalle" placeholder="Ej. Local 21, Mall Parque Arauco"/>
-        <span class="quitar-info"><a class="quitar" href="">Quitar</a></span>
+        <input type="text" {% if editar %}value="{{editar.detalle}}"{%endif%} name="form[detalle]" id="form_detalle" placeholder    ="Ej. Local 21, Mall Parque Arauco"/>
+        
+            <span class="quitar-info"><a class="quitar" href="">Quitar</a></span>
     </li>
     <li>
         <label>Sector</label>
@@ -405,36 +455,39 @@
     </li>
     <li>
         <label>Telefono</label>
-        <input type="text" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. +56 2 2130894"/>
+        <span class="area-code"></span><input type="text" {% if editar %}value="{{editar.telefono1}}"{%endif%} name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. +56 2 2130894"/>
     </li>
     <li class="no-default">
         <label>Telefono</label>
-        <input type="text" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="Ej. +56 2 2130894"/>
-        <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <span class="area-code"></span><input type="text" {% if editar %}value="{{editar.telefono2}}"{%endif%} name="form[telefono2]" id="form_telefono2" class    ="telefono" placeholder="Ej. +56 2 2130894"/>
+        
+            <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li class="no-default">
         <label>Telefono</label>
-        <input type="text" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="Ej. +56 2 2130894"/>
-        <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <span class="area-code"></span><input type="text" {% if editar %}value="{{editar.telefono3}}"{%endif%} name="form[telefono3]" id="form_telefono3" class    ="telefono" placeholder="Ej. +56 2 2130894"/>
+        
+            <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li>
-         <span class="display-more"><a class="display-more-info" rel="telefono" href="">Mas telefonos (Max <span>2</span>)</a></span>
+            <span class="display-more"><a class="display-more-info" rel="telefono" href="">Mas telefonos (Max 
+            <span>2</span>)</a></span>
     </li>
     <li>
         <label>Sitio Web</label>
-        <input type="text" name="form[sitio_web]" id="form_sitio_web" placeholder="Ej. http://www.bareltufo.cl"/>
+        <input type="text" {% if editar %}value="{{editar.sitioWeb}}"{%endif%} name="form[sitio_web]" id="form_sitio_web" placeholder="Ej. http://www.bareltufo.cl"/>
     </li>
     <li>
         <label>Facebook</label>
-        <input type="text" name="form[facebook]" id="form_facebook" placeholder="Ej. http://www.facebook.com/pages/bareltufo"/>
+        <input type="text" {% if editar %}value="{{editar.facebook}}"{%endif%} name="form[facebook]" id="form_facebook" placeholder="Ej. http://www.facebook.com/pages/bareltufo"/>
     </li>
     <li>
         <label>Twitter</label>
-        <input type="text" name="form[twitter]" id="form_twitter" placeholder="Ej. http://www.twitter.com/barelfuto"/>
+        <input type="text" {% if editar %}value="{{editar.twitter}}"{%endif%} name="form[twitter]" id="form_twitter" placeholder="Ej. http://www.twitter.com/barelfuto"/>
     </li>
     <li>
         <label>Mail</label>
-        <input type="text" name="form[mail]" id="form_mail" placeholder="Ej. usuario@logoares.com"/>
+        <input type="text" {% if editar %}value="{{editar.mail}}"{%endif%} name="form[mail]" id="form_mail" placeholder="Ej. usuario@logoares.com"/>
     </li>
     <li>
         <label>Horario</label>
@@ -627,30 +680,38 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
     </li>
     <li class="no-default">
         <label>Profesional</label>
-        <input type="text" name="form[profesional]" id="form_profesional" placeholder="Ej. Nombre del Arquitecto, Paisajista, etc"/>
+        <input type="text" {% if editar %}value="{{editar.profesional}}"{%endif%} name="form[profesional]" id="form_profesional" placeholder="Ej. Nombre del Arquitecto, Paisajista, etc"/>
     </li>
     <li class="no-default">
         <label>Año de Construccion</label>
-        <input type="text" name="form[agno_construccion]" id="form_agno_construccion" placeholder="Ej. 1985, Siglo XX"/>
+        <input type="text" {% if editar %}value="{{editar.agnoConstruccion}}"{%endif%} name="form[agno_construccion]" id="form_agno_construccion" placeholder="Ej. 1985, Siglo XX"/>
     </li>
     <li class="no-default">
         <label>Descripcion</label>
-        <textarea name="form[descripcion]" id="form_descripcion" placeholder="Breve Descripcion Blah Blah"></textarea>
+        <textarea name="form[descripcion]" id="form_descripcion" placeholder="Breve Descripcion Blah Blah">{% if editar %} {{editar.descripcion}}{%endif%}</textarea>
     </li>
     <li class="no-default">
         <label>Materiales</label>
-        <input type="text" name="form[materiales]" id="form_materiales" placeholder="Ej. Cobre, Granito, etc"/>
+        <input type="text" {% if editar %}value="{{editar.materiales}}"{%endif%} name="form[materiales]" id="form_materiales" placeholder="Ej. Cobre, Granito, etc"/>
     </li>
     <li class="no-default">
         <label>Caracteristicas</label>
         <div class="caracteristicas">
             <ul>
+                {% for caracteristica in caracteristicas %}
+                    <li>
+                        <label class="checkbox-label caracteristica">
+                            <input type="checkbox" name="caracteristica[]" class="caracteristica" value="{{caracteristica.nombre}}" />
+                            <span>{{caracteristica.nombre}}</span>
+                        </label>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </li>
     <li>
-        <input type="hidden" class="mapx" name="form[mapx]" id="form_mapx"/>
-        <input type="hidden" class="mapy" name="form[mapy]" id="form_mapy"/>
+        <input type="hidden" class="mapx" {% if editar %}value="{{editar.mapx}}"{%endif%} name="form[mapx]" id="form_mapx"/>
+        <input type="hidden" class="mapy" {% if editar %}value="{{editar.mapy}}"{%endif%} name="form[mapy]" id="form_mapy"/>
     </li>
     <li><input type="submit" value="Guardar Datos" formnovalidate/></li>
 </ul>
@@ -663,8 +724,9 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
         Una vez cargado el mapa, puedes arrastrar el ícono para corregir su posición.
     </div>
 </div>
-
 {{ form_widget(form._token) }}
+
+
 
 </form>
 {% endblock %}

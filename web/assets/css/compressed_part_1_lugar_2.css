@@ -40,14 +40,14 @@
   .agregar-lugar .caracteristicas {
     width: 400px;
     margin: -20px 0 0 93px; }
-    .agregar-lugar .caracteristicas li {
+    .agregar-lugar .caracteristicas ul li {
       display: inline-block;
       margin: 1px; }
-      .agregar-lugar .caracteristicas li label {
-        width: 180px;
-        font-size: 10px; }
-        .agregar-lugar .caracteristicas li label span:hover {
-          border-bottom: 1px dotted #0066cc; }
+    .agregar-lugar .caracteristicas ul label {
+      width: 180px;
+      font-size: 10px; }
+      .agregar-lugar .caracteristicas ul label span:hover {
+        border-bottom: 1px dotted #0066cc; }
 
 .agregar-horarios th {
   font-weight: bold; }
