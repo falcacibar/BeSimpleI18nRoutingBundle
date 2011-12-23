@@ -81,6 +81,11 @@ input[type=text], input[type=password]{
 	-moz-border-radius:2px;
 }
 
+#image-usuario img {
+	height:96px;
+	width:96px;
+}
+
 .editar-link {
 	font-weight:bold;
 	font-size:0.9em;
