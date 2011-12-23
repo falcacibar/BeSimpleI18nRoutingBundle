@@ -17,6 +17,7 @@ Loogares\LugarBundle\Entity\Lugar:
                 joinColumns:
                     sector:
                         referencedColumnName: id
+                        nullable: true
         tipo_lugar:
             targetEntity: Loogares\LugarBundle\Entity\TipoLugar
             joinTable:
@@ -38,10 +39,25 @@ Loogares\LugarBundle\Entity\Lugar:
                 joinColumns:
                     estado:
                         referencedColumnName: id
-    manyToMany:
+    oneToMany:
         imagenes_lugar:
             targetEntity: Loogares\LugarBundle\Entity\ImagenLugar
-            mappedBy: lugares
+            mappedBy: lugar
+        categoria_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\CategoriaLugar
+            mappedBy: lugar
+        subcategoria_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\SubcategoriaLugar
+            mappedBy: lugar
+        caracteristica_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\CaracteristicaLugar
+            mappedBy: lugar
+        caracteristica_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\CaracteristicaLugar
+            mappedBy: lugar
+        recomendacion:
+            targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
+            mappedBy: lugar
     id:
         id:
             type: integer

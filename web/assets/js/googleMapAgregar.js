@@ -1,5 +1,5 @@
 //Metodo que contiene todo sobre cargar el mapa
-function onCargarMapaAgregar(defaultpos){
+function onCargarMapaAgregar(pos){
 	
   	if(GBrowserIsCompatible){
   		
@@ -10,7 +10,7 @@ function onCargarMapaAgregar(defaultpos){
         if(errormapa.is('label.error'))
             errormapa.remove()
 		
-		if(defaultpos){
+		if(pos == 'default'){
 			address = 'Baquedano, Providencia, Santiago de Chile';
 		}else{
 			var calle = $('.calle').val();
@@ -23,7 +23,7 @@ function onCargarMapaAgregar(defaultpos){
 		
 		if(address){
 			var map = new GMap2(document.getElementById("mapa"));
-			if(defaultpos){
+			if(pos == 'default'){
 				map.setCenter(new GLatLng(-33.43692082916139, -70.63445091247559),10);
 			}
 			//map.setUIToDefault();
@@ -47,7 +47,7 @@ function onCargarMapaAgregar(defaultpos){
 				letteredIcon.image = "/symf/web/assets/images/gmaps/puntodestacado.png";
 				markerOptions = {icon: letteredIcon, draggable: true};
 				var marker = new GMarker(point, markerOptions);
-				if(defaultpos){
+				if(pos == 'default'){
 					$(".mapx").val('');
 					$(".mapy").val('');
 					defaultpos = null;

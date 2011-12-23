@@ -14,6 +14,10 @@ _lugar:
     pattern: /lugar/{slug}
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
 
+_editar:
+    pattern: /lugar/{slug}/editar
+    defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
+
 _ajax:
     pattern: /ajax
     defaults: { _controller: LoogaresLugarBundle:Default:index }

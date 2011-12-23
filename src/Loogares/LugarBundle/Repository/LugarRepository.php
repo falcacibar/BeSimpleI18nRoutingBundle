@@ -133,10 +133,14 @@ class LugarRepository extends EntityRepository
       return $subCategoriaResult;      
     }
 
-    public function getSubCategorias($slug){
+    public function getSubCategorias($slug = null){
       $em = $this->getEntityManager();
-      $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\SubCategoria u where u.slug = ?1");
-      $q->setParameter(1, $slug);
+      if($slug){
+        $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\SubCategoria u where u.slug = ?1");
+        $q->setParameter(1, $slug);
+      }else{
+        $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\SubCategoria u");  
+      }
 
       $subCategoriaResult = $q->getResult();
       return $subCategoriaResult;    

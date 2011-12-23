@@ -55,27 +55,6 @@ class LugarController extends Controller
                   ->setParameter(1, $idLugar);
                 $imagenLugarResult = $q->getResult();
 
-                //Query para categorias del lugar
-                $q = $em->createQuery("SELECT u 
-                                       FROM Loogares\LugarBundle\Entity\CategoriaLugar u 
-                                       WHERE u.lugar = ?1");
-                $q->setParameter(1, $idLugar);
-                $categoriasResult = $q->getResult();
-
-                //Query para categorias del lugar
-                $q = $em->createQuery("SELECT u 
-                                       FROM Loogares\LugarBundle\Entity\SubcategoriaLugar u 
-                                       WHERE u.lugar = ?1");
-                $q->setParameter(1, $idLugar);
-                $subCategoriaResult = $q->getResult();
-
-                //Caracteristicas del lugar
-                $q = $em->createQuery("SELECT u 
-                                       FROM Loogares\LugarBundle\Entity\CaracteristicaLugar u 
-                                       WHERE u.lugar = ?1");
-                $q->setParameter(1, $idLugar);
-                $caracteristicaLugarResult = $q->getResult();
-
                 //Query para horarios del lugar
                 $q = $em->createQuery("SELECT u 
                                        FROM Loogares\LugarBundle\Entity\Horario u 
@@ -148,25 +127,11 @@ class LugarController extends Controller
                 */
                 $data = $lugarResult[0];
 
-                //Armamos un array con todas las categorias
-                foreach($categoriasResult as $cat){
-                        $data->categorias[] = $cat->getCategoria()->getNombre();
-                }
 
-                $data->subcategorias = array();
-                foreach($subCategoriaResult as $subcat){
-                    foreach($data->categorias as $cat){
-                        if($cat == $subcat->getSubCategoria()->getCategoria()->getNombre()){
-                            $data->subcategorias[]['categoria'] = $cat;
-                            $data->subcategorias[sizeOf($data->subcategorias) - 1]['subcategorias'][] = $subcat->getSubCategoria()->getNombre();
-                        }
-                    }
-                }
 
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->horarios = $horarioResult;
                 $data->telefonos = $telefonos;
-                $data->caracteristicaslugar = $caracteristicaLugarResult;
                 //Imagen a mostrar
                 $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
                 $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';
@@ -183,13 +148,17 @@ class LugarController extends Controller
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));            
     }
     
-    public function agregarAction(Request $request){
-
+    public function agregarAction(Request $request, $slug = null){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $errors = array();
         $camposExtraErrors = false;
         $formErrors = array();
+        $editar = array();
+
+        if($slug){
+            $editar = $lr->findOneBySlug($slug);    
+        }
 
         $lugar = new Lugar();
                 
@@ -228,7 +197,7 @@ class LugarController extends Controller
                 $tipo_lugar = $lr->getTipoLugar('que-visitar');
 
                 $lugar->setComuna($comuna[0]);
-                $lugar->setSector($sector[0]);
+
                 $lugar->setUsuario($usuario);
                 $lugar->setEstado($estado[0]);
                 $lugar->setTipoLugar($tipo_lugar[0]);
@@ -324,6 +293,8 @@ class LugarController extends Controller
         $ciudades = $lr->getCiudades();
         $comunas = $lr->getComunas();
         $sectores = $lr->getSectores();
+        $caracteristicas = $lr->getCaracteristicas();
+        $subCategorias = $lr->getSubCategorias();
 
         $categoriaSelect = "<select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'><option value='elige'>Elige una Categoria</option>";
         foreach($tipoCategorias as $tipoCategoria){
@@ -432,7 +403,6 @@ class LugarController extends Controller
                             <option value="04:30">04:30</option>    
                             <option value="05:00">05:00</option>
                             <option value="05:30">05:30</option>';
-        $data['categorias'] = $lr->getCategorias();
 
 
         //Errores
@@ -447,7 +417,14 @@ class LugarController extends Controller
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
             'form' => $form->createView(),
-            'errors' => $errors
+            'errors' => $errors,
+            'editar' => $editar,
+            'caracteristicas' => $caracteristicas,
+            'subCategorias' => $subCategorias
         ));
+    }
+
+    public function editarAction($slug){
+        return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig');
     }
 }
