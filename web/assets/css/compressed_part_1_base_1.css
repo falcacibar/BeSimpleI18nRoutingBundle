@@ -376,10 +376,9 @@ body {
   background: #ffe5e5;
   border: 1px solid #ffd6d6;
   color: #ff6666;
-  display: none;
   border-radius: 5px;
   padding: 10px;
-  width: 940px;
+  width: 98%;
   box-shadow: 0 1px 0 red;
   margin: 10px auto; }
   .errores-container p {

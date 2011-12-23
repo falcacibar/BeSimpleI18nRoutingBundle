@@ -171,6 +171,7 @@ class UsuarioController extends Controller
     public function editarPasswordAction(Request $request, $param) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $formErrors = array();
         
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -182,42 +183,53 @@ class UsuarioController extends Controller
             throw new AccessDeniedException('No puedes editar información de otro usuario');
         
         $form = $this->createFormBuilder($usuarioResult)
-                     ->add('password', 'repeated', array(
-                                'type' => 'password',
-                                'invalid_message' => 'Los passwords no coinciden. Por favor, corrígelos.',
-                                'first_name' => 'Password nuevo *',
-                                'second_name' => 'Confirmar password *',
-                                'error_bubbling' => true
-                            ))
+                     ->add('password', 'password')
                      ->getForm();
                      
 
         // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
 
-            if ($form->isValid()) {
-
-                // Verificación de password actual
-                //if($request->request->get('passwordActual') == )
-
-                // Encode de password a MD5 (SHA2 más adelante)
-                $usuarioResult->setPassword(md5($usuarioResult->getPassword()));
-                $em->flush();
-
-                // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-password','Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.');
-                
-                // Redirección a vista de edición de password 
-                return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+            // Verificación de password actual
+            if(md5($request->request->get('passwordActual')) != $usuarioResult->getPassword()) {
+                $formErrors['actual'] = "Password actual incorrecto";        
             }
+
+            $form->bindRequest($request);           
+
+            if ($form->isValid() && sizeof($formErrors) == 0) {
+            
+                // Verificación de confirmación de password
+                if($request->request->get('confirmarPassword') != $usuarioResult->getPassword()) {
+                $formErrors['confirmar'] = "Debes escribir el mismo password nuevo";        
+                }
+
+                // Input correcto. Se guarda nuevo password
+                else{
+                    // Encode de password a MD5 (SHA2 más adelante)
+                    $usuarioResult->setPassword(md5($usuarioResult->getPassword()));
+                    $em->flush();
+
+                    // Mensaje de éxito en la edición
+                    $this->get('session')->setFlash('edicion-password','Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.');
+                    
+                    // Redirección a vista de edición de password 
+                    return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));    
+                } 
+            }
+        }
+
+        //Errores
+        foreach($this->get('validator')->validate( $form ) as $formError){
+            $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
         }
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'password';
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'errors' => $formErrors
         ));  
     }
 
@@ -390,6 +402,10 @@ class UsuarioController extends Controller
         } else {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
         }
+
+        // Variable de sesión con ciudad (temporal)
+        $er = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $this->get('session')->set('ciudad',$er->find(1)->getId());
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),

@@ -376,10 +376,9 @@ body {
   background: #ffe5e5;
   border: 1px solid #ffd6d6;
   color: #ff6666;
-  display: none;
   border-radius: 5px;
   padding: 10px;
-  width: 940px;
+  width: 98%;
   box-shadow: 0 1px 0 red;
   margin: 10px auto; }
   .errores-container p {
@@ -520,3 +519,13 @@ small {
 
 ul {
   margin: 0; }
+
+.form-edicion .editar-usuario li {
+  margin: 10px 0; }
+.form-edicion .editar-usuario label {
+  width: 160px;
+  display: inline-block;
+  font-size: 0.9em;
+  margin-top: 5px ç; }
+.form-edicion .editar-usuario small.errors {
+  margin-right: 266px; }

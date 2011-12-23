@@ -1,2 +1,12 @@
 ul {
   margin: 0; }
+
+.form-edicion .editar-usuario li {
+  margin: 10px 0; }
+.form-edicion .editar-usuario label {
+  width: 160px;
+  display: inline-block;
+  font-size: 0.9em;
+  margin-top: 5px ç; }
+.form-edicion .editar-usuario small.errors {
+  margin-right: 266px; }
