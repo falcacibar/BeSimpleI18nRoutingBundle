@@ -1,55 +1,164 @@
-ul
-    margin: 0
+/* Perfil de usuario */
 
+#menu-usuario
+    border-bottom: 1px solid #ccc
+    height: 32px
 
-#titulo-usuario
-    font-size: 1.6em
-    font-weight: bold
-    margin: 10px 0 20px 0
-    letter-spacing: -1px
+    a
+        color: #333
 
-.form-edicion
-    .editar-usuario
-        float:left
+    ul
+        float: right
+        border: 1px solid #ccc
+        border-bottom-width: 0
 
         li
-            margin: 10px 0
-            
-        .edicion-newsletter
-            label
-                margin-top: 0
-
-        label
-            width: 160px
-            display: inline-block
-            font-size: 0.9em
-            margin-top: 5px
+            border-right: 1px solid #ccc
+            height: 32px
+            line-height: 32px
             float: left
 
-        input[type=text], input[type=password], .edicion-sexo
-            width: 300px
-            
-        input[type=radio]
-            float: left        
+        li.no-right-border
+            border-right-width: 0
+        
+        li.selected
+            a
+                color: white
 
-        .edicion-fecha-nacimiento
-            width: 100%
-            select
-                border: 1px solid #ccc
-                line-height: 16px
+        a
+            padding: 10px
 
-            #form_fecha_nacimiento_year
-                width: 100px
-            #form_fecha_nacimiento_month
-                width: 150px
-            #form_fecha_nacimiento_day
-                width: 50px
 
-        #form_sexo
-            label
-                margin: 0 10px 0 5px
-                width: auto  
+
+#main-usuario
+    padding-top: 10px
+
+    li.selected
+        a
+            color: white
+
+    a
+        color: #333
+
+    #data-usuario
+        float: left
+        width: 22%
+        height: 100%
+        border-right: 1px solid #ccc
+        font-size: 0.9em
+
+        ul
+            margin-bottom: 30px
+
+            li
+                display: block
                 
-        small.errors
-            margin-right: 252px
 
+        p
+            margin-bottom: 30px
+
+        #imagen-usuario
+            img
+                height: 96px
+                width: 96px
+                border: 1px solid #444
+                border-radius: 2px
+                -moz-border-radius: 2px
+                padding: 1px
+
+        #titulo-usuario
+            font-size: 1.6em
+            font-weight: bold
+            margin: 10px 0 20px 0
+            letter-spacing: -1px
+
+    #content-usuario
+        width: 76%
+        float: right
+
+        /* Edición de usuario */
+
+        h1.edicion-titulo
+            font-size: 1.4em
+            font-weight: bold
+
+        #menu-edicion
+            border-bottom: 1px solid #ccc
+            height: 32px
+            margin-top: 20px
+
+            ul
+                float: left
+            
+                li
+                    float: left
+                    border: 1px solid #ccc
+                    border-bottom: none
+                    margin-right: 3px
+                    height: 32px
+                    line-height: 32px
+
+                    a
+                        padding: 10px
+    
+
+        .form-edicion
+            .editar-usuario
+                float:left
+
+                li
+                    margin: 10px 0
+                    
+                .edicion-newsletter
+                    label
+                        margin-top: 0
+
+                label
+                    width: 160px
+                    display: inline-block
+                    font-size: 0.9em
+                    margin-top: 5px
+                    float: left
+
+                input[type=text], input[type=password], .edicion-sexo
+                    width: 300px
+                    
+                input[type=radio]
+                    float: left        
+
+                .edicion-fecha-nacimiento
+                    width: 100%
+                    select
+                        border: 1px solid #ccc
+                        line-height: 16px
+
+                    #form_fecha_nacimiento_year
+                        width: 100px
+                    #form_fecha_nacimiento_month
+                        width: 150px
+                    #form_fecha_nacimiento_day
+                        width: 50px
+
+                #form_sexo
+                    label
+                        margin: 0 10px 0 5px
+                        width: auto
+
+                small.errors
+                    margin-right: 252px
+
+            .errores-container
+                width: 98%
+                display: block
+
+        .edicion
+            margin-top: 30px
+
+/*  Extras */
+
+.bold
+    font-weight: bold
+
+li.selected
+    background-color: #000066
+    font-weight: bold
