@@ -23,4 +23,16 @@ class DefaultController extends Controller
         $data = $tipoCategorias;
     	return $this->render('::menu.html.twig', array('menu' => $data));
     }
+
+    public function ciudadAction(){
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+
+        $tipoCiudades = $cr->getCiudadesActivas();
+
+        $data = $tipoCiudades;
+        return $this->render('::ciudad.html.twig', array('ciudades' => $data));
+    }
+
 }

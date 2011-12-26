@@ -53,9 +53,16 @@ $gris_686: #686868
 $gris_999: #999
 $gris_ccc: #CCC
 $gris_ddd: #DDD
+$gris_f6f: #F6F6F6
 $rojo: #FF3300
 
 /* Mixin */
+
+@mixin borde_redondeado
+    border-radius: 2px
+    -o-border-radius: 2px
+    -moz-border-radius: 2px
+    -webkit-border-radius: 2px
 
 @mixin centrado
     margin: 0px auto
@@ -128,9 +135,18 @@ body
 
             a
                 @include link_blanco
+                float: left
 
                 &:hover
                     @include link_blanco_hover
+            
+            .flecha_ciudad
+                background: url('../images/extras/botones_sprite.png') -99px -1px
+                display: block
+                float: left
+                height: 3px
+                margin: 5px 0 0 5px
+                width: 6px
         
         .login
             color: $blanco
@@ -138,7 +154,7 @@ body
             font:
                 size: 11px
             margin: 5px 10px 5px 240px
-            width: 170px
+            width: 171px
 
             a
                 @include link_blanco
@@ -181,6 +197,9 @@ body
                 height: 16px
                 width: 17px
 
+                &:hover
+                    background: url('../images/extras/botones_sprite.png') -48px -16px
+
             .twitter_btn
                 background: url('../images/extras/botones_sprite.png') -65px 0px
                 float: left
@@ -188,6 +207,9 @@ body
                 margin: 0 0 0 5px
                 width: 17px
                 
+                &:hover
+                    background: url('../images/extras/botones_sprite.png') -65px -16px
+
             .blog
                 float: left
                 display: block
@@ -220,88 +242,109 @@ body
             color: $gris_444
             float: left
             font:
-                size: 11px
+                size: 12px
             text-transform: lowercase
-            width: 580px
+            width: 584px
             margin: 0 auto
                 
             li
-                display: inline
-            
+                float: left
+                list-style-type: none
+                            
                 a
+                    border-bottom: 1px solid $gris_ccc
                     color: $gris_444
                     float: left
-                    padding: 14px 6px
+                    padding: 14px 6px 14px
                     text-decoration: none
+                    z-index: 20
                 
-                    &:hover
-                        border-top: 2px solid $azul
+                    &:hover, &.li-activo
+                        background: url('../images/extras/flecha_menu.png') center 34px no-repeat
+                        border-bottom: 1px solid $blanco
+                        border-top: 3px solid $azul
                         color: $gris_444
-                        padding: 12px 6px
-                    
-        .buscar
-            border: 1px solid $gris_999
+                        padding: 11px 6px 14px
+                        z-index: 20
+
+                ul
+                    background: $blanco
+                    border-bottom: 1px solid $gris_ccc
+                    border-left: 1px solid $gris_ccc
+                    border-right: 1px solid $gris_ccc
+                    border-top: 1px solid $blanco
+                    display: none
+                    padding: 14px 0 0 0
+                    position: absolute
+                    top: 41px
+                    width: 200px
+
+                    li
+                        display: list-item
+                        float: left
+                        width: 200px
+
+                        a
+                            border: 0px
+                            height: 20px
+                            padding: 9px 6px 1px
+                            width: 188px
+
+                            &:hover
+                                background: $gris_f6f
+                                border: 0px
+                                padding: 9px 6px 1px
+                                text-decoration: underline
+                                width: 188px
+        
+        .buscador_box
+            border-left: 1px solid $gris_ccc
+            border-right: 1px solid $gris_ccc
             float: left
-            height: 30px
-            margin: 4px 4px 4px 0
-            position: relative
-            
-            &:hover
-                border: 1px solid $gris_444
-
-            &:before
-                content: ''
-                border-left: 1px $gris_ccc solid
-                padding-right: 2px
-                position: absolute
-                height: 40px
-                left: -7px
-                top: -5px
-                display: block
-        
-            &:after
-                content: ''
-                border-left: 1px $gris_ccc solid
-                padding-right: 2px
-                position: absolute
-                height: 40px
-                left: 243px
-                top: -5px
-                display: block
-        
-            .buscador
-                border: 0px
+                 
+            .buscar
+                border: 1px solid $gris_999
+                float: left
                 height: 30px
-                float: left
-                padding: 0px 3px
-                width: 200px
-                
-            .caja_icono
-                border-left: 1px solid $gris_999
-                cursor: pointer
-                float: left
-                height: 16px
-                padding: 7px
-                width: 16px
-
-            .icono_buscar
-                background: url('../images/extras/botones_sprite.png') -82px 0px
-                float: left
-                height: 15px
-                width: 15px
+                margin: 4px
+                position: relative
                 
                 &:hover
-                    background: url('../images/extras/botones_sprite.png') -82px -16px
+                    border: 1px solid $gris_444
+            
+                .buscador
+                    border: 0px
+                    height: 30px
+                    float: left
+                    padding: 0px 5px
+                    width: 191px
+                    
+                .caja_icono
+                    border-left: 1px solid $gris_999
+                    cursor: pointer
+                    float: left
+                    height: 16px
+                    padding: 7px
+                    width: 16px
+
+                .icono_buscar
+                    background: url('../images/extras/botones_sprite.png') -82px 0px
                     float: left
                     height: 15px
                     width: 15px
-                
-                
-            .placeholder
-                color: $gris_999
-        
-                &:hover
-                    color: $gris_ccc
+                    
+                    &:hover
+                        background: url('../images/extras/botones_sprite.png') -82px -16px
+                        float: left
+                        height: 15px
+                        width: 15px
+                    
+                    
+                .placeholder
+                    color: $gris_999
+            
+                    &:hover
+                        color: $gris_ccc
 
 .fixed
     position: fixed
@@ -383,7 +426,7 @@ body
                         float: left
                         font:
                             size: 12px
-                        margin: 5px 5px 10px
+                        margin: 2px 5px 10px
                         width: 250px
                     
                 .submit
@@ -392,6 +435,7 @@ body
 
                     .boton_entrar
                         @include gradiente_botones (#FF3300, #FF6600)
+                        @include borde_redondeado
                         color: $blanco
                         font:
                             size: 12px
@@ -414,7 +458,8 @@ body
             @include link_blanco
         
             .boton_registro
-                @include gradiente_botones (#FF3300, #FF6600)                        
+                @include gradiente_botones (#FF3300, #FF6600)
+                @include borde_redondeado                        
                 color: $blanco
                 font:
                     size: 25px

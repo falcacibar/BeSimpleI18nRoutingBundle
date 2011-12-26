@@ -3,8 +3,8 @@
 {% block title %}¡Regístrate en Loogares.com! | {{parent()}}{% endblock %}
 
 {% block content %}
-	<div id="registro-corriente" class="columna-izquierda">
-		<h3 class="titulo">¡Regístrate en Loogares.com!</h3>
+	<div class="columna_izquierda">
+		<h1 class="titulo">¡Regístrate en Loogares.com!</h3>
 		<form action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
 			<div class="form-registro">
 				{% if form_errors(form) %}
@@ -23,17 +23,17 @@
 
 				<div>
 					{{ form_label(form.nombre) }}
-					{{ form_widget(form.nombre, { 'attr': {'data-placeholder': 'Ej. Juan'}}) }}
+					{{ form_widget(form.nombre, { 'attr': {'placeholder': 'Ej. Juan'}}) }}
 				</div>
 
 				<div>
 					{{ form_label(form.apellido) }}
-					{{ form_widget(form.apellido, { 'attr': {'data-placeholder': 'Ej. Valdéz'}}) }}
+					{{ form_widget(form.apellido, { 'attr': {'placeholder': 'Ej. Valdéz'}}) }}
 				</div>
 
 				<div>
 					{{ form_label(form.mail, 'E-mail') }}
-					{{ form_widget(form.mail, { 'attr': {'data-placeholder': 'Ej. juanito@empresa.com'}}) }}
+					{{ form_widget(form.mail, { 'attr': {'placeholder': 'Ej. juanito@empresa.com'}}) }}
 				</div>
 
 				<div>
@@ -59,8 +59,8 @@
 		</form>
 	</div>
 
-	<div id="registro-facebook" class="columna-derecha">
-		<h3 class="titulo">¡O regístrate rápidamente con tu Facebook!</h3>
+	<div class="columna_derecha">
+		<h2 class="titulo">¡O regístrate rápidamente con tu Facebook!</h3>
 		
 		<div class="caja-facebook">
 			<div class="imagen-registro-facebook"></div>

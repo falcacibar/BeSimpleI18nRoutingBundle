@@ -79,16 +79,24 @@ body {
       padding-left: 130px; }
       .barra_ciudad .centrado_ciudad .menu_ciudad a {
         color: white;
-        text-decoration: none; }
+        text-decoration: none;
+        float: left; }
         .barra_ciudad .centrado_ciudad .menu_ciudad a:hover {
           color: white;
           text-decoration: underline; }
+      .barra_ciudad .centrado_ciudad .menu_ciudad .flecha_ciudad {
+        background: url("../images/extras/botones_sprite.png") -99px -1px;
+        display: block;
+        float: left;
+        height: 3px;
+        margin: 5px 0 0 5px;
+        width: 6px; }
     .barra_ciudad .centrado_ciudad .login {
       color: white;
       float: left;
       font-size: 11px;
       margin: 5px 10px 5px 240px;
-      width: 170px; }
+      width: 171px; }
       .barra_ciudad .centrado_ciudad .login a {
         color: white;
         text-decoration: none; }
@@ -123,12 +131,16 @@ body {
         float: left;
         height: 16px;
         width: 17px; }
+        .barra_ciudad .centrado_ciudad .redes_sociales .facebook_btn:hover {
+          background: url("../images/extras/botones_sprite.png") -48px -16px; }
       .barra_ciudad .centrado_ciudad .redes_sociales .twitter_btn {
         background: url("../images/extras/botones_sprite.png") -65px 0px;
         float: left;
         height: 16px;
         margin: 0 0 0 5px;
         width: 17px; }
+        .barra_ciudad .centrado_ciudad .redes_sociales .twitter_btn:hover {
+          background: url("../images/extras/botones_sprite.png") -65px -16px; }
       .barra_ciudad .centrado_ciudad .redes_sociales .blog {
         float: left;
         display: block;
@@ -158,74 +170,92 @@ body {
     .menu .centrado_menu .menu_categorias {
       color: #444444;
       float: left;
-      font-size: 11px;
+      font-size: 12px;
       text-transform: lowercase;
-      width: 580px;
+      width: 584px;
       margin: 0 auto; }
       .menu .centrado_menu .menu_categorias li {
-        display: inline; }
+        float: left;
+        list-style-type: none; }
         .menu .centrado_menu .menu_categorias li a {
+          border-bottom: 1px solid #cccccc;
           color: #444444;
           float: left;
-          padding: 14px 6px;
-          text-decoration: none; }
-          .menu .centrado_menu .menu_categorias li a:hover {
-            border-top: 2px solid #0099ff;
+          padding: 14px 6px 14px;
+          text-decoration: none;
+          z-index: 20; }
+          .menu .centrado_menu .menu_categorias li a:hover, .menu .centrado_menu .menu_categorias li a.li-activo {
+            background: url("../images/extras/flecha_menu.png") center 34px no-repeat;
+            border-bottom: 1px solid white;
+            border-top: 3px solid #0099ff;
             color: #444444;
-            padding: 12px 6px; }
-    .menu .centrado_menu .buscar {
-      border: 1px solid #999999;
-      float: left;
-      height: 30px;
-      margin: 4px 4px 4px 0;
-      position: relative; }
-      .menu .centrado_menu .buscar:hover {
-        border: 1px solid #444444; }
-      .menu .centrado_menu .buscar:before {
-        content: "";
-        border-left: 1px #cccccc solid;
-        padding-right: 2px;
-        position: absolute;
-        height: 40px;
-        left: -7px;
-        top: -5px;
-        display: block; }
-      .menu .centrado_menu .buscar:after {
-        content: "";
-        border-left: 1px #cccccc solid;
-        padding-right: 2px;
-        position: absolute;
-        height: 40px;
-        left: 243px;
-        top: -5px;
-        display: block; }
-      .menu .centrado_menu .buscar .buscador {
-        border: 0px;
+            padding: 11px 6px 14px;
+            z-index: 20; }
+        .menu .centrado_menu .menu_categorias li ul {
+          background: white;
+          border-bottom: 1px solid #cccccc;
+          border-left: 1px solid #cccccc;
+          border-right: 1px solid #cccccc;
+          border-top: 1px solid white;
+          display: none;
+          padding: 14px 0 0 0;
+          position: absolute;
+          top: 41px;
+          width: 200px; }
+          .menu .centrado_menu .menu_categorias li ul li {
+            display: list-item;
+            float: left;
+            width: 200px; }
+            .menu .centrado_menu .menu_categorias li ul li a {
+              border: 0px;
+              height: 20px;
+              padding: 9px 6px 1px;
+              width: 188px; }
+              .menu .centrado_menu .menu_categorias li ul li a:hover {
+                background: #f6f6f6;
+                border: 0px;
+                padding: 9px 6px 1px;
+                text-decoration: underline;
+                width: 188px; }
+    .menu .centrado_menu .buscador_box {
+      border-left: 1px solid #cccccc;
+      border-right: 1px solid #cccccc;
+      float: left; }
+      .menu .centrado_menu .buscador_box .buscar {
+        border: 1px solid #999999;
+        float: left;
         height: 30px;
-        float: left;
-        padding: 0px 3px;
-        width: 200px; }
-      .menu .centrado_menu .buscar .caja_icono {
-        border-left: 1px solid #999999;
-        cursor: pointer;
-        float: left;
-        height: 16px;
-        padding: 7px;
-        width: 16px; }
-      .menu .centrado_menu .buscar .icono_buscar {
-        background: url("../images/extras/botones_sprite.png") -82px 0px;
-        float: left;
-        height: 15px;
-        width: 15px; }
-        .menu .centrado_menu .buscar .icono_buscar:hover {
-          background: url("../images/extras/botones_sprite.png") -82px -16px;
+        margin: 4px;
+        position: relative; }
+        .menu .centrado_menu .buscador_box .buscar:hover {
+          border: 1px solid #444444; }
+        .menu .centrado_menu .buscador_box .buscar .buscador {
+          border: 0px;
+          height: 30px;
+          float: left;
+          padding: 0px 5px;
+          width: 191px; }
+        .menu .centrado_menu .buscador_box .buscar .caja_icono {
+          border-left: 1px solid #999999;
+          cursor: pointer;
+          float: left;
+          height: 16px;
+          padding: 7px;
+          width: 16px; }
+        .menu .centrado_menu .buscador_box .buscar .icono_buscar {
+          background: url("../images/extras/botones_sprite.png") -82px 0px;
           float: left;
           height: 15px;
           width: 15px; }
-      .menu .centrado_menu .buscar .placeholder {
-        color: #999999; }
-        .menu .centrado_menu .buscar .placeholder:hover {
-          color: #cccccc; }
+          .menu .centrado_menu .buscador_box .buscar .icono_buscar:hover {
+            background: url("../images/extras/botones_sprite.png") -82px -16px;
+            float: left;
+            height: 15px;
+            width: 15px; }
+        .menu .centrado_menu .buscador_box .buscar .placeholder {
+          color: #999999; }
+          .menu .centrado_menu .buscador_box .buscar .placeholder:hover {
+            color: #cccccc; }
 
 .fixed {
   position: fixed;
@@ -288,7 +318,7 @@ body {
         .contenedor .contenido .login .login_form div .checkbox_tip {
           float: left;
           font-size: 12px;
-          margin: 5px 5px 10px;
+          margin: 2px 5px 10px;
           width: 250px; }
         .contenedor .contenido .login .login_form .submit {
           float: left;
@@ -302,6 +332,10 @@ body {
             background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
             border: 1px solid #ff3300;
             cursor: pointer;
+            border-radius: 2px;
+            -o-border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
             color: white;
             font-size: 12px;
             height: 30px;
@@ -334,6 +368,10 @@ body {
         background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
         border: 1px solid #ff3300;
         cursor: pointer;
+        border-radius: 2px;
+        -o-border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
         color: white;
         font-size: 25px;
         height: 30px;
@@ -376,9 +414,10 @@ body {
   background: #ffe5e5;
   border: 1px solid #ffd6d6;
   color: #ff6666;
+  display: none;
   border-radius: 5px;
   padding: 10px;
-  width: 98%;
+  width: 940px;
   box-shadow: 0 1px 0 red;
   margin: 10px auto; }
   .errores-container p {

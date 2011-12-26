@@ -14,7 +14,7 @@
 		<script>
 		$(function () {
             $('.logo_ciudad_menu').css('position', 'absolute').css('display', 'none')
-            $('.menu_categorias').css('padding-left', '133px')
+            $('.menu_categorias').css('padding-left', '131px')
 		  var msie6 = $.browser == 'msie' && $.browser.version < 7;
 
 		  if (!msie6) {
@@ -65,6 +65,7 @@
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
         <script src="{{asset('assets/js/lib.js')}}"></script>
         <script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
+        <script src="{{asset('assets/js/main.js')}}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -3,15 +3,13 @@
 		<div class="logo_ciudad">
 			<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />
 		</div>
-		<div class="menu_ciudad">
-			<a href="#">Ciudad</a>
-		</div>
+		{% render "LoogaresExtraBundle:Default:ciudad" %}
 		<div class="login">
 			<a class="facebook_login" href="#"></a><a class="usuario_login" href="{{path('registroUsuario')}}">Regístrate</a><a class="usuario_login" href="{{path('login')}}">Entra</a>
 		</div>
 		<div class="redes_sociales">
-			<a class="facebook_btn" href="#"></a>
-			<a class="twitter_btn" href="#"></a>
+			<a class="facebook_btn" href="http://www.facebook.com/Loogarescom" target="blank"></a>
+			<a class="twitter_btn" href="http://www.twitter.com/Loogarescom" target="blank"></a>
 			<a class="blog" href="#">Blog</a>
 		</div>
 	</div>
@@ -23,10 +21,12 @@
 			<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
 		</div>
 		{% render "LoogaresExtraBundle:Default:menu" %}
-		<div class="buscar">
-			<input class="buscador" type="text" placeholder="Completos, Lastarria, bares, La Moneda" />
-			<div class="caja_icono">
-				<a class="icono_buscar" href="#"></a>
+		<div class="buscador_box">
+			<div class="buscar">
+				<input class="buscador" type="text" placeholder="Completos, Lastarria, bares, La Moneda" />
+				<div class="caja_icono">
+					<a class="icono_buscar" href="#"></a>
+				</div>
 			</div>
 		</div>
 	</div>

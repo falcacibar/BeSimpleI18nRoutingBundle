@@ -1,5 +1,6 @@
 Loogares\ExtraBundle\Entity\Ciudad:
     type: entity
+    repositoryClass: Loogares\ExtraBundle\Repository\CiudadRepository
     table: ciudad
     manyToOne:
         pais:
