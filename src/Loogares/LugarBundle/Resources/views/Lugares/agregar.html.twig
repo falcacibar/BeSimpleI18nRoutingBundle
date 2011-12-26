@@ -45,6 +45,7 @@
     <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
     <script src="{{asset('assets/js/agregarLugar.js')}}"></script>
     <script>
+        $(function(){
         {% if lugar.slug %}
             $('.comuna').find('option[value="{{lugar.comuna.slug}}"]').attr('selected', 'selected');
             $('.ciudad').find('option[value="{{lugar.comuna.ciudad.slug}}"]').attr('selected', 'selected');
@@ -82,6 +83,7 @@
         {% else %}
             onCargarMapaAgregar('default');
         {% endif %}
+    });
     </script>
 {% endblock %}
 

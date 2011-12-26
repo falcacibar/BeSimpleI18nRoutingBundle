@@ -154,17 +154,19 @@ class LugarRepository extends EntityRepository
       return $tipoCategoriasResult;
     }
 
-    public function findCategoriaLugarByIdAndName($id, $name){
+    public function cleanUp($id){
       $em = $this->getEntityManager();
-      $q = $em->createQuery("SELECT u from Loogares\LugarBundle\Entity\SubCategoria where u.nombre = ?1");
-      $q->setParameter(1, $name);
-      $subcategoriaResult = $q->getResult();
-
-      $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\SubCategoriaLugar u where u.lugar = ?1 and u.subcategoria = ?2");
+      $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");
       $q->setParameter(1, $id);
-      $q->setParameter(2, $subcategoriaResult[0]->getId());
-      $subcategoriaLugarResult = $q->getResult();
-
-      return $subcategoriaLugarResult;
+      $q->getResult();
+      $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\SubcategoriaLugar u WHERE u.lugar = ?1");
+      $q->setParameter(1, $id);
+      $q->getResult();
+      $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CaracteristicaLugar u WHERE u.lugar = ?1");
+      $q->setParameter(1, $id);
+      $q->getResult();
+      $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\Horario u WHERE u.lugar = ?1");
+      $q->setParameter(1, $id);
+      $q->getResult();
     }
 }

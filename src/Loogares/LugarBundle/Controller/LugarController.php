@@ -195,23 +195,22 @@ class LugarController extends Controller
                 $lugar->setTipoLugar($tipo_lugar[0]);
 
                 $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugar->getNombre());
-                $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'].(sizeOf($lugaresConElMismoNombre)+1);
-                $lugar->setSlug($lugarSlug);
                 
-                if(sizeOf($lugaresConElMismoNombre) != 0 && $slug){
+                if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
+                    $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'].(sizeOf($lugaresConElMismoNombre)+1);
                     $lugar->setFechaAgregado(new \DateTime());
                 }else{
                     $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'];
                 }
+
+                $lugar->setSlug($lugarSlug);
                 
                 $em->persist($lugar);
 
+                $lr->cleanUp($lugar->getId());
+
                 foreach($_POST['categoria'] as $postCategoria){
-                    if($slug){
-                        $categoriaLugar[] = $lr->findCategoriaLugarByIdAndName($lugar->getId(), $_POST['categoria']);
-                    }else{
-                        $categoriaLugar[] = new CategoriaLugar();
-                    }
+                    $categoriaLugar[] = new CategoriaLugar();
                     $size = sizeOf($categoriaLugar) - 1;
                     if($postCategoria != "elige"){
                         $categoria = $lr->getCategorias($postCategoria);
@@ -276,7 +275,7 @@ class LugarController extends Controller
                     }
                 }
 
-                //$em->flush();
+                $em->flush();
 
                 $this->get('session')->setFlash('nuevo-lugar','This is a random message, sup.');
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
