@@ -73,3 +73,8 @@ Loogares\UsuarioBundle\Entity\Usuario:
             nullable: true
         salt:
             type: string
+
+    lifecycleCallbacks:
+        preUpdate: [ preUpload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]
