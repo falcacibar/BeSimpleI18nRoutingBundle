@@ -98,6 +98,7 @@ class UsuarioController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $formErrors = array();
         
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult)
@@ -114,13 +115,12 @@ class UsuarioController extends Controller
                      ->add('apellido', 'text')
                      ->add('slug', 'text')
                      ->add('fecha_nacimiento', 'birthday', array(
-                                'years' => range('1911', date('Y')),
-                                'input' => 'datetime',
-                                'pattern' => '{{ day }} {{ month }} {{ year }}',
+                                'years' => range(date('Y'), date('Y')-70),
+                                'format' => 'dd   MM   yyyy',
                                 'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')
                          ))
                      ->add('sexo', 'choice', array(
-                                'choices' => array('m' => 'Hombre', 'f' => 'Mujer', '' => 'No quiero definir'),
+                                'choices' => array('m' => 'Hombre', 'f' => 'Mujer', 'n' => 'No quiero definir'),
                                 'expanded' => true
                          ))
                      ->add('web', 'text')
@@ -137,15 +137,31 @@ class UsuarioController extends Controller
             $form->bindRequest($request);
 
             if ($form->isValid()) {  
-                return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuario))));
+                $em->flush();
+
+                // Actualizamos Mailchimp de ser neceario
+                if($usuarioResult->getNewsletterActivo()) {
+                    echo "hola";
+                }
+                // Mensaje de éxito en la edición
+                $this->get('session')->setFlash('edicion-cuenta','¡Tu perfil acaba de actualizarse con los nuevos cambios!');
+                    
+                // Redirección a vista de edición de password 
+                return $this->redirect($this->generateUrl('editarCuentaUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
             }
+        }
+
+        //Errores
+        foreach($this->get('validator')->validate( $form ) as $formError){
+            $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
         }
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'cuenta';       
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'errors' => $formErrors
         )); 
     }
 

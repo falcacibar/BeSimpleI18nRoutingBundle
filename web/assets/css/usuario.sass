@@ -1,18 +1,55 @@
 ul
     margin: 0
 
+
+#titulo-usuario
+    font-size: 1.6em
+    font-weight: bold
+    margin: 10px 0 20px 0
+    letter-spacing: -1px
+
 .form-edicion
     .editar-usuario
         float:left
 
         li
             margin: 10px 0
+            
+        .edicion-newsletter
+            label
+                margin-top: 0
 
         label
             width: 160px
             display: inline-block
             font-size: 0.9em
-            margin-top: 5pxç
+            margin-top: 5px
+            float: left
+
+        input[type=text], input[type=password], .edicion-sexo
+            width: 300px
+            
+        input[type=radio]
+            float: left        
+
+        .edicion-fecha-nacimiento
+            width: 100%
+            select
+                border: 1px solid #ccc
+                line-height: 16px
+
+            #form_fecha_nacimiento_year
+                width: 100px
+            #form_fecha_nacimiento_month
+                width: 150px
+            #form_fecha_nacimiento_day
+                width: 50px
+
+        #form_sexo
+            label
+                margin: 0 10px 0 5px
+                width: auto  
+                
         small.errors
-            margin-right: 266px
+            margin-right: 252px
 
