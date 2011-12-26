@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+<style> a{ color:#0066cc !important;}</style>
 <!-- Ficha, top part -->
 <a href="{{ path('_editar', {'slug': lugar.slug}) }}">Editar</a>
 <div id="lugar-ficha">
@@ -38,7 +39,7 @@
             {% endif %}
 
                 <div id="lugar-horarios">
-                    {% for horario in lugar.horarios %}
+                    {% for horario in lugar.horario %}
                         AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
                         PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
                     {% endfor %}
@@ -57,12 +58,14 @@
 
             {% if lugar.subcategoriaLugar %}
                 <div id="lugar-subcategoria">
-                    Subcategorias De:
                     {% for categoriaLugar in lugar.categoriaLugar %} 
-                        <a href="">{{categoriaLugar.categoria.nombre}}</a>: 
-                        {% for subcategoriaLugar in lugar.subcategoriaLugar %} 
-                            <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                    Subcategorias De: <a href="">{{categoriaLugar.categoria.nombre}}</a>: 
+                        {% for subcategoriaLugar in lugar.subcategoriaLugar %}
+                            {% if subcategoriaLugar.subCategoria.categoria.id == categoriaLugar.categoria.id %}
+                                <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                            {% endif %}
                         {% endfor %}
+                        {% if loop.last == false %}<br/> {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}

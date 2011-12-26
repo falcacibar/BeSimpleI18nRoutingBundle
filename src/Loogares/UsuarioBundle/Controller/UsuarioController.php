@@ -139,10 +139,13 @@ class UsuarioController extends Controller
             if ($form->isValid()) {  
                 $em->flush();
 
-                // Actualizamos Mailchimp de ser neceario
                 if($usuarioResult->getNewsletterActivo()) {
-                    echo "hola";
+                    // Verificar suscripción Mailchimp
                 }
+                else {
+                    // Borrar suscripción Mailchimp
+                }
+                
                 // Mensaje de éxito en la edición
                 $this->get('session')->setFlash('edicion-cuenta','¡Tu perfil acaba de actualizarse con los nuevos cambios!');
                     

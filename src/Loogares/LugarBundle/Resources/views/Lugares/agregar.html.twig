@@ -24,18 +24,11 @@
         }   
 
         table td, table th{
-            width: 10px !important;
+            width: 60px !important;
             padding: 4px 2px;
         }
         table select{
             width: 80px !important;
-        }
-
-        table label{
-            position: absolute;
-            margin-left: 4px;
-            margin-top: 2px;
-            font-size: 10px;
         }
 
         .agregar-lugar .caracteristicas ul li,.agregar-lugar .subcategorias ul li{
@@ -50,310 +43,52 @@
     <script src="{{asset('assets/js/masterObject.js')}}"></script>
     <script src="{{asset('assets/js/googleMapAgregar.js')}}"></script>
     <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
+    <script src="{{asset('assets/js/agregarLugar.js')}}"></script>
     <script>
-        $('.quitar').click(function(e){
-            e.preventDefault();
-
-            var $this = $(this);
-                rel = $this.attr('rel') || '',
-                count = 0;
-
-            $this.parent().parent().fadeOut();
-            $this.parent().parent().prev('li').find('span').fadeIn();
-
-            if(rel.indexOf(['categoria', 'telefono'])){
-                count = parseInt($('a.display-more-info[rel="'+rel+'"]').find('span').text());
-
-                if(count == 0){
-                    $('a.display-more-info[rel="'+rel+'"]').parent().parent().fadeIn().css('display', 'block');
-                }
-
-                $('a[rel='+rel+']').find('span').text(count + 1)
-            }
-        });
-
-        $('.display-next-li').click(function(e){
-            e.preventDefault(); 
-            $(this).parent().parent().next('li').fadeIn().css('display', 'block');
-            $(this).parent().fadeOut();
-        });
-
-        $('.display-more-info').click(function(e){
-            e.preventDefault();
-            
-            var $this = $(this),
-                rel = $this.attr('rel');
-                count = parseInt($this.find('span').text()) - 1;
-                if(count == 0){
-                    $this.parent().parent().fadeOut();
-                }
-
-                if(count >= 0){
-                    $('.'+rel+':not(:hidden):last').parent().next('li').fadeIn().css('display', 'block');
-                    $this.find('span').text(count);
-                }
-        });
-
-
-        $('.categoria').live('change', function(){
-            $this = $(this);
-            var categoria = $(this).val().camelCase(),
-                anterior = selected[$this.attr('id')];
-
-            //Deshabilitar en los demas dropdown
-            $('.categoria').not($this).each(function(){
-                //Deshabilitamos en el resto de los dropdowns el valor que seleccionamos recien
-                $(this).find('option[value="'+$this.val()+'"]').attr('disabled', 'disabled').addClass(categoria);
-                
-                //Habilitamos el valor anterior
-                $(this).find('option[value="'+selected[$this.attr('id')]+'"]').removeAttr('disabled');
-            });
-
-            $('.caracteristicas').parent().fadeOut();
-
-            $('.categoria').not(':hidden').each(function(){
-                var thisCat = $(this).val().camelCase(),
-                    caracteristicas = categorias[thisCat].caracteristicas;
-                    subCategorias = categorias[thisCat].subCategorias;
-
-                if(caracteristicas != ''){
-                    $('.caracteristicas').parent().fadeIn().css('display', 'block');
-                }
-
-                if(subCategorias != ''){
-                    $this.parent().find('.subcategorias').stop(true,true).fadeIn().css('display', 'inline-block');
-                }
-
-                $.each(caracteristicas, function(i){
-                    $('input[value="'+caracteristicas[i]+'"]').parent().parent().fadeIn();
-                    $('.caracteristicas').parent().fadeIn();
-                });
-
-                if( anterior != undefined ){
-                    //Por cada categoria que deshabilitamos
-                    habilitar = categorias[anterior.camelCase()].deshabilitar;
-                    $.each(habilitar, function(i){
-                        $('.categoria').not($this).each(function(){
-                            $aHabilitar = $(this).find('option[value="'+habilitar[i]+'"]');
-                            //Por cada categoria, reviamos si otra Categoria la deshabilito, comprobamos si la clase que la deshabilito
-                            //Es la ultima, si es, la habilitamos, si no, permanece deshabilitado
-                            
-                            if($aHabilitar.checkDefaultClass(anterior)){
-                                //Enable it
-                               $aHabilitar.removeAttr('disabled');
-                            }
-                        });
-                    }); //End Habilitar
-
-                    //Sacamos los camposo especiales.
-                    camposEspeciales = categorias[anterior.camelCase()].camposEspeciales
-                    $.each(camposEspeciales, function(i){
-                        $('#form_'+camposEspeciales[i]).parent().fadeOut().css('display', 'block');
-                    });
-
-                    //Subcategorias
-                }//end anterior
-            });// end each
-
-            $this.parent().find('.subcategorias ul li').fadeOut().find('input:checked').click();
-
-            $.each(subCategorias, function(i){
-                $this.parent().find('.subcategorias input[value="'+subCategorias[i]+'"]').parent().parent().stop(true, true).fadeIn().css('display', 'inline-block');
-            });
-
-            camposEspeciales = categorias[categoria].camposEspeciales
-            $.each(camposEspeciales, function(i){
-                $('#form_'+camposEspeciales[i]).parent().fadeIn().css('display', 'block');
-            });
-
-            $('.categoria').each(function(){
-                var val = $(this).val().camelCase(),
-                    $this = $(this);
-                deshabilitar = categorias[val].deshabilitar;
-                $.each(deshabilitar, function(j){
-                    $('.categoria').not($this).each(function(i){
-                        $(this).find('option[value="'+deshabilitar[j]+'"]').attr('disabled', 'disabled').addClass(val);
-                    }); 
-                });
-            });
-            
-            //Seteamos el valor previo correspondiente al ID del dropdown que cambiamos
-            selected[$this.attr('id')] = $this.val();
-        });
-
-        $('.jornada-doble').click(function(){
-            if($(this).is(':checked')){
-                $(this).parent().parent().parent().find('.horario-pm').fadeIn();
-                $('table').find('th.horario-pm').fadeIn();
-            }else{
-                $(this).parent().parent().parent().find('.horario-pm').fadeOut();
-                $('table').find('th.horario-pm').fadeOut();
-            }
-        });
-
-        $('.habilitar-horario').click(function(){
-            if($(this).is(':checked')){
-                $(this).parent().next('li').fadeIn().css('display', 'block');
-            }else{
-                $(this).parent().next('li').fadeOut();
-            }
-        });
-
-
-        //Validacion Subcategorias
-        $('.subcategorias').change(function(e){
-            $subcat = $(this).parent().find('.subcategoria');
-            if($subcat.find(':checked').length == 3){
-                $subcat.find(':not(:checked)').attr('disabled', 'disabled');
-            }else if($subcat.find(':checked').length < 3){
-                $subcat.find(':not(:checked)').removeAttr('disabled', 'disabled');
-            }
-        });
-
-        $('.ciudad').change(function(){
-            actualizarComunas();
-        });
-
-        $('form').submit(function(e){
-            errores = '';
-            $('.errors').remove();
-            $.each($('.required:not(:hidden)'), function(){
-                if(($(this).val() == $(this).attr('placeholder') || $(this).val() == '') || ($(this).val() == 'elige')){
-                    errores += "<p>"+$(this).attr('title')+"</p>";
-                    $(this).addClass('input-error');
-                    if($(this).hasClass('calle')){
-                        $(this).next('input').after('<small class="errors">'+$(this).attr('title')+'</small>');
-                    }else{
-                       $(this).after('<small class="errors">'+$(this).attr('title')+'</small>'); 
-                    }
-                    
-                }else{
-                    $(this).removeClass('input-error');
-                }
-            });
-
-            if( !($('input[name="form[numero]"]').val().match(/(\d+|s\/n)/g)) ){
-                errores += "<p>Ingrese solo numeros o s/n en el numero del Lugar</p>";
-                $('input[name="form[numero]"]').addClass('input-error');
-                $('input[name="form[numero]"]').after('<small class="errors">Ingrese solo numeros o s/n en el numero del Lugar</small>')
-            }
-
-            $.each($('.categoria:not(:hidden)'), function(){
-                $this = $(this);
-                if($this.parent().find('.subcategorias ul').children().length > 0){
-                    if($this.parent().find('.subcategorias').find('ul > li').length > 0 && $this.parent().find('.subcategorias').find('ul > li > label').children(':checked').length == 0){
-                        $this.addClass('input-error');
-                        $this.parent().find('.subcategorias ul').after('<small class="errors categoria">Seleccione al menos una Subcategoria</small>');
-                        errores += "<p>Seleccione al menos una Subcategoria por Categoria</p>";
-                    }
-                }
-            });
-
-            //Worst Conditional Ever
-            if(
-                ( $('.mapx').val() == '' || $('.mapy').val() == '' ) 
-                && 
-                ( $('.calle').val() != $('.calle').attr('placeholder') && $('.numero').val() != $('.numero').attr('placeholder'))
-                && 
-                $('.comuna').val() != 'elige')
-                {
-                errores += "<p>Cargue la direccion en el mapa, o arrastre el cursor donde esta el local</p>";
-                $('.mapa_info').before('<small class="errors">Carga una direccion o arrastra el icono en el mapa.</small>');
-            }
-
-            $('.errores-container').html(errores);
-
-            if(errores != ''){
-                $('body').animate({'scrollTop': 0}, 400);
-                $('.errores-container').fadeIn();
-            }else{
-                $('.placeholder').val('');
-                return true;
-            }
-            return false;
-        });
-
-        $('.cargar-mapa').click(function(e){e.preventDefault();onCargarMapaAgregar();});
-
-        /* Fncs */
-
-        String.prototype.camelCase = function() {
-            str = this;
-            return str
-                .replace(/[\s\-](.)/g, function($1) { return $1.toUpperCase(); })
-                .replace(/[\s\-]/g, '')
-                .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
-        }
-
-        function actualizarComunas(){
-            var ciudadSeleccionada = $('.ciudad > option:selected').text();
-            $.each(optGroupComunas, function(i){
-                if(optGroupComunas[i].match(ciudadSeleccionada)){
-                    $('.comuna > optgroup').remove('optgroup');
-                    $('.comuna').append(optGroupComunas[i]);
-                }
-            });
-
-            $.each(optGroupSectores, function(i){
-                if(optGroupSectores[i].match(ciudadSeleccionada)){
-                    $('.sector > optgroup').remove('optgroup');
-                    $('.sector').append(optGroupSectores[i]);
-                }
-            });
-        }
-
-        /* INITIALIZATION */
-
-        var optGroupComunas = [],
-            optGroupSectores = [],
-            selected = {},
-            caracteristicasASacar = [];
-
-        $('input[type=text], textarea').each(function(){ $(this).placeholder() });
-
-        $('.comuna > optgroup').each(function(i){
-            optGroupComunas[i] = $(this).outerHTML();
-            $(this).remove();
-        });
-
-        $('.sector > optgroup').each(function(i){
-            optGroupSectores[i] = $(this).outerHTML();
-            $(this).remove();
-        });
-
-        actualizarComunas();
-       
-        {% if editar %}
-            $('.comuna').find('option[value="{{editar.comuna.slug}}"]').attr('selected', 'selected');
-            $('.ciudad').find('option[value="{{editar.comuna.ciudad.slug}}"]').attr('selected', 'selected');
-            {% if editar.sector %}$('.sector').find('option[value="{{editar.sector.slug}}"]').attr('selected', 'selected');{% endif %}
+        $(function(){
+        {% if lugar.slug %}
+            $('.comuna').find('option[value="{{lugar.comuna.slug}}"]').attr('selected', 'selected');
+            $('.ciudad').find('option[value="{{lugar.comuna.ciudad.slug}}"]').attr('selected', 'selected');
+            {% if lugar.sector %}$('.sector').find('option[value="{{lugar.sector.slug}}"]').attr('selected', 'selected');{% endif %}
             onCargarMapaAgregar();
 
-            {% for categoriaLugar in editar.categoriaLugar %}
+            {% for categoriaLugar in lugar.categoriaLugar %}
                 $currentSelect = $('.categoria').eq({{loop.index}}-1);
                 $currentSelect.find('option[value="{{categoriaLugar.categoria.slug}}"]').attr('selected', 'selected').change();
                 {% if loop.last == false %}$('a.display-more-info[rel=categoria]').click();{% endif %}
 
-                {% for subcategoriaLugar in editar.subcategoriaLugar %}
+                {% for subcategoriaLugar in lugar.subcategoriaLugar %}
                     {% if subcategoriaLugar.subcategoria.categoria.id == categoriaLugar.categoria.id %}
                         $currentSelect.parent().find('.subcategorias input[value="{{subcategoriaLugar.subcategoria.nombre}}"]').click();
                     {% endif %}
                 {% endfor %}
             {% endfor %}
 
-            {% for caracteristicaLugar in editar.caracteristicaLugar %}
+            {% for caracteristicaLugar in lugar.caracteristicaLugar %}
                 $('.caracteristicas').find('input[value="{{caracteristicaLugar.caracteristica.nombre}}"]').click();
             {% endfor %}
-            
+
+            {% if lugar.horario %}
+                var dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
+                $('.habilitar-horario').click().parent().next('li').fadeIn();
+                {% for horario in lugar.horario %}
+                    $dia = $('[name="horario-'+dias[{{horario.dia}}]+'[]"]');
+                    $dia.eq(0).find('option[value="{{horario.aperturaAM}}"]').attr('selected', 'selected') 
+                    $dia.eq(1).find('option[value="{{horario.cierreAM}}"]').attr('selected', 'selected') 
+                    $dia.eq(2).find('option[value="{{horario.aperturaPM}}"]').attr('selected', 'selected') 
+                    $dia.eq(3).find('option[value="{{horario.cierrePM}}"]').attr('selected', 'selected') 
+                {% endfor %}
+            {% endif %}
             
         {% else %}
             onCargarMapaAgregar('default');
         {% endif %}
+    });
     </script>
 {% endblock %}
 
 {% block content %}
-<form action="{{ path('_agregar') }}" method="post" {{ form_enctype(form) }}>
+<form action="{% if lugar.slug %}{{ path('_editar', {'slug': lugar.slug}) }}{% else %}{{ path('_agregar') }}{% endif %}" method="post" {{ form_enctype(form) }}>
 {{ form_errors(form) }}
 
 {% if errors %}
@@ -368,7 +103,8 @@
 <ul class="agregar-lugar">
     <li>
         <label>Nombre</label>
-        <input type="text" {% if editar %}value="{{editar.nombre}}"{%endif%} title="Ingresa el Nombre del Lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
+        <input type="text" value="{{lugar.nombre}}" title="Ingresa el Nombre del Lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
+        <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
     </li>
     <li>
         <label>Categorias</label>
@@ -434,8 +170,8 @@
     </li>
     <li>
         <label>Direccion</label>
-        <input type="text" {% if editar %}value="{{editar.calle}}"{%endif%} name="form[calle]" title="Ingresa la Calle del Lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
-        <input type="text" {% if editar %}value="{{editar.numero}}"{%endif%} name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="1949 o s/n"/>
+        <input type="text" value="{{lugar.calle}}" name="form[calle]" title="Ingresa la Calle del Lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
+        <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="1949 o s/n"/>
     </li>
         <li>
          
@@ -445,7 +181,7 @@
     </li>
     <li class="no-default">
         <label>Detalle</label>
-        <input type="text" {% if editar %}value="{{editar.detalle}}"{%endif%} name="form[detalle]" id="form_detalle" placeholder    ="Ej. Local 21, Mall Parque Arauco"/>
+        <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="Ej. Local 21, Mall Parque Arauco"/>
         
             <span class="quitar-info"><a class="quitar" href="">Quitar</a></span>
     </li>
@@ -455,17 +191,17 @@
     </li>
     <li>
         <label>Telefono</label>
-        <span class="area-code"></span><input type="text" {% if editar %}value="{{editar.telefono1}}"{%endif%} name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. +56 2 2130894"/>
+        <span class="area-code"></span><input type="text" value="{{lugar.telefono1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. +56 2 2130894"/>
     </li>
     <li class="no-default">
         <label>Telefono</label>
-        <span class="area-code"></span><input type="text" {% if editar %}value="{{editar.telefono2}}"{%endif%} name="form[telefono2]" id="form_telefono2" class    ="telefono" placeholder="Ej. +56 2 2130894"/>
+        <span class="area-code"></span><input type="text" value="{{lugar.telefono2}}" name="form[telefono2]" id="form_telefono2" class    ="telefono" placeholder="Ej. +56 2 2130894"/>
         
             <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li class="no-default">
         <label>Telefono</label>
-        <span class="area-code"></span><input type="text" {% if editar %}value="{{editar.telefono3}}"{%endif%} name="form[telefono3]" id="form_telefono3" class    ="telefono" placeholder="Ej. +56 2 2130894"/>
+        <span class="area-code"></span><input type="text" value="{{lugar.telefono3}}" name="form[telefono3]" id="form_telefono3" class    ="telefono" placeholder="Ej. +56 2 2130894"/>
         
             <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
@@ -475,19 +211,19 @@
     </li>
     <li>
         <label>Sitio Web</label>
-        <input type="text" {% if editar %}value="{{editar.sitioWeb}}"{%endif%} name="form[sitio_web]" id="form_sitio_web" placeholder="Ej. http://www.bareltufo.cl"/>
+        <input type="text" value="{{lugar.sitioWeb}}" name="form[sitio_web]" id="form_sitio_web" placeholder="Ej. http://www.bareltufo.cl"/>
     </li>
     <li>
         <label>Facebook</label>
-        <input type="text" {% if editar %}value="{{editar.facebook}}"{%endif%} name="form[facebook]" id="form_facebook" placeholder="Ej. http://www.facebook.com/pages/bareltufo"/>
+        <input type="text" value="{{lugar.facebook}}" name="form[facebook]" id="form_facebook" placeholder="Ej. http://www.facebook.com/pages/bareltufo"/>
     </li>
     <li>
         <label>Twitter</label>
-        <input type="text" {% if editar %}value="{{editar.twitter}}"{%endif%} name="form[twitter]" id="form_twitter" placeholder="Ej. http://www.twitter.com/barelfuto"/>
+        <input type="text" value="{{lugar.twitter}}" name="form[twitter]" id="form_twitter" placeholder="Ej. http://www.twitter.com/barelfuto"/>
     </li>
     <li>
         <label>Mail</label>
-        <input type="text" {% if editar %}value="{{editar.mail}}"{%endif%} name="form[mail]" id="form_mail" placeholder="Ej. usuario@logoares.com"/>
+        <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="Ej. usuario@logoares.com"/>
     </li>
     <li>
         <label>Horario</label>
@@ -680,19 +416,19 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
     </li>
     <li class="no-default">
         <label>Profesional</label>
-        <input type="text" {% if editar %}value="{{editar.profesional}}"{%endif%} name="form[profesional]" id="form_profesional" placeholder="Ej. Nombre del Arquitecto, Paisajista, etc"/>
+        <input type="text" value="{{lugar.profesional}}" name="form[profesional]" id="form_profesional" placeholder="Ej. Nombre del Arquitecto, Paisajista, etc"/>
     </li>
     <li class="no-default">
         <label>Año de Construccion</label>
-        <input type="text" {% if editar %}value="{{editar.agnoConstruccion}}"{%endif%} name="form[agno_construccion]" id="form_agno_construccion" placeholder="Ej. 1985, Siglo XX"/>
+        <input type="text" value="{{lugar.agnoConstruccion}}" name="form[agno_construccion]" id="form_agno_construccion" placeholder="Ej. 1985, Siglo XX"/>
     </li>
     <li class="no-default">
         <label>Descripcion</label>
-        <textarea name="form[descripcion]" id="form_descripcion" placeholder="Breve Descripcion Blah Blah">{% if editar %} {{editar.descripcion}}{%endif%}</textarea>
+        <textarea name="form[descripcion]" id="form_descripcion" placeholder="Breve Descripcion Blah Blah"> {{lugar.descripcion}}</textarea>
     </li>
     <li class="no-default">
         <label>Materiales</label>
-        <input type="text" {% if editar %}value="{{editar.materiales}}"{%endif%} name="form[materiales]" id="form_materiales" placeholder="Ej. Cobre, Granito, etc"/>
+        <input type="text" value="{{lugar.materiales}}" name="form[materiales]" id="form_materiales" placeholder="Ej. Cobre, Granito, etc"/>
     </li>
     <li class="no-default">
         <label>Caracteristicas</label>
@@ -710,8 +446,8 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
         </div>
     </li>
     <li>
-        <input type="hidden" class="mapx" {% if editar %}value="{{editar.mapx}}"{%endif%} name="form[mapx]" id="form_mapx"/>
-        <input type="hidden" class="mapy" {% if editar %}value="{{editar.mapy}}"{%endif%} name="form[mapy]" id="form_mapy"/>
+        <input type="hidden" class="mapx" value="{{lugar.mapx}}" name="form[mapx]" id="form_mapx"/>
+        <input type="hidden" class="mapy" value="{{lugar.mapy}}" name="form[mapy]" id="form_mapy"/>
     </li>
     <li><input type="submit" value="Guardar Datos" formnovalidate/></li>
 </ul>

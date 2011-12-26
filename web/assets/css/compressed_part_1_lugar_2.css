@@ -54,12 +54,15 @@
 .agregar-horarios td, .agregar-horarios th {
   width: 10px;
   padding: 3px; }
+  .agregar-horarios td.horario-pm, .agregar-horarios th.horario-pm {
+    display: none; }
 .agregar-horarios td select {
   width: 80px; }
 .agregar-horarios td label {
   position: absolute;
   margin: 2px 0 0 4px;
-  font-size: 10px; }
+  font-size: 10px;
+  width: 120px; }
 
 .mapa_agregar {
   display: block;

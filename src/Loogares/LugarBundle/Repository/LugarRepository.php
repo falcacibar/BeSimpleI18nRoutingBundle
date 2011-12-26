@@ -153,4 +153,20 @@ class LugarRepository extends EntityRepository
 
       return $tipoCategoriasResult;
     }
+
+    public function cleanUp($id){
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");
+      $q->setParameter(1, $id);
+      $q->getResult();
+      $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\SubcategoriaLugar u WHERE u.lugar = ?1");
+      $q->setParameter(1, $id);
+      $q->getResult();
+      $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CaracteristicaLugar u WHERE u.lugar = ?1");
+      $q->setParameter(1, $id);
+      $q->getResult();
+      $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\Horario u WHERE u.lugar = ?1");
+      $q->setParameter(1, $id);
+      $q->getResult();
+    }
 }

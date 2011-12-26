@@ -49,5 +49,4 @@ jQuery.fn.checkDefaultClass = function(val){
     }*/
     $cloned = $(this).clone();
     $cloned.removeClass(val).removeClass('no-default');
-    console.log($cloned)
 }
