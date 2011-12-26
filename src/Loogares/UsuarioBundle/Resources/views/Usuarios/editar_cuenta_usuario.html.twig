@@ -1,75 +1,91 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
 
 <div id="edicion-cuenta" class="edicion">
+	{% if app.session.hasFlash('edicion-cuenta') %}
+		    <div class="flash-notice">
+		        {{ app.session.flash('edicion-cuenta') }}
+		    </div>
+	{% endif %}
+
 	<form action="{{ path('editarCuentaUsuario', { 'param': usuario.id }) }}" method="post" {{ form_enctype(form) }}>
 		<div class="form-edicion">
-			{% if form_errors(form) %}
-				<div class="errores">
-					{{form_errors(form)}}
+			{% if errors %}
+				<div class="errores-container">
+					{% for error in errors %}
+			            <p>{{ error }}</p>
+			        {% endfor %}
 				</div>
 			{% endif %}
-			{% if form_errors(form.mail) or form_errors(form.nombre) or form_errors(form.apellido) %}
-			<div class="errores">
-				{{ form_errors(form.mail) }}
-				{{ form_errors(form.nombre) }}
-				{{ form_errors(form.apellido) }}
-			</div>
-			{% endif %}
-			<div>
-				{{ form_label(form.nombre, 'Nombre *') }}
-				{{ form_widget(form.nombre, { 'attr': {'data-placeholder': 'Ej. Juan'}}) }}
-			</div>
 
-			<div>
-				{{ form_label(form.apellido, 'Apellido *') }}
-				{{ form_widget(form.apellido, { 'attr': {'data-placeholder': 'Ej. Valdéz'}}) }}
-			</div>
+			<ul class="editar-usuario">
+				<li>
+					{% set inputClass = (errors.nombre is defined) ? 'input-error' : ' '%}
+					{{ form_label(form.nombre, 'Nombre *') }}
+					{{ form_widget(form.nombre, { 'attr': {'class': inputClass}}) }}
+					{% if errors.nombre is defined %}
+						<small class="errors">{{errors.nombre}}</small>
+					{% endif %}
+				</li>
 
-			<div>
-				{{ form_label(form.mail, 'E-mail *') }}
-				{{ form_widget(form.mail, { 'attr': {'data-placeholder': 'Ej. juanito@empresa.com'}}) }}
-			</div>
-			
-			<div>
-				{{ form_label(form.slug, 'Nombre de usuario') }}
-				{{ form_widget(form.slug, { 'attr': {'data-placeholder': 'Ej. juanito@empresa.com'}}) }}
-			</div> 
-			
-			<div>
-				{{ form_label(form.fecha_nacimiento, 'Fecha de nacimiento') }}
-				{{ form_widget(form.fecha_nacimiento, { 'attr': {'class': 'edicion-fecha-nacimiento'}}) }}
-			</div>  
-			
-			<div>
-				{{ form_label(form.sexo) }}
-				{{ form_widget(form.sexo, { 'attr': {'class': 'edicion-fecha-nacimiento'}}) }}
-			</div>  <br /><br />
-			
-			<div>
-				{{ form_label(form.web, 'Sitio web') }}
-				{{ form_widget(form.web) }}
-			</div>
+				<li>
+					{% set inputClass = (errors.apellido is defined) ? 'input-error' : ' '%}
+					{{ form_label(form.apellido, 'Apellido *') }}
+					{{ form_widget(form.apellido, { 'attr': {'class': inputClass}}) }}
+					{% if errors.apellido is defined %}
+						<small class="errors">{{errors.apellido}}</small>
+					{% endif %}
+				</li>
 
-			<div>
-				{{ form_label(form.facebook) }}
-				{{ form_widget(form.facebook) }}
-			</div>
+				<li>
+					{% set inputClass = (errors.mail is defined) ? 'input-error' : ' '%}
+					{{ form_label(form.mail, 'E-mail *') }}
+					{{ form_widget(form.mail, { 'attr': {'class': inputClass}}) }}
+					{% if errors.mail is defined %}
+						<small class="errors">{{errors.mail}}</small>
+					{% endif %}
+				</li>
+				
+				<li>
+					{{ form_label(form.slug, 'Nombre de usuario') }}
+					{{ form_widget(form.slug, { 'attr': {'data-placeholder': 'Ej. juanito@empresa.com'}}) }}
+				</li> 
+				
+				<li>
+					{{ form_label(form.fecha_nacimiento, 'Fecha de nacimiento') }}
+					{{ form_widget(form.fecha_nacimiento, { 'attr': {'class': 'edicion-fecha-nacimiento'}}) }}
+				</li>  
+				
+				<li>
+					{{ form_label(form.sexo) }}
+					{{ form_widget(form.sexo) }}
+				</li> <br /> <br />
+				
+				<li>
+					{{ form_label(form.web, 'Sitio web') }}
+					{{ form_widget(form.web) }}
+				</li>
 
-			<div>
-				{{ form_label(form.twitter) }}
-				{{ form_widget(form.twitter) }}
-			</div>
+				<li>
+					{{ form_label(form.facebook) }}
+					{{ form_widget(form.facebook) }}
+				</li>
 
-			<div>
-				{{ form_label(form.newsletter_activo) }}
-				{{ form_widget(form.newsletter_activo) }}
-			</div> 
+				<li>
+					{{ form_label(form.twitter) }}
+					{{ form_widget(form.twitter) }}
+				</li>
 
-		    {{ form_rest(form) }}
+				<li class="edicion-newsletter">
+					{{ form_label(form.newsletter_activo) }}
+					{{ form_widget(form.newsletter_activo) }}
+				</li> 
 
-			<div class="submit">
-				<label></label><input type="submit" value="Guardar" formnovalidate />
-			</div>
+			    {{ form_rest(form) }}
+
+				<div class="submit">
+					<label></label><input type="submit" value="Guardar" formnovalidate />
+				</div>
+			</ul>
 	    </div>		    
 	</form>
 </div>

@@ -74,16 +74,16 @@ input[type=text], input[type=password]{
 }
 
 #image-usuario {
-	width:96px;
-	height:96px;
-	border:1px solid #444;
-	border-radius:2px;
-	-moz-border-radius:2px;
+	
 }
 
 #image-usuario img {
 	height:96px;
 	width:96px;
+	border:1px solid #444;
+	border-radius:2px;
+	-moz-border-radius:2px;
+	padding:1px;
 }
 
 .editar-link {
@@ -134,47 +134,12 @@ h1.edicion-titulo {
 	margin-top:30px;
 }
 
-.form-edicion div {
-	margin:10px 0;
+.form-edicion .errores-container {
+	width:98%;
+	display:block;
 }
 
-.form-edicion div label {
-	width:160px;
-	float:left;
-	font-size:0.9em;
-	margin-top:5px;
-}
 
-.form-edicion input[type=radio] {
-	float:left;
-}
-
-.form-edicion div input[type=text], .form-edicion div input[type=password] {
-	width:300px;
-}
-
-.edicion-fecha-nacimiento #form_fecha_nacimiento_year {
-	width:100px;
-}
-
-.edicion-fecha-nacimiento #form_fecha_nacimiento_month {
-	width:150px;
-}
-
-.edicion-fecha-nacimiento #form_fecha_nacimiento_day {
-	width:50px;
-}
-
-#form_sexo label {
-	margin-top:3px;
-	width:auto;
-	margin-right:10px;
-}
-
-.edicion-fecha-nacimiento select {
-	border: 1px solid #ccc;
-	line-height:16px;
-}
 
 /* Registro de usuario */
 
