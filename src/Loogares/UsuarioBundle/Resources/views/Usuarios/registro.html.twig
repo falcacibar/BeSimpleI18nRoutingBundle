@@ -5,22 +5,22 @@
 {% block content %}
 	<div class="columna_izquierda">
 		<h1 class="titulo">¡Regístrate en Loogares.com!</h3>
-		<form action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
-			<div class="form-registro">
+		<div class="registro">
+			<form class="registro_form" action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
+				
 				{% if form_errors(form) %}
-					<div class="errores">
+					<div class="registro_error">
 						{{form_errors(form)}}
-					</div>
 				{% endif %}
 				{% if form_errors(form.mail) or form_errors(form.password) or form_errors(form.nombre) or form_errors(form.apellido) %}
-				<div class="errores">
-					{{ form_errors(form.mail) }}
-					{{ form_errors(form.password) }}
-					{{ form_errors(form.nombre) }}
-					{{ form_errors(form.apellido) }}
-				</div>
+				
+						{{ form_errors(form.nombre) }}
+						{{ form_errors(form.apellido) }}
+						{{ form_errors(form.mail) }}
+						{{ form_errors(form.password) }}
+					</div>
 				{% endif %}
-
+				
 				<div>
 					{{ form_label(form.nombre) }}
 					{{ form_widget(form.nombre, { 'attr': {'placeholder': 'Ej. Juan'}}) }}
@@ -41,31 +41,30 @@
 				</div>
 				<div>
 			    	<label></label>
-			    	<span class="tip">El password debe tener un mínimo de 6 caracteres.</span>
+			    	<span class="tip_registro">El password debe tener un mínimo de 6 caracteres.</span>
 			    </div>					    
 
 			    {{ form_rest(form) }}
 
 			    <div>
 			    	<label></label>
-			    	<span class="tip">Al hacer click en Registrar confirmo ser mayor de 14 años y acepto los Términos de uso de Loogares.com</span>
+			    	<span class="tip_registro">Al hacer click en Registrar confirmo ser mayor de 14 años y acepto los <a href="#">Términos de uso</a> de Loogares.com</span>
 				</div>
 
 				<div class="submit">
-					<label></label><input type="submit" value="Registrar" formnovalidate />
+					<label></label><input class="boton_registrar" type="submit" value="Registrar" formnovalidate />
 				</div>
-		    </div>
-		    
-		</form>
+			</form>
+		</div>
 	</div>
 
-	<div class="columna_derecha">
+	<div class="columna_derecha_borde">
 		<h2 class="titulo">¡O regístrate rápidamente con tu Facebook!</h3>
 		
-		<div class="caja-facebook">
-			<div class="imagen-registro-facebook"></div>
-			<div class="texto-registro-facebook">Haz click en el botón de abajo y regístrate en un solo paso con tu cuenta de Facebook.</div>
-			<div class="caja-facebook-boton">
+		<div class="caja_registro_facebook">
+			<div class="registro_facebook_img"><img src="{{asset('assets/images/extras/caja_registro_facebook.png')}}" height="" width="135" /></div>
+			<div class="registro_facebook_txt">Haz click en el botón de abajo y regístrate en un solo paso con tu cuenta de Facebook.</div>
+			<div class="registro_facebook_btn">
 				{% set tituloFacebook = 'Regístrate con Facebook' %}
 				<div class="facebook-boton">{{ facebook_login_button({'autologoutlink': true, 'label' : tituloFacebook }) }}</div>
 			</div>

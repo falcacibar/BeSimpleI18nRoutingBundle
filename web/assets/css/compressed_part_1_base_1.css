@@ -274,11 +274,20 @@ body {
       font-size: 16px;
       margin: 0 0 30px 0; }
     .contenedor .contenido .columna_izquierda {
+      float: left;
+      padding: 0 20px 0 0;
+      width: 459px; }
+    .contenedor .contenido .columna_izquierda_borde {
       border-right: 1px solid #dddddd;
       float: left;
       padding: 0 20px 0 0;
       width: 459px; }
     .contenedor .contenido .columna_derecha {
+      float: left;
+      padding: 0 0px 0 20px;
+      width: 460px; }
+    .contenedor .contenido .columna_derecha_borde {
+      border-left: 1px solid #dddddd;
       float: left;
       padding: 0 0px 0 20px;
       width: 460px; }
@@ -338,7 +347,9 @@ body {
             -webkit-border-radius: 2px;
             color: white;
             font-size: 12px;
+            font-weight: bold;
             height: 30px;
+            margin: 10px 0 0 0;
             text-shadow: 1px 1px 1px #444444;
             width: 60px; }
             .contenedor .contenido .login .login_form .submit .boton_entrar:hover {
@@ -359,55 +370,241 @@ body {
     .contenedor .contenido a {
       color: white;
       text-decoration: none; }
-      .contenedor .contenido a .boton_registro {
-        background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-        background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-        background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-        background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-        background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
-        border: 1px solid #ff3300;
+    .contenedor .contenido .registro {
+      float: left;
+      width: 459px; }
+      .contenedor .contenido .registro .registro_error {
+        background-color: #ffe5e5;
+        border: 1px solid #ff6666;
+        float: left;
+        line-height: 18px;
+        margin: 0 0 20px 0;
+        padding: 5px 10px;
+        width: 439px; }
+      .contenedor .contenido .registro .registro_form {
+        font-size: 12px; }
+        .contenedor .contenido .registro .registro_form div label {
+          display: block;
+          float: left;
+          margin: 5px 0;
+          width: 120px; }
+        .contenedor .contenido .registro .registro_form div input {
+          border: 1px solid #999999;
+          height: 20px;
+          margin: 0 0 10px;
+          padding: 3px 5px;
+          width: 250px; }
+          .contenedor .contenido .registro .registro_form div input:hover {
+            border: 1px solid #444444; }
+          .contenedor .contenido .registro .registro_form div input.checkbox {
+            float: left;
+            margin: 0 0 10px 0;
+            width: 20px; }
+        .contenedor .contenido .registro .registro_form div .tip_registro {
+          float: left;
+          font-size: 11px;
+          margin: 0 0 10px;
+          width: 330px; }
+          .contenedor .contenido .registro .registro_form div .tip_registro a {
+            color: #0099ff;
+            text-decoration: none; }
+            .contenedor .contenido .registro .registro_form div .tip_registro a:hover {
+              color: #0099ff;
+              text-decoration: underline; }
+        .contenedor .contenido .registro .registro_form .submit {
+          float: left;
+          width: 459px; }
+          .contenedor .contenido .registro .registro_form .submit .boton_registrar {
+            background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
+            border: 1px solid #ff3300;
+            cursor: pointer;
+            border-radius: 2px;
+            -o-border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            height: 30px;
+            margin: 10px 0 0 0;
+            text-shadow: 1px 1px 1px #444444;
+            width: 80px; }
+            .contenedor .contenido .registro .registro_form .submit .boton_registrar:hover {
+              background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+              background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
+              border: 1px solid #ff4400;
+              cursor: pointer;
+              height: 30px;
+              text-shadow: 1px 1px 1px #444444;
+              width: 80px; }
+    .contenedor .contenido .caja_registro_facebook {
+      background: #edeff4;
+      border: 1px solid #3b5998;
+      float: left;
+      margin: 0 0 30px 0;
+      width: 458px; }
+      .contenedor .contenido .caja_registro_facebook .registro_facebook_img {
+        padding: 10px;
+        float: left;
+        width: 135px; }
+      .contenedor .contenido .caja_registro_facebook .registro_facebook_txt {
+        padding: 10px;
+        float: left;
+        font-size: 13px;
+        line-height: 18px;
+        width: 283px; }
+      .contenedor .contenido .caja_registro_facebook .registro_facebook_btn {
+        padding: 10px 129px;
+        float: left;
+        width: 200px; }
+    .contenedor .contenido .boton_registro {
+      background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
+      border: 1px solid #ff3300;
+      cursor: pointer;
+      border-radius: 2px;
+      -o-border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      color: white;
+      font-size: 25px;
+      height: 30px;
+      margin: 20px 135px;
+      padding: 15px 10px;
+      text-align: center;
+      text-shadow: 1px 1px 1px #444444;
+      width: 175px; }
+      .contenedor .contenido .boton_registro:hover {
+        background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
+        border: 1px solid #ff4400;
         cursor: pointer;
-        border-radius: 2px;
-        -o-border-radius: 2px;
-        -moz-border-radius: 2px;
-        -webkit-border-radius: 2px;
-        color: white;
-        font-size: 25px;
         height: 30px;
-        margin: 20px 135px;
-        padding: 15px 10px;
-        text-align: center;
         text-shadow: 1px 1px 1px #444444;
         width: 175px; }
-        .contenedor .contenido a .boton_registro:hover {
-          background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-          background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-          background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-          background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-          background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-          background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
-          border: 1px solid #ff4400;
-          cursor: pointer;
-          height: 30px;
-          text-shadow: 1px 1px 1px #444444;
-          width: 175px; }
 
 /* Footer */
-.footer_top {
-  background: #999999;
-  height: 60px;
-  float: left;
-  width: 100%; }
-
 .footer {
-  background: #444444;
-  height: 200px;
+  background: #f6f6f6;
   float: right;
+  margin: 20px 0 0 0;
   width: 100%; }
   .footer .contenido_footer {
-    margin: 30px auto;
+    margin: 0 auto;
+    text-shadow: 1px 1px 1px white;
     width: 960px; }
+    .footer .contenido_footer .participa_alianzas {
+      border-bottom: 1px solid #cccccc;
+      color: #999999;
+      float: left;
+      padding: 30px 0;
+      width: 960px; }
+      .footer .contenido_footer .participa_alianzas .participa {
+        float: left;
+        margin: 0 10px 0 0;
+        width: 374px; }
+      .footer .contenido_footer .participa_alianzas .alianzas {
+        float: left;
+        width: 576px; }
+        .footer .contenido_footer .participa_alianzas .alianzas .alianzas_img {
+          display: block;
+          float: left;
+          margin: 20px 50px 0 0; }
+        .footer .contenido_footer .participa_alianzas .alianzas .alianzas_img_last {
+          display: block;
+          float: left;
+          margin: 20px 0 0 0; }
+    .footer .contenido_footer .loogares {
+      border-bottom: 1px solid #cccccc;
+      color: #999999;
+      float: left;
+      padding: 30px 0;
+      width: 960px;
+      border-top: 1px solid white; }
+    .footer .contenido_footer .pais {
+      border-bottom: 1px solid #cccccc;
+      color: #999999;
+      float: left;
+      padding: 30px 0;
+      width: 960px;
+      border-top: 1px solid white; }
+    .footer .contenido_footer .ano_loogares {
+      border-top: 1px solid white;
+      color: #999999;
+      float: left;
+      font-size: 11px;
+      text-align: center;
+      padding: 25px 0;
+      width: 960px; }
+    .footer .contenido_footer p.footer_title {
+      background: url("../images/extras/flecha_footer.png") no-repeat 0px 3px;
+      font-size: 14px;
+      font-weight: bold;
+      height: 12px;
+      padding: 0 0 0 12px;
+      width: 12px; }
+    .footer .contenido_footer p.footer_title_pais {
+      background: url("../images/extras/flecha_footer.png") no-repeat 0px 3px;
+      float: left;
+      font-size: 14px;
+      font-weight: bold;
+      height: 12px;
+      padding: 0 0 0 12px;
+      width: 130px; }
+    .footer .contenido_footer .cl {
+      background: url("../images/extras/botones_sprite.png") no-repeat 0px -32px;
+      height: 13px;
+      padding: 0 0 0 28px;
+      width: 20px; }
+    .footer .contenido_footer .ar {
+      background: url("../images/extras/botones_sprite.png") no-repeat 0px -47px;
+      height: 13px;
+      padding: 0 0 0 28px;
+      width: 20px; }
+    .footer .contenido_footer .participa_listado li {
+      margin: 20px 0 0 12px; }
+      .footer .contenido_footer .participa_listado li a {
+        color: #999999;
+        text-decoration: none; }
+        .footer .contenido_footer .participa_listado li a:hover {
+          color: #999999;
+          text-decoration: underline; }
+    .footer .contenido_footer .loogares_listado li {
+      float: left;
+      margin: 20px 0 0 12px;
+      width: 180px; }
+      .footer .contenido_footer .loogares_listado li a {
+        color: #999999;
+        text-decoration: none; }
+        .footer .contenido_footer .loogares_listado li a:hover {
+          color: #999999;
+          text-decoration: underline; }
+    .footer .contenido_footer .pais_listado li {
+      float: left;
+      margin: 1px 10px 0 0; }
+      .footer .contenido_footer .pais_listado li a {
+        color: #999999;
+        text-decoration: none; }
+        .footer .contenido_footer .pais_listado li a:hover {
+          color: #999999;
+          text-decoration: underline; }
 
 /* AGREGADO POR EL SUR */
 .errores-container {

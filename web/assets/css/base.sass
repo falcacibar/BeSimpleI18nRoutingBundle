@@ -48,6 +48,7 @@ table
 
 $azul: #0099FF
 $blanco: #FFF
+$error: #F66
 $gris_444: #444
 $gris_686: #686868
 $gris_999: #999
@@ -68,6 +69,13 @@ $rojo: #FF3300
     margin: 0px auto
     width: 960px
 
+@mixin footer
+    border-bottom: 1px solid $gris_ccc
+    color: $gris_999
+    float: left
+    padding: 30px 0
+    width: 960px
+
 @mixin gradiente_botones ($color_1, $color_2)
     background-image: linear-gradient(bottom, $color_1 30%, $color_2 70%)
     background-image: -o-linear-gradient(bottom, $color_1 30%, $color_2 70%)
@@ -78,6 +86,14 @@ $rojo: #FF3300
     border: 1px solid $color_1
     cursor: pointer
 
+@mixin link_azul
+    color: $azul
+    text-decoration: none
+
+@mixin link_azul_hover
+    color: $azul
+    text-decoration: underline
+
 @mixin link_blanco
     color: $blanco
     text-decoration: none
@@ -86,12 +102,12 @@ $rojo: #FF3300
     color: $blanco
     text-decoration: underline
 
-@mixin link_azul
-    color: $azul
+@mixin link_gris_999
+    color: $gris_999
     text-decoration: none
 
-@mixin link_azul_hover
-    color: $azul
+@mixin link_gris_999_hover
+    color: $gris_999
     text-decoration: underline
 
 body
@@ -368,12 +384,23 @@ body
             margin: 0 0 30px 0
 
         .columna_izquierda
+            float: left
+            padding: 0 20px 0 0
+            width: 459px
+
+        .columna_izquierda_borde
             border-right: 1px solid $gris_ddd
             float: left
             padding: 0 20px 0 0
             width: 459px
 
         .columna_derecha
+            float: left
+            padding: 0 0px 0 20px
+            width: 460px
+
+        .columna_derecha_borde
+            border-left: 1px solid $gris_ddd
             float: left
             padding: 0 0px 0 20px
             width: 460px
@@ -439,7 +466,9 @@ body
                         color: $blanco
                         font:
                             size: 12px
+                            weight: bold
                         height: 30px
+                        margin: 10px 0 0 0
                         text-shadow: 1px 1px 1px $gris_444
                         width: 60px
 
@@ -456,43 +485,246 @@ body
         
         a
             @include link_blanco
-        
-            .boton_registro
-                @include gradiente_botones (#FF3300, #FF6600)
-                @include borde_redondeado                        
-                color: $blanco
+
+        .registro
+            float: left
+            width: 459px
+
+            .registro_error
+                background:
+                    color: lighten($error, 25%)
+                border: 1px solid $error
+                float: left
+                line-height: 18px
+                margin: 0 0 20px 0
+                padding: 5px 10px
+                width: 439px
+
+            .registro_form
                 font:
-                    size: 25px
+                    size: 12px
+
+                div
+
+                    label
+                        display: block
+                        float: left
+                        margin: 5px 0
+                        width: 120px
+                  
+                    input
+                        border: 1px solid $gris_999
+                        height: 20px
+                        margin: 0 0 10px
+                        padding: 3px 5px
+                        width: 250px
+
+                        &:hover
+                            border: 1px solid $gris_444
+
+                        &.checkbox
+                            float: left
+                            margin: 0 0 10px 0
+                            width: 20px
+
+                    .tip_registro
+                        float: left
+                        font:
+                            size: 11px
+                        margin: 0 0 10px
+                        width: 330px
+
+                        a
+                            @include link_azul
+
+                            &:hover
+                                @include link_azul_hover
+
+                .submit
+                    float: left
+                    width: 459px
+
+                    .boton_registrar
+                        @include gradiente_botones (#FF3300, #FF6600)
+                        @include borde_redondeado
+                        color: $blanco
+                        font:
+                            size: 12px
+                            weight: bold
+                        height: 30px
+                        margin: 10px 0 0 0
+                        text-shadow: 1px 1px 1px $gris_444
+                        width: 80px
+
+                        &:hover
+                            @include gradiente_botones (#FF4400, #FF7700)
+                            height: 30px
+                            text-shadow: 1px 1px 1px $gris_444
+                            width: 80px
+        
+        .caja_registro_facebook
+            background: #EDEFF4
+            border: 1px solid #3B5998
+            float: left
+            margin: 0 0 30px 0
+            width: 458px
+            
+            .registro_facebook_img
+                padding: 10px
+                float: left
+                width: 135px
+            
+            .registro_facebook_txt
+                padding: 10px
+                float: left
+                font:
+                    size: 13px
+                line-height: 18px
+                width: 283px
+            
+            .registro_facebook_btn
+                padding: 10px 129px
+                float: left
+                width: 200px   
+                                                                                        
+        .boton_registro
+            @include gradiente_botones (#FF3300, #FF6600)
+            @include borde_redondeado                        
+            color: $blanco
+            font:
+                size: 25px
+            height: 30px
+            margin: 20px 135px
+            padding: 15px 10px
+            text-align: center
+            text-shadow: 1px 1px 1px $gris_444
+            width: 175px
+
+            &:hover
+                @include gradiente_botones (#FF4400, #FF7700)
                 height: 30px
-                margin: 20px 135px
-                padding: 15px 10px
-                text-align: center
                 text-shadow: 1px 1px 1px $gris_444
                 width: 175px
 
-                &:hover
-                    @include gradiente_botones (#FF4400, #FF7700)
-                    height: 30px
-                    text-shadow: 1px 1px 1px $gris_444
-                    width: 175px
-
 /* Footer */
-    
-.footer_top
-    background: $gris_999
-    height: 60px
-    float: left
-    width: 100%
-    
+        
 .footer
-    background: $gris_444
-    height: 200px
+    background: $gris_f6f
     float: right
+    margin: 20px 0 0 0
     width: 100%
     
     .contenido_footer
-        margin: 30px auto
+        margin: 0 auto
+        text-shadow: 1px 1px 1px $blanco
         width: 960px
+
+        .participa_alianzas
+            @include footer
+
+            .participa
+                float: left
+                margin: 0 10px 0 0
+                width: 374px
+
+            .alianzas
+                float: left
+                width: 576px
+
+                .alianzas_img
+                    display: block
+                    float: left
+                    margin: 20px 50px 0 0
+
+                .alianzas_img_last
+                    display: block
+                    float: left
+                    margin: 20px 0 0 0
+
+        .loogares
+            @include footer
+            border-top: 1px solid $blanco
+
+        .pais
+            @include footer
+            border-top: 1px solid $blanco
+
+        .ano_loogares
+            border-top: 1px solid $blanco
+            color: $gris_999
+            float: left
+            font:
+                size: 11px
+            text-align: center
+            padding: 25px 0
+            width: 960px
+        
+        p.footer_title
+            background: url("../images/extras/flecha_footer.png") no-repeat 0px 3px
+            font:
+                size: 14px
+                weight: bold
+            height: 12px
+            padding: 0 0 0 12px
+            width: 12px
+        
+        p.footer_title_pais
+            background: url("../images/extras/flecha_footer.png") no-repeat 0px 3px
+            float: left
+            font:
+                size: 14px
+                weight: bold
+            height: 12px
+            padding: 0 0 0 12px
+            width: 130px
+
+        .cl
+            background: url("../images/extras/botones_sprite.png") no-repeat 0px -32px
+            height: 13px
+            padding: 0 0 0 28px 
+            width: 20px
+
+        .ar
+            background: url("../images/extras/botones_sprite.png") no-repeat 0px -47px
+            height: 13px 
+            padding: 0 0 0 28px 
+            width: 20px
+        
+        .participa_listado
+
+            li
+                margin: 20px 0 0 12px
+
+                a
+                    @include link_gris_999
+
+                    &:hover
+                        @include link_gris_999_hover
+                        
+        .loogares_listado
+            
+            li
+                float: left
+                margin: 20px 0 0 12px
+                width: 180px
+
+                a
+                    @include link_gris_999
+
+                    &:hover
+                        @include link_gris_999_hover
+
+        .pais_listado
+
+            li
+                float: left
+                margin: 1px 10px 0 0
+                    
+                a
+                    @include link_gris_999
+
+                    &:hover
+                        @include link_gris_999_hover
 
 /* AGREGADO POR EL SUR */
 .errores-container
