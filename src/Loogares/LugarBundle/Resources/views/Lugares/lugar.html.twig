@@ -37,12 +37,14 @@
                 </div>
             {% endif %}
 
+            {% if lugar.horario %}
                 <div id="lugar-horarios">
-                    {% for horario in lugar.horarios %}
+                    {% for horario in lugar.horario %}
                         AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
                         PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
                     {% endfor %}
                 </div>
+            {% endif %}
 
             {% if lugar.precio %}<div id="precio">Precio: {{lugar.precio}}</div>{% endif %}
 
@@ -57,12 +59,15 @@
 
             {% if lugar.subcategoriaLugar %}
                 <div id="lugar-subcategoria">
-                    Subcategorias De:
                     {% for categoriaLugar in lugar.categoriaLugar %} 
+                        Subcategorias De:
                         <a href="">{{categoriaLugar.categoria.nombre}}</a>: 
                         {% for subcategoriaLugar in lugar.subcategoriaLugar %} 
-                            <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                            {% if subcategoriaLugar.subCategoria.categoria.id == categoriaLugar.categoria.id %}
+                                <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                            {% endif %}
                         {% endfor %}
+                        {% if loop.last == false %}<br/> {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}

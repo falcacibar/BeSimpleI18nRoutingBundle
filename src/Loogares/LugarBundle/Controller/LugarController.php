@@ -55,12 +55,6 @@ class LugarController extends Controller
                   ->setParameter(1, $idLugar);
                 $imagenLugarResult = $q->getResult();
 
-                //Query para horarios del lugar
-                $q = $em->createQuery("SELECT u 
-                                       FROM Loogares\LugarBundle\Entity\Horario u 
-                                       WHERE u.lugar = ?1");
-                $q->setParameter(1, $idLugar);
-                $horarioResult = $q->getResult();
 
                 //Query para sacar la primera recomendacion
                 $q = $em->createQuery("SELECT u 
@@ -130,7 +124,6 @@ class LugarController extends Controller
 
 
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
-                $data->horarios = $horarioResult;
                 $data->telefonos = $telefonos;
                 //Imagen a mostrar
                 $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
@@ -154,18 +147,18 @@ class LugarController extends Controller
         $errors = array();
         $camposExtraErrors = false;
         $formErrors = array();
-        $editar = array();
+
 
         if($slug){
-            $editar = $lr->findOneBySlug($slug);    
+            $lugar = $lr->findOneBySlug($slug);    
+        }else{
+            $lugar = new Lugar();
         }
-
-        $lugar = new Lugar();
-                
 
         $form = $this->createFormBuilder($lugar)
              ->add('nombre', 'text')
              ->add('calle', 'text')
+             ->add('slug', 'hidden')
              ->add('numero', 'text')
              ->add('descripcion', 'text')
              ->add('detalle', 'text')
@@ -183,39 +176,42 @@ class LugarController extends Controller
              ->add('materiales', 'text')
              ->add('_token', 'csrf')
              ->getForm();
-    
+   
         if ($request->getMethod() == 'POST') {
+
             $form->bindRequest($request);
 
             if($form->isValid() && $camposExtraErrors == false){
                 $fn = $this->get('fn');
- 
+                
                 $comuna = $lr->getComunas($_POST['comuna']);    
                 $sector = $lr->getSectores($_POST['sector']);
                 $estado = $lr->getEstado('probando');
-                $usuario = $this->get('security.context')->getToken()->getUser();
                 $tipo_lugar = $lr->getTipoLugar('que-visitar');
 
                 $lugar->setComuna($comuna[0]);
 
-                $lugar->setUsuario($usuario);
                 $lugar->setEstado($estado[0]);
                 $lugar->setTipoLugar($tipo_lugar[0]);
 
                 $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugar->getNombre());
-
-                if(sizeOf($lugaresConElMismoNombre) != 0){
-                    $lugarSlug = $fn->generarSlug($lugar->getNombre()) . (sizeOf($lugaresConElMismoNombre)+1) . "-" . $_POST['ciudad'];
+                $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'].(sizeOf($lugaresConElMismoNombre)+1);
+                $lugar->setSlug($lugarSlug);
+                
+                if(sizeOf($lugaresConElMismoNombre) != 0 && $slug){
+                    $lugar->setFechaAgregado(new \DateTime());
                 }else{
                     $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'];
                 }
-
-                $lugar->setSlug($lugarSlug);
-                $lugar->setFechaAgregado(new \DateTime());
+                
                 $em->persist($lugar);
 
                 foreach($_POST['categoria'] as $postCategoria){
-                    $categoriaLugar[] = new CategoriaLugar();
+                    if($slug){
+                        $categoriaLugar[] = $lr->findCategoriaLugarByIdAndName($lugar->getId(), $_POST['categoria']);
+                    }else{
+                        $categoriaLugar[] = new CategoriaLugar();
+                    }
                     $size = sizeOf($categoriaLugar) - 1;
                     if($postCategoria != "elige"){
                         $categoria = $lr->getCategorias($postCategoria);
@@ -280,11 +276,12 @@ class LugarController extends Controller
                     }
                 }
 
-                $em->flush();
+                //$em->flush();
 
                 $this->get('session')->setFlash('nuevo-lugar','This is a random message, sup.');
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
-                return $this->render('LoogaresLugarBundle:Lugares:mensaje_lugar.html.twig', array('lugar' => $data));
+                
+                return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
             }
         }
 
@@ -350,10 +347,6 @@ class LugarController extends Controller
         $comunaSelect .= "</select>";
         $sectorSelect .= "</select>";
 
-        $data['categoriaSelect'] = $categoriaSelect;
-        $data['ciudadSelect'] = $ciudadSelect;
-        $data['comunaSelect'] = $comunaSelect;
-        $data['sectorSelect'] = $sectorSelect;
         $data['horarios'] = '<option value="cerrado">Cerrado</option>
                             <option value="06:00">06:00</option>
                             <option value="06:30">06:30</option>    
@@ -414,11 +407,16 @@ class LugarController extends Controller
             $errors = array_merge($formErrors, $camposExtraErrors);
         }
 
+        $data['categoriaSelect'] = $categoriaSelect;
+        $data['ciudadSelect'] = $ciudadSelect;
+        $data['comunaSelect'] = $comunaSelect;
+        $data['sectorSelect'] = $sectorSelect;
+
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
+            'lugar' => $lugar,
             'form' => $form->createView(),
             'errors' => $errors,
-            'editar' => $editar,
             'caracteristicas' => $caracteristicas,
             'subCategorias' => $subCategorias
         ));
