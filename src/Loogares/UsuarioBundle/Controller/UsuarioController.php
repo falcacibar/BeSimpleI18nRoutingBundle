@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 class UsuarioController extends Controller
@@ -171,6 +172,7 @@ class UsuarioController extends Controller
     public function editarFotoAction(Request $request, $param) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $formErrors = array();
         
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -181,10 +183,33 @@ class UsuarioController extends Controller
         if(!$loggeadoCorrecto)
             throw new AccessDeniedException('No puedes editar información de otro usuario');
         
+        $form = $this->createFormBuilder($usuarioResult)
+                     ->add('imagen')
+                     ->getForm();
+        
+        // Si el request es POST, se procesa edición de datos
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);           
+
+            if ($form->isValid()) { 
+
+
+            }
+        }
+
+        //Errores
+        foreach($this->get('validator')->validate( $form ) as $formError){
+            $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
+        }
+
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = '';
         $data->edicion = 'foto';
-        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array('usuario' => $data));  
+        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
+            'usuario' => $data,
+            'form' => $form->createView(),
+            'errors' => $formErrors
+        ));  
     }
 
     public function editarPasswordAction(Request $request, $param) {
@@ -304,7 +329,7 @@ class UsuarioController extends Controller
 
                 // Form válido, generamos campos requeridos
                 $usuario->setSlug('');
-                $usuario->setImagenFull("default.png");
+                $usuario->setImagenFull("default.gif");
                 $usuario->setFechaRegistro(new \DateTime());
 
                 // Password codificado en SHA2 (por ahora MD5 por compatibilidad)

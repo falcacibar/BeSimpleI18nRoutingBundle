@@ -32,11 +32,7 @@
 	{% endif %}
 
 
-	{% if usuario.slug != '' %}
-	{% 	set slug = usuario.slug %}
-	{% else %}
-	{% 	set slug = usuario.id %}
-	{% endif %}
+	{% 	set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
 	{% if usuario.tipo is defined and usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
 		<a href="{{path('editarUsuario', { 'param': slug })}}" class="editar-link">Edita los datos de tu perfil</a>
 	{% endif %}

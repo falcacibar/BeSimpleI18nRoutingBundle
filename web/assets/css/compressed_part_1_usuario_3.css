@@ -1,39 +1,117 @@
-ul {
-  margin: 0; }
-
-#titulo-usuario {
-  font-size: 1.6em;
-  font-weight: bold;
-  margin: 10px 0 20px 0;
-  letter-spacing: -1px; }
-
-.form-edicion .editar-usuario li {
-  margin: 10px 0; }
-.form-edicion .editar-usuario .edicion-newsletter label {
-  margin-top: 0; }
-.form-edicion .editar-usuario label {
-  width: 160px;
-  display: inline-block;
-  font-size: 0.9em;
-  margin-top: 5px;
-  float: left; }
-.form-edicion .editar-usuario input[type=text], .form-edicion .editar-usuario input[type=password], .form-edicion .editar-usuario .edicion-sexo {
-  width: 300px; }
-.form-edicion .editar-usuario input[type=radio] {
-  float: left; }
-.form-edicion .editar-usuario .edicion-fecha-nacimiento {
-  width: 100%; }
-  .form-edicion .editar-usuario .edicion-fecha-nacimiento select {
+/* Perfil de usuario */
+#menu-usuario {
+  border-bottom: 1px solid #cccccc;
+  height: 32px; }
+  #menu-usuario a {
+    color: #333333; }
+  #menu-usuario ul {
+    float: right;
     border: 1px solid #cccccc;
-    line-height: 16px; }
-  .form-edicion .editar-usuario .edicion-fecha-nacimiento #form_fecha_nacimiento_year {
-    width: 100px; }
-  .form-edicion .editar-usuario .edicion-fecha-nacimiento #form_fecha_nacimiento_month {
-    width: 150px; }
-  .form-edicion .editar-usuario .edicion-fecha-nacimiento #form_fecha_nacimiento_day {
-    width: 50px; }
-.form-edicion .editar-usuario #form_sexo label {
-  margin: 0 10px 0 5px;
-  width: auto; }
-.form-edicion .editar-usuario small.errors {
-  margin-right: 252px; }
+    border-bottom-width: 0; }
+    #menu-usuario ul li {
+      border-right: 1px solid #cccccc;
+      height: 32px;
+      line-height: 32px;
+      float: left; }
+    #menu-usuario ul li.no-right-border {
+      border-right-width: 0; }
+    #menu-usuario ul li.selected a {
+      color: white; }
+    #menu-usuario ul a {
+      padding: 10px; }
+
+#main-usuario {
+  padding-top: 10px; }
+  #main-usuario li.selected a {
+    color: white; }
+  #main-usuario a {
+    color: #333333; }
+  #main-usuario #data-usuario {
+    float: left;
+    width: 22%;
+    height: 100%;
+    border-right: 1px solid #cccccc;
+    font-size: 0.9em; }
+    #main-usuario #data-usuario ul {
+      margin-bottom: 30px; }
+      #main-usuario #data-usuario ul li {
+        display: block; }
+    #main-usuario #data-usuario p {
+      margin-bottom: 30px; }
+    #main-usuario #data-usuario #imagen-usuario img {
+      height: 96px;
+      width: 96px;
+      border: 1px solid #444444;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      padding: 1px; }
+    #main-usuario #data-usuario #titulo-usuario {
+      font-size: 1.6em;
+      font-weight: bold;
+      margin: 10px 0 20px 0;
+      letter-spacing: -1px; }
+  #main-usuario #content-usuario {
+    width: 76%;
+    float: right;
+    /* Edición de usuario */ }
+    #main-usuario #content-usuario h1.edicion-titulo {
+      font-size: 1.4em;
+      font-weight: bold; }
+    #main-usuario #content-usuario #menu-edicion {
+      border-bottom: 1px solid #cccccc;
+      height: 32px;
+      margin-top: 20px; }
+      #main-usuario #content-usuario #menu-edicion ul {
+        float: left; }
+        #main-usuario #content-usuario #menu-edicion ul li {
+          float: left;
+          border: 1px solid #cccccc;
+          border-bottom: none;
+          margin-right: 3px;
+          height: 32px;
+          line-height: 32px; }
+          #main-usuario #content-usuario #menu-edicion ul li a {
+            padding: 10px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario li {
+      margin: 10px 0; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-newsletter label {
+      margin-top: 0; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario label {
+      width: 160px;
+      display: inline-block;
+      font-size: 0.9em;
+      margin-top: 5px;
+      float: left; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=text], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=password], #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-sexo {
+      width: 300px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=radio] {
+      float: left; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento {
+      width: 100%; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento select {
+        border: 1px solid #cccccc;
+        line-height: 16px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento #form_fecha_nacimiento_year {
+        width: 100px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento #form_fecha_nacimiento_month {
+        width: 150px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento #form_fecha_nacimiento_day {
+        width: 50px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario #form_sexo label {
+      margin: 0 10px 0 5px;
+      width: auto; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario small.errors {
+      margin-right: 252px; }
+    #main-usuario #content-usuario .form-edicion .errores-container {
+      width: 98%;
+      display: block; }
+    #main-usuario #content-usuario .edicion {
+      margin-top: 30px; }
+
+/*  Extras */
+.bold {
+  font-weight: bold; }
+
+li.selected {
+  background-color: #000066;
+  font-weight: bold; }

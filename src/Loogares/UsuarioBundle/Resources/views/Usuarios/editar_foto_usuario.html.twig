@@ -1,1 +1,39 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
+
+<div id="edicion-cuenta" class="edicion">
+	{% if app.session.hasFlash('edicion-foto') %}
+		    <div class="flash-notice">
+		        {{ app.session.flash('edicion-foto') }}
+		    </div>
+	{% endif %}
+
+	<form action="{{ path('editarFotoUsuario', { 'param': usuario.id }) }}" method="post" {{ form_enctype(form) }}>
+		<div class="form-edicion">
+			{% if errors %}
+				<div class="errores-container">
+					{% for error in errors %}
+			            <p>{{ error }}</p>
+			        {% endfor %}
+				</div>
+			{% endif %}
+
+			<ul class="editar-usuario">
+				<li>
+					{{form_label(form.imagen, 'Subir foto')}}
+
+					{% set inputClass = (errors.imagen is defined) ? 'input-error' : ' '%}
+					{{form_widget(form.imagen, { 'attr': {'class': inputClass }})}}
+					{% if errors.imagen is defined %}
+						<small class="errors">{{errors.imagen}}</small>
+					{% endif %}
+				</li>
+
+				{{form_rest(form)}}
+
+				<li>
+					<label></label><input type="submit" value="Guardar" formnovalidate />
+				</li>
+			</ul>
+	    </div>		    
+	</form>
+</div>

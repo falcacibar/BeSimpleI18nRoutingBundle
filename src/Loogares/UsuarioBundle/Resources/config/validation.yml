@@ -20,3 +20,7 @@ Loogares\UsuarioBundle\Entity\Usuario:
             - NotBlank:
                 message: El campo Apellido no puede ser vacío.
             - Type: { type: string, message: "El apellido debe ser texto." }
+        imagen:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
