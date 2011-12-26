@@ -58,6 +58,9 @@ Loogares\LugarBundle\Entity\Lugar:
         recomendacion:
             targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
             mappedBy: lugar
+        horario:
+            targetEntity: Loogares\LugarBundle\Entity\Horario
+            mappedBy: lugar
     id:
         id:
             type: integer
