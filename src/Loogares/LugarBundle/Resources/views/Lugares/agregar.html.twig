@@ -5,6 +5,29 @@
 {% block stylesheets %}
     <style>
 
+        .lugar-existe{
+            display: none;
+            font-size: 10px;
+        }
+
+        span.area-code{
+            color: #ccc !important;
+            margin-right: 3px;
+            font-size: 16px;
+        }
+
+        .telefono{
+            width: 245px !important;
+        }
+
+        .lugar-existe p{
+            
+        }
+
+        .lugar-existe h5{
+            color: red;
+            font-weight:bold;
+        }
         .subcategorias{display: none;}
 
         .placeholder{
@@ -52,6 +75,14 @@
             {% if lugar.sector %}$('.sector').find('option[value="{{lugar.sector.slug}}"]').attr('selected', 'selected');{% endif %}
             onCargarMapaAgregar();
 
+            {% if lugar.telefono2 %}
+                $('a.display-more-info[rel=telefono]').click();
+            {% endif %}
+
+            {% if lugar.telefono3 %}
+                $('a.display-more-info[rel=telefono]').click();
+            {% endif %}
+
             {% for categoriaLugar in lugar.categoriaLugar %}
                 $currentSelect = $('.categoria').eq({{loop.index}}-1);
                 $currentSelect.find('option[value="{{categoriaLugar.categoria.slug}}"]').attr('selected', 'selected').change();
@@ -74,9 +105,14 @@
                 {% for horario in lugar.horario %}
                     $dia = $('[name="horario-'+dias[{{horario.dia}}]+'[]"]');
                     $dia.eq(0).find('option[value="{{horario.aperturaAM}}"]').attr('selected', 'selected') 
-                    $dia.eq(1).find('option[value="{{horario.cierreAM}}"]').attr('selected', 'selected') 
-                    $dia.eq(2).find('option[value="{{horario.aperturaPM}}"]').attr('selected', 'selected') 
-                    $dia.eq(3).find('option[value="{{horario.cierrePM}}"]').attr('selected', 'selected') 
+                    $dia.eq(1).find('option[value="{{horario.cierreAM}}"]').attr('selected', 'selected')
+                    {% if horario.aperturaPM %}
+                        $dia.eq(2).find('option[value="{{horario.aperturaPM}}"]').attr('selected', 'selected') 
+                        $dia.eq(3).find('option[value="{{horario.cierrePM}}"]').attr('selected', 'selected') 
+                        $dia.eq(3).parent().parent().find('.jornada-doble').click();
+                        $dia.eq(3).parent().parent().find('.horario-pm').fadeIn();
+                        $('th.horario-pm').fadeIn();
+                    {% endif %}
                 {% endfor %}
             {% endif %}
             
@@ -100,6 +136,7 @@
 {% endif %}
 
 <div class="errores-container"></div>
+
 <ul class="agregar-lugar">
     <li>
         <label>Nombre</label>
@@ -173,17 +210,15 @@
         <input type="text" value="{{lugar.calle}}" name="form[calle]" title="Ingresa la Calle del Lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
         <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="1949 o s/n"/>
     </li>
-        <li>
-         
-                <span class="display-more"><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
-         
-            <span class="display-more"><a href="" class="cargar-mapa">Cargar Mapa</a></span>
+    <li>     
+        <span class="display-more"><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
+        <span class="display-more"><a href="" class="cargar-mapa">Cargar Mapa</a></span>
+        <div class="lugar-existe"></div>
     </li>
     <li class="no-default">
         <label>Detalle</label>
         <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="Ej. Local 21, Mall Parque Arauco"/>
-        
-            <span class="quitar-info"><a class="quitar" href="">Quitar</a></span>
+        <span class="quitar-info"><a class="quitar" href="">Quitar</a></span>
     </li>
     <li>
         <label>Sector</label>
@@ -191,23 +226,24 @@
     </li>
     <li>
         <label>Telefono</label>
-        <span class="area-code"></span><input type="text" value="{{lugar.telefono1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. +56 2 2130894"/>
+        <span class="area-code">{{data.ciudadActual.pais.codigoArea}}</span>
+        <input type="text" value="{{lugar.tel1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. +56 2 2130894"/>
     </li>
     <li class="no-default">
         <label>Telefono</label>
-        <span class="area-code"></span><input type="text" value="{{lugar.telefono2}}" name="form[telefono2]" id="form_telefono2" class    ="telefono" placeholder="Ej. +56 2 2130894"/>
-        
-            <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <span class="area-code">{{data.ciudadActual.pais.codigoArea}}</span>
+        <input type="text" value="{{lugar.tel2}}" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="Ej. +56 2 2130894"/>
+        <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li class="no-default">
         <label>Telefono</label>
-        <span class="area-code"></span><input type="text" value="{{lugar.telefono3}}" name="form[telefono3]" id="form_telefono3" class    ="telefono" placeholder="Ej. +56 2 2130894"/>
-        
-            <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <span class="area-code">{{data.ciudadActual.pais.codigoArea}}</span>
+        <input type="text" value="{{lugar.tel3}}" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="Ej. +56 2 2130894"/>
+        <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li>
-            <span class="display-more"><a class="display-more-info" rel="telefono" href="">Mas telefonos (Max 
-            <span>2</span>)</a></span>
+        <span class="display-more"><a class="display-more-info" rel="telefono" href="">Mas telefonos (Max 
+        <span>2</span>)</a></span>
     </li>
     <li>
         <label>Sitio Web</label>

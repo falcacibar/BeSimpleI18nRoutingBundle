@@ -186,7 +186,7 @@ class LugarController extends Controller
                 
                 $comuna = $lr->getComunas($_POST['comuna']);    
                 $sector = $lr->getSectores($_POST['sector']);
-                $estado = $lr->getEstado('probando');
+                $estado = $lr->getEstado(1);
                 $tipo_lugar = $lr->getTipoLugar('que-visitar');
 
                 $lugar->setComuna($comuna[0]);
@@ -194,11 +194,19 @@ class LugarController extends Controller
                 $lugar->setEstado($estado[0]);
                 $lugar->setTipoLugar($tipo_lugar[0]);
 
+                //Strip HTTP
+                $lugar->setTwitter(preg_replace('/http:\/\//', '', $lugar->getTwitter()));
+                $lugar->setSitioWeb(preg_replace('/http:\/\//', '', $lugar->getSitioWeb()));
+                $lugar->setFacebook(preg_replace('/http:\/\//', '', $lugar->getFacebook()));
+
                 $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugar->getNombre());
                 
+                if($slug == null){
+                    $lugar->setFechaAgregado(new \DateTime());
+                }
+
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
                     $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'].(sizeOf($lugaresConElMismoNombre)+1);
-                    $lugar->setFechaAgregado(new \DateTime());
                 }else{
                     $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'];
                 }
@@ -239,6 +247,7 @@ class LugarController extends Controller
                         }
                     }
                 }
+
                 if(isset($_POST['subcategoria']) && is_array($_POST['subcategoria'])){
                     foreach($_POST['subcategoria'] as $postSubCategoria){
                         $subCategoriaLugar[] = new SubcategoriaLugar();
@@ -257,21 +266,23 @@ class LugarController extends Controller
                 foreach($dias as $key => $value){
                     $horario[] = new Horario();
                     $size = sizeOf($horario) - 1;
-                    $postHorario = $_POST['horario-'.$value];
-                    if($postHorario[0] != 'cerrado' || $postHorario[1] != 'cerrado' || $postHorario[2] != 'cerrado' || $postHorario[3] != 'cerrado' ){
-                        $horario[$size]->setLugar($lugar);
-                        $horario[$size]->setDia($key);
-                        if($postHorario[0] != 'cerrado' && $postHorario[1] != 'cerrado'){
-                            $horario[$size]->setAperturaAm($postHorario[0]);
-                            $horario[$size]->setCierreAm($postHorario[1]);
-                        }
+                    if(isset($_POST['horario-'.$value])){
+                        $postHorario = $_POST['horario-'.$value];
+                        if($postHorario[0] != 'cerrado' || $postHorario[1] != 'cerrado' || $postHorario[2] != 'cerrado' || $postHorario[3] != 'cerrado' ){
+                            $horario[$size]->setLugar($lugar);
+                            $horario[$size]->setDia($key);
+                            if($postHorario[0] != 'cerrado' && $postHorario[1] != 'cerrado'){
+                                $horario[$size]->setAperturaAm($postHorario[0]);
+                                $horario[$size]->setCierreAm($postHorario[1]);
+                            }
 
-                        if($postHorario[2]!= 'cerrado' && $postHorario[3] != 'cerrado'){
-                            $horario[$size]->setAperturaPm($postHorario[2]);
-                            $horario[$size]->setCierrePm($postHorario[3]);
-                        }
+                            if(isset($postHorario[2]) && $postHorario[2]!= 'cerrado' && isset($postHorario[3]) && $postHorario[3] != 'cerrado'){
+                                $horario[$size]->setAperturaPm($postHorario[2]);
+                                $horario[$size]->setCierrePm($postHorario[3]);
+                            }
 
-                        $em->persist($horario[$size]);
+                            $em->persist($horario[$size]);
+                        }
                     }
                 }
 
@@ -410,6 +421,12 @@ class LugarController extends Controller
         $data['ciudadSelect'] = $ciudadSelect;
         $data['comunaSelect'] = $comunaSelect;
         $data['sectorSelect'] = $sectorSelect;
+        $data['ciudadActual'] = $lr->getCiudadById('1');
+
+        //Sacar +56 de los telefonos
+        $lugar->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
+        $lugar->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
+        $lugar->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
 
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
@@ -417,7 +434,7 @@ class LugarController extends Controller
             'form' => $form->createView(),
             'errors' => $errors,
             'caracteristicas' => $caracteristicas,
-            'subCategorias' => $subCategorias
+            'subCategorias' => $subCategorias,
         ));
     }
 

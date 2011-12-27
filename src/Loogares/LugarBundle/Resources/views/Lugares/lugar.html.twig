@@ -29,7 +29,7 @@
                 </div>
             {% endif %}
 
-            {% if lugar.caracteristicaLugar %}
+            {% if lugar.c aracteristicaLugar %}
                 <div id="lugar-caracteristicas">
                     Caracteristicas: 
                     {% for caracteristicaLugar in lugar.caracteristicaLugar %}
@@ -38,12 +38,14 @@
                 </div>
             {% endif %}
 
+            {% if lugar.horario %}
                 <div id="lugar-horarios">
                     {% for horario in lugar.horario %}
                         AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
                         PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
                     {% endfor %}
                 </div>
+            {% endif %}
 
             {% if lugar.precio %}<div id="precio">Precio: {{lugar.precio}}</div>{% endif %}
 
@@ -74,10 +76,10 @@
             {% if lugar.facebook %}<div id="lugar-facebook">{{ lugar.facebook }}</div>{% endif %}
             {% if lugar.twitter %}<div id="lugar-twitter">{{ lugar.twitter }}</div>{% endif %}
 
-            {% if lugar.recomendacion %}
+            {% if lugar.recomendaciones %}
                 <div id="primero-recomendar">
                     Primero Recomendar: 
-                    {{ lugar.recomendacion[0].usuario.usuario }}
+                    {{ lugar.primero.usuario.nombre }}
                 </div>
                 <div id="recomendaciones">
                     <h2>Recomendaciones</h2>

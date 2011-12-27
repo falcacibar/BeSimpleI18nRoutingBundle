@@ -45,7 +45,8 @@ $('.display-more-info').click(function(e){
 $('.categoria').live('change', function(){
     $this = $(this);
     var categoria = $(this).val().camelCase(),
-        anterior = selected[$this.attr('id')];
+        anterior = selected[$this.attr('id')],
+        subCategorias = categorias[categoria].subCategorias;
 
     //Deshabilitar en los demas dropdown
     $('.categoria').not($this).each(function(){
@@ -57,18 +58,15 @@ $('.categoria').live('change', function(){
     });
 
     $('.caracteristicas').parent().fadeOut();
+    $('.caracteristicas ul li').fadeOut();
 
     $('.categoria').not(':hidden').each(function(){
         var thisCat = $(this).val().camelCase(),
             caracteristicas = categorias[thisCat].caracteristicas;
-            subCategorias = categorias[thisCat].subCategorias;
+            console.log(thisCat);
 
         if(caracteristicas != ''){
             $('.caracteristicas').parent().fadeIn().css('display', 'block');
-        }
-
-        if(subCategorias != ''){
-            $this.parent().find('.subcategorias').stop(true,true).fadeIn().css('display', 'inline-block');
         }
 
         $.each(caracteristicas, function(i){
@@ -103,6 +101,10 @@ $('.categoria').live('change', function(){
     });// end each
 
     $this.parent().find('.subcategorias ul li').fadeOut().find('input:checked').click();
+
+    if(subCategorias != ''){
+        $this.parent().find('.subcategorias').stop(true,true).fadeIn().css('display', 'inline-block');
+    }
 
     $.each(subCategorias, function(i){
         $this.parent().find('.subcategorias input[value="'+subCategorias[i]+'"]').parent().parent().stop(true, true).fadeIn().css('display', 'inline-block');
@@ -191,7 +193,7 @@ $('form').submit(function(e){
 
     $.each($('.categoria:not(:hidden)'), function(){
         $this = $(this);
-        if($this.parent().find('.subcategorias ul').children().length > 0){
+        if($this.parent().find('.subcategorias ul').children(':visible').length > 0){
             if($this.parent().find('.subcategorias').find('ul > li').length > 0 && $this.parent().find('.subcategorias').find('ul > li > label').children(':checked').length == 0){
                 $this.addClass('input-error');
                 $this.parent().find('.subcategorias ul').after('<small class="errors categoria">Seleccione al menos una Subcategoria</small>');
@@ -219,12 +221,36 @@ $('form').submit(function(e){
         $('.errores-container').fadeIn();
     }else{
         $('.placeholder').val('');
+        $('select:not(:visible)').remove();
         return true;
     }
     return false;
 });
 
-$('.cargar-mapa').click(function(e){e.preventDefault();onCargarMapaAgregar();});
+$('.cargar-mapa').click(function(e){
+    e.preventDefault();
+    if(!$('#form_calle').val().match('Ej') && !$('#form_numero').val().match('Ej')){
+        $.ajax({
+            url: '/symf/web/app_dev.php/ajax/lugarYaExiste',
+            type: 'post', 
+            dataType: 'json',
+            data: "calle="+$('#form_calle').val()+"&numero="+$('#form_numero').val()+"&nombre="+$('#form_nombre').val(),
+            success: function(data){
+                if(data.lugar){
+                    $('.lugar-existe').append('<h5>Ya existe un lugar con esta informacion, estas seguro que no es ninguno de estos?</5>')
+                    $.each(data.lugar, function(i){
+                       $('.lugar-existe').append("<p>"+data.lugar[i]+"</p>"); 
+                    })
+                    $('.lugar-existe').fadeIn();
+                    
+                }else{
+                    console.log('asd')
+                }
+            } 
+        });
+    }
+onCargarMapaAgregar();
+});
 
 /* Fncs */
 

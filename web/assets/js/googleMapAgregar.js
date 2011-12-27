@@ -72,6 +72,7 @@ function onCargarMapaAgregar(pos){
 					$(".mapx").val('');
 					$(".mapy").val('');
 					alert("La direcci\u00F3n ingresada no fue encontrada en el mapa.");
+					onCargarMapaAgregar('default');
 				} else {
 					// Nos da el objeto:
 					place = response.Placemark[0];

@@ -28,6 +28,12 @@ _otrosLugaresEnElArea:
     requirements:
         accion: otrosLugaresEnElArea
 
+_lugarYaExiste:
+    pattern: /ajax/{accion}
+    defaults: { _controller: LoogaresLugarBundle:Ajax:lugarYaExiste }
+    requirements:
+        accion: lugarYaExiste
+
 _filtroDeLugares:
     pattern: /ajax/{accion}
     defaults: { _controller: LoogaresLugarBundle:Ajax:filtroDeLugares }

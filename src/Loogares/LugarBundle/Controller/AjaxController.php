@@ -56,4 +56,27 @@ class AjaxController extends Controller
 
       return $this->render('LoogaresLugarBundle:Ajax:generarComunasPorCiudad.html.twig', array('comunas' => $comunasPorCiudadResult));
     }
+
+    public function lugarYaExisteAction(){
+      $calle = $_POST['calle'];
+      $numero = $_POST['numero'];
+      $nombre = $_POST['nombre'];
+
+      $em = $this->getDoctrine()->getEntityManager();
+      $q = $em->createQuery('SELECT u FROM Loogares\LugarBundle\Entity\Lugar u where u.calle = ?3 and u.numero = ?2 and u.nombre != ?1');
+      $q->setParameter(1, $nombre);
+      $q->setParameter(2, $numero);
+      $q->setParameter(3, $calle);
+
+      $res = $q->getResult();
+      if($res){
+        foreach($res as $lugar){
+          $asd['lugar'][] = "<a href='".$this->generateUrl('_lugar', array('slug' => $lugar->getSlug()))."'>" . $lugar->getNombre() . "</a> - " . $lugar->getCalle() . " - " . $lugar->getNumero() . " - " . $lugar->getComuna()->getNombre();
+        }
+      }else{
+        $asd[] = null;
+      }
+
+      return new Response(json_encode($asd));
+    }
 }

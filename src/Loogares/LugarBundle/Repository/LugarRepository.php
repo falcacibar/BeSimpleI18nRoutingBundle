@@ -67,6 +67,14 @@ class LugarRepository extends EntityRepository
         return $ciudadesResult;
     }
 
+    public function getCiudadById($id){
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where u.mostrar_lugar = 1 and u.id = '$id' order by u.id asc");
+        $ciudadesResult = $q->getSingleResult();
+
+        return $ciudadesResult;
+    }
+
     public function getComunas($slug = null){
       $em = $this->getEntityManager();
         if($slug){
@@ -99,9 +107,10 @@ class LugarRepository extends EntityRepository
       return $caracteristicasResult;
     }
 
-    public function getEstado($slug){
+    public function getEstado($id){
       $em = $this->getEntityManager();
-      $q = $em->createQuery(" SELECT u FROM Loogares\ExtraBundle\Entity\Estado u where u.nombre = '$slug' ");
+      $q = $em->createQuery(" SELECT u FROM Loogares\ExtraBundle\Entity\Estado u where u.id = ?1");
+      $q->setParameter(1, $id);
       $estadoResult = $q->getResult();
 
       return $estadoResult;
