@@ -5,7 +5,9 @@
 			<div class="participa">
 				<p class="footer_title">Participa</p>
 				<ul class="participa_listado">
-					<li><a href="{{path('registroUsuario')}}">Regístrate</a></li>
+					{% if is_granted('ROLE_USER') == false %}
+						<li><a href="{{path('registroUsuario')}}">Regístrate</a></li>
+					{% endif %}
 					<li><a href="{{path('_agregar')}}">Agrega y recomienda un lugar</a></li>
 				</ul>
 			</div>
