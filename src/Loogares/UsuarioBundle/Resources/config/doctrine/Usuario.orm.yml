@@ -5,8 +5,11 @@ Loogares\UsuarioBundle\Entity\Usuario:
     manyToOne:
         tipo_usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\TipoUsuario
+        estado_usuario:
+            targetEntity: Loogares\ExtraBundle\Entity\Estado
         comuna:
             targetEntity: Loogares\ExtraBundle\Entity\Comuna
+       
     id:
         id:
             type: integer
@@ -48,8 +51,6 @@ Loogares\UsuarioBundle\Entity\Usuario:
         fecha_ultima_actividad:
             type: datetime
             nullable: true
-        confirmado:
-            type: smallint
         newsletter_activo:
             type: boolean
         hash_confirmacion:

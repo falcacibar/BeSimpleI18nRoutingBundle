@@ -15,10 +15,18 @@ while($row = $STH->fetch()){
         $tipo_usuario = '1';
     }
 
+
+    $estado_usuario = '8';
+    if($row['Id_Estado'] == '1')
+        $estado_usuario = '7';
+    else if($row['Id_Estado'] == '6')
+        $estado_usuario = '9';
+
     $data[] = array(
         'id' => $row['Id'],
         'comuna_id' => '',
-        'tipo_usuario_id' => $tipo_usuario,
+        'tipo_usuario_id' => $tipo_usuario,        
+        'estado_usuario_id' => $estado_usuario,
         'nombre' => $row['Nombre'],
         'apellido' => $row['Apellido'],
         'password' => $row['Pass'],
@@ -33,7 +41,6 @@ while($row = $STH->fetch()){
         'fecha_nacimiento' => $row['FechaNacimiento'],
         'fecha_registro' => $row['FechaRegistro'],
         'fecha_ultima_actividad' => $row['UltimaActividad'],
-        'confirmado' => $row['Confirmado'],
         'newsletter_activo' => $row['Reportes'],
         'hash_confirmacion' => $row['HashConfirmacion'],
         'cookie' => $row['Cookie'],

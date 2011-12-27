@@ -116,7 +116,7 @@ class UsuarioController extends Controller
                      ->add('apellido', 'text')
                      ->add('slug', 'text')
                      ->add('fecha_nacimiento', 'birthday', array(
-                                'years' => range(date('Y'), date('Y')-70),
+                                'years' => range(date('Y')-14, date('Y')-70),
                                 'format' => 'dd   MM   yyyy',
                                 'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')
                          ))
@@ -184,16 +184,32 @@ class UsuarioController extends Controller
             throw new AccessDeniedException('No puedes editar información de otro usuario');
         
         $form = $this->createFormBuilder($usuarioResult)
-                     ->add('imagen')
+                     ->add('file')
+                     ->add('slug','hidden')
                      ->getForm();
         
         // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);           
+            $form->bindRequest($request);
 
-            if ($form->isValid()) { 
+            // Verificación de selección de foto
+            
+            //echo $_FILES['file'];
+
+            /*if(!$_FILES['form']['file']) {
+                $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
+            }*/
 
 
+            if ($form->isValid() && sizeof($formErrors) == 0) {
+                
+                $em->flush();
+
+                // Mensaje de éxito en la edición
+                $this->get('session')->setFlash('edicion-foto','Cambiaste tu foto de perfil. ¡Nada de mal!');
+
+                // Redirección a vista de edición de foto 
+                return $this->redirect($this->generateUrl('editarFotoUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
             }
         }
 
@@ -335,8 +351,10 @@ class UsuarioController extends Controller
                 // Password codificado en SHA2 (por ahora MD5 por compatibilidad)
                 $usuario->setPassword(md5($usuario->getPassword()));                
 
-                // Usuario queda como no confirmado y se genera hash confirmación
-                $usuario->setConfirmado(0);
+                // Usuario queda con el estado 'Por confirmar' y se genera hash confirmación
+                $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
+                                  ->findOneByNombre('Por confirmar');
+                $usuario->setEstadoUsuario($estadoUsuario);
                 $usuario->setNewsletterActivo(1);
                 $hashConfirmacion = md5($usuario->getMail().$usuario->getId().time());
                 $usuario->setHashConfirmacion($hashConfirmacion);
@@ -399,13 +417,15 @@ class UsuarioController extends Controller
         }
 
         // Si el usuario ya estaba confirmado
-        if($usuarioResult->getConfirmado() == 1) {
+        if($usuarioResult->getEstadoUsuario()->getNombre() == 'Activo') {
             $this->get('session')->setFlash('confirmacion-registro', 'Confirmación realizada con anterioridad');
             return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
         }    
         
         // Hash correcto y usuario no confirmado
-        $usuarioResult->setConfirmado(1);
+        $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
+                            ->findOneByNombre('Activo');
+        $usuarioResult->setEstadoUsuario($estadoUsuario);
         $em->flush();
 
         // Se agrega usuario a lista de correos de Mailchimp

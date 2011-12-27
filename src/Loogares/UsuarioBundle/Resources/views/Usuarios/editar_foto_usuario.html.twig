@@ -16,15 +16,14 @@
 			        {% endfor %}
 				</div>
 			{% endif %}
-
 			<ul class="editar-usuario">
 				<li>
-					{{form_label(form.imagen, 'Subir foto')}}
+					{{form_label(form.file, 'Subir foto')}}
 
-					{% set inputClass = (errors.imagen is defined) ? 'input-error' : ' '%}
-					{{form_widget(form.imagen, { 'attr': {'class': inputClass }})}}
-					{% if errors.imagen is defined %}
-						<small class="errors">{{errors.imagen}}</small>
+					{% set inputClass = (errors.file is defined) ? 'input-error' : ' '%}
+					{{form_widget(form.file, { 'attr': {'class': inputClass }})}}
+					{% if errors.file is defined %}
+						<small class="errors">{{errors.file}}</small>
 					{% endif %}
 				</li>
 
