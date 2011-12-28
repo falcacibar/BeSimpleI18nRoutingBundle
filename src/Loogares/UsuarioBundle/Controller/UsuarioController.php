@@ -354,7 +354,7 @@ class UsuarioController extends Controller
                 // Usuario queda con el estado 'Por confirmar' y se genera hash confirmación
                 $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
                                   ->findOneByNombre('Por confirmar');
-                $usuario->setEstadoUsuario($estadoUsuario);
+                $usuario->setEstado($estadoUsuario);
                 $usuario->setNewsletterActivo(1);
                 $hashConfirmacion = md5($usuario->getMail().$usuario->getId().time());
                 $usuario->setHashConfirmacion($hashConfirmacion);
@@ -417,7 +417,7 @@ class UsuarioController extends Controller
         }
 
         // Si el usuario ya estaba confirmado
-        if($usuarioResult->getEstadoUsuario()->getNombre() == 'Activo') {
+        if($usuarioResult->getEstado()->getNombre() == 'Activo') {
             $this->get('session')->setFlash('confirmacion-registro', 'Confirmación realizada con anterioridad');
             return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
         }    
@@ -425,7 +425,7 @@ class UsuarioController extends Controller
         // Hash correcto y usuario no confirmado
         $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
                             ->findOneByNombre('Activo');
-        $usuarioResult->setEstadoUsuario($estadoUsuario);
+        $usuarioResult->setEstado($estadoUsuario);
         $em->flush();
 
         // Se agrega usuario a lista de correos de Mailchimp

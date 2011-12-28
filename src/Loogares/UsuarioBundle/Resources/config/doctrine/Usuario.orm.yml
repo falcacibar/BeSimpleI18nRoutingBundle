@@ -5,7 +5,7 @@ Loogares\UsuarioBundle\Entity\Usuario:
     manyToOne:
         tipo_usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\TipoUsuario
-        estado_usuario:
+        estado:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
         comuna:
             targetEntity: Loogares\ExtraBundle\Entity\Comuna
