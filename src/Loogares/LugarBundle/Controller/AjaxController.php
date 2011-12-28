@@ -60,18 +60,18 @@ class AjaxController extends Controller
     public function lugarYaExisteAction(){
       $calle = $_POST['calle'];
       $numero = $_POST['numero'];
-      $nombre = $_POST['nombre'];
+      $id = $_POST['id'];
 
       $em = $this->getDoctrine()->getEntityManager();
-      $q = $em->createQuery('SELECT u FROM Loogares\LugarBundle\Entity\Lugar u where u.calle = ?3 and u.numero = ?2 and u.nombre != ?1');
-      $q->setParameter(1, $nombre);
+      $q = $em->createQuery('SELECT u FROM Loogares\LugarBundle\Entity\Lugar u where u.calle = ?3 and u.numero = ?2 and u.id != ?1 and u.estado != 3');
+      $q->setParameter(1, $id);
       $q->setParameter(2, $numero);
       $q->setParameter(3, $calle);
 
       $res = $q->getResult();
       if($res){
         foreach($res as $lugar){
-          $asd['lugar'][] = "<a href='".$this->generateUrl('_lugar', array('slug' => $lugar->getSlug()))."'>" . $lugar->getNombre() . "</a> - " . $lugar->getCalle() . " - " . $lugar->getNumero() . " - " . $lugar->getComuna()->getNombre();
+          $asd['lugar'][] = "<a href='".$this->generateUrl('_lugar', array('slug' => $lugar->getSlug()))."'>" . $lugar->getNombre() . "</a> - " . $lugar->getCalle() . " " . $lugar->getNumero() . " - " . $lugar->getComuna()->getNombre();
         }
       }else{
         $asd[] = null;

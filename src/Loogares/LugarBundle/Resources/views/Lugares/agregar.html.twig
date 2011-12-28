@@ -67,6 +67,7 @@
     <script src="{{asset('assets/js/googleMapAgregar.js')}}"></script>
     <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
     <script src="{{asset('assets/js/agregarLugar.js')}}"></script>
+
     <script>
         $(function(){
         {% if lugar.slug %}
@@ -139,16 +140,27 @@
 
 <ul class="agregar-lugar">
     <li>
-        <label>Nombre</label>
+        <label>Nombre *</label>
         <input type="text" value="{{lugar.nombre}}" title="Ingresa el Nombre del Lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
         <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
     </li>
     <li>
-        <label>Categorias</label>
-        {{ data.categoriaSelect | raw}}
+        <label>Categorías *</label>
+        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+            <option value="elige">Elige una Categoria Principal</option>
+            {% for tipoCategoria in data.tipoCategoria %}
+                <optgroup label="{{tipoCategoria.nombre}}">
+                {% for categoria in data.categorias %}
+                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
         <div class='subcategorias'>
             <ul>
-                {% for subCategoria in subCategorias %}
+                {% for subCategoria in data.subCategorias %}
                     <li>
                         <label class="checkbox-label subcategoria">
                             <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
@@ -160,12 +172,23 @@
         </div>
     </li>
     <li class="no-default">
-        <label>Categorias</label>
-        {{ data.categoriaSelect | raw}}
+        <label>Categorías</label>
+        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+            <option value="elige">Elige una Categoria Secundaria</option>
+            {% for tipoCategoria in data.tipoCategoria %}
+                <optgroup label="{{tipoCategoria.nombre}}">
+                {% for categoria in data.categorias %}
+                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
         <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
             <ul>
-                {% for subCategoria in subCategorias %}
+                {% for subCategoria in data.subCategorias %}
                     <li>
                         <label class="checkbox-label subcategoria">
                             <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
@@ -177,12 +200,23 @@
         </div>
     </li>
     <li class="no-default">
-        <label>Categorias</label>
-        {{ data.categoriaSelect | raw}}
+        <label>Categorías</label>
+        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+            <option value="elige">Elige una Categoria Secundaria</option>
+            {% for tipoCategoria in data.tipoCategoria %}
+                <optgroup label="{{tipoCategoria.nombre}}">
+                {% for categoria in data.categorias %}
+                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
         <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
             <ul>
-                {% for subCategoria in subCategorias %}
+                {% for subCategoria in data.subCategorias %}
                     <li>
                         <label class="checkbox-label subcategoria">
                             <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
@@ -194,55 +228,74 @@
         </div>
     </li>
     <li>        
-        <span class="display-more"><a class="display-more-info" rel="categoria" href="">Otra categoria (Max 
+        <span class="display-more"><a class="display-more-info" rel="categoria" href="">» Agrega una categoría secundaria (Máx. 
         <span>2</span>)</a></span>
     </li>
     <li>
-        <label>Ciudad</label>
-        {{ data.ciudadSelect | raw}}
+        <label>Pais *</label>
+        <select class='pais required' title='Seleccione un Pais valido' name='pais' id='pais'>
+        {% for pais in data.pais %}
+            <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
+        {% endfor %}
+        </select>
     </li>
     <li>
-        <label>Comuna</label>
+        <label>Ciudad *</label>
+        <select class='ciudad required' title='Seleccione una Ciudad valida' name='ciudad' id='ciudad'>
+        {% for pais in data.pais %}
+            <optgroup label="{{pais.nombre}}">
+                {% for ciudad in data.ciudad %}
+                    <option {% if data.ciudadActual.id == ciudad.id %} selected="selected" {% endif %} value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
+                {% endfor %}
+            </optgroup>
+        {% endfor %}
+        </select>
+    </li>
+    <li>
+        <label>Comuna *</label>
         {{ data.comunaSelect | raw}}
     </li>
     <li>
-        <label>Direccion</label>
+        <label>Calle *</label>
         <input type="text" value="{{lugar.calle}}" name="form[calle]" title="Ingresa la Calle del Lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
-        <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="1949 o s/n"/>
+        <label>Nº *</label>
+        <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="Ej. 1949 o s/n"/>
     </li>
     <li>     
-        <span class="display-more"><a class="display-next-li" href="">Es parte de una galeria o centro comercial?</a></span>
-        <span class="display-more"><a href="" class="cargar-mapa">Cargar Mapa</a></span>
+        <span class="display-more"><a class="display-next-li" href="">» ¿Es parte de una galería o centro comercial?</a></span>
         <div class="lugar-existe"></div>
     </li>
     <li class="no-default">
         <label>Detalle</label>
-        <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="Ej. Local 21, Mall Parque Arauco"/>
+        <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="Ej. A, Local 45, Piso 9, Centro Comercial Matta"/>
         <span class="quitar-info"><a class="quitar" href="">Quitar</a></span>
+    </li>
+    <li>
+        <span class="display-more"><a href="" class="cargar-mapa">Cargar mapa</a></span>
     </li>
     <li>
         <label>Sector</label>
         {{ data.sectorSelect | raw }}
     </li>
     <li>
-        <label>Telefono</label>
+        <label>Teléfono</label>
         <span class="area-code">{{data.ciudadActual.pais.codigoArea}}</span>
-        <input type="text" value="{{lugar.tel1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. +56 2 2130894"/>
+        <input type="text" value="{{lugar.tel1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. 2 2130894"/>
     </li>
     <li class="no-default">
-        <label>Telefono</label>
+        <label>Teléfono</label>
         <span class="area-code">{{data.ciudadActual.pais.codigoArea}}</span>
-        <input type="text" value="{{lugar.tel2}}" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="Ej. +56 2 2130894"/>
+        <input type="text" value="{{lugar.tel2}}" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="Ej. 2 2130894"/>
         <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li class="no-default">
-        <label>Telefono</label>
+        <label>Teléfono</label>
         <span class="area-code">{{data.ciudadActual.pais.codigoArea}}</span>
-        <input type="text" value="{{lugar.tel3}}" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="Ej. +56 2 2130894"/>
+        <input type="text" value="{{lugar.tel3}}" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="Ej. 2 2130894"/>
         <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li>
-        <span class="display-more"><a class="display-more-info" rel="telefono" href="">Mas telefonos (Max 
+        <span class="display-more"><a class="display-more-info" rel="telefono" href="">» ¿Más teléfonos? (Máx.
         <span>2</span>)</a></span>
     </li>
     <li>
@@ -258,24 +311,30 @@
         <input type="text" value="{{lugar.twitter}}" name="form[twitter]" id="form_twitter" placeholder="Ej. http://www.twitter.com/barelfuto"/>
     </li>
     <li>
-        <label>Mail</label>
+        <label>E-mail</label>
         <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="Ej. usuario@logoares.com"/>
     </li>
     <li>
         <label>Horario</label>
-        <small>Sabes los horarios de atencion?</small><input type="checkbox" name="habilitar-horario" class="habilitar-horario"/>
+        <input type="checkbox" name="habilitar-horario" class="habilitar-horario"/><small>¿Sabes los horarios de atención? Agrégalos</small>
     </li>
    <li class="no-default">
         <table class="agregar-horarios">
             <thead>
                 <th></th>
-                <th>AM Abre</th>
-                <th>AM Cierre</th>
-                <th class="horario-pm">PM Abre</th>
-                <th class="horario-pm">PM Cierre</th>
+                <th colspan="2">Jornada 1</th>
+                <th colspan="2">Jornada 2</th>
                 <th></th>
             </thead>
             <tbody>
+                <tr>
+                    <td></td>
+                    <td>Abre</td>
+                    <td>Cierra</td>
+                    <td>Abre</td>
+                    <td>Cierra</td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>Lunes</td>
                     <td>
@@ -325,7 +384,7 @@
                     <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
                 </tr>
                 <tr>
-                    <td>Miercoles</td>
+                    <td>Miércoles</td>
                     <td>
                         <select name="horario-miercoles[]">
                             {{ data.horarios | raw}}
@@ -397,7 +456,7 @@
                     <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
                 </tr>
                 <tr>
-                    <td>Sabado</td>
+                    <td>Sábado</td>
                     <td>
                         <select name="horario-sabado[]">
                             {{ data.horarios | raw}}
@@ -447,20 +506,20 @@
                 <tr>
             </tbody>
         </table>
-        <small>Si no se indica ningún horario para un determinado día, se entenderá que ese día está cerrado.
-Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.</small>
+        <small>Si no se indica ningún horario para un determinado día, se entenderá que ese día está cerrado.<br/>
+        Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.</small>
     </li>
     <li class="no-default">
         <label>Profesional</label>
         <input type="text" value="{{lugar.profesional}}" name="form[profesional]" id="form_profesional" placeholder="Ej. Nombre del Arquitecto, Paisajista, etc"/>
     </li>
     <li class="no-default">
-        <label>Año de Construccion</label>
+        <label>Año de Construcción</label>
         <input type="text" value="{{lugar.agnoConstruccion}}" name="form[agno_construccion]" id="form_agno_construccion" placeholder="Ej. 1985, Siglo XX"/>
     </li>
     <li class="no-default">
-        <label>Descripcion</label>
-        <textarea name="form[descripcion]" id="form_descripcion" placeholder="Breve Descripcion Blah Blah"> {{lugar.descripcion}}</textarea>
+        <label>Descripción</label>
+        <textarea name="form[descripcion]" id="form_descripcion" placeholder="Ej. Breve descripción del lugar"> {{lugar.descripcion}}</textarea>
     </li>
     <li class="no-default">
         <label>Materiales</label>
@@ -470,7 +529,7 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
         <label>Caracteristicas</label>
         <div class="caracteristicas">
             <ul>
-                {% for caracteristica in caracteristicas %}
+                {% for caracteristica in data.caracteristicas %}
                     <li>
                         <label class="checkbox-label caracteristica">
                             <input type="checkbox" name="caracteristica[]" class="caracteristica" value="{{caracteristica.nombre}}" />
@@ -485,7 +544,8 @@ Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se enten
         <input type="hidden" class="mapx" value="{{lugar.mapx}}" name="form[mapx]" id="form_mapx"/>
         <input type="hidden" class="mapy" value="{{lugar.mapy}}" name="form[mapy]" id="form_mapy"/>
     </li>
-    <li><input type="submit" value="Guardar Datos" formnovalidate/></li>
+    <li class="no-default"><input type="hidden" name="id" class="id" value="{{lugar.id}}"/>
+    <li><input type="submit" value="Guardar los datos" formnovalidate/></li>
 </ul>
 <div class="mapa_agregar">
     <div id="mapa" class="gmaps">
