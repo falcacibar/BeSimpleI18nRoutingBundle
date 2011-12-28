@@ -30,9 +30,10 @@ security:
                 check_path: /usuarios/login_check
                 login_path: /usuarios
                 username_parameter: _mail
+                default_target_path: /usuarios
             logout:
                 path:   /usuarios/logout
-                target: /
+                target: /usuarios
             remember_me:
                 key: remember
 #            fos_facebook:

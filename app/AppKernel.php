@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Loogares\LugarBundle\LoogaresLugarBundle(),
             new Loogares\UsuarioBundle\LoogaresUsuarioBundle(),
             new Loogares\ExtraBundle\LoogaresExtraBundle(),
+            new Loogares\AdminBundle\LoogaresAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

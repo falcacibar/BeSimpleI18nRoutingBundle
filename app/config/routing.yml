@@ -10,6 +10,10 @@ LoogaresLugarBundle:
     resource: "@LoogaresLugarBundle/Resources/config/routing.yml"
     prefix:   /
 
+LoogaresAdminBundle:
+    resource: "@LoogaresAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
 _security_check:
     pattern:  /login_check
 _security_logout:

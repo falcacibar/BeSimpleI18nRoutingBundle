@@ -1,0 +1,7 @@
+parameters:
+#    loogares_admin.example.class: Loogares\AdminBundle\Example
+
+services:
+#    loogares_admin.example:
+#        class: %loogares_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
