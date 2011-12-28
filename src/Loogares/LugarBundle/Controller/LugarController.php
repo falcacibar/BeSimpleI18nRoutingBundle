@@ -303,7 +303,7 @@ class LugarController extends Controller
         $caracteristicas = $lr->getCaracteristicas();
         $subCategorias = $lr->getSubCategorias();
 
-        $categoriaSelect = "<select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'><option value='elige'>Elige una Categoria</option>";
+        $categoriaSelect = "<select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'><option value='elige'>Elige una categoria principal</option>";
         foreach($tipoCategorias as $tipoCategoria){
             $tipoCategoriaNombre = $tipoCategoria->getNombre();
 
@@ -322,8 +322,8 @@ class LugarController extends Controller
 
         $paisSelect = "<select class='pais required' title='Seleccione una Ciudad valida' name='ciudad' id='ciudad'>";
         $ciudadSelect = "<select class='ciudad required' title='Seleccione una Ciudad valida' name='ciudad' id='ciudad'>";
-        $comunaSelect = "<select class='comuna required' title='Seleccione una Comuna valida' name='comuna' id='comuna'><option value='elige'>Elige una Comuna</option>";
-        $sectorSelect = "<select class='sector' name='sector' id='sector'><option value='elige'>Elige un Sector</option>";
+        $comunaSelect = "<select class='comuna required' title='Seleccione una Comuna valida' name='comuna' id='comuna'><option value='elige'>Elige una comuna</option>";
+        $sectorSelect = "<select class='sector' name='sector' id='sector'><option value='elige'>¿Está en un sector popular? Elígelo aquí</option>";
         foreach($ciudades as $ciudad){
             $ciudadSlug = $ciudad->getSlug();
             $ciudadNombre = $ciudad->getNombre();
