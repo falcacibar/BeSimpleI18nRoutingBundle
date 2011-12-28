@@ -268,7 +268,7 @@ class LugarController extends Controller
                     $size = sizeOf($horario) - 1;
                     if(isset($_POST['horario-'.$value])){
                         $postHorario = $_POST['horario-'.$value];
-                        if($postHorario[0] != 'cerrado' || $postHorario[1] != 'cerrado' || $postHorario[2] != 'cerrado' || $postHorario[3] != 'cerrado' ){
+                        if($postHorario[0] != 'cerrado' || $postHorario[1] != 'cerrado'){
                             $horario[$size]->setLugar($lugar);
                             $horario[$size]->setDia($key);
                             if($postHorario[0] != 'cerrado' && $postHorario[1] != 'cerrado'){
