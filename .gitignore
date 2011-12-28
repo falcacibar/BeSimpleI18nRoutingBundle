@@ -1,5 +1,5 @@
 #DS Store de Mac
-.DS_Store
+*.DS_Store
 
 #Carpeta Cache
 app/cache/*
@@ -7,6 +7,7 @@ app/cache/*
 #Entidades
 src/Loogares/LugarBundle/Entity/*
 src/Loogares/UsuarioBundle/Entity/*
+!src/Loogares/UsuarioBundle/Entity/Usuario.php
 src/Loogares/ExtraBundle/Entity/*
 
 #imagenes

@@ -23,7 +23,7 @@ assetic:
     use_controller: true
 
 swiftmailer:
-    delivery_address:  sebastian.vicencio@loogares.com
+    delivery_address:  developers@loogares.com
     transport: gmail
     username: elpuclitico
     password: sebavielmas

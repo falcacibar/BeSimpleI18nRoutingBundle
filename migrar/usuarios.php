@@ -16,17 +16,17 @@ while($row = $STH->fetch()){
     }
 
 
-    $estado_usuario = '8';
+    $estado_usuario = '7';
     if($row['Id_Estado'] == '1')
-        $estado_usuario = '7';
+        $estado_usuario = '6';
     else if($row['Id_Estado'] == '6')
-        $estado_usuario = '9';
+        $estado_usuario = '8';
 
     $data[] = array(
         'id' => $row['Id'],
         'comuna_id' => '',
         'tipo_usuario_id' => $tipo_usuario,        
-        'estado_usuario_id' => $estado_usuario,
+        'estado_id' => $estado_usuario,
         'nombre' => $row['Nombre'],
         'apellido' => $row['Apellido'],
         'password' => $row['Pass'],
