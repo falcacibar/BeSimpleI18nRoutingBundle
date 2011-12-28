@@ -45,7 +45,7 @@ function onCargarMapaAgregar(pos){
 				//Si queremos darle alguna letra o numero especial al icono del lugar:
 				//var letter = String.fromCharCode("A".charCodeAt(0) + index);
 				var letteredIcon = new GIcon(baseIcon);
-				letteredIcon.image = "/symf/web/assets/images/gmaps/puntodestacado.png";
+				letteredIcon.image = WEBROOT+"../assets/images/gmaps/puntodestacado.png";
 				markerOptions = {icon: letteredIcon, draggable: true};
 				var marker = new GMarker(point, markerOptions);
 				if(pos == 'default'){

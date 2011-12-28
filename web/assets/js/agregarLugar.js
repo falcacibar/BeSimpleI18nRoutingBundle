@@ -231,7 +231,7 @@ $('.cargar-mapa').click(function(e){
     e.preventDefault();
     if(!$('#form_calle').val().match('Ej') && !$('#form_numero').val().match('Ej')){
         $.ajax({
-            url: '/symf/web/app_dev.php/ajax/lugarYaExiste',
+            url: WEBROOT+'ajax/lugarYaExiste',
             type: 'post', 
             dataType: 'json',
             data: "calle="+$('#form_calle').val()+"&numero="+$('#form_numero').val()+"&id="+$('.id').val(),

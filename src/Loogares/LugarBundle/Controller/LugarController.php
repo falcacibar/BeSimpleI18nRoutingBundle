@@ -433,7 +433,7 @@ class LugarController extends Controller
         $lugar->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
         $lugar->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono2());
         $lugar->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono3());
-
+         
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
             'lugar' => $lugar,
@@ -441,6 +441,7 @@ class LugarController extends Controller
             'errors' => $errors,
         ));
     }
+    
 
     public function editarAction($slug){
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig');
