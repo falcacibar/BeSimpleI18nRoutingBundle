@@ -13,12 +13,13 @@ function onCargarMapaAgregar(pos){
 		if(pos == 'default'){
 			address = 'Baquedano, Providencia, Santiago de Chile';
 		}else{
-			var calle = $('.calle').val();
-			var numero = $('.numero').val();
-			var comuna = $('.comuna > option:selected').text();
-			var ciudad = $('.ciudad > option:selected').text();
+			var calle = $('.calle').val()
+				, numero = $('.numero').val()
+				, comuna = $('.comuna option:selected').text()
+				, ciudad = $('.ciudad option:selected').text()
+				, pais = $('.pais option:selected').text();
 			
-			address = ( calle + ' ' + parseInt(numero) + ', ' + comuna + ', ' + ciudad);
+			address = ( calle + ' ' + parseInt(numero) + ', ' + comuna + ', ' + ciudad + ', ' + pais);
 		}
 		
 		if(address){

@@ -67,6 +67,7 @@
     <script src="{{asset('assets/js/googleMapAgregar.js')}}"></script>
     <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
     <script src="{{asset('assets/js/agregarLugar.js')}}"></script>
+
     <script>
         $(function(){
         {% if lugar.slug %}
@@ -145,10 +146,21 @@
     </li>
     <li>
         <label>Categorías *</label>
-        {{ data.categoriaSelect | raw}}
+        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+            <option value="elige">Elige una Categoria Principal</option>
+            {% for tipoCategoria in data.tipoCategoria %}
+                <optgroup label="{{tipoCategoria.nombre}}">
+                {% for categoria in data.categorias %}
+                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
         <div class='subcategorias'>
             <ul>
-                {% for subCategoria in subCategorias %}
+                {% for subCategoria in data.subCategorias %}
                     <li>
                         <label class="checkbox-label subcategoria">
                             <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
@@ -161,11 +173,22 @@
     </li>
     <li class="no-default">
         <label>Categorías</label>
-        {{ data.categoriaSelect | raw}}
+        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+            <option value="elige">Elige una Categoria Secundaria</option>
+            {% for tipoCategoria in data.tipoCategoria %}
+                <optgroup label="{{tipoCategoria.nombre}}">
+                {% for categoria in data.categorias %}
+                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
         <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
             <ul>
-                {% for subCategoria in subCategorias %}
+                {% for subCategoria in data.subCategorias %}
                     <li>
                         <label class="checkbox-label subcategoria">
                             <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
@@ -178,11 +201,22 @@
     </li>
     <li class="no-default">
         <label>Categorías</label>
-        {{ data.categoriaSelect | raw}}
+        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+            <option value="elige">Elige una Categoria Secundaria</option>
+            {% for tipoCategoria in data.tipoCategoria %}
+                <optgroup label="{{tipoCategoria.nombre}}">
+                {% for categoria in data.categorias %}
+                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
         <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
             <ul>
-                {% for subCategoria in subCategorias %}
+                {% for subCategoria in data.subCategorias %}
                     <li>
                         <label class="checkbox-label subcategoria">
                             <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
@@ -198,8 +232,24 @@
         <span>2</span>)</a></span>
     </li>
     <li>
+        <label>Pais *</label>
+        <select class='pais required' title='Seleccione un Pais valido' name='pais' id='pais'>
+        {% for pais in data.pais %}
+            <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
+        {% endfor %}
+        </select>
+    </li>
+    <li>
         <label>Ciudad *</label>
-        {{ data.ciudadSelect | raw}}
+        <select class='ciudad required' title='Seleccione una Ciudad valida' name='ciudad' id='ciudad'>
+        {% for pais in data.pais %}
+            <optgroup label="{{pais.nombre}}">
+                {% for ciudad in data.ciudad %}
+                    <option {% if data.ciudadActual.id == ciudad.id %} selected="selected" {% endif %} value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
+                {% endfor %}
+            </optgroup>
+        {% endfor %}
+        </select>
     </li>
     <li>
         <label>Comuna *</label>
@@ -261,7 +311,7 @@
         <input type="text" value="{{lugar.twitter}}" name="form[twitter]" id="form_twitter" placeholder="Ej. http://www.twitter.com/barelfuto"/>
     </li>
     <li>
-        <label>E-ail</label>
+        <label>E-mail</label>
         <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="Ej. usuario@logoares.com"/>
     </li>
     <li>
@@ -479,7 +529,7 @@
         <label>Caracteristicas</label>
         <div class="caracteristicas">
             <ul>
-                {% for caracteristica in caracteristicas %}
+                {% for caracteristica in data.caracteristicas %}
                     <li>
                         <label class="checkbox-label caracteristica">
                             <input type="checkbox" name="caracteristica[]" class="caracteristica" value="{{caracteristica.nombre}}" />
@@ -494,6 +544,7 @@
         <input type="hidden" class="mapx" value="{{lugar.mapx}}" name="form[mapx]" id="form_mapx"/>
         <input type="hidden" class="mapy" value="{{lugar.mapy}}" name="form[mapy]" id="form_mapy"/>
     </li>
+    <li class="no-default"><input type="hidden" name="id" class="id" value="{{lugar.id}}"/>
     <li><input type="submit" value="Guardar los datos" formnovalidate/></li>
 </ul>
 <div class="mapa_agregar">

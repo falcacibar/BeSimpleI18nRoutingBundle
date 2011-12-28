@@ -55,6 +55,14 @@ class LugarRepository extends EntityRepository
         return $tipoCategoriasResult;
     }
 
+    public function getPaises(){
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Pais u order by u.id asc");
+        $paisResult = $q->getResult();
+
+        return $paisResult;
+    }
+
     public function getCiudades($slug = null){
         $em = $this->getEntityManager();
         if($slug){

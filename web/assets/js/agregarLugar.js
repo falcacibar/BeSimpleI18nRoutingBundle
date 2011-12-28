@@ -234,7 +234,7 @@ $('.cargar-mapa').click(function(e){
             url: '/symf/web/app_dev.php/ajax/lugarYaExiste',
             type: 'post', 
             dataType: 'json',
-            data: "calle="+$('#form_calle').val()+"&numero="+$('#form_numero').val()+"&nombre="+$('#form_nombre').val(),
+            data: "calle="+$('#form_calle').val()+"&numero="+$('#form_numero').val()+"&id="+$('.id').val(),
             success: function(data){
                 if(data.lugar){
                     $('.lugar-existe').append('<h5>Ya existe un lugar con esta informacion, estas seguro que no es ninguno de estos?</5>')
@@ -244,7 +244,7 @@ $('.cargar-mapa').click(function(e){
                     $('.lugar-existe').fadeIn();
                     
                 }else{
-                    console.log('asd')
+                    $('.lugar-existe').append('Este lugar no existe, wena onda').fadeIn();
                 }
             } 
         });
@@ -263,7 +263,8 @@ String.prototype.camelCase = function() {
 }
 
 function actualizarComunas(){
-    var ciudadSeleccionada = $('.ciudad > option:selected').text();
+    var ciudadSeleccionada = $('.ciudad option:selected').text();
+
     $.each(optGroupComunas, function(i){
         if(optGroupComunas[i].match(ciudadSeleccionada)){
             $('.comuna > optgroup').remove('optgroup');
@@ -273,15 +274,29 @@ function actualizarComunas(){
 
     $.each(optGroupSectores, function(i){
         if(optGroupSectores[i].match(ciudadSeleccionada)){
-            $('.sector > optgroup').remove('optgroup');
+            $('.sector  optgroup').remove('optgroup');
             $('.sector').append(optGroupSectores[i]);
         }
     });
 }
 
+function actualizarCiudades(){
+    var paisSeleccionado = $('.pais option:selected').text();
+
+    $.each(optGroupCiudades, function(i){
+        if(optGroupCiudades[i].match(paisSeleccionado)){
+            $('.ciudad optgroup').remove('optgroup');
+            $('.ciudad').append(optGroupCiudades[i]);
+        }
+    });
+
+    actualizarComunas();
+}
+
 /* INITIALIZATION */
 
-var optGroupComunas = [],
+var optGroupCiudades = [],
+    optGroupComunas = [],
     optGroupSectores = [],
     selected = {},
     caracteristicasASacar = [];
@@ -290,15 +305,22 @@ var optGroupComunas = [],
 
 $('input[type=text], textarea').each(function(){ $(this).placeholder() });
 
-$('.comuna > optgroup').each(function(i){
+$('.ciudad optgroup').each(function(i){
+    optGroupCiudades[i] = $(this).outerHTML();
+    $(this).remove();
+});
+
+$('.comuna optgroup').each(function(i){
     optGroupComunas[i] = $(this).outerHTML();
     $(this).remove();
 });
 
-$('.sector > optgroup').each(function(i){
+$('.sector optgroup').each(function(i){
     optGroupSectores[i] = $(this).outerHTML();
     $(this).remove();
 });
 
+actualizarCiudades();
 actualizarComunas();
+
 })

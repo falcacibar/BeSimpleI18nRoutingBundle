@@ -296,6 +296,7 @@ class LugarController extends Controller
         }
 
         $tipoCategorias = $lr->getTipoCategorias();
+        $paises = $lr->getPaises();
         $categorias = $lr->getCategorias();
         $ciudades = $lr->getCiudades();
         $comunas = $lr->getComunas();
@@ -416,7 +417,12 @@ class LugarController extends Controller
         if(is_array($camposExtraErrors) && is_array($formErrors)){
             $errors = array_merge($formErrors, $camposExtraErrors);
         }
-
+        $data['categorias'] = $categorias;
+        $data['tipoCategoria'] = $tipoCategorias;
+        $data['subCategorias'] = $subCategorias;
+        $data['ciudad'] = $ciudades;
+        $data['pais'] = $paises;
+        $data['caracteristicas'] = $caracteristicas;
         $data['categoriaSelect'] = $categoriaSelect;
         $data['ciudadSelect'] = $ciudadSelect;
         $data['comunaSelect'] = $comunaSelect;
@@ -425,16 +431,14 @@ class LugarController extends Controller
 
         //Sacar +56 de los telefonos
         $lugar->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
-        $lugar->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
-        $lugar->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
+        $lugar->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono2());
+        $lugar->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono3());
 
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
             'lugar' => $lugar,
             'form' => $form->createView(),
             'errors' => $errors,
-            'caracteristicas' => $caracteristicas,
-            'subCategorias' => $subCategorias,
         ));
     }
 
