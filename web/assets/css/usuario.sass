@@ -1,3 +1,5 @@
+$error: #F66
+
 /* Perfil de usuario */
 
 #menu-usuario
@@ -122,6 +124,9 @@
 
                 input[type=text], input[type=password], .edicion-sexo
                     width: 300px
+
+                input[type=file]
+                    width: 316px
                     
                 input[type=radio]
                     float: left        
@@ -147,12 +152,17 @@
                 small.errors
                     margin-right: 252px
 
-            .errores-container
-                width: 98%
-                display: block
-
         .edicion
             margin-top: 30px
+
+            .edicion_error
+                background:
+                    color: lighten($error, 25%)
+                border: 1px solid $error
+                line-height: 18px
+                margin: 0 0 20px 0
+                padding: 5px 10px
+                width: 456px
 
 /*  Extras */
 
