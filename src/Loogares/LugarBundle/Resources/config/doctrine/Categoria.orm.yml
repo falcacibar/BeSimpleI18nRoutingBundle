@@ -7,7 +7,7 @@ Loogares\LugarBundle\Entity\Categoria:
     oneToMany:
         categoria_lugar:
             targetEntity: Loogares\LugarBundle\Entity\CategoriaLugar
-            mappedBy: categorias
+            mappedBy: categoria
     id:
         id:
             type: integer

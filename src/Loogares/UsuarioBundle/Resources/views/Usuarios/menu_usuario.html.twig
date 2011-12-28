@@ -1,8 +1,4 @@
-{% if usuario.slug != '' %}
-{% 	set slug = usuario.slug %}
-{% else %}
-{% 	set slug = usuario.id %}
-{% endif %}
+{% set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
 
 <div id="menu-usuario">
 	<ul>

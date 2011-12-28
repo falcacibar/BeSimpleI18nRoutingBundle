@@ -171,6 +171,15 @@ class LugarRepository extends EntityRepository
       return $tipoCategoriasResult;
     }
 
+    public function getTotalLugaresPorCategoria($categoria) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT COUNT(cl) total
+                             FROM Loogares\LugarBundle\Entity\CategoriaLugar cl
+                             WHERE cl.categoria = ?1");
+      $q->setParameter(1, $categoria);
+      return $q->getSingleResult();
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");

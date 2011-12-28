@@ -16,11 +16,23 @@ class DefaultController extends Controller
     public function menuAction(){
 
     	$em = $this->getDoctrine()->getEntityManager();
-        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");        
 
         $tipoCategorias = $lr->getTipoCategoriaPorPrioridad();
+        $categorias = $em->getRepository("LoogaresLugarBundle:Categoria")->findAll();             
+        
+        $data = array();           
+        
+        $data['tipoCategorias'] = $tipoCategorias;
+        $data['categorias']  = $categorias;
 
-        $data = $tipoCategorias;
+        foreach($data['categorias'] as $categoria){
+            $lugares = $em->getRepository("LoogaresLugarBundle:Lugar")->getTotalLugaresPorCategoria($categoria->getId());
+            //$lugares = array('1','2'); 
+
+            $categoria->lugares = $lugares['total'];
+        }
+
     	return $this->render('::menu.html.twig', array('menu' => $data));
     }
 

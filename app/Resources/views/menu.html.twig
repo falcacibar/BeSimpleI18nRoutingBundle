@@ -1,12 +1,14 @@
 <div class="menu_categorias">
 	<ul>
-		{% for tipoCategoria in menu %}
+		{% for tipoCategoria in menu.tipoCategorias %}
 			<li><a href="#">{{tipoCategoria.nombre}}</a>
 				<ul>
-					<li><a href="#">Bares / Pubs (488)</a></li>
-					<li><a href="#">Cafés / Teterías (390)</a></li>
-					<li><a href="#">Heladerías (81)</a></li>
-					<li><a href="#">Restaurantes (1789)</a></li>
+					{% for categoria in menu.categorias %}
+						{% if categoria.tipoCategoria == tipoCategoria %}
+							<li><a href="#">{{categoria.nombre}} ({{categoria.lugares}})</a></li>				
+						{% endif %}
+					{% endfor %}
+					
 				</ul>
 			</li>
 		{% endfor %}
