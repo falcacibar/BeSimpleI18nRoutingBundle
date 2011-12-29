@@ -467,12 +467,14 @@ class UsuarioController extends Controller
         } else {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
         }
-        if($error == 'usuarios.error.completo')
+        if($error != null && $error->getMessage() == 'usuario.errors.completo')
             $formErrors['completo'] = $error;
-        else if($error == 'usuarios.error.password')
+        else if($error != null && $error->getMessage() == 'usuario.errors.password')
             $formErrors['password'] = $error;
-        else
+        else if($error != null && $error->getMessage() == 'usuario.errors.emptyPassword')
             $formErrors['emptyPassword'] = $error;
+
+        $session->set(SecurityContext::AUTHENTICATION_ERROR, null);
 
         // Variable de sesión con ciudad (temporal)
         $er = $em->getRepository("LoogaresExtraBundle:Ciudad");
@@ -480,7 +482,7 @@ class UsuarioController extends Controller
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
-            'errors'    => array(),
+            'errors' => $formErrors
         ));
     }
 }

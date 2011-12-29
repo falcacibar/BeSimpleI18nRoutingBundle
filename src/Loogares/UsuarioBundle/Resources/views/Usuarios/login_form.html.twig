@@ -1,8 +1,8 @@
 <div class="login">
-    {% if errors %}
-        <div class="login_error">
+    {% if errors is defined and errors | length > 0 %}   
+        <div class="login_error">         
             {% for error in errors %}           
-                {{error.message|trans}}
+                {{error.message | trans}}
             {% endfor %}
         </div>
     {% endif %}
@@ -10,12 +10,12 @@
     <form action="{{ path('login_check') }}" method="post" class="login_form">
         <div>
             <label for="mail">E-mail:</label>
-            <input type="text" id="mail" name="_mail" value="{{ last_mail }}" class="{{errors.completo is defined ? 'input-error' : ' '}}"/>
+            <input type="text" id="mail" name="_mail" value="{{ last_mail }}" class="{{(errors.completo is defined) ? 'input-error' : ' '}}"/>
         </div>
 
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="_password" class="{{errors.completo is defined or errors.emptyPassword is defined ? 'input-error' : ' '}}"/>
+            <input type="password" id="password" name="_password" class="{{(errors is defined and errors|length > 0) ? 'input-error' : ' '}}"/>
         </div>
 
         <div>
