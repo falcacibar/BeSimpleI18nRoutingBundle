@@ -95,8 +95,8 @@ body {
       color: white;
       float: left;
       font-size: 11px;
-      margin: 5px 10px 5px 240px;
-      width: 171px; }
+      margin: 5px 10px 5px 0px;
+      width: 411px; }
       .barra_ciudad .centrado_ciudad .login a {
         color: white;
         text-decoration: none; }
@@ -105,12 +105,12 @@ body {
           text-decoration: underline; }
       .barra_ciudad .centrado_ciudad .login .facebook_login {
         background: url("../images/extras/botones_sprite.png") 0px 0px;
-        float: left;
+        float: right;
         height: 15px;
         width: 48px;
         margin-left: 20px; }
       .barra_ciudad .centrado_ciudad .login .usuario_login {
-        float: left;
+        float: right;
         display: block;
         margin: 2px 0 0 12px; }
     .barra_ciudad .centrado_ciudad .redes_sociales {
