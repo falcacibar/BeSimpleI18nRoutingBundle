@@ -10,16 +10,6 @@
             font-size: 10px;
         }
 
-        span.area-code{
-            color: #ccc !important;
-            margin-right: 3px;
-            font-size: 16px;
-        }
-
-        .telefono{
-            width: 245px !important;
-        }
-
         .lugar-existe p{
             
         }
@@ -45,14 +35,6 @@
         li.no-default{
             display: none;
         }   
-
-        table td, table th{
-            width: 60px !important;
-            padding: 4px 2px;
-        }
-        table select{
-            width: 80px !important;
-        }
 
         .agregar-lugar .caracteristicas ul li,.agregar-lugar .subcategorias ul li{
             display: none;
@@ -136,6 +118,8 @@
     </div>
 {% endif %}
 
+<h1 class="titulo">Agrega un Lugar</h1>
+
 <div class="errores-container"></div>
 
 <ul class="agregar-lugar">
@@ -185,7 +169,7 @@
                 </optgroup>
             {% endfor %}
         </select>
-        <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
+        <span class="quitar_info"><a rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
             <ul>
                 {% for subCategoria in data.subCategorias %}
@@ -213,7 +197,7 @@
                 </optgroup>
             {% endfor %}
         </select>
-        <span class="quitar-info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
+        <span class="quitar_info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
             <ul>
                 {% for subCategoria in data.subCategorias %}
@@ -228,7 +212,7 @@
         </div>
     </li>
     <li>        
-        <span class="display-more"><a class="display-more-info" rel="categoria" href="">» Agrega una categoría secundaria (Máx. 
+        <span class="agregar_info"><a class="display-more-info" rel="categoria" href="">» Agrega una categoría secundaria (Máx. 
         <span>2</span>)</a></span>
     </li>
     <li>
@@ -258,20 +242,20 @@
     <li>
         <label>Calle *</label>
         <input type="text" value="{{lugar.calle}}" name="form[calle]" title="Ingresa la Calle del Lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
-        <label>Nº *</label>
+        <label class="label_numero">Nº *</label>
         <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="Ej. 1949 o s/n"/>
     </li>
     <li>     
-        <span class="display-more"><a class="display-next-li" href="">» ¿Es parte de una galería o centro comercial?</a></span>
+        <span class="agregar_info"><a class="display-next-li" href="">» ¿Es parte de una galería o centro comercial?</a></span>
         <div class="lugar-existe"></div>
     </li>
     <li class="no-default">
         <label>Detalle</label>
         <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="Ej. A, Local 45, Piso 9, Centro Comercial Matta"/>
-        <span class="quitar-info"><a class="quitar" href="">Quitar</a></span>
+        <span class="quitar_info"><a class="quitar" href="">Quitar</a></span>
     </li>
     <li>
-        <span class="display-more"><a href="" class="cargar-mapa">Cargar mapa</a></span>
+        <span class="agregar_info"><a class="cargar_mapa" href="">Cargar mapa</a></span>
     </li>
     <li>
         <label>Sector</label>
@@ -279,23 +263,23 @@
     </li>
     <li>
         <label>Teléfono</label>
-        <span class="area-code">{{data.ciudadActual.pais.codigoArea}}</span>
+        <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
         <input type="text" value="{{lugar.tel1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. 2 2130894"/>
     </li>
     <li class="no-default">
         <label>Teléfono</label>
-        <span class="area-code">{{data.ciudadActual.pais.codigoArea}}</span>
+        <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
         <input type="text" value="{{lugar.tel2}}" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="Ej. 2 2130894"/>
-        <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <span class="quitar_info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li class="no-default">
         <label>Teléfono</label>
-        <span class="area-code">{{data.ciudadActual.pais.codigoArea}}</span>
+        <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
         <input type="text" value="{{lugar.tel3}}" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="Ej. 2 2130894"/>
-        <span class="quitar-info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <span class="quitar_info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
     </li>
     <li>
-        <span class="display-more"><a class="display-more-info" rel="telefono" href="">» ¿Más teléfonos? (Máx.
+        <span class="agregar_info"><a class="display-more-info" rel="telefono" href="">» ¿Más teléfonos? (Máx.
         <span>2</span>)</a></span>
     </li>
     <li>
@@ -316,18 +300,19 @@
     </li>
     <li>
         <label>Horario</label>
-        <input type="checkbox" name="habilitar-horario" class="habilitar-horario"/><small>¿Sabes los horarios de atención? Agrégalos</small>
+        <input type="checkbox" name="habilitar-horario" class="horario habilitar-horario" />
+        <span class="horario_tip">¿Sabes los horarios de atención? Agrégalos</span>
     </li>
    <li class="no-default">
         <table class="agregar-horarios">
             <thead>
                 <th></th>
-                <th colspan="2">Jornada 1</th>
-                <th colspan="2">Jornada 2</th>
+                <th class="th-doble">Jornada 1</th>
+                <th class="th-doble">Jornada 2</th>
                 <th></th>
             </thead>
             <tbody>
-                <tr>
+                <tr class="separacion_horario">
                     <td></td>
                     <td>Abre</td>
                     <td>Cierra</td>
@@ -335,7 +320,7 @@
                     <td>Cierra</td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr class="separacion_horario">
                     <td>Lunes</td>
                     <td>
                         <select name="horario-lunes[]">
@@ -357,9 +342,12 @@
                             {{ data.horarios | raw}}
                         </select>
                     </td>
-                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td> 
+                    <td class="jornada-doble">
+                        <input type="checkbox" class="jornada-doble-checkbox">
+                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                    </td> 
                 </tr>
-                <tr>
+                <tr class="separacion_horario">
                     <td>Martes</td>
                     <td>
                         <select name="horario-martes[]">
@@ -381,9 +369,12 @@
                             {{ data.horarios | raw}}
                         </select>
                     </td>
-                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                    <td class="jornada-doble">
+                        <input type="checkbox" class="jornada-doble-checkbox">
+                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                    </td> 
                 </tr>
-                <tr>
+                <tr class="separacion_horario">
                     <td>Miércoles</td>
                     <td>
                         <select name="horario-miercoles[]">
@@ -405,9 +396,12 @@
                             {{ data.horarios | raw}}
                         </select>
                     </td>
-                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                    <td class="jornada-doble">
+                        <input type="checkbox" class="jornada-doble-checkbox">
+                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                    </td> 
                 </tr>
-                <tr>
+                <tr class="separacion_horario">
                     <td>Jueves</td>
                     <td>
                         <select name="horario-jueves[]">
@@ -429,9 +423,12 @@
                             {{ data.horarios | raw}}
                         </select>
                     </td>
-                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                    <td class="jornada-doble">
+                        <input type="checkbox" class="jornada-doble-checkbox">
+                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                    </td> 
                 </tr>
-                <tr>
+                <tr class="separacion_horario">
                     <td>Viernes</td>
                     <td>
                         <select name="horario-viernes[]">
@@ -453,9 +450,12 @@
                             {{ data.horarios | raw}}
                         </select>
                     </td>
-                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                    <td class="jornada-doble">
+                        <input type="checkbox" class="jornada-doble-checkbox">
+                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                    </td> 
                 </tr>
-                <tr>
+                <tr class="separacion_horario">
                     <td>Sábado</td>
                     <td>
                         <select name="horario-sabado[]">
@@ -477,9 +477,12 @@
                             {{ data.horarios | raw}}
                         </select>
                     </td>
-                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                    <td class="jornada-doble">
+                        <input type="checkbox" class="jornada-doble-checkbox">
+                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                    </td> 
                 </tr>
-                <tr>
+                <tr class="separacion_horario">
                     <td>Domingo</td>
                     <td>
                         <select name="horario-domingo[]">
@@ -501,13 +504,20 @@
                             {{ data.horarios | raw}}
                         </select>
                     </td>
-                    <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td>
+                    <td class="jornada-doble">
+                        <input type="checkbox" class="jornada-doble-checkbox">
+                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                    </td>                     
+                    <!-- <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td> -->
                 </tr>
                 <tr>
+                    <td class="agregar-horarios-tip">
+                        Si no se indica ningún horario para un determinado día, se entenderá que ese día está cerrado.<br/>
+                        Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.
+                    </td>
+                </tr>
             </tbody>
         </table>
-        <small>Si no se indica ningún horario para un determinado día, se entenderá que ese día está cerrado.<br/>
-        Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.</small>
     </li>
     <li class="no-default">
         <label>Profesional</label>
@@ -545,9 +555,10 @@
         <input type="hidden" class="mapy" value="{{lugar.mapy}}" name="form[mapy]" id="form_mapy"/>
     </li>
     <li class="no-default"><input type="hidden" name="id" class="id" value="{{lugar.id}}"/>
-    <li><input type="submit" value="Guardar los datos" formnovalidate/></li>
+    <li><input class="guardar-datos" type="submit" value="Guardar los datos" formnovalidate/></li>
 </ul>
-<div class="mapa_agregar">
+
+<div class="mapa">
     <div id="mapa" class="gmaps">
 
     </div>

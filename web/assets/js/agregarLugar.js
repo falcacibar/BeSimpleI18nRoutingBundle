@@ -130,12 +130,12 @@ $('.categoria').live('change', function(){
     selected[$this.attr('id')] = $this.val();
 });
 
-$('.jornada-doble').click(function(){
+$('.jornada-doble-checkbox').click(function(){
     if($(this).is(':checked')){
-        $(this).parent().parent().parent().find('.horario-pm').fadeIn();
+        $(this).parent().parent().find('.horario-pm').fadeIn();
         $('table').find('th.horario-pm').fadeIn();
     }else{
-        $(this).parent().parent().parent().find('.horario-pm').fadeOut(function(){
+        $(this).parent().parent().find('.horario-pm').fadeOut(function(){
                             if($('td.horario-pm:visible').length == 0){
            $('table').find('th.horario-pm').fadeOut();
         }
@@ -227,7 +227,7 @@ $('form').submit(function(e){
     return false;
 });
 
-$('.cargar-mapa').click(function(e){
+$('.cargar_mapa').click(function(e){
     e.preventDefault();
     if(!$('#form_calle').val().match('Ej') && !$('#form_numero').val().match('Ej')){
         $.ajax({

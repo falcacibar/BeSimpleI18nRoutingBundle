@@ -1,89 +1,251 @@
+/* Colores */
+/* Mixin */
+/* Agregar / Editar Lugar */
 .agregar-lugar {
-  width: 480px;
-  float: left; }
+  font-size: 13px;
+  float: left;
+  width: 480px; }
   .agregar-lugar li {
-    margin: 4px 0; }
+    display: block;
+    float: left;
+    margin: 0 0 15px 0; }
     .agregar-lugar li.no-default {
       display: none; }
+    .agregar-lugar li span .cargar_mapa {
+      background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+      background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
+      border: 1px solid #ff3300;
+      cursor: pointer;
+      border-radius: 2px;
+      -o-border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      color: white;
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      height: 14px;
+      padding: 8px 10px;
+      text-shadow: 1px 1px 1px #444444;
+      width: 80px; }
+      .agregar-lugar li span .cargar_mapa:hover {
+        background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
+        border: 1px solid #ff4400;
+        cursor: pointer;
+        color: white;
+        height: 14px;
+        padding: 8px 10px;
+        text-decoration: none;
+        text-shadow: 1px 1px 1px #444444;
+        width: 80px; }
   .agregar-lugar label {
-    width: 90px;
-    display: inline-block; }
-  .agregar-lugar span.display-more, .agregar-lugar span.quitar-info {
-    font-size: 10px;
     display: block;
-    text-align: right;
-    margin: 1px 87px 0 0; }
-    .agregar-lugar span.display-more a, .agregar-lugar span.quitar-info a {
-      color: #0066cc; }
-  .agregar-lugar span.quitar-info {
-    display: inline-block;
-    margin: 0; }
-  .agregar-lugar .numero {
-    width: 80px; }
+    float: left;
+    margin: 3px 0;
+    width: 100px; }
+  .agregar-lugar .label_numero {
+    margin: 3px 0 3px 5px;
+    width: 30px; }
+  .agregar-lugar input {
+    border: 1px solid #999999;
+    float: left;
+    height: 20px;
+    padding: 3px 5px;
+    width: 290px; }
+    .agregar-lugar input:hover {
+      border: 1px solid #444444; }
+    .agregar-lugar input:focus {
+      border: 1px solid #0099ff; }
+  .agregar-lugar select {
+    border: 1px solid #999999;
+    float: left;
+    height: 26px;
+    padding: 3px 5px;
+    width: 300px; }
+  .agregar-lugar .quitar_info {
+    display: block;
+    float: left;
+    margin: 7px 0 7px 10px; }
+    .agregar-lugar .quitar_info a {
+      color: #0099ff;
+      text-decoration: none; }
+      .agregar-lugar .quitar_info a:hover {
+        color: #0099ff;
+        text-decoration: underline; }
+  .agregar-lugar .agregar_info {
+    display: block;
+    font-size: 11px;
+    float: left;
+    margin: 0 0 0 100px; }
+    .agregar-lugar .agregar_info a {
+      color: #0099ff;
+      text-decoration: none; }
+      .agregar-lugar .agregar_info a:hover {
+        color: #0099ff;
+        text-decoration: underline; }
   .agregar-lugar .calle {
-    width: 177px; }
-  .agregar-lugar .subcategorias {
+    display: block;
+    float: left;
+    width: 160px; }
+  .agregar-lugar .numero {
+    display: block;
+    float: left;
+    width: 80px; }
+  .agregar-lugar .codigo_area {
+    color: #cccccc;
+    display: block;
+    float: left;
+    font-size: 18px;
+    margin: 6px 5px 6px 0;
+    width: 35px; }
+  .agregar-lugar .telefono {
+    display: block;
+    float: left;
+    width: 250px; }
+  .agregar-lugar .horario {
+    display: block;
+    float: left;
+    margin: 7px 0;
+    width: 20px; }
+  .agregar-lugar .horario_tip {
+    display: block;
+    float: left;
+    font-size: 11px;
+    margin: 8px 0;
+    width: 360px; }
+  .agregar-lugar table {
+    margin: 0 10px 0 100px;
+    width: 580px; }
+    .agregar-lugar table th, .agregar-lugar table td {
+      float: left;
+      font-weight: normal;
+      text-align: left;
+      padding: 0 0 5px 0;
+      width: 85px; }
+      .agregar-lugar table th.horario-pm, .agregar-lugar table td.horario-pm {
+        display: none; }
+    .agregar-lugar table .th-doble {
+      float: left;
+      width: 170px; }
+    .agregar-lugar table td select {
+      height: 20px;
+      width: 75px; }
+    .agregar-lugar table .jornada-doble {
+      float: left;
+      width: 150px; }
+      .agregar-lugar table .jornada-doble .jornada-doble-checkbox {
+        float: left;
+        margin: 3px 0;
+        width: 15px; }
+      .agregar-lugar table .jornada-doble .jornada-doble-tip {
+        float: left;
+        font-size: 11px;
+        padding: 4px 0 4px 5px;
+        width: 130px; }
+    .agregar-lugar table tr {
+      float: left;
+      width: 580px; }
+    .agregar-lugar table .agregar-horarios-tip {
+      font-size: 11px;
+      line-height: 18px;
+      width: 580px; }
+    .agregar-lugar table .separacion_horario {
+      border-bottom: 1px solid #cccccc;
+      float: left;
+      margin: 0 0 10px 0;
+      width: 580px; }
+  .agregar-lugar .guardar-datos {
+    background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+    background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+    background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+    background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+    background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
+    border: 1px solid #ff3300;
+    cursor: pointer;
+    border-radius: 2px;
+    -o-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    color: white;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    height: 35px;
+    margin: 0 0 0 100px;
+    padding: 8px 10px;
+    text-shadow: 1px 1px 1px #444444;
+    width: 140px; }
+    .agregar-lugar .guardar-datos:hover {
+      background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+      background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+      background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+      background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+      background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
+      background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
+      border: 1px solid #ff4400;
+      cursor: pointer;
+      color: white;
+      height: 35px;
+      padding: 8px 10px;
+      text-decoration: none;
+      text-shadow: 1px 1px 1px #444444;
+      width: 140px; }
+
+.mapa {
+  display: block;
+  float: left;
+  height: 500px;
+  width: 480px; }
+  .mapa .mapa_info {
+    display: block;
+    font-size: 11px;
+    margin: 0 auto 10px;
+    text-align: center;
+    padding: 5px;
+    width: 180px; }
+    .mapa .mapa_info span {
+      color: red;
+      font-weight: bold;
+      display: block; }
+  .mapa .gmaps {
+    background: #dddddd;
+    border: 1px solid #cccccc;
+    display: block;
+    height: 350px;
+    width: 478px; }
+  .mapa .subcategorias {
     width: 400px;
     margin: 5px 0 0 92px;
     display: none; }
-    .agregar-lugar .subcategorias li {
+    .mapa .subcategorias li {
       display: inline-block;
       margin: 1px; }
-      .agregar-lugar .subcategorias li label {
+      .mapa .subcategorias li label {
         display: inline-block;
         width: 170px;
         font-size: 10px;
         line-height: 10px;
         float: left; }
-        .agregar-lugar .subcategorias li label span:hover {
+        .mapa .subcategorias li label span:hover {
           border-bottom: 1px dotted #0066cc; }
-  .agregar-lugar .caracteristicas {
+  .mapa .caracteristicas {
     width: 400px;
     margin: -20px 0 0 93px; }
-    .agregar-lugar .caracteristicas ul li {
+    .mapa .caracteristicas ul li {
       display: inline-block;
       margin: 1px; }
-    .agregar-lugar .caracteristicas ul label {
+    .mapa .caracteristicas ul label {
       width: 180px;
       font-size: 10px; }
-      .agregar-lugar .caracteristicas ul label span:hover {
+      .mapa .caracteristicas ul label span:hover {
         border-bottom: 1px dotted #0066cc; }
-
-.agregar-horarios th {
-  font-weight: bold; }
-.agregar-horarios td, .agregar-horarios th {
-  width: 10px;
-  padding: 3px; }
-  .agregar-horarios td.horario-pm, .agregar-horarios th.horario-pm {
-    display: none; }
-.agregar-horarios td select {
-  width: 80px; }
-.agregar-horarios td label {
-  position: absolute;
-  margin: 2px 0 0 4px;
-  font-size: 10px;
-  width: 120px; }
-
-.mapa_agregar {
-  display: block;
-  height: 500px;
-  width: 480px;
-  float: right;
-  margin-top: 6px; }
-  .mapa_agregar .mapa_info {
-    padding: 5px;
-    width: 180px;
-    margin: 0 auto 10px;
-    text-align: center;
-    display: block;
-    font-size: 11px; }
-    .mapa_agregar .mapa_info span {
-      color: red;
-      font-weight: bold;
-      display: block; }
-  .mapa_agregar .gmaps {
-    background: #dddddd;
-    height: 350px;
-    width: 478px;
-    display: block;
-    border: 1px solid #cccccc; }

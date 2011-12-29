@@ -311,6 +311,8 @@ body {
           width: 250px; }
           .contenedor .contenido .login .login_form div input:hover {
             border: 1px solid #444444; }
+          .contenedor .contenido .login .login_form div input:focus {
+            border: 1px solid #0099ff; }
           .contenedor .contenido .login .login_form div input.checkbox {
             float: left;
             margin: 0 0 10px 0;
@@ -610,21 +612,18 @@ body {
 
 /* AGREGADO POR EL SUR */
 .errores-container {
-  background: #ffe5e5;
-  border: 1px solid #ffd6d6;
-  color: #ff6666;
+  background-color: #ffe5e5;
+  border: 1px solid #ff6666;
+  float: left;
   display: none;
-  border-radius: 5px;
-  padding: 10px;
-  width: 940px;
-  box-shadow: 0 1px 0 red;
-  margin: 10px auto; }
-  .errores-container p {
-    padding: 4px 0; }
-    .errores-container p:before {
-      content: "»";
-      font-weight: bold;
-      margin-right: 5px; }
+  line-height: 18px;
+  margin: 0 0 20px 0;
+  padding: 5px 10px;
+  width: 938px; }
+  .errores-container p:before {
+    content: "»";
+    font-weight: bold;
+    margin-right: 4px; }
 
 small.errors {
   color: #ff3333;
