@@ -749,7 +749,8 @@ body
                     &:hover
                         @include link_gris_999_hover
 
-/* AGREGADO POR EL SUR */
+/* Errores */
+
 .errores-container
     background:
         color: lighten($error, 25%)
@@ -768,16 +769,28 @@ body
             font-weight: bold
             margin-right: 4px
 
-small.errors
-    color: lighten(red, 10%)
+.errors
+    color: $error
     display: block
-    text-align: right
-    margin-right: 87px
-    font-size: 10px
+    font:
+        size: 11px
+    float: left
+    line-height: 14px
+    margin: 5px 0 0 110px
+    text-align: left
+    width: 400px
 
-small.errors.categoria
+.errors.categoria
     margin-right: 100px
 
+.input-error
+    border: 1px solid $error !important
+
+
+
+
+
+/* AGREGADO POR EL SUR */
 
 input[type=text], textarea, input[type=password]
     padding: 8px
@@ -802,9 +815,6 @@ label
 
 input:focus, textarea
     outline: none
-
-.input-error
-    border: 1px solid lighten(red, 30%) !important
 
 small
     font-size: 10px

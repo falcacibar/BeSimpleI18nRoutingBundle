@@ -397,32 +397,34 @@ body {
         width: 439px; }
       .contenedor .contenido .registro .registro_form {
         font-size: 12px; }
-        .contenedor .contenido .registro .registro_form div label {
+        .contenedor .contenido .registro .registro_form li label {
           display: block;
           float: left;
           margin: 5px 0;
           width: 120px; }
-        .contenedor .contenido .registro .registro_form div input {
+        .contenedor .contenido .registro .registro_form li input {
           border: 1px solid #999999;
           height: 20px;
           margin: 0 0 10px;
           padding: 3px 5px;
           width: 250px; }
-          .contenedor .contenido .registro .registro_form div input:hover {
+          .contenedor .contenido .registro .registro_form li input:hover {
             border: 1px solid #444444; }
-          .contenedor .contenido .registro .registro_form div input.checkbox {
+          .contenedor .contenido .registro .registro_form li input.checkbox {
             float: left;
             margin: 0 0 10px 0;
             width: 20px; }
-        .contenedor .contenido .registro .registro_form div .tip_registro {
+        .contenedor .contenido .registro .registro_form li small.errors {
+          margin-right: 76px; }
+        .contenedor .contenido .registro .registro_form li .tip_registro {
           float: left;
           font-size: 11px;
           margin: 0 0 10px;
           width: 330px; }
-          .contenedor .contenido .registro .registro_form div .tip_registro a {
+          .contenedor .contenido .registro .registro_form li .tip_registro a {
             color: #0099ff;
             text-decoration: none; }
-            .contenedor .contenido .registro .registro_form div .tip_registro a:hover {
+            .contenedor .contenido .registro .registro_form li .tip_registro a:hover {
               color: #0099ff;
               text-decoration: underline; }
         .contenedor .contenido .registro .registro_form .submit {
@@ -620,7 +622,7 @@ body {
           color: #999999;
           text-decoration: underline; }
 
-/* AGREGADO POR EL SUR */
+/* Errores */
 .errores-container {
   background-color: #ffe5e5;
   border: 1px solid #ff6666;
@@ -635,16 +637,23 @@ body {
     font-weight: bold;
     margin-right: 4px; }
 
-small.errors {
-  color: #ff3333;
+.errors {
+  color: #ff6666;
   display: block;
-  text-align: right;
-  margin-right: 87px;
-  font-size: 10px; }
+  font-size: 11px;
+  float: left;
+  line-height: 14px;
+  margin: 5px 0 0 110px;
+  text-align: left;
+  width: 400px; }
 
-small.errors.categoria {
+.errors.categoria {
   margin-right: 100px; }
 
+.input-error {
+  border: 1px solid #ff6666 !important; }
+
+/* AGREGADO POR EL SUR */
 input[type=text], textarea, input[type=password] {
   padding: 8px;
   -moz-border-radius: 2px;
@@ -668,9 +677,6 @@ label {
 
 input:focus, textarea {
   outline: none; }
-
-.input-error {
-  border: 1px solid #ff9999 !important; }
 
 small {
   font-size: 10px; }

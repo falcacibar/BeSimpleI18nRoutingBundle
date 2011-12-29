@@ -112,12 +112,12 @@
 <ul class="agregar-lugar">
     <li>
         <label>Nombre *</label>
-        <input type="text" value="{{lugar.nombre}}" title="Ingresa el Nombre del Lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
+        <input type="text" value="{{lugar.nombre}}" title="Ingresa el nombre del lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
         <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
     </li>
     <li>
         <label>Categorías *</label>
-        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+        <select class='categoria required' title='Recuerda asignarle una categoría al lugar' name='categoria[]'>
             <option value="elige">Elige una Categoria Principal</option>
             {% for tipoCategoria in data.tipoCategoria %}
                 <optgroup label="{{tipoCategoria.nombre}}">
@@ -129,6 +129,7 @@
                 </optgroup>
             {% endfor %}
         </select>
+        <span></span>
         <div class='subcategorias'>
             <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
             <ul class="alinear_subcategorias">
@@ -145,7 +146,7 @@
     </li>
     <li class="no-default">
         <label>Categorías</label>
-        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+        <select class='categoria' title='' name='categoria[]'>
             <option value="elige">Elige una Categoria Secundaria</option>
             {% for tipoCategoria in data.tipoCategoria %}
                 <optgroup label="{{tipoCategoria.nombre}}">
@@ -174,7 +175,7 @@
     </li>
     <li class="no-default">
         <label>Categorías</label>
-        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+        <select class='categoria' title='' name='categoria[]'>
             <option value="elige">Elige una Categoria Secundaria</option>
             {% for tipoCategoria in data.tipoCategoria %}
                 <optgroup label="{{tipoCategoria.nombre}}">
@@ -207,7 +208,7 @@
     </li>
     <li>
         <label>Pais *</label>
-        <select class='pais required' title='Seleccione un Pais valido' name='pais' id='pais'>
+        <select class='pais required' title='' name='pais' id='pais'>
         {% for pais in data.pais %}
             <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
         {% endfor %}
@@ -215,7 +216,7 @@
     </li>
     <li>
         <label>Ciudad *</label>
-        <select class='ciudad required' title='Seleccione una Ciudad valida' name='ciudad' id='ciudad'>
+        <select class='ciudad required' title='' name='ciudad' id='ciudad'>
         {% for pais in data.pais %}
             <optgroup label="{{pais.nombre}}">
                 {% for ciudad in data.ciudad %}
@@ -231,9 +232,9 @@
     </li>
     <li>
         <label>Calle *</label>
-        <input type="text" value="{{lugar.calle}}" name="form[calle]" title="Ingresa la Calle del Lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
+        <input type="text" value="{{lugar.calle}}" name="form[calle]" title="Ingresa la calle del lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
         <label class="label_numero">Nº *</label>
-        <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="Ingresa el Numero del Lugar" id="form_numero" placeholder="Ej. 1949 o s/n"/>
+        <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="Ingresa el número del lugar" id="form_numero" placeholder="Ej. 1949 o s/n"/>
     </li>
     <li>     
         <span class="agregar_info"><a class="display-next-li" href="">» ¿Es parte de una galería o centro comercial?</a></span>
@@ -246,6 +247,7 @@
     </li>
     <li>
         <span class="agregar_info"><a class="cargar_mapa" href="">Cargar mapa</a></span>
+        <span class="mapa_info"></span>
     </li>
     <li>
         <label>Sector</label>
@@ -286,7 +288,7 @@
     </li>
     <li>
         <label>E-mail</label>
-        <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="Ej. usuario@logoares.com"/>
+        <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="Ej. usuario@loogares.com"/>
     </li>
     <li>
         <label>Horario</label>
@@ -545,6 +547,9 @@
         <input type="hidden" class="mapy" value="{{lugar.mapy}}" name="form[mapy]" id="form_mapy"/>
     </li>
     <li class="no-default"><input type="hidden" name="id" class="id" value="{{lugar.id}}"/>
+    <li class="obligatorio_tip">
+        <span>Los campos con (*) son obligatorios</span>
+    </li>
     <li><input class="guardar-datos" type="submit" value="Guardar los datos" formnovalidate/></li>
 </ul>
 
@@ -552,7 +557,7 @@
     <div id="mapa" class="gmaps">
 
     </div>
-    <div class="mapa_info">
+    <div class="mapa_ubicacion">
         <span>Ubicación en el mapa</span>
         Una vez cargado el mapa, puedes arrastrar el ícono para corregir su posición.
     </div>

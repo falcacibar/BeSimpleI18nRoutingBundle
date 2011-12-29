@@ -176,6 +176,8 @@ $('form').submit(function(e){
             $(this).addClass('input-error');
             if($(this).hasClass('calle')){
                 $(this).next('input').after('<small class="errors">'+$(this).attr('title')+'</small>');
+            }else if($(this).hasClass('categoria')){
+                $(this).next('span').after('<small class="errors">'+$(this).attr('title')+'</small>'); 
             }else{
                $(this).after('<small class="errors">'+$(this).attr('title')+'</small>'); 
             }
@@ -186,9 +188,9 @@ $('form').submit(function(e){
     });
 
     if( !($('input[name="form[numero]"]').val().match(/(\d+|s\/n)/g)) ){
-        errores += "<p>Ingrese solo numeros o s/n en el numero del Lugar</p>";
+        errores += "<p>Debes ingresar sólo números o \"s/n\" en el campo de Nº</p>";
         $('input[name="form[numero]"]').addClass('input-error');
-        $('input[name="form[numero]"]').after('<small class="errors">Ingrese solo numeros o s/n en el numero del Lugar</small>')
+        $('input[name="form[numero]"]').after('<small class="errors">Debes ingresar sólo números o "s/n" en el campo de Nº</small>')
     }
 
     $.each($('.categoria:not(:hidden)'), function(){
@@ -196,8 +198,8 @@ $('form').submit(function(e){
         if($this.parent().find('.subcategorias ul').children(':visible').length > 0){
             if($this.parent().find('.subcategorias').find('ul > li').length > 0 && $this.parent().find('.subcategorias').find('ul > li > label').children(':checked').length == 0){
                 $this.addClass('input-error');
-                $this.parent().find('.subcategorias ul').after('<small class="errors categoria">Seleccione al menos una Subcategoria</small>');
-                errores += "<p>Seleccione al menos una Subcategoria por Categoria</p>";
+                $this.parent().find('.subcategorias ul').after('<small class="errors categoria">Debes seleccionar al menos una subcategoría</small>');
+                errores += "<p>Debes seleccionar al menos una subcategoría</p>";
             }
         }
     });
@@ -210,8 +212,8 @@ $('form').submit(function(e){
         && 
         $('.comuna').val() != 'elige')
         {
-        errores += "<p>Cargue la direccion en el mapa, o arrastre el cursor donde esta el local</p>";
-        $('.mapa_info').before('<small class="errors">Carga una direccion o arrastra el icono en el mapa.</small>');
+        errores += "<p>¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</p>";
+        $('.mapa_info').before('<small class="errors">¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</small>');
     }
 
     $('.errores-container').html(errores);
