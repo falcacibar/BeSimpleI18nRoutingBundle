@@ -8,52 +8,75 @@
 		<div class="registro">
 			<form class="registro_form" action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
 				
-				{% if form_errors(form) %}
+				{% if formErrors %}
 					<div class="registro_error">
-						{{form_errors(form)}}
-				{% endif %}
-				{% if form_errors(form.mail) or form_errors(form.password) or form_errors(form.nombre) or form_errors(form.apellido) %}
-				
-						{{ form_errors(form.nombre) }}
-						{{ form_errors(form.apellido) }}
-						{{ form_errors(form.mail) }}
-						{{ form_errors(form.password) }}
+						{% for error in formErrors %}
+			   				<p>{{ error }}</p>
+						{% endfor %}
 					</div>
 				{% endif %}
 				
-				<div>
-					{{ form_label(form.nombre) }}
-					{{ form_widget(form.nombre, { 'attr': {'placeholder': 'Ej. Juan'}}) }}
-				</div>
+				<ul>
+					<li>
+						{{ form_label(form.nombre) }}
+						{% set inputClass = (formErrors.nombre is defined) ? 'input-error' : ' '%}
+						{{ form_widget(form.nombre, { 'attr': {'placeholder': 'Ej. Juan', 'class': inputClass}}) }}
+						{% if formErrors.nombre is defined %}
+							<small class="errors">{{formErrors.nombre}}</small>
+						{% endif %}
+					</li>
 
-				<div>
-					{{ form_label(form.apellido) }}
-					{{ form_widget(form.apellido, { 'attr': {'placeholder': 'Ej. Valdéz'}}) }}
-				</div>
+					<li>
+						{% set inputClass = (formErrors.apellido is defined) ? 'input-error' : ' '%}
+						{{ form_label(form.apellido) }}
+						{{ form_widget(form.apellido, { 'attr': {'placeholder': 'Ej. Valdéz', 'class': inputClass}}) }}
+						{% if formErrors.apellido is defined %}
+							<small class="errors">{{formErrors.apellido}}</small>
+						{% endif %}
+					</li>
 
-				<div>
-					{{ form_label(form.mail, 'E-mail') }}
-					{{ form_widget(form.mail, { 'attr': {'placeholder': 'Ej. juanito@empresa.com'}}) }}
-				</div>
+					<li>
+						{% set inputClass = (formErrors.mail is defined) ? 'input-error' : ' '%}
+						{{ form_label(form.mail, 'E-mail') }}
+						{{ form_widget(form.mail, { 'attr': {'placeholder': 'Ej. juanito@empresa.com', 'class': inputClass}}) }}
+						{% if formErrors.mail is defined %}
+							<small class="errors">{{formErrors.mail}}</small>
+						{% endif %}
+					</li>
 
-				<div>
-					{{ form_widget(form.password) }}
-				</div>
-				<div>
-			    	<label></label>
-			    	<span class="tip_registro">El password debe tener un mínimo de 6 caracteres.</span>
-			    </div>					    
+					<li>
+						{% set inputClass = (formErrors.password is defined) ? 'input-error' : ' '%}
+						{{ form_label(form.password) }}
+						{{ form_widget(form.password, { 'attr': {'class': inputClass}}) }}
+						{% if formErrors.password is defined %}
+							<small class="errors">{{formErrors.password}}</small>
+						{% endif %}
+					</li>
 
-			    {{ form_rest(form) }}
+					<li>
+						<label for="confirmarPassword" >Confirmar password</label>
+						<input type="password" id="confirmarPassword" name="confirmarPassword" class="{{formErrors.confirmar is defined ? 'input-error' : ' '}}"/>
+						{% if formErrors.confirmar is defined %}
+							<small class="errors">{{formErrors.confirmar}}</small>
+						{% endif %}
+					</li>
 
-			    <div>
-			    	<label></label>
-			    	<span class="tip_registro">Al hacer click en Registrar confirmo ser mayor de 14 años y acepto los <a href="#">Términos de uso</a> de Loogares.com</span>
-				</div>
+					<li>
+				    	<label></label>
+				    	<span class="tip_registro">El password debe tener un mínimo de 6 caracteres.</span>
+				    </li>					    
 
-				<div class="submit">
-					<label></label><input class="boton_registrar" type="submit" value="Registrar" formnovalidate />
-				</div>
+				    {{ form_rest(form) }}
+
+				    <li>
+				    	<label></label>
+				    	<span class="tip_registro">Al hacer click en Registrar confirmo ser mayor de 14 años y acepto los <a href="#">Términos de uso</a> de Loogares.com</span>
+					</li>
+
+					<li class="submit">
+						<label></label><input class="boton_registrar" type="submit" value="Registrar" formnovalidate />
+					</li>
+				</ul>
 			</form>
 		</div>
 	</div>

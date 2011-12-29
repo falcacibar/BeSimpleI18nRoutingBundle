@@ -316,6 +316,7 @@ class UsuarioController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $formErrors = array();
         
         // Usuario loggeado es redirigido a su perfil
         if($this->get('security.context')->isGranted('ROLE_USER')) 
@@ -325,80 +326,80 @@ class UsuarioController extends Controller
         $usuario = new Usuario();        
 
         $form = $this->createFormBuilder($usuario)
-                     ->add('mail', 'text')
-                     ->add('password', 'repeated', array(
-                                'type' => 'password',
-                                'invalid_message' => 'Los passwords no coinciden. Por favor, corrígelos.',
-                                'first_name' => 'Password',
-                                'second_name' => 'Confirmar password',
-                                'error_bubbling' => true
-                            ))
                      ->add('nombre', 'text')
                      ->add('apellido', 'text')
+                     ->add('mail', 'text')
+                     ->add('password', 'password')                     
                      ->getForm();
 
         // Si el request es POST, se procesa registro
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
-            if ($form->isValid()) {               
+            if ($form->isValid()) {   
+            
+                // Verificación de confirmación de password
+                if($request->request->get('confirmarPassword') != $usuario->getPassword()) {
+                    $formErrors['confirmar'] = "Los passwords no coinciden. Por favor, corrígelos.";        
+                }
+                                
+                else {
+                    // Form válido, generamos campos requeridos
+                    $usuario->setSlug('');
+                    $usuario->setImagenFull("default.gif");
+                    $usuario->setFechaRegistro(new \DateTime());
 
-                // Form válido, generamos campos requeridos
-                $usuario->setSlug('');
-                $usuario->setImagenFull("default.gif");
-                $usuario->setFechaRegistro(new \DateTime());
+                    // Password codificado en SHA2 (por ahora MD5 por compatibilidad)
+                    $usuario->setPassword(md5($usuario->getPassword()));                
 
-                // Password codificado en SHA2 (por ahora MD5 por compatibilidad)
-                $usuario->setPassword(md5($usuario->getPassword()));                
+                    // Usuario queda con el estado 'Por confirmar' y se genera hash confirmación
+                    $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
+                                      ->findOneByNombre('Por confirmar');
+                    $usuario->setEstado($estadoUsuario);
+                    $usuario->setNewsletterActivo(1);
+                    $hashConfirmacion = md5($usuario->getMail().$usuario->getId().time());
+                    $usuario->setHashConfirmacion($hashConfirmacion);
+                    $usuario->setSalt('');
 
-                // Usuario queda con el estado 'Por confirmar' y se genera hash confirmación
-                $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
-                                  ->findOneByNombre('Por confirmar');
-                $usuario->setEstado($estadoUsuario);
-                $usuario->setNewsletterActivo(1);
-                $hashConfirmacion = md5($usuario->getMail().$usuario->getId().time());
-                $usuario->setHashConfirmacion($hashConfirmacion);
-                $usuario->setSalt('');
+                    // Seteamos tipo_usuario a ROLE_USER
+                    $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")
+                                      ->findOneByNombre('ROLE_USER');
+                    $usuario->setTipoUsuario($tipoUsuario);
 
-                // Seteamos tipo_usuario a ROLE_USER
-                $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")
-                                  ->findOneByNombre('ROLE_USER');
-                $usuario->setTipoUsuario($tipoUsuario);
+                    // Agregamos registro a la base de datos
+                    $em->persist($usuario);
+                    $em->flush();
 
-                // Agregamos registro a la base de datos
-                $em->persist($usuario);
-                $em->flush();
+                    // Se envía mail de confirmación a usuario
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject('Confirma tu cuenta en Loogares.com')
+                            ->setFrom('noreply@loogares.com')
+                            ->setTo($usuario->getMail())
+                            ->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.html.twig', array('usuario' => $usuario)), 'text/html')
+                            ->addPart($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.txt.twig', array('usuario' => $usuario)), 'text/plain');
+                    $this->get('mailer')->send($message);
 
-                // Se envía mail de confirmación a usuario
-                $message = \Swift_Message::newInstance()
-                        ->setSubject('Confirma tu cuenta en Loogares.com')
-                        ->setFrom('noreply@loogares.com')
-                        ->setTo($usuario->getMail())
-                        ->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.html.twig', array('usuario' => $usuario)), 'text/html')
-                        ->addPart($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.txt.twig', array('usuario' => $usuario)), 'text/plain');
-                $this->get('mailer')->send($message);
-
-                // Armado de datos para pasar a Twig
-                $data = array('nombre' => $usuario->getNombre(), 'apellido' => $usuario->getApellido());
-                return $this->render('LoogaresUsuarioBundle:Usuarios:mensaje_registro.html.twig', array('usuario' => $data)); 
+                    // Armado de datos para pasar a Twig
+                    $data = array('nombre' => $usuario->getNombre(), 'apellido' => $usuario->getApellido());
+                    return $this->render('LoogaresUsuarioBundle:Usuarios:mensaje_registro.html.twig', array('usuario' => $data));
+                }
             }
         }
 
-
-        // Manejo del login incluido en la vista de registro
-        $request = $this->getRequest();
-        $session = $request->getSession();
-        
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+        //Errores
+        if ($request->getMethod() == 'POST') {
+            foreach($this->get('validator')->validate( $form ) as $formError){
+                $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
+            }
         }
+        
+        $this->get('session')->set(SecurityContext::AUTHENTICATION_ERROR, null);       
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:registro.html.twig', array(
             'form' => $form->createView(),
-            'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
+            'last_mail' => $this->get('session')->get(SecurityContext::LAST_USERNAME),
+            'errors' => array(),
+            'formErrors' => $formErrors
             ));  
     }
 
