@@ -7,15 +7,16 @@
 		    </div>
 	{% endif %}
 
+	{% if errors %}
+		<div class="edicion_error">
+			{% for error in errors %}
+		        <p>{{ error }}</p>
+		    {% endfor %}
+		</div>
+	{% endif %}
+
 	<form action="{{ path('editarFotoUsuario', { 'param': usuario.id }) }}" method="post" {{ form_enctype(form) }}>
-		<div class="form-edicion">
-			{% if errors %}
-				<div class="errores-container">
-					{% for error in errors %}
-			            <p>{{ error }}</p>
-			        {% endfor %}
-				</div>
-			{% endif %}
+		<div class="form-edicion">			
 			<ul class="editar-usuario">
 				<li>
 					{{form_label(form.file, 'Subir foto')}}

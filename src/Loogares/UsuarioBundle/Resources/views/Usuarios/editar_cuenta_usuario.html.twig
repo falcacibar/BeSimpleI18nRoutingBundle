@@ -7,16 +7,16 @@
 		    </div>
 	{% endif %}
 
+	{% if errors %}
+		<div class="edicion_error">
+			{% for error in errors %}
+			    <p>{{ error }}</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+
 	<form action="{{ path('editarCuentaUsuario', { 'param': usuario.id }) }}" method="post" {{ form_enctype(form) }}>
 		<div class="form-edicion">
-			{% if errors %}
-				<div class="errores-container">
-					{% for error in errors %}
-			            <p>{{ error }}</p>
-			        {% endfor %}
-				</div>
-			{% endif %}
-
 			<ul class="editar-usuario">
 				<li>
 					{% set inputClass = (errors.nombre is defined) ? 'input-error' : ' '%}

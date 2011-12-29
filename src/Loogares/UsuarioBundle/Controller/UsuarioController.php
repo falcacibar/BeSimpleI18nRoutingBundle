@@ -453,6 +453,7 @@ class UsuarioController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $formErrors = array();
 
         // Usuario loggeado es redirigido a su perfil
         if($this->get('security.context')->isGranted('ROLE_USER'))
@@ -466,6 +467,12 @@ class UsuarioController extends Controller
         } else {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
         }
+        if($error == 'usuarios.error.completo')
+            $formErrors['completo'] = $error;
+        else if($error == 'usuarios.error.password')
+            $formErrors['password'] = $error;
+        else
+            $formErrors['emptyPassword'] = $error;
 
         // Variable de sesión con ciudad (temporal)
         $er = $em->getRepository("LoogaresExtraBundle:Ciudad");
@@ -473,7 +480,7 @@ class UsuarioController extends Controller
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
+            'errors'         => $formErrors,
         ));
     }
 }

@@ -1,37 +1,35 @@
 <div class="login">
-            {% if error %}
-                <div class="errores">{{ error.message }}</div>
-            {% endif %}
+    <div class="login_error">     
+        {% for error in errors %}           
+            {{error.message|trans}}
+        {% endfor %}
+    </div>
 
-            <form action="{{ path('login_check') }}" method="post" class="login_form">
-                <div>
-                    <label for="mail">E-mail:</label>
-                    <input type="text" id="mail" name="_mail" value="{{ last_mail }}" />
-                </div>
+    <form action="{{ path('login_check') }}" method="post" class="login_form">
+        <div>
+            <label for="mail">E-mail:</label>
+            <input type="text" id="mail" name="_mail" value="{{ last_mail }}" class="{{errors.completo is defined ? 'input-error' : ' '}}"/>
+        </div>
 
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="_password" />
-                </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password" class="{{errors.completo is defined or errors.emptyPassword is defined ? 'input-error' : ' '}}"/>
+        </div>
 
-                <div>
-                    <label></label>
-                    <span class="tip"><a href="">¿Olvidaste tu password?</a></span>
-                </div>
+        <div>
+            <label></label>
+            <span class="tip"><a href="">¿Olvidaste tu password?</a></span>
+        </div>
 
-                <div>
-                    <label></label>
-                    <input class="checkbox" type="checkbox" id="remember_me" name="_remember_me" />
-                    <span class="checkbox_tip">Recordar sesión</span>
-                </div>
+        <div>
+            <label></label>
+            <input class="checkbox" type="checkbox" id="remember_me" name="_remember_me" />
+            <span class="checkbox_tip">Recordar sesión</span>
+        </div>
 
-                {#
-                    If you want to control the URL the user is redirected to on success (more details below)
-                    <input type="hidden" name="_target_path" value="/account" />
-                #}
-                <div class="submit">
-                    <label></label>
-                    <input class="boton_entrar" type="submit" name="login" value="Entrar"/>
-                </div>
-            </form>
+        <div class="submit">
+            <label></label>
+            <input class="boton_entrar" type="submit" name="login" value="Entrar"/>
+        </div>
+    </form>
 </div>
