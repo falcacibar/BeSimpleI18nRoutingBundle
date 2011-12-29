@@ -13,12 +13,24 @@ use Doctrine\ORM\EntityRepository;
 class LugarRepository extends EntityRepository
 {
 
-    public function getLugares($slug = null){
+    public function getLugares($slug = null, $limit = null, $offset = null, $orderBy = null){
         $em = $this->getEntityManager();
         if($slug){
           $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.slug = '$slug'");
         }else{
           $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u");
+        }
+
+        if($limit){
+          $q->setMaxResults($limit);
+        }
+
+        if($offset){
+          $q->setFirstResult($offset);
+        }
+
+        if($orderBy){
+          //D:
         }
         $lugarResult = $q->getResult();
 

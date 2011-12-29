@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Loogares.com{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        {% stylesheets output='assets/css/compressed.css' filter='?yui_css,sass' 
+            'assets/css/*.sass' 
+        %}
+        {% endstylesheets %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <style>
+            .table-data{
+                width: 960px;
+                overflow:scroll;
+                margin:0 auto;
+            }
+
+                
+        </style>
+    </head>
+<body>
+
+<div class="table-data">
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Lugar</th>
+            <th>Usuario</th>
+            <th>Categoria</th>
+            <th>Subcategoria</th>
+            <th>Direccion</th>
+            <th>Detalle</th>
+            <th>Pais</th>
+            <th>Ciudad</th>
+            <th>Comuna</th>
+            <th>Sector</th>
+            <th>★</th>
+            <th>✔</th>
+            <th>$</th>
+            <th>Ranking</th>
+            <th>Caracteristicas</th>
+            <th>Tags</th>
+            <th>www</th>
+            <th>Facebook</th>
+            <th>Twitter</th>
+            <th>Mail</th>
+            <th>Dueño</th>
+            <th>Estado</th>
+            <th>Tipo</th>
+        </thead>
+        <tbody>
+            {% for lugar in lugares %}
+                <tr>
+                    <td>{{lugar.id}}</td>
+                    <td>{{lugar.nombre}}</td>
+                    <td>{{lugar.usuario.mail}}</td>
+                    <td>
+                        {% for categoriaLugar in lugar.categoriaLugar %}
+                            {{categoriaLugar.categoria.nombre}}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for subcategoriaLugar in lugar.subcategoriaLugar %}
+                            {{subcategoriaLugar.subCategoria.nombre}}
+                        {% endfor %}
+                    </td>
+                    <td>{{lugar.calle}} {{lugar.numero}}</td>
+                    <td>{{lugar.detalle}}</td>
+                    <td>{{lugar.comuna.ciudad.pais.nombre}}</td>
+                    <td>{{lugar.comuna.ciudad.nombre}}</td>
+                    <td>{{lugar.comuna.nombre}}</td>
+                    <td>{{lugar.sector.nombre}}</td>
+                    <td>{{lugar.estrellas}}</td>
+                    <td>nope</td>
+                    <td>nope</td>
+                    <td>nope</td>
+                    <td>
+                        {% for caracteristicaLugar in lugar.caracteristicaLugar %}
+                            {{caracteristicaLugar.caracteristica.nombre}}
+                        {% endfor %}                    
+                    </td>
+                    <td>nope</td>
+                    <td>{{lugar.sitioWeb}}</td>
+                    <td>{{lugar.facebook}}</td>
+                    <td>{{lugar.twitter}}</td>
+                    <td>{{lugar.mail}}</td>
+                    <td>nope</td>
+                    <td>nope</td>
+                    <td>{{lugar.estado.nombre}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

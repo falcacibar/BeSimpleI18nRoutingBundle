@@ -226,7 +226,7 @@ $('form').submit(function(e){
     }
     return false;
 });
-
+console.log(WEBROOT)
 $('.cargar_mapa').click(function(e){
     e.preventDefault();
     if(!$('#form_calle').val().match('Ej') && !$('#form_numero').val().match('Ej')){
@@ -246,7 +246,8 @@ $('.cargar_mapa').click(function(e){
                 }else{
                     $('.lugar-existe').append('Este lugar no existe, wena onda').fadeIn();
                 }
-            } 
+            },
+            error: function(data) {console.log(data)}
         });
     }
 onCargarMapaAgregar();

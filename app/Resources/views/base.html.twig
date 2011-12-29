@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-        <script>var WEBROOT = "{{app.request.basePath}}/{{app.getEnvironment}}/"</script>
+        <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
 		<script>
 		$(function () {
             $('.logo_ciudad_menu').css('position', 'absolute').css('display', 'none')

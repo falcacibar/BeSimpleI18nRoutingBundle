@@ -6,10 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
 class DefaultController extends Controller
-{
-    
-    public function indexAction($name)
-    {
-        return $this->render('LoogaresAdminBundle:Default:index.html.twig', array('name' => $name));
+{ 
+    public function indexAction(){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugares = $lr->getLugares(null, 30, 0);
+        return $this->render('LoogaresAdminBundle:Admin:lugares.html.twig', array('lugares' => $lugares));
     }
 }
