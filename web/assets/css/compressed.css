@@ -296,6 +296,14 @@ body {
     .contenedor .contenido .login {
       float: left;
       width: 459px; }
+      .contenedor .contenido .login .login_error {
+        background-color: #ffe5e5;
+        border: 1px solid #ff6666;
+        float: left;
+        line-height: 18px;
+        margin: 0 0 20px 0;
+        padding: 5px 10px;
+        width: 439px; }
       .contenedor .contenido .login .login_form {
         font-size: 12px; }
         .contenedor .contenido .login .login_form div label {
@@ -1003,6 +1011,8 @@ small {
       float: left; }
     #main-usuario #content-usuario .form-edicion .editar-usuario input[type=text], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=password], #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-sexo {
       width: 300px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=file] {
+      width: 316px; }
     #main-usuario #content-usuario .form-edicion .editar-usuario input[type=radio] {
       float: left; }
     #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento {
@@ -1021,11 +1031,15 @@ small {
       width: auto; }
     #main-usuario #content-usuario .form-edicion .editar-usuario small.errors {
       margin-right: 252px; }
-    #main-usuario #content-usuario .form-edicion .errores-container {
-      width: 98%;
-      display: block; }
     #main-usuario #content-usuario .edicion {
       margin-top: 30px; }
+      #main-usuario #content-usuario .edicion .edicion_error {
+        background-color: #ffe5e5;
+        border: 1px solid #ff6666;
+        line-height: 18px;
+        margin: 0 0 20px 0;
+        padding: 5px 10px;
+        width: 456px; }
 
 /*  Extras */
 .bold {
