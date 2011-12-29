@@ -271,7 +271,9 @@ body {
   .contenedor .contenido {
     margin: 0 auto;
     width: 960px;
-    position: relative; }
+    position: relative;
+    /* Login Usuario */
+    /* Registro Usuario */ }
     .contenedor .contenido .titulo {
       font-size: 16px;
       margin: 0 0 30px 0; }

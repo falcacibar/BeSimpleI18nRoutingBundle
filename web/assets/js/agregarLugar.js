@@ -237,7 +237,7 @@ $('.cargar_mapa').click(function(e){
             data: "calle="+$('#form_calle').val()+"&numero="+$('#form_numero').val()+"&id="+$('.id').val(),
             success: function(data){
                 if(data.lugar){
-                    $('.lugar-existe').append('<h5>Ya existe un lugar con esta informacion, estas seguro que no es ninguno de estos?</5>')
+                    $('.lugar-existe').append('<h5>Hay otros lugares con la misma dirección. Asegúrate de no agregar uno que ya esté.</5>')
                     $.each(data.lugar, function(i){
                        $('.lugar-existe').append("<p>"+data.lugar[i]+"</p>"); 
                     })

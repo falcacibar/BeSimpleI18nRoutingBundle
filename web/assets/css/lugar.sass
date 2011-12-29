@@ -78,6 +78,40 @@ $rojo: #FF3300
                     text-decoration: none
                     text-shadow: 1px 1px 1px $gris_444
                     width: 80px
+    
+    .lugar-existe
+        @include borde_redondeado
+        border: 1px solid $gris_ccc
+        display: none
+        font:
+            size: 11px
+        float: left
+        margin: 10px 10px 0 100px
+        padding: 10px
+        width: 348px
+   
+        h5
+            color: $rojo
+            font:
+                size: 13px
+                weight: bold
+            line-height: 18px
+            margin: 0 0 15px 0
+        
+        p
+            font:
+                size: 12px
+            text-align: left
+
+            a
+                @include link_azul
+                font:
+                    weight: bold
+
+                &:hover
+                    @include link_azul_hover
+                    font:
+                        weight: bold
 
     label
         display: block
@@ -88,6 +122,41 @@ $rojo: #FF3300
     .label_numero
         margin: 3px 0 3px 5px
         width: 30px
+
+    .subcategoria_titulo
+        float: left
+        line-height: 18px
+        margin: 15px 0 0 0
+        width: 100px
+
+    .alinear_subcategorias
+        float: left
+        margin: 15px 10px 0 0
+        width: 370px
+
+    .lista_subcategorias
+        float: left
+        margin: 0 10px 0 0
+        width: 175px
+
+    .subcategoria
+        float: left
+        font:
+            size: 11px
+        line-height: 13px
+        margin: 0 0 10px 0
+        width: 175px
+
+    .subcategoria_input
+        float: left
+        height: 12px
+        margin: 1px 0
+        width: 12px
+    
+    .subcategoria_span
+        float: left
+        margin: 0 0 0 5px
+        width: 155px
 
     input
         border: 1px solid $gris_999
@@ -251,6 +320,41 @@ $rojo: #FF3300
             text-shadow: 1px 1px 1px $gris_444
             width: 140px
 
+    .caracteristica_titulo
+        float: left
+        line-height: 18px
+        margin: 15px 0 0 0
+        width: 100px
+
+    .alinear_caracteristicas
+        float: left
+        margin: 15px 10px 0 0
+        width: 370px
+
+    .lista_caracteristicas
+        float: left
+        margin: 0 10px 0 0
+        width: 175px
+
+    .caracteristica
+        float: left
+        font:
+            size: 11px
+        line-height: 13px
+        margin: 0 0 10px 0
+        width: 175px
+
+    .caracteristica_input
+        float: left
+        height: 12px
+        margin: 1px 0
+        width: 12px
+
+    .caracteristica_span
+        float: left
+        margin: 0 0 0 5px
+        width: 155px
+
 .mapa
     display: block
     float: left
@@ -276,7 +380,6 @@ $rojo: #FF3300
         display: block
         height: 350px
         width: 478px
-
 
 
 

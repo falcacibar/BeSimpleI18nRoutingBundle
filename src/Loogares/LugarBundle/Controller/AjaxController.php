@@ -71,7 +71,7 @@ class AjaxController extends Controller
       $res = $q->getResult();
       if($res){
         foreach($res as $lugar){
-          $asd['lugar'][] = "<a href='".$this->generateUrl('_lugar', array('slug' => $lugar->getSlug()))."'>" . $lugar->getNombre() . "</a> - " . $lugar->getCalle() . " " . $lugar->getNumero() . " - " . $lugar->getComuna()->getNombre();
+          $asd['lugar'][] = "<a href='".$this->generateUrl('_lugar', array('slug' => $lugar->getSlug()))."'>" . $lugar->getNombre() . "</a> - " . $lugar->getCalle() . " " . $lugar->getNumero() . ", " . $lugar->getComuna()->getNombre();
         }
       }else{
         $asd[] = null;

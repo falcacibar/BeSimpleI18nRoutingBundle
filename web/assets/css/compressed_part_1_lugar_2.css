@@ -47,6 +47,35 @@
         text-decoration: none;
         text-shadow: 1px 1px 1px #444444;
         width: 80px; }
+  .agregar-lugar .lugar-existe {
+    border-radius: 2px;
+    -o-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border: 1px solid #cccccc;
+    display: none;
+    font-size: 11px;
+    float: left;
+    margin: 10px 10px 0 100px;
+    padding: 10px;
+    width: 348px; }
+    .agregar-lugar .lugar-existe h5 {
+      color: #ff3300;
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 18px;
+      margin: 0 0 15px 0; }
+    .agregar-lugar .lugar-existe p {
+      font-size: 12px;
+      text-align: left; }
+      .agregar-lugar .lugar-existe p a {
+        color: #0099ff;
+        text-decoration: none;
+        font-weight: bold; }
+        .agregar-lugar .lugar-existe p a:hover {
+          color: #0099ff;
+          text-decoration: underline;
+          font-weight: bold; }
   .agregar-lugar label {
     display: block;
     float: left;
@@ -55,6 +84,34 @@
   .agregar-lugar .label_numero {
     margin: 3px 0 3px 5px;
     width: 30px; }
+  .agregar-lugar .subcategoria_titulo {
+    float: left;
+    line-height: 18px;
+    margin: 15px 0 0 0;
+    width: 100px; }
+  .agregar-lugar .alinear_subcategorias {
+    float: left;
+    margin: 15px 10px 0 0;
+    width: 370px; }
+  .agregar-lugar .lista_subcategorias {
+    float: left;
+    margin: 0 10px 0 0;
+    width: 175px; }
+  .agregar-lugar .subcategoria {
+    float: left;
+    font-size: 11px;
+    line-height: 13px;
+    margin: 0 0 10px 0;
+    width: 175px; }
+  .agregar-lugar .subcategoria_input {
+    float: left;
+    height: 12px;
+    margin: 1px 0;
+    width: 12px; }
+  .agregar-lugar .subcategoria_span {
+    float: left;
+    margin: 0 0 0 5px;
+    width: 155px; }
   .agregar-lugar input {
     border: 1px solid #999999;
     float: left;
@@ -200,6 +257,34 @@
       text-decoration: none;
       text-shadow: 1px 1px 1px #444444;
       width: 140px; }
+  .agregar-lugar .caracteristica_titulo {
+    float: left;
+    line-height: 18px;
+    margin: 15px 0 0 0;
+    width: 100px; }
+  .agregar-lugar .alinear_caracteristicas {
+    float: left;
+    margin: 15px 10px 0 0;
+    width: 370px; }
+  .agregar-lugar .lista_caracteristicas {
+    float: left;
+    margin: 0 10px 0 0;
+    width: 175px; }
+  .agregar-lugar .caracteristica {
+    float: left;
+    font-size: 11px;
+    line-height: 13px;
+    margin: 0 0 10px 0;
+    width: 175px; }
+  .agregar-lugar .caracteristica_input {
+    float: left;
+    height: 12px;
+    margin: 1px 0;
+    width: 12px; }
+  .agregar-lugar .caracteristica_span {
+    float: left;
+    margin: 0 0 0 5px;
+    width: 155px; }
 
 .mapa {
   display: block;

@@ -5,19 +5,6 @@
 {% block stylesheets %}
     <style>
 
-        .lugar-existe{
-            display: none;
-            font-size: 10px;
-        }
-
-        .lugar-existe p{
-            
-        }
-
-        .lugar-existe h5{
-            color: red;
-            font-weight:bold;
-        }
         .subcategorias{display: none;}
 
         .placeholder{
@@ -143,40 +130,13 @@
             {% endfor %}
         </select>
         <div class='subcategorias'>
-            <ul>
+            <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
+            <ul class="alinear_subcategorias">
                 {% for subCategoria in data.subCategorias %}
-                    <li>
+                    <li class="lista_subcategorias">
                         <label class="checkbox-label subcategoria">
-                            <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
-                            <span>{{subCategoria.nombre}}</span>
-                        </label>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </li>
-    <li class="no-default">
-        <label>Categorías</label>
-        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
-            <option value="elige">Elige una Categoria Secundaria</option>
-            {% for tipoCategoria in data.tipoCategoria %}
-                <optgroup label="{{tipoCategoria.nombre}}">
-                {% for categoria in data.categorias %}
-                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
-                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
-                    {% endif %}
-                {% endfor %}
-                </optgroup>
-            {% endfor %}
-        </select>
-        <span class="quitar_info"><a rel="categoria" href="">Quitar</a></span>
-        <div class='subcategorias'>
-            <ul>
-                {% for subCategoria in data.subCategorias %}
-                    <li>
-                        <label class="checkbox-label subcategoria">
-                            <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
-                            <span>{{subCategoria.nombre}}</span>
+                            <input type="checkbox" name="subcategoria[]" class="subcategoria_input" value="{{subCategoria.nombre}}" />
+                            <span class="subcategoria_span">{{subCategoria.nombre}}</span>
                         </label>
                     </li>
                 {% endfor %}
@@ -199,12 +159,42 @@
         </select>
         <span class="quitar_info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
-            <ul>
+            <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
+            <ul class="alinear_subcategorias">
                 {% for subCategoria in data.subCategorias %}
-                    <li>
+                    <li class="lista_subcategorias">
                         <label class="checkbox-label subcategoria">
-                            <input type="checkbox" name="subcategoria[]" class="subcategoria" value="{{subCategoria.nombre}}" />
-                            <span>{{subCategoria.nombre}}</span>
+                            <input type="checkbox" name="subcategoria[]" class="subcategoria_input" value="{{subCategoria.nombre}}" />
+                            <span class="subcategoria_span">{{subCategoria.nombre}}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </li>
+    <li class="no-default">
+        <label>Categorías</label>
+        <select class='categoria required' title='Seleccione una Categoria valida' name='categoria[]'>
+            <option value="elige">Elige una Categoria Secundaria</option>
+            {% for tipoCategoria in data.tipoCategoria %}
+                <optgroup label="{{tipoCategoria.nombre}}">
+                {% for categoria in data.categorias %}
+                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
+        <span class="quitar_info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
+        <div class='subcategorias'>
+            <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
+            <ul class="alinear_subcategorias">
+                {% for subCategoria in data.subCategorias %}
+                    <li class="lista_subcategorias">
+                        <label class="checkbox-label subcategoria">
+                            <input type="checkbox" name="subcategoria[]" class="subcategoria_input" value="{{subCategoria.nombre}}" />
+                            <span class="subcategoria_span">{{subCategoria.nombre}}</span>
                         </label>
                     </li>
                 {% endfor %}
@@ -536,14 +526,14 @@
         <input type="text" value="{{lugar.materiales}}" name="form[materiales]" id="form_materiales" placeholder="Ej. Cobre, Granito, etc"/>
     </li>
     <li class="no-default">
-        <label>Caracteristicas</label>
         <div class="caracteristicas">
-            <ul>
+            <span class="caracteristica_titulo">Características</span>
+            <ul class="alinear_caracteristicas">
                 {% for caracteristica in data.caracteristicas %}
-                    <li>
+                    <li class="lista_caracteristicas">
                         <label class="checkbox-label caracteristica">
-                            <input type="checkbox" name="caracteristica[]" class="caracteristica" value="{{caracteristica.nombre}}" />
-                            <span>{{caracteristica.nombre}}</span>
+                            <input type="checkbox" name="caracteristica[]" class="caracteristica_input" value="{{caracteristica.nombre}}" />
+                            <span class="caracteristica_span">{{caracteristica.nombre}}</span>
                         </label>
                     </li>
                 {% endfor %}
