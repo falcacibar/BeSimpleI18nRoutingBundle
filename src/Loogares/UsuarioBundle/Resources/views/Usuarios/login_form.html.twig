@@ -1,9 +1,11 @@
 <div class="login">
-    <div class="login_error">     
-        {% for error in errors %}           
-            {{error.message|trans}}
-        {% endfor %}
-    </div>
+    {% if errors %}
+        <div class="login_error">
+            {% for error in errors %}           
+                {{error.message|trans}}
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <form action="{{ path('login_check') }}" method="post" class="login_form">
         <div>

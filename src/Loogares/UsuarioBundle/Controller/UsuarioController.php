@@ -480,7 +480,7 @@ class UsuarioController extends Controller
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
-            'errors'         => $formErrors,
+            'errors'    => array(),
         ));
     }
 }
