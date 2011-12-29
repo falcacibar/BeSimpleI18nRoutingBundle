@@ -89,7 +89,7 @@
 			<div class="registro_facebook_txt">Haz click en el botón de abajo y regístrate en un solo paso con tu cuenta de Facebook.</div>
 			<div class="registro_facebook_btn">
 				{% set tituloFacebook = 'Regístrate con Facebook' %}
-				<div class="facebook-boton">{{ facebook_login_button({'autologoutlink': true, 'label' : tituloFacebook }) }}</div>
+				<div class="facebook-boton">{#{{ facebook_login_button({'autologoutlink': true, 'label' : tituloFacebook }) }}#}</div>
 			</div>
 		</div>
 		
@@ -113,20 +113,5 @@
 				};
 			});
 		});
-
-		function goLogIn(){
-      		window.location = "{{ path('_security_check') }}";
-  		}
-
-  		function onFbInit() {
-     		if (typeof(FB) != 'undefined' && FB != null ) {
-	          	FB.Event.subscribe('auth.login', function(response) {
-	            	   setTimeout(goLogIn,500);
-	          	});
-	          	FB.Event.subscribe('auth.logout', function(response) {
-	            	   window.location = "{{ path('_security_logout') }}";
-	          	});
-          	}
-     	}
 	</script>
 {% endblock %}

@@ -65,10 +65,10 @@ jms_security_extra:
     secure_all_services: false
 
 # FOS Facebook Configuration
-fos_facebook:
-    file:   %kernel.root_dir%/../vendor/facebook/src/base_facebook.php
-    alias:  facebook
-    app_id: %facebook_appid%
-    secret: %facebook_appsecret%
-    cookie: true
-    permissions: [email, user_birthday, user_location]
+#fos_facebook:
+ #   file:   %kernel.root_dir%/../vendor/facebook/src/base_facebook.php
+  #  alias:  facebook
+   # app_id: %facebook_appid%
+    #secret: %facebook_appsecret%
+    #cookie: true
+    #permissions: [email, user_birthday, user_location]
