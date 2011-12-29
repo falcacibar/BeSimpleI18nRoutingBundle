@@ -673,12 +673,18 @@ class Usuario implements UserInterface, \Serializable
         return $this->getMail();
     }
     public function equals(UserInterface $user){
-        if ($user->getSlug() != $this->slug) {
-            return false;
+        if($this->getId()){
+            if ($user->getId() != $this->id) {
+                return false;
+            }
         }
-        if ($user->getMail() != $this->mail) {
-            return false;
+        else {
+            if($user->getMail() != $this->mail) {
+                return false;
+            }
         }
+        
+       
         return true;
     }
 

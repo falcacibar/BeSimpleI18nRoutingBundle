@@ -130,15 +130,24 @@ class UsuarioController extends Controller
                      ->add('newsletter_activo', 'checkbox', array(
                                 'label' => 'Recibir newsletter por E-mail'
                          ))
-                     ->getForm();
-                     
+                     ->getForm();                     
 
+        // Guardamos mail de usuario actual
+        $mail = $usuarioResult->getMail();
+        
         // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
 
-            if ($form->isValid()) {  
+            $usuario = $ur->findOneByMail($usuarioResult->getMail());
+            $form->bindRequest($request);            
+
+            if ($form->isValid()) {
                 $em->flush();
+
+                // Si el mail fue editado, modificamos suscripción a Mailchimp
+                if($mail != $usuarioResult->getMail()) {
+                    //Código para cambiar mail de suscripción en Mailchimp
+                }
 
                 if($usuarioResult->getNewsletterActivo()) {
                     // Verificar suscripción Mailchimp
@@ -158,6 +167,10 @@ class UsuarioController extends Controller
         //Errores
         foreach($this->get('validator')->validate( $form ) as $formError){
             $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
+
+            if(substr($formError->getPropertyPath(), 5) == 'mail') {
+                $usuarioResult->setMail($mail);
+            }
         }
 
         $data = $ur->getDatosUsuario($usuarioResult);
@@ -190,6 +203,7 @@ class UsuarioController extends Controller
         
         // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST') {
+           
             $form->bindRequest($request);
 
             // Verificación de selección de foto

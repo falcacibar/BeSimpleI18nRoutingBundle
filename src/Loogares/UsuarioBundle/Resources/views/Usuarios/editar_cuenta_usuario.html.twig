@@ -26,7 +26,7 @@
 						<small class="errors">{{errors.nombre}}</small>
 					{% endif %}
 				</li>
-
+								
 				<li>
 					{% set inputClass = (errors.apellido is defined) ? 'input-error' : ' '%}
 					{{ form_label(form.apellido, 'Apellido *') }}
@@ -52,7 +52,11 @@
 				
 				<li>
 					{{ form_label(form.fecha_nacimiento, 'Fecha de nacimiento') }}
-					{{ form_widget(form.fecha_nacimiento, { 'attr': {'class': 'edicion-fecha-nacimiento'}}) }}
+					<div class="edicion-fecha-nacimiento">
+					{{ form_widget(form.fecha_nacimiento.day, { 'attr': {'class': 'day'}}) }}
+					{{ form_widget(form.fecha_nacimiento.month, { 'attr': {'class': 'month'}}) }}
+					{{ form_widget(form.fecha_nacimiento.year, { 'attr': {'class': 'year'}}) }}
+					</div>
 				</li>  
 				
 				<li>
@@ -89,3 +93,35 @@
 	    </div>		    
 	</form>
 </div>
+
+{% block javascripts %}
+	<script type="text/javascript">
+		// Esto es hasta que encuentre una forma de desplegar nombres en vez de números
+		$('select.month option').each(function(){
+			if($(this).val() == '1')
+				$(this).html('Enero');
+			else if($(this).val() == '2')
+				$(this).html('Febrero');
+			else if($(this).val() == '3')
+				$(this).html('Marzo');
+			else if($(this).val() == '4')
+				$(this).html('Abril');
+			else if($(this).val() == '5')
+				$(this).html('Mayo');
+			else if($(this).val() == '6')
+				$(this).html('Junio');
+			else if($(this).val() == '7')
+				$(this).html('Julio');
+			else if($(this).val() == '8')
+				$(this).html('Agosto');
+			else if($(this).val() == '9')
+				$(this).html('Septiembre');
+			else if($(this).val() == '10')
+				$(this).html('Octubre');
+			else if($(this).val() == '11')
+				$(this).html('Noviembre');
+			else if($(this).val() == '12')
+				$(this).html('Diciembre');
+		});
+	</script>
+{% endblock %}

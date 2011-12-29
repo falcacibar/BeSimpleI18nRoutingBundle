@@ -21,12 +21,12 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
            				FROM LoogaresUsuarioBundle:Usuario u
            				WHERE u.mail = :mail
            				OR u.slug = :mail')
-          		 ->setParameters(array('mail' => $mail))
+          		 ->setParameter('mail', $mail)
           		 ->getOneOrNullResult();
     }
    
     public function refreshUser(UserInterface $user) {
-        return $this->loadUserByUsername($user->getMail());
+        return $this->loadUserByUsername($user->getId());
     }
    
     public function supportsClass($class) {

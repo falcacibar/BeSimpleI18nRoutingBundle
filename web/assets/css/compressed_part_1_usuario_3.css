@@ -93,12 +93,12 @@
       #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento select {
         border: 1px solid #cccccc;
         line-height: 16px; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento #form_fecha_nacimiento_year {
-        width: 100px; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento #form_fecha_nacimiento_month {
-        width: 150px; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento #form_fecha_nacimiento_day {
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento .day {
         width: 50px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento .month {
+        width: 150px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento .year {
+        width: 100px; }
     #main-usuario #content-usuario .form-edicion .editar-usuario #form_sexo label {
       margin: 0 10px 0 5px;
       width: auto; }
