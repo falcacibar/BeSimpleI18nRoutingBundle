@@ -64,6 +64,11 @@ jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
 
+# MailChimp Configuration
+jirafe_mail_chimp:
+    api_key:    %mailchimp_apikey%
+    connection: stub
+
 # FOS Facebook Configuration
 #fos_facebook:
  #   file:   %kernel.root_dir%/../vendor/facebook/src/base_facebook.php

@@ -142,19 +142,59 @@ class UsuarioController extends Controller
             $form->bindRequest($request);            
 
             if ($form->isValid()) {
+
+                 // Stripeamos las URLs de http://
+                $usuarioResult->setWeb(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getWeb()));
+                $usuarioResult->setFacebook(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getFacebook()));
+                $twitter = $usuarioResult->getTwitter(); 
+                if(substr($twitter,0,1) == '@')
+                    $usuarioResult->setTwitter(str_replace('@','www.twitter.com/',$twitter));
+                else               
+                    $usuarioResult->setTwitter(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getTwitter()));
+
+
                 $em->flush();
 
-                // Si el mail fue editado, modificamos suscripción a Mailchimp
-                if($mail != $usuarioResult->getMail()) {
-                    //Código para cambiar mail de suscripción en Mailchimp
+                /* Manejo de suscripción a Mailchimp */
+                $mc = $this->get('mail_chimp.client');
+                /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
+                echo "respuesta";
+                $mcId = 0;
+
+                if (!$mc->errorCode){
+                    if(!empty($mcInfo['success'])){
+                        if(isset($mcInfo['data'])){ // tiene que estar en la lista para considerarse "suscrito"??
+                            $mcId = $mcInfo['data'][0]['id'];
+                        }
+                    }
+                }
+                else {
+                    echo "Conexión falló!";
                 }
 
                 if($usuarioResult->getNewsletterActivo()) {
+                   $merge_vars = array(
+                        'EMAIL' => utf8_encode($usuarioResult->getMail()),
+                        'FNAME' => utf8_encode($usuarioResult->getNombre()),
+                        'LNAME' => utf8_encode($usuarioResult->getApellido()),
+                        'USER' => utf8_encode($usuarioResult->getSlug()),
+                        'IDUSER' => $usuarioResult->getId()
+                    );
                     // Verificar suscripción Mailchimp
+                    if($mcId == 0) {
+                        // Nueva suscripción
+                        $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true );
+                    }
+                    else {
+                        // Usuario suscrito. Se actualizan datos
+                        $mc->listUpdateMember($this->container->getParameter('mailchimp_list_id'), $mcId, $merge_vars, 'html', false);
+                    }
                 }
                 else {
                     // Borrar suscripción Mailchimp
-                }
+                    if($mcId > 0)
+                        $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $_mcid, true, false );
+                }*/         
                 
                 // Mensaje de éxito en la edición
                 $this->get('session')->setFlash('edicion-cuenta','¡Tu perfil acaba de actualizarse con los nuevos cambios!');
@@ -444,13 +484,13 @@ class UsuarioController extends Controller
         $em->flush();
 
         // Se agrega usuario a lista de correos de Mailchimp
-        /*$mc = new \MCAPI_MCAPI($this->container->getParameter('mailchimp_apikey'));
+        /*$mc = $this->get('mail_chimp.client');
         $merge_vars = array(
             'EMAIL' => utf8_encode($usuarioResult->getMail()),
             'FNAME' => utf8_encode($usuarioResult->getNombre()),
             'LNAME' => utf8_encode($usuarioResult->getApellido()),
-            'USER' => utf8_encode($usuarioResult->getUsuario()),
-            'IDUSER' => '4000'
+            'USER' => utf8_encode($usuarioResult->getSlug()),
+            'IDUSER' => $usuarioResult->getId()
         );
         $r = $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true);*/
 
