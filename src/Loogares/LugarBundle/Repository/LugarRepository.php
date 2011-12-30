@@ -16,9 +16,9 @@ class LugarRepository extends EntityRepository
     public function getLugares($slug = null, $limit = null, $offset = null, $orderBy = null){
         $em = $this->getEntityManager();
         if($slug){
-          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.slug = '$slug'");
+          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.slug = '$slug' $orderBy");
         }else{
-          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u");
+          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u $orderBy");
         }
 
         if($limit){
@@ -35,6 +35,15 @@ class LugarRepository extends EntityRepository
         $lugarResult = $q->getResult();
 
         return $lugarResult;
+    }
+
+      public function getTotalLugares(){
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT count(u) FROM Loogares\LugarBundle\Entity\Lugar u");
+        
+        $totalLugaresResult = $q->getSingleScalarResult();
+
+        return $totalLugaresResult;
     }
 
     public function getLugaresPorNombre($nombre = null){
