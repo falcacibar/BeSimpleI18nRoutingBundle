@@ -9,24 +9,168 @@
         %}
         {% endstylesheets %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+        <script src="{{asset('assets/js/jquery.fixheadertable.min.js')}}"></script>
+        <script>
+            $(function(){
+                $('table').tableScroll({height:500});
+            });
+        </script>
         <style>
-            .table-data{
+
+        body{
+            font-family: Helvetica;
+            font-size: 12px;
+            text-shadow: 0 1px 0 #fff;
+        }
+
+            #wrapper{
                 width: 960px;
+                margin: 0 auto;
+            }
+            .table-data{
                 overflow:scroll;
-                margin:0 auto;
+                position: relative;
             }
 
+            table{
+                margin: 0;
+                padding: 0;
+                border-spacing: 0;
+                border: 1px #ccc solid;
+                border-right: none;
+                text-align: center;
+            }
+
+                th{
+                    border-bottom: 4px #ccc solid;
+                }
+
+
+                th, td{
+                    border-right: 1px solid #f0f0f0 ;
+                    padding: 5px;
+                    min-width: 40px;
+                }
+
+                th:first-child, td:first-child{
+                    min-width: 10px;
+                }
+
+                tr:nth-child(even){
+                    background: #f0f0f0;
+                }
+
+                .id{
+                    width: 50px;
+                }
+
+                .list-actions{
+                    margin: 0;
+                    font-size: 10px;
+                    font-weight: 100;
+                    display: inline-block;
+
+                }               
                 
+                    .list-actions span{
+                        margin: -2px;
+                        cursor: pointer;
+                        color: #ccc;
+                    } 
+
+                    .list-actions a, .list-actions a:visited{
+                        color: #ccc;
+                        margin: -2px;
+                        text-decoration: none;
+                    }
+
+                .active-sort, .list-actions a:active{
+                    color: #333 !important;
+                }
+
+                ul.paginacion{
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    margin-bottom: 10px;
+                    text-align: right;
+                    font-size: 12px;
+                }
+
+                    ul.paginacion li{
+                        display: inline-block;
+                        padding: 5px;
+                        background: #f0f0f0;
+                        -moz-border-radius: 4px;
+                        border-radius: 4px;
+                        width: 18px;
+                        text-align: center;
+                        box-shadow: inset 0 1px 0 #ccc;
+                    }
+
+                        ul.paginacion li.pagina-actual{
+                            font-weight: bold;
+                        }
         </style>
     </head>
 <body>
+<div id="wrapper">
+<ul class="paginacion">
+{% for i in range(mostrarDesde, mostrarHasta) %}
+    {% if loop.first %}
+        <li><a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': 1 })) }}">&#8676;</a></li>
+        <li>
+            {% if paginaActual != 1 %}
+                <a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': paginaActual - 1 })) }}">&larr;</a>
+            {% else %}
+                &larr;
+            {% endif %}
+        </li>
+    {% endif %}    
+
+    {% if i == paginaActual %}
+        <li class="pagina-actual">{{i}}</li>
+    {% elseif i <= 0 or i > totalPaginas %}
+         <li>--</li>
+    {% else %}
+        <li><a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': i })) }}">{{i}}</a></li>
+    {% endif %}
+
+    {% if loop.last %}
+        <li>
+            {% if paginaActual != totalPaginas %}
+                <a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': paginaActual + 1 })) }}">&rarr;</a>
+            {% else %}
+                &rarr;
+            {% endif %}
+        </li>
+        <li><a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': totalPaginas })) }}">&#8677;</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
 
 <div class="table-data">
     <table>
         <thead>
-            <th>ID</th>
-            <th>Lugar</th>
-            <th>Usuario</th>
+            <th></th>
+            <th>
+                <a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'id': filters.id | default('asc') })) }}">ID</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.id == 'asc' %} active-sort{% endif %}" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'id': 'asc' })) }}">&#11014;</a>
+                    <a class="desc {% if query and query.id == 'desc' %} active-sort{% endif %}" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'id': 'desc' })) }}">&#11015;</a>
+                    <a class="remove" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'id': '' })) }}">&#10006;</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'nombre': filters.nombre | default('asc') })) }}">Lugar</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.nombre == 'asc' %} active-sort{% endif %}" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'nombre': 'asc' })) }}">&#11014;</a>
+                    <a class="desc {% if query and query.nombre == 'desc' %} active-sort{% endif %}" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'nombre': 'desc' })) }}">&#11015;</a>
+                    <a class="remove" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'nombre': '' })) }}">&#10006;</a>
+                </p>
+            </th>
+            <th><a href="">Usuario</a></th>
             <th>Categoria</th>
             <th>Subcategoria</th>
             <th>Direccion</th>
@@ -52,9 +196,10 @@
         <tbody>
             {% for lugar in lugares %}
                 <tr>
+                    <td><input type="checkbox"/>
                     <td>{{lugar.id}}</td>
-                    <td>{{lugar.nombre}}</td>
-                    <td>{{lugar.usuario.mail}}</td>
+                    <td><a href="{{ path('_lugar', {'slug': lugar.slug }) }}">{{lugar.nombre}}</a></td>
+                    <td>{% if lugar.usuario %}{{lugar.usuario.mail}}{% endif %}</td>
                     <td>
                         {% for categoriaLugar in lugar.categoriaLugar %}
                             {{categoriaLugar.categoria.nombre}}
@@ -70,7 +215,7 @@
                     <td>{{lugar.comuna.ciudad.pais.nombre}}</td>
                     <td>{{lugar.comuna.ciudad.nombre}}</td>
                     <td>{{lugar.comuna.nombre}}</td>
-                    <td>{{lugar.sector.nombre}}</td>
+                    <td>{% if lugar.sector %}{{lugar.sector.nombre}}{% endif %}</td>
                     <td>{{lugar.estrellas}}</td>
                     <td>nope</td>
                     <td>nope</td>
@@ -80,7 +225,9 @@
                             {{caracteristicaLugar.caracteristica.nombre}}
                         {% endfor %}                    
                     </td>
-                    <td>nope</td>
+                    <td>
+                        nope                  
+                    </td>
                     <td>{{lugar.sitioWeb}}</td>
                     <td>{{lugar.facebook}}</td>
                     <td>{{lugar.twitter}}</td>
@@ -92,6 +239,7 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
 </div>
 </body>
 </html>
