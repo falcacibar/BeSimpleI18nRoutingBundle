@@ -156,7 +156,7 @@ class UsuarioController extends Controller
                 $em->flush();
 
                 /* Manejo de suscripción a Mailchimp */
-                $mc = $this->get('mail_chimp.client');
+                //$mc = $this->get('mail_chimp.client');
                 /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
                 echo "respuesta";
                 $mcId = 0;
@@ -387,7 +387,7 @@ class UsuarioController extends Controller
                 $em->flush();
 
                 // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-password','Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.');
+                $this->get('session')->setFlash('edicion-borrar','Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.');
                     
                 // Redirección a vista de edición de password 
                 return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
