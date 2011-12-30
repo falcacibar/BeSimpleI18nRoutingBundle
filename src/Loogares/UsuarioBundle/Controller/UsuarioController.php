@@ -242,8 +242,14 @@ class UsuarioController extends Controller
                      ->getForm();
         
         // Si el request es POST, se procesa edición de datos
-        if ($request->getMethod() == 'POST') {
+        if ($request->getMethod() == 'POST') {            
            
+            if($request->request->get("borrarFoto")) {
+                $usuarioResult->setImagenFull('default.gif');
+                $em->flush();
+            }
+                
+
             $form->bindRequest($request);
 
             // Verificación de selección de foto
@@ -273,7 +279,6 @@ class UsuarioController extends Controller
         }
 
         $data = $ur->getDatosUsuario($usuarioResult);
-        $data->tipo = '';
         $data->edicion = 'foto';
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
@@ -350,6 +355,7 @@ class UsuarioController extends Controller
     public function editarBorrarAction(Request $request, $param) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $formErrors = array();
         
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -359,11 +365,41 @@ class UsuarioController extends Controller
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         if(!$loggeadoCorrecto)
             throw new AccessDeniedException('No puedes editar información de otro usuario');
+
+        // Si el request es POST, se procesa edición de datos
+        if ($request->getMethod() == 'POST') {
+
+            // Verificación de password actual
+            if($request->request->get('password') == '')
+                $formErrors['password'] = "El campo password es obligatorio. Por favor, complétalo.";
+            else if(md5($request->request->get('password')) != $usuarioResult->getPassword())
+                $formErrors['password'] = "Los passwords no coinciden. Por favor, corrígelos.";
+
+            if($request->request->get('motivo') == '')
+                $formErrors['motivo'] = "Queremos saber por qué te vas. Por favor, completa el campo.";
+
+
+            if(sizeof($formErrors) == 0) {                        
+                // Input correcto. La cuenta se deja como inactiva
+                $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
+                                    ->findOneByNombre('Inactivo');
+                $usuarioResult->setEstado($estadoUsuario);
+                $em->flush();
+
+                // Mensaje de éxito en la edición
+                $this->get('session')->setFlash('edicion-password','Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.');
+                    
+                // Redirección a vista de edición de password 
+                return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+            }
+        }
         
         $data = $ur->getDatosUsuario($usuarioResult);
-        $data->tipo = '';
         $data->edicion = 'borrar';
-        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array('usuario' => $data));  
+        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
+            'usuario' => $data,
+            'errors' => $formErrors
+        ));  
     }
 
     public function registroAction(Request $request) {

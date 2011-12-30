@@ -1077,6 +1077,8 @@ small {
       font-weight: bold;
       margin: 10px 0 20px 0;
       letter-spacing: -1px; }
+    #main-usuario #data-usuario .editar-link {
+      font-weight: bold; }
   #main-usuario #content-usuario {
     width: 76%;
     float: right;
@@ -1101,6 +1103,16 @@ small {
             padding: 10px; }
     #main-usuario #content-usuario .form-edicion .editar-usuario li {
       margin: 10px 0; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario li .tips {
+        float: left; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario li .tip_form {
+        font-size: 11px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario li.tip_link {
+      margin-top: 20px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario li.tip_link a {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 11px; }
     #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-newsletter label {
       margin-top: 0; }
     #main-usuario #content-usuario .form-edicion .editar-usuario label {
@@ -1131,6 +1143,9 @@ small {
       width: auto; }
     #main-usuario #content-usuario .form-edicion .editar-usuario small.errors {
       margin-right: 252px; }
+    #main-usuario #content-usuario .form-borrar-foto {
+      float: left;
+      margin-left: 160px; }
     #main-usuario #content-usuario .edicion {
       margin-top: 30px; }
       #main-usuario #content-usuario .edicion .edicion_error {

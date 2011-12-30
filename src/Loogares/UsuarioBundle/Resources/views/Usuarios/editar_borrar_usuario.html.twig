@@ -1,1 +1,51 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
+
+<div id="edicion-borrar" class="edicion">
+	{% if app.session.hasFlash('edicion-borrar') %}
+		    <div class="flash-notice">
+		        {{ app.session.flash('edicion-borrar') }}
+		    </div>
+	{% endif %}
+
+	{% if errors %}
+		<div class="edicion_error">
+			{% for error in errors %}
+		        <p>{{ error }}</p>
+		    {% endfor %}
+		</div>
+	{% endif %}
+
+	<form action="{{ path('editarBorrarUsuario', { 'param': usuario.id }) }}" method="post">
+		<div class="form-edicion">	
+			<ul class="editar-usuario">
+				<li>
+					<label for="passwordActual">Password *</label>
+					<input type="password" id="password" name="password" class="{{errors.password is defined ? 'input-error' : ' '}}"/>
+					{% if errors.password is defined %}
+						<small class="errors">{{errors.password}}</small>
+					{% endif %}
+				</li>		
+				<li>
+					<label for="motivo">¿Por qué te vas? Cuéntanos el motivo de tu salida. *</label>
+					<input type="text" id="motivo" name="motivo" class="{{errors.motivo is defined ? 'input-error' : ' '}}"/>
+					{% if errors.motivo is defined %}
+						<small class="errors">{{errors.motivo}}</small>
+					{% endif %}
+					
+				</li>
+
+				<li class="submitBorrar">
+					<label></label><input type="submit" value="Guardar" formnovalidate />
+				</li>
+			</ul>
+	    </div>		    
+	</form>
+</div>
+
+{% block javascripts %}
+	<script type="text/javascript">
+		$('.submitBorrar input[type=submit]').click(function(){
+			
+		});
+	</script>
+{% endblock %}

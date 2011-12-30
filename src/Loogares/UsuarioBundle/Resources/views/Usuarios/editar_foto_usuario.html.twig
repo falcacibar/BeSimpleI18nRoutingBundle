@@ -28,12 +28,36 @@
 					{% endif %}
 				</li>
 
+				<li>
+					<label></label>
+					<div class="tips">
+					<span class="tip_form">- 5MB como máximo</span> <br />
+					<span class="tip_form">- Sólo JPG, GIF y PNG</span>
+					</div>
+				</li>
+
+				<br /><br />
+
+				<li class="tip_link">
+					<label></label>
+					<a href="http://mypictr.com/?size=100x100" target="blank">Crea tu foto de perfil con Mypictr</a>
+				</li>
+
 				{{form_rest(form)}}
 
-				<li>
+				<li class="submit">
 					<label></label><input type="submit" value="Guardar" formnovalidate />
 				</li>
 			</ul>
 	    </div>		    
 	</form>
+
+	<form action="{{ path('editarFotoUsuario', { 'param': usuario.id }) }}" method="post">
+		<div class="form-borrar-foto">
+			<input type="hidden" name="borrarFoto" value="borrarFoto">
+			<input type="submit" value="Borra tu foto" formnovalidate />
+		</div>
+	</form>
+
+
 </div>
