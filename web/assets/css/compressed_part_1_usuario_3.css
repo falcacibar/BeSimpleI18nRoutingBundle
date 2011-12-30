@@ -94,10 +94,12 @@
       font-size: 0.9em;
       margin-top: 5px;
       float: left; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=text], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=password], #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-sexo {
+    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=text], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=password], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=textarea], #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-sexo {
       width: 300px; }
     #main-usuario #content-usuario .form-edicion .editar-usuario input[type=file] {
       width: 316px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=textarea] {
+      height: 100px; }
     #main-usuario #content-usuario .form-edicion .editar-usuario input[type=radio] {
       float: left; }
     #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento {

@@ -238,7 +238,7 @@ class UsuarioController extends Controller
         
         $form = $this->createFormBuilder($usuarioResult)
                      ->add('file')
-                     ->add('slug','hidden')
+                     ->add('imagen_full','hidden')
                      ->getForm();
         
         // Si el request es POST, se procesa edición de datos
@@ -248,28 +248,27 @@ class UsuarioController extends Controller
                 $usuarioResult->setImagenFull('default.gif');
                 $em->flush();
             }
+            else {
+                $form->bindRequest($request);
+
+                // Verificación de selección de foto
                 
+                //echo $_FILES['file'];
 
-            $form->bindRequest($request);
+                /*if(!$_FILES['form']['file']) {
+                    $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
+                }*/
 
-            // Verificación de selección de foto
-            
-            //echo $_FILES['file'];
+                if ($form->isValid() && sizeof($formErrors) == 0) {
+                    $usuarioResult->setImagenFull('d');
+                    $em->flush();
 
-            /*if(!$_FILES['form']['file']) {
-                $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
-            }*/
+                    // Mensaje de éxito en la edición
+                    $this->get('session')->setFlash('edicion-foto','Cambiaste tu foto de perfil. ¡Nada de mal!');
 
-
-            if ($form->isValid() && sizeof($formErrors) == 0) {
-                
-                $em->flush();
-
-                // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-foto','Cambiaste tu foto de perfil. ¡Nada de mal!');
-
-                // Redirección a vista de edición de foto 
-                return $this->redirect($this->generateUrl('editarFotoUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+                    // Redirección a vista de edición de foto 
+                    return $this->redirect($this->generateUrl('editarFotoUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+                }
             }
         }
 
@@ -386,11 +385,17 @@ class UsuarioController extends Controller
                 $usuarioResult->setEstado($estadoUsuario);
                 $em->flush();
 
+                // Enviamos correo con la razón del cierre de la cuenta
+
+
+                // Cerramos la sesión
+                $this->container->get('security.context')->setToken(null);
+
                 // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-borrar','Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.');
+                $this->get('session')->setFlash('edicion-borrar','Tu cuenta acaba de ser borrada. Fue bonito mientras duró.');
                     
                 // Redirección a vista de edición de password 
-                return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+                return $this->redirect($this->generateUrl('logout'));
             }
         }
         

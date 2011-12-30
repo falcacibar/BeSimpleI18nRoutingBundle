@@ -27,7 +27,7 @@
 				</li>		
 				<li>
 					<label for="motivo">¿Por qué te vas? Cuéntanos el motivo de tu salida. *</label>
-					<input type="text" id="motivo" name="motivo" class="{{errors.motivo is defined ? 'input-error' : ' '}}"/>
+					<input type="textarea" id="motivo" name="motivo" class="{{errors.motivo is defined ? 'input-error' : ' '}}"/>
 					{% if errors.motivo is defined %}
 						<small class="errors">{{errors.motivo}}</small>
 					{% endif %}
@@ -41,11 +41,3 @@
 	    </div>		    
 	</form>
 </div>
-
-{% block javascripts %}
-	<script type="text/javascript">
-		$('.submitBorrar input[type=submit]').click(function(){
-			
-		});
-	</script>
-{% endblock %}

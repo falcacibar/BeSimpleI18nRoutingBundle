@@ -53,7 +53,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
 
   		  //Query para obtener el total de recomendaciones del usuario
         $q = $em->createQuery("SELECT r
-                               FROM Loogares\UsuarioBundle\Entity\Recomendacion r 
+                               FROM Loogares\UsuarioBundle\Entity\Recomendacion r
                                WHERE r.usuario = ?1");
         $q->setParameter(1, $id);
 

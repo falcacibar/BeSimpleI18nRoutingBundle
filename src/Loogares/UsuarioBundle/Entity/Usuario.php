@@ -4,6 +4,7 @@ namespace Loogares\UsuarioBundle\Entity;
 
 use Loogares\ExtraBundle\Functions\LoogaresFunctions;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -736,6 +737,7 @@ class Usuario implements UserInterface, \Serializable
             $fn = new LoogaresFunctions();
             $filename = $fn->generarSlug($this->nombre.'-'.$this->apellido.'-'.$this->id);
             $this->setImagenFull($filename.'.'.$this->file->guessExtension());
+
         }
     }
 
