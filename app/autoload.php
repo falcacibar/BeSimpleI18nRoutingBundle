@@ -9,6 +9,7 @@ $loader->registerNamespaces(array(
     'Sensio'           => __DIR__.'/../vendor/bundles',
     'JMS'              => __DIR__.'/../vendor/bundles',
     'FOS'              => __DIR__.'/../vendor/bundles',
+    'Jirafe'           => __DIR__.'/../vendor/bundles',
     'Doctrine\\Common' => __DIR__.'/../vendor/doctrine-common/lib',
     'Doctrine\\DBAL'   => __DIR__.'/../vendor/doctrine-dbal/lib',
     'Doctrine'         => __DIR__.'/../vendor/doctrine/lib',
@@ -16,11 +17,11 @@ $loader->registerNamespaces(array(
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
     'Beberlei'         => __DIR__.'/../vendor/beberlei-doctrine-extensions/lib',    
+    'Mailchimp'        => __DIR__.'/../vendor/mailchimp/src',    
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
     'Twig_'            => __DIR__.'/../vendor/twig/lib',
-    'Mailchimp_' => __DIR__.'/../vendor/mailchimp/lib',
 ));
 
 // intl
