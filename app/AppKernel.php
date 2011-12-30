@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             //new FOS\FacebookBundle\FOSFacebookBundle(),
-            //new Jirafe\Bundle\MailChimpBundle\JirafeMailChimpBundle(),
+            new Jirafe\Bundle\MailChimpBundle\JirafeMailChimpBundle(),
             new Loogares\LugarBundle\LoogaresLugarBundle(),
             new Loogares\UsuarioBundle\LoogaresUsuarioBundle(),
             new Loogares\ExtraBundle\LoogaresExtraBundle(),

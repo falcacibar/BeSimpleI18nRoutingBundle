@@ -65,9 +65,9 @@ jms_security_extra:
     secure_all_services: false
 
 # MailChimp Configuration
-#jirafe_mail_chimp:
- #   api_key:    %mailchimp_apikey%
-  #  connection: stub
+jirafe_mail_chimp:
+    api_key:    %mailchimp_apikey%
+    connection: stub
 
 # FOS Facebook Configuration
 #fos_facebook:
