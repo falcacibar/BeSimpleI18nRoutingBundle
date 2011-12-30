@@ -4,9 +4,3 @@
 [submodule "vendor/bundles/Stof/DoctrineExtensionsBundle"]
 	path = vendor/bundles/Stof/DoctrineExtensionsBundle
 	url = git://github.com/stof/StofDoctrineExtensionsBundle.git
-[submodule "vendor/mailchimp"]
-	path = vendor/mailchimp
-	url = git://github.com/switzer/mailchimp.git
-[submodule "vendor/bundles/Jirafe/Bundle/MailChimpBundle"]
-	path = vendor/bundles/Jirafe/Bundle/MailChimpBundle
-	url = git://github.com/whiteoctober/MailChimpBundle.git
