@@ -21,10 +21,10 @@
 				<li>
 					{{form_label(form.file, 'Subir foto')}}
 
-					{% set inputClass = (errors.file is defined) ? 'input-error' : ' '%}
+					{% set inputClass = (errors.file is defined or errors.valida is defined) ? 'input-error' : ' '%}
 					{{form_widget(form.file, { 'attr': {'class': inputClass }})}}
-					{% if errors.file is defined %}
-						<small class="errors">{{errors.file}}</small>
+					{% if errors.file is defined or errors.valida is defined %}
+						<small class="errors">{{(errors.file is defined) ? errors.file : errors.valida}}</small>
 					{% endif %}
 				</li>
 
@@ -59,3 +59,13 @@
 		</div>
 	</form>
 </div>
+
+{% block javascripts %}
+	<script type="text/javascript">
+		$('.form-borrar-foto input[type=submit]').click(function(){
+			if(confirm('¿Estás seguro de querer borrar tu foto?'))
+				$('.form-borrar-foto').parent().submit();
+			return false;
+		});
+	</script>
+{% endblock %}

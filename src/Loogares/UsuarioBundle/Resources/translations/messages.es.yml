@@ -5,3 +5,4 @@ usuario:
         completo: Debes completar ambos campos
         password: Los campos de E-mail y password no coinciden. Por favor, corrígelos.
         emptyPassword: El campo password es obligatorio. Por favor, complétalo.
+        noActivo: La cuenta de usuario no se encuentra activa.

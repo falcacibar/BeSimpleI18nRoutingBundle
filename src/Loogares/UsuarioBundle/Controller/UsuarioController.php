@@ -193,7 +193,7 @@ class UsuarioController extends Controller
                 else {
                     // Borrar suscripción Mailchimp
                     if($mcId > 0)
-                        $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $_mcid, true, false );
+                        $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );
                 }*/         
                 
                 // Mensaje de éxito en la edición
@@ -238,7 +238,7 @@ class UsuarioController extends Controller
         
         $form = $this->createFormBuilder($usuarioResult)
                      ->add('file')
-                     ->add('imagen_full','hidden')
+                     ->add('mail','hidden')
                      ->getForm();
         
         // Si el request es POST, se procesa edición de datos
@@ -255,12 +255,12 @@ class UsuarioController extends Controller
                 
                 //echo $_FILES['file'];
 
-                /*if(!$_FILES['form']['file']) {
+                if($usuarioResult->file == null) {
                     $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
-                }*/
+                }
 
                 if ($form->isValid() && sizeof($formErrors) == 0) {
-                    $usuarioResult->setImagenFull('d');
+                    $usuarioResult->setImagenFull(' ');
                     $em->flush();
 
                     // Mensaje de éxito en la edición
@@ -385,8 +385,42 @@ class UsuarioController extends Controller
                 $usuarioResult->setEstado($estadoUsuario);
                 $em->flush();
 
-                // Enviamos correo con la razón del cierre de la cuenta
+                // Borrar suscripción Mailchimp
+                $mc = $this->get('mail_chimp.client');
+                /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
+                echo "respuesta";
+                $mcId = 0;
 
+                if (!$mc->errorCode){
+                    if(!empty($mcInfo['success'])){
+                        if(isset($mcInfo['data'])){ // tiene que estar en la lista para considerarse "suscrito"??
+                            $mcId = $mcInfo['data'][0]['id'];
+                        }
+                    }
+                }
+                else {
+                    echo "Conexión falló!";
+                }
+                if($mcId > 0)
+                    $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );
+                */         
+
+                // Enviamos correo a administrador con la razón del cierre de la cuenta
+                $mail = array();
+                $mail['asunto'] = 'Usuario eliminado';
+                $mail['usuario'] = $usuarioResult;
+                $mail['fechaRegistro'] = $usuarioResult->getFechaRegistro()->format('d-m-Y');
+                $mail['motivo'] = $request->request->get('motivo');
+
+                $message = \Swift_Message::newInstance()
+                            ->setSubject($mail['asunto'])
+                            ->setFrom('noreply@loogares.com')
+                            ->setTo('cuenta.usuarios@loogares.com');
+
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo.png'));
+                $mail['logo'] = $logo;
+                $message->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_borrar_cuenta.html.twig', array('mail' => $mail)), 'text/html');
+                $this->get('mailer')->send($message);
 
                 // Cerramos la sesión
                 $this->container->get('security.context')->setToken(null);
@@ -469,8 +503,9 @@ class UsuarioController extends Controller
                     $message = \Swift_Message::newInstance()
                             ->setSubject('Confirma tu cuenta en Loogares.com')
                             ->setFrom('noreply@loogares.com')
-                            ->setTo($usuario->getMail())
-                            ->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.html.twig', array('usuario' => $usuario)), 'text/html')
+                            ->setTo($usuario->getMail());
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo.png'));
+                    $message->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.html.twig', array('usuario' => $usuario, 'logo' => $logo)), 'text/html')
                             ->addPart($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.txt.twig', array('usuario' => $usuario)), 'text/plain');
                     $this->get('mailer')->send($message);
 
@@ -569,6 +604,8 @@ class UsuarioController extends Controller
             $formErrors['password'] = $error;
         else if($error != null && $error->getMessage() == 'usuario.errors.emptyPassword')
             $formErrors['emptyPassword'] = $error;
+        else if($error != null && $error->getMessage() == 'usuario.errors.noActivo')
+            $formErrors['noActivo'] = $error;
 
         $session->set(SecurityContext::AUTHENTICATION_ERROR, null);
 

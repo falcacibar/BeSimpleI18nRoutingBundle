@@ -5,3 +5,4 @@ usuario:
         completo: All fields must be filled
         password: E-mail and Password fields don't match. Correct them, please.
         emptyPassword: Password field required. Fill it, please.
+        noActivo: User account is disabled.

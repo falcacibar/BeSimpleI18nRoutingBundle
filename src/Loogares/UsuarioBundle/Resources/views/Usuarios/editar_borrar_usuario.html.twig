@@ -27,17 +27,27 @@
 				</li>		
 				<li>
 					<label for="motivo">¿Por qué te vas? Cuéntanos el motivo de tu salida. *</label>
-					<input type="textarea" id="motivo" name="motivo" class="{{errors.motivo is defined ? 'input-error' : ' '}}"/>
+					<textarea id="motivo" name="motivo" rows="4" class="{{errors.motivo is defined ? 'input-error' : ' '}}" ></textarea>
 					{% if errors.motivo is defined %}
 						<small class="errors">{{errors.motivo}}</small>
 					{% endif %}
 					
 				</li>
 
-				<li class="submitBorrar">
-					<label></label><input type="submit" value="Guardar" formnovalidate />
+				<li class="submit-borrar">
+					<label></label><input type="submit" value="Borrar cuenta" formnovalidate />
 				</li>
 			</ul>
 	    </div>		    
 	</form>
 </div>
+
+{% block javascripts %}
+	<script type="text/javascript">
+		$('.submit-borrar input[type=submit]').click(function(){
+			if(confirm('¿Estás seguro de querer borrar tu cuenta de Loogares.com?'))
+				$('.form-edicion').parent().submit();
+			return false;
+		});
+	</script>
+{% endblock %}

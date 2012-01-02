@@ -4,13 +4,14 @@ namespace Loogares\UsuarioBundle\Entity;
 
 use Loogares\ExtraBundle\Functions\LoogaresFunctions;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Loogares\UsuarioBundle\Entity\Usuario
  */
-class Usuario implements UserInterface, \Serializable 
+class Usuario implements AdvancedUserInterface, \Serializable 
 {
     /**
      * @var integer $id
@@ -659,7 +660,7 @@ class Usuario implements UserInterface, \Serializable
     }
 
     /**
-    * Implementación de UserInterface interface
+    * Implementación de AdvancedUserInterface interface
     */
 
     public function eraseCredentials(){
@@ -683,10 +684,32 @@ class Usuario implements UserInterface, \Serializable
             if($user->getMail() != $this->mail) {
                 return false;
             }
-        }
-        
+        }       
        
         return true;
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        if($this->estado->getNombre() == 'Activo')
+            return true;
+
+        return false;
     }
 
     /**

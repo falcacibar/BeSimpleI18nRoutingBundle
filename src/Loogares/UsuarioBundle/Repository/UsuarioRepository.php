@@ -26,7 +26,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
     }
    
     public function refreshUser(UserInterface $user) {
-        return $this->loadUserByUsername($user->getId());
+        return $this->loadUserByUsername($user->getMail());
     }
    
     public function supportsClass($class) {
