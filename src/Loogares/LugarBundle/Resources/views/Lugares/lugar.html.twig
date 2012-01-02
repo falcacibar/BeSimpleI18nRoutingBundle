@@ -10,77 +10,103 @@
 {% endblock %}
 
 {% block content %}
-<style> a{ color:#0066cc !important;}</style>
 <!-- Ficha, top part -->
 <a href="{{ path('_editar', {'slug': lugar.slug}) }}">Editar</a>
 <div id="lugar-ficha">
     <div id="lugar-info">
-        <div id="lugar-foto"><a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="../../assets/images/lugares/{{lugar.imagen_full}}" width="256" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a></div>
-            <h2>{{ lugar.nombre }} - ID: {{lugar.id}} </h2>
-            <div class="estrellas">{{ lugar.estrellas }} Estrellas | {{ lugar.totalRecomendaciones }} Recomendaciones</div>
-            <div id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }} - {{ lugar.comuna.ciudad.nombre }}</div>
-            {% if lugar.sector %}<div id="lugar-sector">Sector: {{ lugar.sector.nombre }}</div>{% endif %}
-            {% if lugar.telefonos %}
-                <div id="lugar-telefono">
-                    Telefono:
-                    {% for telefono in lugar.telefonos %}
-                        {{telefono}}{% if loop.last == false %}, {% endif %}
-                    {% endfor %}
+        <div class="lugar_info">
+            <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
+            <div class="estrellas">{{ lugar.estrellas }} <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} recomendaciones</span></div>
+
+            <div class="foto_lugar_box">
+                <div class="foto_lugar" id="lugar-foto">
+                    <a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="../../assets/images/lugares/{{lugar.imagen_full}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 </div>
-            {% endif %}
+                <a class="link_gris_444" href="#">Ver galería (nº fotos)</a><br />
+                <a class="link_gris_444" href="#">» Agrega una foto</a>
+            </div>
 
-            {% if lugar.caracteristicaLugar %}
-                <div id="lugar-caracteristicas">
-                    Caracteristicas: 
-                    {% for caracteristicaLugar in lugar.caracteristicaLugar %}
-                        {{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            {% if lugar.horario %}
-                <div id="lugar-horarios">
-                    {% for horario in lugar.horario %}
-                        AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
-                        PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            {% if lugar.precio %}<div id="precio">Precio: {{lugar.precio}}</div>{% endif %}
-
-            {% if lugar.categoriaLugar %}
-                <div id="lugar-categorias">
-                    Categorias:
-                    {% for categoriaLugar in lugar.categoriaLugar %} 
-                        <a href="">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            {% if lugar.subcategoriaLugar %}
-                <div id="lugar-subcategoria">
-                    {% for categoriaLugar in lugar.categoriaLugar %} 
-                    Subcategorias De: <a href="">{{categoriaLugar.categoria.nombre}}</a>: 
-                        {% for subcategoriaLugar in lugar.subcategoriaLugar %}
-                            {% if subcategoriaLugar.subCategoria.categoria.id == categoriaLugar.categoria.id %}
-                                <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
-                            {% endif %}
+            <div class="datos_principales_lugar">
+                <div class="direccion_lugar" id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }}, {{ lugar.comuna.ciudad.nombre }}</div>
+                {% if lugar.telefonos %}
+                    <div class="telefono_lugar" id="lugar-telefono">
+                        {% for telefono in lugar.telefonos %}
+                            {{telefono}}{% if loop.last == false %}, {% endif %}
                         {% endfor %}
-                        {% if loop.last == false %}<br/> {% endif %}
-                    {% endfor %}
+                    </div>
+                {% endif %}
+                {% if lugar.sitioWeb %}
+                    <div class="url_lugar" id="lugar-url">
+                        <a class="link_azul" href="http://{{ lugar.sitioWeb }}" target="_blank">{{ lugar.sitioWeb }}</a>
+                    </div>
+                {% endif %}
+                <div class="redes_sociales_lugar">
+                    {% if lugar.facebook %}
+                        <div id="lugar-facebook">
+                            {{ lugar.facebook }}
+                        </div>
+                    {% endif %}
+                    {% if lugar.twitter %}
+                        <div id="lugar-twitter">
+                            {{ lugar.twitter }}
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
-           
-            {% if lugar.sitioWeb %}<div id="lugar-url">{{ lugar.sitioWeb }}</div>{% endif %}
-            {% if lugar.facebook %}<div id="lugar-facebook">{{ lugar.facebook }}</div>{% endif %}
-            {% if lugar.twitter %}<div id="lugar-twitter">{{ lugar.twitter }}</div>{% endif %}
+                {% if lugar.precio %}
+                    <div class="precio_lugar" id="precio">
+                        Precio: {{lugar.precio}} <span class="precio_tip">(Detalle precio)</span>
+                    </div>
+                {% endif %}
+            </div>
+                {% if lugar.sector %}<div id="lugar-sector">Sector: {{ lugar.sector.nombre }}</div>{% endif %}
 
-            {% if lugar.recomendaciones %}
-                <div id="primero-recomendar">
-                    Primero Recomendar: 
-                    {{ lugar.primero.usuario.nombre }}
-                </div>
+                {% if lugar.caracteristicaLugar %}
+                    <div id="lugar-caracteristicas">
+                        Caracteristicas: 
+                        {% for caracteristicaLugar in lugar.caracteristicaLugar %}
+                            {{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if lugar.horario %}
+                    <div id="lugar-horarios">
+                        {% for horario in lugar.horario %}
+                            AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
+                            PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if lugar.categoriaLugar %}
+                    <div id="lugar-categorias">
+                        Categorias:
+                        {% for categoriaLugar in lugar.categoriaLugar %} 
+                            <a href="">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if lugar.subcategoriaLugar %}
+                    <div id="lugar-subcategoria">
+                        {% for categoriaLugar in lugar.categoriaLugar %} 
+                        Subcategorias De: <a href="">{{categoriaLugar.categoria.nombre}}</a>: 
+                            {% for subcategoriaLugar in lugar.subcategoriaLugar %}
+                                {% if subcategoriaLugar.subCategoria.categoria.id == categoriaLugar.categoria.id %}
+                                    <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if loop.last == false %}<br/> {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if lugar.recomendaciones %}
+                    <div id="primero-recomendar">
+                        Primero Recomendar: 
+                        {{ lugar.primero.usuario.nombre }}
+                    </div>
+        </div>
                 <div id="recomendaciones">
                     <h2>Recomendaciones</h2>
                     <p>Mostrando Recomendaciones de {{ lugar.mostrandoComentariosDe }} a {{ lugar.mostrandoComentariosDe + 9 }} || {{ lugar.recomendacion|length }} recomendaciones totales</p>

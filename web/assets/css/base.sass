@@ -46,7 +46,7 @@ table
 
 /* Colores */
 
-$azul: #0099FF
+$azul: #0066CC
 $blanco: #FFF
 $error: #F66
 $gris_444: #444
@@ -102,6 +102,14 @@ $rojo: #FF3300
     color: $blanco
     text-decoration: underline
 
+@mixin link_gris_444
+    color: $gris_444
+    text-decoration: none
+
+@mixin link_gris_444_hover
+    color: $gris_444
+    text-decoration: underline
+
 @mixin link_gris_999
     color: $gris_999
     text-decoration: none
@@ -109,6 +117,12 @@ $rojo: #FF3300
 @mixin link_gris_999_hover
     color: $gris_999
     text-decoration: underline
+
+@mixin textos
+    font:
+        family: Arial
+        size: 13px
+    line-height: 18px
 
 body
     background: url('../images/extras/fondo.gif') repeat-x $blanco
@@ -295,25 +309,25 @@ body
                     padding: 14px 0 0 0
                     position: absolute
                     top: 41px
-                    width: 200px
+                    width: 250px
 
                     li
                         display: list-item
                         float: left
-                        width: 200px
+                        width: 250px
 
                         a
                             border: 0px
                             height: 20px
                             padding: 9px 6px 1px
-                            width: 188px
+                            width: 238px
 
                             &:hover
                                 background: $gris_f6f
                                 border: 0px
                                 padding: 9px 6px 1px
                                 text-decoration: underline
-                                width: 188px
+                                width: 238px
         
         .buscador_box
             border-left: 1px solid $gris_ccc
@@ -329,6 +343,9 @@ body
                 
                 &:hover
                     border: 1px solid $gris_444
+
+                &:focus
+                    border: 1px solid $azul
             
                 .buscador
                     border: 0px
@@ -380,10 +397,18 @@ body
         width: 960px
         position: relative
 
+        .textos
+            @include textos
+
         .titulo
             font:
                 size: 16px
             margin: 0 0 30px 0
+
+        .confirmar_registro
+            background: url('../images/extras/confirmar_registro.jpg') 400px 50px no-repeat
+            height: 382px
+            width: 960px
 
         .columna_izquierda
             float: left
@@ -496,12 +521,22 @@ body
                             width: 60px
 
         .texto_registro
-            font:
-                size: 13px
-            line-height: 18px
-        
+            @include textos
+                    
         a
             @include link_blanco
+
+        .link_azul
+            @include link_azul
+            
+            &:hover
+                @include link_azul_hover
+
+        .link_gris_444
+            @include link_gris_444
+            
+            &:hover
+                @include link_gris_444_hover
 
         /* Registro Usuario */
 
@@ -598,11 +633,9 @@ body
                 width: 135px
             
             .registro_facebook_txt
+                @include textos
                 padding: 10px
                 float: left
-                font:
-                    size: 13px
-                line-height: 18px
                 width: 283px
             
             .registro_facebook_btn
