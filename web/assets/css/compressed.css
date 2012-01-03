@@ -3,7 +3,7 @@ html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
+small, strike, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
@@ -1067,6 +1067,11 @@ small {
       float: left;
       margin: 0 0 20px 0;
       padding: 7px; }
+      .lugar_info .foto_lugar_box .foto_lugar a {
+        display: block;
+        float: left;
+        height: 130px;
+        width: 130px; }
   .lugar_info .datos_principales_lugar {
     float: left;
     margin: 0 0 0 10px;
@@ -1078,10 +1083,13 @@ small {
       margin: 0 0 20px 0;
       width: 442px; }
     .lugar_info .datos_principales_lugar .telefono_lugar {
+      background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -51px;
       display: block;
       float: left;
       font-size: 14px;
+      height: 15px;
       margin: 0 0 20px 0;
+      padding: 0 0 0 25px;
       width: 442px; }
     .lugar_info .datos_principales_lugar .url_lugar {
       display: block;
@@ -1094,6 +1102,19 @@ small {
       float: left;
       margin: 0 0 20px 0;
       width: 442px; }
+      .lugar_info .datos_principales_lugar .redes_sociales_lugar .facebook_lugar {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -71px;
+        display: inline-block;
+        float: left;
+        height: 16px;
+        width: 16px; }
+      .lugar_info .datos_principales_lugar .redes_sociales_lugar .twitter_lugar {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -92px;
+        display: inline-block;
+        float: left;
+        height: 16px;
+        margin: 0 0 0 10px;
+        width: 16px; }
     .lugar_info .datos_principales_lugar .precio_lugar {
       display: block;
       float: left;
@@ -1109,12 +1130,17 @@ small {
     .lugar_info .datos_secundarios_lugar .subtitulos_lugar {
       display: block;
       font-size: 11px;
-      margin: 0 0 4px 0; }
+      margin: 3px 0 4px 0; }
+    .lugar_info .datos_secundarios_lugar .minusculas {
+      text-transform: lowercase; }
     .lugar_info .datos_secundarios_lugar .primero_en_recomendar_lugar {
+      background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -113px;
       display: block;
       float: left;
       font-size: 11px;
-      width: 146px; }
+      height: 16px;
+      padding: 2px 0 0 20px;
+      width: 126px; }
       .lugar_info .datos_secundarios_lugar .primero_en_recomendar_lugar a {
         color: #0066cc;
         text-decoration: none; }
@@ -1163,13 +1189,26 @@ small {
         .lugar_info .datos_secundarios_lugar .sector_lugar a:hover {
           color: #0066cc;
           text-decoration: underline; }
+  .lugar_info .caracteristicas_lugar {
+    display: block;
+    float: left;
+    margin: 20px 0 0 0;
+    width: 598px; }
+    .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado {
+      display: block;
+      float: left;
+      width: 608px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado li {
+        font-size: 11px;
+        display: inline-block;
+        margin: 0 10px 0 0;
+        width: 139px; }
 
 .opciones_lugar {
   display: block;
   float: left;
   margin: 5px 0;
-  width: 640px;
-  /* AGREGADO POR EL SUR */ }
+  width: 640px; }
   .opciones_lugar ul.opciones_lugar_f6f {
     background: #f6f6f6;
     display: block;
@@ -1179,7 +1218,7 @@ small {
     .opciones_lugar ul.opciones_lugar_f6f li {
       font-size: 12px;
       display: inline;
-      margin: 0 15px; }
+      margin: 0 10px; }
       .opciones_lugar ul.opciones_lugar_f6f li a {
         color: #999999;
         text-decoration: none;
@@ -1187,6 +1226,21 @@ small {
         .opciones_lugar ul.opciones_lugar_f6f li a:hover {
           color: #999999;
           text-decoration: underline; }
+      .opciones_lugar ul.opciones_lugar_f6f li .dueno_lugar {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -3px;
+        height: 10px;
+        padding: 0 0 0 12px;
+        width: 10px; }
+      .opciones_lugar ul.opciones_lugar_f6f li .editar_lugar {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
+        height: 10px;
+        padding: 0 0 0 13px;
+        width: 10px; }
+      .opciones_lugar ul.opciones_lugar_f6f li .compartir_lugar {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -34px;
+        height: 10px;
+        padding: 0 0 0 13px;
+        width: 10px; }
   .opciones_lugar ul.opciones_lugar_ccc {
     background: #cccccc;
     display: block;
@@ -1206,31 +1260,143 @@ small {
         .opciones_lugar ul.opciones_lugar_ccc li a:hover {
           color: #999999;
           text-decoration: underline; }
-  .opciones_lugar .subcategorias {
+
+/* Recomendaciones */
+.titulo_recomendaciones {
+  border-top: 1px solid #f6f6f6;
+  display: block;
+  float: left;
+  font-size: 20px;
+  margin: 0 0 20px 0;
+  padding: 30px 0 0;
+  width: 640px; }
+
+.ordenar_por_recomendaciones {
+  float: left;
+  font-size: 14px;
+  margin: 0 0 20px 0;
+  width: 640px; }
+  .ordenar_por_recomendaciones li {
+    display: inline-block;
+    float: left;
+    margin: 0 5px 0 0; }
+
+.resultados_por_pagina {
+  float: left;
+  margin: 0 0 30px 0;
+  width: 640px; }
+  .resultados_por_pagina .seleccionar_resultados_por_pagina {
+    float: left;
+    width: 45px; }
+  .resultados_por_pagina .resultados_por_pagina_txt {
+    float: left;
+    font-size: 11px;
+    margin: 5px 0 0 5px; }
+
+.recomendacion {
+  border-top: 1px solid #f6f6f6;
+  float: left;
+  padding: 20px 0;
+  width: 640px; }
+  .recomendacion .foto_recomendacion {
+    float: left;
+    width: 60px; }
+  .recomendacion .texto_recomendacion {
+    float: left;
+    margin: 0 0 0 10px;
+    width: 570px; }
+    .recomendacion .texto_recomendacion .nombre_recomendacion {
+      display: block;
+      float: left;
+      font-size: 14px;
+      margin: 0 0 10px 0;
+      width: 470px; }
+    .recomendacion .texto_recomendacion .util_recomendacion {
+      display: block;
+      float: left;
+      font-size: 14px;
+      margin: 0 0 10px 0;
+      text-align: right;
+      width: 100px; }
+    .recomendacion .texto_recomendacion .fecha_recomendacion {
+      color: #999999;
+      display: block;
+      float: left;
+      font-size: 11px;
+      margin: 0 0 10px 0;
+      width: 570px; }
+    .recomendacion .texto_recomendacion .estrellas_recomendacion {
+      display: block;
+      float: left;
+      margin: 0 0 20px 0;
+      width: 570px; }
+    .recomendacion .texto_recomendacion .texto_recomendacion_usuario {
+      display: block;
+      float: left;
+      font-size: 14px;
+      line-height: 22px;
+      margin: 0 0 20px 0;
+      width: 570px; }
+    .recomendacion .texto_recomendacion .tags_recomendacion {
+      display: block;
+      float: left;
+      font-size: 12px;
+      line-height: 18px;
+      margin: 0 0 20px 0;
+      width: 570px; }
+      .recomendacion .texto_recomendacion .tags_recomendacion a {
+        color: #0066cc;
+        text-decoration: none; }
+        .recomendacion .texto_recomendacion .tags_recomendacion a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+    .recomendacion .texto_recomendacion .opciones_recomendacion {
+      display: block;
+      float: left;
+      font-size: 12px;
+      text-align: right;
+      width: 570px; }
+      .recomendacion .texto_recomendacion .opciones_recomendacion a {
+        color: #444444;
+        text-decoration: none; }
+        .recomendacion .texto_recomendacion .opciones_recomendacion a:hover {
+          color: #444444;
+          text-decoration: underline; }
+
+.paginacion_recomendacion {
+  border-bottom: 1px solid #f6f6f6;
+  border-top: 1px solid #f6f6f6;
+  display: block;
+  float: left;
+  font-size: 12px;
+  padding: 10px 0;
+  width: 640px;
+  /* AGREGADO POR EL SUR */ }
+  .paginacion_recomendacion .subcategorias {
     width: 400px;
     margin: 5px 0 0 92px;
     display: none; }
-    .opciones_lugar .subcategorias li {
+    .paginacion_recomendacion .subcategorias li {
       display: inline-block;
       margin: 1px; }
-      .opciones_lugar .subcategorias li label {
+      .paginacion_recomendacion .subcategorias li label {
         display: inline-block;
         width: 170px;
         font-size: 10px;
         line-height: 10px;
         float: left; }
-        .opciones_lugar .subcategorias li label span:hover {
+        .paginacion_recomendacion .subcategorias li label span:hover {
           border-bottom: 1px dotted #0066cc; }
-  .opciones_lugar .caracteristicas {
+  .paginacion_recomendacion .caracteristicas {
     width: 400px;
     margin: -20px 0 0 93px; }
-    .opciones_lugar .caracteristicas ul li {
+    .paginacion_recomendacion .caracteristicas ul li {
       display: inline-block;
       margin: 1px; }
-    .opciones_lugar .caracteristicas ul label {
+    .paginacion_recomendacion .caracteristicas ul label {
       width: 180px;
       font-size: 10px; }
-      .opciones_lugar .caracteristicas ul label span:hover {
+      .paginacion_recomendacion .caracteristicas ul label span:hover {
         border-bottom: 1px dotted #0066cc; }
 
 /* Perfil de usuario */
@@ -1290,7 +1456,8 @@ small {
   #main-usuario #content-usuario {
     width: 76%;
     float: right;
-    /* Edición de usuario */ }
+    /* Edición de usuario */
+    /* Recomendaciones del usuario */ }
     #main-usuario #content-usuario h1.edicion-titulo {
       font-size: 1.4em;
       font-weight: bold; }
@@ -1367,6 +1534,35 @@ small {
         margin: 0 0 20px 0;
         padding: 5px 10px;
         width: 456px; }
+    #main-usuario #content-usuario .recomendaciones h1 {
+      margin: 10px 0 20px 0;
+      font-weight: bold;
+      letter-spacing: -1px;
+      font-size: 1.6em; }
+    #main-usuario #content-usuario .recomendaciones ul {
+      margin: 10px 0; }
+      #main-usuario #content-usuario .recomendaciones ul li {
+        display: inline;
+        font-size: 11px; }
+    #main-usuario #content-usuario .recomendaciones a {
+      color: #0066cc;
+      cursor: pointer; }
+    #main-usuario #content-usuario .recomendaciones a:hover {
+      text-decoration: underline; }
+    #main-usuario #content-usuario .recomendaciones table {
+      text-align: left; }
+      #main-usuario #content-usuario .recomendaciones table tr {
+        border-bottom: 1px solid #cccccc; }
+      #main-usuario #content-usuario .recomendaciones table tr.no-bottom-border {
+        border-bottom: none; }
+      #main-usuario #content-usuario .recomendaciones table th {
+        font-size: 11px;
+        padding: 8px; }
+      #main-usuario #content-usuario .recomendaciones table td {
+        font-size: 12px;
+        padding: 8px; }
+        #main-usuario #content-usuario .recomendaciones table td a {
+          font-weight: bold; }
 
 /*  Extras */
 .bold {
