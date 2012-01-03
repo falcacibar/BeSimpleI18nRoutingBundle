@@ -1,3 +1,7 @@
 LoogaresAdminBundle_lugares:
     pattern:  /lugares
+    defaults: { _controller: LoogaresAdminBundle:Default:lugares }
+
+LoogaresAdminBundle_index:
+    pattern:  /
     defaults: { _controller: LoogaresAdminBundle:Default:index }

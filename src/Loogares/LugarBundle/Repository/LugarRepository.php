@@ -15,6 +15,7 @@ class LugarRepository extends EntityRepository
 
     public function getLugares($slug = null, $limit = null, $offset = null, $orderBy = null){
         $em = $this->getEntityManager();
+
         if($slug){
           $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.slug = '$slug' $orderBy");
         }else{
@@ -32,8 +33,8 @@ class LugarRepository extends EntityRepository
         if($orderBy){
           //D:
         }
-        $lugarResult = $q->getResult();
 
+        $lugarResult = $q->getResult();
         return $lugarResult;
     }
 
