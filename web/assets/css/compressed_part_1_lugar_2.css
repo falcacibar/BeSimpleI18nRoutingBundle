@@ -321,19 +321,18 @@
   border: 1px solid #f6f6f6;
   float: left;
   padding: 20px;
-  width: 608px;
-  /* AGREGADO POR EL SUR */ }
+  width: 598px; }
   .lugar_info .titulo_lugar {
     display: block;
     float: left;
     font-size: 24px;
     margin: 0 0 15px 0;
-    width: 608px; }
+    width: 598px; }
   .lugar_info .estrellas {
     display: block;
     float: left;
     margin: 0 0 20px 0;
-    width: 608px; }
+    width: 598px; }
   .lugar_info .n_recomendaciones {
     font-size: 11px;
     font-style: italic; }
@@ -355,61 +354,165 @@
   .lugar_info .datos_principales_lugar {
     float: left;
     margin: 0 0 0 10px;
-    width: 452px; }
+    width: 442px; }
     .lugar_info .datos_principales_lugar .direccion_lugar {
       display: block;
       float: left;
       font-size: 16px;
       margin: 0 0 20px 0;
-      width: 452px; }
+      width: 442px; }
     .lugar_info .datos_principales_lugar .telefono_lugar {
       display: block;
       float: left;
       font-size: 14px;
       margin: 0 0 20px 0;
-      width: 452px; }
+      width: 442px; }
     .lugar_info .datos_principales_lugar .url_lugar {
       display: block;
       float: left;
       font-size: 14px;
       margin: 0 0 20px 0;
-      width: 452px; }
+      width: 442px; }
     .lugar_info .datos_principales_lugar .redes_sociales_lugar {
       display: block;
       float: left;
       margin: 0 0 20px 0;
-      width: 452px; }
+      width: 442px; }
     .lugar_info .datos_principales_lugar .precio_lugar {
       display: block;
       float: left;
       font-size: 14px;
       margin: 0 0 20px 0;
-      width: 452px; }
+      width: 442px; }
       .lugar_info .datos_principales_lugar .precio_lugar .precio_tip {
         color: #686868; }
-  .lugar_info .subcategorias {
+  .lugar_info .datos_secundarios_lugar {
+    float: left;
+    margin: 20px 0 0 0;
+    width: 598px; }
+    .lugar_info .datos_secundarios_lugar .subtitulos_lugar {
+      display: block;
+      font-size: 11px;
+      margin: 0 0 4px 0; }
+    .lugar_info .datos_secundarios_lugar .primero_en_recomendar_lugar {
+      display: block;
+      float: left;
+      font-size: 11px;
+      width: 146px; }
+      .lugar_info .datos_secundarios_lugar .primero_en_recomendar_lugar a {
+        color: #0066cc;
+        text-decoration: none; }
+        .lugar_info .datos_secundarios_lugar .primero_en_recomendar_lugar a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+    .lugar_info .datos_secundarios_lugar .categoria_lugar {
+      display: block;
+      float: left;
+      font-size: 12px;
+      margin: 0 0 0 10px;
+      width: 216px; }
+      .lugar_info .datos_secundarios_lugar .categoria_lugar .categoria_lugar_box {
+        display: block;
+        float: left;
+        margin: 0 0 10px 0;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .categoria_lugar .horario_lugar_box {
+        display: block;
+        float: left;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .categoria_lugar a {
+        color: #0066cc;
+        text-decoration: none; }
+        .lugar_info .datos_secundarios_lugar .categoria_lugar a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+    .lugar_info .datos_secundarios_lugar .sector_lugar {
+      display: block;
+      float: left;
+      font-size: 12px;
+      margin: 0 0 0 10px;
+      width: 216px; }
+      .lugar_info .datos_secundarios_lugar .sector_lugar .sector_lugar_box {
+        display: block;
+        float: left;
+        margin: 0 0 10px 0;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .sector_lugar .subcategoria_lugar_box {
+        display: block;
+        float: left;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .sector_lugar a {
+        color: #0066cc;
+        text-decoration: none; }
+        .lugar_info .datos_secundarios_lugar .sector_lugar a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+
+.opciones_lugar {
+  display: block;
+  float: left;
+  margin: 5px 0;
+  width: 640px;
+  /* AGREGADO POR EL SUR */ }
+  .opciones_lugar ul.opciones_lugar_f6f {
+    background: #f6f6f6;
+    display: block;
+    float: left;
+    padding: 15px 0;
+    width: 476px; }
+    .opciones_lugar ul.opciones_lugar_f6f li {
+      font-size: 12px;
+      display: inline;
+      margin: 0 15px; }
+      .opciones_lugar ul.opciones_lugar_f6f li a {
+        color: #999999;
+        text-decoration: none;
+        color: #999999 !important; }
+        .opciones_lugar ul.opciones_lugar_f6f li a:hover {
+          color: #999999;
+          text-decoration: underline; }
+  .opciones_lugar ul.opciones_lugar_ccc {
+    background: #cccccc;
+    display: block;
+    float: left;
+    padding: 15px 0;
+    width: 164px; }
+    .opciones_lugar ul.opciones_lugar_ccc li {
+      font-size: 12px;
+      font-weight: bold;
+      display: inline;
+      text-shadow: 1px 1px 1px white;
+      margin: 0 15px; }
+      .opciones_lugar ul.opciones_lugar_ccc li a {
+        color: #999999;
+        text-decoration: none;
+        color: #999999 !important; }
+        .opciones_lugar ul.opciones_lugar_ccc li a:hover {
+          color: #999999;
+          text-decoration: underline; }
+  .opciones_lugar .subcategorias {
     width: 400px;
     margin: 5px 0 0 92px;
     display: none; }
-    .lugar_info .subcategorias li {
+    .opciones_lugar .subcategorias li {
       display: inline-block;
       margin: 1px; }
-      .lugar_info .subcategorias li label {
+      .opciones_lugar .subcategorias li label {
         display: inline-block;
         width: 170px;
         font-size: 10px;
         line-height: 10px;
         float: left; }
-        .lugar_info .subcategorias li label span:hover {
+        .opciones_lugar .subcategorias li label span:hover {
           border-bottom: 1px dotted #0066cc; }
-  .lugar_info .caracteristicas {
+  .opciones_lugar .caracteristicas {
     width: 400px;
     margin: -20px 0 0 93px; }
-    .lugar_info .caracteristicas ul li {
+    .opciones_lugar .caracteristicas ul li {
       display: inline-block;
       margin: 1px; }
-    .lugar_info .caracteristicas ul label {
+    .opciones_lugar .caracteristicas ul label {
       width: 180px;
       font-size: 10px; }
-      .lugar_info .caracteristicas ul label span:hover {
+      .opciones_lugar .caracteristicas ul label span:hover {
         border-bottom: 1px dotted #0066cc; }

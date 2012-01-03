@@ -10,10 +10,10 @@
 {% endblock %}
 
 {% block content %}
-<!-- Ficha, top part -->
-<a href="{{ path('_editar', {'slug': lugar.slug}) }}">Editar</a>
 <div id="lugar-ficha">
-    <div id="lugar-info">
+    
+    <div class="contenido_central" id="lugar-info">
+        
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
             <div class="estrellas">{{ lugar.estrellas }} <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} recomendaciones</span></div>
@@ -58,7 +58,102 @@
                     </div>
                 {% endif %}
             </div>
-                {% if lugar.sector %}<div id="lugar-sector">Sector: {{ lugar.sector.nombre }}</div>{% endif %}
+
+            <div class="datos_secundarios_lugar">
+                <div class="primero_en_recomendar_lugar">
+                    {% if lugar.recomendaciones %}
+                        <div id="primero-recomendar">
+                            Primero en recomendar 
+                            {{ lugar.primero.usuario.nombre }}
+                        </div>
+                </div>
+
+                <div class="categoria_lugar">
+                    {% if lugar.categoriaLugar %}
+                        <div class="categoria_lugar_box" id="lugar-categorias">
+                            <span class="subtitulos_lugar">Categorías</span>
+                            {% for categoriaLugar in lugar.categoriaLugar %} 
+                                <a href="">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if lugar.horario %}
+                        <div class="horario_lugar_box" id="lugar-horarios">
+                            <span class="subtitulos_lugar">Horario</span>
+                            {% for horario in lugar.horario %}
+                                AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
+                                PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+                <div class="sector_lugar">
+                    {% if lugar.sector %}
+                        <div class="sector_lugar_box" id="lugar-sector">
+                            <span class="subtitulos_lugar">Sector</span>
+                            <a href="">{{ lugar.sector.nombre }}</a>
+                        </div>
+                    {% endif %}
+                    {% if lugar.subcategoriaLugar %}
+                        <div class="subcategoria_lugar_box" id="lugar-subcategoria">
+                            {% for categoriaLugar in lugar.categoriaLugar %} 
+                            <span class="subtitulos_lugar">Subcategorías {{categoriaLugar.categoria.nombre}}</span> 
+                                {% for subcategoriaLugar in lugar.subcategoriaLugar %}
+                                    {% if subcategoriaLugar.subCategoria.categoria.id == categoriaLugar.categoria.id %}
+                                        <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if loop.last == false %}<br/><br/> {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="opciones_lugar">
+            <ul class="opciones_lugar_f6f">
+                <li><a href="">¿Eres dueño de este Lugar?</a></li>
+                <li><a href="{{ path('_editar', {'slug': lugar.slug}) }}">Edita los datos</a></li>
+                <li><a href="">Compartir</a></li>
+                <li><a href="">Imprimir</a></li>
+            </ul>
+            <ul class="opciones_lugar_ccc">
+                <li><a href="">Recomienda este lugar</a></li>
+            </ul>
+        </div>
+    
+    </div>
+
+    <div class="sidebar">
+        <div id="mapa-sidebar">
+            <div id="mapaOtros" class="borde-ccc mb-10 mt-10" style="height:298px;width:298px;">
+            </div>
+            <div id="otros-lugaresMapa">
+                <input type="hidden" id="idLugar" value="2375" />
+                <input id="coordenadas0" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}">
+                <input id="coordenadasX" type="hidden" value="{{lugar.mapx}}">
+                <input id="coordenadasY" type="hidden" value="{{lugar.mapy}}">
+                <input id="puntodestacado" type="hidden" value="">
+                <input id="nombre0" type="hidden" value="{{ lugar.nombre }}">
+                <input id="direccion0" type="hidden" value="{{ lugar.calle }} {{lugar.numero}}">
+                <input id="baseurl" type="hidden" value="localhost" />
+                <input id="cantidadLugares" type="hidden" value="10" />
+            </div>
+
+            <div id="mapaAjax">
+            </div>
+            
+            <div id="otros-lugares">
+                <h2 class="fs-14 mt-20 mb-20">Otros Lugares en el área</h2>
+                <input id="cantidadLugares" type="hidden" value="20">
+            </div>
+        </div>
+    </div>
 
                 {% if lugar.caracteristicaLugar %}
                     <div id="lugar-caracteristicas">
@@ -69,44 +164,6 @@
                     </div>
                 {% endif %}
 
-                {% if lugar.horario %}
-                    <div id="lugar-horarios">
-                        {% for horario in lugar.horario %}
-                            AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
-                            PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                {% if lugar.categoriaLugar %}
-                    <div id="lugar-categorias">
-                        Categorias:
-                        {% for categoriaLugar in lugar.categoriaLugar %} 
-                            <a href="">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                {% if lugar.subcategoriaLugar %}
-                    <div id="lugar-subcategoria">
-                        {% for categoriaLugar in lugar.categoriaLugar %} 
-                        Subcategorias De: <a href="">{{categoriaLugar.categoria.nombre}}</a>: 
-                            {% for subcategoriaLugar in lugar.subcategoriaLugar %}
-                                {% if subcategoriaLugar.subCategoria.categoria.id == categoriaLugar.categoria.id %}
-                                    <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if loop.last == false %}<br/> {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                {% if lugar.recomendaciones %}
-                    <div id="primero-recomendar">
-                        Primero Recomendar: 
-                        {{ lugar.primero.usuario.nombre }}
-                    </div>
-        </div>
                 <div id="recomendaciones">
                     <h2>Recomendaciones</h2>
                     <p>Mostrando Recomendaciones de {{ lugar.mostrandoComentariosDe }} a {{ lugar.mostrandoComentariosDe + 9 }} || {{ lugar.recomendacion|length }} recomendaciones totales</p>
@@ -186,29 +243,6 @@
                 <h1>No hay recomendaciones, queris recomendar? :D</h1>
             {% endif %}
         </div>
-</div>
-<div id="mapa-sidebar">
-        <div id="mapaOtros" class="borde-ccc mb-10 mt-10" style="height:298px;width:298px;"></div>
-        <div id="otros-lugaresMapa">
-            <input type="hidden" id="idLugar" value="2375" />
-            <input id="coordenadas0" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}">
-            <input id="coordenadasX" type="hidden" value="{{lugar.mapx}}">
-            <input id="coordenadasY" type="hidden" value="{{lugar.mapy}}">
-            <input id="puntodestacado" type="hidden" value="">
-            <input id="nombre0" type="hidden" value="{{ lugar.nombre }}">
-            <input id="direccion0" type="hidden" value="{{ lugar.calle }} {{lugar.numero}}">
-            <input id="baseurl" type="hidden" value="localhost" />
-            <input id="cantidadLugares" type="hidden" value="10" />
-        </div>
-
-        <div id="mapaAjax"></div>
-        <div id="otros-lugares">
-
-        <h2 class="fs-14 mt-20 mb-20">Otros Lugares en el área</h2>
-        <input id="cantidadLugares" type="hidden" value="20">
-        </div>
-
-
 </div>
 
 {% endblock %}

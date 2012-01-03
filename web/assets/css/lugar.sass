@@ -38,6 +38,14 @@ $rojo: #FF3300
     color: $azul
     text-decoration: underline
 
+@mixin link_gris_999
+    color: $gris_999
+    text-decoration: none
+
+@mixin link_gris_999_hover
+    color: $gris_999
+    text-decoration: underline 
+
 @mixin sombra_fuerte
     -box-shadow: -3px 3px 1px $gris_eee
     -o-box-shadow: -3px 3px 1px $gris_eee
@@ -404,7 +412,7 @@ $rojo: #FF3300
     border: 1px solid $gris_f6f
     float: left
     padding: 20px
-    width: 608px
+    width: 598px
 
     .titulo_lugar
         display: block
@@ -412,13 +420,13 @@ $rojo: #FF3300
         font:
             size: 24px
         margin: 0 0 15px 0
-        width: 608px
+        width: 598px
     
     .estrellas
         display: block
         float: left
         margin: 0 0 20px 0
-        width: 608px
+        width: 598px
 
     .n_recomendaciones
         font:
@@ -443,7 +451,7 @@ $rojo: #FF3300
     .datos_principales_lugar
         float: left
         margin: 0 0 0 10px
-        width: 452px
+        width: 442px
         
         .direccion_lugar
             display: block
@@ -451,7 +459,7 @@ $rojo: #FF3300
             font:
                 size: 16px
             margin: 0 0 20px 0
-            width: 452px
+            width: 442px
 
         .telefono_lugar
             display: block
@@ -459,7 +467,7 @@ $rojo: #FF3300
             font:
                 size: 14px
             margin: 0 0 20px 0
-            width: 452px
+            width: 442px
 
         .url_lugar
             display: block
@@ -467,13 +475,13 @@ $rojo: #FF3300
             font:
                 size: 14px
             margin: 0 0 20px 0
-            width: 452px
+            width: 442px
         
         .redes_sociales_lugar
             display: block
             float: left
             margin: 0 0 20px 0
-            width: 452px
+            width: 442px
 
         .precio_lugar
             display: block
@@ -481,14 +489,132 @@ $rojo: #FF3300
             font:
                 size: 14px
             margin: 0 0 20px 0
-            width: 452px
+            width: 442px
 
             .precio_tip
                 color: $gris_686
 
+    .datos_secundarios_lugar
+        float: left
+        margin: 20px 0 0 0
+        width: 598px
 
+        .subtitulos_lugar
+            display: block
+            font:
+                size: 11px
+            margin: 0 0 4px 0
 
+        .primero_en_recomendar_lugar
+            display: block
+            float: left
+            font:
+                size: 11px
+            width: 146px
 
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+        .categoria_lugar
+            display: block
+            float: left
+            font:
+                size: 12px
+            margin: 0 0 0 10px
+            width: 216px
+
+            .categoria_lugar_box
+                display: block
+                float: left
+                margin: 0 0 10px 0
+                width: 216px
+
+            .horario_lugar_box
+                display: block
+                float: left
+                width: 216px
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+        .sector_lugar
+            display: block
+            float: left
+            font:
+                size: 12px
+            margin: 0 0 0 10px
+            width: 216px
+
+            .sector_lugar_box
+                display: block
+                float: left
+                margin: 0 0 10px 0
+                width: 216px
+
+            .subcategoria_lugar_box
+                display: block
+                float: left
+                width: 216px
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+.opciones_lugar
+    display: block
+    float: left
+    margin: 5px 0
+    width: 640px
+
+    ul.opciones_lugar_f6f
+        background: $gris_f6f
+        display: block
+        float: left
+        padding: 15px 0
+        width: 476px
+
+        li
+            font:
+                size: 12px
+            display: inline
+            margin: 0 15px
+
+            a
+                @include link_gris_999
+                color: $gris_999 !important
+
+                &:hover
+                    @include link_gris_999_hover
+    
+    ul.opciones_lugar_ccc
+        background: $gris_ccc
+        display: block
+        float: left
+        padding: 15px 0
+        width: 164px
+
+        li
+            font:
+                size: 12px
+                weight: bold
+            display: inline
+            text-shadow: 1px 1px 1px $blanco
+            margin: 0 15px
+
+            a
+                @include link_gris_999
+                color: $gris_999 !important
+
+                &:hover
+                    @include link_gris_999_hover
 
     /* AGREGADO POR EL SUR */
 
