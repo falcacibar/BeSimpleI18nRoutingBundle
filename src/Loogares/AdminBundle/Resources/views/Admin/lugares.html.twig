@@ -170,7 +170,9 @@
                     <a class="remove" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'nombre': '' })) }}">&#10006;</a>
                 </p>
             </th>
-            <th><a href="">Usuario</a></th>
+            <th>
+                <a href="">Usuario</a>
+            </th>
             <th>Categoria</th>
             <th>Subcategoria</th>
             <th>Direccion</th>
@@ -184,7 +186,6 @@
             <th>$</th>
             <th>Ranking</th>
             <th>Caracteristicas</th>
-            <th>Tags</th>
             <th>www</th>
             <th>Facebook</th>
             <th>Twitter</th>
@@ -196,45 +197,42 @@
         <tbody>
             {% for lugar in lugares %}
                 <tr>
-                    <td><input type="checkbox"/>
+                    <td><input type="checkbox"/></td>
                     <td>{{lugar.id}}</td>
                     <td><a href="{{ path('_lugar', {'slug': lugar.slug }) }}">{{lugar.nombre}}</a></td>
-                    <td>{% if lugar.usuario %}{{lugar.usuario.mail}}{% endif %}</td>
+                    <td>{{lugar.usuarioMail}}</td>
                     <td>
-                        {% for categoriaLugar in lugar.categoriaLugar %}
-                            {{categoriaLugar.categoria.nombre}}
+                        {% for categoria in lugar.categorias %}
+                            {{categoria}}{% if loop.last == false %}, {% endif %}
                         {% endfor %}
                     </td>
                     <td>
-                        {% for subcategoriaLugar in lugar.subcategoriaLugar %}
-                            {{subcategoriaLugar.subCategoria.nombre}}
-                        {% endfor %}
+                        {% for subcategoria in lugar.subcategorias %}
+                            {{subcategoria}}{% if loop.last == false %}, {% endif %}
+                        {% endfor %} 
                     </td>
-                    <td>{{lugar.calle}} {{lugar.numero}}</td>
+                    <td>{{lugar.calle}} - {{lugar.numero}}</td>
                     <td>{{lugar.detalle}}</td>
-                    <td>{{lugar.comuna.ciudad.pais.nombre}}</td>
-                    <td>{{lugar.comuna.ciudad.nombre}}</td>
-                    <td>{{lugar.comuna.nombre}}</td>
-                    <td>{% if lugar.sector %}{{lugar.sector.nombre}}{% endif %}</td>
-                    <td>{{lugar.estrellas}}</td>
-                    <td>nope</td>
-                    <td>nope</td>
+                    <td>{{lugar.paisNombre}}</td>
+                    <td>{{lugar.ciudadNombre}}</td>
+                    <td>{{lugar.comunaNombre}}</td>
+                    <td>{{lugar.sectorNombre}}</td>
+                    <td>{{lugar.estrellas | default(0)}}</td>
+                    <td>{{lugar.utiles}}</td>
+                    <td>{{lugar.precio}}</td>
                     <td>nope</td>
                     <td>
-                        {% for caracteristicaLugar in lugar.caracteristicaLugar %}
-                            {{caracteristicaLugar.caracteristica.nombre}}
-                        {% endfor %}                    
+                        {% for caracteristica in lugar.caracteristicas %}
+                            {{caracteristica}}{% if loop.last == false %}, {% endif %}
+                        {% endfor %}
                     </td>
-                    <td>
-                        nope                  
-                    </td>
-                    <td>{{lugar.sitioWeb}}</td>
+                    <td>{{lugar.sitio_web}}</td>
                     <td>{{lugar.facebook}}</td>
                     <td>{{lugar.twitter}}</td>
                     <td>{{lugar.mail}}</td>
                     <td>nope</td>
                     <td>nope</td>
-                    <td>{{lugar.estado.nombre}}</td>
+                    <td>tiponope</td>
                 </tr>
             {% endfor %}
         </tbody>
