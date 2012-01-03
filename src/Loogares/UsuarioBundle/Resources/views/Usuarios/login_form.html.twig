@@ -2,7 +2,7 @@
     {% if errors is defined and errors | length > 0 %}   
         <div class="login_error">         
             {% for error in errors %}           
-                {{error.message | trans}}
+                {{error | trans}}
             {% endfor %}
         </div>
     {% endif %}

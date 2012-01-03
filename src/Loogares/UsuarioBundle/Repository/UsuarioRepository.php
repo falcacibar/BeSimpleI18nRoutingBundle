@@ -48,13 +48,18 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         return $usuario->getId();
     }
 
-  	public function getUsuarioRecomendaciones($id) {
+  	public function getUsuarioRecomendaciones($id, $orden=null) {
   		  $em = $this->getEntityManager();
 
   		  //Query para obtener el total de recomendaciones del usuario
-        $q = $em->createQuery("SELECT r
+        if($orden == null)
+          $orden = '';
+        $q = $em->createQuery("SELECT r, l, cl
                                FROM Loogares\UsuarioBundle\Entity\Recomendacion r
-                               WHERE r.usuario = ?1");
+                               JOIN r.lugar l
+                               JOIN l.categoria_lugar cl
+                               WHERE r.usuario = ?1
+                               ".$orden);
         $q->setParameter(1, $id);
 
         return $q->getResult();
@@ -97,10 +102,10 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
     		return $q->getResult();
   	}
     
-    public function getDatosUsuario($usuario) {
+    public function getDatosUsuario($usuario, $orden=null) {
 
         //Total recomendaciones usuario
-        $recomendaciones = $this->getUsuarioRecomendaciones($usuario->getId()); 
+        $recomendaciones = $this->getUsuarioRecomendaciones($usuario->getId(), $orden); 
         $totalRecomendaciones = count($recomendaciones);
 
         //Primeras recomendaciones usuario
@@ -157,12 +162,12 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
          */
         $data = $usuario;
         $data->totalRecomendaciones = $totalRecomendaciones;
+        $data->recomendaciones = $recomendaciones;
         $data->totalPrimerasRecomendaciones = $totalPrimerasRecomendaciones;
         $data->totalLugaresAgregados = $totalLugaresAgregados['total'];
         $data->totalImagenesLugar = $totalImagenesLugar['total'];
         $data->edadResult = $edad;
         $data->sexoResult = $sexoResult;
-        $data->desdeResult = $usuario->getFechaRegistro()->format('d-m-Y');
         $data->links = $links;
 
         return $data;

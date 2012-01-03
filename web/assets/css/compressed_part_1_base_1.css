@@ -189,7 +189,7 @@ body {
             border-bottom: 1px solid white;
             border-left: 1px solid #cccccc;
             border-right: 1px solid #cccccc;
-            border-top: 3px solid #0099ff;
+            border-top: 3px solid #0066cc;
             color: #444444;
             padding: 11px 5px 14px;
             z-index: 20; }
@@ -203,22 +203,22 @@ body {
           padding: 14px 0 0 0;
           position: absolute;
           top: 41px;
-          width: 200px; }
+          width: 250px; }
           .menu .centrado_menu .menu_categorias li ul li {
             display: list-item;
             float: left;
-            width: 200px; }
+            width: 250px; }
             .menu .centrado_menu .menu_categorias li ul li a {
               border: 0px;
               height: 20px;
               padding: 9px 6px 1px;
-              width: 188px; }
+              width: 238px; }
               .menu .centrado_menu .menu_categorias li ul li a:hover {
                 background: #f6f6f6;
                 border: 0px;
                 padding: 9px 6px 1px;
                 text-decoration: underline;
-                width: 188px; }
+                width: 238px; }
     .menu .centrado_menu .buscador_box {
       border-left: 1px solid #cccccc;
       border-right: 1px solid #cccccc;
@@ -231,6 +231,8 @@ body {
         position: relative; }
         .menu .centrado_menu .buscador_box .buscar:hover {
           border: 1px solid #444444; }
+        .menu .centrado_menu .buscador_box .buscar:focus {
+          border: 1px solid #0066cc; }
         .menu .centrado_menu .buscador_box .buscar .buscador {
           border: 0px;
           height: 30px;
@@ -274,9 +276,26 @@ body {
     position: relative;
     /* Login Usuario */
     /* Registro Usuario */ }
+    .contenedor .contenido .textos {
+      font-family: Arial;
+      font-size: 13px;
+      line-height: 18px; }
     .contenedor .contenido .titulo {
       font-size: 16px;
       margin: 0 0 30px 0; }
+    .contenedor .contenido .confirmar_registro {
+      background: url("../images/extras/confirmar_registro.jpg") 400px 50px no-repeat;
+      height: 382px;
+      width: 960px; }
+    .contenedor .contenido .sidebar {
+      display: block;
+      float: left;
+      margin: 0 0 0 20px;
+      width: 300px; }
+    .contenedor .contenido .contenido_central {
+      display: block;
+      float: left;
+      width: 640px; }
     .contenedor .contenido .columna_izquierda {
       float: left;
       padding: 0 20px 0 0;
@@ -322,7 +341,7 @@ body {
           .contenedor .contenido .login .login_form div input:hover {
             border: 1px solid #444444; }
           .contenedor .contenido .login .login_form div input:focus {
-            border: 1px solid #0099ff; }
+            border: 1px solid #0066cc; }
           .contenedor .contenido .login .login_form div input.checkbox {
             float: left;
             margin: 0 0 10px 0;
@@ -333,10 +352,10 @@ body {
           margin: 0 0 10px;
           width: 360px; }
           .contenedor .contenido .login .login_form div .tip a {
-            color: #0099ff;
+            color: #0066cc;
             text-decoration: none; }
             .contenedor .contenido .login .login_form div .tip a:hover {
-              color: #0099ff;
+              color: #0066cc;
               text-decoration: underline; }
         .contenedor .contenido .login .login_form div .checkbox_tip {
           float: left;
@@ -379,11 +398,24 @@ body {
               text-shadow: 1px 1px 1px #444444;
               width: 60px; }
     .contenedor .contenido .texto_registro {
+      font-family: Arial;
       font-size: 13px;
       line-height: 18px; }
     .contenedor .contenido a {
       color: white;
       text-decoration: none; }
+    .contenedor .contenido .link_azul {
+      color: #0066cc;
+      text-decoration: none; }
+      .contenedor .contenido .link_azul:hover {
+        color: #0066cc;
+        text-decoration: underline; }
+    .contenedor .contenido .link_gris_444 {
+      color: #444444;
+      text-decoration: none; }
+      .contenedor .contenido .link_gris_444:hover {
+        color: #444444;
+        text-decoration: underline; }
     .contenedor .contenido .registro {
       float: left;
       width: 459px; }
@@ -422,10 +454,10 @@ body {
           margin: 0 0 10px;
           width: 330px; }
           .contenedor .contenido .registro .registro_form li .tip_registro a {
-            color: #0099ff;
+            color: #0066cc;
             text-decoration: none; }
             .contenedor .contenido .registro .registro_form li .tip_registro a:hover {
-              color: #0099ff;
+              color: #0066cc;
               text-decoration: underline; }
         .contenedor .contenido .registro .registro_form .submit {
           float: left;
@@ -473,10 +505,11 @@ body {
         float: left;
         width: 135px; }
       .contenedor .contenido .caja_registro_facebook .registro_facebook_txt {
-        padding: 10px;
-        float: left;
+        font-family: Arial;
         font-size: 13px;
         line-height: 18px;
+        padding: 10px;
+        float: left;
         width: 283px; }
       .contenedor .contenido .caja_registro_facebook .registro_facebook_btn {
         padding: 10px 129px;

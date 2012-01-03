@@ -1,6 +1,6 @@
 <div id="data-usuario">
 	<div id="imagen-usuario">
-		<a href="{{ asset('assets/images/usuarios/'~usuario.getImagenFull()) }}"><img src="{{ asset('assets/images/usuarios/'~usuario.getImagenFull()) }}"></img></a>
+		<a href="{{ asset('assets/images/usuarios/'~usuario.getImagenFull()) }}"><img src="{{ (asset('assets/images/usuarios/'~usuario.getImagenFull())) }}"></img></a>
 	</div>
 	<h3 id="titulo-usuario">{{usuario.nombre}} {{usuario.apellido}}</h3>
 
@@ -22,11 +22,11 @@
 		<li>{{usuario.totalImagenesLugar}} fotos agregadas</li>
 	</ul>
 
-	<p class="bold">En Loogares.com desde: <br /> {{usuario.desdeResult}}</p>
+	<p class="bold">En Loogares.com desde: <br /> {{usuario.fechaRegistro|date('d/m/Y')}}</p>
 	{% if usuario.links|length > 0 %}
 		<ul class="bold">
 		{% for link in usuario.links %}
-			<li><a href="{{link}}" target="blank">{{link}}</a></li>
+			<li><a href="http://{{link}}" target="blank">{{link}}</a></li>
 		{% endfor %}
 		</ul>
 	{% endif %}

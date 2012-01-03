@@ -69,11 +69,11 @@
       font-size: 12px;
       text-align: left; }
       .agregar-lugar .lugar-existe p a {
-        color: #0099ff;
+        color: #0066cc;
         text-decoration: none;
         font-weight: bold; }
         .agregar-lugar .lugar-existe p a:hover {
-          color: #0099ff;
+          color: #0066cc;
           text-decoration: underline;
           font-weight: bold; }
   .agregar-lugar label {
@@ -121,7 +121,7 @@
     .agregar-lugar input:hover {
       border: 1px solid #444444; }
     .agregar-lugar input:focus {
-      border: 1px solid #0099ff; }
+      border: 1px solid #0066cc; }
   .agregar-lugar select {
     border: 1px solid #999999;
     float: left;
@@ -133,10 +133,10 @@
     float: left;
     margin: 7px 0 7px 10px; }
     .agregar-lugar .quitar_info a {
-      color: #0099ff;
+      color: #0066cc;
       text-decoration: none; }
       .agregar-lugar .quitar_info a:hover {
-        color: #0099ff;
+        color: #0066cc;
         text-decoration: underline; }
   .agregar-lugar .agregar_info {
     display: block;
@@ -144,10 +144,10 @@
     float: left;
     margin: 0 0 0 110px; }
     .agregar-lugar .agregar_info a {
-      color: #0099ff;
+      color: #0066cc;
       text-decoration: none; }
       .agregar-lugar .agregar_info a:hover {
-        color: #0099ff;
+        color: #0066cc;
         text-decoration: underline; }
   .agregar-lugar .calle {
     display: block;
@@ -315,29 +315,204 @@
     display: block;
     height: 350px;
     width: 448px; }
-  .mapa .subcategorias {
+
+/* Ficha lugares */
+.lugar_info {
+  border: 1px solid #f6f6f6;
+  float: left;
+  padding: 20px;
+  width: 598px; }
+  .lugar_info .titulo_lugar {
+    display: block;
+    float: left;
+    font-size: 24px;
+    margin: 0 0 15px 0;
+    width: 598px; }
+  .lugar_info .estrellas {
+    display: block;
+    float: left;
+    margin: 0 0 20px 0;
+    width: 598px; }
+  .lugar_info .n_recomendaciones {
+    font-size: 11px;
+    font-style: italic; }
+  .lugar_info .foto_lugar_box {
+    font-size: 12px;
+    float: left;
+    line-height: 16px;
+    width: 146px; }
+    .lugar_info .foto_lugar_box .foto_lugar {
+      -box-shadow: -3px 3px 1px #eeeeee;
+      -o-box-shadow: -3px 3px 1px #eeeeee;
+      -moz-box-shadow: -3px 3px 1px #eeeeee;
+      -webkit-box-shadow: -3px 3px 1px #eeeeee;
+      border: 1px solid #cccccc;
+      display: block;
+      float: left;
+      margin: 0 0 20px 0;
+      padding: 7px; }
+  .lugar_info .datos_principales_lugar {
+    float: left;
+    margin: 0 0 0 10px;
+    width: 442px; }
+    .lugar_info .datos_principales_lugar .direccion_lugar {
+      display: block;
+      float: left;
+      font-size: 16px;
+      margin: 0 0 20px 0;
+      width: 442px; }
+    .lugar_info .datos_principales_lugar .telefono_lugar {
+      display: block;
+      float: left;
+      font-size: 14px;
+      margin: 0 0 20px 0;
+      width: 442px; }
+    .lugar_info .datos_principales_lugar .url_lugar {
+      display: block;
+      float: left;
+      font-size: 14px;
+      margin: 0 0 20px 0;
+      width: 442px; }
+    .lugar_info .datos_principales_lugar .redes_sociales_lugar {
+      display: block;
+      float: left;
+      margin: 0 0 20px 0;
+      width: 442px; }
+    .lugar_info .datos_principales_lugar .precio_lugar {
+      display: block;
+      float: left;
+      font-size: 14px;
+      margin: 0 0 20px 0;
+      width: 442px; }
+      .lugar_info .datos_principales_lugar .precio_lugar .precio_tip {
+        color: #686868; }
+  .lugar_info .datos_secundarios_lugar {
+    float: left;
+    margin: 20px 0 0 0;
+    width: 598px; }
+    .lugar_info .datos_secundarios_lugar .subtitulos_lugar {
+      display: block;
+      font-size: 11px;
+      margin: 0 0 4px 0; }
+    .lugar_info .datos_secundarios_lugar .primero_en_recomendar_lugar {
+      display: block;
+      float: left;
+      font-size: 11px;
+      width: 146px; }
+      .lugar_info .datos_secundarios_lugar .primero_en_recomendar_lugar a {
+        color: #0066cc;
+        text-decoration: none; }
+        .lugar_info .datos_secundarios_lugar .primero_en_recomendar_lugar a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+    .lugar_info .datos_secundarios_lugar .categoria_lugar {
+      display: block;
+      float: left;
+      font-size: 12px;
+      margin: 0 0 0 10px;
+      width: 216px; }
+      .lugar_info .datos_secundarios_lugar .categoria_lugar .categoria_lugar_box {
+        display: block;
+        float: left;
+        margin: 0 0 10px 0;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .categoria_lugar .horario_lugar_box {
+        display: block;
+        float: left;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .categoria_lugar a {
+        color: #0066cc;
+        text-decoration: none; }
+        .lugar_info .datos_secundarios_lugar .categoria_lugar a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+    .lugar_info .datos_secundarios_lugar .sector_lugar {
+      display: block;
+      float: left;
+      font-size: 12px;
+      margin: 0 0 0 10px;
+      width: 216px; }
+      .lugar_info .datos_secundarios_lugar .sector_lugar .sector_lugar_box {
+        display: block;
+        float: left;
+        margin: 0 0 10px 0;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .sector_lugar .subcategoria_lugar_box {
+        display: block;
+        float: left;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .sector_lugar a {
+        color: #0066cc;
+        text-decoration: none; }
+        .lugar_info .datos_secundarios_lugar .sector_lugar a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+
+.opciones_lugar {
+  display: block;
+  float: left;
+  margin: 5px 0;
+  width: 640px;
+  /* AGREGADO POR EL SUR */ }
+  .opciones_lugar ul.opciones_lugar_f6f {
+    background: #f6f6f6;
+    display: block;
+    float: left;
+    padding: 15px 0;
+    width: 476px; }
+    .opciones_lugar ul.opciones_lugar_f6f li {
+      font-size: 12px;
+      display: inline;
+      margin: 0 15px; }
+      .opciones_lugar ul.opciones_lugar_f6f li a {
+        color: #999999;
+        text-decoration: none;
+        color: #999999 !important; }
+        .opciones_lugar ul.opciones_lugar_f6f li a:hover {
+          color: #999999;
+          text-decoration: underline; }
+  .opciones_lugar ul.opciones_lugar_ccc {
+    background: #cccccc;
+    display: block;
+    float: left;
+    padding: 15px 0;
+    width: 164px; }
+    .opciones_lugar ul.opciones_lugar_ccc li {
+      font-size: 12px;
+      font-weight: bold;
+      display: inline;
+      text-shadow: 1px 1px 1px white;
+      margin: 0 15px; }
+      .opciones_lugar ul.opciones_lugar_ccc li a {
+        color: #999999;
+        text-decoration: none;
+        color: #999999 !important; }
+        .opciones_lugar ul.opciones_lugar_ccc li a:hover {
+          color: #999999;
+          text-decoration: underline; }
+  .opciones_lugar .subcategorias {
     width: 400px;
     margin: 5px 0 0 92px;
     display: none; }
-    .mapa .subcategorias li {
+    .opciones_lugar .subcategorias li {
       display: inline-block;
       margin: 1px; }
-      .mapa .subcategorias li label {
+      .opciones_lugar .subcategorias li label {
         display: inline-block;
         width: 170px;
         font-size: 10px;
         line-height: 10px;
         float: left; }
-        .mapa .subcategorias li label span:hover {
+        .opciones_lugar .subcategorias li label span:hover {
           border-bottom: 1px dotted #0066cc; }
-  .mapa .caracteristicas {
+  .opciones_lugar .caracteristicas {
     width: 400px;
     margin: -20px 0 0 93px; }
-    .mapa .caracteristicas ul li {
+    .opciones_lugar .caracteristicas ul li {
       display: inline-block;
       margin: 1px; }
-    .mapa .caracteristicas ul label {
+    .opciones_lugar .caracteristicas ul label {
       width: 180px;
       font-size: 10px; }
-      .mapa .caracteristicas ul label span:hover {
+      .opciones_lugar .caracteristicas ul label span:hover {
         border-bottom: 1px dotted #0066cc; }

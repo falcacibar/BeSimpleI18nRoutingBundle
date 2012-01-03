@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             //new FOS\FacebookBundle\FOSFacebookBundle(),
             new Jirafe\Bundle\MailChimpBundle\JirafeMailChimpBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Loogares\LugarBundle\LoogaresLugarBundle(),
             new Loogares\UsuarioBundle\LoogaresUsuarioBundle(),
             new Loogares\ExtraBundle\LoogaresExtraBundle(),

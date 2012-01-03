@@ -86,6 +86,8 @@
         text-decoration: none;
         font-weight: bold;
         font-size: 11px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario li.submit-borrar input[type=submit] {
+      margin-top: 10px; }
     #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-newsletter label {
       margin-top: 0; }
     #main-usuario #content-usuario .form-edicion .editar-usuario label {
@@ -94,12 +96,10 @@
       font-size: 0.9em;
       margin-top: 5px;
       float: left; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=text], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=password], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=textarea], #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-sexo {
+    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=text], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=password], #main-usuario #content-usuario .form-edicion .editar-usuario textarea, #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-sexo {
       width: 300px; }
     #main-usuario #content-usuario .form-edicion .editar-usuario input[type=file] {
       width: 316px; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=textarea] {
-      height: 100px; }
     #main-usuario #content-usuario .form-edicion .editar-usuario input[type=radio] {
       float: left; }
     #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento {
@@ -117,6 +117,8 @@
       margin: 0 10px 0 5px;
       width: auto; }
     #main-usuario #content-usuario .form-edicion .editar-usuario small.errors {
+      float: right;
+      text-align: right;
       margin-right: 252px; }
     #main-usuario #content-usuario .form-borrar-foto {
       float: left;
