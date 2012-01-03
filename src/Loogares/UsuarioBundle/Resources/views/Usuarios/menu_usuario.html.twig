@@ -5,11 +5,13 @@
 		<li class="{{(usuario.tipo is defined and usuario.tipo == 'actividad') ? 'selected' : ''}}">
 			<a href="{{path('actividadUsuario', { 'param': slug })}}">Actividad</a>
 		</li>
+		{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
 			<li class="{{(usuario.tipo is defined and usuario.tipo == 'recomendaciones') ? 'selected' : ''}}">
 				<a href="{{path('recomendacionesUsuario', { 'param': slug })}}">Recomendaciones</a>
 			</li>
 			<li class="{{(usuario.tipo is defined and usuario.tipo == 'fotos') ? 'selected' : ''}} no-right-border">
 				<a href="{{path('fotosLugaresUsuario', { 'param': slug })}}">Fotos</a>
 			</li>
+		{% endif %}		
 	</ul>
 </div>

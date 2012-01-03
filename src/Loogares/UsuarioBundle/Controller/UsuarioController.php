@@ -41,7 +41,7 @@ class UsuarioController extends Controller
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
     }
 
-    public function recomendacionesAction($param) {
+    public function recomendacionesAction($param, $orden=null, $pagina=null) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
@@ -61,14 +61,23 @@ class UsuarioController extends Controller
         $orden = (!$this->getRequest()->query->get('orden')) ? 'mejor-evaluadas' : $this->getRequest()->query->get('orden');
 
         if($orden == 'mejor-evaluadas')
-            $orderBy = 'ORDER BY r.estrellas DESC';
+            $orderBy = 'ORDER BY r.estrellas DESC, l.nombre';
         else if($orden == 'ultimas')
-            $orderBy = 'ORDER BY r.fechaCreacion DESC';
-        else
+            $orderBy = 'ORDER BY r.fecha_creacion DESC, l.nombre';
+        else if($orden == 'nombre')
             $orderBy = 'ORDER BY l.nombre';
+        else
+            $orderBy = '';
+
+        $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
+        $offset = ($pagina - 1) * 10;
         
         $data = $ur->getDatosUsuario($usuarioResult, $orderBy);
         $data->tipo = 'recomendaciones';
+        $data->orden = $orden;
+        $data->pagina = $pagina;
+        $data->totalPaginas = ($data->totalRecomendaciones > 10) ? ceil($data->totalRecomendaciones / 10) : 1;
+        $data->offset = $offset;
 
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
@@ -223,7 +232,8 @@ class UsuarioController extends Controller
         }
 
         $data = $ur->getDatosUsuario($usuarioResult);
-        $data->edicion = 'cuenta';       
+        $data->edicion = 'cuenta';
+        $data->loggeadoCorrecto = $loggeadoCorrecto;       
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
             'form' => $form->createView(),
@@ -288,6 +298,7 @@ class UsuarioController extends Controller
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'foto';
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
             'form' => $form->createView(),
@@ -353,6 +364,7 @@ class UsuarioController extends Controller
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'password';
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
             'form' => $form->createView(),
@@ -444,6 +456,7 @@ class UsuarioController extends Controller
         
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'borrar';
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
             'errors' => $formErrors

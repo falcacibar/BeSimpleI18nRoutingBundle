@@ -1,11 +1,31 @@
+{% set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
+
 <div class="recomendaciones">
 	<h1>Mis Recomendaciones ({{usuario.totalRecomendaciones}})</h1>
 
 	<ul>
 		<li class="bold">Ordenar por:</li>
-		<li>Mejores evaluaciones |</li>
-		<li>Últimas recomendaciones |</li>
-		<li>Orden alfabético</li>
+		<li>
+			{% if usuario.orden == 'mejor-evaluadas' %}
+				Mejores evaluaciones | 
+			{% else %}		
+				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'mejor-evaluadas', 'pagina' : usuario.pagina})}}">Mejores evaluaciones</a> | 
+			{% endif %}
+		</li>
+		<li>
+			{% if usuario.orden == 'ultimas' %}
+				Últimas recomendaciones | 
+			{% else %}
+				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">Últimas recomendaciones</a> | 
+			{% endif %}
+		</li>
+		<li>
+			{% if usuario.orden == 'nombre' %}
+				Orden alfabético
+			{% else %}
+				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'nombre', 'pagina' : usuario.pagina })}}">Orden alfabético</a>
+			{% endif %}
+		</li>
 	</ul>
 
 	<table>
@@ -17,21 +37,34 @@
 			<th>Categorías</th>
 		</tr>
 
+		{% set i = 0 %}
 		{% for recomendacion in usuario.recomendaciones %}
-			<tr>
-				<td><input type="checkbox" /></td>
-				<td><a href="{{path('_lugar', { 'slug': recomendacion.lugar.slug })}}">{{recomendacion.lugar.nombre}}</a></td>
-				<td>{{recomendacion.estrellas}}</td>
-				<td>{{recomendacion.fechaCreacion|date('d/m/Y')}}</td>
-				<td>
-					{% for categoriaLugar in recomendacion.lugar.categoriaLugar %}
-						<a href="#">{{categoriaLugar.categoria.nombre}}</a>
-						{{-((loop.index == recomendacion.lugar.categoriaLugar|length) ? '' : ', ')}}
-					{% endfor %}
-				</td>
-				<td><a href="#">Lee</a></td>
-				<td><a href="#">Edita tu recomendación</a></td>
-			</tr>
+			{% if loop.index > usuario.offset and i < 10 %}
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td><a href="{{path('_lugar', { 'slug': recomendacion.lugar.slug })}}">{{recomendacion.lugar.nombre}}</a></td>
+					<td>{{recomendacion.estrellas}}</td>
+					<td>{{recomendacion.fechaCreacion|date('d/m/Y')}}</td>
+					<td>
+						{% for categoriaLugar in recomendacion.lugar.categoriaLugar %}
+							<a href="#">{{categoriaLugar.categoria.nombre}}</a>
+							{{-((loop.index == recomendacion.lugar.categoriaLugar|length) ? '' : ', ')}}
+						{% endfor %}
+					</td>
+					<td><a href="#">Lee</a></td>
+					<td><a href="#">Edita tu recomendación</a></td>
+				</tr>
+				{% set i = i + 1 %}
+			{% endif %}
 		{% endfor %}
 	</table>
+
+	<div class="paginacion">
+		<span>{{usuario.offset + 1}} al {{usuario.offset + i}} de {{usuario.totalRecomendaciones}} | Ir a la página:</span>
+		<ul>
+			{% for i in 1..usuario.totalPaginas %}
+				<li><a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : usuario.orden, 'pagina' : i})}}" {{(usuario.pagina == i) ? "class='actual'" : ''}}>{{i}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
 </div>
