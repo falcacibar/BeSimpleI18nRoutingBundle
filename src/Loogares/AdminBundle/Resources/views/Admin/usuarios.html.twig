@@ -1,0 +1,41 @@
+{% extends 'LoogaresAdminBundle:Admin:base.html.twig' %}
+
+{% block style %}
+	<style>
+		
+	</style>
+{% endblock %}
+
+{% block content %}
+	<div id="admin-usuarios">
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>E-mail</th>
+				<th>Slug</th>
+				<th>Sexo</th>
+				<th>F.Nac</th>				
+				<th>Estado</th>
+				<th>Tipo usuario</th>
+			</tr>
+
+			{% for usuario in usuarios %}
+				<tr>
+					<td>{{usuario.id}}</td>
+					<td>{{usuario.nombre}}</td>
+					<td>{{usuario.apellido}}</td>
+					<td>{{usuario.mail}}</td>
+					<td>{{usuario.slug}}</td>
+					<td>{{usuario.sexo}}</td>
+					<td>{{usuario.fechaNacimiento|date('d/m/Y')}}</td>
+					<td>{{usuario.estado.nombre}}</td>
+					<td>{{usuario.tipoUsuario.descripcion}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+
+	</div>
+
+{% endblock %}

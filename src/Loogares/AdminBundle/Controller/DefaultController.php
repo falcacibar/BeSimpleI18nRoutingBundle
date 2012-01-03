@@ -11,11 +11,13 @@ class DefaultController extends Controller
     public function indexAction(Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
 
 
         return $this->render('LoogaresAdminBundle:Admin:index.html.twig', array(
-            'totalLugares' => $lr->getTotalLugares()
+            'totalLugares' => $lr->getTotalLugares(),
+            'totalUsuarios' => count($ur->findAll()),
         ));
     }   
 
@@ -129,5 +131,17 @@ class DefaultController extends Controller
             'mostrarDesde' => $mostrarDesde,
             'mostrarHasta' => $mostrarHasta
         ));
+    }
+
+    public function usuariosAction(Request $request) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+        $usuarios = $ur->getUsuariosAdmin();
+
+        return $this->render('LoogaresAdminBundle:Admin:usuarios.html.twig', array(
+            'usuarios' => $usuarios,
+        ));
+            
     }
 }

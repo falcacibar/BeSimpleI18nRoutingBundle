@@ -787,4 +787,33 @@ class Usuario implements AdvancedUserInterface, \Serializable
         }
     }
 
+    /**
+     * @var Loogares\UsuarioBundle\Entity\Recomendacion
+     */
+    private $recomendaciones;
+
+    public function __construct()
+    {
+        $this->recomendaciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add recomendaciones
+     *
+     * @param Loogares\UsuarioBundle\Entity\Recomendacion $recomendaciones
+     */
+    public function addRecomendacion(\Loogares\UsuarioBundle\Entity\Recomendacion $recomendaciones)
+    {
+        $this->recomendaciones[] = $recomendaciones;
+    }
+
+    /**
+     * Get recomendaciones
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getRecomendaciones()
+    {
+        return $this->recomendaciones;
+    }
 }

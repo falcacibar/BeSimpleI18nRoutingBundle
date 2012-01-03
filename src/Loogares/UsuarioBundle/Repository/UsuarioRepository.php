@@ -96,15 +96,28 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
 
     		//Verificamos si usuario es el primero en recomendar en el lugar
     		$q = $em->createQuery("SELECT l.nombre, r1.texto 
-    							   FROM LoogaresUsuarioBundle:Recomendacion r1 
-    							   JOIN r1.lugar l
-    							   WHERE r1.usuario = ?1
-    							   AND r1.fecha_creacion = (SELECT MIN(r2.fecha_creacion) 
-    							   FROM LoogaresUsuarioBundle:Recomendacion r2 
-    							   WHERE r2.lugar = r1.lugar)");
+    							             FROM LoogaresUsuarioBundle:Recomendacion r1 
+    							             JOIN r1.lugar l
+    							             WHERE r1.usuario = ?1
+    							             AND r1.fecha_creacion = (SELECT MIN(r2.fecha_creacion) 
+    							             FROM LoogaresUsuarioBundle:Recomendacion r2 
+    							             WHERE r2.lugar = r1.lugar)");
     		$q->setParameter(1,$id);
     		return $q->getResult();
   	}
+
+    public function getUsuariosAdmin() {
+        $em = $this->getEntityManager();
+
+        // Obtenemos al usuario, con sus recomendaciones, estado y tipo de usuario
+        $q = $em->createQuery("SELECT u, e, t
+                               FROM LoogaresUsuarioBundle:Usuario u
+                               JOIN u.recomendaciones r
+                               JOIN u.estado e
+                               JOIN u.tipo_usuario t
+                               ORDER BY u.id");
+        return $q->getResult();
+    }
     
     public function getDatosUsuario($usuario, $ordenRec=null, $ordenFotos=null) {
 

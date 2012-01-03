@@ -5,6 +5,8 @@
         <title>{% block title %}Loogares.com{% endblock %}</title>
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
+
+        {% block style %}{% endblock %}
     </head>
     <body>
 

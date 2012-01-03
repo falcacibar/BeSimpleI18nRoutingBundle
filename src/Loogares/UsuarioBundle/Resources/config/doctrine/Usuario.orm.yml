@@ -9,6 +9,11 @@ Loogares\UsuarioBundle\Entity\Usuario:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
         comuna:
             targetEntity: Loogares\ExtraBundle\Entity\Comuna
+
+    oneToMany:
+        recomendaciones:
+            targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
+            mappedBy: usuario
        
     id:
         id:

@@ -8,3 +8,5 @@ Loogares\UsuarioBundle\Entity\TipoUsuario:
     fields:
         nombre:
             type: string
+        descripcion:
+            type: string
