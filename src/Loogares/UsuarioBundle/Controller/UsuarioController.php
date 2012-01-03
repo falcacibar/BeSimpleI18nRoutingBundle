@@ -101,8 +101,24 @@ class UsuarioController extends Controller
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
 
-        $data = $ur->getDatosUsuario($usuarioResult);
+        $orden = (!$this->getRequest()->query->get('orden')) ? 'ultimas' : $this->getRequest()->query->get('orden');
+
+        if($orden == 'ultimas')
+            $orderBy = 'ORDER BY im.fecha_creacion DESC, l.nombre';
+        else if($orden == 'nombre')
+            $orderBy = 'ORDER BY l.nombre';
+        else
+            $orderBy = '';
+
+        $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
+        $offset = ($pagina - 1) * 15;
+
+        $data = $ur->getDatosUsuario($usuarioResult, null, $orderBy);
         $data->tipo = 'fotos';
+        $data->orden = $orden;
+        $data->pagina = $pagina;
+        $data->totalPaginas = ($data->totalImagenesLugar > 15) ? ceil($data->totalImagenesLugar / 15) : 1;
+        $data->offset = $offset;
 
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 

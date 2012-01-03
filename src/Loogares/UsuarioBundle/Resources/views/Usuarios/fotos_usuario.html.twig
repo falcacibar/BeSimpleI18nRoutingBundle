@@ -1,1 +1,75 @@
-Se muestran las fotos de lugares agregadas por el usuario.
+{% set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
+
+<div class="fotos_usuario">
+	<h1>Mis Fotos ({{usuario.totalImagenesLugar}})</h1>
+
+	<ul class="orden">
+		<li class="bold">Ordenar por:</li>		
+		<li>
+			{% if usuario.orden == 'ultimas' %}
+				Últimas fotos | 
+			{% else %}
+				<a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">Últimas fotos</a> | 
+			{% endif %}
+		</li>
+		<li>
+			{% if usuario.orden == 'nombre' %}
+				Orden alfabético
+			{% else %}
+				<a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : 'nombre', 'pagina' : usuario.pagina })}}">Orden alfabético</a>
+			{% endif %}
+		</li>
+	</ul>
+
+	<div id="lista-fotos-usuario">
+		{% set tres = 0 %}
+		{% set i = 0 %}
+		{% for imagen in usuario.imagenesLugar%}
+			{% if loop.index > usuario.offset and i < 15 %}			
+				{% if loop.index == 1 or (loop.index > 3 and (loop.index - 1) % 3 == 0)  %}
+					{% set tres = 0 %}
+					<ul>
+				{% endif %}
+
+					<li>
+						<a href="{{path('_lugar', {'slug' : imagen.lugar.slug})}}">
+							<img src="{{asset('assets/images/lugares/'~imagen.imagenFull)}}" />
+						</a>
+
+						<h4>
+							<a href="{{path('_lugar', {'slug' : imagen.lugar.slug})}}">
+								{{imagen.lugar.nombre}}
+							</a>
+						</h4>
+
+						<span>{{imagen.fechaCreacion|date('d/m/Y')}}</span>
+
+						<br />
+						{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
+							<a href="#">Edita tu foto</a> <br />
+							<a href="#">Borra tu foto</a>
+						{% endif %}
+
+					</li>
+
+				{% set tres = tres + 1 %}
+				{% if tres == 3 %}
+					</ul>				
+				{% endif %}
+				{% set i = i + 1 %}
+			{% endif %}
+		{% endfor %}
+	</div>
+
+	{% if usuario.totalPaginas > 1 %}
+		<div class="paginacion">
+			<span>{{usuario.offset + 1}} al {{usuario.offset + i}} de {{usuario.totalImagenesLugar}} | Ir a la página:</span>
+			<ul class="orden">
+				{% for i in 1..usuario.totalPaginas %}
+					<li><a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : usuario.orden, 'pagina' : i})}}" {{(usuario.pagina == i) ? "class='actual'" : ''}}>{{i}}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+
+</div>
