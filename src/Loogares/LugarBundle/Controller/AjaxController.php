@@ -79,4 +79,20 @@ class AjaxController extends Controller
 
       return new Response(json_encode($asd));
     }
+
+    public function recomendarCalleAction(){
+      $d = $_GET['term'];
+      $calles = '';
+      $em = $this->getDoctrine()->getEntityManager();
+      $q = $em->createQuery('SELECT DISTINCT u.calle FROM Loogares\LugarBundle\Entity\Lugar u where u.calle LIKE ?1');
+      $q->setParameter(1, "%".$d."%");
+      $q->setMaxResults(7);
+      $callesResult = $q->getResult();
+
+      foreach($callesResult as $key => $value){
+        $calles[] = $value['calle'];
+      }
+
+      return new Response(json_encode($calles));
+    }
 }

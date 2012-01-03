@@ -45,3 +45,7 @@ _sugerirUnLugar:
     defaults: { _controller: LoogaresLugarBundle:Ajax:sugerirUnLugar }
     requirements:
         accion: sugerirUnLugar
+
+_recomendarCalle:
+    pattern: /ajax/recomendarCalle
+    defaults: { _controller: LoogaresLugarBundle:Ajax:recomendarCalle }

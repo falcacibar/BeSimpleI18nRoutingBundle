@@ -1,0 +1,14 @@
+Loogares\AdminBundle\Entity\TempTipoLugar:
+    type: entity
+    table: temp_tipo_lugar
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        nombre:
+            type: string
+        slug:
+            type: string
+        prioridad_web:
+            type: smallint

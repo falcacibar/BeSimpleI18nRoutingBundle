@@ -36,7 +36,12 @@ $('.display-more-info').click(function(e){
         }
 
         if(count >= 0){
-            $('.'+rel+':not(:hidden):last').parent().next('li').fadeIn().css('display', 'block');
+            console.log(count)
+            if(count == 1){
+            $('.'+rel+':first').parent().next('li:hidden').fadeIn().css('display', 'block');
+            }else{
+              $('.'+rel+':first').parent().next('li').next('li:hidden').fadeIn().css('display', 'block');  
+            }
             $this.find('span').text(count);
         }
 });
@@ -63,7 +68,6 @@ $('.categoria').live('change', function(){
     $('.categoria').not(':hidden').each(function(){
         var thisCat = $(this).val().camelCase(),
             caracteristicas = categorias[thisCat].caracteristicas;
-            console.log(thisCat);
 
         if(caracteristicas != ''){
             $('.caracteristicas').parent().fadeIn().css('display', 'block');
@@ -228,7 +232,7 @@ $('form').submit(function(e){
     }
     return false;
 });
-console.log(WEBROOT)
+
 $('.cargar_mapa').click(function(e){
     e.preventDefault();
     if(!$('#form_calle').val().match('Ej') && !$('#form_numero').val().match('Ej')){
@@ -272,6 +276,7 @@ function actualizarComunas(){
         if(optGroupComunas[i].match(ciudadSeleccionada)){
             $('.comuna > optgroup').remove('optgroup');
             $('.comuna').append(optGroupComunas[i]);
+            $(".comuna").trigger("liszt:updated")
         }
     });
 
@@ -279,6 +284,7 @@ function actualizarComunas(){
         if(optGroupSectores[i].match(ciudadSeleccionada)){
             $('.sector  optgroup').remove('optgroup');
             $('.sector').append(optGroupSectores[i]);
+            $(".sector").trigger("liszt:updated")
         }
     });
 }
@@ -290,6 +296,7 @@ function actualizarCiudades(){
         if(optGroupCiudades[i].match(paisSeleccionado)){
             $('.ciudad optgroup').remove('optgroup');
             $('.ciudad').append(optGroupCiudades[i]);
+            $(".ciudad").trigger("liszt:updated")
         }
     });
 

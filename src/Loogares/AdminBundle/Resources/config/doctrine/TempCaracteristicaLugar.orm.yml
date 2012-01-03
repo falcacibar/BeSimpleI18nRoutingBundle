@@ -1,0 +1,22 @@
+Loogares\AdminBundle\Entity\TempCaracteristicaLugar:
+    type: entity
+    table: temp_caracteristica_lugar
+    manyToOne:
+        caracteristica:
+            targetEntity: Loogares\LugarBundle\Entity\Caracteristica
+            joinTable:
+                name: temp_caracteristica_lugar
+                joinColumns:
+                    caracteristica:
+                        referencedColumnName: id
+        lugar:
+            targetEntity: Loogares\AdminBundle\Entity\TempLugar
+            joinTable:
+                name: temp_caracteristica_lugar
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }

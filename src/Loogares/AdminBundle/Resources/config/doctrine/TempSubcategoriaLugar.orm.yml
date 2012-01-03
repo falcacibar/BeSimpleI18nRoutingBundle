@@ -1,0 +1,22 @@
+Loogares\AdminBundle\Entity\TempSubcategoriaLugar:
+    type: entity
+    table: temp_subcategoria_lugar
+    manyToOne:
+        subcategoria:
+            targetEntity: Loogares\LugarBundle\Entity\SubCategoria
+            joinTable:
+                name: categoria_lugar
+                joinColumns:
+                    subcategoria:
+                        referencedColumnName: id
+        lugar:
+            targetEntity: Loogares\AdminBundle\Entity\TempLugar
+            joinTable:
+                name: categoria_lugar
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }

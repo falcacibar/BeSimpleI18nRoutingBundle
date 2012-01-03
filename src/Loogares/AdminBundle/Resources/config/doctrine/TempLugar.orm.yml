@@ -1,0 +1,187 @@
+Loogares\AdminBundle\Entity\TempLugar:
+    type: entity
+    table: temp_lugares
+    manyToOne:
+        comuna:
+            targetEntity: Loogares\ExtraBundle\Entity\Comuna
+            joinTable:
+                name: lugares
+                joinColumns:
+                    comuna:
+                        referencedColumnName: id
+        sector:
+            targetEntity: Loogares\ExtraBundle\Entity\Sector
+            joinTable:
+                name: lugares
+                joinColumns:
+                    sector:
+                        referencedColumnName: id
+                        nullable: true
+        tipo_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\TipoLugar
+            joinTable:
+                name: lugares
+                joinColumns:
+                    tipo_lugar:
+                        referencedColumnName: id
+        estado:
+            targetEntity: Loogares\ExtraBundle\Entity\Estado
+            joinTable:
+                name: lugares
+                joinColumns:
+                    estado:
+                        referencedColumnName: id
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+            joinTable:
+                name: lugares
+                joinColumns:
+                    estado:
+                        referencedColumnName: id
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+            joinTable:
+                name: lugares
+                joinColumns:
+                    estado:
+                        referencedColumnName: id
+    oneToMany:
+        imagenes_lugar:
+            targetEntity: Loogares\AdminBundle\Entity\TempImagenLugar
+            mappedBy: lugar
+        categoria_lugar:
+            targetEntity: Loogares\AdminBundle\Entity\TempCategoriaLugar
+            mappedBy: lugar
+        subcategoria_lugar:
+            targetEntity: Loogares\AdminBundle\Entity\TempSubcategoriaLugar
+            mappedBy: lugar
+        caracteristica_lugar:
+            targetEntity: Loogares\AdminBundle\Entity\TempCaracteristicaLugar
+            mappedBy: lugar
+        caracteristica_lugar:
+            targetEntity: Loogares\AdminBundle\Entity\TempCaracteristicaLugar
+            mappedBy: lugar
+        recomendacion:
+            targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
+            mappedBy: lugar
+        horario:
+            targetEntity: Loogares\AdminBundle\Entity\TempHorario
+            mappedBy: lugar
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        #nombre
+        nombre:
+            type: string
+            length: 50
+        #slug
+        slug:
+            type: string
+            length: 100
+        #direccion
+        calle:
+            type: string
+            length: 255
+        numero:
+            type: string
+            length: 10
+            nullable: true
+        #detalle
+        detalle:
+            type: text
+            nullable: true
+        #descripcion
+        descripcion:
+            type: text
+            nullable: true
+        #∫tiene dueno
+        dueno_id:
+            type: integer
+            nullable: true
+        #mapx
+        mapx: 
+            type: float
+        #mapy
+        mapy:
+            type: float
+        #profesional
+        profesional:
+            type: string
+            length: 50
+            nullable: true
+        #agno construccion
+        agno_construccion:
+            type: string
+            length: 50
+            nullable: true
+        #materiales
+        materiales: 
+            type: string
+            length: 255
+            nullable: true
+        #sitio web
+        sitio_web:
+            type: string
+            length: 100 
+            nullable: true
+        #facebook
+        facebook:
+            type: string
+            length: 100
+            nullable: true
+        #twitter
+        twitter: 
+            type: string
+            length: 100
+            nullable: true
+        #mail
+        mail: 
+            type: string
+            length: 100
+            nullable: true
+        telefono1:
+            type: string
+            nullable: true
+        telefono2:
+            type: string
+            nullable: true
+        telefono3:
+            type: string
+            nullable: true
+        #puntuacion
+        estrellas:
+            type: float
+            nullable: true
+        #vistas
+        visitas:
+            type: integer
+            nullable: true
+        #evaluacion
+        utiles:
+            type: integer
+            nullable: true
+        #fecha
+        fecha_agregado:
+            type: date
+        #fechaultimarecomendacion
+        fecha_ultima_recomendacion:
+            type: datetime
+            nullable: true
+        #numerorecomendationes
+        total_recomendaciones:
+            type: integer
+            nullable: true
+        #precio
+        precio:
+            type: integer
+            nullable: true
+        #precioinicial
+        precio_inicial:
+            type: integer
+            nullable: true
+        #orden sector
+        prioridad_web:
+            type: integer
+            nullable: true

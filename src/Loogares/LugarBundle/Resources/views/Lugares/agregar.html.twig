@@ -1,8 +1,11 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Agregar Lugar | {{parent()}}{% endblock %}
+{% block title %}{%if lugar.slug %}Editar{% else %}Agregar Lugar{% endif %} | {{parent()}}{% endblock %}
 
 {% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{ asset('assets/css/jquery.rating.css') }}" type="text/css" media="screen" />
     <style>
 
         .subcategorias{display: none;}
@@ -27,7 +30,9 @@
             display: none;
         }
 
-
+        .precio{
+            margin-top: 5px;
+        }
     </style>
 {% endblock %}
 
@@ -36,8 +41,12 @@
     <script src="{{asset('assets/js/googleMapAgregar.js')}}"></script>
     <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
     <script src="{{asset('assets/js/agregarLugar.js')}}"></script>
-
+    <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
+    <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.rating.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.metaData.js')}}"></script>
     <script>
+
         $(function(){
         {% if lugar.slug %}
             $('.comuna').find('option[value="{{lugar.comuna.slug}}"]').attr('selected', 'selected');
@@ -56,7 +65,10 @@
             {% for categoriaLugar in lugar.categoriaLugar %}
                 $currentSelect = $('.categoria').eq({{loop.index}}-1);
                 $currentSelect.find('option[value="{{categoriaLugar.categoria.slug}}"]').attr('selected', 'selected').change();
-                {% if loop.last == false %}$('a.display-more-info[rel=categoria]').click();{% endif %}
+                
+                {% if loop.last == false %}
+                    $('a.display-more-info[rel=categoria]').click();
+                {% endif %}
 
                 {% for subcategoriaLugar in lugar.subcategoriaLugar %}
                     {% if subcategoriaLugar.subcategoria.categoria.id == categoriaLugar.categoria.id %}
@@ -71,8 +83,8 @@
 
             {% if lugar.horario %}
                 var dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
-                $('.habilitar-horario').click().parent().next('li').fadeIn();
                 {% for horario in lugar.horario %}
+                $('.habilitar-horario').click().parent().next('li').fadeIn();
                     $dia = $('[name="horario-'+dias[{{horario.dia}}]+'[]"]');
                     $dia.eq(0).find('option[value="{{horario.aperturaAM}}"]').attr('selected', 'selected') 
                     $dia.eq(1).find('option[value="{{horario.cierreAM}}"]').attr('selected', 'selected')
@@ -89,7 +101,23 @@
         {% else %}
             onCargarMapaAgregar('default');
         {% endif %}
-    });
+
+        $.ui.autocomplete.prototype._renderItem = function( ul, item) {
+            var re = new RegExp(this.term, "i"),
+                t = item.label.replace(re,"<span style='font-weight:bold;color:Blue;'>" + this.term + "</span>");
+            return $( "<li></li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + t + "</a>" )
+                .appendTo( ul );
+        };
+          
+        $( "#form_calle" ).autocomplete({
+            source: "http://localhost"+WEBROOT+"ajax/recomendarCalle",
+            minLength: 2
+        });
+
+        $('.categoria, .sector, .comuna, .pais, .ciudad').chosen();
+    });      
     </script>
 {% endblock %}
 
@@ -105,7 +133,7 @@
     </div>
 {% endif %}
 
-<h1 class="titulo">Agrega un Lugar</h1>
+<h1 class="titulo">{%if lugar.slug %}Editando datos de: <a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>{% else %}Agregar Lugar{% endif %}</h1>
 
 <div class="errores-container"></div>
 
@@ -115,7 +143,7 @@
         <input type="text" value="{{lugar.nombre}}" title="Ingresa el nombre del lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
         <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
     </li>
-    <li>
+    <li class="categoria-container">
         <label>Categorías *</label>
         <select class='categoria required' title='Recuerda asignarle una categoría al lugar' name='categoria[]'>
             <option value="elige">Elige una Categoria Principal</option>
@@ -144,9 +172,9 @@
             </ul>
         </div>
     </li>
-    <li class="no-default">
+    <li class="no-default categoria-container">
         <label>Categorías</label>
-        <select class='categoria' title='' name='categoria[]'>
+        <select class='categoria secundaria' title='' name='categoria[]'>
             <option value="elige">Elige una Categoria Secundaria</option>
             {% for tipoCategoria in data.tipoCategoria %}
                 <optgroup label="{{tipoCategoria.nombre}}">
@@ -173,9 +201,9 @@
             </ul>
         </div>
     </li>
-    <li class="no-default">
+    <li class="no-default categoria-container">
         <label>Categorías</label>
-        <select class='categoria' title='' name='categoria[]'>
+        <select class='categoria secundaria' title='' name='categoria[]'>
             <option value="elige">Elige una Categoria Secundaria</option>
             {% for tipoCategoria in data.tipoCategoria %}
                 <optgroup label="{{tipoCategoria.nombre}}">
@@ -274,6 +302,23 @@
         <span class="agregar_info"><a class="display-more-info" rel="telefono" href="">» ¿Más teléfonos? (Máx.
         <span>2</span>)</a></span>
     </li>
+    {% if is_granted('ROLE_ADMIN')%}
+    <li>
+        <label>Precio</label>
+        <div class="precio telefono">
+            <input name="adv2" type="radio" class="star {split:2}"/>
+            <input name="adv2" type="radio" class="star {split:2}"/>
+            <input name="adv2" type="radio" class="star {split:2}"/>
+            <input name="adv2" type="radio" class="star {split:2}"/>
+            <input name="adv2" type="radio" class="star {split:2}"/>
+            <input name="adv2" type="radio" class="star {split:2}"/>
+            <input name="adv2" type="radio" class="star {split:2}"/>
+            <input name="adv2" type="radio" class="star {split:2}"/>
+            <input name="adv2" type="radio" class="star {split:2}"/>
+            <input name="adv2" type="radio" class="star {split:2}"/>
+        </div>
+    </li>
+    {% endif %}
     <li>
         <label>Sitio Web</label>
         <input type="text" value="{{lugar.sitioWeb}}" name="form[sitio_web]" id="form_sitio_web" placeholder="Ej. http://www.bareltufo.cl"/>

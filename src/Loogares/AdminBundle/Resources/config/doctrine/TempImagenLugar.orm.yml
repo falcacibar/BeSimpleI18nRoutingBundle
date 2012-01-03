@@ -1,0 +1,40 @@
+Loogares\AdminBundle\Entity\TempImagenLugar:
+    type: entity
+    table: temp_imagenes_lugar
+    manyToOne:
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+            joinTable:
+                name: imagen
+                joinColumns:
+                    usuario:
+                        referencedColumnName: id
+        lugar:
+            targetEntity: Loogares\AdminBundle\Entity\TempLugar
+            joinTable:
+                name: imagen
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+        estado_imagen:
+            targetEntity: Loogares\ExtraBundle\Entity\Estado
+            joinTable:
+                name: imagen
+                joinColumns:
+                    estado_imagen:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        es_enlace:
+            type: integer
+        titulo_enlace:
+            type: string
+        fecha_creacion:
+            type: datetime
+        fecha_modificacion:
+            type: datetime
+        imagen_full:
+            type: string

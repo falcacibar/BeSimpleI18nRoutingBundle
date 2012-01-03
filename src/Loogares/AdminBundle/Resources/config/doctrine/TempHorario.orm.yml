@@ -1,0 +1,28 @@
+Loogares\AdminBundle\Entity\TempHorario:
+    type: entity
+    table: temp_horario
+    manyToOne:
+        lugar:
+            targetEntity: Loogares\AdminBundle\Entity\TempLugar
+            joinTable:
+                name: pedido_lugar
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        dia:
+            type: smallint
+        apertura_am:
+            type: string
+        cierre_am:
+            type: string
+        apertura_pm:
+            type: string
+            nullable: true
+        cierre_pm:
+            type: string
+            nullable: true

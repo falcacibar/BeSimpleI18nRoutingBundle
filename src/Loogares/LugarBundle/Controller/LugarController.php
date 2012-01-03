@@ -11,6 +11,7 @@ use Loogares\LugarBundle\Entity\CategoriaLugar;
 use Loogares\LugarBundle\Entity\CaracteristicaLugar;
 use Loogares\Lugarbundle\Entity\Horario;
 use Loogares\Lugarbundle\Entity\SubcategoriaLugar;
+use Loogares\AdminBundle\Entity\TempLugar;
 
 class LugarController extends Controller
 {
@@ -150,7 +151,8 @@ class LugarController extends Controller
 
 
         if($slug){
-            $lugar = $lr->findOneBySlug($slug);    
+            $lugar = $lr->findOneBySlug($slug);
+            $tempLugar = new TempLugar();    
         }else{
             $lugar = new Lugar();
         }
