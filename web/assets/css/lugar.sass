@@ -38,6 +38,14 @@ $rojo: #FF3300
     color: $azul
     text-decoration: underline
 
+@mixin link_gris_444
+    color: $gris_444
+    text-decoration: none
+
+@mixin link_gris_444_hover
+    color: $gris_444
+    text-decoration: underline 
+
 @mixin link_gris_999
     color: $gris_999
     text-decoration: none
@@ -421,7 +429,7 @@ $rojo: #FF3300
             size: 24px
         margin: 0 0 15px 0
         width: 598px
-    
+
     .estrellas
         display: block
         float: left
@@ -447,6 +455,12 @@ $rojo: #FF3300
             float: left
             margin: 0 0 20px 0
             padding: 7px
+
+            a
+                display: block
+                float: left
+                height: 130px
+                width: 130px
     
     .datos_principales_lugar
         float: left
@@ -462,11 +476,14 @@ $rojo: #FF3300
             width: 442px
 
         .telefono_lugar
+            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -51px
             display: block
             float: left
             font:
                 size: 14px
+            height: 15px
             margin: 0 0 20px 0
+            padding: 0 0 0 25px
             width: 442px
 
         .url_lugar
@@ -482,6 +499,23 @@ $rojo: #FF3300
             float: left
             margin: 0 0 20px 0
             width: 442px
+
+            a
+
+            .facebook_lugar
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
+                display: inline-block
+                float: left
+                height: 16px
+                width: 16px
+                
+            .twitter_lugar
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
+                display: inline-block
+                float: left
+                height: 16px
+                margin: 0 0 0 10px
+                width: 16px
 
         .precio_lugar
             display: block
@@ -503,14 +537,20 @@ $rojo: #FF3300
             display: block
             font:
                 size: 11px
-            margin: 0 0 4px 0
+            margin: 3px 0 4px 0
+
+        .minusculas
+            text-transform: lowercase
 
         .primero_en_recomendar_lugar
+            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -113px
             display: block
             float: left
             font:
                 size: 11px
-            width: 146px
+            height: 16px
+            padding: 2px 0 0 20px
+            width: 126px
 
             a
                 @include link_azul
@@ -568,6 +608,25 @@ $rojo: #FF3300
                 &:hover
                     @include link_azul_hover
 
+    .caracteristicas_lugar
+        display: block
+        float: left
+        margin: 20px 0 0 0
+        width: 598px
+
+        ul.caracteristicas_lugar_listado
+            display: block
+            float: left
+            width: 608px
+            
+            li
+                font:
+                    size: 11px
+                display: inline-block
+                margin: 0 10px 0 0
+                width: 139px
+                            
+
 .opciones_lugar
     display: block
     float: left
@@ -585,7 +644,7 @@ $rojo: #FF3300
             font:
                 size: 12px
             display: inline
-            margin: 0 15px
+            margin: 0 10px
 
             a
                 @include link_gris_999
@@ -593,7 +652,25 @@ $rojo: #FF3300
 
                 &:hover
                     @include link_gris_999_hover
-    
+
+            .dueno_lugar
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -3px
+                height: 10px
+                padding: 0 0 0 12px
+                width: 10px
+
+            .editar_lugar
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                height: 10px
+                padding: 0 0 0 13px
+                width: 10px
+
+            .compartir_lugar
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -34px
+                height: 10px
+                padding: 0 0 0 13px
+                width: 10px
+
     ul.opciones_lugar_ccc
         background: $gris_ccc
         display: block
@@ -615,6 +692,140 @@ $rojo: #FF3300
 
                 &:hover
                     @include link_gris_999_hover
+
+/* Recomendaciones */
+
+.titulo_recomendaciones
+    border-top: 1px solid $gris_f6f
+    display: block
+    float: left
+    font:
+        size: 20px
+    margin: 0 0 20px 0
+    padding: 30px 0 0
+    width: 640px
+
+.ordenar_por_recomendaciones
+    float: left
+    font:
+        size: 14px
+    margin: 0 0 20px 0
+    width: 640px
+
+    li
+        display: inline-block
+        float: left
+        margin: 0 5px 0 0
+
+.resultados_por_pagina
+    float: left
+    margin: 0 0 30px 0
+    width: 640px
+
+    .seleccionar_resultados_por_pagina
+        float: left
+        width: 45px
+
+    .resultados_por_pagina_txt
+        float: left
+        font:
+            size: 11px
+        margin: 5px 0 0 5px
+
+.recomendacion
+    border-top: 1px solid $gris_f6f
+    float: left
+    padding: 20px 0
+    width: 640px
+
+    .foto_recomendacion
+        float: left
+        width: 60px
+
+    .texto_recomendacion
+        float: left
+        margin: 0 0 0 10px
+        width: 570px
+            
+        .nombre_recomendacion
+            display: block
+            float: left
+            font:
+                size: 14px
+            margin: 0 0 10px 0
+            width: 470px
+            
+        .util_recomendacion
+            display: block
+            float: left
+            font:
+                size: 14px
+            margin: 0 0 10px 0
+            text-align: right
+            width: 100px
+
+        .fecha_recomendacion
+            color: $gris_999
+            display: block
+            float: left
+            font:
+                size: 11px
+            margin: 0 0 10px 0
+            width: 570px
+            
+        .estrellas_recomendacion
+            display: block
+            float: left
+            margin: 0 0 20px 0
+            width: 570px
+
+        .texto_recomendacion_usuario
+            display: block
+            float: left
+            font:
+                size: 14px
+            line-height: 22px
+            margin: 0 0 20px 0
+            width: 570px
+
+        .tags_recomendacion
+            display: block
+            float: left
+            font:
+                size: 12px
+            line-height: 18px
+            margin: 0 0 20px 0
+            width: 570px
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+        .opciones_recomendacion
+            display: block
+            float: left
+            font:
+                size: 12px
+            text-align: right
+            width: 570px
+
+            a
+                @include link_gris_444
+
+                &:hover
+                    @include link_gris_444_hover
+        
+.paginacion_recomendacion
+    border-bottom: 1px solid $gris_f6f
+    border-top: 1px solid $gris_f6f
+    display: block
+    float: left
+    font:
+        size: 12px
+    padding: 10px 0
+    width: 640px
 
     /* AGREGADO POR EL SUR */
 
