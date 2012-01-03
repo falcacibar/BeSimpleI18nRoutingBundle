@@ -60,11 +60,11 @@ class DaoAuthenticationProvider extends UserAuthenticationProvider
             }
         } else {
             if (!$presentedPassword = $token->getCredentials()) {
-                throw new BadCredentialsException('usuario.errors.emptyPassword');
+                throw new BadCredentialsException('The presented password cannot be empty.');
             }
 
             if (!$this->encoderFactory->getEncoder($user)->isPasswordValid($user->getPassword(), $presentedPassword, $user->getSalt())) {
-                throw new BadCredentialsException('usuario.errors.password');
+                throw new BadCredentialsException('The presented password is invalid.');
             }
         }
     }

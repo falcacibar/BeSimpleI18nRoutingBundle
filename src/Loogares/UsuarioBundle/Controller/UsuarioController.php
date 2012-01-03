@@ -57,8 +57,17 @@ class UsuarioController extends Controller
 
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+
+        $orden = (!$this->getRequest()->query->get('orden')) ? 'mejor-evaluadas' : $this->getRequest()->query->get('orden');
+
+        if($orden == 'mejor-evaluadas')
+            $orderBy = 'ORDER BY r.estrellas DESC';
+        else if($orden == 'ultimas')
+            $orderBy = 'ORDER BY r.fechaCreacion DESC';
+        else
+            $orderBy = 'ORDER BY l.nombre';
         
-        $data = $ur->getDatosUsuario($usuarioResult);
+        $data = $ur->getDatosUsuario($usuarioResult, $orderBy);
         $data->tipo = 'recomendaciones';
 
         $data->loggeadoCorrecto = $loggeadoCorrecto;
@@ -417,7 +426,7 @@ class UsuarioController extends Controller
                             ->setFrom('noreply@loogares.com')
                             ->setTo('cuenta.usuarios@loogares.com');
 
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo.png'));
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
                 $mail['logo'] = $logo;
                 $message->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_borrar_cuenta.html.twig', array('mail' => $mail)), 'text/html');
                 $this->get('mailer')->send($message);
@@ -504,7 +513,7 @@ class UsuarioController extends Controller
                             ->setSubject('Confirma tu cuenta en Loogares.com')
                             ->setFrom('noreply@loogares.com')
                             ->setTo($usuario->getMail());
-                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo.png'));
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
                     $message->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.html.twig', array('usuario' => $usuario, 'logo' => $logo)), 'text/html')
                             ->addPart($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.txt.twig', array('usuario' => $usuario)), 'text/plain');
                     $this->get('mailer')->send($message);
@@ -598,14 +607,14 @@ class UsuarioController extends Controller
         } else {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
         }
-        if($error != null && $error->getMessage() == 'usuario.errors.completo')
-            $formErrors['completo'] = $error;
-        else if($error != null && $error->getMessage() == 'usuario.errors.password')
-            $formErrors['password'] = $error;
-        else if($error != null && $error->getMessage() == 'usuario.errors.emptyPassword')
-            $formErrors['emptyPassword'] = $error;
-        else if($error != null && $error->getMessage() == 'usuario.errors.noActivo')
-            $formErrors['noActivo'] = $error;
+        if($error != null && $error->getMessage() == 'Bad credentials')
+            $formErrors['completo'] = 'usuario.errors.completo';
+        else if($error != null && $error->getMessage() == 'The presented password is invalid.')
+            $formErrors['password'] = 'usuario.errors.password';
+        else if($error != null && $error->getMessage() == 'The presented password cannot be empty.')
+            $formErrors['emptyPassword'] = 'usuario.errors.emptyPassword';
+        else if($error != null && $error->getMessage() == 'User account is disabled.')
+            $formErrors['noActivo'] = 'usuario.errors.noActivo';
 
         $session->set(SecurityContext::AUTHENTICATION_ERROR, null);
 

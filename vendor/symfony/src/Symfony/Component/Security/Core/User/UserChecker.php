@@ -51,7 +51,7 @@ class UserChecker implements UserCheckerInterface
         }
 
         if (!$user->isEnabled()) {
-            throw new DisabledException('usuario.errors.noActivo', $user);
+            throw new DisabledException('User account is disabled.', $user);
         }
 
         if (!$user->isAccountNonExpired()) {

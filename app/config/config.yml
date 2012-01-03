@@ -69,6 +69,17 @@ jirafe_mail_chimp:
     api_key:    %mailchimp_apikey%
     connection: stub
 
+# Avalanche Imagine Configuration
+avalanche_imagine:
+    driver: gd
+    filters:
+        medium:
+            type:    thumbnail
+            options: { size: [96, 96], mode: outbound }
+        small:
+            type:    thumbnail
+            options: { size: [56, 56], mode: outbound }
+
 # FOS Facebook Configuration
 #fos_facebook:
  #   file:   %kernel.root_dir%/../vendor/facebook/src/base_facebook.php
