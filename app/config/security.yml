@@ -40,7 +40,7 @@ security:
  #               app_url: "http://apps.facebook.com/Loogares.com/"
   #              server_url: "http://localhost/loogares/app_dev.php/" 
     access_control:
-        - { path: ^/lugar/agregar, roles: ROLE_USER }
+        - { path: /agregar, roles: ROLE_USER }
         - { path: /editar, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
 

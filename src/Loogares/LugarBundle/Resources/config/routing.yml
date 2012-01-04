@@ -49,3 +49,7 @@ _sugerirUnLugar:
 _recomendarCalle:
     pattern: /ajax/recomendarCalle
     defaults: { _controller: LoogaresLugarBundle:Ajax:recomendarCalle }
+
+_agregarFotoLugar:
+    pattern: /lugar/{slug}/galeria/agregar
+    defaults: { _controller: LoogaresLugarBundle:Lugar:agregarFoto }

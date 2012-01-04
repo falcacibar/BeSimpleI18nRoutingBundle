@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{lugar.nombre}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div id="agregar_foto_lugar">
+		<h1>Agregar foto en <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
+
+		<span>Puedes agregar una o más fotos a la galería de fotos de <strong>{{lugar.nombre}}</strong> en sólo 2 pasos:</span>
+
+		<div class="agregar_foto">
+
+		</div>
+
+	</div>
+{% endblock %}

@@ -536,4 +536,16 @@ class LugarController extends Controller
     public function editarAction($slug){
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig');
     }
+
+    public function agregarFotoAction(Request $request, $slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+
+
+        return $this->render('LoogaresLugarBundle:Lugares:agregar_foto.html.twig', array(
+            'lugar' => $lugar,
+        ));
+    }
 }
