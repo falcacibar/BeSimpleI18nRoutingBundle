@@ -5,7 +5,7 @@ Loogares\LugarBundle\Entity\Horario:
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
             joinTable:
-                name: pedido_lugar
+                name: lugar
                 joinColumns:
                     lugar:
                         referencedColumnName: id

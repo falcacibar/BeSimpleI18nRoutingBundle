@@ -66,4 +66,8 @@ class LoogaresFunctions
 	 
 	    return $string;
 	}
+
+	public function stripHTTP($ele){
+		return preg_replace('/^http:\/\//', '', $ele);
+	}
 }

@@ -9,27 +9,7 @@
     <style>
 
         .subcategorias{display: none;}
-
-        .placeholder{
-            color: #ccc;
-        }
-
-        input:focus, textarea{
-            outline: none;
-        }
-
-        .input-active{
-            border: 1px solid #3f0;
-        }
-
-        li.no-default{
-            display: none;
-        }   
-
-        .agregar-lugar .caracteristicas ul li,.agregar-lugar .subcategorias ul li{
-            display: none;
-        }
-
+        .subcategorias ul li{display: none;}
         .precio{
             margin-top: 5px;
         }
@@ -47,7 +27,7 @@
     <script src="{{asset('assets/js/jquery.metaData.js')}}"></script>
     <script>
 
-        $(function(){
+        $(document).ready(function(){
         {% if lugar.slug %}
             $('.comuna').find('option[value="{{lugar.comuna.slug}}"]').attr('selected', 'selected');
             $('.ciudad').find('option[value="{{lugar.comuna.ciudad.slug}}"]').attr('selected', 'selected');
@@ -116,7 +96,29 @@
             minLength: 2
         });
 
-        $('.categoria, .sector, .comuna, .pais, .ciudad').chosen();
+        $('.categoria, .sector, .comuna, select.pais, .ciudad').chosen();
+
+            var $sidebar   = $(".gmaps"),
+                $window    = $(window),
+                offset     = $sidebar.offset(),
+                topPadding = 50;
+
+            $window.scroll(function() {
+                if ($window.scrollTop() > offset.top && $window.scrollTop() <= $('.calle').offset().top) {
+                    $sidebar.stop().animate({
+                        marginTop: $window.scrollTop() - offset.top + topPadding
+                    });
+                } else if($window.scrollTop() >= $('.calle').offset().top - topPadding){
+                    var margin = ($('.calle').offset().top - topPadding - 15 )+'px';
+                    $sidebar.stop().animate({
+                        marginTop: margin
+                    });
+                }else {
+                    $sidebar.stop().animate({
+                        marginTop: 0
+                    });
+                }
+            });
     });      
     </script>
 {% endblock %}
@@ -157,7 +159,6 @@
                 </optgroup>
             {% endfor %}
         </select>
-        <span></span>
         <div class='subcategorias'>
             <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
             <ul class="alinear_subcategorias">
