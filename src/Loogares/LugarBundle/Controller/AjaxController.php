@@ -29,7 +29,7 @@ class AjaxController extends Controller
                                                                                AND mapy BETWEEN $mapyDesde AND $mapyHasta
                                                                                GROUP BY lugares.id
                                                                                ORDER BY RAND()
-                                                                               LIMIT 20");
+                                                                               LIMIT 5");
         
         for($i = 0; $i < sizeOf($otrosLugaresResult); $i++){
             $otrosLugaresResult[$i]['categorias'] = explode(',',$otrosLugaresResult[$i]['categorias']);

@@ -549,6 +549,15 @@ body {
         text-shadow: 1px 1px 1px #444444;
         width: 175px; }
 
+/* Banners */
+.banner_300x250 {
+  background: #f6f6f6;
+  display: block;
+  height: 250px;
+  float: left;
+  margin: 0 0 20px 0;
+  width: 300px; }
+
 /* Footer */
 .footer {
   background: #f6f6f6;
@@ -1035,6 +1044,7 @@ small {
 /* Ficha lugares */
 .lugar_info {
   border: 1px solid #f6f6f6;
+  border-bottom: 1px solid #cccccc;
   float: left;
   padding: 20px;
   width: 598px; }
@@ -1201,30 +1211,242 @@ small {
       .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado li {
         font-size: 11px;
         display: inline-block;
-        margin: 0 10px 0 0;
+        margin: 0 10px 10px 0;
         width: 139px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .aire-acondicionado {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -176px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .apto-para-ninos {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -260px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .delivery {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -155px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .descuentos-en-pedido-online {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -533px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .discapacitados {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -323px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .estacionamiento-autos {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -344px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .estacionamiento-bicicletas {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -449px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .fumadores {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -134px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .gay-friendly {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -407px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .happy-hour {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -428px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .no-fumadores {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -218px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .pago-con-cheque-de-restaurante {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -197px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .pago-con-redcompra {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -281px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .pago-con-tarjeta {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -470px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .para-llevar {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -239px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .pedido-online {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -512px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .reserva {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -491px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .reserva-online {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -386px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .terraza {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -365px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
+      .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado .wifi {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -302px;
+        display: block;
+        float: left;
+        height: 16px;
+        padding: 2px 0 0 20px;
+        width: 119px; }
 
-.opciones_lugar {
+.actividad_lugar {
+  background: #f6f6f6;
+  border-bottom: 1px solid #cccccc;
   display: block;
   float: left;
-  margin: 5px 0;
-  width: 640px; }
-  .opciones_lugar ul.opciones_lugar_f6f {
-    background: #f6f6f6;
+  height: 50px;
+  padding: 0 20px;
+  width: 600px; }
+  .actividad_lugar .flota_derecha {
+    float: right; }
+  .actividad_lugar .recomienda_lugar {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 0;
     display: block;
     float: left;
-    padding: 15px 0;
-    width: 476px; }
+    height: 30px;
+    margin: 10px 0;
+    width: 160px; }
+  .actividad_lugar .quiero_ir_lugar {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -160px 0;
+    display: block;
+    float: left;
+    height: 21px;
+    margin: 15px 0px 14px 10px;
+    width: 85px; }
+  .actividad_lugar .quiero_ir_valor {
+    background: #999999;
+    color: white;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    float: left;
+    height: 10px;
+    margin: 15px 0;
+    text-shadow: 1px 1px 1px #333333;
+    padding: 4px 5px 6px; }
+  .actividad_lugar .estuve_alla_lugar {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -262px 0;
+    display: block;
+    float: left;
+    height: 21px;
+    margin: 15px 0px 14px 10px;
+    width: 101px; }
+  .actividad_lugar .estuve_alla_valor {
+    background: #999999;
+    color: white;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    float: left;
+    height: 10px;
+    margin: 15px 0;
+    text-shadow: 1px 1px 1px #333333;
+    padding: 4px 5px 6px; }
+  .actividad_lugar .favoritos_lugar {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -385px 0;
+    display: block;
+    float: left;
+    height: 21px;
+    margin: 15px 0px 14px 10px;
+    width: 90px; }
+  .actividad_lugar .favoritos_valor {
+    background: #999999;
+    color: white;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    float: left;
+    height: 10px;
+    margin: 15px 0;
+    text-shadow: 1px 1px 1px #333333;
+    padding: 4px 5px 6px; }
+
+.opciones_lugar {
+  border: 1px solid #f6f6f6;
+  display: block;
+  float: left;
+  margin: 10px 0 0;
+  width: 638px; }
+  .opciones_lugar ul.opciones_lugar_f6f {
+    display: block;
+    float: left;
+    padding: 15px 20px;
+    width: 598px; }
     .opciones_lugar ul.opciones_lugar_f6f li {
-      font-size: 12px;
+      font-size: 11px;
       display: inline;
-      margin: 0 10px; }
+      margin: 0 15px 0 0; }
       .opciones_lugar ul.opciones_lugar_f6f li a {
-        color: #999999;
+        color: #666666;
         text-decoration: none;
-        color: #999999 !important; }
+        color: #666666 !important; }
         .opciones_lugar ul.opciones_lugar_f6f li a:hover {
-          color: #999999;
+          color: #666666;
           text-decoration: underline; }
       .opciones_lugar ul.opciones_lugar_f6f li .dueno_lugar {
         background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -3px;
@@ -1236,34 +1458,31 @@ small {
         height: 10px;
         padding: 0 0 0 13px;
         width: 10px; }
+      .opciones_lugar ul.opciones_lugar_f6f li .cerro_lugar {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
+        height: 10px;
+        padding: 0 0 0 13px;
+        width: 10px; }
       .opciones_lugar ul.opciones_lugar_f6f li .compartir_lugar {
         background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -34px;
         height: 10px;
         padding: 0 0 0 13px;
         width: 10px; }
-  .opciones_lugar ul.opciones_lugar_ccc {
-    background: #cccccc;
-    display: block;
-    float: left;
-    padding: 15px 0;
-    width: 164px; }
-    .opciones_lugar ul.opciones_lugar_ccc li {
-      font-size: 12px;
-      font-weight: bold;
-      display: inline;
-      text-shadow: 1px 1px 1px white;
-      margin: 0 15px; }
-      .opciones_lugar ul.opciones_lugar_ccc li a {
-        color: #999999;
-        text-decoration: none;
-        color: #999999 !important; }
-        .opciones_lugar ul.opciones_lugar_ccc li a:hover {
-          color: #999999;
-          text-decoration: underline; }
+      .opciones_lugar ul.opciones_lugar_f6f li .imprimir_lugar {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
+        height: 10px;
+        padding: 0 0 0 13px;
+        width: 10px; }
+
+/* Mapa ficha lugar */
+.mapa_sidebar {
+  float: left;
+  height: 300px;
+  margin: 0 0 20px 0;
+  width: 300px; }
 
 /* Recomendaciones */
 .titulo_recomendaciones {
-  border-top: 1px solid #f6f6f6;
   display: block;
   float: left;
   font-size: 20px;
@@ -1370,33 +1589,64 @@ small {
   float: left;
   font-size: 12px;
   padding: 10px 0;
-  width: 640px;
+  width: 640px; }
+
+/* Otros lugares */
+.otros_lugares {
+  border: 1px solid #f6f6f6;
+  border-bottom: 0px;
+  display: block;
+  float: left;
+  margin: 0 0 20px 0;
+  width: 298px;
   /* AGREGADO POR EL SUR */ }
-  .paginacion_recomendacion .subcategorias {
+  .otros_lugares .titulo_otros_lugares {
+    display: block;
+    float: left;
+    font-size: 20px;
+    margin: 20px 10px 10px;
+    width: 298px; }
+  .otros_lugares .otro_lugar {
+    border-bottom: 1px solid #f6f6f6;
+    display: block;
+    float: left;
+    padding: 20px 10px;
+    width: 278px; }
+    .otros_lugares .otro_lugar .otro_lugar_img {
+      display: block;
+      float: left;
+      height: 50px;
+      width: 50px; }
+    .otros_lugares .otro_lugar .otro_lugar_info {
+      display: block;
+      float: left;
+      margin: 0 0 0 10px;
+      width: 218px; }
+  .otros_lugares .subcategorias {
     width: 400px;
     margin: 5px 0 0 92px;
     display: none; }
-    .paginacion_recomendacion .subcategorias li {
+    .otros_lugares .subcategorias li {
       display: inline-block;
       margin: 1px; }
-      .paginacion_recomendacion .subcategorias li label {
+      .otros_lugares .subcategorias li label {
         display: inline-block;
         width: 170px;
         font-size: 10px;
         line-height: 10px;
         float: left; }
-        .paginacion_recomendacion .subcategorias li label span:hover {
+        .otros_lugares .subcategorias li label span:hover {
           border-bottom: 1px dotted #0066cc; }
-  .paginacion_recomendacion .caracteristicas {
+  .otros_lugares .caracteristicas {
     width: 400px;
     margin: -20px 0 0 93px; }
-    .paginacion_recomendacion .caracteristicas ul li {
+    .otros_lugares .caracteristicas ul li {
       display: inline-block;
       margin: 1px; }
-    .paginacion_recomendacion .caracteristicas ul label {
+    .otros_lugares .caracteristicas ul label {
       width: 180px;
       font-size: 10px; }
-      .paginacion_recomendacion .caracteristicas ul label span:hover {
+      .otros_lugares .caracteristicas ul label span:hover {
         border-bottom: 1px dotted #0066cc; }
 
 /* Perfil de usuario */
@@ -1457,7 +1707,13 @@ small {
     width: 76%;
     float: right;
     /* Edición de usuario */
-    /* Recomendaciones del usuario */ }
+    /* Recomendaciones del usuario */
+    /* Fotos del usuario */ }
+    #main-usuario #content-usuario h1 {
+      margin: 10px 0 20px 0;
+      font-weight: bold;
+      letter-spacing: -1px;
+      font-size: 1.6em; }
     #main-usuario #content-usuario h1.edicion-titulo {
       font-size: 1.4em;
       font-weight: bold; }
@@ -1534,11 +1790,6 @@ small {
         margin: 0 0 20px 0;
         padding: 5px 10px;
         width: 456px; }
-    #main-usuario #content-usuario .recomendaciones h1 {
-      margin: 10px 0 20px 0;
-      font-weight: bold;
-      letter-spacing: -1px;
-      font-size: 1.6em; }
     #main-usuario #content-usuario .recomendaciones ul {
       margin: 10px 0; }
       #main-usuario #content-usuario .recomendaciones ul li {
@@ -1550,7 +1801,8 @@ small {
     #main-usuario #content-usuario .recomendaciones a:hover {
       text-decoration: underline; }
     #main-usuario #content-usuario .recomendaciones table {
-      text-align: left; }
+      text-align: left;
+      margin-bottom: 20px; }
       #main-usuario #content-usuario .recomendaciones table tr {
         border-bottom: 1px solid #cccccc; }
       #main-usuario #content-usuario .recomendaciones table tr.no-bottom-border {
@@ -1563,6 +1815,51 @@ small {
         padding: 8px; }
         #main-usuario #content-usuario .recomendaciones table td a {
           font-weight: bold; }
+    #main-usuario #content-usuario .fotos_usuario a {
+      color: #0066cc;
+      cursor: pointer;
+      font-size: 11px; }
+    #main-usuario #content-usuario .fotos_usuario a:hover {
+      text-decoration: underline; }
+    #main-usuario #content-usuario .fotos_usuario ul.orden {
+      margin: 10px 0; }
+      #main-usuario #content-usuario .fotos_usuario ul.orden li {
+        display: inline;
+        font-size: 11px; }
+    #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul {
+      float: left;
+      margin-bottom: 40px; }
+      #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li {
+        display: inline;
+        width: 210px;
+        margin-right: 20px;
+        float: left; }
+        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li a img {
+          border: 1px solid #444444;
+          border-radius: 2px;
+          -moz-border-radius: 2px;
+          padding: 1px;
+          height: 56px;
+          width: 56px; }
+        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li h4 {
+          font-size: 13px;
+          font-weight: bold; }
+          #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li h4 a {
+            color: #333333; }
+        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li span {
+          font-size: 11px; }
+    #main-usuario #content-usuario .fotos_usuario .paginacion {
+      float: left; }
+    #main-usuario #content-usuario .paginacion span {
+      font-size: 11px; }
+    #main-usuario #content-usuario .paginacion ul li a {
+      border: 1px solid #cccccc;
+      padding: 0 4px;
+      color: #333333; }
+    #main-usuario #content-usuario .paginacion ul li a.actual {
+      color: white;
+      background: #ff3333;
+      border: 1px solid #ff3333; }
 
 /*  Extras */
 .bold {

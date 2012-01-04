@@ -11,7 +11,6 @@ use Loogares\LugarBundle\Entity\CategoriaLugar;
 use Loogares\LugarBundle\Entity\CaracteristicaLugar;
 use Loogares\Lugarbundle\Entity\Horario;
 use Loogares\Lugarbundle\Entity\SubcategoriaLugar;
-use Loogares\AdminBundle\Entity\TempLugar;
 
 class LugarController extends Controller
 {
@@ -56,6 +55,12 @@ class LugarController extends Controller
                   ->setParameter(1, $idLugar);
                 $imagenLugarResult = $q->getResult();
 
+                //Total Fotos Lugar
+                $q = $em->createQuery("SELECT count(u.id)
+                                       FROM Loogares\LugarBundle\Entity\ImagenLugar u
+                                       WHERE u.lugar = ?1");
+                $q->setParameter(1, $idLugar);
+                $totalFotosResult = $q->getSingleScalarResult();
 
                 //Query para sacar la primera recomendacion
                 $q = $em->createQuery("SELECT u 
@@ -137,6 +142,7 @@ class LugarController extends Controller
                 $data->mostrandoComentariosDe = $paginaActual * ($paginaActual != 1)?(10 + 1):1;
                 $data->paginaActual = $paginaActual;
                 $data->orden = $orden;
+                $data->totalFotos = $totalFotosResult;
 
                 //Render ALL THE VIEWS
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));            
@@ -151,8 +157,7 @@ class LugarController extends Controller
 
 
         if($slug){
-            $lugar = $lr->findOneBySlug($slug);
-            $tempLugar = new TempLugar();    
+            $lugar = $lr->findOneBySlug($slug);    
         }else{
             $lugar = new Lugar();
         }

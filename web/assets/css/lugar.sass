@@ -3,7 +3,9 @@
 $azul: #0066CC
 $blanco: #FFF
 $error: #F66
+$gris_333: #333
 $gris_444: #444
+$gris_666: #666
 $gris_686: #686868
 $gris_999: #999
 $gris_ccc: #CCC
@@ -44,6 +46,14 @@ $rojo: #FF3300
 
 @mixin link_gris_444_hover
     color: $gris_444
+    text-decoration: underline 
+
+@mixin link_gris_666
+    color: $gris_666
+    text-decoration: none
+
+@mixin link_gris_666_hover
+    color: $gris_666
     text-decoration: underline 
 
 @mixin link_gris_999
@@ -418,6 +428,7 @@ $rojo: #FF3300
 
 .lugar_info
     border: 1px solid $gris_f6f
+    border-bottom: 1px solid $gris_ccc
     float: left
     padding: 20px
     width: 598px
@@ -623,35 +634,277 @@ $rojo: #FF3300
                 font:
                     size: 11px
                 display: inline-block
-                margin: 0 10px 0 0
+                margin: 0 10px 10px 0
                 width: 139px
-                            
 
-.opciones_lugar
+            .aire-acondicionado
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -176px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px
+
+            .apto-para-ninos
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -260px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .delivery
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -155px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px
+
+            .descuentos-en-pedido-online
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -533px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .discapacitados
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -323px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .estacionamiento-autos
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -344px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .estacionamiento-bicicletas
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -449px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .fumadores
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -134px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px
+
+            .gay-friendly
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -407px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .happy-hour
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -428px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .no-fumadores
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -218px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .pago-con-cheque-de-restaurante
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -197px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .pago-con-redcompra
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -281px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .pago-con-tarjeta
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -470px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .para-llevar
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -239px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .pedido-online
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -512px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .reserva
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -491px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .reserva-online
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -386px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .terraza
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -365px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+            .wifi
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -302px
+                display: block
+                float: left
+                height: 16px
+                padding: 2px 0 0 20px
+                width: 119px                        
+
+.actividad_lugar
+    background: $gris_f6f
+    border-bottom: 1px solid $gris_ccc
     display: block
     float: left
-    margin: 5px 0
-    width: 640px
+    height: 50px
+    padding: 0 20px
+    width: 600px
 
-    ul.opciones_lugar_f6f
-        background: $gris_f6f
+    .flota_derecha
+        float: right
+            
+    .recomienda_lugar
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 0
         display: block
         float: left
-        padding: 15px 0
-        width: 476px
+        height: 30px
+        margin: 10px 0
+        width: 160px      
+        
+    .quiero_ir_lugar
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -160px 0
+        display: block
+        float: left
+        height: 21px
+        margin: 15px 0px 14px 10px
+        width: 85px 
+    
+    .quiero_ir_valor
+        background: $gris_999
+        color: $blanco
+        display: block
+        font:
+            size: 11px
+            weight: bold
+        float: left
+        height: 10px
+        margin: 15px 0
+        text-shadow: 1px 1px 1px $gris_333
+        padding: 4px 5px 6px
+
+    .estuve_alla_lugar
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -262px 0
+        display: block
+        float: left
+        height: 21px
+        margin: 15px 0px 14px 10px
+        width: 101px      
+
+    .estuve_alla_valor
+        background: $gris_999
+        color: $blanco
+        display: block
+        font:
+            size: 11px
+            weight: bold
+        float: left
+        height: 10px
+        margin: 15px 0
+        text-shadow: 1px 1px 1px $gris_333
+        padding: 4px 5px 6px
+
+    .favoritos_lugar    
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -385px 0
+        display: block
+        float: left
+        height: 21px
+        margin: 15px 0px 14px 10px
+        width: 90px      
+
+    .favoritos_valor
+        background: $gris_999
+        color: $blanco
+        display: block
+        font:
+            size: 11px
+            weight: bold
+        float: left
+        height: 10px
+        margin: 15px 0
+        text-shadow: 1px 1px 1px $gris_333
+        padding: 4px 5px 6px
+
+.opciones_lugar
+    border: 1px solid $gris_f6f
+    display: block
+    float: left
+    margin: 10px 0 0
+    width: 638px
+
+    ul.opciones_lugar_f6f
+        display: block
+        float: left
+        padding: 15px 20px
+        width: 598px
 
         li
             font:
-                size: 12px
+                size: 11px
             display: inline
-            margin: 0 10px
+            margin: 0 15px 0 0
 
             a
-                @include link_gris_999
-                color: $gris_999 !important
+                @include link_gris_666
+                color: $gris_666 !important
 
                 &:hover
-                    @include link_gris_999_hover
+                    @include link_gris_666_hover
 
             .dueno_lugar
                 background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -3px
@@ -665,38 +918,35 @@ $rojo: #FF3300
                 padding: 0 0 0 13px
                 width: 10px
 
+            .cerro_lugar
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                height: 10px
+                padding: 0 0 0 13px
+                width: 10px
+
             .compartir_lugar
                 background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -34px
                 height: 10px
                 padding: 0 0 0 13px
                 width: 10px
+            
+            .imprimir_lugar
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                height: 10px
+                padding: 0 0 0 13px
+                width: 10px
 
-    ul.opciones_lugar_ccc
-        background: $gris_ccc
-        display: block
-        float: left
-        padding: 15px 0
-        width: 164px
+/* Mapa ficha lugar */
 
-        li
-            font:
-                size: 12px
-                weight: bold
-            display: inline
-            text-shadow: 1px 1px 1px $blanco
-            margin: 0 15px
-
-            a
-                @include link_gris_999
-                color: $gris_999 !important
-
-                &:hover
-                    @include link_gris_999_hover
+.mapa_sidebar
+    float: left
+    height: 300px
+    margin: 0 0 20px 0
+    width: 300px    
 
 /* Recomendaciones */
 
 .titulo_recomendaciones
-    border-top: 1px solid $gris_f6f
     display: block
     float: left
     font:
@@ -826,6 +1076,43 @@ $rojo: #FF3300
         size: 12px
     padding: 10px 0
     width: 640px
+
+/* Otros lugares */
+
+.otros_lugares
+    border: 1px solid $gris_f6f
+    border-bottom: 0px
+    display: block
+    float: left
+    margin: 0 0 20px 0
+    width: 298px
+        
+    .titulo_otros_lugares
+        display: block
+        float: left
+        font:
+            size: 20px
+        margin: 20px 10px 10px
+        width: 298px
+
+    .otro_lugar
+        border-bottom: 1px solid $gris_f6f
+        display: block
+        float: left
+        padding: 20px 10px
+        width: 278px
+
+        .otro_lugar_img
+            display: block
+            float: left
+            height: 50px
+            width: 50px
+
+        .otro_lugar_info
+            display: block
+            float: left
+            margin: 0 0 0 10px
+            width: 218px
 
     /* AGREGADO POR EL SUR */
 

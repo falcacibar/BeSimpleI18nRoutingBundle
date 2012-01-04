@@ -22,12 +22,12 @@
                 <div class="foto_lugar" id="lugar-foto">
                     <a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="../../assets/images/lugares/{{lugar.imagen_full}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 </div>
-                <a class="link_gris_444" href="#">Ver galería (nº fotos)</a><br />
+                <a class="link_gris_444" href="#">Ver galería ({{lugar.totalFotos}} fotos)</a><br />
                 <a class="link_gris_444" href="#">» Agrega una foto</a>
             </div>
 
             <div class="datos_principales_lugar">
-                <div class="direccion_lugar" id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }}, {{ lugar.comuna.ciudad.nombre }}</div>
+                <div class="direccion_lugar" id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}</div>
                 {% if lugar.telefonos %}
                     <div class="telefono_lugar" id="lugar-telefono">
                         {% for telefono in lugar.telefonos %}
@@ -114,7 +114,7 @@
                     <div id="lugar-caracteristicas">
                         <ul class="caracteristicas_lugar_listado">
                             {% for caracteristicaLugar in lugar.caracteristicaLugar %}
-                                <li>{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li> {% endif %}
+                                <li class="{{caracteristicaLugar.caracteristica.slug}}">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li> {% endif %}
                             {% endfor %}
                         </ul>
                     </div>
@@ -123,15 +123,26 @@
 
         </div>
 
+        <div class="actividad_lugar">
+            <a class="recomienda_lugar"></a>
+            <div class="flota_derecha">
+                <a class="favoritos_lugar"></a><p class="favoritos_valor">100</p>
+            </div>           
+            <div class="flota_derecha">
+                <a class="estuve_alla_lugar"></a><p class="estuve_alla_valor">20</p>
+            </div>           
+            <div class="flota_derecha">
+                <a class="quiero_ir_lugar"></a><p class="quiero_ir_valor">10</p>
+            </div>           
+        </div>
+
         <div class="opciones_lugar">
             <ul class="opciones_lugar_f6f">
                 <li><a class="dueno_lugar" href="">¿Eres dueño de este Lugar?</a></li>
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">Edita los datos</a></li>
+                <li><a class="cerro_lugar" href="">¿Este lugar cerró? Avísanos</a></li>
                 <li><a class="compartir_lugar" href="">Compartir</a></li>
                 <li><a class="imprimir_lugar" href="">Imprimir</a></li>
-            </ul>
-            <ul class="opciones_lugar_ccc">
-                <li><a href="">Recomienda este lugar</a></li>
             </ul>
         </div>
 
@@ -232,9 +243,11 @@
     </div>
 
     <div class="sidebar">
-        <div id="mapa-sidebar">
-            <div id="mapaOtros" class="borde-ccc mb-10 mt-10" style="height:298px;width:298px;">
+        <div class="mapa_sidebar" id="mapa-sidebar">
+            
+            <div id="mapaOtros" style="height: 300px; width: 300px;">
             </div>
+
             <div id="otros-lugaresMapa">
                 <input type="hidden" id="idLugar" value="2375" />
                 <input id="coordenadas0" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}">
@@ -250,20 +263,23 @@
             <div id="mapaAjax">
             </div>
             
-            <div id="otros-lugares">
-                <h2 class="fs-14 mt-20 mb-20">Otros Lugares en el área</h2>
-                <input id="cantidadLugares" type="hidden" value="20">
-            </div>
         </div>
+
+        <div class="banner_300x250">
+        </div>
+
+        <div class="otros_lugares" id="otros-lugares">
+        </div>
+
     </div>
 
 
-                <div id="recomendaciones">
-                </div>
-            {% else %}
-                <h1>No hay recomendaciones, queris recomendar? :D</h1>
-            {% endif %}
-        </div>
+    <div id="recomendaciones">
+    </div>
+    {% else %}
+        <h1>No hay recomendaciones, queris recomendar? :D</h1>
+    {% endif %}
+
 </div>
 
 {% endblock %}

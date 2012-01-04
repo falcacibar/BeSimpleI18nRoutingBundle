@@ -549,6 +549,15 @@ body {
         text-shadow: 1px 1px 1px #444444;
         width: 175px; }
 
+/* Banners */
+.banner_300x250 {
+  background: #f6f6f6;
+  display: block;
+  height: 250px;
+  float: left;
+  margin: 0 0 20px 0;
+  width: 300px; }
+
 /* Footer */
 .footer {
   background: #f6f6f6;
