@@ -68,9 +68,12 @@ class UsuarioController extends Controller
             $orderBy = 'ORDER BY l.nombre';
         else
             $orderBy = '';
-
+        
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
         $offset = ($pagina - 1) * 10;
+        $recomendaciones = $ur->getUsuarioRecomendaciones($usuarioResult->getId(), $orderBy, $offset);
+        //echo count($recomendaciones);
+        //echo $offset;
         
         $data = $ur->getDatosUsuario($usuarioResult, $orderBy);
         $data->tipo = 'recomendaciones';
@@ -78,6 +81,7 @@ class UsuarioController extends Controller
         $data->pagina = $pagina;
         $data->totalPaginas = ($data->totalRecomendaciones > 10) ? ceil($data->totalRecomendaciones / 10) : 1;
         $data->offset = $offset;
+        $data->recomendacionesTodas = $recomendaciones;
 
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
@@ -109,14 +113,12 @@ class UsuarioController extends Controller
             $orderBy = 'ORDER BY l.nombre';
         else
             $orderBy = '';
-
+            
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
         $offset = ($pagina - 1) * 15;
 
-        $offsetDQL = "OFFSET ".$offset;
+        $imagenesLugar= $ur->getFotosLugaresAgregadasUsuario($usuarioResult->getId(), $orderBy, $offset);
 
-        $imagenesLugar= $ur->getFotosLugaresAgregadasUsuario($usuarioResult->getId(), $orderBy, $offsetDQL);
-        
         $data = $ur->getDatosUsuario($usuarioResult);
 
         $data->tipo = 'fotos';

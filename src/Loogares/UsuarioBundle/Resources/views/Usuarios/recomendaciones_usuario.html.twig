@@ -37,25 +37,24 @@
 			<th>Categorías</th>
 		</tr>
 
-		{% set i = 0 %}
-		{% for recomendacion in usuario.recomendacionesTodas %}
-			{% if loop.index > usuario.offset and i < 10 %}
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td><a href="{{path('_lugar', { 'slug': recomendacion.lugar.slug })}}">{{recomendacion.lugar.nombre}}</a></td>
-					<td>{{recomendacion.estrellas}}</td>
-					<td>{{recomendacion.fechaCreacion|date('d/m/Y')}}</td>
-					<td>
-						{% for categoriaLugar in recomendacion.lugar.categoriaLugar %}
-							<a href="#">{{categoriaLugar.categoria.nombre}}</a>
-							{{-((loop.index == recomendacion.lugar.categoriaLugar|length) ? '' : ', ')}}
-						{% endfor %}
-					</td>
-					<td><a href="#">Lee</a></td>
-					<td><a href="#">Edita tu recomendación</a></td>
-				</tr>
-				{% set i = i + 1 %}
-			{% endif %}
+		{% set i = 0 %}		
+		{% for recomendacion in usuario.recomendacionesTodas %}			
+			<tr>
+				<td><input type="checkbox" /></td>
+				<td><a href="{{path('_lugar', { 'slug': recomendacion.lugar.slug })}}">{{recomendacion.lugar.nombre}}</a></td>
+				<td>{{recomendacion.estrellas}}</td>
+				<td>{{recomendacion.fechaCreacion|date('d/m/Y')}}</td>
+				<td>
+					{% for categoriaLugar in recomendacion.lugar.categoriaLugar %}
+						<a href="#">{{categoriaLugar.categoria.nombre}}</a>
+						{{-((loop.index == recomendacion.lugar.categoriaLugar|length) ? '' : ', ')}}
+					{% endfor %}
+				</td>			
+				<td><a href="#">Lee</a></td>
+				<td><a href="#">Edita tu recomendación</a></td>
+			</tr>
+			{% set i = i + 1 %}
+			
 		{% endfor %}
 	</table>
 
