@@ -59,8 +59,14 @@
                 <div class="primero_en_recomendar_lugar">
                     {% if lugar.recomendaciones %}
                         <div id="primero-recomendar">
-                            Primero en recomendar 
-                            {{ lugar.primero.usuario.nombre }}
+                            Primero en recomendar
+                            <a href="{{ path('showUsuario', {'param': lugar.primero.usuario.slug})}}">
+                                {% if lugar.primero.usuario.nombre != '' and lugar.primero.usuario.apellido != '' %}
+                                    {{ lugar.primero.usuario.nombre }} {{ lugar.primero.usuario.apellido }}
+                                {% else %}
+                                    {{ lugar.primero.usuario.slug }}
+                                {% endif %}
+                            </a>
                         </div>
                 </div>
 
@@ -74,12 +80,11 @@
                         </div>
                     {% endif %}
 
-                    {% if lugar.horario %}
+                    {% if lugar.horarios != null %}
                         <div class="horario_lugar_box" id="lugar-horarios">
                             <span class="subtitulos_lugar">Horario:</span>
-                            {% for horario in lugar.horario %}
-                                AM: {{ horario.aperturaAm }} - {{ horario.cierreAm }}<br/>
-                                PM: {{ horario.aperturaPm }} - {{ horario.cierrePm }}<br/>
+                            {% for horario in lugar.horarios %}
+                                {{ horario }}<br/>
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -95,15 +100,13 @@
                     {% endif %}
                     {% if lugar.subcategoriaLugar %}
                         <div class="subcategoria_lugar_box" id="lugar-subcategoria">
-                            {% for categoriaLugar in lugar.categoriaLugar %} 
-                            <span class="subtitulos_lugar">Subcategorías <span class="minusculas">{{categoriaLugar.categoria.nombre}}</span>:</span> 
-                                {% for subcategoriaLugar in lugar.subcategoriaLugar %}
-                                    {% if subcategoriaLugar.subCategoria.categoria.id == categoriaLugar.categoria.id %}
-                                        <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                                {% if loop.last == false %}<br/><br/> {% endif %}
-                            {% endfor %}
+                            {%set isSet = ':D'%}
+                            {% for subcategoriaLugar in lugar.subcategoriaLugar %}{% if isSet != subcategoriaLugar.subcategoria.categoria.id %}{%for categoriaLugar in lugar.categoriaLugar%}
+                                {% if categoriaLugar.categoria.id == subcategoriaLugar.subcategoria.categoria.id %}
+                                    <span class="subtitulos_lugar">Subcategorías <span class="minusculas">{{categoriaLugar.categoria.nombre}}</span>:</span>{% set isSet = categoriaLugar.categoria.id %}{% endif %}{%endfor%}
+                                {% else %},
+                                {% endif %}
+                                <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% endfor %}
                         </div>
                     {% endif %}
                 </div>
@@ -194,7 +197,17 @@
                     </a>
                 </div>
                 <div class="texto_recomendacion">
-                    <p class="nombre_recomendacion"><strong>{{ recomendacion.nombre }} {{ recomendacion.apellido }}</strong></p>
+                    <p class="nombre_recomendacion">
+                        <strong>
+                            <a class="link_azul" href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
+                                {% if recomendacion.nombre != '' and recomendacion.apellido != '' %}
+                                    {{ recomendacion.nombre }} {{ recomendacion.apellido }}
+                                {% else %}
+                                    {{ lugar.primero.usuario.slug }}
+                                {% endif %}
+                            </a>
+                        </strong>
+                    </p>
                     <p class="util_recomendacion">{{ recomendacion.utiles }}</p>
                     <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
                     <p class="estrellas_recomendacion">{{ recomendacion.estrellas }}</p>
@@ -257,12 +270,12 @@
                 <input id="nombre0" type="hidden" value="{{ lugar.nombre }}">
                 <input id="direccion0" type="hidden" value="{{ lugar.calle }} {{lugar.numero}}">
                 <input id="baseurl" type="hidden" value="localhost" />
-                <input id="cantidadLugares" type="hidden" value="10" />
+                <input id="cantidadLugares" type="hidden" value="20" />
             </div>
 
             <div id="mapaAjax">
             </div>
-            
+
         </div>
 
         <div class="banner_300x250">

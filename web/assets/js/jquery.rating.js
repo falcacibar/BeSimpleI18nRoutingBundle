@@ -374,6 +374,7 @@
 	*/
 	$(function(){
 	 $('input[type=radio].star').rating();
+	 $('input[type=radio].precio').rating();
 	});
 	
 	
