@@ -113,12 +113,18 @@ class UsuarioController extends Controller
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
         $offset = ($pagina - 1) * 15;
 
-        $data = $ur->getDatosUsuario($usuarioResult, null, $orderBy);
+        $offsetDQL = "OFFSET ".$offset;
+
+        $imagenesLugar= $ur->getFotosLugaresAgregadasUsuario($usuarioResult->getId(), $orderBy, $offsetDQL);
+        
+        $data = $ur->getDatosUsuario($usuarioResult);
+
         $data->tipo = 'fotos';
         $data->orden = $orden;
         $data->pagina = $pagina;
         $data->totalPaginas = ($data->totalImagenesLugar > 15) ? ceil($data->totalImagenesLugar / 15) : 1;
         $data->offset = $offset;
+        $data->imagenesLugar = $imagenesLugar;
 
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 

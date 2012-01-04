@@ -10,7 +10,7 @@ Loogares\LugarBundle\Entity\Caracteristica:
             type: string
         texto:
             type: string
-        icono:
+        slug:
             type: string
         color:
             type: string

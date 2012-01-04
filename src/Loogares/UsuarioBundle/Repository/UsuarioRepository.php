@@ -48,22 +48,40 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         return $usuario->getId();
     }
 
-  	public function getUsuarioRecomendaciones($id, $orden=null) {
+  	public function getUsuarioRecomendaciones($id, $orden=null, $offset=null) {
   		  $em = $this->getEntityManager();
 
   		  //Query para obtener el total de recomendaciones del usuario
         if($orden == null)
           $orden = '';
+
+        if($offset == null)
+          $offset = '';
+
         $q = $em->createQuery("SELECT r, l, cl
                                FROM Loogares\UsuarioBundle\Entity\Recomendacion r
                                JOIN r.lugar l
                                JOIN l.categoria_lugar cl
                                WHERE r.usuario = ?1"
-                               .$orden);
+                               .$orden.
+                               "LIMIT 10 "
+                               .$offset);
         $q->setParameter(1, $id);
 
         return $q->getResult();
   	}
+
+    public function getTotalUsuarioRecomendaciones($id) {
+        $em = $this->getEntityManager();
+
+        //Query para obtener el total de recomendaciones del usuario        
+        $q = $em->createQuery("SELECT COUNT(r) total
+                               FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.usuario = ?1");
+        $q->setParameter(1, $id);
+
+        return $q->getSingleResult();
+    }
 
   	public function getTotalLugaresAgregadosUsuario($id) {
     		$em = $this->getEntityManager();
@@ -76,20 +94,38 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         return $q->getSingleResult();
   	}
 
-  	public function getFotosLugaresAgregadasUsuario($id, $orden=null) {
+  	public function getFotosLugaresAgregadasUsuario($id, $orden=null, $offset=null) {
     		$em = $this->getEntityManager();
 
     		//Query para obtener el total de fotos de lugares agregadas por el usuario
         if($orden == null)
           $orden = '';
+
+        if($offset == null)
+          $offset = '';
+         
         $q = $em->createQuery("SELECT im, l
                                FROM Loogares\LugarBundle\Entity\ImagenLugar im 
                                JOIN im.lugar l
-                               WHERE im.usuario = ?1"
-                               .$orden);
+                               WHERE im.usuario = ?1 "
+                               .$orden.
+                               "LIMIT 15"
+                               .$offset);
+
         $q->setParameter(1, $id);
         return $q->getResult();
   	}
+
+    public function getTotalFotosLugaresAgregadasUsuario($id, $orden=null) {
+        $em = $this->getEntityManager();
+
+        //Query para obtener el total de fotos de lugares agregadas por el usuario
+        $q = $em->createQuery("SELECT COUNT(im) total
+                               FROM Loogares\LugarBundle\Entity\ImagenLugar im
+                               WHERE im.usuario = ?1");
+        $q->setParameter(1, $id);
+        return $q->getSingleResult();
+    }
 
   	public function getPrimerasRecomendaciones($id) {
     		$em = $this->getEntityManager();
@@ -119,11 +155,12 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         return $q->getResult();
     }
     
-    public function getDatosUsuario($usuario, $ordenRec=null, $ordenFotos=null) {
+    public function getDatosUsuario($usuario) {
 
+        
         //Total recomendaciones usuario
-        $recomendaciones = $this->getUsuarioRecomendaciones($usuario->getId(), $ordenRec); 
-        $totalRecomendaciones = count($recomendaciones);
+        //$recomendaciones = $this->, $ordenRec, $offsetRec); 
+        $totalRecomendaciones = $this->getTotalUsuarioRecomendaciones($usuario->getId());
 
         //Primeras recomendaciones usuario
         $primerasRecomendaciones = $this->getPrimerasRecomendaciones($usuario->getId());
@@ -133,8 +170,10 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         $totalLugaresAgregados = $this->getTotalLugaresAgregadosUsuario($usuario->getId());
 
         //Total de fotos de lugares agregadas por el usuario
-        $imagenesLugar= $this->getFotosLugaresAgregadasUsuario($usuario->getId(), $ordenFotos);
-        $totalImagenesLugar = count($imagenesLugar);
+        //$imagenesLugar= $this->getFotosLugaresAgregadasUsuario($usuario->getId(), $ordenFotos, $offsetFotos);
+
+        $totalImagenesLugar = $this->getTotalFotosLugaresAgregadasUsuario($usuario->getId());
+
         //Cálculo de edad
         if($usuario->getFechaNacimiento() != null) {
             $birthday = $usuario->getFechaNacimiento()->format('d-m-Y');
@@ -179,11 +218,11 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
          */
         $data = $usuario;
         $data->totalRecomendaciones = $totalRecomendaciones;
-        $data->recomendaciones = $recomendaciones;
+        //$data->recomendacionesTodas = $recomendaciones;
         $data->totalPrimerasRecomendaciones = $totalPrimerasRecomendaciones;
         $data->totalLugaresAgregados = $totalLugaresAgregados['total'];
         $data->totalImagenesLugar = $totalImagenesLugar;
-        $data->imagenesLugar = $imagenesLugar;
+        //$data->imagenesLugar = $imagenesLugar;
         $data->edadResult = $edad;
         $data->sexoResult = $sexoResult;
         $data->links = $links;

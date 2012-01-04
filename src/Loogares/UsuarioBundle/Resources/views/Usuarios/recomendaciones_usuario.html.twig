@@ -38,7 +38,7 @@
 		</tr>
 
 		{% set i = 0 %}
-		{% for recomendacion in usuario.recomendaciones %}
+		{% for recomendacion in usuario.recomendacionesTodas %}
 			{% if loop.index > usuario.offset and i < 10 %}
 				<tr>
 					<td><input type="checkbox" /></td>

@@ -9,6 +9,7 @@ src/Loogares/LugarBundle/Entity/*
 src/Loogares/UsuarioBundle/Entity/*
 !src/Loogares/UsuarioBundle/Entity/Usuario.php
 src/Loogares/ExtraBundle/Entity/*
+src/Loogares/AdminBundle/Entity/*
 
 #imagenes
 web/assets/images/*

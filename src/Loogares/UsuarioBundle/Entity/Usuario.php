@@ -787,6 +787,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
         }
     }
 
+   
     /**
      * @var Loogares\UsuarioBundle\Entity\Recomendacion
      */
