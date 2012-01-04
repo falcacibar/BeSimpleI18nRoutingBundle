@@ -19,7 +19,7 @@ $loader->registerNamespaces(array(
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
     'Beberlei'         => __DIR__.'/../vendor/beberlei-doctrine-extensions/lib',    
     'Mailchimp'        => __DIR__.'/../vendor/mailchimp/src',
-    'Imagine'          => __DIR__.'/../vendor/imagine/lib',    
+    'Imagine'          => __DIR__.'/../vendor/imagine/lib',   
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

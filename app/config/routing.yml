@@ -1,10 +1,14 @@
+_imagine:
+    resource: .
+    type:     imagine
+
 LoogaresExtraBundle:
     resource: "@LoogaresExtraBundle/Resources/config/routing.yml"
     prefix:   /
 
 LoogaresUsuarioBundle:
     resource: "@LoogaresUsuarioBundle/Resources/config/routing.yml"
-    prefix:   /usuarios
+    prefix:   /usuario
 
 LoogaresLugarBundle:
     resource: "@LoogaresLugarBundle/Resources/config/routing.yml"
@@ -14,9 +18,6 @@ LoogaresAdminBundle:
     resource: "@LoogaresAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
 
-_imagine:
-    resource: .
-    type:     imagine
 
 #_security_check:
 #    pattern:  /login_check

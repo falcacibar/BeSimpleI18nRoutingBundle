@@ -10,6 +10,8 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Imagine\Image\Box;
+use Imagine\Image;
 
 
 class UsuarioController extends Controller
@@ -113,7 +115,7 @@ class UsuarioController extends Controller
             $orderBy = 'ORDER BY l.nombre';
         else
             $orderBy = '';
-            
+
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
         $offset = ($pagina - 1) * 15;
 

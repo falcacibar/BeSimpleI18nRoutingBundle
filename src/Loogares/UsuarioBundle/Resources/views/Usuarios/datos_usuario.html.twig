@@ -1,6 +1,8 @@
 <div id="data-usuario">
 	<div id="imagen-usuario">
-		<a href="{{ asset('assets/images/usuarios/'~usuario.getImagenFull()) }}"><img src="{{ (asset('assets/images/usuarios/'~usuario.getImagenFull())) }}"></img></a>
+		<a href="{{asset('assets/images/usuarios/'~usuario.imagenFull)}}">
+			<img src="{{ ('assets/images/usuarios/'~usuario.imagenFull) | apply_filter('medium_usuario') }}" />
+		</a>
 	</div>
 	<h3 id="titulo-usuario">{{usuario.nombre}} {{usuario.apellido}}</h3>
 

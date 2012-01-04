@@ -27,13 +27,13 @@ security:
             anonymous: ~
             provider: main
             form_login:
-                check_path: /usuarios/login_check
-                login_path: /usuarios
+                check_path: /usuario/login_check
+                login_path: /usuario
                 username_parameter: _mail
-                default_target_path: /usuarios
+                default_target_path: /usuario
             logout:
-                path:   /usuarios/logout
-                target: /usuarios
+                path:   /usuario/logout
+                target: /usuario
             remember_me:
                 key: remember
 #            fos_facebook:

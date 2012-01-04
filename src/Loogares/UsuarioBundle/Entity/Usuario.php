@@ -759,8 +759,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
             // Se genera nombre de la imagen (nombre-apellido-id)
             $fn = new LoogaresFunctions();
             $filename = $fn->generarSlug($this->nombre.'-'.$this->apellido.'-'.$this->id);
-            $this->setImagenFull($filename.'.'.$this->file->guessExtension());
-
+            $this->setImagenFull($filename.'.jpg');//.$this->file->guessExtension());
         }
     }
 
@@ -773,8 +772,14 @@ class Usuario implements AdvancedUserInterface, \Serializable
             return;
         }
         $this->file->move($this->getUploadRootDir(), $this->imagen_full);
-
         unset($this->file);
+
+        // Eliminamos thumbnails
+        if(file_exists(__DIR__.'/../../../../web/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
+            unlink(__DIR__.'/../../../../web/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
+            
+        if(file_exists(__DIR__.'/../../../../web/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
+            unlink(__DIR__.'/../../../../web/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
     }
 
     /**
