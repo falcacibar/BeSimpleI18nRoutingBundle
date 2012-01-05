@@ -6,6 +6,7 @@ app/cache/*
 
 #Entidades
 src/Loogares/LugarBundle/Entity/*
+!src/Loogares/LugarBundle/Entity/ImagenLugar.php
 src/Loogares/UsuarioBundle/Entity/*
 !src/Loogares/UsuarioBundle/Entity/Usuario.php
 src/Loogares/ExtraBundle/Entity/*

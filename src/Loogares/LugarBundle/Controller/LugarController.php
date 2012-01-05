@@ -506,8 +506,14 @@ class LugarController extends Controller
                     $newImagen = new ImagenLugar();
                     $newImagen->setUsuario($this->get('security.context')->getToken()->getUser());
                     $newImagen->setLugar($lugar);
+                    if($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                     $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
+                                    ->findOneByNombre('Aprobado');
+                    }
+                    else {
+                         $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
                                     ->findOneByNombre('Por revisar');
+                    }
                     $newImagen->setEstado($estadoImagen);
                     $newImagen->setFechaCreacion(new \DateTime());
                     $newImagen->setImagenFull('.jpg');
