@@ -1,5 +1,4 @@
-function getParameterByName(name)
-{
+function getParameterByName(name){
   name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
   var regexS = "[\\?&]" + name + "=([^&#]*)";
   var regex = new RegExp(regexS);
@@ -12,6 +11,7 @@ function getParameterByName(name)
 
 $(document).ready(function(){
     var getResultados = getParameterByName('resultados');
+
     $('.seleccionar_resultados_por_pagina').find('option[value="'+getResultados+'"]').attr('selected', 'selected')
         .end().change(function(){
             if( getResultados == ''){
@@ -24,14 +24,40 @@ $(document).ready(function(){
                 window.location = window.location.href.replace(/resultados=\d+/, 'resultados='+$(this).val());
             }
         });
+});
 
+function precioLugar(precio, tipo){
+    if(tipo == 'dondeComer'){
+        tipo = ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000']
+    }else if(tipo == 'dondeDormir'){
+        tipo = ['Minimo', 'Barato', 'Medio', 'Alto', 'Maximo'];
+    }
+
+    $('.precio-raty').raty({
+        width: 140,
+        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
+        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
+        start: precio,
+        readOnly: true
+    });
+
+    $('.precio-detalle').append(tipo[precio-1])
+}
+
+function estrellasPorRecomendacion(id, estrellas){
+    $('.recomendacion-'+id+'-raty').raty({
+        width: 140,
+        half: true,
+        start: estrellas,
+        readOnly: true
+    });
+}
+
+function estrellasDelLugar(estrellas){
     $('.star-raty').raty({
         width: 140,
         half: true,
-        readOnly: true,
-        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia.png',
-        starOn:   WEBROOT+'../assets/images/extras/estrella_llena.png',
-        starHalf:   WEBROOT+'../assets/images/extras/estrella_media.png',
-        scoreName: 'form[precio]'
+        start: estrellas,
+        readOnly: true
     });
-});
+}

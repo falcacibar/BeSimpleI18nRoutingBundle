@@ -36,9 +36,9 @@ class LugarController extends Controller
 
     public function lugarAction($slug){
                 $fn = $this->get('fn');
-                $paginaActual = (!isset($_GET['pagina']))?1:$_GET['pagina'];
-                $orden = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
-                $offset = ($paginaActual - 1) * 10;
+                $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
+                $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
+                $offset = ($_GET['pagina'] - 1) * 10;
                 $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
 
                 $em = $this->getDoctrine()->getEntityManager();
@@ -49,6 +49,8 @@ class LugarController extends Controller
 
                 //Id del Lugar
                 $idLugar = $lugarResult[0]->getId();
+
+                $codigoArea = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getCodigoArea();
 
                 //Ultima foto del Lugar
                 $q = $em->createQuery("SELECT u
@@ -83,15 +85,14 @@ class LugarController extends Controller
                 $totalRecomendacionesResult = $q->getSingleScalarResult();
 
                 //Definicion del orden para la siguiente consulta
-                if($orden == 'ultimas'){
+                if($_GET['orden'] == 'ultimas'){
                         $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
-                }else if($orden == 'mas-utiles'){
+                }else if($_GET['orden'] == 'mas-utiles'){
                         $orderBy = "ORDER BY utiles DESC";
-                }else if($orden == 'mejor-evaluadas'){
+                }else if($_GET['orden'] == 'mejor-evaluadas'){
                         $orderBy = "ORDER BY recomendacion.estrellas desc, recomendacion.fecha_creacion DESC";
                 }
 
-                
                 //Query para las recomendaciones a mostrar
                 $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.*
                                                                          FROM recomendacion
@@ -108,84 +109,6 @@ class LugarController extends Controller
                                                                          $orderBy
                                                                          LIMIT $resultadosPorPagina
                                                                          OFFSET $offset");
-        function generarHorario($lugar){
-                $dias = array('Lun','Mar','Mié','Jue','Vie','Sáb','Dom');
-                $out = null;
-                $horario = array();
-                $dia = 0;
-                $horarioArray = $lugar->getHorario();
-                $hh = array();
-
-                if(empty($horarioArray[0]) && empty($horarioArray[1]) && empty($horarioArray[2]) && empty($horarioArray[3]) && empty($horarioArray[4]) && empty($horarioArray[5]) && empty($horarioArray[6])){ return null; }
-                for($i=0;$i<7;$i++){
-                    $temp = $horarioArray[$i];
-                    if(!empty($temp)){
-                        $hh[$i] = array(
-                            'Id_Dia' => $i,
-                            'Aper_M_L' => $temp->getAperturaAM(),
-                            'Cierre_M_L' => $temp->getCierreAM(),
-                            'Aper_T_L' => $temp->getAperturaPM(),
-                            'Cierre_T_L' => $temp->getCierrePM()
-                        );
-                    } else {
-                        $hh[$i] = array(
-                            'Id_Dia' => $i,
-                            'Aper_M_L' => '',
-                            'Cierre_M_L' => '',
-                            'Aper_T_L' => '',
-                            'Cierre_T_L' => ''
-                        );
-                    }
-                }
-
-                if(count($hh)){
-                    $inicial = $hh[0];
-                    $final = $hh[0];
-                    $dia++;
-                    while($dia<7){
-                        if( $hh[$dia]['Aper_M_L'] != $inicial['Aper_M_L'] || $hh[$dia]['Cierre_M_L'] != $inicial['Cierre_M_L'] ||
-                            $hh[$dia]['Aper_T_L'] != $inicial['Aper_T_L'] || $hh[$dia]['Cierre_T_L'] != $inicial['Cierre_T_L']) {
-                            $out = $dias[$inicial['Id_Dia']];
-                            if($final['Id_Dia'] != $inicial['Id_Dia']){
-                                $out.= '-' . $dias[$final['Id_Dia']];
-                            }
-                            if(!empty($inicial['Aper_M_L'])){
-                                $out.= ': ' . $inicial['Aper_M_L'] . ' - ' . $inicial['Cierre_M_L'];
-                                if(!empty($inicial['Cierre_T_L'])){
-                                    $out.= ' / ' . $inicial['Aper_T_L'] . ' - ' . $inicial['Cierre_T_L'];
-                                }
-                            } else {
-                                $out.= ': Cerrado' ;
-                            }
-                            $horario[] = $out;
-                            $out=null;
-                            $inicial = $hh[$dia];
-                            $final = $hh[$dia];
-                        } else {
-                            $final = $hh[$dia];
-                        }
-                        $dia++;
-                    }
-                    $out.= $dias[$inicial['Id_Dia']];
-                    if($final['Id_Dia'] != $inicial['Id_Dia']){
-                        $out.= '-' . $dias[$final['Id_Dia']];
-                    }
-                    if(!empty($inicial['Aper_M_L'])){
-                        $out.= ': ' . $inicial['Aper_M_L'] . ' - ' . $inicial['Cierre_M_L'];
-                        if(!empty($inicial['Aper_T_L'])){
-                            $out.= ' / ' . $inicial['Aper_T_L'] . ' - ' . $inicial['Cierre_T_L'];
-                        }
-                    } else {
-                        $out.= ': Cerrado';
-                    }
-                    $horario[] = $out;
-                    $out=null;
-                }
-
-                return $horario;
-
-            }
-
 
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
@@ -194,16 +117,16 @@ class LugarController extends Controller
                 $telefonos = array();
                 //Array con telefonos del lugar
                 if($lugarResult[0]->getTelefono1() != null || $lugarResult[0]->getTelefono1() != '') {
-                    $telefonos[] = $lugarResult[0]->getTelefono1();
+                    $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono1());
                 }
                 if($lugarResult[0]->getTelefono2() != null || $lugarResult[0]->getTelefono2() != '') {
-                    $telefonos[] = $lugarResult[0]->getTelefono2();
+                    $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono2());
                 }
                 if($lugarResult[0]->getTelefono3() != null || $lugarResult[0]->getTelefono3() != '') {
-                    $telefonos[] = $lugarResult[0]->getTelefono3();
+                    $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono3());
                 }
 
-                //Sacamos los HTTP y guardamos cambios.
+                //Sacamos los HTTP
                 $lugarResult[0]->setSitioWeb($fn->stripHTTP($lugarResult[0]->getSitioWeb()));
                 $lugarResult[0]->setTwitter($fn->stripHTTP($lugarResult[0]->getTwitter()));
                 $lugarResult[0]->setFacebook($fn->stripHTTP($lugarResult[0]->getFacebook()));
@@ -212,7 +135,7 @@ class LugarController extends Controller
                 *  Armado de Datos para pasar a Twig
                 */
                 $data = $lugarResult[0];
-                $data->horarios = generarHorario($lugarResult[0]);
+                $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->telefonos = $telefonos;
                 //Imagen a mostrar
@@ -223,9 +146,7 @@ class LugarController extends Controller
                 $data->totalPaginas = ($totalRecomendacionesResult >$resultadosPorPagina )?floor($totalRecomendacionesResult / $resultadosPorPagina):1;
                 $data->totalRecomendaciones = $totalRecomendacionesResult;
                 //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
-                $data->mostrandoComentariosDe = $paginaActual * ($paginaActual != 1)?(10 + 1):1;
-                $data->paginaActual = $paginaActual;
-                $data->orden = $orden;
+                $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
                 $data->totalFotos = $totalFotosResult;
                 $data->recomendacionesPorPagina = $resultadosPorPagina;
 
@@ -239,7 +160,6 @@ class LugarController extends Controller
         $errors = array();
         $camposExtraErrors = false;
         $formErrors = array();
-
 
         if($slug){
             $lugar = $lr->findOneBySlug($slug);    
@@ -276,11 +196,10 @@ class LugarController extends Controller
 
             if($form->isValid() && $camposExtraErrors == false){
                 $fn = $this->get('fn');
-                echo "<pre>";
-                print_r($_POST);
-                echo "</pre>";
+
                 $comuna = $lr->getComunas($_POST['comuna']);  
                 $sector = $lr->getSectores($_POST['sector']);
+
                 $estado = $lr->getEstado(1);
                 $tipo_lugar = $lr->getTipoLugar('que-visitar');
 
@@ -289,10 +208,10 @@ class LugarController extends Controller
                 $lugar->setEstado($estado[0]);
                 $lugar->setTipoLugar($tipo_lugar[0]);
 
-                //Strip HTTP
-                $lugar->setTwitter(preg_replace('/http:\/\//', '', $lugar->getTwitter()));
-                $lugar->setSitioWeb(preg_replace('/http:\/\//', '', $lugar->getSitioWeb()));
-                $lugar->setFacebook(preg_replace('/http:\/\//', '', $lugar->getFacebook()));
+                //Sacamos los HTTP
+                $lugar->setSitioWeb($fn->stripHTTP($lugar->getSitioWeb()));
+                $lugar->setTwitter($fn->stripHTTP($lugar->getTwitter()));
+                $lugar->setFacebook($fn->stripHTTP($lugar->getFacebook()));
 
                 $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugar->getNombre());
                 

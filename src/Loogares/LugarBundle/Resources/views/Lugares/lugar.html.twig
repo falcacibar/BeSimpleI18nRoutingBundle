@@ -7,21 +7,28 @@
     {{parent()}}
     <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
     <script src='../../assets/js/googleMapFicha.js'></script>
-    <script src="{{asset('assets/js/lugar.js')}}"></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
+    <script src="{{asset('assets/js/lugar.js')}}"></script>
+    <script>
+
+    </script>
 {% endblock %}
 
 {% block content %}
+
 <div id="lugar-ficha">
     <div class="contenido_central" id="lugar-info">
-        
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
             <div class="estrellas">
-                {{ lugar.estrellas }} <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} recomendaciones</span>
+                <script>
+                    $(document).ready(function(){
+                        estrellasDelLugar({{lugar.estrellas}});
+                    });
+                </script>
                 <div class="star-raty"></div>
+                <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} recomendaciones</span>
             </div>
-
             <div class="foto_lugar_box">
                 <div class="foto_lugar" id="lugar-foto">
                     <a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="../../assets/images/lugares/{{lugar.imagen_full}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
@@ -35,7 +42,7 @@
                 {% if lugar.telefonos %}
                     <div class="telefono_lugar" id="lugar-telefono">
                         {% for telefono in lugar.telefonos %}
-                            {{telefono}}{% if loop.last == false %}, {% endif %}
+                            {{lugar.comuna.ciudad.pais.codigoArea}} - {{telefono}}{% if loop.last == false %}, {% endif %}
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -52,9 +59,25 @@
                         <a class="twitter_lugar" href="http://{{ lugar.twitter }}" target="_blank"></a>
                     {% endif %}
                 </div>
-                {% if lugar.precio %}
+               {% if 
+                    lugar.categoriaLugar[0].categoria.tipoCategoria.id != 3 or lugar.categoriaLugar[0].categoria.tipoCategoria.id != 6 or lugar.categoriaLugar.categoria.id != 31
+                %}
                     <div class="precio_lugar" id="precio">
-                        Precio: {{lugar.precio}} <span class="precio_tip">(Detalle precio)</span>
+                        <script>
+                            $(document).ready(function(){
+                                {% if lugar.categoriaLugar[0].categoria.tipoCategoria.id == 3%}
+                                    precioLugar({{lugar.precio}}, 'dondeComer');    
+                                {% endif %}
+                                {% if lugar.categoriaLugar[0].categoria.tipoCategoria.id == 6%}
+                                    precioLugar({{lugar.precio}}, 'dondeDormir'); 
+                                {% endif %}
+                                {% if lugar.categoriaLugar[0].categoria.id == 31%}
+                                    //Nightclub
+                                {% endif %}
+                            }); 
+                        </script>                          
+                        <div class="precio-raty"></div>
+                        <div class="precio-detalle"></div>
                     </div>
                 {% endif %}
             </div>
@@ -153,14 +176,22 @@
             </ul>
         </div>
 
-        <h2 class="titulo_recomendaciones">{{ lugar.recomendacion|length }} Recomendaciones en {{ lugar.nombre }}</h2>
+        <h2 class="titulo_recomendaciones">
+            {{ lugar.recomendacion|length }}
+            Recomendaciones en {{ lugar.nombre }}
+    {% trans %}
+      Hey asd, I have one apple.
+    {% plural  %}
+      Hey tomas, I have {{ lugar.recomendacion|length }} apples.
+    {% endtrans %}
+        </h2>
 
         <ul class="ordenar_por_recomendaciones">
             <li>
                 <strong>Ordenar por:</strong>
             </li>
             <li>
-                {% if lugar.orden == 'mejor-evaluadas' %}
+                {% if query.orden == 'mejor-evaluadas' %}
                     <strong>Mejores evaluaciones</strong>
                 {% else %}
                     <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">Mejores evaluaciones</a>
@@ -168,7 +199,7 @@
             </li>
             <li>|</li>
             <li>
-                {% if lugar.orden == 'ultimas' %}
+                {% if query.orden == 'ultimas' %}
                     <strong>Últimas recomendaciones</strong>
                 {% else %}
                     <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">Últimas recomendaciones</a>
@@ -176,7 +207,7 @@
             </li>
             <li>|</li>
             <li>
-                {% if lugar.orden == 'mas-utiles' %}
+                {% if query.orden == 'mas-utiles' %}
                     <strong>Más útiles</strong>
                 {% else %}
                     <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">Más útiles</a>
@@ -214,7 +245,14 @@
                     </p>
                     <p class="util_recomendacion">{{ recomendacion.utiles }}</p>
                     <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
-                    <p class="estrellas_recomendacion">{{ recomendacion.estrellas }}</p>
+                    <p class="estrellas_recomendacion">
+                        <script>
+                            $(document).ready(function(){
+                                estrellasPorRecomendacion({{recomendacion.id}}, {{recomendacion.estrellas}});
+                            });
+                        </script>
+                        <div class="recomendacion-{{recomendacion.id}}-raty"></div>
+                    </p>
                     <p class="texto_recomendacion_usuario">{{ recomendacion.texto }}</p>
                     {% if recomendacion.tags[0] %}
                         <p class="tags_recomendacion">
@@ -239,18 +277,18 @@
                  | Ir a la página
                 <ul>
                 {% for i in range(1,lugar.totalPaginas) %}
-                    {% if i == 1 and lugar.paginaActual != 1 %}
-                        <li><a href="{{ path('_lugar', {'slug': lugar.slug, 'pagina': lugar.paginaActual - 1, 'orden': lugar.orden }) }}">« Anterior</a></li>
+                    {% if i == 1 and query.pagina != 1 %}
+                        <li><a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'pagina': query.pagina - 1 })) }}">« Anterior</a></li>  
                     {% endif %}
 
-                    {% if lugar.paginaActual == i %}
+                    {% if query.pagina == i %}
                         <li><strong>{{ i }}</strong></li>
                     {% else %}
-                        <li><a href="{{ path('_lugar', {'slug': lugar.slug, 'pagina': i, 'orden': lugar.orden }) }}">{{ i }}</a></li>
+                        <li><a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'pagina': i})) }}">{{ i }}</a></li>
                     {% endif %}
 
-                    {% if i == lugar.totalPaginas and lugar.paginaActual != lugar.totalPaginas %}
-                        <li><a href="{{ path('_lugar', {'slug': lugar.slug, 'pagina': lugar.paginaActual + 1, 'orden': lugar.orden }) }}">Siguiente »</a></li>
+                    {% if i == lugar.totalPaginas and query.pagina != lugar.totalPaginas %}
+                        <li><a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'pagina': query.pagina + 1 })) }}">Siguiente »</a></li>
                     {% endif %}
                 {% endfor %}
                 </ul>
