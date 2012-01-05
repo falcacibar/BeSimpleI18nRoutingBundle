@@ -176,14 +176,15 @@ $(document).ready(function(){
     $('form').submit(function(e){
         errores = '';
         $('.errors').remove();
-        $.each($('.required:not(:hidden)'), function(){
+        $.each($('.required'), function(){
             if(($(this).val() == $(this).attr('placeholder') || $(this).val() == '') || ($(this).val() == 'elige')){
                 errores += "<p>"+$(this).attr('title')+"</p>";
                 $(this).addClass('input-error');
                 if($(this).hasClass('calle')){
-                    $(this).next('input').after('<small class="errors">'+$(this).attr('title')+'</small>');
-                }else if($(this).hasClass('categoria')){
-                    $(this).next('span').after('<small class="errors">'+$(this).attr('title')+'</small>'); 
+                    $('.numero').after('<small class="errors">'+$(this).attr('title')+'</small>');
+                }else if($(this).is('select') && $(this).not('.secundaria')){
+                    $(this).next('.chzn-container').css('border', '1px solid red').addClass('.chzn-error');
+                    $(this).after('<small class="errors">'+$(this).attr('title')+' (La clase de Error se llama .chzn-error)</small>'); 
                 }else{
                    $(this).after('<small class="errors">'+$(this).attr('title')+'</small>'); 
                 }
