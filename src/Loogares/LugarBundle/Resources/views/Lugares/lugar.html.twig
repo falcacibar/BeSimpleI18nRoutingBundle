@@ -7,8 +7,8 @@
     {{parent()}}
     <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
     <script src='../../assets/js/googleMapFicha.js'></script>
-     <script src="{{asset('assets/js/lugar.js')}}"></script>
-
+    <script src="{{asset('assets/js/lugar.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,10 @@
         
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
-            <div class="estrellas">{{ lugar.estrellas }} <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} recomendaciones</span></div>
+            <div class="estrellas">
+                {{ lugar.estrellas }} <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} recomendaciones</span>
+                <div class="star-raty"></div>
+            </div>
 
             <div class="foto_lugar_box">
                 <div class="foto_lugar" id="lugar-foto">

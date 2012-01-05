@@ -11,17 +11,27 @@ function getParameterByName(name)
 }
 
 $(document).ready(function(){
-        var getResultados = getParameterByName('resultados');
-        $('.seleccionar_resultados_por_pagina').find('option[value="'+getResultados+'"]').attr('selected', 'selected')
-            .end().change(function(){
-                if( getResultados == ''){
-                    if(window.location.href.match(/\?/)){
-                        window.location = window.location.href+'&resultados='+$(this).val(); 
-                    }else{
-                        window.location = window.location.href+'?resultados='+$(this).val();  
-                    }
+    var getResultados = getParameterByName('resultados');
+    $('.seleccionar_resultados_por_pagina').find('option[value="'+getResultados+'"]').attr('selected', 'selected')
+        .end().change(function(){
+            if( getResultados == ''){
+                if(window.location.href.match(/\?/)){
+                    window.location = window.location.href+'&resultados='+$(this).val(); 
                 }else{
-                    window.location = window.location.href.replace(/resultados=\d+/, 'resultados='+$(this).val());
+                    window.location = window.location.href+'?resultados='+$(this).val();  
                 }
-            });
+            }else{
+                window.location = window.location.href.replace(/resultados=\d+/, 'resultados='+$(this).val());
+            }
+        });
+
+    $('.star-raty').raty({
+        width: 140,
+        half: true,
+        readOnly: true,
+        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia.png',
+        starOn:   WEBROOT+'../assets/images/extras/estrella_llena.png',
+        starHalf:   WEBROOT+'../assets/images/extras/estrella_media.png',
+        scoreName: 'form[precio]'
+    });
 });

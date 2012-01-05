@@ -23,9 +23,8 @@
     <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
     <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
-    <script src="{{asset('assets/js/jquery.metaData.js')}}"></script>
-    <script>
 
+    <script>
         $(document).ready(function(){
         {% if lugar.slug %}
             $('.comuna').find('option[value="{{lugar.comuna.slug}}"]').attr('selected', 'selected');
@@ -118,8 +117,15 @@
                     });
                 }
             });
-            $('.star').raty();
+            $('.precio-raty').raty({
+                width: 140,
+                starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
+                starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
+                scoreName: 'form[precio]'
+        
+            });
     });      
+
     </script>
 {% endblock %}
 
@@ -307,7 +313,7 @@
     <li>
         <label>Precio</label>
         <div class="precio telefono">
-            <div class="star"></div>
+            <div class="precio-raty"></div>
         </div>
     </li>
     {% endif %}

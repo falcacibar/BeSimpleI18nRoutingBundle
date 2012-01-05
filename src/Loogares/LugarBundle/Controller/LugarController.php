@@ -261,6 +261,7 @@ class LugarController extends Controller
              ->add('mail', 'text')
              ->add('mapx', 'text')
              ->add('mapy', 'text')
+             ->add('precio', 'hidden')
              ->add('profesional', 'text')
              ->add('agno_construccion', 'text')
              ->add('materiales', 'text')
@@ -537,17 +538,5 @@ class LugarController extends Controller
 
     public function editarAction($slug){
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig');
-    }
-
-    public function agregarFotoAction(Request $request, $slug) {
-        $em = $this->getDoctrine()->getEntityManager();
-        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
-
-        $lugar = $lr->findOneBySlug($slug);
-
-
-        return $this->render('LoogaresLugarBundle:Lugares:agregar_foto.html.twig', array(
-            'lugar' => $lugar,
-        ));
     }
 }
