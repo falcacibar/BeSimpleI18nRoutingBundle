@@ -1,15 +1,61 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{lugar.nombre}} | {{parent()}}{% endblock %}
+{% block title %}Agregar foto a {{lugar.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
 	<div id="agregar_foto_lugar">
-		<h1>Agregar foto en <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
+		<h1>Agrega foto en <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
 
-		<span>Puedes agregar una o más fotos a la galería de fotos de <strong>{{lugar.nombre}}</strong> en sólo 2 pasos:</span>
+		<p>Puedes agregar una o más fotos a la galería de fotos de <strong>{{lugar.nombre}}</strong> en sólo 2 pasos:</p>
 
-		<div class="agregar_foto">
+		{% if errors %}
+			<div class="agregar_foto_lugar_error">
+				{% for error in errors %}
+			        <p>{{ error }}</p>
+			    {% endfor %}
+			</div>
+		{% endif %}
 
+		<div class="agregar_paso_1">
+			<p>1. Cargar fotos (sólo JPG, GIF y PNG, máx. 5 MB)</p>
+
+
+			<form action="{{ path('_agregarFotoLugar', { 'slug' : lugar.slug }) }}" method="post" {{ form_enctype(form) }}>
+				<ul>
+					<li>
+						<label></label>
+						<strong>Cargar fotos desde tu computador</strong>
+					</li>
+					<li>
+						{{form_label(form.firstImg, 'Imagen')}}
+						{{form_widget(form.firstImg)}}
+					</li>
+						
+					<li>
+						<label></label>
+						{{form_widget(form.secondImg)}}
+					</li>
+
+					<li>
+						<label></label>
+						{{form_widget(form.thirdImg)}}
+					</li>	
+					
+								
+
+					<li>
+						<label></label>
+						<strong>Cargar fotos desde un sitio web</strong>
+					</li>
+
+					{{form_rest(form)}}
+
+					<li>
+						<label></label>
+						<input type="submit" value="Enviar" />
+					</li>
+				</ul>
+			</form>
 		</div>
 
 	</div>

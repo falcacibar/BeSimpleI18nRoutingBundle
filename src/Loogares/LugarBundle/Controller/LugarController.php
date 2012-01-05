@@ -11,6 +11,8 @@ use Loogares\LugarBundle\Entity\CategoriaLugar;
 use Loogares\LugarBundle\Entity\CaracteristicaLugar;
 use Loogares\Lugarbundle\Entity\Horario;
 use Loogares\Lugarbundle\Entity\SubcategoriaLugar;
+use Loogares\Lugarbundle\Entity\ImagenLugar;
+
 
 class LugarController extends Controller
 {
@@ -538,5 +540,92 @@ class LugarController extends Controller
 
     public function editarAction($slug){
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig');
+    }
+
+    public function agregarFotoAction(Request $request, $slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $formErrors = array();
+
+        $lugar = $lr->findOneBySlug($slug);
+
+        $imgLugar = new ImagenLugar();
+
+        $form = $this->createFormBuilder($imgLugar)
+                     ->add('firstImg')
+                     ->add('secondImg')
+                     ->add('thirdImg')
+                     ->getForm();
+        
+        // Si el request es POST, se procesa edición de datos
+        if ($request->getMethod() == 'POST') { 
+
+            $form->bindRequest($request);
+
+            // Verificación de selección de al menos una foto
+            $imagenes = array();
+
+            if($imgLugar->firstImg != null)
+                $imagenes[] = $imgLugar->firstImg;
+
+            if($imgLugar->secondImg != null)
+                $imagenes[] = $imgLugar->secondImg;
+
+            if($imgLugar->thirdImg != null)
+                $imagenes[] = $imgLugar->thirdImg;
+
+            if(sizeof($imagenes) == 0) {
+                $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
+            }
+
+            if ($form->isValid() && sizeof($formErrors) == 0) {                
+
+                //Array que nos permitirá obtener las imágenes en el siguiente paso
+                $imagenesId = array();
+
+                foreach($imagenes as $imagen) {
+                    $newImagen = new ImagenLugar();
+                    $newImagen->setUsuario($this->get('security.context')->getToken()->getUser());
+                    $newImagen->setLugar($lugar);
+                    $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
+                                    ->findOneByNombre('Por revisar');
+                    $newImagen->setEstado($estadoImagen);
+                    $newImagen->setFechaCreacion(new \DateTime());
+                    $newImagen->setImagenFull('.jpg');
+                    $newImagen->firstImg = $imagen;
+
+                    $em->persist($newImagen);
+                    $em->flush();
+
+                    $newImagen->setFechaCreacion(new \DateTime());;
+
+                    $em->flush();
+                    $imagenesId[] = $newImagen->getId();
+
+                    $newImagen = null;
+                }
+
+                //$imgLugar = null;
+                foreach($imagenesId as $id)
+                    echo $id." - ";
+
+                // Mensaje de éxito en la edición
+                $this->get('session')->setFlash('edicion-foto','Cambiaste tu foto de perfil. ¡Nada de mal!');
+
+                // Redirección a vista de edición de foto 
+                return $this->redirect($this->generateUrl('_agregarFotoLugar', array('slug' => $lugar->getSlug())));
+            }            
+        }
+
+        //Errores
+        foreach($this->get('validator')->validate( $form ) as $formError){
+            $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
+        }
+
+        return $this->render('LoogaresLugarBundle:Lugares:agregar_foto.html.twig', array(
+            'lugar' => $lugar,
+            'form' => $form->createView(),
+            'errors' => $formErrors,
+        ));
     }
 }

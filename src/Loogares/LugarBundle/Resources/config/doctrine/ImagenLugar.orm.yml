@@ -16,7 +16,7 @@ Loogares\LugarBundle\Entity\ImagenLugar:
                 joinColumns:
                     lugar:
                         referencedColumnName: id
-        estado_imagen:
+        estado:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
             joinTable:
                 name: imagen
@@ -26,15 +26,23 @@ Loogares\LugarBundle\Entity\ImagenLugar:
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }
     fields:
         es_enlace:
             type: integer
+            nullable: true
         titulo_enlace:
             type: string
+            nullable: true
         fecha_creacion:
             type: datetime
         fecha_modificacion:
             type: datetime
+            nullable: true
         imagen_full:
             type: string
+
+    lifecycleCallbacks:
+        preUpdate: [ preUpload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]

@@ -3,3 +3,35 @@ Loogares\LugarBundle\Entity\Lugar:
         nombre:
             - NotBlank:
                 message:  ;o
+
+        firstImg:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+        secondImg:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+        thirdImg:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+Loogares\LugarBundle\Entity\ImagenLugar:
+    properties:
+        firstImg:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+        secondImg:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+        thirdImg:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.

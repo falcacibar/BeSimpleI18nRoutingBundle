@@ -297,9 +297,6 @@ class UsuarioController extends Controller
                 $form->bindRequest($request);
 
                 // Verificación de selección de foto
-                
-                //echo $_FILES['file'];
-
                 if($usuarioResult->file == null) {
                     $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
                 }
