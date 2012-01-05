@@ -5,7 +5,6 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="screen" />
 <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
-<link rel="stylesheet" href="{{ asset('assets/css/jquery.rating.css') }}" type="text/css" media="screen" />
     <style>
 
         .subcategorias{display: none;}
@@ -23,7 +22,7 @@
     <script src="{{asset('assets/js/agregarLugar.js')}}"></script>
     <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
     <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
-    <script src="{{asset('assets/js/jquery.rating.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.metaData.js')}}"></script>
     <script>
 
@@ -119,6 +118,7 @@
                     });
                 }
             });
+            $('.star').raty();
     });      
     </script>
 {% endblock %}
@@ -307,16 +307,7 @@
     <li>
         <label>Precio</label>
         <div class="precio telefono">
-            <input name="adv2" type="radio" class="star {split:2}"/>
-            <input name="adv2" type="radio" class="star {split:2}"/>
-            <input name="adv2" type="radio" class="star {split:2}"/>
-            <input name="adv2" type="radio" class="star {split:2}"/>
-            <input name="adv2" type="radio" class="star {split:2}"/>
-            <input name="adv2" type="radio" class="star {split:2}"/>
-            <input name="adv2" type="radio" class="star {split:2}"/>
-            <input name="adv2" type="radio" class="star {split:2}"/>
-            <input name="adv2" type="radio" class="star {split:2}"/>
-            <input name="adv2" type="radio" class="star {split:2}"/>
+            <div class="star"></div>
         </div>
     </li>
     {% endif %}

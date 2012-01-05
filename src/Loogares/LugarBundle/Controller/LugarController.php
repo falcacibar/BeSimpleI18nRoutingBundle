@@ -37,6 +37,7 @@ class LugarController extends Controller
                 $paginaActual = (!isset($_GET['pagina']))?1:$_GET['pagina'];
                 $orden = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
                 $offset = ($paginaActual - 1) * 10;
+                $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
 
                 $em = $this->getDoctrine()->getEntityManager();
                 $qb = $em->createQueryBuilder();
@@ -103,7 +104,7 @@ class LugarController extends Controller
                                                                          WHERE recomendacion.lugar_id = $idLugar
                                                                          GROUP BY recomendacion.id 
                                                                          $orderBy
-                                                                         LIMIT 10
+                                                                         LIMIT $resultadosPorPagina
                                                                          OFFSET $offset");
         function generarHorario($lugar){
                 $dias = array('Lun','Mar','Mié','Jue','Vie','Sáb','Dom');
@@ -217,16 +218,17 @@ class LugarController extends Controller
                 $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';
                 $data->recomendaciones = $recomendacionesResult;
                 //Total de Pagina que debemos mostrar/generar
-                $data->totalPaginas = ($totalRecomendacionesResult > 10)?floor($totalRecomendacionesResult / 10):1;
+                $data->totalPaginas = ($totalRecomendacionesResult >$resultadosPorPagina )?floor($totalRecomendacionesResult / $resultadosPorPagina):1;
                 $data->totalRecomendaciones = $totalRecomendacionesResult;
                 //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
                 $data->mostrandoComentariosDe = $paginaActual * ($paginaActual != 1)?(10 + 1):1;
                 $data->paginaActual = $paginaActual;
                 $data->orden = $orden;
                 $data->totalFotos = $totalFotosResult;
+                $data->recomendacionesPorPagina = $resultadosPorPagina;
 
                 //Render ALL THE VIEWS
-                return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));            
+                return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET));            
     }
     
     public function agregarAction(Request $request, $slug = null){

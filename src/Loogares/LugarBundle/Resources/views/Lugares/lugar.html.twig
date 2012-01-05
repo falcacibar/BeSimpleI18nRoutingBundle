@@ -7,11 +7,12 @@
     {{parent()}}
     <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
     <script src='../../assets/js/googleMapFicha.js'></script>
+     <script src="{{asset('assets/js/lugar.js')}}"></script>
+
 {% endblock %}
 
 {% block content %}
 <div id="lugar-ficha">
-    
     <div class="contenido_central" id="lugar-info">
         
         <div class="lugar_info">
@@ -23,7 +24,7 @@
                     <a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="../../assets/images/lugares/{{lugar.imagen_full}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 </div>
                 <a class="link_gris_444" href="#">Ver galería ({{lugar.totalFotos}} fotos)</a><br />
-                <a class="link_gris_444" href="#">» Agrega una foto</a>
+                <a class="link_gris_444" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">» Agrega una foto</a>
             </div>
 
             <div class="datos_principales_lugar">
@@ -159,7 +160,7 @@
                 {% if lugar.orden == 'mejor-evaluadas' %}
                     <strong>Mejores evaluaciones</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path('_lugar', {'slug' : lugar.slug, 'pagina': '1', 'orden': 'mejor-evaluadas'}) }}">Mejores evaluaciones</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">Mejores evaluaciones</a>
                 {% endif %}
             </li>
             <li>|</li>
@@ -167,7 +168,7 @@
                 {% if lugar.orden == 'ultimas' %}
                     <strong>Últimas recomendaciones</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path('_lugar', {'slug' : lugar.slug, 'pagina': '1', 'orden': 'ultimas'}) }}">Últimas recomendaciones</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">Últimas recomendaciones</a>
                 {% endif %}
             </li>
             <li>|</li>
@@ -175,16 +176,16 @@
                 {% if lugar.orden == 'mas-utiles' %}
                     <strong>Más útiles</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path('_lugar', {'slug' : lugar.slug, 'pagina': '1', 'orden': 'mas-utiles'}) }}">Más útiles</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">Más útiles</a>
                 {% endif %}
             </li>
         </ul>
 
         <div class="resultados_por_pagina">
             <select class="seleccionar_resultados_por_pagina">
-                <option>10</option>
-                <option>15</option>
-                <option>20</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
             </select>
             <p class="resultados_por_pagina_txt">Resultados por página</p>
         </div>
