@@ -61,10 +61,17 @@ class LoogaresFunctions
 	    // Dejamos todo en minúsculas
 	    $string = strtolower($string);
 
-	    // Finalmente reemplazamos espacios por guiones
+	    // Reemplazamos espacios por guiones
         $string = str_replace(" ","-",$string);
+
+        // Finalmente removemos el exceso de guiones
+        $string = $this->removerExcesoGuiones($string);
 	 
 	    return $string;
+	}
+
+	public function removerExcesoGuiones($string) {
+		return preg_replace('/-(-+)/', '-', $string);
 	}
 
 	public function stripHTTP($ele){

@@ -651,7 +651,7 @@ class UsuarioController extends Controller
             $formErrors['emptyPassword'] = 'usuario.errors.emptyPassword';
         else if($error != null && $error->getMessage() == 'User account is disabled.')
             $formErrors['noActivo'] = 'usuario.errors.noActivo';
-
+            
         $session->set(SecurityContext::AUTHENTICATION_ERROR, null);
 
         // Variable de sesión con ciudad (temporal)
