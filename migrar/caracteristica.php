@@ -19,7 +19,7 @@ while($row = $STH->fetch()){
         'id' => $row['Id'],
         'nombre' => $row['Nombre'],
         'texto' => $row['Tooltip'],
-        'icono' => $row['Icono'],
+        'slug' => $row['Icono'],
         'color' => $row['Color'],
         'orden' => $row['Orden']
     );

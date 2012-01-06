@@ -561,7 +561,6 @@ class LugarController extends Controller
             // Si el request es POST, se procesan descripciones de fotos
             if ($request->getMethod() == 'POST') { 
                 $infoImgs = $request->request->get('imagenes');
-                echo "hola";
 
                 // A cada imagen le asociamos la descripción/URL correspondiente
                 foreach($infoImgs as $key => $info) {

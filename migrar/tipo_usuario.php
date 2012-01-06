@@ -4,13 +4,18 @@ include('config.php');
 $data = array();
 
 $data[] = array(
-        'id' => '1',
-        'nombre' => 'ROLE_ADMIN'
+        'nombre' => 'ROLE_ADMIN',
+        'descripcion' => 'Administrador'
 );
 
 $data[] = array(
-        'id' => '2',
-        'nombre' => 'ROLE_USER'
+        'nombre' => 'ROLE_USER',
+        'descripcion' => 'Usuario'
+);
+
+$data[] = array(
+        'nombre' => 'ROLE_OWNER',
+        'descripcion' => 'Dueño de local'
 );
 
 $i = 0;
@@ -20,7 +25,7 @@ foreach($data as $entry){
         $sql .= '"'.$value.'", ';
     }
     $sql =  substr($sql, 0, -2);
-    $sql = "INSERT INTO tipo_usuario values(" . $sql . ");";
+    $sql = "INSERT INTO tipo_usuario (nombre, descripcion) values(" . $sql . ");";
     //echo $sql;
     if(!$DBH->exec($sql)){
         $i++;
