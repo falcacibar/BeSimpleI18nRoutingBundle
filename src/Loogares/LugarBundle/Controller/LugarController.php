@@ -468,89 +468,113 @@ class LugarController extends Controller
 
         $lugar = $lr->findOneBySlug($slug);
 
-        $imgLugar = new ImagenLugar();
+        // Primer paso de agregar fotos
+        if(!$request->request->get('info')) {
 
-        $form = $this->createFormBuilder($imgLugar)
-                     ->add('firstImg')
-                     ->add('secondImg')
-                     ->add('thirdImg')
-                     ->getForm();
-        
-        // Si el request es POST, se procesa edición de datos
-        if ($request->getMethod() == 'POST') { 
+            $imgLugar = new ImagenLugar();
 
-            $form->bindRequest($request);
+            $form = $this->createFormBuilder($imgLugar)
+                         ->add('firstImg')
+                         ->add('secondImg')
+                         ->add('thirdImg')
+                         ->getForm();
+            
+            // Si el request es POST, se procesan nuevas fotos
+            if ($request->getMethod() == 'POST') { 
 
-            // Verificación de selección de al menos una foto
-            $imagenes = array();
+                $form->bindRequest($request);
 
-            if($imgLugar->firstImg != null)
-                $imagenes[] = $imgLugar->firstImg;
+                // Verificación de selección de al menos una foto
+                $imagenes = array();
 
-            if($imgLugar->secondImg != null)
-                $imagenes[] = $imgLugar->secondImg;
+                if($imgLugar->firstImg != null)
+                    $imagenes[] = $imgLugar->firstImg;
 
-            if($imgLugar->thirdImg != null)
-                $imagenes[] = $imgLugar->thirdImg;
+                if($imgLugar->secondImg != null)
+                    $imagenes[] = $imgLugar->secondImg;
 
-            if(sizeof($imagenes) == 0) {
-                $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
-            }
+                if($imgLugar->thirdImg != null)
+                    $imagenes[] = $imgLugar->thirdImg;
 
-            if ($form->isValid() && sizeof($formErrors) == 0) {                
-
-                //Array que nos permitirá obtener las imágenes en el siguiente paso
-                $imagenesId = array();
-
-                foreach($imagenes as $imagen) {
-                    $newImagen = new ImagenLugar();
-                    $newImagen->setUsuario($this->get('security.context')->getToken()->getUser());
-                    $newImagen->setLugar($lugar);
-                    if($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-                    $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
-                                    ->findOneByNombre('Aprobado');
-                    }
-                    else {
-                         $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
-                                    ->findOneByNombre('Por revisar');
-                    }
-                    $newImagen->setEstado($estadoImagen);
-                    $newImagen->setFechaCreacion(new \DateTime());
-                    $newImagen->setImagenFull('.jpg');
-                    $newImagen->firstImg = $imagen;
-
-                    $em->persist($newImagen);
-                    $em->flush();
-
-                    $newImagen->setFechaCreacion(new \DateTime());;
-
-                    $em->flush();
-                    $imagenesId[] = $newImagen->getId();
-
-                    $newImagen = null;
+                if(sizeof($imagenes) == 0) {
+                    $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
                 }
 
-                //$imgLugar = null;
-                foreach($imagenesId as $id)
-                    echo $id." - ";
+                if ($form->isValid() && sizeof($formErrors) == 0) {                
 
-                // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-foto','Cambiaste tu foto de perfil. ¡Nada de mal!');
+                    //Array que nos permitirá obtener las imágenes en el siguiente paso
+                    $imgs = array();
 
-                // Redirección a vista de edición de foto 
-                return $this->redirect($this->generateUrl('_agregarFotoLugar', array('slug' => $lugar->getSlug())));
-            }            
+                    foreach($imagenes as $imagen) {
+                        $newImagen = new ImagenLugar();
+                        $newImagen->setUsuario($this->get('security.context')->getToken()->getUser());
+                        $newImagen->setLugar($lugar);
+                        if($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+                        $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
+                                        ->findOneByNombre('Aprobado');
+                        }
+                        else {
+                             $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
+                                        ->findOneByNombre('Por revisar');
+                        }
+                        $newImagen->setEstado($estadoImagen);
+                        $newImagen->setFechaCreacion(new \DateTime());
+                        $newImagen->setImagenFull('.jpg');
+                        $newImagen->firstImg = $imagen;
+
+                        $em->persist($newImagen);
+                        $em->flush();
+
+                        $newImagen->setFechaCreacion(new \DateTime());;
+
+                        $em->flush();
+                        $imgs[] = $newImagen;
+
+                        $newImagen = null;
+                    }
+
+                    // Generación de vista para agregar descripción a foto 
+                    return $this->render('LoogaresLugarBundle:Lugares:agregar_info_foto.html.twig', array(
+                        'lugar' => $lugar,
+                        'imagenes' => $imgs,
+                    ));
+                }            
+            }
+
+            //Errores
+            foreach($this->get('validator')->validate( $form ) as $formError){
+                $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
+            }
+
+            return $this->render('LoogaresLugarBundle:Lugares:agregar_foto.html.twig', array(
+                'lugar' => $lugar,
+                'form' => $form->createView(),
+                'errors' => $formErrors,
+            ));
         }
 
-        //Errores
-        foreach($this->get('validator')->validate( $form ) as $formError){
-            $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
-        }
+        // Segundo paso de agregar fotos
+        else {
+            
+            $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
 
-        return $this->render('LoogaresLugarBundle:Lugares:agregar_foto.html.twig', array(
-            'lugar' => $lugar,
-            'form' => $form->createView(),
-            'errors' => $formErrors,
-        ));
+            // Si el request es POST, se procesan descripciones de fotos
+            if ($request->getMethod() == 'POST') { 
+                $infoImgs = $request->request->get('imagenes');
+                echo "hola";
+
+                // A cada imagen le asociamos la descripción/URL correspondiente
+                foreach($infoImgs as $key => $info) {
+                    $imagen = $ilr->find($key);
+
+                    $imagen->setTituloEnlace($info);
+
+                    $em->flush();
+                }
+            }
+
+            // Redirección a galería de fotos (FICHA POR AHORA)
+            return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
+        }
     }
 }
