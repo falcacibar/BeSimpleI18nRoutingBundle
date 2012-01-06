@@ -12,9 +12,12 @@ src/Loogares/UsuarioBundle/Entity/*
 src/Loogares/ExtraBundle/Entity/*
 src/Loogares/AdminBundle/Entity/*
 
-#imagenes
+#Imagenes
 web/assets/images/*
 web/media/cache/*
+
+#Compressed files
+web/assets/css/compressed*
 
 #Logs
 app/logs/*
