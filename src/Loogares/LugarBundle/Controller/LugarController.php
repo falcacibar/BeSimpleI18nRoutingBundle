@@ -149,7 +149,7 @@ class LugarController extends Controller
                 $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
                 $data->totalFotos = $totalFotosResult;
                 $data->recomendacionesPorPagina = $resultadosPorPagina;
-
+                $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
                 //Render ALL THE VIEWS
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET));            
     }

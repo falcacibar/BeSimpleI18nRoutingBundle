@@ -2,7 +2,6 @@
 
 namespace Loogares\LugarBundle\Entity;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,27 +32,12 @@ class ImagenLugar
     /**
      * @var datetime $fecha_modificacion
      */
-    private $fecha_modificacion;    
+    private $fecha_modificacion;
 
     /**
      * @var string $imagen_full
      */
     private $imagen_full;
-
-    /**
-     * Propiedad virtual para referenciar primera imagen 
-     */
-    public $firstImg;
-
-    /**
-     * Propiedad virtual para referenciar segunda imagen 
-     */
-    public $secondImg;
-
-    /**
-     * Propiedad virtual para referenciar tercera imagen
-     */
-    public $thirdImg;
 
     /**
      * @var Loogares\UsuarioBundle\Entity\Usuario
@@ -70,16 +54,6 @@ class ImagenLugar
      */
     private $estado;
 
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * Get id
@@ -250,40 +224,12 @@ class ImagenLugar
     {
         return $this->estado;
     }
-
-    /**
-    * Funciones que permiten manejar de mejor forma la imagen de usuario
-    */
-    public function getAbsolutePath()
-    {
-        return null === $this->imagen_full ? null : $this->getUploadRootDir().'/'.$this->imagen_full;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->imagen_full ? null : $this->getUploadDir().'/'.$this->imagen_full;
-    }
-
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        return 'assets/images/lugares';
-    }
-
     /**
      * @ORM\preUpdate
      */
     public function preUpload()
     {
-        if ($this->firstImg !== null) {
-            // Se genera nombre de la imagen (slugLugar-idLugar-id.jpg)
-            $filename = $this->getLugar()->getSlug().'-'.$this->getLugar()->getId().'-'.$this->id;
-            $this->setImagenFull($filename.'.jpg');//.$this->file->guessExtension());
-        }
+        // Add your code here
     }
 
     /**
@@ -291,13 +237,7 @@ class ImagenLugar
      */
     public function upload()
     {
-        if ($this->firstImg  === null) {
-            return;
-        }
-        //echo $this->getImagenFull().$this->id.'.jpg';
-        //$this->setImagenFull($this->getImagenFull().$this->id.'.jpg');//.$this->file->guessExtension());
-        $this->firstImg->move($this->getUploadRootDir(), $this->imagen_full);
-        unset($this->firstImg);
+        // Add your code here
     }
 
     /**
@@ -305,10 +245,6 @@ class ImagenLugar
      */
     public function removeUpload()
     {
-        if ($firstImg = $this->getAbsolutePath()) {
-            unlink($firstImg);
-        }
+        // Add your code here
     }
-
-    
 }

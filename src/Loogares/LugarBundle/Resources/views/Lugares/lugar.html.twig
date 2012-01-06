@@ -97,6 +97,12 @@
                         </div>
                 </div>
 
+                <div class="tags_populares_lugar">
+                    {% for tagsPopulares in lugar.tagsPopulares %}
+                        {{tagsPopulares.nombre}}{% if loop.last == false %}, {% endif %}
+                    {% endfor %}
+                </div>
+
                 <div class="categoria_lugar">
                     {% if lugar.categoriaLugar %}
                         <div class="categoria_lugar_box" id="lugar-categorias">
@@ -233,7 +239,7 @@
                                 {% if recomendacion.nombre != '' and recomendacion.apellido != '' %}
                                     {{ recomendacion.nombre }} {{ recomendacion.apellido }}
                                 {% else %}
-                                    {{ lugar.primero.usuario.slug }}
+                                    {{ recomendacion.slug }}
                                 {% endif %}
                             </a>
                         </strong>

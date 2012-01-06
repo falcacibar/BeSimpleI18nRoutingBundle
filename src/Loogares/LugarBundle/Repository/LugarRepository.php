@@ -202,6 +202,23 @@ class LugarRepository extends EntityRepository
       return $q->getSingleResult();
     }
 
+    public function getTagsPopulares($id){
+      return $this->_em
+             ->getConnection()
+             ->fetchAll("select tag.tag as nombre, count(tag_recomendacion.tag_id) as freq from tag_recomendacion 
+
+                        left join recomendacion
+                        on tag_recomendacion.recomendacion_id = recomendacion.id
+
+                        left join tag 
+                        on tag_recomendacion.tag_id = tag.id
+
+                        where recomendacion.lugar_id = $id
+                        group by tag_recomendacion.tag_id
+                        order by freq desc
+                        limit 5");
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");
