@@ -201,7 +201,7 @@ class LugarController extends Controller
                 $sector = $lr->getSectores($_POST['sector']);
 
                 $estado = $lr->getEstado(1);
-                $tipo_lugar = $lr->getTipoLugar('que-visitar');
+                $tipo_lugar = $lr->getTipoLugar('lugar');
 
                 $lugar->setComuna($comuna[0]);
 
