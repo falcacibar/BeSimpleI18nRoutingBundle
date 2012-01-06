@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Agregar foto a {{lugar.nombre}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div id="agregar_foto_lugar">
+		<h1>Agrega foto en <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
+
+		<div class="agregar_paso_2">
+			<p>2. Ya cargaste {{imagenes|length}} fotos. Ahora puedes agregar links o descripción a cada una.</p>
+
+			<form action="{{ path('_agregarFotoLugar', { 'slug' : lugar.slug }) }}" method="post" }}>
+				<ul>
+					{% for imagen in imagenes %}
+						<li>
+							<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('small_lugar') }}" />
+							<label>Descripción o Dirección (URL) del link</label>
+							<input type="text" name="imagenes[{{imagen.id}}]" />
+
+						</li>
+					{% endfor %}
+					<li>
+						<label></label>
+						<input type="hidden" name="info" value="true" />
+						<input type="submit" value="Enviar" />
+					</li>
+				</ul>
+			</form>			
+		</div>
+
+	</div>
+{% endblock %}

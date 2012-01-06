@@ -70,12 +70,18 @@ avalanche_imagine:
     cache_prefix: media/cache
     driver:       gd
     filters:
-        medium_usuario:
-            type:    thumbnail
-            options: { size: [96, 96], mode: outbound }
         small_usuario:
             type:    thumbnail
             options: { size: [56, 56], mode: outbound }
+        medium_usuario:
+            type:    thumbnail
+            options: { size: [96, 96], mode: outbound }        
+        small_lugar:
+            type:    thumbnail
+            options: { size: [46, 46], mode: outbound }
+        medium_lugar:
+            type:    thumbnail
+            options: { size: [141, 141], mode: outbound }        
 
 # MailChimp Configuration
 jirafe_mail_chimp:
