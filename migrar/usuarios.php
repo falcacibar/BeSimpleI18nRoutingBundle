@@ -11,7 +11,7 @@ while($row = $STH->fetch()){
     }
 
     $tipo_usuario = '2';
-    if($row['Mail'] == 'contacto@loogares.com') {
+    if($row['Id'] == '1') {
         $tipo_usuario = '1';
     }
 
@@ -24,9 +24,9 @@ while($row = $STH->fetch()){
 
     $data[] = array(
         'id' => $row['Id'],
-        'comuna_id' => '',
-        'tipo_usuario_id' => $tipo_usuario,        
+        'tipo_usuario_id' => $tipo_usuario,
         'estado_id' => $estado_usuario,
+        'comuna_id' => '',
         'nombre' => $row['Nombre'],
         'apellido' => $row['Apellido'],
         'password' => $row['Pass'],

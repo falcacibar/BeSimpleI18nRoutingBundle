@@ -1,20 +1,39 @@
 <?php
 include('config.php');
 
-$STH = $LBH->query('select * from Estado order by id asc');
-$STH->setFetchMode(PDO::FETCH_ASSOC);
-
 $data = array();
-while($row = $STH->fetch()){
-    foreach($row as $key => $value){
-        $row[$key] = preg_replace('/"/',"'",$row[$key]);
-    }
 
-    $data[] = array(
-        'id' => $row['Id'],
-        'nombre' => $row['Estado']
-    );
-}
+$data[] = array(
+        'nombre' => 'Por revisar'
+);
+
+$data[] = array(
+        'nombre' => 'Aprobado'
+);
+
+$data[] = array(
+        'nombre' => 'Eliminado'
+);
+
+$data[] = array(
+        'nombre' => 'Cerrado'
+);
+
+$data[] = array(
+        'nombre' => 'Reportado'
+);
+
+$data[] = array(
+        'nombre' => 'Por confirmar'
+);
+
+$data[] = array(
+        'nombre' => 'Activo'
+);
+
+$data[] = array(
+        'nombre' => 'Inactivo'
+);
 
 $i = 0;
 foreach($data as $entry){
@@ -23,7 +42,7 @@ foreach($data as $entry){
         $sql .= '"'.$value.'", ';
     }
     $sql =  substr($sql, 0, -2);
-    $sql = "INSERT INTO estado values(" . $sql . ");";
+    $sql = "INSERT INTO estado (nombre) values(" . $sql . ");";
     //echo $sql;
     if(!$DBH->exec($sql)){
         $i++;
