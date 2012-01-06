@@ -1649,6 +1649,54 @@ small {
       .otros_lugares .caracteristicas ul label span:hover {
         border-bottom: 1px dotted #0066cc; }
 
+/* Galería de fotos de lugar */
+#agregar_foto_lugar a {
+  color: #0066cc; }
+  #agregar_foto_lugar a:hover {
+    color: #0066cc;
+    text-decoration: underline; }
+#agregar_foto_lugar h1 {
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.4em; }
+#agregar_foto_lugar p {
+  margin-bottom: 30px; }
+#agregar_foto_lugar .agregar_paso_1 p {
+  font-weight: bold;
+  margin-bottom: 10px; }
+#agregar_foto_lugar .agregar_paso_1 ul li {
+  margin: 10px 0; }
+  #agregar_foto_lugar .agregar_paso_1 ul li label {
+    width: 82px;
+    font-size: 11px; }
+  #agregar_foto_lugar .agregar_paso_1 ul li.opcional {
+    display: none; }
+  #agregar_foto_lugar .agregar_paso_1 ul li a {
+    font-size: 11px; }
+#agregar_foto_lugar .agregar_paso_2 p {
+  font-weight: bold;
+  margin-bottom: 20px; }
+#agregar_foto_lugar .agregar_paso_2 ul li {
+  margin: 10px 0;
+  padding-left: 36px;
+  padding-bottom: 20px; }
+  #agregar_foto_lugar .agregar_paso_2 ul li img {
+    float: left;
+    border: 1px solid #444444;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    padding: 1px; }
+  #agregar_foto_lugar .agregar_paso_2 ul li label {
+    display: block;
+    margin-left: 60px;
+    font-size: 11px;
+    line-height: normal; }
+  #agregar_foto_lugar .agregar_paso_2 ul li input[type=text] {
+    margin-left: 10px;
+    width: 362px; }
+
 /* Perfil de usuario */
 #menu-usuario {
   border-bottom: 1px solid #cccccc;
