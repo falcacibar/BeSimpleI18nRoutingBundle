@@ -16,9 +16,6 @@ src/Loogares/AdminBundle/Entity/*
 web/assets/images/*
 web/media/cache/*
 
-#Compressed files
-web/assets/css/compressed*
-
 #Logs
 app/logs/*
 

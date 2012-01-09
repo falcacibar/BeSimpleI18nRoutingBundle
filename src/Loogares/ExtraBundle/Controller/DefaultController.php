@@ -46,4 +46,8 @@ class DefaultController extends Controller
         return $this->render('::ciudad.html.twig', array('ciudades' => $data));
     }
 
+    public function homepageAction() {
+        return $this->forward('LoogaresUsuarioBundle:Usuario:login');
+    }
+
 }
