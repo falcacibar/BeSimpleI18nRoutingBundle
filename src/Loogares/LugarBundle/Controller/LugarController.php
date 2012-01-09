@@ -547,6 +547,41 @@ class LugarController extends Controller{
         }
     }
 
+    public function editarFotoAction(Request $request, $slug, $id) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+        $imagen = $ilr->find($id);
+        
+        $form = $this->createFormBuilder($imagen)
+                         ->add('titulo_enlace', 'text')
+                         ->getForm();
+
+        // Si el request es POST, se procesa la edición de la foto
+        if ($request->getMethod() == 'POST') { 
+            $form->bindRequest($request);
+
+            if ($form->isValid()) {
+                $em->flush();
+
+                // Mensaje de éxito en la edición
+                $this->get('session')->setFlash('edicion-foto-lugar','¡Ese es el espíritu, '.$imagen->getUsuario()->getNombre().' '.$imagen->getUsuario()->getApellido().'! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.');
+                    
+                // Redirección a vista de edición de password
+                return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario()))));
+            }
+        }
+
+        return $this->render('LoogaresLugarBundle:Lugares:editar_foto.html.twig', array(
+            'imagen' => $imagen,
+            'form' => $form->createView(),
+        ));
+                         
+           
+    }
+
     public function comparacionLugarAction($slug){
         $em = $this->getDoctrine()->getEntityManager();
         $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");

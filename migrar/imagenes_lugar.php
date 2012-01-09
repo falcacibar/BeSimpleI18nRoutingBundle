@@ -14,13 +14,19 @@ while($row = $STH->fetch()){
     if($imagen == '')
         $imagen = $row['large'];
 
+    $estado_imagen = '2';
+    if($row['Id_Estado'] == '1')
+        $estado_imagen = '1';
+    else if($row['Id_Estado'] == '6')
+        $estado_imagen = '3';
+
     $data[] = array(
         'id' => $row['Id'],
         'usuario_id' => $row['Usuario_Id'],
         'lugar_id' => $row['Id_Lugar'],
-        'estado_imagen_id' => $row['Id_Estado'],
-        'titulo_enlace' => $row[''],
-        'es_enlace' => $row['Id_Caracteristica'],
+        'estado_id' => $estado_imagen,
+        'es_enlace' => $row['Es_Enlace'],
+        'titulo_enlace' => $row['Titulo_Enlace'],        
         'fecha_creacion' => $row['Fecha_Creacion'],
         'fecha_modificacion' => $row['Fecha_Modificacion'],
         'imagen_full' => $imagen

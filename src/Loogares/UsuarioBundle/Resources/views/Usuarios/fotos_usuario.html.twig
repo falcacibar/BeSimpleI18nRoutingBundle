@@ -45,7 +45,7 @@
 
 						<br />
 						{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
-							<a href="#">Edita tu foto</a> <br />
+							<a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">Edita tu foto</a> <br />
 							<a href="#">Borra tu foto</a>
 						{% endif %}
 

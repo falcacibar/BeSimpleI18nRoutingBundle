@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Editar foto en {{imagen.lugar.nombre}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div id="editar_foto_lugar">
+		<h1>Edita tu foto en <a href="{{path('_lugar', {'slug' : imagen.lugar.slug })}}">{{imagen.lugar.nombre}}</a></h1>
+
+		<form action="{{ path('_editarFotoLugar', { 'slug' : imagen.lugar.slug, 'id' : imagen.id }) }}" method="post" {{ form_enctype(form) }}>
+			<ul>
+				<li>
+					<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('small_lugar') }}" />
+					{{ form_label(form.titulo_enlace, 'Descripción o Dirección (URL) del link') }}
+					{{ form_widget(form.titulo_enlace) }}
+				</li>
+				{{form_rest(form)}}
+
+				<li>
+					<label></label>
+					<input type="submit" value="Enviar" formnovalidate />
+				</li>
+			</ul>
+		</form>
+	</div>
+{% endblock %}
