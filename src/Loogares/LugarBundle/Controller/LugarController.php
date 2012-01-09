@@ -9,13 +9,17 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Loogares\LugarBundle\Entity\Lugar;
 use Loogares\LugarBundle\Entity\CategoriaLugar;
 use Loogares\LugarBundle\Entity\CaracteristicaLugar;
-use Loogares\Lugarbundle\Entity\Horario;
-use Loogares\Lugarbundle\Entity\SubcategoriaLugar;
-use Loogares\Lugarbundle\Entity\ImagenLugar;
+use Loogares\LugarBundle\Entity\Horario;
+use Loogares\LugarBundle\Entity\SubcategoriaLugar;
+use Loogares\LugarBundle\Entity\ImagenLugar;
 
+use Loogares\AdminBundle\Entity\TempLugar;
+use Loogares\AdminBundle\Entity\TempCategoriaLugar;
+use Loogares\AdminBundle\Entity\TempCaracteristicaLugar;
+use Loogares\AdminBundle\Entity\TempHorario;
+use Loogares\AdminBundle\Entity\TempSubcategoriaLugar;
 
-class LugarController extends Controller
-{
+class LugarController extends Controller{
 
     public function listadoAction(){
         $em = $this->getDoctrine()->getEntityManager();
@@ -160,13 +164,16 @@ class LugarController extends Controller
         $errors = array();
         $camposExtraErrors = false;
         $formErrors = array();
+        $esEdicion = false;
 
         if($slug){
-            $lugar = $lr->findOneBySlug($slug);    
+            $lugar = new TempLugar();
+            $esEdicion = true;
+            $lugarOriginal = $lr->findOneBySlug($slug);
         }else{
             $lugar = new Lugar();
         }
-
+       
         $form = $this->createFormBuilder($lugar)
              ->add('nombre', 'text')
              ->add('calle', 'text')
@@ -196,6 +203,13 @@ class LugarController extends Controller
 
             if($form->isValid() && $camposExtraErrors == false){
                 $fn = $this->get('fn');
+                                
+
+                if($esEdicion == true){
+                    $lugar->setLugar($lugarOriginal);
+                }
+
+                $lugar->setUsuario($this->get('security.context')->getToken()->getUser());
 
                 $comuna = $lr->getComunas($_POST['comuna']);  
                 $sector = $lr->getSectores($_POST['sector']);
@@ -204,6 +218,8 @@ class LugarController extends Controller
                 $tipo_lugar = $lr->getTipoLugar('lugar');
 
                 $lugar->setComuna($comuna[0]);
+                $lugar->setSector($sector[0]);
+
 
                 $lugar->setEstado($estado[0]);
                 $lugar->setTipoLugar($tipo_lugar[0]);
@@ -215,9 +231,7 @@ class LugarController extends Controller
 
                 $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugar->getNombre());
                 
-                if($slug == null){
-                    $lugar->setFechaAgregado(new \DateTime());
-                }
+                $lugar->setFechaAgregado(new \DateTime());
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
                     $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'].(sizeOf($lugaresConElMismoNombre)+1);
@@ -226,13 +240,18 @@ class LugarController extends Controller
                 }
 
                 $lugar->setSlug($lugarSlug);
+
                 
                 $em->persist($lugar);
 
                 $lr->cleanUp($lugar->getId());
 
                 foreach($_POST['categoria'] as $postCategoria){
-                    $categoriaLugar[] = new CategoriaLugar();
+                    if($esEdicion == true){
+                        $categoriaLugar[] = new TempCategoriaLugar();
+                    }else{
+                        $categoriaLugar[] = new CategoriaLugar();
+                    }
                     $size = sizeOf($categoriaLugar) - 1;
                     if($postCategoria != "elige"){
                         $categoria = $lr->getCategorias($postCategoria);
@@ -251,7 +270,11 @@ class LugarController extends Controller
 
                 if(isset($_POST['caracteristica']) && is_array($_POST['caracteristica'])){
                     foreach($_POST['caracteristica'] as $postCaracteristica){
-                        $caracteristicaLugar[] = new CaracteristicaLugar();
+                        if($esEdicion == true){
+                            $caracteristicaLugar[] = new TempCaracteristicaLugar();
+                        }else{
+                            $caracteristicaLugar[] = new CaracteristicaLugar();  
+                        }
                         $size = sizeOf($caracteristicaLugar) - 1;
                         $caracteristica = $lr->getCaracteristicaPorNombre($postCaracteristica);
                         if($caracteristica){
@@ -264,7 +287,11 @@ class LugarController extends Controller
 
                 if(isset($_POST['subcategoria']) && is_array($_POST['subcategoria'])){
                     foreach($_POST['subcategoria'] as $postSubCategoria){
-                        $subCategoriaLugar[] = new SubcategoriaLugar();
+                        if($esEdicion == true){
+                            $subCategoriaLugar[] = new TempSubcategoriaLugar();
+                        }else{
+                            $subCategoriaLugar[] = new SubcategoriaLugar();
+                        }
                         $size = sizeOf($subCategoriaLugar) - 1;
                         $subCategoria = $lr->getSubCategoriaPorNombre($postSubCategoria);
                         if($subCategoria){
@@ -278,7 +305,11 @@ class LugarController extends Controller
                 $dias = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo');
 
                 foreach($dias as $key => $value){
-                    $horario[] = new Horario();
+                    if($esEdicion == true){
+                        $horario[] = new TempHorario();    
+                    }else{
+                        $horario[] = new Horario(); 
+                    }
                     $size = sizeOf($horario) - 1;
                     if(isset($_POST['horario-'.$value])){
                         $postHorario = $_POST['horario-'.$value];
@@ -309,68 +340,6 @@ class LugarController extends Controller
             }
         }
 
-        $tipoCategorias = $lr->getTipoCategorias();
-        $paises = $lr->getPaises();
-        $categorias = $lr->getCategorias();
-        $ciudades = $lr->getCiudades();
-        $comunas = $lr->getComunas();
-        $sectores = $lr->getSectores();
-        $caracteristicas = $lr->getCaracteristicas();
-        $subCategorias = $lr->getSubCategorias();
-
-        $categoriaSelect = "<select class='categoria required' title='Recuerda asignarle una categoría al lugar' name='categoria[]'><option value='elige'>Elige una categoria principal</option>";
-        foreach($tipoCategorias as $tipoCategoria){
-            $tipoCategoriaNombre = $tipoCategoria->getNombre();
-
-            $categoriaSelect .= "<optgroup label='$tipoCategoriaNombre'>";
-            foreach($categorias as $categoria){
-                $categoriaId = $categoria->getId();
-                $categoriaSlug = $categoria->getSlug();
-                $categoriaNombre = $categoria->getNombre();
-                if($categoria->getTipoCategoria()->getId() == $tipoCategoria->getId()){
-                    $categoriaSelect .= "<option value='$categoriaSlug'>$categoriaNombre</option>";
-                }
-            }
-            $categoriaSelect .= "</optgroup>";
-        }
-        $categoriaSelect .= "</select>";
-
-        $paisSelect = "<select class='pais required' title='' name='ciudad' id='ciudad'>";
-        $ciudadSelect = "<select class='ciudad required' title='' name='ciudad' id='ciudad'>";
-        $comunaSelect = "<select class='comuna required' title='Localiza la comuna del lugar' name='comuna' id='comuna'><option value='elige'>Elige una comuna</option>";
-        $sectorSelect = "<select class='sector' name='sector' id='sector'><option value='elige'>¿Está en un sector popular? Elígelo aquí</option>";
-        foreach($ciudades as $ciudad){
-            $ciudadSlug = $ciudad->getSlug();
-            $ciudadNombre = $ciudad->getNombre();
-            $ciudadId = $ciudad->getId();
-            $ciudadSelect .= "<option ".(($ciudadId == 1)?"selected":"")." value='$ciudadSlug'>$ciudadNombre</option>";
-
-            $comunaSelect .= "<optgroup label='$ciudadNombre'>";
-            foreach($comunas as $comuna){
-                $comunaSlug= $comuna->getSlug();
-                $comunaNombre = $comuna->getNombre();
-                if($comuna->getCiudad()->getId() == $ciudadId){
-                    $comunaSelect .= "<option value='$comunaSlug'>$comunaNombre</option>";
-                     
-                }
-            }
-            $comunaSelect .= "</optgroup>";
-
-            $sectorSelect .= "<optgroup label='$ciudadNombre'>";
-            foreach($sectores as $sector){
-                $sectorId = $sector->getId();
-                $sectorNombre = $sector->getNombre();
-                $sectorSlug = $sector->getSlug();
-                if($sector->getCiudad()->getId() == $ciudadId){
-                    $sectorSelect .= "<option value='$sectorSlug'>$sectorNombre</option>";
-                     
-                }
-            }
-            $sectorSelect .= "</optgroup>";
-        }
-        $ciudadSelect .= "</select>";
-        $comunaSelect .= "</select>";
-        $sectorSelect .= "</select>";
 
         $data['horarios'] = '<option value="cerrado">Cerrado</option>
                             <option value="06:00">06:00</option>
@@ -431,26 +400,28 @@ class LugarController extends Controller
         if(is_array($camposExtraErrors) && is_array($formErrors)){
             $errors = array_merge($formErrors, $camposExtraErrors);
         }
-        $data['categorias'] = $categorias;
-        $data['tipoCategoria'] = $tipoCategorias;
-        $data['subCategorias'] = $subCategorias;
-        $data['ciudad'] = $ciudades;
-        $data['pais'] = $paises;
-        $data['caracteristicas'] = $caracteristicas;
-        $data['categoriaSelect'] = $categoriaSelect;
-        $data['ciudadSelect'] = $ciudadSelect;
-        $data['comunaSelect'] = $comunaSelect;
-        $data['sectorSelect'] = $sectorSelect;
+
+        $data['categorias'] = $lr->getCategorias();
+        $data['tipoCategoria'] = $lr->getTipoCategorias();
+        $data['subCategorias'] = $lr->getSubCategorias();
+        $data['caracteristicas'] = $lr->getCaracteristicas();
+        $data['ciudad'] = $lr->getCiudades();
+        $data['pais'] = $lr->getPaises();
+        $data['comuna'] = $lr->getComunas();
+        $data['sector'] = $lr->getSectores();
         $data['ciudadActual'] = $lr->getCiudadById('1');
 
         //Sacar +56 de los telefonos
-        $lugar->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
-        $lugar->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono2());
-        $lugar->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono3());
+        $lugarOriginal->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarOriginal->getTelefono1());
+        $lugarOriginal->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarOriginal->getTelefono2());
+        $lugarOriginal->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarOriginal->getTelefono3());
          
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
-            'lugar' => $lugar,
+            'lugar' => $lugarOriginal,
+            'lugarTemp' => array(
+                'nombre' => ':D!'
+            ),
             'form' => $form->createView(),
             'errors' => $errors,
         ));
@@ -555,7 +526,6 @@ class LugarController extends Controller
 
         // Segundo paso de agregar fotos
         else {
-            
             $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
 
             // Si el request es POST, se procesan descripciones de fotos
@@ -575,5 +545,19 @@ class LugarController extends Controller
             // Redirección a galería de fotos (FICHA POR AHORA)
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }
+    }
+
+    public function comparacionLugarAction($slug){
+        $em = $this->getDoctrine()->getEntityManager();
+        $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugarTemp = $tlr->findOneBySlug($slug);
+        $lugar = $lr->findOneBySlug($slug);
+
+        return $this->render('LoogaresLugarBundle:Lugares:comparacionLugar.html.twig', array(
+            'lugarTemp' => $lugarTemp,
+            'lugar' => $lugar
+        ));
     }
 }

@@ -12,6 +12,16 @@
         .precio{
             margin-top: 5px;
         }
+
+        .comparacion{
+            padding: 5px;
+            background: green;
+            width: 292px;
+            display: block;
+            float:left;
+            margin-top: 5px;
+        }
+
     </style>
 {% endblock %}
 
@@ -150,6 +160,7 @@
         <label>Nombre *</label>
         <input type="text" value="{{lugar.nombre}}" title="Ingresa el nombre del lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
         <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
+        {% if lugarTemp.nombre is defined %}<div class="comparacion">El Usuario Sugirio {{lugarTemp.nombre}}</div>{% endif %}
     </li>
     <li class="categoria-container">
         <label>Categorías *</label>
@@ -264,7 +275,18 @@
     </li>
     <li>
         <label>Comuna *</label>
-        {{ data.comunaSelect | raw}}
+        <select class='comuna required' title='Localiza la comuna del lugar' name='comuna' id='comuna'>
+        <option value='elige'>Elige una comuna</option>
+        {% for ciudad in data.ciudad %}
+            <optgroup label="{{ciudad.nombre}}">
+                {% for comuna in data.comuna %}
+                    {% if ciudad.id == comuna.ciudad.id %}
+                    <option value="{{comuna.slug}}">{{comuna.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+            </optgroup>
+        {% endfor %}
+        </select>
     </li>
     <li>
         <label>Calle *</label>
@@ -287,7 +309,18 @@
     </li>
     <li>
         <label>Sector</label>
-        {{ data.sectorSelect | raw }}
+        <select class='sector' name='sector' id='sector'>
+        <option value='elige'>¿Está en un sector popular? Elígelo aquí</option>
+        {% for ciudad in data.ciudad %}
+            <optgroup label="{{ciudad.nombre}}">
+                {% for sector in data.sector %}
+                    {% if ciudad.id == sector.ciudad.id %}
+                    <option value="{{sector.slug}}">{{sector.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+            </optgroup>
+        {% endfor %}
+        </select>
     </li>
     <li>
         <label>Teléfono</label>

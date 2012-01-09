@@ -6,6 +6,10 @@ LoogaresAdminBundle_usuarios:
     pattern:  /usuarios
     defaults: { _controller: LoogaresAdminBundle:Default:usuarios }
 
+LoogaresAdminBundle_editarLugares:
+    pattern:  /lugares/revision
+    defaults: { _controller: LoogaresAdminBundle:Default:revision }
+
 LoogaresAdminBundle_index:
     pattern:  /
     defaults: { _controller: LoogaresAdminBundle:Default:index }

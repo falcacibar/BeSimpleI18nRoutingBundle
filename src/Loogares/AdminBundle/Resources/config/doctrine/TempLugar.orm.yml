@@ -1,6 +1,7 @@
 Loogares\AdminBundle\Entity\TempLugar:
     type: entity
     table: temp_lugares
+    repositoryClass: Loogares\AdminBundle\Repository\TempLugarRepository
     manyToOne:
         comuna:
             targetEntity: Loogares\ExtraBundle\Entity\Comuna

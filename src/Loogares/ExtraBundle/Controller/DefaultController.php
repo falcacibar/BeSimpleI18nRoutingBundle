@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     
-    public function indexAction($name)
+    public function sindexAction($name)
     {
         return $this->render('LoogaresExtraBundle:Default:index.html.twig', array('name' => $name));
     }
