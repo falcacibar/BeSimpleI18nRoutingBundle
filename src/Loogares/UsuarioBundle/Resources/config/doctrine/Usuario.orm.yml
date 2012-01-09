@@ -51,6 +51,9 @@ Loogares\UsuarioBundle\Entity\Usuario:
         fecha_nacimiento:
             type: datetime
             nullable: true
+        mostrar_edad:
+            type: boolean
+            nullable: true
         fecha_registro:
             type: datetime
         fecha_ultima_actividad:

@@ -10,6 +10,10 @@ while($row = $STH->fetch()){
         $row[$key] = preg_replace('/"/',"'",$row[$key]);
     }
 
+    $imagen = $row['full'];
+    if($imagen == '')
+        $imagen = $row['large'];
+
     $data[] = array(
         'id' => $row['Id'],
         'usuario_id' => $row['Usuario_Id'],
@@ -19,7 +23,7 @@ while($row = $STH->fetch()){
         'es_enlace' => $row['Id_Caracteristica'],
         'fecha_creacion' => $row['Fecha_Creacion'],
         'fecha_modificacion' => $row['Fecha_Modificacion'],
-        'imagen_full' => $row['large']
+        'imagen_full' => $imagen
     );
 }
 
@@ -32,9 +36,11 @@ foreach($data as $entry){
     $sql =  substr($sql, 0, -2);
     $sql = "INSERT INTO imagenes_lugar values(" . $sql . ");";
     //echo $sql;
-    if(!$DBH->exec($sql)){
-        $i++;
-        echo "$sql </br>";
+    if($entry['lugar_id'] != '') {
+        if(!$DBH->exec($sql)){
+            $i++;
+            echo "$sql </br>";
+        }
     }
 }
 

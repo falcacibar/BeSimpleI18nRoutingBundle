@@ -15,12 +15,15 @@ while($row = $STH->fetch()){
         $tipo_usuario = '1';
     }
 
-
     $estado_usuario = '7';
     if($row['Id_Estado'] == '1')
         $estado_usuario = '6';
     else if($row['Id_Estado'] == '6')
         $estado_usuario = '8';
+
+    $imagen = $row['Imagen_full'];
+    if($imagen == '')
+        $imagen = $row['Imagen_96'];
 
     $data[] = array(
         'id' => $row['Id'],
@@ -37,8 +40,9 @@ while($row = $STH->fetch()){
         'web' => $row['Link_1'],
         'facebook' => $row['Link_2'],
         'twitter' => $row['Link_3'],
-        'imagen_full' => $row['Imagen_full'],
+        'imagen_full' => $imagen,
         'fecha_nacimiento' => $row['FechaNacimiento'],
+        'mostrar_edad' => '1',
         'fecha_registro' => $row['FechaRegistro'],
         'fecha_ultima_actividad' => $row['UltimaActividad'],
         'newsletter_activo' => $row['Reportes'],

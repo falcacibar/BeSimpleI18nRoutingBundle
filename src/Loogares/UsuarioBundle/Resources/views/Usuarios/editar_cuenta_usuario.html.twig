@@ -51,13 +51,18 @@
 				</li> 
 				
 				<li>
-					{{ form_label(form.fecha_nacimiento, 'Fecha de nacimiento') }}
+					{{ form_label(form.fecha_nacimiento, 'Fecha de nacimiento', {'attr' :{'class' : 'label-up'}}) }}
 					<div class="edicion-fecha-nacimiento">
 					{{ form_widget(form.fecha_nacimiento.day, { 'attr': {'class': 'day'}}) }}
 					{{ form_widget(form.fecha_nacimiento.month, { 'attr': {'class': 'month'}}) }}
-					{{ form_widget(form.fecha_nacimiento.year, { 'attr': {'class': 'year'}}) }}
+					{{ form_widget(form.fecha_nacimiento.year, { 'attr': {'class': 'year'}}) }}					
 					</div>
-				</li>  
+				</li>
+
+				<li>					
+					{{ form_label(form.mostrar_edad, null, {'attr' :{'class' : 'label-up'}})}}
+					{{ form_widget(form.mostrar_edad)}}
+				</li>
 				
 				<li>
 					{{ form_label(form.sexo) }}
@@ -80,7 +85,7 @@
 				</li>
 
 				<li class="edicion-newsletter">
-					{{ form_label(form.newsletter_activo) }}
+					{{ form_label(form.newsletter_activo, null, {'attr' :{'class' : 'label-up'}}) }}
 					{{ form_widget(form.newsletter_activo) }}
 				</li> 
 

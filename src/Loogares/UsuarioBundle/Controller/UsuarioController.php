@@ -164,6 +164,7 @@ class UsuarioController extends Controller
                                 'format' => 'dd   MM   yyyy',
                                 'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')
                          ))
+                     ->add('mostrar_edad', 'checkbox')
                      ->add('sexo', 'choice', array(
                                 'choices' => array('m' => 'Hombre', 'f' => 'Mujer', 'n' => 'No quiero definir'),
                                 'expanded' => true
@@ -519,7 +520,14 @@ class UsuarioController extends Controller
                                 
                 else {
                     // Form válido, generamos campos requeridos
-                    $usuario->setSlug('');
+
+                    // Slug como nombre-apellido-repetido
+                    $fn = $this->get('fn');
+                    $slug = $fn->generarSlug($usuario->getNombre().'-'.$usuario->getApellido());
+                    $repetidos = $ur->getUsuarioSlugRepetido($slug);
+                    if($repetidos > 0)
+                        $slug = $slug.'-'.++$repetidos;                    
+                    $usuario->setSlug($slug);
                     $usuario->setImagenFull("default.gif");
                     $usuario->setFechaRegistro(new \DateTime());
 

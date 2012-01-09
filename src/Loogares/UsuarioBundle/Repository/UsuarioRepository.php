@@ -70,6 +70,18 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         return $q->getResult();
   	}
 
+    public function getUsuarioSlugRepetido($slug) {
+        $em = $this->getEntityManager();
+
+        //Query para obtener el total de recomendaciones del usuario        
+        $q = $em->createQuery("SELECT COUNT(u)
+                               FROM Loogares\UsuarioBundle\Entity\Usuario u
+                               WHERE u.slug LIKE ?1");
+        $q->setParameter(1, $slug."%");
+        
+        return $q->getSingleScalarResult();  
+    }
+
     public function getTotalUsuarioRecomendaciones($id) {
         $em = $this->getEntityManager();
 
@@ -178,10 +190,10 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
                 $edad = date("md") < $m.$d ? date("Y")-$Y-1 : date("Y")-$Y;
             }
             else {
-                $edad = '0';
+                $edad = null;
             }            
         } else {
-            $edad = '0';
+            $edad = null;
         }
         
 
@@ -190,12 +202,20 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
             if($usuario->getSexo() == "m") {
                 $sexoResult = "Hombre";
             }
-            else {
+            else if($usuario->getSexo() == "f"){
                 $sexoResult = "Mujer";
             }
+            else
+                $sexoResult = null;
         } else {
             $sexoResult = null;
         }
+
+        $edadSexo = array();
+        if($sexoResult)
+          $edadSexo[] = $sexoResult;
+        if($edad && $usuario->getMostrarEdad())
+          $edadSexo[] = $edad.' años';
 
         //Array con links de usuario
         $links = array();
@@ -219,8 +239,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         $data->totalLugaresAgregados = $totalLugaresAgregados;
         $data->totalImagenesLugar = $totalImagenesLugar;
         //$data->imagenesLugar = $imagenesLugar;
-        $data->edadResult = $edad;
-        $data->sexoResult = $sexoResult;
+        $data->edadSexo = $edadSexo;
         $data->links = $links;
 
         return $data;

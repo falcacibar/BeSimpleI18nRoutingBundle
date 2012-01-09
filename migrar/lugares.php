@@ -29,7 +29,7 @@ while($row = $STH->fetch()){
 
     preg_match('/(?<=[\w]\s)[0-9s\/n]+/',$row['Direccion'], $numero, PREG_OFFSET_CAPTURE);
     $numero = ($numero[0][0] != '')?$numero[0][0]:'s/n';
-    $direccion = preg_replace('/(?<=[\w]\s)[0-9s\/n]+/', '', $row['Direccion']);
+    $direccion = preg_replace('/(?<=[\w]\s)[0-9s\/n]+/', '', $row['Direccion']);    
 
     $data[] = array(
         'id' => $idLugar,
