@@ -1,0 +1,3 @@
+{% for lugar in lugares %}
+    <a href="{{ path('LoogaresAdminBundle_editarLugar' , {'id': lugar.id, 'slug': lugar.slug}) }}">{{lugar.id}}</a>
+{% endfor %}

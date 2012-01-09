@@ -1,0 +1,10 @@
+{% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
+
+{% block title %}Lugares con Ediciones | {{parent()}}{% endblock %}
+
+{% block content %}
+a
+{% for lugar in lugares %}
+    <a href="{{ path('LoogaresAdminBundle_revisionLugar', {'slug': lugar.slug}) }}">{{lugar.id}}</a>
+{% endfor %}
+{% endblock %}

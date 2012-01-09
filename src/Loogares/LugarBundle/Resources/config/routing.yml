@@ -14,12 +14,8 @@ _lugar:
     pattern: /lugar/{slug}
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
 
-_comparacionLugar:
-    pattern: /lugar/comparacion/{slug}
-    defaults: { _controller: LoogaresLugarBundle:Lugar:comparacionLugar }
-
 _editar:
-    pattern: /lugar/{slug}/editar
+    pattern: /lugar/editar/{slug}
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
 _ajax:

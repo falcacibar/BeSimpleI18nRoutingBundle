@@ -6,9 +6,19 @@ LoogaresAdminBundle_usuarios:
     pattern:  /usuarios
     defaults: { _controller: LoogaresAdminBundle:Default:usuarios }
 
-LoogaresAdminBundle_editarLugares:
+LoogaresAdminBundle_lugaresAEditar:
     pattern:  /lugares/revision
-    defaults: { _controller: LoogaresAdminBundle:Default:revision }
+    defaults: { _controller: LoogaresAdminBundle:Default:lugaresAEditar }
+
+LoogaresAdminBundle_revisionLugar:
+    pattern:  /lugares/revision/{slug}
+    defaults: { _controller: LoogaresAdminBundle:Default:revisionLugares }
+
+LoogaresAdminBundle_editarLugar:
+    pattern:  /lugares/editar/{slug}/{id}
+    defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
+    requirements:
+        accion: \d+
 
 LoogaresAdminBundle_index:
     pattern:  /
