@@ -31,7 +31,7 @@
             </div>
             <div class="foto_lugar_box">
                 <div class="foto_lugar" id="lugar-foto">
-                    <a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="../../assets/images/lugares/{{lugar.imagen_full}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
+                    <a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 </div>
                 <a class="link_gris_444" href="#">Ver galería ({{lugar.totalFotos}} fotos)</a><br />
                 <a class="link_gris_444" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">» Agrega una foto</a>
@@ -228,8 +228,8 @@
         {% for recomendacion in lugar.recomendaciones %}
             <div class="recomendacion">
                 <div class="foto_recomendacion">
-                    <a href="#">
-                        <img src="{{ asset('assets/images/usuarios/'~recomendacion.imagen_full) }}" height="60" width="60" />
+                    <a href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
+                        <img src="{{ ('assets/images/usuarios/'~recomendacion.imagen_full) | apply_filter('small_usuario')}}" height="60" width="60" />
                     </a>
                 </div>
                 <div class="texto_recomendacion">
