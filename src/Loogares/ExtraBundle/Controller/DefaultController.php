@@ -27,8 +27,7 @@ class DefaultController extends Controller
         $data['categorias']  = $categorias;
 
         foreach($data['categorias'] as $categoria){
-            $lugares = $em->getRepository("LoogaresLugarBundle:Lugar")->getTotalLugaresPorCategoria($categoria->getId());
-            //$lugares = array('1','2'); 
+            $lugares = $em->getRepository("LoogaresLugarBundle:Lugar")->getTotalLugaresPorCategoria($categoria->getId()); 
 
             $categoria->lugares = $lugares['total'];
         }

@@ -1,121 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{% block title %}Loogares.com{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        {% stylesheets output='assets/css/compressed.css' filter='?yui_css,sass' 
-            'assets/css/*.sass' 
-        %}
-        {% endstylesheets %}
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-        <script src="{{asset('assets/js/jquery.fixheadertable.min.js')}}"></script>
-        <script>
-            $(function(){
-                $('table').tableScroll({height:500});
-            });
-        </script>
-        <style>
+{% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
 
-        body{
-            font-family: Helvetica;
-            font-size: 12px;
-            text-shadow: 0 1px 0 #fff;
-        }
+{% block title %}Lugares | {{parent()}}{% endblock %}
 
-            #wrapper{
-                width: 960px;
-                margin: 0 auto;
-            }
-            .table-data{
-                overflow:scroll;
-                position: relative;
-            }
-
-            table{
-                margin: 0;
-                padding: 0;
-                border-spacing: 0;
-                border: 1px #ccc solid;
-                border-right: none;
-                text-align: center;
-            }
-
-                th{
-                    border-bottom: 4px #ccc solid;
-                }
-
-
-                th, td{
-                    border-right: 1px solid #f0f0f0 ;
-                    padding: 5px;
-                    min-width: 40px;
-                }
-
-                th:first-child, td:first-child{
-                    min-width: 10px;
-                }
-
-                tr:nth-child(even){
-                    background: #f0f0f0;
-                }
-
-                .id{
-                    width: 50px;
-                }
-
-                .list-actions{
-                    margin: 0;
-                    font-size: 10px;
-                    font-weight: 100;
-                    display: inline-block;
-
-                }               
-                
-                    .list-actions span{
-                        margin: -2px;
-                        cursor: pointer;
-                        color: #ccc;
-                    } 
-
-                    .list-actions a, .list-actions a:visited{
-                        color: #ccc;
-                        margin: -2px;
-                        text-decoration: none;
-                    }
-
-                .active-sort, .list-actions a:active{
-                    color: #333 !important;
-                }
-
-                ul.paginacion{
-                    margin: 0;
-                    padding: 0;
-                    list-style: none;
-                    margin-bottom: 10px;
-                    text-align: right;
-                    font-size: 12px;
-                }
-
-                    ul.paginacion li{
-                        display: inline-block;
-                        padding: 5px;
-                        background: #f0f0f0;
-                        -moz-border-radius: 4px;
-                        border-radius: 4px;
-                        width: 18px;
-                        text-align: center;
-                        box-shadow: inset 0 1px 0 #ccc;
-                    }
-
-                        ul.paginacion li.pagina-actual{
-                            font-weight: bold;
-                        }
-        </style>
-    </head>
-<body>
-<div id="wrapper">
+{% block content %}
+{%for i in query%}
+    
+{% endfor %}
 <ul class="paginacion">
 {% for i in range(mostrarDesde, mostrarHasta) %}
     {% if loop.first %}
@@ -155,41 +45,165 @@
         <thead>
             <th></th>
             <th>
-                <a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'id': filters.id | default('asc') })) }}">ID</a>
+              <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'id': filters.id | default('asc') })) }}">id</a>
+              <p class="list-actions">
+                <a class="asc {% if query and query.id == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'id': 'asc' })) }}">⬆</a>
+                <a class="desc {% if query and query.id == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'id': 'desc' })) }}">⬇</a>
+                <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'id': '' })) }}">✖</a>
+              </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'nombre': filters.nombre | default('asc') })) }}">nombre</a>
                 <p class="list-actions">
-                    <a class="asc {% if query and query.id == 'asc' %} active-sort{% endif %}" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'id': 'asc' })) }}">&#11014;</a>
-                    <a class="desc {% if query and query.id == 'desc' %} active-sort{% endif %}" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'id': 'desc' })) }}">&#11015;</a>
-                    <a class="remove" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'id': '' })) }}">&#10006;</a>
+                    <a class="asc {% if query and query.nombre == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'nombre': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.nombre == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'nombre': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'nombre': '' })) }}">✖</a>
                 </p>
             </th>
             <th>
-                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'nombre': filters.nombre | default('asc') })) }}">Lugar</a>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'usuario': filters.usuario | default('asc') })) }}">usuario</a>
                 <p class="list-actions">
-                    <a class="asc {% if query and query.nombre == 'asc' %} active-sort{% endif %}" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'nombre': 'asc' })) }}">&#11014;</a>
-                    <a class="desc {% if query and query.nombre == 'desc' %} active-sort{% endif %}" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'nombre': 'desc' })) }}">&#11015;</a>
-                    <a class="remove" href="{{ path("LoogaresAdminBundle_lugares", query|merge({'nombre': '' })) }}">&#10006;</a>
+                    <a class="asc {% if query and query.usuario == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'usuario': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.usuario == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'usuario': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'usuario': '' })) }}">✖</a>
                 </p>
             </th>
             <th>
-                <a href="">Usuario</a>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'categoria': filters.categoria | default('asc') })) }}">categoria</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.categoria == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'categoria': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.categoria == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'categoria': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'categoria': '' })) }}">✖</a>
+                </p>
             </th>
-            <th>Categoria</th>
-            <th>Subcategoria</th>
-            <th>Direccion</th>
-            <th>Detalle</th>
-            <th>Pais</th>
-            <th>Ciudad</th>
-            <th>Comuna</th>
-            <th>Sector</th>
-            <th>★</th>
-            <th>✔</th>
-            <th>$</th>
-            <th>Ranking</th>
-            <th>Caracteristicas</th>
-            <th>www</th>
-            <th>Facebook</th>
-            <th>Twitter</th>
-            <th>Mail</th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'subcaterogia': filters.subcaterogia | default('asc') })) }}">subcaterogia</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.subcaterogia == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'subcaterogia': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.subcaterogia == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'subcaterogia': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'subcaterogia': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'direccion': filters.direccion | default('asc') })) }}">direccion</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.direccion == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'direccion': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.direccion == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'direccion': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'direccion': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'detalle': filters.detalle | default('asc') })) }}">detalle</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.detalle == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'detalle': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.detalle == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'detalle': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'detalle': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a ef="{{ path('LoogaresAdminBundle_lugares', query|merge({'pais': filters.pais | default('asc') })) }}">pais</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.pais == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'pais': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.pais == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'pais': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'pais': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'ciudad': filters.ciudad | default('asc') })) }}">ciudad</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.ciudad == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'ciudad': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.ciudad == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'ciudad': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'ciudad': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'comuna': filters.comuna | default('asc') })) }}">comuna</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.comuna == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'comuna': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.comuna == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'comuna': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'comuna': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'sector': filters.sector | default('asc') })) }}">sector</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.sector == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'sector': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.sector == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'sector': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'sector': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'estrellas': filters.estrellas | default('asc') })) }}">estrellas</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.estrellas == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'estrellas': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.estrellas == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'estrellas': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'estrellas': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'utiles': filters.utiles | default('asc') })) }}">utiles</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.utiles == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'utiles': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.utiles == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'utiles': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'utiles': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'precio': filters.precio | default('asc') })) }}">precio</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.precio == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'precio': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.precio == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'precio': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'precio': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'ranking': filters.ranking | default('asc') })) }}">ranking</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.ranking == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'ranking': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.ranking == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'ranking': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'ranking': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+              <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'caracteristica': filters.caracteristica | default('asc') })) }}">caracteristica</a>
+              <p class="list-actions">
+                <a class="asc {% if query and query.caracteristica == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'caracteristica': 'asc' })) }}">⬆</a>
+                <a class="desc {% if query and query.caracteristica == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'caracteristica': 'desc' })) }}">⬇</a>
+                <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'caracteristica': '' })) }}">✖</a>
+              </p>
+            </th>
+            <th>
+              <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'www': filters.www | default('asc') })) }}">www</a>
+              <p class="list-actions">
+                <a class="asc {% if query and query.www == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'www': 'asc' })) }}">⬆</a>
+                <a class="desc {% if query and query.www == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'www': 'desc' })) }}">⬇</a>
+                <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'www': '' })) }}">✖</a>
+              </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'facebook': filters.facebook | default('asc') })) }}">facebook</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.facebook == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'facebook': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.facebook == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'facebook': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'facebook': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'twitter': filters.twitter | default('asc') })) }}">twitter</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.twitter == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'twitter': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.twitter == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'twitter': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'twitter': '' })) }}">✖</a>
+                </p>
+            </th>
+            <th>
+                <a href="{{ path('LoogaresAdminBundle_lugares', query|merge({'mail': filters.mail | default('asc') })) }}">mail</a>
+                <p class="list-actions">
+                    <a class="asc {% if query and query.mail == 'asc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'mail': 'asc' })) }}">⬆</a>
+                    <a class="desc {% if query and query.mail == 'desc' %} active-sort{% endif %}" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'mail': 'desc' })) }}">⬇</a>
+                    <a class="remove" href="{{ path('LoogaresAdminBundle_lugares', query|merge({'mail': '' })) }}">✖</a>
+                </p>
+            </th>
             <th>Dueño</th>
             <th>Estado</th>
             <th>Tipo</th>
@@ -238,6 +252,4 @@
         </tbody>
     </table>
 </div>
-</div>
-</body>
-</html>
+{% endblock %}

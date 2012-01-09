@@ -2,13 +2,115 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{% block title %}Loogares.com{% endblock %}</title>
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-        <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
+        <title>{% block title %}Administrador Loogares.com{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+        <script src="{{asset('assets/js/jquery.fixheadertable.min.js')}}"></script>
+        <script>
+            $(function(){
+                $('table').tableScroll({height:500});
+            });
+        </script>
+        <style>
 
-        {% block style %}{% endblock %}
+        body{
+            font-family: Helvetica;
+            font-size: 12px;
+            text-shadow: 0 1px 0 #fff;
+        }
+
+            #wrapper{
+                width: 960px;
+                margin: 0 auto;
+            }
+            .table-data{
+                overflow:scroll;
+                position: relative;
+            }
+
+            table{
+                margin: 0;
+                padding: 0;
+                border-spacing: 0;
+                border: 1px #ccc solid;
+                border-right: none;
+                text-align: center;
+            }
+
+                th{
+                    border-bottom: 4px #ccc solid;
+                }
+
+
+                th, td{
+                    border-right: 1px solid #f0f0f0 ;
+                    padding: 5px;
+                    min-width: 40px;
+                }
+
+                th:first-child, td:first-child{
+                    min-width: 10px;
+                }
+
+                tr:nth-child(even){
+                    background: #f0f0f0;
+                }
+
+                .id{
+                    width: 50px;
+                }
+
+                .list-actions{
+                    margin: 0;
+                    font-size: 10px;
+                    font-weight: 100;
+                    display: inline-block;
+
+                }               
+                
+                    .list-actions span{
+                        margin: -2px;
+                        cursor: pointer;
+                        color: #ccc;
+                    } 
+
+                    .list-actions a, .list-actions a:visited{
+                        color: #ccc;
+                        margin: -2px;
+                        text-decoration: none;
+                    }
+
+                .active-sort, .list-actions a:active{
+                    color: #333 !important;
+                }
+
+                ul.paginacion{
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    margin-bottom: 10px;
+                    text-align: right;
+                    font-size: 12px;
+                }
+
+                    ul.paginacion li{
+                        display: inline-block;
+                        padding: 5px;
+                        background: #f0f0f0;
+                        -moz-border-radius: 4px;
+                        border-radius: 4px;
+                        width: 18px;
+                        text-align: center;
+                        box-shadow: inset 0 1px 0 #ccc;
+                    }
+
+                        ul.paginacion li.pagina-actual{
+                            font-weight: bold;
+                        }
+        </style>
     </head>
-    <body>
+<body>
+<div id="wrapper">
 
         <div class="contenedor">
             

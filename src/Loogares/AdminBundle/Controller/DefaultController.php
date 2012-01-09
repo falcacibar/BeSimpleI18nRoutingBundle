@@ -28,18 +28,38 @@ class DefaultController extends Controller
         $filters = array();
         $listadoFilters = array(
             'id' => 'lugares.id', 
-            'nombre' => 'lugares.nombre');
+            'nombre' => 'lugares.nombre',
+            'usuario' => 'usuarioMail',
+            'categoria' => 'categorias',
+            'subcaterogia' => 'subcategorias',
+            'direccion' => 'lugares.direccion',
+            'detalle' => 'lugares.detalle',
+            'pais' => 'paisNombre',
+            'ciudad' => 'ciudadNombre',
+            'comuna' => 'comunaNombre',
+            'sector' => 'sectorNombre',
+            'estrellas' => 'lugares.estrellas',
+            'utiles' => 'utiles',
+            'precio' => 'lugares.precio',
+            'ranking' => '',
+            'caracteristica' => 'caracteristicas',
+            'www' => 'lugares.sitio_web',
+            'facebook' => 'lugares.facebook',
+            'twitter' => 'lugares.twitter',
+            'mail' => 'lugares.mail'
+        );
 
         foreach($_GET as $column => $filter){
             if($filter == 'asc' || $filter == 'desc'){
                 if(!$order){
                     $order = "ORDER BY ".$listadoFilters[$column]." $filter";
                 }else{
-                    $order .= ", $column $filter";
+                    $order .= ", $listadoFilters[$column] $filter";
                 }
                 $filters[$column] = ($filter == 'asc')?'desc':'asc';
             }
         }
+
 
         foreach($listadoFilters as $key => $value){
             if(!isset($_GET[$key])){
@@ -48,7 +68,7 @@ class DefaultController extends Controller
         }
 
         $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-        $offset = floor($paginaActual*30);
+        $offset = ($paginaActual == 1)?0:floor($paginaActual*30);
 
         $ih8doctrine = $this->getDoctrine()->getConnection()
         ->fetchAll("SELECT lugares.*, 
