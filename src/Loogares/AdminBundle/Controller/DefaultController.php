@@ -13,8 +13,6 @@ class DefaultController extends Controller
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
-
-
         return $this->render('LoogaresAdminBundle:Admin:index.html.twig', array(
             'totalLugares' => $lr->getTotalLugares(),
             'totalUsuarios' => count($ur->findAll()),
@@ -162,6 +160,28 @@ class DefaultController extends Controller
         return $this->render('LoogaresAdminBundle:Admin:usuarios.html.twig', array(
             'usuarios' => $usuarios,
         ));
-            
+    }
+
+    public function lugaresAEditarAction(){
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $q = $em->createQuery("SELECT u
+                               FROM Loogares\LugarBundle\Entity\Lugar u
+                               WHERE u.id = (SELECT min(tl.lugar) FROM Loogares\AdminBundle\Entity\TempLugar tl)");
+        $lugaresResult = $q->getResult();
+
+        return $this->render('LoogaresAdminBundle:Admin:lugaresAEditar.html.twig',array(
+            'lugares' => $lugaresResult
+        ));        
+    }
+
+    public function revisionLugaresAction($slug){
+        $em = $this->getDoctrine()->getEntityManager();
+        $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
+
+        $lugares = $tlr->findBySlug($slug);
+        return $this->render('LoogaresAdminBundle:Admin:revisionLugar.html.twig', array(
+            'lugares' => $lugares
+        ));   
     }
 }
