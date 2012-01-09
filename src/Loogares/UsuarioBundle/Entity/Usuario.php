@@ -84,6 +84,11 @@ class Usuario implements AdvancedUserInterface, \Serializable
     private $fecha_nacimiento;
 
     /**
+     * @var boolean $mostrar_edad
+     */
+    private $mostrar_edad;
+
+    /**
      * @var datetime $fecha_registro
      */
     private $fecha_registro;
@@ -407,6 +412,26 @@ class Usuario implements AdvancedUserInterface, \Serializable
     public function getFechaNacimiento()
     {
         return $this->fecha_nacimiento;
+    }
+
+     /**
+     * Set mostrar_edad
+     *
+     * @param boolean $mostrarEdad
+     */
+    public function setMostrarEdad($mostrarEdad)
+    {
+        $this->mostrar_edad = $mostrarEdad;
+    }
+
+    /**
+     * Get mostrar_edad
+     *
+     * @return boolean 
+     */
+    public function getMostrarEdad()
+    {
+        return $this->mostrar_edad;
     }
 
     /**
@@ -821,5 +846,5 @@ class Usuario implements AdvancedUserInterface, \Serializable
             unlink($file);
         }
     }
-    
+
 }

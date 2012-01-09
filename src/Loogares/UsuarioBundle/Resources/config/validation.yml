@@ -3,6 +3,9 @@ Loogares\UsuarioBundle\Entity\Usuario:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: 'mail'
             message: "La dirección de E-mail está repetida. Por favor, prueba con otra."
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: 'slug'
+            message: "El nombre de usuario está repetido. Por favor, prueba con otro."
     properties:
         mail:
             - NotBlank:

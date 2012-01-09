@@ -42,4 +42,35 @@ foreach($data as $entry){
 
 echo $i;
 $DBH->exec("SET FOREIGN_KEY_CHECKS = 1");
+
+
+$data = array();
+
+$data[] = array(
+        'id' => '1',
+        'nombre' => 'Chile',
+        'slug' => 'chile',
+        'mapa' => '',
+        'codigo_area' => '+56',
+        'mostrar_lugar' => '1'
+);
+
+$i = 0;
+foreach($data as $entry){
+    $sql = null;
+    foreach($entry as $key => $value){
+        $sql .= '"'.$value.'", ';
+    }
+    $sql =  substr($sql, 0, -2);
+    $sql = "INSERT INTO pais values(" . $sql . ");";
+    //echo $sql;
+    if(!$DBH->exec($sql)){
+        $i++;
+        echo "$sql </br>";
+    }
+}
+
+echo "<br />".$i;
+$DBH->exec("SET FOREIGN_KEY_CHECKS = 1");
+
 ?>

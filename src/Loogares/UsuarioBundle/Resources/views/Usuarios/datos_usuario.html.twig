@@ -8,14 +8,11 @@
 
 	<ul>
 		<li>{{usuario.nombre}} {{usuario.apellido}}</li>
-		{% if usuario.sexoResult != '' or usuario.edadResult != '0' %}
-			<li>
-				{% if usuario.sexoResult != '' %}
-					{{usuario.sexoResult}}{% endif %}{% if usuario.edadResult != '0'%}, {{usuario.edadResult}} años
-				{% endif %}
-			</li>				
-		{% endif %}
+		<li>
+			{{ usuario.edadSexo|join(', ') }}
+		</li>
 	</ul>
+	
 
 	<ul class="bold">
 		<li>{{usuario.totalRecomendaciones}} recomendaciones</li>
