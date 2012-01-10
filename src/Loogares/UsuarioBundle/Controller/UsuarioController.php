@@ -73,9 +73,12 @@ class UsuarioController extends Controller
         
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
         $offset = ($pagina - 1) * 10;
+        //$offset = ($pagina == 1)?0:floor($pagina*10);
+
         $recomendaciones = $ur->getUsuarioRecomendaciones($usuarioResult->getId(), $orderBy, $offset);
-        //echo count($recomendaciones);
-        //echo $offset;
+        
+        $fn = $this->get('fn');
+        $paginacion = $fn->paginacion(sizeOf($recomendaciones), 10, $pagina, $offset, 5, "LoogaresAdminBundle_lugares");
         
         $data = $ur->getDatosUsuario($usuarioResult, $orderBy);
         $data->tipo = 'recomendaciones';
@@ -87,7 +90,7 @@ class UsuarioController extends Controller
 
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
-        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
+        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data, 'paginacion' => $paginacion,'query' => array()));  
     }
 
     public function fotosAction($param) {
@@ -201,10 +204,10 @@ class UsuarioController extends Controller
                 $em->flush();
 
                 /* Manejo de suscripción a Mailchimp */
-                //$mc = $this->get('mail_chimp.client');
-                /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
+                /*$mc = $this->get('mail_chimp.client');
+                $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
                 echo "respuesta";
-                $mcId = 0;
+                /*$mcId = 0;
 
                 if (!$mc->errorCode){
                     if(!empty($mcInfo['success'])){

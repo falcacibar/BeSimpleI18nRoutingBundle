@@ -3,6 +3,7 @@
 namespace Loogares\LugarBundle\Entity;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -294,9 +295,12 @@ class ImagenLugar
         if ($this->firstImg  === null) {
             return;
         }
-        //echo $this->getImagenFull().$this->id.'.jpg';
-        //$this->setImagenFull($this->getImagenFull().$this->id.'.jpg');//.$this->file->guessExtension());
-        $this->firstImg->move($this->getUploadRootDir(), $this->imagen_full);
+        try {
+            $this->firstImg->move($this->getUploadRootDir(), $this->imagen_full);
+        }
+        catch(FileException $e) {
+            rename($this->firstImg->getPathname(),$this->getAbsolutePath());
+        }
         unset($this->firstImg);
     }
 

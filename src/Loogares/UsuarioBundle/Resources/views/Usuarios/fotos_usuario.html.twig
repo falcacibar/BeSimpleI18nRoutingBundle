@@ -44,7 +44,7 @@
 
 					<li>
 						<a href="{{path('_lugar', {'slug' : imagen.lugar.slug})}}">
-							<img src="{{asset('assets/images/lugares/'~imagen.imagenFull)}}" />
+							<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('small_lugar') }}" />
 						</a>
 
 						<h4>

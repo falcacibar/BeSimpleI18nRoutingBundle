@@ -185,7 +185,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
 
         //Total de fotos de lugares agregadas por el usuario
         $totalImagenesLugar = $this->getTotalFotosLugaresAgregadasUsuario($usuario->getId());
-
+        
         //Cálculo de edad
         if($usuario->getFechaNacimiento() != null) {
             $birthday = $usuario->getFechaNacimiento()->format('d-m-Y');

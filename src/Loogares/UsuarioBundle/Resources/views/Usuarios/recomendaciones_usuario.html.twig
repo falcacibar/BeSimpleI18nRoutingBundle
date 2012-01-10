@@ -57,7 +57,7 @@
 			
 		{% endfor %}
 	</table>
-
+	{% include '::paginacion.html.twig'%}
 	{% if usuario.totalPaginas > 1 %}
 		<div class="paginacion">
 			<span>{{usuario.offset + 1}} al {{usuario.offset + i}} de {{usuario.totalRecomendaciones}} | Ir a la página:</span>

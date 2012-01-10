@@ -31,18 +31,18 @@
 						{{form_widget(form.firstImg)}}
 					</li>
 						
-					<li class="opcional" data-placeholder="second">
+					<li class="opcional" data-placeholder="secondFile">
 						<label></label>
 						{{form_widget(form.secondImg)}}
 						<a href="" class="quitar">Quitar</a>
 					</li>
 
-					<li class="opcional" data-placeholder="third">
+					<li class="opcional" data-placeholder="thirdFile">
 						<label></label>
 						{{form_widget(form.thirdImg)}}
 						<a href="" class="quitar">Quitar</a>
 					</li>
-					<li class="agregar-file">
+					<li id="agregar-file">
 						<label></label>
 						<a href="">Agregar otra foto</a>
 					</li>				
@@ -52,6 +52,29 @@
 					<li>
 						<label></label>
 						<strong>Cargar fotos desde un sitio web</strong>
+					</li>
+
+
+					<li>
+						<label>Dirección (URL)</label>
+						<input type="text" name="urls[]" />
+					</li>
+
+					<li id="secondURL" class="opcional">
+						<label></label>
+						<input type="text" name="urls[]" />
+						<a href="" class="quitar">Quitar</a>
+					</li>
+
+					<li id="thirdURL" class="opcional">
+						<label></label>
+						<input type="text" name="urls[]" />
+						<a href="" class="quitar">Quitar</a>
+					</li>
+
+					<li id="agregar-url">
+						<label></label>
+						<a href="">Agregar otra URL</a>
 					</li>
 
 					{{form_rest(form)}}
@@ -72,8 +95,9 @@
 	<script type="text/javascript">
 		$(function(){
 			actualizarAgregarMasFotos(1);
+			actualizarAgregarMasURLs(1);
 
-			$('.agregar-file a').click(function(e){
+			$('#agregar-file a').click(function(e){
 				e.preventDefault();
 				if($('#form_secondImg').parent().css('display') == 'none') {
 					$('#form_secondImg').parent().fadeIn();
@@ -87,18 +111,44 @@
 				}
 			});
 
+			$('#agregar-url a').click(function(e){
+				e.preventDefault();
+				if($('#secondURL').css('display') == 'none') {
+					$('#secondURL').fadeIn();
+					$('#secondURL').css('display','list-item');
+					actualizarAgregarMasURLs(1);
+				}
+				else if($('#thirdURL').css('display') == 'none') {
+					$('#thirdURL').fadeIn();
+					$('#thirdURL').css('display','list-item');
+					actualizarAgregarMasURLs(1);
+				}
+			});
+
 			$('.quitar').click(function(e){
 				e.preventDefault();
-				if($(this).parent().attr('data-placeholder') == 'second') {					
+				if($(this).parent().attr('data-placeholder') == 'secondFile') {					
 					$(this).parent().fadeOut('fast',function(){
 						$(this).css('display','none');
 						actualizarAgregarMasFotos(0);
 					});
 				}
-				else if($(this).parent().attr('data-placeholder') == 'third') {
+				else if($(this).parent().attr('data-placeholder') == 'thirdFile') {
 					$(this).parent().fadeOut('fast',function(){
 						$(this).css('display','none');
 						actualizarAgregarMasFotos(0);
+					});
+				}
+				else if($(this).parent().attr('id') == 'secondURL') {
+					$(this).parent().fadeOut('fast',function(){
+						$(this).css('display','none');
+						actualizarAgregarMasURLs(0);
+					});
+				}
+				else if($(this).parent().attr('id') == 'thirdURL') {
+					$(this).parent().fadeOut('fast',function(){
+						$(this).css('display','none');
+						actualizarAgregarMasURLs(0);
 					});
 				}
 			});
@@ -112,13 +162,32 @@
 
 				if(mas) {
 					if(i >= 1)
-						$('.agregar-file a').html('Agregar otra foto (Máx. '+i+')');
+						$('#agregar-file a').html('Agregar otra foto (Máx. '+i+')');
 					else
-						$('.agregar-file a').fadeOut('fast');
+						$('#agregar-file a').fadeOut('fast');
 				}
 				else {
-					$('.agregar-file a').html('Agregar otra foto (Máx. '+i+')');
-					$('.agregar-file a').fadeIn('fast');
+					$('#agregar-file a').html('Agregar otra foto (Máx. '+i+')');
+					$('#agregar-file a').fadeIn('fast');
+				}
+			}
+
+			function actualizarAgregarMasURLs(mas) {
+				i = 0;
+				$('ul li input[type=text]').each(function(){
+					if($(this).parent().css('display') == 'none')
+						i++;
+				});
+
+				if(mas) {
+					if(i >= 1)
+						$('#agregar-url a').html('Agregar otra URL (Máx. '+i+')');
+					else
+						$('#agregar-url a').fadeOut('fast');
+				}
+				else {
+					$('#agregar-url a').html('Agregar otra URL (Máx. '+i+')');
+					$('#agregar-url a').fadeIn('fast');
 				}
 			}
 		});
