@@ -3,6 +3,18 @@
 <div class="fotos_usuario">
 	<h1>Mis Fotos ({{usuario.totalImagenesLugar}})</h1>
 
+	{% if app.session.hasFlash('edicion-foto-lugar') %}
+		    <div class="flash-notice">
+		        {{ app.session.flash('edicion-foto-lugar') }}
+		    </div>
+	{% endif %}
+
+	{% if app.session.hasFlash('eliminar-foto-lugar') %}
+		    <div class="flash-notice">
+		        {{ app.session.flash('eliminar-foto-lugar') }}
+		    </div>
+	{% endif %}
+
 	<ul class="orden">
 		<li class="bold">Ordenar por:</li>		
 		<li>
@@ -46,7 +58,7 @@
 						<br />
 						{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
 							<a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">Edita tu foto</a> <br />
-							<a href="#">Borra tu foto</a>
+							<a href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">Borra tu foto</a>
 						{% endif %}
 
 					</li>
@@ -73,3 +85,12 @@
 	{% endif %}
 
 </div>
+
+{% block javascripts %}
+	<script type="text/javascript">
+		$('.borrar-foto-lugar').click(function(){
+			if(!confirm('¿Estás seguro de querer borrar tu foto?'))
+				return false;
+		});
+	</script>
+{% endblock %}

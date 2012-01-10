@@ -118,12 +118,14 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         $q = $em->createQuery("SELECT im, l
                                FROM Loogares\LugarBundle\Entity\ImagenLugar im 
                                LEFT JOIN im.lugar l
-                               WHERE im.usuario = ?1 "
+                               WHERE im.usuario = ?1 
+                               AND im.estado != ?2 "
                                .$orden)
                 ->setMaxResults(15)
                 ->setFirstResult($offset);
 
         $q->setParameter(1, $id);
+        $q->setParameter(2, 3);
         return $q->getResult();
   	}
 
@@ -133,8 +135,10 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         //Query para obtener el total de fotos de lugares agregadas por el usuario
         $q = $em->createQuery("SELECT COUNT(im)
                                FROM Loogares\LugarBundle\Entity\ImagenLugar im
-                               WHERE im.usuario = ?1");
+                               WHERE im.usuario = ?1
+                               AND im.estado != ?2");
         $q->setParameter(1, $id);
+        $q->setParameter(2, 3);
         return $q->getSingleScalarResult();
     }
 
