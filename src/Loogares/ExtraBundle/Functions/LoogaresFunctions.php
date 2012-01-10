@@ -4,6 +4,18 @@ namespace Loogares\ExtraBundle\Functions;
 
 class LoogaresFunctions
 {
+
+    public function paginacion($total, $pp, $paginaActual, $offset,  $alrededor = null, $path){
+        return array(
+            'totalPaginas' => $totalPaginas = floor($total / $pp),
+            'paginaActual' => $paginaActual,
+            'mostrarDesde' => $paginaActual - $alrededor,
+            'mostrarHasta' => $paginaActual + $alrededor,
+            'offset'       => $offset,
+            'path' => $path
+        );
+    }
+
 	public function generarSlug($string)
 	{
 		// Estandarizamos caracteres de $string	 

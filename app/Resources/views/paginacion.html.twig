@@ -1,0 +1,31 @@
+{% for i in range(paginacion.mostrarDesde, paginacion.mostrarHasta) %}
+    {% if loop.first %}
+        <li><a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': 1 })) }}">&#8676;</a></li>
+        <li>
+            {% if paginacion.paginaActual != 1 %}
+                <a href="{{ path(paginacion.path, query|merge({'pagina': paginacion.paginaActual - 1 })) }}">&larr;</a>
+            {% else %}
+                &larr;
+            {% endif %}
+        </li>
+    {% endif %}    
+
+    {% if i == paginacion.paginaActual %}
+        <li class="pagina-actual">{{i}}</li>
+    {% elseif i <= 0 or i > paginacion.totalPaginas %}
+         <li>--</li>
+    {% else %}
+        <li><a href="{{ path(paginacion.path, query|merge({'pagina': i })) }}">{{i}}</a></li>
+    {% endif %}
+
+    {% if loop.last %}
+        <li>
+            {% if paginacion.paginaActual != paginacion.totalPaginas %}
+                <a href="{{ path(paginacion.path, query|merge({'pagina':paginacion. paginaActual + 1 })) }}">&rarr;</a>
+            {% else %}
+                &rarr;
+            {% endif %}
+        </li>
+        <li><a href="{{ path(paginacion.path, query|merge({'pagina': paginacion.totalPaginas })) }}">&#8677;</a></li>
+    {% endif %}
+{% endfor %}

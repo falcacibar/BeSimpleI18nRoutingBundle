@@ -3,41 +3,9 @@
 {% block title %}Lugares | {{parent()}}{% endblock %}
 
 {% block content %}
-{%for i in query%}
-    
-{% endfor %}
+
 <ul class="paginacion">
-{% for i in range(mostrarDesde, mostrarHasta) %}
-    {% if loop.first %}
-        <li><a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': 1 })) }}">&#8676;</a></li>
-        <li>
-            {% if paginaActual != 1 %}
-                <a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': paginaActual - 1 })) }}">&larr;</a>
-            {% else %}
-                &larr;
-            {% endif %}
-        </li>
-    {% endif %}    
-
-    {% if i == paginaActual %}
-        <li class="pagina-actual">{{i}}</li>
-    {% elseif i <= 0 or i > totalPaginas %}
-         <li>--</li>
-    {% else %}
-        <li><a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': i })) }}">{{i}}</a></li>
-    {% endif %}
-
-    {% if loop.last %}
-        <li>
-            {% if paginaActual != totalPaginas %}
-                <a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': paginaActual + 1 })) }}">&rarr;</a>
-            {% else %}
-                &rarr;
-            {% endif %}
-        </li>
-        <li><a href="{{ path("LoogaresAdminBundle_lugares", query|merge({'pagina': totalPaginas })) }}">&#8677;</a></li>
-    {% endif %}
-{% endfor %}
+{% include "::paginacion.html.twig" %}
 </ul>
 
 <div class="table-data">

@@ -135,20 +135,16 @@ class DefaultController extends Controller
             $ih8doctrine[$i]['subcategorias'] = explode(',', $ih8doctrine[$i]['subcategorias']);
         }
 
-       
         $lugares = $ih8doctrine;
-        $paginas = floor(($lr->getTotalLugares() / 30));
-        $mostrarDesde = $paginaActual-5;
-        $mostrarHasta = $paginaActual+5;
+
+        $fn = $this->get('fn');
+        $paginacion = $fn->paginacion($lr->getTotalLugares(), 30, $paginaActual, $offset, 5, "LoogaresAdminBundle_lugares");
 
         return $this->render('LoogaresAdminBundle:Admin:lugares.html.twig', array(
             'lugares' => $ih8doctrine, 
             'filters' => $filters,
             'query' => $_GET,
-            'totalPaginas' => $paginas,
-            'paginaActual' => $paginaActual,
-            'mostrarDesde' => $mostrarDesde,
-            'mostrarHasta' => $mostrarHasta
+            'paginacion' => $paginacion
         ));
     }
 
