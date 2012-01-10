@@ -20,8 +20,36 @@
             display: block;
             float:left;
             margin-top: 5px;
+            margin-left: 110px;
         }
 
+        .comparacion-color0{
+            background: beige;
+        }
+
+        .comparacion-color1{
+            background: cyan;
+        }
+
+        .comparacion-color2{
+            background: aliceblue;
+        }
+
+        .comparacion-color3{
+            background: papayawhip;
+        }
+
+        .comparacion-color4{
+            background: bisque;
+        }
+
+        .comparacion-color5{
+            background: lavender;
+        }
+
+        .comparacion-color6{
+            background: lightblue;
+        }
     </style>
 {% endblock %}
 
@@ -160,7 +188,13 @@
         <label>Nombre *</label>
         <input type="text" value="{{lugar.nombre}}" title="Ingresa el nombre del lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
         <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
-        {% if lugarTemp.nombre is defined %}<div class="comparacion">El Usuario Sugirio {{lugarTemp.nombre}}</div>{% endif %}
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.nombre != lugarRevisado.nombre %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.nombre}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li class="categoria-container">
         <label>Categorías *</label>
@@ -177,6 +211,13 @@
             {% endfor %}
         </select>
         <span></span>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                    {{lugarRevisado.categoriaLugar[0].categoria.nombre}}
+                </div>
+            {% endfor %}
+        {% endif %}
         <div class='subcategorias'>
             <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
             <ul class="alinear_subcategorias">
@@ -190,6 +231,17 @@
                 {% endfor %}
             </ul>
         </div>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                    {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
+                        {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[0].categoria.id %}
+                            {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endif %}
     </li>
     <li class="no-default categoria-container">
         <label>Categorías</label>
@@ -205,6 +257,13 @@
                 </optgroup>
             {% endfor %}
         </select>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                    {{lugarRevisado.categoriaLugar[1].categoria.nombre}}
+                </div>
+            {% endfor %}
+        {% endif %}
         <span class="quitar_info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
             <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
@@ -219,6 +278,17 @@
                 {% endfor %}
             </ul>
         </div>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                    {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
+                        {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[1].categoria.id %}
+                            {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endif %}
     </li>
     <li class="no-default categoria-container">
         <label>Categorías</label>
@@ -234,6 +304,13 @@
                 </optgroup>
             {% endfor %}
         </select>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                    {{lugarRevisado.categoriaLugar[2].categoria.nombre}}
+                </div>
+            {% endfor %}
+        {% endif %}
         <span class="quitar_info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
             <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
@@ -248,6 +325,17 @@
                 {% endfor %}
             </ul>
         </div>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                    {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
+                        {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[2].categoria.id %}
+                            {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endif %}
     </li>
     <li>        
         <span class="agregar_info"><a class="display-more-info" rel="categoria" href="">» Agrega una categoría secundaria (Máx. 
@@ -260,6 +348,13 @@
             <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
         {% endfor %}
         </select>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.sector.ciudad.pais.id != lugarRevisado.sector.ciudad.pais.id %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.ciudad.pais.nombre}} </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <label>Ciudad *</label>
@@ -272,6 +367,13 @@
             </optgroup>
         {% endfor %}
         </select>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.sector.ciudad.id != lugarRevisado.sector.ciudad.id %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.ciudad.nombre}} </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <label>Comuna *</label>
@@ -287,12 +389,26 @@
             </optgroup>
         {% endfor %}
         </select>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.comuna.id != lugarRevisado.comuna.id %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.comuna.nombre}} </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <label>Calle *</label>
         <input type="text" value="{{lugar.calle}}" name="form[calle]" title="Ingresa la calle del lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
         <label class="label_numero">Nº *</label>
         <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="Ingresa el número del lugar" id="form_numero" placeholder="Ej. 1949 o s/n"/>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.calle != lugarRevisado.calle or lugar.numero != lugarRevisado.numero %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.calle}} - {{lugarRevisado.numero}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>     
         <span class="agregar_info"><a class="display-next-li" href="">» ¿Es parte de una galería o centro comercial?</a></span>
@@ -302,6 +418,13 @@
         <label>Detalle</label>
         <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="Ej. A, Local 45, Piso 9, Centro Comercial Matta"/>
         <span class="quitar_info"><a class="quitar" href="">Quitar</a></span>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.detalle != lugarRevisado.detalle %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.detalle}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <span class="agregar_info"><a class="cargar_mapa" href="">Cargar mapa</a></span>
@@ -321,23 +444,51 @@
             </optgroup>
         {% endfor %}
         </select>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.sector.id != lugarRevisado.sector.id %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.nombre}} </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <label>Teléfono</label>
         <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
         <input type="text" value="{{lugar.tel1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. 2 2130894"/>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.tel1 != lugarRevisado.telefono1 %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono1}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li class="no-default">
         <label>Teléfono</label>
         <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
         <input type="text" value="{{lugar.tel2}}" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="Ej. 2 2130894"/>
         <span class="quitar_info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.tel2 != lugarRevisado.telefono2 %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono2}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li class="no-default">
         <label>Teléfono</label>
         <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
         <input type="text" value="{{lugar.tel3}}" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="Ej. 2 2130894"/>
         <span class="quitar_info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.tel3 != lugarRevisado.telefono3 %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono3}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <span class="agregar_info"><a class="display-more-info" rel="telefono" href="">» ¿Más teléfonos? (Máx.
@@ -354,18 +505,46 @@
     <li>
         <label>Sitio Web</label>
         <input type="text" value="{{lugar.sitioWeb}}" name="form[sitio_web]" id="form_sitio_web" placeholder="Ej. http://www.bareltufo.cl"/>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.sitioWeb != lugarRevisado.sitioWeb %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sitioWeb}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <label>Facebook</label>
         <input type="text" value="{{lugar.facebook}}" name="form[facebook]" id="form_facebook" placeholder="Ej. http://www.facebook.com/pages/bareltufo"/>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.facebook != lugarRevisado.facebook %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.facebook}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <label>Twitter</label>
         <input type="text" value="{{lugar.twitter}}" name="form[twitter]" id="form_twitter" placeholder="Ej. http://www.twitter.com/barelfuto"/>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.twitter != lugarRevisado.twitter %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.twitter}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <label>E-mail</label>
         <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="Ej. usuario@loogares.com"/>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.mail != lugarRevisado.mail %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.mail}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}    
     </li>
     <li>
         <label>Horario</label>
@@ -591,18 +770,46 @@
     <li class="no-default">
         <label>Profesional</label>
         <input type="text" value="{{lugar.profesional}}" name="form[profesional]" id="form_profesional" placeholder="Ej. Nombre del Arquitecto, Paisajista, etc"/>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.profesional != lugarRevisado.profesional %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.profesional}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li class="no-default">
         <label>Año de Construcción</label>
         <input type="text" value="{{lugar.agnoConstruccion}}" name="form[agno_construccion]" id="form_agno_construccion" placeholder="Ej. 1985, Siglo XX"/>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.agnoConstruccion != lugarRevisado.agnoConstruccion %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.agnoConstruccion}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li class="no-default">
         <label>Descripción</label>
         <textarea name="form[descripcion]" id="form_descripcion" placeholder="Ej. Breve descripción del lugar"> {{lugar.descripcion}}</textarea>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.descripcion != lugarRevisado.descripcion %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.descripcion}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </li>
     <li class="no-default">
         <label>Materiales</label>
         <input type="text" value="{{lugar.materiales}}" name="form[materiales]" id="form_materiales" placeholder="Ej. Cobre, Granito, etc"/>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                {% if lugar.materiales != lugarRevisado.materiales %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.materiales}}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}    
     </li>
     <li class="no-default">
         <div class="caracteristicas">
@@ -618,6 +825,15 @@
                 {% endfor %}
             </ul>
         </div>
+        {% if lugaresRevisados is defined %}
+            {% for lugarRevisado in lugaresRevisados %}
+                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                    {% for caracteristicaLugar in lugarRevisado.caracteristicaLugar %}
+                            {{ caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endif %}
     </li>
     <li>
         <input type="hidden" class="mapx" value="{{lugar.mapx}}" name="form[mapx]" id="form_mapx"/>

@@ -12,4 +12,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class TempLugarRepository extends EntityRepository
 {
+
+    public function getTotalLugares(){
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT count(distinct u.lugar) FROM Loogares\AdminBundle\Entity\TempLugar u");
+        
+        $totalLugaresResult = $q->getSingleScalarResult();
+
+        return $totalLugaresResult;
+    }
+
+    public function getRevisionesPendientes($id){
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT count(distinct u.lugar) FROM Loogares\AdminBundle\Entity\TempLugar u where u.lugar = ?1");
+        $q->setParameter(1, $id);
+        $revisionesPendientesResult = $q->getSingleScalarResult();
+
+        return $revisionesPendientesResult;
+    }
 }

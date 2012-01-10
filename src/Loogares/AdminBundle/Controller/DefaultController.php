@@ -12,10 +12,11 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
 
         return $this->render('LoogaresAdminBundle:Admin:index.html.twig', array(
             'totalLugares' => $lr->getTotalLugares(),
-            'totalUsuarios' => count($ur->findAll()),
+            'totalPorRevision' => $tlr->getTotalLugares()
         ));
     }   
 
@@ -170,7 +171,7 @@ class DefaultController extends Controller
                                WHERE u.id = (SELECT min(tl.lugar) FROM Loogares\AdminBundle\Entity\TempLugar tl)");
         $lugaresResult = $q->getResult();
 
-        return $this->render('LoogaresAdminBundle:Admin:lugaresAEditar.html.twig',array(
+        return $this->render('LoogaresAdminBundle:Admin:listadoRevision.html.twig',array(
             'lugares' => $lugaresResult
         ));        
     }
@@ -182,6 +183,6 @@ class DefaultController extends Controller
         $lugares = $tlr->findBySlug($slug);
         return $this->render('LoogaresAdminBundle:Admin:revisionLugar.html.twig', array(
             'lugares' => $lugares
-        ));   
+        ));
     }
 }

@@ -158,44 +158,67 @@ class LugarController extends Controller{
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET));            
     }
     
-    public function agregarAction(Request $request, $slug = null){
+    public function agregarAction(Request $request, $slug = null, $id = null, $isAdmin = null){
+
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $errors = array();
-        $camposExtraErrors = false;
         $formErrors = array();
+        $lugaresRevisados = array();
+        $camposExtraErrors = false;
         $esEdicion = false;
 
-        if($slug){
-            $lugar = new TempLugar();
-            $esEdicion = true;
-            $lugarOriginal = $lr->findOneBySlug($slug);
+        if($slug && $isAdmin == null){
+            $lugarManipulado = new TempLugar();
+            $esEdicionDeUsuario = true;
+            $lugar = $lr->findOneBySlug($slug);
+        }else if($slug && $isAdmin){
+            $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
+            $lugarManipulado = $lr->findOneBySlug($slug);
+            $lugaresRevisados = $tlr->findByLugar($lugarManipulado->getId());
         }else{
-            $lugar = new Lugar();
+            $lugarManipulado = new Lugar();
         }
        
-        $form = $this->createFormBuilder($lugar)
-             ->add('nombre', 'text')
-             ->add('calle', 'text')
-             ->add('slug', 'hidden')
-             ->add('numero', 'text')
-             ->add('descripcion', 'text')
-             ->add('detalle', 'text')
-             ->add('telefono1', 'text')
-             ->add('telefono2', 'text')
-             ->add('telefono3', 'text')
-             ->add('sitio_web', 'text')
-             ->add('facebook', 'text')
-             ->add('twitter', 'text')
-             ->add('mail', 'text')
-             ->add('mapx', 'text')
-             ->add('mapy', 'text')
-             ->add('precio', 'hidden')
-             ->add('profesional', 'text')
-             ->add('agno_construccion', 'text')
-             ->add('materiales', 'text')
-             ->add('_token', 'csrf')
-             ->getForm();
+        if($slug && $isAdmin == false){ //Proceso de parseo de datos de lugar existente, SOLO LECTURA/OUTPUT
+            //Sacar +56 de los telefonos
+            $lugar->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
+            $lugar->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono2());
+            $lugar->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono3());
+        }else if($slug && $isAdmin == true){
+            $lugarManipulado->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarManipulado->getTelefono1());
+            $lugarManipulado->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarManipulado->getTelefono2());
+            $lugarManipulado->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarManipulado->getTelefono3());
+        }else{ //Proceso de parseo de datos de lugar existente, SOLO LECTURA/OUTPUT
+            //Sacar +56 de los telefonos
+            $lugarManipulado->tel1 = '';
+            $lugarManipulado->tel2 = '';
+            $lugarManipulado->tel3 = '';
+        }
+
+
+        $form = $this->createFormBuilder($lugarManipulado)
+            ->add('nombre', 'text')
+            ->add('calle', 'text')
+            ->add('slug', 'hidden')
+            ->add('numero', 'text')
+            ->add('descripcion', 'text')
+            ->add('detalle', 'text')
+            ->add('telefono1', 'text')
+            ->add('telefono2', 'text')
+            ->add('telefono3', 'text')
+            ->add('sitio_web', 'text')
+            ->add('facebook', 'text')
+            ->add('twitter', 'text')
+            ->add('mail', 'text')
+            ->add('mapx', 'text')
+            ->add('mapy', 'text')
+            ->add('precio', 'hidden')
+            ->add('profesional', 'text')
+            ->add('agno_construccion', 'text')
+            ->add('materiales', 'text')
+            ->add('_token', 'csrf')
+            ->getForm();
    
         if ($request->getMethod() == 'POST') {
 
@@ -204,12 +227,11 @@ class LugarController extends Controller{
             if($form->isValid() && $camposExtraErrors == false){
                 $fn = $this->get('fn');
                                 
-
-                if($esEdicion == true){
-                    $lugar->setLugar($lugarOriginal);
+                if($esEdicionDeUsuario == true){
+                    $lugarManipulado->setLugar($lugar);
                 }
 
-                $lugar->setUsuario($this->get('security.context')->getToken()->getUser());
+                $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
 
                 $comuna = $lr->getComunas($_POST['comuna']);  
                 $sector = $lr->getSectores($_POST['sector']);
@@ -217,37 +239,36 @@ class LugarController extends Controller{
                 $estado = $lr->getEstado(1);
                 $tipo_lugar = $lr->getTipoLugar('lugar');
 
-                $lugar->setComuna($comuna[0]);
-                $lugar->setSector($sector[0]);
+                $lugarManipulado->setComuna($comuna[0]);
+                $lugarManipulado->setSector($sector[0]);
 
 
-                $lugar->setEstado($estado[0]);
-                $lugar->setTipoLugar($tipo_lugar[0]);
+                $lugarManipulado->setEstado($estado[0]);
+                $lugarManipulado->setTipoLugar($tipo_lugar[0]);
 
                 //Sacamos los HTTP
-                $lugar->setSitioWeb($fn->stripHTTP($lugar->getSitioWeb()));
-                $lugar->setTwitter($fn->stripHTTP($lugar->getTwitter()));
-                $lugar->setFacebook($fn->stripHTTP($lugar->getFacebook()));
+                $lugarManipulado->setSitioWeb($fn->stripHTTP($lugarManipulado->getSitioWeb()));
+                $lugarManipulado->setTwitter($fn->stripHTTP($lugarManipulado->getTwitter()));
+                $lugarManipulado->setFacebook($fn->stripHTTP($lugarManipulado->getFacebook()));
 
-                $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugar->getNombre());
+                $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugarManipulado->getNombre());
                 
-                $lugar->setFechaAgregado(new \DateTime());
+                $lugarManipulado->setFechaAgregado(new \DateTime());
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
-                    $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'].(sizeOf($lugaresConElMismoNombre)+1);
+                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'].(sizeOf($lugaresConElMismoNombre)+1);
                 }else{
-                    $lugarSlug = $fn->generarSlug($lugar->getNombre()) . "-" . $_POST['ciudad'];
+                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'];
                 }
 
-                $lugar->setSlug($lugarSlug);
-
+                $lugarManipulado->setSlug($lugarSlug);
                 
-                $em->persist($lugar);
+                $em->persist($lugarManipulado);
 
-                $lr->cleanUp($lugar->getId());
+                $lr->cleanUp($lugarManipulado->getId());
 
                 foreach($_POST['categoria'] as $postCategoria){
-                    if($esEdicion == true){
+                    if($esEdicionDeUsuario == true){
                         $categoriaLugar[] = new TempCategoriaLugar();
                     }else{
                         $categoriaLugar[] = new CategoriaLugar();
@@ -270,7 +291,7 @@ class LugarController extends Controller{
 
                 if(isset($_POST['caracteristica']) && is_array($_POST['caracteristica'])){
                     foreach($_POST['caracteristica'] as $postCaracteristica){
-                        if($esEdicion == true){
+                        if($esEdicionDeUsuario == true){
                             $caracteristicaLugar[] = new TempCaracteristicaLugar();
                         }else{
                             $caracteristicaLugar[] = new CaracteristicaLugar();  
@@ -278,7 +299,7 @@ class LugarController extends Controller{
                         $size = sizeOf($caracteristicaLugar) - 1;
                         $caracteristica = $lr->getCaracteristicaPorNombre($postCaracteristica);
                         if($caracteristica){
-                            $caracteristicaLugar[$size]->setLugar($lugar);
+                            $caracteristicaLugar[$size]->setLugar($lugarManipulado);
                             $caracteristicaLugar[$size]->setCaracteristica($caracteristica[0]);
                             $em->persist($caracteristicaLugar[$size]);
                         }
@@ -287,7 +308,7 @@ class LugarController extends Controller{
 
                 if(isset($_POST['subcategoria']) && is_array($_POST['subcategoria'])){
                     foreach($_POST['subcategoria'] as $postSubCategoria){
-                        if($esEdicion == true){
+                        if($esEdicionDeUsuario == true){
                             $subCategoriaLugar[] = new TempSubcategoriaLugar();
                         }else{
                             $subCategoriaLugar[] = new SubcategoriaLugar();
@@ -295,7 +316,7 @@ class LugarController extends Controller{
                         $size = sizeOf($subCategoriaLugar) - 1;
                         $subCategoria = $lr->getSubCategoriaPorNombre($postSubCategoria);
                         if($subCategoria){
-                            $subCategoriaLugar[$size]->setLugar($lugar);
+                            $subCategoriaLugar[$size]->setLugar($lugarManipulado);
                             $subCategoriaLugar[$size]->setSubCategoria($subCategoria[0]);
                             $em->persist($subCategoriaLugar[$size]);
                         }
@@ -305,7 +326,7 @@ class LugarController extends Controller{
                 $dias = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo');
 
                 foreach($dias as $key => $value){
-                    if($esEdicion == true){
+                    if($esEdicionDeUsuario == true){
                         $horario[] = new TempHorario();    
                     }else{
                         $horario[] = new Horario(); 
@@ -314,7 +335,7 @@ class LugarController extends Controller{
                     if(isset($_POST['horario-'.$value])){
                         $postHorario = $_POST['horario-'.$value];
                         if($postHorario[0] != 'cerrado' || $postHorario[1] != 'cerrado'){
-                            $horario[$size]->setLugar($lugar);
+                            $horario[$size]->setLugar($lugarManipulado);
                             $horario[$size]->setDia($key);
                             if($postHorario[0] != 'cerrado' && $postHorario[1] != 'cerrado'){
                                 $horario[$size]->setAperturaAm($postHorario[0]);
@@ -410,18 +431,11 @@ class LugarController extends Controller{
         $data['comuna'] = $lr->getComunas();
         $data['sector'] = $lr->getSectores();
         $data['ciudadActual'] = $lr->getCiudadById('1');
-
-        //Sacar +56 de los telefonos
-        $lugarOriginal->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarOriginal->getTelefono1());
-        $lugarOriginal->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarOriginal->getTelefono2());
-        $lugarOriginal->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarOriginal->getTelefono3());
          
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
-            'lugar' => $lugarOriginal,
-            'lugarTemp' => array(
-                'nombre' => ':D!'
-            ),
+            'lugar' => (isset($lugar))?$lugar:$lugarManipulado,
+            'lugaresRevisados' => $lugaresRevisados,
             'form' => $form->createView(),
             'errors' => $errors,
         ));
