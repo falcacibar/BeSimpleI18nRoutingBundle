@@ -1,19 +1,56 @@
 <?php
 
 namespace Loogares\ExtraBundle\Functions;
-
 class LoogaresFunctions
 {
 
-    public function paginacion($total, $pp, $paginaActual, $offset,  $alrededor = null, $path){
-        return array(
-            'totalPaginas' => $totalPaginas = floor($total / $pp),
-            'paginaActual' => $paginaActual,
-            'mostrarDesde' => $paginaActual - $alrededor,
-            'mostrarHasta' => $paginaActual + $alrededor,
-            'offset'       => $offset,
-            'path' => $path
-        );
+    public function paginacion($total, $porPagina, $paginaActual, $offset, $path, $params = array(), $router, $options = null){
+        $buffer = '';
+        $totalPaginas = ceil($total / $porPagina);
+
+        //Opciones por defecto
+        if($options == null){
+            $options = array(
+                'izq' => ($paginaActual == 1)?0:(($totalPaginas - $paginaActual == 0)?$totalPaginas-1:$totalPaginas - $paginaActual),
+                'der' => ($totalPaginas <= 4)?$totalPaginas-$paginaActual:4
+            );
+        }
+
+        for($i=$paginaActual-$options['izq'];$i <= $paginaActual+$options['der']; $i++){
+            
+            if($i == $paginaActual-$options['izq']){ //Primera iteracion, flecha a la primera pagina
+                $params['pagina'] = 1;
+                $buffer .= '<li><a href="'.$router->generate($path, $params).'">&#8676;</a></li>'; //Flecha a primera Pagina
+                if($paginaActual == 1){ //Estamos en la primera, solo mostramos la flecha
+                    $buffer .= '<li><a href="">&larr;</a></li>';
+                }else{ //Bindeamos la flecha a la pagina previa
+                    $params['pagina'] = $paginaActual-1;
+                    $buffer .= '<li><a href="'.$router->generate($path, $params).'">&larr;</a></li>';
+                }
+            }
+
+            if($i == $paginaActual){
+                $class = "class='" . ($paginaActual == $i)?"class='actual'":"" . "' ";
+                $buffer .= "<li class='pagina-actual'><a $class>$i</a></li>";
+            }else if($i <= 0 || $i > $totalPaginas){
+                $buffer .= "<li>--</li>";
+            }else{
+                $params['pagina'] = $i;
+                $buffer .= "<li><a href='".$router->generate($path, $params)."'>$i</a></li>";
+            }
+
+            if($i == $paginaActual+$options['der']){
+                if($paginaActual != $totalPaginas){
+                    $params['pagina'] = $paginaActual+1;
+                    $buffer .= '<li><a href="'.$router->generate($path, $params).'">&rarr;</a></li>';
+                }else{
+                    $buffer .= '<li><a href="">&rarr;</a></li>';
+                }
+                $params['pagina'] = $totalPaginas;
+                $buffer .= '<li><a href="'.$router->generate($path, $params).'">&#8677;</a></li>';
+            }
+        }
+        return $buffer;
     }
 
 	public function generarSlug($string)

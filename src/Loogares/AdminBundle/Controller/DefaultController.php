@@ -22,6 +22,8 @@ class DefaultController extends Controller
 
     public function lugaresAction(Request $request){
         $order = false;
+        $router = $this->get('router');
+        $fn = $this->get('fn');
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $filters = array();
@@ -67,7 +69,7 @@ class DefaultController extends Controller
         }
 
         $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-        $offset = ($paginaActual == 1)?0:floor($paginaActual*30);
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
 
         $ih8doctrine = $this->getDoctrine()->getConnection()
         ->fetchAll("SELECT lugares.*, 
@@ -137,8 +139,14 @@ class DefaultController extends Controller
 
         $lugares = $ih8doctrine;
 
-        $fn = $this->get('fn');
-        $paginacion = $fn->paginacion($lr->getTotalLugares(), 30, $paginaActual, $offset, 5, "LoogaresAdminBundle_lugares");
+        $params = array(
+            'test' => 'test'
+        );
+        $options = array(
+            'izq' => 5,
+            'der' => 5
+        );
+        $paginacion = $fn->paginacion($lr->getTotalLugares(), 30, $paginaActual, $offset, 'LoogaresAdminBundle_lugares', $params, $router, $options);
 
         return $this->render('LoogaresAdminBundle:Admin:lugares.html.twig', array(
             'lugares' => $ih8doctrine, 

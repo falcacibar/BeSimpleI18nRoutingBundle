@@ -57,14 +57,11 @@
 			
 		{% endfor %}
 	</table>
-	{% include '::paginacion.html.twig'%}
-	{% if usuario.totalPaginas > 1 %}
+		{% if usuario.totalPaginas > 1 %}
 		<div class="paginacion">
 			<span>{{usuario.offset + 1}} al {{usuario.offset + i}} de {{usuario.totalRecomendaciones}} | Ir a la página:</span>
 			<ul>
-				{% for i in 1..usuario.totalPaginas %}
-					<li><a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : usuario.orden, 'pagina' : i})}}" {{(usuario.pagina == i) ? "class='actual'" : ''}}>{{i}}</a></li>
-				{% endfor %}
+				{{paginacion | raw}}
 			</ul>
 		</div>
 	{% endif %}

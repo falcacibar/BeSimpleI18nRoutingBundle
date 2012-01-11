@@ -44,6 +44,8 @@ class UsuarioController extends Controller
     }
 
     public function recomendacionesAction($param, $orden=null, $pagina=null) {
+        $router = $this->get('router');
+        $fn = $this->get('fn');
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
@@ -70,15 +72,11 @@ class UsuarioController extends Controller
             $orderBy = 'ORDER BY l.nombre';
         else
             $orderBy = '';
-        
-        $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
-        $offset = ($pagina - 1) * 10;
-        //$offset = ($pagina == 1)?0:floor($pagina*10);
+
+        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*10);
 
         $recomendaciones = $ur->getUsuarioRecomendaciones($usuarioResult->getId(), $orderBy, $offset);
-        
-        $fn = $this->get('fn');
-        $paginacion = $fn->paginacion(sizeOf($recomendaciones), 10, $pagina, $offset, 5, "LoogaresAdminBundle_lugares");
         
         $data = $ur->getDatosUsuario($usuarioResult, $orderBy);
         $data->tipo = 'recomendaciones';
@@ -89,6 +87,12 @@ class UsuarioController extends Controller
         $data->recomendacionesTodas = $recomendaciones;
 
         $data->loggeadoCorrecto = $loggeadoCorrecto;
+
+        $extras = array(
+            'param' => $usuarioResult->getSlug()
+        );
+
+        $paginacion = $fn->paginacion($data->totalRecomendaciones, 10, $paginaActual, $offset, 'recomendacionesUsuario', $extras, $router );
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data, 'paginacion' => $paginacion,'query' => array()));  
     }
