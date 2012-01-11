@@ -155,6 +155,7 @@ class LugarController extends Controller{
                 $data->recomendaciones = $recomendacionesResult;
                 //Total de Pagina que debemos mostrar/generar
                 $data->totalPaginas = ($totalRecomendacionesResult >$resultadosPorPagina )?floor($totalRecomendacionesResult / $resultadosPorPagina):1;
+                $data->totalRecomendaciones = $totalRecomendacionesResult;
                 //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
                 $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
                 $data->totalFotos = $totalFotosResult;
@@ -165,7 +166,7 @@ class LugarController extends Controller{
                     'slug' => $data->getSlug()
                 );
 
-                $paginacion = $fn->paginacion( $data->totalRecomendaciones, $resultadosPorPagina, $offset, '_lugar', $params, $router );
+                $paginacion = $fn->paginacion( $data->totalRecomendaciones, $resultadosPorPagina, '_lugar', $params, $router );
 
                 //Render ALL THE VIEWS
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET, 'paginacion' => $paginacion));            

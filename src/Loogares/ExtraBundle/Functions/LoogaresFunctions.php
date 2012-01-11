@@ -4,13 +4,17 @@ namespace Loogares\ExtraBundle\Functions;
 class LoogaresFunctions
 {
 
-    public function paginacion($total, $porPagina, $offset, $path, $params = array(), $router, $options = null){
+    public function paginacion($total, $porPagina, $path, $params = array(), $router, $options = null){
         $buffer = '';
         $paginaActual = (!isset($_GET['pagina']))?1:$_GET['pagina'];
+        
+        $offset = $porPagina * ($paginaActual - 1);
+
         $mostrandoDe = $offset + 1;
         $mostrandoHasta = ($offset + $porPagina >= $total)?$total:($offset + $porPagina);
         $totalPaginas = ceil($total / $porPagina);
-        
+
+
         //Opciones por defecto
         if($options == null){
             $options = array(
