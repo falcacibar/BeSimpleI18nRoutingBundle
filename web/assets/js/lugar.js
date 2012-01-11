@@ -16,12 +16,13 @@ $(document).ready(function(){
         .end().change(function(){
             if( getResultados == ''){
                 if(window.location.href.match(/\?/)){
-                    window.location = window.location.href+'&resultados='+$(this).val(); 
+                    var location = window.location.href.replace(/pagina=\d+/, 'pagina=1');
+                    window.location = location+'&resultados='+$(this).val(); 
                 }else{
                     window.location = window.location.href+'?resultados='+$(this).val();  
                 }
             }else{
-                window.location = window.location.href.replace(/resultados=\d+/, 'resultados='+$(this).val());
+                window.location = window.location.href.replace(/resultados=\d+/, 'resultados='+$(this).val()).replace(/pagina=\d+/, 'pagina=1');
             }
         });
 });

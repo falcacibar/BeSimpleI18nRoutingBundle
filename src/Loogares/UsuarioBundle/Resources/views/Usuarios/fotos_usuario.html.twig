@@ -75,9 +75,9 @@
 
 	{% if usuario.totalPaginas > 1 %}
 		<div class="paginacion">
-			<span>{{usuario.offset + 1}} al {{usuario.offset + i}} de {{usuario.totalImagenesLugar}} | Ir a la página:</span>
+			<span>{{paginacion.mostrandoDe}} al {{paginacion.mostrandoHasta}} de {{usuario.totalImagenesLugar}} | Ir a la página:</span>
 			<ul class="orden">
-				{{paginacion|raw}}
+				{{paginacion.paginacion|raw}}
 			</ul>
 		</div>
 	{% endif %}

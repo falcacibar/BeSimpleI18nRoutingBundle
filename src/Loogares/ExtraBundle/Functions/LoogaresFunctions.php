@@ -4,10 +4,13 @@ namespace Loogares\ExtraBundle\Functions;
 class LoogaresFunctions
 {
 
-    public function paginacion($total, $porPagina, $paginaActual, $offset, $path, $params = array(), $router, $options = null){
+    public function paginacion($total, $porPagina, $offset, $path, $params = array(), $router, $options = null){
         $buffer = '';
+        $paginaActual = (!isset($_GET['pagina']))?1:$_GET['pagina'];
+        $mostrandoDe = $offset + 1;
+        $mostrandoHasta = ($offset + $porPagina >= $total)?$total:($offset + $porPagina);
         $totalPaginas = ceil($total / $porPagina);
-
+        
         //Opciones por defecto
         if($options == null){
             $options = array(
@@ -52,7 +55,13 @@ class LoogaresFunctions
                 $buffer .= '<li><a href="'.$router->generate($path, $params).'">&#8677;</a></li>';
             }
         }
-        return $buffer;
+
+        return array(
+            'paginacion'     => $buffer
+           ,'totalPaginas'   => $totalPaginas
+           ,'mostrandoDe'    => $mostrandoDe
+           ,'mostrandoHasta' => $mostrandoHasta
+        );
     }
 
 	public function generarSlug($string)

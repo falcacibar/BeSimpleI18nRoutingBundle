@@ -48,6 +48,7 @@ class UsuarioController extends Controller
         $fn = $this->get('fn');
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $porPagina = 10;
         
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -92,7 +93,7 @@ class UsuarioController extends Controller
             'param' => $usuarioResult->getSlug()
         );
 
-        $paginacion = $fn->paginacion($data->totalRecomendaciones, 10, $paginaActual, $offset, 'recomendacionesUsuario', $extras, $router );
+        $paginacion = $fn->paginacion($data->totalRecomendaciones, $porPagina, $offset, 'recomendacionesUsuario', $extras, $router );
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data, 'paginacion' => $paginacion,'query' => array()));  
     }
@@ -147,7 +148,7 @@ class UsuarioController extends Controller
             'param' => $data->getSlug()
         );
 
-        $paginacion = $fn->paginacion($data->totalImagenesLugar, $ppag, $pagina, $offset, 'fotosLugaresUsuario', $params, $router );
+        $paginacion = $fn->paginacion($data->totalImagenesLugar, $ppag, $offset, 'fotosLugaresUsuario', $params, $router );
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
             'usuario' => $data,

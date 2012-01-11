@@ -44,8 +44,8 @@ class LugarController extends Controller{
                 $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
                 $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
                 $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-                $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*10);
                 $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
+                $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
                 $router = $this->get('router');
 
                 $em = $this->getDoctrine()->getEntityManager();
@@ -155,7 +155,6 @@ class LugarController extends Controller{
                 $data->recomendaciones = $recomendacionesResult;
                 //Total de Pagina que debemos mostrar/generar
                 $data->totalPaginas = ($totalRecomendacionesResult >$resultadosPorPagina )?floor($totalRecomendacionesResult / $resultadosPorPagina):1;
-                $data->totalRecomendaciones = $totalRecomendacionesResult;
                 //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
                 $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
                 $data->totalFotos = $totalFotosResult;
@@ -166,7 +165,7 @@ class LugarController extends Controller{
                     'slug' => $data->getSlug()
                 );
 
-                $paginacion = $fn->paginacion($data->totalRecomendaciones, $resultadosPorPagina, $paginaActual, $offset, '_lugar', $params, $router );
+                $paginacion = $fn->paginacion( $data->totalRecomendaciones, $resultadosPorPagina, $offset, '_lugar', $params, $router );
 
                 //Render ALL THE VIEWS
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET, 'paginacion' => $paginacion));            

@@ -273,11 +273,11 @@
         {% endfor %}
             
         <div class="paginacion_recomendacion">
-            <p><strong>{{ lugar.mostrandoComentariosDe }}</strong> al <strong>{{ lugar.mostrandoComentariosDe + 9 }}</strong> de <strong>{{ lugar.recomendacion|length }}</strong>
-            {% if lugar.totalPaginas != 1 %}
+            <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{ lugar.recomendacion|length }}</strong>
+            {% if paginacion.totalPaginas != 1 %}
                  | Ir a la página
-                <ul>
-                    {{ paginacion | raw }}
+                <ul style="background: #333">
+                    {{ paginacion.paginacion | raw }}
                 </ul>
             {% endif %}
 
