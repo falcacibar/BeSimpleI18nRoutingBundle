@@ -42,10 +42,10 @@ class DefaultController extends Controller
             if ($request->getMethod() == 'POST') { 
 
                 $form->bindRequest($request);
-
-                // Verificación de selección de al menos una foto
+                
                 $imagenes = array();
 
+                // Imágenes subidas desde archivo
                 if($imgLugar->firstImg != null)
                     $imagenes[] = $imgLugar->firstImg;
 
@@ -57,6 +57,7 @@ class DefaultController extends Controller
 
                 $urls = $request->request->get('urls');
 
+                // Imágenes subidas desde URL. Se guardan en carpeta assets/images/temp de forma temporal
                 foreach($urls as $url) {
                     if($url != '') {                        
                         $ch = curl_init();
@@ -69,17 +70,32 @@ class DefaultController extends Controller
 
                         $u = explode('.',$url);
                         $ext = array_pop($u);
-                        $fn = time().'.'.$ext;
+                        $fn = time().'.jpg';//.$ext;
+                        //try {
                         if(file_put_contents('assets/images/temp/'.$fn, $result)) {
+                            
                             if(getimagesize('assets/images/temp/'.$fn)) {
                                 $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);
                                 $imagenes[] = $imagen;
                             }
-                        }                        
+                            else {
+                                $formErrors['no-imagen'] = "Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.";
+                                unlink('assets/images/temp/'.$fn);
+                            }
+                        }
+                        else {
+                            $formErrors['no-imagen'] = "Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.";
+                            unlink('assets/images/temp/'.$fn);
+                        }
+                        /*} 
+                        catch(\ErrorException $e) {
+                            $formErrors['val'] = "No vale como imagen!";
+                            echo "hola";
+                        } */
+                                           
                     }
                 }
-
-                if(sizeof($imagenes) == 0) {
+                if(sizeof($imagenes) == 0 && sizeOf($formErrors) == 0) {
                     $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
                 }
 
@@ -109,7 +125,7 @@ class DefaultController extends Controller
                         $em->persist($newImagen);
                         $em->flush(); 
 
-                        $newImagen->setFechaCreacion(new \DateTime());;                    
+                        $newImagen->setFechaCreacion(new \DateTime());
                         $em->flush();
 
                         $imgs[] = $newImagen;
@@ -153,6 +169,13 @@ class DefaultController extends Controller
 
                     $imagen->setTituloEnlace($info);
 
+                    // Verificamos si es URL
+                    $match = preg_match('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', $info);
+                    if($match > 0)
+                        $imagen->setEsEnlace(1);
+                    else
+                        $imagen->setEsEnlace(0);
+
                     $em->flush();
                 }
             }
@@ -186,6 +209,14 @@ class DefaultController extends Controller
             $form->bindRequest($request);
 
             if ($form->isValid()) {
+                $imagen->setFechaModificacion(new \DateTime());
+
+                // Verificamos si es URL
+                $match = preg_match('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', $imagen->getTituloEnlace());
+                if($match > 0)
+                    $imagen->setEsEnlace(1);
+                else
+                    $imagen->setEsEnlace(0);
                 $em->flush();
 
                 // Mensaje de éxito en la edición
