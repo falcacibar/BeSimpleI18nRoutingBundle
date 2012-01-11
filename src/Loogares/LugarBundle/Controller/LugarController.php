@@ -4,6 +4,7 @@ namespace Loogares\LugarBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Loogares\LugarBundle\Entity\Lugar;
@@ -693,6 +694,29 @@ class LugarController extends Controller{
         // Redirección a vista de fotos del usuario
         return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario())))); 
            
+    }
+
+    public function galeriaAction($slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+        $id = $lr->getImagenLugarMasReciente($lugar)->getId();
+
+        return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
+    }
+
+    public function fotoGaleriaAction($slug, $id) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+        $imagen = $ilr->find($id);
+        return $this->render('LoogaresLugarBundle:Lugares:foto_galeria.html.twig', array(
+            'lugar' => $lugar,
+            'imagen' => $imagen
+        ));
     }
 
     public function comparacionLugarAction($slug){

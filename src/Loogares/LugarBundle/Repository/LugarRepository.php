@@ -219,6 +219,20 @@ class LugarRepository extends EntityRepository
                         limit 5");
     }
 
+    public function getImagenLugarMasReciente($lugar) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT im
+                             FROM Loogares\LugarBundle\Entity\ImagenLugar im
+                             WHERE im.lugar = ?1
+                             AND im.estado != ?2
+                             ORDER BY im.fecha_creacion DESC");
+      $q->setParameter(1, $lugar);
+      $q->setParameter(2, 3);
+      $q->setMaxResults(1);
+      //IF (im.fecha_modificacion IS NULL, im.fecha_creacion, im.fecha_modificacion)
+      return $q->getSingleResult();
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");

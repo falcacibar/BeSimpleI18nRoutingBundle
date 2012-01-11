@@ -1003,3 +1003,31 @@
     width: 362px; }
   #editar_foto_lugar ul li input[type=submit] {
     margin-left: 64px; }
+
+#galeria a {
+  color: #0066cc; }
+  #galeria a:hover {
+    color: #0066cc;
+    text-decoration: underline; }
+#galeria h1 {
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.4em; }
+#galeria #contenido-galeria {
+  float: left;
+  width: 64.6%; }
+  #galeria #contenido-galeria .foto-galeria {
+    text-align: center;
+    margin-bottom: 10px; }
+  #galeria #contenido-galeria .foto-info {
+    font-size: 0.9em; }
+    #galeria #contenido-galeria .foto-info .fecha {
+      display: block; }
+    #galeria #contenido-galeria .foto-info ul li.autor {
+      float: left; }
+#galeria #sidebar-galeria {
+  float: right;
+  width: 31.2%;
+  border-left: 1px solid #cccccc; }

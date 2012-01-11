@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Galería de fotos en {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div id="galeria">
+		<div id="contenido-galeria">
+			<h1>Galería de fotos de <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
+			<div class="foto-galeria">
+				<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('large_lugar')}}" class="foto-galeria"/>
+			</div>
+
+			<span class="foto-info">
+				<span>{{imagen.fechaCreacion | date('d/m/Y')}}</span>
+			</span>
+			
+		</div>
+
+		<div id="sidebar-galeria">
+			Sidebar
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+		</div>
+	</div>
+{% endblock %}

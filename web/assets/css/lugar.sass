@@ -1253,5 +1253,48 @@ $rojo: #FF3300
                     width: 362px
                 &[type=submit]
                     margin-left: 64px
+
+#galeria
+    a
+        color: $azul
+        &:hover
+            @include link_azul_hover
+    h1
+        border-bottom: 1px solid #ccc
+        margin-bottom: 30px
+        padding-bottom: 10px
+        font-weight: bold
+        font-size: 1.4em
+
+    #contenido-galeria
+        float: left
+        width: 64.6%
+
+        .foto-galeria
+            text-align: center
+            margin-bottom: 10px
+            
+            
+        .foto-info
+            font-size: 0.9em
+            
+            .fecha
+                display: block                
+            ul
+                li
+                    &.autor
+                        float: left
+                    
+                    &.opciones
+                        float:right         
+
+
+
+
+    #sidebar-galeria
+        float: right
+        width: 31.2%
+
+        border-left: 1px solid #ccc
             
                         

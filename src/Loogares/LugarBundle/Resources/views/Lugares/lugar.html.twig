@@ -33,7 +33,7 @@
                 <div class="foto_lugar" id="lugar-foto">
                     <a href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 </div>
-                <a class="link_gris_444" href="#">Ver galería ({{lugar.totalFotos}} fotos)</a><br />
+                <a class="link_gris_444" href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">Ver galería ({{lugar.totalFotos}} fotos)</a><br />
                 <a class="link_gris_444" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">» Agrega una foto</a>
             </div>
 

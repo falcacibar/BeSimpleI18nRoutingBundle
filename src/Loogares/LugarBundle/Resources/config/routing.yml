@@ -50,6 +50,10 @@ _recomendarCalle:
     pattern: /ajax/recomendarCalle
     defaults: { _controller: LoogaresLugarBundle:Ajax:recomendarCalle }
 
+_galeria:
+    pattern: /lugar/{slug}/galeria
+    defaults: { _controller: LoogaresLugarBundle:Lugar:galeria }
+
 _agregarFotoLugar:
     pattern: /lugar/{slug}/galeria/agregar
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregarFoto }
@@ -61,3 +65,7 @@ _editarFotoLugar:
 _eliminarFotoLugar:
     pattern: /lugar/{slug}/galeria/{id}/borrar
     defaults: { _controller: LoogaresLugarBundle:Lugar:eliminarFoto }
+
+_fotoGaleria:
+    pattern: /lugar/{slug}/galeria/{id}
+    defaults: { _controller: LoogaresLugarBundle:Lugar:fotoGaleria }
