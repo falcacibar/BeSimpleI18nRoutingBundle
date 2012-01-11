@@ -52,7 +52,7 @@ _recomendarCalle:
 
 _galeria:
     pattern: /lugar/{slug}/galeria
-    defaults: { _controller: LoogaresLugarBundle:Lugar:galeria }
+    defaults: { _controller: LoogaresLugarBundle:Default:galeria }
 
 _agregarFotoLugar:
     pattern: /lugar/{slug}/galeria/agregar
@@ -68,4 +68,4 @@ _eliminarFotoLugar:
 
 _fotoGaleria:
     pattern: /lugar/{slug}/galeria/{id}
-    defaults: { _controller: LoogaresLugarBundle:Lugar:fotoGaleria }
+    defaults: { _controller: LoogaresLugarBundle:Default:fotoGaleria }

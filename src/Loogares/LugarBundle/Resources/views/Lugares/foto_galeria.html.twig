@@ -13,24 +13,26 @@
 			<div class="foto-info">
 				<span class="fecha">{{imagen.fechaCreacion | date('d/m/Y')}}</span>
 				<ul>
-					<li class="autor">Agregada por {{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</li>
+					<li class="autor">Agregada por <a>{{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</a></li>
 
 					<li class="opciones">
-						<span>Edita tu foto</span>
-						<span>Borra tu foto</span>
+						{% if imagen.loggeadoCorrecto %}
+							<span>Edita tu foto</span>
+							<span>Borra tu foto</span>
+						{% else %}
+							<span>Reporta esta foto</span>
+						{% endif %}
 					</li>
 				</ul>
 			</div>			
 		</div>
 
 		<div id="sidebar-galeria">
-			Sidebar
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
+			<div class="fotos-pagina">
+			</div>
+
+			<div class="banner">
+			</div>
 		</div>
 	</div>
 {% endblock %}

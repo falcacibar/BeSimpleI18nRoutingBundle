@@ -19,5 +19,31 @@ class DefaultController extends Controller
     {
         return $this->render('LoogaresLugarBundle:Lugares:ajax.html.twig');
     }
+
+    public function galeriaAction($slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+        $id = $lr->getImagenLugarMasReciente($lugar)->getId();
+
+        return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
+    }
+
+    public function fotoGaleriaAction($slug, $id) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+        $imagen = $ilr->find($id);
+
+        $imagen->loggeadoCorrecto = $this->get('security.context')->getToken()->getUser() == $imagen->getUsuario();
+
+        return $this->render('LoogaresLugarBundle:Lugares:foto_galeria.html.twig', array(
+            'lugar' => $lugar,
+            'imagen' => $imagen,
+        ));
+    }
     
 }
