@@ -60,16 +60,20 @@ class LugarController extends Controller{
                 $q = $em->createQuery("SELECT u
                                        FROM Loogares\LugarBundle\Entity\ImagenLugar u
                                        WHERE u.lugar = ?1
+                                       AND u.estado != ?2
                                        ORDER BY u.fecha_modificacion");
                 $q->setMaxResults(1)
-                  ->setParameter(1, $idLugar);
+                  ->setParameter(1, $idLugar)
+                  ->setParameter(2, 3);
                 $imagenLugarResult = $q->getResult();
 
                 //Total Fotos Lugar
                 $q = $em->createQuery("SELECT count(u.id)
                                        FROM Loogares\LugarBundle\Entity\ImagenLugar u
-                                       WHERE u.lugar = ?1");
+                                       WHERE u.lugar = ?1
+                                       AND u.estado != ?2");
                 $q->setParameter(1, $idLugar);
+                $q->setParameter(2, 3);
                 $totalFotosResult = $q->getSingleScalarResult();
 
                 //Query para sacar la primera recomendacion
