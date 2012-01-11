@@ -10,10 +10,17 @@
 				<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('large_lugar')}}" class="foto-galeria"/>
 			</div>
 
-			<span class="foto-info">
-				<span>{{imagen.fechaCreacion | date('d/m/Y')}}</span>
-			</span>
-			
+			<div class="foto-info">
+				<span class="fecha">{{imagen.fechaCreacion | date('d/m/Y')}}</span>
+				<ul>
+					<li class="autor">Agregada por {{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</li>
+
+					<li class="opciones">
+						<span>Edita tu foto</span>
+						<span>Borra tu foto</span>
+					</li>
+				</ul>
+			</div>			
 		</div>
 
 		<div id="sidebar-galeria">

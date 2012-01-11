@@ -1022,11 +1022,13 @@
     text-align: center;
     margin-bottom: 10px; }
   #galeria #contenido-galeria .foto-info {
-    font-size: 0.9em; }
+    font-size: 11px; }
     #galeria #contenido-galeria .foto-info .fecha {
       display: block; }
     #galeria #contenido-galeria .foto-info ul li.autor {
       float: left; }
+    #galeria #contenido-galeria .foto-info ul li.opciones {
+      float: right; }
 #galeria #sidebar-galeria {
   float: right;
   width: 31.2%;

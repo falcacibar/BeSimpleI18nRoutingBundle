@@ -77,9 +77,7 @@
 		<div class="paginacion">
 			<span>{{usuario.offset + 1}} al {{usuario.offset + i}} de {{usuario.totalImagenesLugar}} | Ir a la página:</span>
 			<ul class="orden">
-				{% for i in 1..usuario.totalPaginas %}
-					<li><a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : usuario.orden, 'pagina' : i})}}" {{(usuario.pagina == i) ? "class='actual'" : ''}}>{{i}}</a></li>
-				{% endfor %}
+				{{paginacion|raw}}
 			</ul>
 		</div>
 	{% endif %}

@@ -98,6 +98,8 @@ class UsuarioController extends Controller
     }
 
     public function fotosAction($param) {
+        $fn = $this->get('fn');
+        $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         
@@ -124,7 +126,9 @@ class UsuarioController extends Controller
             $orderBy = '';
 
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
-        $offset = ($pagina - 1) * 15;
+        $ppag = 15;
+        $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
+        
 
         $imagenesLugar= $ur->getFotosLugaresAgregadasUsuario($usuarioResult->getId(), $orderBy, $offset);
 
@@ -133,13 +137,22 @@ class UsuarioController extends Controller
         $data->tipo = 'fotos';
         $data->orden = $orden;
         $data->pagina = $pagina;
-        $data->totalPaginas = ($data->totalImagenesLugar > 15) ? ceil($data->totalImagenesLugar / 15) : 1;
+        $data->totalPaginas = ($data->totalImagenesLugar > $ppag) ? floor($data->totalImagenesLugar / $ppag) : 1;
         $data->offset = $offset;
         $data->imagenesLugar = $imagenesLugar;
 
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
-        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
+        $params = array(
+            'param' => $data->getSlug()
+        );
+
+        $paginacion = $fn->paginacion($data->totalImagenesLugar, $ppag, $pagina, $offset, 'fotosLugaresUsuario', $params, $router );
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
+            'usuario' => $data,
+            'paginacion' => $paginacion
+        ));  
     }
 
     public function editarAction($param) {

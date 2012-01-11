@@ -43,7 +43,8 @@ class LugarController extends Controller{
                 $fn = $this->get('fn');
                 $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
                 $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
-                $offset = ($_GET['pagina'] - 1) * 10;
+                $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+                $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*10);
                 $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
                 $router = $this->get('router');
 
@@ -161,14 +162,11 @@ class LugarController extends Controller{
                 $data->recomendacionesPorPagina = $resultadosPorPagina;
                 $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
 
-                $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-                $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*10);
-
                 $params = array(
                     'slug' => $data->getSlug()
                 );
 
-                $paginacion = $fn->paginacion($data->totalRecomendaciones, 10, $paginaActual, $offset, '_lugar', $params, $router );
+                $paginacion = $fn->paginacion($data->totalRecomendaciones, $resultadosPorPagina, $paginaActual, $offset, '_lugar', $params, $router );
 
                 //Render ALL THE VIEWS
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET, 'paginacion' => $paginacion));            
