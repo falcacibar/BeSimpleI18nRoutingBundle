@@ -52,12 +52,12 @@ _recomendarCalle:
 
 _agregarFotoLugar:
     pattern: /lugar/{slug}/galeria/agregar
-    defaults: { _controller: LoogaresLugarBundle:Default:agregarFoto }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:agregarFoto }
 
 _editarFotoLugar:
     pattern: /lugar/{slug}/galeria/{id}/editar
-    defaults: { _controller: LoogaresLugarBundle:Default:editarFoto }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:editarFoto }
 
 _eliminarFotoLugar:
     pattern: /lugar/{slug}/galeria/{id}/borrar
-    defaults: { _controller: LoogaresLugarBundle:Default:eliminarFoto }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:eliminarFoto }
