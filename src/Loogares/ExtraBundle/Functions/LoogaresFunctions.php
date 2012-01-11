@@ -16,6 +16,8 @@ class LoogaresFunctions
             );
         }
 
+        $params = array_merge($params, $_GET);
+
         for($i=$paginaActual-$options['izq'];$i <= $paginaActual+$options['der']; $i++){
             
             if($i == $paginaActual-$options['izq']){ //Primera iteracion, flecha a la primera pagina
