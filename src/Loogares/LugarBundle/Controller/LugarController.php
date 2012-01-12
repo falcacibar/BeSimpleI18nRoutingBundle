@@ -172,7 +172,7 @@ class LugarController extends Controller{
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET, 'paginacion' => $paginacion));            
     }
     
-    public function agregarAction(Request $request, $slug = null, $id = null, $isAdmin = null){
+    public function agregarAction(Request $request, $slug = null){
 
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
@@ -181,13 +181,13 @@ class LugarController extends Controller{
         $lugaresRevisados = array();
         $camposExtraErrors = false;
         $esEdicionDeUsuario = false;
-        $rolUsuario = $this->get('security.context')->isGranted('ROLE_ADMIN');
+        $rolAdmin = $this->get('security.context')->isGranted('ROLE_ADMIN');
 
-        if($slug && $rolUsuario == false){
+        if($slug && $rolAdmin == false){
             $lugarManipulado = new TempLugar();
             $esEdicionDeUsuario = true;
             $lugar = $lr->findOneBySlug($slug);
-        }else if($slug && $rolUsuario == true){
+        }else if($slug && $rolAdmin == true){
             $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
             $lugarManipulado = $lr->findOneBySlug($slug);
             $lugaresRevisados = $lr->getLugaresPorRevisar($lugarManipulado->getId(), 1);
@@ -195,12 +195,12 @@ class LugarController extends Controller{
             $lugarManipulado = new Lugar();
         }
        
-        if($slug && $rolUsuario == false){ //Proceso de parseo de datos de lugar existente, SOLO LECTURA/OUTPUT
+        if($slug && $rolAdmin == false){ //Proceso de parseo de datos de lugar existente, SOLO LECTURA/OUTPUT
             //Sacar +56 de los telefonos
             $lugar->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
             $lugar->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono2());
             $lugar->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono3());
-        }else if($slug && $isAdmin == true){
+        }else if($slug && $rolAdmin == true){
             $lugarManipulado->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarManipulado->getTelefono1());
             $lugarManipulado->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarManipulado->getTelefono2());
             $lugarManipulado->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarManipulado->getTelefono3());
@@ -283,7 +283,7 @@ class LugarController extends Controller{
                 $lr->cleanUp($lugarManipulado->getId());
 
                 foreach($_POST['categoria'] as $postCategoria){
-                    if($esEdicionDeUsuario == true){
+                    if($rolAdmin == false){
                         $categoriaLugar[] = new TempCategoriaLugar();
                     }else{
                         $categoriaLugar[] = new CategoriaLugar();
@@ -306,7 +306,7 @@ class LugarController extends Controller{
 
                 if(isset($_POST['caracteristica']) && is_array($_POST['caracteristica'])){
                     foreach($_POST['caracteristica'] as $postCaracteristica){
-                        if($esEdicionDeUsuario == true){
+                        if($rolAdmin == false){
                             $caracteristicaLugar[] = new TempCaracteristicaLugar();
                         }else{
                             $caracteristicaLugar[] = new CaracteristicaLugar();  
@@ -323,7 +323,7 @@ class LugarController extends Controller{
 
                 if(isset($_POST['subcategoria']) && is_array($_POST['subcategoria'])){
                     foreach($_POST['subcategoria'] as $postSubCategoria){
-                        if($esEdicionDeUsuario == true){
+                        if($rolAdmin == false){
                             $subCategoriaLugar[] = new TempSubcategoriaLugar();
                         }else{
                             $subCategoriaLugar[] = new SubcategoriaLugar();
@@ -341,7 +341,7 @@ class LugarController extends Controller{
                 $dias = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo');
 
                 foreach($dias as $key => $value){
-                    if($esEdicionDeUsuario == true){
+                    if($rolAdmin == false){
                         $horario[] = new TempHorario();    
                     }else{
                         $horario[] = new Horario(); 
@@ -370,6 +370,7 @@ class LugarController extends Controller{
                 $em->flush();
 
                 $this->get('session')->setFlash('vo-lugar','This is a random message, sup.');
+
                 if($rolUsuario == 1){
                     /**************************
 
