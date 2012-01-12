@@ -142,11 +142,13 @@ class DefaultController extends Controller
         $params = array(
             'test' => 'test'
         );
+
         $options = array(
             'izq' => 5,
             'der' => 5
         );
-        $paginacion = $fn->paginacion($lr->getTotalLugares(), 30, $paginaActual, $offset, 'LoogaresAdminBundle_lugares', $params, $router, $options);
+
+        $paginacion = $fn->paginacion($lr->getTotalLugares(), 30, 'LoogaresAdminBundle_lugares', array(), $router, $options);
 
         return $this->render('LoogaresAdminBundle:Admin:lugares.html.twig', array(
             'lugares' => $ih8doctrine, 
