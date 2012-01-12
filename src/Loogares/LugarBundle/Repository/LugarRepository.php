@@ -248,4 +248,14 @@ class LugarRepository extends EntityRepository
       $q->setParameter(1, $id);
       $q->getResult();
     }
+
+    public function getLugaresPorRevisar($id, $estado){
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT tl
+                             FROM Loogares\AdminBundle\Entity\TempLugar tl
+                             WHERE tl.estado = ?1 and tl.lugar = ?2");
+      $q->setParameter(1, $estado);
+      $q->setParameter(2, $id);
+      return $q->getResult();
+    }
 }

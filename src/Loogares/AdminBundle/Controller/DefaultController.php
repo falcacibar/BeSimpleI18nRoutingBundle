@@ -172,23 +172,40 @@ class DefaultController extends Controller
     public function lugaresAEditarAction(){
         $em = $this->getDoctrine()->getEntityManager();
 
-        $q = $em->createQuery("SELECT u
-                               FROM Loogares\LugarBundle\Entity\Lugar u
-                               WHERE u.id = (SELECT min(tl.lugar) FROM Loogares\AdminBundle\Entity\TempLugar tl)");
-        $lugaresResult = $q->getResult();
+        $ih8doctrine = $this->getDoctrine()->getConnection()
+        ->fetchAll("select distinct lugares.*, sector.nombre as sector, ciudad.nombre as ciudad, comuna.nombre as comuna, count(lugares.id) as revisiones
+
+                    from lugares
+
+                    left join temp_lugares
+                    on lugares.id = temp_lugares.lugar_id
+
+                    left join comuna
+                    on lugares.comuna_id = comuna.id
+
+                    left join sector
+                    on lugares.sector_id = sector.id
+
+                    left join ciudad
+                    on sector.ciudad_id = ciudad.id
+
+                    where lugares.id = temp_lugares.lugar_id
+                    group by lugares.id");
 
         return $this->render('LoogaresAdminBundle:Admin:listadoRevision.html.twig',array(
-            'lugares' => $lugaresResult
+            'lugares' => $ih8doctrine
         ));        
     }
 
     public function revisionLugaresAction($slug){
         $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
 
-        $lugares = $tlr->findBySlug($slug);
+        $lugar = $lr->findOneBySlug($slug);
+        $tempLugares = $tlr->getLugaresPorRevisar($lugar->getId(), 1);
         return $this->render('LoogaresAdminBundle:Admin:revisionLugar.html.twig', array(
-            'lugares' => $lugares
+            'lugares' => $tempLugares
         ));
     }
 }

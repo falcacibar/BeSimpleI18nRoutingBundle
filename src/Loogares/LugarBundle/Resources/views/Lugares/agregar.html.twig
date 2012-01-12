@@ -210,13 +210,12 @@
                 </optgroup>
             {% endfor %}
         </select>
-        <span></span>
         {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
+             {% if lugarRevisado.categoriaLugar[0] is defined %}
                 <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
                     {{lugarRevisado.categoriaLugar[0].categoria.nombre}}
                 </div>
-            {% endfor %}
+            {% endif %}
         {% endif %}
         <div class='subcategorias'>
             <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
@@ -233,13 +232,15 @@
         </div>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
-                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                    {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
-                        {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[0].categoria.id %}
-                            {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                {% if lugarRevisado.subcategoriaLugar[0] is defined %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                        {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
+                            {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[0].categoria.id %}
+                                {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
     </li>
@@ -258,11 +259,11 @@
             {% endfor %}
         </select>
         {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
+             {% if lugarRevisado.categoriaLugar[1] is defined %}
                 <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
                     {{lugarRevisado.categoriaLugar[1].categoria.nombre}}
                 </div>
-            {% endfor %}
+            {% endif %}
         {% endif %}
         <span class="quitar_info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
@@ -280,13 +281,15 @@
         </div>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
-                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                    {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
-                        {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[1].categoria.id %}
-                            {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                {% if lugarRevisado.subcategoriaLugar[0] is defined %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                        {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
+                            {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[1].categoria.id %}
+                                {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
     </li>
@@ -305,11 +308,11 @@
             {% endfor %}
         </select>
         {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
+             {% if lugarRevisado.categoriaLugar[2] is defined %}
                 <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
                     {{lugarRevisado.categoriaLugar[2].categoria.nombre}}
                 </div>
-            {% endfor %}
+            {% endif %}
         {% endif %}
         <span class="quitar_info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
         <div class='subcategorias'>
@@ -327,13 +330,15 @@
         </div>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
-                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                    {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
-                        {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[2].categoria.id %}
-                            {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                {% if lugarRevisado.subcategoriaLugar[0] is defined %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                        {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
+                            {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[0].categoria.id %}
+                                {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
     </li>
@@ -827,11 +832,13 @@
         </div>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
-                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                    {% for caracteristicaLugar in lugarRevisado.caracteristicaLugar %}
-                            {{ caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
-                    {% endfor %}
-                </div>
+                {% if lugarRevisado.caracteristicaLugar[0] is defined %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                        {% for caracteristicaLugar in lugarRevisado.caracteristicaLugar %}
+                                {{ caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
     </li>

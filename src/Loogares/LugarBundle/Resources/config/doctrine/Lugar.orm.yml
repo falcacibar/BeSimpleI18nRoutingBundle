@@ -61,6 +61,9 @@ Loogares\LugarBundle\Entity\Lugar:
         horario:
             targetEntity: Loogares\LugarBundle\Entity\Horario
             mappedBy: lugar
+        temp_lugares:
+            targetEntity: Loogares\AdminBundle\Entity\TempLugar
+            mappedBy: lugar
     id:
         id:
             type: integer

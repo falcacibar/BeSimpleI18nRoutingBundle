@@ -180,21 +180,22 @@ class LugarController extends Controller{
         $formErrors = array();
         $lugaresRevisados = array();
         $camposExtraErrors = false;
-        $esEdicion = false;
+        $esEdicionDeUsuario = false;
+        $rolUsuario = $this->get('security.context')->isGranted('ROLE_ADMIN');
 
-        if($slug && $isAdmin == null){
+        if($slug && $rolUsuario == false){
             $lugarManipulado = new TempLugar();
             $esEdicionDeUsuario = true;
             $lugar = $lr->findOneBySlug($slug);
-        }else if($slug && $isAdmin){
+        }else if($slug && $rolUsuario == true){
             $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
             $lugarManipulado = $lr->findOneBySlug($slug);
-            $lugaresRevisados = $tlr->findByLugar($lugarManipulado->getId());
+            $lugaresRevisados = $lr->getLugaresPorRevisar($lugarManipulado->getId(), 1);
         }else{
             $lugarManipulado = new Lugar();
         }
        
-        if($slug && $isAdmin == false){ //Proceso de parseo de datos de lugar existente, SOLO LECTURA/OUTPUT
+        if($slug && $rolUsuario == false){ //Proceso de parseo de datos de lugar existente, SOLO LECTURA/OUTPUT
             //Sacar +56 de los telefonos
             $lugar->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
             $lugar->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono2());
@@ -292,7 +293,7 @@ class LugarController extends Controller{
                         $categoria = $lr->getCategorias($postCategoria);
                         if($categoria){
                             $categoriaLugar[$size]->setCategoria($categoria[0]);
-                            $categoriaLugar[$size]->setLugar($lugar);
+                            $categoriaLugar[$size]->setLugar($lugarManipulado);
                             if($_POST['categoria'][0] == $postCategoria){
                                 $categoriaLugar[$size]->setPrincipal(1);
                             }else{
@@ -368,8 +369,34 @@ class LugarController extends Controller{
 
                 $em->flush();
 
-                $this->get('session')->setFlash('nuevo-lugar','This is a random message, sup.');
-                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+                $this->get('session')->setFlash('vo-lugar','This is a random message, sup.');
+                if($rolUsuario == 1){
+                    /**************************
+
+
+                    (       )(  ___  )\__   __/( \      (  ____ \
+                    | () () || (   ) |   ) (   | (      | (    \/
+                    | || || || (___) |   | |   | |      | (_____ 
+                    | |(_)| ||  ___  |   | |   | |      (_____  )
+                    | |   | || (   ) |   | |   | |            ) |
+                    | )   ( || )   ( |___) (___| (____/\/\____) |
+                    |/     \||/     \|\_______/(_______/\_______)
+
+
+
+                    *************************/
+
+                    foreach($lugaresRevisados as $key => $lugar){
+                        $estado = $lr->getEstado(9);
+                        $lugar->setEstado($estado[0]);
+                        $em->persist($lugar);
+                        $em->flush();
+                    }
+                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
+                }else{
+                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+                }
+                
                 
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
             }
