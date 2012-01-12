@@ -11,6 +11,7 @@ $loader->registerNamespaces(array(
     'FOS'              => __DIR__.'/../vendor/bundles',
     'Jirafe'           => __DIR__.'/../vendor/bundles',
     'Avalanche'        => __DIR__.'/../vendor/bundles',
+    //'Liip'             => __DIR__.'/../vendor/bundles', 
     'Doctrine\\Common' => __DIR__.'/../vendor/doctrine-common/lib',
     'Doctrine\\DBAL'   => __DIR__.'/../vendor/doctrine-dbal/lib',
     'Doctrine'         => __DIR__.'/../vendor/doctrine/lib',
@@ -19,7 +20,7 @@ $loader->registerNamespaces(array(
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
     'Beberlei'         => __DIR__.'/../vendor/beberlei-doctrine-extensions/lib',    
     'Mailchimp'        => __DIR__.'/../vendor/mailchimp/src',
-    'Imagine'          => __DIR__.'/../vendor/imagine/lib',   
+    'Imagine'          => __DIR__.'/../vendor/imagine/lib', 
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

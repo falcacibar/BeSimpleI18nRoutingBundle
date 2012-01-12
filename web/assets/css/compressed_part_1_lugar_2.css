@@ -1021,14 +1021,22 @@
   #galeria #contenido-galeria .foto-galeria {
     text-align: center;
     margin-bottom: 10px; }
+    #galeria #contenido-galeria .foto-galeria img {
+      cursor: pointer; }
   #galeria #contenido-galeria .foto-info {
     font-size: 11px; }
     #galeria #contenido-galeria .foto-info .fecha {
       display: block; }
-    #galeria #contenido-galeria .foto-info ul li.autor {
-      float: left; }
-    #galeria #contenido-galeria .foto-info ul li.opciones {
-      float: right; }
+    #galeria #contenido-galeria .foto-info ul {
+      margin-bottom: 20px; }
+      #galeria #contenido-galeria .foto-info ul li.autor {
+        float: left; }
+      #galeria #contenido-galeria .foto-info ul li.opciones {
+        float: right; }
+      #galeria #contenido-galeria .foto-info ul li.anterior {
+        float: left; }
+      #galeria #contenido-galeria .foto-info ul li.siguiente {
+        float: right; }
 #galeria #sidebar-galeria {
   float: right;
   width: 31.2%; }

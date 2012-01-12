@@ -27,22 +27,36 @@ class DefaultController extends Controller
         $lugar = $lr->findOneBySlug($slug);
         $id = $lr->getImagenLugarMasReciente($lugar)->getId();
 
-        return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
+        return $this->forward('LoogaresLugarBundle:Default:fotoGaleria', array('slug' => $slug, 'id' => $id));
     }
 
     public function fotoGaleriaAction($slug, $id) {
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
-
         $lugar = $lr->findOneBySlug($slug);
         $imagen = $ilr->find($id);
 
+        $vecinas = $lr->getFotosVecinas($id, $lugar->getId());
+
+        if($imagen->getLugar()->getSlug() != $slug) {
+            throw $this->createNotFoundException('La foto especificada no corresponde al lugar '.$lugar->getNombre());
+        }
+
         $imagen->loggeadoCorrecto = $this->get('security.context')->getToken()->getUser() == $imagen->getUsuario();
+
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render('LoogaresLugarBundle:Lugares:contenido_galeria.html.twig', array(
+                'lugar' => $lugar,
+                'imagen' => $imagen,
+                'vecinas' => $vecinas
+            ));
+        } 
 
         return $this->render('LoogaresLugarBundle:Lugares:foto_galeria.html.twig', array(
             'lugar' => $lugar,
             'imagen' => $imagen,
+            'vecinas' => $vecinas
         ));
     }
     

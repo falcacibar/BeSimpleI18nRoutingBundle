@@ -1273,6 +1273,9 @@ $rojo: #FF3300
         .foto-galeria
             text-align: center
             margin-bottom: 10px
+
+            img
+                cursor: pointer
             
             
         .foto-info
@@ -1281,12 +1284,19 @@ $rojo: #FF3300
             .fecha
                 display: block               
             ul
+                margin-bottom: 20px
+
                 li
                     &.autor
                         float: left
                     
                     &.opciones
-                        float: right         
+                        float: right  
+                        
+                    &.anterior
+                        float: left
+                    &.siguiente
+                        float: right
 
 
 

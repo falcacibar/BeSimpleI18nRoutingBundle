@@ -3,28 +3,9 @@
 {% block title %}Galería de fotos en {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
-	<div id="galeria">
+	<div id="galeria">		
 		<div id="contenido-galeria">
-			<h1>Galería de fotos de <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
-			<div class="foto-galeria">
-				<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('large_lugar')}}" class="foto-galeria"/>
-			</div>
-
-			<div class="foto-info">
-				<span class="fecha">{{imagen.fechaCreacion | date('d/m/Y')}}</span>
-				<ul>
-					<li class="autor">Agregada por <a>{{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</a></li>
-
-					<li class="opciones">
-						{% if imagen.loggeadoCorrecto %}
-							<span>Edita tu foto</span>
-							<span>Borra tu foto</span>
-						{% else %}
-							<span>Reporta esta foto</span>
-						{% endif %}
-					</li>
-				</ul>
-			</div>			
+			{% include 'LoogaresLugarBundle:Lugares:contenido_galeria.html.twig' %}
 		</div>
 
 		<div id="sidebar-galeria">

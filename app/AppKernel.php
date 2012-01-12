@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             //new FOS\FacebookBundle\FOSFacebookBundle(),
             new Jirafe\Bundle\MailChimpBundle\JirafeMailChimpBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            //new Liip\ImagineBundle\LiipImagineBundle(),
             new Loogares\LugarBundle\LoogaresLugarBundle(),
             new Loogares\UsuarioBundle\LoogaresUsuarioBundle(),
             new Loogares\ExtraBundle\LoogaresExtraBundle(),

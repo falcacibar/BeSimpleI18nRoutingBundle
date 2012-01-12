@@ -64,7 +64,7 @@ class LugarController extends Controller{
                                        FROM Loogares\LugarBundle\Entity\ImagenLugar u
                                        WHERE u.lugar = ?1
                                        AND u.estado != ?2
-                                       ORDER BY u.fecha_modificacion");
+                                       ORDER BY u.fecha_creacion DESC, u.id DESC");
                 $q->setMaxResults(1)
                   ->setParameter(1, $idLugar)
                   ->setParameter(2, 3);

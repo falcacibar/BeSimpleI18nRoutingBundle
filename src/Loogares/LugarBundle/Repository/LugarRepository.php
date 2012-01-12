@@ -225,12 +225,40 @@ class LugarRepository extends EntityRepository
                              FROM Loogares\LugarBundle\Entity\ImagenLugar im
                              WHERE im.lugar = ?1
                              AND im.estado != ?2
-                             ORDER BY im.fecha_creacion DESC");
+                             ORDER BY im.fecha_creacion DESC, im.id DESC");
       $q->setParameter(1, $lugar);
       $q->setParameter(2, 3);
       $q->setMaxResults(1);
       //IF (im.fecha_modificacion IS NULL, im.fecha_creacion, im.fecha_modificacion)
       return $q->getSingleResult();
+    }
+
+    public function getFotosVecinas($id, $lugar) {
+      $em = $this->getEntityManager();
+      $q1 = $em->createQuery("SELECT MIN(im1.id)
+                             FROM Loogares\LugarBundle\Entity\ImagenLugar im1
+                             WHERE im1.id > ?1
+                             AND im1.estado != ?2
+                             AND im1.lugar = ?3");
+      $q1->setParameter(1, $id);
+      $q1->setParameter(2, 3);
+      $q1->setParameter(3, $lugar);
+      $q1->setMaxResults(1);
+
+      $q2 = $em->createQuery("SELECT MAX(im2.id)
+                             FROM Loogares\LugarBundle\Entity\ImagenLugar im2
+                             WHERE im2.id < ?1
+                             AND im2.estado != ?2
+                             AND im2.lugar = ?3");
+      $q2->setParameter(1, $id);
+      $q2->setParameter(2, 3);
+      $q2->setParameter(3, $lugar);
+      $q2->setMaxResults(1);
+
+      $vecinas = array();
+      $vecinas['prev'] = $q1->getSingleScalarResult();
+      $vecinas['next'] = $q2->getSingleScalarResult();
+      return $vecinas;
     }
 
     public function cleanUp($id){
