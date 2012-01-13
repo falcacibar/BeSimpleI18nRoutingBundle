@@ -69,3 +69,7 @@ _eliminarFotoLugar:
 _fotoGaleria:
     pattern: /lugar/{slug}/galeria/{id}
     defaults: { _controller: LoogaresLugarBundle:Default:fotoGaleria }
+
+_paginaGaleria:
+    pattern: /ajax/galeria/{id}/pagina
+    defaults: { _controller: LoogaresLugarBundle:Ajax:paginaGaleria }
