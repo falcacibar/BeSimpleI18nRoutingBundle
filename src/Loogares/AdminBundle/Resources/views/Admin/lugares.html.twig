@@ -5,8 +5,11 @@
 {% block content %}
 
 <ul class="paginacion">
-{{paginacion | raw}}
+{{paginacion.paginacion | raw}}
 </ul>
+Total: {{paginacion.total}}
+Desde: {{paginacion.de}}
+Hasta: {{paginacion.hasta}}
 
 <div class="table-data">
     <table>
@@ -182,7 +185,7 @@
                     <td><input type="checkbox"/></td>
                     <td>{{lugar.id}}</td>
                     <td><a href="{{ path('_lugar', {'slug': lugar.slug }) }}">{{lugar.nombre}}</a></td>
-                    <td>{{lugar.usuarioMail}}</td>
+                    <td><a href="{{ path('LoogaresAdminBundle_lugares', {'mail': lugar.usuarioMail}) }}">{{lugar.usuarioMail}}</a></td>
                     <td>
                         {% for categoria in lugar.categorias %}
                             {{categoria}}{% if loop.last == false %}, {% endif %}

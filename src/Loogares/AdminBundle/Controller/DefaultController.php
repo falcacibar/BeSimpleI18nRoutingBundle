@@ -22,11 +22,16 @@ class DefaultController extends Controller
 
     public function lugaresAction(Request $request){
         $order = false;
+        $where = false;
         $router = $this->get('router');
         $fn = $this->get('fn');
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
-        $filters = array();
+
+        $filters = array(
+            'mail' => 'usuarios'
+        );
+
         $listadoFilters = array(
             'id' => 'lugares.id', 
             'nombre' => 'lugares.nombre',
@@ -50,8 +55,13 @@ class DefaultController extends Controller
             'mail' => 'lugares.mail'
         );
 
+
+
         foreach($_GET as $column => $filter){
-            if($filter == 'asc' || $filter == 'desc'){
+                if(!$where){
+                    $where = "WHERE ".$filters[$column].".$column = '$filter'";
+                }
+             if($filter == 'asc' || $filter == 'desc'){
                 if(!$order){
                     $order = "ORDER BY ".$listadoFilters[$column]." $filter";
                 }else{
@@ -60,7 +70,6 @@ class DefaultController extends Controller
                 $filters[$column] = ($filter == 'asc')?'desc':'asc';
             }
         }
-
 
         foreach($listadoFilters as $key => $value){
             if(!isset($_GET[$key])){
@@ -125,6 +134,7 @@ class DefaultController extends Controller
                     left join caracteristica
                     on caracteristica.id = caracteristica_lugar.caracteristica_id
 
+                    $where
                     GROUP BY lugares.id
                     $order
                     LIMIT 30

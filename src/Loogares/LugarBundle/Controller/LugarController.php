@@ -47,6 +47,7 @@ class LugarController extends Controller{
                 $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
                 $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
                 $router = $this->get('router');
+                $precioPromedio = 0;
 
                 $em = $this->getDoctrine()->getEntityManager();
                 $qb = $em->createQueryBuilder();
@@ -129,7 +130,7 @@ class LugarController extends Controller{
                         $precioPromedio = $recomendacionesResult[$i]['precio']; 
                 }
 
-                $precioPromedio = ($precioPromedio + $lugarResult[0]->getPrecio()) / $totalRecomendacionesResult+1;
+                $precioPromedio = ($precioPromedio + $lugarResult[0]->getPrecio()) / ($totalRecomendacionesResult+1);
 
                 $telefonos = array();
                 //Array con telefonos del lugar
