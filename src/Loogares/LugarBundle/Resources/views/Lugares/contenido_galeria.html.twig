@@ -1,6 +1,6 @@
 <h1>Galería de fotos de <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
 <div class="foto-galeria" style="cursor:pointer;background:#EEE">
-	<img src="{{ asset('assets/images/lugares/'~imagen.imagenFull)}}" class="foto-galeria" height="{{dimensiones.alto}}" width="{{dimensiones.ancho}}"/>
+	<img src="{{ asset('assets/images/lugares/'~imagen.imagenFull)}}" height="{{dimensiones.alto}}" width="{{dimensiones.ancho}}"/>
 </div>
 
 <div class="foto-info">
@@ -55,12 +55,14 @@
 
 			$('.siguiente').click(function(e){
 				e.preventDefault();	
+				$(this).unbind('click');
 				cambiarFoto("{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next } )}}");
 				return false;		
 				
 			});
 
 			$('.anterior').click(function(e){
+				$(this).unbind('click');
 				e.preventDefault();	
 				cambiarFoto("{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.prev } )}}");
 				return false;		
@@ -74,7 +76,7 @@
 				
 			});		
 
-			$(document).keyup(function(e){
+			$(document).keydown(function(e){
 				e.preventDefault();
 				// Tecla izquierda
 			    if (e.which == 37) {
@@ -94,7 +96,7 @@
 			  type: "GET",
 			  url: fotoUrl,
 			}).done(function( data ) {
-			  $('#contenido-galeria').html(data);
+			  $('#contenido-galeria').html($(data).fadeIn('fast'));
 			}).fail(function( data ) {
 			  console.log(data);
 			});

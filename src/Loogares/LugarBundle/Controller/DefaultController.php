@@ -4,6 +4,7 @@ namespace Loogares\LugarBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Loogares\LugarBundle\Entity\ImagenLugar;
@@ -93,6 +94,8 @@ class DefaultController extends Controller
                 'vecinas' => $vecinas,
                 'dimensiones' => $dimensiones
             ));
+
+
         } 
 
         return $this->render('LoogaresLugarBundle:Lugares:foto_galeria.html.twig', array(
