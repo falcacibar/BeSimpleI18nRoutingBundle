@@ -8,7 +8,7 @@ var bubble;
 var bubble2;
 var coordenadasDestacadas;
 var idLugar;
-var url = 'http://localhost/symf/web';
+var url = WEBROOT;
 
 $(document).ready(
     function(){
@@ -68,7 +68,7 @@ $(document).ready(
                 //Center the map on this point (si es el luger predilecto)
                 //-----------------------------
                 var letteredIcon = new GIcon(baseIcon);
-                letteredIcon.image = url + "/assets/images/gmaps/puntodestacado.png";
+                letteredIcon.image = url + "../assets/images/gmaps/puntodestacado.png";
                 markerOptions = {icon: letteredIcon, draggable: false};
                 var mainMarker = new GMarker(point, markerOptions);
                 GEvent.addListener(mainMarker, "mouseover", function(){
@@ -182,7 +182,7 @@ function createMarker(point, cat, informacion, num){
     var letteredIconMarker = new GIcon(baseIcon2);
 
     var url2 = document.getElementById("baseurl").value;
-    letteredIconMarker.image = url + "/assets/images/gmaps/categoria"+cat+".png";
+    letteredIconMarker.image = url + "../assets/images/gmaps/categoria"+cat+".png";
     var url3 = document.getElementById("baseurl").value;
     markerOptions2 = {icon: letteredIconMarker, draggable: false};
     var marker = new GMarker(point, markerOptions2);

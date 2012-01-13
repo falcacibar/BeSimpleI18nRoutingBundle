@@ -430,7 +430,7 @@ $rojo: #FF3300
     border: 1px solid $gris_f6f
     border-bottom: 1px solid $gris_ccc
     float: left
-    padding: 20px
+    padding: 20px 20px 10px
     width: 598px
 
     .titulo_lugar
@@ -447,10 +447,21 @@ $rojo: #FF3300
         margin: 0 0 20px 0
         width: 598px
 
-    .n_recomendaciones
-        font:
-            size: 11px
-            style: italic
+        .estrellas_lugar
+            float: left
+            margin: 0
+            width: 110px !important
+
+        .star-raty img
+            margin: 0 2px 0 0
+
+        .n_recomendaciones
+            font:
+                size: 11px
+                style: italic
+            float: left
+            margin: 4px 0 0 10px
+            width: 474px
     
     .foto_lugar_box
         font:
@@ -485,6 +496,12 @@ $rojo: #FF3300
                 size: 16px
             margin: 0 0 20px 0
             width: 442px
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover                
 
         .telefono_lugar
             background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -51px
@@ -536,11 +553,26 @@ $rojo: #FF3300
             margin: 0 0 20px 0
             width: 442px
 
-            .precio_tip
-                color: $gris_686
+            .precio_global
+                float: left
+                margin: 0 0 0 4px
+                width: 55px !important
+
+            .precio-raty img
+                margin: 0 2px 0 0
+
+            .precio-detalle
+                color: $gris_999
+                float: left
+                font:
+                    size: 11px
+                margin: 0 0 0 10px
+                width: 327px
 
     .datos_secundarios_lugar
+        color: $gris_686
         float: left
+        line-height: 14px
         margin: 20px 0 0 0
         width: 598px
 
@@ -553,21 +585,63 @@ $rojo: #FF3300
         .minusculas
             text-transform: lowercase
 
-        .primero_en_recomendar_lugar
-            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -113px
+        .tags_primero_lugar
             display: block
             float: left
-            font:
-                size: 11px
-            height: 16px
-            padding: 2px 0 0 20px
-            width: 126px
+            width: 146px
 
-            a
-                @include link_azul
+            .primero_en_recomendar_lugar
+                display: block
+                float: left
+                width: 146px
 
-                &:hover
-                    @include link_azul_hover
+                .primero_titulo
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -113px
+                    float: left
+                    font:
+                        size: 11px
+                    height: 16px
+                    padding: 2px 0 0 20px
+                    width: 126px
+
+                .primero_usuario
+                    display: block
+                    float: left
+                    margin: 5px 0 0
+                    width: 146px
+
+                    .primero_usuario_img
+                        float: left
+                        height: 20px
+                        width: 20px
+
+                    .primero_usuario_nombre
+                        float: left
+                        font:
+                            size: 11px
+                        display: block
+                        margin: 3px 0 0 5px
+                        width: 121px
+            
+                        a
+                            @include link_azul
+
+                            &:hover
+                                @include link_azul_hover
+
+            .tags_populares_lugar
+                display: block
+                float: left
+                font:
+                    size: 11px
+                margin: 10px 0 0 0
+                width: 146px
+
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
 
         .categoria_lugar
             display: block
@@ -812,22 +886,58 @@ $rojo: #FF3300
     .recomienda_lugar
         background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 0
         display: block
+        cursor: pointer
         float: left
         height: 30px
         margin: 10px 0
-        width: 160px      
+        width: 150px      
         
-    .quiero_ir_lugar
-        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -160px 0
+        &:hover
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 -30px
+            display: block
+            float: left
+            height: 30px
+            margin: 10px 0
+            width: 150px      
+
+    .recomienda_despues_lugar
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -161px 0
         display: block
+        cursor: pointer
+        float: left
+        height: 30px
+        margin: 10px 0
+        width: 29px      
+
+        &:hover
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -161px -30px
+            display: block
+            float: left
+            height: 30px
+            margin: 10px 0
+            width: 29px      
+
+    .quiero_ir_lugar
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -190px 0
+        display: block
+        cursor: pointer
         float: left
         height: 21px
         margin: 15px 0px 14px 10px
         width: 85px 
     
+        &:hover
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -190px -30px
+            display: block
+            float: left
+            height: 21px
+            margin: 15px 0px 14px 10px
+            width: 85px 
+
     .quiero_ir_valor
         background: $gris_999
         color: $blanco
+        cursor: pointer
         display: block
         font:
             size: 11px
@@ -839,12 +949,21 @@ $rojo: #FF3300
         padding: 4px 5px 6px
 
     .estuve_alla_lugar
-        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -262px 0
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -292px 0
         display: block
+        cursor: pointer
         float: left
         height: 21px
         margin: 15px 0px 14px 10px
-        width: 101px      
+        width: 101px     
+         
+        &:hover
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -292px -30px
+            display: block
+            float: left
+            height: 21px
+            margin: 15px 0px 14px 10px
+            width: 101px   
 
     .estuve_alla_valor
         background: $gris_999
@@ -860,12 +979,21 @@ $rojo: #FF3300
         padding: 4px 5px 6px
 
     .favoritos_lugar    
-        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -385px 0
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -415px 0
         display: block
+        cursor: pointer
         float: left
         height: 21px
         margin: 15px 0px 14px 10px
         width: 90px      
+
+        &:hover
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -415px -30px
+            display: block
+            float: left
+            height: 21px
+            margin: 15px 0px 14px 10px
+            width: 90px      
 
     .favoritos_valor
         background: $gris_999
@@ -879,6 +1007,15 @@ $rojo: #FF3300
         margin: 15px 0
         text-shadow: 1px 1px 1px $gris_333
         padding: 4px 5px 6px
+
+.caja_inferior_ficha
+    border-left: 1px solid $gris_f6f
+    border-bottom: 1px solid $gris_f6f
+    border-right: 1px solid $gris_f6f
+    display: block
+    float: left
+    height: 15px
+    width: 638px
 
 .opciones_lugar
     border: 1px solid $gris_f6f
@@ -919,22 +1056,40 @@ $rojo: #FF3300
                 width: 10px
 
             .cerro_lugar
-                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
                 height: 10px
                 padding: 0 0 0 13px
                 width: 10px
 
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                    height: 10px
+                    padding: 0 0 0 13px
+                    width: 10px
+
             .compartir_lugar
-                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -34px
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -567px
                 height: 10px
                 padding: 0 0 0 13px
                 width: 10px
             
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -567px
+                    height: 10px
+                    padding: 0 0 0 13px
+                    width: 10px
+
             .imprimir_lugar
-                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -580px
                 height: 10px
                 padding: 0 0 0 13px
                 width: 10px
+
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -580px
+                    height: 10px
+                    padding: 0 0 0 13px
+                    width: 10px
 
 /* Mapa ficha lugar */
 
@@ -1027,7 +1182,10 @@ $rojo: #FF3300
             display: block
             float: left
             margin: 0 0 20px 0
-            width: 570px
+            width: 570px !important
+
+            img
+                margin: 0 2px 0 0
 
         .texto_recomendacion_usuario
             display: block
@@ -1060,13 +1218,52 @@ $rojo: #FF3300
                 size: 12px
             text-align: right
             width: 570px
-
+            
             a
                 @include link_gris_444
 
                 &:hover
                     @include link_gris_444_hover
+
+            .edita_recomendacion
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                height: 10px
+                margin: 0 0 0 10px
+                padding: 0 0 0 13px
+                width: 10px
         
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -19px
+                    height: 10px
+                    padding: 0 0 0 13px
+                    width: 10px
+
+            .borra_recomendacion
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
+                height: 10px
+                margin: 0 0 0 10px
+                padding: 0 0 0 13px
+                width: 10px
+
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                    height: 10px
+                    padding: 0 0 0 13px
+                    width: 10px
+
+            .reporta_recomendacion
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
+                height: 10px
+                margin: 0 0 0 10px
+                padding: 0 0 0 13px
+                width: 10px
+
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                    height: 10px
+                    padding: 0 0 0 13px
+                    width: 10px
+
 .paginacion_recomendacion
     border-bottom: 1px solid $gris_f6f
     border-top: 1px solid $gris_f6f

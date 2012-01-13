@@ -110,6 +110,14 @@ $rojo: #FF3300
     color: $gris_444
     text-decoration: underline
 
+@mixin link_gris_686
+    color: $gris_686
+    text-decoration: none
+
+@mixin link_gris_686_hover
+    color: $gris_686
+    text-decoration: underline
+
 @mixin link_gris_999
     color: $gris_999
     text-decoration: none
@@ -548,6 +556,12 @@ body
             
             &:hover
                 @include link_gris_444_hover
+
+        .link_gris_686
+            @include link_gris_686
+            
+            &:hover
+                @include link_gris_686_hover
 
         /* Registro Usuario */
 

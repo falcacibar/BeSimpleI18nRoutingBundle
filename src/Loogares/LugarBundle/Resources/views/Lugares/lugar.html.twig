@@ -29,23 +29,23 @@
                         estrellasDelLugar({{lugar.estrellas}});
                     });
                 </script>
-                <div class="star-raty"></div>
+                <div class="star-raty estrellas_lugar"></div>
                 <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} recomendaciones</span>
             </div>
             <div class="foto_lugar_box">
                 <div class="foto_lugar" id="lugar-foto">
                     <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}"><img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 </div>
-                <a class="link_gris_444" href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">Ver galería ({{lugar.totalFotos}} fotos)</a><br />
-                <a class="link_gris_444" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">» Agrega una foto</a>
+                <a class="link_gris_686" href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">Ver galería ({{lugar.totalFotos}} fotos)</a><br />
+                <a class="link_gris_686" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">» Agrega una foto</a>
             </div>
 
             <div class="datos_principales_lugar">
-                <div class="direccion_lugar" id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}</div>
+                <div class="direccion_lugar" id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} <a href="#">{{ lugar.comuna.ciudad.nombre }}</a></div>
                 {% if lugar.telefonos %}
                     <div class="telefono_lugar" id="lugar-telefono">
                         {% for telefono in lugar.telefonos %}
-                            {{lugar.comuna.ciudad.pais.codigoArea}} - {{telefono}}{% if loop.last == false %}, {% endif %}
+                            {{lugar.comuna.ciudad.pais.codigoArea}} {{telefono}}{% if loop.last == false %}, {% endif %}
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -79,31 +79,41 @@
                                 {% endif %}
                             }); 
                         </script>                          
-                        <div class="precio-raty"></div>
+                        <p style="float: left;">Precio:</p><div class="precio-raty precio_global"></div>
                         <div class="precio-detalle"></div>
                     </div>
                 {% endif %}
             </div>
 
             <div class="datos_secundarios_lugar">
-                <div class="primero_en_recomendar_lugar">
-                    {% if lugar.recomendaciones %}
-                        <div id="primero-recomendar">
-                            Primero en recomendar
-                            <a href="{{ path('showUsuario', {'param': lugar.primero.usuario.slug})}}">
-                                {% if lugar.primero.usuario.nombre != '' and lugar.primero.usuario.apellido != '' %}
-                                    {{ lugar.primero.usuario.nombre }} {{ lugar.primero.usuario.apellido }}
-                                {% else %}
-                                    {{ lugar.primero.usuario.slug }}
-                                {% endif %}
-                            </a>
-                        </div>
-                </div>
+                <div class="tags_primero_lugar">
+                    <div class="primero_en_recomendar_lugar">
+                        {% if lugar.recomendaciones %}
+                            <div class="primero_titulo">
+                                Primero en recomendar
+                            </div>
+                            <div class="primero_usuario">
+                                <div class="primero_usuario_img">
+                                    <a href=""><img src="{{ asset('assets/images/usuarios/'~lugar.primero.usuario.imagenFull) }}" height="20" width="20" /></a>
+                                </div>
+                                <div class="primero_usuario_nombre">
+                                    <a href="{{ path('showUsuario', {'param': lugar.primero.usuario.slug})}}">
+                                        {% if lugar.primero.usuario.nombre != '' and lugar.primero.usuario.apellido != '' %}
+                                            {{ lugar.primero.usuario.nombre }} {{ lugar.primero.usuario.apellido }}
+                                        {% else %}
+                                            {{ lugar.primero.usuario.slug }}
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
 
-                <div class="tags_populares_lugar">
-                    {% for tagsPopulares in lugar.tagsPopulares %}
-                        {{tagsPopulares.nombre}}{% if loop.last == false %}, {% endif %}
-                    {% endfor %}
+                    <div class="tags_populares_lugar">
+                        <p>Tags:</p>
+                        {% for tagsPopulares in lugar.tagsPopulares %}
+                            <a href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
 
                 <div class="categoria_lugar">
@@ -164,6 +174,7 @@
 
         <div class="actividad_lugar">
             <a class="recomienda_lugar"></a>
+            <a class="recomienda_despues_lugar"></a>
             <div class="flota_derecha">
                 <a class="favoritos_lugar"></a><p class="favoritos_valor">100</p>
             </div>           
@@ -175,12 +186,14 @@
             </div>           
         </div>
 
+        <div class="caja_inferior_ficha"></div>
+
         <div class="opciones_lugar">
             <ul class="opciones_lugar_f6f">
                 <li><a class="dueno_lugar" href="">¿Eres dueño de este Lugar?</a></li>
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">Edita los datos</a></li>
                 <li><a class="cerro_lugar" href="">¿Este lugar cerró? Avísanos</a></li>
-                <li><a class="compartir_lugar" href="">Compartir</a></li>
+                <li><a class="compartir_lugar" href="">Enviar</a></li>
                 <li><a class="imprimir_lugar" href="">Imprimir</a></li>
             </ul>
         </div>
@@ -238,7 +251,7 @@
                 <div class="texto_recomendacion">
                     <p class="nombre_recomendacion">
                         <strong>
-                            <a class="link_azul" href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
+                            <a class="link_gris_444" href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
                                 {% if recomendacion.nombre != '' and recomendacion.apellido != '' %}
                                     {{ recomendacion.nombre }} {{ recomendacion.apellido }}
                                 {% else %}
@@ -249,14 +262,12 @@
                     </p>
                     <p class="util_recomendacion">{{ recomendacion.utiles }}</p>
                     <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
-                    <p class="estrellas_recomendacion">
-                        <script>
-                            $(document).ready(function(){
-                                estrellasPorRecomendacion({{recomendacion.id}}, {{recomendacion.estrellas}});
-                            });
-                        </script>
-                        <div class="recomendacion-{{recomendacion.id}}-raty"></div>
-                    </p>
+                    <script>
+                        $(document).ready(function(){
+                            estrellasPorRecomendacion({{recomendacion.id}}, {{recomendacion.estrellas}});
+                        });
+                    </script>
+                    <div class="recomendacion-{{recomendacion.id}}-raty estrellas_recomendacion"></div>
                     <p class="texto_recomendacion_usuario">{{ recomendacion.texto }}</p>
                     {% if recomendacion.tags[0] %}
                         <p class="tags_recomendacion">
@@ -267,9 +278,9 @@
                         </p>
                     {% endif %}
                     <p class="opciones_recomendacion">
-                        <a href="#">Edita tu recomendación</a>
-                        <a href="#">Borra tu recomendación</a>
-                        <a href="#">Reporta esta recomendación</a>
+                        <a class="edita_recomendacion" href="#">Edita tu recomendación</a>
+                        <a class="borra_recomendacion" href="#">Borra tu recomendación</a>
+                        <a class="reporta_recomendacion" href="#">Reporta esta recomendación</a>
                     </p>
                 </div>
             </div>

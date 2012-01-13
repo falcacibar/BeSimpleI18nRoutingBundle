@@ -49,6 +49,9 @@ function precioLugar(precio, tipo){
 function estrellasPorRecomendacion(id, estrellas){
     $('.recomendacion-'+id+'-raty').raty({
         width: 140,
+        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
+        starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
+        starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
         half: true,
         start: estrellas,
         readOnly: true,

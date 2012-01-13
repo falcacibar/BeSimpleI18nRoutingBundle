@@ -416,6 +416,12 @@ body {
       .contenedor .contenido .link_gris_444:hover {
         color: #444444;
         text-decoration: underline; }
+    .contenedor .contenido .link_gris_686 {
+      color: #686868;
+      text-decoration: none; }
+      .contenedor .contenido .link_gris_686:hover {
+        color: #686868;
+        text-decoration: underline; }
     .contenedor .contenido .registro {
       float: left;
       width: 459px; }
