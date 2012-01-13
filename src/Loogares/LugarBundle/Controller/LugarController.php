@@ -123,11 +123,14 @@ class LugarController extends Controller{
                                                                          $orderBy
                                                                          LIMIT $resultadosPorPagina
                                                                          OFFSET $offset");
-
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
                         $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
+                        $precioPromedio = $recomendacionesResult[$i]['precio']; 
                 }
+
+                $precioPromedio = ($precioPromedio + $lugarResult[0]->getPrecio()) / $totalRecomendacionesResult+1;
+
                 $telefonos = array();
                 //Array con telefonos del lugar
                 if($lugarResult[0]->getTelefono1() != null || $lugarResult[0]->getTelefono1() != '') {
@@ -152,6 +155,7 @@ class LugarController extends Controller{
                 $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->telefonos = $telefonos;
+                $data->precioPromedio = $precioPromedio;
                 //Imagen a mostrar
                 $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
                 $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';

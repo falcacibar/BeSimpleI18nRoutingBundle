@@ -121,7 +121,11 @@
                                 {% if lugarRevisado.horario[0] is defined %}
                                     $('.comparacion-horas').append('<div class="comparacion comparacion-color{{loop.index}} horario-{{lugarRevisado.usuario.slug}}{{lugarRevisado.id}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio: </div>');
                                     {% for horario in lugarRevisado.horario %}
-                                        $('.horario-{{lugarRevisado.usuario.slug}}{{lugarRevisado.id}}').append("<p><strong>"+dias[{{horario.dia}}] + '</strong> | ' + "{{horario.aperturaAM}} - {{horario.cierreAM}}</p>");
+                                        var $comp = $('.horario-{{lugarRevisado.usuario.slug}}{{lugarRevisado.id}}');
+                                        $comp.append("<p><strong>"+dias[{{horario.dia}}] + '</strong> | AM ' + "{{horario.aperturaAM}} - {{horario.cierreAM}}</p>");
+                                        {% if horario.aperturaPM %}
+                                            $comp append("<p><strong>"+dias[{{horario.dia}}] + ' PM </strong> | ' + "{{horario.aperturaPM}} - {{horario.cierrePM}}</p>");
+                                        {% endif %}
                                     {% endfor %}
                                 {% endif %}
                             {% endfor %}
