@@ -9,7 +9,8 @@
 		</div>
 
 		<div id="sidebar-galeria">
-			<div class="fotos-pagina">
+			<div class="fotos-pagina" style="border:none">
+				{% render "LoogaresLugarBundle:Ajax:paginaGaleria" with {'id': imagen.lugar.id} %}
 			</div>
 
 			<div class="banner">

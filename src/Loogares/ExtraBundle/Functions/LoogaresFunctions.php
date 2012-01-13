@@ -65,6 +65,7 @@ class LoogaresFunctions
            ,'totalPaginas'   => $totalPaginas
            ,'mostrandoDe'    => $mostrandoDe
            ,'mostrandoHasta' => $mostrandoHasta
+           ,'total'          => $total
         );
     }
 

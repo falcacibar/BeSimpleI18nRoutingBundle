@@ -2,6 +2,7 @@
 
 namespace Loogares\LugarBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
@@ -95,5 +96,30 @@ class AjaxController extends Controller
       }
 
       return new Response(json_encode($calles));
+    }
+
+    public function paginaGaleriaAction(Request $request, $id) {
+      $fn = $this->get('fn');
+
+      $em = $this->getDoctrine()->getEntityManager();
+      $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+      $pagina = (!$request->query->get('pagina')) ? 1 : $request->query->get('pagina');
+      $ppag = 20;
+      $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
+
+      $imagenesLugar = $ur->getFotosLugarPaginadas($id, $offset);
+      $totalImagenes = $ur->getTotalFotosLugar($id);
+      $params = array(
+            'id' => $id
+      );
+
+      $paginacion = $fn->paginacion($totalImagenes, $ppag, '_paginaGaleria', $params, $this->get('router') );
+
+      return $this->render('LoogaresLugarBundle:Lugares:pagina_galeria.html.twig', array(
+            'imagenes' => $imagenesLugar,
+            'paginacion' => $paginacion
+        ));
+
     }
 }

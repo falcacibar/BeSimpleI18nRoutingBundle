@@ -169,6 +169,37 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
                                ORDER BY u.id");
         return $q->getResult();
     }
+
+    public function getFotosLugarPaginadas($id, $offset=null) {
+        $em = $this->getEntityManager();
+
+          //Query para obtener las fotos paginadas de un lugar
+          if($offset == null)
+            $offset = '';
+
+          $q = $em->createQuery("SELECT im
+                               FROM Loogares\LugarBundle\Entity\ImagenLugar im
+                               WHERE im.lugar = ?1 
+                               AND im.estado != ?2
+                               ORDER BY im.fecha_creacion DESC, im.id DESC")
+                ->setMaxResults(20)
+                ->setFirstResult($offset);
+
+          $q->setParameter(1, $id);
+          $q->setParameter(2, 3);
+          return $q->getResult();
+    }
+
+    public function getTotalFotosLugar($id) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT count(u.id)
+                             FROM Loogares\LugarBundle\Entity\ImagenLugar u
+                             WHERE u.lugar = ?1
+                             AND u.estado != ?2");
+      $q->setParameter(1, $id);
+      $q->setParameter(2, 3);
+      return $q->getSingleScalarResult();
+    }
     
     public function getDatosUsuario($usuario) {
 
