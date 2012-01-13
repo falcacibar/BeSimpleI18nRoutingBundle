@@ -55,6 +55,9 @@ class LugarController extends Controller{
                 $lugarResult = $lr->getLugares($slug);
 
                 //Id del Lugar
+                if(!isset($lugarResult[0])){
+                    return $this->render(':erroresHTTP:404.html.twig');   
+                }
                 $idLugar = $lugarResult[0]->getId();
 
                 $codigoArea = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getCodigoArea();
@@ -369,9 +372,7 @@ class LugarController extends Controller{
 
                 $em->flush();
 
-                $this->get('session')->setFlash('vo-lugar','This is a random message, sup.');
-
-                if($rolUsuario == 1){
+                if($rolAdmin == 1){
                     /**************************
 
 
@@ -395,9 +396,9 @@ class LugarController extends Controller{
                     }
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }else{
+                    $this->get('session')->setFlash('edicion_lugar','Wena campeon, edito el lugar.');
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
                 }
-                
                 
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
             }

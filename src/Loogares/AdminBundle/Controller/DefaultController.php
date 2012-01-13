@@ -16,7 +16,7 @@ class DefaultController extends Controller
 
         return $this->render('LoogaresAdminBundle:Admin:index.html.twig', array(
             'totalLugares' => $lr->getTotalLugares(),
-            'totalPorRevision' => $tlr->getTotalLugares()
+            'totalPorRevision' => $tlr->getTotalLugaresARevisar()
         ));
     }   
 
@@ -189,7 +189,7 @@ class DefaultController extends Controller
                     left join ciudad
                     on sector.ciudad_id = ciudad.id
 
-                    where lugares.id = temp_lugares.lugar_id
+                    where lugares.id = temp_lugares.lugar_id and temp_lugares.estado_id = 1
                     group by lugares.id");
 
         return $this->render('LoogaresAdminBundle:Admin:listadoRevision.html.twig',array(
@@ -200,10 +200,9 @@ class DefaultController extends Controller
     public function revisionLugaresAction($slug){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
-        $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
 
         $lugar = $lr->findOneBySlug($slug);
-        $tempLugares = $tlr->getLugaresPorRevisar($lugar->getId(), 1);
+        $tempLugares = $lr->getLugaresPorRevisar($lugar->getId(), 1);
         return $this->render('LoogaresAdminBundle:Admin:revisionLugar.html.twig', array(
             'lugares' => $tempLugares
         ));

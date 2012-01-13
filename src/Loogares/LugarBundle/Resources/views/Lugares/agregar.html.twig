@@ -97,7 +97,7 @@
                 $('.caracteristicas').find('input[value="{{caracteristicaLugar.caracteristica.nombre}}"]').click();
             {% endfor %}
 
-            {% if lugar.horario %}
+            {% if lugar.horario[0] is defined and is_granted('ROLE_USER') %}
                 var dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
                 {% for horario in lugar.horario %}
                 $('.habilitar-horario').click().parent().next('li').fadeIn();
@@ -112,6 +112,24 @@
                         $('th.horario-pm').fadeIn();
                     {% endif %}
                 {% endfor %}
+            {% else %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+                    $('.habilitar-horario').click().parent().next('li').fadeIn();
+                        {% if lugaresRevisados is defined %}
+
+                            {% for lugarRevisado in lugaresRevisados %}
+                                {% if lugarRevisado.horario[0] is defined %}
+                                    {% for horario in lugarRevisado.horario %}
+                                        $('.comparacion-horas')
+                                            .append('{{lugarRevisado.usuario.slug}} sugirio: <ul class="comparacion comparacion-color{{loop.index}}">')
+                                            .append(dias[{{horario.dia}}] + ' | ' + "{{horario.aperturaAM}} - {{horario.cierreAM}}")
+                                            .append('</ul>');
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %} 
+                {% endif %}
             {% endif %}
             
         {% else %}
@@ -771,6 +789,9 @@
                 </tr>
             </tbody>
         </table>
+        {% if lugaresRevisados is defined %}
+            <div class='comparacion-horas'></div>
+        {% endif %}
     </li>
     <li class="no-default">
         <label>Profesional</label>

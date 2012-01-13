@@ -13,13 +13,12 @@ use Doctrine\ORM\EntityRepository;
 class TempLugarRepository extends EntityRepository
 {
 
-    public function getTotalLugares(){
+    public function getTotalLugaresARevisar(){
         $em = $this->getEntityManager();
-        $q = $em->createQuery("SELECT count(distinct u.lugar) FROM Loogares\AdminBundle\Entity\TempLugar u");
-        
-        $totalLugaresResult = $q->getSingleScalarResult();
+        $q = $em->createQuery("SELECT count(distinct u.lugar) FROM Loogares\AdminBundle\Entity\TempLugar u where u.estado = ?1");
+        $q->setParameter(1, 1);
 
-        return $totalLugaresResult;
+        return $q->getSingleScalarResult();
     }
 
     public function getRevisionesPendientes($id){
