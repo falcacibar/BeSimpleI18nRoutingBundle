@@ -17,6 +17,9 @@
 {% block content %}
 
 <div id="lugar-ficha">
+    {% if app.session.hasFlash('edicion_lugar') %}
+            {{ app.session.flash('edicion_lugar') }}
+    {% endif %}
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>

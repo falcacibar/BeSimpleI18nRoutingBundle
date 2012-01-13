@@ -15,7 +15,7 @@ LoogaresAdminBundle_revisionLugar:
     defaults: { _controller: LoogaresAdminBundle:Default:revisionLugares }
 
 LoogaresAdminBundle_editarLugar:
-    pattern:  /lugares/editar/{slug}/{id}
+    pattern:  /lugares/editar/{slug}
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
 LoogaresAdminBundle_index:

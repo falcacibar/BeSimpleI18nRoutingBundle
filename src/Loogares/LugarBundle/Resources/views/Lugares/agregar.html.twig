@@ -97,7 +97,7 @@
                 $('.caracteristicas').find('input[value="{{caracteristicaLugar.caracteristica.nombre}}"]').click();
             {% endfor %}
 
-            {% if lugar.horario %}
+            {% if lugar.horario[0] is defined and is_granted('ROLE_USER') %}
                 var dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
                 {% for horario in lugar.horario %}
                 $('.habilitar-horario').click().parent().next('li').fadeIn();
@@ -112,6 +112,25 @@
                         $('th.horario-pm').fadeIn();
                     {% endif %}
                 {% endfor %}
+            {% else %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+                    $('.habilitar-horario').click().parent().next('li').fadeIn();
+                        {% if lugaresRevisados is defined %}
+                            {% for lugarRevisado in lugaresRevisados %}
+                                {% if lugarRevisado.horario[0] is defined %}
+                                    $('.comparacion-horas').append('<div class="comparacion comparacion-color{{loop.index}} horario-{{lugarRevisado.usuario.slug}}{{lugarRevisado.id}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio: </div>');
+                                    {% for horario in lugarRevisado.horario %}
+                                        var $comp = $('.horario-{{lugarRevisado.usuario.slug}}{{lugarRevisado.id}}');
+                                        $comp.append("<p><strong>"+dias[{{horario.dia}}] + '</strong> | AM ' + "{{horario.aperturaAM}} - {{horario.cierreAM}}</p>");
+                                        {% if horario.aperturaPM %}
+                                            $comp append("<p><strong>"+dias[{{horario.dia}}] + ' PM </strong> | ' + "{{horario.aperturaPM}} - {{horario.cierrePM}}</p>");
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %} 
+                {% endif %}
             {% endif %}
             
         {% else %}
@@ -771,6 +790,9 @@
                 </tr>
             </tbody>
         </table>
+        {% if lugaresRevisados is defined %}
+            <div class='comparacion-horas'></div>
+        {% endif %}
     </li>
     <li class="no-default">
         <label>Profesional</label>

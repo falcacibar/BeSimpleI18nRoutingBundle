@@ -39,7 +39,8 @@ function precioLugar(precio, tipo){
         starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
         starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
         start: precio,
-        readOnly: true
+        readOnly: true,
+        space: false
     });
 
     $('.precio-detalle').append(tipo[precio-1])
@@ -50,7 +51,8 @@ function estrellasPorRecomendacion(id, estrellas){
         width: 140,
         half: true,
         start: estrellas,
-        readOnly: true
+        readOnly: true,
+        space: false
     });
 }
 
@@ -59,6 +61,7 @@ function estrellasDelLugar(estrellas){
         width: 140,
         half: true,
         start: estrellas,
-        readOnly: true
+        readOnly: true,
+        space: false
     });
 }

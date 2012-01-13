@@ -55,6 +55,9 @@ class LugarController extends Controller{
                 $lugarResult = $lr->getLugares($slug);
 
                 //Id del Lugar
+                if(!isset($lugarResult[0])){
+                    return $this->render(':erroresHTTP:404.html.twig');   
+                }
                 $idLugar = $lugarResult[0]->getId();
 
                 $codigoArea = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getCodigoArea();
@@ -120,11 +123,14 @@ class LugarController extends Controller{
                                                                          $orderBy
                                                                          LIMIT $resultadosPorPagina
                                                                          OFFSET $offset");
-
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
                         $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
+                        $precioPromedio = $recomendacionesResult[$i]['precio']; 
                 }
+
+                $precioPromedio = ($precioPromedio + $lugarResult[0]->getPrecio()) / $totalRecomendacionesResult+1;
+
                 $telefonos = array();
                 //Array con telefonos del lugar
                 if($lugarResult[0]->getTelefono1() != null || $lugarResult[0]->getTelefono1() != '') {
@@ -149,6 +155,7 @@ class LugarController extends Controller{
                 $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->telefonos = $telefonos;
+                $data->precioPromedio = $precioPromedio;
                 //Imagen a mostrar
                 $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
                 $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';
@@ -369,9 +376,7 @@ class LugarController extends Controller{
 
                 $em->flush();
 
-                $this->get('session')->setFlash('vo-lugar','This is a random message, sup.');
-
-                if($rolUsuario == 1){
+                if($rolAdmin == 1){
                     /**************************
 
 
@@ -395,9 +400,9 @@ class LugarController extends Controller{
                     }
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }else{
+                    $this->get('session')->setFlash('edicion_lugar','Wena campeon, edito el lugar.');
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
                 }
-                
                 
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
             }
