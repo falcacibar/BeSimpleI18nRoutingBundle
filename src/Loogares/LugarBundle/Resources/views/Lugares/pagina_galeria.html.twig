@@ -3,12 +3,12 @@
 	{% for imagen in imagenes %}					
 		{% if loop.index == 1 or (loop.index > 5 and (loop.index - 1) % 5 == 0)  %}
 			{% set cinco = 0 %}
-			<ul style="float:left;margin:0 15px 10px 15px">
+			<ul class="fila-pagina">
 		{% endif %}
 
-				<li class="imagen" data-id="{{imagen.id}}" data-slug="{{imagen.lugar.slug}}" style="display:inline;float:lef;margin: 0 5px">
+				<li class="imagen" data-id="{{imagen.id}}" data-slug="{{imagen.lugar.slug}}" >
 					<a href="{{path('_fotoGaleria', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">
-						<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('tiny_lugar') }}" height="36" width="36" style="padding:1px;border:1px solid #444"/>
+						<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('tiny_lugar') }}" height="36" width="36" />
 					</a>
 				</li>
 
@@ -19,6 +19,10 @@
 		
 	{% endfor %}
 
+	{% if cinco < 5 %}
+		</ul>				
+	{% endif %}
+
 	{% if paginacion.totalPaginas > 1 %}
 		<div class="paginacion">
 			<span>{{paginacion.mostrandoDe}} al {{paginacion.mostrandoHasta}} de {{paginacion.total}}| Ir a la página:</span>
@@ -28,41 +32,3 @@
 		</div>
 	{% endif %}
 </div>
-
-{% block javascripts %}
-	<script type="text/javascript">
-		$(function(){
-			$('.orden li').css('display','inline');
-			$('.orden li').css('margin','0 5px');
-
-			$('.imagen').click(function(e){
-				e.preventDefault();	
-				cambiarFoto($(this).children().first().attr('href'));
-				return false;		
-				
-			});
-
-			$('.orden li a').click(function(e){
-				e.preventDefault();	
-				cambiarPaginaFoto($(this).attr('href'));
-				return false;		
-				
-			});	
-		});
-
-		function cambiarPaginaFoto(paginaUrl) {
-			$.ajax({
-			  type: "GET",
-			  url: paginaUrl,
-			}).done(function( data ) {
-			  $('#pagina').html(data);
-			}).fail(function( data ) {
-			  console.log(data);
-			  alert("cago");
-			});
-			return false;			
-		}
-
-
-	</script>
-{% endblock %}

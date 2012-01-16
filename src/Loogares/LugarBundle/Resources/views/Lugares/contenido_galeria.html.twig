@@ -1,5 +1,4 @@
-<h1>Galería de fotos de <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
-<div class="foto-galeria" style="cursor:pointer;background:#EEE">
+<div class="foto-galeria">
 	<img src="{{ asset('assets/images/lugares/'~imagen.imagenFull)}}" height="{{dimensiones.alto}}" width="{{dimensiones.ancho}}"/>
 </div>
 
@@ -38,70 +37,7 @@
 			{% endif %}
 		</li>
 		<li class="siguiente">
-			{% if vecinas.next is not empty %}
-				<a href="{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next } )}}">Siguiente</a>
-			{% endif %}
+				<a href="{{ (vecinas.next is not empty) ? path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next }) : path( '_galeria', { 'slug' : imagen.lugar.slug }) }}">Siguiente</a>
 		</li>
 	</ul>
-</div>
-
-{% block javascripts %}
-	<script type="text/javascript">
-		$(function(){
-			$('.borrar-foto-lugar').click(function(){
-				if(!confirm('¿Estás seguro de querer borrar tu foto?'))
-					return false;
-			});
-
-			$('.siguiente').click(function(e){
-				e.preventDefault();	
-				$(this).unbind('click');
-				cambiarFoto("{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next } )}}");
-				return false;		
-				
-			});
-
-			$('.anterior').click(function(e){
-				$(this).unbind('click');
-				e.preventDefault();	
-				cambiarFoto("{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.prev } )}}");
-				return false;		
-				
-			});
-
-			$('.foto-galeria').click(function(e){
-				e.preventDefault();	
-				cambiarFoto("{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next } )}}");
-				return false;		
-				
-			});		
-
-			$(document).keydown(function(e){
-				e.preventDefault();
-				// Tecla izquierda
-			    if (e.which == 37) {
-			    	$('.anterior').click();
-			    }
-			    // Tecla derecha
-			    else if(e.which == 39) {
-			    	$('.siguiente').click();
-			    }
-			    return false;
-			});
-		});
-		
-
-		function cambiarFoto(fotoUrl) {
-			$.ajax({
-			  type: "GET",
-			  url: fotoUrl,
-			}).done(function( data ) {
-			  $('#contenido-galeria').html($(data).fadeIn('fast'));
-			}).fail(function( data ) {
-			  console.log(data);
-			});
-			return false;
-			
-		}
-	</script>
-{% endblock %}			
+</div>	
