@@ -3,13 +3,14 @@
 {% block title %}Galería de fotos en {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
-	<div id="galeria">		
+	<div id="galeria">
+		<h1>Galería de fotos de <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>		
 		<div id="contenido-galeria">
 			{% include 'LoogaresLugarBundle:Lugares:contenido_galeria.html.twig' %}
 		</div>
 
 		<div id="sidebar-galeria">
-			<div class="fotos-pagina" style="border:none">
+			<div class="fotos-pagina">
 				{% render "LoogaresLugarBundle:Ajax:paginaGaleria" with {'id': imagen.lugar.id} %}
 			</div>
 
@@ -17,4 +18,8 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('assets/js/galeria.js')}}"></script>
 {% endblock %}

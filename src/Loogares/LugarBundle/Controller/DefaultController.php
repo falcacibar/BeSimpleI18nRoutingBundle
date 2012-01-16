@@ -62,25 +62,21 @@ class DefaultController extends Controller
             // Primer caso: sólo ancho mayor que default
             if($ancho > $anchoDefault && $alto <= $altoDefault) {
                 $dimensiones['ancho'] = $anchoDefault;
-                $dimensiones['alto'] = "auto";
             }
 
             // Segundo caso: ancho mayor que default, pero alto mayor que default y ancho
             else if($ancho > $anchoDefault && $alto > $altoDefault && $alto > $ancho) {
-                $dimensiones['ancho'] = "auto";
                 $dimensiones['alto'] = $altoDefault;
             }
 
             // Tercer caso: sólo alto mayor que default
             else if($alto > $altoDefault && $ancho <= $anchoDefault ) {
-                $dimensiones['ancho'] = "auto";
                 $dimensiones['alto'] = $altoDefault;
             }
 
             // Cuarto caso: alto mayor que default, pero ancho mayor que default y alto
             else if($alto > $altoDefault && $ancho > $anchoDefault && $ancho > $alto) {
                 $dimensiones['ancho'] = $anchoDefault;
-                $dimensiones['alto'] = "auto";
             }
         }
         catch(\Exception $e) {

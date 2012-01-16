@@ -1458,21 +1458,21 @@ $rojo: #FF3300
             @include link_azul_hover
     h1
         border-bottom: 1px solid #ccc
-        margin-bottom: 30px
         padding-bottom: 10px
         font-weight: bold
         font-size: 1.4em
+        width: 64.6%
 
     #contenido-galeria
         float: left
         width: 64.6%
+        margin-top: 30px
 
         .foto-galeria
             text-align: center
             margin-bottom: 10px
-
-            img
-                cursor: pointer
+            cursor: pointer
+            background-color: #EEE
             
             
         .foto-info
@@ -1504,9 +1504,30 @@ $rojo: #FF3300
 
         .fotos-pagina
             width: 100%
-            height: 200px
-            border: 1px solid #ccc
-            margin: 30px 0 20px 0
+            margin-bottom: 20px
+
+            #pagina
+                .fila-pagina
+                    float: left
+                    margin: 0 15px 10px 15px
+
+                    li
+                        display: inline
+                        margin: 0 5px
+
+                        img
+                            padding: 1px
+                            border: 1px solid #444
+                            border-radius: 2px
+                            -moz-border-radius: 2px
+
+                .paginacion
+                    font-size: 11px
+
+                    .orden
+                        li
+                            display: inline
+                            margin: 0 5px
 
         .banner
             width: 100%
