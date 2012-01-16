@@ -9,29 +9,29 @@
 
     <form action="{{ path('login_check') }}" method="post" class="login_form">
         <div>
-            <label for="mail">E-mail:</label>
+            <label for="mail">{% trans %}usuario.login.form.mail{% endtrans %}</label>
             <input type="text" id="mail" name="_mail" value="{{ last_mail }}" class="{{(errors.completo is defined) ? 'input-error' : ' '}}"/>
         </div>
 
         <div>
-            <label for="password">Password:</label>
+            <label for="password">{% trans %}usuario.login.form.password{% endtrans %}</label>
             <input type="password" id="password" name="_password" class="{{(errors is defined and errors|length > 0) ? 'input-error' : ' '}}"/>
         </div>
 
         <div>
             <label></label>
-            <span class="tip"><a href="">¿Olvidaste tu password?</a></span>
+            <span class="tip"><a href="">{% trans %}usuario.login.form.olvidar_password{% endtrans %}</a></span>
         </div>
 
         <div>
             <label></label>
             <input class="checkbox" type="checkbox" id="remember_me" name="_remember_me" />
-            <span class="checkbox_tip">Recordar sesión</span>
+            <span class="checkbox_tip">{% trans %}usuario.login.form.recordar_sesion{% endtrans %}</span>
         </div>
 
         <div class="submit">
             <label></label>
-            <input class="boton_entrar" type="submit" name="login" value="Entrar"/>
+            <input class="boton_entrar" type="submit" name="login" value="{% trans %}usuario.login.form.submit{% endtrans %}"/>
         </div>
     </form>
 </div>

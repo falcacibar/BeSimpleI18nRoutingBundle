@@ -15,5 +15,7 @@ Loogares\ExtraBundle\Entity\Pais:
         codigo_area:
             type: string
             length: 5
+        locale:
+            type: string
         mostrar_lugar:
             type: smallint

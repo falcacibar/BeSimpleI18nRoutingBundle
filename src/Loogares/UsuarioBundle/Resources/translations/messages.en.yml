@@ -1,6 +1,16 @@
 usuario:
     login:
         titulo: Enter Loogares.com!
+        form:
+            mail: E-mail:
+            password: Password:
+            olvidar_password: Forgot your password?
+            recordar_sesion: Remember me
+            submit: Log in
+        registro:
+            titulo: You are not part of Loogares.com yet?
+            texto: Loogares.com is the easiest and funniest way to look for, share and recommend all those unbelievable places that people are talking about.
+            boton: Register!	    
     errors:
         completo: All fields must be filled
         password: E-mail and Password fields don't match. Correct them, please.

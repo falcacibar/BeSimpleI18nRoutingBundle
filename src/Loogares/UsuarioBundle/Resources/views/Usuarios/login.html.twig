@@ -1,6 +1,6 @@
 {% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
 
-{% block title %}¡Entra a Loogares.com!{% endblock %}
+{% block title %}{% trans %}usuario.login.titulo{% endtrans %}{% endblock %}
 {% block content %}
     <div class="columna_izquierda_borde">
         <h1 class="titulo">{% trans %}usuario.login.titulo{% endtrans %}</h3>
@@ -9,13 +9,11 @@
     </div>
 
     <div class="columna_derecha">
-        <h2 class="titulo">¿Aún no eres parte de Loogares.com?</h3>
-        <p class="texto_registro">
-            Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares increíbles de los que la gente está hablando... y esos otros que no lo son tanto.
-        </p>
+        <h2 class="titulo">{% trans %}usuario.login.registro.titulo{% endtrans %}</h3>
+        <p class="texto_registro">{% trans %}usuario.login.registro.texto{% endtrans %}</p>
         
         <a href="{{path('registroUsuario')}}">
-            <div class="boton_registro">¡Regístrate!</div>
+            <div class="boton_registro">{% trans %}usuario.login.registro.boton{% endtrans %}</div>
         </a>
 
     </div>
