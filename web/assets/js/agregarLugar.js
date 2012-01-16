@@ -1,4 +1,40 @@
 $(document).ready(function(){
+    var $sidebar   = $(".gmaps"),
+    $window    = $(window),
+    offset     = $sidebar.offset(),
+    topPadding = 50;
+
+    $window.scroll(function() {
+        if ($window.scrollTop() > offset.top && $window.scrollTop() <= $('.calle').offset().top) {
+            $sidebar.stop().animate({
+                marginTop: $window.scrollTop() - offset.top + topPadding
+            });
+        } else if($window.scrollTop() >= $('.calle').offset().top - topPadding){
+            var margin = ($('.calle').offset().top - topPadding - 15 )+'px';
+            $sidebar.stop().animate({
+                marginTop: margin
+            });
+        }else {
+            $sidebar.stop().animate({
+                marginTop: 0
+            });
+        }
+    });
+
+        $( "#form_calle" ).autocomplete({
+            source: "http://localhost"+WEBROOT+"ajax/recomendarCalle",
+            minLength: 2
+        });
+
+        $('.categoria, .sector, .comuna, select.pais, .ciudad').chosen();
+
+        $('.precio-raty').raty({
+            width: 140,
+            starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
+            starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
+            scoreName: 'form[precio]'
+        });
+
     $('.quitar').click(function(e){
         e.preventDefault();
 
@@ -263,13 +299,7 @@ $(document).ready(function(){
 
     /* Fncs */
 
-    String.prototype.camelCase = function() {
-        str = this;
-        return str
-            .replace(/[\s\-](.)/g, function($1) { return $1.toUpperCase(); })
-            .replace(/[\s\-]/g, '')
-            .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
-    }
+
 
     function actualizarComunas(){
         var ciudadSeleccionada = $('.ciudad option:selected').text();

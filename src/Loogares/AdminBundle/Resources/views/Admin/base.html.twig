@@ -6,6 +6,7 @@
         {% block stylesheets %}{% endblock %}
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
         <script src="{{asset('assets/js/jquery.fixheadertable.min.js')}}"></script>
+        <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="screen" />
         <script>
             $(function(){
                 $('table').tableScroll({height:500});
@@ -28,7 +29,7 @@
                 position: relative;
             }
 
-            table{
+            .table-data table{
                 margin: 0;
                 padding: 0;
                 border-spacing: 0;
@@ -37,22 +38,22 @@
                 text-align: center;
             }
 
-                th{
+                .table-data th{
                     border-bottom: 4px #ccc solid;
                 }
 
 
-                th, td{
+                .table-data th, .table-data td{
                     border-right: 1px solid #f0f0f0 ;
                     padding: 5px;
                     min-width: 40px;
                 }
 
-                th:first-child, td:first-child{
+                .table-data th:first-child, .table-data td:first-child{
                     min-width: 10px;
                 }
 
-                tr:nth-child(even){
+                .table-data tr:nth-child(even){
                     background: #f0f0f0;
                 }
 
@@ -121,5 +122,10 @@
             </div>
         
         </div>
+        {% block javascript %}
+            
+        {% endblock %}
+        <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.ui.datepicker-es.js')}}" type="text/javascript"></script>
     </body>
 </html>

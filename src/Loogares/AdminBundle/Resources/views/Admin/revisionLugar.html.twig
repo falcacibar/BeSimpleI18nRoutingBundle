@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<a href="{{ path('LoogaresAdminBundle_editarLugar', {'slug': lugares[0].lugar.slug}) }}">Revisar</a>
+<a href="{{ path('_editar', {'slug': lugares[0].lugar.slug}) }}">Revisar</a>
 <div class="table-data">
     <table>
         <thead>
@@ -18,7 +18,7 @@
         <tbody>
             {% for lugar in lugares %}
                 <tr>
-                    <td><a href="{{ path('LoogaresAdminBundle_revisionLugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></td>
+                    <td><a href="{{ path('_editar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></td>
                     <td><a href="">{% if lugar.usuario.nombre and lugar.usuario.apellido %}{{lugar.usuario.nombre}} {{lugar.usuario.apellido}}{% else %}{{lugar.usuario.slug}}{% endif %}</a></td>
                     <td>{{lugar.calle}} - {{lugar.numero}}</td>
                     <td>{{lugar.sector.ciudad.nombre}}</td>

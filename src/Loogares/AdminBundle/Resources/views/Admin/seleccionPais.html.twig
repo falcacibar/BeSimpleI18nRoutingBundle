@@ -1,0 +1,50 @@
+{% extends 'LoogaresAdminBundle:Admin:base.html.twig' %}
+{% block javascript %}
+	<script>
+	$('.pais').change(function(){
+		actualizarCiudades();
+	});
+
+	function actualizarCiudades(){
+        var paisSeleccionado = $('.pais option:selected').text();
+
+        $.each(optGroupCiudades, function(i){
+            if(optGroupCiudades[i].match(paisSeleccionado)){
+                $('.ciudad optgroup').remove('optgroup');
+                $('.ciudad').append(optGroupCiudades[i]);
+                $(".ciudad").trigger("liszt:updated")
+            }
+        });
+    }
+
+    var optGroupCiudades = [];
+
+    $('.ciudad optgroup').each(function(i){
+        optGroupCiudades[i] = $(this).outerHTML();
+        $(this).remove();
+    });
+    actualizarCiudades();
+	</script>
+{% endblock %}
+{% block content %}
+<h1>Selecciona un pais a Administrar</h1>
+<form action="{{ path('LoogaresAdminBundle_seleccionarPais') }}" method="POST">
+	<select name="pais">
+		{% for pais in paises %}
+			<option value="{{pais.slug}}">{{pais.nombre}}</option>
+		{% endfor %}
+	</select>
+	<select name="ciudad">
+        {% for pais in paises %}
+            <optgroup label="{{pais.nombre}}">
+                {% for ciudad in ciudades %}
+                	{% if ciudad.pais.id == pais.id %}
+                    	<option value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+            </optgroup>
+        {% endfor %}
+	</select>
+	<input type="submit" value="Administrar"/>
+</form>
+{% endblock %}

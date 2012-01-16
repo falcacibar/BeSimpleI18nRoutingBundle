@@ -3,6 +3,7 @@
 {% block title %}Lugares con Ediciones | {{parent()}}{% endblock %}
 
 {% block content %}
+
 <div class="table-data">
     <table>
         <thead>
@@ -17,13 +18,13 @@
         <tbody>
             {% for lugar in lugares %}
                 <tr>
-                    <td><a href="{{ path('LoogaresAdminBundle_revisionLugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></td>
+                    <td><a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></td>
                     <td>{{lugar.calle}} - {{lugar.numero}}</td>
                     <td>{{lugar.ciudad}}</td>
                     <td>{{lugar.comuna}}</td>
                     <td>{{lugar.sector}}</td>
-                    <td><a href="{{ path('LoogaresAdminBundle_revisionLugar', {'slug': lugar.slug}) }}">{{lugar.revisiones}}</a></td>
-                    <td><a href="{{ path('LoogaresAdminBundle_revisionLugar', {'slug': lugar.slug}) }}">Revisar</a></td>
+                    <td>{{lugar.revisiones}}</td>
+                    <td><a href="{{ path('LoogaresAdminBundle_revisionLugar', {'ciudad': ciudad, 'slug': lugar.slug}) }}">Revisar</a></td>
                 </tr>
             {% endfor %}
         </tbody>

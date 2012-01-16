@@ -1,23 +1,28 @@
-LoogaresAdminBundle_lugares:
-    pattern:  /lugares
-    defaults: { _controller: LoogaresAdminBundle:Default:lugares }
-
 LoogaresAdminBundle_usuarios:
     pattern:  /usuarios
-    defaults: { _controller: LoogaresAdminBundle:Default:usuarios }
+    defaults: { _controller: LoogaresAdminBundle:Admin:usuarios }
 
-LoogaresAdminBundle_lugaresAEditar:
-    pattern:  /lugares/revision
-    defaults: { _controller: LoogaresAdminBundle:Default:lugaresAEditar }
-
-LoogaresAdminBundle_revisionLugar:
-    pattern:  /lugares/revision/{slug}
-    defaults: { _controller: LoogaresAdminBundle:Default:revisionLugares }
-
-LoogaresAdminBundle_editarLugar:
-    pattern:  /lugares/editar/{slug}
-    defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
 LoogaresAdminBundle_index:
     pattern:  /
-    defaults: { _controller: LoogaresAdminBundle:Default:index }
+    defaults: { _controller: LoogaresAdminBundle:Admin:index }
+
+LoogaresAdminBundle_seleccionarPais:
+    pattern:  /lugares
+    defaults: { _controller: LoogaresAdminBundle:Admin:seleccionarPais }
+
+LoogaresAdminBundle_administrarLugares:
+    pattern: /lugares/{ciudad}
+    defaults: { _controller: LoogaresAdminBundle:Admin:administrarLugares }
+
+LoogaresAdminBundle_listadoLugares:
+    pattern:  /lugares/{ciudad}/listado
+    defaults: { _controller: LoogaresAdminBundle:Admin:listadoLugares }
+
+LoogaresAdminBundle_listadoRevision:
+    pattern:  /lugares/{ciudad}/revision/listado
+    defaults: { _controller: LoogaresAdminBundle:Admin:listadoRevision }
+
+LoogaresAdminBundle_revisionLugar:
+    pattern:  /lugares/{ciudad}/revision/{slug}
+    defaults: { _controller: LoogaresAdminBundle:Admin:revisionLugares }

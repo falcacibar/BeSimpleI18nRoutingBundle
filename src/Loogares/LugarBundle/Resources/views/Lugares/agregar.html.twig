@@ -136,51 +136,6 @@
         {% else %}
             onCargarMapaAgregar('default');
         {% endif %}
-
-        $.ui.autocomplete.prototype._renderItem = function( ul, item) {
-            var re = new RegExp(this.term, "i"),
-                t = item.label.replace(re,"<span style='font-weight:bold;color:Blue;'>" + this.term + "</span>");
-            return $( "<li></li>" )
-                .data( "item.autocomplete", item )
-                .append( "<a>" + t + "</a>" )
-                .appendTo( ul );
-        };
-          
-        $( "#form_calle" ).autocomplete({
-            source: "http://localhost"+WEBROOT+"ajax/recomendarCalle",
-            minLength: 2
-        });
-
-        $('.categoria, .sector, .comuna, select.pais, .ciudad').chosen();
-
-            var $sidebar   = $(".gmaps"),
-                $window    = $(window),
-                offset     = $sidebar.offset(),
-                topPadding = 50;
-
-            $window.scroll(function() {
-                if ($window.scrollTop() > offset.top && $window.scrollTop() <= $('.calle').offset().top) {
-                    $sidebar.stop().animate({
-                        marginTop: $window.scrollTop() - offset.top + topPadding
-                    });
-                } else if($window.scrollTop() >= $('.calle').offset().top - topPadding){
-                    var margin = ($('.calle').offset().top - topPadding - 15 )+'px';
-                    $sidebar.stop().animate({
-                        marginTop: margin
-                    });
-                }else {
-                    $sidebar.stop().animate({
-                        marginTop: 0
-                    });
-                }
-            });
-            $('.precio-raty').raty({
-                width: 140,
-                starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
-                starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
-                scoreName: 'form[precio]'
-        
-            });
     });      
 
     </script>

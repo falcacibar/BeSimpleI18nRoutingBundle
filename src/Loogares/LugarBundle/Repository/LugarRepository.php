@@ -38,10 +38,17 @@ class LugarRepository extends EntityRepository
         return $lugarResult;
     }
 
-      public function getTotalLugares(){
+      public function getTotalLugaresPorCiudad($ciudad){
         $em = $this->getEntityManager();
-        $q = $em->createQuery("SELECT count(u) FROM Loogares\LugarBundle\Entity\Lugar u");
-        
+
+        $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
+        $idCiudad = $cr->findOneBySlug($ciudad);
+
+        $q = $em->createQuery("SELECT count(u) 
+                               FROM Loogares\LugarBundle\Entity\Lugar u
+                               LEFT JOIN u.comuna c
+                               WHERE c.ciudad = ?1");
+        $q->setParameter(1, $idCiudad);
         $totalLugaresResult = $q->getSingleScalarResult();
 
         return $totalLugaresResult;

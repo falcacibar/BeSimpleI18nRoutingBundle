@@ -50,3 +50,11 @@ jQuery.fn.checkDefaultClass = function(val){
     $cloned = $(this).clone();
     $cloned.removeClass(val).removeClass('no-default');
 }
+
+String.prototype.camelCase = function() {
+    str = this;
+    return str
+        .replace(/[\s\-](.)/g, function($1) { return $1.toUpperCase(); })
+        .replace(/[\s\-]/g, '')
+        .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
+}

@@ -13,10 +13,18 @@ use Doctrine\ORM\EntityRepository;
 class TempLugarRepository extends EntityRepository
 {
 
-    public function getTotalLugaresARevisar(){
+    public function getTotalLugaresARevisarPorCiudad($ciudad){
         $em = $this->getEntityManager();
-        $q = $em->createQuery("SELECT count(distinct u.lugar) FROM Loogares\AdminBundle\Entity\TempLugar u where u.estado = ?1");
+
+        $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
+        $idCiudad = $cr->findOneBySlug($ciudad);
+
+        $q = $em->createQuery("SELECT count(distinct u.lugar) 
+                               FROM Loogares\AdminBundle\Entity\TempLugar u 
+                               LEFT JOIN u.comuna c 
+                               where u.estado = ?1 and c.ciudad = ?2");
         $q->setParameter(1, 1);
+        $q->setParameter(2, $idCiudad);
 
         return $q->getSingleScalarResult();
     }
