@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 
-{% block title %}{{lugar.nombre}} | {{parent()}}{% endblock %}
+{% block title %}{{ lugar.nombre }} | {{ lugar.comuna.ciudad.nombre }} | {{parent()}}{% endblock %}
 
 {% block javascripts %}
     {{parent()}}
