@@ -35,7 +35,7 @@ class DefaultController extends Controller
     	return $this->render('::menu.html.twig', array('menu' => $data));
     }
 
-    public function ciudadAction(){
+    public function ciudadAction() {
 
         $em = $this->getDoctrine()->getEntityManager();
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
@@ -44,6 +44,18 @@ class DefaultController extends Controller
 
         $data = $tipoCiudades;
         return $this->render('::ciudad.html.twig', array('ciudades' => $data));
+    }
+
+    public function localeAction($slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $ciudad = $cr->findOneBySlug($slug);
+
+        // Seteamos el locale correspondiente a la ciudad en la sesión
+        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+
+        // Redirección a vista de login 
+        return $this->redirect($this->generateUrl('login'));
     }
 
     public function homepageAction() {

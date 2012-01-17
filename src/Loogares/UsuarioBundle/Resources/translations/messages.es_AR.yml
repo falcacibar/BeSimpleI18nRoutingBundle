@@ -1,0 +1,18 @@
+usuario:
+    login:
+        titulo: ¡Entrá a Loogares.com!
+        form:
+            mail: E-mail:
+            password: Password:
+            olvidar_password: ¿Olvidaste tu clave?
+            recordar_sesion: Recordá la sesión
+            submit: Entrá
+        registro:
+            titulo: ¿Aún no participás en Loogares.com?
+            texto: Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares bárbaros de los que la gente está hablando... y esos otros que no lo son tanto.
+            boton: ¡Registráte!
+    errors:
+        completo: Debes completar ambos campos
+        password: Los campos de E-mail y password no coinciden. Por favor, corregílos.
+        emptyPassword: El campo password es obligatorio. Por favor, completálo.
+        noActivo: La cuenta de usuario no se encuentra activa.
