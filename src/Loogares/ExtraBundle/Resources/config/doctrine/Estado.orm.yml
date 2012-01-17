@@ -1,6 +1,10 @@
 Loogares\ExtraBundle\Entity\Estado:
     type: entity
     table: estado
+    oneToMany:
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+            mappedBy: lugar
     id:
         id:
             type: integer

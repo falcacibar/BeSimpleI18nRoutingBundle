@@ -70,7 +70,8 @@ class AdminController extends Controller
             'pwww' => 'sitio_web',
             'pfacebook' => 'facebook',
             'ptwitter' => 'twitter',
-            'pmail' => 'lugares.mail'
+            'pmail' => 'lugares.mail',
+            'pestado' => 'estado'
         );
 
         $listadoFilters = array(
@@ -91,7 +92,8 @@ class AdminController extends Controller
             'www' => 'lugares.sitio_web',
             'facebook' => 'lugares.facebook',
             'twitter' => 'lugares.twitter',
-            'mail' => 'lugares.mail'
+            'mail' => 'lugares.mail',
+            'estado' => 'estado'
         );
 
         if(isset($_GET['fecha-desde']) && isset($_GET['fecha-hasta'])){
@@ -103,7 +105,16 @@ class AdminController extends Controller
             $desde = explode('/', $desde);
             $desde = $desde[2] . "/" . $desde[1] . "/" . $desde[0];
 
-            $where = "WHERE fecha_agregado between '$desde' and '$hasta'";
+            if(!$where){
+                $where = "WHERE fecha_agregado between '$desde' and '$hasta'";
+            }else{
+                $where = " and fecha_agregado between '$desde' and '$hasta'";
+            }
+        }
+
+        if(isset($_GET['buscar'])){
+            $buscar = $_GET['buscar'];
+            $where = "WHERE lugares.nombre LIKE '%$buscar%'";
         }
 
         foreach($_GET as $column => $filter){
@@ -131,6 +142,7 @@ class AdminController extends Controller
                     comuna.nombre as comunaNombre,
                     sector.nombre as sectorNombre,
                     ciudad.nombre as ciudadNombre,
+                    estado.nombre as estado,
                     cast(AVG(recomendacion.estrellas) as signed) as estrellas,
                     count(distinct util.id) as utiles,
                     group_concat(distinct categorias.nombre) as categorias,
@@ -162,6 +174,9 @@ class AdminController extends Controller
 
                     left join categorias
                     on categorias.id = categoria_lugar.categoria_id
+
+                    left join estado
+                    on estado.id = lugares.estado_id
 
                     left join subcategoria_lugar
                     on subcategoria_lugar.lugar_id = lugares.id
@@ -261,4 +276,50 @@ class AdminController extends Controller
             'ciudad' => $ciudad
         ));
     }
+
+    public function accionLugarAction($ciudad, $cerrar = false, $borrar = false, $habilitar = false, Request $request){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        if($request->getMethod() == 'POST'){
+            $vars = $_POST['id'];
+            if($_POST['accion'] == 'aprobar'){
+                $habilitar = true;
+            }else if($_POST['accion'] == 'eliminar'){
+                $borrar = true;
+            }else if($_POST['accion'] == 'cerrar'){
+                $cerrar = true;
+            }
+        }else{
+            $vars = $_GET['id'];
+        }
+
+        if(is_array($vars)){
+            $itemsABorrar = $vars;
+        }else{
+            $itemsABorrar[] = $vars;
+        }
+
+        foreach($itemsABorrar as $item){    
+            $lugar = $lr->findOneById($item);
+            if($borrar == true){
+                $estado = $lr->getEstado(3);
+            }else if($cerrar == true){
+                $estado = $lr->getEstado(4);
+            }else if($habilitar == true){
+                $estado = $lr->getEstado(2);
+            }
+            
+            $lugar->setEstado($estado[0]);
+            $em->persist($lugar);
+        }
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoLugares', array(
+            'ciudad' => $ciudad
+        )));
+    }
+
+
 }

@@ -14,7 +14,7 @@ Loogares\UsuarioBundle\Entity\Usuario:
         recomendaciones:
             targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
             mappedBy: usuario
-       
+
     id:
         id:
             type: integer

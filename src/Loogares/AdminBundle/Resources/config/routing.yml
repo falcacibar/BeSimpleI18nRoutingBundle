@@ -26,3 +26,19 @@ LoogaresAdminBundle_listadoRevision:
 LoogaresAdminBundle_revisionLugar:
     pattern:  /lugares/{ciudad}/revision/{slug}
     defaults: { _controller: LoogaresAdminBundle:Admin:revisionLugares }
+
+LoogaresAdminBundle_borrarLugar:
+    pattern:  /lugares/{ciudad}/revision/borrar/
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: false, habilitar: false, borrar: true  }
+
+LoogaresAdminBundle_cerrarLugar:
+    pattern:  /lugares/{ciudad}/revision/cerrar/
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: true, habilitar: false, borrar: false}
+
+LoogaresAdminBundle_habilitarLugar:
+    pattern:  /lugares/{ciudad}/revision/habilitar/
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: false, habilitar: true, borrar: false }
+
+LoogaresAdminBundle_accionLugar:
+    pattern:  /lugares/{ciudad}/revision/massive/
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: false, habilitar: false, borrar: false}
