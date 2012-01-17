@@ -1,6 +1,9 @@
 Loogares\LugarBundle\Entity\TipoCategoria:
     type: entity
     table: tipo_categoria
+    gedmo:
+        translation:
+            locale: locale
     id:
         id:
             type: integer
@@ -8,7 +11,11 @@ Loogares\LugarBundle\Entity\TipoCategoria:
     fields:
         nombre:
             type: string
+            gedmo:
+                - translatable
         slug:
             type: string
+            gedmo:
+                - translatable
         prioridad_web:
             type: string

@@ -83,7 +83,7 @@ avalanche_imagine:
             options: { size: [96, 96], mode: outbound }
         tiny_lugar:
             type:    thumbnail
-            options: { size: [36, 36], mode: outbound }        
+            options: { size: [36, 36], mode: outbound }
         small_lugar:
             type:    thumbnail
             options: { size: [50, 50], mode: outbound }
@@ -98,6 +98,14 @@ avalanche_imagine:
 jirafe_mail_chimp:
     api_key:    %mailchimp_apikey%
     connection: stub
+
+# Doctrine Extensions Configuration
+stof_doctrine_extensions:
+    default_locale: %locale%
+    translation_fallback: true
+    orm:
+        default:
+            translatable: true
 
 
 # FOS Facebook Configuration

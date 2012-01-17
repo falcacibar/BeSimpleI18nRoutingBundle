@@ -3,6 +3,7 @@
 namespace Loogares\ExtraBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Loogares\LugarBundle\Entity\TipoCategoria;
 
 
 class DefaultController extends Controller
