@@ -113,6 +113,7 @@
                                     </a>
                                 </div>
                             </div>
+                        {% endif %}
                     </div>
 
                     <div class="tags_populares_lugar">
@@ -205,6 +206,8 @@
             </ul>
         </div>
 
+        {% if lugar.recomendacion|length != 0 %}
+        
         <h2 class="titulo_recomendaciones">
             {{ lugar.recomendacion|length }}
             Recomendaciones en {{ lugar.nombre }}
@@ -247,6 +250,7 @@
             </select>
             <p class="resultados_por_pagina_txt">Resultados por página</p>
         </div>
+
 
         {% for recomendacion in lugar.recomendaciones %}
             <div class="recomendacion">
@@ -306,11 +310,12 @@
             {% endif %}
         </div>
 
-        <div id="recomendaciones">
-            {% else %}
-                <h2>0 Recomendaciones en {{ lugar.nombre }}</h2>
-            {% endif %}
-        </div>
+        
+        {% else %}
+            <div>
+                <h2 class="titulo_recomendaciones">0 Recomendaciones en {{ lugar.nombre }}</h2>
+            </div>
+        {% endif %}
 
     </div>
 

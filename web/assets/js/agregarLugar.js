@@ -219,8 +219,8 @@ $(document).ready(function(){
                 if($(this).hasClass('calle')){
                     $('.numero').after('<small class="errors">'+$(this).attr('title')+'</small>');
                 }else if($(this).is('select') && $(this).not('.secundaria')){
-                    $(this).next('.chzn-container').css('border', '1px solid red').addClass('.chzn-error');
-                    $(this).after('<small class="errors">'+$(this).attr('title')+' (La clase de Error se llama .chzn-error)</small>'); 
+                    $(this).next('.chzn-container').find('.chzn-single').addClass('chzn-error');
+                    $(this).after('<small class="errors">'+$(this).attr('title')+'</small>'); 
                 }else{
                    $(this).after('<small class="errors">'+$(this).attr('title')+'</small>'); 
                 }
@@ -287,8 +287,8 @@ $(document).ready(function(){
                         })
                         $('.lugar-existe').fadeIn();
                         
-                    }else{
-                        $('.lugar-existe').append('Este lugar no existe, wena onda').fadeIn();
+                    /*  }else{
+                        $('.lugar-existe').append('¡No existen lugares en esta dirección!').fadeIn(); */
                     }
                 },
                 error: function(data) {console.log(data)}

@@ -701,6 +701,14 @@ body {
 .input-error {
   border: 1px solid #ff6666 !important; }
 
+a.chzn-single.chzn-error {
+  border-radius: 4px;
+  -o-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background-color: #ffe5e5;
+  border: 1px solid #ff6666; }
+
 /* AGREGADO POR EL SUR */
 input[type=text], textarea, input[type=password] {
   padding: 8px;

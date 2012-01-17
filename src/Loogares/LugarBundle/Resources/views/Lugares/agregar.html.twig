@@ -9,9 +9,6 @@
 
         .subcategorias{display: none;}
         .subcategorias ul li{display: none;}
-        .precio{
-            margin-top: 5px;
-        }
 
         .comparacion{
             padding: 5px;
@@ -476,7 +473,7 @@
     {% if is_granted('ROLE_ADMIN')%}
     <li>
         <label>Precio</label>
-        <div class="precio telefono">
+        <div class="precio">
             <div class="precio-raty"></div>
         </div>
     </li>

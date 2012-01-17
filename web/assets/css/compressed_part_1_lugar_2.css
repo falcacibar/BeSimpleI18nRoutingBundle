@@ -8,7 +8,8 @@
   .agregar-lugar li {
     display: block;
     float: left;
-    margin: 0 0 15px 0; }
+    margin: 0 0 15px 0;
+    width: 510px; }
     .agregar-lugar li.no-default {
       display: none; }
     .agregar-lugar li span .cargar_mapa {
@@ -130,8 +131,8 @@
     width: 300px; }
   .agregar-lugar .quitar_info {
     display: block;
-    float: left;
-    margin: 7px 0 7px 10px; }
+    float: right;
+    margin: 7px 55px 7px 0px; }
     .agregar-lugar .quitar_info a {
       color: #0066cc;
       text-decoration: none; }
@@ -168,6 +169,11 @@
     display: block;
     float: left;
     width: 250px; }
+  .agregar-lugar .precio {
+    display: block;
+    float: left;
+    margin: 8px 0 0;
+    width: 400px; }
   .agregar-lugar .horario {
     display: block;
     float: left;
