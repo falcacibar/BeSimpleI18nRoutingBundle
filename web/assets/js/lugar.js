@@ -68,3 +68,18 @@ function estrellasDelLugar(estrellas){
         space: false
     });
 }
+
+function estrellasOtrosLugares(id, estrellas){
+    console.log(estrellas)
+    console.log(id)
+    $('.star-raty-otrosLugares'+id).raty({
+        width: 140,
+        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
+        starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
+        starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
+        half: true,
+        start: estrellas,
+        readOnly: true,
+        space: false
+    });
+}

@@ -13,7 +13,7 @@ class AjaxController extends Controller
         list($mapxHasta, $mapyHasta) = explode(',',$_GET['northEast']);
         $idLugar = $_GET['idLugar'];
 
-        $otrosLugaresResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT lugares.*, group_concat(DISTINCT categorias.nombre) as categorias, imagen_full, count(recomendacion.id) as recomendaciones, tipo_categoria.id as tipo
+        $otrosLugaresResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT lugares.*, group_concat(DISTINCT categorias.nombre) as categorias, imagen_full, count(recomendacion.id) as recomendaciones, tipo_categoria.id as tipo, comuna.nombre as comuna
                                                                                FROM lugares
                                                                                LEFT JOIN categoria_lugar
                                                                                ON categoria_lugar.lugar_id = lugares.id
@@ -23,6 +23,8 @@ class AjaxController extends Controller
                                                                                ON imagenes_lugar.lugar_id = lugares.id
                                                                                LEFT JOIN tipo_categoria
                                                                                ON categorias.tipo_categoria_id = tipo_categoria.id
+                                                                               LEFT JOIN comuna
+                                                                               ON comuna.id = lugares.comuna_id
                                                                                LEFT JOIN recomendacion
                                                                                ON recomendacion.lugar_id = lugares.id
                                                                                WHERE lugares.id != $idLugar

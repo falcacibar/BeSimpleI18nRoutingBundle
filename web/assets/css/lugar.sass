@@ -463,7 +463,7 @@ $rojo: #FF3300
             margin: 4px 0 0 10px
             width: 474px
     
-    .foto_lugar_box
+    .multimedia_lugar
         font:
             size: 12px
         float: left
@@ -483,6 +483,16 @@ $rojo: #FF3300
                 float: left
                 height: 130px
                 width: 130px
+
+        .video_lugar
+            float: left
+            margin: 10px 0 0 0
+            width: 146px
+
+            .ver_video_lugar
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -595px
+                float: left
+                padding: 0 0 0 20px
     
     .datos_principales_lugar
         float: left
@@ -568,12 +578,38 @@ $rojo: #FF3300
                     size: 11px
                 margin: 0 0 0 10px
                 width: 327px
+        
+        .pedido_reserva_lugar
+            display: block
+            float: left
+            width: 442px
+
+            .pedido_online_lugar
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -531px 0px
+                display: inline-block
+                float: left
+                height: 20px
+                width: 99px
+
+                &:hover
+                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -531px -30px
+
+            .reserva_online_lugar
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -630px 0px
+                display: inline-block
+                float: left
+                height: 20px
+                margin: 0 0 0 10px
+                width: 99px
+
+                &:hover
+                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -630px -30px
 
     .datos_secundarios_lugar
         color: $gris_686
         float: left
         line-height: 14px
-        margin: 20px 0 0 0
+        margin: 40px 0 0 0
         width: 598px
 
         .subtitulos_lugar
@@ -694,6 +730,7 @@ $rojo: #FF3300
                     @include link_azul_hover
 
     .caracteristicas_lugar
+        color: $gris_666
         display: block
         float: left
         margin: 20px 0 0 0
@@ -1132,6 +1169,7 @@ $rojo: #FF3300
         width: 45px
 
     .resultados_por_pagina_txt
+        color: $gris_666
         float: left
         font:
             size: 11px
@@ -1140,7 +1178,7 @@ $rojo: #FF3300
 .recomendacion
     border-top: 1px solid $gris_f6f
     float: left
-    padding: 20px 0
+    padding: 30px 0
     width: 640px
 
     .foto_recomendacion
@@ -1165,9 +1203,28 @@ $rojo: #FF3300
             float: left
             font:
                 size: 14px
-            margin: 0 0 10px 0
             text-align: right
             width: 100px
+
+            .conteo_util
+                @include borde_redondeado
+                border: 1px solid $gris_666
+                display: block
+                float: right
+                font:
+                    weight: bold
+                height: 10px
+                margin: 0 5px 0 0
+                padding: 2px 5px 6px
+
+            .boton_util
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -755px 0
+                float: right
+                height: 20px 
+                width: 43px
+
+                &:active
+                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -755px -30px
 
         .fecha_recomendacion
             color: $gris_999
@@ -1220,10 +1277,10 @@ $rojo: #FF3300
             width: 570px
             
             a
-                @include link_gris_444
+                @include link_gris_666
 
                 &:hover
-                    @include link_gris_444_hover
+                    @include link_gris_666_hover
 
             .edita_recomendacion
                 background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
@@ -1267,12 +1324,43 @@ $rojo: #FF3300
 .paginacion_recomendacion
     border-bottom: 1px solid $gris_f6f
     border-top: 1px solid $gris_f6f
+    color: $gris_666
     display: block
     float: left
     font:
         size: 12px
     padding: 10px 0
     width: 640px
+
+    p
+        float: left
+        display: block
+        margin: 2px 0 0
+
+    ul
+        float: left
+        margin: 0 0 0 10px
+    
+        li
+            border: 1px solid $gris_ccc
+            float: left
+            height: 5px
+            margin: 0 0 0 2px
+            padding: 2px 5px 8px
+        
+            a
+                color: $gris_666 !important
+        
+        .pagina-actual
+            background: $azul
+            border: 1px solid $azul
+            float: left
+            height: 5px
+            margin: 0 0 0 2px
+            padding: 2px 5px 8px
+
+            a
+                color: $blanco !important
 
 /* Otros lugares */
 
@@ -1310,6 +1398,55 @@ $rojo: #FF3300
             float: left
             margin: 0 0 0 10px
             width: 218px
+
+            .otro_lugar_nombre
+                color: $gris_444
+                display: block
+                float: left
+                font:
+                    weight: bold
+                margin: 0 0 10px
+                width: 218px
+
+                &:hover
+                    text-decoration: underline
+
+            p
+                display: block
+                float: left
+                font:
+                    size: 11px
+                    style: italic
+                width: 120px
+            
+            .direccion
+                display: block
+                float: left
+                font:
+                    size: 12px
+                line-height: 16px
+                margin: 10px 0
+                width: 218px
+                
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
+            
+            .categoria
+                display: block
+                float: left
+                font:
+                    size: 12px
+                line-height: 16px
+                width: 218px
+
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
 
     /* AGREGADO POR EL SUR */
 

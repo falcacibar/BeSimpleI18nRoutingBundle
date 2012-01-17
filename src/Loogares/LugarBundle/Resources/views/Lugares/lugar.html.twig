@@ -32,12 +32,15 @@
                 <div class="star-raty estrellas_lugar"></div>
                 <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} recomendaciones</span>
             </div>
-            <div class="foto_lugar_box">
+            <div class="multimedia_lugar">
                 <div class="foto_lugar" id="lugar-foto">
                     <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}"><img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 </div>
                 <a class="link_gris_686" href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">Ver galería ({{lugar.totalFotos}} fotos)</a><br />
                 <a class="link_gris_686" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">» Agrega una foto</a>
+                <div class="video_lugar">
+                    <a class="link_gris_686 ver_video_lugar" href="#">Ver video</a>
+                </div>
             </div>
 
             <div class="datos_principales_lugar">
@@ -83,6 +86,10 @@
                         <div class="precio-detalle"></div>
                     </div>
                 {% endif %}
+                <div class="pedido_reserva_lugar">
+                    <a class="pedido_online_lugar" href="#" alt="Pedido Online"></a>
+                    <a class="reserva_online_lugar" href="#" alt="Reserva Online"></a>
+                </div>
             </div>
 
             <div class="datos_secundarios_lugar">
@@ -260,7 +267,10 @@
                             </a>
                         </strong>
                     </p>
-                    <p class="util_recomendacion">{{ recomendacion.utiles }}</p>
+                    <div class="util_recomendacion">
+                        <a class="boton_util"></a>
+                        <p class="conteo_util">{{ recomendacion.utiles }}</p>
+                    </div>
                     <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
                     <script>
                         $(document).ready(function(){
@@ -290,11 +300,16 @@
             <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{ lugar.recomendacion|length }}</strong>
             {% if paginacion.totalPaginas != 1 %}
                  | Ir a la página
-                <ul style="background: #333">
+                <ul>
                     {{ paginacion.paginacion | raw }}
                 </ul>
             {% endif %}
+        </div>
 
+        <div id="recomendaciones">
+            {% else %}
+                <h2>0 Recomendaciones en {{ lugar.nombre }}</h2>
+            {% endif %}
         </div>
 
     </div>
@@ -329,14 +344,7 @@
         </div>
 
     </div>
-
-
-    <div id="recomendaciones">
-    </div>
-    {% else %}
-        <h1>No hay recomendaciones, queris recomendar? :D</h1>
-    {% endif %}
-
+    
 </div>
 
 {% endblock %}
