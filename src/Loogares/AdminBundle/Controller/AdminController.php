@@ -96,6 +96,16 @@ class AdminController extends Controller
             'estado' => 'estado'
         );
 
+        if(isset($_GET['buscar'])){
+            $buscar = $_GET['buscar'];
+            if(preg_match('/[A-Za-z]+/', $buscar) == false){
+                $where = "WHERE lugares.id = '$buscar'";
+            }else{
+                $where = "WHERE lugares.nombre LIKE '%$buscar%'";
+            }
+            
+        }
+
         if(isset($_GET['fecha-desde']) && isset($_GET['fecha-hasta'])){
             $hasta = preg_replace('/-/', '/',$_GET['fecha-hasta']);
             $hasta = explode('/', $hasta);
@@ -110,11 +120,6 @@ class AdminController extends Controller
             }else{
                 $where = " and fecha_agregado between '$desde' and '$hasta'";
             }
-        }
-
-        if(isset($_GET['buscar'])){
-            $buscar = $_GET['buscar'];
-            $where = "WHERE lugares.nombre LIKE '%$buscar%'";
         }
 
         foreach($_GET as $column => $filter){
