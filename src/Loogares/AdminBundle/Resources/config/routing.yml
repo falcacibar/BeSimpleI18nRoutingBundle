@@ -8,9 +8,21 @@ LoogaresAdminBundle_index:
 #Rutas del Administrador de Usuario
 #
 #
-LoogaresAdminBundle_usuarios:
+LoogaresAdminBundle_listadoUsuarios:
     pattern:  /usuarios
     defaults: { _controller: LoogaresAdminBundle:Admin:listadoUsuarios }
+
+LoogaresAdminBundle_desactivarUsuario:
+    pattern:  /usuarios/desactivar
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionUsuario, desactivar: true, activar: false }
+
+LoogaresAdminBundle_activarUsuario:
+    pattern:  /usuarios/activar
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionUsuario, desactivar: false, activar: true }
+
+LoogaresAdminBundle_accionUsuario:
+    pattern:  /usuarios/massive
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionUsuario, desactivar: false, activar: false }
 
 #
 #

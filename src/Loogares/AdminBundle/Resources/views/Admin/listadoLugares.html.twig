@@ -8,6 +8,8 @@
             var dates = $( "#fecha-desde-ph, #fecha-hasta-ph" ).datepicker({
                 defaultDate: "+1w",
                 changeMonth: true,
+                changeYear: true,
+                yearRange: '2009:c',
                 numberOfMonths: 1,
                 onSelect: function( selectedDate ) {
                     var option = this.id == "fecha-desde-ph" ? "minDate" : "maxDate",

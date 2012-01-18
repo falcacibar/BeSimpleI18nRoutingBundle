@@ -136,8 +136,6 @@ class AdminController extends Controller
             }
         }
 
-
-
         $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
 
@@ -320,23 +318,108 @@ class AdminController extends Controller
         $like = null;
         $order = null;
         $offset = 0;
+        $fn = $this->get('fn');
+
+        $filters = array(
+            'pnombre' => 'usuarios.nombre',
+            'papellido' => 'usuarios.apellido',
+            'pslug' => 'usuarios.slug',
+            'pmail' => 'usuarios.mail',
+            'psexo' => 'usuarios.sexo',
+            'pfecha_nacimiento' => 'usuarios.fecha_nacimiento',
+            'pestado' => 'estadoNombre',
+            'ptipo_usuario' => 'tipoUsuarioNombre',
+            'pwww' => 'usuarios.web',
+            'ptwitter' => 'usuarios.twitter',
+            'pfacebook' => 'usuarios.facebook'
+        );
+
+        $listadoFilters = array(
+            'id' => 'usuarios.id', 
+            'nombre' => 'usuarios.nombre',
+            'apellido' => 'usuarios.apellido',
+            'mail' => 'usuarios.mail',
+            'slug' => 'usuarios.slug',
+            'sexo' => 'usuarios.sexo',
+            'fecha_nacimiento' => 'usuarios.fecha_nacimiento',
+            'estado' => 'estadoNombre',
+            'tipo_usuario' => 'tipoUsuarioNombre',
+            'imagenes' => 'imagenes',
+            'recomendaciones' => 'recomendaciones',
+            'lugares' => 'lugares',
+            'utiles' => 'utiles',
+            'fecha_registro' => 'usuarios.fecha_registro'
+        );
+
+        $lugaresFilters = array();
+
+        $recomendacionesFilter = array(
+            'recomendaciones' => 'recomendaciones',
+            'utiles' => 'utiles'
+        );
+
+        if(isset($_GET['buscar'])){
+            $buscar = $_GET['buscar'];
+            if(preg_match('/[A-Za-z]+/', $buscar) == false){
+                $where = "WHERE usuarios.id = '$buscar'";
+            }else{
+                $where = "WHERE usuarios.nombre LIKE '%$buscar%' or usuarios.apellido LIKE '%$buscar%' or usuarios.slug LIKE '%$buscar%'";
+            }
+            
+        }
+
+        if(isset($_GET['fecha-desde']) && isset($_GET['fecha-hasta']) && isset($_GET['tipo-fecha'])){
+            $hasta = preg_replace('/-/', '/',$_GET['fecha-hasta']);
+            $hasta = explode('/', $hasta);
+            $hasta = $hasta[2] . "/" . $hasta[1] . "/" . $hasta[0];
+
+            $desde = preg_replace('/-/', '/',$_GET['fecha-desde']);
+            $desde = explode('/', $desde);
+            $desde = $desde[2] . "/" . $desde[1] . "/" . $desde[0];
+
+            $tipo = $_GET['tipo-fecha'];
+
+            if(!$where){
+                $where = "WHERE usuarios.$tipo between '$desde' and '$hasta'";
+            }else{
+                $where = " and usuarios.$tipo between '$desde' and '$hasta'";
+            }
+        }
+
+        foreach($_GET as $column => $filter){
+            if(!$like && isset($filters[$column])){
+                    $like = "HAVING ".$filters[$column]." LIKE '%$filter%'";
+            }
+             if($filter == 'asc' || $filter == 'desc'){
+                if(!$order){
+                    $order = "ORDER BY ".$listadoFilters[$column]." $filter";
+                }else{
+                    $order .= ", $listadoFilters[$column] $filter";
+                }
+                $filters[$column] = ($filter == 'asc')?'desc':'asc';
+            }
+        }
+
+        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
+
         $em = $this->getDoctrine()->getEntityManager();
         $usuarios = $this->getDoctrine()->getConnection()
-        ->fetchAll("SELECT SQL_CALC_FOUND_ROWS usuarios.*,
+        ->fetchAll("select SQL_CALC_FOUND_ROWS usuarios.*, 
+                    (select count(distinct imagenes_lugar.id) from imagenes_lugar where usuarios.id = imagenes_lugar.usuario_id) as imagenes,
+                    (select count(distinct lugares.id) from lugares where usuarios.id = lugares.usuario_id) as lugares,
+                    (select count(distinct recomendacion.id) from recomendacion where usuarios.id = recomendacion.usuario_id) as recomendaciones,
+                    (select count(distinct util.id) from util where usuarios.id = util.usuario_id) as utiles,
                     estado.nombre as estadoNombre,
-                    tipo_usuario.descripcion as tipoUsuarioNombre,
-                    count(distinct imagenes_lugar.id) as imagenes
-
+                    tipo_usuario.descripcion as tipoUsuarioNombre
+                                         
                     from usuarios
-
+                                        
                     left join estado
                     on estado.id = usuarios.estado_id
 
                     left join tipo_usuario
-                    on usuarios.tipo_usuario_id = tipo_usuario.id
-
-                    left join imagenes_lugar
-                    on imagenes_lugar.usuario_id = usuarios.id
+                    on usuarios.tipo_usuario_id = tipo_usuario.id   
 
                     $where
                     GROUP BY usuarios.id
@@ -345,26 +428,61 @@ class AdminController extends Controller
                     LIMIT 30
                     OFFSET $offset");
 
-        foreach($usuarios as $key => $value){
-            $idUsuario = $value['id'];
-            $lugaresData = $this->getDoctrine()->getConnection()
-            ->fetchAll("SELECT count(distinct lugares.id) as lugares
-                        FROM lugares
-                        WHERE lugares.usuario_id = $idUsuario");
+        $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
 
-            $recomendacionesData = $this->getDoctrine()->getConnection()
-            ->fetchAll("SELECT count(distinct recomendacion.id) as recomendaciones, count(distinct util.id) as utiles
-                        FROM recomendacion, util
-                        WHERE recomendacion.usuario_id = $idUsuario and util.usuario_id = $idUsuario");
+        $params = array();
 
-            $usuarios[$key]['recomendaciones'] = $recomendacionesData[0]['recomendaciones'];
-            $usuarios[$key]['utiles'] = $recomendacionesData[0]['utiles'];
-            $usuarios[$key]['lugares'] = $lugaresData[0]['lugares'];
-        }
+        $options = array(
+            'izq' => 5,
+            'der' => 5
+        );
+
+        $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_listadoUsuarios', $params, $this->get('router'), $options);
 
         return $this->render('LoogaresAdminBundle:Admin:listadoUsuarios.html.twig', array(
             'usuarios' => $usuarios,
+            'query' => $_GET,
+            'paginacion' => $paginacion
         ));
+    }
+
+    public function accionUsuarioAction($activar, $desactivar, Request $request){
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        if($request->getMethod() == 'POST'){
+            $vars = $_POST['id'];
+            if($_POST['accion'] == 'activar'){
+                $activar = true;
+            }else if($_POST['accion'] == 'desactivar'){
+                $desactivar = true;
+            }
+        }else{
+            $vars = $_GET['id'];
+        }
+
+        if(is_array($vars)){
+            $itemsAEditar = $vars;
+        }else{
+            $itemsAEditar[] = $vars;
+        }
+
+        foreach($itemsAEditar as $item){    
+            $usuario = $ur->findOneById($item);
+            if($activar == true){
+                $estado = $lr->getEstado(7);
+            }else if($desactivar == true){
+                $estado = $lr->getEstado(8);
+            }
+            
+            $usuario->setEstado($estado[0]);
+            $em->persist($usuario);
+        }
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoUsuarios'));
     }
 
 
