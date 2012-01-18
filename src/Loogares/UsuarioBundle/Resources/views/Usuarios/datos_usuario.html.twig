@@ -10,18 +10,20 @@
 		<li>{{usuario.nombre}} {{usuario.apellido}}</li>
 		<li>
 			{{ usuario.edadSexo|join(', ') }}
-		</li>
+			{% if usuario.textoEdad is not empty%}
+				{% transchoice usuario.textoEdad%}usuario.datos.edad{% endtranschoice %}
+			{% endif %}
 	</ul>
 	
 
 	<ul class="bold">
-		<li>{{usuario.totalRecomendaciones}} recomendaciones</li>
-		<li>{{usuario.totalPrimerasRecomendaciones}} primeras recomendaciones</li>
-		<li>{{usuario.totalLugaresAgregados}} lugares agregados</li>
-		<li>{{usuario.totalImagenesLugar}} fotos agregadas</li>
+		<li>{{usuario.totalRecomendaciones}} {% transchoice usuario.totalRecomendaciones%}usuario.datos.recomendaciones{% endtranschoice %}</li>
+		<li>{{usuario.totalPrimerasRecomendaciones}} {% transchoice usuario.totalPrimerasRecomendaciones%}usuario.datos.primeras_recomendaciones{% endtranschoice %}</li>
+		<li>{{usuario.totalLugaresAgregados}} {% transchoice usuario.totalLugaresAgregados%}usuario.datos.lugares_agregados{% endtranschoice %}</li>
+		<li>{{usuario.totalImagenesLugar}} {% transchoice usuario.totalImagenesLugar%}usuario.datos.fotos_agregadas{% endtranschoice %}</li>
 	</ul>
 
-	<p class="bold">En Loogares.com desde: <br /> {{usuario.fechaRegistro|date('d/m/Y')}}</p>
+	<p class="bold">{% trans %}usuario.datos.desde{% endtrans %}<br /> {{usuario.fechaRegistro|date('d/m/Y')}}</p>
 	{% if usuario.links|length > 0 %}
 		<ul class="bold">
 		{% for link in usuario.links %}
@@ -33,6 +35,6 @@
 
 	{% 	set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
 	{% if usuario.tipo is defined and usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
-		<a href="{{path('editarUsuario', { 'param': slug })}}" class="editar-link">Edita los datos de tu perfil</a>
+		<a href="{{path('editarUsuario', { 'param': slug })}}" class="editar-link">{% trans %}usuario.datos.editar{% endtrans %}</a>
 	{% endif %}
 </div>

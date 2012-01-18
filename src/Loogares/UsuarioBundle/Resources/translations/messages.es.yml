@@ -35,6 +35,28 @@ usuario:
             texto: Haz click en el botón de abajo y regístrate en un solo paso con tu cuenta de Facebook.
         login:
             titulo: ¿Ya eres parte de Loogares.com? ¡Entra ahora!
+        confirmar:
+            titulo_pag: Confirma tu cuenta
+            titulo: ¡Estás a sólo segundos de convertirte en Loogareño!
+            texto: Confírmanos tu cuenta en el E-mail que acabamos de mandarte y estarás listo (revisa la casilla de spam, por si acaso).<br />¡Te esperamos!<br />
+            link: Volver a la %open_a%Página de inicio%close_a%
+            mail:
+                titulo: ¡Felicitaciones %nombre% %apellido%!
+                texto: Estás a punto de convertirte en un Loogareño, haz clic %open_a%acá%close_a% para confirmar tu cuenta.
+                texto_plano: Estás a punto de convertirte en un Loogareño. Para confirmar tu cuenta, ingresa el siguiente link en tu navegador:
+    datos:
+        edad: año|años
+        recomendaciones: recomendación|recomendaciones
+        primeras_recomendaciones: primera recomendación|primeras recomendaciones
+        lugares_agregados: lugar agregado|lugares agregados
+        fotos_agregadas: foto agregada|fotos agregadas
+        desde: En Loogares.com desde:
+        editar: Edita los datos de tu perfil
+    mail:
+        equipo: El equipo de %open_tag%Loogares.com%close_tag%
+        contacto: Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a %open_a%contacto@loogares.com%close_a%
+        contacto_plano: Si quieres contactarnos escríbenos a contacto@loogares.com
+        firma: 2012. Loogares.com
     errors:
         completo: Debes completar ambos campos
         password: Los campos de E-mail y password no coinciden. Por favor, corrígelos.

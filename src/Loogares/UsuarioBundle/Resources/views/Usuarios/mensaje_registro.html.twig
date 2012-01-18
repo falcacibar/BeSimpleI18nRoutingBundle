@@ -1,15 +1,15 @@
 {% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
 
-{% block title %}Confirma tu cuenta | {{parent()}}{% endblock %}
+{% block title %}{% trans %}usuario.registro.confirmar.titulo_pag{% endtrans %} | {{parent()}}{% endblock %}
 
 {% block content %}
 <div class="confirmar_registro">
-    <h1 class="titulo">¡Estás a sólo segundos de convertirte en Loogareño!</h1>
+    <h1 class="titulo">{% trans %}usuario.registro.confirmar.titulo{% endtrans %}</h1>
     <p>
-    	<strong>Confírmanos tu cuenta en el E-mail que acabamos de mandarte y estarás listo (revisa la casilla de spam, por si acaso).<br />
-    	¡Te esperamos!<br /></strong>
+    	<strong>{% trans %}usuario.registro.confirmar.texto{% endtrans %}</strong>
     	<br />
-        Volver a la <a class="link_azul" href="#">Página de inicio</a>
+    	{% set raiz = path('root')%}
+        {% trans with {'%open_a%': "<a href="~raiz~" class='link_azul'>", '%close_a%' : '</a>'}%}usuario.registro.confirmar.link{% endtrans %}
     </p>
 </div>
 {% endblock %}

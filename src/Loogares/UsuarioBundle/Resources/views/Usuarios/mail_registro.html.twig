@@ -8,9 +8,10 @@
             <tr>
                 <td style="font-size:12px; color:#000; font-family:Arial,sans-serif" colspan="2">
                     <br />
-                    ¡Felicitaciones {{usuario.nombre}} {{usuario.apellido}}!<br />
+                    {% trans with {'%nombre%': usuario.nombre, '%apellido%' : usuario.apellido}%}usuario.registro.confirmar.mail.titulo{% endtrans %}<br />
                     <br />
-                    Estás a punto de convertirte en un Loogareño, haz clic <a href="{{url('confirmarUsuario', { 'hash': usuario.hashConfirmacion })}}">acá</a> para confirmar tu cuenta.<br />
+                    {% set confirmacion = url('confirmarUsuario', { 'hash': usuario.hashConfirmacion }) %}
+                    {% trans with {'%open_a%': "<a href="~confirmacion~">", '%close_a%' : '</a>'}%}usuario.registro.confirmar.mail.texto{% endtrans %}<br />
                     <br />
                     <br />
                     <br />
@@ -26,12 +27,12 @@
                 <td style="font-size:11px; color:#999; font-family:Arial,sans-serif" colspan="2">
                     <hr />
                     <br />
-                    El equipo de <b><a href="http://www.loogares.com" style="color:#06f; text-decoration:none">Loogares.com</a></b><br />
+                    {% trans with {'%open_tag%': "<b><a href='http://www.loogares.com' style='color:#06f; text-decoration:none'>", '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
                     <br />
-                    Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a
-                    <a href="mailto:contacto@loogares.com" style="color:#06f; text-decoration:none">contacto@loogares.com</a><br />
+                    {% trans with {'%open_a%': "<a href='mailto:contacto@loogares.com' style='color:#06f; text-decoration:none'>", '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
                     <br />
-                    &copy; 2012. Loogares.com
+                    <br />
+                    &copy; {% trans %}usuario.mail.firma{% endtrans %}
                 </td>
 
             </tr>

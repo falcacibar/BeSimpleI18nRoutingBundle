@@ -11,6 +11,11 @@ usuario:
             titulo: ¿Aún no participás en Loogares.com?
             texto: Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares bárbaros de los que la gente está hablando... y esos otros que no lo son tanto.
             boton: ¡Registráte!
+    datos:
+        recomendaciones: apreciación|apreciaciones
+        primeras_recomendaciones: primera recomendación|primeras recomendaciones
+        lugares_agregados: lugar agregado|lugares agregados
+        fotos_agregadas: foto agregada|fotos agregadas
     errors:
         completo: Debes completar ambos campos
         password: Los campos de E-mail y password no coinciden. Por favor, corregílos.

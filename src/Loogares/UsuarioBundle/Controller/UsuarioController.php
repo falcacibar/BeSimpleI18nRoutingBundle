@@ -39,7 +39,6 @@ class UsuarioController extends Controller
         $data->tipo = 'actividad';
 
         $data->loggeadoCorrecto = $loggeadoCorrecto;
-
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
     }
 
@@ -689,7 +688,7 @@ class UsuarioController extends Controller
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
             'errors' => $formErrors,
-            'locale' => $this->get('session')->getLocale(),
         ));
     }
+
 }
