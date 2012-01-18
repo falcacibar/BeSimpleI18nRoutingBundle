@@ -2,28 +2,28 @@ Loogares\UsuarioBundle\Entity\Usuario:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: 'mail'
-            message: "La dirección de E-mail está repetida. Por favor, prueba con otra."
+            message: "usuario.errors.mail.unico"
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: 'slug'
-            message: "El nombre de usuario está repetido. Por favor, prueba con otro."
+            message: "usuario.errors.slug.unico"
     properties:
         mail:
             - NotBlank:
-                message: El campo E-mail no puede ser vacío.
-            - Email: { message: "Email inválido." }
+                message: usuario.errors.mail.blanco
+            - Email: { message: "usuario.errors.mail.invalido" }
         password:
             - NotBlank:
-                message: El campo Password no puede ser vacío.
-            - MinLength: { limit: 6, message: "El password debe tener un mínimo de {{ limit }} caracteres." }
+                message: usuario.errors.password.blanco
+            - MinLength: { limit: 6, message: "usuario.errors.password.minimo" }
         nombre:
             - NotBlank:
-                message: El campo Nombre no puede ser vacío.
-            - Type: { type: string, message: "El nombre debe ser texto." }
+                message:  usuario.errors.nombre.blanco
+            - Type: { type: string, message: "usuario.errors.nombre.tipo" }
         apellido:
             - NotBlank:
-                message: El campo Apellido no puede ser vacío.
-            - Type: { type: string, message: "El apellido debe ser texto." }
+                message: usuario.errors.apellido.blanco
+            - Type: { type: string, message: "usuario.errors.apellido.tipo" }
         file:
             - Image:
                 maxSize: 5120k
-                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
+                mimeTypesMessage: usuario.errors.imagen.tipo

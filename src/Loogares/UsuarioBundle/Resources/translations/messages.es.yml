@@ -1,3 +1,4 @@
+# Locale 'es' UsuarioBundle
 usuario:
     login:
         titulo: ¡Entra a Loogares.com!
@@ -10,9 +11,49 @@ usuario:
         registro:
             titulo: ¿Aún no eres parte de Loogares.com?
             texto: Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares increíbles de los que la gente está hablando... y esos otros que no lo son tanto.
-            boton: ¡Regístrate!	    
+            boton: ¡Regístrate!
+            
+    registro:
+        titulo: ¡Regístrate en Loogares.com!
+        form:
+            nombre: Nombre
+            apellido: Apellido
+            mail: E-mail
+            password: Password
+            confirmar_password: Confirmar password
+            placeholders:
+                nombre: Ej. Juan
+                apellido: Ej. Valdéz
+                mail: Ej. juanito@empresa.com
+            tip:
+                password: El password debe tener un mínimo de 6 caracteres.
+                terminos: Al hacer click en Registrar confirmo ser mayor de 14 años y acepto los %open_a%Términos de uso%close_a% de Loogares.com
+            submit: Registrar
+
+        facebook:
+            titulo: ¡O regístrate rápidamente con tu Facebook!
+            texto: Haz click en el botón de abajo y regístrate en un solo paso con tu cuenta de Facebook.
+        login:
+            titulo: ¿Ya eres parte de Loogares.com? ¡Entra ahora!
     errors:
         completo: Debes completar ambos campos
         password: Los campos de E-mail y password no coinciden. Por favor, corrígelos.
         emptyPassword: El campo password es obligatorio. Por favor, complétalo.
         noActivo: La cuenta de usuario no se encuentra activa.
+        nombre:
+            blanco: El campo Nombre no puede ser vacío.
+            tipo: El nombre debe ser texto.
+        apellido:
+            blanco: El campo Apellido no puede ser vacío.
+            tipo: El apellido debe ser texto. 
+        mail:
+            unico: La dirección de E-mail está repetida. Por favor, prueba con otra.
+            blanco: El campo E-mail no puede ser vacío.
+            invalido: Email inválido.
+        password:
+            blanco: El campo Password no puede ser vacío.
+            minimo: El password debe tener un mínimo de 6 caracteres.
+        slug:
+            unico: El nombre de usuario está repetido. Por favor, prueba con otro.
+        imagen:
+            tipo: Sólo JPG, GIF y PNG, máx. 5 MB.
