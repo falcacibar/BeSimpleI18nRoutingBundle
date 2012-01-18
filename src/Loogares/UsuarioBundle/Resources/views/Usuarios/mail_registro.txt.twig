@@ -1,8 +1,8 @@
-¡Felicitaciones {{usuario.nombre}} {{usuario.apellido}}!
-Estás a punto de convertirte en un Loogareño. Para confirmar tu cuenta, ingresa el siguiente link en tu navegador:
+{% trans with {'%nombre%': usuario.nombre, '%apellido%' : usuario.apellido}%}usuario.registro.confirmar.mail.titulo{% endtrans %}<br />
+{% trans %}usuario.registro.confirmar.mail.texto_plano{% endtrans %}
 {{url('confirmarUsuario', { 'hash': usuario.hashConfirmacion })}}
 
-Si quieres contactarnos escríbenos a contacto@loogares.com
+{% trans %}usuario.mail.contacto_plano{% endtrans %}
 
-El equipo de Loogares.com
+{% trans %}usuario.mail.firma{% endtrans %}
 www.loogares.com

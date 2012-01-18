@@ -247,10 +247,13 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         }
 
         $edadSexo = array();
+        $textoEdad = '';
         if($sexoResult)
           $edadSexo[] = $sexoResult;
-        if($edad && $usuario->getMostrarEdad())
-          $edadSexo[] = $edad.' años';
+        if($edad && $usuario->getMostrarEdad()) {
+          $edadSexo[] = $edad;
+          $textoEdad = $edad;
+        }
 
         //Array con links de usuario
         $links = array();
@@ -273,8 +276,8 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         $data->totalPrimerasRecomendaciones = $totalPrimerasRecomendaciones;
         $data->totalLugaresAgregados = $totalLugaresAgregados;
         $data->totalImagenesLugar = $totalImagenesLugar;
-        //$data->imagenesLugar = $imagenesLugar;
         $data->edadSexo = $edadSexo;
+        $data->textoEdad = $textoEdad;
         $data->links = $links;
 
         return $data;

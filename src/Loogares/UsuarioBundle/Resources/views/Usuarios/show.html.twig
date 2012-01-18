@@ -6,7 +6,7 @@
 	<div id="main-usuario">
 		{% if app.session.hasFlash('confirmacion-registro') %}
 		    <div class="flash-notice">
-		        {{ app.session.flash('confirmacion-registro') }}
+		        {{ app.session.flash('confirmacion-registro') | trans }}
 		    </div>
 		{% endif %}
 		
