@@ -45,37 +45,40 @@
     </script>
 {% endblock %}
 {% block content %}
-<style>
-    input[type=text]{
-        width: 180px;
-    }
-</style>
-<ul class="paginacion">
-{{paginacion.paginacion | raw}}
-</ul>
-Total: {{paginacion.total}}
-Desde: {{paginacion.mostrandoDe}}
-Hasta: {{paginacion.mostrandoHasta}}
-<br/>
-<input type="text" id="fecha-desde-ph" value="">
-<input type="text" id="fecha-hasta-ph" value="">
-<form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad })}}" method="get">
-<input type="hidden" name="fecha-desde" id="fecha-desde" value="">
-<input type="hidden" name="fecha-hasta" id="fecha-hasta" value="01/01/01">
-<input type="text" name="buscar" placeholder="Buscar por..." value="{% if query.buscar is defined %}{{query.buscar}}{% endif %}"/>
-<select name="pestado">
-    <option value=''>Todos</option>
-    <option {% if query.pestado is defined and query.pestado == 'Aprobado'%} selected="selected" {% endif %}value="Aprobado">Aprobados</option>
-    <option {% if query.pestado is defined and query.pestado == 'Por Revisar'%} selected="selected" {% endif %}value="Por%20Revisar">Por Revisar</option>
-    <option {% if query.pestado is defined and query.pestado == 'Cerrado'%} selected="selected" {% endif %}value="Cerrado">Cerrados</option>
-    <option {% if query.pestado is defined and query.pestado == 'Reportado'%} selected="selected" {% endif %}value="Reportado">Reportados</option>
-    <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
-</select>
-<input type="submit" value="Filtrar"/>
-</form>
 
-<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad})}}">Limpiar Filtros</a>
-<form action="{{ path('LoogaresAdminBundle_accionLugar', {'ciudad': ciudad}) }}" method="post">
+<h1 class="titulo_admin">Lugares | {{ ciudad }}</h1>
+
+<div class="filtro_admin">
+    <div class="periodo">
+        Período entre el <input type="text" class="periodo_fecha" id="fecha-desde-ph" value="">
+        y el <input type="text" class="periodo_fecha" id="fecha-hasta-ph" value="">
+
+        <form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad })}}" method="get">
+        <input type="hidden" name="fecha-desde" id="fecha-desde" value="">
+        <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="01/01/01">
+    </div>
+
+    <div class="buscar">
+        Buscar <input type="text" name="buscar" class="buscar_lugar" placeholder="Lugares por Nombre o Id" value="{% if query.buscar is defined %}{{query.buscar}}{% endif %}"/>
+    </div>
+
+    <div class="seleccionar_estado">
+        Seleccionar 
+        <select name="pestado">
+            <option value=''>Todos</option>
+            <option {% if query.pestado is defined and query.pestado == 'Aprobado'%} selected="selected" {% endif %}value="Aprobado">Aprobados</option>
+            <option {% if query.pestado is defined and query.pestado == 'Por Revisar'%} selected="selected" {% endif %}value="Por%20Revisar">Por Revisar</option>
+            <option {% if query.pestado is defined and query.pestado == 'Cerrado'%} selected="selected" {% endif %}value="Cerrado">Cerrados</option>
+            <option {% if query.pestado is defined and query.pestado == 'Reportado'%} selected="selected" {% endif %}value="Reportado">Reportados</option>
+            <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
+        </select>
+        <input type="submit" value="Filtrar"/>
+        </form>
+        <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad})}}">Quitar filtros</a>
+    </div>
+</div>
+
+<form class="listado_admin" action="{{ path('LoogaresAdminBundle_accionLugar', {'ciudad': ciudad}) }}" method="post">
     <div class="table-data">
         <table>
             <thead>
@@ -343,4 +346,13 @@ Hasta: {{paginacion.mostrandoHasta}}
     </select>
     <input type="submit" value="Enviar"/>
 </form>
+
+<div class="total_paginacion">
+    <strong>{{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página
+</div>
+
+<ul class="paginacion">
+    {{paginacion.paginacion | raw}}
+</ul>
+
 {% endblock %}

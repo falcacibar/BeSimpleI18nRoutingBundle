@@ -1,0 +1,101 @@
+/* Colores */
+/* Mixin */
+/* CSS Administrador */
+.contenedor_admin {
+  margin: 20px auto;
+  width: 960px; }
+
+.titulo_admin {
+  font-size: 24px;
+  margin: 0 0 30px 0; }
+
+.filtro_admin {
+  display: block;
+  float: left;
+  font-size: 11px;
+  margin: 0 0 30px 0;
+  width: 960px; }
+  .filtro_admin .periodo {
+    display: block;
+    float: left;
+    width: 320px; }
+    .filtro_admin .periodo input.periodo_fecha {
+      font-size: 10px;
+      margin: 0 5px;
+      padding: 5px 8px;
+      width: 80px; }
+  .filtro_admin .buscar {
+    display: block;
+    float: left;
+    margin: 0 0 0 15px;
+    width: 212px; }
+    .filtro_admin .buscar input.buscar_lugar {
+      font-size: 10px;
+      margin: 0 5px;
+      padding: 5px 8px;
+      width: 145px; }
+  .filtro_admin .seleccionar_estado {
+    float: left;
+    margin: 0 0 0 14px;
+    width: 395px; }
+    .filtro_admin .seleccionar_estado select {
+      margin: 3px 0px 3px 5px;
+      width: 120px; }
+    .filtro_admin .seleccionar_estado input {
+      margin: 0 5px;
+      width: 60px; }
+    .filtro_admin .seleccionar_estado a {
+      color: #0066cc;
+      text-decoration: none; }
+      .filtro_admin .seleccionar_estado a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
+
+.listado_admin {
+  float: left;
+  width: 960px; }
+
+.total_paginacion {
+  border-bottom: 1px solid #f6f6f6;
+  border-top: 1px solid #f6f6f6;
+  color: #666666;
+  display: block;
+  float: left;
+  font-size: 12px;
+  margin: 30px 0 30px;
+  padding: 13px 0 12px;
+  width: 225px; }
+
+.paginacion {
+  border-bottom: 1px solid #f6f6f6;
+  border-top: 1px solid #f6f6f6;
+  color: #666666;
+  display: block;
+  float: left;
+  font-size: 12px;
+  margin: 30px 0 30px;
+  padding: 10px 0;
+  width: 735px; }
+  .paginacion p {
+    float: left;
+    display: block;
+    margin: 2px 0 0; }
+  .paginacion li {
+    border: 1px solid #cccccc;
+    float: left;
+    height: 5px;
+    margin: 0 0 0 2px;
+    padding: 2px 5px 8px; }
+    .paginacion li a {
+      color: #666666;
+      text-decoration: none; }
+  .paginacion .pagina-actual {
+    background: #0066cc;
+    border: 1px solid #0066cc;
+    float: left;
+    height: 5px;
+    margin: 0 0 0 2px;
+    padding: 2px 5px 8px; }
+    .paginacion .pagina-actual a {
+      color: white;
+      text-decoration: none; }

@@ -1,0 +1,221 @@
+/* Perfil de usuario */
+#menu-usuario {
+  border-bottom: 1px solid #cccccc;
+  height: 32px; }
+  #menu-usuario a {
+    color: #333333; }
+  #menu-usuario ul {
+    float: right;
+    border: 1px solid #cccccc;
+    border-bottom-width: 0; }
+    #menu-usuario ul li {
+      border-right: 1px solid #cccccc;
+      height: 32px;
+      line-height: 32px;
+      float: left; }
+    #menu-usuario ul li.no-right-border {
+      border-right-width: 0; }
+    #menu-usuario ul li.selected a {
+      color: white; }
+    #menu-usuario ul a {
+      padding: 10px; }
+
+#main-usuario {
+  padding-top: 10px; }
+  #main-usuario li.selected a {
+    color: white; }
+  #main-usuario a {
+    color: #333333; }
+  #main-usuario #data-usuario {
+    float: left;
+    width: 22%;
+    height: 100%;
+    border-right: 1px solid #cccccc;
+    font-size: 0.9em; }
+    #main-usuario #data-usuario ul {
+      margin-bottom: 30px; }
+      #main-usuario #data-usuario ul li {
+        display: block; }
+    #main-usuario #data-usuario p {
+      margin-bottom: 30px; }
+    #main-usuario #data-usuario #imagen-usuario img {
+      height: 96px;
+      width: 96px;
+      border: 1px solid #444444;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      padding: 1px; }
+    #main-usuario #data-usuario #titulo-usuario {
+      font-size: 1.6em;
+      font-weight: bold;
+      margin: 10px 0 20px 0;
+      letter-spacing: -1px; }
+    #main-usuario #data-usuario .editar-link {
+      font-weight: bold; }
+  #main-usuario #content-usuario {
+    width: 76%;
+    float: right;
+    /* Edición de usuario */
+    /* Recomendaciones del usuario */
+    /* Fotos del usuario */ }
+    #main-usuario #content-usuario h1 {
+      margin: 10px 0 20px 0;
+      font-weight: bold;
+      letter-spacing: -1px;
+      font-size: 1.6em; }
+    #main-usuario #content-usuario h1.edicion-titulo {
+      font-size: 1.4em;
+      font-weight: bold; }
+    #main-usuario #content-usuario #menu-edicion {
+      border-bottom: 1px solid #cccccc;
+      height: 32px;
+      margin-top: 20px; }
+      #main-usuario #content-usuario #menu-edicion ul {
+        float: left; }
+        #main-usuario #content-usuario #menu-edicion ul li {
+          float: left;
+          border: 1px solid #cccccc;
+          border-bottom: none;
+          margin-right: 3px;
+          height: 32px;
+          line-height: 32px; }
+          #main-usuario #content-usuario #menu-edicion ul li a {
+            padding: 10px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario li {
+      margin: 10px 0; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario li .tips {
+        float: left; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario li .tip_form {
+        font-size: 11px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario li.tip_link {
+      margin-top: 20px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario li.tip_link a {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 11px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario li.submit-borrar input[type=submit] {
+      margin-top: 10px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-newsletter label {
+      margin-top: 0; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario label {
+      width: 160px;
+      display: inline-block;
+      font-size: 0.9em;
+      margin-top: 5px;
+      float: left; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario label.label-up {
+        margin-top: 0; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=text], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=password], #main-usuario #content-usuario .form-edicion .editar-usuario textarea, #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-sexo {
+      width: 300px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=file] {
+      width: 316px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=radio] {
+      float: left; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento {
+      width: 100%; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento select {
+        border: 1px solid #cccccc;
+        line-height: 16px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento .day {
+        width: 50px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento .month {
+        width: 150px; }
+      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento .year {
+        width: 100px; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario #form_sexo label {
+      margin: 0 10px 0 5px;
+      width: auto; }
+    #main-usuario #content-usuario .form-edicion .editar-usuario small.errors {
+      float: right;
+      text-align: right;
+      margin-right: 252px; }
+    #main-usuario #content-usuario .form-borrar-foto {
+      float: left;
+      margin-left: 160px; }
+    #main-usuario #content-usuario .edicion {
+      margin-top: 30px; }
+      #main-usuario #content-usuario .edicion .edicion_error {
+        background-color: #ffe5e5;
+        border: 1px solid #ff6666;
+        line-height: 18px;
+        margin: 0 0 20px 0;
+        padding: 5px 10px;
+        width: 456px; }
+    #main-usuario #content-usuario .recomendaciones ul {
+      margin: 10px 0; }
+      #main-usuario #content-usuario .recomendaciones ul li {
+        display: inline;
+        font-size: 11px; }
+    #main-usuario #content-usuario .recomendaciones a {
+      color: #0066cc;
+      cursor: pointer; }
+    #main-usuario #content-usuario .recomendaciones a:hover {
+      text-decoration: underline; }
+    #main-usuario #content-usuario .recomendaciones table {
+      text-align: left;
+      margin-bottom: 20px; }
+      #main-usuario #content-usuario .recomendaciones table tr {
+        border-bottom: 1px solid #cccccc; }
+      #main-usuario #content-usuario .recomendaciones table tr.no-bottom-border {
+        border-bottom: none; }
+      #main-usuario #content-usuario .recomendaciones table th {
+        font-size: 11px;
+        padding: 8px; }
+      #main-usuario #content-usuario .recomendaciones table td {
+        font-size: 12px;
+        padding: 8px; }
+        #main-usuario #content-usuario .recomendaciones table td a {
+          font-weight: bold; }
+    #main-usuario #content-usuario .fotos_usuario a {
+      color: #0066cc;
+      cursor: pointer;
+      font-size: 11px; }
+    #main-usuario #content-usuario .fotos_usuario a:hover {
+      text-decoration: underline; }
+    #main-usuario #content-usuario .fotos_usuario ul.orden {
+      margin: 10px 0; }
+      #main-usuario #content-usuario .fotos_usuario ul.orden li {
+        display: inline;
+        font-size: 11px; }
+    #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul {
+      float: left;
+      margin-bottom: 40px; }
+      #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li {
+        display: inline;
+        width: 210px;
+        margin-right: 20px;
+        float: left; }
+        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li a img {
+          border: 1px solid #444444;
+          border-radius: 2px;
+          -moz-border-radius: 2px;
+          padding: 1px;
+          height: 50px;
+          width: 50px; }
+        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li h4 {
+          font-size: 13px;
+          font-weight: bold; }
+          #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li h4 a {
+            color: #333333; }
+        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li span {
+          font-size: 11px; }
+    #main-usuario #content-usuario .fotos_usuario .paginacion {
+      float: left; }
+    #main-usuario #content-usuario .paginacion span {
+      font-size: 11px; }
+    #main-usuario #content-usuario .paginacion ul li a {
+      border: 1px solid #cccccc;
+      padding: 0 4px;
+      color: #333333; }
+    #main-usuario #content-usuario .paginacion ul li a.actual {
+      color: white;
+      background: #ff3333;
+      border: 1px solid #ff3333; }
+
+/*  Extras */
+.bold {
+  font-weight: bold; }
+
+li.selected {
+  background-color: #000066;
+  font-weight: bold; }
