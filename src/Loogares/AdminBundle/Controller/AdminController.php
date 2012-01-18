@@ -230,17 +230,6 @@ class AdminController extends Controller
         ));
     }
 
-    public function usuariosAction(Request $request) {
-        $em = $this->getDoctrine()->getEntityManager();
-        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
-
-        $usuarios = $ur->getUsuariosAdmin();
-
-        return $this->render('LoogaresAdminBundle:Admin:usuarios.html.twig', array(
-            'usuarios' => $usuarios,
-        ));
-    }
-
     public function listadoRevisionAction($ciudad){
         $em = $this->getDoctrine()->getEntityManager();
 
@@ -324,6 +313,58 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoLugares', array(
             'ciudad' => $ciudad
         )));
+    }
+
+    public function listadoUsuariosAction(Request $request) {
+        $where = null;
+        $like = null;
+        $order = null;
+        $offset = 0;
+        $em = $this->getDoctrine()->getEntityManager();
+        $usuarios = $this->getDoctrine()->getConnection()
+        ->fetchAll("SELECT SQL_CALC_FOUND_ROWS usuarios.*,
+                    estado.nombre as estadoNombre,
+                    tipo_usuario.descripcion as tipoUsuarioNombre,
+                    count(distinct imagenes_lugar.id) as imagenes
+
+                    from usuarios
+
+                    left join estado
+                    on estado.id = usuarios.estado_id
+
+                    left join tipo_usuario
+                    on usuarios.tipo_usuario_id = tipo_usuario.id
+
+                    left join imagenes_lugar
+                    on imagenes_lugar.usuario_id = usuarios.id
+
+                    $where
+                    GROUP BY usuarios.id
+                    $like
+                    $order
+                    LIMIT 30
+                    OFFSET $offset");
+
+        foreach($usuarios as $key => $value){
+            $idUsuario = $value['id'];
+            $lugaresData = $this->getDoctrine()->getConnection()
+            ->fetchAll("SELECT count(distinct lugares.id) as lugares
+                        FROM lugares
+                        WHERE lugares.usuario_id = $idUsuario");
+
+            $recomendacionesData = $this->getDoctrine()->getConnection()
+            ->fetchAll("SELECT count(distinct recomendacion.id) as recomendaciones, count(distinct util.id) as utiles
+                        FROM recomendacion, util
+                        WHERE recomendacion.usuario_id = $idUsuario and util.usuario_id = $idUsuario");
+
+            $usuarios[$key]['recomendaciones'] = $recomendacionesData[0]['recomendaciones'];
+            $usuarios[$key]['utiles'] = $recomendacionesData[0]['utiles'];
+            $usuarios[$key]['lugares'] = $lugaresData[0]['lugares'];
+        }
+
+        return $this->render('LoogaresAdminBundle:Admin:listadoUsuarios.html.twig', array(
+            'usuarios' => $usuarios,
+        ));
     }
 
 

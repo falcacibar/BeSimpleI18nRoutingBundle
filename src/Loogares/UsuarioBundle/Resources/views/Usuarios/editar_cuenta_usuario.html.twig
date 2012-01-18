@@ -26,7 +26,16 @@
 						<small class="errors">{{errors.nombre}}</small>
 					{% endif %}
 				</li>
-								
+				{% if is_granted('ROLE_ADMIN') %}
+					<li>
+						<label>Tipo Usuario</label>
+						<select name="tipo_usuario">
+							{% for tipoUsuario in tipoUsuarios %}
+								<option value="{{tipoUsuario.id}}">{{tipoUsuario.descripcion}}</option>
+							{% endfor %}
+						</select>
+					</li>	
+				{% endif %}
 				<li>
 					{% set inputClass = (errors.apellido is defined) ? 'input-error' : ' '%}
 					{{ form_label(form.apellido, 'Apellido *') }}

@@ -164,6 +164,7 @@ class UsuarioController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $tur = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario");
         $formErrors = array();
         
         $usuarioResult = $ur->findOneByIdOrSlug($param);
@@ -171,7 +172,9 @@ class UsuarioController extends Controller
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
-        if(!$loggeadoCorrecto)
+        $rolAdmin = $this->get('security.context')->isGranted('ROLE_ADMIN');
+
+        if($rolAdmin == 0 && !$loggeadoCorrecto)
             throw new AccessDeniedException('No puedes editar información de otro usuario');      
         
         $usuario = $usuarioResult;
@@ -208,7 +211,10 @@ class UsuarioController extends Controller
             $form->bindRequest($request);            
 
             if ($form->isValid()) {
-
+                if(isset($_POST['tipo_usuario'])){
+                    $tipoUsuario = $tur->find($_POST['tipo_usuario']);
+                    $usuarioResult->setTipoUsuario($tipoUsuario);
+                }  
                  // Stripeamos las URLs de http://
                 $usuarioResult->setWeb(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getWeb()));
                 $usuarioResult->setFacebook(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getFacebook()));
@@ -285,7 +291,8 @@ class UsuarioController extends Controller
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
             'form' => $form->createView(),
-            'errors' => $formErrors
+            'errors' => $formErrors,
+            'tipoUsuarios' => $tur->findAll()
         )); 
     }
 
@@ -309,7 +316,7 @@ class UsuarioController extends Controller
                      ->getForm();
         
         // Si el request es POST, se procesa edición de datos
-        if ($request->getMethod() == 'POST') {            
+        if ($request->getMethod() == 'POST') {          
            
             if($request->request->get("borrarFoto")) {
                 $usuarioResult->setImagenFull('default.gif');

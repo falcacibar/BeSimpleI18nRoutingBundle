@@ -1,0 +1,53 @@
+{% extends 'LoogaresAdminBundle:Admin:base.html.twig' %}
+
+{% block style %}
+	<style>
+		
+	</style>
+{% endblock %}
+
+{% block content %}
+	<div class="table-data">
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>E-mail</th>
+				<th>Slug</th>
+				<th>Sexo</th>
+				<th>F.Nac</th>
+				<th>Lugares</th>
+				<th>Imagenes</th>
+				<th>Recomendaciones</th>
+				<th>Utiles</th>		
+				<th>Estado</th>
+				<th>Tipo usuario</th>
+				<th>Accion</th>
+			</tr>
+
+			{% for usuario in usuarios %}
+				<tr>
+					<td>{{usuario.id}}</td>
+					<td>{{usuario.nombre}}</td>
+					<td>{{usuario.apellido}}</td>
+					<td>{{usuario.mail}}</td>
+					<td>{{usuario.slug}}</td>
+					<td>{{usuario.sexo}}</td>
+					<td>{{usuario.fecha_nacimiento|date('d/m/Y')}}</td>
+					<td>{{usuario.lugares}}</td>
+					<td>{{usuario.imagenes}}</td>
+					<td>{{usuario.recomendaciones}}</td>
+					<td>{{usuario.utiles}}</td>
+					<td>{{usuario.estadoNombre}}</td>
+					<td>{{usuario.tipoUsuarioNombre}}</td>
+					<td>
+                    	<a target="_blank" href="{{ path('editarUsuario', {'param':usuario.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+
+	</div>
+
+{% endblock %}

@@ -315,17 +315,17 @@ Hasta: {{paginacion.mostrandoHasta}}
                         <td><a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pestado': lugar.estado, 'ciudad': ciudad}) }}">{{lugar.estado}}</a></td>
                         <td>nope</td>
                         <td>
-                            <a target="_blank" href="{{ path('_editar', {'slug':lugar.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/>
+                            <a target="_blank" href="{{ path('_editar', {'slug':lugar.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
                             {% if lugar.estado == 'Eliminado' %}
-                                <a href="{{ path('LoogaresAdminBundle_habilitarLugar', {'ciudad': ciudad, 'id':lugar.id}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/>
+                                <a href="{{ path('LoogaresAdminBundle_habilitarLugar', {'ciudad': ciudad, 'id':lugar.id}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                             {% else %}
-                                <a href="{{ path('LoogaresAdminBundle_borrarLugar', {'ciudad': ciudad, 'id':lugar.id}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/>
+                                <a href="{{ path('LoogaresAdminBundle_borrarLugar', {'ciudad': ciudad, 'id':lugar.id}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
                             {% endif %}
 
                             {% if lugar.estado == 'Cerrado' %}
-                                <a href="{{ path('LoogaresAdminBundle_habilitarLugar', {'ciudad': ciudad, 'id':lugar.id}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/>
+                                <a href="{{ path('LoogaresAdminBundle_habilitarLugar', {'ciudad': ciudad, 'id':lugar.id}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                             {% else %}
-                                <a href="{{ path('LoogaresAdminBundle_cerrarLugar', {'ciudad': ciudad, 'id':lugar.id}) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/>
+                                <a href="{{ path('LoogaresAdminBundle_cerrarLugar', {'ciudad': ciudad, 'id':lugar.id}) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
                             {% endif %}
                         </td>
                     </tr>

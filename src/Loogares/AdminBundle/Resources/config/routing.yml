@@ -1,11 +1,22 @@
-LoogaresAdminBundle_usuarios:
-    pattern:  /usuarios
-    defaults: { _controller: LoogaresAdminBundle:Admin:usuarios }
-
 
 LoogaresAdminBundle_index:
     pattern:  /
     defaults: { _controller: LoogaresAdminBundle:Admin:index }
+
+#
+#
+#Rutas del Administrador de Usuario
+#
+#
+LoogaresAdminBundle_usuarios:
+    pattern:  /usuarios
+    defaults: { _controller: LoogaresAdminBundle:Admin:listadoUsuarios }
+
+#
+#
+#Rutas del Administrador de Lugar
+#
+#
 
 LoogaresAdminBundle_seleccionarPais:
     pattern:  /lugares
