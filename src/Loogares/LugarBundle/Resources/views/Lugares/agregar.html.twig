@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{%if lugar.slug %}Editar{% else %}Agregar Lugar{% endif %} | {{parent()}}{% endblock %}
+{% block title %}{%if lugar.slug %}Edita los datos de {{lugar.nombre}}{% else %}Agregar un Lugar{% endif %} | {{parent()}}{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="screen" />
@@ -9,9 +9,6 @@
 
         .subcategorias{display: none;}
         .subcategorias ul li{display: none;}
-        .precio{
-            margin-top: 5px;
-        }
 
         .comparacion{
             padding: 5px;
@@ -153,7 +150,7 @@
     </div>
 {% endif %}
 
-<h1 class="titulo">{%if lugar.slug %}Editando datos de: <a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>{% else %}Agregar Lugar{% endif %}</h1>
+<h1 class="titulo">{%if lugar.slug %}Edita los datos de <a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>{% else %}Agregar un Lugar{% endif %}</h1>
 
 <div class="errores-container"></div>
 
@@ -476,7 +473,7 @@
     {% if is_granted('ROLE_ADMIN')%}
     <li>
         <label>Precio</label>
-        <div class="precio telefono">
+        <div class="precio">
             <div class="precio-raty"></div>
         </div>
     </li>

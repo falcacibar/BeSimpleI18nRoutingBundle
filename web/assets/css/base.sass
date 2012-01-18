@@ -65,6 +65,12 @@ $rojo: #FF3300
     -moz-border-radius: 2px
     -webkit-border-radius: 2px
 
+@mixin borde_redondeado_4px
+    border-radius: 4px
+    -o-border-radius: 4px
+    -moz-border-radius: 4px
+    -webkit-border-radius: 4px
+
 @mixin centrado
     margin: 0px auto
     width: 960px
@@ -853,6 +859,12 @@ body
 
 .input-error
     border: 1px solid $error !important
+
+a.chzn-single.chzn-error
+    @include borde_redondeado_4px
+    background:
+        color: lighten($error, 25%)
+    border: 1px solid $error
 
 
 

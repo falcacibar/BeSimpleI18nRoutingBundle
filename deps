@@ -84,3 +84,12 @@
 [AvalancheImagineBundle]
     git=http://github.com/avalanche123/AvalancheImagineBundle.git
     target=/bundles/Avalanche/Bundle/ImagineBundle
+
+[gedmo-doctrine-extensions]
+    git=http://github.com/l3pp4rd/DoctrineExtensions.git
+    version=2.1.x
+
+[DoctrineExtensionsBundle]
+    git=http://github.com/stof/StofDoctrineExtensionsBundle.git
+    target=/bundles/Stof/DoctrineExtensionsBundle
+    version=origin/1.0.x
