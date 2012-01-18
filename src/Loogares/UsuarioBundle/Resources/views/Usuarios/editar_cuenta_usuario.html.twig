@@ -10,7 +10,7 @@
 	{% if errors %}
 		<div class="edicion_error">
 			{% for error in errors %}
-			    <p>{{ error }}</p>
+			    <p>{{ error |trans}}</p>
 			{% endfor %}
 		</div>
 	{% endif %}
@@ -23,7 +23,7 @@
 					{{ form_label(form.nombre, 'Nombre *') }}
 					{{ form_widget(form.nombre, { 'attr': {'class': inputClass}}) }}
 					{% if errors.nombre is defined %}
-						<small class="errors">{{errors.nombre}}</small>
+						<small class="errors">{{errors.nombre | trans}}</small>
 					{% endif %}
 				</li>
 				{% if is_granted('ROLE_ADMIN') %}
@@ -41,7 +41,7 @@
 					{{ form_label(form.apellido, 'Apellido *') }}
 					{{ form_widget(form.apellido, { 'attr': {'class': inputClass}}) }}
 					{% if errors.apellido is defined %}
-						<small class="errors">{{errors.apellido}}</small>
+						<small class="errors">{{errors.apellido | trans}}</small>
 					{% endif %}
 				</li>
 
@@ -50,13 +50,17 @@
 					{{ form_label(form.mail, 'E-mail *') }}
 					{{ form_widget(form.mail, { 'attr': {'class': inputClass}}) }}
 					{% if errors.mail is defined %}
-						<small class="errors">{{errors.mail}}</small>
+						<small class="errors">{{errors.mail | trans}}</small>
 					{% endif %}
 				</li>
 				
 				<li>
+					{% set inputClass = (errors.slug is defined) ? 'input-error' : ' '%}
 					{{ form_label(form.slug, 'Nombre de usuario') }}
-					{{ form_widget(form.slug, { 'attr': {'data-placeholder': 'Ej. juanito@empresa.com'}}) }}
+					{{ form_widget(form.slug, { 'attr': {'class': inputClass}})  }}
+					{% if errors.slug is defined %}
+						<small class="errors">{{errors.slug | trans}}</small>
+					{% endif %}
 				</li> 
 				
 				<li>

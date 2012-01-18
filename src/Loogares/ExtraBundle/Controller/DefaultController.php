@@ -53,7 +53,7 @@ class DefaultController extends Controller
         $ciudad = $cr->findOneBySlug($slug);
 
         // Seteamos el locale correspondiente a la ciudad en la sesión
-        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+        $this->get('session')->setLocale($ciudad->getPais()->getLocale());        
 
         // Redirección a vista de login 
         return $this->redirect($this->generateUrl('login'));
