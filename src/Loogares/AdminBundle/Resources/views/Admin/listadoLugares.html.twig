@@ -41,12 +41,22 @@
                     }
                 });
             });
+
+            $('.seleccionar-todo').click(function(e){
+                e.preventDefault();
+                $('input[name="id[]"]').click().attr('checked', 'checked');
+            });
+            
+            $('.deseleccionar-todo').click(function(e){
+                e.preventDefault();
+                $('input[name="id[]"]').click().removeAttr('checked', 'checked');
+            });
         });
     </script>
 {% endblock %}
 {% block content %}
 
-<h1 class="titulo_admin">Lugares | {{ ciudad }}</h1>
+<h1 class="titulo_admin">Lugares | {{ ciudadNombre }}</h1>
 
 <div class="filtro_admin">
     <div class="periodo">
@@ -199,6 +209,18 @@
                         </p>
                         </span>
                     </th>
+                    <th class="lugar_recomendaciones">
+                        <span>
+                        <p class="titulos_tabla">Nº Rec</p>
+                        <p class="list-actions">
+                            <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"recomendaciones": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+
+                            <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"recomendaciones": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'recomendaciones': null, 'ciudad': ciudad }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
                     <th class="lugar_estrellas">
                         <span>
                         <p class="titulos_tabla">Estrellas</p>
@@ -242,6 +264,18 @@
                             <a class="">⬆</a>
                             <a class="">⬇</a>
                             <a class="remove" href="">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_imagenes">
+                        <span>
+                        <p class="titulos_tabla">Imagenes</p>
+                        <p class="list-actions">
+                            <a class="{% if query.imagenes is defined and query.imagenes == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"imagenes": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+
+                            <a class="{% if query.imagenes is defined and query.imagenes == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"imagenes": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'imagenes': null, 'ciudad': ciudad }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -352,7 +386,7 @@
                             </td>
                             <td class="lugar_usuario">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pusuario': lugar.usuarioMail, 'ciudad': ciudad}) }}">{{lugar.usuarioMail}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pusuario': lugar.usuarioSlug, 'ciudad': ciudad}) }}">{{lugar.usuarioSlug}}</a>
                                 </span>
                             </td>
                             <td class="lugar_categoria">
@@ -389,6 +423,11 @@
                                 <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'psector': lugar.sectorNombre, 'ciudad': ciudad}) }}">{{lugar.sectorNombre}}</a>
                                 </span>
                             </td>
+                            <td class="lugar_recomendaciones">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'precomendaciones': lugar.recomendaciones, 'ciudad': ciudad}) }}">{{lugar.recomendaciones | default(0)}}</a>
+                                </span>
+                            </td>
                             <td class="lugar_estrellas">
                                 <span>
                                 <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pestrellas': lugar.estrellas, 'ciudad': ciudad}) }}">{{lugar.estrellas | default(0)}}</a>
@@ -407,6 +446,9 @@
                             <td class="lugar_ranking">
                                 <span>
                                 </span>
+                            </td>
+                            <td>
+                                    <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pimagenes': lugar.imagenes, 'ciudad': ciudad}) }}">{{lugar.imagenes}}</a>
                             </td>
                             <td class="lugar_caracteristicas">
                                 <span>
@@ -472,7 +514,7 @@
     </div>
     
     <div class="seleccion_masiva">
-        Seleccionar todo | Deseleccionar todo | 
+        <a href="#" class="seleccionar-todo">Seleccionar todo</a> | <a href="#" class="deseleccionar-todo">Deseleccionar todo</a> | 
         <select name="accion">
             <option>Acciones para la selección</option>
             <option value="aprobar">Aprobar Lugares</option>
@@ -484,7 +526,11 @@
 </form>
 
 <div class="total_paginacion">
-    <strong>{{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página
+    <form action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad })}}" method="get">
+        <strong>
+            {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
+            <input type="submit" value="Ir"/>
+    </form>
 </div>
 
 <ul class="paginacion">

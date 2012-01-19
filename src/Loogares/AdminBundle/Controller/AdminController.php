@@ -48,13 +48,19 @@ class AdminController extends Controller
     }
 
     public function listadoLugaresAction(Request $request, $ciudad){
-        $order = false;
-        $like = false;
-        $where = null;
         $router = $this->get('router');
         $fn = $this->get('fn');
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $ciudad = $cr->findOneBySlug($ciudad);
+        $ciudadNombre = $ciudad->getNombre();
+        $ciudadId = $ciudad->getId();
+        $ciudadSlug = $ciudad->getSlug();
+        $order = false;
+        $like = false;
+        $where = "WHERE ciudad.id = $ciudadId";
+
 
         $filters = array(
             'pusuario' => 'usuarioMail',
@@ -71,7 +77,9 @@ class AdminController extends Controller
             'pfacebook' => 'facebook',
             'ptwitter' => 'twitter',
             'pmail' => 'lugares.mail',
-            'pestado' => 'estado'
+            'pestado' => 'estado',
+            'precomendaciones' => 'recomendaciones',
+            'pimagenes' => 'imagenes'
         );
 
         $listadoFilters = array(
@@ -93,15 +101,17 @@ class AdminController extends Controller
             'facebook' => 'lugares.facebook',
             'twitter' => 'lugares.twitter',
             'mail' => 'lugares.mail',
-            'estado' => 'estado'
+            'estado' => 'estado',
+            'recomendaciones' => 'recomendaciones',
+            'imagenes' => 'imagenes'
         );
 
         if(isset($_GET['buscar'])){
             $buscar = $_GET['buscar'];
             if(preg_match('/[A-Za-z]+/', $buscar) == false){
-                $where = "WHERE lugares.id = '$buscar'";
+                $where .= " and lugares.id = '$buscar'";
             }else{
-                $where = "WHERE lugares.nombre LIKE '%$buscar%'";
+                $where .= " and lugares.nombre LIKE '%$buscar%'";
             }
             
         }
@@ -116,9 +126,7 @@ class AdminController extends Controller
             $desde = $desde[2] . "/" . $desde[1] . "/" . $desde[0];
 
             if(!$where){
-                $where = "WHERE fecha_agregado between '$desde' and '$hasta'";
-            }else{
-                $where = " and fecha_agregado between '$desde' and '$hasta'";
+                $where .= " and fecha_agregado between '$desde' and '$hasta'";
             }
         }
 
@@ -141,13 +149,14 @@ class AdminController extends Controller
 
         $ih8doctrine = $this->getDoctrine()->getConnection()
         ->fetchAll("SELECT SQL_CALC_FOUND_ROWS lugares.*, 
-                    usuarios.mail as usuarioMail,
+                    usuarios.slug as usuarioSlug,
                     comuna.nombre as comunaNombre,
                     sector.nombre as sectorNombre,
-                    ciudad.nombre as ciudadNombre,
                     estado.nombre as estado,
                     cast(AVG(recomendacion.estrellas) as signed) as estrellas,
+                    count(recomendacion.id) as recomendaciones,
                     count(distinct util.id) as utiles,
+                    (select count(imagenes_lugar.id) from imagenes_lugar where lugares.id = imagenes_lugar.lugar_id) as imagenes,
                     group_concat(distinct categorias.nombre) as categorias,
                     group_concat(distinct subcategoria.nombre) as subcategorias,
                     group_concat(distinct caracteristica.nombre) as caracteristicas
@@ -164,7 +173,7 @@ class AdminController extends Controller
                     on sector.id = lugares.sector_id
 
                     left join ciudad
-                    on ciudad.id = comuna.ciudad_id
+                    on comuna.ciudad_id = ciudad.id
 
                     left join recomendacion
                     on recomendacion.lugar_id = lugares.id
@@ -209,7 +218,7 @@ class AdminController extends Controller
         }
 
         $params = array(
-            'ciudad' => $ciudad
+            'ciudad' => $ciudadSlug
         );
 
         $options = array(
@@ -224,7 +233,8 @@ class AdminController extends Controller
             'filters' => $filters,
             'query' => $_GET,
             'paginacion' => $paginacion,
-            'ciudad' => $ciudad
+            'ciudad' => $ciudadSlug,
+            'ciudadNombre' => $ciudadNombre
         ));
     }
 
