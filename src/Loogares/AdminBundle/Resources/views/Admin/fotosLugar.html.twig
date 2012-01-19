@@ -1,0 +1,158 @@
+{% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
+
+{% block title %}Lugares | {{parent()}}{% endblock %}
+{% block javascript %}
+    <script>
+        $(document).ready(function(){
+            $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
+            var dates = $( "#fecha-desde-ph, #fecha-hasta-ph" ).datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '2009:c',
+                numberOfMonths: 1,
+                onSelect: function( selectedDate ) {
+                    var option = this.id == "fecha-desde-ph" ? "minDate" : "maxDate",
+                        instance = $( this ).data( "datepicker" ),
+                        date = $.datepicker.parseDate(
+                            instance.settings.dateFormat ||
+                            $.datepicker._defaults.dateFormat,
+                            selectedDate, instance.settings );
+                    dates.not( this ).datepicker( "option", option, date );
+                },
+                dateFormat: 'DD, d MM, yy',
+            });
+
+            $( "#fecha-desde-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
+            $( "#fecha-desde-ph" ).datepicker( "option", "altField", '#fecha-desde' );
+
+            $( "#fecha-hasta-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
+            $( "#fecha-hasta-ph" ).datepicker( "option", "altField", '#fecha-hasta' );
+
+            {% if query['fecha-desde'] is defined %}
+                $('#fecha-desde-ph').datepicker('setDate', "01-01-12");
+            {% endif %}
+        
+            $('form').submit(function(){
+                $(this).find('input, select').each(function(){
+                    $this = $(this);
+                    if($this.val() == ''){
+                        $this.attr('disabled', 'disabled');
+                    }
+                });
+            });
+
+            $('.seleccionar-todo').click(function(e){
+                e.preventDefault();
+                $('input[name="id[]"]').click().attr('checked', 'checked');
+            });
+            
+            $('.deseleccionar-todo').click(function(e){
+                e.preventDefault();
+                $('input[name="id[]"]').click().removeAttr('checked', 'checked');
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+
+<h1 class="titulo_admin">Fotos | {{ fotos[0].lugar.nombre }}</h1>
+
+<div class="filtro_admin">
+    <div class="periodo">
+        Período entre el <input type="text" class="periodo_fecha" id="fecha-desde-ph" value="">
+        y el <input type="text" class="periodo_fecha" id="fecha-hasta-ph" value="">
+    </div>
+
+    <form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad })}}" method="get">
+        <input type="hidden" name="fecha-desde" id="fecha-desde" value="">
+        <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="">
+        <div class="buscar">
+            Buscar <input type="text" name="buscar" class="buscar_lugar" placeholder="Lugares por Nombre o Id" {% if query.buscar is defined %}value="{{query.buscar}}{% endif %}"/>
+        </div>
+
+        <div class="seleccionar_estado">
+            Seleccionar 
+            <select name="pestado">
+                <option value=''>Todos</option>
+                <option {% if query.pestado is defined and query.pestado == 'Aprobado'%} selected="selected" {% endif %}value="Aprobado">Aprobados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Por Revisar'%} selected="selected" {% endif %}value="Por Revisar">Por Revisar</option>
+                <option {% if query.pestado is defined and query.pestado == 'Cerrado'%} selected="selected" {% endif %}value="Cerrado">Cerrados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Reportado'%} selected="selected" {% endif %}value="Reportado">Reportados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
+            </select>
+            <input type="submit" value="Filtrar"/>
+            <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad})}}">Quitar filtros</a>
+        </div>
+    </form>
+</div>
+
+<form action="{{ path('LoogaresAdminBundle_accionLugar', {'ciudad': ciudad}) }}" method="post">
+    <div class="listado_admin">
+        <div class="table-data">
+            <table>
+                <thead>
+                    <th class="lugar_checkbox">check</th>
+                    <th>Thumbnail</th>
+                    <th>Uploader</th>
+                    <th>Descripcion</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Accion</th>
+                </thead>
+                <tbody>
+                    {% for foto in fotos %}
+                        <tr>
+                            <td><input type="checkbox" name="id[]"/></td>
+                            <td><img src="{{ ('assets/images/lugares/'~foto.imagenFull) | apply_filter('tiny_lugar')}}"/></td>
+                            <td class="lugar_usuario">
+                                <span>
+                                    <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'pusuario': foto.usuario.slug, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.usuario.slug}}</a>
+                                </span>
+                            </td>
+                            <td>{{foto.tituloEnlace}}</td>
+                            <td class="">
+                                <span>
+                                    <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'pfecha_creacion': foto.fechaCreacion, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.fechaCreacion|date('d-m-Y')}}</a>
+                                </span>
+                            </td>
+                            <td class="lugar_estado">
+                                <span>
+                                    <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'pestado': foto.estado.nombre, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.estado.nombre}}</a>
+                                </span>
+                            </td>
+                            <td>
+                                <a target="_blank" href="{{ path('_editar', {'slug':foto.lugar.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
+
+                                {% if foto.estado.nombre == 'Eliminado' or foto.estado.nombre == 'Por Aprobar' %}
+                                    <a href="{{ path('_editar', {'slug': ciudad}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+                                {% elseif foto.estado.nombre == 'Aprobado' or foto.estado.nombre == 'Por Aprobar' or foto.estado.nombre == 'Reportado'%}
+                                    <a href="{{ path('_editar', {'slug': ciudad }) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="seleccion_masiva">
+        <a href="#" class="seleccionar-todo">Seleccionar todo</a> | <a href="#" class="deseleccionar-todo">Deseleccionar todo</a> | 
+        <select name="accion">
+            <option>Acciones para la selección</option>
+            <option value="aprobar">Aprobar Lugares</option>
+            <option value="cerrar">Cerrar Lugares</option>
+            <option value="eliminar">Eliminar Lugares</option>
+        </select>
+        <input type="submit" value="Enviar datos"/>
+    </div>
+</form>
+
+
+<div class="footer_admin">
+    © 2010~2012 Loogares.com
+</div>
+
+{% endblock %}
