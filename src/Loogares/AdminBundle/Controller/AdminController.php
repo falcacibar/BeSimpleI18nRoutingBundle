@@ -406,7 +406,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $usuarios = $this->getDoctrine()->getConnection()
         ->fetchAll("select SQL_CALC_FOUND_ROWS usuarios.*, 
-                    (select count(distinct imagenes_lugar.id) from imagenes_lugar where usuarios.id = imagenes_lugar.usuario_id) as imagenes,
+                    (select count(distinct imagenes_lugar.id) from imagenes_lugar where usuarios.id = imagenes_lugar.usuario_id and imagenes_lugar.estado_id = 5) as imagenes,
                     (select count(distinct lugares.id) from lugares where usuarios.id = lugares.usuario_id) as lugares,
                     (select count(distinct recomendacion.id) from recomendacion where usuarios.id = recomendacion.usuario_id) as recomendaciones,
                     (select count(distinct util.id) from util where usuarios.id = util.usuario_id) as utiles,

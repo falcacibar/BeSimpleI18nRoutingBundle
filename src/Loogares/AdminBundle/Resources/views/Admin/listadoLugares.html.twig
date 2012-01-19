@@ -36,7 +36,6 @@
             $('form').submit(function(){
                 $(this).find('input, select').each(function(){
                     $this = $(this);
-                    console.log($this)
                     if($this.val() == ''){
                         $this.attr('disabled', 'disabled');
                     }
@@ -53,30 +52,29 @@
     <div class="periodo">
         Período entre el <input type="text" class="periodo_fecha" id="fecha-desde-ph" value="">
         y el <input type="text" class="periodo_fecha" id="fecha-hasta-ph" value="">
+    </div>
 
-        <form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad })}}" method="get">
+    <form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad })}}" method="get">
         <input type="hidden" name="fecha-desde" id="fecha-desde" value="">
-        <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="01/01/01">
-    </div>
+        <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="">
+        <div class="buscar">
+            Buscar <input type="text" name="buscar" class="buscar_lugar" placeholder="Lugares por Nombre o Id" {% if query.buscar is defined %}value="{{query.buscar}}{% endif %}"/>
+        </div>
 
-    <div class="buscar">
-        Buscar <input type="text" name="buscar" class="buscar_lugar" placeholder="Lugares por Nombre o Id" {% if query.buscar is defined %}value="{{query.buscar}}{% endif %}"/>
-    </div>
-
-    <div class="seleccionar_estado">
-        Seleccionar 
-        <select name="pestado">
-            <option value=''>Todos</option>
-            <option {% if query.pestado is defined and query.pestado == 'Aprobado'%} selected="selected" {% endif %}value="Aprobado">Aprobados</option>
-            <option {% if query.pestado is defined and query.pestado == 'Por Revisar'%} selected="selected" {% endif %}value="Por Revisar">Por Revisar</option>
-            <option {% if query.pestado is defined and query.pestado == 'Cerrado'%} selected="selected" {% endif %}value="Cerrado">Cerrados</option>
-            <option {% if query.pestado is defined and query.pestado == 'Reportado'%} selected="selected" {% endif %}value="Reportado">Reportados</option>
-            <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
-        </select>
-        <input type="submit" value="Filtrar"/>
-        </form>
-        <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad})}}">Quitar filtros</a>
-    </div>
+        <div class="seleccionar_estado">
+            Seleccionar 
+            <select name="pestado">
+                <option value=''>Todos</option>
+                <option {% if query.pestado is defined and query.pestado == 'Aprobado'%} selected="selected" {% endif %}value="Aprobado">Aprobados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Por Revisar'%} selected="selected" {% endif %}value="Por Revisar">Por Revisar</option>
+                <option {% if query.pestado is defined and query.pestado == 'Cerrado'%} selected="selected" {% endif %}value="Cerrado">Cerrados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Reportado'%} selected="selected" {% endif %}value="Reportado">Reportados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
+            </select>
+            <input type="submit" value="Filtrar"/>
+            <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad})}}">Quitar filtros</a>
+        </div>
+    </form>
 </div>
 
 <form action="{{ path('LoogaresAdminBundle_accionLugar', {'ciudad': ciudad}) }}" method="post">
