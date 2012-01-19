@@ -52,6 +52,33 @@ usuario:
         fotos_agregadas: foto agregada|fotos agregadas
         desde: En Loogares.com desde:
         editar: Edita los datos de tu perfil
+
+    actividad:
+        titulo: Mi actividad|Actividad de
+
+    recomendaciones:
+        titulo: Mi recomendación|Mis recomendaciones
+        orden:
+            texto: Ordenar por:
+            mejores: Mejores evaluaciones
+            ultimas: Últimas recomendaciones
+            alfabetico: Orden alfabético
+        lista:
+            nombre: Nombre
+            evaluacion: Evaluación
+            fecha: Fecha
+            categorias: Categorías
+            ver: Lee
+            editar: Edita tu recomendación
+    fotos:
+        titulo: Mi foto|Mis fotos
+        orden:
+            texto: Ordenar por:
+            ultimas: Últimas fotos
+            alfabetico: Orden alfabético
+        lista:
+            editar: Edita tu foto
+            borrar: Borra tu foto
     mail:
         equipo: El equipo de %open_tag%Loogares.com%close_tag%
         contacto: Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a %open_a%contacto@loogares.com%close_a%

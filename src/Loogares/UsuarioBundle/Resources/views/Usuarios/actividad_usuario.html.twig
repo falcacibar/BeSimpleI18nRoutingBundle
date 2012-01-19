@@ -1,6 +1,6 @@
 <div class="actividad">
 	<h1>
-		{{(usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto) ? "Mi actividad" : "Actividad de "~usuario.nombre~" "~usuario.apellido}}
+		{{(usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto) ? 'usuario.actividad.titulo'|transchoice(1) : 'usuario.actividad.titulo'|transchoice(0)~" "~usuario.nombre~" "~usuario.apellido}}
 	</h1>
 
 	
