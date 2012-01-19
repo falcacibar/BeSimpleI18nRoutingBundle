@@ -148,59 +148,45 @@ class AdminController extends Controller
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
 
         $ih8doctrine = $this->getDoctrine()->getConnection()
-        ->fetchAll("SELECT SQL_CALC_FOUND_ROWS lugares.*, 
-                    usuarios.slug as usuarioSlug,
-                    comuna.nombre as comunaNombre,
-                    sector.nombre as sectorNombre,
-                    estado.nombre as estado,
-                    cast(AVG(recomendacion.estrellas) as signed) as estrellas,
-                    count(recomendacion.id) as recomendaciones,
-                    count(distinct util.id) as utiles,
-                    (select count(imagenes_lugar.id) from imagenes_lugar where lugares.id = imagenes_lugar.lugar_id) as imagenes,
-                    group_concat(distinct categorias.nombre) as categorias,
-                    group_concat(distinct subcategoria.nombre) as subcategorias,
-                    group_concat(distinct caracteristica.nombre) as caracteristicas
+        ->fetchAll("SELECT straight_join SQL_CALC_FOUND_ROWS 
+lugares.*, 
+usuarios.slug as usuarioSlug, 
+comuna.nombre as comunaNombre, 
+(select sector.nombre from sector where lugares.sector_id = sector.id) as sectorNombre,
+(select estado.nombre from estado where estado.id = lugares.estado_id) as estado,
+cast(AVG(recomendacion.estrellas) as signed) as estrellas, 
+count(recomendacion.id) as recomendaciones,
+(select count(util.id) from util where util.recomendacion_id = recomendacion.id) as utiles, 
+(select count(imagenes_lugar.id) from imagenes_lugar where lugares.id = imagenes_lugar.lugar_id) as imagenes, 
+group_concat(distinct categorias.nombre) as categorias, 
+group_concat(distinct subcategoria.nombre) as subcategorias, 
+group_concat(distinct caracteristica.nombre) as caracteristicas FROM lugares left join usuarios on usuarios.id = lugares.usuario_id 
 
-                    FROM lugares
+left join comuna 
+on comuna.id = lugares.comuna_id 
 
-                    left join usuarios
-                    on usuarios.id = lugares.usuario_id
+left join ciudad 
+on comuna.ciudad_id = ciudad.id 
 
-                    left join comuna
-                    on comuna.id = lugares.comuna_id
+left join recomendacion 
+on recomendacion.lugar_id = lugares.id 
 
-                    left join sector
-                    on sector.id = lugares.sector_id
+left join categoria_lugar 
+on categoria_lugar.lugar_id = lugares.id 
 
-                    left join ciudad
-                    on comuna.ciudad_id = ciudad.id
+left join categorias 
+on categorias.id = categoria_lugar.categoria_id 
 
-                    left join recomendacion
-                    on recomendacion.lugar_id = lugares.id
+left join subcategoria_lugar 
+on subcategoria_lugar.lugar_id = lugares.id 
 
-                    left join util
-                    on util.recomendacion_id = recomendacion.id
+left join subcategoria 
+on subcategoria.categoria_id = categorias.id and subcategoria.id = subcategoria_lugar.subcategoria_id 
+left join caracteristica_lugar 
+on caracteristica_lugar.lugar_id = lugares.id 
 
-                    left join categoria_lugar
-                    on categoria_lugar.lugar_id = lugares.id
-
-                    left join categorias
-                    on categorias.id = categoria_lugar.categoria_id
-
-                    left join estado
-                    on estado.id = lugares.estado_id
-
-                    left join subcategoria_lugar
-                    on subcategoria_lugar.lugar_id = lugares.id
-
-                    left join subcategoria
-                    on subcategoria.categoria_id = categorias.id and subcategoria.id = subcategoria_lugar.subcategoria_id
-
-                    left join caracteristica_lugar
-                    on caracteristica_lugar.lugar_id = lugares.id
-
-                    left join caracteristica
-                    on caracteristica.id = caracteristica_lugar.caracteristica_id
+left join caracteristica 
+on caracteristica.id = caracteristica_lugar.caracteristica_id 
 
                     $where
                     GROUP BY lugares.id

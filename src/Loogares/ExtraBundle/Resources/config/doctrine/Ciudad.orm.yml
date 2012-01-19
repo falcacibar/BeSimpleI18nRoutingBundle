@@ -13,7 +13,7 @@ Loogares\ExtraBundle\Entity\Ciudad:
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }
     fields:
         nombre:
             type: string
