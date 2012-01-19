@@ -172,7 +172,20 @@ $rojo: #FF3300
 
         th, td
             border-right: 1px solid $gris_ddd
-            padding: 5px
+
+        td
+            padding: 8px 0
+
+            span
+                display: block
+                margin: 0 5px
+
+        th
+            padding: 8px 0
+
+            span
+                display: block
+                margin: 0 5px
 
         tr:nth-child(even)
             background: $gris_f9f
@@ -183,13 +196,14 @@ $rojo: #FF3300
 
         .lugar_id
             text-align: center
-            width: 55px !important
+            width: 60px !important
                 
         .lugar_nombre
             width: 200px !important
 
         .lugar_usuario
-            width: 150px !important
+            width: 200px !important
+        
 
         .lugar_categoria
             width: 200px !important
@@ -211,22 +225,22 @@ $rojo: #FF3300
 
         .lugar_estrellas
             text-align: center
-            width: 140px !important
+            width: 100px !important
 
         .lugar_utiles
             text-align: center
-            width: 140px !important
+            width: 100px !important
 
         .lugar_precio
             text-align: center
-            width: 140px !important
+            width: 100px !important
 
         .lugar_ranking
             text-align: center
-            width: 140px !important
+            width: 100px !important
 
         .lugar_caracteristicas
-            width: 190px !important
+            width: 200px !important
 
         .lugar_sitio_web
             width: 250px !important
@@ -251,12 +265,17 @@ $rojo: #FF3300
 
         .lugar_acciones
             text-align: center
-            width: 150px !important
-
+            width: 100px !important
+        
+        .titulos_tabla
+            float: left
+            
         .list-actions
+            float: left
             font-size: 10px
             font-weight: 100
             display: inline-block
+            margin: 0 0 0 5px
 
             span
                 cursor: pointer

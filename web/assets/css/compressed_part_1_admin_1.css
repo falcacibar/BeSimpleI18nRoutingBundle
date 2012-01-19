@@ -73,8 +73,17 @@
     .listado_admin .table-data th {
       border-bottom: 1px solid #f6f6f6; }
     .listado_admin .table-data th, .listado_admin .table-data td {
-      border-right: 1px solid #dddddd;
-      padding: 5px; }
+      border-right: 1px solid #dddddd; }
+    .listado_admin .table-data td {
+      padding: 8px 0; }
+      .listado_admin .table-data td span {
+        display: block;
+        margin: 0 5px; }
+    .listado_admin .table-data th {
+      padding: 8px 0; }
+      .listado_admin .table-data th span {
+        display: block;
+        margin: 0 5px; }
     .listado_admin .table-data tr:nth-child(even) {
       background: #f9f9f9; }
     .listado_admin .table-data .lugar_checkbox {
@@ -82,11 +91,11 @@
       width: 20px !important; }
     .listado_admin .table-data .lugar_id {
       text-align: center;
-      width: 55px !important; }
+      width: 60px !important; }
     .listado_admin .table-data .lugar_nombre {
       width: 200px !important; }
     .listado_admin .table-data .lugar_usuario {
-      width: 150px !important; }
+      width: 200px !important; }
     .listado_admin .table-data .lugar_categoria {
       width: 200px !important; }
     .listado_admin .table-data .lugar_subcategoria {
@@ -101,18 +110,18 @@
       width: 150px !important; }
     .listado_admin .table-data .lugar_estrellas {
       text-align: center;
-      width: 140px !important; }
+      width: 100px !important; }
     .listado_admin .table-data .lugar_utiles {
       text-align: center;
-      width: 140px !important; }
+      width: 100px !important; }
     .listado_admin .table-data .lugar_precio {
       text-align: center;
-      width: 140px !important; }
+      width: 100px !important; }
     .listado_admin .table-data .lugar_ranking {
       text-align: center;
-      width: 140px !important; }
+      width: 100px !important; }
     .listado_admin .table-data .lugar_caracteristicas {
-      width: 190px !important; }
+      width: 200px !important; }
     .listado_admin .table-data .lugar_sitio_web {
       width: 250px !important; }
     .listado_admin .table-data .lugar_facebook {
@@ -129,11 +138,15 @@
       width: 100px !important; }
     .listado_admin .table-data .lugar_acciones {
       text-align: center;
-      width: 150px !important; }
+      width: 100px !important; }
+    .listado_admin .table-data .titulos_tabla {
+      float: left; }
     .listado_admin .table-data .list-actions {
+      float: left;
       font-size: 10px;
       font-weight: 100;
-      display: inline-block; }
+      display: inline-block;
+      margin: 0 0 0 5px; }
       .listado_admin .table-data .list-actions span {
         cursor: pointer;
         color: #cccccc; }
