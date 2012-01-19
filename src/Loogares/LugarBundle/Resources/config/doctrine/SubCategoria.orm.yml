@@ -1,6 +1,9 @@
 Loogares\LugarBundle\Entity\SubCategoria:
     type: entity
     table: subcategoria
+    gedmo:
+        translation:
+            locale: locale
     manyToOne:
         categoria:
             targetEntity: Loogares\LugarBundle\Entity\Categoria
@@ -15,5 +18,9 @@ Loogares\LugarBundle\Entity\SubCategoria:
     fields:
         nombre:
             type: string
+            gedmo:
+                - translatable
         slug:
             type: string
+            gedmo:
+                - translatable

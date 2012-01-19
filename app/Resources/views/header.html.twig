@@ -7,11 +7,11 @@
 		<div class="login">			
 			{% if is_granted('ROLE_USER') %}
 				{% set slug = (app.security.token.user.slug != '') ? app.security.token.user.slug : app.security.token.user.id %}					
-				<a class="usuario_login" href="{{path('logout')}}">Salir</a>
+				<a class="usuario_login" href="{{path('logout')}}">{{'general.header.usuario.logout'|trans}}</a>
 				<a class="usuario_login" href="{{path('showUsuario', { 'param': slug })}}">{{app.security.token.user.nombre}} {{app.security.token.user.apellido}}</a>
 			{% else %}
-				<a class="usuario_login" href="{{path('login')}}">Entra</a>
-				<a class="usuario_login" href="{{path('registroUsuario')}}">Regístrate</a>
+				<a class="usuario_login" href="{{path('login')}}">{{'general.header.usuario.login'|trans}}</a>
+				<a class="usuario_login" href="{{path('registroUsuario')}}">{{'general.header.usuario.registro'|trans}}</a>
 				<a class="facebook_login" href="#"></a>
 			{% endif %}
 		</div>

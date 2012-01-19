@@ -7,6 +7,9 @@ app/cache/*
 #Entidades
 src/Loogares/LugarBundle/Entity/*
 !src/Loogares/LugarBundle/Entity/ImagenLugar.php
+!src/Loogares/LugarBundle/Entity/Caracteristica.php
+!src/Loogares/LugarBundle/Entity/Categoria.php
+!src/Loogares/LugarBundle/Entity/SubCategoria.php
 !src/Loogares/LugarBundle/Entity/TipoCategoria.php
 src/Loogares/UsuarioBundle/Entity/*
 !src/Loogares/UsuarioBundle/Entity/Usuario.php

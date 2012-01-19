@@ -1,0 +1,30 @@
+# Locale 'es' General
+general:
+    header:
+        usuario:
+            login: Entra
+            logout: Salir
+            registro: Regístrate
+
+    footer:
+        participa:
+            titulo: Participa
+            registro: Regístrate
+            agregar: Agrega y recomienda un lugar
+        alianzas:
+            titulo: Alianzas
+        loogares:
+            titulo: Loogares.com
+            que: ¿Qué es Loogares.com?
+            contacto: Contacto
+            prensa: Prensa
+            terminos: Términos de uso
+            copyright: Copyright
+            owner: ¿Eres el dueño de un lugar?
+            jobs: Trabaja con nosotros
+            publicidad: Publicidad
+            privacidad: Políticas de privacidad
+            conducta: Códigos de conducta
+        paises:
+            titulo: Cambiar de país:
+        firma: © 2010~2012 Loogares.com

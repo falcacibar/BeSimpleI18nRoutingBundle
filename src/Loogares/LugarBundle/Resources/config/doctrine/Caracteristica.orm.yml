@@ -1,6 +1,9 @@
 Loogares\LugarBundle\Entity\Caracteristica:
     type: entity
     table: caracteristica
+    gedmo:
+        translation:
+            locale: locale
     id:
         id:
             type: integer
@@ -8,10 +11,16 @@ Loogares\LugarBundle\Entity\Caracteristica:
     fields:
         nombre:
             type: string
+            gedmo:
+                - translatable
         texto:
             type: string
+            gedmo:
+                - translatable
         slug:
             type: string
+            gedmo:
+                - translatable
         color:
             type: string
         orden:

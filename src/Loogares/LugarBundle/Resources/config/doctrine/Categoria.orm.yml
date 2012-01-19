@@ -1,6 +1,9 @@
 Loogares\LugarBundle\Entity\Categoria:
     type: entity
     table: categorias
+    gedmo:
+        translation:
+            locale: locale
     manyToOne:
         tipo_categoria:
             targetEntity: Loogares\LugarBundle\Entity\TipoCategoria
@@ -15,8 +18,12 @@ Loogares\LugarBundle\Entity\Categoria:
     fields:
         nombre:
             type: string
+            gedmo:
+                - translatable
         slug:
             type: string
+            gedmo:
+                - translatable
         mostrar_precio:
             type: smallint
         tipo_categoria_id:
