@@ -1,29 +1,29 @@
 {% set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
 
 <div class="recomendaciones">
-	<h1>Mis Recomendaciones ({{usuario.totalRecomendaciones}})</h1>
+	<h1>{{'usuario.recomendaciones.titulo'|transchoice(usuario.totalRecomendaciones)}} ({{usuario.totalRecomendaciones}})</h1>
 
 	<ul>
-		<li class="bold">Ordenar por:</li>
+		<li class="bold">{{'usuario.recomendaciones.orden.texto'|trans}}</li>
 		<li>
 			{% if usuario.orden == 'mejor-evaluadas' %}
-				Mejores evaluaciones | 
+				{{'usuario.recomendaciones.orden.mejores'|trans}} | 
 			{% else %}		
-				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'mejor-evaluadas', 'pagina' : usuario.pagina})}}">Mejores evaluaciones</a> | 
+				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'mejor-evaluadas', 'pagina' : usuario.pagina})}}">{{'usuario.recomendaciones.orden.mejores'|trans}}</a> | 
 			{% endif %}
 		</li>
 		<li>
 			{% if usuario.orden == 'ultimas' %}
-				Últimas recomendaciones | 
+				{{'usuario.recomendaciones.orden.ultimas'|trans}} | 
 			{% else %}
-				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">Últimas recomendaciones</a> | 
+				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">{{'usuario.recomendaciones.orden.ultimas'|trans}}</a> | 
 			{% endif %}
 		</li>
 		<li>
 			{% if usuario.orden == 'nombre' %}
-				Orden alfabético
+				{{'usuario.recomendaciones.orden.alfabetico'|trans}}
 			{% else %}
-				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'nombre', 'pagina' : usuario.pagina })}}">Orden alfabético</a>
+				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'nombre', 'pagina' : usuario.pagina })}}">{{'usuario.recomendaciones.orden.alfabetico'|trans}}</a>
 			{% endif %}
 		</li>
 	</ul>
@@ -31,10 +31,10 @@
 	<table>
 		<tr class="no-bottom-border">
 			<th><input type="checkbox" class="recomendaciones-todas" /></th>
-			<th>Nombre</th>
-			<th>Evaluación</th>
-			<th>Fecha</th>
-			<th>Categorías</th>
+			<th>{{'usuario.recomendaciones.lista.nombre'|trans}}</th>
+			<th>{{'usuario.recomendaciones.lista.evaluacion'|trans}}</th>
+			<th>{{'usuario.recomendaciones.lista.fecha'|trans}}</th>
+			<th>{{'usuario.recomendaciones.lista.categorias'|trans}}</th>
 		</tr>
 
 		{% set i = 0 %}		
@@ -50,8 +50,8 @@
 						{{-((loop.index == recomendacion.lugar.categoriaLugar|length) ? '' : ', ')}}
 					{% endfor %}
 				</td>			
-				<td><a href="#">Lee</a></td>
-				<td><a href="#">Edita tu recomendación</a></td>
+				<td><a href="#">{{'usuario.recomendaciones.lista.ver'|trans}}</a></td>
+				<td><a href="#">{{'usuario.recomendaciones.lista.editar'|trans}}</a></td>
 			</tr>
 			{% set i = i + 1 %}
 			

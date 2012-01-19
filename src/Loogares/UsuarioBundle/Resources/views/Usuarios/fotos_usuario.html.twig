@@ -1,7 +1,7 @@
 {% set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
 
 <div class="fotos_usuario">
-	<h1>Mis Fotos ({{usuario.totalImagenesLugar}})</h1>
+	<h1>{{'usuario.fotos.titulo'|transchoice(usuario.totalImagenesLugar)}} ({{usuario.totalImagenesLugar}})</h1>
 
 	{% if app.session.hasFlash('edicion-foto-lugar') %}
 		    <div class="flash-notice">
@@ -16,19 +16,19 @@
 	{% endif %}
 
 	<ul class="orden">
-		<li class="bold">Ordenar por:</li>		
+		<li class="bold">{{'usuario.fotos.orden.texto'|trans}}</li>		
 		<li>
 			{% if usuario.orden == 'ultimas' %}
-				Últimas fotos | 
+				{{'usuario.fotos.orden.ultimas'|trans}} | 
 			{% else %}
-				<a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">Últimas fotos</a> | 
+				<a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">{{'usuario.fotos.orden.ultimas'|trans}}</a> | 
 			{% endif %}
 		</li>
 		<li>
 			{% if usuario.orden == 'nombre' %}
-				Orden alfabético
+				{{'usuario.fotos.orden.alfabetico'|trans}}
 			{% else %}
-				<a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : 'nombre', 'pagina' : usuario.pagina })}}">Orden alfabético</a>
+				<a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : 'nombre', 'pagina' : usuario.pagina })}}">{{'usuario.fotos.orden.alfabetico'|trans}}</a>
 			{% endif %}
 		</li>
 	</ul>
@@ -57,8 +57,10 @@
 
 						<br />
 						{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
-							<a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">Edita tu foto</a> <br />
-							<a href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">Borra tu foto</a>
+							<div class="opciones-fotos-usuario">
+								<a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'usuario.fotos.lista.editar'|trans}}</a> <br />
+								<a href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'usuario.fotos.lista.borrar'|trans}}</a>
+							</div>
 						{% endif %}
 
 					</li>
@@ -83,12 +85,3 @@
 	{% endif %}
 
 </div>
-
-{% block javascripts %}
-	<script type="text/javascript">
-		$('.borrar-foto-lugar').click(function(){
-			if(!confirm('¿Estás seguro de querer borrar tu foto?'))
-				return false;
-		});
-	</script>
-{% endblock %}
