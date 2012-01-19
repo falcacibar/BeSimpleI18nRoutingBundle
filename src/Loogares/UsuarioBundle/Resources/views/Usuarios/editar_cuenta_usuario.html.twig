@@ -3,7 +3,7 @@
 <div id="edicion-cuenta" class="edicion">
 	{% if app.session.hasFlash('edicion-cuenta') %}
 		    <div class="flash-notice">
-		        {{ app.session.flash('edicion-cuenta') }}
+		        {{ app.session.flash('edicion-cuenta') | trans }}
 		    </div>
 	{% endif %}
 
@@ -20,7 +20,7 @@
 			<ul class="editar-usuario">
 				<li>
 					{% set inputClass = (errors.nombre is defined) ? 'input-error' : ' '%}
-					{{ form_label(form.nombre, 'Nombre *') }}
+					{{ form_label(form.nombre, 'usuario.edicion.cuenta.nombre') }}
 					{{ form_widget(form.nombre, { 'attr': {'class': inputClass}}) }}
 					{% if errors.nombre is defined %}
 						<small class="errors">{{errors.nombre | trans}}</small>
@@ -28,7 +28,7 @@
 				</li>
 				{% if is_granted('ROLE_ADMIN') %}
 					<li>
-						<label>Tipo Usuario</label>
+						<label>{{'usuario.edicion.cuenta.tipo'|trans}}</label>
 						<select name="tipo_usuario">
 							{% for tipoUsuario in tipoUsuarios %}
 								<option value="{{tipoUsuario.id}}">{{tipoUsuario.descripcion}}</option>
@@ -38,7 +38,7 @@
 				{% endif %}
 				<li>
 					{% set inputClass = (errors.apellido is defined) ? 'input-error' : ' '%}
-					{{ form_label(form.apellido, 'Apellido *') }}
+					{{ form_label(form.apellido, 'usuario.edicion.cuenta.apellido') }}
 					{{ form_widget(form.apellido, { 'attr': {'class': inputClass}}) }}
 					{% if errors.apellido is defined %}
 						<small class="errors">{{errors.apellido | trans}}</small>
@@ -47,7 +47,7 @@
 
 				<li>
 					{% set inputClass = (errors.mail is defined) ? 'input-error' : ' '%}
-					{{ form_label(form.mail, 'E-mail *') }}
+					{{ form_label(form.mail, 'usuario.edicion.cuenta.mail') }}
 					{{ form_widget(form.mail, { 'attr': {'class': inputClass}}) }}
 					{% if errors.mail is defined %}
 						<small class="errors">{{errors.mail | trans}}</small>
@@ -56,7 +56,7 @@
 				
 				<li>
 					{% set inputClass = (errors.slug is defined) ? 'input-error' : ' '%}
-					{{ form_label(form.slug, 'Nombre de usuario') }}
+					{{ form_label(form.slug, 'usuario.edicion.cuenta.slug') }}
 					{{ form_widget(form.slug, { 'attr': {'class': inputClass}})  }}
 					{% if errors.slug is defined %}
 						<small class="errors">{{errors.slug | trans}}</small>
@@ -64,7 +64,7 @@
 				</li> 
 				
 				<li>
-					{{ form_label(form.fecha_nacimiento, 'Fecha de nacimiento', {'attr' :{'class' : 'label-up'}}) }}
+					{{ form_label(form.fecha_nacimiento, 'usuario.edicion.cuenta.nacimiento.label', {'attr' :{'class' : 'label-up'}}) }}
 					<div class="edicion-fecha-nacimiento">
 					{{ form_widget(form.fecha_nacimiento.day, { 'attr': {'class': 'day'}}) }}
 					{{ form_widget(form.fecha_nacimiento.month, { 'attr': {'class': 'month'}}) }}
@@ -73,17 +73,17 @@
 				</li>
 
 				<li>					
-					{{ form_label(form.mostrar_edad, null, {'attr' :{'class' : 'label-up'}})}}
+					{{ form_label(form.mostrar_edad, 'usuario.edicion.cuenta.mostrar_edad', {'attr' :{'class' : 'label-up'}})}}
 					{{ form_widget(form.mostrar_edad)}}
 				</li>
 				
 				<li>
-					{{ form_label(form.sexo) }}
+					{{ form_label(form.sexo, 'usuario.edicion.cuenta.sexo.label') }}
 					{{ form_widget(form.sexo) }}
 				</li> <br /> <br />
 				
 				<li>
-					{{ form_label(form.web, 'Sitio web') }}
+					{{ form_label(form.web, 'usuario.edicion.cuenta.web') }}
 					{{ form_widget(form.web) }}
 				</li>
 
@@ -105,41 +105,9 @@
 			    {{ form_rest(form) }}
 
 				<div class="submit">
-					<label></label><input type="submit" value="Guardar" formnovalidate />
+					<label></label><input type="submit" value="{{'usuario.edicion.cuenta.submit'|trans}}" formnovalidate />
 				</div>
 			</ul>
 	    </div>		    
 	</form>
 </div>
-
-{% block javascripts %}
-	<script type="text/javascript">
-		// Esto es hasta que encuentre una forma de desplegar nombres en vez de números
-		$('select.month option').each(function(){
-			if($(this).val() == '1')
-				$(this).html('Enero');
-			else if($(this).val() == '2')
-				$(this).html('Febrero');
-			else if($(this).val() == '3')
-				$(this).html('Marzo');
-			else if($(this).val() == '4')
-				$(this).html('Abril');
-			else if($(this).val() == '5')
-				$(this).html('Mayo');
-			else if($(this).val() == '6')
-				$(this).html('Junio');
-			else if($(this).val() == '7')
-				$(this).html('Julio');
-			else if($(this).val() == '8')
-				$(this).html('Agosto');
-			else if($(this).val() == '9')
-				$(this).html('Septiembre');
-			else if($(this).val() == '10')
-				$(this).html('Octubre');
-			else if($(this).val() == '11')
-				$(this).html('Noviembre');
-			else if($(this).val() == '12')
-				$(this).html('Diciembre');
-		});
-	</script>
-{% endblock %}

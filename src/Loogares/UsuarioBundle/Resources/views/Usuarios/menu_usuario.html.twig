@@ -3,14 +3,14 @@
 <div id="menu-usuario">
 	<ul>
 		<li class="{{(usuario.tipo is defined and usuario.tipo == 'actividad') ? 'selected' : ''}}">
-			<a href="{{path('actividadUsuario', { 'param': slug })}}">Actividad</a>
+			<a href="{{path('actividadUsuario', { 'param': slug })}}">{{'usuario.menu.actividad'|trans}}</a>
 		</li>
 		{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
 			<li class="{{(usuario.tipo is defined and usuario.tipo == 'recomendaciones') ? 'selected' : ''}}">
-				<a href="{{path('recomendacionesUsuario', { 'param': slug })}}">Recomendaciones</a>
+				<a href="{{path('recomendacionesUsuario', { 'param': slug })}}">{{'usuario.menu.recomendaciones'|trans}}</a>
 			</li>
 			<li class="{{(usuario.tipo is defined and usuario.tipo == 'fotos') ? 'selected' : ''}} no-right-border">
-				<a href="{{path('fotosLugaresUsuario', { 'param': slug })}}">Fotos</a>
+				<a href="{{path('fotosLugaresUsuario', { 'param': slug })}}">{{'usuario.menu.fotos'|trans}}</a>
 			</li>
 		{% endif %}		
 	</ul>

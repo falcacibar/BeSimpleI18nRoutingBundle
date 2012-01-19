@@ -1,20 +1,20 @@
 {% 	set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
 
-<h1 class="edicion-titulo">Edita los datos de tu perfil</h1>
+<h1 class="edicion-titulo">{{'usuario.edicion.titulo'|trans}}</h1>
 
 <div id="menu-edicion">
 	<ul>
 		<li class="{{(usuario.edicion == 'cuenta') ? 'selected' : ''}}">
-			<a href="{{path('editarCuentaUsuario', { 'param': slug })}}">Cuenta</a>
+			<a href="{{path('editarCuentaUsuario', { 'param': slug })}}">{{'usuario.edicion.menu.cuenta'|trans}}</a>
 		</li>
 		<li class="{{(usuario.edicion == 'foto') ? 'selected' : ''}}">
-			<a href="{{path('editarFotoUsuario', { 'param': slug })}}">Foto de perfil</a>
+			<a href="{{path('editarFotoUsuario', { 'param': slug })}}">{{'usuario.edicion.menu.foto'|trans}}</a>
 		</li>
 		<li class="{{(usuario.edicion == 'password') ? 'selected' : ''}}">
-			<a href="{{path('editarPasswordUsuario', { 'param': slug })}}">Password</a>
+			<a href="{{path('editarPasswordUsuario', { 'param': slug })}}">{{'usuario.edicion.menu.password'|trans}}</a>
 		</li>
 		<li class="{{(usuario.edicion == 'borrar') ? 'selected' : ''}}">
-			<a href="{{path('editarBorrarUsuario', { 'param': slug })}}">Borrar cuenta</a>
+			<a href="{{path('editarBorrarUsuario', { 'param': slug })}}">{{'usuario.edicion.menu.borrar'|trans}}</a>
 		</li>
 	</ul>
 </div>

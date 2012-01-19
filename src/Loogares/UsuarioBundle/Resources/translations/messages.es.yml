@@ -44,6 +44,7 @@ usuario:
                 titulo: ¡Felicitaciones %nombre% %apellido%!
                 texto: Estás a punto de convertirte en un Loogareño, haz clic %open_a%acá%close_a% para confirmar tu cuenta.
                 texto_plano: Estás a punto de convertirte en un Loogareño. Para confirmar tu cuenta, ingresa el siguiente link en tu navegador:
+                asunto: Confirma tu cuenta en Loogares.com
     datos:
         edad: año|años
         recomendaciones: recomendación|recomendaciones
@@ -52,6 +53,12 @@ usuario:
         fotos_agregadas: foto agregada|fotos agregadas
         desde: En Loogares.com desde:
         editar: Edita los datos de tu perfil
+
+    menu:
+        actividad: Actividad
+        recomendaciones: Recomendaciones
+        fotos: Fotos
+
 
     actividad:
         titulo: Mi actividad|Actividad de
@@ -79,30 +86,109 @@ usuario:
         lista:
             editar: Edita tu foto
             borrar: Borra tu foto
+
+    edicion:
+        titulo_pag: Edita tus datos
+        titulo: Edita los datos de tu perfil
+        menu:
+            cuenta: Cuenta
+            foto: Foto de perfil
+            password: Password
+            borrar: Borrar cuenta
+
+        cuenta:
+            nombre: Nombre *
+            tipo: Tipo de Usuario
+            apellido: Apellido *
+            mail: E-mail *
+            slug: Nombre de usuario
+            nacimiento:
+                label: Fecha de nacimiento
+                day: Día
+                month: Mes
+                year: Año
+            mostrar_edad: Mostrar edad
+            sexo:
+                label: Sexo
+                hombre: Hombre
+                mujer: Mujer
+                ninguno: No quiero definir
+            web: Sitio web
+            newsletter: Recibir newsletter por E-mail
+            submit: Guardar
+        foto:
+            subir: Subir foto
+            tip:
+                maximo: - 5MB como máximo
+                formato: - Sólo JPG, GIF y PNG
+            mypictr: Crea tu foto de perfil con Mypictr
+            submit: Guardar
+            borrar: Borra tu foto
+        password:
+            actual: Password actual *
+            nuevo: Password nuevo *
+            confirmar: Confirmar password *
+            submit: Guardar
+        borrar:
+            password: Password *
+            motivo: ¿Por qué te vas? Cuéntanos el motivo de tu salida. *
+            submit: Borrar cuenta
+            mail:
+                nombre: Nombre
+                mail: E-mail
+                fecha_registro: Fecha de registro
+                motivo: Motivo
+                asunto: Usuario eliminado            
+    
+    errors:
+        login:
+            completo: Debes completar ambos campos
+            password: Los campos de E-mail y password no coinciden. Por favor, corrígelos.
+            emptyPassword: El campo password es obligatorio. Por favor, complétalo.
+            noActivo: La cuenta de usuario no se encuentra activa.
+        validacion:
+            nombre:
+                blanco: El campo Nombre no puede ser vacío.
+                tipo: El nombre debe ser texto.
+            apellido:
+                blanco: El campo Apellido no puede ser vacío.
+                tipo: El apellido debe ser texto. 
+            mail:
+                unico: La dirección de E-mail está repetida. Por favor, prueba con otra.
+                blanco: El campo E-mail no puede ser vacío.
+                invalido: Email inválido.
+            password:
+                blanco: El campo Password no puede ser vacío.
+                minimo: El password debe tener un mínimo de 6 caracteres.:
+            confirmar_password: Los passwords no coinciden. Por favor, corrígelos.
+            slug:
+                unico: El nombre de usuario está repetido. Por favor, prueba con otro.
+            imagen:
+                tipo: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+        editar:
+            foto:
+                blanco: No tienes seleccionado ningún archivo. Por favor, elige uno.
+            password:
+                actual: Password actual incorrecto
+                confirmar: Debes escribir el mismo password nuevo
+            borrar:
+                pass_obligatorio: El campo password es obligatorio. Por favor, complétalo.
+                pass_incorrecto: Los passwords no coinciden. Por favor, corrígelos.
+                motivo: Queremos saber por qué te vas. Por favor, completa el campo.
+    flash:
+        confirmar_usuario:
+            incorrecto: Código de confirmación incorrecto
+            anterioridad: Confirmación realizada con anterioridad
+            exito: ¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún lugar para recomendar?
+        edicion:
+            cuenta: ¡Tu perfil acaba de actualizarse con los nuevos cambios!
+            foto: Cambiaste tu foto de perfil. ¡Nada de mal!
+            password: Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.
+            borrar_cuenta: Tu cuenta acaba de ser borrada. Fue bonito mientras duró.
+
     mail:
         equipo: El equipo de %open_tag%Loogares.com%close_tag%
         contacto: Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a %open_a%contacto@loogares.com%close_a%
         contacto_plano: Si quieres contactarnos escríbenos a contacto@loogares.com
         firma: 2012. Loogares.com
-    errors:
-        completo: Debes completar ambos campos
-        password: Los campos de E-mail y password no coinciden. Por favor, corrígelos.
-        emptyPassword: El campo password es obligatorio. Por favor, complétalo.
-        noActivo: La cuenta de usuario no se encuentra activa.
-        nombre:
-            blanco: El campo Nombre no puede ser vacío.
-            tipo: El nombre debe ser texto.
-        apellido:
-            blanco: El campo Apellido no puede ser vacío.
-            tipo: El apellido debe ser texto. 
-        mail:
-            unico: La dirección de E-mail está repetida. Por favor, prueba con otra.
-            blanco: El campo E-mail no puede ser vacío.
-            invalido: Email inválido.
-        password:
-            blanco: El campo Password no puede ser vacío.
-            minimo: El password debe tener un mínimo de 6 caracteres.
-        slug:
-            unico: El nombre de usuario está repetido. Por favor, prueba con otro.
-        imagen:
-            tipo: Sólo JPG, GIF y PNG, máx. 5 MB.

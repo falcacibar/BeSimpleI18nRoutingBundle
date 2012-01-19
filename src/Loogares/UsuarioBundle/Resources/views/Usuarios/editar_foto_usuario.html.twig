@@ -3,14 +3,14 @@
 <div id="edicion-cuenta" class="edicion">
 	{% if app.session.hasFlash('edicion-foto') %}
 		    <div class="flash-notice">
-		        {{ app.session.flash('edicion-foto') }}
+		        {{ app.session.flash('edicion-foto') | trans }}
 		    </div>
 	{% endif %}
 
 	{% if errors %}
 		<div class="edicion_error">
 			{% for error in errors %}
-		        <p>{{ error }}</p>
+		        <p>{{ error | trans }}</p>
 		    {% endfor %}
 		</div>
 	{% endif %}
@@ -19,20 +19,20 @@
 		<div class="form-edicion">			
 			<ul class="editar-usuario">
 				<li>
-					{{form_label(form.file, 'Subir foto')}}
+					{{form_label(form.file, 'usuario.edicion.foto.subir')}}
 
 					{% set inputClass = (errors.file is defined or errors.valida is defined) ? 'input-error' : ' '%}
 					{{form_widget(form.file, { 'attr': {'class': inputClass }})}}
 					{% if errors.file is defined or errors.valida is defined %}
-						<small class="errors">{{(errors.file is defined) ? errors.file : errors.valida}}</small>
+						<small class="errors">{{(errors.file is defined) ? errors.file | trans : errors.valida | trans }}</small>
 					{% endif %}
 				</li>
 
 				<li>
 					<label></label>
 					<div class="tips">
-					<span class="tip_form">- 5MB como máximo</span> <br />
-					<span class="tip_form">- Sólo JPG, GIF y PNG</span>
+					<span class="tip_form">{{'usuario.edicion.foto.tip.maximo'|trans}}</span> <br />
+					<span class="tip_form">{{'usuario.edicion.foto.tip.formato'|trans}}</span>
 					</div>
 				</li>
 
@@ -40,13 +40,13 @@
 
 				<li class="tip_link">
 					<label></label>
-					<a href="http://mypictr.com/?size=100x100" target="blank">Crea tu foto de perfil con Mypictr</a>
+					<a href="http://mypictr.com/?size=100x100" target="blank">{{'usuario.edicion.foto.mypictr'|trans}}</a>
 				</li>
 
 				{{form_rest(form)}}
 
 				<li class="submit">
-					<label></label><input type="submit" value="Guardar" formnovalidate />
+					<label></label><input type="submit" value="{{'usuario.edicion.foto.submit'|trans}}" formnovalidate />
 				</li>
 			</ul>
 	    </div>		    
@@ -55,17 +55,7 @@
 	<form action="{{ path('editarFotoUsuario', { 'param': usuario.id }) }}" method="post">
 		<div class="form-borrar-foto">
 			<input type="hidden" name="borrarFoto" value="borrarFoto">
-			<input type="submit" value="Borra tu foto" formnovalidate />
+			<input type="submit" value="{{'usuario.edicion.foto.borrar'|trans}}" formnovalidate />
 		</div>
 	</form>
 </div>
-
-{% block javascripts %}
-	<script type="text/javascript">
-		$('.form-borrar-foto input[type=submit]').click(function(){
-			if(confirm('¿Estás seguro de querer borrar tu foto?'))
-				$('.form-borrar-foto').parent().submit();
-			return false;
-		});
-	</script>
-{% endblock %}

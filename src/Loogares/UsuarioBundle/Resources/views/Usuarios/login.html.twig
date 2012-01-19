@@ -3,6 +3,11 @@
 {% block title %}{% trans %}usuario.login.titulo{% endtrans %}{% endblock %}
 {% block content %}
     <div class="columna_izquierda_borde">
+        {% if app.session.hasFlash('edicion-borrar') %}
+            <div class="flash-notice">
+                {{ app.session.flash('edicion-borrar') | trans }}
+            </div>
+        {% endif %}
         <h1 class="titulo">{% trans %}usuario.login.titulo{% endtrans %}</h3>
 
         {% include 'LoogaresUsuarioBundle:Usuarios:login_form.html.twig' %}

@@ -185,18 +185,18 @@ class UsuarioController extends Controller
                      ->add('fecha_nacimiento', 'birthday', array(
                                 'years' => range(date('Y')-14, date('Y')-70),
                                 'format' => 'dd   MM   yyyy',
-                                'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')
+                                'empty_value' => array('year' => $this->get('translator')->trans('usuario.edicion.cuenta.nacimiento.year'), 'month' => $this->get('translator')->trans('usuario.edicion.cuenta.nacimiento.month'), 'day' => $this->get('translator')->trans('usuario.edicion.cuenta.nacimiento.day'))
                          ))
                      ->add('mostrar_edad', 'checkbox')
                      ->add('sexo', 'choice', array(
-                                'choices' => array('m' => 'Hombre', 'f' => 'Mujer', 'n' => 'No quiero definir'),
+                                'choices' => array('m' => $this->get('translator')->trans('usuario.edicion.cuenta.sexo.hombre'), 'f' => $this->get('translator')->trans('usuario.edicion.cuenta.sexo.mujer'), 'n' => $this->get('translator')->trans('usuario.edicion.cuenta.sexo.ninguno')),
                                 'expanded' => true
                          ))
                      ->add('web', 'text')
                      ->add('facebook', 'text')
                      ->add('twitter', 'text')
                      ->add('newsletter_activo', 'checkbox', array(
-                                'label' => 'Recibir newsletter por E-mail'
+                                'label' => $this->get('translator')->trans('usuario.edicion.cuenta.newsletter')
                          ))
                      ->getForm();                     
 
@@ -268,7 +268,7 @@ class UsuarioController extends Controller
                 }*/         
                 
                 // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-cuenta','¡Tu perfil acaba de actualizarse con los nuevos cambios!');
+                $this->get('session')->setFlash('edicion-cuenta','usuario.flash.edicion.cuenta');
                     
                 // Redirección a vista de edición de password 
                 return $this->redirect($this->generateUrl('editarCuentaUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
@@ -326,7 +326,7 @@ class UsuarioController extends Controller
 
                 // Verificación de selección de foto
                 if($usuarioResult->file == null) {
-                    $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
+                    $formErrors['valida'] = "usuario.errors.editar.foto.blanco";        
                 }
 
                 if ($form->isValid() && sizeof($formErrors) == 0) {
@@ -334,7 +334,7 @@ class UsuarioController extends Controller
                     $em->flush();
 
                     // Mensaje de éxito en la edición
-                    $this->get('session')->setFlash('edicion-foto','Cambiaste tu foto de perfil. ¡Nada de mal!');
+                    $this->get('session')->setFlash('edicion-foto','usuario.flash.edicion.foto');
 
                     // Redirección a vista de edición de foto 
                     return $this->redirect($this->generateUrl('editarFotoUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
@@ -381,7 +381,7 @@ class UsuarioController extends Controller
 
             // Verificación de password actual
             if(md5($request->request->get('passwordActual')) != $usuarioResult->getPassword()) {
-                $formErrors['actual'] = "Password actual incorrecto";        
+                $formErrors['actual'] = "usuario.errors.editar.password.actual";        
             }
 
             $form->bindRequest($request);           
@@ -390,7 +390,7 @@ class UsuarioController extends Controller
             
                 // Verificación de confirmación de password
                 if($request->request->get('confirmarPassword') != $usuarioResult->getPassword()) {
-                $formErrors['confirmar'] = "Debes escribir el mismo password nuevo";        
+                $formErrors['confirmar'] = "usuario.errors.editar.password.confirmar";        
                 }
 
                 // Input correcto. Se guarda nuevo password
@@ -400,7 +400,7 @@ class UsuarioController extends Controller
                     $em->flush();
 
                     // Mensaje de éxito en la edición
-                    $this->get('session')->setFlash('edicion-password','Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.');
+                    $this->get('session')->setFlash('edicion-password','usuario.flash.edicion.password');
                     
                     // Redirección a vista de edición de password 
                     return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));    
@@ -442,12 +442,12 @@ class UsuarioController extends Controller
 
             // Verificación de password actual
             if($request->request->get('password') == '')
-                $formErrors['password'] = "El campo password es obligatorio. Por favor, complétalo.";
+                $formErrors['password'] = "usuario.errors.editar.borrar.pass_obligatorio";
             else if(md5($request->request->get('password')) != $usuarioResult->getPassword())
-                $formErrors['password'] = "Los passwords no coinciden. Por favor, corrígelos.";
+                $formErrors['password'] = "usuario.errors.editar.borrar.pass_incorrecto";
 
             if($request->request->get('motivo') == '')
-                $formErrors['motivo'] = "Queremos saber por qué te vas. Por favor, completa el campo.";
+                $formErrors['motivo'] = "usuario.errors.editar.borrar.motivo";
 
 
             if(sizeof($formErrors) == 0) {                        
@@ -479,7 +479,7 @@ class UsuarioController extends Controller
 
                 // Enviamos correo a administrador con la razón del cierre de la cuenta
                 $mail = array();
-                $mail['asunto'] = 'Usuario eliminado';
+                $mail['asunto'] = $this->get('translator')->trans('usuario.edicion.borrar.mail.asunto');
                 $mail['usuario'] = $usuarioResult;
                 $mail['fechaRegistro'] = $usuarioResult->getFechaRegistro()->format('d-m-Y');
                 $mail['motivo'] = $request->request->get('motivo');
@@ -498,7 +498,7 @@ class UsuarioController extends Controller
                 $this->container->get('security.context')->setToken(null);
 
                 // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-borrar','Tu cuenta acaba de ser borrada. Fue bonito mientras duró.');
+                $this->get('session')->setFlash('edicion-borrar','usuario.flash.edicion.borrar_cuenta');
                     
                 // Redirección a vista de edición de password 
                 return $this->redirect($this->generateUrl('logout'));
@@ -542,7 +542,7 @@ class UsuarioController extends Controller
             
                 // Verificación de confirmación de password
                 if($request->request->get('confirmarPassword') != $usuario->getPassword()) {
-                    $formErrors['confirmar'] = "Los passwords no coinciden. Por favor, corrígelos.";        
+                    $formErrors['confirmar'] = "usuario.errors.validacion.confirmar_password";        
                 }
                                 
                 else {
@@ -581,7 +581,7 @@ class UsuarioController extends Controller
 
                     // Se envía mail de confirmación a usuario
                     $message = \Swift_Message::newInstance()
-                            ->setSubject('Confirma tu cuenta en Loogares.com')
+                            ->setSubject($this->get('translator')->trans('usuario.registro.confirmar.mail.asunto'))
                             ->setFrom('noreply@loogares.com')
                             ->setTo($usuario->getMail());
                     $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
@@ -623,13 +623,13 @@ class UsuarioController extends Controller
 
         //Si el usuario con el $hash no existe
         if(!$usuarioResult) {
-            $this->get('session')->setFlash('confirmacion-registro','Código de confirmación incorrecto');
+            $this->get('session')->setFlash('confirmacion-registro','usuario.flash.confirmar_usuario.incorrecto');
             return $this->redirect($this->generateUrl('showUsuario', array('param' => 'sebastian-vicencio')));
         }
 
         // Si el usuario ya estaba confirmado
         if($usuarioResult->getEstado()->getNombre() == 'Activo') {
-            $this->get('session')->setFlash('confirmacion-registro', 'Confirmación realizada con anterioridad');
+            $this->get('session')->setFlash('confirmacion-registro', 'usuario.flash.confirmar_usuario.anterioridad');
             return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
         }    
         
@@ -656,7 +656,7 @@ class UsuarioController extends Controller
         $this->container->get('security.context')->setToken($token);
 
 
-        $this->get('session')->setFlash('confirmacion-registro', '¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún lugar para recomendar?');
+        $this->get('session')->setFlash('confirmacion-registro', 'usuario.flash.confirmar_usuario.exito');
         return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
     }
 
@@ -678,13 +678,13 @@ class UsuarioController extends Controller
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
         }
         if($error != null && $error->getMessage() == 'Bad credentials')
-            $formErrors['completo'] = 'usuario.errors.completo';
+            $formErrors['completo'] = 'usuario.errors.login.completo';
         else if($error != null && $error->getMessage() == 'The presented password is invalid.')
-            $formErrors['password'] = 'usuario.errors.password';
+            $formErrors['password'] = 'usuario.errors.login.password';
         else if($error != null && $error->getMessage() == 'The presented password cannot be empty.')
-            $formErrors['emptyPassword'] = 'usuario.errors.emptyPassword';
+            $formErrors['emptyPassword'] = 'usuario.errors.login.emptyPassword';
         else if($error != null && $error->getMessage() == 'User account is disabled.')
-            $formErrors['noActivo'] = 'usuario.errors.noActivo';
+            $formErrors['noActivo'] = 'usuario.errors.login.noActivo';
             
         $session->set(SecurityContext::AUTHENTICATION_ERROR, null);
 

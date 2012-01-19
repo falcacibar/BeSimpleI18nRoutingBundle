@@ -1,6 +1,6 @@
 {% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
 
-{% block title %}Edita tus datos, {{usuario.nombre}} {{usuario.apellido}} | {{parent()}}{% endblock %}
+{% block title %}{{'usuario.edicion.titulo_pag'|trans}}, {{usuario.nombre}} {{usuario.apellido}} | {{parent()}}{% endblock %}
 {% block content %}
 	{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
 	<div id="main-usuario">
@@ -11,4 +11,8 @@
 			{% include 'LoogaresUsuarioBundle:Usuarios:editar_'~usuario.edicion~'_usuario.html.twig' %}
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('assets/js/perfil.js')}}"></script>
 {% endblock %}
