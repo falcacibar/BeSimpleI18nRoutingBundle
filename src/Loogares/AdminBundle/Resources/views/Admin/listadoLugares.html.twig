@@ -90,7 +90,7 @@
 <form action="{{ path('LoogaresAdminBundle_accionLugar', {'ciudad': ciudad}) }}" method="post">
     <div class="listado_admin">
         <div class="table-data">
-            <table>
+            <table class="listado_lugares">
                 <thead>
                     <th class="lugar_checkbox">
                     </th>
@@ -211,7 +211,7 @@
                     </th>
                     <th class="lugar_recomendaciones">
                         <span>
-                        <p class="titulos_tabla">Nº Rec</p>
+                        <p class="titulos_tabla">Recomendaciones</p>
                         <p class="list-actions">
                             <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"recomendaciones": 'asc', 'ciudad': ciudad }))}}">⬆</a>
 
@@ -269,7 +269,7 @@
                     </th>
                     <th class="lugar_imagenes">
                         <span>
-                        <p class="titulos_tabla">Imagenes</p>
+                        <p class="titulos_tabla">Imágenes</p>
                         <p class="list-actions">
                             <a class="{% if query.imagenes is defined and query.imagenes == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"imagenes": 'asc', 'ciudad': ciudad }))}}">⬆</a>
 
@@ -447,8 +447,8 @@
                                 <span>
                                 </span>
                             </td>
-                            <td>
-                                    <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pimagenes': lugar.imagenes, 'ciudad': ciudad}) }}">{{lugar.imagenes}}</a>
+                            <td class="lugar_imagenes">
+                                <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': lugar.slug}) }}">{{lugar.imagenes}}</a>
                             </td>
                             <td class="lugar_caracteristicas">
                                 <span>

@@ -183,6 +183,7 @@
       #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li {
         display: inline;
         width: 210px;
+        height: 82px;
         margin-right: 20px;
         float: left; }
         #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li a img {
@@ -199,6 +200,8 @@
             color: #333333; }
         #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li span {
           font-size: 11px; }
+        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li .opciones-fotos-usuario {
+          display: none; }
     #main-usuario #content-usuario .fotos_usuario .paginacion {
       float: left; }
     #main-usuario #content-usuario .paginacion span {

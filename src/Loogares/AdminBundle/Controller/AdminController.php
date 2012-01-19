@@ -481,5 +481,19 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
         return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoUsuarios'));
     }
 
+    public function fotosLugarAction($ciudad, $slug){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+        $imagenes = $lugar->getImagenesLugar();
+        echo $imagenes[0]->getImagenFull();
+
+        return $this->render('LoogaresAdminBundle:Admin:fotosLugar.html.twig', array(
+            'fotos' => $imagenes,
+            'ciudad' => $ciudad,
+            'slug' => $slug
+        ));
+    }
 
 }

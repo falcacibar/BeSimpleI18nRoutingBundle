@@ -1,7 +1,12 @@
-
 LoogaresAdminBundle_index:
     pattern:  /
     defaults: { _controller: LoogaresAdminBundle:Admin:index }
+
+#
+#
+#Rutas del Administrador de Imagenes
+#
+#
 
 #
 #
@@ -65,3 +70,7 @@ LoogaresAdminBundle_habilitarLugar:
 LoogaresAdminBundle_accionLugar:
     pattern:  /lugares/{ciudad}/revision/massive/
     defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: false, habilitar: false, borrar: false}
+
+LoogaresAdminBundle_fotosLugar:
+    pattern:  /lugares/{ciudad}/{slug}/fotos
+    defaults: { _controller: LoogaresAdminBundle:Admin:fotosLugar }
