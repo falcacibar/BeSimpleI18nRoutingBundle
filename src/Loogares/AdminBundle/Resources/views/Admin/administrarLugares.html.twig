@@ -2,5 +2,6 @@
 {% block content %}
 <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad}) }}">Lugares:</a> {{totalLugares}}
 <br />
-<a href="{{ path('LoogaresAdminBundle_listadoRevision', {'ciudad': ciudad}) }}">Lugares con Revisiones:</a> {{totalPorRevision}}
+<a href="{{ path('LoogaresAdminBundle_listadoRevision', {'ciudad': ciudad}) }}">Lugares con Revisiones:</a> {{totalPorRevision}}<br/>
+<p><a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'fecha_creacion': 'desc'}) }}">Administrar Fotos</a></p>
 {% endblock %}

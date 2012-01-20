@@ -155,7 +155,7 @@ comuna.nombre as comunaNombre,
 (select sector.nombre from sector where lugares.sector_id = sector.id) as sectorNombre,
 (select estado.nombre from estado where estado.id = lugares.estado_id) as estado,
 cast(AVG(recomendacion.estrellas) as signed) as estrellas, 
-count(recomendacion.id) as recomendaciones,
+count(distinct recomendacion.id) as recomendaciones,
 (select count(util.id) from util where util.recomendacion_id = recomendacion.id) as utiles, 
 (select count(imagenes_lugar.id) from imagenes_lugar where lugares.id = imagenes_lugar.lugar_id) as imagenes, 
 group_concat(distinct categorias.nombre) as categorias, 
@@ -304,9 +304,13 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
 
         $em->flush();
 
-        return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoLugares', array(
+        $args = array(
             'ciudad' => $ciudad
-        )));
+        );
+        $args = array_merge($args, $_GET);
+        unset($args['id']);
+
+        return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoLugares', $args));
     }
 
     public function listadoUsuariosAction(Request $request) {
@@ -345,13 +349,6 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
             'lugares' => 'lugares',
             'utiles' => 'utiles',
             'fecha_registro' => 'usuarios.fecha_registro'
-        );
-
-        $lugaresFilters = array();
-
-        $recomendacionesFilter = array(
-            'recomendaciones' => 'recomendaciones',
-            'utiles' => 'utiles'
         );
 
         if(isset($_GET['buscar'])){
@@ -478,21 +475,208 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
 
         $em->flush();
 
-        return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoUsuarios'));
+        $args = $_GET;
+        unset($args['id']);
+
+        return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoUsuarios', $args));
     }
 
     public function fotosLugarAction($ciudad, $slug){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        if($slug == 'todos'){
+            $nombre = "Todos";
+            $where = null;
+            $slug = 'todos';
+        }else{
+            $lugar = $lr->findOneBySlug($slug);
+            $where = "where il.lugar_id = " . $lugar->getId();
+            $nombre = $lugar->getNombre();
+        }
+        
+        $order = null;
+        $like = null;
+        $offset = 0;
+        $fn = $this->get('fn');
 
-        $lugar = $lr->findOneBySlug($slug);
-        $imagenes = $lugar->getImagenesLugar();
-        echo $imagenes[0]->getImagenFull();
+        $filters = array(
+            'pusuario' => 'usuario',
+            'pfecha_creacion' => 'fecha_creacion',
+            'pestado' => 'estado',
+            'plugar' => 'lugar'
+        );
+
+        $listadoFilters = array(
+            'usuario' => 'usuario',
+            'fecha_creacion' => 'fecha_creacion',
+            'estado' => 'estado'
+        );
+
+        if(isset($_GET['buscar'])){
+            $buscar = $_GET['buscar'];
+            if(preg_match('/[A-Za-z]+/', $buscar) == false){
+                if($where != null){
+                    $where .= " and lugares.id = '$buscar'";
+                }else{
+                    $where .= "WHERE lugares.id = '$buscar'";
+                }
+            }else if($slug == 'todos'){
+                if($where != null){
+                    $where .= " and lugares.nombre like '%$buscar%'";
+                }else{
+                    $where = "WHERE lugares.nombre like '%$buscar%'";
+                }
+            }
+        }
+
+        if(isset($_GET['fecha-desde']) && isset($_GET['fecha-hasta'])){
+            $hasta = preg_replace('/-/', '/',$_GET['fecha-hasta']);
+            $hasta = explode('/', $hasta);
+            $hasta = $hasta[2] . "/" . $hasta[1] . "/" . $hasta[0];
+
+            $desde = preg_replace('/-/', '/',$_GET['fecha-desde']);
+            $desde = explode('/', $desde);
+            $desde = $desde[2] . "/" . $desde[1] . "/" . $desde[0];
+            if($where != null){
+                $where .= " and fecha_creacion between '$desde' and '$hasta'";
+            }else{
+               $where .= "WHERE fecha_creacion between '$desde' and '$hasta'"; 
+            }
+        }
+
+        foreach($_GET as $column => $filter){
+            if(!$like && isset($filters[$column])){
+                $like = "HAVING ".$filters[$column]." LIKE '%$filter%'";
+            }
+             if($filter == 'asc' || $filter == 'desc'){
+                if(!$order){
+                    $order .= "ORDER BY ".$listadoFilters[$column]." $filter";
+                }else{
+                    $order .= ", $listadoFilters[$column] $filter";
+                }
+                $filters[$column] = ($filter == 'asc')?'desc':'asc';
+            }
+        }
+
+        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
+
+        $fotos = $this->getDoctrine()->getConnection()
+        ->fetchAll("select SQL_CALC_FOUND_ROWS il.*,
+                    lugares.nombre as lugar,
+                    (select lugares.nombre from lugares where lugares.id = il.lugar_id) as lugar,
+                    (select lugares.id from lugares where lugares.id = il.lugar_id) as idLugar,
+                    (select estado.nombre from estado where il.estado_id = estado.id) as estado,
+                    (select usuarios.slug from usuarios where usuarios.id = il.usuario_id) as usuario
+
+                    from imagenes_lugar as il
+
+                    left join lugares
+                    on lugares.id = il.lugar_id
+
+                    $where
+                    GROUP BY il.id
+                    $like
+                    $order
+                    LIMIT 30
+                    OFFSET $offset");
+
+        $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
+
+        $params = array(
+            'slug'=> $slug,
+            'ciudad' => $ciudad
+        );
+
+        $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_fotosLugar', $params, $this->get('router')    );
 
         return $this->render('LoogaresAdminBundle:Admin:fotosLugar.html.twig', array(
-            'fotos' => $imagenes,
+            'fotos' => $fotos,
+            'ciudad' => $ciudad,
+            'lugar' => $nombre,
+            'slug' => $slug,
+            'query' => $_GET,
+            'paginacion' => $paginacion
+        ));
+    }
+
+    public function accionFotosAction($ciudad, $slug, $borrar = false, $aprobar = false, Request $request){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
+
+        if($request->getMethod() == 'POST'){
+            $vars = $_POST['id'];
+            if($_POST['accion'] == 'aprobar'){
+                $aprobar = true;
+            }else if($_POST['accion'] == 'borrar'){
+                $borrar = true;
+            }
+        }else{
+            $vars = $_GET['id'];
+        }
+
+        if(is_array($vars)){
+            $itemsABorrar = $vars;
+        }else{
+            $itemsABorrar[] = $vars;
+        }
+
+        foreach($itemsABorrar as $item){    
+            $imagen = $ilr->findOneById($item);
+            if($borrar == true){
+                $estado = $lr->getEstado(3);
+            }else if($aprobar == true){
+                $estado = $lr->getEstado(2);
+            }
+            
+            $imagen->setEstado($estado[0]);
+            $em->persist($imagen);
+        }
+
+        $em->flush();
+
+        //$this->get('session')->setFlash('accionFoto','Se ejecuto la accion, <a href="">Imagen '.$imagen->getId().'</a>.');
+
+        $args = array(
             'ciudad' => $ciudad,
             'slug' => $slug
+        );
+        $args = array_merge($args, $_GET);
+        unset($args['id']);
+
+        return $this->redirect($this->generateUrl('LoogaresAdminBundle_fotosLugar', $args));
+    }
+
+    public function editarFotoAction($id, $slug, $ciudad, Request $request){
+        $em = $this->getDoctrine()->getEntityManager();
+        $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $imagen = $ilr->findOneById($id);
+
+        if($request->getMethod() == 'POST'){
+            $imagen->setTituloEnlace($_POST['titulo_enlace']);
+            if(isset($_POST['lugar_id']) && $_POST['lugar_id'] != ''){
+                $lugar = $lr->findOneById($_POST['lugar_id']);
+                $imagen->setLugar($lugar);
+                $slug = $lugar->getSlug();
+            }
+            $em->persist($imagen);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarFoto', array(
+                'ciudad' => $ciudad,
+                'slug' => $slug,
+                'imagen' => $imagen,
+                'id' => $id
+            )));
+        }
+
+        return $this->render('LoogaresAdminBundle:Admin:editarFoto.html.twig', array(
+            'foto' => $imagen,
+            'ciudad' => $ciudad,
+            'slug' => $slug,
+            'query' => $_GET
         ));
     }
 

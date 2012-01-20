@@ -1,9 +1,19 @@
 {% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
 
-{% block title %}Lugares | {{parent()}}{% endblock %}
+{% block title %}Fotos | {{parent()}}{% endblock %}
 {% block javascript %}
+<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
     <script>
         $(document).ready(function(){
+
+            $(".fancybox").fancybox({
+                  helpers: {
+                      title : {
+                          type : 'float'
+                      }
+                  }
+              });
+        
             $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
             var dates = $( "#fecha-desde-ph, #fecha-hasta-ph" ).datepicker({
                 defaultDate: "+1w",
@@ -54,9 +64,14 @@
         });
     </script>
 {% endblock %}
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
+{% endblock %}
 {% block content %}
-
-<h1 class="titulo_admin">Fotos | {{ fotos[0].lugar.nombre }}</h1>
+{% if app.session.hasFlash('accionFoto') %}
+        {{ app.session.flash('accionFoto')|raw }}
+{% endif %}
+<h1 class="titulo_admin">Fotos | {{ lugar }}</h1>
 
 <div class="filtro_admin">
     <div class="periodo">
@@ -64,7 +79,7 @@
         y el <input type="text" class="periodo_fecha" id="fecha-hasta-ph" value="">
     </div>
 
-    <form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad })}}" method="get">
+    <form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': slug })}}" method="get">
         <input type="hidden" name="fecha-desde" id="fecha-desde" value="">
         <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="">
         <div class="buscar">
@@ -82,58 +97,120 @@
                 <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
             </select>
             <input type="submit" value="Filtrar"/>
-            <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad})}}">Quitar filtros</a>
+            <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': slug})}}">Quitar filtros</a>
         </div>
     </form>
 </div>
 
-<form action="{{ path('LoogaresAdminBundle_accionLugar', {'ciudad': ciudad}) }}" method="post">
+<form action="{{ path('LoogaresAdminBundle_accionFotos', {'ciudad': ciudad, 'slug': slug}) }}" method="post">
     <div class="listado_admin">
         <div class="table-data">
             <table class="listado_fotos">
                 <thead>
                     <th class="lugar_checkbox"></th>
-                    <th class="foto_preview">Thumbnail</th>
-                    <th class="lugar_usuario">Usuario</th>
-                    <th class="foto_link">Título / Link</th>
-                    <th class="foto_fecha">Fecha</th>
-                    <th class="lugar_estado">Estado</th>
+                    <th class="foto_preview">
+                        <span>
+                            <p class="titulos_tabla">Preview</p>
+                        </span>
+                    </th>
+                    {% if slug == 'todos' %}
+                    <th class="lugar_nombre">
+                        <span>
+                        <p class="titulos_tabla">Lugar</p>
+                        <p class="list-actions">
+                            <a class="{% if query.lugar is defined and query.lugar == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({"lugar": 'asc', 'ciudad': ciudad, 'slug': slug }))}}">⬆</a>
+
+                            <a class="{% if query.lugar is defined and query.lugar == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({"lugar": 'desc', 'ciudad': ciudad, 'slug': slug }))}}">⬇</a>
+
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({'lugar': null, 'ciudad': ciudad, 'slug': slug }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    {% endif %}
+                    <th class="lugar_usuario">
+                        <span>
+                        <p class="titulos_tabla">Usuario</p>
+                        <p class="list-actions">
+                            <a class="{% if query.usuario is defined and query.usuario == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({"usuario": 'asc', 'ciudad': ciudad, 'slug': slug }))}}">⬆</a>
+
+                            <a class="{% if query.usuario is defined and query.usuario == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({"usuario": 'desc', 'ciudad': ciudad, 'slug': slug }))}}">⬇</a>
+
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({'usuario': null, 'ciudad': ciudad, 'slug': slug }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="foto_link">
+                        <span>
+                            <p class="titulos_tabla">Titulo / Link</p>
+                        </span>
+                    </th>
+                    <th class="foto_fecha">
+                        <span>
+                        <p class="titulos_tabla">Fecha</p>
+                        <p class="list-actions">
+                            <a class="{% if query.fecha_creacion is defined and query.fecha_creacion == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({"fecha_creacion": 'asc', 'ciudad': ciudad, 'slug': slug }))}}">⬆</a>
+
+                            <a class="{% if query.fecha_creacion is defined and query.fecha_creacion == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({"fecha_creacion": 'desc', 'ciudad': ciudad, 'slug': slug }))}}">⬇</a>
+
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({'fecha_creacion': null, 'ciudad': ciudad, 'slug': slug }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_estado">
+                        <span>
+                        <p class="titulos_tabla">Estado</p>
+                        <p class="list-actions">
+                            <a class="{% if query.estado is defined and query.estado == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({"estado": 'asc', 'ciudad': ciudad, 'slug': slug }))}}">⬆</a>
+
+                            <a class="{% if query.estado is defined and query.estado == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({"estado": 'desc', 'ciudad': ciudad, 'slug': slug }))}}">⬇</a>
+
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_fotosLugar', query|merge({'estado': null, 'ciudad': ciudad, 'slug': slug }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
                     <th class="lugar_acciones">Accion</th>
                 </thead>
                 <tbody>
                     {% for foto in fotos %}
                         <tr>
                             <td class="lugar_checkbox">
-                                <input type="checkbox" name="id[]"/>
+                                <input type="checkbox" name="id[]" value="{{foto.id}}"/>
                             </td>
                             <td class="foto_preview">
-                                <img src="{{ ('assets/images/lugares/'~foto.imagenFull) | apply_filter('tiny_lugar')}}"/>
+                                <a class="fancybox" href="{{ ('assets/images/lugares/'~foto.imagen_full) | apply_filter('large_lugar')}}">
+                                    <img src="{{ ('assets/images/lugares/'~foto.imagen_full) | apply_filter('tiny_lugar')}}"/>
+                                </a>
                             </td>
+                            {% if slug == 'todos' %}
+                                <td><a href="{{ path('LoogaresAdminBundle_fotosLugar', {'plugar': foto.lugar, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.lugar}}</a></td>
+                            {% endif %}
                             <td class="lugar_usuario">
                                 <span>
-                                    <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'pusuario': foto.usuario.slug, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.usuario.slug}}</a>
+                                    <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'pusuario': foto.usuario, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.usuario}}</a>
                                 </span>
                             </td>
                             <td class="foto_link">
-                                {{foto.tituloEnlace}}
+                                {{foto.titulo_enlace}}
                             </td>
                             <td class="foto_fecha">
                                 <span>
-                                    <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'pfecha_creacion': foto.fechaCreacion, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.fechaCreacion|date('d-m-Y')}}</a>
+                                    <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'pfecha_creacion': foto.fecha_creacion, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.fecha_creacion|date('d-m-Y')}}</a>
                                 </span>
                             </td>
                             <td class="lugar_estado">
                                 <span>
-                                    <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'pestado': foto.estado.nombre, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.estado.nombre}}</a>
+                                    <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'pestado': foto.estado, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.estado}}</a>
                                 </span>
                             </td>
                             <td class="lugar_acciones">
-                                <a target="_blank" href="{{ path('_editar', {'slug':foto.lugar.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
+                                <a target="_blank" href="{{ path('LoogaresAdminBundle_editarFoto', {'slug': slug, 'ciudad': ciudad, 'id' : foto.id}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
 
-                                {% if foto.estado.nombre == 'Eliminado' or foto.estado.nombre == 'Por Aprobar' %}
-                                    <a href="{{ path('_editar', {'slug': ciudad}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
-                                {% elseif foto.estado.nombre == 'Aprobado' or foto.estado.nombre == 'Por Aprobar' or foto.estado.nombre == 'Reportado'%}
-                                    <a href="{{ path('_editar', {'slug': ciudad }) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+                                {% if foto.estado == 'Aprobado' or foto.estado == 'Por revisar' or foto.estado == 'Reportado' %}
+                                    <a href="{{ path('LoogaresAdminBundle_borrarFoto', query|merge({'slug': slug, 'ciudad': ciudad, 'id': foto.id})) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+                                {% endif %}
+
+                                {% if foto.estado == 'Eliminado' or foto.estado == 'Por revisar' or foto.estado == 'Reportado'%}
+                                    <a href="{{ path('LoogaresAdminBundle_aprobarFoto', query|merge({'slug': slug, 'ciudad': ciudad, 'id': foto.id })) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                                 {% endif %}
                             </td>
                         </tr>
@@ -147,14 +224,23 @@
         <a href="#" class="seleccionar-todo">Seleccionar todo</a> | <a href="#" class="deseleccionar-todo">Deseleccionar todo</a> | 
         <select name="accion">
             <option>Acciones para la selección</option>
-            <option value="aprobar">Aprobar Lugares</option>
-            <option value="cerrar">Cerrar Lugares</option>
-            <option value="eliminar">Eliminar Lugares</option>
+            <option value="aprobar">Aprobar Fotos</option>
+            <option value="borrar">Borrar Fotos</option>
         </select>
         <input type="submit" value="Enviar datos"/>
     </div>
 </form>
+<div class="total_paginacion">
+    <form action="{{ path('LoogaresAdminBundle_accionFotos', {'ciudad': ciudad, 'slug': slug })}}" method="get">
+        <strong>
+            {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
+            <input type="submit" value="Ir"/>
+    </form>
+</div>
 
+<ul class="paginacion">
+    {{paginacion.paginacion | raw}}
+</ul>
 
 <div class="footer_admin">
     © 2010~2012 Loogares.com

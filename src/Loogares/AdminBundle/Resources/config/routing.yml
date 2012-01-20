@@ -1,12 +1,27 @@
 LoogaresAdminBundle_index:
     pattern:  /
     defaults: { _controller: LoogaresAdminBundle:Admin:index }
+LoogaresAdminBundle_sugerirLugar:
+    pattern:  /ajax/sugerirLugar
+    defaults: { _controller: LoogaresAdminBundle:AdminAjax:sugerirLugar }
 
 #
 #
 #Rutas del Administrador de Imagenes
 #
 #
+LoogaresAdminBundle_aprobarFoto:
+    pattern:  /lugares/{ciudad}/{slug}/fotos/aprobar
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionFotos, aprobar: true, borrar: false }
+LoogaresAdminBundle_borrarFoto:
+    pattern:  /lugares/{ciudad}/{slug}/fotos/borrar
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionFotos, aprobar: false, borrar: true }
+LoogaresAdminBundle_accionFotos:
+    pattern:  /lugares/{ciudad}/{slug}/fotos/massive
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionFotos, aprobar: false, borrar: false }
+LoogaresAdminBundle_editarFoto:
+    pattern:  /lugares/{ciudad}/{slug}/fotos/editar/{id}
+    defaults: { _controller: LoogaresAdminBundle:Admin:editarFoto }
 
 #
 #
@@ -74,3 +89,4 @@ LoogaresAdminBundle_accionLugar:
 LoogaresAdminBundle_fotosLugar:
     pattern:  /lugares/{ciudad}/{slug}/fotos
     defaults: { _controller: LoogaresAdminBundle:Admin:fotosLugar }
+

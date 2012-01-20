@@ -12,6 +12,7 @@
         <script src="{{asset('assets/js/jquery.fixheadertable.min.js')}}"></script>
         <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />
         <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="screen" />
+        <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
         <script>
             $(function(){
                 $('table').tableScroll({height:500});
@@ -35,12 +36,12 @@
         
         </div>
     </div>
-    
+        <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.ui.datepicker-es.js')}}" type="text/javascript"></script>
         {% block javascript %}
             
         {% endblock %}
-        <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
-        <script src="{{asset('assets/js/jquery.ui.datepicker-es.js')}}" type="text/javascript"></script>
+
 
 </body>
 </html>
