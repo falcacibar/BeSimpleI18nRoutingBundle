@@ -14,11 +14,6 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 
 class DefaultController extends Controller
-{
-    
-    public function indexAction()
-    {
-        return $this->render('LoogaresLugarBundle:Lugares:ajax.html.twig');
-    }   
+{ 
     
 }
