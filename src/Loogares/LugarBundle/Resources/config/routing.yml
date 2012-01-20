@@ -2,10 +2,6 @@ LoogaresLugarBundle_homepage:
     pattern:  /agregar
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
-_listado:
-    pattern: /listado
-    defaults: { _controller: LoogaresLugarBundle:Lugar:listado }
-
 _agregar:
     pattern: /lugar/agregar
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
@@ -17,10 +13,6 @@ _lugar:
 _editar:
     pattern: /lugar/editar/{slug}
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
-
-_ajax:
-    pattern: /ajax
-    defaults: { _controller: LoogaresLugarBundle:Default:index }
 
 _otrosLugaresEnElArea:
     pattern: /ajax/{accion}

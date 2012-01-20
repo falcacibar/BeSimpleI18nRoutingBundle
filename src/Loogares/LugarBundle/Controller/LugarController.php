@@ -22,23 +22,6 @@ use Loogares\AdminBundle\Entity\TempSubcategoriaLugar;
 
 class LugarController extends Controller{
 
-    public function listadoAction(){
-        $em = $this->getDoctrine()->getEntityManager();
-        $q = $em->createQuery('SELECT u FROM Loogares\LugarBundle\Entity\Lugar u');
-        $q->setFirstResult(rand(1, 6000));
-        $q->setMaxResults(10);
-        $result = $q->getResult();
-
-        $repo = $this->getDoctrine()
-                     ->getRepository('LoogaresLugarBundle:Lugar');
-        
-        return $this->render('LoogaresLugarBundle:Lugares:listado.html.twig', array('lugares' => $result));
-    }    
-
-    public function ajaxTestAction(){
-        return $this->render('LoogaresLugarBundle:Lugares:ajax.html.twig');    
-    }
-
     public function lugarAction($slug){
                 $fn = $this->get('fn');
                 $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
@@ -488,11 +471,6 @@ class LugarController extends Controller{
             'errors' => $errors,
         ));
     }
-    
-
-    public function editarAction($slug){
-        return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig');
-    }
 
     public function agregarFotoAction(Request $request, $slug) {
         $em = $this->getDoctrine()->getEntityManager();
@@ -817,20 +795,6 @@ class LugarController extends Controller{
             'imagen' => $imagen,
             'vecinas' => $vecinas,
             'dimensiones' => $dimensiones
-        ));
-    }
-
-    public function comparacionLugarAction($slug){
-        $em = $this->getDoctrine()->getEntityManager();
-        $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
-        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
-
-        $lugarTemp = $tlr->findOneBySlug($slug);
-        $lugar = $lr->findOneBySlug($slug);
-
-        return $this->render('LoogaresLugarBundle:Lugares:comparacionLugar.html.twig', array(
-            'lugarTemp' => $lugarTemp,
-            'lugar' => $lugar
         ));
     }
 }
