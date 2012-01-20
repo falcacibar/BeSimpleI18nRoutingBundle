@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{%if lugar.slug %}Edita los datos de {{lugar.nombre}}{% else %}Agregar un Lugar{% endif %} | {{parent()}}{% endblock %}
+{% block title %}{%if lugar.slug %}{{'lugar.editar.titulo'|trans}} {{lugar.nombre}}{% else %}{{'lugar.agregar.titulo'|trans}}{% endif %} | {{parent()}}{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="screen" />
@@ -145,19 +145,19 @@
 {% if errors %}
     <div class="errores">
         {% for error in errors %}
-            <p>{{ error }}</p>
+            <p>{{ error | trans}}</p>
         {% endfor %}
     </div>
 {% endif %}
 
-<h1 class="titulo">{%if lugar.slug %}Edita los datos de <a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>{% else %}Agregar un Lugar{% endif %}</h1>
+<h1 class="titulo">{%if lugar.slug %}{{'lugar.editar.titulo'|trans}} <a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>{% else %}{{'lugar.agregar.titulo'|trans}}{% endif %}</h1>
 
 <div class="errores-container"></div>
 
 <ul class="agregar-lugar">
     <li>
-        <label>Nombre *</label>
-        <input type="text" value="{{lugar.nombre}}" title="Ingresa el nombre del lugar" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="Ej. Bar El Tufo"/>
+        <label>{{'lugar.agregar.nombre'|trans}}</label>
+        <input type="text" value="{{lugar.nombre}}" title="{{'lugar.errors.agregar.nombre'|trans}}" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="{{'lugar.agregar.placeholders.nombre'|trans}}"/>
         <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
@@ -168,9 +168,9 @@
         {% endif %}
     </li>
     <li class="categoria-container">
-        <label>Categorías *</label>
-        <select class='categoria required' title='Recuerda asignarle una categoría al lugar' name='categoria[]'>
-            <option value="elige">Elige una Categoria Principal</option>
+        <label>{{'lugar.agregar.categorias.label'|trans}}</label>
+        <select class='categoria required' title="{{'lugar.errors.agregar.categoria'|trans}}" name='categoria[]'>
+            <option value="elige">{{'lugar.agregar.categorias.principal'|trans}}</option>
             {% for tipoCategoria in data.tipoCategoria %}
                 <optgroup label="{{tipoCategoria.nombre}}">
                 {% for categoria in data.categorias %}
@@ -189,7 +189,7 @@
             {% endif %}
         {% endif %}
         <div class='subcategorias'>
-            <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
+            <span class="subcategoria_titulo">{{'lugar.agregar.subcategorias'|trans}}</span>
             <ul class="alinear_subcategorias">
                 {% for subCategoria in data.subCategorias %}
                     <li class="lista_subcategorias">
@@ -216,9 +216,9 @@
         {% endif %}
     </li>
     <li class="no-default categoria-container">
-        <label>Categorías</label>
+        <label>{{'lugar.agregar.categorias.label_secundario'|trans}}</label>
         <select class='categoria secundaria' title='' name='categoria[]'>
-            <option value="elige">Elige una Categoria Secundaria</option>
+            <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
             {% for tipoCategoria in data.tipoCategoria %}
                 <optgroup label="{{tipoCategoria.nombre}}">
                 {% for categoria in data.categorias %}
@@ -236,9 +236,9 @@
                 </div>
             {% endif %}
         {% endif %}
-        <span class="quitar_info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
+        <span class="quitar_info"><a class="quitar" rel="categoria" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
         <div class='subcategorias'>
-            <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
+            <span class="subcategoria_titulo">{{'lugar.agregar.subcategorias'|trans}}</span>
             <ul class="alinear_subcategorias">
                 {% for subCategoria in data.subCategorias %}
                     <li class="lista_subcategorias">
@@ -265,9 +265,9 @@
         {% endif %}
     </li>
     <li class="no-default categoria-container">
-        <label>Categorías</label>
+        <label>{{'lugar.agregar.categorias.label_secundario'|trans}}</label>
         <select class='categoria secundaria' title='' name='categoria[]'>
-            <option value="elige">Elige una Categoria Secundaria</option>
+            <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
             {% for tipoCategoria in data.tipoCategoria %}
                 <optgroup label="{{tipoCategoria.nombre}}">
                 {% for categoria in data.categorias %}
@@ -285,9 +285,9 @@
                 </div>
             {% endif %}
         {% endif %}
-        <span class="quitar_info"><a class="quitar" rel="categoria" href="">Quitar</a></span>
+        <span class="quitar_info"><a class="quitar" rel="categoria" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
         <div class='subcategorias'>
-            <span class="subcategoria_titulo">Subcategorías * (Máx. 3)</span>
+            <span class="subcategoria_titulo"{{'lugar.agregar.subcategorias'|trans}}</span>
             <ul class="alinear_subcategorias">
                 {% for subCategoria in data.subCategorias %}
                     <li class="lista_subcategorias">
@@ -314,11 +314,11 @@
         {% endif %}
     </li>
     <li>        
-        <span class="agregar_info"><a class="display-more-info" rel="categoria" href="">» Agrega una categoría secundaria (Máx. 
+        <span class="agregar_info"><a class="display-more-info" rel="categoria" href="">{{'lugar.agregar.categorias.agregar'|trans}} 
         <span>2</span>)</a></span>
     </li>
     <li>
-        <label>Pais *</label>
+        <label>{{'lugar.agregar.pais'|trans}}</label>
         <select class='pais required' title='' name='pais' id='pais'>
         {% for pais in data.pais %}
             <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
@@ -333,7 +333,7 @@
         {% endif %}
     </li>
     <li>
-        <label>Ciudad *</label>
+        <label>{{'lugar.agregar.ciudad'|trans}}</label>
         <select class='ciudad required' title='' name='ciudad' id='ciudad'>
         {% for pais in data.pais %}
             <optgroup label="{{pais.nombre}}">
@@ -352,9 +352,9 @@
         {% endif %}
     </li>
     <li>
-        <label>Comuna *</label>
-        <select class='comuna required' title='Localiza la comuna del lugar' name='comuna' id='comuna'>
-        <option value='elige'>Elige una comuna</option>
+        <label>{{'lugar.agregar.comuna.label'|trans}}</label>
+        <select class='comuna required' title="{{'lugar.errors.agregar.comuna'|trans}}" name='comuna' id='comuna'>
+        <option value='elige'>{{'lugar.agregar.comuna.title'|trans}}</option>
         {% for ciudad in data.ciudad %}
             <optgroup label="{{ciudad.nombre}}">
                 {% for comuna in data.comuna %}
@@ -374,10 +374,10 @@
         {% endif %}
     </li>
     <li>
-        <label>Calle *</label>
-        <input type="text" value="{{lugar.calle}}" name="form[calle]" title="Ingresa la calle del lugar" class="calle required" id="form_calle" placeholder="Ej. Tarapallá"/>
-        <label class="label_numero">Nº *</label>
-        <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="Ingresa el número del lugar" id="form_numero" placeholder="Ej. 1949 o s/n"/>
+        <label>{{'lugar.agregar.calle'|trans}}</label>
+        <input type="text" value="{{lugar.calle}}" name="form[calle]" title="{{'lugar.errors.agregar.calle'|trans}}" class="calle required" id="form_calle" placeholder="{{'lugar.agregar.placeholders.calle'|trans}}"/>
+        <label class="label_numero">{{'lugar.agregar.numero'|trans}}</label>
+        <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="{{'lugar.errors.agregar.numero'|trans}}" id="form_numero" placeholder="{{'lugar.agregar.placeholders.numero'|trans}}"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.calle != lugarRevisado.calle or lugar.numero != lugarRevisado.numero %}
@@ -387,13 +387,13 @@
         {% endif %}
     </li>
     <li>     
-        <span class="agregar_info"><a class="display-next-li" href="">» ¿Es parte de una galería o centro comercial?</a></span>
+        <span class="agregar_info"><a class="display-next-li" href="">{{'lugar.agregar.galeria_centro'|trans}}</a></span>
         <div class="lugar-existe"></div>
     </li>
     <li class="no-default">
-        <label>Detalle</label>
-        <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="Ej. A, Local 45, Piso 9, Centro Comercial Matta"/>
-        <span class="quitar_info"><a class="quitar" href="">Quitar</a></span>
+        <label>{{'lugar.agregar.detalle'|trans}}</label>
+        <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="{{'lugar.agregar.placeholders.detalle'|trans}}"/>
+        <span class="quitar_info"><a class="quitar" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.detalle != lugarRevisado.detalle %}
@@ -403,13 +403,13 @@
         {% endif %}
     </li>
     <li>
-        <span class="agregar_info"><a class="cargar_mapa" href="">Cargar mapa</a></span>
+        <span class="agregar_info"><a class="cargar_mapa" href="">{{'lugar.agregar.cargar_mapa'|trans}}</a></span>
         <span class="mapa_info"></span>
     </li>
     <li>
-        <label>Sector</label>
+        <label>{{'lugar.agregar.sector.label'|trans}}</label>
         <select class='sector' name='sector' id='sector'>
-        <option value='elige'>¿Está en un sector popular? Elígelo aquí</option>
+        <option value='elige'>{{'lugar.agregar.sector.title'|trans}}</option>
         {% for ciudad in data.ciudad %}
             <optgroup label="{{ciudad.nombre}}">
                 {% for sector in data.sector %}
@@ -429,9 +429,9 @@
         {% endif %}
     </li>
     <li>
-        <label>Teléfono</label>
+        <label>{{'lugar.agregar.telefono.label'|trans}}</label>
         <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
-        <input type="text" value="{{lugar.tel1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="Ej. 2 2130894"/>
+        <input type="text" value="{{lugar.tel1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="{{'lugar.agregar.placeholders.telefono'|trans}}"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.tel1 != lugarRevisado.telefono1 %}
@@ -441,10 +441,10 @@
         {% endif %}
     </li>
     <li class="no-default">
-        <label>Teléfono</label>
+        <label>{{'lugar.agregar.telefono.label'|trans}}</label>
         <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
-        <input type="text" value="{{lugar.tel2}}" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="Ej. 2 2130894"/>
-        <span class="quitar_info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <input type="text" value="{{lugar.tel2}}" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="{{'lugar.agregar.placeholders.telefono'|trans}}"/>
+        <span class="quitar_info"><a class="quitar" rel="telefono" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.tel2 != lugarRevisado.telefono2 %}
@@ -454,10 +454,10 @@
         {% endif %}
     </li>
     <li class="no-default">
-        <label>Teléfono</label>
+        <label>{{'lugar.agregar.telefono.label'|trans}}</label>
         <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
-        <input type="text" value="{{lugar.tel3}}" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="Ej. 2 2130894"/>
-        <span class="quitar_info"><a class="quitar" rel="telefono" href="">Quitar</a></span>
+        <input type="text" value="{{lugar.tel3}}" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="{{'lugar.agregar.placeholders.telefono'|trans}}"/>
+        <span class="quitar_info"><a class="quitar" rel="telefono" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.tel3 != lugarRevisado.telefono3 %}
@@ -467,20 +467,20 @@
         {% endif %}
     </li>
     <li>
-        <span class="agregar_info"><a class="display-more-info" rel="telefono" href="">» ¿Más teléfonos? (Máx.
+        <span class="agregar_info"><a class="display-more-info" rel="telefono" href="">{{'lugar.agregar.telefono.agregar'|trans}}
         <span>2</span>)</a></span>
     </li>
     {% if is_granted('ROLE_ADMIN')%}
     <li>
-        <label>Precio</label>
+        <label>{{'lugar.agregar.precio'|trans}}</label>
         <div class="precio">
             <div class="precio-raty"></div>
         </div>
     </li>
     {% endif %}
     <li>
-        <label>Sitio Web</label>
-        <input type="text" value="{{lugar.sitioWeb}}" name="form[sitio_web]" id="form_sitio_web" placeholder="Ej. http://www.bareltufo.cl"/>
+        <label>{{'lugar.agregar.web'|trans}}</label>
+        <input type="text" value="{{lugar.sitioWeb}}" name="form[sitio_web]" id="form_sitio_web" placeholder="{{'lugar.agregar.placeholders.web'|trans}}"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.sitioWeb != lugarRevisado.sitioWeb %}
@@ -491,7 +491,7 @@
     </li>
     <li>
         <label>Facebook</label>
-        <input type="text" value="{{lugar.facebook}}" name="form[facebook]" id="form_facebook" placeholder="Ej. http://www.facebook.com/pages/bareltufo"/>
+        <input type="text" value="{{lugar.facebook}}" name="form[facebook]" id="form_facebook" placeholder="{{'lugar.agregar.placeholders.facebook'|trans}}"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.facebook != lugarRevisado.facebook %}
@@ -502,7 +502,7 @@
     </li>
     <li>
         <label>Twitter</label>
-        <input type="text" value="{{lugar.twitter}}" name="form[twitter]" id="form_twitter" placeholder="Ej. http://www.twitter.com/barelfuto"/>
+        <input type="text" value="{{lugar.twitter}}" name="form[twitter]" id="form_twitter" placeholder="{{'lugar.agregar.placeholders.twitter'|trans}}"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.twitter != lugarRevisado.twitter %}
@@ -512,8 +512,8 @@
         {% endif %}
     </li>
     <li>
-        <label>E-mail</label>
-        <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="Ej. usuario@loogares.com"/>
+        <label>{{'lugar.agregar.mail'|trans}}</label>
+        <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="{{'lugar.agregar.placeholders.mail'|trans}}"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.mail != lugarRevisado.mail %}
@@ -523,29 +523,29 @@
         {% endif %}    
     </li>
     <li>
-        <label>Horario</label>
+        <label>{{'lugar.agregar.horario.label'|trans}}</label>
         <input type="checkbox" name="habilitar-horario" class="horario habilitar-horario" />
-        <span class="horario_tip">¿Sabes los horarios de atención? Agrégalos</span>
+        <span class="horario_tip">{{'lugar.agregar.horario.tip'|trans}}</span>
     </li>
    <li class="no-default">
         <table class="agregar-horarios">
             <thead>
                 <th></th>
-                <th class="th-doble">Jornada 1</th>
-                <th class="th-doble">Jornada 2</th>
+                <th class="th-doble">{{'lugar.agregar.horario.jornadas.primera'|trans}}</th>
+                <th class="th-doble">{{'lugar.agregar.horario.jornadas.segunda'|trans}}</th>
                 <th></th>
             </thead>
             <tbody>
                 <tr class="separacion_horario">
                     <td></td>
-                    <td>Abre</td>
-                    <td>Cierra</td>
-                    <td>Abre</td>
-                    <td>Cierra</td>
+                    <td>{{'lugar.agregar.horario.jornadas.abre'|trans}}</td>
+                    <td>{{'lugar.agregar.horario.jornadas.cierra'|trans}}</td>
+                    <td>{{'lugar.agregar.horario.jornadas.abre'|trans}}</td>
+                    <td>{{'lugar.agregar.horario.jornadas.primera'|trans}}</td>
                     <td></td>
                 </tr>
                 <tr class="separacion_horario">
-                    <td>Lunes</td>
+                    <td>{{'lugar.agregar.horario.dias.lunes'|trans}}</td>
                     <td>
                         <select name="horario-lunes[]">
                             {{ data.horarios | raw}}
@@ -568,11 +568,11 @@
                     </td>
                     <td class="jornada-doble">
                         <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
                     </td> 
                 </tr>
                 <tr class="separacion_horario">
-                    <td>Martes</td>
+                    <td>{{'lugar.agregar.horario.dias.martes'|trans}}</td>
                     <td>
                         <select name="horario-martes[]">
                             {{ data.horarios | raw}}
@@ -595,11 +595,11 @@
                     </td>
                     <td class="jornada-doble">
                         <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
                     </td> 
                 </tr>
                 <tr class="separacion_horario">
-                    <td>Miércoles</td>
+                    <td>{{'lugar.agregar.horario.dias.miercoles'|trans}}</td>
                     <td>
                         <select name="horario-miercoles[]">
                             {{ data.horarios | raw}}
@@ -622,11 +622,11 @@
                     </td>
                     <td class="jornada-doble">
                         <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
                     </td> 
                 </tr>
                 <tr class="separacion_horario">
-                    <td>Jueves</td>
+                    <td>{{'lugar.agregar.horario.dias.jueves'|trans}}</td>
                     <td>
                         <select name="horario-jueves[]">
                             {{ data.horarios | raw}}
@@ -649,11 +649,11 @@
                     </td>
                     <td class="jornada-doble">
                         <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
                     </td> 
                 </tr>
                 <tr class="separacion_horario">
-                    <td>Viernes</td>
+                    <td>{{'lugar.agregar.horario.dias.viernes'|trans}}</td>
                     <td>
                         <select name="horario-viernes[]">
                             {{ data.horarios | raw}}
@@ -676,11 +676,11 @@
                     </td>
                     <td class="jornada-doble">
                         <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
                     </td> 
                 </tr>
                 <tr class="separacion_horario">
-                    <td>Sábado</td>
+                    <td>{{'lugar.agregar.horario.dias.sabado'|trans}}</td>
                     <td>
                         <select name="horario-sabado[]">
                             {{ data.horarios | raw}}
@@ -703,11 +703,11 @@
                     </td>
                     <td class="jornada-doble">
                         <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
                     </td> 
                 </tr>
                 <tr class="separacion_horario">
-                    <td>Domingo</td>
+                    <td>{{'lugar.agregar.horario.dias.domingo'|trans}}</td>
                     <td>
                         <select name="horario-domingo[]">
                             {{ data.horarios | raw}}
@@ -730,14 +730,15 @@
                     </td>
                     <td class="jornada-doble">
                         <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">¿Tiene jornada doble?</span>
+                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
                     </td>                     
                     <!-- <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td> -->
                 </tr>
                 <tr>
                     <td class="agregar-horarios-tip">
-                        Si no se indica ningún horario para un determinado día, se entenderá que ese día está cerrado.<br/>
-                        Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.
+                        {{'lugar.agregar.horario.recordatorio.primero'|trans}}
+                        <br/>
+                        {{'lugar.agregar.horario.recordatorio.segundo'|trans}}                        
                     </td>
                 </tr>
             </tbody>
@@ -747,8 +748,8 @@
         {% endif %}
     </li>
     <li class="no-default">
-        <label>Profesional</label>
-        <input type="text" value="{{lugar.profesional}}" name="form[profesional]" id="form_profesional" placeholder="Ej. Nombre del Arquitecto, Paisajista, etc"/>
+        <label>{{'lugar.agregar.profesional'|trans}}</label>
+        <input type="text" value="{{lugar.profesional}}" name="form[profesional]" id="form_profesional" placeholder="{{'lugar.agregar.placeholders.profesional'|trans}}"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.profesional != lugarRevisado.profesional %}
@@ -758,8 +759,8 @@
         {% endif %}
     </li>
     <li class="no-default">
-        <label>Año de Construcción</label>
-        <input type="text" value="{{lugar.agnoConstruccion}}" name="form[agno_construccion]" id="form_agno_construccion" placeholder="Ej. 1985, Siglo XX"/>
+        <label>{{'lugar.agregar.construccion'|trans}}</label>
+        <input type="text" value="{{lugar.agnoConstruccion}}" name="form[agno_construccion]" id="form_agno_construccion" placeholder="{{'lugar.agregar.placeholders.construccion'|trans}}"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.agnoConstruccion != lugarRevisado.agnoConstruccion %}
@@ -769,8 +770,8 @@
         {% endif %}
     </li>
     <li class="no-default">
-        <label>Descripción</label>
-        <textarea name="form[descripcion]" id="form_descripcion" placeholder="Ej. Breve descripción del lugar"> {{lugar.descripcion}}</textarea>
+        <label>{{'lugar.agregar.descripcion'|trans}}</label>
+        <textarea name="form[descripcion]" id="form_descripcion" placeholder="{{'lugar.agregar.placeholders.descripcion'|trans}}"> {{lugar.descripcion}}</textarea>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.descripcion != lugarRevisado.descripcion %}
@@ -780,8 +781,8 @@
         {% endif %}
     </li>
     <li class="no-default">
-        <label>Materiales</label>
-        <input type="text" value="{{lugar.materiales}}" name="form[materiales]" id="form_materiales" placeholder="Ej. Cobre, Granito, etc"/>
+        <label>{{'lugar.agregar.materiales'|trans}}</label>
+        <input type="text" value="{{lugar.materiales}}" name="form[materiales]" id="form_materiales" placeholder="{{'lugar.agregar.placeholders.materiales'|trans}}"/>
         {% if lugaresRevisados is defined %}
             {% for lugarRevisado in lugaresRevisados %}
                 {% if lugar.materiales != lugarRevisado.materiales %}
@@ -792,7 +793,7 @@
     </li>
     <li class="no-default">
         <div class="caracteristicas">
-            <span class="caracteristica_titulo">Características</span>
+            <span class="caracteristica_titulo">{{'lugar.agregar.caracteristicas'|trans}}</span>
             <ul class="alinear_caracteristicas">
                 {% for caracteristica in data.caracteristicas %}
                     <li class="lista_caracteristicas">
@@ -822,9 +823,9 @@
     </li>
     <li class="no-default"><input type="hidden" name="id" class="id" value="{{lugar.id}}"/>
     <li class="obligatorio_tip">
-        <span>Los campos con (*) son obligatorios</span>
+        <span>{{'lugar.agregar.obligatorio'|trans}}</span>
     </li>
-    <li><input class="guardar-datos" type="submit" value="Guardar los datos" formnovalidate/></li>
+    <li><input class="guardar-datos" type="submit" value="{{'lugar.agregar.submit'|trans}}" formnovalidate/></li>
 </ul>
 
 <div class="mapa">
@@ -832,8 +833,8 @@
 
     </div>
     <div class="mapa_ubicacion">
-        <span>Ubicación en el mapa</span>
-        Una vez cargado el mapa, puedes arrastrar el ícono para corregir su posición.
+        <span>{{'lugar.agregar.mapa.titulo'|trans}}</span>
+        {{'lugar.agregar.mapa.texto'|trans}}
     </div>
 </div>
 {{ form_widget(form._token) }}

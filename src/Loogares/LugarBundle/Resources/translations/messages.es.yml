@@ -1,3 +1,125 @@
 # Locale 'es' LugarBundle
 lugar:
+    agregar:
+        titulo: Agregar un Lugar
+        nombre: Nombre *
+        categorias:
+            label: Categorías *
+            label_secundario: Categorías
+            principal: Elige una Categoria Principal
+            secundaria: Elige una Categoria Secundaria
+            agregar: » Agrega una categoría secundaria (Máx.
+        subcategorias: Subcategorías * (Máx. 3)
+        pais: País *
+        ciudad: Ciudad *
+        comuna:
+            label: Comuna *
+            title: Elige una comuna
+        calle: Calle *
+        numero: Nº *
+        galeria_centro: » ¿Es parte de una galería o centro comercial?
+        detalle: Detalle
+        cargar_mapa: Cargar mapa
+        sector:
+            label: Sector
+            title: ¿Está en un sector popular? Elígelo aquí
+        telefono:
+            label: Teléfono
+            agregar: » ¿Más teléfonos? (Máx.
+        precio: Precio
+        web: Sitio web
+        mail: E-mail
+        horario:
+            label: Horario
+            tip: ¿Sabes los horarios de atención? Agrégalos
+            dias:
+                lunes: Lunes
+                martes: Martes
+                miercoles: Miércoles
+                jueves: Jueves
+                viernes: Viernes
+                sabado: Sábado
+                domingo: Domingo
+            jornadas:
+                primera: Jornada 1
+                segunda: Jornada 2
+                abre: Abre
+                cierra: Cierra
+                cerrado: Cerrado
+                doble: ¿Tiene jornada doble?
+            recordatorio:
+                primero: Si no se indica ningún horario para un determinado día, se entenderá que ese día está cerrado.
+                segundo: Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.
+        profesional: Profesional
+        construccion: Año de construcción
+        descripcion: Descripción
+        materiales: Materiales
+        caracteristicas: Características            
+        placeholders:
+            nombre: Ej. Bar El Tufo	
+            calle: Ej. Tarapallá
+            numero: Ej. 1949 o s/n
+            detalle: Ej. A, Local 45, Piso 9, Centro Comercial Matta
+            telefono: Ej. 2 2130894
+            web: Ej. http://www.bareltufo.cl
+            facebook: Ej. http://www.facebook.com/pages/bareltufo
+            twitter: Ej. http://www.twitter.com/barelfuto
+            mail: Ej. usuario@loogares.com
+            profesional: Ej. Nombre del Arquitecto, Paisajista, etc
+            construccion: Ej. 1985, Siglo XX
+            descripcion: Ej. Breve descripción del lugar
+            materiales: Ej. Cobre, Granito, etc        
+        quitar: Quitar
+        obligatorio: Los campos con (*) son obligatorios
+        submit: Guardar los datos
+        mapa:
+            titulo: Ubicación en el mapa
+            texto: Una vez cargado el mapa, puedes arrastrar el ícono para corregir su posición.
+
+    editar:
+        titulo: Edita los datos de
+
+    ficha:
+        total_recomendaciones: recomendación|recomendaciones
+        multimedia:
+            galeria: Ver galería (%total% foto)|Ver galería (%total% fotos)
+            agregar_foto: » Agrega una foto
+            video: Ver video
+        datos:
+            precio: Precio:
+            primero: Primero en recomendar            
+            categorias: Categorías:
+            horario: Horario:
+            sector: Sector:
+            subcategorias: Subcategorías
+        opciones:
+            owner: ¿Eres dueño de este Lugar?
+            editar: Edita los datos
+            cerro: ¿Este lugar cerró? Avísanos
+            enviar: Enviar
+            imprimir: Imprimir
+        recomendaciones:
+            titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
+            orden:
+                titulo: Ordenar por:
+                mejores: Mejores evaluaciones
+                ultimas: Últimas recomendaciones
+                utiles: Más útiles
+            resultados: Resultados por página
+            editar: Edita tu recomendación
+            borrar: Borra tu recomendación
+            reportar: Reporta esta recomendación
+        tags: Tags:
+        otros:
+            titulo: Otros Lugares en el área
+            categoria: Categoría:|Categorías:
+
+    errors:
+        agregar:
+            nombre: Ingresa el nombre del lugar
+            categoria: Recuerda asignarle una categoría al lugar
+            comuna: Localiza la comuna del lugar
+            calle: Ingresa la calle del lugar
+            numero: Ingresa el número del lugar
+
 

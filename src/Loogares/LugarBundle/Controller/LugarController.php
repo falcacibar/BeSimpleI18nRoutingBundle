@@ -392,8 +392,8 @@ class LugarController extends Controller{
             }
         }
 
-
-        $data['horarios'] = '<option value="cerrado">Cerrado</option>
+        $cerrado = $this->get('translator')->trans('lugar.agregar.horario.jornadas.cerrado');
+        $data['horarios'] = '<option value="cerrado">'.$cerrado.'</option>
                             <option value="06:00">06:00</option>
                             <option value="06:30">06:30</option>    
                             <option value="07:00">07:00</option>
