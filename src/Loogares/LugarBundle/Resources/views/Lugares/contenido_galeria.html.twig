@@ -16,15 +16,15 @@
 		{% endif %}
 	</span>
 	<ul>
-		<li class="autor">Agregada por <a href="{{ path('showUsuario', {'param' : imagen.usuario.slug })}}">{{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</a></li>
+		<li class="autor">{{'lugar.fotos.galeria.autor'|trans}} <a href="{{ path('showUsuario', {'param' : imagen.usuario.slug })}}">{{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</a></li>
 
 		<li class="opciones">
 			{{-'|'-}}
 			{% if imagen.loggeadoCorrecto %}
-				<span><a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id })}}">Edita tu foto</a></span>
-				<span><a href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">Borra tu foto</a></span>
+				<span><a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id })}}">{{'lugar.fotos.galeria.editar'|trans}}</a></span>
+				<span><a href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'lugar.fotos.galeria.borrar'|trans}}</a></span>
 			{% else %}
-				<span><a href="#">Reporta esta foto</a></span>
+				<span><a href="#">{{'lugar.fotos.galeria.reportar'|trans}}</a></span>
 			{% endif %}
 		</li>
 
@@ -33,11 +33,11 @@
 	<ul>
 		<li class="anterior">
 			{% if vecinas.prev is not empty %}
-				<a href="{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.prev } )}}">Anterior</a>
+				<a href="{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.prev } )}}">{{'lugar.fotos.galeria.anterior'|trans}}</a>
 			{% endif %}
 		</li>
 		<li class="siguiente">
-				<a href="{{ (vecinas.next is not empty) ? path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next }) : path( '_galeria', { 'slug' : imagen.lugar.slug }) }}">Siguiente</a>
+				<a href="{{ (vecinas.next is not empty) ? path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next }) : path( '_galeria', { 'slug' : imagen.lugar.slug }) }}">{{'lugar.fotos.galeria.siguiente'|trans}}</a>
 		</li>
 	</ul>
 </div>	

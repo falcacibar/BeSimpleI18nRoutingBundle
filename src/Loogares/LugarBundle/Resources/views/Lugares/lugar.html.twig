@@ -20,6 +20,11 @@
     {% if app.session.hasFlash('edicion_lugar') %}
             {{ app.session.flash('edicion_lugar') | trans }}
     {% endif %}
+    {% if app.session.hasFlash('agregar-foto-lugar') %}
+            <div class="flash-notice">
+                {{ app.session.flash('agregar-foto-lugar') }}
+            </div>
+    {% endif %}
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>

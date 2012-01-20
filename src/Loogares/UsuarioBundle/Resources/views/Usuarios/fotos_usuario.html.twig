@@ -5,13 +5,13 @@
 
 	{% if app.session.hasFlash('edicion-foto-lugar') %}
 		    <div class="flash-notice">
-		        {{ app.session.flash('edicion-foto-lugar') }}
+		        {{ app.session.flash('edicion-foto-lugar') | trans }}
 		    </div>
 	{% endif %}
 
 	{% if app.session.hasFlash('eliminar-foto-lugar') %}
 		    <div class="flash-notice">
-		        {{ app.session.flash('eliminar-foto-lugar') }}
+		        {{ app.session.flash('eliminar-foto-lugar') | trans }}
 		    </div>
 	{% endif %}
 

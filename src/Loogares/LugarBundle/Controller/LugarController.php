@@ -531,12 +531,12 @@ class LugarController extends Controller{
                                 $imagenes[] = $imagen;
                             }
                             else {
-                                $formErrors['no-imagen'] = "Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.";
+                                $formErrors['no-imagen'] = "lugar.errors.fotos.no_imagen";
                                 unlink('assets/images/temp/'.$fn);
                             }
                         }
                         else {
-                            $formErrors['no-imagen'] = "Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.";
+                            $formErrors['no-imagen'] = "lugar.errors.fotos.no_imagen";
                             unlink('assets/images/temp/'.$fn);
                         }
                         /*} 
@@ -548,7 +548,7 @@ class LugarController extends Controller{
                     }
                 }
                 if(sizeof($imagenes) == 0 && sizeOf($formErrors) == 0) {
-                    $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
+                    $formErrors['valida'] = "lugar.errors.fotos.valida";        
                 }
 
                 if ($form->isValid() && sizeof($formErrors) == 0) {                
@@ -610,7 +610,7 @@ class LugarController extends Controller{
         // Segundo paso de agregar fotos
         else {
             $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
-
+            $mensaje = '';
             // Si el request es POST, se procesan descripciones de fotos
             if ($request->getMethod() == 'POST') { 
                 $infoImgs = $request->request->get('imagenes');
@@ -628,10 +628,16 @@ class LugarController extends Controller{
                     else
                         $imagen->setEsEnlace(0);
 
+                    $mensaje = $this->get('translator')->trans('lugar.flash.foto.agregar',array('%nombre%' => $imagen->getUsuario()->getNombre(), '%apellido%' => $imagen->getUsuario()->getApellido()));
+
                     $em->flush();
                 }
             }
 
+            // Mensaje de éxito en agregar la foto
+
+            $this->get('session')->setFlash('agregar-foto-lugar', $mensaje);
+            
             // Redirección a galería de fotos (FICHA POR AHORA)
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }
@@ -672,7 +678,8 @@ class LugarController extends Controller{
                 $em->flush();
 
                 // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-foto-lugar','¡Ese es el espíritu, '.$imagen->getUsuario()->getNombre().' '.$imagen->getUsuario()->getApellido().'! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.');
+                $mensaje = $this->get('translator')->trans('lugar.flash.foto.agregar',array('%nombre%' => $imagen->getUsuario()->getNombre(), '%apellido%' => $imagen->getUsuario()->getApellido()));
+                $this->get('session')->setFlash('edicion-foto-lugar',$mensaje);
                     
                 // Redirección a vista de fotos del usuario
                 return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario()))));
@@ -710,7 +717,7 @@ class LugarController extends Controller{
         $em->flush();
                    
         // Mensaje de éxito de la eliminación
-        $this->get('session')->setFlash('eliminar-foto-lugar','Tu foto acaba de ser borrada. Agrega otra cuando quieras.');
+        $this->get('session')->setFlash('eliminar-foto-lugar','lugar.flash.foto.borrar');
                     
         // Redirección a vista de fotos del usuario
         return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario())))); 
