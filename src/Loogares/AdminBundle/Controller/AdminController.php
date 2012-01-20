@@ -515,7 +515,17 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
         if(isset($_GET['buscar'])){
             $buscar = $_GET['buscar'];
             if(preg_match('/[A-Za-z]+/', $buscar) == false){
-                $where .= " and il.id = '$buscar'";
+                if($where != null){
+                    $where .= " and lugares.id = '$buscar'";
+                }else{
+                    $where .= "WHERE lugares.id = '$buscar'";
+                }
+            }else if($slug == 'todos'){
+                if($where != null){
+                    $where .= " and lugares.nombre like '%$buscar%'";
+                }else{
+                    $where = "WHERE lugares.nombre like '%$buscar%'";
+                }
             }
         }
 
@@ -527,8 +537,11 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
             $desde = preg_replace('/-/', '/',$_GET['fecha-desde']);
             $desde = explode('/', $desde);
             $desde = $desde[2] . "/" . $desde[1] . "/" . $desde[0];
-
-            $where .= " and fecha_creacion between '$desde' and '$hasta'";
+            if($where != null){
+                $where .= " and fecha_creacion between '$desde' and '$hasta'";
+            }else{
+               $where .= "WHERE fecha_creacion between '$desde' and '$hasta'"; 
+            }
         }
 
         foreach($_GET as $column => $filter){
@@ -550,11 +563,16 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
 
         $fotos = $this->getDoctrine()->getConnection()
         ->fetchAll("select SQL_CALC_FOUND_ROWS il.*,
+                    lugares.nombre as lugar,
                     (select lugares.nombre from lugares where lugares.id = il.lugar_id) as lugar,
+                    (select lugares.id from lugares where lugares.id = il.lugar_id) as idLugar,
                     (select estado.nombre from estado where il.estado_id = estado.id) as estado,
                     (select usuarios.slug from usuarios where usuarios.id = il.usuario_id) as usuario
 
                     from imagenes_lugar as il
+
+                    left join lugares
+                    on lugares.id = il.lugar_id
 
                     $where
                     GROUP BY il.id
