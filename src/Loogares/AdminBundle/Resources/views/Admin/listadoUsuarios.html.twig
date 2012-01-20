@@ -61,6 +61,7 @@ Hasta: {{paginacion.mostrandoHasta}}
 <input type="hidden" name="fecha-desde" id="fecha-desde" value="">
 <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="01/01/01">
 <select name="tipo-fecha">
+    <option value=''>Selecciones</option>
 	<option {% if query['tipo-fecha'] is defined and query['tipo-fecha'] == 'fecha_nacimiento'%} selected="selected" {% endif %}value="fecha_nacimiento">Fecha de Nacimiento</option>
 	<option {% if query['tipo-fecha'] is defined and query['tipo-fecha'] == 'fecha_registro'%} selected="selected" {% endif %} value="fecha_registro">Fecha de Registro</option>
 </select>
@@ -268,9 +269,9 @@ Hasta: {{paginacion.mostrandoHasta}}
 					<td>
                     	<a target="_blank" href="{{ path('editarUsuario', {'param':usuario.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
                 	    {% if usuario.estadoNombre == 'Activo' %}
-                            <a href="{{ path('LoogaresAdminBundle_desactivarUsuario', {'id': usuario.id}) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
+                            <a href="{{ path('LoogaresAdminBundle_desactivarUsuario', query|merge({'id': usuario.id})) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
                         {% elseif usuario.estadoNombre == 'Inactivo' %}
-                            <a href="{{ path('LoogaresAdminBundle_activarUsuario', {'id':usuario.id}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+                            <a href="{{ path('LoogaresAdminBundle_activarUsuario', query|merge({'id':usuario.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                         {% endif %}
 					</td>
 				</tr>

@@ -1,0 +1,58 @@
+{% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
+
+{% block title %}Fotos | {{parent()}}{% endblock %}
+{% block javascript %}
+<script>
+	    $( "#mover" ).autocomplete({
+            source: "http://localhost"+WEBROOT+"admin/ajax/sugerirLugar",
+            minLength: 1,
+            select: function(event, ui){
+            	console.log(ui.item.value.match(/(\d+)/));
+            	$('#id').val(ui.item.value.match(/(\d+)/)[0])
+            }
+        });
+        console.log("http://localhost"+WEBROOT+"admin/ajax/sugerirLugar")
+</script>
+{% endblock %}
+{% block content %}
+Editando: {{foto.lugar.nombre}} - Foto: {{foto.id}}<br/>
+Estado: {{foto.estado.nombre}}<br/>
+
+<form action="{{ path('LoogaresAdminBundle_editarFoto', {'ciudad': ciudad, 'slug': slug, 'id': foto.id }) }}" method="post">
+	<ul>
+		<li>
+			<label>Lugar</label>
+			<input type="text" name="lugar" value="{{foto.lugar.nombre}} ({{foto.lugar.id}})"/>
+		</li>
+		<li>
+			<label>Mover a: </label>
+			<input id="mover" type="text">
+			<input type="hidden" name="lugar_id" id="id" />
+		</li>
+		<li>
+			<label>Usuario</label>
+			<input type="text" name="usuario" value="{{foto.usuario.slug}}"/>
+		</li>
+		<li>
+			<label>Texto</label>
+			<textarea name="titulo_enlace">{{foto.tituloEnlace}}</textarea>
+			<small>Empezar el texto con "http://" para que sea publicado como un enlace</small>
+		</li>
+		<li>
+			<label>Imagen</label>
+			<img src="{{ ('assets/images/lugares/'~foto.imagenFull) | apply_filter('large_lugar')}}"/>	
+		</li>
+		<li>
+			{% if foto.estado.nombre == 'Aprobado' or foto.estado.nombre == 'Por Revisar' or foto.estado.nombre == 'Reportado' %}
+			    <a href="{{ path('LoogaresAdminBundle_borrarFoto', {'slug': slug, 'ciudad': ciudad, 'id': foto.id}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+			{% endif %}
+
+			{% if foto.estado.nombre == 'Eliminado' or foto.estado.nombre == 'Por Revisar' or foto.estado.nombre == 'Reportado'%}
+			    <a href="{{ path('LoogaresAdminBundle_aprobarFoto', {'slug': slug, 'ciudad': ciudad, 'id': foto.id }) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+			{% endif %}
+		</li>
+	</ul>
+	<input type="submit" value="Guardar"/>
+</form>
+{% endblock %}
+
