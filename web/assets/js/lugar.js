@@ -25,11 +25,35 @@ $(document).ready(function(){
                 window.location = window.location.href.replace(/resultados=\d+/, 'resultados='+$(this).val()).replace(/pagina=\d+/, 'pagina=1');
             }
         });
+
+    $('.boton_util').click(function(e){
+        e.preventDefault();
+
+        var $this = $(this),
+            dataUtil = $(this).attr('data-util').split('-');
+
+        $.ajax({
+           url: WEBROOT+'ajax/util',
+           type: 'post',
+           data: {'recomendacion': dataUtil[0], 'usuario': dataUtil[1]},
+           success: function(data){
+            console.log(data)
+                var util = parseInt($this.parent().find('.conteo_util').text());
+                if($this.hasClass('boton_activado')){
+                    $this.removeClass('boton_activado').addClass('boton_desactivado');
+                    $('.conteo_util').text(util+1)
+                }else if($this.hasClass('boton_desactivado')){
+                    $this.removeClass('boton_desactivado').addClass('boton_activado');
+                    $('.conteo_util').text(util-1)
+                }
+           }
+        });
+    });
 });
 
 function precioLugar(precio, tipo){
     if(tipo == 'dondeComer'){
-        tipo = ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000']
+        tipo = ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'];
     }else if(tipo == 'dondeDormir'){
         tipo = ['Minimo', 'Barato', 'Medio', 'Alto', 'Maximo'];
     }
@@ -55,7 +79,8 @@ function estrellasPorRecomendacion(id, estrellas){
         half: true,
         start: estrellas,
         readOnly: true,
-        space: false
+        space: false,
+        scoreName: 'estrellas'
     });
 }
 
@@ -70,8 +95,6 @@ function estrellasDelLugar(estrellas){
 }
 
 function estrellasOtrosLugares(id, estrellas){
-    console.log(estrellas)
-    console.log(id)
     $('.star-raty-otrosLugares'+id).raty({
         width: 140,
         starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',

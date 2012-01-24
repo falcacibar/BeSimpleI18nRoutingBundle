@@ -148,7 +148,7 @@ class LugarRepository extends EntityRepository
       $em = $this->getEntityManager();
       $q = $em->createQuery(" SELECT u FROM Loogares\ExtraBundle\Entity\Estado u where u.id = ?1");
       $q->setParameter(1, $id);
-      $estadoResult = $q->getResult();
+      $estadoResult = $q->getSingleResult();
 
       return $estadoResult;
     }
@@ -212,7 +212,7 @@ class LugarRepository extends EntityRepository
     public function getTagsPopulares($id){
       return $this->_em
              ->getConnection()
-             ->fetchAll("select tag.tag as nombre, count(tag_recomendacion.tag_id) as freq from tag_recomendacion 
+             ->fetchAll("select DISTINCT tag.tag as nombre, count(tag_recomendacion.tag_id) as freq from tag_recomendacion 
 
                         left join recomendacion
                         on tag_recomendacion.recomendacion_id = recomendacion.id

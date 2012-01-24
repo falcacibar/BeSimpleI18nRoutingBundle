@@ -1,0 +1,118 @@
+<script>
+	$(document).ready(function(){
+		$('.recomendacion-star-raty').raty({
+	        width: 140,
+	        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
+	        starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
+	        starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
+	        half: true,
+	        start: {{recomendacion.estrellas | default(0)}},
+	        space: false,
+	        scoreName: 'estrellas'
+	    });
+
+	    $('.recomendacion-precio-raty').raty({
+	        width: 140,
+	        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
+	        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
+	        start: {{recomendacion.precio | default(0)}},
+	        space: false,
+	        hintList: ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'],
+	        target: '#precio-recomienda',
+	        scoreName: 'precio'
+	    });
+
+		$('.texto').keyup(function(){
+		    $('.max').text(3000 - parseInt($(this).val().length));
+		    $('.llevas').text(parseInt($(this).val().length));
+		});
+
+		$('.texto').keyup()
+
+	    $('[name="recomienda"]').submit(function(){
+	    	var error = false;
+	    	$('.errors').remove();
+	    	$('.input-error').removeClass('input-error');
+	    	if($('.texto').val().length < 250){
+	    		error = true;
+	    		$('.texto').addClass('input-error');
+	    		$('.texto').parent().append("<small class='errors'>Minimo de 255 Chars</small>");
+	    	}
+
+	    	if($('[name="form[precio]"]').val() == 0){
+	    		error = true;
+	    		$('.recomendacion-precio-raty').parent().append("<small class='errors'>Debes darle al menos medio valor!</small>")
+	    	}
+	    	
+	    	if($('[name="form[estrellas]"]').val() == 0){
+	    		error = true;
+	    		$('.recomendacion-star-raty').parent().append("<small class='errors'>Debes darle al menos medio valor!</small>")
+	    	}
+
+	    	if(error){
+	    		return false;
+	    	}
+	    });
+	});
+</script>
+<style>
+	label{
+		width: 120px;
+		font-weight: bold;
+		vertical-align: top;
+	}
+
+	.recomendacion-star-raty, .recomendacion-precio-raty, #precio-recomienda{
+		display:inline;
+	}
+
+	#precio-recomienda{
+		color: #ccc;
+		font-size: 12px;
+	}
+
+	textarea, .tags{
+		width: 70% !important;
+	}
+
+	.errors{
+		float:none;
+		text-align: right;
+		margin-left: 190px;
+		margin-bottom: 5px;
+	}
+</style>
+
+
+<form name="recomienda" action="{{ path('_recomendacion', {'slug': lugar.slug}) }}" method="post">
+	<ul>
+		<li>
+			<label>Evaluacion</label>
+			<div class="recomendacion-star-raty"></div>
+		</li>
+		{% if lugar is defined or recomendacion is defined %} <!--Si las categorias aplican-->
+		<li>
+			<label>Precio</label> 
+			<div class="recomendacion-precio-raty"></div>
+			<div id="precio-recomienda"></div>
+		</li>
+		{% endif %}
+		<li>
+			<label>
+				Recomendacion
+				<span>Max.: <span class="max">3000</span></span><br/>
+				<span>Llevas: <span class="llevas">0</span></span>
+			</label> 
+			<textarea name="texto" class="texto" cols="30" rows="10">{% if recomendacion is defined %}{{recomendacion.texto}}{% endif %}</textarea>
+		</li>
+		<li>
+			<label>Tags</label> 
+			<input name="tags" type="text" class="tags" value="{% if recomendacion is defined %}{% for tagRecomendacion in recomendacion.tagRecomendacion %}{{tagRecomendacion.tag.tag}}{% if loop.last != true %}, {% endif %}{% endfor %}{% endif %}"/>
+		</li>
+	</ul>
+	{% if recomendacion is defined %}
+	<input type="submit" value="enviar"/>
+	{% endif %}
+</form>
+
+

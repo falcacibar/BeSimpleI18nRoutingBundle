@@ -42,6 +42,14 @@ _recomendarCalle:
     pattern: /ajax/recomendarCalle
     defaults: { _controller: LoogaresLugarBundle:Ajax:recomendarCalle }
 
+_moduloRecomendacion:
+    pattern: /ajax/recomendacion
+    defaults: { _controller: LoogaresLugarBundle:Ajax:recomendacion }
+
+_util:
+    pattern: /ajax/util
+    defaults: { _controller: LoogaresLugarBundle:Ajax:util }
+
 _galeria:
     pattern: /lugar/{slug}/galeria
     defaults: { _controller: LoogaresLugarBundle:Lugar:galeria }
@@ -65,3 +73,13 @@ _fotoGaleria:
 _paginaGaleria:
     pattern: /ajax/galeria/{id}/pagina
     defaults: { _controller: LoogaresLugarBundle:Ajax:paginaGaleria }
+
+_recomendacion:
+    pattern: /lugar/{slug}/recomienda
+    defaults: { _controller: LoogaresLugarBundle:Lugar:recomendaciones }
+
+_borrarRecomendacion:
+    pattern: /lugar/{slug}/recomendacion/borrar
+    defaults: { _controller: LoogaresLugarBundle:Lugar:accionRecomendacion, borrar: true}
+
+

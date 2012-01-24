@@ -20,7 +20,7 @@ Loogares\UsuarioBundle\Entity\Util:
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }
     fields:
         fecha:
             type: datetime

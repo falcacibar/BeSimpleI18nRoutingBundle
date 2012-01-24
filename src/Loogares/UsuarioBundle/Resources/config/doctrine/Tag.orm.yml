@@ -8,7 +8,7 @@ Loogares\UsuarioBundle\Entity\Tag:
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }
     fields:
         tag:
             type: string

@@ -1,0 +1,47 @@
+ul.tokens {
+	float: right;
+	padding: 5px 3px;
+	width: 220px;
+	margin: 4px 50px 0 0;
+	background: #343434;
+	border: 1px solid #666;
+	color: #fff;
+	}
+
+li.input-token input {
+	border: 0;
+	width: 40px;
+	margin: 0;
+	padding: 0;
+	outline: none;
+	float: left;
+	}
+
+li.token {
+	float: left;
+	margin: 2px 5px;
+	padding: 2px;
+	background: #D92C4A;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-border-radius: 3px;
+	}
+	
+li.token p {
+	color: white;
+	font-size: .9em;
+	float: left;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+	}
+
+li.token p.x {
+	color: #fff;
+	float: right;
+	display: block;
+	margin: 0 2px 0 5px;
+	padding: 0;
+	cursor: pointer;
+	}
+	

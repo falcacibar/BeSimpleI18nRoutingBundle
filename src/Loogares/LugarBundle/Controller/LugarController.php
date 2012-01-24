@@ -14,6 +14,10 @@ use Loogares\LugarBundle\Entity\Horario;
 use Loogares\LugarBundle\Entity\SubcategoriaLugar;
 use Loogares\LugarBundle\Entity\ImagenLugar;
 
+use Loogares\UsuarioBundle\Entity\Recomendacion;
+use Loogares\UsuarioBundle\Entity\Tag;
+use Loogares\UsuarioBundle\Entity\TagRecomendacion;
+
 use Loogares\AdminBundle\Entity\TempLugar;
 use Loogares\AdminBundle\Entity\TempCategoriaLugar;
 use Loogares\AdminBundle\Entity\TempCaracteristicaLugar;
@@ -22,7 +26,7 @@ use Loogares\AdminBundle\Entity\TempSubcategoriaLugar;
 
 class LugarController extends Controller{
 
-    public function lugarAction($slug){
+    public function lugarAction($slug, Request $request){
                 $fn = $this->get('fn');
                 $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
                 $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
@@ -43,7 +47,7 @@ class LugarController extends Controller{
                     return $this->render(':erroresHTTP:404.html.twig');   
                 }
                 $idLugar = $lugarResult[0]->getId();
-
+                $idUsuario = $this->get('security.context')->getToken()->getUser()->getId();
                 $codigoArea = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getCodigoArea();
 
                 //Ultima foto del Lugar
@@ -78,9 +82,19 @@ class LugarController extends Controller{
                 //Query para sacar el Total de las recomendaciones
                 $q = $em->createQuery("SELECT count(u.id) 
                                        FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
-                                       WHERE u.lugar = ?1");
+                                       WHERE u.lugar = ?1 and u.estado != ?2");
                 $q->setParameter(1, $idLugar);
+                $q->setParameter(2, 3);
                 $totalRecomendacionesResult = $q->getSingleScalarResult();
+
+                //Query para sacar el Total de las recomendaciones
+                $q = $em->createQuery("SELECT u.id 
+                                       FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+                                       WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado != ?3");
+                $q->setParameter(1, $idUsuario);                      
+                $q->setParameter(2, $idLugar);
+                $q->setParameter(3, 3);
+                $yaRecomendoResult = $q->getResult();
 
                 //Definicion del orden para la siguiente consulta
                 if($_GET['orden'] == 'ultimas'){
@@ -92,7 +106,8 @@ class LugarController extends Controller{
                 }
 
                 //Query para las recomendaciones a mostrar
-                $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.*
+                $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido,
+                    (select min(id) from util where util.usuario_id = $idUsuario and util.recomendacion_id = recomendacion.id) as apretoUtil
                                                                          FROM recomendacion
                                                                          LEFT JOIN util
                                                                          ON util.recomendacion_id = recomendacion.id
@@ -103,10 +118,12 @@ class LugarController extends Controller{
                                                                          LEFT JOIN usuarios
                                                                          ON recomendacion.usuario_id = usuarios.id
                                                                          WHERE recomendacion.lugar_id = $idLugar
+                                                                         AND recomendacion.estado_id != 3
                                                                          GROUP BY recomendacion.id 
                                                                          $orderBy
                                                                          LIMIT $resultadosPorPagina
                                                                          OFFSET $offset");
+
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
                         $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
@@ -147,10 +164,12 @@ class LugarController extends Controller{
                 //Total de Pagina que debemos mostrar/generar
                 $data->totalPaginas = ($totalRecomendacionesResult >$resultadosPorPagina )?floor($totalRecomendacionesResult / $resultadosPorPagina):1;
                 $data->totalRecomendaciones = $totalRecomendacionesResult;
+                $data->yaRecomendo = $yaRecomendoResult;
                 //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
                 $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
                 $data->totalFotos = $totalFotosResult;
                 $data->recomendacionesPorPagina = $resultadosPorPagina;
+                $tp = $lr->getTagsPopulares($idLugar);
                 $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
 
                 $params = array(
@@ -164,7 +183,6 @@ class LugarController extends Controller{
     }
     
     public function agregarAction(Request $request, $slug = null){
-
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $errors = array();
@@ -201,7 +219,6 @@ class LugarController extends Controller{
             $lugarManipulado->tel2 = '';
             $lugarManipulado->tel3 = '';
         }
-
 
         $form = $this->createFormBuilder($lugarManipulado)
             ->add('nombre', 'text')
@@ -382,13 +399,44 @@ class LugarController extends Controller{
                         $em->persist($lugar);
                         $em->flush();
                     }
+                    //CURL MAGIC
+               
+                    //set POST variables
+                    $fields_string = '';
+                    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_recomendacion', array('slug' => $lugarManipulado->getSlug()));
+                    $fields = array(
+                        'texto'=> urlencode('textotexto'),
+                        'tags'=> urlencode('tags, tags'),
+                        'estrellas'=> urlencode(5),
+                        'precio' => urlencode(0),
+                        'usuario' => $this->get('security.context')->getToken()->getUser()->getId(),
+                        'curlSuperVar' => 1
+                    );
+
+                    //url-ify the data for the POST
+                    foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+                    $fields_string = rtrim($fields_string,'&');
+
+                    //open connection
+                    $ch = curl_init();
+
+                    //set the url, number of POST vars, POST data
+                    curl_setopt($ch,CURLOPT_URL, $url);
+                    curl_setopt($ch,CURLOPT_POST,6);
+                    curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+
+                    //execute post
+                    $result = curl_exec($ch);
+
+                    curl_close($ch);
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }else{
-                    $this->get('session')->setFlash('edicion_lugar','Wena campeon, edito el lugar.');
+                    $this->get('session')->setFlash('lugar_flash','Wena campeon, edito el lugar.');
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
                 }
-                
-                return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
+
+
+                return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => ''));
             }
         }
 
@@ -796,5 +844,108 @@ class LugarController extends Controller{
             'vecinas' => $vecinas,
             'dimensiones' => $dimensiones
         ));
+    }
+
+    /* RECOMENDACIONES */
+    public function recomendacionesAction($slug, Request $request, $curlSuperVar = false){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $tr = $em->getRepository("LoogaresUsuarioBundle:Tag");
+        $trr = $em->getRepository("LoogaresUsuarioBundle:TagRecomendacion");
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $fn = $this->get('fn');
+        $lugar = $lr->findOneBySlug($slug);
+
+        if(isset($_POST['editando']) && $_POST['editando'] == 1){
+            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2");
+            $q->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId());
+            $q->setParameter(2, $lugar->getId());
+            $recomendacion = $q->getSingleResult();
+
+            $q = $em->createQuery("DELETE Loogares\UsuarioBundle\Entity\TagRecomendacion u WHERE u.recomendacion = ?1");
+            $q->setParameter(1,$recomendacion->getId());
+            $q->getResult();
+        }else{
+            $recomendacion = new Recomendacion();
+        }
+
+        if ($request->getMethod() == 'POST') {
+            $newTagRecomendacion = array();
+            $tag = array();
+            $recomendacion->setTexto($_POST['texto']);
+            $recomendacion->setEstrellas($_POST['estrellas']);
+            $estado = $lr->getEstado(1);
+            $recomendacion->setEstado($estado);
+
+            if(isset($_POST['precio'])){
+                $recomendacion->setPrecio($_POST['precio']);
+            }
+
+            $recomendacion->setLugar($lugar);
+            if(isset($_POST['usuario'])){
+                $recomendacion->setUsuario($ur->findOneById($_POST['usuario']));
+            }else{
+                $recomendacion->setUsuario($this->get('security.context')->getToken()->getUser());
+            }
+            
+            $recomendacion->setFechaCreacion(new \DateTime());
+            $recomendacion->setFechaUltimaModificacion(new \DateTime());
+
+            $em->persist($recomendacion);
+
+            if($_POST['tags'] != ''){
+                $tags = explode(',', $_POST['tags']);
+                for($i=0;$i<sizeOf($tags);$i++){
+                    $tags[$i] = trim($tags[$i]);
+                }
+                $tags = array_unique($tags);
+
+                foreach($tags as $key => $value){
+                    $tag[] = $tr->findOneByTag($value);
+                    if(!$tag[sizeOf($tag)-1]){
+                        $tag[] = new Tag();
+                        $tag[sizeOf($tag)-1]->setTag($value);
+                        $tag[sizeOf($tag)-1]->setSlug($fn->generarSlug($value));
+
+                        $em->persist($tag[sizeOf($tag)-1]);
+                    }
+
+                    $newTagRecomendacion[] = new TagRecomendacion();
+                    $newTagRecomendacion[sizeOf($newTagRecomendacion)-1]->setTag($tag[sizeOf($tag)-1]);
+                    $newTagRecomendacion[sizeOf($newTagRecomendacion)-1]->setRecomendacion($recomendacion);
+
+                    $em->persist($newTagRecomendacion[sizeOf($newTagRecomendacion)-1]);
+                }
+            }
+            $em->flush();
+            if(isset($_POST['curlSuperVar']) && $_POST['curlSuperVar'] == 1){
+                return new Response('',200);
+            }else{
+                //SET FLASH AND REDIRECTTT
+                $this->get('session')->setFlash('lugar_flash','Wena campeon, recomendo el lugar.');
+                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+            }
+        }
+    }
+
+    public function accionRecomendacionAction($slug, $borrar){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+        
+        if($borrar == true){
+            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2");
+            $q->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId());
+            $q->setParameter(2, $lugar->getId());
+            $recomendacionResult = $q->getSingleResult();
+
+            $estado = $lr->getEstado(3);
+            $recomendacionResult->setEstado($estado);
+
+            $em->flush();
+            $this->get('session')->setFlash('lugar_flash','Wena campeon, borro su recomendacion :(.');
+            return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+        }
     }
 }

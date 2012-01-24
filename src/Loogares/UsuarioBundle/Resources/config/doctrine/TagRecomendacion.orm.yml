@@ -20,4 +20,4 @@ Loogares\UsuarioBundle\Entity\TagRecomendacion:
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }

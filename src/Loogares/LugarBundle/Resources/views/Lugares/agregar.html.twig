@@ -141,6 +141,7 @@
 {% block content %}
 <form action="{% if lugar.slug %}{{ path('_editar', {'slug': lugar.slug}) }}{% else %}{{ path('_agregar') }}{% endif %}" method="post" {{ form_enctype(form) }}>
 {{ form_errors(form) }}
+{{ form_widget(form._token) }}
 
 {% if errors %}
     <div class="errores">
@@ -836,9 +837,7 @@
         Una vez cargado el mapa, puedes arrastrar el ícono para corregir su posición.
     </div>
 </div>
-{{ form_widget(form._token) }}
-
-
+{% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
 
 </form>
 {% endblock %}

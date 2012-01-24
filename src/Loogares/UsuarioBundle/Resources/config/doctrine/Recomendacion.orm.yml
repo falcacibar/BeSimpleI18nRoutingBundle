@@ -30,10 +30,11 @@ Loogares\UsuarioBundle\Entity\Recomendacion:
         tag_recomendacion:
             targetEntity: Loogares\UsuarioBundle\Entity\TagRecomendacion
             mappedBy: recomendacion
+            onDelete: cascade
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }
     fields:
         texto:
             type: text
@@ -47,3 +48,4 @@ Loogares\UsuarioBundle\Entity\Recomendacion:
             type: datetime
         fecha_ultima_vez_destacada:
             type: datetime
+            nullable: true
