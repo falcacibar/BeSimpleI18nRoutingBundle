@@ -4,22 +4,14 @@ Loogares\LugarBundle\Entity\ReportarLugar:
     manyToOne:
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
-            joinTable:
-                name: lugares
-                joinColumns:
-                    lugar:
-                        referencedColumnName: id
         usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\Usuario
-            joinTable:
-                name: lugares
-                joinColumns:
-                    usuario:
-                        referencedColumnName: id
+        estado:
+            targetEntity: Loogares\ExtraBundle\Entity\Estado
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }
     fields:
         reporte:
             type: text

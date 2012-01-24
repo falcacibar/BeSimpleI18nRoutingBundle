@@ -24,7 +24,7 @@
 				<span><a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id })}}">{{'lugar.fotos.galeria.editar'|trans}}</a></span>
 				<span><a href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'lugar.fotos.galeria.borrar'|trans}}</a></span>
 			{% else %}
-				<span><a href="#">{{'lugar.fotos.galeria.reportar'|trans}}</a></span>
+				<span><a href="{{path('_reportarFoto', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'lugar.fotos.galeria.reportar'|trans}}</a></span>
 			{% endif %}
 		</li>
 

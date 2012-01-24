@@ -1,0 +1,75 @@
+{% extends "::base.html.twig" %}
+
+{# Según el tipo de reporte, se generan distintos títulos y subtítulos #}
+{% if lugar is defined %}
+	{% set usuario = lugar.usuario%}
+	{% set titulo_pag = 'reportes.lugar.titulo_pag' %}	
+	{% set tipo_titulo = 0 %}
+	{% set subtitulo = 'reportes.lugar.subtitulo' %}
+	{% set ruta = path('_reportarLugar',{ 'slug': lugar.slug })%}
+{% elseif recomendacion is defined %}
+	{% set lugar = recomendacion.lugar %}
+	{% set usuario = recomendacion.usuario %}
+	{% set titulo_pag = 'reportes.recomendacion.titulo_pag' %}
+	{% set tipo_titulo = 1 %}
+	{% set subtitulo = 'reportes.recomendacion.subtitulo' %}
+{% elseif imagen is defined %}
+	{% set lugar = imagen.lugar %}
+	{% set usuario = imagen.usuario %}
+	{% set titulo_pag = 'reportes.imagen.titulo_pag' %}
+	{% set tipo_titulo = 2 %}
+	{% set subtitulo = 'reportes.imagen.subtitulo' %}
+	{% set ruta = path('_reportarFoto',{ 'slug': lugar.slug, 'id': imagen.id })%}	
+{% endif %}
+
+{% set linkLugar = path('_lugar', {'slug': lugar.slug}) %}	
+{% set linkUsuario = path('showUsuario', {'param': (usuario.slug is not empty) ? usuario.slug : usuario.id}) %}	
+
+
+{% block title %}{{titulo_pag|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div id="reporte">
+		<h1>{% transchoice tipo_titulo with {'%usuario%' : "<a href="~linkUsuario~">"~usuario.nombre~' '~usuario.apellido~"</a>",'%lugar%': "<a href="~linkLugar~">"~lugar.nombre~"</a>"}%}reportes.titulo{% endtranschoice %}</h1>
+
+		{% if errors %}
+			<div class="reporte_error">
+				{% for error in errors %}
+			        <p>{{ error | trans}}</p>
+			    {% endfor %}
+			</div>
+		{% endif %}
+
+		<p>{{subtitulo|trans}}</p>
+
+		<form action="{{ ruta }}" method="post" {{ form_enctype(form) }}>
+			<ul>
+				<li>
+					{% set inputClass = (errors.reporte is defined) ? 'input-error' : ' '%}					
+					{{ form_label(form.reporte, 'reportes.label') }}
+					{{ form_widget(form.reporte, { 'attr': {'rows': '8','class': inputClass}} ) }}
+					{% if errors.reporte is defined %}
+						<small class="errors">{{errors.reporte | trans}}</small>
+					{% endif %}
+				</li>
+				
+				<li>
+					<label></label>
+					<span class="tip">{{'reportes.tip.gracias'|trans}}</span>
+				</li>
+
+				<li>
+					<label></label>
+					<span class="tip">{{'reportes.tip.obligatorio'|trans}}</span>
+				</li>
+				<li>
+					<label></label>
+					<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" formnovalidate />
+				</li>
+
+				{{form_rest(form)}}
+			</ul>
+		</form>
+
+	</div>
+{% endblock %}

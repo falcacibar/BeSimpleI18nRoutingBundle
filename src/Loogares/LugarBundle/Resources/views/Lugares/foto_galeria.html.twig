@@ -3,6 +3,9 @@
 {% block title %}{{'lugar.fotos.galeria.titulo_pag'|trans}} {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
+	{% if app.session.hasFlash('reportar-imagen') %}
+            {{ app.session.flash('reportar-imagen') | trans }}
+    {% endif %}
 	<div id="galeria">
 		<h1>{{'lugar.fotos.galeria.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>		
 		<div id="contenido-galeria">

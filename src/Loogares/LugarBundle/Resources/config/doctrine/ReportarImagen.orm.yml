@@ -1,9 +1,9 @@
-Loogares\LugarBundle\Entity\ReportarRecomendacion:
+Loogares\LugarBundle\Entity\ReportarImagen:
     type: entity
-    table: reportar_recomendacion
+    table: reportar_imagen
     manyToOne:
-        recomendacion:
-            targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
+        imagen_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\ImagenLugar
         usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\Usuario
         estado:

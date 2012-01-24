@@ -20,3 +20,21 @@ Loogares\LugarBundle\Entity\ImagenLugar:
             - Image:
                 maxSize: 5120k
                 mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+Loogares\LugarBundle\Entity\ReportarLugar:
+    properties:
+        reporte:
+            - NotBlank:
+                message: El campo es obligatorio. Por favor, complétalo.
+
+Loogares\LugarBundle\Entity\ReportarImagen:
+    properties:
+        reporte:
+            - NotBlank:
+                message: El campo es obligatorio. Por favor, complétalo.
+
+Loogares\LugarBundle\Entity\ReportarRecomendacion:
+    properties:
+        reporte:
+            - NotBlank:
+                message: El campo es obligatorio. Por favor, complétalo. 
