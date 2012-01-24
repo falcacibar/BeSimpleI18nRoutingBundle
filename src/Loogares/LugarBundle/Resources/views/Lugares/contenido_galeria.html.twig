@@ -18,12 +18,13 @@
 	<ul>
 		<li class="autor">{{'lugar.fotos.galeria.autor'|trans}} <a href="{{ path('showUsuario', {'param' : imagen.usuario.slug })}}">{{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</a></li>
 
-		<li class="opciones">
-			{{-'|'-}}
+		<li class="opciones">			
 			{% if imagen.loggeadoCorrecto %}
+				{{-'|'-}}
 				<span><a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id })}}">{{'lugar.fotos.galeria.editar'|trans}}</a></span>
 				<span><a href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'lugar.fotos.galeria.borrar'|trans}}</a></span>
-			{% else %}
+			{% elseif reportar == 1 %}
+				{{-'|'-}}
 				<span><a href="{{path('_reportarFoto', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'lugar.fotos.galeria.reportar'|trans}}</a></span>
 			{% endif %}
 		</li>

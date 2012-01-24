@@ -827,12 +827,20 @@ class LugarController extends Controller{
             
         }
 
+        $reportar = 1;
+        if(!$imagen->loggeadoCorrecto && $this->get('security.context')->isGranted('ROLE_USER')) {
+            $reportes = $lr->getReportesImagenesUsuarioLugar($imagen->getId(), $this->get('security.context')->getToken()->getUser(), 1);
+            if(sizeof($reportes) > 0)
+                $reportar = 0;
+        }
+
         if ($this->getRequest()->isXmlHttpRequest()) {
             return $this->render('LoogaresLugarBundle:Lugares:contenido_galeria.html.twig', array(
                 'lugar' => $lugar,
                 'imagen' => $imagen,
                 'vecinas' => $vecinas,
-                'dimensiones' => $dimensiones
+                'dimensiones' => $dimensiones,
+                'reportar' => $reportar,
             ));
 
 
@@ -842,7 +850,8 @@ class LugarController extends Controller{
             'lugar' => $lugar,
             'imagen' => $imagen,
             'vecinas' => $vecinas,
-            'dimensiones' => $dimensiones
+            'dimensiones' => $dimensiones,
+            'reportar' => $reportar,
         ));
     }
 

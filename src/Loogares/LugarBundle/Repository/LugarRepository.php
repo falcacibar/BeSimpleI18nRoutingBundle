@@ -268,6 +268,19 @@ class LugarRepository extends EntityRepository
       return $vecinas;
     }
 
+    public function getReportesImagenesUsuarioLugar($imagen, $usuario, $estado) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT ri
+                             FROM Loogares\LugarBundle\Entity\ReportarImagen ri
+                             WHERE ri.imagen_lugar = ?1
+                             AND ri.usuario = ?2
+                             AND ri.estado = ?3");
+      $q->setParameter(1, $imagen);
+      $q->setParameter(2, $usuario);
+      $q->setParameter(3, $estado);
+      return $q->getResult();
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");
