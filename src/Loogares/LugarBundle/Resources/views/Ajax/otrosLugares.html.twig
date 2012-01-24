@@ -1,5 +1,5 @@
 <div id="otros-lugares">
-    <h3 class="titulo_otros_lugares">Otros Lugares en el área</h3>
+    <h3 class="titulo_otros_lugares">{{'lugar.ficha.otros.titulo'|trans}}</h3>
     {% for lugar in lugares %}
         {% set i = loop.index %}
         <input id="coordenadas{{i}}" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}"/>
@@ -19,11 +19,11 @@
                             </script>
                             <div class="star-raty-otrosLugares{{loop.index}}"></div>
                         </div>
-                        <p>{{lugar.recomendaciones}} recomendaciones</p>
+                        <p>{{lugar.recomendaciones}} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.recomendaciones)}}</p>
                     </li>
                     <li class="direccion">{{ lugar.calle }} {{ lugar.numero }}, <a href="#">{{lugar.comuna}}</a></li>
                     <li class="categoria">
-                        <strong>Categoría: </strong>
+                        <strong>{{'lugar.ficha.otros.categoria'|transchoice(1)}} </strong>
                         <a href='BUSCAR LA CATEGORIA: {{lugar.categorias[0]}}'>{{ lugar.categorias[0] }}</a>
                     </li>
                 </ul>
@@ -35,11 +35,11 @@
                 <span>{{lugar.nombre}}</span>
                 <div>
                         <div id="puntuacion-{{i}}"></div>
-                        <span>{{lugar.recomendaciones}} recomendaciones</span>
+                        <span>{{lugar.recomendaciones}} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.recomendaciones)}}</span>
                 </div>
-                <p>{{lugar.calle}} {{lugar.numero}}, Ciudad</p>
+                <p>{{lugar.calle}} {{lugar.numero}}, {{lugar.ciudad}}</p>
                 <p>
-                    <strong>Categorias: </strong>
+                    <strong>{{'lugar.ficha.otros.categoria'|transchoice(0)}} </strong>
                     {% for categoria in lugar.categorias %}
                         <a href='BUSCAR LA CATEGORIA: {{categoria}}'>{{ categoria }}</a>{% if loop.last == false %}, {% endif %}
                     {% endfor %}

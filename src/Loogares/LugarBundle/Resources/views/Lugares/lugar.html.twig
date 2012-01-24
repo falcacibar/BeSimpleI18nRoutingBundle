@@ -59,6 +59,11 @@
     {% if app.session.hasFlash('lugar_flash') %}
             {{ app.session.flash('lugar_flash') }}
     {% endif %}
+    {% if app.session.hasFlash('agregar-foto-lugar') %}
+            <div class="flash-notice">
+                {{ app.session.flash('agregar-foto-lugar') }}
+            </div>
+    {% endif %}
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
@@ -69,16 +74,16 @@
                     });
                 </script>
                 <div class="star-raty estrellas_lugar"></div>
-                <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} recomendaciones</span>
+                <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}</span>
             </div>
             <div class="multimedia_lugar">
                 <div class="foto_lugar" id="lugar-foto">
                     <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}"><img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 </div>
-                <a class="link_gris_686" href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">Ver galería ({{lugar.totalFotos}} fotos)</a><br />
-                <a class="link_gris_686" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">» Agrega una foto</a>
+                <a class="link_gris_686" href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.galeria'|transchoice(lugar.totalFotos,{'%total%': lugar.totalFotos}) }}</a><br />
+                <a class="link_gris_686" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.agregar_foto'|trans}}</a>
                 <div class="video_lugar">
-                    <a class="link_gris_686 ver_video_lugar" href="#">Ver video</a>
+                    <a class="link_gris_686 ver_video_lugar" href="#">{{'lugar.ficha.multimedia.video'|trans}}</a>
                 </div>
             </div>
 
@@ -121,7 +126,7 @@
                                 {% endif %}
                             }); 
                         </script>                          
-                        <p style="float: left;">Precio:</p><div class="precio-raty precio_global"></div>
+                        <p style="float: left;">{{'lugar.ficha.datos.precio'|trans}}</p><div class="precio-raty precio_global"></div>
                         <div class="precio-detalle"></div>
                     </div>
                 {% endif %}
@@ -136,7 +141,7 @@
                     <div class="primero_en_recomendar_lugar">
                         {% if lugar.recomendaciones %}
                             <div class="primero_titulo">
-                                Primero en recomendar
+                                {{'lugar.ficha.datos.primero'|trans}}
                             </div>
                             <div class="primero_usuario">
                                 <div class="primero_usuario_img">
@@ -156,7 +161,7 @@
                     </div>
 
                     <div class="tags_populares_lugar">
-                        <p>Tags:</p>
+                        <p>{{'lugar.ficha.tags'|trans}}</p>
                         {% for tagsPopulares in lugar.tagsPopulares %}
                             <a href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
                         {% endfor %}
@@ -166,7 +171,7 @@
                 <div class="categoria_lugar">
                     {% if lugar.categoriaLugar %}
                         <div class="categoria_lugar_box" id="lugar-categorias">
-                            <span class="subtitulos_lugar">Categorías:</span>
+                            <span class="subtitulos_lugar">{{'lugar.ficha.datos.categorias'|trans}}</span>
                             {% for categoriaLugar in lugar.categoriaLugar %} 
                                 <a href="">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
                             {% endfor %}
@@ -175,7 +180,7 @@
 
                     {% if lugar.horarios != null %}
                         <div class="horario_lugar_box" id="lugar-horarios">
-                            <span class="subtitulos_lugar">Horario:</span>
+                            <span class="subtitulos_lugar">{{'lugar.ficha.datos.horario'|trans}}</span>
                             {% for horario in lugar.horarios %}
                                 {{ horario }}<br/>
                             {% endfor %}
@@ -187,16 +192,16 @@
                 <div class="sector_lugar">
                     {% if lugar.sector %}
                         <div class="sector_lugar_box" id="lugar-sector">
-                            <span class="subtitulos_lugar">Sector:</span>
+                            <span class="subtitulos_lugar">{{'lugar.ficha.datos.sector'|trans}}</span>
                             <a href="">{{ lugar.sector.nombre }}</a>
                         </div>
                     {% endif %}
                     {% if lugar.subcategoriaLugar %}
                         <div class="subcategoria_lugar_box" id="lugar-subcategoria">
-                            {%set isSet = ':D'%}
+                            {% set isSet = ':D'%}
                             {% for subcategoriaLugar in lugar.subcategoriaLugar %}{% if isSet != subcategoriaLugar.subcategoria.categoria.id %}{%for categoriaLugar in lugar.categoriaLugar%}
                                 {% if categoriaLugar.categoria.id == subcategoriaLugar.subcategoria.categoria.id %}
-                                    <span class="subtitulos_lugar">Subcategorías <span class="minusculas">{{categoriaLugar.categoria.nombre}}</span>:</span>{% set isSet = categoriaLugar.categoria.id %}{% endif %}{%endfor%}
+                                    <span class="subtitulos_lugar">{{'lugar.ficha.datos.subcategorias'|trans}} <span class="minusculas">{{categoriaLugar.categoria.nombre}}</span>:</span>{% set isSet = categoriaLugar.categoria.id %}{% endif %}{%endfor%}
                                 {% else %},
                                 {% endif %}
                                 <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% endfor %}
@@ -237,11 +242,11 @@
 
         <div class="opciones_lugar">
             <ul class="opciones_lugar_f6f">
-                <li><a class="dueno_lugar" href="">¿Eres dueño de este Lugar?</a></li>
-                <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">Edita los datos</a></li>
-                <li><a class="cerro_lugar" href="">¿Este lugar cerró? Avísanos</a></li>
-                <li><a class="compartir_lugar" href="">Enviar</a></li>
-                <li><a class="imprimir_lugar" href="">Imprimir</a></li>
+                <li><a class="dueno_lugar" href="">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
+                <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
+                <li><a class="cerro_lugar" href="">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
+                <li><a class="compartir_lugar" href="">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
+                <li><a class="imprimir_lugar" href="">{{'lugar.ficha.opciones.imprimir'|trans}}</a></li>
             </ul>
         </div>
 
@@ -249,34 +254,34 @@
         
         <h2 class="titulo_recomendaciones">
             {{ lugar.totalRecomendaciones }}
-            Recomendaciones en {{ lugar.nombre }}
+            {{'lugar.ficha.recomendaciones.titulo'|transchoice(lugar.totalRecomendaciones,{'%lugar%' : lugar.nombre})}}
         </h2>
 
         <ul class="ordenar_por_recomendaciones">
             <li>
-                <strong>Ordenar por:</strong>
+                <strong>{{'lugar.ficha.recomendaciones.orden.titulo'|trans}}</strong>
             </li>
             <li>
                 {% if query.orden == 'mejor-evaluadas' %}
-                    <strong>Mejores evaluaciones</strong>
+                    <strong>{{'lugar.ficha.recomendaciones.orden.mejores'|trans}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">Mejores evaluaciones</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'lugar.ficha.recomendaciones.orden.mejores'|trans}}</a>
                 {% endif %}
             </li>
             <li>|</li>
             <li>
                 {% if query.orden == 'ultimas' %}
-                    <strong>Últimas recomendaciones</strong>
+                    <strong>{{'lugar.ficha.recomendaciones.orden.ultimas'|trans}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">Últimas recomendaciones</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'lugar.ficha.recomendaciones.orden.ultimas'|trans}}</a>
                 {% endif %}
             </li>
             <li>|</li>
             <li>
                 {% if query.orden == 'mas-utiles' %}
-                    <strong>Más útiles</strong>
+                    <strong>{{'lugar.ficha.recomendaciones.orden.utiles'|trans}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">Más útiles</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'lugar.ficha.recomendaciones.orden.utiles'|trans}}</a>
                 {% endif %}
             </li>
         </ul>
@@ -287,7 +292,7 @@
                 <option value="15">15</option>
                 <option value="20">20</option>
             </select>
-            <p class="resultados_por_pagina_txt">Resultados por página</p>
+            <p class="resultados_por_pagina_txt">{{'lugar.ficha.recomendaciones.resultados'|trans}}</p>
         </div>
 
 
@@ -330,7 +335,7 @@
                     <p class="texto_recomendacion_usuario">{{ recomendacion.texto }}</p>
                     {% if recomendacion.tags[0] %}
                         <p class="tags_recomendacion">
-                            Tags: 
+                            {{'lugar.ficha.tags'|trans}} 
                             {% for tag in recomendacion.tags %}
                                 <a href='BUSCAR EL TAG: {{tag}}'>{{ tag }}</a>{% if loop.last == false %}, {% endif %}
                             {% endfor %}
@@ -339,12 +344,9 @@
                      </div>
                     
                     <p class="opciones_recomendacion">
-                        {% if recomendacion.usuario_id == app.security.token.user.id %}
-                            <a class="edita_recomendacion" href="#">Edita tu recomendación</a>
-                            <a class="borra_recomendacion" href="{{path('_borrarRecomendacion', {'slug': lugar.slug})}}">Borra tu recomendación</a>
-                        {% else %}
-                            <a class="reporta_recomendacion" href="#">Reporta esta recomendación</a>
-                        {% endif %}
+                        <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
+                        <a class="borra_recomendacion" href="#">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
+                        <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
                     </p>
                 </div>
             </div>

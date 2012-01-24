@@ -1,10 +1,10 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Galería de fotos en {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
+{% block title %}{{'lugar.fotos.galeria.titulo_pag'|trans}} {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
 	<div id="galeria">
-		<h1>Galería de fotos de <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>		
+		<h1>{{'lugar.fotos.galeria.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>		
 		<div id="contenido-galeria">
 			{% include 'LoogaresLugarBundle:Lugares:contenido_galeria.html.twig' %}
 		</div>
