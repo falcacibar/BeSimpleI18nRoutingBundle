@@ -1,0 +1,176 @@
+# Locale 'es_cl' LugarBundle
+lugar:
+    recomendacion:
+        opcional:
+            tip: ¿Deseas agregar una Recomendación?
+    agregar:
+        titulo: Agregar un Lugar
+        nombre: Nombre *
+        categorias:
+            label: Categorías *
+            label_secundario: Categorías
+            principal: Elige una Categoria Principal
+            secundaria: Elige una Categoria Secundaria
+            agregar: » Agrega una categoría secundaria (Máx.
+        subcategorias: Subcategorías * (Máx. 3)
+        pais: País *
+        ciudad: Ciudad *
+        comuna:
+            label: Comuna *
+            title: Elige una comuna
+        calle: Calle *
+        numero: Nº *
+        galeria_centro: » ¿Es parte de una galería o centro comercial?
+        detalle: Detalle
+        cargar_mapa: Cargar mapa
+        sector:
+            label: Sector
+            title: ¿Está en un sector popular? Elígelo aquí
+        telefono:
+            label: Teléfono
+            agregar: » ¿Más teléfonos? (Máx.
+        precio: Precio
+        web: Sitio web
+        mail: E-mail
+        horario:
+            label: Horario
+            tip: ¿Sabes los horarios de atención? Agrégalos
+            dias:
+                lunes: Lunes
+                martes: Martes
+                miercoles: Miércoles
+                jueves: Jueves
+                viernes: Viernes
+                sabado: Sábado
+                domingo: Domingo
+            jornadas:
+                primera: Jornada 1
+                segunda: Jornada 2
+                abre: Abre
+                cierra: Cierra
+                cerrado: Cerrado
+                doble: ¿Tiene jornada doble?
+            recordatorio:
+                primero: Si no se indica ningún horario para un determinado día, se entenderá que ese día está cerrado.
+                segundo: Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.
+        profesional: Profesional
+        construccion: Año de construcción
+        descripcion: Descripción
+        materiales: Materiales
+        caracteristicas: Características            
+        placeholders:
+            nombre: Ej. Bar El Tufo	
+            calle: Ej. Tarapallá
+            numero: Ej. 1949 o s/n
+            detalle: Ej. A, Local 45, Piso 9, Centro Comercial Matta
+            telefono: Ej. 2 2130894
+            web: Ej. http://www.bareltufo.cl
+            facebook: Ej. http://www.facebook.com/pages/bareltufo
+            twitter: Ej. http://www.twitter.com/barelfuto
+            mail: Ej. usuario@loogares.com
+            profesional: Ej. Nombre del Arquitecto, Paisajista, etc
+            construccion: Ej. 1985, Siglo XX
+            descripcion: Ej. Breve descripción del lugar
+            materiales: Ej. Cobre, Granito, etc        
+        quitar: Quitar
+        obligatorio: Los campos con (*) son obligatorios
+        submit: Guardar los datos
+        mapa:
+            titulo: Ubicación en el mapa
+            texto: Una vez cargado el mapa, puedes arrastrar el ícono para corregir su posición.
+
+    editar:
+        titulo: Edita los datos de
+
+    ficha:
+        total_recomendaciones: recomendación|recomendaciones
+        multimedia:
+            galeria: Ver galería (%total% foto)|Ver galería (%total% fotos)
+            agregar_foto: » Agrega una foto
+            video: Ver video
+        datos:
+            precio: Precio:
+            primero: Primero en recomendar            
+            categorias: Categorías:
+            horario: Horario:
+            sector: Sector:
+            subcategorias: Subcategorías
+        opciones:
+            owner: ¿Eres dueño de este Lugar?
+            editar: Edita los datos
+            cerro: ¿Este lugar cerró? Avísanos
+            enviar: Enviar
+            imprimir: Imprimir
+        recomendaciones:
+            titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
+            orden:
+                titulo: Ordenar por:
+                mejores: Mejores evaluaciones
+                ultimas: Últimas recomendaciones
+                utiles: Más útiles
+            resultados: Resultados por página
+            editar: Edita tu recomendación
+            borrar: Borra tu recomendación
+            reportar: Reporta esta recomendación
+        tags: Tags:
+        otros:
+            titulo: Otros Lugares en el área
+            categoria: Categoría:|Categorías:
+    fotos:
+        agregar:
+            titulo_pag: Agregar foto a
+            titulo: Agrega foto en
+            subtitulo: Puedes agregar una o más fotos a la galería de fotos de %lugar% en sólo 2 pasos:
+            primer_paso: 1. Cargar fotos (sólo JPG, GIF y PNG, máx. 5 MB)
+            segundo_paso: 2. Ya cargaste %imagenes% foto. Ahora puedes agregarle links o una descripción.|2. Ya cargaste %imagenes% fotos. Ahora puedes agregar links o descripción a cada una.
+            computador: Cargar fotos desde tu computador
+            imagen: Imagen
+            url: Cargar fotos desde un sitio web
+            url_label: Dirección (URL)
+            agregar_foto: Agregar otra foto (Máx.
+            agregar_url: Agregar otra URL (Máx.            	
+            quitar: Quitar
+            descripcion: Descripción o Dirección (URL) del link
+            submit: Enviar
+        editar:
+            titulo_pag: Editar foto en
+            titulo: Edita tu foto en
+        galeria:
+            titulo_pag: Galería de fotos en
+            titulo: Galería de fotos de
+            autor: Agregada por
+            editar: Edita tu foto
+            borrar: Borra tu foto
+            reportar: Reporta esta foto
+            anterior: Anterior
+            siguiente: Siguiente
+
+    errors:
+        agregar:
+            nombre: Ingresa el nombre del lugar
+            categoria: Recuerda asignarle una categoría al lugar
+            comuna: Localiza la comuna del lugar
+            calle: Ingresa la calle del lugar
+            numero: Ingresa el número del lugar
+        fotos:
+            no_imagen: Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.
+            valida: No tienes seleccionado ningún archivo. Por favor, elige uno.
+    flash:
+        foto:
+            agregar: ¡Ese es el espíritu, %nombre% %apellido%! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.
+            borrar: Tu foto acaba de ser borrada. Agrega otra cuando quieras.
+
+reportes:
+    titulo: "{0} Reporta %lugar%|{1} Reporta la recomendación de %usuario% en %lugar%|]1,Inf] Reporta la foto de %usuario% en %lugar%"
+    lugar:
+        titulo_pag: Reportar %lugar%
+        subtitulo: ¿Este lugar ya no existe? ¿O está repetido? Recuerda que puedes editar los datos de los lugares que tengan errores en su información. Para cualquier otro problema no dudes en avisarnos.
+    imagen:
+        titulo_pag: Reportar foto en %lugar%
+        subtitulo: ¿Algo malo con esta foto? Si tiene contenido ofensivo, con derechos reservados o crees que no cumple con los Términos de uso de Loogares.com no dudes en avisarnos.
+    label: Escríbenos el porqué de tu reporte *
+    tip:
+        gracias: Te agradecemos tu ayuda
+        obligatorio: Los campos con (*) son obligatorios
+
+    flash: Gracias por avisarnos. Lo revisaremos lo antes posible.
