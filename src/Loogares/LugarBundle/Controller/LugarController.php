@@ -393,6 +393,16 @@ class LugarController extends Controller{
 
                 if(isset($_POST['texto']) && $_POST['texto'] != ''){
                     //CURL MAGIC
+                    if(isset($_POST['recomendacion-precio'])){
+                        $precio = $_POST['precio'];
+                    }else{
+                        $precio = '';
+                    }
+                    if(isset($_POST['recomendacion-precio'])){
+                        $estrellas = $_POST['recomendacion-estrellas'];
+                    }else{
+                        $estrellas = '';
+                    }
                     
                     //set POST variables
                     $fields_string = '';
@@ -400,8 +410,8 @@ class LugarController extends Controller{
                     $fields = array(
                         'texto'=> urlencode($_POST['texto']),
                         'tags'=> urlencode($_POST['tags']),
-                        'estrellas'=> urlencode($_POST['recomendacion-estrellas']),
-                        'precio' => urlencode((isset($_POST['recomendacion-precio'])?$_POST['recomendacion-precio']:''),
+                        'estrellas'=> urlencode($estrellas),
+                        'precio' => urlencode($precio),
                         'usuario' => $this->get('security.context')->getToken()->getUser()->getId(),
                         'curlSuperVar' => 1
                     );
