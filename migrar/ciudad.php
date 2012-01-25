@@ -52,7 +52,18 @@ $data[] = array(
         'slug' => 'chile',
         'mapa' => '',
         'codigo_area' => '+56',
-        'mostrar_lugar' => '1'
+        'mostrar_lugar' => '1',
+        'locale' => 'es_cl'
+);
+
+$data[] = array(
+        'id' => '1',
+        'nombre' => 'Chile',
+        'slug' => 'chile',
+        'mapa' => '',
+        'codigo_area' => '+56',
+        'mostrar_lugar' => '1',
+        'locale' => 'es_AR'
 );
 
 $i = 0;
