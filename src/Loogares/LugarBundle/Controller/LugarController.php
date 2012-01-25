@@ -400,8 +400,8 @@ class LugarController extends Controller{
                     $fields = array(
                         'texto'=> urlencode($_POST['texto']),
                         'tags'=> urlencode($_POST['tags']),
-                        'estrellas'=> urlencode($_POST['estrellas']),
-                        'precio' => urlencode($_POST['precio']),
+                        'estrellas'=> urlencode($_POST['recomendacion-estrellas']),
+                        'precio' => urlencode((isset($_POST['recomendacion-precio'])?$_POST['recomendacion-precio']:''),
                         'usuario' => $this->get('security.context')->getToken()->getUser()->getId(),
                         'curlSuperVar' => 1
                     );
