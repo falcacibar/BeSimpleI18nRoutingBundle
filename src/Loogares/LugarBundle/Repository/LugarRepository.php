@@ -281,6 +281,19 @@ class LugarRepository extends EntityRepository
       return $q->getResult();
     }
 
+    public function getReportesUsuarioLugar($lugar, $usuario, $estado) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT rl
+                             FROM Loogares\LugarBundle\Entity\ReportarLugar rl
+                             WHERE rl.lugar = ?1
+                             AND rl.usuario = ?2
+                             AND rl.estado = ?3");
+      $q->setParameter(1, $lugar);
+      $q->setParameter(2, $usuario);
+      $q->setParameter(3, $estado);
+      return $q->getResult();
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");
@@ -316,13 +329,13 @@ class LugarRepository extends EntityRepository
         $lugar = $lr->findOneBySlug($slug);
         $q = $em->createQuery("SELECT u, count(u.id) as total, avg(u.estrellas) as avgestrellas, sum(u.precio) as precio 
         FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
-        where u.lugar = ?1");
+        where u.lugar = ?1 AND u.estado != ?2");
         $q->setParameter(1, $lugar->getId());
+        $q->setParameter(2, 3);
 
         $avg = $q->getResult();
 
         $precio = $lugar->getPrecioInicial();
-        echo $avg[0]['total']; 
         $precio = ($precio+$avg[0]['precio']) / (($avg[0]['total']==0)?1:$avg[0]['total']);
         $lugar->setPrecio($precio);
         $lugar->setEstrellas($avg[0]['avgestrellas']);

@@ -18,6 +18,7 @@ class DefaultController extends Controller
 {
 	public function reportarFotoAction(Request $request, $slug, $id) {
 		$em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
         $formErrors = array();
 
@@ -25,6 +26,15 @@ class DefaultController extends Controller
 
         if($imagen->getLugar()->getSlug() != $slug) {
             throw $this->createNotFoundException('La foto especificada no corresponde al lugar '.$lugar->getNombre());
+        }
+
+        if($this->get('security.context')->getToken()->getUser() == $imagen->getUsuario()) {
+            throw $this->createNotFoundException('No puedes reportar una imagen agregada por ti.');   
+        }
+        else {
+            $reportes = $lr->getReportesImagenesUsuarioLugar($imagen->getId(), $this->get('security.context')->getToken()->getUser(), 1);
+            if(sizeof($reportes) > 0)
+                throw $this->createNotFoundException('Ya has reportado esta imagen anteriormente, y aún está en revisión. Una vez finalizado este proceso, podrás reportar la imagen nuevamente.');   
         }
 
         $reporte = new ReportarImagen();
@@ -48,6 +58,11 @@ class DefaultController extends Controller
 
                 $em->persist($reporte);
                 $em->flush();
+
+                $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
+                                    ->findOneByNombre('Reportado');
+                $imagen->setEstado($estadoImagen);
+                $em->flush(); 
 
                  // Mensaje de éxito en la edición
                 $this->get('session')->setFlash('reportar-imagen','reportes.flash');
@@ -75,6 +90,10 @@ class DefaultController extends Controller
         $formErrors = array();
 
         $lugar = $lr->findOneBySlug($slug);
+        
+        $reportes = $lr->getReportesUsuarioLugar($lugar->getId(), $this->get('security.context')->getToken()->getUser(), 1);
+        if(sizeof($reportes) > 0)
+            throw $this->createNotFoundException('Nos has notificado anteriormente que este lugar cerró. Aún estamos corroborando datos al respecto.');
 
         $reporte = new ReportarLugar();
 
@@ -97,6 +116,11 @@ class DefaultController extends Controller
 
                 $em->persist($reporte);
                 $em->flush();
+
+                $estadoLugar = $em->getRepository("LoogaresExtraBundle:Estado")
+                                    ->findOneByNombre('Reportado');
+                $lugar->setEstado($estadoLugar);
+                $em->flush();               
 
                  // Mensaje de éxito en la edición
                 $this->get('session')->setFlash('reportar-lugar','reportes.flash');
