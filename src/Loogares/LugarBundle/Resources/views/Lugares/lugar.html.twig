@@ -5,7 +5,7 @@
 
 {% block javascripts %}
     {{parent()}}
-    <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg&amp;sensor=false&amp;hl=es'></script>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
     <script src='../../assets/js/googleMapFicha.js'></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
@@ -39,6 +39,8 @@
                 $(this).remove();
             })
         });
+
+
     </script>
 {% endblock %}
 
@@ -70,7 +72,7 @@
             <div class="estrellas">
                 <script>
                     $(document).ready(function(){
-                        estrellasDelLugar({{lugar.estrellas}});
+                        estrellasDelLugar({{lugar.estrellasPromedio}});
                     });
                 </script>
                 <div class="star-raty estrellas_lugar"></div>
@@ -316,11 +318,15 @@
                         </strong>
                     </p>
                     <div class="util_recomendacion">
+                    {% if app.security.token.user.id != recomendacion.userId %}
                         {% if recomendacion.apretoUtil == 0 %}
-                            <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util"></a>
+                            <a data-util="{{recomendacion.id}}" class="boton_activado boton_util"></a>
                         {% else %}
                             <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_desactivado boton_util"></a>
                         {% endif %}
+                    {% else %}
+                        <p class="boton_desactivado boton_util"></p>
+                    {% endif %}
                         <p class="conteo_util">{{ recomendacion.utiles }}</p>
                     </div>
                     <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
@@ -343,9 +349,12 @@
                      </div>
                     
                     <p class="opciones_recomendacion">
+                        {% if app.security.token.user.id == recomendacion.userId %}
                         <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
-                        <a class="borra_recomendacion" href="#">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
+                        <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
+                        {% else %}
                         <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
+                        {% endif %}
                     </p>
                 </div>
             </div>
@@ -369,12 +378,6 @@
         {% endif %}
         {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
             {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
-            <div class="tags_populares_lugar recomendacion">
-                <p>Tags Populachos:</p>
-                {% for tagsPopulares in lugar.tagsPopulares %}
-                    <a class="link_azul" href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
-                {% endfor %}
-            </div>
         {% endif %}
     </div>
 

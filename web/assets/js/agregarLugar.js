@@ -62,6 +62,14 @@ $(document).ready(function(){
         $(this).parent().fadeOut();
     });
 
+    $('.display-next-li-cb').click(function(){
+        if($(this).is(':checked')){
+            $(this).parent().next('li').fadeIn().css('display', 'block');
+        }else{
+            $(this).parent().next('li').fadeOut()
+        }
+    });
+
     $('.display-more-info').click(function(e){
         e.preventDefault();
         
@@ -259,9 +267,16 @@ $(document).ready(function(){
             $('.mapa_info').before('<small class="errors">¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</small>');
         }
 
-        $('.errores-container').html(errores);
+        recomendacion = true;
+        if($('[name="habilitar-recomienda"]').is(':checked')){
+            recomendacion = validarRecomendacion();
+            if(recomendacion == false){
+                errores += "<p>Porfavor completa tu recomendacion.</p>";
+            }
+        }
 
-        if(errores != ''){
+        if(errores != '' || recomendacion == false){
+            $('.errores-container').html(errores);
             $('body').animate({'scrollTop': 0}, 400);
             $('.errores-container').fadeIn();
         }else{

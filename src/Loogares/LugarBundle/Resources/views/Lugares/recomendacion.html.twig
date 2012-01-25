@@ -8,7 +8,9 @@
 	        half: true,
 	        start: {{recomendacion.estrellas | default(0)}},
 	        space: false,
-	        scoreName: 'estrellas'
+	       	hintList: ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'],
+	       	target: '#estrellas-recomienda',
+	        scoreName: 'recomienda-estrellas'
 	    });
 
 	    $('.recomendacion-precio-raty').raty({
@@ -19,7 +21,7 @@
 	        space: false,
 	        hintList: ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'],
 	        target: '#precio-recomienda',
-	        scoreName: 'precio'
+	        scoreName: 'recomienda-precio'
 	    });
 
 		$('.texto').keyup(function(){
@@ -30,6 +32,15 @@
 		$('.texto').keyup()
 
 	    $('[name="recomienda"]').submit(function(){
+	    	if(validarRecomendacion()){
+	    		return true
+	    	}else{
+	    		return false
+	    	}
+	    });
+	});
+
+		    function validarRecomendacion(){
 	    	var error = false;
 	    	$('.errors').remove();
 	    	$('.input-error').removeClass('input-error');
@@ -39,12 +50,12 @@
 	    		$('.texto').parent().append("<small class='errors'>Minimo de 255 Chars</small>");
 	    	}
 
-	    	if($('[name="form[precio]"]').val() == 0){
+	    	if($('[name="recomienda-precio"]').val() == 0){
 	    		error = true;
-	    		$('.recomendacion-precio-raty').parent().append("<small class='errors'>Debes darle al menos medio valor!</small>")
+	    		$('.recomendacion-precio-raty').parent().append("<small class='errors'>Debes darle al menos medio valor al Precio!</small>")
 	    	}
 	    	
-	    	if($('[name="form[estrellas]"]').val() == 0){
+	    	if($('[name="recomienda-estrellas"]').val() == 0){
 	    		error = true;
 	    		$('.recomendacion-star-raty').parent().append("<small class='errors'>Debes darle al menos medio valor!</small>")
 	    	}
@@ -52,8 +63,7 @@
 	    	if(error){
 	    		return false;
 	    	}
-	    });
-	});
+	    }
 </script>
 <style>
 	label{
@@ -89,6 +99,7 @@
 		<li>
 			<label>Evaluacion</label>
 			<div class="recomendacion-star-raty"></div>
+			<div id="estrellas-recomienda"></div>
 		</li>
 		{% if lugar is defined or recomendacion is defined %} <!--Si las categorias aplican-->
 		<li>
@@ -103,15 +114,23 @@
 				<span>Max.: <span class="max">3000</span></span><br/>
 				<span>Llevas: <span class="llevas">0</span></span>
 			</label> 
-			<textarea name="texto" class="texto" cols="30" rows="10">{% if recomendacion is defined %}{{recomendacion.texto}}{% endif %}</textarea>
+			<textarea placeholder="This is a textarea" name="texto" class="texto" cols="30" rows="10">{% if recomendacion is defined %}{{recomendacion.texto}}{% endif %}</textarea>
 		</li>
 		<li>
 			<label>Tags</label> 
-			<input name="tags" type="text" class="tags" value="{% if recomendacion is defined %}{% for tagRecomendacion in recomendacion.tagRecomendacion %}{{tagRecomendacion.tag.tag}}{% if loop.last != true %}, {% endif %}{% endfor %}{% endif %}"/>
+			<input placeholder="Escribe los tags separados por coma" name="tags" type="text" class="tags" value="{% if recomendacion is defined %}{% for tagRecomendacion in recomendacion.tagRecomendacion %}{{tagRecomendacion.tag.tag}}{% if loop.last != true %}, {% endif %}{% endfor %}{% endif %}"/>
 		</li>
+		{% if lugar is defined and lugar.tagsPopulares is defined and lugar.tagsPopulares|length > 0 %}
+		<li>
+		    <label>Tags Populachos:</label>
+            {% for tagsPopulares in lugar.tagsPopulares %}
+                <a class="link_azul" href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
+            {% endfor %}
+		</li>
+		{% endif %}
 	</ul>
-	{% if recomendacion is defined %}
-	<input type="submit" value="enviar"/>
+	{% if lugar.slug  %}
+		<input type="submit" value="enviar"/>
 	{% endif %}
 </form>
 

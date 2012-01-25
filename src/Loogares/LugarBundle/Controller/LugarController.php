@@ -35,6 +35,7 @@ class LugarController extends Controller{
                 $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
                 $router = $this->get('router');
                 $precioPromedio = 0;
+                $estrellasPromedio = 0;
 
                 $em = $this->getDoctrine()->getEntityManager();
                 $qb = $em->createQueryBuilder();
@@ -46,6 +47,13 @@ class LugarController extends Controller{
                 if(!isset($lugarResult[0])){
                     return $this->render(':erroresHTTP:404.html.twig');   
                 }
+
+                $visitas = $lugarResult[0]->getVisitas();
+                $visitas++;
+                $lugarResult[0]->setVisitas($visitas);
+                $em->persist($lugarResult[0]);
+                $em->flush();
+
                 $idLugar = $lugarResult[0]->getId();
                 $idUsuario = $this->get('security.context')->getToken()->getUser()->getId();
                 $codigoArea = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getCodigoArea();
@@ -106,7 +114,7 @@ class LugarController extends Controller{
                 }
 
                 //Query para las recomendaciones a mostrar
-                $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido,
+                $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
                     (select min(id) from util where util.usuario_id = $idUsuario and util.recomendacion_id = recomendacion.id) as apretoUtil
                                                                          FROM recomendacion
                                                                          LEFT JOIN util
@@ -128,9 +136,13 @@ class LugarController extends Controller{
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
                         $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
                         $precioPromedio = $recomendacionesResult[$i]['precio']; 
+                        $estrellasPromedio = $recomendacionesResult[$i]['estrellas'];
                 }
 
-                $precioPromedio = ($precioPromedio + $lugarResult[0]->getPrecio()) / ($totalRecomendacionesResult+1);
+                if($totalRecomendacionesResult > 1){
+                    $precioPromedio = ($precioPromedio + $lugarResult[0]->getPrecio()) / ($totalRecomendacionesResult+1);
+                    $estrellasPromedio = ($estrellasPromedio / ($totalRecomendacionesResult+1));
+                }
 
                 $telefonos = array();
                 //Array con telefonos del lugar
@@ -157,6 +169,7 @@ class LugarController extends Controller{
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->telefonos = $telefonos;
                 $data->precioPromedio = $precioPromedio;
+                $data->estrellasPromedio = $estrellasPromedio;
                 //Imagen a mostrar
                 $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
                 $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';
@@ -378,36 +391,38 @@ class LugarController extends Controller{
 
                 $em->flush();
 
-                //CURL MAGIC
-           
-                //set POST variables
-                $fields_string = '';
-                $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_recomendacion', array('slug' => $lugarManipulado->getSlug()));
-                $fields = array(
-                    'texto'=> urlencode('textotexto'),
-                    'tags'=> urlencode('tags, tags'),
-                    'estrellas'=> urlencode(5),
-                    'precio' => urlencode(0),
-                    'usuario' => $this->get('security.context')->getToken()->getUser()->getId(),
-                    'curlSuperVar' => 1
-                );
+                if(isset($_POST['texto']) && $_POST['texto'] != ''){
+                    //CURL MAGIC
+                    
+                    //set POST variables
+                    $fields_string = '';
+                    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_recomendacion', array('slug' => $lugarManipulado->getSlug()));
+                    $fields = array(
+                        'texto'=> urlencode($_POST['texto']),
+                        'tags'=> urlencode($_POST['tags']),
+                        'estrellas'=> urlencode($_POST['estrellas']),
+                        'precio' => urlencode($_POST['precio']),
+                        'usuario' => $this->get('security.context')->getToken()->getUser()->getId(),
+                        'curlSuperVar' => 1
+                    );
 
-                //url-ify the data for the POST
-                foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-                $fields_string = rtrim($fields_string,'&');
+                    //url-ify the data for the POST
+                    foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+                    $fields_string = rtrim($fields_string,'&');
 
-                //open connection
-                $ch = curl_init();
+                    //open connection
+                    $ch = curl_init();
 
-                //set the url, number of POST vars, POST data
-                curl_setopt($ch,CURLOPT_URL, $url);
-                curl_setopt($ch,CURLOPT_POST,6);
-                curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+                    //set the url, number of POST vars, POST data
+                    curl_setopt($ch,CURLOPT_URL, $url);
+                    curl_setopt($ch,CURLOPT_POST,6);
+                    curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
 
-                //execute post
-                $result = curl_exec($ch);
+                    //execute post
+                    $result = curl_exec($ch);
 
-                curl_close($ch);
+                    curl_close($ch);
+                }
 
                 if($rolAdmin == 1){
                     /**************************
