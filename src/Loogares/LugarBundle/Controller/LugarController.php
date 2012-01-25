@@ -259,6 +259,7 @@ class LugarController extends Controller{
                 $comuna = $lr->getComunas($_POST['comuna']);  
                 $sector = $lr->getSectores($_POST['sector']);
 
+
                 $estado = $lr->getEstado(1);
                 $tipo_lugar = $lr->getTipoLugar('lugar');
 
@@ -377,6 +378,37 @@ class LugarController extends Controller{
 
                 $em->flush();
 
+                //CURL MAGIC
+           
+                //set POST variables
+                $fields_string = '';
+                $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_recomendacion', array('slug' => $lugarManipulado->getSlug()));
+                $fields = array(
+                    'texto'=> urlencode('textotexto'),
+                    'tags'=> urlencode('tags, tags'),
+                    'estrellas'=> urlencode(5),
+                    'precio' => urlencode(0),
+                    'usuario' => $this->get('security.context')->getToken()->getUser()->getId(),
+                    'curlSuperVar' => 1
+                );
+
+                //url-ify the data for the POST
+                foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+                $fields_string = rtrim($fields_string,'&');
+
+                //open connection
+                $ch = curl_init();
+
+                //set the url, number of POST vars, POST data
+                curl_setopt($ch,CURLOPT_URL, $url);
+                curl_setopt($ch,CURLOPT_POST,6);
+                curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+
+                //execute post
+                $result = curl_exec($ch);
+
+                curl_close($ch);
+
                 if($rolAdmin == 1){
                     /**************************
 
@@ -395,47 +427,24 @@ class LugarController extends Controller{
 
                     foreach($lugaresRevisados as $key => $lugar){
                         $estado = $lr->getEstado(9);
-                        $lugar->setEstado($estado[0]);
+                        $lugar->setEstado($estado);
                         $em->persist($lugar);
                         $em->flush();
                     }
-                    //CURL MAGIC
-               
-                    //set POST variables
-                    $fields_string = '';
-                    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_recomendacion', array('slug' => $lugarManipulado->getSlug()));
-                    $fields = array(
-                        'texto'=> urlencode('textotexto'),
-                        'tags'=> urlencode('tags, tags'),
-                        'estrellas'=> urlencode(5),
-                        'precio' => urlencode(0),
-                        'usuario' => $this->get('security.context')->getToken()->getUser()->getId(),
-                        'curlSuperVar' => 1
-                    );
 
-                    //url-ify the data for the POST
-                    foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-                    $fields_string = rtrim($fields_string,'&');
 
-                    //open connection
-                    $ch = curl_init();
-
-                    //set the url, number of POST vars, POST data
-                    curl_setopt($ch,CURLOPT_URL, $url);
-                    curl_setopt($ch,CURLOPT_POST,6);
-                    curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
-
-                    //execute post
-                    $result = curl_exec($ch);
-
-                    curl_close($ch);
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }else{
-                    $this->get('session')->setFlash('lugar_flash','Wena campeon, edito el lugar.');
+                    //Edicion o Agregar Success
+                    
+                    if($esEdicionDeUsuario == true){
+                        $this->get('session')->setFlash('lugar_flash','Wena campeon, edito el lugar.');
+                    }else{
+                        $this->get('session')->setFlash('lugar_flash','Wena campeon, agrego el lugar.');
+                    }
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }
-
-
+                //Agregar, solo, nada maish.
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => ''));
             }
         }
