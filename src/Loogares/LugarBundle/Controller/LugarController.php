@@ -135,13 +135,6 @@ class LugarController extends Controller{
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
                         $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
-                        $precioPromedio = $recomendacionesResult[$i]['precio']; 
-                        $estrellasPromedio = $recomendacionesResult[$i]['estrellas'];
-                }
-
-                if($totalRecomendacionesResult > 1){
-                    $precioPromedio = ($precioPromedio + $lugarResult[0]->getPrecio()) / ($totalRecomendacionesResult+1);
-                    $estrellasPromedio = ($estrellasPromedio / ($totalRecomendacionesResult+1));
                 }
 
                 $telefonos = array();
@@ -168,8 +161,6 @@ class LugarController extends Controller{
                 $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->telefonos = $telefonos;
-                $data->precioPromedio = $precioPromedio;
-                $data->estrellasPromedio = $estrellasPromedio;
                 //Imagen a mostrar
                 $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
                 $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';
@@ -393,12 +384,13 @@ class LugarController extends Controller{
 
                 if(isset($_POST['texto']) && $_POST['texto'] != ''){
                     //CURL MAGIC
-                    if(isset($_POST['recomendacion-precio'])){
+                    if(isset($_POST['recomienda-precio'])){
                         $precio = $_POST['precio'];
                     }else{
                         $precio = '';
                     }
-                    if(isset($_POST['recomendacion-precio'])){
+
+                    if(isset($_POST['recomienda-estrellas'])){
                         $estrellas = $_POST['recomendacion-estrellas'];
                     }else{
                         $estrellas = '';
@@ -916,12 +908,12 @@ class LugarController extends Controller{
             $newTagRecomendacion = array();
             $tag = array();
             $recomendacion->setTexto($_POST['texto']);
-            $recomendacion->setEstrellas($_POST['estrellas']);
+            $recomendacion->setEstrellas($_POST['recomienda-estrellas']);
             $estado = $lr->getEstado(1);
             $recomendacion->setEstado($estado);
 
-            if(isset($_POST['precio'])){
-                $recomendacion->setPrecio($_POST['precio']);
+            if(isset($_POST['recomienda-precio'])){
+                $recomendacion->setPrecio($_POST['recomienda-precio']);
             }
 
             $recomendacion->setLugar($lugar);
@@ -961,6 +953,7 @@ class LugarController extends Controller{
                 }
             }
             $em->flush();
+            $lr->actualizarPromedios($lugar->getSlug());
             if(isset($_POST['curlSuperVar']) && $_POST['curlSuperVar'] == 1){
                 return new Response('',200);
             }else{
@@ -968,6 +961,8 @@ class LugarController extends Controller{
                 $this->get('session')->setFlash('lugar_flash','Wena campeon, recomendo el lugar.');
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
+
+            
         }
     }
 

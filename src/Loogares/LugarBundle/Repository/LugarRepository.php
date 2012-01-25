@@ -306,4 +306,38 @@ class LugarRepository extends EntityRepository
       $q->setParameter(2, $id);
       return $q->getResult();
     }
+
+      public function actualizarPromedios($slug){
+        $em = $this->getEntityManager();
+        $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
+        $rr = $em->getRepository('LoogaresUsuarioBundle:Recomendacion');
+        $ur = $em->getRepository('LoogaresUsuarioBundle:Util');
+
+        $lugar = $lr->findOneBySlug($slug);
+        $q = $em->createQuery("SELECT u, count(u.id) as total, avg(u.estrellas) as avgestrellas, sum(u.precio) as precio 
+        FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+        where u.lugar = ?1");
+        $q->setParameter(1, $lugar->getId());
+
+        $avg = $q->getResult();
+
+        $precio = $lugar->getPrecioInicial();
+        echo $avg[0]['total']; 
+        $precio = ($precio+$avg[0]['precio']) / (($avg[0]['total']==0)?1:$avg[0]['total']);
+        $lugar->setPrecio($precio);
+        $lugar->setEstrellas($avg[0]['avgestrellas']);
+        $lugar->setTotalRecomendaciones($avg[0]['total']);
+
+        $q = $em->createQuery("SELECT u, count(u.id) as utiles FROM Loogares\UsuarioBundle\Entity\Util u 
+                              LEFT JOIN u.recomendacion r
+                              where r.lugar = ?1");
+        $q->setParameter(1, $lugar->getId());
+
+        $avg = $q->getResult();
+
+        $lugar->setUtiles($avg[0]['utiles']);
+
+        $em->persist($lugar);
+        $em->flush();
+      }
 }

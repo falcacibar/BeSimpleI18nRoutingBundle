@@ -40,7 +40,7 @@
 	    });
 	});
 
-		    function validarRecomendacion(){
+		function validarRecomendacion(){
 	    	var error = false;
 	    	$('.errors').remove();
 	    	$('.input-error').removeClass('input-error');
@@ -62,6 +62,8 @@
 
 	    	if(error){
 	    		return false;
+	    	}else{
+	    		return true;
 	    	}
 	    }
 </script>

@@ -1,6 +1,7 @@
 Loogares\UsuarioBundle\Entity\Recomendacion:
     type: entity
     table: recomendacion
+    repositoryClass: Loogares\UsuarioBundle\Repository\RecomendacionRepository
     manyToOne:
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
