@@ -266,7 +266,7 @@ class LugarController extends Controller{
                 $lugarManipulado->setSector($sector[0]);
 
 
-                $lugarManipulado->setEstado($estado[0]);
+                $lugarManipulado->setEstado($estado);
                 $lugarManipulado->setTipoLugar($tipo_lugar[0]);
 
                 //Sacamos los HTTP
@@ -291,7 +291,7 @@ class LugarController extends Controller{
                 $lr->cleanUp($lugarManipulado->getId());
 
                 foreach($_POST['categoria'] as $postCategoria){
-                    if($rolAdmin == false){
+                    if($slug && $rolAdmin == false){
                         $categoriaLugar[] = new TempCategoriaLugar();
                     }else{
                         $categoriaLugar[] = new CategoriaLugar();
@@ -432,7 +432,7 @@ class LugarController extends Controller{
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }else{
                     $this->get('session')->setFlash('lugar_flash','Wena campeon, edito el lugar.');
-                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }
 
 
