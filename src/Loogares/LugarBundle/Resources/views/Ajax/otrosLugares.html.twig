@@ -11,14 +11,8 @@
                 <ul class="otro_lugar_info">
                     <li><a class="otro_lugar_nombre" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></li>
                     <li>
-                        <div id="puntuacion-{{lugar.estrellas}}" class="estrellas_lugar">
-                            <script>
-                               $(document).ready(function(){
-                                    estrellasOtrosLugares({{loop.index}}, {{lugar.estrellas}});
-                                    alert('hi')
-                                });
-                            </script>
-                            <div class="star-raty-otrosLugares{{loop.index}}"></div>
+                        <div id="puntuacion" class="estrellas_lugar">
+                            <div data-stars="{{lugar.estrellas}}" class="star-raty-otrosLugares{{loop.index}}"></div>
                         </div>
                         <p>{{lugar.recomendaciones}} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.recomendaciones)}}</p>
                     </li>

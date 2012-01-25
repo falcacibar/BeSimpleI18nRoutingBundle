@@ -95,6 +95,7 @@ function estrellasDelLugar(estrellas){
 }
 
 function estrellasOtrosLugares(id, estrellas){
+    console.log(id)
     $('.star-raty-otrosLugares'+id).raty({
         width: 140,
         starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',

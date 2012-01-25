@@ -150,16 +150,17 @@ class AjaxController extends Controller
       $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
       $utr = $em->getRepository("LoogaresUsuarioBundle:Util");
+      $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
       $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Util u WHERE u.usuario = ?1 and u.recomendacion = ?2");
         $q->setParameter(1, $_POST['usuario']);
         $q->setParameter(2, $_POST['recomendacion']);
         $utilResult = $q->getResult();
 
-      if(sizeOf($utilResult) == 0){
-        $usuario = $ur->findOneById($_POST['usuario']);
-        $recomendacion = $rr->findOneById($_POST['recomendacion']);
+      $usuario = $ur->findOneById($_POST['usuario']);
+      $recomendacion = $rr->findOneById($_POST['recomendacion']);
 
+      if(sizeOf($utilResult) == 0){
         $util = new Util();
         $util->setUsuario($usuario);
         $util->setRecomendacion($recomendacion);
@@ -170,7 +171,7 @@ class AjaxController extends Controller
         $em->remove($utilResult[0]);
       }
 
-
+      $lr->actualizaPromedios($recomendacion->getLugar()->getSlug());
       $em->flush();
 
       return new Response(sizeOf($utilResult), 200);
