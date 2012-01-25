@@ -164,7 +164,11 @@ function handleMapa() {
                         map.addOverlay(markersArray[markersArray.length-1]);
                     }
                 }
+                if(i == document.getElementById('cantidadLugares').value){
+                    $.getScript(WEBROOT+'../assets/js/otrosLugares.js');
+                }
             }
+
         }
     }
 }
