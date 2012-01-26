@@ -13,6 +13,7 @@
 	{% set titulo_pag = 'reportes.recomendacion.titulo_pag' %}
 	{% set tipo_titulo = 1 %}
 	{% set subtitulo = 'reportes.recomendacion.subtitulo' %}
+	{% set ruta = path('_reportarRecomendacion',{ 'slug': lugar.slug, 'usuarioSlug' : (usuario.slug is empty) ? usuario.id : usuario.slug })%}
 {% elseif imagen is defined %}
 	{% set lugar = imagen.lugar %}
 	{% set usuario = imagen.usuario %}

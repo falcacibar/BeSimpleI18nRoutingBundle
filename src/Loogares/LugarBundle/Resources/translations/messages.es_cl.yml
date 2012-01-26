@@ -168,9 +168,27 @@ reportes:
     imagen:
         titulo_pag: Reportar foto en %lugar%
         subtitulo: ¿Algo malo con esta foto? Si tiene contenido ofensivo, con derechos reservados o crees que no cumple con los Términos de uso de Loogares.com no dudes en avisarnos.
+    recomendacion:
+        titulo_pag: Reportar recomendación en %lugar%
+        subtitulo: ¿Algo malo con esta recomendación? Si tiene contenido ofensivo, con derechos reservados o crees que no cumple con los Términos de uso de Loogares.com no dudes en avisarnos.
     label: Escríbenos el porqué de tu reporte *
     tip:
         gracias: Te agradecemos tu ayuda
         obligatorio: Los campos con (*) son obligatorios
 
     flash: Gracias por avisarnos. Lo revisaremos lo antes posible.
+
+    mail:
+        lugar:
+            asunto: Reportar lugar:  
+            titulo: Lugar
+        imagen:
+            asunto: Reporte: Foto de
+            titulo: Imagen
+        recomendacion:
+            asunto: Reporte: Recomendación de
+            titulo: Recomendación
+            
+        usuario: Usuario
+        observacion: Observación
+          
