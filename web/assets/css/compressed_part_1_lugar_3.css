@@ -958,10 +958,13 @@
     margin: 5px 0 0 5px; }
 
 .recomendacion {
+  border-bottom: 1px solid white;
   border-top: 1px solid #f6f6f6;
   float: left;
   padding: 30px 0;
   width: 640px; }
+  .recomendacion:hover {
+    border-bottom: 1px solid #999999; }
   .recomendacion .foto_recomendacion {
     float: left;
     width: 60px; }
@@ -993,13 +996,20 @@
         height: 10px;
         margin: 0 5px 0 0;
         padding: 2px 5px 6px; }
-      .recomendacion .texto_recomendacion .util_recomendacion .boton_util {
+      .recomendacion .texto_recomendacion .util_recomendacion .boton_activado {
         background: url("../images/extras/botones_ficha_lugar.png") no-repeat -755px 0;
+        cursor: pointer;
         float: right;
         height: 20px;
         width: 43px; }
-        .recomendacion .texto_recomendacion .util_recomendacion .boton_util:active {
+        .recomendacion .texto_recomendacion .util_recomendacion .boton_activado:hover {
           background: url("../images/extras/botones_ficha_lugar.png") no-repeat -755px -30px; }
+      .recomendacion .texto_recomendacion .util_recomendacion .boton_desactivado {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -755px -60px;
+        cursor: pointer;
+        float: right;
+        height: 20px;
+        width: 43px; }
     .recomendacion .texto_recomendacion .fecha_recomendacion {
       color: #999999;
       display: block;
@@ -1034,51 +1044,68 @@
         .recomendacion .texto_recomendacion .tags_recomendacion a:hover {
           color: #0066cc;
           text-decoration: underline; }
-    .recomendacion .texto_recomendacion .opciones_recomendacion {
+    .recomendacion .texto_recomendacion .caja_opciones_recomendacion {
       display: block;
       float: left;
-      font-size: 12px;
-      text-align: right;
+      height: 12px;
       width: 570px; }
-      .recomendacion .texto_recomendacion .opciones_recomendacion a {
-        color: #666666;
-        text-decoration: none; }
-        .recomendacion .texto_recomendacion .opciones_recomendacion a:hover {
+      .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion {
+        display: none;
+        float: left;
+        font-size: 11px;
+        height: 20px;
+        text-align: right;
+        width: 570px; }
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion a {
           color: #666666;
-          text-decoration: underline; }
-      .recomendacion .texto_recomendacion .opciones_recomendacion .edita_recomendacion {
-        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
-        height: 10px;
-        margin: 0 0 0 10px;
-        padding: 0 0 0 13px;
-        width: 10px; }
-        .recomendacion .texto_recomendacion .opciones_recomendacion .edita_recomendacion:hover {
-          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -19px;
+          text-decoration: none; }
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion a:hover {
+            color: #666666;
+            text-decoration: underline; }
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .permalink_recomendacion {
+          background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
           height: 10px;
+          margin: 0 0 0 10px;
           padding: 0 0 0 13px;
           width: 10px; }
-      .recomendacion .texto_recomendacion .opciones_recomendacion .borra_recomendacion {
-        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
-        height: 10px;
-        margin: 0 0 0 10px;
-        padding: 0 0 0 13px;
-        width: 10px; }
-        .recomendacion .texto_recomendacion .opciones_recomendacion .borra_recomendacion:hover {
-          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px;
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .permalink_recomendacion:hover {
+            background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px;
+            height: 10px;
+            padding: 0 0 0 13px;
+            width: 10px; }
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .edita_recomendacion {
+          background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
           height: 10px;
+          margin: 0 0 0 10px;
           padding: 0 0 0 13px;
           width: 10px; }
-      .recomendacion .texto_recomendacion .opciones_recomendacion .reporta_recomendacion {
-        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
-        height: 10px;
-        margin: 0 0 0 10px;
-        padding: 0 0 0 13px;
-        width: 10px; }
-        .recomendacion .texto_recomendacion .opciones_recomendacion .reporta_recomendacion:hover {
-          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px;
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .edita_recomendacion:hover {
+            background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -19px;
+            height: 10px;
+            padding: 0 0 0 13px;
+            width: 10px; }
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .borra_recomendacion {
+          background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
           height: 10px;
+          margin: 0 0 0 10px;
           padding: 0 0 0 13px;
           width: 10px; }
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .borra_recomendacion:hover {
+            background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px;
+            height: 10px;
+            padding: 0 0 0 13px;
+            width: 10px; }
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .reporta_recomendacion {
+          background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
+          height: 10px;
+          margin: 0 0 0 10px;
+          padding: 0 0 0 13px;
+          width: 10px; }
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .reporta_recomendacion:hover {
+            background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px;
+            height: 10px;
+            padding: 0 0 0 13px;
+            width: 10px; }
 
 .paginacion_recomendacion {
   border-bottom: 1px solid #f6f6f6;
@@ -1135,6 +1162,8 @@
     float: left;
     padding: 20px 10px;
     width: 278px; }
+    .otros_lugares .otro_lugar:hover {
+      border-bottom: 1px solid #999999; }
     .otros_lugares .otro_lugar .otro_lugar_img {
       display: block;
       float: left;
@@ -1154,13 +1183,22 @@
         width: 218px; }
         .otros_lugares .otro_lugar .otro_lugar_info .otro_lugar_nombre:hover {
           text-decoration: underline; }
+      .otros_lugares .otro_lugar .otro_lugar_info .otro_lugar_estrellas {
+        display: block;
+        float: left;
+        width: 85px !important; }
+      .otros_lugares .otro_lugar .otro_lugar_info img {
+        margin: 0 2px 0 0; }
       .otros_lugares .otro_lugar .otro_lugar_info p {
+        color: #666666;
         display: block;
         float: left;
         font-size: 11px;
         font-style: italic;
+        margin: 2px 0 0 8px;
         width: 120px; }
       .otros_lugares .otro_lugar .otro_lugar_info .direccion {
+        color: #666666;
         display: block;
         float: left;
         font-size: 12px;
@@ -1168,22 +1206,23 @@
         margin: 10px 0;
         width: 218px; }
         .otros_lugares .otro_lugar .otro_lugar_info .direccion a {
-          color: #0066cc;
+          color: #666666;
           text-decoration: none; }
           .otros_lugares .otro_lugar .otro_lugar_info .direccion a:hover {
-            color: #0066cc;
+            color: #666666;
             text-decoration: underline; }
       .otros_lugares .otro_lugar .otro_lugar_info .categoria {
+        color: #666666;
         display: block;
         float: left;
-        font-size: 12px;
+        font-size: 11px;
         line-height: 16px;
         width: 218px; }
         .otros_lugares .otro_lugar .otro_lugar_info .categoria a {
-          color: #0066cc;
+          color: #666666;
           text-decoration: none; }
           .otros_lugares .otro_lugar .otro_lugar_info .categoria a:hover {
-            color: #0066cc;
+            color: #666666;
             text-decoration: underline; }
   .otros_lugares .subcategorias {
     width: 400px;
@@ -1352,3 +1391,41 @@
     width: 100%;
     height: 300px;
     border: 1px solid #cccccc; }
+
+#reporte {
+  width: 70%; }
+  #reporte a {
+    color: #0066cc; }
+    #reporte a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
+  #reporte h1 {
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.4em; }
+  #reporte p {
+    margin: 10px 0;
+    line-height: normal; }
+  #reporte ul li {
+    margin: 10px 0;
+    display: block; }
+    #reporte ul li label {
+      font-size: 11px;
+      width: 180px;
+      float: left;
+      margin-right: 10px;
+      height: 10px; }
+    #reporte ul li textarea {
+      width: 350px; }
+    #reporte ul li span {
+      font-size: 11px; }
+    #reporte ul li small.errors {
+      margin-left: 335px; }
+  #reporte .reporte_error {
+    background-color: #ffe5e5;
+    border: 1px solid #ff6666;
+    line-height: 18px;
+    margin: 0 0 20px 0;
+    padding: 5px 10px;
+    width: 456px; }

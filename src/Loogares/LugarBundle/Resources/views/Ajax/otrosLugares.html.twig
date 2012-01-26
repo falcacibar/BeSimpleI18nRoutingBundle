@@ -12,7 +12,7 @@
                     <li><a class="otro_lugar_nombre" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></li>
                     <li>
                         <div id="puntuacion" class="estrellas_lugar">
-                            <div data-stars="{{lugar.estrellas}}" class="star-raty-otrosLugares{{loop.index}}"></div>
+                            <div data-stars="{{lugar.estrellas}}" class="star-raty-otrosLugares{{loop.index}} otro_lugar_estrellas"></div>
                         </div>
                         <p>{{lugar.recomendaciones}} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.recomendaciones)}}</p>
                     </li>

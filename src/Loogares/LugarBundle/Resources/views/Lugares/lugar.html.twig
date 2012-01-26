@@ -16,15 +16,6 @@
 {% endblock %}
 
 {% block content %}
-<style>
-    .boton_activado{
-        background: #f0f !important;
-    }
-
-    .boton_desactivado{
-        background: #f00 !important;
-    }
-</style>
 <div id="lugar-ficha">
     {% if app.session.hasFlash('lugar_flash') %}
             {{ app.session.flash('lugar_flash') }}
@@ -214,7 +205,7 @@
             <ul class="opciones_lugar_f6f">
                 <li><a class="dueno_lugar" href="">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
-                <li><a class="cerro_lugar" href="">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
+                <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
                 <li><a class="compartir_lugar" href="">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
                 <li><a class="imprimir_lugar" href="">{{'lugar.ficha.opciones.imprimir'|trans}}</a></li>
             </ul>
@@ -245,12 +236,12 @@
                     <div class="util_recomendacion">
                     {% if app.security.token.user.id != lugar.recomendacionPedida.userId %}
                         {% if lugar.recomendacionPedida.apretoUtil == 0 %}
-                            <a data-util="{{lugar.recomendacionPedida.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util"></a>
+                            <a data-util="{{lugar.recomendacionPedida.id}}-{{app.security.token.user.id}}" class="boton_activado"></a>
                         {% else %}
-                            <a data-util="{{lugar.recomendacionPedida.id}}-{{app.security.token.user.id}}" class="boton_desactivado boton_util"></a>
+                            <a data-util="{{lugar.recomendacionPedida.id}}-{{app.security.token.user.id}}" class="boton_desactivado"></a>
                         {% endif %}
                     {% else %}
-                        <p class="boton_desactivado boton_util"></p>
+                        <p class="boton_desactivado"></p>
                     {% endif %}
                         <p class="conteo_util">{{ lugar.recomendacionPedida.utiles }}</p>
                     </div>
@@ -269,16 +260,16 @@
                      </div>
                     
                     <p class="opciones_recomendacion">
+                        {% if lugar.recomendacionPedida.slug != false %}
+                            <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': lugar.recomendacionPedida.slug }) }}">Permalink</a>
+                        {% else %}
+                            <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': lugar.recomendacionPedida.userId }) }}">Permalink</a>
+                        {% endif %}
                         {% if app.security.token.user.id == lugar.recomendacionPedida.userId %}
                         <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
                         <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
                         {% else %}
                         <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
-                        {% endif %}
-                                                {% if lugar.recomendacionPedida.slug != false %}
-                            <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': lugar.recomendacionPedida.slug }) }}">Permalink</a>
-                        {% else %}
-                            <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': lugar.recomendacionPedida.userId }) }}">Permalink</a>
                         {% endif %}
                     </p>
                 </div>
@@ -374,19 +365,20 @@
                     {% endif %}
                      </div>
                     
-                    <p class="opciones_recomendacion">
-                        {% if app.security.token.user.id == recomendacion.userId %}
-                        <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
-                        <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
-                        {% else %}
-                        <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
-                        {% endif %}
-                        {% if recomendacion.slug != false %}
-                            <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">Permalink</a>
-                        {% else %}
-                            <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">Permalink</a>
-                        {% endif %}
-                    </p>
+                    <div class="caja_opciones_recomendacion">
+                        <p class="opciones_recomendacion">
+                            {% if recomendacion.slug != false %}
+                                <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">Permalink</a>
+                            {% else %}
+                                <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">Permalink</a>
+                            {% endif %}                        {% if app.security.token.user.id == recomendacion.userId %}
+                            <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
+                            <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
+                            {% else %}
+                            <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
+                            {% endif %}
+                        </p>
+                    </div>
                 </div>
             </div>
         {% endfor %}

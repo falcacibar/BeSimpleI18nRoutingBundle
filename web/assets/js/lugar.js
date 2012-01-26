@@ -36,6 +36,10 @@ $(document).ready(function(){
             }
         });
 
+    $('.recomendacion').hover(function(){
+        $(this).find('.opciones_recomendacion').toggle();
+    });    
+
     $('.estrellas_recomendacion').each(function(i){
         var stars = $(this).attr('data-stars');
         estrellasPorRecomendacion(i, stars);
@@ -109,6 +113,7 @@ $(document).ready(function(){
            }
         });
     });
+
 });
 
 function precioLugar(precio, tipo){

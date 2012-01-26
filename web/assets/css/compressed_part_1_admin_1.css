@@ -77,7 +77,8 @@
     .listado_admin .table-data th {
       border-bottom: 1px solid #f6f6f6; }
     .listado_admin .table-data th, .listado_admin .table-data td {
-      border-right: 1px solid #dddddd; }
+      border-right: 1px solid #dddddd;
+      word-break: break-all; }
     .listado_admin .table-data td {
       padding: 8px 0; }
       .listado_admin .table-data td span {
