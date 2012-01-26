@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Loogares\LugarBundle\Entity\ReportarLugar;
 use Loogares\LugarBundle\Entity\ReportarImagen;
+use Loogares\LugarBundle\Entity\ReportarRecomendacion;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -62,9 +63,22 @@ class DefaultController extends Controller
                 $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
                                     ->findOneByNombre('Reportado');
                 $imagen->setEstado($estadoImagen);
-                $em->flush(); 
+                $em->flush();
 
-                 // Mensaje de éxito en la edición
+               // Se envía mail a administradores notificando reporte
+                $mail = array();
+                $mail['asunto'] = $this->get('translator')->trans('reportes.mail.imagen.asunto').' '.$imagen->getLugar()->getNombre();
+                $mail['reporte'] = $reporte;
+                $mail['tipo'] = "imagen";
+                $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo('reportar@loogares.com');
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                $this->get('mailer')->send($message);               
+
+                 // Mensaje de éxito del reporte
                 $this->get('session')->setFlash('reportar-imagen','reportes.flash');
                     
                 // Redirección a galería de fotos
@@ -83,6 +97,91 @@ class DefaultController extends Controller
             'errors' => $formErrors,
         ));
 	}
+
+    public function reportarRecomendacionAction(Request $request, $slug, $usuarioSlug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $formErrors = array();
+
+        if(preg_match('/\w/', $usuarioSlug)){
+            $usuario = $ur->findOneBySlug($usuarioSlug);
+        }else{
+            $usuario = $ur->findOneById($usuarioSlug);
+        }
+        $lugar = $lr->findOneBySlug($slug);
+
+        $recomendacion = $rr->getRecomendacionUsuarioLugar($usuario->getId(),$lugar->getId());
+
+        if($this->get('security.context')->getToken()->getUser() == $recomendacion->getUsuario()) {
+            throw $this->createNotFoundException('No puedes reportar una recomendación hecha por ti.');   
+        }
+        else {
+            $reportes = $rr->getReportesRecomendacionUsuario($recomendacion->getId(), $this->get('security.context')->getToken()->getUser(), 1);
+            if(sizeof($reportes) > 0)
+                throw $this->createNotFoundException('Ya has reportado esta recomendación anteriormente, y aún está en revisión. Una vez finalizado este proceso, podrás reportar la recomendación nuevamente.');   
+        }
+
+        $reporte = new ReportarRecomendacion();
+
+        $form = $this->createFormBuilder($reporte)
+                         ->add('reporte', 'textarea')
+                         ->getForm();
+
+        if ($request->getMethod() == 'POST') { 
+            $form->bindRequest($request);
+
+            if ($form->isValid()) {
+
+                $reporte->setRecomendacion($recomendacion);
+                $reporte->setUsuario($this->get('security.context')->getToken()->getUser());
+                $reporte->setFecha(new \Datetime());
+
+                $estadoReporte = $em->getRepository("LoogaresExtraBundle:Estado")
+                                    ->findOneByNombre('Por revisar');
+                $reporte->setEstado($estadoReporte);
+
+                $em->persist($reporte);
+                $em->flush();
+
+                $estadoRecomendacion = $em->getRepository("LoogaresExtraBundle:Estado")
+                                    ->findOneByNombre('Reportado');
+                $recomendacion->setEstado($estadoRecomendacion);
+                $em->flush();
+
+               // Se envía mail a administradores notificando reporte
+                $mail = array();
+                $mail['asunto'] = $this->get('translator')->trans('reportes.mail.recomendacion.asunto').' '.$recomendacion->getLugar()->getNombre();
+                $mail['reporte'] = $reporte;
+                $mail['tipo'] = "recomendacion";
+                $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo('reportar@loogares.com');
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                $this->get('mailer')->send($message);               
+
+                 // Mensaje de éxito del reporte
+                $this->get('session')->setFlash('reportar-recomendacion','reportes.flash');
+                    
+                // Redirección a ficha del lugar 
+                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+            }
+            else {
+                foreach($this->get('validator')->validate( $form ) as $formError){
+                    $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
+                }
+            }         
+
+        }
+        return $this->render('LoogaresLugarBundle:Lugares:reporte.html.twig', array(
+            'recomendacion' => $recomendacion,
+            'form' => $form->createView(),
+            'errors' => $formErrors,
+        ));
+    }
 
 	public function reportarLugarAction(Request $request, $slug) {
 		$em = $this->getDoctrine()->getEntityManager();
@@ -120,9 +219,22 @@ class DefaultController extends Controller
                 $estadoLugar = $em->getRepository("LoogaresExtraBundle:Estado")
                                     ->findOneByNombre('Reportado');
                 $lugar->setEstado($estadoLugar);
-                $em->flush();               
+                $em->flush();
+                
+                // Se envía mail a administradores notificando reporte
+                $mail = array();
+                $mail['asunto'] = $this->get('translator')->trans('reportes.mail.lugar.asunto').' '.$lugar->getNombre();
+                $mail['reporte'] = $reporte;
+                $mail['tipo'] = "lugar";
+                $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo('reportar@loogares.com');
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                $this->get('mailer')->send($message);               
 
-                 // Mensaje de éxito en la edición
+                 // Mensaje de éxito del reporte
                 $this->get('session')->setFlash('reportar-lugar','reportes.flash');
                     
                 // Redirección a ficha del lugar 

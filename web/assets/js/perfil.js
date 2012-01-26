@@ -1,6 +1,6 @@
 $(function(){
 	$('#lista-fotos-usuario ul li').hover(function(){
-		$('.opciones-fotos-usuario',$(this)).toggle();
+		$(this).find('.opciones-fotos-usuario').toggle();
 	});	
 
 	$('.borrar-foto-lugar').click(function(){

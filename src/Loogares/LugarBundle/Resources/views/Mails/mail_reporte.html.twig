@@ -2,14 +2,14 @@
     <div style="font-family:Arial,sans-serif">
         <table align="center" cellpadding="0" cellspacing="0" width="600" style="width:600px">
             <tr>
-                <td width="160"><img src="{{url_sitio}}{{webroot}}/images/mail/logo-loogares.jpg" width="160" height="100" /></td>
+                <td width="160"><img src="{{ logo }}" width="160" height="100" /></td>
                 <td valign="middle" width="440"><hr /></td>
             </tr>
             <tr>
                 <td style="font-size:14px; color:#000; font-family:Arial,sans-serif" colspan="2">
                     <br />
                     <br />
-                    {{asunto}}
+                    {{mail.asunto}}
                     <br />
                     <br />
                 </td>
@@ -18,7 +18,30 @@
                 <td style="font-size:12px; color:#000; font-family:Arial,sans-serif" colspan="2">
                     <br />
                     <br />
-                    {{texto}}
+                    <dl>
+                        <dt>{{'reportes.mail.usuario'|trans}}</dt>
+                        <dd>{{mail.reporte.usuario.nombre}} {{mail.reporte.usuario.apellido}}</dd>
+                        <dt>{{'reportes.mail.observacion'|trans}}</dt>
+                        <dd>{{mail.reporte.reporte}}</dd>
+                        <dt>{{'reportes.mail.lugar.titulo'|trans}}</dt>
+                        <dd> 
+                            {% if mail.tipo == 'lugar' %}
+                                {{mail.reporte.lugar.nombre}}
+                                <br />
+                                <a href="{{url('_lugar',{'slug' : mail.reporte.lugar.slug}) }}">{{url('_lugar',{'slug' : mail.reporte.lugar.slug}) }}</a>
+                            {% elseif mail.tipo == 'imagen' %}
+                                {{mail.reporte.imagenLugar.lugar.nombre}}
+                                </dd>
+                                <dt>{{'reportes.mail.imagen.titulo'|trans}}</dt>
+                                <dd><a href="{{url('_fotoGaleria',{'slug' : mail.reporte.imagenLugar.lugar.slug, 'id' : mail.reporte.imagenLugar.id}) }}">{{url('_fotoGaleria',{'slug' : mail.reporte.imagenLugar.lugar.slug, 'id' : mail.reporte.imagenLugar.id}) }}</a>
+                            {% elseif mail.tipo == 'recomendacion' %}
+                                {{mail.reporte.recomendacion.lugar.nombre}}
+                                </dd>
+                                <dt>{{'reportes.mail.recomendacion.titulo'|trans}}</dt>
+                                <dd><a href="{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}">{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}</a>
+                            {% endif %}
+                        </dd>
+                    </dl>
                     <br />
                     <br />
                 </td>
@@ -27,12 +50,12 @@
                 <td style="font-size:11px; color:#999; font-family:Arial,sans-serif" colspan="2">
                     <hr />
                     <br />
-                    El equipo de <b><a href="{{url_sitio}}" style="color:#06f; text-decoration:none">Loogares.com</a></b><br />
+                    {% trans with {'%open_tag%': "<b><a href='http://www.loogares.com' style='color:#06f; text-decoration:none'>", '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
                     <br />
-                    Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a
-                    <a href="mailto:contacto@loogares.com" style="color:#06f; text-decoration:none">contacto@loogares.com</a><br />
+                    {% trans with {'%open_a%': "<a href='mailto:contacto@loogares.com' style='color:#06f; text-decoration:none'>", '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
                     <br />
-                    &copy; 2011. Loogares.com
+                    <br />
+                    &copy; {{'usuario.mail.firma'|trans}}
                 </td>
 
             </tr>

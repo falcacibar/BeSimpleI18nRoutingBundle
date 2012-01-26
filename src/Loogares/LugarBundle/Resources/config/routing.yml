@@ -92,3 +92,6 @@ _reportarLugar:
 _reportarFoto:
     pattern: /lugar/{slug}/galeria/{id}/reportar
     defaults: { _controller: LoogaresLugarBundle:Default:reportarFoto }
+_reportarRecomendacion:
+    pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/reportar
+    defaults: { _controller: LoogaresLugarBundle:Default:reportarRecomendacion }
