@@ -12,6 +12,16 @@ function getParameterByName(name){
 $(document).ready(function(){
     var getResultados = getParameterByName('resultados');
 
+    fechasRecomendaciones = [];
+        
+    $('.fecha_recomendacion').each(function(){ 
+        var date = $(this).text().split('/'),
+            dateObj = Date.parse(date[2] + "-" + date[1] + "-" + date[0]);
+        fechasRecomendaciones.push( dateObj );
+    });
+
+    fechasRecomendaciones.sort().reverse();
+
     $('.seleccionar_resultados_por_pagina').find('option[value="'+getResultados+'"]').attr('selected', 'selected')
         .end().change(function(){
             if( getResultados == ''){
@@ -25,6 +35,56 @@ $(document).ready(function(){
                 window.location = window.location.href.replace(/resultados=\d+/, 'resultados='+$(this).val()).replace(/pagina=\d+/, 'pagina=1');
             }
         });
+
+    $('.estrellas_recomendacion').each(function(i){
+        var stars = $(this).attr('data-stars');
+        estrellasPorRecomendacion(i, stars);
+        if(i == 0 && $('.recomendacion-pedida-raty').length > 0){
+            estrellasPorRecomendacion('pedida', stars);
+        }
+    });
+        
+    $('.cancelar-recomienda').live('click', function(){
+        $('[name="recomienda"]').fadeOut(function(){
+            $(this).parent().parent().find('.recomendacion-bloque').children().show();
+            $(this).remove();
+        })
+    });
+
+    $('.permalink_recomendacion').click(function(e){
+        e.preventDefault();
+
+        $estaRecomendacion = $(this).closest('.recomendacion').hide();
+        nombre = $estaRecomendacion.find('.nombre_recomendacion > strong > a').text();
+
+        if($('.recomendacion_pedida').length > 0){
+            $pedida = $('.recomendacion_pedida').hide();
+            fechaPedida = $pedida.find('.fecha_recomendacion').text().split('/');
+            fechaPedidaObj = Date.parse(fechaPedida[2] + "-" + fechaPedida[1] + "-" + fechaPedida[0]);
+
+            eq = fechasRecomendaciones.indexOf(fechaPedidaObj);
+
+            $pedida.removeClass('recomendacion_pedida');
+
+            if(eq != -1){
+                console.log(eq)
+                if(eq == 0){
+                    $('.recomendacion').eq(eq+1).before($pedida.show());
+                }else{
+                    $('.recomendacion').eq(eq).after($pedida.show());
+                }
+                
+            }else{
+                $pedida.remove();
+            }
+        }
+        
+        $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200)
+        window.history.pushState({}, "", $(this).attr('href'));
+        $estaRecomendacion.addClass('recomendacion_pedida');
+        $('.recomendacion_pedida_container').append($estaRecomendacion.fadeIn(800));
+        $('.recomendacion_pedida_container > h1').text('Recomendacion De '+nombre);
+    });
 
     $('.boton_util').click(function(e){
         e.preventDefault();
@@ -95,7 +155,6 @@ function estrellasDelLugar(estrellas){
 }
 
 function estrellasOtrosLugares(id, estrellas){
-    console.log(id)
     $('.star-raty-otrosLugares'+id).raty({
         width: 140,
         starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
@@ -105,5 +164,30 @@ function estrellasOtrosLugares(id, estrellas){
         start: estrellas,
         readOnly: true,
         space: false
+    });
+}
+
+function editarRecomendacion(lugar){
+    $('.edita_recomendacion').click(function(e){
+        e.preventDefault(); 
+        $recomendacionBloque = $(this).parent().parent().find('.recomendacion-bloque');
+        $.ajax({
+            type:'post',
+            data: {'slug': lugar},
+            url: WEBROOT+'ajax/recomendacion',
+            success: function(data){
+                $recomendacionBloque.children().each(function(i){
+                    $(this).fadeOut(200, function(){
+                        if(i==0){
+                            $recomendacionBloque
+                                .append(data)
+                            $('[name="recomienda"]')
+                                .append('<input type="hidden" name="editando" value="1"/>')
+                                .append("<input type='button' value='cancelar' class='cancelar-recomienda'/>");
+                        }
+                    })
+                });  
+            }
+        }); 
     });
 }

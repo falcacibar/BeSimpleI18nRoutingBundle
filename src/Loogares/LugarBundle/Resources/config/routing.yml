@@ -74,9 +74,13 @@ _paginaGaleria:
     pattern: /ajax/galeria/{id}/pagina
     defaults: { _controller: LoogaresLugarBundle:Ajax:paginaGaleria }
 
-_recomendacion:
+_recomienda:
     pattern: /lugar/{slug}/recomienda
     defaults: { _controller: LoogaresLugarBundle:Lugar:recomendaciones }
+
+_recomendacion:
+    pattern: /lugar/{slug}/recomendacion/{usuarioSlug}
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
 
 _borrarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/borrar

@@ -153,9 +153,9 @@ class AjaxController extends Controller
       $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
       $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Util u WHERE u.usuario = ?1 and u.recomendacion = ?2");
-        $q->setParameter(1, $_POST['usuario']);
-        $q->setParameter(2, $_POST['recomendacion']);
-        $utilResult = $q->getResult();
+      $q->setParameter(1, $_POST['usuario']);
+      $q->setParameter(2, $_POST['recomendacion']);
+      $utilResult = $q->getResult();
 
       $usuario = $ur->findOneById($_POST['usuario']);
       $recomendacion = $rr->findOneById($_POST['recomendacion']);
@@ -171,7 +171,7 @@ class AjaxController extends Controller
         $em->remove($utilResult[0]);
       }
 
-      $lr->actualizaPromedios($recomendacion->getLugar()->getSlug());
+      $lr->actualizarPromedios($recomendacion->getLugar()->getSlug());
       $em->flush();
 
       return new Response(sizeOf($utilResult), 200);

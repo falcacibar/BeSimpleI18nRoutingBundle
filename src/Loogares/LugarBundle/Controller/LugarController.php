@@ -26,7 +26,7 @@ use Loogares\AdminBundle\Entity\TempSubcategoriaLugar;
 
 class LugarController extends Controller{
 
-    public function lugarAction($slug, Request $request){
+    public function lugarAction($slug, Request $request, $usuarioSlug = false){
                 $fn = $this->get('fn');
                 $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
                 $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
@@ -36,6 +36,7 @@ class LugarController extends Controller{
                 $router = $this->get('router');
                 $precioPromedio = 0;
                 $estrellasPromedio = 0;
+                $sacarRecomendacionPedida = false;
 
                 $em = $this->getDoctrine()->getEntityManager();
                 $qb = $em->createQueryBuilder();
@@ -104,6 +105,47 @@ class LugarController extends Controller{
                 $q->setParameter(3, 3);
                 $yaRecomendoResult = $q->getResult();
 
+                if($usuarioSlug != false){
+                    $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+                    if(preg_match('/\w/', $usuarioSlug)){
+                        $usuario = $ur->findOneBySlug($usuarioSlug);
+                    }else{
+                        $usuario = $ur->findOneById($usuarioSlug);
+                    }
+
+                    if($usuario){ 
+                        $idRecomendacionPedida = $usuario->getId();
+
+                        //Sacar la recomendacion del usuario slugeado
+                        $recomendacionPedidaResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
+                            (select min(id) from util where util.usuario_id = $idRecomendacionPedida and util.recomendacion_id = recomendacion.id) as apretoUtil
+                                                                                 FROM recomendacion
+                                                                                 LEFT JOIN util
+                                                                                 ON util.recomendacion_id = recomendacion.id
+                                                                                 LEFT JOIN tag_recomendacion
+                                                                                 ON tag_recomendacion.recomendacion_id = recomendacion.id
+                                                                                 LEFT JOIN tag
+                                                                                 ON tag_recomendacion.tag_id = tag.id
+                                                                                 LEFT JOIN usuarios
+                                                                                 ON recomendacion.usuario_id = usuarios.id
+                                                                                 WHERE recomendacion.lugar_id = $idLugar
+                                                                                 AND recomendacion.usuario_id = $idRecomendacionPedida
+                                                                                 AND recomendacion.estado_id != 3
+                                                                                 GROUP BY recomendacion.id
+                                                                                 LIMIT 1");
+                            //Explotamos los tags, BOOM
+                            for($i = 0; $i < sizeOf($recomendacionPedidaResult); $i++){
+                                $recomendacionPedidaResult[$i]['tags'] = explode(',', $recomendacionPedidaResult[$i]['tags']); 
+                            }
+
+                            $sacarRecomendacionPedida = " AND recomendacion.usuario_id != $idRecomendacionPedida";
+                    }else{
+                        $usuarioSlug = false;
+                    }
+                    
+                }
+
+
                 //Definicion del orden para la siguiente consulta
                 if($_GET['orden'] == 'ultimas'){
                         $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
@@ -127,6 +169,7 @@ class LugarController extends Controller{
                                                                          ON recomendacion.usuario_id = usuarios.id
                                                                          WHERE recomendacion.lugar_id = $idLugar
                                                                          AND recomendacion.estado_id != 3
+                                                                         $sacarRecomendacionPedida
                                                                          GROUP BY recomendacion.id 
                                                                          $orderBy
                                                                          LIMIT $resultadosPorPagina
@@ -134,7 +177,7 @@ class LugarController extends Controller{
 
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
-                        $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
+                    $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
                 }
 
                 $telefonos = array();
@@ -158,6 +201,9 @@ class LugarController extends Controller{
                 *  Armado de Datos para pasar a Twig
                 */
                 $data = $lugarResult[0];
+                if($usuarioSlug != false){
+                    $data->recomendacionPedida = $recomendacionPedidaResult[0];
+                }
                 $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
                 //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
                 $data->telefonos = $telefonos;
