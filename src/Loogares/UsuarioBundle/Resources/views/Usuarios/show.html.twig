@@ -1,6 +1,6 @@
 {% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
 
-{% block title %}{{usuario.nombre}} {{usuario.apellido}} | {{parent()}}{% endblock %}
+{% block title %}{{'usuario.perfil.titulo_pag'|trans}} {{usuario.nombre}} {{usuario.apellido}} | {{parent()}}{% endblock %}
 {% block content %}
 	<div class="caja_usuario">
 		{% if app.session.hasFlash('confirmacion-registro') %}

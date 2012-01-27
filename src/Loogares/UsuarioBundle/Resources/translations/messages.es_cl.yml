@@ -45,6 +45,8 @@ usuario:
                 texto: Estás a punto de convertirte en un Loogareño, haz clic %open_a%acá%close_a% para confirmar tu cuenta.
                 texto_plano: Estás a punto de convertirte en un Loogareño. Para confirmar tu cuenta, ingresa el siguiente link en tu navegador:
                 asunto: Confirma tu cuenta en Loogares.com
+    perfil:
+        titulo_pag: Perfil De 
     datos:
         edad: año|años
         recomendaciones: recomendación|recomendaciones

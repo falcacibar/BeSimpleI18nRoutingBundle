@@ -28,13 +28,6 @@ $(document).ready(function(){
 
         $('.categoria, .sector, .comuna, select.pais, .ciudad').chosen();
 
-        $('.precio-raty').raty({
-            width: 140,
-            starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
-            starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
-            scoreName: 'form[precio]'
-        });
-
     $('.quitar').click(function(e){
         e.preventDefault();
 
@@ -81,7 +74,6 @@ $(document).ready(function(){
             }
 
             if(count >= 0){
-                console.log(count)
                 if(count == 1){
                 $('.'+rel+':first').parent().next('li:hidden').fadeIn().css('display', 'block');
                 }else{
@@ -98,6 +90,22 @@ $(document).ready(function(){
             anterior = selected[$this.attr('id')],
             subCategorias = categorias[categoria].subCategorias;
 
+        $('.categoria').find('option').removeAttr('disabled');
+
+        //Habilitamos el precio de ser necesario
+        if($('.precio-li').is(':not(:visible)')){
+            var stars = $('.precio-raty').attr('data-stars');
+            if(categoria == 'nightClubs'){
+                $('.precio').show();
+            }else if($(this).find('option:selected').parent().attr('label').camelCase() == 'dóndeComer'){
+                $('.precio-li').show();
+                precioAgregar(stars, 'dondeComer')
+            }else if($(this).find('option:selected').parent().attr('label').camelCase() == 'dóndeDormir'){
+                $('.precio-li').show();
+                precioAgregar(stars, 'dondeDormir')
+            }
+        }
+
         //Deshabilitar en los demas dropdown
         $('.categoria').not($this).each(function(){
             //Deshabilitamos en el resto de los dropdowns el valor que seleccionamos recien
@@ -105,12 +113,13 @@ $(document).ready(function(){
             
             //Habilitamos el valor anterior
             $(this).find('option[value="'+selected[$this.attr('id')]+'"]').removeAttr('disabled');
+            $(this).trigger("liszt:updated");
         });
 
         $('.caracteristicas').parent().fadeOut();
         $('.caracteristicas ul li').fadeOut();
 
-        $('.categoria').not(':hidden').each(function(){
+        $('.categoria').each(function(){
             var thisCat = $(this).val().camelCase(),
                 caracteristicas = categorias[thisCat].caracteristicas;
 
@@ -124,21 +133,6 @@ $(document).ready(function(){
             });
 
             if( anterior != undefined ){
-                //Por cada categoria que deshabilitamos
-                habilitar = categorias[anterior.camelCase()].deshabilitar;
-                $.each(habilitar, function(i){
-                    $('.categoria').not($this).each(function(){
-                        $aHabilitar = $(this).find('option[value="'+habilitar[i]+'"]');
-                        //Por cada categoria, reviamos si otra Categoria la deshabilito, comprobamos si la clase que la deshabilito
-                        //Es la ultima, si es, la habilitamos, si no, permanece deshabilitado
-                        
-                        if($aHabilitar.checkDefaultClass(anterior)){
-                            //Enable it
-                           $aHabilitar.removeAttr('disabled');
-                        }
-                    });
-                }); //End Habilitar
-
                 //Sacamos los camposo especiales.
                 camposEspeciales = categorias[anterior.camelCase()].camposEspeciales
                 $.each(camposEspeciales, function(i){
@@ -174,10 +168,12 @@ $(document).ready(function(){
                     $(this).find('option[value="'+deshabilitar[j]+'"]').attr('disabled', 'disabled').addClass(val);
                 }); 
             });
+            $(this).trigger("liszt:updated");
         });
         
         //Seteamos el valor previo correspondiente al ID del dropdown que cambiamos
         selected[$this.attr('id')] = $this.val();
+        $('.categoria').trigger("liszt:updated");
     });
 
     $('.jornada-doble-checkbox').click(function(){
@@ -186,9 +182,9 @@ $(document).ready(function(){
             $('table').find('th.horario-pm').fadeIn();
         }else{
             $(this).parent().parent().find('.horario-pm').fadeOut(function(){
-                                if($('td.horario-pm:visible').length == 0){
-               $('table').find('th.horario-pm').fadeOut();
-            }
+                if($('td.horario-pm:visible').length == 0){
+                   $('table').find('th.horario-pm').fadeOut();
+                }
             });
 
         }
@@ -215,6 +211,10 @@ $(document).ready(function(){
 
     $('.ciudad').change(function(){
         actualizarComunas();
+    });
+
+    $('.pais').change(function(){
+        actualizarCiudades();
     });
 
     $('form').submit(function(e){
@@ -378,5 +378,18 @@ $(document).ready(function(){
 
     actualizarCiudades();
     actualizarComunas();
+});
 
-    })
+function precioAgregar(precio, tipo){
+    tipo = getTipo(tipo);
+
+    $('.precio-raty').raty({
+        width: 140,
+        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
+        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
+        start: precio,
+        space: false,
+        hintList: tipo,
+        target: '.precio-detalle'
+    });
+}
