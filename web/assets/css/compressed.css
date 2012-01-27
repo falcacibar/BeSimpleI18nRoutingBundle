@@ -2405,227 +2405,189 @@ small {
     padding: 5px 10px;
     width: 456px; }
 
-/* Perfil de usuario */
-#menu-usuario {
-  border-bottom: 1px solid #cccccc;
-  height: 32px; }
-  #menu-usuario a {
-    color: #333333; }
-  #menu-usuario ul {
-    float: right;
-    border: 1px solid #cccccc;
-    border-bottom-width: 0; }
-    #menu-usuario ul li {
-      border-right: 1px solid #cccccc;
-      height: 32px;
-      line-height: 32px;
-      float: left; }
-    #menu-usuario ul li.no-right-border {
-      border-right-width: 0; }
-    #menu-usuario ul li.selected a {
-      color: white; }
-    #menu-usuario ul a {
-      padding: 10px; }
-
-#main-usuario {
-  padding-top: 10px; }
-  #main-usuario li.selected a {
-    color: white; }
-  #main-usuario a {
-    color: #333333; }
-  #main-usuario #data-usuario {
+/* Colores */
+/* Mixin */
+.caja_usuario {
+  float: left;
+  width: 960px; }
+  .caja_usuario .datos_usuario {
+    border: 1px solid #f6f6f6;
+    display: block;
     float: left;
-    width: 22%;
-    height: 100%;
-    border-right: 1px solid #cccccc;
-    font-size: 0.9em; }
-    #main-usuario #data-usuario ul {
-      margin-bottom: 30px; }
-      #main-usuario #data-usuario ul li {
-        display: block; }
-    #main-usuario #data-usuario p {
-      margin-bottom: 30px; }
-    #main-usuario #data-usuario #imagen-usuario img {
-      height: 96px;
-      width: 96px;
-      border: 1px solid #444444;
-      border-radius: 2px;
-      -moz-border-radius: 2px;
-      padding: 1px; }
-    #main-usuario #data-usuario #titulo-usuario {
-      font-size: 1.6em;
+    padding: 20px;
+    width: 918px; }
+    .caja_usuario .datos_usuario .imagen_usuario {
+      float: left;
+      margin: 0 20px 0 0;
+      width: 140px; }
+    .caja_usuario .datos_usuario .nombre_usuario {
+      float: left;
+      font-size: 25px;
       font-weight: bold;
-      margin: 10px 0 20px 0;
-      letter-spacing: -1px; }
-    #main-usuario #data-usuario .editar-link {
-      font-weight: bold; }
-  #main-usuario #content-usuario {
-    width: 76%;
-    float: right;
-    /* Edición de usuario */
-    /* Recomendaciones del usuario */
-    /* Fotos del usuario */ }
-    #main-usuario #content-usuario h1 {
-      margin: 10px 0 20px 0;
-      font-weight: bold;
-      letter-spacing: -1px;
-      font-size: 1.6em; }
-    #main-usuario #content-usuario h1.edicion-titulo {
-      font-size: 1.4em;
-      font-weight: bold; }
-    #main-usuario #content-usuario #menu-edicion {
-      border-bottom: 1px solid #cccccc;
-      height: 32px;
-      margin-top: 20px; }
-      #main-usuario #content-usuario #menu-edicion ul {
-        float: left; }
-        #main-usuario #content-usuario #menu-edicion ul li {
-          float: left;
-          border: 1px solid #cccccc;
-          border-bottom: none;
-          margin-right: 3px;
-          height: 32px;
-          line-height: 32px; }
-          #main-usuario #content-usuario #menu-edicion ul li a {
-            padding: 10px; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario li {
-      margin: 10px 0; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario li .tips {
-        float: left; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario li .tip_form {
-        font-size: 11px; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario li.tip_link {
-      margin-top: 20px; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario li.tip_link a {
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 11px; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario li.submit-borrar input[type=submit] {
-      margin-top: 10px; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-newsletter label {
-      margin-top: 0; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario label {
-      width: 160px;
-      display: inline-block;
-      font-size: 0.9em;
-      margin-top: 5px;
-      float: left; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario label.label-up {
-        margin-top: 0; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=text], #main-usuario #content-usuario .form-edicion .editar-usuario input[type=password], #main-usuario #content-usuario .form-edicion .editar-usuario textarea, #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-sexo {
+      width: 758px; }
+    .caja_usuario .datos_usuario .datos_principales_usuario {
+      float: left;
+      margin: 20px 10px 0 0;
       width: 300px; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=file] {
-      width: 316px; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario input[type=radio] {
-      float: left; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento {
-      width: 100%; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento select {
-        border: 1px solid #cccccc;
-        line-height: 16px; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento .day {
-        width: 50px; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento .month {
-        width: 150px; }
-      #main-usuario #content-usuario .form-edicion .editar-usuario .edicion-fecha-nacimiento .year {
-        width: 100px; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario #form_sexo label {
-      margin: 0 10px 0 5px;
-      width: auto; }
-    #main-usuario #content-usuario .form-edicion .editar-usuario small.errors {
-      float: right;
-      text-align: right;
-      margin-right: 252px; }
-    #main-usuario #content-usuario .form-borrar-foto {
-      float: left;
-      margin-left: 160px; }
-    #main-usuario #content-usuario .edicion {
-      margin-top: 30px; }
-      #main-usuario #content-usuario .edicion .edicion_error {
-        background-color: #ffe5e5;
-        border: 1px solid #ff6666;
-        line-height: 18px;
-        margin: 0 0 20px 0;
-        padding: 5px 10px;
-        width: 456px; }
-    #main-usuario #content-usuario .recomendaciones ul {
-      margin: 10px 0; }
-      #main-usuario #content-usuario .recomendaciones ul li {
-        display: inline;
-        font-size: 11px; }
-    #main-usuario #content-usuario .recomendaciones a {
-      color: #0066cc;
-      cursor: pointer; }
-    #main-usuario #content-usuario .recomendaciones a:hover {
-      text-decoration: underline; }
-    #main-usuario #content-usuario .recomendaciones table {
-      text-align: left;
-      margin-bottom: 20px; }
-      #main-usuario #content-usuario .recomendaciones table tr {
-        border-bottom: 1px solid #cccccc; }
-      #main-usuario #content-usuario .recomendaciones table tr.no-bottom-border {
-        border-bottom: none; }
-      #main-usuario #content-usuario .recomendaciones table th {
-        font-size: 11px;
-        padding: 8px; }
-      #main-usuario #content-usuario .recomendaciones table td {
+      .caja_usuario .datos_usuario .datos_principales_usuario .fecha_registro {
+        color: #cccccc;
+        float: left;
         font-size: 12px;
-        padding: 8px; }
-        #main-usuario #content-usuario .recomendaciones table td a {
-          font-weight: bold; }
-    #main-usuario #content-usuario .fotos_usuario a {
-      color: #0066cc;
-      cursor: pointer;
-      font-size: 11px; }
-    #main-usuario #content-usuario .fotos_usuario a:hover {
-      text-decoration: underline; }
-    #main-usuario #content-usuario .fotos_usuario ul.orden {
-      margin: 10px 0; }
-      #main-usuario #content-usuario .fotos_usuario ul.orden li {
-        display: inline;
-        font-size: 11px; }
-    #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul {
+        width: 300px; }
+      .caja_usuario .datos_usuario .datos_principales_usuario .sexo_usuario_Hombre {
+        background: #ff3300;
+        display: block;
+        float: left;
+        height: 16px;
+        margin: 12px 0 0;
+        width: 16px; }
+      .caja_usuario .datos_usuario .datos_principales_usuario .sexo_usuario_Mujer {
+        background: #aa3300;
+        display: block;
+        float: left;
+        height: 16px;
+        margin: 12px 0 0;
+        width: 16px; }
+      .caja_usuario .datos_usuario .datos_principales_usuario .edad_usuario {
+        display: block;
+        float: left;
+        font-size: 14px;
+        margin: 13px 0 0 10px;
+        width: 274px; }
+      .caja_usuario .datos_usuario .datos_principales_usuario .ciudad_pais_usuario {
+        display: block;
+        float: left;
+        font-size: 14px;
+        margin: 12px 0 0;
+        width: 300px; }
+      .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario {
+        display: block;
+        float: left;
+        font-size: 14px;
+        margin: 12px 0 0;
+        width: 300px; }
+        .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario .facebook_link {
+          background: #ff3300;
+          display: block;
+          float: left;
+          height: 16px;
+          margin: 0 10px 0 0;
+          width: 16px; }
+        .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario .twitter_link {
+          background: #ff3300;
+          display: block;
+          float: left;
+          height: 16px;
+          margin: 0 10px 0 0;
+          width: 16px; }
+        .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario .url_link {
+          display: block;
+          float: left;
+          height: 16px;
+          padding: 0 0 0 20px;
+          width: 16px; }
+          .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario .url_link a {
+            color: #0066cc;
+            text-decoration: none; }
+            .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario .url_link a:hover {
+              color: #0066cc;
+              text-decoration: underline; }
+  .caja_usuario .actividad_usuario_izq {
+    display: block;
+    float: left;
+    font-size: 14px;
+    margin: 20px 10px 0 0;
+    width: 218px; }
+    .caja_usuario .actividad_usuario_izq .recomendaciones_usuario {
+      padding: 0 20px 0 0; }
+    .caja_usuario .actividad_usuario_izq .primeras_recomendaciones_usuario {
+      padding: 10px 20px 0 0; }
+    .caja_usuario .actividad_usuario_izq .imagenes_usuario {
+      padding: 10px 20px 0 0; }
+    .caja_usuario .actividad_usuario_izq .lugares_usuario {
+      padding: 10px 20px 0 0; }
+  .caja_usuario .actividad_usuario_der {
+    display: block;
+    float: left;
+    margin: 20px 0 0 0;
+    width: 218px; }
+    .caja_usuario .actividad_usuario_der .lugares_por_visitar_usuario {
+      padding: 0 20px 0 0; }
+    .caja_usuario .actividad_usuario_der .lugares_visitados_usuario {
+      padding: 10px 20px 0 0; }
+    .caja_usuario .actividad_usuario_der .lugares_por_recomendar_usuario {
+      padding: 10px 20px 0 0; }
+    .caja_usuario .actividad_usuario_der .lugares_favoritos_usuario {
+      padding: 10px 20px 0 0; }
+
+.menu_actividad_usuario {
+  background: #fafafc;
+  border-bottom: 1px solid #f6f6f6;
+  border-top: 1px solid #f6f6f6;
+  border-right: 1px solid #f6f6f6;
+  float: left;
+  margin: 20px 0 0;
+  padding: 75px 0;
+  width: 160px; }
+  .menu_actividad_usuario li {
+    background: #fafafc;
+    border-bottom: 1px solid #f6f6f6;
+    border-top: 1px solid #f6f6f6;
+    border-right: 1px solid #f6f6f6;
+    float: left;
+    padding: 15px 10px 15px 15px;
+    width: 135px; }
+    .menu_actividad_usuario li:hover {
+      border-bottom: 1px solid #cccccc;
+      border-left: 5px solid #cccccc;
       float: left;
-      margin-bottom: 40px; }
-      #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li {
-        display: inline;
-        width: 210px;
-        height: 82px;
-        margin-right: 20px;
-        float: left; }
-        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li a img {
-          border: 1px solid #444444;
-          border-radius: 2px;
-          -moz-border-radius: 2px;
-          padding: 1px;
-          height: 50px;
-          width: 50px; }
-        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li h4 {
-          font-size: 13px;
-          font-weight: bold; }
-          #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li h4 a {
-            color: #333333; }
-        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li span {
-          font-size: 11px; }
-        #main-usuario #content-usuario .fotos_usuario #lista-fotos-usuario ul li .opciones-fotos-usuario {
-          display: none; }
-    #main-usuario #content-usuario .fotos_usuario .paginacion {
-      float: left; }
-    #main-usuario #content-usuario .paginacion span {
-      font-size: 11px; }
-    #main-usuario #content-usuario .paginacion ul li a {
-      border: 1px solid #cccccc;
-      padding: 0 4px;
-      color: #333333; }
-    #main-usuario #content-usuario .paginacion ul li a.actual {
-      color: white;
-      background: #ff3333;
-      border: 1px solid #ff3333; }
+      padding: 15px 10px;
+      width: 135px; }
+    .menu_actividad_usuario li a {
+      color: #999999 !important;
+      text-decoration: none; }
+      .menu_actividad_usuario li a:hover {
+        color: #999999 !important;
+        text-decoration: underline; }
+  .menu_actividad_usuario .selected {
+    background: white;
+    border-bottom: 1px solid #f6f6f6;
+    border-left: 5px solid #66ccff;
+    border-right: 1px solid white;
+    border-top: 1px solid #f6f6f6;
+    float: left;
+    padding: 15px 10px;
+    width: 135px; }
+    .menu_actividad_usuario .selected a {
+      color: #999999 !important;
+      text-decoration: none;
+      font-weight: bold; }
+      .menu_actividad_usuario .selected a:hover {
+        color: #999999 !important;
+        text-decoration: underline;
+        font-weight: bold; }
 
-/*  Extras */
-.bold {
-  font-weight: bold; }
+.caja_actividad_usuario {
+  border-top: 1px solid #f6f6f6;
+  float: left;
+  margin: 20px 0 0;
+  padding: 20px;
+  width: 759px; }
 
-li.selected {
-  background-color: #000066;
+.caja_recomendaciones_usuario {
+  border-top: 1px solid #f6f6f6;
+  float: left;
+  margin: 20px 0 0;
+  padding: 20px;
+  width: 759px; }
+
+.caja_fotos_usuario {
+  border-top: 1px solid #f6f6f6;
+  float: left;
+  margin: 20px 0 0;
+  padding: 20px;
+  width: 759px; }
+
+.titulo_accion_usuario {
+  font-size: 20px;
   font-weight: bold; }

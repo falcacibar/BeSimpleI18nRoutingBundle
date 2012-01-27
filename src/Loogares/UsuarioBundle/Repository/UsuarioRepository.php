@@ -244,27 +244,22 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
                 $sexoResult = null;
         } else {
             $sexoResult = null;
-        }
-
-        $edadSexo = array();
-        $textoEdad = '';
-        if($sexoResult)
-          $edadSexo[] = $sexoResult;
-        if($edad && $usuario->getMostrarEdad()) {
-          $edadSexo[] = $edad;
-          $textoEdad = $edad;
+        }  
+             
+        if(!($edad && $usuario->getMostrarEdad())) {
+          $edad = '';
         }
 
         //Array con links de usuario
         $links = array();
         if($usuario->getWeb() != null || $usuario->getWeb() != '') {
-            $links[] = $usuario->getWeb();
+            $links['web'] = $usuario->getWeb();
         }
         if($usuario->getFacebook() != null || $usuario->getFacebook() != '') {
-            $links[] = $usuario->getFacebook();
+            $links['facebook'] = $usuario->getFacebook();
         }
         if($usuario->getTwitter() != null || $usuario->getTwitter() != '') {
-            $links[] = $usuario->getTwitter();
+            $links['twitter'] = $usuario->getTwitter();
         }
         
         /*
@@ -276,8 +271,8 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         $data->totalPrimerasRecomendaciones = $totalPrimerasRecomendaciones;
         $data->totalLugaresAgregados = $totalLugaresAgregados;
         $data->totalImagenesLugar = $totalImagenesLugar;
-        $data->edadSexo = $edadSexo;
-        $data->textoEdad = $textoEdad;
+        $data->edad = $edad;
+        $data->sexoResult = $sexoResult;
         $data->links = $links;
 
         return $data;

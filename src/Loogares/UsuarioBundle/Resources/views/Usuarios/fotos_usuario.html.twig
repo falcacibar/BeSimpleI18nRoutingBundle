@@ -1,7 +1,9 @@
 {% set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
 
-<div class="fotos_usuario">
-	<h1>{{'usuario.fotos.titulo'|transchoice(usuario.totalImagenesLugar)}} ({{usuario.totalImagenesLugar}})</h1>
+<div class="caja_fotos_usuario">
+	<h2 class="titulo_accion_usuario">
+		{{'usuario.fotos.titulo'|transchoice(usuario.totalImagenesLugar)}} ({{usuario.totalImagenesLugar}})
+	</h2>
 
 	{% if app.session.hasFlash('edicion-foto-lugar') %}
 		    <div class="flash-notice">

@@ -2,8 +2,7 @@
 
 {% block title %}{{usuario.nombre}} {{usuario.apellido}} | {{parent()}}{% endblock %}
 {% block content %}
-	{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
-	<div id="main-usuario">
+	<div class="caja_usuario">
 		{% if app.session.hasFlash('confirmacion-registro') %}
 		    <div class="flash-notice">
 		        {{ app.session.flash('confirmacion-registro') | trans }}
@@ -11,6 +10,8 @@
 		{% endif %}
 		
 		{% include 'LoogaresUsuarioBundle:Usuarios:datos_usuario.html.twig' %}
+
+		{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
 
 		<div id="content-usuario">
 			{% include 'LoogaresUsuarioBundle:Usuarios:'~usuario.tipo~'_usuario.html.twig' %}

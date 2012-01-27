@@ -12,7 +12,7 @@ usuario:
             titulo: ¿Aún no eres parte de Loogares.com?
             texto: Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares increíbles de los que la gente está hablando... y esos otros que no lo son tanto.
             boton: ¡Regístrate!
-            
+
     registro:
         titulo: ¡Regístrate en Loogares.com!
         form:
@@ -51,14 +51,18 @@ usuario:
         primeras_recomendaciones: primera recomendación|primeras recomendaciones
         lugares_agregados: lugar agregado|lugares agregados
         fotos_agregadas: foto agregada|fotos agregadas
-        desde: En Loogares.com desde:
+        por_visitar: lugar por visitar|lugares por visitar
+        visitados: lugar visitado|lugares visitados
+        por_recomendar: lugar por recomendar|lugares por recomendar
+        favoritos: lugar favorito|lugares favoritos
+        desde: Loogareño desde:
         editar: Edita los datos de tu perfil
 
     menu:
         actividad: Actividad
         recomendaciones: Recomendaciones
         fotos: Fotos
-
+        lugares: Listas de lugares
 
     actividad:
         titulo: Mi actividad|Actividad de
@@ -139,7 +143,7 @@ usuario:
                 fecha_registro: Fecha de registro
                 motivo: Motivo
                 asunto: Usuario eliminado            
-    
+
     errors:
         login:
             completo: Debes completar ambos campos
