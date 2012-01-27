@@ -12,7 +12,7 @@ usuario:
             titulo: ¿Aún no eres parte de Loogares.com?
             texto: Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares increíbles de los que la gente está hablando... y esos otros que no lo son tanto.
             boton: ¡Regístrate!
-            
+
     registro:
         titulo: ¡Regístrate en Loogares.com!
         form:
@@ -45,6 +45,8 @@ usuario:
                 texto: Estás a punto de convertirte en un Loogareño, haz clic %open_a%acá%close_a% para confirmar tu cuenta.
                 texto_plano: Estás a punto de convertirte en un Loogareño. Para confirmar tu cuenta, ingresa el siguiente link en tu navegador:
                 asunto: Confirma tu cuenta en Loogares.com
+    perfil:
+        titulo_pag: Perfil De 
     datos:
         edad: año|años
         recomendaciones: recomendación|recomendaciones
@@ -139,7 +141,7 @@ usuario:
                 fecha_registro: Fecha de registro
                 motivo: Motivo
                 asunto: Usuario eliminado            
-    
+
     errors:
         login:
             completo: Debes completar ambos campos
