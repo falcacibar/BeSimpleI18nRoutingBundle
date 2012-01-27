@@ -114,12 +114,7 @@ $(document).ready(function(){
 });
 
 function precioLugar(precio, tipo){
-    console.log(tipo)
-    if(tipo == 'dondeComer'){
-        tipo = ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'];
-    }else if(tipo == 'dondeDormir'){
-        tipo = ['Minimo', 'Barato', 'Medio', 'Alto', 'Maximo'];
-    }
+    tipo = getTipo(tipo);
 
     $('.precio-raty').raty({
         width: 140,
