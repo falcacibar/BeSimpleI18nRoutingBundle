@@ -2487,10 +2487,10 @@ small {
           padding: 0 0 0 20px;
           width: 16px; }
           .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario .url_link a {
-            color: #0066cc;
+            color: #0066cc !important;
             text-decoration: none; }
             .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario .url_link a:hover {
-              color: #0066cc;
+              color: #0066cc !important;
               text-decoration: underline; }
   .caja_usuario .actividad_usuario_izq {
     display: block;
@@ -2576,10 +2576,57 @@ small {
 
 .caja_recomendaciones_usuario {
   border-top: 1px solid #f6f6f6;
+  color: gris_444;
   float: left;
   margin: 20px 0 0;
   padding: 20px;
   width: 759px; }
+  .caja_recomendaciones_usuario ul {
+    border-bottom: 1px solid #f6f6f6;
+    color: #666666;
+    font-size: 14px;
+    float: left;
+    list-style: none;
+    margin: 40px 0 0;
+    padding: 0 0 20px 0;
+    width: 651px; }
+    .caja_recomendaciones_usuario ul li {
+      float: left;
+      margin: 0 5px 0 0; }
+      .caja_recomendaciones_usuario ul li a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        .caja_recomendaciones_usuario ul li a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
+      .caja_recomendaciones_usuario ul li .orden_separacion {
+        color: #cccccc;
+        margin: 0 5px; }
+  .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario {
+    border-bottom: 1px solid #f6f6f6;
+    float: left;
+    display: block;
+    margin: 30px 0;
+    padding: 30px 0;
+    width: 651px; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .nombre_lugar_recomendacion {
+      color: #444444;
+      font-size: 14px; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .categorias_lugar_recomendacion {
+      font-size: 11px;
+      margin: 15px 0 0; }
+      .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .categorias_lugar_recomendacion a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .categorias_lugar_recomendacion a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .fecha_lugar_recomendacion {
+      color: #999999;
+      font-size: 11px;
+      margin: 15px 0 0; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .estrella_lugar_recomendacion {
+      margin: 15px 0 0; }
 
 .caja_fotos_usuario {
   border-top: 1px solid #f6f6f6;

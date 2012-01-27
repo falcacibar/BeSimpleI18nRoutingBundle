@@ -35,11 +35,11 @@ $rojo: #FF3300
     cursor: pointer
 
 @mixin link_azul
-    color: $azul
+    color: $azul !important
     text-decoration: none
 
 @mixin link_azul_hover
-    color: $azul
+    color: $azul !important
     text-decoration: underline
 
 @mixin link_gris_444
@@ -275,10 +275,69 @@ $rojo: #FF3300
 
 .caja_recomendaciones_usuario
     border-top: 1px solid $gris_f6f
+    color: gris_444
     float: left
     margin: 20px 0 0
     padding: 20px
     width: 759px
+
+    ul
+        border-bottom: 1px solid $gris_f6f
+        color: $gris_666
+        font:
+            size: 14px
+        float: left
+        list-style: none
+        margin: 40px 0 0
+        padding: 0 0 20px 0
+        width: 651px
+
+        li
+            float: left
+            margin: 0 5px 0 0
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+            .orden_separacion
+                color: $gris_ccc
+                margin: 0 5px
+    
+    .caja_recomendaciones_lugar_usuario
+        border-bottom: 1px solid $gris_f6f
+        float: left
+        display: block
+        margin: 30px 0
+        padding: 30px 0
+        width: 651px
+
+        .nombre_lugar_recomendacion
+            color: $gris_444
+            font:
+                size: 14px
+        
+        .categorias_lugar_recomendacion
+            font:
+                size: 11px
+            margin: 15px 0 0
+            
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+        .fecha_lugar_recomendacion
+            color: $gris_999
+            font:
+                size: 11px
+            margin: 15px 0 0
+        
+        .estrella_lugar_recomendacion
+            margin: 15px 0 0
 
 .caja_fotos_usuario
     border-top: 1px solid $gris_f6f

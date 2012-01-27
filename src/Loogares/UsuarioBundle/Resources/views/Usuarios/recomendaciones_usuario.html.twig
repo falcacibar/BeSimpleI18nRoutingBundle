@@ -2,23 +2,23 @@
 
 <div class="caja_recomendaciones_usuario">
 	<h2 class="titulo_accion_usuario">
-		{{'usuario.recomendaciones.titulo'|transchoice(usuario.totalRecomendaciones)}} ({{usuario.totalRecomendaciones}})
+		{{usuario.totalRecomendaciones}} {{'usuario.recomendaciones.titulo'|transchoice(usuario.totalRecomendaciones)}}
 	</h2>
 
 	<ul>
-		<li class="bold">{{'usuario.recomendaciones.orden.texto'|trans}}</li>
+		<li><strong>{{'usuario.recomendaciones.orden.texto'|trans}}</strong></li>
 		<li>
-			{% if usuario.orden == 'mejor-evaluadas' %}
-				{{'usuario.recomendaciones.orden.mejores'|trans}} | 
-			{% else %}		
-				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'mejor-evaluadas', 'pagina' : usuario.pagina})}}">{{'usuario.recomendaciones.orden.mejores'|trans}}</a> | 
+			{% if usuario.orden == 'ultimas' %}
+				{{'usuario.recomendaciones.orden.ultimas'|trans}}<span class="orden_separacion">|</span>
+			{% else %}
+				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">{{'usuario.recomendaciones.orden.ultimas'|trans}}</a><span class="orden_separacion">|</span>
 			{% endif %}
 		</li>
 		<li>
-			{% if usuario.orden == 'ultimas' %}
-				{{'usuario.recomendaciones.orden.ultimas'|trans}} | 
-			{% else %}
-				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">{{'usuario.recomendaciones.orden.ultimas'|trans}}</a> | 
+			{% if usuario.orden == 'mejor-evaluadas' %}
+				{{'usuario.recomendaciones.orden.mejores'|trans}}<span class="orden_separacion">|</span>
+			{% else %}		
+				<a href="{{path('recomendacionesUsuario', { 'param' : slug, 'orden' : 'mejor-evaluadas', 'pagina' : usuario.pagina})}}">{{'usuario.recomendaciones.orden.mejores'|trans}}</a><span class="orden_separacion">|</span>
 			{% endif %}
 		</li>
 		<li>
@@ -30,35 +30,25 @@
 		</li>
 	</ul>
 
-	<table>
-		<tr class="no-bottom-border">
-			<th><input type="checkbox" class="recomendaciones-todas" /></th>
-			<th>{{'usuario.recomendaciones.lista.nombre'|trans}}</th>
-			<th>{{'usuario.recomendaciones.lista.evaluacion'|trans}}</th>
-			<th>{{'usuario.recomendaciones.lista.fecha'|trans}}</th>
-			<th>{{'usuario.recomendaciones.lista.categorias'|trans}}</th>
-		</tr>
+	{% set i = 0 %}		
+	{% for recomendacion in usuario.recomendacionesTodas %}			
+		<div class="caja_recomendaciones_lugar_usuario">
+			<strong><a class="nombre_lugar_recomendacion" href="{{path('_lugar', { 'slug': recomendacion.lugar.slug })}}">{{recomendacion.lugar.nombre}}</a></strong>
+			<p class="categorias_lugar_recomendacion"><strong>{{'usuario.recomendaciones.recomendacion.categorias'|trans}}</strong>
+				{% for categoriaLugar in recomendacion.lugar.categoriaLugar %}
+					<a href="#">{{categoriaLugar.categoria.nombre}}</a>
+					{{-((loop.index == recomendacion.lugar.categoriaLugar|length) ? '' : ', ')}}
+				{% endfor %}
+			</p>
+			<p class="fecha_lugar_recomendacion">{{recomendacion.fechaCreacion|date('d/m/Y')}}</p>
+			<p class="estrella_lugar_recomendacion">{{recomendacion.estrellas}}</p>
+			<a href="#">{{'usuario.recomendaciones.lista.ver'|trans}}</a>
+			<a href="#">{{'usuario.recomendaciones.lista.editar'|trans}}</a>
+		</div>
+	{% set i = i + 1 %}		
+	{% endfor %}
 
-		{% set i = 0 %}		
-		{% for recomendacion in usuario.recomendacionesTodas %}			
-			<tr>
-				<td><input type="checkbox" /></td>
-				<td><a href="{{path('_lugar', { 'slug': recomendacion.lugar.slug })}}">{{recomendacion.lugar.nombre}}</a></td>
-				<td>{{recomendacion.estrellas}}</td>
-				<td>{{recomendacion.fechaCreacion|date('d/m/Y')}}</td>
-				<td>
-					{% for categoriaLugar in recomendacion.lugar.categoriaLugar %}
-						<a href="#">{{categoriaLugar.categoria.nombre}}</a>
-						{{-((loop.index == recomendacion.lugar.categoriaLugar|length) ? '' : ', ')}}
-					{% endfor %}
-				</td>			
-				<td><a href="#">{{'usuario.recomendaciones.lista.ver'|trans}}</a></td>
-				<td><a href="#">{{'usuario.recomendaciones.lista.editar'|trans}}</a></td>
-			</tr>
-			{% set i = i + 1 %}
-			
-		{% endfor %}
-	</table>
+
 		{% if usuario.totalPaginas > 1 %}
 		<div class="paginacion">
 			<span>{{ paginacion.mostrandoDe }} al {{ paginacion.mostrandoHasta }} de {{usuario.totalRecomendaciones}} | Ir a la página:</span>

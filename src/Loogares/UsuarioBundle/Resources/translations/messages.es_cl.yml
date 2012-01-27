@@ -70,19 +70,17 @@ usuario:
         titulo: Mi actividad|Actividad de
 
     recomendaciones:
-        titulo: Mi recomendación|Mis recomendaciones
+        titulo: Recomendación|Recomendaciones
         orden:
             texto: Ordenar por:
             mejores: Mejores evaluaciones
             ultimas: Últimas recomendaciones
             alfabetico: Orden alfabético
+        recomendacion:
+            categorias: Categorías:
         lista:
-            nombre: Nombre
-            evaluacion: Evaluación
-            fecha: Fecha
-            categorias: Categorías
-            ver: Lee
-            editar: Edita tu recomendación
+            ver: Ver recomendación
+            editar: Editar recomendación
     fotos:
         titulo: Mi foto|Mis fotos
         orden:
