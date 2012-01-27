@@ -9,7 +9,7 @@
     <script src='../../assets/js/googleMapFicha.js'></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
-    <script>editarRecomendacion({{lugar.slug}})</script>
+    <script>editarRecomendacion("{{lugar.slug}}")</script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -70,21 +70,12 @@
                         <a class="twitter_lugar" href="http://{{ lugar.twitter }}" target="_blank"></a>
                     {% endif %}
                 </div>
-               {% if 
-                    lugar.categoriaLugar[0].categoria.tipoCategoria.id != 3 or lugar.categoriaLugar[0].categoria.tipoCategoria.id != 6 or lugar.categoriaLugar.categoria.id != 31
-                %}
+                
+                {% if lugar.mostrarPrecio != null %}
                     <div class="precio_lugar" id="precio">
                         <script>
                             $(document).ready(function(){
-                                {% if lugar.categoriaLugar[0].categoria.tipoCategoria.id == 3%}
-                                    precioLugar({{lugar.precio}}, 'dondeComer');    
-                                {% endif %}
-                                {% if lugar.categoriaLugar[0].categoria.tipoCategoria.id == 6%}
-                                    precioLugar({{lugar.precio}}, 'dondeDormir'); 
-                                {% endif %}
-                                {% if lugar.categoriaLugar[0].categoria.id == 31%}
-                                    //Nightclub
-                                {% endif %}
+                                precioLugar({{lugar.precio}}, '{{lugar.mostrarPrecio}}');    
                             }); 
                         </script>                          
                         <p style="float: left;">{{'lugar.ficha.datos.precio'|trans}}</p><div class="precio-raty precio_global"></div>
@@ -167,6 +158,15 @@
                                 {% endif %}
                                 <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% endfor %}
                         </div>
+                    {% endif %}
+                    {% if lugar.profesional != null %}
+                        <span class="subtitulos_lugar">{{'lugar.ficha.datos.profesional'|trans}}: {{lugar.profesional}}</span>
+                    {% endif %}
+                    {% if lugar.agnoConstruccion != null %}
+                        <span class="subtitulos_lugar">{{'lugar.ficha.datos.agnoConstruccion'|trans}}: {{lugar.agnoConstruccion}}</span>
+                    {% endif %}
+                    {% if lugar.materiales != null %}
+                        <span class="subtitulos_lugar">{{'lugar.ficha.datos.materiales'|trans}}: {{lugar.materiales}}</span>
                     {% endif %}
                 </div>
             </div>

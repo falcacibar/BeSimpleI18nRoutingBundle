@@ -339,7 +339,9 @@
         {% for pais in data.pais %}
             <optgroup label="{{pais.nombre}}">
                 {% for ciudad in data.ciudad %}
+                    {% if ciudad.pais.id == pais.id %}
                     <option {% if data.ciudadActual.id == ciudad.id %} selected="selected" {% endif %} value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
+                    {% endif %}
                 {% endfor %}
             </optgroup>
         {% endfor %}
@@ -474,10 +476,11 @@
         <span>2</span>)</a></span>
     </li>
     {% if is_granted('ROLE_ADMIN')%}
-    <li>
+    <li class="no-default precio-li">
         <label>{{'lugar.agregar.precio'|trans}}</label>
         <div class="precio">
-            <div class="precio-raty"></div>
+            <div data-stars="{{lugar.precio}}" class="precio-raty"></div>
+            <div class="precio-detalle"></div>
         </div>
     </li>
     {% endif %}
@@ -828,7 +831,8 @@
         <input type="hidden" name="id" class="id" value="{{lugar.id}}"/>
         <li class="obligatorio_tip">
             <span>{{'lugar.agregar.obligatorio'|trans}}</span>
-        </li>
+    </li>
+    {% if lugar.slug == null %}
     <li>
         <label>Recomendacion</label>
         <input type="checkbox" name="habilitar-recomienda" class="display-next-li-cb" />
@@ -837,6 +841,7 @@
     <li class="no-default">
         {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
     </li>
+    {% endif %}
     <li><input class="guardar-datos" type="submit" value="{{'lugar.agregar.submit'|trans}}" formnovalidate/></li>
 </ul>
 

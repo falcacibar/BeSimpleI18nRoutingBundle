@@ -1,7 +1,9 @@
 {% set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
 
-<div class="recomendaciones">
-	<h1>{{'usuario.recomendaciones.titulo'|transchoice(usuario.totalRecomendaciones)}} ({{usuario.totalRecomendaciones}})</h1>
+<div class="caja_recomendaciones_usuario">
+	<h2 class="titulo_accion_usuario">
+		{{'usuario.recomendaciones.titulo'|transchoice(usuario.totalRecomendaciones)}} ({{usuario.totalRecomendaciones}})
+	</h2>
 
 	<ul>
 		<li class="bold">{{'usuario.recomendaciones.orden.texto'|trans}}</li>

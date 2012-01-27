@@ -71,7 +71,7 @@ lugar:
             profesional: Ej. Nombre del Arquitecto, Paisajista, etc
             construccion: Ej. 1985, Siglo XX
             descripcion: Ej. Breve descripción del lugar
-            materiales: Ej. Cobre, Granito, etc        
+            materiales: Ej. Cobre, Granito, etc
         quitar: Quitar
         obligatorio: Los campos con (*) son obligatorios
         submit: Guardar los datos
@@ -95,6 +95,9 @@ lugar:
             horario: Horario:
             sector: Sector:
             subcategorias: Subcategorías
+            profesional: Profesional
+            agnoConstruccion: Año de construcción
+            materiales: Materiales
         opciones:
             owner: ¿Eres dueño de este Lugar?
             editar: Edita los datos
@@ -155,6 +158,7 @@ lugar:
         fotos:
             no_imagen: Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.
             valida: No tienes seleccionado ningún archivo. Por favor, elige uno.
+            titulo_pag: Agrega una Foto
     flash:
         foto:
             agregar: ¡Ese es el espíritu, %nombre% %apellido%! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.
@@ -188,7 +192,6 @@ reportes:
         recomendacion:
             asunto: Reporte: Recomendación de
             titulo: Recomendación
-            
+
         usuario: Usuario
         observacion: Observación
-          

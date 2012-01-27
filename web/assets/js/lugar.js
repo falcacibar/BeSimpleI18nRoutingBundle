@@ -71,13 +71,11 @@ $(document).ready(function(){
             $pedida.removeClass('recomendacion_pedida');
 
             if(eq != -1){
-                console.log(eq)
                 if(eq == 0){
                     $('.recomendacion').eq(eq+1).before($pedida.show());
                 }else{
                     $('.recomendacion').eq(eq).after($pedida.show());
                 }
-                
             }else{
                 $pedida.remove();
             }
@@ -101,7 +99,6 @@ $(document).ready(function(){
            type: 'post',
            data: {'recomendacion': dataUtil[0], 'usuario': dataUtil[1]},
            success: function(data){
-            console.log(data)
                 var util = parseInt($this.parent().find('.conteo_util').text());
                 if($this.hasClass('boton_activado')){
                     $this.removeClass('boton_activado').addClass('boton_desactivado');
@@ -117,11 +114,7 @@ $(document).ready(function(){
 });
 
 function precioLugar(precio, tipo){
-    if(tipo == 'dondeComer'){
-        tipo = ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'];
-    }else if(tipo == 'dondeDormir'){
-        tipo = ['Minimo', 'Barato', 'Medio', 'Alto', 'Maximo'];
-    }
+    tipo = getTipo(tipo);
 
     $('.precio-raty').raty({
         width: 140,

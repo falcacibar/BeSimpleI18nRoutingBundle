@@ -1,40 +1,62 @@
-<div id="data-usuario">
-	<div id="imagen-usuario">
+<!-- Quitar después, una vez que esté echo lo del menú -->
+{% 	set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
+{% if usuario.tipo is defined and usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
+	<a href="{{path('editarUsuario', { 'param': slug })}}" class="editar-link">{% trans %}usuario.datos.editar{% endtrans %}</a>
+{% endif %}
+<!-- Quitar después, una vez que esté echo lo del menú -->
+
+<div class="datos_usuario">
+	<div class="imagen_usuario">
 		<a href="{{asset('assets/images/usuarios/'~usuario.imagenFull)}}">
-			<img src="{{ ('assets/images/usuarios/'~usuario.imagenFull) | apply_filter('medium_usuario') }}" />
+			<img src="{{ ('assets/images/usuarios/'~usuario.imagenFull) | apply_filter('medium_usuario') }}" height="140" width="140" />
 		</a>
 	</div>
-	<h3 id="titulo-usuario">{{usuario.nombre}} {{usuario.apellido}}</h3>
 
-	<ul>
-		<li>{{usuario.nombre}} {{usuario.apellido}}</li>
-		<li>
-			{{ usuario.edadSexo|join(', ') }}
-			{% if usuario.textoEdad is not empty%}
-				{% transchoice usuario.textoEdad%}usuario.datos.edad{% endtranschoice %}
-			{% endif %}
-	</ul>
+	<h1 class="nombre_usuario">{{usuario.nombre}} {{usuario.apellido}}</h1>
 	
+	<div class="datos_principales_usuario">
+		<p class="fecha_registro">{% trans %}usuario.datos.desde{% endtrans %} {{usuario.fechaRegistro|date('d/m/Y')}}</p>
+		<p class="sexo_usuario_{{ usuario.sexoResult }}"></p>
+		<p class="edad_usuario">
+			{% if usuario.edad is not empty %}
+				{{usuario.edad}} {% transchoice usuario.edad%}usuario.datos.edad{% endtranschoice %}
+			{% endif %}
+		</p>
+		{% if usuario.comuna is defined %}
+			<p class="ciudad_pais_usuario">{{ usuario.comuna.ciudad.nombre }}, {{usuario.comuna.ciudad.pais.nombre}}</p>
+		{% endif %}
 
-	<ul class="bold">
-		<li>{{usuario.totalRecomendaciones}} {% transchoice usuario.totalRecomendaciones%}usuario.datos.recomendaciones{% endtranschoice %}</li>
-		<li>{{usuario.totalPrimerasRecomendaciones}} {% transchoice usuario.totalPrimerasRecomendaciones%}usuario.datos.primeras_recomendaciones{% endtranschoice %}</li>
-		<li>{{usuario.totalLugaresAgregados}} {% transchoice usuario.totalLugaresAgregados%}usuario.datos.lugares_agregados{% endtranschoice %}</li>
-		<li>{{usuario.totalImagenesLugar}} {% transchoice usuario.totalImagenesLugar%}usuario.datos.fotos_agregadas{% endtranschoice %}</li>
-	</ul>
-
-	<p class="bold">{% trans %}usuario.datos.desde{% endtrans %}<br /> {{usuario.fechaRegistro|date('d/m/Y')}}</p>
-	{% if usuario.links|length > 0 %}
-		<ul class="bold">
-		{% for link in usuario.links %}
-			<li><a href="http://{{link}}" target="blank">{{link}}</a></li>
-		{% endfor %}
+		{% if usuario.links|length > 0 %}
+			<ul class="link_usuario">
+				{% if usuario.links.facebook is defined %}
+					<li class="facebook_link"><a href="http://{{ usuario.links.facebook }}" target="blank"></a></li>
+				{% endif %}
+				{% if usuario.links.twitter is defined %}
+					<li class="twitter_link"><a href="http://{{ usuario.links.twitter }}" target="blank"></a></li>
+				{% endif %}
+				{% if usuario.links.web is defined %}
+					<li class="url_link"><a href="http://{{ usuario.links.web }}" target="blank">{{ usuario.links.web }}</a></li>
+				{% endif %}			
+			</ul>
+		{% endif %}
+	</div>
+	
+	<div class="actividad_usuario_izq">
+		<ul>
+			<li class="recomendaciones_usuario">{{usuario.totalRecomendaciones}} {% transchoice usuario.totalRecomendaciones%}usuario.datos.recomendaciones{% endtranschoice %}</li>
+			<li class="primeras_recomendaciones_usuario">{{usuario.totalPrimerasRecomendaciones}} {% transchoice usuario.totalPrimerasRecomendaciones%}usuario.datos.primeras_recomendaciones{% endtranschoice %}</li>
+			<li class="imagenes_usuario">{{usuario.totalImagenesLugar}} {% transchoice usuario.totalImagenesLugar%}usuario.datos.fotos_agregadas{% endtranschoice %}</li>
+			<li class="lugares_usuario">{{usuario.totalLugaresAgregados}} {% transchoice usuario.totalLugaresAgregados%}usuario.datos.lugares_agregados{% endtranschoice %}</li>
 		</ul>
-	{% endif %}
+	</div>
 
+	<div class="actividad_usuario_der">
+		<ul>
+			<li class="lugares_por_visitar_usuario">{{usuario.totalPrimerasRecomendaciones}} {% transchoice usuario.totalPrimerasRecomendaciones%}usuario.datos.por_visitar{% endtranschoice %}</li>
+			<li class="lugares_visitados_usuario">{{usuario.totalRecomendaciones}} {% transchoice usuario.totalRecomendaciones%}usuario.datos.visitados{% endtranschoice %}</li>
+			<li class="lugares_por_recomendar_usuario">{{usuario.totalImagenesLugar}} {% transchoice usuario.totalImagenesLugar%}usuario.datos.por_recomendar{% endtranschoice %}</li>
+			<li class="lugares_favoritos_usuario">{{usuario.totalLugaresAgregados}} {% transchoice usuario.totalLugaresAgregados%}usuario.datos.favoritos{% endtranschoice %}</li>
+		</ul>
+	</div>
 
-	{% 	set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
-	{% if usuario.tipo is defined and usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
-		<a href="{{path('editarUsuario', { 'param': slug })}}" class="editar-link">{% trans %}usuario.datos.editar{% endtrans %}</a>
-	{% endif %}
 </div>
