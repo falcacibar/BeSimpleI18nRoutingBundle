@@ -290,15 +290,36 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
 
         foreach($itemsABorrar as $item){    
             $lugar = $lr->findOneById($item);
+            $mail = array();
+            $mail['lugar'] = $lugar;
+            $mail['usuario'] = $lugar->getUsuario();
+
             if($borrar == true){
                 $estado = $lr->getEstado(3);
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.lugar.borrar.asunto').' '.$lugar->getNombre();                
+                $mail['tipo'] = "borrar";
+
             }else if($cerrar == true){
-                $estado = $lr->getEstado(4);
+                $estado = $lr->getEstado(4);                
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.lugar.cerrar.asunto').' '.$lugar->getNombre();
+                $mail['tipo'] = "cerrar";                
+
             }else if($habilitar == true){
                 $estado = $lr->getEstado(2);
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.lugar.aprobar.asunto').' '.$lugar->getNombre();
+                $mail['tipo'] = "aprobar";    
             }
-            
-            $lugar->setEstado($estado[0]);
+
+            // Se envía mail a usuario que agregó el lugar
+            $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo($mail['usuario']->getMail());
+            $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+            $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_lugar.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+            $this->get('mailer')->send($message);
+
+            $lugar->setEstado($estado);
             $em->persist($lugar);
         }
 
@@ -624,13 +645,29 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
 
         foreach($itemsABorrar as $item){    
             $imagen = $ilr->findOneById($item);
+            $mail = array();
+            $mail['imagen'] = $imagen;
+            $mail['usuario'] = $imagen->getUsuario();
             if($borrar == true){
                 $estado = $lr->getEstado(3);
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.imagen.borrar.asunto', array('%lugar%' => $imagen->getLugar()->getNombre()));                
+                $mail['tipo'] = "borrar";
+
             }else if($aprobar == true){
                 $estado = $lr->getEstado(2);
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.imagen.aprobar.asunto', array('%lugar%' => $imagen->sgetLugar()->getNombre()));
+                $mail['tipo'] = "aprobar";
             }
+
+            $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo($mail['usuario']->getMail());
+            $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+            $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_foto.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+            $this->get('mailer')->send($message);
             
-            $imagen->setEstado($estado[0]);
+            $imagen->setEstado($estado);
             $em->persist($imagen);
         }
 
@@ -656,10 +693,35 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
 
         if($request->getMethod() == 'POST'){
             $imagen->setTituloEnlace($_POST['titulo_enlace']);
+            $imagen->setFechaModificacion(new \DateTime());
+
+            // Verificamos si es URL
+            $match = preg_match('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', $imagen->getTituloEnlace());
+            if($match > 0)
+                $imagen->setEsEnlace(1);
+            else
+                $imagen->setEsEnlace(0);
+
             if(isset($_POST['lugar_id']) && $_POST['lugar_id'] != ''){
                 $lugar = $lr->findOneById($_POST['lugar_id']);
+                $lugarAntiguo = $imagen->getLugar();
                 $imagen->setLugar($lugar);
                 $slug = $lugar->getSlug();
+
+                // Mail al usuario que agregó la foto notificando que se movió su foto.
+                $mail = array();
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.imagen.mover.asunto', array('%old_lugar%' => $lugarAntiguo->getNombre(), '%new_lugar%' => $imagen->getLugar()->getNombre()));
+                $mail['imagen'] = $imagen;
+                $mail['old_lugar'] = $lugarAntiguo;
+                $mail['usuario'] = $imagen->getUsuario();
+                $mail['tipo'] = "mover";
+                $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo($mail['usuario']->getMail());
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_foto.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                $this->get('mailer')->send($message);                
             }
             $em->persist($imagen);
             $em->flush();
@@ -678,6 +740,22 @@ on caracteristica.id = caracteristica_lugar.caracteristica_id
             'slug' => $slug,
             'query' => $_GET
         ));
+    }
+
+    public function testMailAction() {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $imagen = $ilr->find(17553);
+        $lugar = $lr->find(3480);
+        $mail = array();
+        $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.imagen.borrar.asunto', array('%lugar%' => $imagen->getLugar()->getNombre()));
+        $mail['imagen'] = $imagen;
+        //$mail['lugar_new'] = $lugar;
+        $mail['usuario'] = $imagen->getUsuario();
+        $mail['tipo'] = "borrar";
+
+        return $this->render('LoogaresAdminBundle:Mails:mail_accion_foto.html.twig', array('mail' => $mail));
     }
 
 }

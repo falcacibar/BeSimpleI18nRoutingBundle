@@ -90,3 +90,7 @@ LoogaresAdminBundle_fotosLugar:
     pattern:  /lugares/{ciudad}/{slug}/fotos
     defaults: { _controller: LoogaresAdminBundle:Admin:fotosLugar }
 
+
+_test_mail:
+    pattern:  /test/mail
+    defaults: { _controller: LoogaresAdminBundle:Admin:testMail }

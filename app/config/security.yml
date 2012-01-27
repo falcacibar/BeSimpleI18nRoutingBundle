@@ -36,6 +36,7 @@ security:
                 target: /usuario
             remember_me:
                 key: remember
+                lifetime: 1209600
 #            fos_facebook:
  #               app_url: "http://apps.facebook.com/Loogares.com/"
   #              server_url: "http://localhost/loogares/app_dev.php/" 
