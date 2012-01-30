@@ -1,0 +1,133 @@
+{% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
+
+{% block title %}Lugares | {{parent()}}{% endblock %}
+{% block javascript %}
+    <script>
+        $(document).ready(function(){
+            $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
+            var dates = $( "#fecha-desde-ph, #fecha-hasta-ph" ).datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '2009:c',
+                numberOfMonths: 1,
+                onSelect: function( selectedDate ) {
+                    var option = this.id == "fecha-desde-ph" ? "minDate" : "maxDate",
+                        instance = $( this ).data( "datepicker" ),
+                        date = $.datepicker.parseDate(
+                            instance.settings.dateFormat ||
+                            $.datepicker._defaults.dateFormat,
+                            selectedDate, instance.settings );
+                    dates.not( this ).datepicker( "option", option, date );
+                },
+                dateFormat: 'DD, d MM, yy',
+            });
+
+            $( "#fecha-desde-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
+            $( "#fecha-desde-ph" ).datepicker( "option", "altField", '#fecha-desde' );
+
+            $( "#fecha-hasta-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
+            $( "#fecha-hasta-ph" ).datepicker( "option", "altField", '#fecha-hasta' );
+
+            {% if query['fecha-desde'] is defined %}
+                $('#fecha-desde-ph').datepicker('setDate', "01-01-12");
+            {% endif %}
+        
+            $('form').submit(function(){
+                $(this).find('input, select').each(function(){
+                    $this = $(this);
+                    if($this.val() == ''){
+                        $this.attr('disabled', 'disabled');
+                    }
+                });
+            });
+
+            $('.seleccionar-todo').click(function(e){
+                e.preventDefault();
+                $('input[name="id[]"]').click().attr('checked', 'checked');
+            });
+            
+            $('.deseleccionar-todo').click(function(e){
+                e.preventDefault();
+                $('input[name="id[]"]').click().removeAttr('checked', 'checked');
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+
+<h1 class="titulo_admin">Recomendaciones | {{ ciudadNombre | default('Todos')}}</h1>
+
+<div class="filtro_admin">
+    <div class="periodo">
+        Período entre el <input type="text" class="periodo_fecha" id="fecha-desde-ph" value="">
+        y el <input type="text" class="periodo_fecha" id="fecha-hasta-ph" value="">
+    </div>
+
+    <form class="filtrar-por-fecha" action="" method="get">
+        <input type="hidden" name="fecha-desde" id="fecha-desde" value="">
+        <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="">
+        <div class="buscar">
+            Buscar <input type="text" name="buscar" class="buscar_lugar" placeholder="Lugares por Nombre o Id" {% if query.buscar is defined %}value="{{query.buscar}}{% endif %}"/>
+        </div>
+
+        <div class="seleccionar_estado">
+            Seleccionar 
+            <select name="pestado">
+                <option value=''>Todos</option>
+                <option {% if query.pestado is defined and query.pestado == 'Aprobado'%} selected="selected" {% endif %}value="Aprobado">Aprobados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Por Revisar'%} selected="selected" {% endif %}value="Por Revisar">Por Revisar</option>
+                <option {% if query.pestado is defined and query.pestado == 'Cerrado'%} selected="selected" {% endif %}value="Cerrado">Cerrados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Reportado'%} selected="selected" {% endif %}value="Reportado">Reportados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
+            </select>
+            <input type="submit" value="Filtrar"/>
+            <a href="">Quitar filtros</a>
+        </div>
+    </form>
+</div>
+
+<form action="" method="post">
+    <div class="listado_admin">
+        <div class="table-data">
+            <table class="listado_lugares">
+                <thead>
+
+                </thead>
+
+                <tbody>
+                    {% for recomendacion in recomendaciones %}
+                        <tr>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="seleccion_masiva">
+        <a href="#" class="seleccionar-todo">Seleccionar todo</a> | <a href="#" class="deseleccionar-todo">Deseleccionar todo</a> | 
+        <select name="accion">
+            <option>Acciones para la selección</option>
+            <option value="aprobar">Aprobar Lugares</option>
+            <option value="cerrar">Cerrar Lugares</option>
+            <option value="eliminar">Eliminar Lugares</option>
+        </select>
+        <input type="submit" value="Enviar datos"/>
+    </div>
+</form>
+
+<div class="total_paginacion">
+
+</div>
+
+<ul class="paginacion">
+
+</ul>
+
+<div class="footer_admin">
+    © 2010~2012 Loogares.com
+</div>
+
+{% endblock %}

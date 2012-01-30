@@ -4,6 +4,33 @@ namespace Loogares\ExtraBundle\Functions;
 class LoogaresFunctions
 {
 
+    public function mostrarPrecio($lugar){
+        //Donde Dormir 6 | Donde Comer 3
+        //Nightclub 31
+        $mostrarPrecioCategoria = array('nightclub' => 31);
+        $mostrarPrecioTipoCategoria = array('dondeDormir' => 6, 'dondeComer' => 3);
+        $mostrarPrecio = false;
+
+        //Comprobamos si mostramos el precio
+        foreach($lugar->getCategoriaLugar() as $categoriaLugar){
+          $idCategoria = $categoriaLugar->getCategoria()->getId();
+          $idTipoCategoria = $categoriaLugar->getCategoria()->getTipoCategoria()->getId();
+
+          foreach($mostrarPrecioCategoria as $key => $value){
+            if($idCategoria == $value){
+              $mostrarPrecio = $key;
+            }
+          }
+          foreach($mostrarPrecioTipoCategoria as $key => $value){
+            if($idTipoCategoria == $value){
+              $mostrarPrecio = $key;
+            }
+          }
+        }
+
+        return $mostrarPrecio;
+    }
+
     public function paginacion($total, $porPagina, $path, $params = array(), $router, $options = null){
         $buffer = '';
         $paginaActual = (!isset($_GET['pagina']))?1:$_GET['pagina'];

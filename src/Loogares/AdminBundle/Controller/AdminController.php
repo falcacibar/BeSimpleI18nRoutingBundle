@@ -36,13 +36,94 @@ class AdminController extends Controller
 
     public function administrarLugaresAction($ciudad){
         $em = $this->getDoctrine()->getEntityManager();
-        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
-        $tlr = $em->getRepository("LoogaresAdminBundle:TempLugar");
-        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+
+        $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
+        $idCiudad = $cr->findOneBySlug($ciudad);
+    
+        //Total Lugares por $ciudad
+        $q = $em->createQuery("SELECT count(u) 
+                                FROM Loogares\LugarBundle\Entity\Lugar u 
+                                LEFT JOIN u.comuna c
+                                where c.ciudad = ?1");
+        $q->setParameter(1, $idCiudad);
+        $totalLugaresResult = $q->getSingleScalarResult();
+
+        //Total Lugares por $ciudad reportados
+        $q = $em->createQuery("SELECT count(u) 
+                                FROM Loogares\LugarBundle\Entity\Lugar u 
+                                LEFT JOIN u.comuna c
+                                where c.ciudad = ?1
+                                and u.estado = ?2");
+        $q->setParameter(1, $idCiudad);
+        $q->setParameter(2, 5);
+        $totalLugaresReportadosResult = $q->getSingleScalarResult();
+
+        //Total Lugares por $ciudad sin revisar
+        $q = $em->createQuery("SELECT count(u) 
+                                FROM Loogares\LugarBundle\Entity\Lugar u 
+                                LEFT JOIN u.comuna c
+                                where c.ciudad = ?1
+                                and u.estado = ?2");
+        $q->setParameter(1, $idCiudad);
+        $q->setParameter(2, 1);
+        $totalLugaresPorRevisarResult = $q->getSingleScalarResult();
+
+        //Total de lugares con revision por $ciudad
+        $q = $em->createQuery("SELECT count(distinct tl.lugar)
+                             FROM Loogares\AdminBundle\Entity\TempLugar tl
+                             LEFT JOIN tl.comuna c
+                             WHERE tl.estado = ?1 and c.ciudad = ?2");
+        $q->setParameter(1, 1);
+        $q->setParameter(2, $idCiudad);
+        $totalLugaresConRevisionResult = $q->getSingleScalarResult();
+        
+        //Total de fotos por $ciudad
+        $q = $em->createQuery("SELECT count(il)
+                             FROM Loogares\LugarBundle\Entity\ImagenLugar il
+                             LEFT JOIN il.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1");
+        $q->setParameter(1, $idCiudad);
+        $totalFotosResult = $q->getSingleScalarResult();
+
+        //Total de fotos reportadas por $ciudad
+        $q = $em->createQuery("SELECT count(il)
+                             FROM Loogares\LugarBundle\Entity\ImagenLugar il
+                             LEFT JOIN il.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1 and il.estado = ?2");
+        $q->setParameter(1, $idCiudad);
+        $q->setParameter(2, 5);
+        $totalFotosReportadasResult = $q->getSingleScalarResult();
+
+        //Total de fotos por revisar por $ciudad
+        $q = $em->createQuery("SELECT count(il)
+                             FROM Loogares\LugarBundle\Entity\ImagenLugar il
+                             LEFT JOIN il.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1 and il.estado = ?2");
+        $q->setParameter(1, $idCiudad);
+        $q->setParameter(2, 1);
+        $totalFotosPorRevisarResult = $q->getSingleScalarResult();
+
+        //Total recomendaciones por $ciudad
+        $q = $em->createQuery("SELECT count(r)
+                             FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                             LEFT JOIN r.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1");
+        $q->setParameter(1, $idCiudad);
+        $totalRecomendacionesResult = $q->getSingleScalarResult();
 
         return $this->render('LoogaresAdminBundle:Admin:administrarLugares.html.twig', array(
-            'totalLugares' => $lr->getTotalLugaresPorCiudad($ciudad),
-            'totalPorRevision' => $tlr->getTotalLugaresARevisarPorCiudad($ciudad),
+            'totalLugares' => $totalLugaresResult,
+            'totalLugaresPorRevisar' => $totalLugaresPorRevisarResult,
+            'totalLugaresReportados' => $totalLugaresReportadosResult,
+            'totalLugaresConRevision' => $totalLugaresConRevisionResult,
+            'totalFotos' => $totalFotosResult,
+            'totalFotosReportadas' => $totalFotosReportadasResult,
+            'totalFotosPorRevisar' => $totalFotosPorRevisarResult,
+            'totalRecomendaciones' => $totalRecomendacionesResult,
             'ciudad' => $ciudad
         ));
     }
@@ -113,7 +194,6 @@ class AdminController extends Controller
             }else{
                 $where .= " and lugares.nombre LIKE '%$buscar%'";
             }
-            
         }
 
         if(isset($_GET['fecha-desde']) && isset($_GET['fecha-hasta'])){
@@ -505,6 +585,7 @@ class AdminController extends Controller
     public function fotosLugarAction($ciudad, $slug){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
         if($slug == 'todos'){
             $nombre = "Todos";
             $where = null;
@@ -609,7 +690,7 @@ class AdminController extends Controller
             'ciudad' => $ciudad
         );
 
-        $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_fotosLugar', $params, $this->get('router')    );
+        $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_fotosLugar', $params, $this->get('router'));
 
         return $this->render('LoogaresAdminBundle:Admin:fotosLugar.html.twig', array(
             'fotos' => $fotos,
@@ -683,6 +764,259 @@ class AdminController extends Controller
         unset($args['id']);
 
         return $this->redirect($this->generateUrl('LoogaresAdminBundle_fotosLugar', $args));
+    }
+
+    public function listadoRecomendacionesAction($ciudad){
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $idCiudad = $cr->findOneBySlug($ciudad);
+
+        $where = "WHERE ciudad.id = ".$idCiudad->getId();
+        $order = null;
+        $like = null;
+        $offset = 0;
+        $fn = $this->get('fn');
+
+        $filters = array(
+            'pusuario' => 'usuarioSlug',
+            'plugar' => 'lugarSlug',
+            'pestrellas' => 'estrellas',
+            'pprecio' => 'precio',
+            'putil' => 'util',
+            'pestado' => 'estado'
+        );
+
+        $listadoFilters = array(
+            'fecha_creacion' => 'fecha_creacion',
+            'estrellas' => 'estrellas',
+            'precio' => 'precio',
+            'utiles' => 'util',
+            'usuario' => 'usuarioSlug',
+            'lugar' => 'lugarNombre'
+        );
+
+        if(isset($_GET['buscar'])){
+            $buscar = $_GET['buscar'];
+            if(preg_match('/[A-Za-z]+/', $buscar) == false){
+                    $where .= " and r.id = '$buscar'";
+            }else{
+                    $where .= " and lugarNombre like '%$buscar%'";
+            }
+        }
+
+        if(isset($_GET['fecha-desde']) && isset($_GET['fecha-hasta'])){
+            $hasta = preg_replace('/-/', '/',$_GET['fecha-hasta']);
+            $hasta = explode('/', $hasta);
+            $hasta = $hasta[2] . "/" . $hasta[1] . "/" . $hasta[0];
+
+            $desde = preg_replace('/-/', '/',$_GET['fecha-desde']);
+            $desde = explode('/', $desde);
+            $desde = $desde[2] . "/" . $desde[1] . "/" . $desde[0];
+            if($where != null){
+                $where .= " and fecha_creacion between '$desde' and '$hasta'";
+            }else{
+               $where .= "WHERE fecha_creacion between '$desde' and '$hasta'"; 
+            }
+        }
+
+        foreach($_GET as $column => $filter){
+            if(!$like && isset($filters[$column])){
+                $like = "HAVING ".$filters[$column]." LIKE '%$filter%'";
+            }
+             if($filter == 'asc' || $filter == 'desc'){
+                if(!$order){
+                    $order .= "ORDER BY ".$listadoFilters[$column]." $filter";
+                }else{
+                    $order .= ", $listadoFilters[$column] $filter";
+                }
+                $filters[$column] = ($filter == 'asc')?'desc':'asc';
+            }
+        }
+
+        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);        
+                
+        $recomendacionesResult = $this->getDoctrine()->getConnection()
+        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, LEFT(r.texto, 140) as texto, 
+                    lugares.nombre as lugarNombre, lugares.slug as lugarSlug,
+                    usuarios.nombre as usuarioNombre, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
+                    count(util.id) as util,
+                    (select estado.nombre from estado where r.estado_id = estado.id) as estado,
+                    GROUP_CONCAT(DISTINCT tag.tag) as tags
+
+                    FROM recomendacion as r
+
+                    LEFT JOIN lugares
+                    on lugares.id = r.lugar_id
+
+                    LEFT JOIN comuna
+                    on lugares.comuna_id = comuna.id
+
+                    LEFT JOIN ciudad
+                    on ciudad.id = comuna.ciudad_id
+
+                    LEFT JOIN usuarios
+                    on usuarios.id = r.usuario_id
+
+                    LEFT JOIN util
+                    on util.recomendacion_id = r.id
+
+                    LEFT JOIN tag_recomendacion
+                    ON tag_recomendacion.recomendacion_id = r.id
+
+                    LEFT JOIN tag
+                    on tag_recomendacion.tag_id = tag.id
+
+                    $where
+                    GROUP BY r.id
+                    $like
+                    $order
+                    LIMIT 30
+                    OFFSET $offset");
+
+        $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
+
+        //Explotamos los tags, BOOM
+        for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
+            $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
+        }
+
+
+        $params = array(
+            'ciudad' => $ciudad
+        );
+
+        $options = array(
+            'izq' => 5,
+            'der' => 5
+        );
+
+        $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_listadoRecomendaciones', $params, $this->get('router'), $options);
+
+        return $this->render('LoogaresAdminBundle:Admin:listadoRecomendaciones.html.twig', array(
+            'recomendaciones' => $recomendacionesResult,
+            'ciudad' => $ciudad,
+            'query' => $_GET,
+            'paginacion' => $paginacion
+        ));
+    }
+
+    public function accionRecomendacionesAction($ciudad, $habilitar = false, $borrar = false, Request $request){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+
+        if($request->getMethod() == 'POST'){
+            $vars = $_POST['id'];
+            if($_POST['accion'] == 'aprobar'){
+                $habilitar = true;
+            }else if($_POST['accion'] == 'eliminar'){
+                $borrar = true;
+            }
+        }else{
+            $vars = $_GET['id'];
+        }
+
+        if(is_array($vars)){
+            $itemsABorrar = $vars;
+        }else{
+            $itemsABorrar[] = $vars;
+        }
+        
+        foreach($itemsABorrar as $item){    
+            $recomendacion = $rr->findOneById($item);
+            if($borrar == true){
+                $estado = $lr->getEstado(3);
+            }else if($habilitar == true){
+                $estado = $lr->getEstado(2);                                
+            }
+            $recomendacion->setEstado($estado);
+
+            $em->persist($recomendacion);
+        }
+
+        $em->flush();
+
+        $args = array(
+            'ciudad' => $ciudad
+        );
+
+        $args = array_merge($args, $_GET);
+        unset($args['id']);
+
+        return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoRecomendaciones', $args));
+    }
+
+    public function editarRecomendacionAction($id, $ciudad, Request $request){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $fn = $this->get('fn');
+
+        if($request->getMethod() == 'POST'){
+            $recomendacion = $rr->findOneById($id);
+
+            $recomendacion->setTexto($_POST['texto']);
+            $recomendacion->setEstrellas($_POST['estrellas']);
+
+            if(isset($_POST['precio'])){
+                $recomendacion->setPrecio($_POST['precio']);
+            }
+
+            if(isset($_POST['lugar_id'])){
+                $lugar = $lr->findOneById($_POST['lugar_id']);
+                $recomendacion->setLugar($lugar);
+            }
+
+            $em->persist($recomendacion);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarRecomendacion', array(
+                'ciudad' => $ciudad,
+                'id' => $id
+            )));
+        }
+
+        $recomendacionResult = $this->getDoctrine()->getConnection()
+        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, LEFT(r.texto, 140) as texto, 
+                    lugares.nombre as lugarNombre, lugares.slug as lugarSlug, lugares.id as lugarId,
+                    usuarios.nombre as usuarioNombre, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
+                    count(util.id) as util,
+                    (select estado.nombre from estado where r.estado_id = estado.id) as estado,
+                    GROUP_CONCAT(DISTINCT tag.tag) as tags
+
+                    FROM recomendacion as r
+
+                    LEFT JOIN lugares
+                    on lugares.id = r.lugar_id
+
+                    LEFT JOIN comuna
+                    on lugares.comuna_id = comuna.id
+
+                    LEFT JOIN ciudad
+                    on ciudad.id = comuna.ciudad_id
+
+                    LEFT JOIN usuarios
+                    on usuarios.id = r.usuario_id
+
+                    LEFT JOIN util
+                    on util.recomendacion_id = r.id
+
+                    LEFT JOIN tag_recomendacion
+                    ON tag_recomendacion.recomendacion_id = r.id
+
+                    LEFT JOIN tag
+                    on tag_recomendacion.tag_id = tag.id
+
+                    WHERE r.id = $id");
+
+        $lugar = $lr->findOneById($recomendacionResult[0]['lugarId']);
+
+        return $this->render('LoogaresAdminBundle:Admin:editarRecomendacion.html.twig', array(
+            'recomendacion' => $recomendacionResult[0],
+            'mostrarPrecio' => $fn->mostrarPrecio($lugar),
+            'ciudad' => $ciudad
+        ));
     }
 
     public function editarFotoAction($id, $slug, $ciudad, Request $request){

@@ -3,6 +3,17 @@ lugar:
     recomendacion:
         opcional:
             tip: ¿Deseas agregar una Recomendación?
+        titulo: Recomendaciones
+        maximo: Maximo
+        llevas: Llevas
+        evaluacion: Evaluación
+        tags: Tags
+        tagsPopulares: Tags Populares
+        precio: Precio
+        placeholders:
+            textarea: asdasdasdasdasd recomendacion
+            tags: Escribe los tags separados por coma
+
     agregar:
         titulo: Agregar un Lugar
         nombre: Nombre *

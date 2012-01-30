@@ -7,6 +7,27 @@ LoogaresAdminBundle_sugerirLugar:
 
 #
 #
+#Rutas del Adminsitrador de Recomendaciones
+#
+#
+LoogaresAdminBundle_listadoRecomendaciones:
+    pattern: /lugares/{ciudad}/recomendaciones
+    defaults: {_controller: LoogaresAdminBundle:Admin:listadoRecomendaciones}
+
+LoogaresAdminBundle_borrarRecomendacion:
+    pattern: /lugares/{ciudad}/recomendaciones/borrar/{id}
+    defaults: {_controller: LoogaresAdminBundle:Admin:accionRecomendaciones, habilitar: false, borrar: true}
+
+LoogaresAdminBundle_habilitarRecomendacion:
+    pattern: /lugares/{ciudad}/recomendaciones/aprobar/{id}
+    defaults: {_controller: LoogaresAdminBundle:Admin:accionRecomendaciones, habilitar: true, borrar: false}
+
+LoogaresAdminBundle_editarRecomendacion:
+    pattern: /lugares/{ciudad}/recomendaciones/editar/{id}
+    defaults: {_controller: LoogaresAdminBundle:Admin:editarRecomendacion }
+
+#
+#
 #Rutas del Administrador de Imagenes
 #
 #
@@ -33,11 +54,11 @@ LoogaresAdminBundle_listadoUsuarios:
     defaults: { _controller: LoogaresAdminBundle:Admin:listadoUsuarios }
 
 LoogaresAdminBundle_desactivarUsuario:
-    pattern:  /usuarios/desactivar
+    pattern:  /usuarios/desactivar/{id}
     defaults: { _controller: LoogaresAdminBundle:Admin:accionUsuario, desactivar: true, activar: false }
 
 LoogaresAdminBundle_activarUsuario:
-    pattern:  /usuarios/activar
+    pattern:  /usuarios/activar/{id}
     defaults: { _controller: LoogaresAdminBundle:Admin:accionUsuario, desactivar: false, activar: true }
 
 LoogaresAdminBundle_accionUsuario:
@@ -71,15 +92,15 @@ LoogaresAdminBundle_revisionLugar:
     defaults: { _controller: LoogaresAdminBundle:Admin:revisionLugares }
 
 LoogaresAdminBundle_borrarLugar:
-    pattern:  /lugares/{ciudad}/revision/borrar/
+    pattern:  /lugares/{ciudad}/revision/borrar/{id}
     defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: false, habilitar: false, borrar: true  }
 
 LoogaresAdminBundle_cerrarLugar:
-    pattern:  /lugares/{ciudad}/revision/cerrar/
+    pattern:  /lugares/{ciudad}/revision/cerrar/{id}
     defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: true, habilitar: false, borrar: false}
 
 LoogaresAdminBundle_habilitarLugar:
-    pattern:  /lugares/{ciudad}/revision/habilitar/
+    pattern:  /lugares/{ciudad}/revision/habilitar/{id}
     defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: false, habilitar: true, borrar: false }
 
 LoogaresAdminBundle_accionLugar:

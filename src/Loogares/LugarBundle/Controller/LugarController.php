@@ -38,12 +38,6 @@ class LugarController extends Controller{
                 $estrellasPromedio = 0;
                 $sacarRecomendacionPedida = false;
 
-                //Donde Dormir 6 | Donde Comer 3
-                //Nightclub 31
-                $mostrarPrecioCategoria = array('nightclub' => 31);
-                $mostrarPrecioTipoCategoria = array('dondeDormir' => 6, 'dondeComer' => 3);
-                $mostrarPrecio = false;
-
                 $em = $this->getDoctrine()->getEntityManager();
                 $qb = $em->createQueryBuilder();
                 $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
@@ -110,23 +104,6 @@ class LugarController extends Controller{
                 $q->setParameter(2, $idLugar);
                 $q->setParameter(3, 3);
                 $yaRecomendoResult = $q->getResult();
-
-                //Comprobamos si mostramos el precio
-                foreach($lugarResult[0]->getCategoriaLugar() as $categoriaLugar){
-                  $idCategoria = $categoriaLugar->getCategoria()->getId();
-                  $idTipoCategoria = $categoriaLugar->getCategoria()->getTipoCategoria()->getId();
-
-                  foreach($mostrarPrecioCategoria as $key => $value){
-                    if($idCategoria == $value){
-                      $mostrarPrecio = $key;
-                    }
-                  }
-                  foreach($mostrarPrecioTipoCategoria as $key => $value){
-                    if($idTipoCategoria == $value){
-                      $mostrarPrecio = $key;
-                    }
-                  }
-                }
 
                 if($usuarioSlug != false){
                     $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
@@ -238,7 +215,7 @@ class LugarController extends Controller{
                 $data->totalPaginas = ($totalRecomendacionesResult >$resultadosPorPagina )?floor($totalRecomendacionesResult / $resultadosPorPagina):1;
                 $data->totalRecomendaciones = $totalRecomendacionesResult;
                 $data->yaRecomendo = $yaRecomendoResult;
-                $data->mostrarPrecio = $mostrarPrecio;
+                $data->mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
                 //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
                 $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
                 $data->totalFotos = $totalFotosResult;

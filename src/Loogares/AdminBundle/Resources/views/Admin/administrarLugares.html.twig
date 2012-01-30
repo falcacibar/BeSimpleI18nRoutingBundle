@@ -1,7 +1,40 @@
 {% extends 'LoogaresAdminBundle:Admin:base.html.twig' %}
 {% block content %}
-<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad}) }}">Lugares:</a> {{totalLugares}}
+<style>
+	ul{
+		list-style: circle;
+
+	}
+	li{
+		margin: 10px;
+	}
+</style>
+<ul>
+	<li>
+		<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad}) }}">Lugares:</a> {{totalLugares}}
+	</li>
+	<li>
+		<a href="{{ path('LoogaresAdminBundle_listadoRevision', {'ciudad': ciudad}) }}">Lugares con Revisiones:</a> {{totalLugaresConRevision}} 
+	</li>
+	<li>
+		<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Reportado'}) }}">Lugares Reportados:</a> {{totalLugaresReportados}}
+	</li>
+	<li>
+		<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Por Revisar'}) }}">Lugares Por Revisar:</a> {{totalLugaresPorRevisar}}
+	</li>
+	<li>
+		<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos'}) }}">Fotos:</a> {{totalFotos}}
+	</li>
+	<li>
+		<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'pestado': 'Reportado', 'fecha_creacion': 'desc'}) }}">Fotos Reportadas</a> {{totalFotosReportadas}}
+	</li>
+	<li>
+		<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'pestado': 'Por Revisar', 'fecha_creacion': 'desc'}) }}">Fotos Por Revisar</a> {{totalFotosPorRevisar}}
+	</li>
+	<li>
+		<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad }) }}">Recomendaciones</a> {{totalRecomendaciones}}
+	</li>
+</ul>
 <br />
-<a href="{{ path('LoogaresAdminBundle_listadoRevision', {'ciudad': ciudad}) }}">Lugares con Revisiones:</a> {{totalPorRevision}}<br/>
-<p><a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'fecha_creacion': 'desc'}) }}">Administrar Fotos</a></p>
+
 {% endblock %}
