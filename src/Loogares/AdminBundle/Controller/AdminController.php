@@ -114,6 +114,15 @@ class AdminController extends Controller
                              WHERE c.ciudad = ?1");
         $q->setParameter(1, $idCiudad);
         $totalRecomendacionesResult = $q->getSingleScalarResult();
+    
+        //Total recomendaciones reportadas por $ciudad
+        $q = $em->createQuery("SELECT count(r)
+                             FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                             LEFT JOIN r.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1 and r.estado = 5");
+        $q->setParameter(1, $idCiudad);
+        $totalRecomendacionesReportadasResult = $q->getSingleScalarResult();
 
         return $this->render('LoogaresAdminBundle:Admin:administrarLugares.html.twig', array(
             'totalLugares' => $totalLugaresResult,
@@ -124,6 +133,7 @@ class AdminController extends Controller
             'totalFotosReportadas' => $totalFotosReportadasResult,
             'totalFotosPorRevisar' => $totalFotosPorRevisarResult,
             'totalRecomendaciones' => $totalRecomendacionesResult,
+            'totalRecomendacionesReportadas' => $totalRecomendacionesReportadasResult,
             'ciudad' => $ciudad
         ));
     }
