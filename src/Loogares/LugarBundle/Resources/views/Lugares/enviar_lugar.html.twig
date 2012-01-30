@@ -1,0 +1,47 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{'lugar.fotos.agregar.titulo_pag'|trans}} {{lugar.nombre}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div id="enviar_lugar">
+		<h1>Enviar</h1>
+
+		{% if errors %}
+			<div class="enviar_lugar_error">
+				{% for error in errors %}
+			        <p>{{ error | trans}}</p>
+			    {% endfor %}
+			</div>
+		{% endif %}
+
+		<form action="{{ path('_enviarLugar', { 'slug' : lugar.slug }) }}" method="post">
+				<ul>
+					<li>
+						<label>E-mails de tus amigos *</label>
+						<input type="text" name="mails" />
+					</li>
+
+					<li>
+						<label></label>
+						<span>Para enviar a más de una dirección de E-mail, sepáralas por una coma (,)</span>
+					</li>
+
+					<li>
+						<label>¿Y qué les vas a contar?</label>
+						<input type="text" name="cuerpo" />
+						<a href="" class="quitar">{{'lugar.fotos.agregar.quitar'|trans}}</a>
+					</li>
+
+					<li>
+						<label></label>
+						<span class="tip">Los campos con (*) son obligatorios</span>
+					</li>
+
+					<li>
+						<label></label>
+						<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" />
+					</li>
+				</ul>
+			</form>
+	</div>
+{% endblock %}

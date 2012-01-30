@@ -95,3 +95,6 @@ _reportarFoto:
 _reportarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/reportar
     defaults: { _controller: LoogaresLugarBundle:Default:reportarRecomendacion }
+_enviarLugar:
+    pattern: /lugar/{slug}/enviar
+    defaults: { _controller: LoogaresLugarBundle:Lugar:enviarLugar }

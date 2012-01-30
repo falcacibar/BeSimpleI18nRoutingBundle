@@ -37,8 +37,18 @@ $(document).ready(function(){
         });
 
     $('.recomendacion').hover(function(){
-        $(this).find('.opciones_recomendacion').toggle();
-    });    
+        $(this).find('.opciones_recomendacion').toggle().fade();
+    });
+    
+    $('.compartir_lugar').click(function(e){
+        e.preventDefault();
+        compartir = $('.caja_compartir');
+
+        if(compartir.css('display') == 'none')
+            $('.caja_compartir').fadeIn('fast');
+        else
+            $('.caja_compartir').fadeOut('fast');    
+    });  
 
     $('.estrellas_recomendacion').each(function(i){
         var stars = $(this).attr('data-stars');

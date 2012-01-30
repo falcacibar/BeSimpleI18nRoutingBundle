@@ -10,6 +10,7 @@
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
     <script>editarRecomendacion("{{lugar.slug}}")</script>
+    <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -206,9 +207,25 @@
                 <li><a class="dueno_lugar" href="">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
-                <li><a class="compartir_lugar" href="">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
+                <li><a class="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
                 <li><a class="imprimir_lugar" href="">{{'lugar.ficha.opciones.imprimir'|trans}}</a></li>
+                
             </ul>
+            <div class="caja_compartir">
+                <ul>
+                    <li class="twitter_share">
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none">Twitter</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+                    </li>
+                    <li class="fb_share">
+                        <a name="fb_share" type="icon_link" style="color:#444">Facebook</a>
+                    </li>
+                    <li class="mail_share">
+                        <a href="{{path('_enviarLugar', {'slug' : lugar.slug})}}">Correo</a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         {% if lugar.recomendacion|length != 0 %}
