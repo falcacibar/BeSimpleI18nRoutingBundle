@@ -29,13 +29,13 @@
 		{% if usuario.links|length > 0 %}
 			<ul class="link_usuario">
 				{% if usuario.links.facebook is defined %}
-					<li class="facebook_link"><a href="http://{{ usuario.links.facebook }}" target="blank"></a></li>
+					<a class="facebook_link" href="http://{{ usuario.links.facebook }}" target="blank"></a>
 				{% endif %}
 				{% if usuario.links.twitter is defined %}
-					<li class="twitter_link"><a href="http://{{ usuario.links.twitter }}" target="blank"></a></li>
+					<a class="twitter_link" href="http://{{ usuario.links.twitter }}" target="blank"></a>
 				{% endif %}
 				{% if usuario.links.web is defined %}
-					<li class="url_link"><a href="http://{{ usuario.links.web }}" target="blank">{{ usuario.links.web }}</a></li>
+					<a class="url_link" href="http://{{ usuario.links.web }}" target="blank">{{ usuario.links.web }}</a>
 				{% endif %}			
 			</ul>
 		{% endif %}

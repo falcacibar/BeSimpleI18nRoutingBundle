@@ -51,11 +51,11 @@ $rojo: #FF3300
     text-decoration: underline 
 
 @mixin link_gris_666
-    color: $gris_666
+    color: $gris_666 !important
     text-decoration: none
 
 @mixin link_gris_666_hover
-    color: $gris_666
+    color: $gris_666 !important
     text-decoration: underline 
 
 @mixin link_gris_999
@@ -148,33 +148,32 @@ $rojo: #FF3300
                 width: 300px
 
                 .facebook_link
-                    background: #ff3300
-                    display: block
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
+                    display: inline-block
                     float: left
                     height: 16px
                     margin: 0 10px 0 0
                     width: 16px
 
                 .twitter_link
-                    background: #ff3300
-                    display: block
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
+                    display: inline-block
                     float: left
                     height: 16px
+                    margin: 0 0 0 10px
                     margin: 0 10px 0 0
                     width: 16px
                 
                 .url_link
+                    @include link_azul
                     display: block
                     float: left
                     height: 16px
                     padding: 0 0 0 20px
                     width: 16px
 
-                    a
-                        @include link_azul
-
-                        &:hover
-                            @include link_azul_hover
+                    &:hover
+                        @include link_azul_hover
 
     .actividad_usuario_izq
         display: block
@@ -382,48 +381,52 @@ $rojo: #FF3300
             margin: 30px 0 0
             width: 581px
         
-        .opciones_lugar_recomendacion
+        .caja_opciones_lugar_recomendacion
             display: block
             float: left
-            font:
-                size: 12px
-            height: 15px
+            height: 12px
             width: 581px
             margin: 20px 0 0
 
-            .editar_lugar_recomendacion
-                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+            .opciones_lugar_recomendacion
+                display: none
                 float: right
-                height: 11px
-                margin: 0 0 0 20px
-                padding: 0 0 0 13px
+                font:
+                    size: 12px
 
-                &:hover
+                .editar_lugar_recomendacion
                     background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
                     float: right
                     height: 11px
                     margin: 0 0 0 20px
                     padding: 0 0 0 13px
 
-            .borrar_lugar_recomendacion
-                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
-                float: right
-                height: 11px
-                margin: 0 0 0 20px
-                padding: 0 0 0 13px
+                    &:hover
+                        background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                        float: right
+                        height: 11px
+                        margin: 0 0 0 20px
+                        padding: 0 0 0 13px
 
-                &:hover
-                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                .borrar_lugar_recomendacion
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
                     float: right
                     height: 11px
                     margin: 0 0 0 20px
                     padding: 0 0 0 13px
-                                    
-            a
-                @include link_gris_444
 
-                &:hover
-                    @include link_gris_444_hover
+                    &:hover
+                        background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                        float: right
+                        height: 11px
+                        margin: 0 0 0 20px
+                        padding: 0 0 0 13px
+                                        
+                a
+                    @include link_gris_444
+
+                    &:hover
+                        @include link_gris_444_hover
 
 .caja_fotos_usuario
     border-top: 1px solid $gris_f6f
@@ -432,6 +435,126 @@ $rojo: #FF3300
     padding: 20px
     width: 759px
 
+    ul
+        color: $gris_666
+        font:
+            size: 14px
+        float: left
+        list-style: none
+        margin: 40px 0 0
+        padding: 0 0 20px 0
+        width: 651px
+
+        li
+            float: left
+            margin: 0 5px 0 0
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+            .orden_separacion
+                color: $gris_ccc
+                margin: 0 5px
+
+    .caja_fotos_lugar_usuario
+        float: left
+        display: block
+        padding: 30px 0
+
+        .listado_foto_lugar_usuario
+            border: 0px
+            float: left
+            display: block
+            margin: 0px
+            padding: 0px
+            width: 780px
+            
+            li
+                border-bottom: 1px solid $gris_f6f
+                display: block
+                float: left
+                height: 85px
+                margin: 0 20px 50px 0
+                width: 240px
+
+                &:hover
+                    border-bottom: 1px solid $gris_ccc
+
+                .imagen_lugar_perfil_usuario
+                    display: block
+                    float: left
+                    margin: 0 10px 20px 0
+                    width: 50px
+                
+                .textos_imagen_lugar_perfil_usuario
+                    display: block
+                    float: left
+                    width: 180px
+
+                    .nombre_lugar_imagen_lugar_perfil_usuario
+                        @include link_gris_444
+                        display: block
+                        float: left
+                        font:
+                            size: 12px
+                        line-height: 16px
+                        width: 180px
+
+                        &:hover
+                            @include link_gris_444_hover
+
+                    .fecha_imagen_lugar_perfil_usuario
+                        color: $gris_ccc
+                        display: block
+                        float: left
+                        font:
+                            size: 11px
+                        margin: 5px 0 0
+                        width: 180px
+
+                    .caja_opciones_lugar_imagen
+                        display: block
+                        float: left
+                        height: 12px
+                        width: 240px
+                        margin: 15px 0 0
+
+                        .opciones_lugar_imagen
+                            color: $gris_666
+                            display: none
+                            float: left
+                            font:
+                                size: 11px
+
+                            .editar_lugar_imagen
+                                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                                float: left
+                                height: 11px
+                                margin: 0 5px 0 0
+                                padding: 0 0 0 13px
+
+                                &:hover
+                                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+
+                            .borrar_lugar_imagen
+                                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
+                                float: left
+                                height: 11px
+                                margin: 0 5px 0 0
+                                padding: 0 0 0 13px
+
+                                &:hover
+                                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                                                    
+                            a
+                                @include link_gris_666
+
+                                &:hover
+                                    @include link_gris_666_hover
+                                            
 .titulo_accion_usuario
     font:
         size: 20px
