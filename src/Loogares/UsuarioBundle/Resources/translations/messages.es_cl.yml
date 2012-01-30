@@ -78,9 +78,10 @@ usuario:
             alfabetico: Orden alfabético
         recomendacion:
             categorias: Categorías:
+            tags: Tags:
         lista:
-            ver: Ver recomendación
-            editar: Editar recomendación
+            editar: Edita esta recomendación
+            borrar: Borra esta recomendación
     fotos:
         titulo: Mi foto|Mis fotos
         orden:

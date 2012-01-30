@@ -1,4 +1,8 @@
 $(function(){
+    $('.caja_recomendaciones_lugar_usuario').hover(function(){
+        $(this).find('.opciones_lugar_recomendacion').toggle();
+    });    
+
 	$('#lista-fotos-usuario ul li').hover(function(){
 		$(this).find('.opciones-fotos-usuario').toggle();
 	});	

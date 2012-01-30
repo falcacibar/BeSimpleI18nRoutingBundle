@@ -1862,6 +1862,11 @@ small {
         height: 10px;
         padding: 0 0 0 13px;
         width: 10px; }
+        .opciones_lugar ul.opciones_lugar_f6f li .editar_lugar:hover {
+          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -19px;
+          height: 10px;
+          padding: 0 0 0 13px;
+          width: 10px; }
       .opciones_lugar ul.opciones_lugar_f6f li .cerro_lugar {
         background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
         height: 10px;
@@ -2606,15 +2611,32 @@ small {
     border-bottom: 1px solid #f6f6f6;
     float: left;
     display: block;
-    margin: 30px 0;
     padding: 30px 0;
     width: 651px; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario:hover {
+      border-bottom: 1px solid #cccccc; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .imagen_recomendaciones_lugar_usuario {
+      float: left;
+      display: block;
+      height: 50px;
+      width: 50px; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .textos_recomendacion_lugar_usuario {
+      float: left;
+      display: block;
+      margin: 0 0 0 20px;
+      width: 581px; }
     .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .nombre_lugar_recomendacion {
       color: #444444;
-      font-size: 14px; }
+      display: block;
+      font-size: 14px;
+      float: left;
+      width: 581px; }
     .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .categorias_lugar_recomendacion {
+      display: block;
       font-size: 11px;
-      margin: 15px 0 0; }
+      float: left;
+      margin: 15px 0 0;
+      width: 581px; }
       .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .categorias_lugar_recomendacion a {
         color: #0066cc !important;
         text-decoration: none; }
@@ -2623,10 +2645,66 @@ small {
           text-decoration: underline; }
     .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .fecha_lugar_recomendacion {
       color: #999999;
+      display: block;
       font-size: 11px;
-      margin: 15px 0 0; }
+      float: left;
+      margin: 15px 0 0;
+      width: 581px; }
     .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .estrella_lugar_recomendacion {
-      margin: 15px 0 0; }
+      display: block;
+      float: left;
+      margin: 15px 0 0;
+      width: 581px; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .texto_lugar_recomendacion {
+      display: block;
+      float: left;
+      font-size: 14px;
+      line-height: 22px;
+      margin: 20px 0 0;
+      width: 581px; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .tags_lugar_recomendacion {
+      display: block;
+      float: left;
+      font-size: 12px;
+      margin: 30px 0 0;
+      width: 581px; }
+    .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .opciones_lugar_recomendacion {
+      display: block;
+      float: left;
+      font-size: 12px;
+      height: 15px;
+      width: 581px;
+      margin: 20px 0 0; }
+      .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .opciones_lugar_recomendacion .editar_lugar_recomendacion {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
+        float: right;
+        height: 11px;
+        margin: 0 0 0 20px;
+        padding: 0 0 0 13px; }
+        .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .opciones_lugar_recomendacion .editar_lugar_recomendacion:hover {
+          background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
+          float: right;
+          height: 11px;
+          margin: 0 0 0 20px;
+          padding: 0 0 0 13px; }
+      .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .opciones_lugar_recomendacion .borrar_lugar_recomendacion {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
+        float: right;
+        height: 11px;
+        margin: 0 0 0 20px;
+        padding: 0 0 0 13px; }
+        .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .opciones_lugar_recomendacion .borrar_lugar_recomendacion:hover {
+          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px;
+          float: right;
+          height: 11px;
+          margin: 0 0 0 20px;
+          padding: 0 0 0 13px; }
+      .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .opciones_lugar_recomendacion a {
+        color: #444444 !important;
+        text-decoration: none; }
+        .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .opciones_lugar_recomendacion a:hover {
+          color: #444444 !important;
+          text-decoration: underline; }
 
 .caja_fotos_usuario {
   border-top: 1px solid #f6f6f6;

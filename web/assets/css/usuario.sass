@@ -43,11 +43,11 @@ $rojo: #FF3300
     text-decoration: underline
 
 @mixin link_gris_444
-    color: $gris_444
+    color: $gris_444 !important
     text-decoration: none
 
 @mixin link_gris_444_hover
-    color: $gris_444
+    color: $gris_444 !important
     text-decoration: underline 
 
 @mixin link_gris_666
@@ -310,19 +310,39 @@ $rojo: #FF3300
         border-bottom: 1px solid $gris_f6f
         float: left
         display: block
-        margin: 30px 0
         padding: 30px 0
         width: 651px
 
+        &:hover
+            border-bottom: 1px solid $gris_ccc        
+
+        .imagen_recomendaciones_lugar_usuario
+            float: left
+            display: block
+            height: 50px
+            width: 50px
+
+        .textos_recomendacion_lugar_usuario
+            float: left
+            display: block
+            margin: 0 0 0 20px
+            width: 581px
+        
         .nombre_lugar_recomendacion
             color: $gris_444
+            display: block
             font:
                 size: 14px
+            float: left
+            width: 581px
         
         .categorias_lugar_recomendacion
+            display: block
             font:
                 size: 11px
+            float: left
             margin: 15px 0 0
+            width: 581px
             
             a
                 @include link_azul
@@ -332,12 +352,78 @@ $rojo: #FF3300
 
         .fecha_lugar_recomendacion
             color: $gris_999
+            display: block
             font:
                 size: 11px
+            float: left
             margin: 15px 0 0
-        
+            width: 581px
+
         .estrella_lugar_recomendacion
+            display: block
+            float: left
             margin: 15px 0 0
+            width: 581px
+
+        .texto_lugar_recomendacion
+            display: block
+            float: left
+            font:
+                size: 14px
+            line-height: 22px
+            margin: 20px 0 0
+            width: 581px
+        
+        .tags_lugar_recomendacion
+            display: block
+            float: left
+            font:
+                size: 12px
+            margin: 30px 0 0
+            width: 581px
+        
+        .opciones_lugar_recomendacion
+            display: block
+            float: left
+            font:
+                size: 12px
+            height: 15px
+            width: 581px
+            margin: 20px 0 0
+
+            .editar_lugar_recomendacion
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                float: right
+                height: 11px
+                margin: 0 0 0 20px
+                padding: 0 0 0 13px
+
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                    float: right
+                    height: 11px
+                    margin: 0 0 0 20px
+                    padding: 0 0 0 13px
+
+            .borrar_lugar_recomendacion
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
+                float: right
+                height: 11px
+                margin: 0 0 0 20px
+                padding: 0 0 0 13px
+
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                    float: right
+                    height: 11px
+                    margin: 0 0 0 20px
+                    padding: 0 0 0 13px
+                                    
+            a
+                @include link_gris_444
+
+                &:hover
+                    @include link_gris_444_hover
 
 .caja_fotos_usuario
     border-top: 1px solid $gris_f6f
