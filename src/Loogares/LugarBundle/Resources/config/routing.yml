@@ -98,3 +98,8 @@ _reportarRecomendacion:
 _enviarLugar:
     pattern: /lugar/{slug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarLugar }
+
+
+_buscar:
+    pattern: /buscar/{slug}/{buscar}
+    defaults: {_controller: LoogaresLugarBundle:Search:buscar, buscar: '' }

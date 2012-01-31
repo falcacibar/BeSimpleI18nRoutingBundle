@@ -30,12 +30,14 @@
 		</div>
 		{% render "LoogaresExtraBundle:Default:menu" %}
 		<div class="buscador_box">
-			<div class="buscar">
-				<input class="buscador" type="text" placeholder="Completos, Lastarria, bares, La Moneda" />
-				<div class="caja_icono">
-					<a class="icono_buscar" href="#"></a>
+			<form action="{{ path('_buscar', { 'slug': 'santiago-de-chile' }) }}">
+				<div class="buscar">
+						<input class="buscador" name="buscar" type="text" placeholder="Completos, Lastarria, bares, La Moneda" />
+					<div class="caja_icono">
+						<a class="icono_buscar" href="#"></a>
+					</div>
 				</div>
-			</div>
+			</form>	
 		</div>
 	</div>
 </div>

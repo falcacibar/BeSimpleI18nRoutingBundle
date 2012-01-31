@@ -145,6 +145,21 @@ class LugarController extends Controller{
                     
                 }
 
+select DISTINCT tag.tag as nombre, count(tag.tag) as freq, lugares.visitas, lugares.slug, lugares.id, max(recomendacion.fecha_creacion) as ultimarec from tag_recomendacion
+
+                        join recomendacion
+                        on tag_recomendacion.recomendacion_id = recomendacion.id
+
+                        left join tag 
+                        on tag_recomendacion.tag_id = tag.id
+                        
+                        left join lugares
+                        on recomendacion.lugar_id = lugares.id
+
+                        WHERE tag.tag LIKE '%providencia%' OR tag.tag like '%bar%'
+
+                        group by lugares.id, tag.tag
+                        order by freq desc, lugares.visitas, ultimarec desc
 
                 //Definicion del orden para la siguiente consulta
                 if($_GET['orden'] == 'ultimas'){
