@@ -935,13 +935,28 @@ class AdminController extends Controller
         
         foreach($itemsABorrar as $item){    
             $recomendacion = $rr->findOneById($item);
+            $mail = array();
+            $mail['recomendacion'] = $recomendacion;
+            $mail['usuario'] = $recomendacion->getUsuario();
             if($borrar == true){
                 $estado = $lr->getEstado(3);
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.borrar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));                
+                $mail['tipo'] = "borrar";
             }else if($habilitar == true){
-                $estado = $lr->getEstado(2);                                
+                $estado = $lr->getEstado(2); 
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.aprobar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));                
+                $mail['tipo'] = "borrar";                               
             }
-            $recomendacion->setEstado($estado);
 
+            $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo($mail['usuario']->getMail());
+            $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+            $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_recomendacion.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+            $this->get('mailer')->send($message);
+
+            $recomendacion->setEstado($estado);
             $em->persist($recomendacion);
         }
 

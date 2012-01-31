@@ -123,6 +123,7 @@ lugar:
                 ultimas: Últimas recomendaciones
                 utiles: Más útiles
             resultados: Resultados por página
+            enviar: Enviar
             editar: Edita tu recomendación
             borrar: Borra tu recomendación
             reportar: Reporta esta recomendación
@@ -158,6 +159,9 @@ lugar:
             reportar: Reporta esta foto
             anterior: Anterior
             siguiente: Siguiente
+    compartir:
+        
+        
 
     errors:
         agregar:
@@ -171,12 +175,15 @@ lugar:
             valida: No tienes seleccionado ningún archivo. Por favor, elige uno.
             titulo_pag: Agrega una Foto
         enviar:
+            nombre: Es obligatorio que ingreses tu nombre 
+            mail: Es obligatorio que ingreses tu E-mail
             mails: Es necesario que ingreses al menos un E-mail
-            cuerpo: Es obligatorio que ingreses un texto    
     flash:
         foto:
             agregar: ¡Ese es el espíritu, %nombre% %apellido%! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.
             borrar: Tu foto acaba de ser borrada. Agrega otra cuando quieras.
+        compartir:
+            mail: ¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora deberías exigirles una salida... ¡todo incluido!
 
 reportes:
     titulo: "{0} Reporta %lugar%|{1} Reporta la recomendación de %usuario% en %lugar%|]1,Inf] Reporta la foto de %usuario% en %lugar%"
@@ -209,3 +216,27 @@ reportes:
 
         usuario: Usuario
         observacion: Observación
+compartir:
+    lugar:
+        mail:
+            titulo_pag: Enviar %lugar% a tus amigos
+            titulo: Cuéntale a tus amigos sobre
+            asunto: quiere que veas un Lugar en Loogares.com
+            saludo: ¡Hola %destinatario%!
+            subtitulo: quiere contarte sobre un Lugar que te puede gustar:
+            texto: Lo que te dice:            
+    recomendacion:
+        mail:
+            titulo_pag: Enviar recomendación en %lugar% a tus amigos
+            titulo: Cuéntale a tus amigos sobre la %open_tag%recomendación%close_tag% de %usuario% en
+            asunto: quiere mostrarte una recomendación en Loogares.com
+            subtitulo: quiere contarte sobre una recomendación de un Lugar que te puede gustar:
+            bajada: Haz clic %open_tag%acá%close_tag% para ver la recomendación de
+    form:
+        nombre: Tu Nombre *
+        mail: Tu E-mail *
+        mails_amigos: E-mails de tus amigos *
+        cuerpo: ¿Y qué les vas a contar?
+        tips:
+            comas: Para enviar a más de una dirección de E-mail, sepáralas por una coma (,)
+            obligatorio: Los campos con (*) son obligatorios

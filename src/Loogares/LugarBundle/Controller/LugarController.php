@@ -1044,25 +1044,143 @@ class LugarController extends Controller{
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
 
+            if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+                if($request->request->get('nombre') == '')
+                $formErrors['nombre'] = "lugar.errors.enviar.nombre";
+                if($request->request->get('mail') == '')
+                $formErrors['mail'] = "lugar.errors.enviar.mail";
+            }
+
             if($request->request->get('mails') == '')
                 $formErrors['mails'] = "lugar.errors.enviar.mails";
 
-            if($request->request->get('cuerpo') == '')
-                $formErrors['cuerpo'] = "lugar.errors.enviar.cuerpo";
-
             if (sizeof($formErrors) == 0) {
+                $usuario = array();
+                if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+                    $usuario['nombre'] = $request->request->get('nombre');
+                    $usuario['mail'] = $request->request->get('mail');
+                }
+                else {
+                    $usuario['nombre'] = $this->get('security.context')->getToken()->getUser()->getNombre().' '.$this->get('security.context')->getToken()->getUser()->getApellido();
+                    $usuario['mail'] = $this->get('security.context')->getToken()->getUser()->getMail();
+                }
+
+                // Se envía el mail a los destinatarios
+                $destinatarios = explode(',',$request->request->get('mails'));
+                foreach($destinatarios as $e){
+                    $e = trim($e);
+
+                    // Verificar si es un e-mail correcto
+                    $mail = array();                    
+                    $mail['asunto'] = $usuario['nombre'].' '.$this->get('translator')->trans('compartir.lugar.mail.asunto');
+                    $mail['lugar'] = $lugar;
+                    $mail['usuario'] = $usuario;
+                    $mail['destinatario'] = $e;
+                    $mail['texto'] = $request->request->get('cuerpo');
+                    $mail['tipo'] = "lugar";
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject($mail['asunto'])
+                            ->setFrom($usuario['mail'])
+                            ->setTo($e);
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                    $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_enviar.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                    $this->get('mailer')->send($message);  
+                }
 
                 // Mensaje de éxito en el envío
-                $this->get('session')->setFlash('envio-mail','¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora deberías exigirles una salida... ¡todo incluido!');
+                $this->get('session')->setFlash('envio-mail','lugar.flash.compartir.mail');
                     
                 // Redirección a vista de ficha del lugar
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
         }
 
-        return $this->render('LoogaresLugarBundle:Lugares:enviar_lugar.html.twig', array(
+        $tipo = 'lugar';
+
+        return $this->render('LoogaresLugarBundle:Lugares:enviar.html.twig', array(
             'lugar' => $lugar,
-            'errors' => $formErrors
+            'errors' => $formErrors,
+            'tipo' => $tipo,
+        ));
+    }
+
+    public function enviarRecomendacionAction(Request $request, $slug, $usuarioSlug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $formErrors = array();
+
+        if(preg_match('/\w/', $usuarioSlug)){
+            $usuario = $ur->findOneBySlug($usuarioSlug);
+        }else{
+            $usuario = $ur->findOneById($usuarioSlug);
+        }
+        $lugar = $lr->findOneBySlug($slug);
+
+        $recomendacion = $rr->getRecomendacionUsuarioLugar($usuario->getId(),$lugar->getId());
+
+        // Si el request es POST, se procesa el envío del mail
+        if ($request->getMethod() == 'POST') {
+            if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+                if($request->request->get('nombre') == '')
+                $formErrors['nombre'] = "lugar.errors.enviar.nombre";
+                if($request->request->get('mail') == '')
+                $formErrors['mail'] = "lugar.errors.enviar.mail";
+            }
+
+            if($request->request->get('mails') == '')
+                $formErrors['mails'] = "lugar.errors.enviar.mails";
+
+            if (sizeof($formErrors) == 0) {
+                $usuario = array();
+                if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+                    $usuario['nombre'] = $request->request->get('nombre');
+                    $usuario['mail'] = $request->request->get('mail');
+                }
+                else {
+                    $usuario['nombre'] = $this->get('security.context')->getToken()->getUser()->getNombre().' '.$this->get('security.context')->getToken()->getUser()->getApellido();
+                    $usuario['mail'] = $this->get('security.context')->getToken()->getUser()->getMail();
+                }
+
+                // Se envía el mail a los destinatarios
+                $destinatarios = explode(',',$request->request->get('mails'));
+                foreach($destinatarios as $e){
+                    $e = trim($e);
+
+                    // Verificar si es un e-mail correcto
+                    $mail = array();                    
+                    $mail['asunto'] = $usuario['nombre'].' '.$this->get('translator')->trans('compartir.recomendacion.mail.asunto');
+                    $mail['recomendacion'] = $recomendacion;
+                    $mail['lugar'] = $recomendacion->getLugar();
+                    $mail['usuario'] = $usuario;
+                    $mail['destinatario'] = $e;
+                    $mail['texto'] = $request->request->get('cuerpo');
+                    $mail['tipo'] = 'recomendacion';
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject($mail['asunto'])
+                            ->setFrom($usuario['mail'])
+                            ->setTo($e);
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                    $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_enviar.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                    $this->get('mailer')->send($message);  
+                }
+
+                // Mensaje de éxito en el envío
+                $this->get('session')->setFlash('envio-mail','recomendacion.flash.compartir.mail');
+                    
+                // Redirección a vista de ficha del lugar
+                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+            }
+        }
+
+        $tipo = 'recomendacion';
+
+        return $this->render('LoogaresLugarBundle:Lugares:enviar.html.twig', array(
+            'recomendacion' => $recomendacion,
+            'lugar' => $lugar,
+            'errors' => $formErrors,
+            'tipo' => $tipo,
         ));
     }
 }

@@ -98,3 +98,6 @@ _reportarRecomendacion:
 _enviarLugar:
     pattern: /lugar/{slug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarLugar }
+_enviarRecomendacion:
+    pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/enviar
+    defaults: { _controller: LoogaresLugarBundle:Lugar:enviarRecomendacion }

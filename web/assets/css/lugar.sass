@@ -1348,6 +1348,19 @@ $rojo: #FF3300
                         padding: 0 0 0 13px
                         width: 10px
 
+                .compartir_recomendacion
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -567px
+                    height: 10px
+                    margin: 0 0 0 10px
+                    padding: 0 0 0 13px
+                    width: 10px
+
+                    &:hover
+                        background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -567px
+                        height: 10px
+                        padding: 0 0 0 13px
+                        width: 10px
+
                 .edita_recomendacion
                     background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
                     height: 10px
@@ -1386,6 +1399,29 @@ $rojo: #FF3300
                         height: 10px
                         padding: 0 0 0 13px
                         width: 10px
+
+            .caja_compartir_recomendacion
+                display: none
+                border : 1px solid #ccc
+                width: 300px
+                height: 40px
+                position: absolute
+                margin: 44px 0 0 248px
+                padding: 5px 10px
+                z-index: 2
+
+                a
+                    color: #444
+
+                ul
+                    li
+                        float: left
+                        margin: 11px 15px 0 0
+                        &.twitter_share_recomendacion
+                            margin-top: 8px
+                        &.mail_share
+                            background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px
+                            padding: 0 0 0 13px
 
 .paginacion_recomendacion
     border-bottom: 1px solid $gris_f6f
@@ -1752,7 +1788,7 @@ $rojo: #FF3300
             height: 300px
             border: 1px solid #ccc
 
-#reporte
+#reporte, #enviar_lugar
     width: 70%
     a
         color: $azul
@@ -1786,7 +1822,7 @@ $rojo: #FF3300
                 &.errors
                     margin-left: 335px
 
-    .reporte_error
+    .reporte_error, .enviar_error
         background:
             color: lighten($error, 25%)
         border: 1px solid $error

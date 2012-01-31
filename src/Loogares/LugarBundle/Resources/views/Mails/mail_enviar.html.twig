@@ -1,0 +1,55 @@
+<body>
+    <div style="font-family:Arial,sans-serif">
+        <table align="center" cellpadding="0" cellspacing="0" width="600" style="width:600px">
+            <tr>
+                <td valign="middle" width="220"><hr /></td>
+                <td width="160"><img src="{{ logo }}" width="160" height="100" /></td>
+                <td valign="middle" width="220"><hr /></td>
+            </tr>
+            <tr>
+                <td style="font-size:12px; color:#000; font-family:Arial,sans-serif; text-align:center" colspan="3" align="center">
+                    <br />
+                    {{'compartir.lugar.mail.saludo'|trans({'%destinatario%' : mail.destinatario })}}<br />
+                    <b>{{mail.usuario.nombre}}</b> 
+                    {% if mail.tipo == 'lugar' %}
+                        {{'compartir.lugar.mail.subtitulo'|trans}}
+                    {% elseif  mail.tipo == 'recomendacion' %}
+                        {{'compartir.recomendacion.mail.subtitulo'|trans}}
+                    {% endif %}
+                    <br />
+                    <br />
+                    <br />
+                    {% if mail.tipo == 'recomendacion' %}
+                        {% trans with {'%open_tag%' : "<a href='"~url('_recomendacion', {'slug' : mail.lugar.slug, 'usuarioSlug' : (mail.recomendacion.usuario.slug is not empty) ? mail.recomendacion.usuario.slug : mail.recomendacion.usuario.id})~"' style='color:#06f; text-decoration:none; font-size:16px; font-weight:bold'>", '%close_tag%' : "</a>"}%}compartir.recomendacion.mail.bajada{% endtrans %}<br />
+                    {% endif %}
+                    <a href="{{url('_lugar', {'slug' : mail.lugar.slug})}}" style="color:#06f; text-decoration:none; font-size:16px; font-weight:bold">{{mail.lugar.nombre}}</a><br />
+                    <span style="font-size:14px">{{mail.lugar.calle}} {{mail.lugar.numero}} {{mail.lugar.comuna.nombre}}<br /> {{mail.lugar.comuna.ciudad.nombre}}</span>
+                    <br />
+                    <br />
+                    <br />
+                    <b>{{'compartir.lugar.mail.texto'|trans}}</b><br />&nbsp;<br />
+                    {{mail.texto}}
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:11px; color:#999; font-family:Arial,sans-serif" colspan="3">
+                    <hr />
+                    <br />
+                    {{mail.usuario.nombre}} {% trans with {'%open_tag%': "<b><a href='mailto:"~mail.usuario.mail~"' style='color:#06f; text-decoration:none'>", '%close_tag%' : '</a></b>', '%mail%' : mail.usuario.mail}%}usuario.mail.usuario{% endtrans %}<br />
+                    <br />
+                    {% trans with {'%open_a%': "<a href='mailto:contacto@loogares.com' style='color:#06f; text-decoration:none'>", '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
+                    <br />
+                    <br />
+                    &copy; {{'usuario.mail.firma'|trans}}
+                </td>
+
+            </tr>
+        </table>
+    </div>
+</body>

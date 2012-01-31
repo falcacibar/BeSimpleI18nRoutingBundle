@@ -37,7 +37,7 @@ $(document).ready(function(){
         });
 
     $('.recomendacion').hover(function(){
-        $(this).find('.opciones_recomendacion').toggle().fade();
+        $(this).find('.opciones_recomendacion').toggle();
     });
     
     $('.compartir_lugar').click(function(e){
@@ -97,6 +97,16 @@ $(document).ready(function(){
         $('.recomendacion_pedida_container').append($estaRecomendacion.fadeIn(800));
         $('.recomendacion_pedida_container > h1').text('Recomendacion De '+nombre);
     });
+
+    $('.compartir_recomendacion').click(function(e){
+        e.preventDefault();
+        compartir = $(this).parent().parent().find('.caja_compartir_recomendacion');
+
+        if(compartir.css('display') == 'none')
+            compartir.fadeIn('fast');
+        else
+            compartir.fadeOut('fast');    
+    });  
 
     $('.boton_util').click(function(e){
         e.preventDefault();

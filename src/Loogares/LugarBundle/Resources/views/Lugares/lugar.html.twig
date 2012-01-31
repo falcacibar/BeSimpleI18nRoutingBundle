@@ -3,6 +3,12 @@
 
 {% block title %}{{ lugar.nombre }} | {{ lugar.comuna.ciudad.nombre }} | {{parent()}}{% endblock %}
 
+{% block meta%}
+    <meta property="og:title" content="title" />
+    <meta property="og:description" content="description" />
+    <meta property="og:image" content="thumbnail_image" />
+{% endblock %}
+
 {% block javascripts %}
     {{parent()}}
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
@@ -283,12 +289,13 @@
                             <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': lugar.recomendacionPedida.userId }) }}">Permalink</a>
                         {% endif %}
                         {% if app.security.token.user.id == lugar.recomendacionPedida.userId %}
-                        <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
-                        <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
+                            <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
+                            <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
                         {% else %}
-                        <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
+                            <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
                         {% endif %}
                     </p>
+                    
                 </div>
             </div>
         {% endif %}
@@ -388,13 +395,31 @@
                                 <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">Permalink</a>
                             {% else %}
                                 <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">Permalink</a>
-                            {% endif %}                        {% if app.security.token.user.id == recomendacion.userId %}
-                            <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
-                            <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
+                            {% endif %}   
+                            <a class="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>                     
+                            {% if app.security.token.user.id == recomendacion.userId %}
+                                <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
+                                <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
                             {% else %}
-                            <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
+                                <a class="reporta_recomendacion" href="{{path('_reportarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
                             {% endif %}
                         </p>
+
+                        <div class="caja_compartir_recomendacion">
+                            <ul>
+                                <li class="twitter_share_recomendacion">
+                                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none" data-url="{{path('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Twitter</a>
+                                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+                                </li>
+                                <li class="fb_share_recomendacion">
+                                    <a name="fb_share" type="icon_link" style="color:#444" share_url="{{path('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Facebook</a>
+                                </li>
+                                <li class="mail_share">
+                                    <a href="{{path('_enviarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Correo</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
