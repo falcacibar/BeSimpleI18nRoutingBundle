@@ -2,28 +2,28 @@
 
 <div class="caja_fotos_usuario">
 	<h2 class="titulo_accion_usuario">
-		{{'usuario.fotos.titulo'|transchoice(usuario.totalImagenesLugar)}} ({{usuario.totalImagenesLugar}})
+		{{usuario.totalImagenesLugar}} {{'usuario.fotos.titulo'|transchoice(usuario.totalImagenesLugar)}}
 	</h2>
 
 	{% if app.session.hasFlash('edicion-foto-lugar') %}
-		    <div class="flash-notice">
-		        {{ app.session.flash('edicion-foto-lugar') | trans }}
-		    </div>
+	    <div class="flash-notice">
+	        {{ app.session.flash('edicion-foto-lugar') | trans }}
+	    </div>
 	{% endif %}
 
 	{% if app.session.hasFlash('eliminar-foto-lugar') %}
-		    <div class="flash-notice">
-		        {{ app.session.flash('eliminar-foto-lugar') | trans }}
-		    </div>
+	    <div class="flash-notice">
+	        {{ app.session.flash('eliminar-foto-lugar') | trans }}
+	    </div>
 	{% endif %}
 
-	<ul class="orden">
-		<li class="bold">{{'usuario.fotos.orden.texto'|trans}}</li>		
+	<ul>
+		<li><strong>{{'usuario.fotos.orden.texto'|trans}}</strong></li>		
 		<li>
 			{% if usuario.orden == 'ultimas' %}
 				{{'usuario.fotos.orden.ultimas'|trans}} | 
 			{% else %}
-				<a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">{{'usuario.fotos.orden.ultimas'|trans}}</a> | 
+				<a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">{{'usuario.fotos.orden.ultimas'|trans}}</a><span class="orden_separacion">|</span>
 			{% endif %}
 		</li>
 		<li>
@@ -35,36 +35,36 @@
 		</li>
 	</ul>
 
-	<div id="lista-fotos-usuario">
+	<div class="caja_fotos_lugar_usuario">
 		{% set tres = 0 %}
 		{% set i = 0 %}
 		{% for imagen in usuario.imagenesLugar%}					
 			{% if loop.index == 1 or (loop.index > 3 and (loop.index - 1) % 3 == 0)  %}
 				{% set tres = 0 %}
-				<ul>
+				<ul class="listado_foto_lugar_usuario">
 			{% endif %}
 
 					<li>
-						<a href="{{path('_fotoGaleria', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">
-							<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('small_lugar') }}" />
-						</a>
-
-						<h4>
-							<a href="{{path('_lugar', {'slug' : imagen.lugar.slug})}}">
-								{{imagen.lugar.nombre}}
+						<div class="imagen_lugar_perfil_usuario">
+							<a href="{{path('_fotoGaleria', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">
+								<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('small_lugar') }}" />
 							</a>
-						</h4>
+						</div>
 
-						<span>{{imagen.fechaCreacion|date('d/m/Y')}}</span>
+						<div class="textos_imagen_lugar_perfil_usuario">
+							<strong><a class="nombre_lugar_imagen_lugar_perfil_usuario" href="{{path('_lugar', {'slug' : imagen.lugar.slug})}}">{{imagen.lugar.nombre}}</a></strong>
 
-						<br />
-						{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
-							<div class="opciones-fotos-usuario">
-								<a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'usuario.fotos.lista.editar'|trans}}</a> <br />
-								<a href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'usuario.fotos.lista.borrar'|trans}}</a>
+							<span class="fecha_imagen_lugar_perfil_usuario">{{imagen.fechaCreacion|date('d/m/Y')}}</span>
+
+							<div class="caja_opciones_lugar_imagen">
+								{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
+									<div class="opciones_lugar_imagen">
+										<a class="editar_lugar_imagen" href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'usuario.fotos.lista.editar'|trans}}</a>
+										<a class="borrar_lugar_imagen" href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'usuario.fotos.lista.borrar'|trans}}</a>
+									</div>
+								{% endif %}
 							</div>
-						{% endif %}
-
+						</div>
 					</li>
 
 			{% set tres = tres + 1 %}

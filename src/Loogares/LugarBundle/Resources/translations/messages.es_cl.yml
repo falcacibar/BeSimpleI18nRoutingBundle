@@ -170,6 +170,9 @@ lugar:
             no_imagen: Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.
             valida: No tienes seleccionado ningún archivo. Por favor, elige uno.
             titulo_pag: Agrega una Foto
+        enviar:
+            mails: Es necesario que ingreses al menos un E-mail
+            cuerpo: Es obligatorio que ingreses un texto    
     flash:
         foto:
             agregar: ¡Ese es el espíritu, %nombre% %apellido%! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.

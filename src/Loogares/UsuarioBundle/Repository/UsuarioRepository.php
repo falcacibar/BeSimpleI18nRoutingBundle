@@ -117,11 +117,11 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
 
         $q = $em->createQuery("SELECT im, l
                                FROM Loogares\LugarBundle\Entity\ImagenLugar im 
-                               LEFT JOIN im.lugar l
+                               JOIN im.lugar l
                                WHERE im.usuario = ?1 
                                AND im.estado != ?2 "
                                .$orden)
-                ->setMaxResults(15)
+                ->setMaxResults(30)
                 ->setFirstResult($offset);
 
         $q->setParameter(1, $id);

@@ -126,7 +126,7 @@ class UsuarioController extends Controller
             $orderBy = '';
 
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
-        $ppag = 15;
+        $ppag = 30;
         $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
         
 
@@ -146,7 +146,7 @@ class UsuarioController extends Controller
         $params = array(
             'param' => $data->getSlug()
         );
-
+            
         $paginacion = $fn->paginacion($data->totalImagenesLugar, $ppag, 'fotosLugaresUsuario', $params, $router );
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(

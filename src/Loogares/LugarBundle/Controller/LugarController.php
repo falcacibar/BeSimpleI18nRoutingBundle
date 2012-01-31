@@ -1033,4 +1033,36 @@ class LugarController extends Controller{
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
         }
     }
+
+    public function enviarLugarAction(Request $request, $slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $formErrors = array();
+
+        $lugar = $lr->findOneBySlug($slug);
+
+        // Si el request es POST, se procesa el envío del mail
+        if ($request->getMethod() == 'POST') {
+
+            if($request->request->get('mails') == '')
+                $formErrors['mails'] = "lugar.errors.enviar.mails";
+
+            if($request->request->get('cuerpo') == '')
+                $formErrors['cuerpo'] = "lugar.errors.enviar.cuerpo";
+
+            if (sizeof($formErrors) == 0) {
+
+                // Mensaje de éxito en el envío
+                $this->get('session')->setFlash('envio-mail','¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora deberías exigirles una salida... ¡todo incluido!');
+                    
+                // Redirección a vista de ficha del lugar
+                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+            }
+        }
+
+        return $this->render('LoogaresLugarBundle:Lugares:enviar_lugar.html.twig', array(
+            'lugar' => $lugar,
+            'errors' => $formErrors
+        ));
+    }
 }

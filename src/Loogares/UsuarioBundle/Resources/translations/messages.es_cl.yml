@@ -83,7 +83,7 @@ usuario:
             editar: Edita esta recomendación
             borrar: Borra esta recomendación
     fotos:
-        titulo: Mi foto|Mis fotos
+        titulo: Foto|Fotos
         orden:
             texto: Ordenar por:
             ultimas: Últimas fotos
