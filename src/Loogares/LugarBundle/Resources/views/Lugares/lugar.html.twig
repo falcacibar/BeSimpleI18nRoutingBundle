@@ -8,7 +8,7 @@
         <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
         <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     {% else %}
-        <meta property="og:title" content="Recomendación de {{lugar.recomendacioPedida.nombre}} {{lugar.recomendacionPedida.apellido}} en {{lugar.nombre}}" />
+        <meta property="og:title" content="Recomendación de {{lugar.recomendacionPedida.nombre}} {{lugar.recomendacionPedida.apellido}} en {{lugar.nombre}}" />
         <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     {% endif %}
 {% endblock %}
@@ -261,7 +261,7 @@
                         </strong>
                     </p>
                     <div class="util_recomendacion">
-                    {% if app.security.token.user.id != lugar.recomendacionPedida.userId %}
+                    {% if is_granted('ROLE_USER') and app.security.token.user.id != lugar.recomendacionPedida.userId %}
                         {% if lugar.recomendacionPedida.apretoUtil == 0 %}
                             <a data-util="{{lugar.recomendacionPedida.id}}-{{app.security.token.user.id}}" class="boton_activado"></a>
                         {% else %}
@@ -292,7 +292,7 @@
                         {% else %}
                             <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': lugar.recomendacionPedida.userId }) }}">Permalink</a>
                         {% endif %}
-                        {% if app.security.token.user.id == lugar.recomendacionPedida.userId %}
+                        {% if is_granted('ROLE_USER') and app.security.token.user.id == lugar.recomendacionPedida.userId %}
                             <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
                             <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
                         {% else %}
@@ -412,7 +412,7 @@
                         <div class="caja_compartir_recomendacion">
                             <ul>
                                 <li class="twitter_share_recomendacion">
-                                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none" data-url="{{path('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Twitter</a>
+                                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none" data-url="{{path('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}" data-text="Recomendación de {{recomendacion.nombre}} {{recomendacion.apellido}} en {{lugar.nombre}}, {{lugar.comuna.ciudad.nombre}}">Twitter</a>
                                     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
                                 </li>
