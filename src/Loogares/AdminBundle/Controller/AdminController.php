@@ -983,6 +983,7 @@ class AdminController extends Controller
 
             $recomendacion->setTexto($_POST['texto']);
             $recomendacion->setEstrellas($_POST['estrellas']);
+            $recomendacion->setFechaUltimaModificacion(new \DateTime());
 
             if(isset($_POST['precio'])){
                 $recomendacion->setPrecio($_POST['precio']);
@@ -990,7 +991,23 @@ class AdminController extends Controller
 
             if(isset($_POST['lugar_id'])){
                 $lugar = $lr->findOneById($_POST['lugar_id']);
+                $lugarAntiguo = $recomendacion->getLugar();
                 $recomendacion->setLugar($lugar);
+
+                // Mail al usuario que agregó la recomendación notificando que se movió su recomendación.
+                $mail = array();
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.mover.asunto', array('%old_lugar%' => $lugarAntiguo->getNombre(), '%new_lugar%' => $recomendacion->getLugar()->getNombre()));
+                $mail['recomendacion'] = $recomendacion;
+                $mail['old_lugar'] = $lugarAntiguo;
+                $mail['usuario'] = $recomendacion->getUsuario();
+                $mail['tipo'] = "mover";
+                $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo($mail['usuario']->getMail());
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_recomendacion.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                $this->get('mailer')->send($message);   
             }
 
             $em->persist($recomendacion);

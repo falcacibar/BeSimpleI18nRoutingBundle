@@ -215,7 +215,7 @@
 
         <div class="opciones_lugar">
             <ul class="opciones_lugar_f6f">
-                <li><a class="dueno_lugar" href="">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
+                <li><a class="dueno_lugar" href="{{path('_reportarDueno', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
                 <li><a class="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>

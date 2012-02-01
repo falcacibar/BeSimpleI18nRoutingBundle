@@ -1,0 +1,49 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{titulo_pag|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div id="reporte">
+		<h1>{% transchoice tipo_titulo with {'%usuario%' : "<a href="~linkUsuario~">"~usuario.nombre~' '~usuario.apellido~"</a>",'%lugar%': "<a href="~linkLugar~">"~lugar.nombre~"</a>"}%}reportes.titulo{% endtranschoice %}</h1>
+
+		{% if errors %}
+			<div class="reporte_error">
+				{% for error in errors %}
+			        <p>{{ error | trans}}</p>
+			    {% endfor %}
+			</div>
+		{% endif %}
+
+		<p>{{subtitulo|trans}}</p>
+
+		<form action="{{ ruta }}" method="post" {{ form_enctype(form) }}>
+			<ul>
+				<li>
+					{% set inputClass = (errors.reporte is defined) ? 'input-error' : ' '%}					
+					{{ form_label(form.reporte, 'reportes.label') }}
+					{{ form_widget(form.reporte, { 'attr': {'rows': '8','class': inputClass}} ) }}
+					{% if errors.reporte is defined %}
+						<small class="errors">{{errors.reporte | trans}}</small>
+					{% endif %}
+				</li>
+				
+				<li>
+					<label></label>
+					<span class="tip">{{'reportes.tip.gracias'|trans}}</span>
+				</li>
+
+				<li>
+					<label></label>
+					<span class="tip">{{'reportes.tip.obligatorio'|trans}}</span>
+				</li>
+				<li>
+					<label></label>
+					<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" formnovalidate />
+				</li>
+
+				{{form_rest(form)}}
+			</ul>
+		</form>
+
+	</div>
+{% endblock %}

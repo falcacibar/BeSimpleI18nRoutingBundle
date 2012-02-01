@@ -88,13 +88,16 @@ _borrarRecomendacion:
 
 _reportarLugar:
     pattern: /lugar/{slug}/reportar
-    defaults: { _controller: LoogaresLugarBundle:Default:reportarLugar }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:reportarLugar }
 _reportarFoto:
     pattern: /lugar/{slug}/galeria/{id}/reportar
-    defaults: { _controller: LoogaresLugarBundle:Default:reportarFoto }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:reportarFoto }
 _reportarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/reportar
-    defaults: { _controller: LoogaresLugarBundle:Default:reportarRecomendacion }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:reportarRecomendacion }
+_reportarDueno:
+    pattern: /lugar/{slug}/dueno
+    defaults: { _controller: LoogaresLugarBundle:Lugar:reportarDueno }
 _enviarLugar:
     pattern: /lugar/{slug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarLugar }
