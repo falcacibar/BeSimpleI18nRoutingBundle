@@ -364,7 +364,7 @@
                         </strong>
                     </p>
                     <div class="util_recomendacion">
-                    {% if app.security.token.user.id != recomendacion.userId %}
+                    {% if is_granted('ROLE_USER') and app.security.token.user.id != recomendacion.userId %}
                         {% if recomendacion.apretoUtil == 0 %}
                             <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util"></a>
                         {% else %}
@@ -397,7 +397,7 @@
                                 <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">Permalink</a>
                             {% endif %}   
                             <a class="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>                     
-                            {% if app.security.token.user.id == recomendacion.userId %}
+                            {% if is_granted('ROLE_USER') and app.security.token.user.id == recomendacion.userId %}
                                 <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
                                 <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
                             {% else %}

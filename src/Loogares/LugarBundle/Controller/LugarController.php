@@ -56,7 +56,7 @@ class LugarController extends Controller{
                 $em->flush();
 
                 $idLugar = $lugarResult[0]->getId();
-                $idUsuario = $this->get('security.context')->getToken()->getUser()->getId();
+                $idUsuario = ($this->get('security.context')->isGranted('ROLE_USER')) ? $this->get('security.context')->getToken()->getUser()->getId() : 0;
                 $codigoArea = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getCodigoArea();
 
                 //Ultima foto del Lugar
