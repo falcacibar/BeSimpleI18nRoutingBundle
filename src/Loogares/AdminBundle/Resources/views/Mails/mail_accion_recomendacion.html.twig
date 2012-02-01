@@ -20,9 +20,9 @@
                     <div>
                         <p>{{'admin.notificaciones.saludo'|trans({'%nombre%' : mail.usuario.nombre, '%apellido%' : mail.usuario.apellido})}}</p>
                         {% if mail.tipo == 'aprobar' %}
-                            <p>{{'admin.notificaciones.recomendacion.aprobar.primero'|trans({'%lugar%' : mail.imagen.lugar.nombre})}}</p>                            
+                            <p>{{'admin.notificaciones.recomendacion.aprobar.primero'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}</p>                            
                         {% elseif mail.tipo == 'borrar' %}
-                            <p>{{'admin.notificaciones.recomendacion.borrar.primero'|trans({'%lugar%' : mail.imagen.lugar.nombre})}}</p>
+                            <p>{{'admin.notificaciones.recomendacion.borrar.primero'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}</p>
                             <p>{{'admin.notificaciones.recomendacion.borrar.segundo'|trans}}</p>
                         {% endif %}
                         <p>{{'admin.notificaciones.recomendacion.despedida'|trans}}</p>

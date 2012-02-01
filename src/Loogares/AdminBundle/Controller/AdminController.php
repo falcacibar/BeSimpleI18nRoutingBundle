@@ -911,7 +911,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function accionRecomendacionesAction($ciudad, $habilitar = false, $borrar = false, Request $request){
+    public function accionRecomendacionesAction($ciudad, $id, $habilitar = false, $borrar = false, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
@@ -924,7 +924,7 @@ class AdminController extends Controller
                 $borrar = true;
             }
         }else{
-            $vars = $_GET['id'];
+            $vars = $id;
         }
 
         if(is_array($vars)){
@@ -945,7 +945,7 @@ class AdminController extends Controller
             }else if($habilitar == true){
                 $estado = $lr->getEstado(2); 
                 $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.aprobar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));                
-                $mail['tipo'] = "borrar";                               
+                $mail['tipo'] = "aprobar";                               
             }
 
             $message = \Swift_Message::newInstance()
@@ -1003,7 +1003,7 @@ class AdminController extends Controller
         }
 
         $recomendacionResult = $this->getDoctrine()->getConnection()
-        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, LEFT(r.texto, 140) as texto, 
+        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, r.texto as texto, 
                     lugares.nombre as lugarNombre, lugares.slug as lugarSlug, lugares.id as lugarId,
                     usuarios.nombre as usuarioNombre, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
                     count(util.id) as util,

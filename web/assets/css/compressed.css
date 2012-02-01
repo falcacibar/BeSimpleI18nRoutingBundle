@@ -1897,6 +1897,24 @@ small {
           height: 10px;
           padding: 0 0 0 13px;
           width: 10px; }
+  .opciones_lugar div.caja_compartir {
+    display: none;
+    border: 1px solid #cccccc;
+    width: 300px;
+    height: 40px;
+    position: absolute;
+    margin: 44px 0 0 317px;
+    padding: 5px 10px; }
+    .opciones_lugar div.caja_compartir a {
+      color: #444444; }
+    .opciones_lugar div.caja_compartir ul li {
+      float: left;
+      margin: 11px 15px 0 0; }
+      .opciones_lugar div.caja_compartir ul li.twitter_share {
+        margin-top: 8px; }
+      .opciones_lugar div.caja_compartir ul li.mail_share {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
+        padding: 0 0 0 13px; }
 
 /* Mapa ficha lugar */
 .mapa_sidebar {
@@ -2053,6 +2071,17 @@ small {
             height: 10px;
             padding: 0 0 0 13px;
             width: 10px; }
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .compartir_recomendacion {
+          background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
+          height: 10px;
+          margin: 0 0 0 10px;
+          padding: 0 0 0 13px;
+          width: 10px; }
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .compartir_recomendacion:hover {
+            background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -567px;
+            height: 10px;
+            padding: 0 0 0 13px;
+            width: 10px; }
         .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .edita_recomendacion {
           background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
           height: 10px;
@@ -2086,6 +2115,25 @@ small {
             height: 10px;
             padding: 0 0 0 13px;
             width: 10px; }
+      .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion {
+        display: none;
+        border: 1px solid #cccccc;
+        width: 300px;
+        height: 40px;
+        position: absolute;
+        margin: 44px 0 0 248px;
+        padding: 5px 10px;
+        z-index: 2; }
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion a {
+          color: #444444; }
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion ul li {
+          float: left;
+          margin: 11px 15px 0 0; }
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion ul li.twitter_share_recomendacion {
+            margin-top: 8px; }
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion ul li.mail_share {
+            background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
+            padding: 0 0 0 13px; }
 
 .paginacion_recomendacion {
   border-bottom: 1px solid #f6f6f6;
@@ -2372,37 +2420,37 @@ small {
     height: 300px;
     border: 1px solid #cccccc; }
 
-#reporte {
+#reporte, #enviar_lugar {
   width: 70%; }
-  #reporte a {
+  #reporte a, #enviar_lugar a {
     color: #0066cc; }
-    #reporte a:hover {
+    #reporte a:hover, #enviar_lugar a:hover {
       color: #0066cc;
       text-decoration: underline; }
-  #reporte h1 {
+  #reporte h1, #enviar_lugar h1 {
     border-bottom: 1px solid #cccccc;
     padding-bottom: 10px;
     font-weight: bold;
     font-size: 1.4em; }
-  #reporte p {
+  #reporte p, #enviar_lugar p {
     margin: 10px 0;
     line-height: normal; }
-  #reporte ul li {
+  #reporte ul li, #enviar_lugar ul li {
     margin: 10px 0;
     display: block; }
-    #reporte ul li label {
+    #reporte ul li label, #enviar_lugar ul li label {
       font-size: 11px;
       width: 180px;
       float: left;
       margin-right: 10px;
       height: 10px; }
-    #reporte ul li textarea {
+    #reporte ul li textarea, #enviar_lugar ul li textarea {
       width: 350px; }
-    #reporte ul li span {
+    #reporte ul li span, #enviar_lugar ul li span {
       font-size: 11px; }
-    #reporte ul li small.errors {
+    #reporte ul li small.errors, #enviar_lugar ul li small.errors {
       margin-left: 335px; }
-  #reporte .reporte_error {
+  #reporte .reporte_error, #reporte .enviar_error, #enviar_lugar .reporte_error, #enviar_lugar .enviar_error {
     background-color: #ffe5e5;
     border: 1px solid #ff6666;
     line-height: 18px;
