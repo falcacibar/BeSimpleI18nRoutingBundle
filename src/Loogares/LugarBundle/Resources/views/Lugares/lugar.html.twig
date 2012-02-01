@@ -412,12 +412,12 @@
                         <div class="caja_compartir_recomendacion">
                             <ul>
                                 <li class="twitter_share_recomendacion">
-                                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none" data-url="{{path('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}" data-text="Recomendación de {{recomendacion.nombre}} {{recomendacion.apellido}} en {{lugar.nombre}}, {{lugar.comuna.ciudad.nombre}}">Twitter</a>
+                                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none" data-url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}" data-text="Recomendación de {{recomendacion.nombre}} {{recomendacion.apellido}} en {{lugar.nombre}}, {{lugar.comuna.ciudad.nombre}}">Twitter</a>
                                     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
                                 </li>
                                 <li class="fb_share_recomendacion">
-                                    <a name="fb_share" type="icon_link" style="color:#444" share_url="{{path('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Facebook</a>
+                                    <a name="fb_share" type="icon_link" style="color:#444" share_url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Facebook</a>
                                 </li>
                                 <li class="mail_share">
                                     <a href="{{path('_enviarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Correo</a>
