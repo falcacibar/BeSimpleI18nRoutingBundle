@@ -3,10 +3,9 @@
 
 {% block title %}{{ lugar.nombre }} | {{ lugar.comuna.ciudad.nombre }} | {{parent()}}{% endblock %}
 
-{% block meta%}
-    <meta property="og:title" content="title" />
-    <meta property="og:description" content="description" />
-    <meta property="og:image" content="thumbnail_image" />
+{% block meta%}   
+    <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
+    <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
 {% endblock %}
 
 {% block javascripts %}
