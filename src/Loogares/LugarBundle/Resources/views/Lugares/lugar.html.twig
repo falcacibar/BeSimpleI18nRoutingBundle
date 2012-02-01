@@ -8,7 +8,7 @@
         <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
         <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     {% else %}
-        <meta property="og:title" content="Recomendación de {{lugar.recomendacionPedida.nombre}} {{lugar.recomendacionPedida.apellido}} en {{lugar.nombre}}" />
+        <meta property="og:title" content="{{'lugar.recomendacion.meta.title'|trans({'%usuario%' : lugar.recomendacionPedida.nombre~' '~lugar.recomendacionPedida.apellido, '%lugar%' : lugar.nombre})}} | Loogares.com" />
         <meta property="og:description" content="" />
         <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     {% endif %}

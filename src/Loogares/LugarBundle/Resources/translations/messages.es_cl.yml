@@ -13,6 +13,8 @@ lugar:
         placeholders:
             textarea: asdasdasdasdasd recomendacion
             tags: Escribe los tags separados por coma
+        meta:
+            title: Recomendación de %usuario% en %lugar%
 
     agregar:
         titulo: Agregar un Lugar
