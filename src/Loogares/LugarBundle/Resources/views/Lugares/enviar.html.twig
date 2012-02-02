@@ -1,0 +1,75 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{((tipo == 'lugar') ? 'compartir.lugar.mail.titulo_pag' : 'compartir.recomendacion.mail.titulo_pag')|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div id="enviar_lugar">
+		<h1>
+			{% if tipo == 'lugar'%}
+				{{'compartir.lugar.mail.titulo'|trans}} 
+			{% else %}
+				{% set param = (recomendacion.usuario.slug is not empty) ? recomendacion.usuario.slug : recomendacion.usuario.id %}
+				{% trans with {'%open_tag%' : "<a href='"~path('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : param})~"'>", '%close_tag%' : "</a>", '%usuario%' : "<a href="~path('showUsuario', {'param' : param})~">"~recomendacion.usuario.nombre~" "~recomendacion.usuario.apellido~"</a>" }%}compartir.recomendacion.mail.titulo{% endtrans %}
+			{% endif %}
+			<a href="{{path('_lugar', {'slug' : lugar.slug})}}">{{lugar.nombre}}</a>
+		</h1>
+
+		{% if errors %}
+			<div class="enviar_error">
+				{% for error in errors %}
+			        <p>{{ error | trans}}</p>
+			    {% endfor %}
+			</div>
+		{% endif %}
+		{% set ruta = (tipo == 'lugar') ? path('_enviarLugar', { 'slug' : lugar.slug }) : path('_enviarRecomendacion', { 'slug' : lugar.slug, 'usuarioSlug' : ((recomendacion.usuario.slug is not empty) ? recomendacion.usuario.slug : recomendacion.usuario.id) })%}
+		<form action="{{ ruta }}" method="post">
+				<ul>
+					{% if not is_granted('ROLE_USER') %}
+					<li>
+						<label>{{'compartir.form.nombre'|trans}}</label>
+						<input type="text" name="nombre" class="{{errors.nombre is defined ? 'input-error' : ' '}}"/>
+						{% if errors.nombre is defined %}
+							<small class="errors">{{errors.nombre|trans}}</small>
+						{% endif %}
+					</li>
+
+					<li>
+						<label>{{'compartir.form.mail'|trans}}</label>
+						<input type="text" name="mail" class="{{errors.mail is defined ? 'input-error' : ' '}}"/>
+						{% if errors.mail is defined %}
+							<small class="errors">{{errors.mail|trans}}</small>
+						{% endif %}
+					</li>
+					{% endif %}
+
+					<li>
+						<label>{{'compartir.form.mails_amigos'|trans}}</label>
+						<input type="text" name="mails" class="{{errors.mails is defined ? 'input-error' : ' '}}"/>
+						{% if errors.mails is defined %}
+							<small class="errors">{{errors.mails|trans}}</small>
+						{% endif %}
+					</li>
+
+					<li>
+						<label></label>
+						<span class="tip">{{'compartir.form.tips.comas'|trans}}</span>
+					</li>
+
+					<li>
+						<label>{{'compartir.form.cuerpo'|trans}}</label>
+						<textarea rows="8" name="cuerpo"></textarea
+					</li>
+
+					<li>
+						<label></label>
+						<span class="tip">{{'compartir.form.tips.obligatorio'|trans}}</span>
+					</li>
+
+					<li>
+						<label></label>
+						<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" />
+					</li>
+				</ul>
+			</form>
+	</div>
+{% endblock %}

@@ -3,6 +3,17 @@
 
 {% block title %}{{ lugar.nombre }} | {{ lugar.comuna.ciudad.nombre }} | {{parent()}}{% endblock %}
 
+{% block meta%}
+    {% if lugar.recomendacionPedida is not defined %}   
+        <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
+        <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
+    {% else %}
+        <meta property="og:title" content="{{'lugar.recomendacion.meta.title'|trans({'%usuario%' : lugar.recomendacionPedida.nombre~' '~lugar.recomendacionPedida.apellido, '%lugar%' : lugar.nombre~', '~lugar.comuna.ciudad.nombre})}} | Loogares.com" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
+    {% endif %}
+{% endblock %}
+
 {% block javascripts %}
     {{parent()}}
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
@@ -204,7 +215,7 @@
 
         <div class="opciones_lugar">
             <ul class="opciones_lugar_f6f">
-                <li><a class="dueno_lugar" href="">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
+                <li><a class="dueno_lugar" href="{{path('_reportarDueno', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
                 <li><a class="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
@@ -251,7 +262,7 @@
                         </strong>
                     </p>
                     <div class="util_recomendacion">
-                    {% if app.security.token.user.id != lugar.recomendacionPedida.userId %}
+                    {% if is_granted('ROLE_USER') and app.security.token.user.id != lugar.recomendacionPedida.userId %}
                         {% if lugar.recomendacionPedida.apretoUtil == 0 %}
                             <a data-util="{{lugar.recomendacionPedida.id}}-{{app.security.token.user.id}}" class="boton_activado"></a>
                         {% else %}
@@ -282,13 +293,14 @@
                         {% else %}
                             <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': lugar.recomendacionPedida.userId }) }}">Permalink</a>
                         {% endif %}
-                        {% if app.security.token.user.id == lugar.recomendacionPedida.userId %}
-                        <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
-                        <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
+                        {% if is_granted('ROLE_USER') and app.security.token.user.id == lugar.recomendacionPedida.userId %}
+                            <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
+                            <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
                         {% else %}
-                        <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
+                            <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
                         {% endif %}
                     </p>
+                    
                 </div>
             </div>
         {% endif %}
@@ -357,7 +369,7 @@
                         </strong>
                     </p>
                     <div class="util_recomendacion">
-                    {% if app.security.token.user.id != recomendacion.userId %}
+                    {% if is_granted('ROLE_USER') and app.security.token.user.id != recomendacion.userId %}
                         {% if recomendacion.apretoUtil == 0 %}
                             <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util"></a>
                         {% else %}
@@ -388,13 +400,31 @@
                                 <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">Permalink</a>
                             {% else %}
                                 <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">Permalink</a>
-                            {% endif %}                        {% if app.security.token.user.id == recomendacion.userId %}
-                            <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
-                            <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
+                            {% endif %}   
+                            <a class="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>                     
+                            {% if is_granted('ROLE_USER') and app.security.token.user.id == recomendacion.userId %}
+                                <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
+                                <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
                             {% else %}
-                            <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
+                                <a class="reporta_recomendacion" href="{{path('_reportarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
                             {% endif %}
                         </p>
+
+                        <div class="caja_compartir_recomendacion">
+                            <ul>
+                                <li class="twitter_share_recomendacion">
+                                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none" data-url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}" data-text="Recomendación de {{recomendacion.nombre}} {{recomendacion.apellido}} en {{lugar.nombre}}, {{lugar.comuna.ciudad.nombre}}">Twitter</a>
+                                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+                                </li>
+                                <li class="fb_share_recomendacion">
+                                    <a name="fb_share" type="icon_link" style="color:#444" share_url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Facebook</a>
+                                </li>
+                                <li class="mail_share">
+                                    <a href="{{path('_enviarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Correo</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

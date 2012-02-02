@@ -27,5 +27,18 @@ admin:
             borrar:
                 asunto: Imagen en %lugar% eliminada
                 primero: Enviamos este E-mail para notificarte que la foto que agregaste al lugar %lugar% ha sido eliminada.
-                segundo: Las razones por las cuales tomamos la decisión de eliminar una foto suelen ser porque no muestran lo que el lugar es, o porque muestran contenido que infringe los términos de servicio.     
+                segundo: Las razones por las cuales tomamos la decisión de eliminar una foto suelen ser porque no muestra lo que el lugar es, o porque muestra contenido que infringe los términos de servicio.
+        recomendacion:
+            despedida: ¡Esperamos que sigas recomendando lugares!
+            aprobar:
+                asunto: Recomendación en %lugar% aprobada
+                primero: Enviamos este E-mail para notificarte que la recomendación que la recomendación que hiciste en el lugar %lugar% ha sido aprobada sin problemas.
+            mover:
+                asunto: Recomendación en %old_lugar% trasladada a %new_lugar%
+                primero: Enviamos este E-mail para notificarte que la %open_tag%recomendación%close_tag% que agregaste al lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%.
+                segundo: La razón por las cual tomamos la decisión de reubicar una recomendación suele ser porque corresponde a otro lugar.
+            borrar:
+                asunto: Recomendación en %lugar% eliminada
+                primero: Enviamos este E-mail para notificarte que la recomendación que hiciste en el lugar %lugar% ha sido eliminada.
+                segundo: Las razones por las cuales tomamos la decisión de eliminar una recomendación suelen ser porque no describe la experiencia en el lugar, o porque posee contenido que infringe los términos de servicio.      
                     

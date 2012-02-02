@@ -911,7 +911,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function accionRecomendacionesAction($ciudad, $habilitar = false, $borrar = false, Request $request){
+    public function accionRecomendacionesAction($ciudad, $id, $habilitar = false, $borrar = false, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
@@ -924,7 +924,7 @@ class AdminController extends Controller
                 $borrar = true;
             }
         }else{
-            $vars = $_GET['id'];
+            $vars = $id;
         }
 
         if(is_array($vars)){
@@ -935,13 +935,28 @@ class AdminController extends Controller
         
         foreach($itemsABorrar as $item){    
             $recomendacion = $rr->findOneById($item);
+            $mail = array();
+            $mail['recomendacion'] = $recomendacion;
+            $mail['usuario'] = $recomendacion->getUsuario();
             if($borrar == true){
                 $estado = $lr->getEstado(3);
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.borrar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));                
+                $mail['tipo'] = "borrar";
             }else if($habilitar == true){
-                $estado = $lr->getEstado(2);                                
+                $estado = $lr->getEstado(2); 
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.aprobar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));                
+                $mail['tipo'] = "aprobar";                               
             }
-            $recomendacion->setEstado($estado);
 
+            $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo($mail['usuario']->getMail());
+            $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+            $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_recomendacion.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+            $this->get('mailer')->send($message);
+
+            $recomendacion->setEstado($estado);
             $em->persist($recomendacion);
         }
 
@@ -968,6 +983,7 @@ class AdminController extends Controller
 
             $recomendacion->setTexto($_POST['texto']);
             $recomendacion->setEstrellas($_POST['estrellas']);
+            $recomendacion->setFechaUltimaModificacion(new \DateTime());
 
             if(isset($_POST['precio'])){
                 $recomendacion->setPrecio($_POST['precio']);
@@ -975,7 +991,23 @@ class AdminController extends Controller
 
             if(isset($_POST['lugar_id'])){
                 $lugar = $lr->findOneById($_POST['lugar_id']);
+                $lugarAntiguo = $recomendacion->getLugar();
                 $recomendacion->setLugar($lugar);
+
+                // Mail al usuario que agregó la recomendación notificando que se movió su recomendación.
+                $mail = array();
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.mover.asunto', array('%old_lugar%' => $lugarAntiguo->getNombre(), '%new_lugar%' => $recomendacion->getLugar()->getNombre()));
+                $mail['recomendacion'] = $recomendacion;
+                $mail['old_lugar'] = $lugarAntiguo;
+                $mail['usuario'] = $recomendacion->getUsuario();
+                $mail['tipo'] = "mover";
+                $message = \Swift_Message::newInstance()
+                        ->setSubject($mail['asunto'])
+                        ->setFrom('noreply@loogares.com')
+                        ->setTo($mail['usuario']->getMail());
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_recomendacion.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                $this->get('mailer')->send($message);   
             }
 
             $em->persist($recomendacion);
@@ -988,7 +1020,7 @@ class AdminController extends Controller
         }
 
         $recomendacionResult = $this->getDoctrine()->getConnection()
-        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, LEFT(r.texto, 140) as texto, 
+        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, r.texto as texto, 
                     lugares.nombre as lugarNombre, lugares.slug as lugarSlug, lugares.id as lugarId,
                     usuarios.nombre as usuarioNombre, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
                     count(util.id) as util,

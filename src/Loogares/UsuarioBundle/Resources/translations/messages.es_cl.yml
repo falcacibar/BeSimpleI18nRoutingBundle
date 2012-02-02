@@ -193,6 +193,7 @@ usuario:
             borrar_cuenta: Tu cuenta acaba de ser borrada. Fue bonito mientras duró.
 
     mail:
+        usuario: te escribió desde %open_tag%%mail%%close_tag%
         equipo: El equipo de %open_tag%Loogares.com%close_tag%
         contacto: Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a %open_a%contacto@loogares.com%close_a%
         contacto_plano: Si quieres contactarnos escríbenos a contacto@loogares.com
