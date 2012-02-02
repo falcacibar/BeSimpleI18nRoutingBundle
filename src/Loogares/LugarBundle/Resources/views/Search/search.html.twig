@@ -1,8 +1,51 @@
 <html>
-<head></head>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
 <body>
-	{% for lugar in lugares %}
-		
-	{% endfor %}
+	<style>
+		table{
+			border: 1px solid #333;
+		}
+
+		table td, table th{
+			font-family: Helvetica !important;
+			font-size: 12px !important;
+			padding: 5px;
+		}
+
+		table td{
+			border-bottom: 1px #ccc;
+		}
+	</style>
+<p>Encontramos {{results.categorias}} Categorias</p>
+<p>Encontramos {{results.subcategorias}} SubCategorias</p>
+<p>Encontramos {{results.lugaresPorSlug}} Lugares (por slug)</p>
+<p>Encontramos {{results.tags}} Lugares por Tags</p>
+<p>Encontramos {{results.calles}} Lugares por Calle</p>
+	<table>
+		<thead>
+			<th>ID</th>
+			<th>Lugar</th>
+			<th>Visitas</th>
+			<th>Total Recomendaciones</th>
+			<th>Estrellas</th>
+			<th>Cat Principal</th>
+			<th>Ranking</th>
+		</thead>
+		<tbody>
+			{% for lugar in lugares %}
+				<tr>
+					<td>{{lugar.id}}</td>
+					<td>{{lugar.nombre}}</td>
+					<td>{{lugar.visitas}}</td>
+					<td></td>
+					<td>{{lugar.estrellas}}</td>
+					<td></td>
+					<td></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </body>
 </html>
