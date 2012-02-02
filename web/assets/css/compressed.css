@@ -2420,37 +2420,37 @@ small {
     height: 300px;
     border: 1px solid #cccccc; }
 
-#reporte, #enviar_lugar {
+#reporte, #enviar_lugar, #reclamar_lugar {
   width: 70%; }
-  #reporte a, #enviar_lugar a {
+  #reporte a, #enviar_lugar a, #reclamar_lugar a {
     color: #0066cc; }
-    #reporte a:hover, #enviar_lugar a:hover {
+    #reporte a:hover, #enviar_lugar a:hover, #reclamar_lugar a:hover {
       color: #0066cc;
       text-decoration: underline; }
-  #reporte h1, #enviar_lugar h1 {
+  #reporte h1, #enviar_lugar h1, #reclamar_lugar h1 {
     border-bottom: 1px solid #cccccc;
     padding-bottom: 10px;
     font-weight: bold;
     font-size: 1.4em; }
-  #reporte p, #enviar_lugar p {
+  #reporte p, #enviar_lugar p, #reclamar_lugar p {
     margin: 10px 0;
     line-height: normal; }
-  #reporte ul li, #enviar_lugar ul li {
+  #reporte ul li, #enviar_lugar ul li, #reclamar_lugar ul li {
     margin: 10px 0;
     display: block; }
-    #reporte ul li label, #enviar_lugar ul li label {
+    #reporte ul li label, #enviar_lugar ul li label, #reclamar_lugar ul li label {
       font-size: 11px;
       width: 180px;
       float: left;
       margin-right: 10px;
       height: 10px; }
-    #reporte ul li textarea, #enviar_lugar ul li textarea {
+    #reporte ul li textarea, #enviar_lugar ul li textarea, #reclamar_lugar ul li textarea {
       width: 350px; }
-    #reporte ul li span, #enviar_lugar ul li span {
+    #reporte ul li span, #enviar_lugar ul li span, #reclamar_lugar ul li span {
       font-size: 11px; }
-    #reporte ul li small.errors, #enviar_lugar ul li small.errors {
+    #reporte ul li small.errors, #enviar_lugar ul li small.errors, #reclamar_lugar ul li small.errors {
       margin-left: 335px; }
-  #reporte .reporte_error, #reporte .enviar_error, #enviar_lugar .reporte_error, #enviar_lugar .enviar_error {
+  #reporte .reporte_error, #reporte .enviar_error, #reporte .reclamar_error, #enviar_lugar .reporte_error, #enviar_lugar .enviar_error, #enviar_lugar .reclamar_error, #reclamar_lugar .reporte_error, #reclamar_lugar .enviar_error, #reclamar_lugar .reclamar_error {
     background-color: #ffe5e5;
     border: 1px solid #ff6666;
     line-height: 18px;

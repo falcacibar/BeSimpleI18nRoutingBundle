@@ -1045,6 +1045,9 @@ class LugarController extends Controller{
 
         $lugar = $lr->findOneBySlug($slug);
 
+        if($lugar == null)
+            throw $this->createNotFoundException('El lugar con slug '.$slug. ' no existe.');
+
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
 
@@ -1425,7 +1428,71 @@ class LugarController extends Controller{
         ));
     }
 
-    public function reportarDuenoAction(Request $request, $slug) {
-        return new Response("hola");
+    public function reclamarLugarAction(Request $request, $slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $formErrors = array();
+
+        $lugar = $lr->findOneBySlug($slug);
+
+        if($lugar == null)
+            throw $this->createNotFoundException('El lugar con slug '.$slug. ' no existe.');
+        
+        // Si lugar ya tiene dueño, se redirecciona a ficha    
+        if($lugar->getDuenoId() > 0) {
+            $this->get('session')->setFlash('existe-dueno','lugar.flash.reclamar.existe');   
+                    
+            // Redirección a vista de ficha del lugar
+            return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+        }
+
+        // Si el request es POST, se procesa el envío del mail
+        if ($request->getMethod() == 'POST') {
+            if($request->request->get('nombre') == '')
+                $formErrors['nombre'] = "lugar.errors.reclamar.nombre";
+            if($request->request->get('mail') == '')
+                $formErrors['mail'] = "lugar.errors.reclamar.mail";
+            if($request->request->get('telefono') == '')
+                $formErrors['telefono'] = "lugar.errors.reclamar.telefono";
+            if($request->request->get('texto') == '')
+                $formErrors['texto'] = "lugar.errors.reclamar.texto";
+
+            if (sizeof($formErrors) == 0) {
+               // Se envía el mail a administradores
+                $destinatarios = explode(',',$request->request->get('mails'));
+                foreach($destinatarios as $e){
+                    $e = trim($e);
+
+                    // Verificar si es un e-mail correcto
+                    $mail = array();                    
+                    $mail['asunto'] = $usuario['nombre'].' '.$this->get('translator')->trans('compartir.lugar.mail.asunto');
+                    $mail['lugar'] = $lugar;
+                    $mail['usuario'] = $usuario;
+                    $mail['destinatario'] = $e;
+                    $mail['texto'] = $request->request->get('cuerpo');
+                    $mail['tipo'] = "lugar";
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject($mail['asunto'])
+                            ->setFrom($usuario['mail'])
+                            ->setTo($e);
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                    $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                    $this->get('mailer')->send($message);  
+                }
+
+                // Mensaje de éxito en el envío
+                $this->get('session')->setFlash('envio-mail','lugar.flash.compartir.mail');   
+                    
+                // Redirección a vista de ficha del lugar
+                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+            }
+        }
+
+        return $this->render('LoogaresLugarBundle:Lugares:reclamar_lugar.html.twig', array(
+            'lugar' => $lugar,
+            'errors' => $formErrors
+        ));
+
+        
     }
 }
