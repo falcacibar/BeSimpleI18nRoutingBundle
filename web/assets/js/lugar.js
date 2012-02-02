@@ -50,6 +50,7 @@ $(document).ready(function(){
         e.preventDefault();
         var rel = $(this).attr('rel'),
             $compartir = $('.'+rel);
+            $compartir = $(this).parent().parent().parent().find('.'+rel)
 
         if($compartir.is(':hidden')){
             $compartir.fadeIn('fast');
