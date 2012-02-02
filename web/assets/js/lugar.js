@@ -36,6 +36,11 @@ $(document).ready(function(){
             }
         });
 
+
+    if(window.location.href.match(/\/recomendacion\//)){
+        $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200);
+    }
+
     $('.recomendacion').hover(function(){
         $(this).find('.opciones_recomendacion').toggle();
     });
@@ -91,7 +96,7 @@ $(document).ready(function(){
             }
         }
         
-        $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200)
+        $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200);
         window.history.pushState({}, "", $(this).attr('href'));
         $estaRecomendacion.addClass('recomendacion_pedida');
         $('.recomendacion_pedida_container').append($estaRecomendacion.fadeIn(800));
