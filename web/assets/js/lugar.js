@@ -218,6 +218,5 @@ function editarRecomendacion(lugar){
 }
 
 function recomendacionPedida(slug){
-    $estaRecomendacion = $('.recomendacion').find('.nombre_recomendacion > strong > a:contains("'+slug+'")');
-    console.log($estaRecomendacion)
+    $('.recomendacion[data-slug="christopher-uribe-espina"]').find('.permalink_recomendacion').click();
 }

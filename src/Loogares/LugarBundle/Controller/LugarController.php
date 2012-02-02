@@ -142,7 +142,7 @@ class LugarController extends Controller{
                                 $recomendacionPedidaResult[$i]['tags'] = explode(',', $recomendacionPedidaResult[$i]['tags']); 
                             }
 
-                            $sacarRecomendacionPedida = " AND recomendacion.usuario_id != $idRecomendacionPedida";
+                            $resultadosPorPagina++;
                     }else{
                         $usuarioSlug = false;
                     }

@@ -21,10 +21,12 @@
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
     <script>
-        editarRecomendacion("{{lugar.slug}}")
-        {% if lugar.recomendacionPedida is defined %}
-            recomendacionPedida("{{lugar.recomendacionPedida.slug}}");
-        {% endif %}
+        $(document).ready(function(){
+            editarRecomendacion("{{lugar.slug}}")
+            {% if lugar.recomendacionPedida is defined %}
+                recomendacionPedida("{{lugar.recomendacionPedida.slug}}");
+            {% endif %}
+        })
     </script>
     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
@@ -309,7 +311,7 @@
 
 
         {% for recomendacion in lugar.recomendaciones %}
-            <div class="recomendacion">
+            <div class="recomendacion" data-slug="{{recomendacion.slug}}">
                 <div class="foto_recomendacion">
                     <a href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
                         <img src="{{ ('assets/images/usuarios/'~recomendacion.imagen_full) | apply_filter('small_usuario')}}" height="60" width="60" />
