@@ -57,7 +57,7 @@
 
 					<li>
 						<label>{{'compartir.form.cuerpo'|trans}}</label>
-						<textarea rows="8" name="cuerpo"></textarea
+						<textarea rows="8" name="cuerpo" placeholder="{{(tipo == 'lugar') ? 'compartir.lugar.placeholder'|trans : 'compartir.recomendacion.placeholder'|trans}}"></textarea>
 					</li>
 
 					<li>
@@ -65,11 +65,28 @@
 						<span class="tip">{{'compartir.form.tips.obligatorio'|trans}}</span>
 					</li>
 
-					<li>
+					<li class="submit">
 						<label></label>
-						<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" />
+						<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}"/>
 					</li>
 				</ul>
 			</form>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+{{parent()}}
+	<script type="text/javascript">
+		$('#enviar_lugar form ul li textarea').each(function(){
+			$(this).placeholder();
+		});
+
+		$('.submit input').click(function(){
+			$('#enviar_lugar form ul li textarea').each(function(){
+				if($(this).attr('placeholder') == $(this).val()){
+					$(this).val('');
+				};
+			});
+		});
+	</script>
 {% endblock %}

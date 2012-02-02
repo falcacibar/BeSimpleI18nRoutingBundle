@@ -1,0 +1,69 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{'lugar.reclamar.titulo'|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div id="reclamar_lugar">
+		<h1>{% trans with {'%lugar%' : "<a href="~path('_lugar', {'slug' : lugar.slug})~">"~lugar.nombre~"</a>"}%}lugar.reclamar.titulo{% endtrans %}</h1>
+
+		{% if errors %}
+			<div class="reclamar_error">
+				{% for error in errors %}
+			        <p>{{ error | trans}}</p>
+			    {% endfor %}
+			</div>
+		{% endif %}
+
+		<p>{{'lugar.reclamar.subtitulo'|trans}}</p>
+
+		<form action="{{ path('_reclamarLugar', {'slug' : lugar.slug}) }}" method="post" }}>
+			<ul>
+				<li>
+					<label>{{'lugar.reclamar.form.nombre'|trans}}</label>
+					<input type="text" name="nombre" class="{{errors.nombre is defined ? 'input-error' : ' '}}"/>
+					{% if errors.nombre is defined %}
+						<small class="errors">{{errors.nombre|trans}}</small>
+					{% endif %}
+				</li>
+
+				<li>
+					<label>{{'lugar.reclamar.form.mail'|trans}}</label>
+					<input type="text" name="mail" class="{{errors.mail is defined ? 'input-error' : ' '}}"/>
+					{% if errors.mail is defined %}
+						<small class="errors">{{errors.mail|trans}}</small>
+					{% endif %}
+				</li>
+
+				<li>
+					<label>{{'lugar.reclamar.form.telefono'|trans}}</label>
+					<input type="text" name="telefono" class="{{errors.telefono is defined ? 'input-error' : ' '}}"/>
+					{% if errors.telefono is defined %}
+						<small class="errors">{{errors.telefono|trans}}</small>
+					{% endif %}
+				</li>
+
+				<li>
+					<label>{{'lugar.reclamar.form.texto'|trans}}</label>
+					<textarea name="mail" class="{{errors.mail is defined ? 'input-error' : ' '}}" rows="8"></textarea>
+					{% if errors.texto is defined %}
+						<small class="errors">{{errors.texto|trans}}</small>
+					{% endif %}
+				</li>
+				
+				<li>
+					<label></label>
+					<span class="tip">{{'reportes.tip.gracias'|trans}}</span>
+				</li>
+
+				<li>
+					<label></label>
+					<span class="tip">{{'reportes.tip.obligatorio'|trans}}</span>
+				</li>
+				<li>
+					<label></label>
+					<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" formnovalidate />
+				</li>
+			</ul>
+		</form>
+	</div>
+{% endblock %}

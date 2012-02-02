@@ -3,7 +3,7 @@
 
 {% block title %}{{ lugar.nombre }} | {{ lugar.comuna.ciudad.nombre }} | {{parent()}}{% endblock %}
 
-{% block meta%}
+{% block meta %}
     {% if lugar.recomendacionPedida is not defined %}   
         <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
         <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
@@ -41,6 +41,16 @@
     {% if app.session.hasFlash('agregar-foto-lugar') %}
             <div class="flash-notice">
                 {{ app.session.flash('agregar-foto-lugar') }}
+            </div>
+    {% endif %}
+    {% if app.session.hasFlash('reportar-lugar') %}
+            <div class="flash-notice">
+                {{ app.session.flash('reportar-lugar') | trans }}
+            </div>
+    {% endif %}
+    {% if app.session.hasFlash('existe-dueno') %}
+            <div class="flash-notice">
+                {{ app.session.flash('existe-dueno') | trans }}
             </div>
     {% endif %}
     <div class="contenido_central" id="lugar-info">
@@ -221,7 +231,11 @@
 
         <div class="opciones_lugar">
             <ul class="opciones_lugar_f6f">
-                <li><a class="dueno_lugar" href="{{path('_reportarDueno', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
+                {% if lugar.duenoId == 0 %}
+                    <li><a class="dueno_lugar" href="{{path('_reclamarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
+                {% else %}
+                    <li><span class="dueno_lugar">{{'lugar.ficha.opciones.owner_reclamado'|trans}}</span></li>
+                {% endif %}
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
                 <li><a class="compartir" rel="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
