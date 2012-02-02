@@ -902,12 +902,12 @@
           height: 10px;
           padding: 0 0 0 13px;
           width: 10px; }
-      .opciones_lugar ul.opciones_lugar_f6f li .compartir_lugar {
+      .opciones_lugar ul.opciones_lugar_f6f li .compartir {
         background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
         height: 10px;
         padding: 0 0 0 13px;
         width: 10px; }
-        .opciones_lugar ul.opciones_lugar_f6f li .compartir_lugar:hover {
+        .opciones_lugar ul.opciones_lugar_f6f li .compartir:hover {
           background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -567px;
           height: 10px;
           padding: 0 0 0 13px;
@@ -922,7 +922,7 @@
           height: 10px;
           padding: 0 0 0 13px;
           width: 10px; }
-  .opciones_lugar div.caja_compartir {
+  .opciones_lugar div.compartir_lugar {
     display: none;
     border: 1px solid #cccccc;
     width: 300px;
@@ -930,14 +930,14 @@
     position: absolute;
     margin: 44px 0 0 317px;
     padding: 5px 10px; }
-    .opciones_lugar div.caja_compartir a {
+    .opciones_lugar div.compartir_lugar a {
       color: #444444; }
-    .opciones_lugar div.caja_compartir ul li {
+    .opciones_lugar div.compartir_lugar ul li {
       float: left;
       margin: 11px 15px 0 0; }
-      .opciones_lugar div.caja_compartir ul li.twitter_share {
+      .opciones_lugar div.compartir_lugar ul li.twitter_share {
         margin-top: 8px; }
-      .opciones_lugar div.caja_compartir ul li.mail_share {
+      .opciones_lugar div.compartir_lugar ul li.mail_share {
         background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
         padding: 0 0 0 13px; }
 
@@ -1096,13 +1096,13 @@
             height: 10px;
             padding: 0 0 0 13px;
             width: 10px; }
-        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .compartir_recomendacion {
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .compartir {
           background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
           height: 10px;
           margin: 0 0 0 10px;
           padding: 0 0 0 13px;
           width: 10px; }
-          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .compartir_recomendacion:hover {
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .compartir:hover {
             background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -567px;
             height: 10px;
             padding: 0 0 0 13px;
@@ -1140,7 +1140,7 @@
             height: 10px;
             padding: 0 0 0 13px;
             width: 10px; }
-      .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion {
+      .recomendacion .texto_recomendacion .caja_opciones_recomendacion .compartir_recomendacion {
         display: none;
         border: 1px solid #cccccc;
         width: 300px;
@@ -1149,14 +1149,14 @@
         margin: 44px 0 0 248px;
         padding: 5px 10px;
         z-index: 2; }
-        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion a {
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .compartir_recomendacion a {
           color: #444444; }
-        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion ul li {
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .compartir_recomendacion ul li {
           float: left;
           margin: 11px 15px 0 0; }
-          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion ul li.twitter_share_recomendacion {
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .compartir_recomendacion ul li.twitter_share_recomendacion {
             margin-top: 8px; }
-          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .caja_compartir_recomendacion ul li.mail_share {
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .compartir_recomendacion ul li.mail_share {
             background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
             padding: 0 0 0 13px; }
 

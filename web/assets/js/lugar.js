@@ -10,7 +10,8 @@ function getParameterByName(name){
 }
 
 $(document).ready(function(){
-    var getResultados = getParameterByName('resultados');
+    var getResultados = getParameterByName('resultados'),
+        compartirTimeout;
 
     fechasRecomendaciones = [];
         
@@ -45,15 +46,26 @@ $(document).ready(function(){
         $(this).find('.opciones_recomendacion').toggle();
     });
     
-    $('.compartir_lugar').click(function(e){
+    $('.compartir').click(function(e){
         e.preventDefault();
-        compartir = $('.caja_compartir');
+        var rel = $(this).attr('rel'),
+            $compartir = $('.'+rel);
 
-        if(compartir.css('display') == 'none')
-            $('.caja_compartir').fadeIn('fast');
-        else
-            $('.caja_compartir').fadeOut('fast');    
-    });  
+        if($compartir.is(':hidden')){
+            $compartir.fadeIn('fast');
+            compartirTimeout = setTimeout(function(){$compartir.fadeOut('fast')}, 5000);
+        }else{
+            $compartir.fadeOut('fast');
+            clearTimeout(compartirTimeout);  
+        }
+    });
+
+    $('.compartir_lugar, .compartir_recomendacion').mouseover(function(){
+        clearTimeout(compartirTimeout);
+    }).mouseout(function(){
+        $this = $(this);
+        compartirTimeout = setTimeout(function(){$this.fadeOut('fast')}, 2500);
+    });
 
     $('.estrellas_recomendacion').each(function(i){
         var stars = $(this).attr('data-stars');
@@ -102,16 +114,6 @@ $(document).ready(function(){
         $('.recomendacion_pedida_container').append($estaRecomendacion.fadeIn(800));
         $('.recomendacion_pedida_container > h1').text('Recomendacion De '+nombre);
     });
-
-    $('.compartir_recomendacion').click(function(e){
-        e.preventDefault();
-        compartir = $(this).parent().parent().find('.caja_compartir_recomendacion');
-
-        if(compartir.css('display') == 'none')
-            compartir.fadeIn('fast');
-        else
-            compartir.fadeOut('fast');    
-    });  
 
     $('.boton_util').click(function(e){
         e.preventDefault();
@@ -213,4 +215,9 @@ function editarRecomendacion(lugar){
             }
         }); 
     });
+}
+
+function recomendacionPedida(slug){
+    $estaRecomendacion = $('.recomendacion').find('.nombre_recomendacion > strong > a:contains("'+slug+'")');
+    console.log($estaRecomendacion)
 }

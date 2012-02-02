@@ -20,8 +20,14 @@
     <script src='../../assets/js/googleMapFicha.js'></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
-    <script>editarRecomendacion("{{lugar.slug}}")</script>
+    <script>
+        editarRecomendacion("{{lugar.slug}}")
+        {% if lugar.recomendacionPedida is defined %}
+            recomendacionPedida("{{lugar.recomendacionPedida.slug}}");
+        {% endif %}
+    </script>
     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+
 {% endblock %}
 
 {% block stylesheets %}
@@ -218,11 +224,11 @@
                 <li><a class="dueno_lugar" href="{{path('_reportarDueno', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
-                <li><a class="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
+                <li><a class="compartir" rel="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
                 <li><a class="imprimir_lugar" href="">{{'lugar.ficha.opciones.imprimir'|trans}}</a></li>
                 
             </ul>
-            <div class="caja_compartir">
+            <div class="compartir_lugar">
                 <ul>
                     <li class="twitter_share">
                         <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none">Twitter</a>
@@ -242,69 +248,8 @@
         {% if lugar.recomendacion|length != 0 %}
 
         <div class="recomendacion_pedida_container">
-        {% if lugar.recomendacionPedida is defined %}
-            <div class="recomendacion recomendacion_pedida">
-                <div class="foto_recomendacion">
-                    <a href="{{ path('showUsuario', {'param': lugar.recomendacionPedida.slug})}}">
-                        <img src="{{ ('assets/images/usuarios/'~lugar.recomendacionPedida.imagen_full) | apply_filter('small_usuario')}}" height="60" width="60" />
-                    </a>
-                </div>
-                <div class="texto_recomendacion">
-                    <p class="nombre_recomendacion">
-                        <strong>
-                            <a class="link_gris_444" href="{{ path('showUsuario', {'param': lugar.recomendacionPedida.slug})}}">
-                                {% if lugar.recomendacionPedida.nombre != '' and lugar.recomendacionPedida.apellido != '' %}
-                                    {{ lugar.recomendacionPedida.nombre }} {{ lugar.recomendacionPedida.apellido }}
-                                {% else %}
-                                    {{ lugar.recomendacionPedida.slug }}
-                                {% endif %}
-                            </a>
-                        </strong>
-                    </p>
-                    <div class="util_recomendacion">
-                    {% if is_granted('ROLE_USER') and app.security.token.user.id != lugar.recomendacionPedida.userId %}
-                        {% if lugar.recomendacionPedida.apretoUtil == 0 %}
-                            <a data-util="{{lugar.recomendacionPedida.id}}-{{app.security.token.user.id}}" class="boton_activado"></a>
-                        {% else %}
-                            <a data-util="{{lugar.recomendacionPedida.id}}-{{app.security.token.user.id}}" class="boton_desactivado"></a>
-                        {% endif %}
-                    {% else %}
-                        <p class="boton_desactivado"></p>
-                    {% endif %}
-                        <p class="conteo_util">{{ lugar.recomendacionPedida.utiles }}</p>
-                    </div>
-                    <p class="fecha_recomendacion">{{ lugar.recomendacionPedida.fecha_creacion | date("d/m/Y") }}</p>
-                    <div class="recomendacion-bloque">
-                    <div data-stars="{{lugar.recomendacionPedida.estrellas}}" class="recomendacion-pedida-raty estrellas_recomendacion"></div>
-                    <p class="texto_recomendacion_usuario">{{ lugar.recomendacionPedida.texto }}</p>
-                    {% if lugar.recomendacionPedida.tags[0] %}
-                        <p class="tags_recomendacion">
-                            {{'lugar.ficha.tags'|trans}} 
-                            {% for tag in lugar.recomendacionPedida.tags %}
-                                <a href='BUSCAR EL TAG: {{tag}}'>{{ tag }}</a>{% if loop.last == false %}, {% endif %}
-                            {% endfor %}
-                        </p>
-                    {% endif %}
-                     </div>
-                    
-                    <p class="opciones_recomendacion">
-                        {% if lugar.recomendacionPedida.slug != false %}
-                            <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': lugar.recomendacionPedida.slug }) }}">Permalink</a>
-                        {% else %}
-                            <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': lugar.recomendacionPedida.userId }) }}">Permalink</a>
-                        {% endif %}
-                        {% if is_granted('ROLE_USER') and app.security.token.user.id == lugar.recomendacionPedida.userId %}
-                            <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
-                            <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
-                        {% else %}
-                            <a class="reporta_recomendacion" href="#">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
-                        {% endif %}
-                    </p>
-                    
-                </div>
-            </div>
-        {% endif %}
         </div>
+
         <h2 class="titulo_recomendaciones">
             {{ lugar.totalRecomendaciones }}
             {{'lugar.ficha.recomendaciones.titulo'|transchoice(lugar.totalRecomendaciones,{'%lugar%' : lugar.nombre})}}
@@ -401,7 +346,7 @@
                             {% else %}
                                 <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">Permalink</a>
                             {% endif %}   
-                            <a class="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>                     
+                            <a class="compartir"  rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>
                             {% if is_granted('ROLE_USER') and app.security.token.user.id == recomendacion.userId %}
                                 <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
                                 <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
@@ -410,7 +355,7 @@
                             {% endif %}
                         </p>
 
-                        <div class="caja_compartir_recomendacion">
+                        <div class="compartir_recomendacion">
                             <ul>
                                 <li class="twitter_share_recomendacion">
                                     <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none" data-url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}" data-text="Recomendación de {{recomendacion.nombre}} {{recomendacion.apellido}} en {{lugar.nombre}}, {{lugar.comuna.ciudad.nombre}}">Twitter</a>
