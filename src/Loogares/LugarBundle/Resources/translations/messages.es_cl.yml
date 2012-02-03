@@ -175,6 +175,9 @@ lugar:
                 primero: Loogares.com es una guía online de recomendaciones de lugares de ocio y turismo en la ciudad, donde miles de nuestros usuarios "Loogareños" diariamente comparten sus experiencias escribiendo recomendaciones de lugares que conocen.
                 segundo: Ellos seguramente tienen mucho que contar acerca de tu negocio, por eso te proponemos una interesante alianza comercial para que nuestros Loogareños escriban más recomendaciones en %lugar% y seas más visible en Loogares.com. Te invitamos a que hagas click sobre el botón y en menos de 48 horas te enviaremos nuestra propuesta.
                 propuesta: ¡Quiero recibir la propuesta!
+        util_recomendacion:
+            mail:
+                asunto: ¡Acaban de considerar útil tu recomendación en %lugar%
 
     errors:
         agregar:
