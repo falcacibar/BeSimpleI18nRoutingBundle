@@ -19,6 +19,7 @@
                     <br />
                     <br />
                     <dl>
+                        {% if mail.tipo != 'owner' %}
                         <dt>{{'reportes.mail.usuario'|trans}}</dt>
                         <dd>{{mail.reporte.usuario.nombre}} {{mail.reporte.usuario.apellido}}</dd>
                         <dt>{{'reportes.mail.observacion'|trans}}</dt>
@@ -41,6 +42,21 @@
                                 <dd><a href="{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}">{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}</a>
                             {% endif %}
                         </dd>
+                        {% else %}
+                            <dt>Nombre</dt>
+                            <dd>{{mail.owner.nombre}} {{mail.owner.apellido}}</dd>
+                            <dt>E-mail</dt>
+                            <dd>{{mail.owner.mail}}</dd>
+                            <dt>Teléfono</dt>
+                            <dd>{{mail.owner.telefono}}</dd>
+                            <dt>¿Cómo comprobar que eres dueño?</dt>
+                            <dd>{{mail.owner.texto}}</dd>
+                            <dt>Lugar</dt>
+                            <dd>{{mail.owner.lugar.nombre}} (ID: {{mail.owner.lugar.id}})
+                                <br />
+                                <a href="{{url('_lugar', {'slug' : mail.owner.lugar.slug})}}">{{url('_lugar', {'slug' : mail.owner.lugar.slug})}}</a>
+                            </dd>
+                        {% endif %}
                     </dl>
                     <br />
                     <br />

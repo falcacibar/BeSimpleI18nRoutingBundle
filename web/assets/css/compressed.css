@@ -2078,12 +2078,14 @@ small {
         height: 20px;
         text-align: right;
         width: 570px; }
-        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion a {
-          color: #666666;
-          text-decoration: none; }
-          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion a:hover {
+        .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion li {
+          display: inline; }
+          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion li a {
             color: #666666;
-            text-decoration: underline; }
+            text-decoration: none; }
+            .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion li a:hover {
+              color: #666666;
+              text-decoration: underline; }
         .recomendacion .texto_recomendacion .caja_opciones_recomendacion .opciones_recomendacion .permalink_recomendacion {
           background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
           height: 10px;

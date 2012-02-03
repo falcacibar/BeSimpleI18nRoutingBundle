@@ -164,16 +164,6 @@ lugar:
             reportar: Reporta esta foto
             anterior: Anterior
             siguiente: Siguiente
-    reclamar:
-        titulo: ¿Eres el dueño de %lugar%?
-        subtitulo: Si lo eres... ¡entonces tenemos una propuesta que hacerte! Envíanos el formulario con tus datos y en menos de 48 horas te contactaremos para contarte de qué se trata.
-        form:
-            nombre: Nombre *
-            mail: E-mail *
-            telefono: Teléfono *
-            texto: ¿Cómo comprobar que eres el dueño? *
-        
-        
 
     errors:
         agregar:
@@ -190,20 +180,12 @@ lugar:
             nombre: Es obligatorio que ingreses tu nombre 
             mail: Es obligatorio que ingreses tu E-mail
             mails: Es necesario que ingreses al menos un E-mail
-        reclamar:
-            nombre: El campo Nombre es obligatorio
-            mail: El campo E-mail es obligatorio
-            telefono: El campo Teléfono es obligatorio
-            texto: Es necesario que proporciones información para verificar que eres dueño
     flash:
         foto:
             agregar: ¡Ese es el espíritu, %nombre% %apellido%! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.
             borrar: Tu foto acaba de ser borrada. Agrega otra cuando quieras.
         compartir:
             mail: ¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora deberías exigirles una salida... ¡todo incluido!
-        reclamar:
-            existe: Este lugar ya fue reclamado por su dueño anteriormente. Lo sentimos.
-            mail: 
 
 reportes:
     titulo: "{0} Reporta %lugar%|{1} Reporta la recomendación de %usuario% en %lugar%|]1,Inf] Reporta la foto de %usuario% en %lugar%"

@@ -27,3 +27,21 @@ Loogares\UsuarioBundle\Entity\Usuario:
             - Image:
                 maxSize: 5120k
                 mimeTypesMessage: usuario.errors.validacion.imagen.tipo
+
+Loogares\UsuarioBundle\Entity\Dueno:
+    properties:
+        nombre:
+            - NotBlank:
+                message: dueno.errors.validacion.nombre.blanco
+        apellido:
+            - NotBlank:
+                message: dueno.errors.validacion.apellido.blanco
+        mail:
+            - NotBlank:
+                message: dueno.errors.validacion.mail.blanco
+        telefono:
+            - NotBlank:
+                message: dueno.errors.validacion.telefono.blanco
+        texto:
+            - NotBlank:
+                message: dueno.errors.validacion.texto.blanco

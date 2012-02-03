@@ -4,7 +4,8 @@ Loogares\UsuarioBundle\Entity\Dueno:
     manyToOne:
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
-
+        estado:
+            targetEntity: Loogares\ExtraBundle\Entity\Estado
     id:
         id:
             type: integer
@@ -21,3 +22,5 @@ Loogares\UsuarioBundle\Entity\Dueno:
             type: string
         texto:
             type: text
+        fecha:
+            type: datetime

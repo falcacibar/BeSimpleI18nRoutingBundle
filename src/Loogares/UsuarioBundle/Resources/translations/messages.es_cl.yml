@@ -198,3 +198,37 @@ usuario:
         contacto: Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a %open_a%contacto@loogares.com%close_a%
         contacto_plano: Si quieres contactarnos escríbenos a contacto@loogares.com
         firma: 2012. Loogares.com
+
+dueno:
+    errors:
+        validacion:
+            nombre:
+                blanco: El campo Nombre no puede ser vacío.
+            apellido:
+                blanco: El campo Apellido no puede ser vacío.
+            mail:
+                blanco: El campo E-mail no puede ser vacío.
+            telefono:
+                blanco: El campo Teléfono no puede ser vacío.
+            texto:
+                blanco: Desde propocionar una forma de comprobar que eres el dueño.
+    reclamar:
+        titulo: ¿Eres el dueño de %lugar%?
+        subtitulo: Si lo eres... ¡entonces tenemos una propuesta que hacerte! Envíanos el formulario con tus datos y en menos de 48 horas te contactaremos para contarte de qué se trata.
+        form:
+            nombre: Nombre *
+            apellido: Apellido *
+            mail: E-mail *
+            telefono: Teléfono *
+            texto: ¿Cómo comprobar que eres el dueño? *
+
+        mail:
+            asunto: Reporte: Dueño de
+            nombre: Nombre
+            mail: E-mail
+            telefono: Teléfono
+            texto: ¿Cómo comprobar que eres dueño?
+            lugar: Lugar
+        flash:
+            existe: Este lugar ya fue reclamado por su dueño anteriormente. Lo sentimos.
+            nuevo: En menos de 48 horas sabrás nuestra propuesta. ¡Grandes cosas están por llegar!... y no es la pizza que pedimos hace 25 minutos.

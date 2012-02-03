@@ -55,6 +55,11 @@
                 {{ app.session.flash('existe-dueno') | trans }}
             </div>
     {% endif %}
+    {% if app.session.hasFlash('nuevo-dueno') %}
+            <div class="flash-notice">
+                {{ app.session.flash('nuevo-dueno') | trans }}
+            </div>
+    {% endif %}
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
@@ -356,20 +361,20 @@
                      </div>
                     
                     <div class="caja_opciones_recomendacion">
-                        <p class="opciones_recomendacion">
+                        <ul class="opciones_recomendacion">
                             {% if recomendacion.slug != false %}
-                                <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">Permalink</a>
+                                <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">Permalink</a></li>
                             {% else %}
-                                <a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">Permalink</a>
+                                <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">Permalink</a></li>
                             {% endif %}   
-                            <a class="compartir"  rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>
+                            <li><a class="compartir"  rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a></li>
                             {% if is_granted('ROLE_USER') and app.security.token.user.id == recomendacion.userId %}
-                                <a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a>
-                                <a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a>
+                                <li><a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a></li>
+                                <li><a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a></li>
                             {% else %}
-                                <a class="reporta_recomendacion" href="{{path('_reportarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a>
+                                <li><a class="reporta_recomendacion" href="{{path('_reportarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a></li>
                             {% endif %}
-                        </p>
+                        </ul>
 
                         <div class="compartir_recomendacion">
                             <ul>
