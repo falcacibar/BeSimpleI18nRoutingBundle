@@ -1015,17 +1015,55 @@ class LugarController extends Controller{
 
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '') {
-                /*$mail = array();
-                $mail['asunto'] = $this->get('translator')->trans('reportes.mail.recomendacion.asunto').' '.$recomendacion->getLugar()->getNombre();
+                // Buscamos dueño del lugar
+                $owner = $em->getRepository("LoogaresUsuarioBundle:Usuario")->getDuenoLugar($recomendacion->getLugar()->getId());
+
+                $mailParam = '';
+                if($owner != null)
+                    $mailParam = md5($owner->getMail());
+
+                // Extraemos preview de la recomendación
+                $preview = '';
+                if(strlen($recomendacion->getTexto()) > 300) {
+                    $preview = substr($recomendacion->getTexto(),0,300).'...';
+                }
+                else {
+                    $preview = $recomendacion->getTexto();
+                }
+
+                // Cálculo de las estrellas de la recomendación
+                $estrellas = array();
+                
+                $numEstrellas = $recomendacion->getEstrellas() * 2;
+                $estrellas['llenas'] = (int)($numEstrellas/2);
+                $estrellas['medias'] = 0;
+                if($numEstrellas%2 != 0)
+                    $estrellas['medias'] = 1;
+
+                $estrellas['vacias'] = 5 - $estrellas['llenas'] - $estrellas['medias'];        
+
+                $mail = array();
+                $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.nueva_recomendacion.mail.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));
                 $mail['recomendacion'] = $recomendacion;
+                $mail['preview'] = $preview;
+                $mail['estrellas'] = $estrellas;
+                $mail['mailParam'] = $mailParam;
+                $mail['usuario'] = $recomendacion->getUsuario();
                 $mail['tipo'] = "nueva-recomendacion";
                 $message = \Swift_Message::newInstance()
                         ->setSubject($mail['asunto'])
                         ->setFrom('noreply@loogares.com')
-                        ->setTo('reportar@loogares.com');
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
-                $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_local.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                $this->get('mailer')->send($message);*/  
+                        ->setTo($lugar->getMail());
+                
+                $assets = array();
+                $assets['logo'] = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $assets['estrella_llena'] =  $message->embed(\Swift_Image::fromPath('assets/images/extras/estrella_llena_recomendacion.png'));
+                $assets['estrella_media'] =  $message->embed(\Swift_Image::fromPath('assets/images/extras/estrella_media_recomendacion.png'));
+                $assets['estrella_vacia'] =  $message->embed(\Swift_Image::fromPath('assets/images/extras/estrella_vacia_recomendacion.png'));                               
+                $assets['usuario'] = $message->embed(\Swift_Image::fromPath('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull()));
+
+                $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_lugar.html.twig', array('mail' => $mail, 'assets' => $assets)), 'text/html');
+                $this->get('mailer')->send($message);
             }
 
             if(isset($_POST['curlSuperVar']) && $_POST['curlSuperVar'] == 1){
@@ -1465,8 +1503,25 @@ class LugarController extends Controller{
         if($lugar->getDuenoId() > 0) {
             // Request proviene desde E-mail del dueño
             if($request->query->get('mail')) {
-                echo md5($lugar->getMail());
-                $this->get('session')->setFlash('nuevo-dueno','dueno.reclamar.flash.nuevo');
+                // Buscamos el dueño del lugar, y enviamos mail a administradores con datos de lugar
+                $owner = $em->getRepository("LoogaresUsuarioBundle:Usuario")->getDuenoLugar($lugar->getId());
+
+                // Comprobamos que el parámetro mail corresponde con el del dueño (seguridad)
+                if($request->query->get('mail') == md5($owner->getMail())) {
+                    $mail = array();
+                    $mail['asunto'] = $this->get('translator')->trans('dueno.reclamar.mail.asunto').' '.$lugar->getNombre();
+                    $mail['owner'] = $owner;
+                    $mail['tipo'] = "owner";
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject($mail['asunto'])
+                            ->setFrom('noreply@loogares.com')
+                            ->setTo('duenos.local@loogares.com');
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                    $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                    $this->get('mailer')->send($message);
+
+                    $this->get('session')->setFlash('nuevo-dueno','dueno.reclamar.flash.nuevo');
+                }                
             }
             // Request proviene desde la URL (a mano)
             else {

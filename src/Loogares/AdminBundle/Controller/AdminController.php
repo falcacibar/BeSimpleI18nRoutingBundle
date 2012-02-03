@@ -1120,18 +1120,48 @@ class AdminController extends Controller
 
     public function testMailAction() {
         $em = $this->getDoctrine()->getEntityManager();
-        $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
-        $imagen = $ilr->find(17553);
-        $lugar = $lr->find(3480);
-        $mail = array();
-        $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.imagen.borrar.asunto', array('%lugar%' => $imagen->getLugar()->getNombre()));
-        $mail['imagen'] = $imagen;
-        //$mail['lugar_new'] = $lugar;
-        $mail['usuario'] = $imagen->getUsuario();
-        $mail['tipo'] = "borrar";
+        $recomendacion = $rr->find(4167);
 
-        return $this->render('LoogaresAdminBundle:Mails:mail_accion_foto.html.twig', array('mail' => $mail));
+        // Buscamos dueño del lugar
+        $owner = $em->getRepository("LoogaresUsuarioBundle:Usuario")->getDuenoLugar($recomendacion->getLugar()->getId());
+
+        $mailParam = '';
+        if($owner != null)
+            $mailParam = md5($owner->getMail());
+
+        // Extraemos preview de la recomendación
+        $preview = '';
+        if(strlen($recomendacion->getTexto()) > 300) {
+            $preview = substr($recomendacion->getTexto(),0,300).'...';
+        }
+        else {
+            $preview = $recomendacion->getTexto();
+        }
+
+        // Cálculo de las estrellas de la recomendación
+        $estrellas = array();
+        
+        $numEstrellas = $recomendacion->getEstrellas() * 2;
+        $estrellas['llenas'] = (int)($numEstrellas/2);
+        $estrellas['medias'] = 0;
+        if($numEstrellas%2 != 0)
+            $estrellas['medias'] = 1;
+
+        $estrellas['vacias'] = 5 - $estrellas['llenas'] - $estrellas['medias'];        
+
+        $mail = array();
+        $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.nueva_recomendacion.mail.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));
+        $mail['recomendacion'] = $recomendacion;
+        $mail['preview'] = $preview;
+        $mail['estrellas'] = $estrellas;
+        $mail['mailParam'] = $mailParam;
+        $mail['usuario'] = $recomendacion->getUsuario();
+        $mail['tipo'] = "nueva-recomendacion";
+        $logo = '/web/assets/images/extras/logo_mails.jpg';
+
+        return $this->render('LoogaresLugarBundle:Mails:mail_lugar.html.twig', array('mail' => $mail, 'logo' => $logo));
     }
 
 }

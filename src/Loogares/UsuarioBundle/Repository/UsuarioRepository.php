@@ -200,6 +200,17 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
       $q->setParameter(2, 3);
       return $q->getSingleScalarResult();
     }
+
+    public function getDuenoLugar($lugar) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT d
+                             FROM Loogares\UsuarioBundle\Entity\Dueno d
+                             WHERE d.lugar = ?1
+                             AND d.estado != ?2");
+      $q->setParameter(1, $lugar);
+      $q->setParameter(2, 3);
+      return $q->getOneOrNullResult();
+    }
     
     public function getDatosUsuario($usuario) {
 
