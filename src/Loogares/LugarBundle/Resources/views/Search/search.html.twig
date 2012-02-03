@@ -1,51 +1,55 @@
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-</head>
-<body>
-	<style>
-		table{
-			border: 1px solid #333;
-		}
+{% extends "::base.html.twig" %}
 
-		table td, table th{
-			font-family: Helvetica !important;
-			font-size: 12px !important;
-			padding: 5px;
-		}
+{% block title %}{{'lugar.buscar.titulo'|trans({'%buscar%' : buscar})}} | {{parent()}}{% endblock %}
 
-		table td{
-			border-bottom: 1px #ccc;
-		}
-	</style>
-<p>Encontramos {{results.categorias}} Categorias</p>
-<p>Encontramos {{results.subcategorias}} SubCategorias</p>
-<p>Encontramos {{results.lugaresPorSlug}} Lugares (por slug)</p>
-<p>Encontramos {{results.tags}} Lugares por Tags</p>
-<p>Encontramos {{results.calles}} Lugares por Calle</p>
-	<table>
-		<thead>
-			<th>ID</th>
-			<th>Lugar</th>
-			<th>Visitas</th>
-			<th>Total Recomendaciones</th>
-			<th>Estrellas</th>
-			<th>Cat Principal</th>
-			<th>Ranking</th>
-		</thead>
-		<tbody>
-			{% for lugar in lugares %}
-				<tr>
-					<td>{{lugar.id}}</td>
-					<td>{{lugar.nombre}}</td>
-					<td>{{lugar.visitas}}</td>
-					<td></td>
-					<td>{{lugar.estrellas}}</td>
-					<td></td>
-					<td></td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-</body>
-</html>
+{% block javascripts %}
+	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
+	<script>
+		$(document).ready(function(){
+			$('.resultado-busqueda-raty').each(function(){
+				var estrellas = $(this).attr('data-stars');
+				$(this).raty({
+					width: 140,
+				    starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
+				    starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
+				    starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
+				    half: true,
+				    start: estrellas,
+				    readOnly: true,
+				    space: false
+				});
+			});
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+	{% for lugar in lugares %}
+		<div class="resultado-busqueda">
+			<div class="datos-principales">
+				<ul>
+					<li>{{lugar.nombre}}</li>
+					<li>
+						<span><strong>Categorías</strong></span>
+						{% for categoria in lugar.categorias_nombre %}
+							{{categoria|raw}}{% if loop.last == null %}, {% endif %}
+						{% endfor %}
+					</li>
+					<li>
+						<span><strong>Categorías</strong></span>
+						{{lugar.sector_nombre|raw}}
+					</li>
+				</ul>
+			</div>
+			<div class="datos-secundarios">
+				<ul>
+					<li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-raty"></div></li>
+					<li>{{lugar.total_recomendaciones}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
+					<li>{{lugar.calle}} {{lugar.numero}}</li>
+					<li>{{lugar.precio}}</li>
+					<li>Ranking: {{lugar.ranking}}</li>
+				</ul>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}
