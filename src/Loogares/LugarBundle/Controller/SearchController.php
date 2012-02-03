@@ -93,7 +93,7 @@ class SearchController extends Controller
                         JOIN recomendacion
                         ON recomendacion.lugar_id = lugares.id
                         AND recomendacion.id in (select max(recomendacion.id))
-                        WHERE categorias.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
+                        WHERE categorias.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
 
@@ -113,7 +113,7 @@ class SearchController extends Controller
                         JOIN recomendacion
                         ON recomendacion.lugar_id = lugares.id
                         AND recomendacion.id in (select max(recomendacion.id))
-                        WHERE subcategoria.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
+                        WHERE subcategoria.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
     /*
@@ -139,7 +139,7 @@ class SearchController extends Controller
                           JOIN recomendacion
                           ON recomendacion.lugar_id = lugares.id   
                           AND recomendacion.id in (select max(recomendacion.id))     
-                          WHERE lugares.slug like '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
+                          WHERE lugares.slug like '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
     if($tagsResult != 0){
@@ -160,7 +160,7 @@ class SearchController extends Controller
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
                           JOIN sector
                           ON lugares.sector_id = sector.id
-                          WHERE tag.tag LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
+                          WHERE tag.tag LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
     //Si no encontramos nada con el slug, tenemos que adivinar que es lo que el usuario quiere buscar, hacemos una busqueda por termino...
@@ -182,7 +182,7 @@ class SearchController extends Controller
                               JOIN recomendacion
                               ON recomendacion.lugar_id = lugares.id
                               AND recomendacion.id in (select max(recomendacion.id))
-                              WHERE lugares.slug LIKE $buscarLike GROUP BY lugares.id ORDER BY ranking desc)";
+                              WHERE lugares.slug LIKE $buscarLike GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
         }
 
             //Revisamos que termino devolvio los menores resultados (mayores a 1), asumimos que se buscaba eso
@@ -204,12 +204,12 @@ class SearchController extends Controller
                           JOIN recomendacion
                           ON recomendacion.lugar_id = lugares.id
                           AND recomendacion.id in (select max(recomendacion.id))
-                          WHERE lugares.calle LIKE $callesLike GROUP BY lugares.id ORDER BY ranking desc)";
+                          WHERE lugares.calle LIKE $callesLike GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
     if(is_array($unionQuery)){
         $unionQuery = join(" UNION ", $unionQuery);
-        $unionQuery = " LIMIT 30, 30, 30, 30, 30, 30, 30";
+        $unionQuery .= " LIMIT 30";
         $arr['lugares'] = $this->getDoctrine()->getConnection()->fetchAll($unionQuery);
     }
 
