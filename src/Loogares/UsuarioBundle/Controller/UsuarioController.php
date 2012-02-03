@@ -660,6 +660,55 @@ class UsuarioController extends Controller
         return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
     }
 
+    public function olvidarPasswordAction(Request $request) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+
+        // Usuario loggeado es redirigido a su perfil
+        if($this->get('security.context')->isGranted('ROLE_USER')) 
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
+
+
+        $formErrors = array();
+        if($request->getMethod() == 'POST') {
+
+            if($request->request->get('mail') == '')
+                $formErrors['mail'] = 'olvidar.form.mail';
+
+            if(sizeof($formErrors) == 0) {
+                // Mail ingresado, se obtiene usuario asociado
+                $usuario = $ur->findOneByMail($request->request->get('mail'));
+
+                if($usuario == null)
+                    $this->get('session')->setFlash('usuario-no-existe', 'olvidar.flash.usuario_no_existe');
+                else {
+                    // Enviamos E-mail con link para resetear password
+                    $mail = array();
+                    $mail['asunto'] = $this->get('translator')->trans('olvidar.mail.asunto');
+                    $mail['usuario'] = $usuario;
+
+                    $paths = array();
+                    $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
+
+                    $message = $this->get('fn')->enviarMail($mail['asunto'], $usuario->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresUsuarioBundle:Mails:mail_olvidar_password.html.twig', $this->get('templating'));
+                    $this->get('mailer')->send($message);
+                }
+            }            
+        }
+
+
+        $tipo = 'olvidar';
+        return $this->render('LoogaresUsuarioBundle:Usuarios:olvidar_password.html.twig', array(
+            'errors' => $formErrors,
+            'tipo' => $tipo,
+        ));
+    }
+
+    public function regenerarPassword(Request $request) {
+        
+    }
+
     public function loginAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
