@@ -11,9 +11,8 @@
 		
 		{% include 'LoogaresUsuarioBundle:Usuarios:datos_usuario.html.twig' %}
 
-		{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
-
-		<div id="content-usuario">
+		<div class="caja_contenidos_usuario">
+			{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
 			{% include 'LoogaresUsuarioBundle:Usuarios:'~usuario.tipo~'_usuario.html.twig' %}
 		</div>
 	</div>
