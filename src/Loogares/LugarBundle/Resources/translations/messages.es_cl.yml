@@ -163,6 +163,17 @@ lugar:
             anterior: Anterior
             siguiente: Siguiente
 
+    notificaciones:
+        nueva_recomendacion:
+            mail:
+                asunto: ¡Acaban de escribir sobre %lugar% en Loogares.com!
+                titulo: ¡Hola!
+                subtitulo: Te contamos que una persona acaba de escribir una recomendación sobre %lugar% en %loogares%. ¡Léela a continuación!
+                subsubtitulo: ¿Quieres que más gente conozca %lugar% en Loogares.com?
+                primero: Loogares.com es una guía online de recomendaciones de lugares de ocio y turismo en la ciudad, donde miles de nuestros usuarios "Loogareños" diariamente comparten sus experiencias escribiendo recomendaciones de lugares que conocen.
+                segundo: Ellos seguramente tienen mucho que contar acerca de tu negocio, por eso te proponemos una interesante alianza comercial para que nuestros Loogareños escriban más recomendaciones en %lugar% y seas más visible en Loogares.com. Te invitamos a que hagas click sobre el botón y en menos de 48 horas te enviaremos nuestra propuesta.
+                propuesta: ¡Quiero recibir la propuesta!
+
     errors:
         agregar:
             nombre: Ingresa el nombre del lugar
