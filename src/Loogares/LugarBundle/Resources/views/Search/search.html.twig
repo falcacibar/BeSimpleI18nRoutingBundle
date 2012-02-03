@@ -29,23 +29,41 @@
 			<div class="datos-principales">
 				<ul>
 					<li>{{lugar.nombre}}</li>
+					{% if lugar.categorias_nombre != '' %}
 					<li>
 						<span><strong>Categorías</strong></span>
 						{% for categoria in lugar.categorias_nombre %}
 							{{categoria|raw}}{% if loop.last == null %}, {% endif %}
 						{% endfor %}
 					</li>
+					{% endif %}
+					{% if lugar.sector_nombre != '' %}
 					<li>
-						<span><strong>Categorías</strong></span>
+						<span><strong>Sector</strong></span>
 						{{lugar.sector_nombre|raw}}
 					</li>
+					{% endif %}
+					{% if lugar.ultima_recomendacion != '' %}
+					<li>
+						<span><strong>
+							{{lugar.fecha_ultima_recomendacion|date('y/m/d') }}
+							{% if lugar.usuario_nombre != '' %}
+								<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_nombre}} {{lugar.usuario_apellido}}</a>
+							{% else %}
+								<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_slug}}</a>
+							{% endif %}
+							
+						</strong></span>
+						<p>{{lugar.ultima_recomendacion}}...</p>
+					</li>
+					{% endif %}
 				</ul>
 			</div>
 			<div class="datos-secundarios">
 				<ul>
 					<li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-raty"></div></li>
-					<li>{{lugar.total_recomendaciones}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
-					<li>{{lugar.calle}} {{lugar.numero}}</li>
+					<li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
+					<li>{{lugar.calle}} {{lugar.numero}} - <a href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a></li>
 					<li>{{lugar.precio}}</li>
 					<li>Ranking: {{lugar.ranking}}</li>
 				</ul>

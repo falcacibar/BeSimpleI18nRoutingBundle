@@ -20,7 +20,7 @@ class SearchController extends Controller
     $buscarLike = '';
     $unionQuery = '';
 
-    $fields = "lugares.nombre, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, sector.nombre as sector_nombre, sector.slug as sector_slug, recomendacion.texto, recomendacion.fecha_creacion";    
+    $fields = "lugares.nombre, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, sector.nombre as sector_nombre, sector.slug as sector_slug, LEFT(recomendacion.texto, 140) as ultima_recomendacion, usuarios.nombre as usuario_nombre, usuarios.apellido as usuario_apellido, usuarios.slug as usuario_slug, comuna.slug as comuna_slug, comuna.nombre as comuna_nombre";    
 
     foreach($buscarArray as $term){
         $cleanTerm = $fn->generarSlug($term);
@@ -88,12 +88,16 @@ class SearchController extends Controller
                         ON subcategoria_lugar.lugar_id = lugares.id
                         LEFT JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id
-                        JOIN sector
+                        LEFT JOIN sector
                         ON lugares.sector_id = sector.id
-                        JOIN recomendacion
+                        LEFT JOIN recomendacion
                         ON recomendacion.lugar_id = lugares.id
                         AND recomendacion.id in (select max(recomendacion.id))
-                        WHERE categorias.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
+                        LEFT JOIN usuarios
+                        ON recomendacion.usuario_id = usuarios.id
+                        LEFT JOIN comuna
+                        ON comuna.id = lugares.comuna_id
+                        WHERE categorias.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
 
@@ -108,12 +112,16 @@ class SearchController extends Controller
                         ON categoria_lugar.lugar_id = lugares.id
                         LEFT JOIN categorias
                         ON categoria_lugar.categoria_id = categorias.id
-                        JOIN sector
+                        LEFT JOIN sector
                         ON lugares.sector_id = sector.id
-                        JOIN recomendacion
+                        LEFT JOIN recomendacion
                         ON recomendacion.lugar_id = lugares.id
                         AND recomendacion.id in (select max(recomendacion.id))
-                        WHERE subcategoria.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
+                        LEFT JOIN usuarios
+                        ON recomendacion.usuario_id = usuarios.id
+                        LEFT JOIN comuna
+                        ON comuna.id = lugares.comuna_id
+                        WHERE subcategoria.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
     /*
@@ -134,12 +142,16 @@ class SearchController extends Controller
                           ON subcategoria_lugar.lugar_id = lugares.id
                           LEFT JOIN subcategoria
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id   
-                          JOIN sector
+                          LEFT JOIN sector
                           ON lugares.sector_id = sector.id
-                          JOIN recomendacion
+                          LEFT JOIN recomendacion
                           ON recomendacion.lugar_id = lugares.id   
                           AND recomendacion.id in (select max(recomendacion.id))     
-                          WHERE lugares.slug like '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
+                          LEFT JOIN usuarios
+                          ON recomendacion.usuario_id = usuarios.id
+                          LEFT JOIN comuna
+                          ON comuna.id = lugares.comuna_id
+                          WHERE lugares.slug like '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
     if($tagsResult != 0){
@@ -158,9 +170,13 @@ class SearchController extends Controller
                           ON subcategoria_lugar.lugar_id = lugares.id
                           LEFT JOIN subcategoria
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
-                          JOIN sector
+                          LEFT JOIN sector
                           ON lugares.sector_id = sector.id
-                          WHERE tag.tag LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
+                          LEFT JOIN usuarios
+                          ON recomendacion.usuario_id = usuarios.id
+                          LEFT JOIN comuna
+                          ON comuna.id = lugares.comuna_id
+                          WHERE tag.tag LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
     //Si no encontramos nada con el slug, tenemos que adivinar que es lo que el usuario quiere buscar, hacemos una busqueda por termino...
@@ -177,12 +193,16 @@ class SearchController extends Controller
                               ON subcategoria_lugar.lugar_id = lugares.id
                               LEFT JOIN subcategoria
                               ON subcategoria_lugar.subcategoria_id = subcategoria.id
-                              JOIN sector
+                              LEFT JOIN sector
                               ON lugares.sector_id = sector.id
-                              JOIN recomendacion
+                              LEFT JOIN recomendacion
                               ON recomendacion.lugar_id = lugares.id
                               AND recomendacion.id in (select max(recomendacion.id))
-                              WHERE lugares.slug LIKE $buscarLike GROUP BY lugares.id ORDER BY ranking desc)";
+                              LEFT JOIN usuarios
+                              ON recomendacion.usuario_id = usuarios.id
+                              LEFT JOIN comuna
+                              ON comuna.id = lugares.comuna_id
+                              WHERE lugares.slug LIKE $buscarLike GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
         }
 
             //Revisamos que termino devolvio los menores resultados (mayores a 1), asumimos que se buscaba eso
@@ -190,7 +210,7 @@ class SearchController extends Controller
 
     //Y POR ULTIMOOOOOOO, buscamos por calles
     if($callesResult != 0){
-        $unionQuery[] = "(SELECT DISTINCT $fields FROM lugares
+        $unionQuery[] = "(SELECT $fields FROM lugares
                           LEFT JOIN categoria_lugar
                           ON categoria_lugar.lugar_id = lugares.id
                           LEFT JOIN categorias
@@ -201,15 +221,19 @@ class SearchController extends Controller
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
                           JOIN sector
                           ON lugares.sector_id = sector.id
-                          JOIN recomendacion
+                          LEFT JOIN recomendacion
                           ON recomendacion.lugar_id = lugares.id
                           AND recomendacion.id in (select max(recomendacion.id))
-                          WHERE lugares.calle LIKE $callesLike GROUP BY lugares.id ORDER BY ranking desc)";
+                          LEFT JOIN usuarios
+                          ON recomendacion.usuario_id = usuarios.id
+                          LEFT JOIN comuna
+                          ON comuna.id = lugares.comuna_id
+                          WHERE lugares.calle LIKE $callesLike GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
     if(is_array($unionQuery)){
         $unionQuery = join(" UNION ", $unionQuery);
-        $unionQuery = " LIMIT 30, 30, 30, 30, 30, 30, 30";
+        $unionQuery .= " LIMIT 30";
         $arr['lugares'] = $this->getDoctrine()->getConnection()->fetchAll($unionQuery);
     }
 
