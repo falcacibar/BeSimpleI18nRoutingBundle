@@ -7,45 +7,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SearchController extends Controller
 {
-  private function generarVista($arr){
-    return $this->render('LoogaresLugarBundle:Search:search.html.twig', array('lugares' => $arr['lugares'], 'buscando' => $arr['buscando'] ));
-  }
 
   public function buscarAction(){
-
-    function aasort ($array, $key) {
-        $sorter=array();
-        $ret=array();
-        reset($array);
-        foreach ($array as $ii => $va) {
-            $sorter[$ii]=$va[$key];
-        }
-        asort($sorter);
-        foreach ($sorter as $ii => $va) {
-            $ret[$ii]=$array[$ii];
-        }
-        $array=$ret;
-        return $array;
-    }
-
     $em = $this->getDoctrine()->getEntityManager();
     $fn = $this->get('fn');
     $terminosBuscar = explode(' ', $_GET['buscar']);
     $buscar = $_GET['buscar'];
     $buscarSlug = $fn->generarSlug($buscar);
-    $results = array();
-    $where = null;
-    $st = null;
-    $tags = '';
-    $subcat = '';
     $arr['lugares'] = array();
-    $exclude = '';
+    $callesLike = "'%".$buscar."%'";
+    $buscarArray = explode(' ', $buscar);
+    $buscarLike = '';
+    $unionQuery = '';
+
+    $fields = "lugares.nombre, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, sector.nombre as sector_nombre, sector.slug as sector_slug, recomendacion.texto, recomendacion.fecha_creacion";    
+
+    foreach($buscarArray as $term){
+        $cleanTerm = $fn->generarSlug($term);
+        $buscarLike .= "'%$cleanTerm%' OR ";
+    }
+
+    $buscarLike = preg_replace('/OR\s$/', '', $buscarLike);
+    $callesLike = preg_replace('/(%\w+)\'/', "$1\'", $callesLike);
 
     //Hacemos las consultas para ver que datos tenemos.
 
     //Categorias
     $q = $em->createQuery("SELECT count(u.id) FROM Loogares\LugarBundle\Entity\Categoria u WHERE u.slug LIKE '%$buscarSlug%'");
     $categoriaResult = $q->getSingleScalarResult();
+
 
     //Subcategorias
     $q = $em->createQuery("SELECT count(u.id) FROM Loogares\LugarBundle\Entity\SubCategoria u WHERE u.slug LIKE '%$buscarSlug%'");
@@ -55,23 +45,27 @@ class SearchController extends Controller
     $q = $em->createQuery("SELECT count(u.id) FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.slug LIKE '%$buscarSlug%'");
     $lugaresPorSlugResult = $q->getSingleScalarResult();
 
+    //Lugares por termino
+    $lugaresPorTermino = $em->getConnection()->fetchAll("SELECT count(id) as ct FROM lugares where lugares.slug LIKE $buscarLike");
+    $lugaresPorTerminoResult = $lugaresPorTermino[0]['ct'];
+
     //Tags
     $q = $em->createQuery("SELECT count(tr.id)
                            FROM Loogares\UsuarioBundle\Entity\TagRecomendacion tr
                            JOIN tr.recomendacion r
-                           JOIN r.lugar l
                            JOIN tr.tag t
                            WHERE t.tag LIKE '%$buscarSlug%'");
     $tagsResult = $q->getSingleScalarResult();
 
     //Calles
-    $q = $em->createQuery("SELECT count(u.id) FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.calle LIKE '%$buscar%'");
-    $callesResult = $q->getSingleScalarResult();
+    $calles = $em->getConnection()->fetchAll("SELECT count(id) as ct FROM lugares where lugares.calle LIKE $callesLike");
+    $callesResult = $calles[0]['ct'];
 
     $results = array(
         'categorias' => $categoriaResult,
         'subcategorias' => $subCategoriaResult,
         'lugaresPorSlug' => $lugaresPorSlugResult,
+        'lugaresPorTermino' => $lugaresPorTerminoResult,
         'tags' => $tagsResult,
         'calles' => $callesResult
     );
@@ -83,50 +77,43 @@ class SearchController extends Controller
     * BUSQUEDA
     */
 
-    function excluirLugares($array, $buffer = ''){
-        foreach($array as $lugar){
-            $buffer .= ' AND lugares.id != ' . $lugar['id'];
-        }
-        return $buffer;
-    }
-
-
     //Si hay una categoria con ese nombre...
     if($categoriaResult != 0){
-      $arr['buscando'] = 'Buscando por Categoria: ' . $buscar;
-      $arr['lugares'] = array_merge($arr['lugares'], $em
-             ->getConnection()
-             ->fetchAll("SELECT lugares.* FROM categoria_lugar
-
+      $unionQuery[] = "(SELECT $fields FROM categoria_lugar
                         JOIN lugares
                         ON categoria_lugar.lugar_id = lugares.id
-
-                        JOIN categorias
+                        LEFT JOIN categorias
                         ON categoria_lugar.categoria_id = categorias.id
-
-                        WHERE categorias.slug LIKE '%$buscarSlug%' $exclude
-                        ORDER BY lugares.visitas desc"));
-       $exclude .= excluirLugares($arr['lugares']);
+                        LEFT JOIN subcategoria_lugar
+                        ON subcategoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN subcategoria
+                        ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                        JOIN sector
+                        ON lugares.sector_id = sector.id
+                        JOIN recomendacion
+                        ON recomendacion.lugar_id = lugares.id
+                        AND recomendacion.id in (select max(recomendacion.id))
+                        WHERE categorias.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
     }
-
 
 
     //Si hay una categoria con ese nombre...
     if($subCategoriaResult != 0){
-      $arr['buscando'] = 'Buscando por Subcategoria: ' . $buscar;
-      $arr['lugares'] = array_merge($arr['lugares'], $em
-             ->getConnection()
-             ->fetchAll("SELECT lugares.* FROM subcategoria_lugar
-
+      $unionQuery[] = "(SELECT $fields FROM subcategoria_lugar
                         JOIN lugares
                         ON subcategoria_lugar.lugar_id = lugares.id
-
-                        JOIN subcategoria
+                        LEFT JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id
-
-                        WHERE subcategoria.slug LIKE '%$buscarSlug%' $exclude
-                        ORDER BY lugares.visitas DESC"));
-       $exclude .= excluirLugares($arr['lugares']);
+                        LEFT JOIN categoria_lugar
+                        ON categoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN categorias
+                        ON categoria_lugar.categoria_id = categorias.id
+                        JOIN sector
+                        ON lugares.sector_id = sector.id
+                        JOIN recomendacion
+                        ON recomendacion.lugar_id = lugares.id
+                        AND recomendacion.id in (select max(recomendacion.id))
+                        WHERE subcategoria.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
     }
 
     /*
@@ -138,64 +125,113 @@ class SearchController extends Controller
     //Busqueda General por termino transformado a slug, muy especifico, hace match solamente cuando el lugar es buscado por el nombre correcto
 
     if($lugaresPorSlugResult != 0){
-        $arr['buscando'] = 'Busqueda por Slug: ' . $buscarSlug;
-        $arr['lugares'] = array_merge($arr['lugares'], $em
-            ->getConnection()
-            ->fetchAll("SELECT lugares.* from lugares where lugares.slug like '%$buscarSlug%' $exclude"));
-       $exclude .= excluirLugares($arr['lugares']);
+        $unionQuery[] = "(SELECT $fields FROM lugares 
+                          LEFT JOIN categoria_lugar
+                          ON categoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN categorias
+                          ON categoria_lugar.categoria_id = categorias.id
+                          LEFT JOIN subcategoria_lugar
+                          ON subcategoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN subcategoria
+                          ON subcategoria_lugar.subcategoria_id = subcategoria.id   
+                          JOIN sector
+                          ON lugares.sector_id = sector.id
+                          JOIN recomendacion
+                          ON recomendacion.lugar_id = lugares.id   
+                          AND recomendacion.id in (select max(recomendacion.id))     
+                          WHERE lugares.slug like '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
     }
 
     if($tagsResult != 0){
-        $arr['buscando'] = 'Busqueda por Slug: ' . $buscarSlug;
-        $arr['lugares'] = array_merge($arr['lugares'], $em
-            ->getConnection()
-            ->fetchAll("SELECT DISTINCT lugares.* FROM tag_recomendacion
-                        JOIN recomendacion
-                        ON recomendacion.id = tag_recomendacion.recomendacion_id
-                        JOIN lugares
-                        ON lugares.id = recomendacion.lugar_id
-                        JOIN tag
-                        ON tag.id = tag_recomendacion.tag_id
-                        WHERE tag.tag LIKE '%$buscarSlug%' $exclude"));
-       $exclude .= excluirLugares($arr['lugares']);
+        $unionQuery[] = "(SELECT DISTINCT $fields FROM tag_recomendacion
+                          JOIN recomendacion
+                          ON recomendacion.id = tag_recomendacion.recomendacion_id
+                          JOIN lugares
+                          ON lugares.id = recomendacion.lugar_id
+                          JOIN tag
+                          ON tag.id = tag_recomendacion.tag_id
+                          LEFT JOIN categoria_lugar
+                          ON categoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN categorias
+                          ON categoria_lugar.categoria_id = categorias.id
+                          LEFT JOIN subcategoria_lugar
+                          ON subcategoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN subcategoria
+                          ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                          JOIN sector
+                          ON lugares.sector_id = sector.id
+                          WHERE tag.tag LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY ranking desc)";
     }
 
     //Si no encontramos nada con el slug, tenemos que adivinar que es lo que el usuario quiere buscar, hacemos una busqueda por termino...
-    // $buscarArray = explode(' ', $buscar);
-    // $buscarLike = '';
-    // foreach($buscarArray as $term){
-    //     $buscarLike .= "'%$term%' OR ";
-    // }
-    // $buscarLike = preg_replace('/OR\s$/', '', $buscarLike);
+    if($lugaresPorTerminoResult != 0){
+        //Ejecutamos una consulta por termino...
+        foreach($buscarArray as $key => $term){
+            $unionQuery[] = "(SELECT $fields 
+                              FROM lugares
+                              LEFT JOIN categoria_lugar
+                              ON categoria_lugar.lugar_id = lugares.id
+                              LEFT JOIN categorias
+                              ON categoria_lugar.categoria_id = categorias.id
+                              LEFT JOIN subcategoria_lugar
+                              ON subcategoria_lugar.lugar_id = lugares.id
+                              LEFT JOIN subcategoria
+                              ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                              JOIN sector
+                              ON lugares.sector_id = sector.id
+                              JOIN recomendacion
+                              ON recomendacion.lugar_id = lugares.id
+                              AND recomendacion.id in (select max(recomendacion.id))
+                              WHERE lugares.slug LIKE $buscarLike GROUP BY lugares.id ORDER BY ranking desc)";
+        }
 
-    // $arr['buscando'] = 'Busqueda por Terminos: ' . $buscarLike;
+            //Revisamos que termino devolvio los menores resultados (mayores a 1), asumimos que se buscaba eso
+    }
 
-    // //Ejecutamos una consulta por termino...
-    // foreach($buscarArray as $key => $term){
-    //     $arr['lugares'][$key] = $em
-    //         ->getConnection()
-    //         ->fetchAll("SELECT lugares.* 
-    //                     FROM lugares 
-    //                     JOIN recomendacion
-    //                     ON recomendacion.lugar_id = lugares.id
-    //                     JOIN tag_recomendacion
-    //                     ON tag_recomendacion.recomendacion_id = recomendacion.id
-    //                     JOIN tag
-    //                     ON tag.id = tag_recomendacion.tag_id
-    //                     WHERE lugares.slug LIKE '%$term%'");
-    // }
+    //Y POR ULTIMOOOOOOO, buscamos por calles
+    if($callesResult != 0){
+        $unionQuery[] = "(SELECT DISTINCT $fields FROM lugares
+                          LEFT JOIN categoria_lugar
+                          ON categoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN categorias
+                          ON categoria_lugar.categoria_id = categorias.id
+                          LEFT JOIN subcategoria_lugar
+                          ON subcategoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN subcategoria
+                          ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                          JOIN sector
+                          ON lugares.sector_id = sector.id
+                          JOIN recomendacion
+                          ON recomendacion.lugar_id = lugares.id
+                          AND recomendacion.id in (select max(recomendacion.id))
+                          WHERE lugares.calle LIKE $callesLike GROUP BY lugares.id ORDER BY ranking desc)";
+    }
 
-    // //Revisamos que termino devolvio los menores resultados (mayores a 1), asumimos que se buscaba eso
-    // sort($arr['lugares']);
-    // $arr['lugares'] = $arr['lugares'][0];
+    if(is_array($unionQuery)){
+        $unionQuery = join(" UNION ", $unionQuery);
+        $unionQuery = " LIMIT 30, 30, 30, 30, 30, 30, 30";
+        $arr['lugares'] = $this->getDoctrine()->getConnection()->fetchAll($unionQuery);
+    }
 
-    // if(isset($arr['lugares'])){
-    //     return $this->generarVista($arr);
-    // }
+    foreach($arr['lugares'] as $key => $lugar){
+        $arr['lugares'][$key]['categorias_nombre'] = explode(',', $lugar['categorias_nombre']);
+        $arr['lugares'][$key]['categorias_slug'] = explode(',', $lugar['categorias_slug']);
 
-    $tmp = '';
+        foreach($arr['lugares'][$key]['categorias_nombre'] as $i => $value){
+            $catPath = $this->generateUrl('_lugar', array('slug' => $arr['lugares'][$key]['categorias_slug'][$i]));
+            $arr['lugares'][$key]['categorias_nombre'][$i] = "<a href='$catPath'>".$value."</a>";
+        }
 
-    return $this->render('LoogaresLugarBundle:Search:search.html.twig', array('lugares' => $arr['lugares'], 'buscando' => $arr['buscando'], 'results' => $results));
+        if($arr['lugares'][$key]['sector_nombre'] != false){
+          $sectorPath = $this->generateUrl('_lugar', array('slug' => $arr['lugares'][$key]['sector_slug']));
+          $arr['lugares'][$key]['sector_nombre'] = "<a href='$sectorPath'>".$arr['lugares'][$key]['sector_nombre']."</a>";
+        }
+    }
+
+    return $this->render('LoogaresLugarBundle:Search:search.html.twig', array(
+        'lugares' => $arr['lugares'],
+        'buscar' => $buscar
+    ));
 
   }
 }

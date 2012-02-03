@@ -1,5 +1,8 @@
 # Locale 'es_cl' LugarBundle
 lugar:
+    buscar:
+        titulo: Resultados para: %buscar%
+        total_recomendaciones: recomendación|recomendaciones
     recomendacion:
         opcional:
             tip: ¿Deseas agregar una Recomendación?
@@ -15,7 +18,6 @@ lugar:
             tags: Escribe los tags separados por coma
         meta:
             title: Recomendación de %usuario% en %lugar%
-
     agregar:
         titulo: Agregar un Lugar
         nombre: Nombre *
