@@ -1050,19 +1050,15 @@ class LugarController extends Controller{
                 $mail['mailParam'] = $mailParam;
                 $mail['usuario'] = $recomendacion->getUsuario();
                 $mail['tipo'] = "nueva-recomendacion";
-                $message = \Swift_Message::newInstance()
-                        ->setSubject($mail['asunto'])
-                        ->setFrom('noreply@loogares.com')
-                        ->setTo($lugar->getMail());
-                
-                $assets = array();
-                $assets['logo'] = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
-                $assets['estrella_llena'] =  $message->embed(\Swift_Image::fromPath('assets/images/extras/estrella_llena_recomendacion.png'));
-                $assets['estrella_media'] =  $message->embed(\Swift_Image::fromPath('assets/images/extras/estrella_media_recomendacion.png'));
-                $assets['estrella_vacia'] =  $message->embed(\Swift_Image::fromPath('assets/images/extras/estrella_vacia_recomendacion.png'));                               
-                $assets['usuario'] = $message->embed(\Swift_Image::fromPath('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull()));
 
-                $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_lugar.html.twig', array('mail' => $mail, 'assets' => $assets)), 'text/html');
+                $paths = array();
+                $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
+                $paths['estrella_llena'] =  'assets/images/extras/estrella_llena_recomendacion.png';
+                $paths['estrella_media'] =  'assets/images/extras/estrella_media_recomendacion.png';
+                $paths['estrella_vacia'] =  'assets/images/extras/estrella_vacia_recomendacion.png';
+                $paths['usuario'] = 'assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull();
+
+                $message = $this->get('fn')->enviarMail($mail['asunto'], $lugar->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_lugar.html.twig', $this->get('templating'));
                 $this->get('mailer')->send($message);
             }
 

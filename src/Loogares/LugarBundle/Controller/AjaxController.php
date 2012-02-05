@@ -168,6 +168,16 @@ class AjaxController extends Controller
         $util->setFecha(new \DateTime());
 
         $em->persist($util);
+
+        // Se envía mail al usuario que recomendó informándole del útil
+        /*$mail = array();
+        $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.util_recomendacion.mail.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));
+        $mail['recomendacion'] = $recomendacion;
+        $mail['usuario'] = $recomendacion->getUsuario();
+        $mail['tipo'] = "util-recomendacion";
+
+        $paths = array();
+        $paths['logo'] = 'assets/images/extras/logo_mails.jpg';*/
       }else{
         $em->remove($utilResult[0]);
       }

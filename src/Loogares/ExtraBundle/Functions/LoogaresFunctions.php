@@ -246,4 +246,19 @@ class LoogaresFunctions
 
     }
 
+    public function enviarMail($subject, $to, $from, $mail, $paths, $template, $templating) {
+        $message = \Swift_Message::newInstance()
+                    ->setSubject($subject)
+                    ->setFrom($from)
+                    ->setTo($to);
+
+        $assets = array();
+        foreach ($paths as $key => $value) {
+            $assets[$key] = $message->embed(\Swift_Image::fromPath($value));
+        }
+
+        $message->setBody($templating->render($template, array('mail' => $mail, 'assets' => $assets)), 'text/html');
+        return $message;
+    }
+
 }
