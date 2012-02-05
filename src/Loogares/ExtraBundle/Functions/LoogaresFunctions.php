@@ -41,12 +41,11 @@ class LoogaresFunctions
         $mostrandoHasta = ($offset + $porPagina >= $total)?$total:($offset + $porPagina);
         $totalPaginas = ceil($total / $porPagina);
 
-
         //Opciones por defecto
         if($options == null){
             $options = array(
-                'izq' => ($paginaActual == 1)?0:(($totalPaginas - $paginaActual == 0)?$totalPaginas-1:$totalPaginas - $paginaActual),
-                'der' => ($totalPaginas <= 4)?$totalPaginas-$paginaActual:4
+                'izq' => ($paginaActual <= 4)?$paginaActual-1:4,
+                'der' => ($totalPaginas - $paginaActual >= 4)?4:($totalPaginas-$paginaActual)
             );
         }
 

@@ -24,6 +24,24 @@
 {% endblock %}
 
 {% block content %}
+	<h2>Resultados para: {{buscar}}</h2>
+
+<div class="total_paginacion">
+    <form action="" method="get">
+        <strong>
+            {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong>
+    </form>
+</div>
+
+<ul class="paginacion">
+    {{paginacion.paginacion | raw}}
+</ul>
+	<ul class="filtros-busqueda">
+		<li><a class="link_azul">Mas Relevantes</a></li>
+		<li><a class="link_azul">Mas Recomendados</a></li>
+		<li><a class="link_azul">Ultimos Recomendados</a></li>
+		<li><a class="link_azul">Orden Alfabetico</a></li>
+	<ul>
 	{% for lugar in lugares %}
 		<div class="resultado-busqueda">
 			<div class="datos-principales">

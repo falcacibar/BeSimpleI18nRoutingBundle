@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class SearchController extends Controller
 {
 
-  public function buscarAction(){
+  public function buscarAction($slug){
     $em = $this->getDoctrine()->getEntityManager();
     $fn = $this->get('fn');
     $terminosBuscar = explode(' ', $_GET['buscar']);
@@ -19,6 +19,11 @@ class SearchController extends Controller
     $buscarArray = explode(' ', $buscar);
     $buscarLike = '';
     $unionQuery = '';
+
+    $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
+    $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+    $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
+    $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
 
     $fields = "lugares.nombre, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, sector.nombre as sector_nombre, sector.slug as sector_slug, LEFT(recomendacion.texto, 140) as ultima_recomendacion, usuarios.nombre as usuario_nombre, usuarios.apellido as usuario_apellido, usuarios.slug as usuario_slug, comuna.slug as comuna_slug, comuna.nombre as comuna_nombre";    
 
@@ -70,6 +75,7 @@ class SearchController extends Controller
         'calles' => $callesResult
     );
 
+    $totalResults = $categoriaResult+$subCategoriaResult+$lugaresPorSlugResult+$lugaresPorTerminoResult+$tagsResult+$callesResult;
 
     /*
     * PRIORIDADES
@@ -79,7 +85,7 @@ class SearchController extends Controller
 
     //Si hay una categoria con ese nombre...
     if($categoriaResult != 0){
-      $unionQuery[] = "(SELECT $fields FROM categoria_lugar
+      $unionQuery[] = "(SELECT SQL_CALC_FOUND_ROWS $fields FROM categoria_lugar
                         JOIN lugares
                         ON categoria_lugar.lugar_id = lugares.id
                         LEFT JOIN categorias
@@ -231,12 +237,14 @@ class SearchController extends Controller
                           WHERE lugares.calle LIKE $callesLike GROUP BY lugares.id ORDER BY ranking desc LIMIT 2000)";
     }
 
+
     if(is_array($unionQuery)){
         $unionQuery = join(" UNION ", $unionQuery);
-        $unionQuery .= " LIMIT 30";
+        $unionQuery .= " LIMIT $resultadosPorPagina OFFSET $offset";
         $arr['lugares'] = $this->getDoctrine()->getConnection()->fetchAll($unionQuery);
     }
 
+    $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
     foreach($arr['lugares'] as $key => $lugar){
         $arr['lugares'][$key]['categorias_nombre'] = explode(',', $lugar['categorias_nombre']);
         $arr['lugares'][$key]['categorias_slug'] = explode(',', $lugar['categorias_slug']);
@@ -252,9 +260,17 @@ class SearchController extends Controller
         }
     }
 
+    $params = array(
+        'slug' => $slug
+    );
+
+    $paginacion = $fn->paginacion( $resultSetSize[0]['rows'], $resultadosPorPagina, '_buscar', $params, $this->get('router') );
+
     return $this->render('LoogaresLugarBundle:Search:search.html.twig', array(
         'lugares' => $arr['lugares'],
-        'buscar' => $buscar
+        'buscar' => $buscar,
+        'paginacion' => $paginacion,
+        'query' => $_GET
     ));
 
   }
