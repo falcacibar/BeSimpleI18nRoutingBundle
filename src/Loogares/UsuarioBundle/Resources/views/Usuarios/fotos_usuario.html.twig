@@ -78,12 +78,15 @@
 	</div>
 
 	{% if usuario.totalPaginas > 1 %}
-		<div class="paginacion">
-			<span>{{paginacion.mostrandoDe}} al {{paginacion.mostrandoHasta}} de {{usuario.totalImagenesLugar}} | Ir a la página:</span>
-			<ul class="orden">
-				{{paginacion.paginacion|raw}}
-			</ul>
-		</div>
+		<div class="paginacion_perfil">
+        	<p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{usuario.totalImagenesLugar}}</strong>
+            {% if paginacion.totalPaginas != 1 %}
+                 | Ir a la página
+                <ul>
+                    {{ paginacion.paginacion | raw }}
+                </ul>
+            {% endif %}
+        </div>
 	{% endif %}
 
 </div>

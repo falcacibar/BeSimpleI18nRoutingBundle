@@ -59,13 +59,15 @@
 	{% set i = i + 1 %}		
 	{% endfor %}
 
-
-		{% if usuario.totalPaginas > 1 %}
-		<div class="paginacion">
-			<span>{{ paginacion.mostrandoDe }} al {{ paginacion.mostrandoHasta }} de {{usuario.totalRecomendaciones}} | Ir a la página:</span>
-			<ul>
-				{{paginacion.paginacion | raw}}
-			</ul>
-		</div>
-	{% endif %}
+ 		{% if usuario.totalPaginas > 1 %}
+    	<div class="paginacion_perfil">
+        	<p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{usuario.totalRecomendaciones}}</strong>
+            {% if paginacion.totalPaginas != 1 %}
+                 | Ir a la página
+                <ul>
+                    {{ paginacion.paginacion | raw }}
+                </ul>
+            {% endif %}
+        </div>
+		{% endif %}
 </div>

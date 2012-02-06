@@ -1,6 +1,6 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
 
-<div id="edicion-cuenta" class="edicion">
+<div class="caja_edicion_datos">
 	{% if app.session.hasFlash('edicion-cuenta') %}
 		    <div class="flash-notice">
 		        {{ app.session.flash('edicion-cuenta') | trans }}
@@ -18,6 +18,16 @@
 	<form action="{{ path('editarCuentaUsuario', { 'param': usuario.id }) }}" method="post" {{ form_enctype(form) }}>
 		<div class="form-edicion">
 			<ul class="editar-usuario">
+				{% if is_granted('ROLE_ADMIN') %}
+					<li>
+						<label>{{'usuario.edicion.cuenta.tipo'|trans}}</label>
+						<select class="tipo_usuario" name="tipo_usuario">
+							{% for tipoUsuario in tipoUsuarios %}
+								<option value="{{tipoUsuario.id}}">{{tipoUsuario.descripcion}}</option>
+							{% endfor %}
+						</select>
+					</li>	
+				{% endif %}
 				<li>
 					{% set inputClass = (errors.nombre is defined) ? 'input-error' : ' '%}
 					{{ form_label(form.nombre, 'usuario.edicion.cuenta.nombre') }}
@@ -26,16 +36,6 @@
 						<small class="errors">{{errors.nombre | trans}}</small>
 					{% endif %}
 				</li>
-				{% if is_granted('ROLE_ADMIN') %}
-					<li>
-						<label>{{'usuario.edicion.cuenta.tipo'|trans}}</label>
-						<select name="tipo_usuario">
-							{% for tipoUsuario in tipoUsuarios %}
-								<option value="{{tipoUsuario.id}}">{{tipoUsuario.descripcion}}</option>
-							{% endfor %}
-						</select>
-					</li>	
-				{% endif %}
 				<li>
 					{% set inputClass = (errors.apellido is defined) ? 'input-error' : ' '%}
 					{{ form_label(form.apellido, 'usuario.edicion.cuenta.apellido') }}
@@ -66,9 +66,9 @@
 				<li>
 					{{ form_label(form.fecha_nacimiento, 'usuario.edicion.cuenta.nacimiento.label', {'attr' :{'class' : 'label-up'}}) }}
 					<div class="edicion-fecha-nacimiento">
-					{{ form_widget(form.fecha_nacimiento.day, { 'attr': {'class': 'day'}}) }}
-					{{ form_widget(form.fecha_nacimiento.month, { 'attr': {'class': 'month'}}) }}
-					{{ form_widget(form.fecha_nacimiento.year, { 'attr': {'class': 'year'}}) }}					
+						{{ form_widget(form.fecha_nacimiento.day, { 'attr': {'class': 'day'}}) }}
+						{{ form_widget(form.fecha_nacimiento.month, { 'attr': {'class': 'month'}}) }}
+						{{ form_widget(form.fecha_nacimiento.year, { 'attr': {'class': 'year'}}) }}					
 					</div>
 				</li>
 
@@ -80,7 +80,7 @@
 				<li>
 					{{ form_label(form.sexo, 'usuario.edicion.cuenta.sexo.label') }}
 					{{ form_widget(form.sexo) }}
-				</li> <br /> <br />
+				</li>
 				
 				<li>
 					{{ form_label(form.web, 'usuario.edicion.cuenta.web') }}
@@ -97,7 +97,7 @@
 					{{ form_widget(form.twitter) }}
 				</li>
 
-				<li class="edicion-newsletter">
+				<li id="edicion-newsletter">
 					{{ form_label(form.newsletter_activo, null, {'attr' :{'class' : 'label-up'}}) }}
 					{{ form_widget(form.newsletter_activo) }}
 				</li> 
@@ -105,7 +105,8 @@
 			    {{ form_rest(form) }}
 
 				<div class="submit">
-					<label></label><input type="submit" value="{{'usuario.edicion.cuenta.submit'|trans}}" formnovalidate />
+					<label></label>
+					<input class="enviar_datos_prefil" type="submit" value="{{'usuario.edicion.cuenta.submit'|trans}}" formnovalidate />
 				</div>
 			</ul>
 	    </div>		    
