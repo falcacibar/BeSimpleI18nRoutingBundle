@@ -6,6 +6,14 @@ confirmarUsuario:
     pattern:  /confirmar/{hash}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:confirmar }
 
+olvidarPassword:
+    pattern:  /olvidar_password
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:olvidarPassword }
+
+regenerarPassword:
+    pattern:  /regenerar_password/{hash}
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:regenerarPassword }
+
 login:
     pattern:   /
     defaults:  { _controller: LoogaresUsuarioBundle:Usuario:login }    

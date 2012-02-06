@@ -28,3 +28,19 @@ general:
         paises:
             titulo: Cambiar de país:
         firma: © 2010~2012 Loogares.com
+
+
+olvidar:
+    titulo_pag: ¿Olvidaste tu password?
+    titulo: ¿Olvidaste tu password?... ¡Pero cómo!
+    subtitulo: Mándanos tu dirección de E-mail con la que entras a Loogares.com y te enviaremos un correo con un link para que resetees tu password. ¡Las pasas para la memoria las compras tú!
+    form:
+        mail: Debes ingresar tu E-mail
+
+    flash:
+        usuario_no_existe: El E-mail especificado no corresponde a ningún usuario.
+    mail:
+        asunto: Tu nuevo password en Loogares.com
+        titulo: Hola %usuario%,
+        primero: haz click %open_tag%acá%close_tag% para crear el nuevo password de tu cuenta de Loogares.com
+        segundo: ¡Y para la próxima, acuérdate de las pasas!
