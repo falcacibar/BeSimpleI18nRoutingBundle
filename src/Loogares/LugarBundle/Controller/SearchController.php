@@ -88,7 +88,9 @@ class SearchController extends Controller
         'lugaresPorSlug' => $lugaresPorSlugResult,
         'lugaresPorTermino' => $lugaresPorTerminoResult,
         'lugaresPorTags' => $tagsResult,
-        'calles' => $callesResult
+        'lugaresPorCalle' => $callesResult,
+        'totalPorCategoria' => '',
+        'totalPorSubcategoria' => ''
     );
 
     $totalResults = $categoriaResult+$subCategoriaResult+$lugaresPorSlugResult+$lugaresPorTerminoResult+$tagsResult+$callesResult;
@@ -112,7 +114,7 @@ class SearchController extends Controller
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id
                         GROUP BY lugares.id HAVING categorias_nombre LIKE '%$buscarSlug%' ORDER BY ranking desc LIMIT 2000)";
 
-      $totalCategorias = $this->getDoctrine()->getConnection()->fetchAll("SELECT count(categorias.id), categorias.nombre, categorias.slug
+      $totalCategorias = $this->getDoctrine()->getConnection()->fetchAll("SELECT count(categorias.id) as total, categorias.nombre, categorias.slug
                          FROM categorias
 
                          LEFT JOIN categoria_lugar
@@ -123,6 +125,7 @@ class SearchController extends Controller
 
                          WHERE categorias.slug LIKE '%$buscarSlug%'
                          GROUP BY categorias.nombre");
+      $results['totalPorCategoria'] = $totalCategorias;
     }
 
     //Si hay una categoria con ese nombre...
@@ -137,7 +140,7 @@ class SearchController extends Controller
                         LEFT JOIN categorias
                         ON categoria_lugar.categoria_id = categorias.id
                         WHERE subcategoria.slug LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
-      $totalSubCategorias = $this->getDoctrine()->getConnection()->fetchAll("SELECT count(subcategoria.id), subcategoria.nombre, subcategoria.slug from subcategoria
+      $totalSubCategorias = $this->getDoctrine()->getConnection()->fetchAll("SELECT count(subcategoria.id) as total, subcategoria.nombre, subcategoria.slug from subcategoria
 
                              left join subcategoria_lugar
                              on subcategoria_lugar.subcategoria_id = subcategoria.id
@@ -147,6 +150,7 @@ class SearchController extends Controller
 
                              where subcategoria.nombre like '%$buscarSlug%'
                              group by subcategoria.nombre");
+      $results['totalPorSubcategoria'] = $totalSubCategorias;
     }
 
     /*
@@ -168,9 +172,6 @@ class SearchController extends Controller
                           LEFT JOIN subcategoria
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id   
                           WHERE lugares.slug like '%$buscarSlug%' GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
-
-        $totalLugaresPorSlug = $this->getDoctrine()->getConnection()->fetchAll("SELECT count(id) as total FROM lugares  
-                                WHERE lugares.slug like '%$buscarSlug%'");
     }
 
     if($tagsResult != 0){
@@ -191,7 +192,6 @@ class SearchController extends Controller
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
                           WHERE tag.tag LIKE '%$buscarSlug%' GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
 
-      $totalLugaresPorTags = "";
     }
 
     //Si no encontramos nada con el slug, tenemos que adivinar que es lo que el usuario quiere buscar, hacemos una busqueda por termino...
@@ -210,9 +210,6 @@ class SearchController extends Controller
                               LEFT JOIN subcategoria
                               ON subcategoria_lugar.subcategoria_id = subcategoria.id
                               WHERE lugares.slug LIKE $buscarLike GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
-            $buffer = $this->getDoctrine()->getConnection()->fetchAll("SELECT count(id) as total FROM lugares  
-                       WHERE lugares.slug like $buscarLike");
-            $totalLugaresPorTermino = $totalLugaresPorTermino + $buffer[0]['total'];
         }
     }
 
@@ -228,8 +225,6 @@ class SearchController extends Controller
                           LEFT JOIN subcategoria
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
                           WHERE lugares.calle LIKE $callesLike GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
-        $totalLugaresPorCalle = $this->getDoctrine()->getConnection()->fetchAll("SELECT count(id) as total FROM lugares  
-                   WHERE lugares.calle like $callesLike");                          
     }
 
     if(is_array($unionQuery)){

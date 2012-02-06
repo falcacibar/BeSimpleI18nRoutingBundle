@@ -151,21 +151,23 @@ function handleMapa() {
         markersArray = new Array();
         // Agrego los lugares
         if(document.getElementById('cantidadLugares').value >0){
-            for(var i = 0 ; i <= document.getElementById('cantidadLugares').value ; i++){
-                coordVal = document.getElementById('coordenadas'+i).value;
-                if(coordVal!="" && coordVal!=", " && coordVal!=",0" && coordVal!=", 0" && coordVal!="0," && coordVal!="0, "){
-                    LatLong = coordVal.split(',');
-                    LatLongDestacado = coordenadasDestacadas.split(',');
-                    if(LatLong[0]!=LatLongDestacado[0] && LatLong[1]!=LatLongDestacado[1]){
-                        point = new GLatLng(LatLong[0], LatLong[1]);
-                        var cat = document.getElementById('num'+i).value;
-                        info = document.getElementById('info'+i).innerHTML;
-                        markersArray[markersArray.length] = createMarker(point, cat, info, i);
-                        map.addOverlay(markersArray[markersArray.length-1]);
+            for(var i = 0 ; i <= document.getElementById('cantidadLugares').value ;i++){
+                if(document.getElementById('coordenadas'+i) != null){
+                    coordVal = document.getElementById('coordenadas'+i).value;
+                    if(coordVal!="" && coordVal!=", " && coordVal!=",0" && coordVal!=", 0" && coordVal!="0," && coordVal!="0, "){
+                        LatLong = coordVal.split(',');
+                        LatLongDestacado = coordenadasDestacadas.split(',');
+                        if(LatLong[0]!=LatLongDestacado[0] && LatLong[1]!=LatLongDestacado[1]){
+                            point = new GLatLng(LatLong[0], LatLong[1]);
+                            var cat = document.getElementById('num'+i).value;
+                            info = document.getElementById('info'+i).innerHTML;
+                            markersArray[markersArray.length] = createMarker(point, cat, info, i);
+                            map.addOverlay(markersArray[markersArray.length-1]);
+                        }
                     }
-                }
-                if(i == document.getElementById('cantidadLugares').value){
-                    $.getScript(WEBROOT+'../assets/js/otrosLugares.js');
+                    if(i == document.getElementById('cantidadLugares').value){
+                        $.getScript(WEBROOT+'../assets/js/otrosLugares.js');
+                    }
                 }
             }
 

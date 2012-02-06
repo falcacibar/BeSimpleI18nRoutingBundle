@@ -32,6 +32,19 @@
 				    space: false
 				});
 			});
+
+			$('.expandir_resultados > span').toggle(function(){
+				var altoBusqueda = $('.resultados_busqueda').height();
+				$('.expandir_resultados').animate({
+					'height': altoBusqueda + 25,
+					'width': 950
+				}, 500);
+			}, function(){
+				$('.expandir_resultados').animate({
+					'height': 10,
+					'width': 180
+				}, 500);			
+			});
 		});
 	</script>
 {% endblock %}
@@ -41,15 +54,88 @@
 	.filtros-busqueda li{
 		display:inline;
 	}
+
+	.expandir_resultados{
+		display: inline-block;
+		font-size: 12px;
+		line-height: 10px;
+		background: #fafafa;
+		border: 1px #eee solid;
+		padding: 5px;
+		position: relative;
+		overflow:hidden;
+	}
+		.expandir_resultados span{
+			width: 180px;
+			height: 10px;
+			display: block;
+			cursor: pointer;
+		}
+
+		.resultados_busqueda{
+			top: 25px;
+			width: 800px;
+			position:absolute;
+		}
+
+		.resultados_busqueda > div{
+			float: left;
+		}
+
+		.resultados_busqueda > div ul{
+			margin-right: 15px;
+			margin-top: 5px;
+		}
+
+		.resultados_busqueda > div strong{
+			text-decoration: underline;
+		}
+
+		.resultados_busqueda > div li{
+			padding: 5px 0;
+		}
 </style>
 	<h2>{{'general.terminos.resultados'|trans}}: {{buscar}}</h2>
-	<ul>
-		<li>Resultados:</li>
-		<li>Se encontraron {{results.lugaresPorSlug}} por Slugs</li>
-		<li>Se encontraron {{results.lugaresPorTermino}} por Terminos</li>
-		<li>Se encontraron {{results.lugaresPorTags}} por Tags</li>
-		<li>Se omiten repetidos</li>
-	</ul>
+	<div class="expandir_resultados">
+		<span>Expande tus Resultados</span>
+		<div class="resultados_busqueda">
+			<div class="resultados_categorias">
+				<strong>Categorías</strong>
+				<ul>
+					{% for categoria in results.totalPorCategoria %}
+						<li><a class="link_azul" href="">{{categoria.nombre}} ({{ categoria.total }} Resultados)</a></li>
+					{% else %}
+						<li>No se encontraron Resultados :(</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="resultados_subcategorias">
+				<strong>Subcategorías</strong>
+				<ul>
+					{% for subcategoria in results.totalPorSubcategoria %}
+						<li><a class="link_azul" href="">{{subcategoria.nombre}} ({{subcategoria.total }} Resultados)</a></li>
+					{% else %}
+						<li>No se encontraron Resultados :(</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="resultados_terminos">
+				<strong>Terminos</strong>
+				<ul>
+					<li><a class="link_azul" href="">Agrupados ({{results.lugaresPorSlug }} Resultados)</a></li>
+					<li><a class="link_azul" href="">Individuales ({{results.lugaresPorTermino }} Resultados)</a></li>
+				</ul>
+			</div>
+			<div class="resultados_calles">
+				<strong>Calles</strong>
+				<ul>
+					<li><a class="link_azul" href="">Calles?? ({{results.lugaresPorCalle	 }} Resultados)</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<br/>
 
 	<div class="total_paginacion">
 	    <strong>

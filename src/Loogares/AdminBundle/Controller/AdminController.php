@@ -521,12 +521,16 @@ class AdminController extends Controller
                     (select count(distinct recomendacion.id) from recomendacion where usuarios.id = recomendacion.usuario_id) as recomendaciones,
                     (select count(distinct util.id) from util where usuarios.id = util.usuario_id) as utiles,
                     estado.nombre as estadoNombre,
+                    comuna.nombre as comunaNombre,
                     tipo_usuario.descripcion as tipoUsuarioNombre
                                          
                     from usuarios
                                         
                     left join estado
                     on estado.id = usuarios.estado_id
+
+                    left join comuna
+                    on comuna.id = usuarios.comuna_id
 
                     left join tipo_usuario
                     on usuarios.tipo_usuario_id = tipo_usuario.id   

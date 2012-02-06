@@ -82,6 +82,16 @@ Hasta: {{paginacion.mostrandoHasta}}
 			<tr>
 				<th></th>
                 <th>
+                    <a href="">ID</a>
+                    <p class="list-actions">
+                        <a class="{% if query.id is defined and query.id == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"id": 'asc' }))}}">⬆</a>
+
+                        <a class="{% if query.id is defined and query.id == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"id": 'desc' }))}}">⬇</a>
+
+                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'id': null }))}}">✖</a>
+                    </p>
+                </th>
+                <th>
                     <a href="">Nombre</a>
                     <p class="list-actions">
                         <a class="{% if query.nombre is defined and query.nombre == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"nombre": 'asc' }))}}">⬆</a>
@@ -112,7 +122,7 @@ Hasta: {{paginacion.mostrandoHasta}}
                     </p>
                 </th>
                 <th>
-                    <a href="">slug</a>
+                    <a href="">Slug</a>
                     <p class="list-actions">
                         <a class="{% if query.slug is defined and query.slug == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"slug": 'asc' }))}}">⬆</a>
 
@@ -129,6 +139,16 @@ Hasta: {{paginacion.mostrandoHasta}}
                         <a class="{% if query.sexo is defined and query.sexo == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"sexo": 'desc' }))}}">⬇</a>
 
                         <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'sexo': null }))}}">✖</a>
+                    </p>
+                </th>
+                <th>
+                    <a href="">Comuna</a>
+                    <p class="list-actions">
+                        <a class="{% if query.comuna is defined and query.comuna == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"comuna": 'asc' }))}}">⬆</a>
+
+                        <a class="{% if query.comuna is defined and query.comuna == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"comuna": 'desc' }))}}">⬇</a>
+
+                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'comuna': null }))}}">✖</a>
                     </p>
                 </th>
                 <th>
@@ -246,14 +266,17 @@ Hasta: {{paginacion.mostrandoHasta}}
 			{% for usuario in usuarios %}
 				<tr>
 					<td><input type="checkbox" name="id[]" value="{{usuario.id}}"/></td>
+                    <td>{{usuario.id}}</td>
 					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pnombre': usuario.nombre }) }}">{{usuario.nombre}}</a></td>
 					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'papellido': usuario.apellido }) }}">{{usuario.apellido}}</a></td>
 					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pmail': usuario.mail }) }}">{{usuario.mail}}</a></td>
 					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pslug': usuario.slug }) }}">{{usuario.slug}}</a></td>
 					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'psexo': usuario.sexo }) }}">{{usuario.sexo}}</a></td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pfecha_nacimiento': usuario.fecha_nacimiento|date('Y-d-m') }) }}">
-						{{usuario.fecha_nacimiento|date('d/m/Y')}}
-					</a></td>
+                    <td>
+                        <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pcomuna': usuario.comunaNombre}) }}">
+						  {{usuario.comunaNombre}}
+					   </a>
+                    </td>
 					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pfecha_registro': usuario.fecha_registro|date('Y-d-m') }) }}">
 						{{usuario.fecha_registro|date('d/m/Y')}}
 					</a></td>
