@@ -4,9 +4,14 @@ admin:
         saludo: Estimado %nombre% %apellido%:
         lugar:            
             despedida: Esperamos que te animes a agregar más lugares.
+            comprension: Te agradecemos tu comprensión y buena onda.
             aprobar:
                 asunto: Aprobación de
                 primero: Enviamos este E-mail para notificarte que el lugar %lugar% que agragaste a nuestro sitio ha sido aprobado sin problemas.
+            rechazar:
+                asunto: El lugar que agregaste no fue publicado
+                primero: lamentablemente no se pudo agregar el lugar %lugar%. Después de revisarlo con detención, se decidió no aceptar la solicitud para agregarlo al no cumplir con las políticas para la publicación de lugares. Entre ellas están: el lugar ya no existe o se encuentra cerrado, ya está presente en nuestra base de datos, no pertenece a alguna de las categorías en el sitio, o al área de cobertura geográfica. Estas políticas las puedes ver en los %open_tag%Términos de uso%close_tag%.
+                segundo: Asegúrate de cumplir con estos requisitos antes de agregar nuevos lugares.   
             borrar:
                 asunto: Eliminación de
                 primero: Enviamos este E-mail para notificarte que el lugar %lugar%, que fue agregado por ti, ha sido eliminado de nuestros registros.

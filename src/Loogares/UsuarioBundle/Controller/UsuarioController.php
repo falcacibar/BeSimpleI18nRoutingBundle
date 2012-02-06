@@ -624,7 +624,7 @@ class UsuarioController extends Controller
         //Si el usuario con el $hash no existe
         if(!$usuarioResult) {
             $this->get('session')->setFlash('confirmacion-registro','usuario.flash.confirmar_usuario.incorrecto');
-            return $this->redirect($this->generateUrl('showUsuario', array('param' => 'sebastian-vicencio')));
+            return $this->redirect($this->generateUrl('login'));
         }
 
         // Si el usuario ya estaba confirmado
@@ -667,25 +667,24 @@ class UsuarioController extends Controller
 
         // Usuario loggeado es redirigido a su perfil
         if($this->get('security.context')->isGranted('ROLE_USER')) 
-            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
-
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser())))); 
 
         $formErrors = array();
         if($request->getMethod() == 'POST') {
 
             if($request->request->get('mail') == '')
-                $formErrors['mail'] = 'olvidar.form.mail';
+                $formErrors['mail'] = 'usuario.olvidar.form.mail';
 
             if(sizeof($formErrors) == 0) {
                 // Mail ingresado, se obtiene usuario asociado
                 $usuario = $ur->findOneByMail($request->request->get('mail'));
 
                 if($usuario == null)
-                    $this->get('session')->setFlash('usuario-no-existe', 'olvidar.flash.usuario_no_existe');
+                    $this->get('session')->setFlash('usuario-no-existe', 'usuario.olvidar.flash.usuario_no_existe');
                 else {
                     // Enviamos E-mail con link para resetear password
                     $mail = array();
-                    $mail['asunto'] = $this->get('translator')->trans('olvidar.mail.asunto');
+                    $mail['asunto'] = $this->get('translator')->trans('usuario.olvidar.mail.asunto');
                     $mail['usuario'] = $usuario;
 
                     $paths = array();
@@ -693,6 +692,8 @@ class UsuarioController extends Controller
 
                     $message = $this->get('fn')->enviarMail($mail['asunto'], $usuario->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresUsuarioBundle:Mails:mail_olvidar_password.html.twig', $this->get('templating'));
                     $this->get('mailer')->send($message);
+
+                    return $this->render('LoogaresUsuarioBundle:Usuarios:mensaje_olvidar_password.html.twig');
                 }
             }            
         }
@@ -705,8 +706,59 @@ class UsuarioController extends Controller
         ));
     }
 
-    public function regenerarPassword(Request $request) {
-        
+    public function regenerarPasswordAction(Request $request, $hash) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+
+        // Usuario loggeado es redirigido a su perfil
+        if($this->get('security.context')->isGranted('ROLE_USER')) 
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
+
+        $usuario = $ur->findOneBy(array('hash_confirmacion' => $hash));
+
+        if($usuario == null) {
+            $this->get('session')->setFlash('hash-incorrecto','usuario.regenerar.flash.hash_incorrecto');
+            return $this->redirect($this->generateUrl('login'));
+        }
+
+        $formErrors = array();
+        if($request->getMethod() == 'POST') {
+
+            if($request->request->get('nuevo') == '')
+                $formErrors['nuevo'] = 'usuario.regenerar.form.errors.nuevo';
+            if($request->request->get('confirmar') == '')
+                $formErrors['confirmar'] = 'usuario.regenerar.form.errors.confirmar';
+
+            if(sizeof($formErrors) == 0) {
+                // Verificamos que nuevo password coincida con confirmación
+                if($request->request->get('nuevo') != $request->request->get('confirmar'))
+                    $formErrors['confirmar_incorrecto'] = 'usuario.errors.validacion.confirmar_password';
+                else {
+                    // Todo ok. Guardamos nuevo password encoded MD5 (SHA2 más adelante)
+                    $usuario->setPassword(md5($request->request->get('nuevo')));
+                    $em->flush();
+
+                    // Usuario inicia sesión automáticamente
+                    $token = new UsernamePasswordToken($usuario, $usuario->getPassword(),'main', $usuario->getRoles());
+                    $this->container->get('security.context')->setToken($token);
+
+                    // Mensaje de éxito en la edición
+                    $this->get('session')->setFlash('nuevo-password','usuario.flash.edicion.password');
+                    
+                    // Redirección a perfil de usuario
+                    return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuario))));
+                }
+            }            
+        }
+
+
+        $tipo = 'regenerar';
+        return $this->render('LoogaresUsuarioBundle:Usuarios:olvidar_password.html.twig', array(
+            'usuario' => $usuario,
+            'errors' => $formErrors,
+            'tipo' => $tipo,
+        ));
     }
 
     public function loginAction()
