@@ -22,8 +22,6 @@ lugar:
         titulo: Agregar un Lugar
         nombre: Nombre *
         categorias:
-            label: Categorías *
-            label_secundario: Categorías
             principal: Elige una Categoria Principal
             secundaria: Elige una Categoria Secundaria
             agregar: » Agrega una categoría secundaria (Máx.
@@ -106,7 +104,6 @@ lugar:
         datos:
             precio: Precio:
             primero: Primero en recomendar            
-            categorias: Categorías:
             horario: Horario:
             sector: Sector:
             subcategorias: Subcategorías
@@ -122,12 +119,6 @@ lugar:
             imprimir: Imprimir
         recomendaciones:
             titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
-            orden:
-                titulo: Ordenar por:
-                mejores: Mejores evaluaciones
-                ultimas: Últimas recomendaciones
-                utiles: Más útiles
-            resultados: Resultados por página
             enviar: Enviar
             editar: Edita tu recomendación
             borrar: Borra tu recomendación
@@ -232,6 +223,7 @@ reportes:
 
         usuario: Usuario
         observacion: Observación
+
 compartir:
     lugar:
         mail:
