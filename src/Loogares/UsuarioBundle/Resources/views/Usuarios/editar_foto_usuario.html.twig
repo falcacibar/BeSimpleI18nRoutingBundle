@@ -1,6 +1,6 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
 
-<div id="edicion-cuenta" class="edicion">
+<div class="caja_edicion_fotos">
 	{% if app.session.hasFlash('edicion-foto') %}
 		    <div class="flash-notice">
 		        {{ app.session.flash('edicion-foto') | trans }}
@@ -8,7 +8,7 @@
 	{% endif %}
 
 	{% if errors %}
-		<div class="edicion_error">
+		<div class="edicion_usuario_error">
 			{% for error in errors %}
 		        <p>{{ error | trans }}</p>
 		    {% endfor %}
@@ -21,7 +21,7 @@
 				<li>
 					{{form_label(form.file, 'usuario.edicion.foto.subir')}}
 
-					{% set inputClass = (errors.file is defined or errors.valida is defined) ? 'input-error' : ' '%}
+					{% set inputClass = (errors.file is defined or errors.valida is defined) ? '' : ' '%}
 					{{form_widget(form.file, { 'attr': {'class': inputClass }})}}
 					{% if errors.file is defined or errors.valida is defined %}
 						<small class="errors">{{(errors.file is defined) ? errors.file | trans : errors.valida | trans }}</small>
@@ -29,24 +29,21 @@
 				</li>
 
 				<li>
-					<label></label>
 					<div class="tips">
-					<span class="tip_form">{{'usuario.edicion.foto.tip.maximo'|trans}}</span> <br />
-					<span class="tip_form">{{'usuario.edicion.foto.tip.formato'|trans}}</span>
+						<span>{{'usuario.edicion.foto.tip.maximo'|trans}}</span> <br />
+						<span>{{'usuario.edicion.foto.tip.formato'|trans}}</span> <br />
+						<span>{{'usuario.edicion.foto.tip.ajuste'|trans}}</span>
 					</div>
 				</li>
 
-				<br /><br />
-
-				<li class="tip_link">
-					<label></label>
-					<a href="http://mypictr.com/?size=100x100" target="blank">{{'usuario.edicion.foto.mypictr'|trans}}</a>
+				<li>
+					<a class="mypictr" href="http://mypictr.com/?size=100x100" target="blank">{{'usuario.edicion.foto.mypictr'|trans}}</a>
 				</li>
 
 				{{form_rest(form)}}
 
 				<li class="submit">
-					<label></label><input type="submit" value="{{'usuario.edicion.foto.submit'|trans}}" formnovalidate />
+					<input class="enviar_foto_prefil" type="submit" value="" formnovalidate />
 				</li>
 			</ul>
 	    </div>		    
@@ -55,7 +52,7 @@
 	<form action="{{ path('editarFotoUsuario', { 'param': usuario.id }) }}" method="post">
 		<div class="form-borrar-foto">
 			<input type="hidden" name="borrarFoto" value="borrarFoto">
-			<input type="submit" value="{{'usuario.edicion.foto.borrar'|trans}}" formnovalidate />
+			<input class="borrar_foto_prefil" type="submit" value="" formnovalidate />
 		</div>
 	</form>
 </div>

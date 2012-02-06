@@ -1,6 +1,6 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
 
-<div id="edicion-borrar" class="edicion">
+<div class="caja_borrar_cuenta">
 	{% if app.session.hasFlash('edicion-borrar') %}
 		    <div class="flash-notice">
 		        {{ app.session.flash('edicion-borrar') | trans }}
@@ -8,7 +8,7 @@
 	{% endif %}
 
 	{% if errors %}
-		<div class="edicion_error">
+		<div class="edicion_usuario_error">
 			{% for error in errors %}
 		        <p>{{ error | trans}}</p>
 		    {% endfor %}
@@ -19,14 +19,15 @@
 		<div class="form-edicion">	
 			<ul class="editar-usuario">
 				<li>
-					<label for="passwordActual">{{'usuario.edicion.borrar.password'|trans}}</label>
+					<label for="passwordActual"><strong>{{'usuario.edicion.borrar.password'|trans}}</strong></label>
 					<input type="password" id="password" name="password" class="{{errors.password is defined ? 'input-error' : ' '}}"/>
 					{% if errors.password is defined %}
 						<small class="errors">{{errors.password|trans}}</small>
 					{% endif %}
 				</li>		
 				<li>
-					<label for="motivo">{{'usuario.edicion.borrar.motivo'|trans}}</label>
+					<label for="motivo"><strong>{{'usuario.edicion.borrar.motivo'|trans}}</strong>
+					<span class="detalle_motivo_borrar_cuenta">{{'usuario.edicion.borrar.detalle'|trans}}</span></label>
 					<textarea id="motivo" name="motivo" rows="4" class="{{errors.motivo is defined ? 'input-error' : ' '}}" ></textarea>
 					{% if errors.motivo is defined %}
 						<small class="errors">{{errors.motivo|trans}}</small>
@@ -35,7 +36,7 @@
 				</li>
 
 				<li class="submit-borrar">
-					<label></label><input type="submit" value="{{'usuario.edicion.borrar.submit'|trans}}" formnovalidate />
+					<input class="borrar_cuenta_prefil" type="submit" value="" formnovalidate />
 				</li>
 			</ul>
 	    </div>		    

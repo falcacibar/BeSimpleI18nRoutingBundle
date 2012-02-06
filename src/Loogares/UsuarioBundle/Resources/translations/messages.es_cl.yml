@@ -106,7 +106,8 @@ usuario:
             tipo: Tipo de Usuario
             apellido: Apellido *
             mail: E-mail *
-            slug: Nombre de usuario
+            slug: URL propia
+            url_propia: http://www.loogares.com/
             nacimiento:
                 label: Fecha de nacimiento
                 day: Día
@@ -124,9 +125,10 @@ usuario:
         foto:
             subir: Subir foto
             tip:
-                maximo: - 5MB como máximo
-                formato: - Sólo JPG, GIF y PNG
-            mypictr: Crea tu foto de perfil con Mypictr
+                maximo: Máximo 5 MB
+                formato: Sólo JPG, GIF y PNG
+                ajuste: La imagen será ajustada a 100x100 px si tiene un tamaño distinto
+            mypictr: » Crea tu foto de perfil con Mypictr
             submit: Guardar
             borrar: Borra tu foto
         password:
@@ -136,14 +138,46 @@ usuario:
             submit: Guardar
         borrar:
             password: Password *
-            motivo: ¿Por qué te vas? Cuéntanos el motivo de tu salida. *
+            motivo: ¿Por qué te vas? *
+            detalle: Cuéntanos el motivo de tu salida.
             submit: Borrar cuenta
             mail:
                 nombre: Nombre
                 mail: E-mail
                 fecha_registro: Fecha de registro
                 motivo: Motivo
-                asunto: Usuario eliminado            
+                asunto: Usuario eliminado
+    olvidar:
+        titulo_pag: ¿Olvidaste tu password?
+        titulo: ¿Olvidaste tu password?... ¡Pero cómo!
+        subtitulo: Mándanos tu dirección de E-mail con la que entras a Loogares.com y te enviaremos un correo con un link para que resetees tu password. ¡Las pasas para la memoria las compras tú!
+        form:
+            mail: Debes ingresar tu E-mail
+
+        flash:
+            usuario_no_existe: El E-mail especificado no corresponde a ningún usuario.
+        mail:
+            asunto: Tu nuevo password en Loogares.com
+            titulo: Hola %usuario%,
+            primero: haz click %open_tag%acá%close_tag% para crear el nuevo password de tu cuenta de Loogares.com
+            segundo: ¡Y para la próxima, acuérdate de las pasas!
+        mensaje:
+            titulo_pag: Cambio de password
+            titulo: ¡Cabeza de pollo!
+            subtitulo: Te acabamos de mandar un correo con las instrucciones para cambiar el password de tu cuenta en Loogares.com.
+            texto: Revisa tu casilla de E-mail (revisa la casilla de spam, por si acaso).
+            inicio: Volver a la %open_tag%Página de Inicio%close_tag%
+    regenerar:
+        titulo_pag: Ingresa tu nuevo password
+        titulo: Cambiar password 
+        form:
+            usuario: Usuario
+            password_nuevo: Password nuevo
+            errors:
+                nuevo: Debes ingresar tu nuevo password
+                confirmar: Debes confirmar el nuevo password
+        flash:
+            hash_incorrecto: El usuario con el hash especificado no existe
 
     errors:
         login:
@@ -194,7 +228,7 @@ usuario:
 
     mail:
         usuario: te escribió desde %open_tag%%mail%%close_tag%
-        equipo: El equipo de %open_tag%Loogares.com%close_tag%
+        equipo: Enviado por el equipo de %open_tag%Loogares.com%close_tag%
         contacto: Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a %open_a%contacto@loogares.com%close_a%
         contacto_plano: Si quieres contactarnos escríbenos a contacto@loogares.com
         firma: 2012. Loogares.com

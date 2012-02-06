@@ -355,7 +355,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function accionLugarAction($ciudad, $cerrar = false, $borrar = false, $habilitar = false, Request $request){
+    public function accionLugarAction($id, $ciudad, $cerrar = false, $borrar = false, $habilitar = false, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
@@ -369,7 +369,7 @@ class AdminController extends Controller
                 $cerrar = true;
             }
         }else{
-            $vars = $_GET['id'];
+            $vars = $id;
         }
 
         if(is_array($vars)){
@@ -379,15 +379,23 @@ class AdminController extends Controller
         }
 
         foreach($itemsABorrar as $item){    
-            $lugar = $lr->findOneById($item);
+            $lugar = $lr->find($item);
             $mail = array();
             $mail['lugar'] = $lugar;
             $mail['usuario'] = $lugar->getUsuario();
 
             if($borrar == true){
                 $estado = $lr->getEstado(3);
-                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.lugar.borrar.asunto').' '.$lugar->getNombre();                
-                $mail['tipo'] = "borrar";
+                // Lugar rechazado
+                if($lugar->getEstado()->getId() == 1) {
+                    $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.lugar.rechazar.asunto');
+                    $mail['tipo'] = "rechazar";
+                }
+                // Lugar eliminado
+                else {
+                    $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.lugar.borrar.asunto').' '.$lugar->getNombre();                
+                    $mail['tipo'] = "borrar";
+                }               
 
             }else if($cerrar == true){
                 $estado = $lr->getEstado(4);                
@@ -401,12 +409,10 @@ class AdminController extends Controller
             }
 
             // Se envía mail a usuario que agregó el lugar
-            $message = \Swift_Message::newInstance()
-                        ->setSubject($mail['asunto'])
-                        ->setFrom('noreply@loogares.com')
-                        ->setTo($mail['usuario']->getMail());
-            $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
-            $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_lugar.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+            $paths = array();
+            $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
+
+            $message = $this->get('fn')->enviarMail($mail['asunto'], $mail['usuario']->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresAdminBundle:Mails:mail_accion_lugar.html.twig', $this->get('templating'));
             $this->get('mailer')->send($message);
 
             $lugar->setEstado($estado);

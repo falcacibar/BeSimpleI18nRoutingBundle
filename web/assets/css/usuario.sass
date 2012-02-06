@@ -72,8 +72,15 @@ $rojo: #FF3300
     -moz-box-shadow: -3px 3px 1px $gris_eee
     -webkit-box-shadow: -3px 3px 1px $gris_eee
 
+@mixin box-sizing
+    box-sizing: border-box
+    -o-box-sizing: border-box
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+
 .caja_usuario
     float: left
+    margin: 0 0 50px
     width: 960px
 
     .datos_usuario
@@ -108,7 +115,7 @@ $rojo: #FF3300
                 width: 300px
 
             .sexo_usuario_Hombre
-                background: #FF3300
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -176px
                 display: block
                 float: left
                 height: 16px
@@ -116,7 +123,7 @@ $rojo: #FF3300
                 width: 16px
 
             .sexo_usuario_Mujer
-                background: #AA3300
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -210px
                 display: block
                 float: left
                 height: 16px
@@ -160,17 +167,17 @@ $rojo: #FF3300
                     display: inline-block
                     float: left
                     height: 16px
-                    margin: 0 0 0 10px
                     margin: 0 10px 0 0
                     width: 16px
                 
                 .url_link
                     @include link_azul
+                    background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -168px
                     display: block
                     float: left
                     height: 16px
                     padding: 0 0 0 20px
-                    width: 16px
+
 
                     &:hover
                         @include link_azul_hover
@@ -179,21 +186,32 @@ $rojo: #FF3300
         display: block
         float: left
         font:
-            size: 14px
+            size: 13px
         margin: 20px 10px 0 0
         width: 218px
 
         .recomendaciones_usuario
-            padding: 0 20px 0 0
+            background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 0px
+            height: 16px
+            padding: 2px 10px 0 26px
 
         .primeras_recomendaciones_usuario
-            padding: 10px 20px 0 0
+            background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -21px
+            height: 16px
+            margin: 10px 10px 0 0
+            padding: 2px 0 0 26px
 
         .imagenes_usuario
-            padding: 10px 20px 0 0
+            background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -42px
+            height: 16px
+            margin: 10px 10px 0 0
+            padding: 2px 0 0 26px
 
         .lugares_usuario
-            padding: 10px 20px 0 0
+            background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -63px
+            height: 16px
+            margin: 10px 10px 0 0
+            padding: 2px 0 0 26px
 
     .actividad_usuario_der
         display: block
@@ -202,371 +220,848 @@ $rojo: #FF3300
         width: 218px
 
         .lugares_por_visitar_usuario
-            padding: 0 20px 0 0
+            background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -84px
+            height: 16px
+            margin: 0 20px 0 0
+            padding: 2px 0 0 26px
 
         .lugares_visitados_usuario
-            padding: 10px 20px 0 0
+            background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -105px
+            height: 16px
+            margin: 10px 20px 0 0
+            padding: 2px 0 0 26px
 
         .lugares_por_recomendar_usuario
-            padding: 10px 20px 0 0
+            background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -126px
+            height: 16px
+            margin: 10px 20px 0 0
+            padding: 2px 0 0 26px
 
         .lugares_favoritos_usuario
-            padding: 10px 20px 0 0
+            background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -147px
+            height: 16px
+            margin: 10px 20px 0 0
+            padding: 2px 0 0 26px
 
-.menu_actividad_usuario
-    background: $gris_faf
-    border-bottom: 1px solid $gris_f6f
+.caja_contenidos_usuario
     border-top: 1px solid $gris_f6f
-    border-right: 1px solid $gris_f6f
     float: left
     margin: 20px 0 0
-    padding: 75px 0
-    width: 160px
+    position: relative
+    width: 960px
 
-    li
+    .menu_actividad_usuario
+        @include box-sizing
         background: $gris_faf
         border-bottom: 1px solid $gris_f6f
-        border-top: 1px solid $gris_f6f
         border-right: 1px solid $gris_f6f
+        height: 100%
         float: left
-        padding: 15px 10px 15px 15px
-        width: 135px
+        left: 0
+        top: 0
+        padding: 75px 0
+        position: absolute
+        width: 160px
 
-        &:hover
-            border-bottom: 1px solid $gris_ccc
-            border-left: 5px solid $gris_ccc
+        a
+            @include link_gris_999
+
+            li
+                background: $gris_faf
+                border-bottom: 1px solid $gris_f6f
+                border-top: 1px solid $gris_f6f
+                border-right: 1px solid $gris_f6f
+                cursor: pointer
+                float: left
+                padding: 15px 10px 15px 15px
+                width: 134px
+
+                &:hover
+                    border-bottom: 1px solid $gris_ccc
+                    border-left: 5px solid $gris_ccc
+                    float: left
+                    padding: 15px 10px
+                    width: 134px
+                    
+        .selected
+            background: $blanco
+            border-bottom: 1px solid $gris_f6f
+            border-left: 5px solid $azul_claro
+            border-right: 1px solid $blanco
+            border-top: 1px solid $gris_f6f
             float: left
             padding: 15px 10px
             width: 135px
 
-        a
-            @include link_gris_999
-
-            &:hover
-                @include link_gris_999_hover
-                
-    .selected
-        background: $blanco
-        border-bottom: 1px solid $gris_f6f
-        border-left: 5px solid $azul_claro
-        border-right: 1px solid $blanco
-        border-top: 1px solid $gris_f6f
-        float: left
-        padding: 15px 10px
-        width: 135px
-
-        a
-            @include link_gris_999
-            font:
-                weight: bold
-
-            &:hover
-                @include link_gris_999_hover
+            a
+                @include link_gris_999
                 font:
                     weight: bold
 
-.caja_actividad_usuario
-    border-top: 1px solid $gris_f6f
-    float: left
-    margin: 20px 0 0
-    padding: 20px
-    width: 759px
-
-.caja_recomendaciones_usuario
-    border-top: 1px solid $gris_f6f
-    color: gris_444
-    float: left
-    margin: 20px 0 0
-    padding: 20px
-    width: 759px
-
-    ul
-        border-bottom: 1px solid $gris_f6f
-        color: $gris_666
-        font:
-            size: 14px
-        float: left
-        list-style: none
-        margin: 40px 0 0
-        padding: 0 0 20px 0
-        width: 651px
-
-        li
-            float: left
-            margin: 0 5px 0 0
-
-            a
-                @include link_azul
-
                 &:hover
-                    @include link_azul_hover
+                    @include link_gris_999_hover
+                    font:
+                        weight: bold
 
-            .orden_separacion
-                color: $gris_ccc
-                margin: 0 5px
-    
-    .caja_recomendaciones_lugar_usuario
+    .menu_edicion_usuario
+        @include box-sizing
+        background: $gris_faf
         border-bottom: 1px solid $gris_f6f
-        float: left
-        display: block
-        padding: 30px 0
-        width: 651px
+        border-left: 1px solid $gris_f6f
+        float: right
+        height: 100%
+        left: 660px
+        padding: 75px 0
+        position: absolute
+        top: 0
+        width: 140px
 
-        &:hover
-            border-bottom: 1px solid $gris_ccc        
+        a
+            @include link_gris_999
 
-        .imagen_recomendaciones_lugar_usuario
-            float: left
-            display: block
-            height: 50px
-            width: 50px
-
-        .textos_recomendacion_lugar_usuario
-            float: left
-            display: block
-            margin: 0 0 0 20px
-            width: 581px
-        
-        .nombre_lugar_recomendacion
-            color: $gris_444
-            display: block
-            font:
-                size: 14px
-            float: left
-            width: 581px
-        
-        .categorias_lugar_recomendacion
-            display: block
-            font:
-                size: 11px
-            float: left
-            margin: 15px 0 0
-            width: 581px
-            
-            a
-                @include link_azul
-
-                &:hover
-                    @include link_azul_hover
-
-        .fecha_lugar_recomendacion
-            color: $gris_999
-            display: block
-            font:
-                size: 11px
-            float: left
-            margin: 15px 0 0
-            width: 581px
-
-        .estrella_lugar_recomendacion
-            display: block
-            float: left
-            margin: 15px 0 0
-            width: 581px
-
-        .texto_lugar_recomendacion
-            display: block
-            float: left
-            font:
-                size: 14px
-            line-height: 22px
-            margin: 20px 0 0
-            width: 581px
-        
-        .tags_lugar_recomendacion
-            display: block
-            float: left
-            font:
-                size: 12px
-            margin: 30px 0 0
-            width: 581px
-        
-        .caja_opciones_lugar_recomendacion
-            display: block
-            float: left
-            height: 12px
-            width: 581px
-            margin: 20px 0 0
-
-            .opciones_lugar_recomendacion
-                display: none
+            li
+                background: $gris_faf
+                border-bottom: 1px solid $gris_f6f
+                border-top: 1px solid $gris_f6f
+                border-left: 1px solid $gris_f6f
+                cursor: pointer
                 float: right
-                font:
-                    size: 12px
+                text-align: right
+                padding: 15px 15px 15px 10px
+                width: 114px
 
-                .editar_lugar_recomendacion
-                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                &:hover
+                    border-bottom: 1px solid $gris_ccc
+                    border-right: 5px solid $gris_ccc
                     float: right
-                    height: 11px
-                    margin: 0 0 0 20px
-                    padding: 0 0 0 13px
+                    padding: 15px 10px
+                    width: 114px
+                    
+        .selected
+            background: $blanco
+            border-bottom: 1px solid $gris_f6f
+            border-left: 1px solid $blanco
+            border-right: 5px solid $azul_claro
+            border-top: 1px solid $gris_f6f
+            float: right
+            text-align: right
+            padding: 15px 10px
+            width: 114px
+
+            a
+                @include link_gris_999
+                font:
+                    weight: bold
+
+                &:hover
+                    @include link_gris_999_hover
+                    font:
+                        weight: bold
+
+    .contenidos_edicion_usuario
+        float: left
+        left: 160px
+        top: 0
+        padding: 0 0 20px 20px
+        position: relative
+        width: 779px
+
+        .caja_edicion_datos
+            display: block
+            float: left
+            margin: 40px 0 0
+            width: 620px
+
+            .edicion_usuario_error
+                background:
+                    color: lighten($error, 25%)
+                border: 1px solid $error
+                float: left
+                line-height: 18px
+                margin: 0 0 20px 0
+                padding: 5px 10px
+                width: 597px
+
+            ul
+
+                li
+                    float: left
+                    margin: 0 0 20px 0
+                    width: 620px
+                    
+                    label
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                            weight: bold
+                        margin: 4px 20px 4px 0
+                        width: 210px
+
+                    input
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                        margin: 0px
+                        padding: 6px 10px
+                        width: 306px
+
+                        &:hover
+                            border: 1px solid $gris_444
+
+                        &:focus
+                            border: 1px solid $azul
+
+                    select
+                        float: left
+                        width: 310px
+                    
+                    .errors
+                        margin: 5px 0 0 230px
+
+                    .tipo_usuario
+                        float: left
+                        margin: 8px 0
+                        width: 330px
+
+                    .txt_url_propia
+                        color: $gris_666
+                        display: block
+                        float: left
+                        font:
+                            size: 14px
+                        padding: 8px 0
+                        width: 165px
+
+                    .url_propia
+                        float: left
+                        display: block
+                        margin: 0px
+                        width: 141px
+
+                    .day
+                        float: left
+                        margin: 6px 0
+                        width: 50px
+
+                    .month
+                        float: left
+                        margin: 6px 6px
+                        width: 205px
+
+                    .year
+                        float: left
+                        margin: 6px 0
+                        width: 60px
+
+                    #form_mostrar_edad
+                        margin: 10px 0 0
+
+                    #form_sexo
+                        float: left
+                        margin: 6px 0 0
+                        width: 390px
+
+                        input
+                            float: left
+                            margin: 4px 0 0
+                            width: 12px
+                        
+                        label
+                            float: left
+                            font:
+                                weight: normal
+                            margin: 0 20px 0 10px
+                            width: auto
+
+                    .newsletter_checkbox
+                        margin: 12px 0 0
+                        
+                .enviar_datos_prefil
+                    background: url('../images/extras/botones_perfil_usuario.png') no-repeat 0 0
+                    border: 0px
+                    cursor: pointer
+                    height: 30px
+                    margin: 0 0 0 230px
+                    width: 99px
 
                     &:hover
+                        background: url('../images/extras/botones_perfil_usuario.png') no-repeat 0 -30px
+
+        .caja_edicion_fotos
+            display: block
+            float: left
+            margin: 40px 0 0
+            width: 620px
+
+            .edicion_usuario_error
+                background:
+                    color: lighten($error, 25%)
+                border: 1px solid $error
+                float: left
+                line-height: 18px
+                margin: 0 0 20px 0
+                padding: 5px 10px
+                width: 597px
+
+            ul
+
+                li
+                    float: left
+                    margin: 0 0 20px 0
+                    width: 620px
+                    
+                    label
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                            weight: bold
+                        margin: 4px 20px 4px 0
+                        width: 80px
+                    
+                    input
+                        margin: 6px 0
+
+                    .tips
+                        color: $gris_999
+                        float: left
+                        font:
+                            size: 12px
+                        line-height: 24px
+                        margin: 0 0 0 100px
+
+                    .mypictr
+                        @include link_azul
+                        font:
+                            size: 14px
+                        float: left
+                        margin: 10px 0 0 100px
+
+                        &:hover
+                            @include link_azul_hover
+                
+                    .errors
+                        margin: 5px 0 0 0
+                
+                .submit
+                    float: left
+                    width: 200px
+                            
+                    .enviar_foto_prefil
+                        background: url('../images/extras/botones_perfil_usuario.png') no-repeat 0 0
+                        border: 0px
+                        cursor: pointer
+                        height: 30px
+                        margin: 10px 0 0 100px
+                        width: 99px
+
+                        &:hover
+                            background: url('../images/extras/botones_perfil_usuario.png') no-repeat 0 -30px     
+                        
+        .borrar_foto_prefil
+            background: url('../images/extras/botones_perfil_usuario.png') no-repeat -99px 0
+            border: 0px
+            cursor: pointer
+            height: 30px
+            margin: 10px 0 0 10px
+            width: 134px
+
+            &:hover
+                background: url('../images/extras/botones_perfil_usuario.png') no-repeat -99px -30px  
+
+        .caja_edicion_password
+            display: block
+            float: left
+            margin: 40px 0 0
+            width: 620px
+
+            .edicion_usuario_error
+                background:
+                    color: lighten($error, 25%)
+                border: 1px solid $error
+                float: left
+                line-height: 18px
+                margin: 0 0 20px 0
+                padding: 5px 10px
+                width: 597px
+
+            ul
+
+                li
+                    float: left
+                    margin: 0 0 20px 0
+                    width: 620px
+                    
+                    label
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                            weight: bold
+                        margin: 4px 20px 4px 0
+                        width: 210px
+
+                    input
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                        margin: 0px
+                        padding: 6px 10px
+                        width: 306px
+
+                        &:hover
+                            border: 1px solid $gris_444
+
+                        &:focus
+                            border: 1px solid $azul
+                    
+                    .errors
+                        margin: 5px 0 0 230px
+                        
+                .enviar_password_prefil
+                    background: url('../images/extras/botones_perfil_usuario.png') no-repeat 0 0
+                    border: 0px
+                    cursor: pointer
+                    height: 30px
+                    margin: 0 0 0 230px
+                    width: 99px
+
+                    &:hover
+                        background: url('../images/extras/botones_perfil_usuario.png') no-repeat 0 -30px
+                        border: 0px
+
+        .caja_borrar_cuenta
+            display: block
+            float: left
+            margin: 40px 0 0
+            width: 620px
+
+            .edicion_usuario_error
+                background:
+                    color: lighten($error, 25%)
+                border: 1px solid $error
+                float: left
+                line-height: 18px
+                margin: 0 0 20px 0
+                padding: 5px 10px
+                width: 597px
+
+            ul
+
+                li
+                    float: left
+                    margin: 0 0 20px 0
+                    width: 620px
+                    
+                    label
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                        margin: 4px 20px 4px 0
+                        width: 210px
+
+                    input
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                        margin: 0px
+                        padding: 6px 10px
+                        width: 306px
+
+                        &:hover
+                            border: 1px solid $gris_444
+
+                        &:focus
+                            border: 1px solid $azul
+
+                    textarea
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                        margin: 0px
+                        min-height: 80px
+                        padding: 6px 10px
+                        width: 306px
+
+                        &:hover
+                            border: 1px solid $gris_444
+
+                        &:focus
+                            border: 1px solid $azul    
+                            
+                    .detalle_motivo_borrar_cuenta
+                        display: block
+                        font:
+                            size: 12px
+                        float: left
+                        width: 210px                    
+                    
+                    .errors
+                        margin: 5px 0 0 230px
+                        
+                .borrar_cuenta_prefil
+                    background: url('../images/extras/botones_perfil_usuario.png') no-repeat -233px 0
+                    border: 0px
+                    cursor: pointer
+                    height: 30px
+                    margin: 10px 0 0 230px
+                    width: 141px
+
+                    &:hover
+                        background: url('../images/extras/botones_perfil_usuario.png') no-repeat -233px -30px
+                        border: 0px
+
+    .caja_actividad_usuario
+        float: left
+        left: 160px
+        top: 0
+        padding: 20px 20px 0
+        position: relative
+        width: 759px
+
+    .caja_recomendaciones_usuario
+        color: gris_444
+        float: left
+        left: 160px
+        top: 0
+        padding: 20px 20px 0
+        position: relative
+        width: 759px
+
+        ul
+            color: $gris_666
+            font:
+                size: 14px
+            float: left
+            list-style: none
+            margin: 40px 0 0
+            padding: 0 0 20px 0
+            width: 651px
+
+            li
+                float: left
+                margin: 0 5px 0 0
+
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
+
+                .orden_separacion
+                    color: $gris_ccc
+                    margin: 0 5px
+        
+        .caja_recomendaciones_lugar_usuario
+            border-top: 1px solid $gris_f6f
+            float: left
+            display: block
+            padding: 30px 0
+            width: 651px
+
+            &:hover
+                border-top: 1px solid $gris_ccc        
+
+            .imagen_recomendaciones_lugar_usuario
+                float: left
+                display: block
+                height: 50px
+                width: 50px
+
+            .textos_recomendacion_lugar_usuario
+                float: left
+                display: block
+                margin: 0 0 0 20px
+                width: 581px
+            
+            .nombre_lugar_recomendacion
+                color: $gris_444
+                display: block
+                font:
+                    size: 14px
+                float: left
+                width: 581px
+            
+            .categorias_lugar_recomendacion
+                display: block
+                font:
+                    size: 11px
+                float: left
+                margin: 15px 0 0
+                width: 581px
+                
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
+
+            .fecha_lugar_recomendacion
+                color: $gris_999
+                display: block
+                font:
+                    size: 11px
+                float: left
+                margin: 15px 0 0
+                width: 581px
+
+            .estrella_lugar_recomendacion
+                display: block
+                float: left
+                margin: 15px 0 0
+                width: 581px
+
+            .texto_lugar_recomendacion
+                display: block
+                float: left
+                font:
+                    size: 14px
+                line-height: 22px
+                margin: 20px 0 0
+                width: 581px
+            
+            .tags_lugar_recomendacion
+                display: block
+                float: left
+                font:
+                    size: 12px
+                margin: 30px 0 0
+                width: 581px
+            
+            .caja_opciones_lugar_recomendacion
+                display: block
+                float: left
+                height: 12px
+                width: 581px
+                margin: 20px 0 0
+
+                .opciones_lugar_recomendacion
+                    display: none
+                    float: right
+                    font:
+                        size: 12px
+
+                    .editar_lugar_recomendacion
                         background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
                         float: right
                         height: 11px
                         margin: 0 0 0 20px
                         padding: 0 0 0 13px
 
-                .borrar_lugar_recomendacion
-                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
-                    float: right
-                    height: 11px
-                    margin: 0 0 0 20px
-                    padding: 0 0 0 13px
+                        &:hover
+                            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                            float: right
+                            height: 11px
+                            margin: 0 0 0 20px
+                            padding: 0 0 0 13px
 
-                    &:hover
-                        background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                    .borrar_lugar_recomendacion
+                        background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
                         float: right
                         height: 11px
                         margin: 0 0 0 20px
                         padding: 0 0 0 13px
-                                        
-                a
-                    @include link_gris_444
 
-                    &:hover
-                        @include link_gris_444_hover
-
-.caja_fotos_usuario
-    border-top: 1px solid $gris_f6f
-    float: left
-    margin: 20px 0 0
-    padding: 20px
-    width: 759px
-
-    ul
-        color: $gris_666
-        font:
-            size: 14px
-        float: left
-        list-style: none
-        margin: 40px 0 0
-        padding: 0 0 20px 0
-        width: 651px
-
-        li
-            float: left
-            margin: 0 5px 0 0
-
-            a
-                @include link_azul
-
-                &:hover
-                    @include link_azul_hover
-
-            .orden_separacion
-                color: $gris_ccc
-                margin: 0 5px
-
-    .caja_fotos_lugar_usuario
-        float: left
-        display: block
-        padding: 30px 0
-
-        .listado_foto_lugar_usuario
-            border: 0px
-            float: left
-            display: block
-            margin: 0px
-            padding: 0px
-            width: 780px
-            
-            li
-                border-bottom: 1px solid $gris_f6f
-                display: block
-                float: left
-                height: 85px
-                margin: 0 20px 50px 0
-                width: 240px
-
-                &:hover
-                    border-bottom: 1px solid $gris_ccc
-
-                .imagen_lugar_perfil_usuario
-                    display: block
-                    float: left
-                    margin: 0 10px 20px 0
-                    width: 50px
-                
-                .textos_imagen_lugar_perfil_usuario
-                    display: block
-                    float: left
-                    width: 180px
-
-                    .nombre_lugar_imagen_lugar_perfil_usuario
+                        &:hover
+                            background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                            float: right
+                            height: 11px
+                            margin: 0 0 0 20px
+                            padding: 0 0 0 13px
+                                            
+                    a
                         @include link_gris_444
-                        display: block
-                        float: left
-                        font:
-                            size: 12px
-                        line-height: 16px
-                        width: 180px
 
                         &:hover
                             @include link_gris_444_hover
 
-                    .fecha_imagen_lugar_perfil_usuario
-                        color: $gris_ccc
+    .caja_fotos_usuario
+        float: left
+        left: 160px
+        top: 0
+        padding: 20px 20px 0
+        position: relative
+        width: 759px
+
+        ul
+            color: $gris_666
+            font:
+                size: 14px
+            float: left
+            list-style: none
+            margin: 40px 0 0
+            padding: 0 0 20px 0
+            width: 651px
+
+            li
+                float: left
+                margin: 0 5px 0 0
+
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
+
+                .orden_separacion
+                    color: $gris_ccc
+                    margin: 0 5px
+
+        .caja_fotos_lugar_usuario
+            float: left
+            display: block
+            padding: 30px 0 0
+
+            .listado_foto_lugar_usuario
+                border: 0px
+                float: left
+                display: block
+                margin: 0px
+                padding: 0px
+                width: 780px
+                
+                li
+                    border-bottom: 1px solid $gris_f6f
+                    display: block
+                    float: left
+                    height: 85px
+                    margin: 0 20px 50px 0
+                    width: 240px
+
+                    &:hover
+                        border-bottom: 1px solid $gris_ccc
+
+                    .imagen_lugar_perfil_usuario
                         display: block
                         float: left
-                        font:
-                            size: 11px
-                        margin: 5px 0 0
+                        margin: 0 10px 20px 0
+                        width: 50px
+                    
+                    .textos_imagen_lugar_perfil_usuario
+                        display: block
+                        float: left
                         width: 180px
 
-                    .caja_opciones_lugar_imagen
-                        display: block
-                        float: left
-                        height: 12px
-                        width: 240px
-                        margin: 15px 0 0
+                        .nombre_lugar_imagen_lugar_perfil_usuario
+                            @include link_gris_444
+                            display: block
+                            float: left
+                            font:
+                                size: 12px
+                            line-height: 16px
+                            width: 180px
 
-                        .opciones_lugar_imagen
-                            color: $gris_666
-                            display: none
+                            &:hover
+                                @include link_gris_444_hover
+
+                        .fecha_imagen_lugar_perfil_usuario
+                            color: $gris_ccc
+                            display: block
                             float: left
                             font:
                                 size: 11px
+                            margin: 5px 0 0
+                            width: 180px
 
-                            .editar_lugar_imagen
-                                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                        .caja_opciones_lugar_imagen
+                            display: block
+                            float: left
+                            height: 12px
+                            width: 240px
+                            margin: 15px 0 0
+
+                            .opciones_lugar_imagen
+                                color: $gris_666
+                                display: none
                                 float: left
-                                height: 11px
-                                margin: 0 5px 0 0
-                                padding: 0 0 0 13px
+                                font:
+                                    size: 11px
 
-                                &:hover
+                                .editar_lugar_imagen
                                     background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                                    float: left
+                                    height: 11px
+                                    margin: 0 5px 0 0
+                                    padding: 0 0 0 13px
 
-                            .borrar_lugar_imagen
-                                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
-                                float: left
-                                height: 11px
-                                margin: 0 5px 0 0
-                                padding: 0 0 0 13px
+                                    &:hover
+                                        background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
 
-                                &:hover
-                                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
-                                                    
-                            a
-                                @include link_gris_666
+                                .borrar_lugar_imagen
+                                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
+                                    float: left
+                                    height: 11px
+                                    margin: 0 5px 0 0
+                                    padding: 0 0 0 13px
 
-                                &:hover
-                                    @include link_gris_666_hover
+                                    &:hover
+                                        background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                                                        
+                                a
+                                    @include link_gris_666
+
+                                    &:hover
+                                        @include link_gris_666_hover
+                     
+    .paginacion_perfil
+        border-bottom: 1px solid $gris_f6f
+        border-top: 1px solid $gris_f6f
+        color: $gris_666
+        display: block
+        float: left
+        font:
+            size: 12px
+        padding: 10px 0
+        width: 778px
+
+        p
+            float: left
+            display: block
+            margin: 2px 0 0
+
+        ul
+            border: 0px
+            float: left
+            font:
+                size: 12px
+            margin: 0 0 0 10px
+            padding: 0px
+            width: 560px
+        
+            li
+                border: 1px solid $gris_ccc
+                float: left
+                height: 5px
+                margin: 0 0 0 2px
+                padding: 2px 5px 8px
+            
+                a
+                    color: $gris_666 !important
+            
+            .pagina-actual
+                background: $azul
+                border: 1px solid $azul
+                float: left
+                height: 5px
+                margin: 0 0 0 2px
+                padding: 2px 5px 8px
+
+                a
+                    color: $blanco !important
                                             
 .titulo_accion_usuario
     font:
         size: 20px
         weight: bold
 
-
-
-
-
-
-
-
-
-
-
+.titulo_edicion_usuario
+    font:
+        size: 20px
+        weight: bold
+    padding: 20px 0 0
