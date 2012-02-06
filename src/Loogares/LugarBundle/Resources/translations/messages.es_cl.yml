@@ -168,7 +168,14 @@ lugar:
                 propuesta: ¡Quiero recibir la propuesta!
         util_recomendacion:
             mail:
-                asunto: ¡Acaban de considerar útil tu recomendación en %lugar%
+                asunto: %usuario% encuentra útil tu recomendación en %lugar%
+                primero: ¡Eres muy bacán! %usuario% encuentra útil tu %open_rec%recomendación%close_rec% en %lugar%
+                segundo: ¡Haz click %open_tag%acá%close_tag% para verla!
+        despues_recomendacion:
+            mail:
+                asunto: %usuario% escribió una recomendación en %lugar% después de ti
+                primero: %usuario% acaba de escribir una recomendación en %lugar% justo después de la tuya.
+                segundo: ¡Haz click %open_tag%acá%close_tag% para leerla!
 
     errors:
         agregar:

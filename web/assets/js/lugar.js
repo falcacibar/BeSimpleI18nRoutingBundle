@@ -105,6 +105,12 @@ $(document).ready(function(){
                 if($this.hasClass('boton_activado')){
                     $this.removeClass('boton_activado').addClass('boton_desactivado');
                     $('.conteo_util').text(util+1)
+                    // Request para enviar mail a usuario de recomendación
+                    $.ajax({
+                       url: WEBROOT+'ajax/util_mail',
+                       type: 'post',
+                       data: {'recomendacion': dataUtil[0], 'usuario': dataUtil[1]}
+                    });
                 }else if($this.hasClass('boton_desactivado')){
                     $this.removeClass('boton_desactivado').addClass('boton_activado');
                     $('.conteo_util').text(util-1)

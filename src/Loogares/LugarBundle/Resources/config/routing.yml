@@ -50,6 +50,10 @@ _util:
     pattern: /ajax/util
     defaults: { _controller: LoogaresLugarBundle:Ajax:util }
 
+_utilMail:
+    pattern: /ajax/util_mail
+    defaults: { _controller: LoogaresLugarBundle:Ajax:utilMail }
+
 _galeria:
     pattern: /lugar/{slug}/galeria
     defaults: { _controller: LoogaresLugarBundle:Lugar:galeria }

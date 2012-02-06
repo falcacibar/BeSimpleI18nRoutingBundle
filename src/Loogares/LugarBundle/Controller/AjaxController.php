@@ -168,16 +168,6 @@ class AjaxController extends Controller
         $util->setFecha(new \DateTime());
 
         $em->persist($util);
-
-        // Se envía mail al usuario que recomendó informándole del útil
-        /*$mail = array();
-        $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.util_recomendacion.mail.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));
-        $mail['recomendacion'] = $recomendacion;
-        $mail['usuario'] = $recomendacion->getUsuario();
-        $mail['tipo'] = "util-recomendacion";
-
-        $paths = array();
-        $paths['logo'] = 'assets/images/extras/logo_mails.jpg';*/
       }else{
         $em->remove($utilResult[0]);
       }
@@ -186,5 +176,30 @@ class AjaxController extends Controller
       $em->flush();
 
       return new Response(sizeOf($utilResult), 200);
+    }
+
+    public function utilMailAction() {
+      $em = $this->getDoctrine()->getEntityManager();
+      $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+      $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+
+      $usuario = $ur->findOneById($_POST['usuario']);
+      $recomendacion = $rr->findOneById($_POST['recomendacion']);
+
+      // Se envía mail al usuario que recomendó informándole del útil
+      $mail = array();
+      $nombreUsuario = ($usuario->getNombre() == '' && $usuario->getApellido() == '') ? $usuario->getSlug() : $usuario->getNombre().' '.$usuario->getApellido();
+      $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.util_recomendacion.mail.asunto', array('%usuario%' => $nombreUsuario,'%lugar%' => $recomendacion->getLugar()->getNombre()));
+      $mail['recomendacion'] = $recomendacion;
+      $mail['usuario'] = $usuario;
+      $mail['tipo'] = "util-recomendacion";
+
+      $paths = array();
+      $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
+
+      $message = $this->get('fn')->enviarMail($mail['asunto'], $recomendacion->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
+      $this->get('mailer')->send($message);
+
+      return new Response("sent", 200);
     }
 }
