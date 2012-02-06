@@ -28,6 +28,20 @@ class RecomendacionRepository extends EntityRepository
         return $q->getSingleResult();
   }
 
+  public function getUltimaRecomendacion($lugar) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT r
+                             FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                             WHERE r.lugar = ?1
+                             AND r.estado != ?2
+                             ORDER BY r.id DESC");
+      $q->setParameter(1, $lugar);
+      $q->setParameter(2, 3);
+      $q->setMaxResults(1);
+
+      return $q->getOneOrNullResult();
+  }
+
   public function getReportesRecomendacionUsuario($recomendacion, $usuario, $estado) {
       $em = $this->getEntityManager();
       $q = $em->createQuery("SELECT rr

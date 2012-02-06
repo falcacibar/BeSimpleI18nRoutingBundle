@@ -9,21 +9,40 @@
                 <td style="font-size:14px; color:#000; font-family:Arial,sans-serif" colspan="2">
                     <br />
                     <br />
-                    <strong>{{(mail.recomendacion.usuario.nombre is empty and mail.recomendacion.usuario.apellido is empty) ? mail.recomendacion.usuario.slug : mail.recomendacion.usuario.nombre~' '~mail.recomendacion.usuario.apellido}},</strong>
+                    <strong>
+                        {% if mail.tipo == 'util-recomendacion'%}
+                            {{(mail.recomendacion.usuario.nombre is empty and mail.recomendacion.usuario.apellido is empty) ? mail.recomendacion.usuario.slug : mail.recomendacion.usuario.nombre~' '~mail.recomendacion.usuario.apellido}},
+                        {% else %}
+                            {{(mail.usuarioAnterior.nombre is empty and mail.usuarioAnterior.apellido is empty) ? mail.usuarioAnterior.slug : mail.usuarioAnterior.nombre~' '~mail.usuarioAnterior.apellido}},
+                        {% endif %}
+                    </strong>
                     <br />
                 </td>
             </tr>
             <tr>
                 <td style="font-size:12px; color:#000; font-family:Arial,sans-serif" colspan="2">
                     {% set nombreUsuario = (mail.usuario.nombre is empty and mail.usuario.apellido is empty) ? mail.usuario.slug : mail.usuario.nombre~' '~mail.usuario.apellido %}
-                    <p>{%trans with {
-                                    '%usuario%' : "<a href='"~url('showUsuario', {'param' : (mail.usuario.slug is empty) ? mail.usuario.id : mail.usuario.slug })~"'>"~nombreUsuario~"</a>", 
-                                    '%open_rec%' : "<a href='"~url('_recomendacion', {'slug' : mail.recomendacion.lugar.slug, 'usuarioSlug' : (mail.recomendacion.usuario.slug is empty) ? mail.recomendacion.usuario.id : mail.recomendacion.usuario.slug })~"'>", 
-                                    '%close_rec%' : "</a>", 
-                                    '%lugar%' : "<a href="~url('_lugar', {'slug' : mail.recomendacion.lugar.slug})~">"~mail.recomendacion.lugar.nombre~"</a>"}
-                        %}lugar.notificaciones.util_recomendacion.mail.primero{% endtrans %}
-                    </p>
-                    <p>{%trans with {'%open_tag%' : "<a href='"~url('_recomendacion', {'slug' : mail.recomendacion.lugar.slug, 'usuarioSlug' : (mail.recomendacion.usuario.slug is empty) ? mail.recomendacion.usuario.id : mail.recomendacion.usuario.slug })~"'>", '%close_tag%' : "</a>"}%}lugar.notificaciones.util_recomendacion.mail.segundo{% endtrans %}</p>
+
+                    {% if mail.tipo == 'util-recomendacion'%}
+                        <p>                        
+                            {%trans with {
+                                        '%usuario%' : "<a href='"~url('showUsuario', {'param' : (mail.usuario.slug is empty) ? mail.usuario.id : mail.usuario.slug })~"'>"~nombreUsuario~"</a>", 
+                                        '%open_rec%' : "<a href='"~url('_recomendacion', {'slug' : mail.recomendacion.lugar.slug, 'usuarioSlug' : (mail.recomendacion.usuario.slug is empty) ? mail.recomendacion.usuario.id : mail.recomendacion.usuario.slug })~"'>", 
+                                        '%close_rec%' : "</a>", 
+                                        '%lugar%' : "<a href="~url('_lugar', {'slug' : mail.recomendacion.lugar.slug})~">"~mail.recomendacion.lugar.nombre~"</a>"}
+                            %}lugar.notificaciones.util_recomendacion.mail.primero{% endtrans %}  
+                        </p>
+                        <p>{%trans with {'%open_tag%' : "<a href='"~url('_recomendacion', {'slug' : mail.recomendacion.lugar.slug, 'usuarioSlug' : (mail.recomendacion.usuario.slug is empty) ? mail.recomendacion.usuario.id : mail.recomendacion.usuario.slug })~"'>", '%close_tag%' : "</a>"}%}lugar.notificaciones.util_recomendacion.mail.segundo{% endtrans %}</p>
+                    {% else %}
+                        <p>
+                            {%trans with {
+                                        '%usuario%' : "<a href='"~url('showUsuario', {'param' : (mail.usuario.slug is empty) ? mail.usuario.id : mail.usuario.slug })~"'>"~nombreUsuario~"</a>",
+                                        '%lugar%' : "<a href="~url('_lugar', {'slug' : mail.recomendacion.lugar.slug})~">"~mail.recomendacion.lugar.nombre~"</a>"}
+                            %}lugar.notificaciones.despues_recomendacion.mail.primero{% endtrans %}
+                        </p>
+                        <p>{%trans with {'%open_tag%' : "<a href='"~url('_recomendacion', {'slug' : mail.recomendacion.lugar.slug, 'usuarioSlug' : (mail.recomendacion.usuario.slug is empty) ? mail.recomendacion.usuario.id : mail.recomendacion.usuario.slug })~"'>", '%close_tag%' : "</a>"}%}lugar.notificaciones.despues_recomendacion.mail.segundo{% endtrans %}</p>
+                    {% endif %}
+                    
                 </td>
             </tr>
             <tr>
