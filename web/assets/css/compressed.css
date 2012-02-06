@@ -2704,13 +2704,13 @@ small {
         float: right;
         text-align: right;
         padding: 15px 15px 15px 10px;
-        width: 115px; }
+        width: 114px; }
         .caja_contenidos_usuario .menu_edicion_usuario a li:hover {
           border-bottom: 1px solid #cccccc;
           border-right: 5px solid #cccccc;
           float: right;
           padding: 15px 10px;
-          width: 115px; }
+          width: 114px; }
     .caja_contenidos_usuario .menu_edicion_usuario .selected {
       background: white;
       border-bottom: 1px solid #f6f6f6;
@@ -2720,7 +2720,7 @@ small {
       float: right;
       text-align: right;
       padding: 15px 10px;
-      width: 115px; }
+      width: 114px; }
       .caja_contenidos_usuario .menu_edicion_usuario .selected a {
         color: #999999 !important;
         text-decoration: none;
@@ -2741,6 +2741,14 @@ small {
       float: left;
       margin: 40px 0 0;
       width: 620px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos .edicion_usuario_error {
+        background-color: #ffe5e5;
+        border: 1px solid #ff6666;
+        float: left;
+        line-height: 18px;
+        margin: 0 0 20px 0;
+        padding: 5px 10px;
+        width: 597px; }
       .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li {
         float: left;
         margin: 0 0 20px 0;
@@ -2750,13 +2758,15 @@ small {
           float: left;
           font-size: 14px;
           font-weight: bold;
-          margin: 6px 20px 0 0;
+          margin: 4px 20px 4px 0;
           width: 210px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li input {
           color: #666666;
           float: left;
           font-size: 14px;
-          width: 310px; }
+          margin: 0px;
+          padding: 6px 10px;
+          width: 306px; }
           .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li input:hover {
             border: 1px solid #444444; }
           .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li input:focus {
@@ -2764,26 +2774,41 @@ small {
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li select {
           float: left;
           width: 310px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .errors {
+          margin: 5px 0 0 230px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .tipo_usuario {
           float: left;
           margin: 8px 0;
           width: 330px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .txt_url_propia {
+          color: #666666;
+          display: block;
+          float: left;
+          font-size: 14px;
+          padding: 8px 0;
+          width: 165px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .url_propia {
+          float: left;
+          display: block;
+          margin: 0px;
+          width: 141px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .day {
           float: left;
-          margin: 8px 0;
+          margin: 6px 0;
           width: 50px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .month {
           float: left;
-          margin: 8px 6px;
+          margin: 6px 6px;
           width: 205px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .year {
           float: left;
-          margin: 8px 0;
+          margin: 6px 0;
           width: 60px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li #form_mostrar_edad {
-          margin: 12px 0 0; }
+          margin: 10px 0 0; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li #form_sexo {
           float: left;
+          margin: 6px 0 0;
           width: 390px; }
           .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li #form_sexo input {
             float: left;
@@ -2794,11 +2819,191 @@ small {
             font-weight: normal;
             margin: 0 20px 0 10px;
             width: auto; }
-        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .enviar_datos_perfil {
-          background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -147px;
-          height: 16px;
-          margin: 10px 20px 0 0;
-          padding: 2px 0 0 26px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .newsletter_checkbox {
+          margin: 12px 0 0; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul .enviar_datos_prefil {
+        background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 0;
+        border: 0px;
+        cursor: pointer;
+        height: 30px;
+        margin: 0 0 0 230px;
+        width: 99px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul .enviar_datos_prefil:hover {
+          background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
+    .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos {
+      display: block;
+      float: left;
+      margin: 40px 0 0;
+      width: 620px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos .edicion_usuario_error {
+        background-color: #ffe5e5;
+        border: 1px solid #ff6666;
+        float: left;
+        line-height: 18px;
+        margin: 0 0 20px 0;
+        padding: 5px 10px;
+        width: 597px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul li {
+        float: left;
+        margin: 0 0 20px 0;
+        width: 620px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul li label {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 4px 20px 4px 0;
+          width: 80px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul li input {
+          margin: 6px 0; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul li .tips {
+          color: #999999;
+          float: left;
+          font-size: 12px;
+          line-height: 24px;
+          margin: 0 0 0 100px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul li .mypictr {
+          color: #0066cc !important;
+          text-decoration: none;
+          font-size: 14px;
+          float: left;
+          margin: 10px 0 0 100px; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul li .mypictr:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul li .errors {
+          margin: 5px 0 0 0; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul .submit {
+        float: left;
+        width: 200px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul .submit .enviar_foto_prefil {
+          background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 0;
+          border: 0px;
+          cursor: pointer;
+          height: 30px;
+          margin: 10px 0 0 100px;
+          width: 99px; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul .submit .enviar_foto_prefil:hover {
+            background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
+    .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil {
+      background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px 0;
+      border: 0px;
+      cursor: pointer;
+      height: 30px;
+      margin: 10px 0 0 10px;
+      width: 134px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil:hover {
+        background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px -30px; }
+    .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password {
+      display: block;
+      float: left;
+      margin: 40px 0 0;
+      width: 620px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password .edicion_usuario_error {
+        background-color: #ffe5e5;
+        border: 1px solid #ff6666;
+        float: left;
+        line-height: 18px;
+        margin: 0 0 20px 0;
+        padding: 5px 10px;
+        width: 597px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul li {
+        float: left;
+        margin: 0 0 20px 0;
+        width: 620px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul li label {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 4px 20px 4px 0;
+          width: 210px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul li input {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          margin: 0px;
+          padding: 6px 10px;
+          width: 306px; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul li input:hover {
+            border: 1px solid #444444; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul li input:focus {
+            border: 1px solid #0066cc; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul li .errors {
+          margin: 5px 0 0 230px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul .enviar_password_prefil {
+        background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 0;
+        border: 0px;
+        cursor: pointer;
+        height: 30px;
+        margin: 0 0 0 230px;
+        width: 99px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul .enviar_password_prefil:hover {
+          background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px;
+          border: 0px; }
+    .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta {
+      display: block;
+      float: left;
+      margin: 40px 0 0;
+      width: 620px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta .edicion_usuario_error {
+        background-color: #ffe5e5;
+        border: 1px solid #ff6666;
+        float: left;
+        line-height: 18px;
+        margin: 0 0 20px 0;
+        padding: 5px 10px;
+        width: 597px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li {
+        float: left;
+        margin: 0 0 20px 0;
+        width: 620px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li label {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          margin: 4px 20px 4px 0;
+          width: 210px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li input {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          margin: 0px;
+          padding: 6px 10px;
+          width: 306px; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li input:hover {
+            border: 1px solid #444444; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li input:focus {
+            border: 1px solid #0066cc; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li textarea {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          margin: 0px;
+          min-height: 80px;
+          padding: 6px 10px;
+          width: 306px; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li textarea:hover {
+            border: 1px solid #444444; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li textarea:focus {
+            border: 1px solid #0066cc; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li .detalle_motivo_borrar_cuenta {
+          display: block;
+          font-size: 12px;
+          float: left;
+          width: 210px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li .errors {
+          margin: 5px 0 0 230px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul .borrar_cuenta_prefil {
+        background: url("../images/extras/botones_perfil_usuario.png") no-repeat -233px 0;
+        border: 0px;
+        cursor: pointer;
+        height: 30px;
+        margin: 10px 0 0 230px;
+        width: 141px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul .borrar_cuenta_prefil:hover {
+          background: url("../images/extras/botones_perfil_usuario.png") no-repeat -233px -30px;
+          border: 0px; }
   .caja_contenidos_usuario .caja_actividad_usuario {
     float: left;
     left: 160px;

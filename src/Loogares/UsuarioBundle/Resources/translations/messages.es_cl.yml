@@ -106,7 +106,8 @@ usuario:
             tipo: Tipo de Usuario
             apellido: Apellido *
             mail: E-mail *
-            slug: Nombre de usuario
+            slug: URL propia
+            url_propia: http://www.loogares.com/
             nacimiento:
                 label: Fecha de nacimiento
                 day: Día
@@ -124,9 +125,10 @@ usuario:
         foto:
             subir: Subir foto
             tip:
-                maximo: - 5MB como máximo
-                formato: - Sólo JPG, GIF y PNG
-            mypictr: Crea tu foto de perfil con Mypictr
+                maximo: Máximo 5 MB
+                formato: Sólo JPG, GIF y PNG
+                ajuste: La imagen será ajustada a 100x100 px si tiene un tamaño distinto
+            mypictr: » Crea tu foto de perfil con Mypictr
             submit: Guardar
             borrar: Borra tu foto
         password:
@@ -136,7 +138,8 @@ usuario:
             submit: Guardar
         borrar:
             password: Password *
-            motivo: ¿Por qué te vas? Cuéntanos el motivo de tu salida. *
+            motivo: ¿Por qué te vas? *
+            detalle: Cuéntanos el motivo de tu salida.
             submit: Borrar cuenta
             mail:
                 nombre: Nombre

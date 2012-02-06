@@ -8,7 +8,7 @@
 	{% endif %}
 
 	{% if errors %}
-		<div class="edicion_error">
+		<div class="edicion_usuario_error">
 			{% for error in errors %}
 			    <p>{{ error |trans}}</p>
 			{% endfor %}
@@ -57,7 +57,7 @@
 				<li>
 					{% set inputClass = (errors.slug is defined) ? 'input-error' : ' '%}
 					{{ form_label(form.slug, 'usuario.edicion.cuenta.slug') }}
-					{{ form_widget(form.slug, { 'attr': {'class': inputClass}})  }}
+					<span class="txt_url_propia">{{ 'usuario.edicion.cuenta.url_propia' | trans }}</span> {{ form_widget(form.slug, { 'attr': {'class': inputClass~' url_propia'}})  }}
 					{% if errors.slug is defined %}
 						<small class="errors">{{errors.slug | trans}}</small>
 					{% endif %}
@@ -99,14 +99,13 @@
 
 				<li id="edicion-newsletter">
 					{{ form_label(form.newsletter_activo, null, {'attr' :{'class' : 'label-up'}}) }}
-					{{ form_widget(form.newsletter_activo) }}
+					{{ form_widget(form.newsletter_activo, { 'attr': {'class': 'newsletter_checkbox'}}) }}
 				</li> 
 
 			    {{ form_rest(form) }}
 
 				<div class="submit">
-					<label></label>
-					<input class="enviar_datos_prefil" type="submit" value="{{'usuario.edicion.cuenta.submit'|trans}}" formnovalidate />
+					<input class="enviar_datos_prefil" type="submit" value="" formnovalidate />
 				</div>
 			</ul>
 	    </div>		    
