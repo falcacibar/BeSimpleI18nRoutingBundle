@@ -1,6 +1,21 @@
 /* Función para el menú desplegable */
 
 $(document).ready(function() {
+    var getResultados = getParameterByName('resultados');
+    
+    $('.seleccionar_resultados_por_pagina').find('option[value="'+getResultados+'"]').attr('selected', 'selected')
+        .end().change(function(){
+            if( getResultados == ''){
+                if(window.location.href.match(/\?/)){
+                    var location = window.location.href.replace(/pagina=\d+/, 'pagina=1');
+                    window.location = location+'&resultados='+$(this).val(); 
+                }else{
+                    window.location = window.location.href+'?resultados='+$(this).val();  
+                }
+            }else{
+                window.location = window.location.href.replace(/resultados=\d+/, 'resultados='+$(this).val()).replace(/pagina=\d+/, 'pagina=1');
+            }
+        });
 
    $('.menu ul li:has(ul)').hover(
       function(e)
