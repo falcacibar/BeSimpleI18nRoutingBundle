@@ -167,7 +167,10 @@ function handleMapa() {
                     }
                     if(i == document.getElementById('cantidadLugares').value){
                         $.getScript(WEBROOT+'../assets/js/otrosLugares.js');
+                        console.log('script')
                     }
+                }else{
+                    $.getScript(WEBROOT+'../assets/js/otrosLugares.js');
                 }
             }
 
