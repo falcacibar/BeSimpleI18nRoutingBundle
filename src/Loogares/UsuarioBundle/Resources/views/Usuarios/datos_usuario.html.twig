@@ -1,10 +1,3 @@
-<!-- Quitar después, una vez que esté echo lo del menú -->
-{% 	set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
-{% if usuario.tipo is defined and usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
-	<a href="{{path('editarUsuario', { 'param': slug })}}" class="editar-link">{% trans %}usuario.datos.editar{% endtrans %}</a>
-{% endif %}
-<!-- Quitar después, una vez que esté echo lo del menú -->
-
 <div class="datos_usuario">
 	<div class="imagen_usuario">
 		<a href="{{asset('assets/images/usuarios/'~usuario.imagenFull)}}">

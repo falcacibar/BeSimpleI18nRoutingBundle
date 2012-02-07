@@ -4,11 +4,27 @@
 			<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />
 		</div>
 		{% render "LoogaresExtraBundle:Default:ciudad" %}
-		<div class="login">			
+		<div class="login">
 			{% if is_granted('ROLE_USER') %}
 				{% set slug = (app.security.token.user.slug != '') ? app.security.token.user.slug : app.security.token.user.id %}					
-				<a class="usuario_login" href="{{path('logout')}}">{{'general.header.usuario.logout'|trans}}</a>
-				<a class="usuario_login" href="{{path('showUsuario', { 'param': slug })}}">{{app.security.token.user.nombre}} {{app.security.token.user.apellido}}</a>
+				<ul>
+					<li>
+						<div class="usuario_login">
+							<img class="imagen_usuario_header" src="{{ ("assets/images/usuarios/"~app.security.token.user.imagenFull) | apply_filter('small_usuario') }}" width="24" height="24" />
+							<a class="nombre_usuario_header" href="{{path('showUsuario', { 'param': slug })}}">{{app.security.token.user.nombre}} {{app.security.token.user.apellido}}</a>
+							<div class="flecha_ciudad"></div>
+							<ul>
+								<li><a href="{{path('editarCuentaUsuario', { 'param': slug })}}">{{'general.header.usuario.editar'|trans}}</a></li>
+								<li><a href="{{path('actividadUsuario', { 'param': slug })}}">{{'general.header.usuario.actividad'|trans}}</a></li>
+								<li><a href="{{path('recomendacionesUsuario', { 'param': slug })}}">{{'general.header.usuario.recomendaciones'|trans}}</a></li>
+								<li><a href="{{path('fotosLugaresUsuario', { 'param': slug })}}">{{'general.header.usuario.fotos'|trans}}</a></li>
+								<li><a href="#">{{'general.header.usuario.lugares'|trans}}</a></li>
+								<li><a class="usuario_login" href="{{path('logout')}}">{{'general.header.usuario.logout'|trans}}</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>		
+			
 			{% else %}
 				<a class="usuario_login" href="{{path('login')}}">{{'general.header.usuario.login'|trans}}</a>
 				<a class="usuario_login" href="{{path('registroUsuario')}}">{{'general.header.usuario.registro'|trans}}</a>
