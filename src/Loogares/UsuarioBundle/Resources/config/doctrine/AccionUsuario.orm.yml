@@ -1,0 +1,17 @@
+Loogares\UsuarioBundle\Entity\AccionUsuario:
+    type: entity
+    table: acciones_usuario
+    manyToOne:
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+        accion:
+            targetEntity: Loogares\UsuarioBundle\Entity\Accion
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        fecha:
+            type: datetime

@@ -251,10 +251,11 @@
             </ul>
             <div class="compartir_lugar">
                 <ul>
-                    <li class="twitter_share">
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none">Twitter</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
+                    <li class="twitter_share">                       
+                        {% set data_url = url('_lugar', {'slug' : lugar.slug}) %}
+                        {% set data_text = lugar.nombre~", "~lugar.comuna.ciudad.nombre~" | Loogares.com" %}
+                        {% set data_via = "Loogarescom" %}
+                        <a href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">Twitter</a>
                     </li>
                     <li class="fb_share">
                         <a name="fb_share" type="icon_link" style="color:#444">Facebook</a>
@@ -359,7 +360,6 @@
                         </p>
                     {% endif %}
                      </div>
-                    
                     <div class="caja_opciones_recomendacion">
                         <ul class="opciones_recomendacion">
                             {% if recomendacion.slug != false %}
@@ -378,10 +378,11 @@
 
                         <div class="compartir_recomendacion">
                             <ul>
-                                <li class="twitter_share_recomendacion">
-                                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="Loogarescom" data-lang="es" data-count="none" data-url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}" data-text="Recomendación de {{recomendacion.nombre}} {{recomendacion.apellido}} en {{lugar.nombre}}, {{lugar.comuna.ciudad.nombre}}">Twitter</a>
-                                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
+                                <li class="twitter_share_recomendacion">                                    
+                                    {% set data_url = url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId}) %}
+                                    {% set data_text = "Recomendación de "~recomendacion.nombre~" "~recomendacion.apellido~" en "~lugar.nombre~", "~lugar.comuna.ciudad.nombre %}
+                                    {% set data_via = "Loogarescom" %}
+                                    <a href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">Twitter</a>
                                 </li>
                                 <li class="fb_share_recomendacion">
                                     <a name="fb_share" type="icon_link" style="color:#444" share_url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Facebook</a>

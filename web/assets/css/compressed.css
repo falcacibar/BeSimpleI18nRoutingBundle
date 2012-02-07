@@ -1933,8 +1933,6 @@ small {
     .opciones_lugar div.compartir_lugar ul li {
       float: left;
       margin: 11px 15px 0 0; }
-      .opciones_lugar div.compartir_lugar ul li.twitter_share {
-        margin-top: 8px; }
       .opciones_lugar div.compartir_lugar ul li.mail_share {
         background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
         padding: 0 0 0 13px; }
@@ -2154,8 +2152,6 @@ small {
         .recomendacion .texto_recomendacion .caja_opciones_recomendacion .compartir_recomendacion ul li {
           float: left;
           margin: 11px 15px 0 0; }
-          .recomendacion .texto_recomendacion .caja_opciones_recomendacion .compartir_recomendacion ul li.twitter_share_recomendacion {
-            margin-top: 8px; }
           .recomendacion .texto_recomendacion .caja_opciones_recomendacion .compartir_recomendacion ul li.mail_share {
             background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
             padding: 0 0 0 13px; }

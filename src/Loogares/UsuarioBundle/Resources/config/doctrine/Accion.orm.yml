@@ -1,0 +1,10 @@
+Loogares\UsuarioBundle\Entity\Accion:
+    type: entity
+    table: acciones
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        nombre:
+            type: string

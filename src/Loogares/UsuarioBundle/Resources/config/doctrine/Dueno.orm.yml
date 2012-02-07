@@ -1,9 +1,10 @@
 Loogares\UsuarioBundle\Entity\Dueno:
     type: entity
     table: duenos
-    manyToOne:
+    oneToOne:
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
+    manyToOne:       
         estado:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
     id:
