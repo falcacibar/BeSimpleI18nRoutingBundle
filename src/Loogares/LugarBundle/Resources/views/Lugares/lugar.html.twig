@@ -30,6 +30,12 @@
     </script>
     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
+    <script>
+        $(function(){
+            
+        });
+    </script>
+
 {% endblock %}
 
 {% block stylesheets %}
@@ -224,13 +230,13 @@
             <a class="recomienda_lugar"></a>
             <a class="recomienda_despues_lugar"></a>
             <div class="flota_derecha">
-                <a class="favoritos_lugar boton_accion"></a><p class="favoritos_valor">{{lugar.totalAcciones.3.total}}</p>
+                <a class="favoritos_lugar boton_accion"></a><p class="favoritos_valor conteo">{{lugar.totalAcciones.3.total}}</p>
             </div>           
             <div class="flota_derecha">
-                <a class="estuve_alla_lugar boton_accion"></a><p class="estuve_alla_valor">{{lugar.totalAcciones.2.total}}</p>
+                <a class="estuve_alla_lugar boton_accion"></a><p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
             </div>           
             <div class="flota_derecha">
-                <a class="quiero_ir_lugar boton_accion"></a><p class="quiero_ir_valor">{{lugar.totalAcciones.0.total}}</p>
+                <a class="quiero_ir_lugar boton_accion"></a><p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>           
         </div>
 
