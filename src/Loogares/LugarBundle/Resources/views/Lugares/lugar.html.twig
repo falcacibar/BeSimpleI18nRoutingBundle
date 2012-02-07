@@ -36,7 +36,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="lugar-ficha">
+<div id="lugar-ficha" data-id="{{lugar.id}}">
     {% if app.session.hasFlash('lugar_flash') %}
             {{ app.session.flash('lugar_flash') }}
     {% endif %}
@@ -158,7 +158,7 @@
                 <div class="categoria_lugar">
                     {% if lugar.categoriaLugar %}
                         <div class="categoria_lugar_box" id="lugar-categorias">
-                            <span class="subtitulos_lugar">{{'lugar.ficha.datos.categorias'|trans}}</span>
+                            <span class="subtitulos_lugar">{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}</span>
                             {% for categoriaLugar in lugar.categoriaLugar %} 
                                 <a href="">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
                             {% endfor %}
@@ -224,13 +224,13 @@
             <a class="recomienda_lugar"></a>
             <a class="recomienda_despues_lugar"></a>
             <div class="flota_derecha">
-                <a class="favoritos_lugar"></a><p class="favoritos_valor">100</p>
+                <a class="favoritos_lugar boton_accion"></a><p class="favoritos_valor">{{lugar.totalAcciones.3.total}}</p>
             </div>           
             <div class="flota_derecha">
-                <a class="estuve_alla_lugar"></a><p class="estuve_alla_valor">20</p>
+                <a class="estuve_alla_lugar boton_accion"></a><p class="estuve_alla_valor">{{lugar.totalAcciones.2.total}}</p>
             </div>           
             <div class="flota_derecha">
-                <a class="quiero_ir_lugar"></a><p class="quiero_ir_valor">10</p>
+                <a class="quiero_ir_lugar boton_accion"></a><p class="quiero_ir_valor">{{lugar.totalAcciones.0.total}}</p>
             </div>           
         </div>
 
@@ -279,29 +279,29 @@
 
         <ul class="ordenar_por_recomendaciones">
             <li>
-                <strong>{{'lugar.ficha.recomendaciones.orden.titulo'|trans}}</strong>
+                <strong>{{'general.terminos.ordenar_por'|trans}}:</strong>
             </li>
             <li>
                 {% if query.orden == 'mejor-evaluadas' %}
-                    <strong>{{'lugar.ficha.recomendaciones.orden.mejores'|trans}}</strong>
+                    <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(0)}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'lugar.ficha.recomendaciones.orden.mejores'|trans}}</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(0)}}</a>
                 {% endif %}
             </li>
             <li>|</li>
             <li>
                 {% if query.orden == 'ultimas' %}
-                    <strong>{{'lugar.ficha.recomendaciones.orden.ultimas'|trans}}</strong>
+                    <strong>{{'general.terminos.ultima_recomendacion'|transchoice(0)}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'lugar.ficha.recomendaciones.orden.ultimas'|trans}}</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(0)}}</a>
                 {% endif %}
             </li>
             <li>|</li>
             <li>
                 {% if query.orden == 'mas-utiles' %}
-                    <strong>{{'lugar.ficha.recomendaciones.orden.utiles'|trans}}</strong>
+                    <strong>{{'general.terminos.mas_utiles'|transchoice(0)}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'lugar.ficha.recomendaciones.orden.utiles'|trans}}</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(0)}}</a>
                 {% endif %}
             </li>
         </ul>
@@ -312,12 +312,12 @@
                 <option value="15">15</option>
                 <option value="20">20</option>
             </select>
-            <p class="resultados_por_pagina_txt">{{'lugar.ficha.recomendaciones.resultados'|trans}}</p>
+            <p class="resultados_por_pagina_txt">{{'general.terminos.resultados_pagina'|trans}}</p>
         </div>
 
 
         {% for recomendacion in lugar.recomendaciones %}
-            <div class="recomendacion" data-slug="{{recomendacion.slug}}">
+            <div class="recomendacion" data-slug="{{recomendacion.slug}}" data-id="{{recomendacion.id}}">
                 <div class="foto_recomendacion">
                     <a href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
                         <img src="{{ ('assets/images/usuarios/'~recomendacion.imagen_full) | apply_filter('small_usuario')}}" height="60" width="60" />
@@ -338,9 +338,9 @@
                     <div class="util_recomendacion">
                     {% if is_granted('ROLE_USER') and app.security.token.user.id != recomendacion.userId %}
                         {% if recomendacion.apretoUtil == 0 %}
-                            <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util"></a>
+                            <a class="boton_activado boton_util boton_accion"></a>
                         {% else %}
-                            <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_desactivado boton_util"></a>
+                            <a class="boton_desactivado boton_util boton_accion"></a>
                         {% endif %}
                     {% else %}
                         <p class="boton_desactivado boton_util"></p>

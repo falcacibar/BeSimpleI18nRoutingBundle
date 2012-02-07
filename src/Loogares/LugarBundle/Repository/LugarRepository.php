@@ -294,6 +294,31 @@ class LugarRepository extends EntityRepository
       return $q->getResult();
     }
 
+    public function getTotalAccionesLugar($lugar) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT a.id, a.nombre,
+                             (SELECT count(au.id)
+                             FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                             WHERE au.accion = a.id
+                             AND au.lugar = ?1) total
+                             FROM Loogares\UsuarioBundle\Entity\Accion a");
+      $q->setParameter(1, $lugar);
+      return $q->getResult();
+    }
+
+    public function getAccionUsuarioLugar($lugar, $usuario, $accion) {
+      $em = $this->getEntityManager();
+      $em->createQuery("SELECT au 
+                        FROM Loogares\UsuarioBundle\Entity\AccionUsuario au 
+                        WHERE u.lugar = ?1 
+                        AND u.usuario = ?2
+                        AND u.accion = ?3");
+      $q->setParameter(1, $lugar);
+      $q->setParameter(2, $usuario);
+      $q->setParameter(3, $accion);
+      return $q->getOneOrNullResult();
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");
