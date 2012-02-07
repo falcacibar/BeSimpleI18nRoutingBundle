@@ -180,7 +180,8 @@ class LugarController extends Controller{
                                                                          $orderBy
                                                                          LIMIT $resultadosPorPagina
                                                                          OFFSET $offset");
-
+                $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
+                
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
                     $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
@@ -228,6 +229,7 @@ class LugarController extends Controller{
                 $data->recomendacionesPorPagina = $resultadosPorPagina;
                 $tp = $lr->getTagsPopulares($idLugar);
                 $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
+                $data->totalAcciones = $totalAcciones;
 
                 $params = array(
                     'slug' => $data->getSlug()

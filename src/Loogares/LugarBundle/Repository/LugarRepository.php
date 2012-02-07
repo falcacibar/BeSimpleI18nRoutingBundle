@@ -294,6 +294,40 @@ class LugarRepository extends EntityRepository
       return $q->getResult();
     }
 
+    public function getTotalAccionesLugar($lugar) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT a.id, a.nombre,
+                             (SELECT count(au.id)
+                             FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                             WHERE au.accion = a.id
+                             AND au.lugar = ?1) total
+                             FROM Loogares\UsuarioBundle\Entity\Accion a");
+      $q->setParameter(1, $lugar);
+      return $q->getResult();
+    }
+
+    public function getAccionUsuarioLugar($lugar, $usuario, $accion) {
+      if($accion == 'favoritos'){ $accion = 4; }
+      if($accion == 'estuve_alla'){ $accion = 3; }
+      if($accion == 'quiero_ir'){ $accion = 1; }
+        
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT au 
+                        FROM Loogares\UsuarioBundle\Entity\AccionUsuario au 
+                        WHERE au.lugar = ?1 
+                        AND au.usuario = ?2
+                        AND au.accion = ?3");
+      $q->setParameter(1, $lugar);
+      $q->setParameter(2, $usuario);
+      $q->setParameter(3, $accion);
+      $result = $q->getOneOrNullResult();
+      if($result == null){
+        return $accion;
+      }else{
+        return $result;
+      }
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");
