@@ -30,6 +30,12 @@
     </script>
     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
+    <script>
+        $(function(){
+            
+        });
+    </script>
+
 {% endblock %}
 
 {% block stylesheets %}
@@ -224,13 +230,13 @@
             <a class="recomienda_lugar"></a>
             <a class="recomienda_despues_lugar"></a>
             <div class="flota_derecha">
-                <a class="favoritos_lugar"></a><p class="favoritos_valor">100</p>
+                <a class="favoritos_lugar boton_accion"></a><p class="favoritos_valor conteo">{{lugar.totalAcciones.3.total}}</p>
             </div>           
             <div class="flota_derecha">
-                <a class="estuve_alla_lugar"></a><p class="estuve_alla_valor">20</p>
+                <a class="estuve_alla_lugar boton_accion"></a><p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
             </div>           
             <div class="flota_derecha">
-                <a class="quiero_ir_lugar"></a><p class="quiero_ir_valor">10</p>
+                <a class="quiero_ir_lugar boton_accion"></a><p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>           
         </div>
 
@@ -345,7 +351,7 @@
                     {% else %}
                         <p class="boton_desactivado boton_util"></p>
                     {% endif %}
-                        <p class="conteo_util">{{ recomendacion.utiles }}</p>
+                        <p class="conteo conteo_util">{{ recomendacion.utiles }}</p>
                     </div>
                     <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
                     <div class="recomendacion-bloque">
