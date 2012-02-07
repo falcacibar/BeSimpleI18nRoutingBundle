@@ -3,6 +3,11 @@ general:
     header:
         usuario:
             login: Entra
+            editar: Edita tus datos
+            actividad: Actividad
+            recomendaciones: Recomendaciones
+            fotos: Fotos
+            lugares: Listado de lugares
             logout: Salir
             registro: Regístrate
 

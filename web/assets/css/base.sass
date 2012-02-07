@@ -201,8 +201,7 @@ body
             float: left
             font:
                 size: 11px
-            margin: 5px 10px 5px 0px
-            width: 411px
+            width: 420px
 
             a
                 @include link_blanco
@@ -210,18 +209,64 @@ body
                 &:hover
                     @include link_blanco_hover
 
+            li
+                background: $gris_444
+                cursor: pointer
+                float: right
+                list-style-type: none
+                padding: 0 5px 0 0
+                position: relative
+
+                &:hover
+                    background: $gris_666                
+
+                .usuario_login
+                    float: left
+                    display: block
+                    position: relative
+
+                .imagen_usuario_header
+                    float: left
+                    height: 24px
+                    width: 24px
+
+                .nombre_usuario_header
+                    float: left
+                    display: block
+                    margin: 5px
+
+                .flecha_ciudad
+                    background: url('../images/extras/botones_sprite.png') -99px -1px
+                    display: block
+                    float: left
+                    height: 3px
+                    margin: 11px 0
+                    width: 6px
+
+                ul
+                    display: none
+                    position: absolute
+                    top: 24px
+                    width: 100%
+                    z-index: 10000
+
+                    li
+                        display: block
+                        float: left
+                        width: 100%
+
+                        a
+                            float: left
+                            display: block
+                            padding: 10px
+
             .facebook_login
                 background: url('../images/extras/botones_sprite.png') 0px 0px
                 float: right
                 height: 15px
                 width: 48px
                 margin-left: 20px
-                
-            .usuario_login
-                float: right
-                display: block
-                margin: 2px 0 0 12px
-                
+                                
         .redes_sociales
             background: $gris_ccc
             float: left

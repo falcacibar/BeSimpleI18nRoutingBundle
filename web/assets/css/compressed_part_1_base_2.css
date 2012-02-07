@@ -94,24 +94,61 @@ body {
       color: white;
       float: left;
       font-size: 11px;
-      margin: 5px 10px 5px 0px;
-      width: 411px; }
+      width: 420px; }
       .barra_ciudad .centrado_ciudad .login a {
         color: white;
         text-decoration: none; }
         .barra_ciudad .centrado_ciudad .login a:hover {
           color: white;
           text-decoration: underline; }
+      .barra_ciudad .centrado_ciudad .login li {
+        background: #444444;
+        cursor: pointer;
+        float: right;
+        list-style-type: none;
+        padding: 0 5px 0 0;
+        position: relative; }
+        .barra_ciudad .centrado_ciudad .login li:hover {
+          background: #666666; }
+        .barra_ciudad .centrado_ciudad .login li .usuario_login {
+          float: left;
+          display: block;
+          position: relative; }
+        .barra_ciudad .centrado_ciudad .login li .imagen_usuario_header {
+          float: left;
+          height: 24px;
+          width: 24px; }
+        .barra_ciudad .centrado_ciudad .login li .nombre_usuario_header {
+          float: left;
+          display: block;
+          margin: 5px; }
+        .barra_ciudad .centrado_ciudad .login li .flecha_ciudad {
+          background: url("../images/extras/botones_sprite.png") -99px -1px;
+          display: block;
+          float: left;
+          height: 3px;
+          margin: 11px 0;
+          width: 6px; }
+        .barra_ciudad .centrado_ciudad .login li ul {
+          display: none;
+          position: absolute;
+          top: 24px;
+          width: 100%;
+          z-index: 10000; }
+          .barra_ciudad .centrado_ciudad .login li ul li {
+            display: block;
+            float: left;
+            width: 100%; }
+            .barra_ciudad .centrado_ciudad .login li ul li a {
+              float: left;
+              display: block;
+              padding: 10px; }
       .barra_ciudad .centrado_ciudad .login .facebook_login {
         background: url("../images/extras/botones_sprite.png") 0px 0px;
         float: right;
         height: 15px;
         width: 48px;
         margin-left: 20px; }
-      .barra_ciudad .centrado_ciudad .login .usuario_login {
-        float: right;
-        display: block;
-        margin: 2px 0 0 12px; }
     .barra_ciudad .centrado_ciudad .redes_sociales {
       background: #cccccc;
       float: left;
