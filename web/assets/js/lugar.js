@@ -90,31 +90,50 @@ $(document).ready(function(){
         $('.recomendacion_pedida_container > h1').text('Recomendacion De '+nombre);
     });
 
-    $('.boton_util').click(function(e){
+    $('.boton_accion').click(function(e){
         e.preventDefault();
 
         var $this = $(this),
-            dataUtil = $(this).attr('data-util').split('-');
+            idLugar = $('#lugar-ficha').attr('data-id'),
+            data = {};
+            
+        //UTIL: Recomendacion ID y Usuario(OBSOLETE)
+        if($this.hasClass('boton_util')){
+            data = {'recomendacion': $this.closest('.recomendacion').attr('data-id'),'accion': 'util'};
+        }else if($this.hasClass('quiero_ir_lugar')){
+            data = {'lugar': idLugar,'accion': 'quiero_ir'};
+        }else if($this.hasClass('estuve_alla_lugar')){
+            data = {'lugar': idLugar,'accion': 'estuve_alla'};
+        }else if($this.hasClass('favoritos_lugar')){
+            data = {'lugar': idLugar,'accion': 'favorito'};
+        }
+
+        console.log(data)
 
         $.ajax({
            url: WEBROOT+'ajax/util',
            type: 'post',
-           data: {'recomendacion': dataUtil[0], 'usuario': dataUtil[1]},
-           success: function(data){
-                var util = parseInt($this.parent().find('.conteo_util').text());
-                if($this.hasClass('boton_activado')){
-                    $this.removeClass('boton_activado').addClass('boton_desactivado');
-                    $('.conteo_util').text(util+1)
-                    // Request para enviar mail a usuario de recomendación
+           data: data,
+           success: function(data){  
+            var conteo = parseInt($this.next('.conteo').text());
+            $this.next('.conteo').text(conteo+1);   
+                       
+            if($this.hasClass('boton_activado')){
+                $this.removeClass('boton_activado').addClass('boton_desactivado');
+                //Si es el boton de util...
+                if($this.hasClass('boton_util')){
+                    // Request para enviar mail a usuario de recomendación solo si es un util
                     $.ajax({
                        url: WEBROOT+'ajax/util_mail',
                        type: 'post',
-                       data: {'recomendacion': dataUtil[0], 'usuario': dataUtil[1]}
+                       data: data
                     });
-                }else if($this.hasClass('boton_desactivado')){
-                    $this.removeClass('boton_desactivado').addClass('boton_activado');
-                    $('.conteo_util').text(util-1)
                 }
+            }else if($this.hasClass('boton_desactivado')){
+                $this.removeClass('boton_desactivado').addClass('boton_activado');
+            }
+            
+            $this.next('.conteo').text(conteo-1);
            }
         });
     });

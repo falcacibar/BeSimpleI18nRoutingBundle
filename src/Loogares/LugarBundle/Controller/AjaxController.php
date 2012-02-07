@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Loogares\UsuarioBundle\Entity\Util;
+use Loogares\UsuarioBundle\Entity\AccionUsuario;
 
 
 class AjaxController extends Controller
@@ -148,42 +149,60 @@ class AjaxController extends Controller
 
     public function utilAction(){
       $em = $this->getDoctrine()->getEntityManager();
-      $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+      $accion = $_POST['accion'];
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
       $utr = $em->getRepository("LoogaresUsuarioBundle:Util");
       $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+      $ar = $em->getRepository("LoogaresUsuarioBundle:Accion");
 
-      $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Util u WHERE u.usuario = ?1 and u.recomendacion = ?2");
-      $q->setParameter(1, $_POST['usuario']);
-      $q->setParameter(2, $_POST['recomendacion']);
-      $utilResult = $q->getResult();
+      if($_POST['accion'] == 'util'){
+        $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Util u WHERE u.usuario = ?1 and u.recomendacion = ?2");
+        $q->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId());
+        $q->setParameter(2, $_POST['recomendacion']);
+        $utilResult = $q->getResult();
 
-      $usuario = $ur->findOneById($_POST['usuario']);
-      $recomendacion = $rr->findOneById($_POST['recomendacion']);
+        $recomendacion = $rr->findOneById($_POST['recomendacion']);
 
-      if(sizeOf($utilResult) == 0){
-        $util = new Util();
-        $util->setUsuario($usuario);
-        $util->setRecomendacion($recomendacion);
-        $util->setFecha(new \DateTime());
+        if(sizeOf($utilResult) == 0){
+          $util = new Util();
+          $util->setUsuario($this->get('security.context')->getToken()->getUser());
+          $util->setRecomendacion($recomendacion);
+          $util->setFecha(new \DateTime());
 
-        $em->persist($util);
-      }else{
-        $em->remove($utilResult[0]);
+          $em->persist($util);
+        }else{
+          $em->remove($utilResult[0]);
+        }
+
+        $lr->actualizarPromedios($recomendacion->getLugar()->getSlug());
+        $em->flush();
+      }else if($accion == 'favoritos' || $accion == 'estuve_alla' || $accion == 'quiero_ir'){
+        $lugar = $lr->findOneById($_POST['lugar']);
+        $usuario = $this->get('security.context')->getToken()->getUser();
+
+        $accionResult = $lr->getAccionUsuarioLugar($lugar, $usuario, $accion);
+
+        if(!is_object($accionResult)){
+          $accionObj = new AccionUsuario();
+          $accionObj->setUsuario($usuario);
+          $accionObj->setAccion($ar->findOneById($accionResult));
+          $accionObj->setLugar($lugar);
+          $accionObj->setFecha(new \DateTime());
+          $em->persist($accionObj);
+        }else{
+          $em->remove($accionResult);
+        }
+        $em->flush();
       }
 
-      $lr->actualizarPromedios($recomendacion->getLugar()->getSlug());
-      $em->flush();
-
-      return new Response(sizeOf($utilResult), 200);
+      return new Response(':D', 200);
     }
 
     public function utilMailAction() {
       $em = $this->getDoctrine()->getEntityManager();
-      $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
 
-      $usuario = $ur->findOneById($_POST['usuario']);
+      $usuario = $this->get('security.context')->getToken()->getUser();
       $recomendacion = $rr->findOneById($_POST['recomendacion']);
 
       // Se envía mail al usuario que recomendó informándole del útil

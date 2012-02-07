@@ -307,16 +307,25 @@ class LugarRepository extends EntityRepository
     }
 
     public function getAccionUsuarioLugar($lugar, $usuario, $accion) {
+      if($accion == 'favoritos'){ $accion = 4; }
+      if($accion == 'estuve_alla'){ $accion = 3; }
+      if($accion == 'quiero_ir'){ $accion = 1; }
+        
       $em = $this->getEntityManager();
-      $em->createQuery("SELECT au 
+      $q = $em->createQuery("SELECT au 
                         FROM Loogares\UsuarioBundle\Entity\AccionUsuario au 
-                        WHERE u.lugar = ?1 
-                        AND u.usuario = ?2
-                        AND u.accion = ?3");
+                        WHERE au.lugar = ?1 
+                        AND au.usuario = ?2
+                        AND au.accion = ?3");
       $q->setParameter(1, $lugar);
       $q->setParameter(2, $usuario);
       $q->setParameter(3, $accion);
-      return $q->getOneOrNullResult();
+      $result = $q->getOneOrNullResult();
+      if($result == null){
+        return $accion;
+      }else{
+        return $result;
+      }
     }
 
     public function cleanUp($id){

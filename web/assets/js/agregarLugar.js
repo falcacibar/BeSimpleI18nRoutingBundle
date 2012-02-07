@@ -217,7 +217,7 @@ $(document).ready(function(){
         actualizarCiudades();
     });
 
-    $('form').submit(function(e){
+    $('form[name="agregar-lugar"]').submit(function(e){
         errores = '';
         $('.errors').remove();
         $.each($('.required'), function(){
