@@ -42,7 +42,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="lugar-ficha">
+<div id="lugar-ficha" data-id="{{lugar.id}}">
     {% if app.session.hasFlash('lugar_flash') %}
             {{ app.session.flash('lugar_flash') }}
     {% endif %}
@@ -285,29 +285,29 @@
 
         <ul class="ordenar_por_recomendaciones">
             <li>
-                <strong>{{'lugar.ficha.recomendaciones.orden.titulo'|trans}}</strong>
+                <strong>{{'general.terminos.ordenar_por'|trans}}:</strong>
             </li>
             <li>
                 {% if query.orden == 'mejor-evaluadas' %}
-                    <strong>{{'lugar.ficha.recomendaciones.orden.mejores'|trans}}</strong>
+                    <strong>{{'general.terminos.mejor_evaluadas'|trans}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'lugar.ficha.recomendaciones.orden.mejores'|trans}}</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejor_evaluadas'|trans}}</a>
                 {% endif %}
             </li>
             <li>|</li>
             <li>
                 {% if query.orden == 'ultimas' %}
-                    <strong>{{'lugar.ficha.recomendaciones.orden.ultimas'|trans}}</strong>
+                    <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'lugar.ficha.recomendaciones.orden.ultimas'|trans}}</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</a>
                 {% endif %}
             </li>
             <li>|</li>
             <li>
                 {% if query.orden == 'mas-utiles' %}
-                    <strong>{{'lugar.ficha.recomendaciones.orden.utiles'|trans}}</strong>
+                    <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'lugar.ficha.recomendaciones.orden.utiles'|trans}}</a>
+                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
                 {% endif %}
             </li>
         </ul>
@@ -323,7 +323,7 @@
 
 
         {% for recomendacion in lugar.recomendaciones %}
-            <div class="recomendacion" data-slug="{{recomendacion.slug}}">
+            <div class="recomendacion" data-id="{{recomendacion.id}}" data-slug="{{recomendacion.slug}}">
                 <div class="foto_recomendacion">
                     <a href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
                         <img src="{{ ('assets/images/usuarios/'~recomendacion.imagen_full) | apply_filter('small_usuario')}}" height="60" width="60" />
