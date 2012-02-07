@@ -182,6 +182,12 @@ class LugarController extends Controller{
                                                                          OFFSET $offset");
                 $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
                 
+                if($this->get('security.context')->isGranted('ROLE_USER'))
+                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId(), $this->get('security.context')->getToken()->getUser()->getId());
+                else
+                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId()); 
+                 
+
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
                     $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
@@ -230,6 +236,7 @@ class LugarController extends Controller{
                 $tp = $lr->getTagsPopulares($idLugar);
                 $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
                 $data->totalAcciones = $totalAcciones;
+                $data->accionesUsuario = $accionesUsuario;
 
                 $params = array(
                     'slug' => $data->getSlug()

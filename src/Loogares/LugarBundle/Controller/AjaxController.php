@@ -147,7 +147,7 @@ class AjaxController extends Controller
       return $this->render('LoogaresLugarBundle:Lugares:recomendacion.html.twig',array('recomendacion' => $recomendacionResult, 'lugar' => array('slug' => $_POST['slug'])));
     }
 
-    public function utilAction(){
+    public function accionAction(){
       $em = $this->getDoctrine()->getEntityManager();
       $accion = $_POST['accion'];
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");

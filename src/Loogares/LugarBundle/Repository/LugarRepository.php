@@ -306,10 +306,34 @@ class LugarRepository extends EntityRepository
       return $q->getResult();
     }
 
-    public function getAccionUsuarioLugar($lugar, $usuario, $accion) {
-      if($accion == 'favoritos'){ $accion = 4; }
-      if($accion == 'estuve_alla'){ $accion = 3; }
+    public function getAccionesUsuario($lugar, $usuario=null) {
+      
+      $em = $this->getEntityManager();
+      $sq = "SELECT count(au.id)
+             FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+             WHERE au.accion = a.id
+             AND au.lugar = ?1
+             AND au.usuario = ?2";
+      if($usuario ==  null) {
+        $sq = "0";
+      }
+
+      $q = $em->createQuery("SELECT a.id, a.nombre,
+                             (" . $sq . ") hecho
+                             FROM Loogares\UsuarioBundle\Entity\Accion a");          
+      if($usuario) {
+        $q->setParameter(1, $lugar);      
+        $q->setParameter(2, $usuario);
+      }    
+      return $q->getResult();
+    }
+
+    public function getAccionUsuarioLugar($lugar, $usuario, $accion) {   
       if($accion == 'quiero_ir'){ $accion = 1; }
+      else if($accion == 'quiero_volver'){ $accion = 2; }
+      else if($accion == 'estuve_alla'){ $accion = 3; }
+      else if($accion == 'favoritos'){ $accion = 4; }
+      else if($accion == 'recomendar_despues'){ $accion = 5; }
         
       $em = $this->getEntityManager();
       $q = $em->createQuery("SELECT au 

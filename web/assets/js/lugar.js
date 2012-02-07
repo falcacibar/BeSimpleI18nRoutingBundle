@@ -94,31 +94,27 @@ $(document).ready(function(){
         e.preventDefault();
 
         var $this = $(this),
-            idLugar = $('#lugar-ficha').attr('data-id'),
-            data = {};
+            idLugar = $('#lugar-ficha').attr('data-id');
             
         //UTIL: Recomendacion ID y Usuario(OBSOLETE)
         if($this.hasClass('boton_util')){
-            data = {'recomendacion': $this.closest('.recomendacion').attr('data-id'),'accion': 'util'};
+            dataObj = {'recomendacion': $this.closest('.recomendacion').attr('data-id'),'accion': 'util'};
         }else if($this.hasClass('quiero_ir_lugar')){
-            data = {'lugar': idLugar,'accion': 'quiero_ir'};
+            dataObj = {'lugar': idLugar,'accion': 'quiero_ir'};
         }else if($this.hasClass('estuve_alla_lugar')){
-            data = {'lugar': idLugar,'accion': 'estuve_alla'};
+            dataObj = {'lugar': idLugar,'accion': 'estuve_alla'};
         }else if($this.hasClass('favoritos_lugar')){
-            data = {'lugar': idLugar,'accion': 'favorito'};
-        }
-
-        console.log(data)
+            dataObj = {'lugar': idLugar,'accion': 'favoritos'};
+        }       
 
         $.ajax({
-           url: WEBROOT+'ajax/util',
+           url: WEBROOT+'ajax/accion',
            type: 'post',
-           data: data,
-           success: function(data){  
-            var conteo = parseInt($this.next('.conteo').text());
-            $this.next('.conteo').text(conteo+1);   
-                       
-            if($this.hasClass('boton_activado')){
+           data: dataObj,
+           success: function(data){    
+            var conteo = parseInt($this.next('.conteo').text());            
+            if($this.hasClass('boton_activado')){ // Quiero ir, me gusta!                
+                $this.next('.conteo').text(conteo+1);
                 $this.removeClass('boton_activado').addClass('boton_desactivado');
                 //Si es el boton de util...
                 if($this.hasClass('boton_util')){
@@ -126,14 +122,15 @@ $(document).ready(function(){
                     $.ajax({
                        url: WEBROOT+'ajax/util_mail',
                        type: 'post',
-                       data: data
+                       data: dataObj
                     });
                 }
-            }else if($this.hasClass('boton_desactivado')){
+            }else if($this.hasClass('boton_desactivado')){ // No quiero ir, ya no me gusta
                 $this.removeClass('boton_desactivado').addClass('boton_activado');
+                $this.next('.conteo').text(conteo-1);
             }
             
-            $this.next('.conteo').text(conteo-1);
+            
            }
         });
     });

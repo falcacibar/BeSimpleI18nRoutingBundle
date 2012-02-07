@@ -47,8 +47,8 @@ _moduloRecomendacion:
     defaults: { _controller: LoogaresLugarBundle:Ajax:recomendacion }
 
 _util:
-    pattern: /ajax/util
-    defaults: { _controller: LoogaresLugarBundle:Ajax:util }
+    pattern: /ajax/accion
+    defaults: { _controller: LoogaresLugarBundle:Ajax:accion }
 
 _utilMail:
     pattern: /ajax/util_mail
