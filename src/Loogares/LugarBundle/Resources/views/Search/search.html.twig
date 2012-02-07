@@ -96,6 +96,7 @@
 		}
 </style>
 	<h2>{{'general.terminos.resultados'|trans}}: {{buscar}}</h2>
+	{% if es == 'busqueda' %}
 	<div class="expandir_resultados">
 		<span>Expande tus Resultados</span>
 		<div class="resultados_busqueda">
@@ -126,81 +127,86 @@
 					<li><a class="link_azul" href="">Individuales ({{results.lugaresPorTermino }} Resultados)</a></li>
 				</ul>
 			</div>
+			{% if results.lugaresPorCalles != 0 %}
 			<div class="resultados_calles">
 				<strong>Calles</strong>
 				<ul>
-					<li><a class="link_azul" href="">Calles?? ({{results.lugaresPorCalle	 }} Resultados)</a></li>
+					<li><a class="link_azul" href="">Calles?? ({{results.lugaresPorCalle}} Resultados)</a></li>
 				</ul>
 			</div>
+			{% endif %}
 		</div>
 	</div>
+	{% endif %}
+	
+	{% if lugares|length > 0 %}
+		<br/>
 
-	<br/>
+		<div class="total_paginacion">
+		    <strong>
+		        {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}
+		    </strong>
+		</div>
 
-	<div class="total_paginacion">
-	    <strong>
-	        {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}
-	    </strong>
-	</div>
+		<ul class="paginacion">
+		    {{paginacion.paginacion | raw}}
+		</ul>
 
-	<ul class="paginacion">
-	    {{paginacion.paginacion | raw}}
-	</ul>
+	    <ul class="filtros-busqueda">
+	        <li>
+	            <strong>{{'general.terminos.ordenar_por'|trans}}: </strong>
+	        </li>
+	        <li>
+	            {% if query.orden is not defined or query.orden == 'relevantes' %}
+	                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
+	            {% else %}
+	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'relevantes' }) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
+	            {% endif %}	
+	        </li>
+	        <li>|</li>
+	        <li>
+	            {% if query.orden is defined and query.orden == 'recomendaciones' %}
+	                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
+	            {% else %}
+	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'recomendaciones' }) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
+	            {% endif %}
+	        </li>
+	        <li>|</li>
+	        <li>
+	            {% if query.orden is defined and query.orden == 'utiles' %}
+	                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
+	            {% else %}
+	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'utiles' }) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+	            {% endif %}
+	        </li>
+	        <li>|</li>
+	        <li>
+	            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
+	                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
+	            {% else %}
+	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'ultima-recomendacion' }) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
+	            {% endif %}
+	        </li>
+	        <li>|</li>
+	        <li>
+	            {% if query.orden is defined and query.orden == 'alfabetico' %}
+	                <strong>{{'general.terminos.alfabetico'|trans}}</strong>
+	            {% else %}
+	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug, 'buscar': buscar, 'orden': 'alfabetico' }) }}">{{'general.terminos.alfabetico'|trans}}</a>
+	            {% endif %}
+	        </li>
+	    </ul>
 
-    <ul class="filtros-busqueda">
-        <li>
-            <strong>{{'general.terminos.ordenar_por'|trans}}: </strong>
-        </li>
-        <li>
-            {% if query.orden is not defined or query.orden == 'relevantes' %}
-                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
-            {% else %}
-                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'relevantes' }) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
-            {% endif %}	
-        </li>
-        <li>|</li>
-        <li>
-            {% if query.orden is defined and query.orden == 'recomendaciones' %}
-                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
-            {% else %}
-                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'recomendaciones' }) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
-            {% endif %}
-        </li>
-        <li>|</li>
-        <li>
-            {% if query.orden is defined and query.orden == 'utiles' %}
-                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
-            {% else %}
-                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'utiles' }) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
-            {% endif %}
-        </li>
-        <li>|</li>
-        <li>
-            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
-                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
-            {% else %}
-                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'ultima-recomendacion' }) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
-            {% endif %}
-        </li>
-        <li>|</li>
-        <li>
-            {% if query.orden is defined and query.orden == 'alfabetico' %}
-                <strong>{{'general.terminos.alfabetico'|trans}}</strong>
-            {% else %}
-                <a class="link_azul" href="{{ path("_buscar", {'slug': slug, 'buscar': buscar, 'orden': 'alfabetico' }) }}">{{'general.terminos.alfabetico'|trans}}</a>
-            {% endif %}
-        </li>
-    </ul>
-
-    <div class="resultados_por_pagina">
-        <select class="seleccionar_resultados_por_pagina">
-            <option value="30">30</option>
-            <option value="45">45</option>
-            <option value="60">60</option>
-        </select>
-        <p class="resultados_por_pagina_txt">{{'general.terminos.resultados'|trans}}</p>
-    </div>
+	    <div class="resultados_por_pagina">
+	        <select class="seleccionar_resultados_por_pagina">
+	            <option value="30">30</option>
+	            <option value="45">45</option>
+	            <option value="60">60</option>
+	        </select>
+	        <p class="resultados_por_pagina_txt">{{'general.terminos.resultados'|trans}}</p>
+	    </div>
   <br/><br/><br/><br/><br/><br/>
+  {% endif %}
 	{% for lugar in lugares %}
 		<div class="resultado-busqueda">
 			<div class="datos-principales">

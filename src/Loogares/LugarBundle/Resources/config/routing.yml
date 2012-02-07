@@ -105,9 +105,30 @@ _reclamarLugar:
 _enviarLugar:
     pattern: /lugar/{slug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarLugar }
-_buscar:
-    pattern: /buscar/{slug}
-    defaults: {_controller: LoogaresLugarBundle:Search:buscar}
 _enviarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarRecomendacion }
+
+
+
+#
+# NAVEGACION
+#
+_buscar:
+    pattern: /{slug}/buscar/{term}
+    defaults: {_controller: LoogaresLugarBundle:Search:buscar, esBusqueda: true, term: false }
+_categoria:
+    pattern: /{slug}/categoria/{term}
+    defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esCategoria: true}
+_subcategoria:  
+    pattern: /{slug}/sub-categoria/{term}
+    defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esSubCategoria:true}
+_tags:
+    pattern: /{slug}/tags/{term}
+    defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esTag: true }
+_comuna:
+    pattern: /{slug}/comuna/{term}
+    defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esComuna: true }
+_sector:
+    pattern: /{slug}/sector/{term}
+    defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esSector: true }
