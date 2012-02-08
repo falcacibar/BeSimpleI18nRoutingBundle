@@ -215,13 +215,32 @@
             <a class="recomienda_lugar"></a>
             <a class="recomienda_despues_lugar"></a>
             <div class="flota_derecha">
-                <a class="favoritos_lugar boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}"></a><p class="favoritos_valor conteo">{{lugar.totalAcciones.3.total}}</p>
+                <a class="favoritos_lugar boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
+                <p class="favoritos_valor conteo">{{lugar.totalAcciones.3.total}}</p>
             </div>           
             <div class="flota_derecha">
-                <a class="estuve_alla_lugar boton_accion {{(lugar.accionesUsuario.2.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}"></a><p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
-            </div>           
+                {% if lugar.accionesUsuario.2.puede == 1 %}
+                    <a class="estuve_alla_lugar boton_accion {{(lugar.accionesUsuario.2.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></a>
+                {% else %}
+                    <p class="estuve_alla_lugar boton_desactivado"></p>
+                {% endif %}
+                <p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
+            </div>  
             <div class="flota_derecha">
-                <a class="quiero_ir_lugar boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}"></a><p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
+                {% if lugar.accionesUsuario.1.puede == 1 %}
+                    <a class="quiero_volver_lugar boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}">Quiero volver</a>
+                {% else %}
+                    <p class="quiero_volver_lugar boton_desactivado">Quiero volver</p>
+                {% endif %}                
+                <p class="quiero_volver_valor conteo">{{lugar.totalAcciones.1.total}}</p>
+            </div>            
+            <div class="flota_derecha">
+                {% if lugar.accionesUsuario.0.puede == 1 %}
+                    <a class="quiero_ir_lugar boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></a>
+                {% else %}
+                    <p class="quiero_ir_lugar boton_desactivado"></p>
+                {% endif %}                
+                <p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>           
         </div>
 

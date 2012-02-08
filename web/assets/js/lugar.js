@@ -101,6 +101,8 @@ $(document).ready(function(){
             dataObj = {'recomendacion': $this.closest('.recomendacion').attr('data-id'),'accion': 'util'};
         }else if($this.hasClass('quiero_ir_lugar')){
             dataObj = {'lugar': idLugar,'accion': 'quiero_ir'};
+        }else if($this.hasClass('quiero_volver_lugar')){
+            dataObj = {'lugar': idLugar,'accion': 'quiero_volver'};
         }else if($this.hasClass('estuve_alla_lugar')){
             dataObj = {'lugar': idLugar,'accion': 'estuve_alla'};
         }else if($this.hasClass('favoritos_lugar')){
@@ -115,7 +117,7 @@ $(document).ready(function(){
             var conteo = parseInt($this.next('.conteo').text());            
             if($this.hasClass('boton_activado')){ // Quiero ir, me gusta!                
                 $this.next('.conteo').text(conteo+1);
-                $this.removeClass('boton_activado').addClass('boton_desactivado');
+                $this.removeClass('boton_activado').addClass('boton_desactivado');                
                 //Si es el boton de util...
                 if($this.hasClass('boton_util')){
                     // Request para enviar mail a usuario de recomendación solo si es un util
@@ -125,9 +127,30 @@ $(document).ready(function(){
                        data: dataObj
                     });
                 }
+                else {
+                    $this.attr('data-hecho',($this.attr('data-hecho') == 1) ? 0 : 1); 
+                    if(dataObj.accion == 'estuve_alla') {
+                        if($this.parent().parent().find('a.quiero_ir_lugar').attr('data-hecho') == 1) {
+                            $this.parent().parent().find('a.quiero_ir_lugar').click()
+                        }            
+                    }
+                    else if(dataObj.accion == 'quiero_volver') {
+                        if($this.parent().parent().find('a.quiero_ir_lugar').attr('data-hecho') == 1) {
+                            $this.parent().parent().find('a.quiero_ir_lugar').click()
+                        }
+                        if($this.parent().parent().find('a.estuve_alla_lugar').attr('data-hecho') == 0) {
+                            $this.parent().parent().find('a.estuve_alla_lugar').click()
+                        }            
+                    }
+                }                
+
             }else if($this.hasClass('boton_desactivado')){ // No quiero ir, ya no me gusta
                 $this.removeClass('boton_desactivado').addClass('boton_activado');
+                
                 $this.next('.conteo').text(conteo-1);
+                if(!$this.hasClass('boton_util')) {
+                    $this.attr('data-hecho',($this.attr('data-hecho') == 1) ? 0 : 1);
+                }
             }
             
             
