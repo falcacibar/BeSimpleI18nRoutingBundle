@@ -33,18 +33,41 @@
 				});
 			});
 
-			$('.expandir_resultados > span').toggle(function(){
+			$('.expandir_resultados > span').live('click', function(){
 				var altoBusqueda = $('.resultados_busqueda').height();
 				$('.expandir_resultados').animate({
 					'height': altoBusqueda + 25,
 					'width': 950
 				}, 500);
-			}, function(){
-				$('.expandir_resultados').animate({
-					'height': 10,
-					'width': 180
-				}, 500);			
 			});
+
+			$('.expandir_resultados a').live('click', function(e){
+				$('.resultados-wrapper').css('position', 'relative').css('height', '400px');
+				var $this = $(this),
+					slug = $this.attr('data-slug');
+				$('.resultados-wrapper').html('').append("<div id='overlay'/>");
+				$('#overlay').css({
+					'background': 'black',
+					'position': 'absolute',
+					'top': 0,
+					'width': '100%',
+					'height': '400px',
+					'opacity': '.18',
+					'border-radius': '5px'
+				});
+				
+				$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
+				$('.loader').css({'position': 'absolute', 'left': '50%', 'opacity': '1', 'top': '10px'});
+		
+				
+				$('.resultados-wrapper').load(window.location.href + " .resultados", {'categoria': slug}, function(data){
+					$('.resultados-wrapper').removeAttr('style');
+					$('#overlay, .loader').remove();
+				});
+				return false;
+			});
+
+			$('')
 		});
 	</script>
 {% endblock %}
@@ -95,170 +118,163 @@
 			padding: 5px 0;
 		}
 </style>
-	<h2>{{'general.terminos.resultados'|trans}}: {{buscar}}</h2>
-	{% if es == 'busqueda' %}
-	<div class="expandir_resultados">
-		<span>Expande tus Resultados</span>
-		<div class="resultados_busqueda">
-			<div class="resultados_categorias">
-				<strong>Categorías</strong>
-				<ul>
-					{% for categoria in results.totalPorCategoria %}
-						<li><a class="link_azul" href="">{{categoria.nombre}} ({{ categoria.total }} Resultados)</a></li>
-					{% else %}
-						<li>No se encontraron Resultados :(</li>
-					{% endfor %}
-				</ul>
-			</div>
-			<div class="resultados_subcategorias">
-				<strong>Subcategorías</strong>
-				<ul>
-					{% for subcategoria in results.totalPorSubcategoria %}
-						<li><a class="link_azul" href="">{{subcategoria.nombre}} ({{subcategoria.total }} Resultados)</a></li>
-					{% else %}
-						<li>No se encontraron Resultados :(</li>
-					{% endfor %}
-				</ul>
-			</div>
-			<div class="resultados_terminos">
-				<strong>Terminos</strong>
-				<ul>
-					<li><a class="link_azul" href="">Agrupados ({{results.lugaresPorSlug }} Resultados)</a></li>
-					<li><a class="link_azul" href="">Individuales ({{results.lugaresPorTermino }} Resultados)</a></li>
-				</ul>
-			</div>
-			{% if results.lugaresPorCalles != 0 %}
-			<div class="resultados_calles">
-				<strong>Calles</strong>
-				<ul>
-					<li><a class="link_azul" href="">Calles?? ({{results.lugaresPorCalle}} Resultados)</a></li>
-				</ul>
+	<div class="resultados-wrapper">
+		<div class="resultados">
+			<h2>{{'general.terminos.resultados'|trans}}: {{buscar}}</h2>
+			{% if es == 'busqueda' or es == 'categoria' %}
+			<div class="expandir_resultados">
+				<span>Expande tus Resultados</span>
+				<div class="resultados_busqueda">
+					{% if es == 'busqueda' %}
+					<div class="resultados_categorias">
+						<strong>Categorías</strong>
+						<ul>
+							{% for categoria in results.totalPorCategoria %}
+								<li><a data-slug="{{categoria.slug}}" class="link_azul" href="">{{categoria.nombre}} ({{ categoria.total }} Resultados)</a></li>
+							{% else %}
+								<li>No se encontraron Resultados :(</li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+					{% if es == 'categoria' %}
+					<div class="resultados_subcategorias">
+						<strong>Subcategorías</strong>
+						<ul>
+							{% for subcategoria in results.totalPorSubcategoria %}
+								<li><a class="link_azul" href="">{{subcategoria.nombre}} ({{subcategoria.total }} Resultados)</a></li>
+							{% else %}
+								<li>No se encontraron Resultados :(</li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+				</div>
 			</div>
 			{% endif %}
-		</div>
-	</div>
-	{% endif %}
-	
-	{% if lugares|length > 0 %}
-		<br/>
+			
+			{% if lugares|length > 0 %}
+				<br/>
 
-		<div class="total_paginacion">
-		    <strong>
-		        {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}
-		    </strong>
-		</div>
+				<div class="total_paginacion">
+				    <strong>
+				        {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}
+				    </strong>
+				</div>
 
-		<ul class="paginacion">
-		    {{paginacion.paginacion | raw}}
-		</ul>
+				<ul class="paginacion">
+				    {{paginacion.paginacion | raw}}
+				</ul>
 
-	    <ul class="filtros-busqueda">
-	        <li>
-	            <strong>{{'general.terminos.ordenar_por'|trans}}: </strong>
-	        </li>
-	        <li>
-	            {% if query.orden is not defined or query.orden == 'relevantes' %}
-	                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
-	            {% else %}
-	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'relevantes' }) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
-	            {% endif %}	
-	        </li>
-	        <li>|</li>
-	        <li>
-	            {% if query.orden is defined and query.orden == 'recomendaciones' %}
-	                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
-	            {% else %}
-	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'recomendaciones' }) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
-	            {% endif %}
-	        </li>
-	        <li>|</li>
-	        <li>
-	            {% if query.orden is defined and query.orden == 'utiles' %}
-	                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
-	            {% else %}
-	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'utiles' }) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
-	            {% endif %}
-	        </li>
-	        <li>|</li>
-	        <li>
-	            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
-	                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
-	            {% else %}
-	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'ultima-recomendacion' }) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
-	            {% endif %}
-	        </li>
-	        <li>|</li>
-	        <li>
-	            {% if query.orden is defined and query.orden == 'alfabetico' %}
-	                <strong>{{'general.terminos.alfabetico'|trans}}</strong>
-	            {% else %}
-	                <a class="link_azul" href="{{ path("_buscar", {'slug': slug, 'buscar': buscar, 'orden': 'alfabetico' }) }}">{{'general.terminos.alfabetico'|trans}}</a>
-	            {% endif %}
-	        </li>
-	    </ul>
+			    <ul class="filtros-busqueda">
+			        <li>
+			            <strong>{{'general.terminos.ordenar_por'|trans}}: </strong>
+			        </li>
+			        <li>
+			            {% if query.orden is not defined or query.orden == 'relevantes' %}
+			                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
+			            {% else %}
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'relevantes' }) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
+			            {% endif %}	
+			        </li>
+			        <li>|</li>
+			        <li>
+			            {% if query.orden is defined and query.orden == 'recomendaciones' %}
+			                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
+			            {% else %}
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'recomendaciones' }) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
+			            {% endif %}
+			        </li>
+			        <li>|</li>
+			        <li>
+			            {% if query.orden is defined and query.orden == 'utiles' %}
+			                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
+			            {% else %}
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'utiles' }) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+			            {% endif %}
+			        </li>
+			        <li>|</li>
+			        <li>
+			            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
+			                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
+			            {% else %}
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'ultima-recomendacion' }) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
+			            {% endif %}
+			        </li>
+			        <li>|</li>
+			        <li>
+			            {% if query.orden is defined and query.orden == 'alfabetico' %}
+			                <strong>{{'general.terminos.alfabetico'|trans}}</strong>
+			            {% else %}
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug, 'buscar': buscar, 'orden': 'alfabetico' }) }}">{{'general.terminos.alfabetico'|trans}}</a>
+			            {% endif %}
+			        </li>
+			    </ul>
 
-	    <div class="resultados_por_pagina">
-	        <select class="seleccionar_resultados_por_pagina">
-	            <option value="30">30</option>
-	            <option value="45">45</option>
-	            <option value="60">60</option>
-	        </select>
-	        <p class="resultados_por_pagina_txt">{{'general.terminos.resultados'|trans}}</p>
-	    </div>
-  <br/><br/><br/><br/><br/><br/>
-  {% endif %}
-	{% for lugar in lugares %}
-		<div class="resultado-busqueda">
-			<div class="datos-principales">
-				<ul>
-					<li>
-						<div class="indice-resultado">{{loop.index}}</div>
-						<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
-						<a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>
-					</li>
-					{% if lugar.categorias_nombre != '' %}
-					<li>
-						<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}</strong></span>
-						{% for categoria in lugar.categorias_nombre %}
-							{{categoria|raw}}{% if loop.last == null %}, {% endif %}
-						{% endfor %}
-					</li>
-					{% endif %}
-					{% if lugar.sector_nombre != '' %}
-					<li>
-						<span><strong>{{'general.terminos.sector'|trans}}</strong></span>
-						<a href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
-					</li>
-					{% endif %}
-					{% if lugar.ultima_recomendacion != '' %}
-					<li>
-						<span><strong>
-						    <img src="{{ ('assets/images/usuarios/'~lugar.usuario_imagen) | apply_filter('tiny_usuario')}}" />
-							{{lugar.fecha_ultima_recomendacion|date('y/m/d') }}
-							{% if lugar.usuario_nombre != '' %}
-								<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_nombre}} {{lugar.usuario_apellido}}</a>
-							{% else %}
-								<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_slug}}</a>
+			    <div class="resultados_por_pagina">
+			        <select class="seleccionar_resultados_por_pagina">
+			            <option value="30">30</option>
+			            <option value="45">45</option>
+			            <option value="60">60</option>
+			        </select>
+			        <p class="resultados_por_pagina_txt">{{'general.terminos.resultados'|trans}}</p>
+			    </div>
+		  <br/><br/><br/><br/><br/><br/>
+		  {% endif %}
+			{% for lugar in lugares %}
+				<div class="resultado-busqueda">
+					<div class="datos-principales">
+						<ul>
+							<li>
+								<div class="indice-resultado">{{loop.index}}</div>
+								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+								<a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>
+							</li>
+							{% if lugar.categorias_nombre != '' %}
+							<li>
+								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}</strong></span>
+								{% for categoria in lugar.categorias_nombre %}
+									{{categoria|raw}}{% if loop.last == null %}, {% endif %}
+								{% endfor %}
+							</li>
 							{% endif %}
-						</strong></span>
-						<p>{{lugar.ultima_recomendacion}}...</p>
-					</li>
-					{% endif %}
-				</ul>
-			</div>
-			<div class="datos-secundarios">
-				<ul>
-					<li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div></li>
-					<li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
-					{% if lugar.precio != null %}
-						<div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div>
-					{% endif %}
-					<li>{{lugar.calle}} {{lugar.numero}} - <a href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a></li>
-					<li>Ranking: {{lugar.ranking}}</li>
-				</ul>
-			</div>
+							{% if lugar.sector_nombre != '' %}
+							<li>
+								<span><strong>{{'general.terminos.sector'|trans}}</strong></span>
+								<a href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
+							</li>
+							{% endif %}
+							{% if lugar.ultima_recomendacion != '' %}
+							<li>
+								<span><strong>
+								    <img src="{{ ('assets/images/usuarios/'~lugar.usuario_imagen) | apply_filter('tiny_usuario')}}" />
+									{{lugar.fecha_ultima_recomendacion|date('y/m/d') }}
+									{% if lugar.usuario_nombre != '' %}
+										<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_nombre}} {{lugar.usuario_apellido}}</a>
+									{% else %}
+										<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_slug}}</a>
+									{% endif %}
+								</strong></span>
+								<p>{{lugar.ultima_recomendacion}}...</p>
+							</li>
+							{% endif %}
+						</ul>
+					</div>
+					<div class="datos-secundarios">
+						<ul>
+							<li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div></li>
+							<li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
+							{% if lugar.precio != null %}
+								<div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div>
+							{% endif %}
+							<li>{{lugar.calle}} {{lugar.numero}} - <a href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a></li>
+							<li>Ranking: {{lugar.ranking}}</li>
+						</ul>
+					</div>
+				</div>
+			{% endfor %}
 		</div>
-	{% endfor %}
-	<div id="agrega-lugar"><p>¿No encontraste el Lugar que buscabas?
+		<div id="agrega-lugar"><p>¿No encontraste el Lugar que buscabas?
 ¡Entonces agrégalo y sé el primero en recomendarlo!</p><a href="{{ path('_agregar') }}">Boton</a></div>
+	</div>
 {% endblock %}
