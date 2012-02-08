@@ -14,10 +14,13 @@ lugar:
         tagsPopulares: Tags Populares
         precio: Precio
         placeholders:
-            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. Se creativo en tu recomendación. Escribela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! A partir de hoy eres un crítico profesional…
+            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. \n\nSe creativo en tu recomendación. Escribela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! \n\nA partir de hoy eres un crítico profesional…
             tags: Ej. bar, buena música, ondeo, hasta las 5 am
         meta:
             title: Recomendación de %usuario% en %lugar%
+        error_estrellas: Este campo es obligatorio. Por favor, complétalo.
+        error_precio: Este campo es obligatorio. Por favor, complétalo.
+        error_recomendacion: Debes escribir al menos 255 caracteres para poder publicar tu recomendación.
     agregar:
         titulo: Agregar un Lugar
         nombre: Nombre *

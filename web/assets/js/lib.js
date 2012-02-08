@@ -4,7 +4,7 @@ jQuery.fn.outerHTML = function(s) {
     : jQuery("<p>").append(this.eq(0).clone()).html();
 }
 
-jQuery.fn.placeholder = function(){
+/*jQuery.fn.placeholder = function(){
     var $this = $(this),
         placeholder = $this.attr('placeholder');
 
@@ -34,7 +34,7 @@ jQuery.fn.placeholder = function(){
     });
 
     return $this;
-}
+}*/
 
 jQuery.fn.checkDefaultClass = function(val){
 /*    var $cloned = $(this).clone();

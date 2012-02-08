@@ -1481,8 +1481,20 @@ $rojo: #FF3300
                 font:
                     size: 14px
                     weight: bold
-                margin: 0 20px 0 0
+                margin: 4px 20px 0 0
                 width: 150px
+
+            input
+                font:
+                    size: 14px
+                margin: 0px
+                width: 452px
+
+                &:hover
+                    border: 1px solid $gris_444
+
+                &:focus
+                    border: 1px solid $azul
 
             textarea
                 float: left
@@ -1492,10 +1504,20 @@ $rojo: #FF3300
                 padding: 10px
                 width: 448px
             
+                &:hover
+                    border: 1px solid $gris_444
+
+                &:focus
+                    border: 1px solid $azul
+            
+            .errors
+                margin: 5px 0 0 170px
+                width: 470px
+
             .recomienda_estrellas
                 float: left
-                margin: 0 20px 0 0
-                width: 85px !important
+                margin: 5px 20px 0 0
+                width: 110px !important
 
                 img
                     margin: 0 2px 0 0
@@ -1505,12 +1527,12 @@ $rojo: #FF3300
                 float: left
                 font:
                     size: 11px
-                margin: 2px 0 0 0
-                width: 365px
+                margin: 9px 0 0 0
+                width: 340px
 
             .recomienda_precio
                 float: left
-                margin: 0 20px 0 0
+                margin: 8px 20px 0 0
                 width: 55px !important
 
                 img
@@ -1521,7 +1543,7 @@ $rojo: #FF3300
                 float: left
                 font:
                     size: 11px
-                margin: 2px 0 0 0
+                margin: 9px 0 0 0
                 width: 395px
 
             .detalle_maximo_caracteres_recomendacion
@@ -1534,18 +1556,25 @@ $rojo: #FF3300
                 font:
                     size: 12px
                     weight: normal
+                
+            .tags_recomienda_lugar
+                display: block
+                float: left
+                font:
+                    size: 14px
+                margin: 8px 0 0
+                width: 468px
 
     .enviar_recomendacion
         background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
         border: 0px
         cursor: pointer
         height: 30px
-        margin: 0 0 0 170px
+        margin: 10px 0 0 170px
         width: 100px
 
         &:hover
-            background: url('../images/extras/botones_perfil_usuario.png') no-repeat -798px -30px
-
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
 
 /* Otros lugares */
 

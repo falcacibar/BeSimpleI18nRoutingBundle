@@ -4,10 +4,11 @@
 {% block content %}
 	<div class="caja_usuario">
 		
-		{% if app.session.hasFlash('confirmacion-registro') %}
-		    <div class="mensaje_exito">
-		        {{ app.session.flash('confirmacion-registro') | trans }}
-		    </div>
+		<!-- Mensajes de éxito -->
+		{% if app.session.hasFlash('usuario_flash') %}
+			    <div class="mensaje_exito">
+			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('usuario_flash') | trans }}</p>
+			    </div>
 		{% endif %}
 		
 		{% include 'LoogaresUsuarioBundle:Usuarios:datos_usuario.html.twig' %}
