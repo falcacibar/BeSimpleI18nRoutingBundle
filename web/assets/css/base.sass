@@ -46,10 +46,12 @@ table
 
 /* Colores */
 
+$amarillo: #FFF08C
 $azul: #0066CC
 $azul_claro: #66CCFF
 $blanco: #FFF
 $error: #F66
+$caja_error: #FF8A8A
 $gris_333: #333
 $gris_444: #444
 $gris_666: #666
@@ -75,6 +77,12 @@ $rojo: #FF3300
     -o-border-radius: 4px
     -moz-border-radius: 4px
     -webkit-border-radius: 4px
+
+@mixin borde_redondeado_grande
+    border-radius: 8px
+    -o-border-radius: 8px
+    -moz-border-radius: 8px
+    -webkit-border-radius: 8px
 
 @mixin centrado
     margin: 0px auto
@@ -149,7 +157,56 @@ body
     font:
         family: Arial
         size: 13px
-    
+
+/* Elementos generales */
+
+.mensaje_exito
+    @include borde_redondeado_grande
+    background: $amarillo
+    color: $gris_666
+    display: block
+    float: left
+    margin: 0 0 20px 0
+    padding: 10px
+    width: 940px
+
+    .imagen_exito
+        background: url('../images/extras/botones_sprite.png') 0px -94px
+        display: block
+        float: left
+        height: 20px
+        padding: 0 10px 0 0
+        width: 20px
+
+    .txt_exito
+        float: left
+        margin: 3px 0 0 0
+
+.mensaje_error
+    @include borde_redondeado_grande
+    background: $caja_error
+    color: $blanco
+    display: block
+    float: left
+    margin: 0 0 20px 0
+    padding: 10px
+    width: 940px
+
+    .imagen_error
+        background: url('../images/extras/botones_sprite.png') 0px -68px
+        display: block
+        float: left
+        height: 20px
+        padding: 0 10px 0 0
+        width: 20px
+
+    .txt_error
+        display: block
+        float: left
+        line-height: 20px
+        margin: 2px 0 0 0
+        width: 910px
+
 /* Header */
 
 .barra_ciudad
@@ -466,7 +523,7 @@ body
                     
                     
                 .placeholder
-                    color: $gris_999
+                    color: $gris_ccc
             
                     &:hover
                         color: $gris_ccc

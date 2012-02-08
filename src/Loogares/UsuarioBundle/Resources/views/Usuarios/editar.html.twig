@@ -4,31 +4,10 @@
 {% block content %}
 	<div class="caja_usuario">
 		
-		<!-- Mensajes edición cuenta -->
-		{% if app.session.hasFlash('edicion-cuenta') %}
+		<!-- Mensajes de éxito -->
+		{% if app.session.hasFlash('usuario_flash') %}
 			    <div class="mensaje_exito">
-			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('edicion-cuenta') | trans }}</p>
-			    </div>
-		{% endif %}
-
-		<!-- Mensajes edición foto de perfil -->
-		{% if app.session.hasFlash('edicion-foto') %}
-			    <div class="mensaje_exito">
-			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('edicion-foto') | trans }}</p>
-			    </div>
-		{% endif %}
-
-		<!-- Mensajes edición password -->
-		{% if app.session.hasFlash('edicion-password') %}
-			    <div class="mensaje_exito">
-			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('edicion-password') | trans }}</p>
-			    </div>
-		{% endif %}
-
-		<!-- Mensajes borrar cuenta -->
-		{% if app.session.hasFlash('edicion-borrar') %}
-			    <div class="mensaje_exito">
-			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('edicion-borrar') | trans }}</p>
+			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('usuario_flash') | trans }}</p>
 			    </div>
 		{% endif %}
 

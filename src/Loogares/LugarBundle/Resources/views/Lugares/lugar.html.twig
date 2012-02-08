@@ -43,29 +43,14 @@
 
 {% block content %}
 <div id="lugar-ficha" data-id="{{lugar.id}}">
+
+    <!-- Mensajes de éxito -->
     {% if app.session.hasFlash('lugar_flash') %}
-            {{ app.session.flash('lugar_flash') }}
-    {% endif %}
-    {% if app.session.hasFlash('agregar-foto-lugar') %}
-            <div class="flash-notice">
-                {{ app.session.flash('agregar-foto-lugar') }}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans }}</p>
             </div>
     {% endif %}
-    {% if app.session.hasFlash('reportar-lugar') %}
-            <div class="flash-notice">
-                {{ app.session.flash('reportar-lugar') | trans }}
-            </div>
-    {% endif %}
-    {% if app.session.hasFlash('existe-dueno') %}
-            <div class="flash-notice">
-                {{ app.session.flash('existe-dueno') | trans }}
-            </div>
-    {% endif %}
-    {% if app.session.hasFlash('nuevo-dueno') %}
-            <div class="flash-notice">
-                {{ app.session.flash('nuevo-dueno') | trans }}
-            </div>
-    {% endif %}
+
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
@@ -226,7 +211,6 @@
 
         </div>
 
-        {% if lugar == null %}
         <div class="actividad_lugar">
             <a class="recomienda_lugar"></a>
             <a class="recomienda_despues_lugar"></a>
@@ -240,7 +224,6 @@
                 <a class="quiero_ir_lugar boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}"></a><p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>           
         </div>
-        {% endif %}
 
         <div class="caja_inferior_ficha"></div>
 

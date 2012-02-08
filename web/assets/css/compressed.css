@@ -287,6 +287,56 @@ body {
   font-family: Arial;
   font-size: 13px; }
 
+/* Elementos generales */
+.mensaje_exito {
+  border-radius: 8px;
+  -o-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  background: #fff08c;
+  color: #666666;
+  display: block;
+  float: left;
+  margin: 0 0 20px 0;
+  padding: 10px;
+  width: 940px; }
+  .mensaje_exito .imagen_exito {
+    background: url("../images/extras/botones_sprite.png") 0px -94px;
+    display: block;
+    float: left;
+    height: 20px;
+    padding: 0 10px 0 0;
+    width: 20px; }
+  .mensaje_exito .txt_exito {
+    float: left;
+    margin: 3px 0 0 0; }
+
+.mensaje_error {
+  border-radius: 8px;
+  -o-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  background: #ff8a8a;
+  color: white;
+  display: block;
+  float: left;
+  margin: 0 0 20px 0;
+  padding: 10px;
+  width: 940px; }
+  .mensaje_error .imagen_error {
+    background: url("../images/extras/botones_sprite.png") 0px -68px;
+    display: block;
+    float: left;
+    height: 20px;
+    padding: 0 10px 0 0;
+    width: 20px; }
+  .mensaje_error .txt_error {
+    display: block;
+    float: left;
+    line-height: 20px;
+    margin: 2px 0 0 0;
+    width: 910px; }
+
 /* Header */
 .barra_ciudad {
   background: #444444;
@@ -551,7 +601,7 @@ body {
             height: 15px;
             width: 15px; }
         .menu .centrado_menu .buscador_box .buscar .placeholder {
-          color: #999999; }
+          color: #cccccc; }
           .menu .centrado_menu .buscador_box .buscar .placeholder:hover {
             color: #cccccc; }
 
@@ -2261,29 +2311,44 @@ small {
       float: left;
       font-size: 14px;
       font-weight: bold;
-      margin: 0 20px 0 0;
+      margin: 4px 20px 0 0;
       width: 150px; }
+    .recomienda_lugar ul li input {
+      font-size: 14px;
+      margin: 0px;
+      width: 452px; }
+      .recomienda_lugar ul li input:hover {
+        border: 1px solid #444444; }
+      .recomienda_lugar ul li input:focus {
+        border: 1px solid #0066cc; }
     .recomienda_lugar ul li textarea {
       float: left;
       font-size: 14px;
       margin: 0px;
       padding: 10px;
       width: 448px; }
+      .recomienda_lugar ul li textarea:hover {
+        border: 1px solid #444444; }
+      .recomienda_lugar ul li textarea:focus {
+        border: 1px solid #0066cc; }
+    .recomienda_lugar ul li .errors {
+      margin: 5px 0 0 170px;
+      width: 470px; }
     .recomienda_lugar ul li .recomienda_estrellas {
       float: left;
-      margin: 0 20px 0 0;
-      width: 85px !important; }
+      margin: 5px 20px 0 0;
+      width: 110px !important; }
       .recomienda_lugar ul li .recomienda_estrellas img {
         margin: 0 2px 0 0; }
     .recomienda_lugar ul li #estrellas-recomienda {
       color: #999999;
       float: left;
       font-size: 11px;
-      margin: 2px 0 0 0;
-      width: 365px; }
+      margin: 9px 0 0 0;
+      width: 340px; }
     .recomienda_lugar ul li .recomienda_precio {
       float: left;
-      margin: 0 20px 0 0;
+      margin: 8px 20px 0 0;
       width: 55px !important; }
       .recomienda_lugar ul li .recomienda_precio img {
         margin: 0 2px 0 0; }
@@ -2291,7 +2356,7 @@ small {
       color: #999999;
       float: left;
       font-size: 11px;
-      margin: 2px 0 0 0;
+      margin: 9px 0 0 0;
       width: 395px; }
     .recomienda_lugar ul li .detalle_maximo_caracteres_recomendacion {
       font-size: 12px;
@@ -2300,15 +2365,21 @@ small {
       color: #999999;
       font-size: 12px;
       font-weight: normal; }
+    .recomienda_lugar ul li .tags_recomienda_lugar {
+      display: block;
+      float: left;
+      font-size: 14px;
+      margin: 8px 0 0;
+      width: 468px; }
   .recomienda_lugar .enviar_recomendacion {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
     border: 0px;
     cursor: pointer;
     height: 30px;
-    margin: 0 0 0 170px;
+    margin: 10px 0 0 170px;
     width: 100px; }
     .recomienda_lugar .enviar_recomendacion:hover {
-      background: url("../images/extras/botones_perfil_usuario.png") no-repeat -798px -30px; }
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
 
 /* Otros lugares */
 .otros_lugares {
@@ -2602,55 +2673,6 @@ small {
 /* Colores */
 /* Mixin */
 /* Clases */
-.mensaje_exito {
-  border-radius: 8px;
-  -o-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  background: #fff08c;
-  color: #666666;
-  display: block;
-  float: left;
-  margin: 0 0 20px 0;
-  padding: 10px;
-  width: 940px; }
-  .mensaje_exito .imagen_exito {
-    background: url("../images/extras/botones_sprite.png") 0px -94px;
-    display: block;
-    float: left;
-    height: 20px;
-    padding: 0 10px 0 0;
-    width: 20px; }
-  .mensaje_exito .txt_exito {
-    float: left;
-    margin: 3px 0 0 0; }
-
-.mensaje_error {
-  border-radius: 8px;
-  -o-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  background: #ff8a8a;
-  color: white;
-  display: block;
-  float: left;
-  margin: 0 0 20px 0;
-  padding: 10px;
-  width: 940px; }
-  .mensaje_error .imagen_error {
-    background: url("../images/extras/botones_sprite.png") 0px -68px;
-    display: block;
-    float: left;
-    height: 20px;
-    padding: 0 10px 0 0;
-    width: 20px; }
-  .mensaje_error .txt_error {
-    display: block;
-    float: left;
-    line-height: 20px;
-    margin: 2px 0 0 0;
-    width: 910px; }
-
 .caja_usuario {
   float: left;
   margin: 0 0 50px;

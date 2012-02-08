@@ -50,6 +50,56 @@ body {
   font-family: Arial;
   font-size: 13px; }
 
+/* Elementos generales */
+.mensaje_exito {
+  border-radius: 8px;
+  -o-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  background: #fff08c;
+  color: #666666;
+  display: block;
+  float: left;
+  margin: 0 0 20px 0;
+  padding: 10px;
+  width: 940px; }
+  .mensaje_exito .imagen_exito {
+    background: url("../images/extras/botones_sprite.png") 0px -94px;
+    display: block;
+    float: left;
+    height: 20px;
+    padding: 0 10px 0 0;
+    width: 20px; }
+  .mensaje_exito .txt_exito {
+    float: left;
+    margin: 3px 0 0 0; }
+
+.mensaje_error {
+  border-radius: 8px;
+  -o-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  background: #ff8a8a;
+  color: white;
+  display: block;
+  float: left;
+  margin: 0 0 20px 0;
+  padding: 10px;
+  width: 940px; }
+  .mensaje_error .imagen_error {
+    background: url("../images/extras/botones_sprite.png") 0px -68px;
+    display: block;
+    float: left;
+    height: 20px;
+    padding: 0 10px 0 0;
+    width: 20px; }
+  .mensaje_error .txt_error {
+    display: block;
+    float: left;
+    line-height: 20px;
+    margin: 2px 0 0 0;
+    width: 910px; }
+
 /* Header */
 .barra_ciudad {
   background: #444444;
@@ -314,7 +364,7 @@ body {
             height: 15px;
             width: 15px; }
         .menu .centrado_menu .buscador_box .buscar .placeholder {
-          color: #999999; }
+          color: #cccccc; }
           .menu .centrado_menu .buscador_box .buscar .placeholder:hover {
             color: #cccccc; }
 

@@ -2,9 +2,9 @@
 	$(document).ready(function(){
 		$('.recomendacion-star-raty').raty({
 	        width: 140,
-	        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
-	        starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
-	        starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
+	        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia.png',
+	        starOn:   WEBROOT+'../assets/images/extras/estrella_llena.png',
+	        starHalf:   WEBROOT+'../assets/images/extras/estrella_media.png',
 	        half: true,
 	        start: {{recomendacion.estrellas | default(0)}},
 	        space: false,
@@ -38,6 +38,21 @@
 	    		return false
 	    	}
 	    });
+
+		//Placeholder obligatorio con salto de linea, duhhh
+	    if($('.texto').val() == ''){
+	      $('.texto').val("{{'lugar.recomendacion.placeholders.textarea'|trans}}");
+	    }
+		$('.texto').focus(function(){
+		if( $('.texto').val() == "{{'lugar.recomendacion.placeholders.textarea'|trans}}" ){
+		  $('.texto').val('');
+		}
+		});
+		$('.texto').blur(function(){
+			if( $('.texto').val() == "" ){
+		  $('.texto').val("{{'lugar.recomendacion.placeholders.textarea'|trans}}");
+		}
+		});
 	});
 
 		function validarRecomendacion(){
@@ -47,17 +62,17 @@
 	    	if($('.texto').val().length < 250){
 	    		error = true;
 	    		$('.texto').addClass('input-error');
-	    		$('.texto').parent().append("<small class='errors'>Minimo de 255 Chars</small>");
+	    		$('.texto').parent().append("<small class='errors'>{{'lugar.recomendacion.error_recomendacion'|trans}}</small>");
 	    	}
 
 	    	if($('[name="recomienda-precio"]').val() == 0){
 	    		error = true;
-	    		$('.recomendacion-precio-raty').parent().append("<small class='errors'>Debes darle al menos medio valor al Precio!</small>")
+	    		$('.recomendacion-precio-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_precio'|trans}}</small>")
 	    	}
 	    	
 	    	if($('[name="recomienda-estrellas"]').val() == 0){
 	    		error = true;
-	    		$('.recomendacion-star-raty').parent().append("<small class='errors'>Debes darle al menos medio valor!</small>")
+	    		$('.recomendacion-star-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_estrellas'|trans}}</small>")
 	    	}
 
 	    	if(error){
@@ -89,7 +104,7 @@
 				{{'lugar.recomendacion.titulo'|trans}}
 				<span class="detalle_maximo_caracteres_recomendacion">({{'lugar.recomendacion.maximo'|trans}} <span class="max">3000</span> / <span class="detalle_llevas_caracteres_recomendacion">{{'lugar.recomendacion.llevas'|trans}} <span class="llevas">0</span></span>)</span>
 			</label> 
-			<textarea placeholder="{{'lugar.recomendacion.placeholders.textarea'|trans}}" name="texto" class="texto" cols="30" rows="10">{% if recomendacion is defined %}{{recomendacion.texto}}{% endif %}</textarea>
+			<textarea name="texto" class="texto" cols="30" rows="10">{% if recomendacion is defined %}{{recomendacion.texto}}{% endif %}</textarea>
 		</li>
 		<li>
 			<label>{{'lugar.recomendacion.tags'|trans}}</label> 
@@ -98,9 +113,11 @@
 		{% if lugar is defined and lugar.tagsPopulares is defined and lugar.tagsPopulares|length > 0 %}
 		<li>
 		    <label>{{'lugar.recomendacion.tagsPopulares'|trans}}</label>
+            <div class="tags_recomienda_lugar">
             {% for tagsPopulares in lugar.tagsPopulares %}
                 <a class="link_azul" href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
             {% endfor %}
+            </div>
 		</li>
 		{% endif %}
 	</ul>
