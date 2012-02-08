@@ -1,7 +1,9 @@
+var hintListEstrellas = ['¡Argh, no me gustó nada!', 'Mmm, más o menos nomás.', 'Está bien, cumple.', 'Me gusta, me gusta.', '¡Me encanta, es el mejor de todos!'];
+
 /* Función para el menú desplegable */
 
 $(document).ready(function() {
-
+    //Estrellas
     var getResultados = getParameterByName('resultados');
     
     $('.seleccionar_resultados_por_pagina').find('option[value="'+getResultados+'"]').attr('selected', 'selected')

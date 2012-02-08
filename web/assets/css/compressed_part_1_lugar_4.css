@@ -1192,6 +1192,68 @@
       .paginacion_recomendacion ul .pagina-actual a {
         color: white !important; }
 
+/* Reomienda el lugar */
+.recomienda_lugar {
+  float: left;
+  display: block;
+  width: 640px; }
+  .recomienda_lugar ul li {
+    float: left;
+    margin: 0 0 20px 0;
+    width: 640px; }
+    .recomienda_lugar ul li label {
+      float: left;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0 20px 0 0;
+      width: 150px; }
+    .recomienda_lugar ul li textarea {
+      float: left;
+      font-size: 14px;
+      margin: 0px;
+      padding: 10px;
+      width: 448px; }
+    .recomienda_lugar ul li .recomienda_estrellas {
+      float: left;
+      margin: 0 20px 0 0;
+      width: 85px !important; }
+      .recomienda_lugar ul li .recomienda_estrellas img {
+        margin: 0 2px 0 0; }
+    .recomienda_lugar ul li #estrellas-recomienda {
+      color: #999999;
+      float: left;
+      font-size: 11px;
+      margin: 2px 0 0 0;
+      width: 365px; }
+    .recomienda_lugar ul li .recomienda_precio {
+      float: left;
+      margin: 0 20px 0 0;
+      width: 55px !important; }
+      .recomienda_lugar ul li .recomienda_precio img {
+        margin: 0 2px 0 0; }
+    .recomienda_lugar ul li #precio-recomienda {
+      color: #999999;
+      float: left;
+      font-size: 11px;
+      margin: 2px 0 0 0;
+      width: 395px; }
+    .recomienda_lugar ul li .detalle_maximo_caracteres_recomendacion {
+      font-size: 12px;
+      font-weight: normal; }
+    .recomienda_lugar ul li .detalle_llevas_caracteres_recomendacion {
+      color: #999999;
+      font-size: 12px;
+      font-weight: normal; }
+  .recomienda_lugar .enviar_recomendacion {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+    border: 0px;
+    cursor: pointer;
+    height: 30px;
+    margin: 0 0 0 170px;
+    width: 100px; }
+    .recomienda_lugar .enviar_recomendacion:hover {
+      background: url("../images/extras/botones_perfil_usuario.png") no-repeat -798px -30px; }
+
 /* Otros lugares */
 .otros_lugares {
   border: 1px solid #f6f6f6;

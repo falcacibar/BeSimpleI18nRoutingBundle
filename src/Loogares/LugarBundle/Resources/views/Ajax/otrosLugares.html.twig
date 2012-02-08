@@ -1,5 +1,5 @@
 <div id="otros-lugares">
-    <h3 class="titulo_otros_lugares">{{'lugar.ficha.otros.titulo'|trans}}</h3>
+    <h4 class="titulo_otros_lugares">{{'lugar.ficha.otros.titulo'|trans}}</h4>
     {% for lugar in lugares %}
         {% set i = loop.index %}
         <input id="coordenadas{{i}}" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}"/>

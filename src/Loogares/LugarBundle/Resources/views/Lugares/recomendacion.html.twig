@@ -8,7 +8,7 @@
 	        half: true,
 	        start: {{recomendacion.estrellas | default(0)}},
 	        space: false,
-	       	hintList: ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'],
+	       	hintList: hintListEstrellas,
 	       	target: '#estrellas-recomienda',
 	        scoreName: 'recomienda-estrellas'
 	    });
@@ -67,54 +67,27 @@
 	    	}
 	    }
 </script>
-<style>
-	label{
-		width: 120px;
-		font-weight: bold;
-		vertical-align: top;
-	}
 
-	.recomendacion-star-raty, .recomendacion-precio-raty, #precio-recomienda{
-		display:inline;
-	}
+<h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
 
-	#precio-recomienda{
-		color: #ccc;
-		font-size: 12px;
-	}
-
-	textarea, .tags{
-		width: 70% !important;
-	}
-
-	.errors{
-		float:none;
-		text-align: right;
-		margin-left: 190px;
-		margin-bottom: 5px;
-	}
-</style>
-
-
-<form name="recomienda" action="{{ path('_recomienda', {'slug': lugar.slug}) }}" method="post">
+<form class="recomienda_lugar" name="recomienda" action="{{ path('_recomienda', {'slug': lugar.slug}) }}" method="post">
 	<ul>
 		<li>
 			<label>{{'lugar.recomendacion.evaluacion'|trans}}</label>
-			<div class="recomendacion-star-raty"></div>
+			<div class="recomendacion-star-raty recomienda_estrellas"></div>
 			<div id="estrellas-recomienda"></div>
 		</li>
-		{% if lugar is defined or recomendacion is defined %} <!--Si las categorias aplican-->
+		{% if lugar is defined or recomendacion is defined %} <!-- Cuando aplican las categorías -->
 		<li>
 			<label>{{'lugar.recomendacion.precio'|trans}}</label> 
-			<div class="recomendacion-precio-raty"></div>
+			<div class="recomendacion-precio-raty recomienda_precio"></div>
 			<div id="precio-recomienda"></div>
 		</li>
 		{% endif %}
 		<li>
 			<label>
 				{{'lugar.recomendacion.titulo'|trans}}
-				<span>{{'lugar.recomendacion.maximo'|trans}}.: <span class="max">3000</span></span><br/>
-				<span>{{'lugar.recomendacion.llevas'|trans}}: <span class="llevas">0</span></span>
+				<span class="detalle_maximo_caracteres_recomendacion">({{'lugar.recomendacion.maximo'|trans}} <span class="max">3000</span> / <span class="detalle_llevas_caracteres_recomendacion">{{'lugar.recomendacion.llevas'|trans}} <span class="llevas">0</span></span>)</span>
 			</label> 
 			<textarea placeholder="{{'lugar.recomendacion.placeholders.textarea'|trans}}" name="texto" class="texto" cols="30" rows="10">{% if recomendacion is defined %}{{recomendacion.texto}}{% endif %}</textarea>
 		</li>
@@ -132,7 +105,7 @@
 		{% endif %}
 	</ul>
 	{% if lugar.slug  %}
-		<input type="submit" value="enviar"/>
+		<input class="enviar_recomendacion" type="submit" value=""/>
 	{% endif %}
 </form>
 

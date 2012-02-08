@@ -7,15 +7,15 @@ lugar:
         opcional:
             tip: ¿Deseas agregar una Recomendación?
         titulo: Recomendaciones
-        maximo: Maximo
+        maximo: Máx.
         llevas: Llevas
         evaluacion: Evaluación
         tags: Tags
         tagsPopulares: Tags Populares
         precio: Precio
         placeholders:
-            textarea: asdasdasdasdasd recomendacion
-            tags: Escribe los tags separados por coma
+            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. Se creativo en tu recomendación. Escribela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! A partir de hoy eres un crítico profesional…
+            tags: Ej. bar, buena música, ondeo, hasta las 5 am
         meta:
             title: Recomendación de %usuario% en %lugar%
     agregar:
@@ -127,6 +127,8 @@ lugar:
         otros:
             titulo: Otros Lugares en el área
             categoria: Categoría:|Categorías:
+        recomienda:
+            titulo: Recomienda
     fotos:
         agregar:
             titulo_pag: Agregar foto a
