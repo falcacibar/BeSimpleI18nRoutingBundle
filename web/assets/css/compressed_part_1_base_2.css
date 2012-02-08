@@ -95,6 +95,12 @@ body {
       float: left;
       font-size: 11px;
       width: 420px; }
+      .barra_ciudad .centrado_ciudad .login .usuario_login_entra {
+        float: right;
+        margin: 6px 10px 0px 10px; }
+      .barra_ciudad .centrado_ciudad .login .usuario_login_registro {
+        float: right;
+        margin: 6px 0px 0px 10px; }
       .barra_ciudad .centrado_ciudad .login a {
         color: white;
         text-decoration: none; }
@@ -106,18 +112,18 @@ body {
         cursor: pointer;
         float: right;
         list-style-type: none;
-        padding: 0 5px 0 0;
         position: relative; }
         .barra_ciudad .centrado_ciudad .login li:hover {
           background: #666666; }
         .barra_ciudad .centrado_ciudad .login li .usuario_login {
           float: left;
           display: block;
+          padding: 0 5px 0 0;
           position: relative; }
         .barra_ciudad .centrado_ciudad .login li .imagen_usuario_header {
           float: left;
-          height: 24px;
-          width: 24px; }
+          height: 25px;
+          width: 25px; }
         .barra_ciudad .centrado_ciudad .login li .nombre_usuario_header {
           float: left;
           display: block;
@@ -135,20 +141,35 @@ body {
           top: 24px;
           width: 100%;
           z-index: 10000; }
-          .barra_ciudad .centrado_ciudad .login li ul li {
+          .barra_ciudad .centrado_ciudad .login li ul a {
             display: block;
             float: left;
             width: 100%; }
-            .barra_ciudad .centrado_ciudad .login li ul li a {
+            .barra_ciudad .centrado_ciudad .login li ul a li {
+              background: #666666;
               float: left;
-              display: block;
-              padding: 10px; }
+              position: relative;
+              width: 100%; }
+              .barra_ciudad .centrado_ciudad .login li ul a li:hover {
+                background: #999999; }
+              .barra_ciudad .centrado_ciudad .login li ul a li .header_editar_datos_usuario {
+                background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
+                float: left;
+                height: 11px;
+                margin: 10px 0 0 10px;
+                padding: 0 0 0 10px; }
+              .barra_ciudad .centrado_ciudad .login li ul a li span {
+                float: left;
+                padding: 10px; }
+              .barra_ciudad .centrado_ciudad .login li ul a li .con_icono {
+                float: left;
+                padding: 10px 10px 10px 5px; }
       .barra_ciudad .centrado_ciudad .login .facebook_login {
         background: url("../images/extras/botones_sprite.png") 0px 0px;
         float: right;
         height: 15px;
         width: 48px;
-        margin-left: 20px; }
+        margin: 4px 0px 0px 20px; }
     .barra_ciudad .centrado_ciudad .redes_sociales {
       background: #cccccc;
       float: left;

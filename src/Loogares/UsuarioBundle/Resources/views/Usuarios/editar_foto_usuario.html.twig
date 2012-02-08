@@ -1,19 +1,6 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
 
 <div class="caja_edicion_fotos">
-	{% if app.session.hasFlash('edicion-foto') %}
-		    <div class="flash-notice">
-		        {{ app.session.flash('edicion-foto') | trans }}
-		    </div>
-	{% endif %}
-
-	{% if errors %}
-		<div class="edicion_usuario_error">
-			{% for error in errors %}
-		        <p>{{ error | trans }}</p>
-		    {% endfor %}
-		</div>
-	{% endif %}
 
 	<form action="{{ path('editarFotoUsuario', { 'param': usuario.id }) }}" method="post" {{ form_enctype(form) }}>
 		<div class="form-edicion">			

@@ -1,9 +1,11 @@
 /* Colores */
 
+$amarillo: #FFF08C
 $azul: #0066CC
 $azul_claro: #66CCFF
 $blanco: #FFF
 $error: #F66
+$caja_error: #FF8A8A
 $gris_333: #333
 $gris_444: #444
 $gris_666: #666
@@ -23,6 +25,12 @@ $rojo: #FF3300
     -o-border-radius: 2px
     -moz-border-radius: 2px
     -webkit-border-radius: 2px
+
+@mixin borde_redondeado_grande
+    border-radius: 8px
+    -o-border-radius: 8px
+    -moz-border-radius: 8px
+    -webkit-border-radius: 8px
 
 @mixin gradiente_botones ($color_1, $color_2)
     background-image: linear-gradient(bottom, $color_1 30%, $color_2 70%)
@@ -78,6 +86,55 @@ $rojo: #FF3300
     -moz-box-sizing: border-box
     -webkit-box-sizing: border-box
 
+/* Clases */
+
+.mensaje_exito
+    @include borde_redondeado_grande
+    background: $amarillo
+    color: $gris_666
+    display: block
+    float: left
+    margin: 0 0 20px 0
+    padding: 10px
+    width: 940px
+
+    .imagen_exito
+        background: url('../images/extras/botones_sprite.png') 0px -94px
+        display: block
+        float: left
+        height: 20px
+        padding: 0 10px 0 0
+        width: 20px
+
+    .txt_exito
+        float: left
+        margin: 3px 0 0 0
+
+.mensaje_error
+    @include borde_redondeado_grande
+    background: $caja_error
+    color: $blanco
+    display: block
+    float: left
+    margin: 0 0 20px 0
+    padding: 10px
+    width: 940px
+
+    .imagen_error
+        background: url('../images/extras/botones_sprite.png') 0px -68px
+        display: block
+        float: left
+        height: 20px
+        padding: 0 10px 0 0
+        width: 20px
+
+    .txt_error
+        display: block
+        float: left
+        line-height: 20px
+        margin: 2px 0 0 0
+        width: 910px
+
 .caja_usuario
     float: left
     margin: 0 0 50px
@@ -99,7 +156,6 @@ $rojo: #FF3300
             float: left
             font:
                 size: 25px
-                weight: bold
             width: 758px
         
         .datos_principales_usuario
@@ -1058,10 +1114,8 @@ $rojo: #FF3300
 .titulo_accion_usuario
     font:
         size: 20px
-        weight: bold
 
 .titulo_edicion_usuario
     font:
         size: 20px
-        weight: bold
     padding: 20px 0 0

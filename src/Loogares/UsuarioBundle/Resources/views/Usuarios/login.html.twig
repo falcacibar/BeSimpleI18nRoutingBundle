@@ -4,7 +4,7 @@
 {% block content %}
     <div class="columna_izquierda_borde">
         {% if app.session.hasFlash('edicion-borrar') %}
-            <div class="flash-notice">
+            <div class="saludo_exito">
                 {{ app.session.flash('edicion-borrar') | trans }}
             </div>
         {% endif %}

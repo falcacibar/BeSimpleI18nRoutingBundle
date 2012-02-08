@@ -226,6 +226,7 @@
 
         </div>
 
+        {% if lugar == null %}
         <div class="actividad_lugar">
             <a class="recomienda_lugar"></a>
             <a class="recomienda_despues_lugar"></a>
@@ -239,6 +240,7 @@
                 <a class="quiero_ir_lugar boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}"></a><p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>           
         </div>
+        {% endif %}
 
         <div class="caja_inferior_ficha"></div>
 

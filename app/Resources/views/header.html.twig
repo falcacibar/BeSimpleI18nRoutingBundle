@@ -10,24 +10,24 @@
 				<ul>
 					<li>
 						<div class="usuario_login">
-							<img class="imagen_usuario_header" src="{{ ("assets/images/usuarios/"~app.security.token.user.imagenFull) | apply_filter('small_usuario') }}" width="24" height="24" />
+							<img class="imagen_usuario_header" src="{{ ("assets/images/usuarios/"~app.security.token.user.imagenFull) | apply_filter('small_usuario') }}" width="25" height="25" />
 							<a class="nombre_usuario_header" href="{{path('showUsuario', { 'param': slug })}}">{{app.security.token.user.nombre}} {{app.security.token.user.apellido}}</a>
 							<div class="flecha_ciudad"></div>
 							<ul>
-								<li><a href="{{path('editarCuentaUsuario', { 'param': slug })}}">{{'general.header.usuario.editar'|trans}}</a></li>
-								<li><a href="{{path('actividadUsuario', { 'param': slug })}}">{{'general.header.usuario.actividad'|trans}}</a></li>
-								<li><a href="{{path('recomendacionesUsuario', { 'param': slug })}}">{{'general.header.usuario.recomendaciones'|trans}}</a></li>
-								<li><a href="{{path('fotosLugaresUsuario', { 'param': slug })}}">{{'general.header.usuario.fotos'|trans}}</a></li>
-								<li><a href="#">{{'general.header.usuario.lugares'|trans}}</a></li>
-								<li><a class="usuario_login" href="{{path('logout')}}">{{'general.header.usuario.logout'|trans}}</a></li>
+								<a href="{{path('editarCuentaUsuario', { 'param': slug })}}"><li><div class="header_editar_datos_usuario"></div><span class="con_icono">{{'general.header.usuario.editar'|trans}}</span></li></a>
+								<a href="{{path('actividadUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.actividad'|trans}}</span></li></a>
+								<a href="{{path('recomendacionesUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.recomendaciones'|trans}}</span></li></a>
+								<a href="{{path('fotosLugaresUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.fotos'|trans}}</span></li></a>
+								<a href="#"><li><span>{{'general.header.usuario.lugares'|trans}}</span></li></a>
+								<a href="{{path('logout')}}"><li><span>{{'general.header.usuario.logout'|trans}}</span></li></a>
 							</ul>
 						</div>
 					</li>
 				</ul>		
 			
 			{% else %}
-				<a class="usuario_login" href="{{path('login')}}">{{'general.header.usuario.login'|trans}}</a>
-				<a class="usuario_login" href="{{path('registroUsuario')}}">{{'general.header.usuario.registro'|trans}}</a>
+				<a class="usuario_login_entra" href="{{path('login')}}">{{'general.header.usuario.login'|trans}}</a>
+				<a class="usuario_login_registro" href="{{path('registroUsuario')}}">{{'general.header.usuario.registro'|trans}}</a>
 				<a class="facebook_login" href="#"></a>
 			{% endif %}
 		</div>

@@ -3,8 +3,9 @@
 {% block title %}{{'usuario.perfil.titulo_pag'|trans}} {{usuario.nombre}} {{usuario.apellido}} | {{parent()}}{% endblock %}
 {% block content %}
 	<div class="caja_usuario">
+		
 		{% if app.session.hasFlash('confirmacion-registro') %}
-		    <div class="flash-notice">
+		    <div class="mensaje_exito">
 		        {{ app.session.flash('confirmacion-registro') | trans }}
 		    </div>
 		{% endif %}
@@ -15,6 +16,7 @@
 			{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
 			{% include 'LoogaresUsuarioBundle:Usuarios:'~usuario.tipo~'_usuario.html.twig' %}
 		</div>
+
 	</div>
 {% endblock %}
 

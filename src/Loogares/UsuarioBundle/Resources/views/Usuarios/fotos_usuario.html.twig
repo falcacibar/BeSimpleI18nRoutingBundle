@@ -6,13 +6,13 @@
 	</h2>
 
 	{% if app.session.hasFlash('edicion-foto-lugar') %}
-	    <div class="flash-notice">
+	    <div class="saludo_exito">
 	        {{ app.session.flash('edicion-foto-lugar') | trans }}
 	    </div>
 	{% endif %}
 
 	{% if app.session.hasFlash('eliminar-foto-lugar') %}
-	    <div class="flash-notice">
+	    <div class="saludo_exito">
 	        {{ app.session.flash('eliminar-foto-lugar') | trans }}
 	    </div>
 	{% endif %}

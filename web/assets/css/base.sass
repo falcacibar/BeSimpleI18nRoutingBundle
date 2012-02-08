@@ -203,6 +203,14 @@ body
                 size: 11px
             width: 420px
 
+            .usuario_login_entra
+                float: right
+                margin: 6px 10px 0px 10px
+
+            .usuario_login_registro
+                float: right
+                margin: 6px 0px 0px 10px
+            
             a
                 @include link_blanco
 
@@ -214,7 +222,6 @@ body
                 cursor: pointer
                 float: right
                 list-style-type: none
-                padding: 0 5px 0 0
                 position: relative
 
                 &:hover
@@ -223,12 +230,13 @@ body
                 .usuario_login
                     float: left
                     display: block
+                    padding: 0 5px 0 0
                     position: relative
 
                 .imagen_usuario_header
                     float: left
-                    height: 24px
-                    width: 24px
+                    height: 25px
+                    width: 25px
 
                 .nombre_usuario_header
                     float: left
@@ -250,22 +258,41 @@ body
                     width: 100%
                     z-index: 10000
 
-                    li
+                    a
                         display: block
                         float: left
                         width: 100%
 
-                        a
+                        li
+                            background: $gris_666
                             float: left
-                            display: block
-                            padding: 10px
+                            position: relative
+                            width: 100%
+    
+                            &:hover
+                                background: $gris_999
+
+                            .header_editar_datos_usuario
+                                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                                float: left
+                                height: 11px
+                                margin: 10px 0 0 10px
+                                padding: 0 0 0 10px
+
+                            span
+                                float: left
+                                padding: 10px
+
+                            .con_icono
+                                float: left
+                                padding: 10px 10px 10px 5px
 
             .facebook_login
                 background: url('../images/extras/botones_sprite.png') 0px 0px
                 float: right
                 height: 15px
                 width: 48px
-                margin-left: 20px
+                margin: 4px 0px 0px 20px
                                 
         .redes_sociales
             background: $gris_ccc

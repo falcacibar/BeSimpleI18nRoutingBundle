@@ -4,6 +4,46 @@
 {% block content %}
 	<div class="caja_usuario">
 		
+		<!-- Mensajes edición cuenta -->
+		{% if app.session.hasFlash('edicion-cuenta') %}
+			    <div class="mensaje_exito">
+			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('edicion-cuenta') | trans }}</p>
+			    </div>
+		{% endif %}
+
+		<!-- Mensajes edición foto de perfil -->
+		{% if app.session.hasFlash('edicion-foto') %}
+			    <div class="mensaje_exito">
+			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('edicion-foto') | trans }}</p>
+			    </div>
+		{% endif %}
+
+		<!-- Mensajes edición password -->
+		{% if app.session.hasFlash('edicion-password') %}
+			    <div class="mensaje_exito">
+			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('edicion-password') | trans }}</p>
+			    </div>
+		{% endif %}
+
+		<!-- Mensajes borrar cuenta -->
+		{% if app.session.hasFlash('edicion-borrar') %}
+			    <div class="mensaje_exito">
+			        <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('edicion-borrar') | trans }}</p>
+			    </div>
+		{% endif %}
+
+		<!-- Mensajes de error --> 
+		{% if errors %}
+			<div class="mensaje_error">
+				<div class="imagen_error"></div>
+				<div class="txt_error">
+					{% for error in errors %}
+				        <p>{{ error | trans}}</p>
+				    {% endfor %}
+			    </div>
+			</div>
+		{% endif %}	
+
 		{% include 'LoogaresUsuarioBundle:Usuarios:datos_usuario.html.twig' %}
 	
 		<div class="caja_contenidos_usuario">

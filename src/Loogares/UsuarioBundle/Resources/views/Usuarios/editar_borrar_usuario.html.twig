@@ -1,19 +1,6 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
 
 <div class="caja_borrar_cuenta">
-	{% if app.session.hasFlash('edicion-borrar') %}
-		    <div class="flash-notice">
-		        {{ app.session.flash('edicion-borrar') | trans }}
-		    </div>
-	{% endif %}
-
-	{% if errors %}
-		<div class="edicion_usuario_error">
-			{% for error in errors %}
-		        <p>{{ error | trans}}</p>
-		    {% endfor %}
-		</div>
-	{% endif %}
 
 	<form action="{{ path('editarBorrarUsuario', { 'param': usuario.id }) }}" method="post">
 		<div class="form-edicion">	
