@@ -176,8 +176,8 @@ class AjaxController extends Controller
 
         $lr->actualizarPromedios($recomendacion->getLugar()->getSlug());
         $em->flush();
-      }else if($accion == 'favoritos' || $accion == 'estuve_alla' || $accion == 'quiero_ir'){
-        $lugar = $lr->findOneById($_POST['lugar']);
+      }else if($accion == 'favoritos' || $accion == 'estuve_alla' || $accion == 'quiero_ir'| $accion == 'quiero_volver'| $accion == 'recomendar_despues'){
+        $lugar = $lr->find($_POST['lugar']);
         $usuario = $this->get('security.context')->getToken()->getUser();
 
         $accionResult = $lr->getAccionUsuarioLugar($lugar, $usuario, $accion);

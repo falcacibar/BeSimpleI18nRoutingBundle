@@ -185,8 +185,21 @@ class LugarController extends Controller{
                 if($this->get('security.context')->isGranted('ROLE_USER'))
                     $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId(), $this->get('security.context')->getToken()->getUser()->getId());
                 else
-                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId()); 
-                 
+                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
+
+                // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
+                for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+                    $accionesUsuario[$i]['puede'] = 1;
+                    
+                    // Si el usuario ya estuvo, no puede desmarcar esta opción
+                    if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
+                        $accionesUsuario[$i]['puede'] = 0;
+                }
+                // Si el usuario ya estuvo o quiere volver, no puede querer ir
+                if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
+                    $accionesUsuario[0]['puede'] = 0;
+
+                }                 
 
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
@@ -768,6 +781,7 @@ class LugarController extends Controller{
                 }
             }
 
+            $this->get('session')->setFlash('lugar_flash','PONER TEXTO');
             // Redirección a galería de fotos (FICHA POR AHORA)
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }
@@ -846,7 +860,7 @@ class LugarController extends Controller{
         $em->flush();
                    
         // Mensaje de éxito de la eliminación
-        $this->get('session')->setFlash('eliminar-foto-lugar','Tu foto acaba de ser borrada. Agrega otra cuando quieras.');
+        $this->get('session')->setFlash('usuario_flash','Tu foto acaba de ser borrada. Agrega otra cuando quieras.');
                     
         // Redirección a vista de fotos del usuario
         return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario())))); 
@@ -1188,7 +1202,7 @@ class LugarController extends Controller{
                 }
 
                 // Mensaje de éxito en el envío
-                $this->get('session')->setFlash('envio-mail','lugar.flash.compartir.mail');
+                $this->get('session')->setFlash('lugar_flash','lugar.flash.compartir.mail');
                     
                 // Redirección a vista de ficha del lugar
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
@@ -1267,7 +1281,7 @@ class LugarController extends Controller{
                 }
 
                 // Mensaje de éxito en el envío
-                $this->get('session')->setFlash('envio-mail','recomendacion.flash.compartir.mail');
+                $this->get('session')->setFlash('lugar_flash','recomendacion.flash.compartir.mail');
                     
                 // Redirección a vista de ficha del lugar
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
@@ -1346,7 +1360,7 @@ class LugarController extends Controller{
                 $this->get('mailer')->send($message);               
 
                  // Mensaje de éxito del reporte
-                $this->get('session')->setFlash('reportar-imagen','reportes.flash');
+                $this->get('session')->setFlash('imagen_flash','reportes.flash');
                     
                 // Redirección a galería de fotos
                 return $this->redirect($this->generateUrl('_galeria', array('slug' => $imagen->getLugar()->getSlug())));
@@ -1431,7 +1445,7 @@ class LugarController extends Controller{
                 $this->get('mailer')->send($message);               
 
                  // Mensaje de éxito del reporte
-                $this->get('session')->setFlash('reportar-recomendacion','reportes.flash');
+                $this->get('session')->setFlash('lugar_flash','reportes.flash');
                     
                 // Redirección a ficha del lugar 
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
@@ -1502,7 +1516,7 @@ class LugarController extends Controller{
                 $this->get('mailer')->send($message);               
 
                  // Mensaje de éxito del reporte
-                $this->get('session')->setFlash('reportar-lugar','reportes.flash');
+                $this->get('session')->setFlash('lugar_flash','reportes.flash');
                     
                 // Redirección a ficha del lugar 
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
@@ -1552,12 +1566,12 @@ class LugarController extends Controller{
                     $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                     $this->get('mailer')->send($message);
 
-                    $this->get('session')->setFlash('nuevo-dueno','dueno.reclamar.flash.nuevo');
+                    $this->get('session')->setFlash('lugar_flash','dueno.reclamar.flash.nuevo');
                 }                
             }
             // Request proviene desde la URL (a mano)
             else {
-                $this->get('session')->setFlash('existe-dueno','dueno.reclamar.flash.existe');   
+                $this->get('session')->setFlash('lugar_flash','dueno.reclamar.flash.existe');   
             }            
                     
             // Redirección a vista de ficha del lugar
@@ -1606,7 +1620,7 @@ class LugarController extends Controller{
                 $this->get('mailer')->send($message); 
 
                 // Mensaje de éxito en el envío
-                $this->get('session')->setFlash('nuevo-dueno','dueno.reclamar.flash.nuevo');   
+                $this->get('session')->setFlash('lugar_flash','dueno.reclamar.flash.nuevo');   
                     
                 // Redirección a vista de ficha del lugar
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));

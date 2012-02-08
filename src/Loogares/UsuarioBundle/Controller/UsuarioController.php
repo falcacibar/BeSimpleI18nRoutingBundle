@@ -268,7 +268,7 @@ class UsuarioController extends Controller
                 }*/         
                 
                 // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-cuenta','usuario.flash.edicion.cuenta');
+                $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.cuenta');
                     
                 // Redirección a vista de edición de password 
                 return $this->redirect($this->generateUrl('editarCuentaUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
@@ -334,7 +334,7 @@ class UsuarioController extends Controller
                     $em->flush();
 
                     // Mensaje de éxito en la edición
-                    $this->get('session')->setFlash('edicion-foto','usuario.flash.edicion.foto');
+                    $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.foto');
 
                     // Redirección a vista de edición de foto 
                     return $this->redirect($this->generateUrl('editarFotoUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
@@ -400,7 +400,7 @@ class UsuarioController extends Controller
                     $em->flush();
 
                     // Mensaje de éxito en la edición
-                    $this->get('session')->setFlash('edicion-password','usuario.flash.edicion.password');
+                    $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.password');
                     
                     // Redirección a vista de edición de password 
                     return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));    
@@ -498,7 +498,7 @@ class UsuarioController extends Controller
                 $this->container->get('security.context')->setToken(null);
 
                 // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-borrar','usuario.flash.edicion.borrar_cuenta');
+                $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.borrar_cuenta');
                     
                 // Redirección a vista de edición de password 
                 return $this->redirect($this->generateUrl('logout'));
@@ -623,13 +623,13 @@ class UsuarioController extends Controller
 
         //Si el usuario con el $hash no existe
         if(!$usuarioResult) {
-            $this->get('session')->setFlash('confirmacion-registro','usuario.flash.confirmar_usuario.incorrecto');
+            $this->get('session')->setFlash('usuario_flash','usuario.flash.confirmar_usuario.incorrecto');
             return $this->redirect($this->generateUrl('login'));
         }
 
         // Si el usuario ya estaba confirmado
         if($usuarioResult->getEstado()->getNombre() == 'Activo') {
-            $this->get('session')->setFlash('confirmacion-registro', 'usuario.flash.confirmar_usuario.anterioridad');
+            $this->get('session')->setFlash('usuario_flash', 'usuario.flash.confirmar_usuario.anterioridad');
             return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
         }    
         
@@ -656,7 +656,7 @@ class UsuarioController extends Controller
         $this->container->get('security.context')->setToken($token);
 
 
-        $this->get('session')->setFlash('confirmacion-registro', 'usuario.flash.confirmar_usuario.exito');
+        $this->get('session')->setFlash('usuario_flash', 'usuario.flash.confirmar_usuario.exito');
         return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
     }
 
@@ -744,7 +744,7 @@ class UsuarioController extends Controller
                     $this->container->get('security.context')->setToken($token);
 
                     // Mensaje de éxito en la edición
-                    $this->get('session')->setFlash('nuevo-password','usuario.flash.edicion.password');
+                    $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.password');
                     
                     // Redirección a perfil de usuario
                     return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuario))));
