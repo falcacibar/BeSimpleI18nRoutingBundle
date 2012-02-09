@@ -193,6 +193,27 @@ class AjaxController extends Controller
           $em->remove($accionResult);
         }
         $em->flush();
+
+        $totalAcciones = $lr->getTotalAccionesLugar($lugar->getId());
+                
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $accionesUsuario = $lr->getAccionesUsuario($lugar->getId(), $this->get('security.context')->getToken()->getUser()->getId());
+        else
+            $accionesUsuario = $lr->getAccionesUsuario($lugar->getId());
+
+        // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
+        for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+            $accionesUsuario[$i]['puede'] = 1;
+            
+            // Si el usuario ya estuvo, no puede desmarcar esta opción
+            if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
+                $accionesUsuario[$i]['puede'] = 0;
+        }
+        // Si el usuario ya estuvo o quiere volver, no puede querer ir
+        if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
+            $accionesUsuario[0]['puede'] = 0;
+
+        }            
       }
 
       return new Response(':D', 200);

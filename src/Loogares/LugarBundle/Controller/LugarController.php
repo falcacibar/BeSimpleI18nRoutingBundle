@@ -335,15 +335,17 @@ class LugarController extends Controller{
 
                 $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
 
-                $comuna = $lr->getComunas($_POST['comuna']);  
-                $sector = $lr->getSectores($_POST['sector']);
+                $comuna = $lr->getComunas($_POST['comuna']);
 
+                $sector = $lr->getSectores($_POST['sector']);
+                if(isset($sector[0])){
+                    $lugarManipulado->setSector($sector[0]);
+                }
 
                 $estado = $lr->getEstado(1);
                 $tipo_lugar = $lr->getTipoLugar('lugar');
 
-                $lugarManipulado->setComuna($comuna[0]);
-                $lugarManipulado->setSector($sector[0]);
+                $lugarManipulado->setComuna($comuna[0]);               
 
 
                 $lugarManipulado->setEstado($estado);
@@ -457,16 +459,16 @@ class LugarController extends Controller{
 
                 $em->flush();
 
-                if(isset($_POST['texto']) && $_POST['texto'] != ''){
+                if(isset($_POST['texto']) && $_POST['texto'] != '' && !preg_match('/^¡Este es tu espacio!/', $_POST['texto'])){
                     //CURL MAGIC
                     if(isset($_POST['recomienda-precio'])){
-                        $precio = $_POST['precio'];
+                        $precio = $_POST['recomienda-precio'];
                     }else{
                         $precio = '';
                     }
 
                     if(isset($_POST['recomienda-estrellas'])){
-                        $estrellas = $_POST['recomendacion-estrellas'];
+                        $estrellas = $_POST['recomienda-estrellas'];
                     }else{
                         $estrellas = '';
                     }
