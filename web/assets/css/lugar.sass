@@ -1,21 +1,23 @@
 /* Colores */
 
+$amarillo: #FFF08C
+
 $azul: #0066CC
+$azul_medio: #0099FF
 $azul_claro: #66CCFF
+
 $blanco: #FFF
-$error: #F66
-$gris_333: #333
-$gris_444: #444
-$gris_666: #666
-$gris_686: #686868
-$gris_999: #999
-$gris_ccc: #CCC
-$gris_ddd: #DDD
-$gris_eee: #EEE
-$gris_f6f: #F6F6F6
+
 $gris_faf: #FAFAFC
-$rojo: #FF3300
+$gris_f6f: #F2F2F6
+$gris_ccc: #CCC
+$gris_999: #999
+$gris_666: #666
+$gris_444: #444
+
 $rojo_claro: #FF8A8A
+$rojo_medio: #FF5353
+$rojo: #F72121
 
 /* Mixin */
 
@@ -68,10 +70,10 @@ $rojo_claro: #FF8A8A
     text-decoration: underline 
 
 @mixin sombra_fuerte
-    -box-shadow: -3px 3px 1px $gris_eee
-    -o-box-shadow: -3px 3px 1px $gris_eee
-    -moz-box-shadow: -3px 3px 1px $gris_eee
-    -webkit-box-shadow: -3px 3px 1px $gris_eee
+    -box-shadow: -3px 3px 1px $gris_f6f
+    -o-box-shadow: -3px 3px 1px $gris_f6f
+    -moz-box-shadow: -3px 3px 1px $gris_f6f
+    -webkit-box-shadow: -3px 3px 1px $gris_f6f
 
 /* Agregar / Editar Lugar */
 
@@ -98,10 +100,7 @@ $rojo_claro: #FF8A8A
                 display: none
 
             .errors
-                color: $error
                 display: block
-                font:
-                    size: 11px
                 float: left
                 line-height: 14px
                 margin: 5px 0 0 140px
@@ -207,17 +206,10 @@ $rojo_claro: #FF8A8A
             width: 180px
 
         input
-            border: 1px solid $gris_ccc
             float: left
             height: 20px
             padding: 3px 5px
             width: 290px
-            
-            &:hover
-                border: 1px solid $gris_999
-
-            &:focus
-                border: 1px solid $azul_claro
         
         select
             border: 1px solid $gris_999
@@ -464,12 +456,6 @@ $rojo_claro: #FF8A8A
                         margin: 0px
                         width: 408px
 
-                        &:hover
-                            border: 1px solid $gris_444
-
-                        &:focus
-                            border: 1px solid $azul_claro
-
                     textarea
                         float: left
                         font:
@@ -477,13 +463,7 @@ $rojo_claro: #FF8A8A
                         margin: 0px
                         padding: 10px
                         width: 398px
-                    
-                        &:hover
-                            border: 1px solid $gris_444
-
-                        &:focus
-                            border: 1px solid $azul_claro
-                    
+                                        
                     .errors
                         margin: 5px 0 0 140px
                         width: 420px
@@ -594,14 +574,6 @@ $rojo_claro: #FF8A8A
     float: left
     padding: 20px 20px 10px
     width: 598px
-
-    .titulo_lugar
-        display: block
-        float: left
-        font:
-            size: 24px
-        margin: 0 0 15px 0
-        width: 598px
 
     .estrellas
         display: block
@@ -768,7 +740,7 @@ $rojo_claro: #FF8A8A
                     background: url('../images/extras/botones_ficha_lugar.png') no-repeat -630px -30px
 
     .datos_secundarios_lugar
-        color: $gris_686
+        color: $gris_666
         float: left
         line-height: 14px
         margin: 40px 0 0 0
@@ -1144,7 +1116,7 @@ $rojo_claro: #FF8A8A
         float: left
         height: 10px
         margin: 15px 0
-        text-shadow: 1px 1px 1px $gris_333
+        text-shadow: 1px 1px 1px $gris_444
         padding: 4px 5px 6px
 
     .estuve_alla_lugar
@@ -1174,7 +1146,7 @@ $rojo_claro: #FF8A8A
         float: left
         height: 10px
         margin: 15px 0
-        text-shadow: 1px 1px 1px $gris_333
+        text-shadow: 1px 1px 1px $gris_444
         padding: 4px 5px 6px
 
     .favoritos_lugar    
@@ -1204,7 +1176,7 @@ $rojo_claro: #FF8A8A
         float: left
         height: 10px
         margin: 15px 0
-        text-shadow: 1px 1px 1px $gris_333
+        text-shadow: 1px 1px 1px $gris_444
         padding: 4px 5px 6px
 
 .caja_inferior_ficha
@@ -1324,15 +1296,6 @@ $rojo_claro: #FF8A8A
     width: 300px    
 
 /* Recomendaciones */
-
-.titulo_recomendaciones
-    display: block
-    float: left
-    font:
-        size: 20px
-    margin: 0 0 20px 0
-    padding: 30px 0 0
-    width: 640px
 
 .ordenar_por_recomendaciones
     float: left
@@ -1645,12 +1608,6 @@ $rojo_claro: #FF8A8A
                 margin: 0px
                 width: 452px
 
-                &:hover
-                    border: 1px solid $gris_444
-
-                &:focus
-                    border: 1px solid $azul_claro
-
             textarea
                 float: left
                 font:
@@ -1658,13 +1615,7 @@ $rojo_claro: #FF8A8A
                 margin: 0px
                 padding: 10px
                 width: 448px
-            
-                &:hover
-                    border: 1px solid $gris_444
-
-                &:focus
-                    border: 1px solid $azul_claro
-            
+                        
             .errors
                 margin: 5px 0 0 170px
                 width: 470px
@@ -1741,14 +1692,6 @@ $rojo_claro: #FF8A8A
     margin: 0 0 20px 0
     width: 298px
         
-    .titulo_otros_lugares
-        display: block
-        float: left
-        font:
-            size: 20px
-        margin: 20px 10px 10px
-        width: 298px
-
     .otro_lugar
         border-bottom: 1px solid $gris_f6f
         display: block
@@ -2090,9 +2033,7 @@ $rojo_claro: #FF8A8A
                     margin-left: 335px
 
     .reporte_error, .enviar_error, .reclamar_error
-        background:
-            color: lighten($error, 25%)
-        border: 1px solid $error
+        border: 1px solid $rojo_claro
         line-height: 18px
         margin: 0 0 20px 0
         padding: 5px 10px

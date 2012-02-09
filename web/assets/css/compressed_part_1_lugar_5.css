@@ -2,7 +2,7 @@
 /* Mixin */
 /* Agregar / Editar Lugar */
 .agregar_editar_datos_lugar {
-  border: 1px solid #f6f6f6;
+  border: 1px solid #f2f2f6;
   float: left;
   margin: 0 20px 0 0;
   padding: 20px;
@@ -19,9 +19,7 @@
       .agregar_editar_datos_lugar .agregar-lugar li.no-default {
         display: none; }
       .agregar_editar_datos_lugar .agregar-lugar li .errors {
-        color: #ff6666;
         display: block;
-        font-size: 11px;
         float: left;
         line-height: 14px;
         margin: 5px 0 0 140px;
@@ -103,15 +101,10 @@
       margin: 0 0 0 5px;
       width: 180px; }
     .agregar_editar_datos_lugar .agregar-lugar input {
-      border: 1px solid #cccccc;
       float: left;
       height: 20px;
       padding: 3px 5px;
       width: 290px; }
-      .agregar_editar_datos_lugar .agregar-lugar input:hover {
-        border: 1px solid #999999; }
-      .agregar_editar_datos_lugar .agregar-lugar input:focus {
-        border: 1px solid #66ccff; }
     .agregar_editar_datos_lugar .agregar-lugar select {
       border: 1px solid #999999;
       float: left;
@@ -285,6 +278,78 @@
       font-size: 12px;
       margin: 10px 0 20px 140px;
       width: 420px; }
+    .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar {
+      float: left;
+      width: 560px;
+      /* Reomienda al momento de agregar el lugar */ }
+      .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li {
+        float: left;
+        margin: 0 0 20px 0;
+        width: 560px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li label {
+          float: left;
+          font-size: 14px;
+          margin: 4px 10px 0 0;
+          width: 130px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li input {
+          font-size: 12px;
+          margin: 0px;
+          width: 408px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li textarea {
+          float: left;
+          font-size: 12px;
+          margin: 0px;
+          padding: 10px;
+          width: 398px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .errors {
+          margin: 5px 0 0 140px;
+          width: 420px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .recomienda_estrellas {
+          float: left;
+          margin: 5px 20px 0 0;
+          width: 110px !important; }
+          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .recomienda_estrellas img {
+            margin: 0 2px 0 0; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li #estrellas-recomienda {
+          color: #999999;
+          float: left;
+          font-size: 11px;
+          margin: 9px 0 0 0;
+          width: 290px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .recomienda_precio {
+          float: left;
+          margin: 8px 20px 0 0;
+          width: 55px !important; }
+          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .recomienda_precio img {
+            margin: 0 2px 0 0; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li #precio-recomienda {
+          color: #999999;
+          float: left;
+          font-size: 11px;
+          margin: 9px 0 0 0;
+          width: 345px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .detalle_maximo_caracteres_recomendacion {
+          font-size: 12px;
+          font-weight: normal; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .detalle_llevas_caracteres_recomendacion {
+          color: #999999;
+          font-size: 12px;
+          font-weight: normal; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .tags_recomienda_lugar {
+          display: block;
+          float: left;
+          font-size: 14px;
+          margin: 8px 0 0;
+          width: 388px; }
+      .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar .enviar_recomendacion {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+        border: 0px;
+        cursor: pointer;
+        height: 30px;
+        margin: 10px 0 0 170px;
+        width: 100px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar .enviar_recomendacion:hover {
+          background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
 
 /* Agregar mapa */
 .mapa {
@@ -318,17 +383,11 @@
 
 /* Ficha lugares */
 .lugar_info {
-  border: 1px solid #f6f6f6;
+  border: 1px solid #f2f2f6;
   border-bottom: 1px solid #cccccc;
   float: left;
   padding: 20px 20px 10px;
   width: 598px; }
-  .lugar_info .titulo_lugar {
-    display: block;
-    float: left;
-    font-size: 24px;
-    margin: 0 0 15px 0;
-    width: 598px; }
   .lugar_info .estrellas {
     display: block;
     float: left;
@@ -352,10 +411,10 @@
     line-height: 16px;
     width: 146px; }
     .lugar_info .multimedia_lugar .foto_lugar {
-      -box-shadow: -3px 3px 1px #eeeeee;
-      -o-box-shadow: -3px 3px 1px #eeeeee;
-      -moz-box-shadow: -3px 3px 1px #eeeeee;
-      -webkit-box-shadow: -3px 3px 1px #eeeeee;
+      -box-shadow: -3px 3px 1px #f2f2f6;
+      -o-box-shadow: -3px 3px 1px #f2f2f6;
+      -moz-box-shadow: -3px 3px 1px #f2f2f6;
+      -webkit-box-shadow: -3px 3px 1px #f2f2f6;
       border: 1px solid #cccccc;
       display: block;
       float: left;
@@ -463,7 +522,7 @@
         .lugar_info .datos_principales_lugar .pedido_reserva_lugar .reserva_online_lugar:hover {
           background: url("../images/extras/botones_ficha_lugar.png") no-repeat -630px -30px; }
   .lugar_info .datos_secundarios_lugar {
-    color: #686868;
+    color: #666666;
     float: left;
     line-height: 14px;
     margin: 40px 0 0 0;
@@ -721,7 +780,7 @@
         width: 119px; }
 
 .actividad_lugar {
-  background: #f6f6f6;
+  background: #f2f2f6;
   border-bottom: 1px solid #cccccc;
   display: block;
   float: left;
@@ -785,7 +844,7 @@
     float: left;
     height: 10px;
     margin: 15px 0;
-    text-shadow: 1px 1px 1px #333333;
+    text-shadow: 1px 1px 1px #444444;
     padding: 4px 5px 6px; }
   .actividad_lugar .estuve_alla_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -292px 0;
@@ -811,7 +870,7 @@
     float: left;
     height: 10px;
     margin: 15px 0;
-    text-shadow: 1px 1px 1px #333333;
+    text-shadow: 1px 1px 1px #444444;
     padding: 4px 5px 6px; }
   .actividad_lugar .favoritos_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -415px 0;
@@ -837,20 +896,20 @@
     float: left;
     height: 10px;
     margin: 15px 0;
-    text-shadow: 1px 1px 1px #333333;
+    text-shadow: 1px 1px 1px #444444;
     padding: 4px 5px 6px; }
 
 .caja_inferior_ficha {
-  border-left: 1px solid #f6f6f6;
-  border-bottom: 1px solid #f6f6f6;
-  border-right: 1px solid #f6f6f6;
+  border-left: 1px solid #f2f2f6;
+  border-bottom: 1px solid #f2f2f6;
+  border-right: 1px solid #f2f2f6;
   display: block;
   float: left;
   height: 15px;
   width: 638px; }
 
 .opciones_lugar {
-  border: 1px solid #f6f6f6;
+  border: 1px solid #f2f2f6;
   display: block;
   float: left;
   margin: 10px 0 0;
@@ -941,14 +1000,6 @@
   width: 300px; }
 
 /* Recomendaciones */
-.titulo_recomendaciones {
-  display: block;
-  float: left;
-  font-size: 20px;
-  margin: 0 0 20px 0;
-  padding: 30px 0 0;
-  width: 640px; }
-
 .ordenar_por_recomendaciones {
   float: left;
   font-size: 14px;
@@ -974,7 +1025,7 @@
 
 .recomendacion {
   border-bottom: 1px solid white;
-  border-top: 1px solid #f6f6f6;
+  border-top: 1px solid #f2f2f6;
   float: left;
   padding: 30px 0;
   width: 640px; }
@@ -1153,8 +1204,8 @@
             padding: 0 0 0 13px; }
 
 .paginacion_recomendacion {
-  border-bottom: 1px solid #f6f6f6;
-  border-top: 1px solid #f6f6f6;
+  border-bottom: 1px solid #f2f2f6;
+  border-top: 1px solid #f2f2f6;
   color: #666666;
   display: block;
   float: left;
@@ -1205,20 +1256,12 @@
       font-size: 14px;
       margin: 0px;
       width: 452px; }
-      .recomienda_lugar ul li input:hover {
-        border: 1px solid #444444; }
-      .recomienda_lugar ul li input:focus {
-        border: 1px solid #0066cc; }
     .recomienda_lugar ul li textarea {
       float: left;
       font-size: 14px;
       margin: 0px;
       padding: 10px;
       width: 448px; }
-      .recomienda_lugar ul li textarea:hover {
-        border: 1px solid #444444; }
-      .recomienda_lugar ul li textarea:focus {
-        border: 1px solid #0066cc; }
     .recomienda_lugar ul li .errors {
       margin: 5px 0 0 170px;
       width: 470px; }
@@ -1271,21 +1314,15 @@
 
 /* Otros lugares */
 .otros_lugares {
-  border: 1px solid #f6f6f6;
+  border: 1px solid #f2f2f6;
   border-bottom: 0px;
   display: block;
   float: left;
   margin: 0 0 20px 0;
   width: 298px;
   /* AGREGADO POR EL SUR */ }
-  .otros_lugares .titulo_otros_lugares {
-    display: block;
-    float: left;
-    font-size: 20px;
-    margin: 20px 10px 10px;
-    width: 298px; }
   .otros_lugares .otro_lugar {
-    border-bottom: 1px solid #f6f6f6;
+    border-bottom: 1px solid #f2f2f6;
     display: block;
     float: left;
     padding: 20px 10px;
@@ -1551,8 +1588,7 @@
     #reporte ul li small.errors, #enviar_lugar ul li small.errors, #reclamar_lugar ul li small.errors {
       margin-left: 335px; }
   #reporte .reporte_error, #reporte .enviar_error, #reporte .reclamar_error, #enviar_lugar .reporte_error, #enviar_lugar .enviar_error, #enviar_lugar .reclamar_error, #reclamar_lugar .reporte_error, #reclamar_lugar .enviar_error, #reclamar_lugar .reclamar_error {
-    background-color: #ffe5e5;
-    border: 1px solid #ff6666;
+    border: 1px solid #ff8a8a;
     line-height: 18px;
     margin: 0 0 20px 0;
     padding: 5px 10px;
