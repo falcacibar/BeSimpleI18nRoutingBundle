@@ -182,24 +182,29 @@ class LugarController extends Controller{
                                                                          OFFSET $offset");
                 $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
                 
-                if($this->get('security.context')->isGranted('ROLE_USER'))
+                if($this->get('security.context')->isGranted('ROLE_USER')) {
                     $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId(), $this->get('security.context')->getToken()->getUser()->getId());
-                else
-                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
-
-                // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
-                for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
-                    $accionesUsuario[$i]['puede'] = 1;
                     
-                    // Si el usuario ya estuvo, no puede desmarcar esta opción
-                    if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
-                        $accionesUsuario[$i]['puede'] = 0;
-                }
-                // Si el usuario ya estuvo o quiere volver, no puede querer ir
-                if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
-                    $accionesUsuario[0]['puede'] = 0;
+                    // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
+                    for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+                        $accionesUsuario[$i]['puede'] = 1;
+                        
+                        // Si el usuario ya estuvo, no puede desmarcar esta opción
+                        if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
+                            $accionesUsuario[$i]['puede'] = 0;
+                    }
+                    // Si el usuario ya estuvo o quiere volver, no puede querer ir
+                    if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
+                        $accionesUsuario[0]['puede'] = 0;
 
-                }                 
+                    }  
+                } 
+                else {
+                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
+                     for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+                        $accionesUsuario[$i]['puede'] = 0;
+                    }
+                }
 
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){

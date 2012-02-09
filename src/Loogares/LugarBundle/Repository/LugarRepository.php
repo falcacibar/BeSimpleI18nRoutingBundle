@@ -317,7 +317,6 @@ class LugarRepository extends EntityRepository
       if($usuario ==  null) {
         $sq = "0";
       }
-
       $q = $em->createQuery("SELECT a.id, a.nombre,
                              (" . $sq . ") hecho
                              FROM Loogares\UsuarioBundle\Entity\Accion a");          

@@ -103,8 +103,10 @@ $(document).ready(function(){
             url: WEBROOT+'ajax/accion',
             type: 'post',
             data: dataObj,
-            success: function(data){    
-                var conteo = parseInt($this.next('.conteo').text());            
+            dataType: 'json',
+            success: function(data){ 
+                console.log(data)   
+                var conteo = parseInt($this.next('.conteo').text());         
                 if($this.hasClass('boton_activado')){ // Quiero ir, me gusta!                
                                    
                     //Si es el boton de util...
@@ -115,30 +117,22 @@ $(document).ready(function(){
                         // Request para enviar mail a usuario de recomendación solo si es un util
                         send_util_mail();
                     }else{
-                        $this.attr('data-hecho',($this.attr('data-hecho') == 1) ? 0 : 1);
-                        if($this.hasClass('quiero_volver_lugar')){
-                            if($this.parent().parent().find('a.quiero_ir_lugar').attr('data-hecho') == 1) {
-                                newDataObj = {'lugar': idLugar,'accion': 'quiero_ir'};
-                                ejecutar_accion(newDataObj, $this.parent().parent().find('a.quiero_ir_lugar'));
-                                //$this.parent().parent().find('a.quiero_ir_lugar').click()
-                            }
-                            if($this.parent().parent().find('a.estuve_alla_lugar').attr('data-hecho') == 0) {
-                                newDataObj = {'lugar': idLugar,'accion': 'estuve_alla'};
-                                ejecutar_accion(newDataObj, $this.parent().parent().find('a.estuve_alla_lugar'));
-                            }
-                            console.log(dataObj)
-                        }else if($this.hasClass('estuve_alla_lugar')){
-                            if($this.parent().parent().find('a.quiero_ir_lugar').attr('data-hecho') == 1) {
-                                newDataObj = {'lugar': idLugar,'accion': 'quiero_ir'};
-                                ejecutar_accion(newDataObj, $this.parent().parent().find('a.quiero_ir_lugar'));
-                            }      
-                        }
+                        $('.quiero_ir_valor').text(data.totalAcciones[0].total)
+                        $('.quiero_volver_valor').text(data.totalAcciones[1].total)
+                        $('.estuve_alla_valor').text(data.totalAcciones[2].total)
+                        $('.favoritos_valor').text(data.totalAcciones[3].total)                       
                     }
                 }else if($this.hasClass('boton_desactivado')){ // No quiero ir, ya no me gusta                
                     if($this.hasClass('boton_util')) {
                         //$this.attr('data-hecho',($this.attr('data-hecho') == 1) ? 0 : 1);
                         $this.next('.conteo').text(conteo-1);
                         $this.removeClass('boton_desactivado').addClass('boton_activado');  
+                    }
+                    else {
+                        $('.quiero_ir_valor').text(data.totalAcciones[0].total)
+                        $('.quiero_volver_valor').text(data.totalAcciones[1].total)
+                        $('.estuve_alla_valor').text(data.totalAcciones[2].total)
+                        $('.favoritos_valor').text(data.totalAcciones[3].total)
                     }
                 }     
             }

@@ -155,6 +155,8 @@ class AjaxController extends Controller
       $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
       $ar = $em->getRepository("LoogaresUsuarioBundle:Accion");
 
+      $data = array();
+
       if($_POST['accion'] == 'util'){
         $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Util u WHERE u.usuario = ?1 and u.recomendacion = ?2");
         $q->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId());
@@ -176,6 +178,7 @@ class AjaxController extends Controller
 
         $lr->actualizarPromedios($recomendacion->getLugar()->getSlug());
         $em->flush();
+        $data[] = ":D";
       }else if($accion == 'favoritos' || $accion == 'estuve_alla' || $accion == 'quiero_ir'| $accion == 'quiero_volver'| $accion == 'recomendar_despues'){
         $lugar = $lr->find($_POST['lugar']);
         $usuario = $this->get('security.context')->getToken()->getUser();
@@ -189,17 +192,39 @@ class AjaxController extends Controller
           $accionObj->setLugar($lugar);
           $accionObj->setFecha(new \DateTime());
           $em->persist($accionObj);
+
+          // Si marcamos 'Ya estuve', verificamos estado de 'Quiero ir'
+          if($accionObj->getAccion()->getId() == 3) {
+            $quieroIr = $lr->getAccionUsuarioLugar($lugar, $usuario, 'quiero_ir');
+            if(is_object($quieroIr)) {
+              $em->remove($quieroIr);
+            }
+          }
+          // Si marcamos 'Quiero volver', verificamos estado de 'Quiero ir' y 'Ya estuve'
+          else if($accionObj->getAccion()->getId() == 2) {
+            $quieroIr = $lr->getAccionUsuarioLugar($lugar, $usuario, 'quiero_ir');
+            if(is_object($quieroIr)) {
+              $em->remove($quieroIr);
+            }
+
+            $yaEstuve = $lr->getAccionUsuarioLugar($lugar, $usuario, 'estuve_alla');
+            if(!is_object($yaEstuve)) {
+              $yaEstuveObj = new AccionUsuario();
+              $yaEstuveObj->setUsuario($usuario);
+              $yaEstuveObj->setAccion($ar->findOneById($yaEstuve));
+              $yaEstuveObj->setLugar($lugar);
+              $yaEstuveObj->setFecha(new \DateTime());
+              $em->persist($yaEstuveObj);
+            }
+          }
         }else{
           $em->remove($accionResult);
         }
         $em->flush();
 
         $totalAcciones = $lr->getTotalAccionesLugar($lugar->getId());
-                
-        if($this->get('security.context')->isGranted('ROLE_USER'))
-            $accionesUsuario = $lr->getAccionesUsuario($lugar->getId(), $this->get('security.context')->getToken()->getUser()->getId());
-        else
-            $accionesUsuario = $lr->getAccionesUsuario($lugar->getId());
+
+        $accionesUsuario = $lr->getAccionesUsuario($lugar->getId(), $this->get('security.context')->getToken()->getUser()->getId());
 
         // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
         for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
@@ -213,10 +238,13 @@ class AjaxController extends Controller
         if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
             $accionesUsuario[0]['puede'] = 0;
 
-        }            
+        }        
+        $data['totalAcciones'] = $totalAcciones;
+        $data['accionesUsuario'] = $accionesUsuario;       
       }
 
-      return new Response(':D', 200);
+      
+      return new Response(json_encode($data), 200);
     }
 
     public function utilMailAction() {
