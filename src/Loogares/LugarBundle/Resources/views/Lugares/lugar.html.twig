@@ -19,6 +19,7 @@
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
     <script src='../../assets/js/googleMapFicha.js'></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
     <script>
         $(document).ready(function(){
@@ -30,15 +31,10 @@
     </script>
     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
-    <script>
-        $(function(){
-            
-        });
-    </script>
-
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
 {% endblock %}
 
 {% block content %}
@@ -214,6 +210,13 @@
         <div class="actividad_lugar">
             <a class="recomienda_lugar"></a>
             <a class="recomienda_despues_lugar"></a>
+            <div style="display:none">
+                {% if lugar.accionesUsuario.4.puede == 1 %}
+                    <a class="recomendar_despues_lugar boton_accion {{(lugar.accionesUsuario.4.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></a>
+                {% else %}
+                    <p class="recomendar_despues_lugar boton_desactivado"></p>
+                {% endif %}
+            </div>
             <div class="flota_derecha">
                 <a class="favoritos_lugar boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
                 <p class="favoritos_valor conteo">{{lugar.totalAcciones.3.total}}</p>
@@ -225,7 +228,7 @@
                     <p class="estuve_alla_lugar boton_desactivado"></p>
                 {% endif %}
                 <p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
-            </div>  
+            </div> 
             <div class="flota_derecha">
                 {% if lugar.accionesUsuario.1.puede == 1 %}
                     <a class="quiero_volver_lugar boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}">Quiero volver</a>
@@ -241,7 +244,7 @@
                     <p class="quiero_ir_lugar boton_desactivado"></p>
                 {% endif %}                
                 <p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
-            </div>           
+            </div>            
         </div>
 
         <div class="caja_inferior_ficha"></div>
@@ -425,6 +428,9 @@
         {% endif %}
         {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
             {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
+
+            <a class="fancybox" href="#recomendacion_popup"></a>
+            <div style="display:none">{% include 'LoogaresLugarBundle:Ajax:recomendacion_popup.html.twig' %}</div>
         {% endif %}
     </div>
 

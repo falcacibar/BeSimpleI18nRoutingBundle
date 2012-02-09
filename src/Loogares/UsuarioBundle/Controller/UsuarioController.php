@@ -5,6 +5,7 @@ namespace Loogares\UsuarioBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Loogares\UsuarioBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -798,6 +799,15 @@ class UsuarioController extends Controller
             'errors' => $formErrors,
             'locale' => $this->get('session')->getLocale()
         ));
+    }
+
+    public function totalRecomendacionesPendientesAction() {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $cantidad = $lr->getTotalAccionesUsuario(5, $this->get('security.context')->getToken()->getUser());
+
+        return new Response($cantidad);
     }
 
 }

@@ -233,6 +233,8 @@ class AjaxController extends Controller
             // Si el usuario ya estuvo, no puede desmarcar esta opción
             if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
                 $accionesUsuario[$i]['puede'] = 0;
+            else if($accionesUsuario[$i]['id'] == 5 && $accionesUsuario[$i]['hecho'] == 1)
+                $accionesUsuario[$i]['puede'] = 0;
         }
         // Si el usuario ya estuvo o quiere volver, no puede querer ir
         if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
