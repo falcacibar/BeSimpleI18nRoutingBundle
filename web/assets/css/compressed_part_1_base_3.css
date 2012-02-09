@@ -50,7 +50,8 @@ body {
   font-family: Arial;
   font-size: 13px; }
 
-/* Elementos generales */
+/* Elementos generales del sitio */
+/* Mensajes */
 .mensaje_exito {
   border-radius: 8px;
   -o-border-radius: 8px;
@@ -100,10 +101,22 @@ body {
     margin: 2px 0 0 0;
     width: 910px; }
 
+.errors.categoria {
+  margin-right: 100px; }
+
+.input-error {
+  border: 1px solid #ff6666 !important; }
+
+a.chzn-single.chzn-error {
+  background-color: #ffe5e5;
+  border: 1px solid #ff6666; }
+
+/* Títulos */
 .titulo {
   font-size: 20px;
   margin: 0 0 30px 0; }
 
+/* Elementos obligatorios */
 .obligatorio {
   color: #cccccc; }
 
@@ -780,45 +793,6 @@ body {
         .footer .contenido_footer .pais_listado li a:hover {
           color: #999999;
           text-decoration: underline; }
-
-/* Errores */
-.errores-container {
-  background-color: #ffe5e5;
-  border: 1px solid #ff6666;
-  float: left;
-  display: none;
-  line-height: 18px;
-  margin: 0 0 20px 0;
-  padding: 5px 10px;
-  width: 938px; }
-  .errores-container p:before {
-    content: "»";
-    font-weight: bold;
-    margin-right: 4px; }
-
-.errors {
-  color: #ff6666;
-  display: block;
-  font-size: 11px;
-  float: left;
-  line-height: 14px;
-  margin: 5px 0 0 110px;
-  text-align: left;
-  width: 400px; }
-
-.errors.categoria {
-  margin-right: 100px; }
-
-.input-error {
-  border: 1px solid #ff6666 !important; }
-
-a.chzn-single.chzn-error {
-  border-radius: 4px;
-  -o-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  background-color: #ffe5e5;
-  border: 1px solid #ff6666; }
 
 /* AGREGADO POR EL SUR */
 input[type=text], textarea, input[type=password] {

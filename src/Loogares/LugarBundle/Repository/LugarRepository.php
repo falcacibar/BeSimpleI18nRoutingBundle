@@ -131,7 +131,7 @@ class LugarRepository extends EntityRepository
         }else{
           $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Sector u order by u.id asc");
         }
-      $sectorResult = $q->getOneOrNullResult();
+      $sectorResult = $q->getResult();
 
       return $sectorResult;
     }
