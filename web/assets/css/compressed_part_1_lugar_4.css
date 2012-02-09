@@ -285,6 +285,86 @@
       font-size: 12px;
       margin: 10px 0 20px 140px;
       width: 420px; }
+    .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar {
+      float: left;
+      width: 560px;
+      /* Reomienda al momento de agregar el lugar */ }
+      .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li {
+        float: left;
+        margin: 0 0 20px 0;
+        width: 560px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li label {
+          float: left;
+          font-size: 14px;
+          margin: 4px 10px 0 0;
+          width: 130px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li input {
+          font-size: 12px;
+          margin: 0px;
+          width: 408px; }
+          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li input:hover {
+            border: 1px solid #444444; }
+          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li input:focus {
+            border: 1px solid #66ccff; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li textarea {
+          float: left;
+          font-size: 12px;
+          margin: 0px;
+          padding: 10px;
+          width: 398px; }
+          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li textarea:hover {
+            border: 1px solid #444444; }
+          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li textarea:focus {
+            border: 1px solid #66ccff; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .errors {
+          margin: 5px 0 0 140px;
+          width: 420px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .recomienda_estrellas {
+          float: left;
+          margin: 5px 20px 0 0;
+          width: 110px !important; }
+          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .recomienda_estrellas img {
+            margin: 0 2px 0 0; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li #estrellas-recomienda {
+          color: #999999;
+          float: left;
+          font-size: 11px;
+          margin: 9px 0 0 0;
+          width: 290px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .recomienda_precio {
+          float: left;
+          margin: 8px 20px 0 0;
+          width: 55px !important; }
+          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .recomienda_precio img {
+            margin: 0 2px 0 0; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li #precio-recomienda {
+          color: #999999;
+          float: left;
+          font-size: 11px;
+          margin: 9px 0 0 0;
+          width: 345px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .detalle_maximo_caracteres_recomendacion {
+          font-size: 12px;
+          font-weight: normal; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .detalle_llevas_caracteres_recomendacion {
+          color: #999999;
+          font-size: 12px;
+          font-weight: normal; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .tags_recomienda_lugar {
+          display: block;
+          float: left;
+          font-size: 14px;
+          margin: 8px 0 0;
+          width: 388px; }
+      .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar .enviar_recomendacion {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+        border: 0px;
+        cursor: pointer;
+        height: 30px;
+        margin: 10px 0 0 170px;
+        width: 100px; }
+        .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar .enviar_recomendacion:hover {
+          background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
 
 /* Agregar mapa */
 .mapa {
@@ -1208,7 +1288,7 @@
       .recomienda_lugar ul li input:hover {
         border: 1px solid #444444; }
       .recomienda_lugar ul li input:focus {
-        border: 1px solid #0066cc; }
+        border: 1px solid #66ccff; }
     .recomienda_lugar ul li textarea {
       float: left;
       font-size: 14px;
@@ -1218,7 +1298,7 @@
       .recomienda_lugar ul li textarea:hover {
         border: 1px solid #444444; }
       .recomienda_lugar ul li textarea:focus {
-        border: 1px solid #0066cc; }
+        border: 1px solid #66ccff; }
     .recomienda_lugar ul li .errors {
       margin: 5px 0 0 170px;
       width: 470px; }

@@ -349,25 +349,27 @@ a.chzn-single.chzn-error {
     .menu .centrado_menu .buscador_box {
       border-left: 1px solid #cccccc;
       border-right: 1px solid #cccccc;
-      float: left; }
+      float: left;
+      height: 40px; }
       .menu .centrado_menu .buscador_box .buscar {
-        border: 1px solid #999999;
         float: left;
         height: 30px;
         margin: 4px;
         position: relative; }
-        .menu .centrado_menu .buscador_box .buscar:hover {
-          border: 1px solid #444444; }
-        .menu .centrado_menu .buscador_box .buscar:focus {
-          border: 1px solid #0066cc; }
         .menu .centrado_menu .buscador_box .buscar .buscador {
-          border: 0px;
+          border: 1px solid #cccccc;
           height: 30px;
           float: left;
           padding: 0px 5px;
           width: 191px; }
+          .menu .centrado_menu .buscador_box .buscar .buscador:hover {
+            border: 1px solid #999999; }
+          .menu .centrado_menu .buscador_box .buscar .buscador:focus {
+            border: 1px solid #66ccff; }
         .menu .centrado_menu .buscador_box .buscar .caja_icono {
-          border-left: 1px solid #999999;
+          border-bottom: 1px solid #cccccc;
+          border-right: 1px solid #cccccc;
+          border-top: 1px solid #cccccc;
           cursor: pointer;
           float: left;
           height: 16px;
