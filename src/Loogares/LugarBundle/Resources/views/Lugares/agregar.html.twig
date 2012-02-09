@@ -5,6 +5,7 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="screen" />
 <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
+    
     <style>
 
         .subcategorias{display: none;}
@@ -48,6 +49,7 @@
             background: lightblue;
         }
     </style>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -151,699 +153,703 @@
     </div>
 {% endif %}
 
-<h1 class="titulo">{%if lugar.slug %}{{'lugar.editar.titulo'|trans}} <a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>{% else %}{{'lugar.agregar.titulo'|trans}}{% endif %}</h1>
-
 <div class="errores-container"></div>
 
-<ul class="agregar-lugar">
-    <li>
-        <label>{{'lugar.agregar.nombre'|trans}}</label>
-        <input type="text" value="{{lugar.nombre}}" title="{{'lugar.errors.agregar.nombre'|trans}}" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="{{'lugar.agregar.placeholders.nombre'|trans}}"/>
-        <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.nombre != lugarRevisado.nombre %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.nombre}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li class="categoria-container">
-        <label>{{'lugar.agregar.categorias.label'|trans}}</label>
-        <select class='categoria required' title="{{'lugar.errors.agregar.categoria'|trans}}" name='categoria[]'>
-            <option value="elige">{{'lugar.agregar.categorias.principal'|trans}}</option>
-            {% for tipoCategoria in data.tipoCategoria %}
-                <optgroup label="{{tipoCategoria.nombre}}">
-                {% for categoria in data.categorias %}
-                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
-                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+<div class="agregar_editar_datos_lugar">
+
+    <h1 class="titulo">{%if lugar.slug %}{{'lugar.editar.titulo'|trans}} <a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>{% else %}{{'lugar.agregar.titulo'|trans}}{% endif %}</h1>
+
+    <ul class="agregar-lugar">
+        <li>
+            <label>{{'lugar.agregar.nombre'|trans}} <span class="obligatorio">*<span></label>
+            <input type="text" value="{{lugar.nombre}}" title="{{'lugar.errors.agregar.nombre'|trans}}" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="{{'lugar.agregar.placeholders.nombre'|trans}}"/>
+            <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.nombre != lugarRevisado.nombre %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.nombre}}</div>
                     {% endif %}
                 {% endfor %}
+            {% endif %}
+        </li>
+        <li class="categoria-container">
+            <label>{{'lugar.agregar.categorias.label'|trans}}</label>
+            <select class='categoria required' title="{{'lugar.errors.agregar.categoria'|trans}}" name='categoria[]'>
+                <option value="elige">{{'lugar.agregar.categorias.principal'|trans}}</option>
+                {% for tipoCategoria in data.tipoCategoria %}
+                    <optgroup label="{{tipoCategoria.nombre}}">
+                    {% for categoria in data.categorias %}
+                        {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                            <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                        {% endif %}
+                    {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+            {% if lugaresRevisados is defined %}
+                 {% if lugarRevisado.categoriaLugar[0] is defined %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                        {{lugarRevisado.categoriaLugar[0].categoria.nombre}}
+                    </div>
+                {% endif %}
+            {% endif %}
+            <div class='subcategorias'>
+                <span class="subcategoria_titulo">{{'lugar.agregar.subcategorias'|trans}}</span>
+                <ul class="alinear_subcategorias">
+                    {% for subCategoria in data.subCategorias %}
+                        <li class="lista_subcategorias">
+                            <label class="checkbox-label subcategoria">
+                                <input type="checkbox" name="subcategoria[]" class="subcategoria_input" value="{{subCategoria.nombre}}" />
+                                <span class="subcategoria_span">{{subCategoria.nombre}}</span>
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugarRevisado.subcategoriaLugar[0] is defined %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                            {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
+                                {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[0].categoria.id %}
+                                    {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li class="no-default categoria-container">
+            <label>{{'lugar.agregar.categorias.label_secundario'|trans}}</label>
+            <select class='categoria secundaria' title='' name='categoria[]'>
+                <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
+                {% for tipoCategoria in data.tipoCategoria %}
+                    <optgroup label="{{tipoCategoria.nombre}}">
+                    {% for categoria in data.categorias %}
+                        {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                            <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                        {% endif %}
+                    {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+            {% if lugaresRevisados is defined %}
+                 {% if lugarRevisado.categoriaLugar[1] is defined %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                        {{lugarRevisado.categoriaLugar[1].categoria.nombre}}
+                    </div>
+                {% endif %}
+            {% endif %}
+            <span class="quitar_info"><a class="quitar" rel="categoria" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
+            <div class='subcategorias'>
+                <span class="subcategoria_titulo">{{'lugar.agregar.subcategorias'|trans}}</span>
+                <ul class="alinear_subcategorias">
+                    {% for subCategoria in data.subCategorias %}
+                        <li class="lista_subcategorias">
+                            <label class="checkbox-label subcategoria">
+                                <input type="checkbox" name="subcategoria[]" class="subcategoria_input" value="{{subCategoria.nombre}}" />
+                                <span class="subcategoria_span">{{subCategoria.nombre}}</span>
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugarRevisado.subcategoriaLugar[0] is defined %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                            {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
+                                {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[1].categoria.id %}
+                                    {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li class="no-default categoria-container">
+            <label>{{'lugar.agregar.categorias.label_secundario'|trans}}</label>
+            <select class='categoria secundaria' title='' name='categoria[]'>
+                <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
+                {% for tipoCategoria in data.tipoCategoria %}
+                    <optgroup label="{{tipoCategoria.nombre}}">
+                    {% for categoria in data.categorias %}
+                        {% if categoria.tipoCategoria.id == tipoCategoria.id %}
+                            <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+                        {% endif %}
+                    {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+            {% if lugaresRevisados is defined %}
+                 {% if lugarRevisado.categoriaLugar[2] is defined %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                        {{lugarRevisado.categoriaLugar[2].categoria.nombre}}
+                    </div>
+                {% endif %}
+            {% endif %}
+            <span class="quitar_info"><a class="quitar" rel="categoria" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
+            <div class='subcategorias'>
+                <span class="subcategoria_titulo"{{'lugar.agregar.subcategorias'|trans}}</span>
+                <ul class="alinear_subcategorias">
+                    {% for subCategoria in data.subCategorias %}
+                        <li class="lista_subcategorias">
+                            <label class="checkbox-label subcategoria">
+                                <input type="checkbox" name="subcategoria[]" class="subcategoria_input" value="{{subCategoria.nombre}}" />
+                                <span class="subcategoria_span">{{subCategoria.nombre}}</span>
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugarRevisado.subcategoriaLugar[0] is defined %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                            {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
+                                {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[0].categoria.id %}
+                                    {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li>        
+            <span class="agregar_info"><a class="display-more-info" rel="categoria" href="">{{'lugar.agregar.categorias.agregar'|trans}} 
+            <span>2</span>)</a></span>
+        </li>
+        <li>
+            <label>{{'lugar.agregar.pais'|trans}} <span class="obligatorio">*<span></label>
+            <select class='pais required' title='' name='pais' id='pais'>
+            {% for pais in data.pais %}
+                <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
+            {% endfor %}
+            </select>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.sector.ciudad.pais.id != lugarRevisado.sector.ciudad.pais.id %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.ciudad.pais.nombre}} </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li>
+            <label>{{'lugar.agregar.ciudad'|trans}} <span class="obligatorio">*<span></label>
+            <select class='ciudad required' title='' name='ciudad' id='ciudad'>
+            {% for pais in data.pais %}
+                <optgroup label="{{pais.nombre}}">
+                    {% for ciudad in data.ciudad %}
+                        {% if ciudad.pais.id == pais.id %}
+                        <option {% if data.ciudadActual.id == ciudad.id %} selected="selected" {% endif %} value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
+                        {% endif %}
+                    {% endfor %}
                 </optgroup>
             {% endfor %}
-        </select>
-        {% if lugaresRevisados is defined %}
-             {% if lugarRevisado.categoriaLugar[0] is defined %}
-                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                    {{lugarRevisado.categoriaLugar[0].categoria.nombre}}
-                </div>
-            {% endif %}
-        {% endif %}
-        <div class='subcategorias'>
-            <span class="subcategoria_titulo">{{'lugar.agregar.subcategorias'|trans}}</span>
-            <ul class="alinear_subcategorias">
-                {% for subCategoria in data.subCategorias %}
-                    <li class="lista_subcategorias">
-                        <label class="checkbox-label subcategoria">
-                            <input type="checkbox" name="subcategoria[]" class="subcategoria_input" value="{{subCategoria.nombre}}" />
-                            <span class="subcategoria_span">{{subCategoria.nombre}}</span>
-                        </label>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugarRevisado.subcategoriaLugar[0] is defined %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                        {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
-                            {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[0].categoria.id %}
-                                {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li class="no-default categoria-container">
-        <label>{{'lugar.agregar.categorias.label_secundario'|trans}}</label>
-        <select class='categoria secundaria' title='' name='categoria[]'>
-            <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
-            {% for tipoCategoria in data.tipoCategoria %}
-                <optgroup label="{{tipoCategoria.nombre}}">
-                {% for categoria in data.categorias %}
-                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
-                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+            </select>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.sector.ciudad.id != lugarRevisado.sector.ciudad.id %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.ciudad.nombre}} </div>
                     {% endif %}
                 {% endfor %}
+            {% endif %}
+        </li>
+        <li>
+            <label>{{'lugar.agregar.comuna.label'|trans}} <span class="obligatorio">*<span></label>
+            <select class='comuna required' title="{{'lugar.errors.agregar.comuna'|trans}}" name='comuna' id='comuna'>
+            <option value='elige'>{{'lugar.agregar.comuna.title'|trans}}</option>
+            {% for ciudad in data.ciudad %}
+                <optgroup label="{{ciudad.nombre}}">
+                    {% for comuna in data.comuna %}
+                        {% if ciudad.id == comuna.ciudad.id %}
+                        <option value="{{comuna.slug}}">{{comuna.nombre}}</option>
+                        {% endif %}
+                    {% endfor %}
                 </optgroup>
             {% endfor %}
-        </select>
-        {% if lugaresRevisados is defined %}
-             {% if lugarRevisado.categoriaLugar[1] is defined %}
-                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                    {{lugarRevisado.categoriaLugar[1].categoria.nombre}}
-                </div>
-            {% endif %}
-        {% endif %}
-        <span class="quitar_info"><a class="quitar" rel="categoria" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
-        <div class='subcategorias'>
-            <span class="subcategoria_titulo">{{'lugar.agregar.subcategorias'|trans}}</span>
-            <ul class="alinear_subcategorias">
-                {% for subCategoria in data.subCategorias %}
-                    <li class="lista_subcategorias">
-                        <label class="checkbox-label subcategoria">
-                            <input type="checkbox" name="subcategoria[]" class="subcategoria_input" value="{{subCategoria.nombre}}" />
-                            <span class="subcategoria_span">{{subCategoria.nombre}}</span>
-                        </label>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugarRevisado.subcategoriaLugar[0] is defined %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                        {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
-                            {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[1].categoria.id %}
-                                {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li class="no-default categoria-container">
-        <label>{{'lugar.agregar.categorias.label_secundario'|trans}}</label>
-        <select class='categoria secundaria' title='' name='categoria[]'>
-            <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
-            {% for tipoCategoria in data.tipoCategoria %}
-                <optgroup label="{{tipoCategoria.nombre}}">
-                {% for categoria in data.categorias %}
-                    {% if categoria.tipoCategoria.id == tipoCategoria.id %}
-                        <option value="{{categoria.slug}}">{{categoria.nombre}}</option>
+            </select>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.comuna.id != lugarRevisado.comuna.id %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.comuna.nombre}} </div>
                     {% endif %}
                 {% endfor %}
+            {% endif %}
+        </li>
+        <li>
+            <label>{{'lugar.agregar.calle'|trans}} <span class="obligatorio">*<span></label>
+            <input type="text" value="{{lugar.calle}}" name="form[calle]" title="{{'lugar.errors.agregar.calle'|trans}}" class="calle required" id="form_calle" placeholder="{{'lugar.agregar.placeholders.calle'|trans}}"/>
+            <label class="label_numero">{{'lugar.agregar.numero'|trans}} <span class="obligatorio">*<span></label>
+            <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="{{'lugar.errors.agregar.numero'|trans}}" id="form_numero" placeholder="{{'lugar.agregar.placeholders.numero'|trans}}"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.calle != lugarRevisado.calle or lugar.numero != lugarRevisado.numero %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.calle}} - {{lugarRevisado.numero}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li>     
+            <span class="agregar_info">
+                <a class="display-next-li" href="">{{'lugar.agregar.galeria_centro'|trans}}</a>
+            </span>
+            <div class="lugar-existe"></div>
+        </li>
+        <li class="no-default">
+            <label>{{'lugar.agregar.detalle'|trans}}</label>
+            <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="{{'lugar.agregar.placeholders.detalle'|trans}}"/>
+            <span class="quitar_info"><a class="quitar" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.detalle != lugarRevisado.detalle %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.detalle}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li>
+            <span class="agregar_info"><a class="cargar_mapa" href=""></a></span>
+            <span class="mapa_info"></span>
+        </li>
+        <li>
+            <label>{{'lugar.agregar.sector.label'|trans}}</label>
+            <select class='sector' name='sector' id='sector'>
+            <option value='elige'>{{'lugar.agregar.sector.title'|trans}}</option>
+            {% for ciudad in data.ciudad %}
+                <optgroup label="{{ciudad.nombre}}">
+                    {% for sector in data.sector %}
+                        {% if ciudad.id == sector.ciudad.id %}
+                        <option value="{{sector.slug}}">{{sector.nombre}}</option>
+                        {% endif %}
+                    {% endfor %}
                 </optgroup>
             {% endfor %}
-        </select>
-        {% if lugaresRevisados is defined %}
-             {% if lugarRevisado.categoriaLugar[2] is defined %}
-                <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                    {{lugarRevisado.categoriaLugar[2].categoria.nombre}}
-                </div>
+            </select>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.sector.id != lugarRevisado.sector.id %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.nombre}} </div>
+                    {% endif %}
+                {% endfor %}
             {% endif %}
-        {% endif %}
-        <span class="quitar_info"><a class="quitar" rel="categoria" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
-        <div class='subcategorias'>
-            <span class="subcategoria_titulo"{{'lugar.agregar.subcategorias'|trans}}</span>
-            <ul class="alinear_subcategorias">
-                {% for subCategoria in data.subCategorias %}
-                    <li class="lista_subcategorias">
-                        <label class="checkbox-label subcategoria">
-                            <input type="checkbox" name="subcategoria[]" class="subcategoria_input" value="{{subCategoria.nombre}}" />
-                            <span class="subcategoria_span">{{subCategoria.nombre}}</span>
-                        </label>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugarRevisado.subcategoriaLugar[0] is defined %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                        {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
-                            {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[0].categoria.id %}
-                                {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>        
-        <span class="agregar_info"><a class="display-more-info" rel="categoria" href="">{{'lugar.agregar.categorias.agregar'|trans}} 
-        <span>2</span>)</a></span>
-    </li>
-    <li>
-        <label>{{'lugar.agregar.pais'|trans}}</label>
-        <select class='pais required' title='' name='pais' id='pais'>
-        {% for pais in data.pais %}
-            <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
-        {% endfor %}
-        </select>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.sector.ciudad.pais.id != lugarRevisado.sector.ciudad.pais.id %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.ciudad.pais.nombre}} </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>
-        <label>{{'lugar.agregar.ciudad'|trans}}</label>
-        <select class='ciudad required' title='' name='ciudad' id='ciudad'>
-        {% for pais in data.pais %}
-            <optgroup label="{{pais.nombre}}">
-                {% for ciudad in data.ciudad %}
-                    {% if ciudad.pais.id == pais.id %}
-                    <option {% if data.ciudadActual.id == ciudad.id %} selected="selected" {% endif %} value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
+        </li>
+        <li>
+            <label>{{'lugar.agregar.telefono.label'|trans}}</label>
+            <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
+            <input type="text" value="{{lugar.tel1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="{{'lugar.agregar.placeholders.telefono'|trans}}"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.tel1 != lugarRevisado.telefono1 %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono1}}</div>
                     {% endif %}
                 {% endfor %}
-            </optgroup>
-        {% endfor %}
-        </select>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.sector.ciudad.id != lugarRevisado.sector.ciudad.id %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.ciudad.nombre}} </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>
-        <label>{{'lugar.agregar.comuna.label'|trans}}</label>
-        <select class='comuna required' title="{{'lugar.errors.agregar.comuna'|trans}}" name='comuna' id='comuna'>
-        <option value='elige'>{{'lugar.agregar.comuna.title'|trans}}</option>
-        {% for ciudad in data.ciudad %}
-            <optgroup label="{{ciudad.nombre}}">
-                {% for comuna in data.comuna %}
-                    {% if ciudad.id == comuna.ciudad.id %}
-                    <option value="{{comuna.slug}}">{{comuna.nombre}}</option>
+            {% endif %}
+        </li>
+        <li class="no-default">
+            <label>{{'lugar.agregar.telefono.label'|trans}}</label>
+            <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
+            <input type="text" value="{{lugar.tel2}}" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="{{'lugar.agregar.placeholders.telefono'|trans}}"/>
+            <span class="quitar_info"><a class="quitar" rel="telefono" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.tel2 != lugarRevisado.telefono2 %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono2}}</div>
                     {% endif %}
                 {% endfor %}
-            </optgroup>
-        {% endfor %}
-        </select>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.comuna.id != lugarRevisado.comuna.id %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.comuna.nombre}} </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>
-        <label>{{'lugar.agregar.calle'|trans}}</label>
-        <input type="text" value="{{lugar.calle}}" name="form[calle]" title="{{'lugar.errors.agregar.calle'|trans}}" class="calle required" id="form_calle" placeholder="{{'lugar.agregar.placeholders.calle'|trans}}"/>
-        <label class="label_numero">{{'lugar.agregar.numero'|trans}}</label>
-        <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="{{'lugar.errors.agregar.numero'|trans}}" id="form_numero" placeholder="{{'lugar.agregar.placeholders.numero'|trans}}"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.calle != lugarRevisado.calle or lugar.numero != lugarRevisado.numero %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.calle}} - {{lugarRevisado.numero}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>     
-        <span class="agregar_info">
-            <a class="display-next-li" href="">{{'lugar.agregar.galeria_centro'|trans}}</a>
-        </span>
-        <div class="lugar-existe"></div>
-    </li>
-    <li class="no-default">
-        <label>{{'lugar.agregar.detalle'|trans}}</label>
-        <input type="text" value="{{lugar.detalle}}" name="form[detalle]" id="form_detalle" placeholder="{{'lugar.agregar.placeholders.detalle'|trans}}"/>
-        <span class="quitar_info"><a class="quitar" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.detalle != lugarRevisado.detalle %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.detalle}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>
-        <span class="agregar_info"><a class="cargar_mapa" href="">{{'lugar.agregar.cargar_mapa'|trans}}</a></span>
-        <span class="mapa_info"></span>
-    </li>
-    <li>
-        <label>{{'lugar.agregar.sector.label'|trans}}</label>
-        <select class='sector' name='sector' id='sector'>
-        <option value='elige'>{{'lugar.agregar.sector.title'|trans}}</option>
-        {% for ciudad in data.ciudad %}
-            <optgroup label="{{ciudad.nombre}}">
-                {% for sector in data.sector %}
-                    {% if ciudad.id == sector.ciudad.id %}
-                    <option value="{{sector.slug}}">{{sector.nombre}}</option>
+            {% endif %}
+        </li>
+        <li class="no-default">
+            <label>{{'lugar.agregar.telefono.label'|trans}}</label>
+            <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
+            <input type="text" value="{{lugar.tel3}}" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="{{'lugar.agregar.placeholders.telefono'|trans}}"/>
+            <span class="quitar_info"><a class="quitar" rel="telefono" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.tel3 != lugarRevisado.telefono3 %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono3}}</div>
                     {% endif %}
                 {% endfor %}
-            </optgroup>
-        {% endfor %}
-        </select>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.sector.id != lugarRevisado.sector.id %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.nombre}} </div>
-                {% endif %}
-            {% endfor %}
+            {% endif %}
+        </li>
+        <li>
+            <span class="agregar_info"><a class="display-more-info" rel="telefono" href="">{{'lugar.agregar.telefono.agregar'|trans}}
+            <span>2</span>)</a></span>
+        </li>
+        {% if is_granted('ROLE_ADMIN')%}
+        <li class="no-default precio-li">
+            <label>{{'lugar.agregar.precio'|trans}}</label>
+            <div class="precio">
+                <div data-stars="{{lugar.precio}}" class="precio-raty"></div>
+                <div class="precio-detalle"></div>
+            </div>
+        </li>
         {% endif %}
-    </li>
-    <li>
-        <label>{{'lugar.agregar.telefono.label'|trans}}</label>
-        <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
-        <input type="text" value="{{lugar.tel1}}" name="form[telefono1]" id="form_telefono1" class="telefono" placeholder="{{'lugar.agregar.placeholders.telefono'|trans}}"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.tel1 != lugarRevisado.telefono1 %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono1}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li class="no-default">
-        <label>{{'lugar.agregar.telefono.label'|trans}}</label>
-        <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
-        <input type="text" value="{{lugar.tel2}}" name="form[telefono2]" id="form_telefono2" class="telefono" placeholder="{{'lugar.agregar.placeholders.telefono'|trans}}"/>
-        <span class="quitar_info"><a class="quitar" rel="telefono" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.tel2 != lugarRevisado.telefono2 %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono2}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li class="no-default">
-        <label>{{'lugar.agregar.telefono.label'|trans}}</label>
-        <span class="codigo_area">{{data.ciudadActual.pais.codigoArea}}</span>
-        <input type="text" value="{{lugar.tel3}}" name="form[telefono3]" id="form_telefono3" class="telefono" placeholder="{{'lugar.agregar.placeholders.telefono'|trans}}"/>
-        <span class="quitar_info"><a class="quitar" rel="telefono" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.tel3 != lugarRevisado.telefono3 %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono3}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>
-        <span class="agregar_info"><a class="display-more-info" rel="telefono" href="">{{'lugar.agregar.telefono.agregar'|trans}}
-        <span>2</span>)</a></span>
-    </li>
-    {% if is_granted('ROLE_ADMIN')%}
-    <li class="no-default precio-li">
-        <label>{{'lugar.agregar.precio'|trans}}</label>
-        <div class="precio">
-            <div data-stars="{{lugar.precio}}" class="precio-raty"></div>
-            <div class="precio-detalle"></div>
-        </div>
-    </li>
-    {% endif %}
-    <li>
-        <label>{{'lugar.agregar.web'|trans}}</label>
-        <input type="text" value="{{lugar.sitioWeb}}" name="form[sitio_web]" id="form_sitio_web" placeholder="{{'lugar.agregar.placeholders.web'|trans}}"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.sitioWeb != lugarRevisado.sitioWeb %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sitioWeb}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>
-        <label>Facebook</label>
-        <input type="text" value="{{lugar.facebook}}" name="form[facebook]" id="form_facebook" placeholder="{{'lugar.agregar.placeholders.facebook'|trans}}"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.facebook != lugarRevisado.facebook %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.facebook}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>
-        <label>Twitter</label>
-        <input type="text" value="{{lugar.twitter}}" name="form[twitter]" id="form_twitter" placeholder="{{'lugar.agregar.placeholders.twitter'|trans}}"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.twitter != lugarRevisado.twitter %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.twitter}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li>
-        <label>{{'lugar.agregar.mail'|trans}}</label>
-        <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="{{'lugar.agregar.placeholders.mail'|trans}}"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.mail != lugarRevisado.mail %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.mail}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}    
-    </li>
-    <li>
-        <label>{{'lugar.agregar.horario.label'|trans}}</label>
-        <input type="checkbox" name="habilitar-horario" class="horario habilitar-horario" />
-        <span class="horario_tip">{{'lugar.agregar.horario.tip'|trans}}</span>
-    </li>
-   <li class="no-default">
-        <table class="agregar-horarios">
-            <thead>
-                <th></th>
-                <th class="th-doble">{{'lugar.agregar.horario.jornadas.primera'|trans}}</th>
-                <th class="th-doble">{{'lugar.agregar.horario.jornadas.segunda'|trans}}</th>
-                <th></th>
-            </thead>
-            <tbody>
-                <tr class="separacion_horario">
-                    <td></td>
-                    <td>{{'lugar.agregar.horario.jornadas.abre'|trans}}</td>
-                    <td>{{'lugar.agregar.horario.jornadas.cierra'|trans}}</td>
-                    <td>{{'lugar.agregar.horario.jornadas.abre'|trans}}</td>
-                    <td>{{'lugar.agregar.horario.jornadas.primera'|trans}}</td>
-                    <td></td>
-                </tr>
-                <tr class="separacion_horario">
-                    <td>{{'lugar.agregar.horario.dias.lunes'|trans}}</td>
-                    <td>
-                        <select name="horario-lunes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td>
-                        <select name="horario-lunes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-lunes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-lunes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="jornada-doble">
-                        <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
-                    </td> 
-                </tr>
-                <tr class="separacion_horario">
-                    <td>{{'lugar.agregar.horario.dias.martes'|trans}}</td>
-                    <td>
-                        <select name="horario-martes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td>
-                        <select name="horario-martes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-martes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-martes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="jornada-doble">
-                        <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
-                    </td> 
-                </tr>
-                <tr class="separacion_horario">
-                    <td>{{'lugar.agregar.horario.dias.miercoles'|trans}}</td>
-                    <td>
-                        <select name="horario-miercoles[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td>
-                        <select name="horario-miercoles[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-miercoles[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-miercoles[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="jornada-doble">
-                        <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
-                    </td> 
-                </tr>
-                <tr class="separacion_horario">
-                    <td>{{'lugar.agregar.horario.dias.jueves'|trans}}</td>
-                    <td>
-                        <select name="horario-jueves[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td>
-                        <select name="horario-jueves[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-jueves[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-jueves[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="jornada-doble">
-                        <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
-                    </td> 
-                </tr>
-                <tr class="separacion_horario">
-                    <td>{{'lugar.agregar.horario.dias.viernes'|trans}}</td>
-                    <td>
-                        <select name="horario-viernes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td>
-                        <select name="horario-viernes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-viernes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-viernes[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="jornada-doble">
-                        <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
-                    </td> 
-                </tr>
-                <tr class="separacion_horario">
-                    <td>{{'lugar.agregar.horario.dias.sabado'|trans}}</td>
-                    <td>
-                        <select name="horario-sabado[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td>
-                        <select name="horario-sabado[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-sabado[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-sabado[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="jornada-doble">
-                        <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
-                    </td> 
-                </tr>
-                <tr class="separacion_horario">
-                    <td>{{'lugar.agregar.horario.dias.domingo'|trans}}</td>
-                    <td>
-                        <select name="horario-domingo[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td>
-                        <select name="horario-domingo[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-domingo[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="horario-pm">
-                        <select name="horario-domingo[]">
-                            {{ data.horarios | raw}}
-                        </select>
-                    </td>
-                    <td class="jornada-doble">
-                        <input type="checkbox" class="jornada-doble-checkbox">
-                        <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
-                    </td>                     
-                    <!-- <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td> -->
-                </tr>
-                <tr>
-                    <td class="agregar-horarios-tip">
-                        {{'lugar.agregar.horario.recordatorio.primero'|trans}}
-                        <br/>
-                        {{'lugar.agregar.horario.recordatorio.segundo'|trans}}                        
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        {% if lugaresRevisados is defined %}
-            <div class='comparacion-horas'></div>
-        {% endif %}
-    </li>
-    <li class="no-default">
-        <label>{{'lugar.agregar.profesional'|trans}}</label>
-        <input type="text" value="{{lugar.profesional}}" name="form[profesional]" id="form_profesional" placeholder="{{'lugar.agregar.placeholders.profesional'|trans}}"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.profesional != lugarRevisado.profesional %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.profesional}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li class="no-default">
-        <label>{{'lugar.agregar.construccion'|trans}}</label>
-        <input type="text" value="{{lugar.agnoConstruccion}}" name="form[agno_construccion]" id="form_agno_construccion" placeholder="{{'lugar.agregar.placeholders.construccion'|trans}}"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.agnoConstruccion != lugarRevisado.agnoConstruccion %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.agnoConstruccion}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li class="no-default">
-        <label>{{'lugar.agregar.descripcion'|trans}}</label>
-        <textarea name="form[descripcion]" id="form_descripcion" placeholder="{{'lugar.agregar.placeholders.descripcion'|trans}}"> {{lugar.descripcion}}</textarea>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.descripcion != lugarRevisado.descripcion %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.descripcion}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </li>
-    <li class="no-default">
-        <label>{{'lugar.agregar.materiales'|trans}}</label>
-        <input type="text" value="{{lugar.materiales}}" name="form[materiales]" id="form_materiales" placeholder="{{'lugar.agregar.placeholders.materiales'|trans}}"/>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugar.materiales != lugarRevisado.materiales %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.materiales}}</div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}    
-    </li>
-    <li class="no-default">
-        <div class="caracteristicas">
-            <span class="caracteristica_titulo">{{'lugar.agregar.caracteristicas'|trans}}</span>
-            <ul class="alinear_caracteristicas">
-                {% for caracteristica in data.caracteristicas %}
-                    <li class="lista_caracteristicas">
-                        <label class="checkbox-label caracteristica">
-                            <input type="checkbox" name="caracteristica[]" class="caracteristica_input" value="{{caracteristica.nombre}}" />
-                            <span class="caracteristica_span">{{caracteristica.nombre}}</span>
-                        </label>
-                    </li>
+        <li>
+            <label>{{'lugar.agregar.web'|trans}}</label>
+            <input type="text" value="{{lugar.sitioWeb}}" name="form[sitio_web]" id="form_sitio_web" placeholder="{{'lugar.agregar.placeholders.web'|trans}}"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.sitioWeb != lugarRevisado.sitioWeb %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sitioWeb}}</div>
+                    {% endif %}
                 {% endfor %}
-            </ul>
-        </div>
-        {% if lugaresRevisados is defined %}
-            {% for lugarRevisado in lugaresRevisados %}
-                {% if lugarRevisado.caracteristicaLugar[0] is defined %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                        {% for caracteristicaLugar in lugarRevisado.caracteristicaLugar %}
-                                {{ caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endfor %}
+            {% endif %}
+        </li>
+        <li>
+            <label>Facebook</label>
+            <input type="text" value="{{lugar.facebook}}" name="form[facebook]" id="form_facebook" placeholder="{{'lugar.agregar.placeholders.facebook'|trans}}"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.facebook != lugarRevisado.facebook %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.facebook}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li>
+            <label>Twitter</label>
+            <input type="text" value="{{lugar.twitter}}" name="form[twitter]" id="form_twitter" placeholder="{{'lugar.agregar.placeholders.twitter'|trans}}"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.twitter != lugarRevisado.twitter %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.twitter}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li>
+            <label>{{'lugar.agregar.mail'|trans}}</label>
+            <input type="text" value="{{lugar.mail}}" name="form[mail]" id="form_mail" placeholder="{{'lugar.agregar.placeholders.mail'|trans}}"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.mail != lugarRevisado.mail %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.mail}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}    
+        </li>
+        <li>
+            <label>{{'lugar.agregar.horario.label'|trans}}</label>
+            <input type="checkbox" name="habilitar-horario" class="horario habilitar-horario" />
+            <span class="horario_tip">{{'lugar.agregar.horario.tip'|trans}}</span>
+        </li>
+       <li class="no-default">
+            <table class="agregar-horarios">
+                <thead>
+                    <th></th>
+                    <th class="th-doble">{{'lugar.agregar.horario.jornadas.primera'|trans}}</th>
+                    <th class="th-doble">{{'lugar.agregar.horario.jornadas.segunda'|trans}}</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr class="separacion_horario">
+                        <td></td>
+                        <td>{{'lugar.agregar.horario.jornadas.abre'|trans}}</td>
+                        <td>{{'lugar.agregar.horario.jornadas.cierra'|trans}}</td>
+                        <td>{{'lugar.agregar.horario.jornadas.abre'|trans}}</td>
+                        <td>{{'lugar.agregar.horario.jornadas.cierra'|trans}}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="separacion_horario">
+                        <td class="td_dia_agregar_lugar">{{'lugar.agregar.horario.dias.lunes'|trans}}</td>
+                        <td>
+                            <select name="horario-lunes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="horario-lunes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-lunes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-lunes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="jornada-doble">
+                            <input type="checkbox" class="jornada-doble-checkbox">
+                            <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
+                        </td> 
+                    </tr>
+                    <tr class="separacion_horario">
+                        <td class="td_dia_agregar_lugar">{{'lugar.agregar.horario.dias.martes'|trans}}</td>
+                        <td>
+                            <select name="horario-martes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="horario-martes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-martes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-martes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="jornada-doble">
+                            <input type="checkbox" class="jornada-doble-checkbox">
+                            <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
+                        </td> 
+                    </tr>
+                    <tr class="separacion_horario">
+                        <td class="td_dia_agregar_lugar">{{'lugar.agregar.horario.dias.miercoles'|trans}}</td>
+                        <td>
+                            <select name="horario-miercoles[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="horario-miercoles[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-miercoles[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-miercoles[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="jornada-doble">
+                            <input type="checkbox" class="jornada-doble-checkbox">
+                            <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
+                        </td> 
+                    </tr>
+                    <tr class="separacion_horario">
+                        <td class="td_dia_agregar_lugar">{{'lugar.agregar.horario.dias.jueves'|trans}}</td>
+                        <td>
+                            <select name="horario-jueves[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="horario-jueves[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-jueves[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-jueves[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="jornada-doble">
+                            <input type="checkbox" class="jornada-doble-checkbox">
+                            <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
+                        </td> 
+                    </tr>
+                    <tr class="separacion_horario">
+                        <td class="td_dia_agregar_lugar">{{'lugar.agregar.horario.dias.viernes'|trans}}</td>
+                        <td>
+                            <select name="horario-viernes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="horario-viernes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-viernes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-viernes[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="jornada-doble">
+                            <input type="checkbox" class="jornada-doble-checkbox">
+                            <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
+                        </td> 
+                    </tr>
+                    <tr class="separacion_horario">
+                        <td class="td_dia_agregar_lugar">{{'lugar.agregar.horario.dias.sabado'|trans}}</td>
+                        <td>
+                            <select name="horario-sabado[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="horario-sabado[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-sabado[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-sabado[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="jornada-doble">
+                            <input type="checkbox" class="jornada-doble-checkbox">
+                            <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
+                        </td> 
+                    </tr>
+                    <tr class="separacion_horario">
+                        <td class="td_dia_agregar_lugar">{{'lugar.agregar.horario.dias.domingo'|trans}}</td>
+                        <td>
+                            <select name="horario-domingo[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="horario-domingo[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-domingo[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="horario-pm">
+                            <select name="horario-domingo[]">
+                                {{ data.horarios | raw}}
+                            </select>
+                        </td>
+                        <td class="jornada-doble">
+                            <input type="checkbox" class="jornada-doble-checkbox">
+                            <span class="jornada-doble-tip">{{'lugar.agregar.horario.jornadas.doble'|trans}}</span>
+                        </td>                     
+                        <!-- <td><label><input type="checkbox" class="jornada-doble"> Jornada doble?</label></td> -->
+                    </tr>
+                    <tr>
+                        <td class="agregar-horarios-tip">
+                            {{'lugar.agregar.horario.recordatorio.primero'|trans}}
+                            <br/><br/>
+                            {{'lugar.agregar.horario.recordatorio.segundo'|trans}}                        
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {% if lugaresRevisados is defined %}
+                <div class='comparacion-horas'></div>
+            {% endif %}
+        </li>
+        <li class="no-default">
+            <label>{{'lugar.agregar.profesional'|trans}}</label>
+            <input type="text" value="{{lugar.profesional}}" name="form[profesional]" id="form_profesional" placeholder="{{'lugar.agregar.placeholders.profesional'|trans}}"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.profesional != lugarRevisado.profesional %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.profesional}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li class="no-default">
+            <label>{{'lugar.agregar.construccion'|trans}}</label>
+            <input type="text" value="{{lugar.agnoConstruccion}}" name="form[agno_construccion]" id="form_agno_construccion" placeholder="{{'lugar.agregar.placeholders.construccion'|trans}}"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.agnoConstruccion != lugarRevisado.agnoConstruccion %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.agnoConstruccion}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li class="no-default">
+            <label>{{'lugar.agregar.descripcion'|trans}}</label>
+            <textarea name="form[descripcion]" id="form_descripcion" placeholder="{{'lugar.agregar.placeholders.descripcion'|trans}}"> {{lugar.descripcion}}</textarea>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.descripcion != lugarRevisado.descripcion %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.descripcion}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li class="no-default">
+            <label>{{'lugar.agregar.materiales'|trans}}</label>
+            <input type="text" value="{{lugar.materiales}}" name="form[materiales]" id="form_materiales" placeholder="{{'lugar.agregar.placeholders.materiales'|trans}}"/>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugar.materiales != lugarRevisado.materiales %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.materiales}}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}    
+        </li>
+        <li class="no-default">
+            <div class="caracteristicas">
+                <span class="caracteristica_titulo">{{'lugar.agregar.caracteristicas'|trans}}</span>
+                <ul class="alinear_caracteristicas">
+                    {% for caracteristica in data.caracteristicas %}
+                        <li class="lista_caracteristicas">
+                            <label class="checkbox-label caracteristica">
+                                <input type="checkbox" name="caracteristica[]" class="caracteristica_input" value="{{caracteristica.nombre}}" />
+                                <span class="caracteristica_span">{{caracteristica.nombre}}</span>
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% if lugaresRevisados is defined %}
+                {% for lugarRevisado in lugaresRevisados %}
+                    {% if lugarRevisado.caracteristicaLugar[0] is defined %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                            {% for caracteristicaLugar in lugarRevisado.caracteristicaLugar %}
+                                    {{ caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li>
+            <input type="hidden" class="mapx" value="{{lugar.mapx}}" name="form[mapx]" id="form_mapx"/>
+            <input type="hidden" class="mapy" value="{{lugar.mapy}}" name="form[mapy]" id="form_mapy"/>
+        </li>
+        <li class="no-default">
+            <input type="hidden" name="id" class="id" value="{{lugar.id}}"/>
+            <li class="obligatorio_tip">
+                <span>{{'lugar.agregar.obligatorio'|trans}}</span>
+        </li>
+        {% if lugar.slug == null %}
+        <li>
+            <label>Recomendacion</label>
+            <input type="checkbox" name="habilitar-recomienda" class="display-next-li-cb" />
+            <span class="horario_tip">{{'lugar.recomendacion.opcional.tip'|trans}}</span>
+        </li>
+        <li class="no-default">
+            {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
+        </li>
         {% endif %}
-    </li>
-    <li>
-        <input type="hidden" class="mapx" value="{{lugar.mapx}}" name="form[mapx]" id="form_mapx"/>
-        <input type="hidden" class="mapy" value="{{lugar.mapy}}" name="form[mapy]" id="form_mapy"/>
-    </li>
-    <li class="no-default">
-        <input type="hidden" name="id" class="id" value="{{lugar.id}}"/>
-        <li class="obligatorio_tip">
-            <span>{{'lugar.agregar.obligatorio'|trans}}</span>
-    </li>
-    {% if lugar.slug == null %}
-    <li>
-        <label>Recomendacion</label>
-        <input type="checkbox" name="habilitar-recomienda" class="display-next-li-cb" />
-        <span class="horario_tip">{{'lugar.recomendacion.opcional.tip'|trans}}</span>
-    </li>
-    <li class="no-default">
-        {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
-    </li>
-    {% endif %}
-    <li><input class="guardar-datos" type="submit" value="{{'lugar.agregar.submit'|trans}}" formnovalidate/></li>
-</ul>
+        <li><input class="guardar-datos" type="submit" value="" formnovalidate/></li>
+    </ul>
+
+</div>
 
 <div class="mapa">
     <div id="mapa" class="gmaps">

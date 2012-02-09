@@ -1,6 +1,6 @@
 /* @group Base */
 .chzn-container {
-  font-size: 13px;
+  font-size: 14px;
   position: relative;
   display: inline-block;
   zoom: 1;
@@ -8,15 +8,11 @@
 }
 .chzn-container .chzn-drop {
   background: #fff;
-  border: 1px solid #aaa;
+  border: 1px solid #ccc;
   border-top: 0;
   position: absolute;
   top: 29px;
   left: 0;
-  -webkit-box-shadow: 0 4px 5px rgba(0,0,0,.15);
-  -moz-box-shadow   : 0 4px 5px rgba(0,0,0,.15);
-  -o-box-shadow     : 0 4px 5px rgba(0,0,0,.15);
-  box-shadow        : 0 4px 5px rgba(0,0,0,.15);
   z-index: 999;
 }
 /* @end */
@@ -31,13 +27,10 @@
   background-image: -ms-linear-gradient(top, #eeeeee 0%,#ffffff 50%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#ffffff',GradientType=0 );
   background-image: linear-gradient(top, #eeeeee 0%,#ffffff 50%);
-  -webkit-border-radius: 4px;
-  -moz-border-radius   : 4px;
-  border-radius        : 4px;
   -moz-background-clip   : padding;
   -webkit-background-clip: padding-box;
   background-clip        : padding-box;
-  border: 1px solid #aaa;
+  border: 1px solid #ccc;
   display: block;
   overflow: hidden;
   white-space: nowrap;
@@ -45,7 +38,7 @@
   height: 26px;
   line-height: 26px;
   padding: 0 0 0 8px;
-  color: #444;
+  color: #666 !important;
   text-decoration: none;
 }
 .chzn-container-single .chzn-single span {
@@ -71,9 +64,6 @@
   background-position: right -11px;
 }
 .chzn-container-single .chzn-single div {
-  -webkit-border-radius: 0 4px 4px 0;
-  -moz-border-radius   : 0 4px 4px 0;
-  border-radius        : 0 4px 4px 0;
   -moz-background-clip   : padding;
   -webkit-background-clip: padding-box;
   background-clip        : padding-box;
@@ -85,7 +75,7 @@
   background-image: -ms-linear-gradient(top, #cccccc 0%,#eeeeee 60%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#eeeeee',GradientType=0 );
   background-image: linear-gradient(top, #cccccc 0%,#eeeeee 60%);
-  border-left: 1px solid #aaa;
+  border-left: 1px solid #ccc;
   position: absolute;
   right: 0;
   top: 0;
@@ -100,7 +90,8 @@
   height: 100%;
 }
 .chzn-container-single .chzn-search {
-  padding: 3px 4px;
+  float: left;
+  padding: 3px 8px;
   position: relative;
   margin: 0;
   white-space: nowrap;
@@ -117,7 +108,7 @@
   margin: 1px 0;
   padding: 4px 20px 4px 5px;
   outline: 0;
-  border: 1px solid #aaa;
+  border: 1px solid #ccc;
   font-family: sans-serif;
   font-size: 1em;
   display: inline;
@@ -127,9 +118,6 @@
  
 
 .chzn-container-single .chzn-drop {
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius   : 0 0 4px 4px;
-  border-radius        : 0 0 4px 4px;
   -moz-background-clip   : padding;
   -webkit-background-clip: padding-box;
   background-clip        : padding-box;
@@ -151,7 +139,7 @@
   background-image: -ms-linear-gradient(top, #ffffff 85%,#eeeeee 99%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
   background-image: linear-gradient(top, #ffffff 85%,#eeeeee 99%);
-  border: 1px solid #aaa;
+  border: 1px solid #ccc;
   margin: 0;
   padding: 0;
   cursor: text;
@@ -176,18 +164,11 @@
   padding: 5px;
   margin: 1px 0;
   outline: 0;
-  -webkit-box-shadow: none;
-  -moz-box-shadow   : none;
-  -o-box-shadow     : none;
-  box-shadow        : none;
 }
 .chzn-container-multi .chzn-choices .search-field .default {
   color: #999;
 }
 .chzn-container-multi .chzn-choices .search-choice {
-  -webkit-border-radius: 3px;
-  -moz-border-radius   : 3px;
-  border-radius        : 3px;
   -moz-background-clip   : padding;
   -webkit-background-clip: padding-box;
   background-clip        : padding-box;
@@ -236,9 +217,10 @@
 
 /* @group Results */
 .chzn-container .chzn-results {
-  margin: 0 4px 4px 0;
+  color: #666;
+  margin: 0 8px 4px 0;
   max-height: 190px;
-  padding: 0 0 0 4px;
+  padding: 0 0 0 8px;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
@@ -251,7 +233,7 @@
   display: block;
   line-height: 80%;
   padding: 7px 7px 8px;
-  margin: 0;
+  margin: 0px !important;
   list-style: none;
   float: none;
 }
@@ -261,7 +243,7 @@
   display: list-item;
 }
 .chzn-container .chzn-results .highlighted {
-  background: #3875d7;
+  background: #66CCFF;
   color: #fff;
 }
 .chzn-container .chzn-results li em {
@@ -290,18 +272,10 @@
 
 /* @group Active  */
 .chzn-container-active .chzn-single {
-  -webkit-box-shadow: 0 0 5px rgba(0,0,0,.3);
-  -moz-box-shadow   : 0 0 5px rgba(0,0,0,.3);
-  -o-box-shadow     : 0 0 5px rgba(0,0,0,.3);
-  box-shadow        : 0 0 5px rgba(0,0,0,.3);
-  border: 1px solid #5897fb;
+  border: 1px solid #66CCFF;
 }
 .chzn-container-active .chzn-single-with-drop {
-  border: 1px solid #aaa;
-  -webkit-box-shadow: 0 1px 0 #fff inset;
-  -moz-box-shadow   : 0 1px 0 #fff inset;
-  -o-box-shadow     : 0 1px 0 #fff inset;
-  box-shadow        : 0 1px 0 #fff inset;
+  border: 1px solid #ccc;
   background-color: #eee;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, white), color-stop(0.5, #eeeeee));
   background-image: -webkit-linear-gradient(center bottom, white 0%, #eeeeee 50%);
@@ -312,8 +286,6 @@
   background-image: linear-gradient(top, #ffffff 0%,#eeeeee 50%);
   -webkit-border-bottom-left-radius : 0;
   -webkit-border-bottom-right-radius: 0;
-  -moz-border-radius-bottomleft : 0;
-  -moz-border-radius-bottomright: 0;
   border-bottom-left-radius : 0;
   border-bottom-right-radius: 0;
 }
@@ -325,11 +297,7 @@
   background-position: -18px 1px;
 }
 .chzn-container-active .chzn-choices {
-  -webkit-box-shadow: 0 0 5px rgba(0,0,0,.3);
-  -moz-box-shadow   : 0 0 5px rgba(0,0,0,.3);
-  -o-box-shadow     : 0 0 5px rgba(0,0,0,.3);
-  box-shadow        : 0 0 5px rgba(0,0,0,.3);
-  border: 1px solid #5897fb;
+  border: 1px solid #66CCFF;
 }
 .chzn-container-active .chzn-choices .search-field input {
   color: #111 !important;
@@ -354,10 +322,7 @@
 .chzn-rtl .chzn-single span { margin-left: 26px; margin-right: 0; }
 .chzn-rtl .chzn-single div { 
   left: 0; right: auto; 
-  border-left: none; border-right: 1px solid #aaaaaa;
-  -webkit-border-radius: 4px 0 0 4px;
-  -moz-border-radius   : 4px 0 0 4px;
-  border-radius        : 4px 0 0 4px; 
+  border-left: none; border-right: 1px solid #ccc;
 }
 .chzn-rtl .chzn-single abbr {
   left: 26px;

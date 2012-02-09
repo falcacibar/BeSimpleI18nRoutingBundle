@@ -1,6 +1,7 @@
 /* Colores */
 
 $azul: #0066CC
+$azul_claro: #66CCFF
 $blanco: #FFF
 $error: #F66
 $gris_333: #333
@@ -12,6 +13,7 @@ $gris_ccc: #CCC
 $gris_ddd: #DDD
 $gris_eee: #EEE
 $gris_f6f: #F6F6F6
+$gris_faf: #FAFAFC
 $rojo: #FF3300
 
 /* Mixin */
@@ -71,337 +73,356 @@ $rojo: #FF3300
     -webkit-box-shadow: -3px 3px 1px $gris_eee
 
 /* Agregar / Editar Lugar */
-    
-.agregar-lugar
-    font:
-        size: 13px
+
+.agregar_editar_datos_lugar
+    border: 1px solid $gris_f6f
     float: left
-    width: 510px
+    margin: 0 20px 0 0
+    padding: 20px
+    width: 560px
 
-    li
-        display: block
+    .agregar-lugar
+        font:
+            size: 14px
         float: left
-        margin: 0 0 15px 0
-        width: 510px
+        width: 520px
 
-        &.no-default
-            display: none
+        li
+            display: block
+            float: left
+            margin: 0 0 20px 0
+            width: 520px
 
-        span
-        
-            a
+            &.no-default
+                display: none
+
+            span
             
-            .cargar_mapa
-                @include gradiente_botones (#FF3300, #FF6600)
-                @include borde_redondeado
-                color: $blanco
-                display: block
+                a
+                
+                .cargar_mapa
+                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -898px 0
+                    display: block
+                    cursor: pointer
+                    float: left
+                    height: 30px
+                    width: 127px      
+                    
+                    &:hover
+                        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -898px -30px
+                        display: block
+                        float: left
+                        height: 30px
+                        width: 127px      
+        
+        .lugar-existe
+            @include borde_redondeado
+            border: 1px solid $gris_ccc
+            display: none
+            font:
+                size: 11px
+            float: left
+            margin: 10px 10px 0 100px
+            padding: 10px
+            width: 348px
+       
+            h5
+                color: $rojo
                 font:
                     size: 13px
                     weight: bold
-                height: 14px
-                padding: 8px 10px
-                text-shadow: 1px 1px 1px $gris_444
-                width: 80px
-
-                &:hover
-                    @include gradiente_botones (#FF4400, #FF7700)
-                    color: $blanco
-                    height: 14px
-                    padding: 8px 10px
-                    text-decoration: none
-                    text-shadow: 1px 1px 1px $gris_444
-                    width: 80px
-    
-    .lugar-existe
-        @include borde_redondeado
-        border: 1px solid $gris_ccc
-        display: none
-        font:
-            size: 11px
-        float: left
-        margin: 10px 10px 0 100px
-        padding: 10px
-        width: 348px
-   
-        h5
-            color: $rojo
-            font:
-                size: 13px
-                weight: bold
-            line-height: 18px
-            margin: 0 0 15px 0
-        
-        p
-            font:
-                size: 12px
-            text-align: left
-
-            a
-                @include link_azul
+                line-height: 18px
+                margin: 0 0 15px 0
+            
+            p
                 font:
-                    weight: bold
+                    size: 12px
+                text-align: left
 
-                &:hover
-                    @include link_azul_hover
+                a
+                    @include link_azul
                     font:
                         weight: bold
 
-    label
-        display: block
-        float: left
-        margin: 3px 10px 3px 0
-        width: 100px
+                    &:hover
+                        @include link_azul_hover
+                        font:
+                            weight: bold
 
-    .label_numero
-        margin: 3px 0 3px 5px
-        width: 30px
-
-    .subcategoria_titulo
-        float: left
-        line-height: 18px
-        margin: 15px 10px 0 0
-        width: 100px
-
-    .alinear_subcategorias
-        float: left
-        margin: 15px 10px 0 0
-        width: 390px
-
-    .lista_subcategorias
-        float: left
-        margin: 0 10px 0 0
-        width: 185px
-
-    .subcategoria
-        float: left
-        font:
-            size: 11px
-        line-height: 13px
-        margin: 0 0 10px 0
-        width: 200px
-
-    .subcategoria_input
-        float: left
-        height: 12px
-        margin: 1px 0
-        width: 12px
-    
-    .subcategoria_span
-        float: left
-        margin: 0 0 0 5px
-        width: 180px
-
-    input
-        border: 1px solid $gris_999
-        float: left
-        height: 20px
-        padding: 3px 5px
-        width: 290px
-        
-        &:hover
-            border: 1px solid $gris_444
-
-        &:focus
-            border: 1px solid $azul
-    
-    select
-        border: 1px solid $gris_999
-        float: left
-        height: 26px
-        padding: 3px 5px
-        width: 300px
-
-    .quitar_info
-        display: block
-        float: right
-        margin: 7px 55px 7px 0px
-
-        a
-            @include link_azul
-
-            &:hover
-                @include link_azul_hover
-
-    .agregar_info
-        display: block
-        font:
-            size: 11px
-        float: left
-        margin: 0 0 0 110px
-
-        a
-            @include link_azul
-
-            &:hover
-                @include link_azul_hover
-
-    .calle
-        display: block
-        float: left
-        width: 160px
-    
-    .numero
-        display: block
-        float: left
-        width: 80px
-
-    .codigo_area
-        color: $gris_ccc
-        display: block
-        float: left
-        font:
-            size: 18px
-        margin: 6px 5px 6px 0
-        width: 35px
-
-    .telefono
-        display: block
-        float: left
-        width: 250px
-
-    .precio
-        display: block
-        float: left
-        margin: 8px 0 0
-        width: 400px
-
-    .horario
-        display: block
-        float: left
-        margin: 7px 0
-        width: 20px
-
-    .horario_tip
-        display: block
-        float: left
-        font:
-            size: 11px
-        margin: 8px 0
-        width: 360px
-
-    table
-        margin: 0 10px 0 110px
-        width: 580px
-
-        th, td
+        label
+            display: block
             float: left
-            font:
-                weight: normal
-            text-align: left
-            padding: 0 0 5px 0
-            width: 85px
+            margin: 2px 10px 3px 0
+            width: 100px
 
-            &.horario-pm
-                display: none
-        
-        .th-doble
+        .label_numero
+            margin: 3px 0 3px 5px
+            width: 30px
+
+        .subcategoria_titulo
             float: left
-            width: 170px
-        
-        td
+            line-height: 18px
+            margin: 15px 10px 0 0
+            width: 100px
 
-            select
-                height: 20px
-                width: 75px
-
-        .jornada-doble
+        .alinear_subcategorias
             float: left
-            width: 150px
+            margin: 15px 10px 0 0
+            width: 390px
 
-            .jornada-doble-checkbox
-                float: left
-                margin: 3px 0
-                width: 15px
-
-            .jornada-doble-tip
-                float: left
-                font:
-                    size: 11px
-                padding: 4px 0 4px 5px
-                width: 130px
-        
-        tr
+        .lista_subcategorias
             float: left
-            width: 580px
-        
-        .agregar-horarios-tip
+            margin: 0 10px 0 0
+            width: 185px
+
+        .subcategoria
+            float: left
             font:
                 size: 11px
-            line-height: 18px
-            width: 580px
-
-        .separacion_horario
-            border-bottom: 1px solid $gris_ccc
-            float: left
+            line-height: 13px
             margin: 0 0 10px 0
-            width: 580px
+            width: 200px
+
+        .subcategoria_input
+            float: left
+            height: 12px
+            margin: 1px 0
+            width: 12px
+        
+        .subcategoria_span
+            float: left
+            margin: 0 0 0 5px
+            width: 180px
+
+        input
+            border: 1px solid $gris_ccc
+            float: left
+            height: 20px
+            padding: 3px 5px
+            width: 290px
             
-    .guardar-datos
-        @include gradiente_botones (#FF3300, #FF6600)
-        @include borde_redondeado
-        color: $blanco
-        display: block
-        font:
-            size: 13px
-            weight: bold
-        height: 35px
-        margin: 0 0 0 110px
-        padding: 8px 10px
-        text-shadow: 1px 1px 1px $gris_444
-        width: 140px
+            &:hover
+                border: 1px solid $gris_999
 
-        &:hover
-            @include gradiente_botones (#FF4400, #FF7700)
-            color: $blanco
-            height: 35px
-            padding: 8px 10px
-            text-decoration: none
-            text-shadow: 1px 1px 1px $gris_444
-            width: 140px
+            &:focus
+                border: 1px solid $azul_claro
+        
+        select
+            border: 1px solid $gris_999
+            float: left
+            height: 26px
+            padding: 3px 5px
+            width: 300px
 
-    .caracteristica_titulo
-        float: left
-        line-height: 18px
-        margin: 15px 10px 0 0
-        width: 100px
+        .quitar_info
+            display: block
+            float: right
+            margin: 7px 55px 7px 0px
 
-    .alinear_caracteristicas
-        float: left
-        margin: 15px 10px 0 0
-        width: 390px
+            a
+                @include link_azul
 
-    .lista_caracteristicas
-        float: left
-        margin: 0 10px 0 0
-        width: 185px
+                &:hover
+                    @include link_azul_hover
 
-    .caracteristica
-        float: left
-        font:
-            size: 11px
-        line-height: 13px
-        margin: 0 0 10px 0
-        width: 200px
+        .agregar_info
+            display: block
+            font:
+                size: 12px
+            float: left
+            margin: 0 0 0 110px
 
-    .caracteristica_input
-        float: left
-        height: 12px
-        margin: 1px 0
-        width: 12px
+            a
+                @include link_gris_666
 
-    .caracteristica_span
-        float: left
-        margin: 0 0 0 5px
-        width: 180px
+                &:hover
+                    @include link_gris_666_hover
 
-    .obligatorio_tip
-        display: block
-        float: left
-        font:
-            size: 13px
-        margin: 10px 0 20px 110px
-        width: 400px
+        .calle
+            display: block
+            float: left
+            width: 160px
+        
+        .numero
+            display: block
+            float: left
+            width: 80px
+
+        .codigo_area
+            color: $gris_999
+            display: block
+            float: left
+            font:
+                size: 18px
+            margin: 6px 5px 6px 0
+            width: 35px
+
+        .telefono
+            display: block
+            float: left
+            width: 250px
+
+        .precio
+            display: block
+            float: left
+            margin: 8px 0 0
+            width: 400px
+
+        .horario
+            display: block
+            float: left
+            margin: 7px 0
+            width: 20px
+
+        .horario_tip
+            color: $gris_666
+            display: block
+            float: left
+            font:
+                size: 12px
+            margin: 8px 0
+            width: 360px
+
+        table
+            background: $gris_faf
+            color: $gris_666
+            margin: 0
+            width: 540px
+
+            thead
+                float: left
+                margin: 10px 10px 0 10px
+                width: 540px
+
+            tbody
+                float: left
+                margin: 10px
+                width: 540px                
+
+            th, td
+                float: left
+                font:
+                    size: 12px
+                    weight: normal
+                text-align: left
+                padding: 0 0 5px 0
+                width: 80px
+
+                &.horario-pm
+                    display: none
+            
+            .th-doble
+                float: left
+                font:
+                    size: 12px
+                    weight: bold
+                width: 170px
+            
+            td
+
+                select
+                    height: 20px
+                    width: 75px
+            
+            .td_dia_agregar_lugar
+                font:
+                    size: 14px
+                margin: 2px 0 0 0
+
+            .jornada-doble
+                float: left
+                width: 130px
+
+                .jornada-doble-checkbox
+                    float: left
+                    margin: 3px 0
+                    width: 15px
+
+                .jornada-doble-tip
+                    float: left
+                    font:
+                        size: 11px
+                    padding: 4px 0 4px 5px
+                    width: 110px
+            
+            tr
+                float: left
+                width: 540px
+            
+            .agregar-horarios-tip
+                font:
+                    size: 12px
+                line-height: 20px
+                width: 540px
+
+            .separacion_horario
+                border-bottom: 1px solid $gris_ccc
+                float: left
+                margin: 0 0 15px 0
+                width: 540px
+                
+        .guardar-datos
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1025px 0
+            border: 0px
+            display: block
+            cursor: pointer
+            float: left
+            height: 30px
+            margin: 0 0 0 110px
+            width: 166px      
+            
+            &:hover
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1025px -30px
+                border: 0px
+                display: block
+                float: left
+                height: 30px
+                margin: 0 0 0 110px
+                width: 166px      
+
+        .caracteristica_titulo
+            float: left
+            line-height: 18px
+            margin: 15px 10px 0 0
+            width: 100px
+
+        .alinear_caracteristicas
+            float: left
+            margin: 15px 10px 0 0
+            width: 390px
+
+        .lista_caracteristicas
+            float: left
+            margin: 0 10px 0 0
+            width: 185px
+
+        .caracteristica
+            float: left
+            font:
+                size: 11px
+            line-height: 13px
+            margin: 0 0 10px 0
+            width: 200px
+
+        .caracteristica_input
+            float: left
+            height: 12px
+            margin: 1px 0
+            width: 12px
+
+        .caracteristica_span
+            float: left
+            margin: 0 0 0 5px
+            width: 180px
+
+        .obligatorio_tip
+            color: $gris_999
+            display: block
+            float: left
+            font:
+                size: 12px
+            margin: 10px 0 20px 110px
+            width: 400px
 
 /* Agregar mapa */
 
@@ -409,7 +430,7 @@ $rojo: #FF3300
     display: block
     float: left
     height: 500px
-    width: 450px
+    width: 338px
 
     .mapa_ubicacion
         display: block
@@ -429,7 +450,7 @@ $rojo: #FF3300
         border: 1px solid $gris_ccc
         display: block
         height: 350px
-        width: 448px
+        width: 336px
 
 /* Ficha lugares */
 

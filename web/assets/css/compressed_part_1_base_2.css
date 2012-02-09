@@ -100,6 +100,13 @@ body {
     margin: 2px 0 0 0;
     width: 910px; }
 
+.titulo {
+  font-size: 20px;
+  margin: 0 0 30px 0; }
+
+.obligatorio {
+  color: #cccccc; }
+
 /* Header */
 .barra_ciudad {
   background: #444444;
@@ -387,9 +394,6 @@ body {
       font-family: Arial;
       font-size: 13px;
       line-height: 18px; }
-    .contenedor .contenido .titulo {
-      font-size: 16px;
-      margin: 0 0 30px 0; }
     .contenedor .contenido .confirmar_registro {
       background: url("../images/extras/confirmar_registro.jpg") 400px 50px no-repeat;
       height: 382px;

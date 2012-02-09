@@ -23,19 +23,19 @@ lugar:
         error_recomendacion: Debes escribir al menos 255 caracteres para poder publicar tu recomendación.
     agregar:
         titulo: Agregar un Lugar
-        nombre: Nombre *
+        nombre: Nombre
         categorias:
             principal: Elige una Categoria Principal
             secundaria: Elige una Categoria Secundaria
             agregar: » Agrega una categoría secundaria (Máx.
         subcategorias: Subcategorías * (Máx. 3)
-        pais: País *
-        ciudad: Ciudad *
+        pais: País
+        ciudad: Ciudad
         comuna:
-            label: Comuna *
+            label: Comuna
             title: Elige una comuna
-        calle: Calle *
-        numero: Nº *
+        calle: Calle
+        numero: Nº
         galeria_centro: » ¿Es parte de una galería o centro comercial?
         detalle: Detalle
         cargar_mapa: Cargar mapa
