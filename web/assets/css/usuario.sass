@@ -1,22 +1,23 @@
 /* Colores */
 
 $amarillo: #FFF08C
+
 $azul: #0066CC
+$azul_medio: #0099FF
 $azul_claro: #66CCFF
+
 $blanco: #FFF
-$error: #F66
-$caja_error: #FF8A8A
-$gris_333: #333
-$gris_444: #444
-$gris_666: #666
-$gris_686: #686868
-$gris_999: #999
-$gris_ccc: #CCC
-$gris_ddd: #DDD
-$gris_eee: #EEE
-$gris_f6f: #F6F6F6
+
 $gris_faf: #FAFAFC
-$rojo: #FF3300
+$gris_f6f: #F2F2F6
+$gris_ccc: #CCC
+$gris_999: #999
+$gris_666: #666
+$gris_444: #444
+
+$rojo_claro: #FF8A8A
+$rojo_medio: #FF5353
+$rojo: #F72121
 
 /* Mixin */
 
@@ -382,9 +383,7 @@ $rojo: #FF3300
             width: 620px
 
             .edicion_usuario_error
-                background:
-                    color: lighten($error, 25%)
-                border: 1px solid $error
+                border: 1px solid $rojo_claro
                 float: left
                 line-height: 18px
                 margin: 0 0 20px 0
@@ -415,12 +414,6 @@ $rojo: #FF3300
                         margin: 0px
                         padding: 6px 10px
                         width: 306px
-
-                        &:hover
-                            border: 1px solid $gris_444
-
-                        &:focus
-                            border: 1px solid $azul
 
                     select
                         float: left
@@ -505,9 +498,7 @@ $rojo: #FF3300
             width: 620px
 
             .edicion_usuario_error
-                background:
-                    color: lighten($error, 25%)
-                border: 1px solid $error
+                border: 1px solid $rojo_claro
                 float: left
                 line-height: 18px
                 margin: 0 0 20px 0
@@ -531,6 +522,7 @@ $rojo: #FF3300
                         width: 80px
                     
                     input
+                        border: 0px
                         margin: 6px 0
 
                     .tips
@@ -587,9 +579,7 @@ $rojo: #FF3300
             width: 620px
 
             .edicion_usuario_error
-                background:
-                    color: lighten($error, 25%)
-                border: 1px solid $error
+                border: 1px solid $rojo_claro
                 float: left
                 line-height: 18px
                 margin: 0 0 20px 0
@@ -620,12 +610,6 @@ $rojo: #FF3300
                         margin: 0px
                         padding: 6px 10px
                         width: 306px
-
-                        &:hover
-                            border: 1px solid $gris_444
-
-                        &:focus
-                            border: 1px solid $azul
                     
                     .errors
                         margin: 5px 0 0 230px
@@ -649,9 +633,7 @@ $rojo: #FF3300
             width: 620px
 
             .edicion_usuario_error
-                background:
-                    color: lighten($error, 25%)
-                border: 1px solid $error
+                border: 1px solid $rojo_claro
                 float: left
                 line-height: 18px
                 margin: 0 0 20px 0
@@ -682,12 +664,6 @@ $rojo: #FF3300
                         padding: 6px 10px
                         width: 306px
 
-                        &:hover
-                            border: 1px solid $gris_444
-
-                        &:focus
-                            border: 1px solid $azul
-
                     textarea
                         color: $gris_666
                         float: left
@@ -697,12 +673,6 @@ $rojo: #FF3300
                         min-height: 80px
                         padding: 6px 10px
                         width: 306px
-
-                        &:hover
-                            border: 1px solid $gris_444
-
-                        &:focus
-                            border: 1px solid $azul    
                             
                     .detalle_motivo_borrar_cuenta
                         display: block
@@ -1063,12 +1033,3 @@ $rojo: #FF3300
 
                 a
                     color: $blanco !important
-                                            
-.titulo_accion_usuario
-    font:
-        size: 20px
-
-.titulo_edicion_usuario
-    font:
-        size: 20px
-    padding: 20px 0 0

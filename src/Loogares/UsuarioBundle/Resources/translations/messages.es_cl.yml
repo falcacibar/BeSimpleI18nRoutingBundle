@@ -1,20 +1,23 @@
 # Locale 'es' UsuarioBundle
 usuario:
     login:
-        titulo: ¡Entra a Loogares.com!
+        titulo: Entra a Loogares.com y empieza a recomendar
         form:
-            mail: E-mail:
-            password: Password:
+            mail: E-mail
+            password: Password
             olvidar_password: ¿Olvidaste tu password?
             recordar_sesion: Recordar sesión
             submit: Entrar
         registro:
-            titulo: ¿Aún no eres parte de Loogares.com?
-            texto: Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares increíbles de los que la gente está hablando... y esos otros que no lo son tanto.
+            titulo: ¿Aún no eres parte de Loogares.com? ¡Regístrate!
+            texto: Regístrate y escribe recomendaciones de lugares que conoces en tu ciudad para ganar increíbles premios. Desde invitaciones a restaurantes hasta entradas al cine, conciertos, fiestas y más.
+            o: o
+            mail: regístrate con tu E-mail
             boton: ¡Regístrate!
 
     registro:
-        titulo: ¡Regístrate en Loogares.com!
+        mensaje: Escribe recomendaciones de lugares que conoces en tu ciudad y semanalmente gana invitaciones a restaurantes, entradas al cine, a conciertos, fiestas y más.
+        titulo: ¡O regístrate con tu E-mail en Loogares.com!
         form:
             nombre: Nombre
             apellido: Apellido
@@ -31,7 +34,7 @@ usuario:
             submit: Registrar
 
         facebook:
-            titulo: ¡O regístrate rápidamente con tu Facebook!
+            titulo: ¡Regístrate rápidamente con tu Facebook!
             texto: Haz click en el botón de abajo y regístrate en un solo paso con tu cuenta de Facebook.
         login:
             titulo: ¿Ya eres parte de Loogares.com? ¡Entra ahora!

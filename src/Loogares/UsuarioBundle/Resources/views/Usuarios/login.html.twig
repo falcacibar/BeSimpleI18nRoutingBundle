@@ -2,24 +2,42 @@
 
 {% block title %}{% trans %}usuario.login.titulo{% endtrans %}{% endblock %}
 {% block content %}
-    <div class="columna_izquierda_borde">
-        {% if app.session.hasFlash('edicion-borrar') %}
-            <div class="saludo_exito">
-                {{ app.session.flash('edicion-borrar') | trans }}
-            </div>
-        {% endif %}
-        <h1 class="titulo">{% trans %}usuario.login.titulo{% endtrans %}</h3>
 
-        {% include 'LoogaresUsuarioBundle:Usuarios:login_form.html.twig' %}
+    <div class="separacion_del_header">
     </div>
 
-    <div class="columna_derecha">
-        <h2 class="titulo">{% trans %}usuario.login.registro.titulo{% endtrans %}</h3>
-        <p class="texto_registro">{% trans %}usuario.login.registro.texto{% endtrans %}</p>
-        
-        <a href="{{path('registroUsuario')}}">
-            <div class="boton_registro">{% trans %}usuario.login.registro.boton{% endtrans %}</div>
-        </a>
+    {% if errors is defined and errors | length > 0 %}   
+        <div class="mensaje_error">
+            <div class="imagen_error"></div>
+            <div class="txt_error">
+                {% for error in errors %}           
+                    <p>{{error | trans}}</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="cajas_registro">
+
+        <div class="columna_izquierda_registro">
+            {% if app.session.hasFlash('edicion-borrar') %}
+                <div class="saludo_exito">
+                    {{ app.session.flash('edicion-borrar') | trans }}
+                </div>
+            {% endif %}
+            <h1 class="titulo">{% trans %}usuario.login.titulo{% endtrans %}</h1>
+
+            {% include 'LoogaresUsuarioBundle:Usuarios:login_form.html.twig' %}
+        </div>
+
+        <div class="columna_derecha_registro">
+            <h2 class="titulo">{% trans %}usuario.login.registro.titulo{% endtrans %}</h2>
+            <a href="{{path('registroUsuario')}}">
+                <div class="boton_registro"></div>
+            </a>
+            <p class="registro_mail">{% trans %}usuario.login.registro.o{% endtrans %} <a href="#">{% trans %}usuario.login.registro.mail{% endtrans %}</a></p>
+            <p class="texto_registro">{% trans %}usuario.login.registro.texto{% endtrans %}</p>
+        </div>
 
     </div>
 

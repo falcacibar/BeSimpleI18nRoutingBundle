@@ -3,99 +3,102 @@
 {% block title %}{% trans %}usuario.registro.titulo{% endtrans %} | {{parent()}}{% endblock %}
 
 {% block content %}
-	<div class="columna_izquierda">
-		<h1 class="titulo">{% trans %}usuario.registro.titulo{% endtrans %}</h3>
-		<div class="registro">
-			<form class="registro_form" action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
-				
-				{% if formErrors %}
-					<div class="registro_error">
-						{% for error in formErrors %}
-			   				<p>{{ error | trans}}</p>
-						{% endfor %}
-					</div>
-				{% endif %}
-				
-				<ul>
-					<li>
-						{{ form_label(form.nombre, 'usuario.registro.form.nombre') }}
-						{% set inputClass = (formErrors.nombre is defined) ? 'input-error' : ' '%}
-						{{ form_widget(form.nombre, { 'attr': {'placeholder': 'usuario.registro.form.placeholders.nombre'|trans, 'class': inputClass}}) }}
-						{% if formErrors.nombre is defined %}
-							<small class="errors">{{formErrors.nombre | trans}}</small>
-						{% endif %}
-					</li>
 
-					<li>
-						{% set inputClass = (formErrors.apellido is defined) ? 'input-error' : ' '%}
-						{{ form_label(form.apellido, 'usuario.registro.form.apellido') }}
-						{{ form_widget(form.apellido, { 'attr': {'placeholder': 'usuario.registro.form.placeholders.apellido'|trans, 'class': inputClass}}) }}
-						{% if formErrors.apellido is defined %}
-							<small class="errors">{{formErrors.apellido | trans}}</small>
-						{% endif %}
-					</li>
-
-					<li>
-						{% set inputClass = (formErrors.mail is defined) ? 'input-error' : ' '%}
-						{{ form_label(form.mail, 'usuario.registro.form.mail') }}
-						{{ form_widget(form.mail, { 'attr': {'placeholder':  'usuario.registro.form.placeholders.mail'|trans, 'class': inputClass}}) }}
-						{% if formErrors.mail is defined %}
-							<small class="errors">{{formErrors.mail | trans}}</small>
-						{% endif %}
-					</li>
-
-					<li>
-						{% set inputClass = (formErrors.password is defined) ? 'input-error' : ' '%}
-						{{ form_label(form.password, 'usuario.registro.form.password') }}
-						{{ form_widget(form.password, { 'attr': {'class': inputClass}}) }}
-						{% if formErrors.password is defined %}
-							<small class="errors">{{formErrors.password | trans}}</small>
-						{% endif %}
-					</li>
-
-					<li>
-						<label for="confirmarPassword" >{% trans %}usuario.registro.form.confirmar_password{% endtrans %}</label>
-						<input type="password" id="confirmarPassword" name="confirmarPassword" class="{{formErrors.confirmar is defined ? 'input-error' : ' '}}"/>
-						{% if formErrors.confirmar is defined %}
-							<small class="errors">{{formErrors.confirmar | trans}}</small>
-						{% endif %}
-					</li>
-
-					<li>
-				    	<label></label>
-				    	<span class="tip_registro">{% trans %}usuario.registro.form.tip.password{% endtrans %}</span>
-				    </li>					    
-
-				    {{ form_rest(form) }}
-
-				    <li>
-				    	<label></label>
-				    	{% set terminos = path('login')%}
-				    	<span class="tip_registro">{% trans with {'%open_a%': '<a href='~terminos~'>', '%close_a%' : '</a>'}%}usuario.registro.form.tip.terminos{% endtrans %}</span>
-					</li>
-
-					<li class="submit">
-						<label></label><input class="boton_registrar" type="submit" value="{{'usuario.registro.form.submit'|trans}}" formnovalidate />
-					</li>
-				</ul>
-			</form>
-		</div>
-	</div>
-
-	<div class="columna_derecha_borde">
-		<h2 class="titulo">{% trans %}usuario.registro.facebook.titulo{% endtrans %}</h3>
-		
-		<div class="caja_registro_facebook">
-			<div class="registro_facebook_img"><img src="{{asset('assets/images/extras/caja_registro_facebook.png')}}" height="" width="135" /></div>
-			<div class="registro_facebook_txt">{% trans %}usuario.registro.facebook.texto{% endtrans %}</div>
-			<div class="registro_facebook_btn">
-				{% set tituloFacebook = 'Regístrate con Facebook' %}
-				<div class="facebook-boton">{#{{ facebook_login_button({'autologoutlink': true, 'label' : tituloFacebook }) }}#}</div>
+	{% if formErrors %}
+		<div class="mensaje_error">
+			<div class="imagen_error"></div>
+			<div class="txt_error">
+				{% for error in formErrors %}
+	   				<p>{{ error | trans}}</p>
+				{% endfor %}
 			</div>
 		</div>
-		
-		<h3 class="titulo">{% trans %}usuario.registro.login.titulo{% endtrans %}</h3>
-		{% include 'LoogaresUsuarioBundle:Usuarios:login_form.html.twig' %}
+	{% endif %}
+
+	<div class="mensaje_registro">
+		{% trans %}usuario.registro.mensaje{% endtrans %}
+	</div>
+
+	<div class="cajas_registro">
+
+		<div class="columna_izquierda_registro">
+			<h1 class="titulo">{% trans %}usuario.registro.facebook.titulo{% endtrans %}</h1>
+			<div class="registro_facebook_img"></div>
+			<div class="registro_facebook_btn">{#{{ facebook_login_button({'autologoutlink': true, 'label' : tituloFacebook }) }}#}</div>
+			
+			<h3 class="titulo">{% trans %}usuario.registro.login.titulo{% endtrans %}</h3>
+			{% include 'LoogaresUsuarioBundle:Usuarios:login_form.html.twig' %}
+		</div>
+
+		<div class="columna_derecha_registro">
+			<h2 class="titulo">{% trans %}usuario.registro.titulo{% endtrans %}</h2>
+			<div class="registro">
+				<form class="registro_form" action="{{ path('registroUsuario') }}" method="post" {{ form_enctype(form) }}>
+					
+					<ul>
+						<li>
+							{{ form_label(form.nombre, 'usuario.registro.form.nombre') }}
+							{% set inputClass = (formErrors.nombre is defined) ? 'input-error' : ' '%}
+							{{ form_widget(form.nombre, { 'attr': {'placeholder': 'usuario.registro.form.placeholders.nombre'|trans, 'class': inputClass}}) }}
+							{% if formErrors.nombre is defined %}
+								<small class="errors">{{formErrors.nombre | trans}}</small>
+							{% endif %}
+						</li>
+
+						<li>
+							{% set inputClass = (formErrors.apellido is defined) ? 'input-error' : ' '%}
+							{{ form_label(form.apellido, 'usuario.registro.form.apellido') }}
+							{{ form_widget(form.apellido, { 'attr': {'placeholder': 'usuario.registro.form.placeholders.apellido'|trans, 'class': inputClass}}) }}
+							{% if formErrors.apellido is defined %}
+								<small class="errors">{{formErrors.apellido | trans}}</small>
+							{% endif %}
+						</li>
+
+						<li>
+							{% set inputClass = (formErrors.mail is defined) ? 'input-error' : ' '%}
+							{{ form_label(form.mail, 'usuario.registro.form.mail') }}
+							{{ form_widget(form.mail, { 'attr': {'placeholder':  'usuario.registro.form.placeholders.mail'|trans, 'class': inputClass}}) }}
+							{% if formErrors.mail is defined %}
+								<small class="errors">{{formErrors.mail | trans}}</small>
+							{% endif %}
+						</li>
+
+						<li>
+							{% set inputClass = (formErrors.password is defined) ? 'input-error' : ' '%}
+							{{ form_label(form.password, 'usuario.registro.form.password') }}
+							{{ form_widget(form.password, { 'attr': {'class': inputClass}}) }}
+							{% if formErrors.password is defined %}
+								<small class="errors">{{formErrors.password | trans}}</small>
+							{% endif %}
+						</li>
+
+						<li>
+							<label for="confirmarPassword" >{% trans %}usuario.registro.form.confirmar_password{% endtrans %}</label>
+							<input type="password" id="confirmarPassword" name="confirmarPassword" class="{{formErrors.confirmar is defined ? 'input-error' : ' '}}"/>
+							{% if formErrors.confirmar is defined %}
+								<small class="errors">{{formErrors.confirmar | trans}}</small>
+							{% endif %}
+						</li>
+
+						<li>
+					    	<span class="tip_password">{% trans %}usuario.registro.form.tip.password{% endtrans %}</span>
+					    </li>					    
+
+					    {{ form_rest(form) }}
+
+					    <li>
+					    	{% set terminos = path('login')%}
+					    	<span class="tip_registro">{% trans with {'%open_a%': '<a href='~terminos~'>', '%close_a%' : '</a>'}%}usuario.registro.form.tip.terminos{% endtrans %}</span>
+						</li>
+
+						<li>
+							<input class="boton_registrar" type="submit" value="" formnovalidate />
+						</li>
+					</ul>
+				</form>
+			</div>
+		</div>
+	
 	</div>
 
 {% endblock %}

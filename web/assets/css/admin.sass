@@ -1,20 +1,23 @@
 /* Colores */
 
+$amarillo: #FFF08C
+
 $azul: #0066CC
+$azul_medio: #0099FF
+$azul_claro: #66CCFF
+
 $blanco: #FFF
-$error: #F66
-$gris_333: #333
-$gris_444: #444
-$gris_666: #666
-$gris_686: #686868
-$gris_999: #999
+
+$gris_faf: #FAFAFC
+$gris_f6f: #F2F2F6
 $gris_ccc: #CCC
-$gris_ddd: #DDD
-$gris_e9e: #E9E9E9
-$gris_eee: #EEE
-$gris_f9f: #F9F9F9
-$gris_f6f: #F6F6F6
-$rojo: #FF3300
+$gris_999: #999
+$gris_666: #666
+$gris_444: #444
+
+$rojo_claro: #FF8A8A
+$rojo_medio: #FF5353
+$rojo: #F72121
 
 /* Mixin */
 
@@ -134,8 +137,17 @@ $rojo: #FF3300
             width: 120px
 
         input
+            background: $azul_claro
+            border: 1px solid $azul_medio
+            color: $blanco
             margin: 0 5px
             width: 60px
+
+            &:hover
+                background: $azul_medio
+
+            &:focus
+                background: $azul
         
         a
             @include link_azul
@@ -144,7 +156,7 @@ $rojo: #FF3300
                 @include link_azul_hover
 
 .listado_admin
-    border: 1px solid $gris_ddd
+    border: 1px solid $gris_ccc
     float: left
     width: 960px
 
@@ -171,13 +183,13 @@ $rojo: #FF3300
             width: 960px
 
         .tablescroll_head
-            background: $gris_e9e               
+            background: $gris_f6f            
 
         th
             border-bottom: 1px solid $gris_f6f
 
         th, td
-            border-right: 1px solid $gris_ddd
+            border-right: 1px solid $gris_ccc
             word-break: break-all
 
         td
@@ -195,7 +207,7 @@ $rojo: #FF3300
                 margin: 0 5px
 
         tr:nth-child(even)
-            background: $gris_f9f
+            background: $gris_faf
         
         .lugar_checkbox
             text-align: center
@@ -320,6 +332,25 @@ $rojo: #FF3300
     margin: 30px 0 0
     width: 960px
 
+    a
+        @include link_azul
+
+        &:hover
+            @include link_azul_hover
+
+    input
+        background: $azul_claro
+        border: 1px solid $azul_medio
+        color: $blanco
+        margin: 0 5px
+        width: 85px
+
+        &:hover
+            background: $azul_medio
+
+        &:focus
+            background: $azul
+ 
     select
         margin: 0 5px
 
@@ -332,7 +363,25 @@ $rojo: #FF3300
     font-size: 12px
     margin: 30px 0 30px
     padding: 13px 0 12px
-    width: 225px                  
+    width: 370px
+    
+    input
+        margin: 0px
+        padding: 3px 0
+        width: 60px
+    
+    .ir_a_la_pagina
+        background: $azul_claro
+        border: 1px solid $azul_medio
+        color: $blanco
+        margin: 0 3px
+        width: 40px
+
+        &:hover
+            background: $azul_medio
+
+        &:focus
+            background: $azul                  
 
 .paginacion
     border-bottom: 1px solid $gris_f6f
@@ -343,8 +392,8 @@ $rojo: #FF3300
     font:
         size: 12px
     margin: 30px 0 30px
-    padding: 10px 0
-    width: 735px
+    padding: 15px 0 14px 0
+    width: 590px
 
     p
         float: left
@@ -373,7 +422,7 @@ $rojo: #FF3300
             @include link_blanco
 
 .footer_admin
-    color: $gris_ddd
+    color: $gris_ccc
     float: left
     font:
         size: 11px
