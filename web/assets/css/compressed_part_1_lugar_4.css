@@ -15,9 +15,18 @@
       display: block;
       float: left;
       margin: 0 0 20px 0;
-      width: 520px; }
+      width: 540px; }
       .agregar_editar_datos_lugar .agregar-lugar li.no-default {
         display: none; }
+      .agregar_editar_datos_lugar .agregar-lugar li .errors {
+        color: #ff6666;
+        display: block;
+        font-size: 11px;
+        float: left;
+        line-height: 14px;
+        margin: 5px 0 0 140px;
+        text-align: left;
+        width: 400px; }
       .agregar_editar_datos_lugar .agregar-lugar li span .cargar_mapa {
         background: url("../images/extras/botones_ficha_lugar.png") no-repeat -898px 0;
         display: block;
@@ -32,24 +41,21 @@
           height: 30px;
           width: 127px; }
     .agregar_editar_datos_lugar .agregar-lugar .lugar-existe {
-      border-radius: 2px;
-      -o-border-radius: 2px;
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      border: 1px solid #cccccc;
+      background: #fafafc;
       display: none;
       font-size: 11px;
       float: left;
-      margin: 10px 10px 0 100px;
+      margin: 20px 0px 0 140px;
       padding: 10px;
-      width: 348px; }
+      width: 280px; }
       .agregar_editar_datos_lugar .agregar-lugar .lugar-existe h5 {
-        color: #ff3300;
+        color: #ff8a8a;
         font-size: 13px;
         font-weight: bold;
-        line-height: 18px;
-        margin: 0 0 15px 0; }
+        line-height: 20px;
+        margin: 0 0 20px 0; }
       .agregar_editar_datos_lugar .agregar-lugar .lugar-existe p {
+        color: #999999;
         font-size: 12px;
         text-align: left; }
         .agregar_editar_datos_lugar .agregar-lugar .lugar-existe p a {
@@ -64,7 +70,7 @@
       display: block;
       float: left;
       margin: 2px 10px 3px 0;
-      width: 100px; }
+      width: 130px; }
     .agregar_editar_datos_lugar .agregar-lugar .label_numero {
       margin: 3px 0 3px 5px;
       width: 30px; }
@@ -72,7 +78,7 @@
       float: left;
       line-height: 18px;
       margin: 15px 10px 0 0;
-      width: 100px; }
+      width: 130px; }
     .agregar_editar_datos_lugar .agregar-lugar .alinear_subcategorias {
       float: left;
       margin: 15px 10px 0 0;
@@ -115,7 +121,8 @@
     .agregar_editar_datos_lugar .agregar-lugar .quitar_info {
       display: block;
       float: right;
-      margin: 7px 55px 7px 0px; }
+      font-size: 12px;
+      margin: 9px 55px 7px 0px; }
       .agregar_editar_datos_lugar .agregar-lugar .quitar_info a {
         color: #0066cc;
         text-decoration: none; }
@@ -126,7 +133,7 @@
       display: block;
       font-size: 12px;
       float: left;
-      margin: 0 0 0 110px; }
+      margin: 0 0 0 140px; }
       .agregar_editar_datos_lugar .agregar-lugar .agregar_info a {
         color: #666666;
         text-decoration: none; }
@@ -233,7 +240,7 @@
       cursor: pointer;
       float: left;
       height: 30px;
-      margin: 0 0 0 110px;
+      margin: 0 0 0 140px;
       width: 166px; }
       .agregar_editar_datos_lugar .agregar-lugar .guardar-datos:hover {
         background: url("../images/extras/botones_ficha_lugar.png") no-repeat -1025px -30px;
@@ -241,13 +248,13 @@
         display: block;
         float: left;
         height: 30px;
-        margin: 0 0 0 110px;
+        margin: 0 0 0 140px;
         width: 166px; }
     .agregar_editar_datos_lugar .agregar-lugar .caracteristica_titulo {
       float: left;
       line-height: 18px;
       margin: 15px 10px 0 0;
-      width: 100px; }
+      width: 130px; }
     .agregar_editar_datos_lugar .agregar-lugar .alinear_caracteristicas {
       float: left;
       margin: 15px 10px 0 0;
@@ -276,8 +283,8 @@
       display: block;
       float: left;
       font-size: 12px;
-      margin: 10px 0 20px 110px;
-      width: 400px; }
+      margin: 10px 0 20px 140px;
+      width: 420px; }
 
 /* Agregar mapa */
 .mapa {
@@ -286,16 +293,22 @@
   height: 500px;
   width: 338px; }
   .mapa .mapa_ubicacion {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -1191px 0;
+    color: #999999;
     display: block;
-    font-size: 11px;
-    margin: 0 auto 10px;
+    font-size: 12px;
+    height: 74px;
+    line-height: 22px;
+    margin: 10px 33px;
     text-align: center;
-    padding: 5px;
-    width: 180px; }
-    .mapa .mapa_ubicacion span {
-      color: red;
+    padding: 20px 10px 15px;
+    width: 252px; }
+    .mapa .mapa_ubicacion .titulo_mapa_ubicacion {
+      color: #ff8a8a;
+      font-size: 14px;
       font-weight: bold;
-      display: block; }
+      display: block;
+      margin: 0 0 5px 0; }
   .mapa .gmaps {
     background: #dddddd;
     border: 1px solid #cccccc;

@@ -15,6 +15,7 @@ $gris_eee: #EEE
 $gris_f6f: #F6F6F6
 $gris_faf: #FAFAFC
 $rojo: #FF3300
+$rojo_claro: #FF8A8A
 
 /* Mixin */
 
@@ -91,11 +92,22 @@ $rojo: #FF3300
             display: block
             float: left
             margin: 0 0 20px 0
-            width: 520px
+            width: 540px
 
             &.no-default
                 display: none
 
+            .errors
+                color: $error
+                display: block
+                font:
+                    size: 11px
+                float: left
+                line-height: 14px
+                margin: 5px 0 0 140px
+                text-align: left
+                width: 400px
+            
             span
             
                 a
@@ -116,25 +128,25 @@ $rojo: #FF3300
                         width: 127px      
         
         .lugar-existe
-            @include borde_redondeado
-            border: 1px solid $gris_ccc
+            background: $gris_faf
             display: none
             font:
                 size: 11px
             float: left
-            margin: 10px 10px 0 100px
+            margin: 20px 0px 0 140px
             padding: 10px
-            width: 348px
+            width: 280px
        
             h5
-                color: $rojo
+                color: $rojo_claro
                 font:
                     size: 13px
                     weight: bold
-                line-height: 18px
-                margin: 0 0 15px 0
+                line-height: 20px
+                margin: 0 0 20px 0
             
             p
+                color: $gris_999
                 font:
                     size: 12px
                 text-align: left
@@ -153,7 +165,7 @@ $rojo: #FF3300
             display: block
             float: left
             margin: 2px 10px 3px 0
-            width: 100px
+            width: 130px
 
         .label_numero
             margin: 3px 0 3px 5px
@@ -163,7 +175,7 @@ $rojo: #FF3300
             float: left
             line-height: 18px
             margin: 15px 10px 0 0
-            width: 100px
+            width: 130px
 
         .alinear_subcategorias
             float: left
@@ -217,7 +229,9 @@ $rojo: #FF3300
         .quitar_info
             display: block
             float: right
-            margin: 7px 55px 7px 0px
+            font:
+                size: 12px
+            margin: 9px 55px 7px 0px
 
             a
                 @include link_azul
@@ -230,7 +244,7 @@ $rojo: #FF3300
             font:
                 size: 12px
             float: left
-            margin: 0 0 0 110px
+            margin: 0 0 0 140px
 
             a
                 @include link_gris_666
@@ -368,7 +382,7 @@ $rojo: #FF3300
             cursor: pointer
             float: left
             height: 30px
-            margin: 0 0 0 110px
+            margin: 0 0 0 140px
             width: 166px      
             
             &:hover
@@ -377,14 +391,14 @@ $rojo: #FF3300
                 display: block
                 float: left
                 height: 30px
-                margin: 0 0 0 110px
+                margin: 0 0 0 140px
                 width: 166px      
 
         .caracteristica_titulo
             float: left
             line-height: 18px
             margin: 15px 10px 0 0
-            width: 100px
+            width: 130px
 
         .alinear_caracteristicas
             float: left
@@ -421,8 +435,8 @@ $rojo: #FF3300
             float: left
             font:
                 size: 12px
-            margin: 10px 0 20px 110px
-            width: 400px
+            margin: 10px 0 20px 140px
+            width: 420px
 
 /* Agregar mapa */
 
@@ -433,17 +447,25 @@ $rojo: #FF3300
     width: 338px
 
     .mapa_ubicacion
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1191px 0
+        color: $gris_999
         display: block
-        font-size: 11px
-        margin: 0 auto 10px
+        font:
+            size: 12px
+        height: 74px
+        line-height: 22px
+        margin: 10px 33px
         text-align: center
-        padding: 5px
-        width: 180px
+        padding: 20px 10px 15px
+        width: 252px
 
-        span
-            color: red
-            font-weight: bold
+        .titulo_mapa_ubicacion
+            color: $rojo_claro
+            font:
+                size: 14px
+                weight: bold
             display: block
+            margin: 0 0 5px 0
 
     .gmaps
         background: #ddd

@@ -145,15 +145,10 @@
 {{ form_errors(form) }}
 {{ form_widget(form._token) }}
 
-{% if errors %}
-    <div class="errores">
-        {% for error in errors %}
-            <p>{{ error | trans}}</p>
-        {% endfor %}
-    </div>
-{% endif %}
-
-<div class="errores-container"></div>
+<div class="mensaje_error" style="display: none;">
+    <div class="imagen_error"></div>
+    <div class="txt_error"></div>
+</div>
 
 <div class="agregar_editar_datos_lugar">
 
@@ -839,7 +834,7 @@
         {% if lugar.slug == null %}
         <li>
             <label>Recomendacion</label>
-            <input type="checkbox" name="habilitar-recomienda" class="display-next-li-cb" />
+            <input type="checkbox" name="habilitar-recomienda" class="horario display-next-li-cb" />
             <span class="horario_tip">{{'lugar.recomendacion.opcional.tip'|trans}}</span>
         </li>
         <li class="no-default">
@@ -856,7 +851,7 @@
 
     </div>
     <div class="mapa_ubicacion">
-        <span>{{'lugar.agregar.mapa.titulo'|trans}}</span>
+        <span class="titulo_mapa_ubicacion">{{'lugar.agregar.mapa.titulo'|trans}}</span>
         {{'lugar.agregar.mapa.texto'|trans}}
     </div>
 </div>

@@ -276,9 +276,9 @@ $(document).ready(function(){
         }
 
         if(errores != '' || recomendacion == false){
-            $('.errores-container').html(errores);
+            $('.txt_error').html(errores);
             $('body').animate({'scrollTop': 0}, 400);
-            $('.errores-container').fadeIn();
+            $('.mensaje_error').fadeIn();
         }else{
             $('.placeholder').val('');
             return true;
