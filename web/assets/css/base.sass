@@ -158,7 +158,9 @@ body
         family: Arial
         size: 13px
 
-/* Elementos generales */
+/* Elementos generales del sitio */
+
+/* Mensajes */
 
 .mensaje_exito
     @include borde_redondeado_grande
@@ -207,10 +209,25 @@ body
         margin: 2px 0 0 0
         width: 910px
 
+.errors.categoria
+    margin-right: 100px
+
+.input-error
+    border: 1px solid $error !important
+
+a.chzn-single.chzn-error
+    background:
+        color: lighten($error, 25%)
+    border: 1px solid $error
+
+/* Títulos */
+
 .titulo
     font:
         size: 20px
     margin: 0 0 30px 0
+
+/* Elementos obligatorios */
 
 .obligatorio
     color: $gris_ccc
@@ -958,53 +975,6 @@ body
 
                     &:hover
                         @include link_gris_999_hover
-
-/* Errores */
-
-.errores-container
-    background:
-        color: lighten($error, 25%)
-    border: 1px solid $error
-    float: left
-    display: none
-    line-height: 18px
-    margin: 0 0 20px 0
-    padding: 5px 10px
-    width: 938px
-
-    p
-
-        &:before
-            content: "»"
-            font-weight: bold
-            margin-right: 4px
-
-.errors
-    color: $error
-    display: block
-    font:
-        size: 11px
-    float: left
-    line-height: 14px
-    margin: 5px 0 0 110px
-    text-align: left
-    width: 400px
-
-.errors.categoria
-    margin-right: 100px
-
-.input-error
-    border: 1px solid $error !important
-
-a.chzn-single.chzn-error
-    @include borde_redondeado_4px
-    background:
-        color: lighten($error, 25%)
-    border: 1px solid $error
-
-
-
-
 
 /* AGREGADO POR EL SUR */
 
