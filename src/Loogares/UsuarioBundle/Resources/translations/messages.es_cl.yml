@@ -41,7 +41,7 @@ usuario:
         confirmar:
             titulo_pag: Confirma tu cuenta
             titulo: ¡Estás a sólo segundos de convertirte en Loogareño!
-            texto: Confírmanos tu cuenta en el E-mail que acabamos de mandarte y estarás listo (revisa la casilla de spam, por si acaso).<br />¡Te esperamos!<br />
+            texto: Confírmanos tu cuenta en el E-mail que acabamos de mandarte y estarás listo.<br />¡Te esperamos!
             link: Volver a la %open_a%Página de inicio%close_a%
             mail:
                 titulo: ¡Felicitaciones %nombre% %apellido%!
@@ -167,8 +167,7 @@ usuario:
         mensaje:
             titulo_pag: Cambio de password
             titulo: ¡Cabeza de pollo!
-            subtitulo: Te acabamos de mandar un correo con las instrucciones para cambiar el password de tu cuenta en Loogares.com.
-            texto: Revisa tu casilla de E-mail (revisa la casilla de spam, por si acaso).
+            subtitulo: Te acabamos de enviar un correo para que resetees el password de tu cuenta en Loogares.com.<br />Revisa tu casilla de E-mail
             inicio: Volver a la %open_tag%Página de Inicio%close_tag%
     regenerar:
         titulo_pag: Ingresa tu nuevo password

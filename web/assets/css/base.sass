@@ -251,6 +251,10 @@ a.chzn-single.chzn-error
     @include titulo_medio
     margin: 0 0 30px 0
 
+.titulo_gigante
+    @include titulo_grosero
+    margin: 0 0 30px 0
+
 .titulo_lugar
     @include titulo_grande
     display: block
@@ -652,9 +656,31 @@ textarea
             @include textos_13
 
         .confirmar_registro
-            background: url('../images/extras/confirmar_registro.jpg') 400px 50px no-repeat
-            height: 382px
+            float: left
+            text-align: center
             width: 960px
+
+            p
+                font:
+                    size: 14px
+                    weight: bold
+                margin: 0 0 50px 0
+
+            img
+                margin: 30px 0 60px
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+            .titulo
+                @include titulo_medio
+                color: $gris_666
+                font:
+                    weight: normal
+                line-height: 45px
 
         .sidebar
             display: block
@@ -728,6 +754,58 @@ textarea
                 position: relative
                 text-align: center
                 width: 433px
+            
+            .columna_izquierda_password
+                background: $gris_faf
+                border-bottom: 1px solid $gris_ccc
+                color: $gris_666
+                float: left
+                margin: 0 14px 0 0
+                padding: 30px 20px 60px
+                text-align: center
+                width: 433px
+
+                p
+                    font:
+                        size: 14px
+                    line-height: 22px
+                    margin: 0 0 20px 0
+
+                ul
+                    
+                    li
+                        
+                        label
+                            display: block
+                            float: left
+                            font:
+                                size: 14px
+                                weight: bold
+                            margin: 2px 15px 2px 0
+                            text-align: right
+                            width: 110px
+                        
+                        input
+                            float: left
+                            height: 22px
+                            margin: 0 0 10px
+                            padding: 3px 5px
+                            width: 270px
+
+                        .errors
+                            float: left
+                            margin: 0px 0px 10px 125px
+
+                        .boton_enviar
+                            background: url('../images/extras/botones_registro_usuario.png') no-repeat -854px -31px
+                            border: 0px
+                            cursor: pointer
+                            height: 30px
+                            margin: 10px 0 0 125px
+                            width: 100px
+
+                            &:hover
+                                background: url('../images/extras/botones_registro_usuario.png') no-repeat -854px -81px
             
             /* Login Usuario */
 

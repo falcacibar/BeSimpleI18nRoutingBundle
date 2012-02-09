@@ -4,10 +4,10 @@
 
 {% block content %}
 <div class="confirmar_registro">
-    <h1 class="titulo">{% trans %}usuario.registro.confirmar.titulo{% endtrans %}</h1>
+    <h1 class="titulo_gigante">{% trans %}usuario.registro.confirmar.titulo{% endtrans %}</h1>
+    <p class="titulo">{% trans %}usuario.registro.confirmar.texto{% endtrans %}</p>
+    <img src="{{ asset('assets/images/extras/confirmar_registro.png') }}" height="120" width="120" />
     <p>
-    	<strong>{% trans %}usuario.registro.confirmar.texto{% endtrans %}</strong>
-    	<br />
     	{% set raiz = path('root')%}
         {% trans with {'%open_a%': "<a href="~raiz~" class='link_azul'>", '%close_a%' : '</a>'}%}usuario.registro.confirmar.link{% endtrans %}
     </p>

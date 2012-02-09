@@ -412,6 +412,11 @@ a.chzn-single.chzn-error {
   line-height: 30px;
   margin: 0 0 30px 0; }
 
+.titulo_gigante {
+  font-size: 29px;
+  line-height: 40px;
+  margin: 0 0 30px 0; }
+
 .titulo_lugar {
   font-size: 24px;
   line-height: 35px;
@@ -756,9 +761,27 @@ textarea {
       font-size: 13px;
       line-height: 22px; }
     .contenedor .contenido .confirmar_registro {
-      background: url("../images/extras/confirmar_registro.jpg") 400px 50px no-repeat;
-      height: 382px;
+      float: left;
+      text-align: center;
       width: 960px; }
+      .contenedor .contenido .confirmar_registro p {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 0 50px 0; }
+      .contenedor .contenido .confirmar_registro img {
+        margin: 30px 0 60px; }
+      .contenedor .contenido .confirmar_registro a {
+        color: #0066cc;
+        text-decoration: none; }
+        .contenedor .contenido .confirmar_registro a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+      .contenedor .contenido .confirmar_registro .titulo {
+        font-size: 20px;
+        line-height: 30px;
+        color: #666666;
+        font-weight: normal;
+        line-height: 45px; }
     .contenedor .contenido .sidebar {
       display: block;
       float: left;
@@ -828,6 +851,45 @@ textarea {
         position: relative;
         text-align: center;
         width: 433px; }
+      .contenedor .contenido .cajas_registro .columna_izquierda_password {
+        background: #fafafc;
+        border-bottom: 1px solid #cccccc;
+        color: #666666;
+        float: left;
+        margin: 0 14px 0 0;
+        padding: 30px 20px 60px;
+        text-align: center;
+        width: 433px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password p {
+          font-size: 14px;
+          line-height: 22px;
+          margin: 0 0 20px 0; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li label {
+          display: block;
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 2px 15px 2px 0;
+          text-align: right;
+          width: 110px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li input {
+          float: left;
+          height: 22px;
+          margin: 0 0 10px;
+          padding: 3px 5px;
+          width: 270px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .errors {
+          float: left;
+          margin: 0px 0px 10px 125px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -31px;
+          border: 0px;
+          cursor: pointer;
+          height: 30px;
+          margin: 10px 0 0 125px;
+          width: 100px; }
+          .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar:hover {
+            background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -81px; }
       .contenedor .contenido .cajas_registro .login {
         float: left;
         width: 433px; }
