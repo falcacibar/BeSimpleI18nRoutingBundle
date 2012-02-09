@@ -341,11 +341,11 @@ class LugarController extends Controller{
                 $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
 
                 $comuna = $lr->getComunas($_POST['comuna']);
-                if($_POST['sector']) {
-                    $sector = $lr->getSectores($_POST['sector']);
-                    if($sector)
-                        $lugarManipulado->setSector($sector);
-                } 
+
+                $sector = $lr->getSectores($_POST['sector']);
+                if(isset($sector[0])){
+                    $lugarManipulado->setSector($sector[0]);
+                }
 
                 $estado = $lr->getEstado(1);
                 $tipo_lugar = $lr->getTipoLugar('lugar');
@@ -464,7 +464,7 @@ class LugarController extends Controller{
 
                 $em->flush();
 
-                if(isset($_POST['texto']) && $_POST['texto'] != ''){
+                if(isset($_POST['texto']) && $_POST['texto'] != '' && !preg_match('/^¡Este es tu espacio!/', $_POST['texto'])){
                     //CURL MAGIC
                     if(isset($_POST['recomienda-precio'])){
                         $precio = $_POST['recomienda-precio'];

@@ -358,9 +358,6 @@ $(document).ready(function(){
         selected = {},
         caracteristicasASacar = [];
 
-
-    $('input[type=text], textarea').each(function(){ $(this).placeholder() });
-
     $('.ciudad optgroup').each(function(i){
         optGroupCiudades[i] = $(this).outerHTML();
         $(this).remove();

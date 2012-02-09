@@ -438,6 +438,118 @@ $rojo_claro: #FF8A8A
             margin: 10px 0 20px 140px
             width: 420px
 
+        .recomienda_agregar_lugar
+            float: left
+            width: 560px
+
+            /* Reomienda al momento de agregar el lugar */
+
+            ul
+
+                li
+                    float: left
+                    margin: 0 0 20px 0
+                    width: 560px
+                    
+                    label
+                        float: left
+                        font:
+                            size: 14px
+                        margin: 4px 10px 0 0
+                        width: 130px
+
+                    input
+                        font:
+                            size: 12px
+                        margin: 0px
+                        width: 408px
+
+                        &:hover
+                            border: 1px solid $gris_444
+
+                        &:focus
+                            border: 1px solid $azul_claro
+
+                    textarea
+                        float: left
+                        font:
+                            size: 12px
+                        margin: 0px
+                        padding: 10px
+                        width: 398px
+                    
+                        &:hover
+                            border: 1px solid $gris_444
+
+                        &:focus
+                            border: 1px solid $azul_claro
+                    
+                    .errors
+                        margin: 5px 0 0 140px
+                        width: 420px
+
+                    .recomienda_estrellas
+                        float: left
+                        margin: 5px 20px 0 0
+                        width: 110px !important
+
+                        img
+                            margin: 0 2px 0 0
+
+                    #estrellas-recomienda
+                        color: $gris_999
+                        float: left
+                        font:
+                            size: 11px
+                        margin: 9px 0 0 0
+                        width: 290px
+
+                    .recomienda_precio
+                        float: left
+                        margin: 8px 20px 0 0
+                        width: 55px !important
+
+                        img
+                            margin: 0 2px 0 0
+
+                    #precio-recomienda
+                        color: $gris_999
+                        float: left
+                        font:
+                            size: 11px
+                        margin: 9px 0 0 0
+                        width: 345px
+
+                    .detalle_maximo_caracteres_recomendacion
+                        font:
+                            size: 12px
+                            weight: normal
+
+                    .detalle_llevas_caracteres_recomendacion
+                        color: $gris_999
+                        font:
+                            size: 12px
+                            weight: normal
+                        
+                    .tags_recomienda_lugar
+                        display: block
+                        float: left
+                        font:
+                            size: 14px
+                        margin: 8px 0 0
+                        width: 388px
+
+            .enviar_recomendacion
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+                border: 0px
+                cursor: pointer
+                height: 30px
+                margin: 10px 0 0 170px
+                width: 100px
+
+                &:hover
+                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
+
 /* Agregar mapa */
 
 .mapa
@@ -1537,7 +1649,7 @@ $rojo_claro: #FF8A8A
                     border: 1px solid $gris_444
 
                 &:focus
-                    border: 1px solid $azul
+                    border: 1px solid $azul_claro
 
             textarea
                 float: left
@@ -1551,7 +1663,7 @@ $rojo_claro: #FF8A8A
                     border: 1px solid $gris_444
 
                 &:focus
-                    border: 1px solid $azul
+                    border: 1px solid $azul_claro
             
             .errors
                 margin: 5px 0 0 170px

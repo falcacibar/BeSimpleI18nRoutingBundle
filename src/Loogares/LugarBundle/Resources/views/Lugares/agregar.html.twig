@@ -838,7 +838,9 @@
             <span class="horario_tip">{{'lugar.recomendacion.opcional.tip'|trans}}</span>
         </li>
         <li class="no-default">
-            {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
+            <div class="recomienda_agregar_lugar">
+                {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
+            </div>
         </li>
         {% endif %}
         <li><input class="guardar-datos" type="submit" value="" formnovalidate/></li>
