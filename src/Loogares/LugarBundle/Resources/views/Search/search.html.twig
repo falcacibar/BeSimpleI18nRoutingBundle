@@ -73,15 +73,19 @@
 				}
 			});
 
-			$('.expandir_resultados a').live('click', function(e){
+			$('.expandir_resultados a, .expandir_zonas a').live('click', function(e){
 				var $this = $(this),
-					slug = $this.attr('data-slug');
+					data = {};
+
+				data[$this.attr('rel')] = $this.attr('data-slug');
+
 				$('.resultados-wrapper').html('').append("<div id='overlay'/>");
 				
 				$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
 				
-				$('.resultados-wrapper').load(window.location.href + " .resultados", {'categoria': slug}, function(data){
-					$('#overlay, .loader').fadeOut(function(){remove()});
+				$('.resultados-wrapper').load(window.location.href + " .resultados", data, function(data){
+					$('#overlay, .loader').fadeOut(function(){$this.remove()});
+					console.log(data)
 				});
 				return false;
 			});
@@ -158,7 +162,7 @@
 					<div class="resultados_categorias">
 						<ul>
 							{% for categoria in results.totalPorCategoria %}
-								<li><a data-slug="{{categoria.slug}}" class="link_azul" href="">{{categoria.nombre}} ({{ categoria.total }})</a></li>
+								<li><a rel="categoria" data-slug="{{categoria.slug}}" class="link_azul" href="">{{categoria.nombre}} ({{ categoria.total }})</a></li>
 							{% endfor %}
 						</ul>
 					</div>
@@ -168,7 +172,7 @@
 						<strong>Subcategorías</strong>
 						<ul>
 							{% for subcategoria in results.totalPorSubcategoria %}
-								<li><a class="link_azul" href="">{{subcategoria.nombre}} ({{subcategoria.total }} Resultados)</a></li>
+								<li><a rel="subcategoria" data-slug="{{subcategoria.slug}}" class="link_azul" href="">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>								
 							{% endfor %}
 						</ul>
 					</div>
@@ -184,7 +188,7 @@
 					<strong>Sectores</strong>
 					<ul>
 						{% for sector in results.totalPorSectores %}
-							<li><a class="link_azul" href="">{{sector.nombre}} ({{sector.total }})</a></li>
+							<li><a rel="sector" class="link_azul" data-slug="{{sector.slug}}" href="">{{sector.nombre}} ({{sector.total }})</a></li>
 						{% endfor %}
 					</ul>
 				</div>
@@ -194,7 +198,7 @@
 					<strong>Comunas</strong>
 					<ul>
 						{% for comuna in results.totalPorComunas %}
-							<li><a class="link_azul" href="#" data-slug="{{comuna.slug}}">{{comuna.nombre}} ({{comuna.total }})</a></li>
+							<li><a rel="comuna" class="link_azul" href="#" data-slug="{{comuna.slug}}">{{comuna.nombre}} ({{comuna.total }})</a></li>
 						{% endfor %}
 					</ul>
 				</div>
