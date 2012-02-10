@@ -6,21 +6,21 @@ $(function(){
 			return false;
 	});
 
-	$('.siguiente a').live("click", function(e){
+	$('a .siguiente').live("click", function(e){
 		e.preventDefault();
-		cambiarFoto($(this).attr('href'));
+		cambiarFoto($(this).parent().attr('href'));
 		return false;
 		
 	});
 
-	$('.anterior a').live("click", function(e){
+	$('a .anterior').live("click", function(e){
 		e.preventDefault();	
-		cambiarFoto($(this).attr('href'));
+		cambiarFoto($(this).parent().attr('href'));
 		return false;		
 		
 	});
 
-	$('.foto-galeria').live("click", function(e){
+	$('.foto_galeria').live("click", function(e){
 		$('.siguiente a').click();
 		return false;
 	});		
@@ -29,11 +29,11 @@ $(function(){
 		e.preventDefault();
 		// Tecla izquierda
 	    if (e.which == 37) {
-	    	$('.anterior a').click();
+	    	$('a .anterior').click();
 	    }
 	    // Tecla derecha
 	    else if(e.which == 39) {
-	    	$('.siguiente a').click();
+	    	$('a .siguiente').click();
 	    }
 	    return false;
 	});
@@ -43,15 +43,13 @@ $(function(){
 	$('.imagen').live("click", function(e){
 		e.preventDefault();	
 		cambiarFoto($("a", this).attr('href'));
-		return false;		
-		
+		return false;
 	});
 
 	$('.orden li a').live("click", function(e){
 		e.preventDefault();	
 		cambiarPaginaFoto($(this).attr('href'));
 		return false;		
-		
 	});
 });
 
@@ -61,7 +59,7 @@ function cambiarFoto(fotoUrl) {
 	  type: "GET",
 	  url: fotoUrl,
 	}).done(function( data ) {
-	  $('#contenido-galeria').html($(data).fadeIn('fast'));
+	  $('.contenido_galeria').html($(data).fadeIn('fast'));
 	  window.history.pushState("", "", fotoUrl);
 	}).fail(function( data ) {
 	  console.log(data);

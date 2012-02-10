@@ -75,7 +75,7 @@ $rojo: #F72121
     -moz-box-shadow: -3px 3px 1px $gris_f6f
     -webkit-box-shadow: -3px 3px 1px $gris_f6f
 
-/* Agregar / Editar Lugar */
+/* Agregar - Editar Lugar */
 
 .agregar_editar_datos_lugar
     border: 1px solid $gris_f6f
@@ -83,6 +83,12 @@ $rojo: #F72121
     margin: 0 20px 0 0
     padding: 20px
     width: 560px
+
+    a
+        @include link_azul
+
+        &:hover
+            @include link_azul_hover
 
     .agregar-lugar
         font:
@@ -566,7 +572,7 @@ $rojo: #F72121
         height: 350px
         width: 336px
 
-/* Ficha lugares */
+/* Ficha lugar */
 
 .lugar_info
     border: 1px solid $gris_f6f
@@ -1570,6 +1576,8 @@ $rojo: #F72121
                             background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px
                             padding: 0 0 0 13px
 
+/* Paginación de las recomendaciones */
+
 .paginacion_recomendacion
     border-bottom: 1px solid $gris_f6f
     border-top: 1px solid $gris_f6f
@@ -1613,7 +1621,7 @@ $rojo: #F72121
 
 /* Reomienda el lugar */
 
-.recomienda_lugar
+.recomienda_lugar_caja
     float: left
     display: block
     width: 640px
@@ -1813,266 +1821,246 @@ $rojo: #F72121
                     &:hover
                         @include link_gris_666_hover
 
-    /* AGREGADO POR EL SUR */
+/* Agregar foto al lugar */
 
-    .subcategorias
-        width: 400px
-        margin: 5px 0 0 92px
-        display: none
+.agregar_foto_lugar
+    border: 1px solid $gris_f6f
+    float: left
+    font:
+        size: 14px
+    padding: 20px
+    width: 610px
 
-        li
-            display: inline-block
-            margin: 1px
-            
-            label
-                display: inline-block
-                width: 170px
-                font-size: 10px  
-                line-height: 10px
-                float: left
-
-                span:hover
-                    border-bottom: 1px dotted #0066cc
-                
-    .caracteristicas
-        width: 400px
-        margin: -20px 0 0 93px
-
-        ul
-            li
-                display: inline-block
-                margin: 1px
-            
-            label
-                width: 180px 
-                font-size: 10px 
-
-                span:hover
-                    border-bottom: 1px dotted #0066cc
-
-/* Galería de fotos de lugar */
-#agregar_foto_lugar
     a
-        color: $azul
+        @include link_azul
+
         &:hover
             @include link_azul_hover
-    h1
-        border-bottom: 1px solid #ccc
-        margin-bottom: 10px
-        padding-bottom: 10px
-        font-weight: bold
-        font-size: 1.4em
-
-    p
-        margin-bottom: 30px
-
-    .agregar_paso_1
-        p
-            font-weight: bold
-            margin-bottom: 10px
-
-        ul
-            li
-                margin: 10px 0
-                
-                label
-                    width: 82px
-                    font-size: 11px
-
-                &.opcional
-                    display: none
-
-                a
-                    font-size: 11px
-
-
-    .agregar_paso_2
-        p
-            font-weight: bold
-            margin-bottom: 20px
-
-        ul
-            li
-                margin: 10px 0
-                padding-left: 36px
-                padding-bottom: 20px
-
-                img
-                    float: left
-                    border: 1px solid #444
-                    border-radius: 2px
-                    -moz-border-radius: 2px
-                    padding: 1px
-
-                label
-                    display: block
-                    margin-left: 60px
-                    font-size: 11px
-                    line-height: normal
-
-                input
-                    &[type=text]
-                        margin-left: 10px
-                        width: 362px
-
-#editar_foto_lugar
-    a
-        color: $azul
-        &:hover
-            @include link_azul_hover
-    h1
-        border-bottom: 1px solid #ccc
-        margin-bottom: 10px
-        padding-bottom: 10px
-        font-weight: bold
-        font-size: 1.4em
-
-    ul
-        li
-            margin: 10px 0
-            padding-left: 36px
-            padding-bottom: 20px
-
-            img
-                float: left
-                border: 1px solid #444
-                border-radius: 2px
-                -moz-border-radius: 2px
-                padding: 1px
-
-            label
-                display: block
-                margin-left: 64px
-                font-size: 11px
-                line-height: normal
-
-            input
-                &[type=text]
-                    margin-left: 10px
-                    width: 362px
-                &[type=submit]
-                    margin-left: 64px
-
-#galeria
-    a
-        color: $azul
-        &:hover
-            @include link_azul_hover
-    h1
-        border-bottom: 1px solid #ccc
-        padding-bottom: 10px
-        font-weight: bold
-        font-size: 1.4em
-        width: 64.6%
-
-    #contenido-galeria
-        float: left
-        width: 64.6%
-        margin-top: 30px
-
-        .foto-galeria
-            text-align: center
-            margin-bottom: 10px
-            cursor: pointer
-            background-color: #EEE
-            
-            
-        .foto-info
-            font-size: 11px
-            
-            .fecha
-                display: block               
-            ul
-                margin-bottom: 20px
-
-                li
-                    &.autor
-                        float: left
-                    
-                    &.opciones
-                        float: right  
-                        
-                    &.anterior
-                        float: left
-                    &.siguiente
-                        float: right
-
-
-
-
-    #sidebar-galeria
-        float: right
-        width: 31.2%
-
-        .fotos-pagina
-            width: 100%
-            margin-bottom: 20px
-
-            #pagina
-                .fila-pagina
-                    float: left
-                    margin: 0 15px 10px 15px
-
-                    li
-                        display: inline
-                        margin: 0 5px
-
-                        img
-                            padding: 1px
-                            border: 1px solid #444
-                            border-radius: 2px
-                            -moz-border-radius: 2px
-
-                .paginacion
-                    font-size: 11px
-
-                    .orden
-                        li
-                            display: inline
-                            margin: 0 5px
-
-        .banner
-            width: 100%
-            height: 300px
-            border: 1px solid #ccc
-
-#reporte, #enviar_lugar, #reclamar_lugar
-    width: 70%
-    a
-        color: $azul
-        &:hover
-            @include link_azul_hover
-    h1
-        border-bottom: 1px solid #ccc
-        padding-bottom: 10px
-        font-weight: bold
-        font-size: 1.4em
-    p
-        margin: 10px 0
-        line-height: normal
     
-    ul
-        li
-            margin: 10px 0
+    .imagenes_agregadas
+        margin: 0 0 30px 0 !important
+
+    li, .opcional
+        float: left
+        margin: 0 0 10px
+        width: 610px
+
+        &.opcional
+            display: none
+        
+        a
+            @include link_azul
             display: block
+            font:
+                size: 11px
+            margin: 9px 0
+            
+            &:hover
+                @include link_azul_hover
+                    
+        label
+            float: left
+            height: 10px
+            margin: 4px 10px 4px 0
+            width: 150px
 
-            label
-                font-size: 11px
-                width: 180px
+        input
+            float: left
+            margin: 0 10px 0 0
+            padding: 8px
+            width: 350px
+
+        .input_sin_borde
+            border: 0px
+            margin: 0 10px 0 0
+            padding: 8px 0
+
+        .imagen_agregada
+            float: left
+            height: 52px
+            margin: 0 20px 0 0
+            width: 52px
+
+        .imagen_agregar_descripcion_titulo
+            color: $gris_666
+            float: left
+            margin: 0 0 20px
+
+        .input_descripcion_agregada
+            width: 480px
+
+        .enviar_foto
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+            border: 0px
+            cursor: pointer
+            height: 30px
+            margin: 20px 0 0
+            width: 100px
+
+            &:hover
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
+
+        .enviar_descripcion_foto
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+            border: 0px
+            cursor: pointer
+            height: 30px
+            margin: 20px 0 0 72px
+            width: 100px
+
+            &:hover
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
+
+    .li_separacion
+        float: left
+        margin: 50px 0 30px
+
+    .pasos
+        color: $gris_666
+        font:
+            weight: bold
+
+    .tips
+        color: $gris_999
+        margin: 0 0 30px 0
+
+/* Galería de fotos */
+
+.galeria_de_fotos
+    border: 1px solid $gris_f6f
+    float: left
+    font:
+        size: 14px
+    padding: 20px
+    width: 600px
+
+    a
+        @include link_azul
+
+        &:hover
+            @include link_azul_hover
+
+    .foto_galeria
+        float: left
+        position: relative
+        width: 600px
+
+        .botones_anterior_siguiente
+            height: 100%
+            position: absolute
+            
+            .anterior
                 float: left
-                margin-right: 10px
-                height: 10px
-            textarea
-                width: 350px
-            span
-                font-size: 11px
-            small
-                &.errors
-                    margin-left: 335px
+                height: 100%
+                position: absolute
+                width: 300px
 
-    .reporte_error, .enviar_error, .reclamar_error
-        border: 1px solid $rojo_claro
-        line-height: 18px
-        margin: 0 0 20px 0
-        padding: 5px 10px
-        width: 456px
+            .siguiente
+                float: right
+                height: 100%
+                left: 300px
+                position: absolute
+                text-align: right
+                width: 300px
+
+            .boton_anterior
+                cursor: pointer
+
+            .boton_siguiente
+                cursor: pointer
+        
+        .imagen_principal
+            float: left
+            margin: 0 0 20px
+            text-align: center
+            width: 600px
+
+    .foto_info
+        color: $gris_666
+        float: left
+        font:
+            size: 12px
+        width: 600px
+
+        .fecha_foto
+            color: $gris_999
+            float: left
+            margin: 0 0 10px
+            width: 600px
+
+        .descripcion_foto
+            float: left
+            margin: 0 0 20px
+            width: 600px
+
+        .autor_foto
+            float: left
+            margin: 0 0 20px
+            width: 300px
+
+        .opciones_foto
+            float: left
+            margin: 0 0 20px
+            text-align: right
+            width: 300px
+
+.sidebar_galeria
+    float: left
+    margin: 0 0 0 18px
+    width: 300px
+    
+    .thumbs_galeria
+        float: left
+        width: 300px
+
+        .thumb_fotos_galeria
+            float: left
+            height: 50px
+            margin: 0 12px 12px 0
+            width: 50px
+
+        .thumb_fotos_galeria_last
+            float: left
+            height: 50px
+            margin: 0 0 12px 0
+            width: 50px
+
+/* Paginación de la galería de fotos */
+
+.paginacion_galeria
+    color: $gris_666
+    display: block
+    float: left
+    font:
+        size: 12px
+    margin: 0 0 30px 0
+    width: 300px
+
+    p
+        float: left
+        display: block
+        margin: 2px 0 0
+
+    ul
+        float: right
+    
+        li
+            border: 1px solid $gris_ccc
+            float: left
+            height: 5px
+            margin: 0 0 0 2px
+            padding: 2px 5px 8px
+        
+            a
+                color: $gris_666 !important
+        
+        .pagina-actual
+            background: $azul
+            border: 1px solid $azul
+            float: left
+            height: 5px
+            margin: 0 0 0 2px
+            padding: 2px 5px 8px
+
+            a
+                color: $blanco !important

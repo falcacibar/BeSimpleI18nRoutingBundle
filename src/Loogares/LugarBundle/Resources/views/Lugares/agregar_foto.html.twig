@@ -3,91 +3,87 @@
 {% block title %}{{'lugar.fotos.agregar.titulo_pag'|trans}} {{lugar.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
-	<div id="agregar_foto_lugar">
-		<h1>{{'lugar.fotos.agregar.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
 
-		<p>{% trans with {'%lugar%': "<strong>"~lugar.nombre~"</strong>"}%}lugar.fotos.agregar.subtitulo{% endtrans %}</p>
-
-		{% if errors %}
-			<div class="agregar_foto_lugar_error">
+	<!-- Mensajes de error --> 
+	{% if errors %}
+		<div class="mensaje_error">
+			<div class="imagen_error"></div>
+			<div class="txt_error">
 				{% for error in errors %}
 			        <p>{{ error | trans}}</p>
 			    {% endfor %}
-			</div>
-		{% endif %}
-
-		<div class="agregar_paso_1">
-			<p>{{'lugar.fotos.agregar.primer_paso'|trans}}</p>
-
-
-			<form action="{{ path('_agregarFotoLugar', { 'slug' : lugar.slug }) }}" method="post" {{ form_enctype(form) }}>
-				<ul>
-					<li>
-						<label></label>
-						<strong>{{'lugar.fotos.agregar.computador'|trans}}</strong>
-					</li>
-					<li>
-						{{form_label(form.firstImg, 'lugar.fotos.agregar.imagen')}}
-						{{form_widget(form.firstImg)}}
-					</li>
-						
-					<li class="opcional" data-placeholder="secondFile">
-						<label></label>
-						{{form_widget(form.secondImg)}}
-						<a href="" class="quitar">{{'lugar.fotos.agregar.quitar'|trans}}</a>
-					</li>
-
-					<li class="opcional" data-placeholder="thirdFile">
-						<label></label>
-						{{form_widget(form.thirdImg)}}
-						<a href="" class="quitar">{{'lugar.fotos.agregar.quitar'|trans}}</a>
-					</li>
-					<li id="agregar-file">
-						<label></label>
-						<a href="">{{'lugar.fotos.agregar.agregar_foto'|trans}} <span></span>)</a>
-					</li>				
-					
-								
-
-					<li>
-						<label></label>
-						<strong>{{'lugar.fotos.agregar.url'|trans}}</strong>
-					</li>
-
-
-					<li>
-						<label>{{'lugar.fotos.agregar.url_label'|trans}}</label>
-						<input type="text" name="urls[]" />
-					</li>
-
-					<li id="secondURL" class="opcional">
-						<label></label>
-						<input type="text" name="urls[]" />
-						<a href="" class="quitar">{{'lugar.fotos.agregar.quitar'|trans}}</a>
-					</li>
-
-					<li id="thirdURL" class="opcional">
-						<label></label>
-						<input type="text" name="urls[]" />
-						<a href="" class="quitar">{{'lugar.fotos.agregar.quitar'|trans}}</a>
-					</li>
-
-					<li id="agregar-url">
-						<label></label>
-						<a href="">{{'lugar.fotos.agregar.agregar_url'|trans}} <span></span>)</a>
-					</li>
-
-					{{form_rest(form)}}
-
-					<li>
-						<label></label>
-						<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" />
-					</li>
-				</ul>
-			</form>
+		    </div>
 		</div>
+	{% endif %}	
+
+	<div class="agregar_foto_lugar">
+
+		<h1 class="titulo">{{'lugar.fotos.agregar.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
+
+		<p class="tips">{% trans with {'%lugar%': "<strong>"~lugar.nombre~"</strong>"}%}lugar.fotos.agregar.subtitulo{% endtrans %}</p>
+
+		<p class="tips"><span class="pasos">{{'lugar.fotos.agregar.primer_paso'|trans}}</span> <span>{{'lugar.fotos.agregar.primer_paso_tips'|trans}}</span></p>
+
+		<form action="{{ path('_agregarFotoLugar', { 'slug' : lugar.slug }) }}" method="post" {{ form_enctype(form) }}>
+			<ul>
+				<li>
+					<span class="pasos">{{form_label(form.firstImg, 'lugar.fotos.agregar.computador')}}</span>
+					{{form_widget(form.firstImg, {'attr': {'class': 'input_sin_borde'}} )}}
+				</li>
+					
+				<li class="opcional" data-placeholder="secondFile">
+					<label></label>
+					{{form_widget(form.secondImg, {'attr': {'class': 'input_sin_borde'}} )}}
+					<a href="" class="quitar">{{'lugar.fotos.agregar.quitar'|trans}}</a>
+				</li>
+
+				<li class="opcional" data-placeholder="thirdFile">
+					<label></label>
+					{{form_widget(form.thirdImg, {'attr': {'class': 'input_sin_borde'}} )}}
+					<a href="" class="quitar">{{'lugar.fotos.agregar.quitar'|trans}}</a>
+				</li>
+				<li id="agregar-file">
+					<label></label>
+					<a href="">{{'lugar.fotos.agregar.agregar_foto'|trans}} <span></span>)</a>
+				</li>				
+					
+				<li class="li_separacion">
+					<span class="pasos">{{'lugar.fotos.agregar.url'|trans}}</span>
+				</li>
+
+				<li>
+					<span class="pasos"><label>{{'lugar.fotos.agregar.url_label'|trans}}</label></span>
+					<input type="text" name="urls[]" />
+				</li>
+
+				<li id="secondURL" class="opcional">
+					<label></label>
+					<input type="text" name="urls[]" />
+					<a href="" class="quitar">{{'lugar.fotos.agregar.quitar'|trans}}</a>
+				</li>
+
+				<li id="thirdURL" class="opcional">
+					<label></label>
+					<input type="text" name="urls[]" />
+					<a href="" class="quitar">{{'lugar.fotos.agregar.quitar'|trans}}</a>
+				</li>
+
+				<li id="agregar-url">
+					<label></label>
+					<a href="">{{'lugar.fotos.agregar.agregar_url'|trans}} <span></span>)</a>
+				</li>
+
+				{{form_rest(form)}}
+
+				<li>
+					<label></label>
+					<input class="enviar_foto" type="submit" value="" />
+				</li>
+			</ul>
+		</form>
 
 	</div>
+	
 {% endblock %}
 
 {% block javascripts %}

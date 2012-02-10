@@ -152,7 +152,7 @@
 
 <div class="agregar_editar_datos_lugar">
 
-    <h1 class="titulo">{%if lugar.slug %}{{'lugar.editar.titulo'|trans}} <a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>{% else %}{{'lugar.agregar.titulo'|trans}}{% endif %}</h1>
+    <h1 class="titulo">{%if lugar.slug %}{{'lugar.editar.titulo'|trans}} <a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>{% else %}{{'lugar.agregar.titulo'|trans}}{% endif %}</h1>
 
     <ul class="agregar-lugar">
         <li>

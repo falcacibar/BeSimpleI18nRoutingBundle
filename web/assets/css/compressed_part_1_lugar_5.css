@@ -1,12 +1,18 @@
 /* Colores */
 /* Mixin */
-/* Agregar / Editar Lugar */
+/* Agregar - Editar Lugar */
 .agregar_editar_datos_lugar {
   border: 1px solid #f2f2f6;
   float: left;
   margin: 0 20px 0 0;
   padding: 20px;
   width: 560px; }
+  .agregar_editar_datos_lugar a {
+    color: #0066cc;
+    text-decoration: none; }
+    .agregar_editar_datos_lugar a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
   .agregar_editar_datos_lugar .agregar-lugar {
     font-size: 14px;
     float: left;
@@ -381,7 +387,7 @@
     height: 350px;
     width: 336px; }
 
-/* Ficha lugares */
+/* Ficha lugar */
 .lugar_info {
   border: 1px solid #f2f2f6;
   border-bottom: 1px solid #cccccc;
@@ -1233,6 +1239,7 @@
             background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
             padding: 0 0 0 13px; }
 
+/* Paginación de las recomendaciones */
 .paginacion_recomendacion {
   border-bottom: 1px solid #f2f2f6;
   border-top: 1px solid #f2f2f6;
@@ -1268,85 +1275,85 @@
         color: white !important; }
 
 /* Reomienda el lugar */
-.recomienda_lugar {
+.recomienda_lugar_caja {
   float: left;
   display: block;
   width: 640px; }
-  .recomienda_lugar ul li {
+  .recomienda_lugar_caja ul li {
     float: left;
     margin: 0 0 20px 0;
     width: 640px; }
-    .recomienda_lugar ul li a {
+    .recomienda_lugar_caja ul li a {
       color: #0066cc;
       text-decoration: none; }
-      .recomienda_lugar ul li a:hover {
+      .recomienda_lugar_caja ul li a:hover {
         color: #0066cc;
         text-decoration: underline; }
-    .recomienda_lugar ul li label {
+    .recomienda_lugar_caja ul li label {
       float: left;
       font-size: 14px;
       font-weight: bold;
       margin: 4px 20px 0 0;
       width: 150px; }
-    .recomienda_lugar ul li input {
+    .recomienda_lugar_caja ul li input {
       font-size: 14px;
       padding: 8px;
       margin: 0px;
       width: 452px; }
-    .recomienda_lugar ul li textarea {
+    .recomienda_lugar_caja ul li textarea {
       float: left;
       font-size: 14px;
       margin: 0px;
       padding: 10px;
       width: 448px; }
-    .recomienda_lugar ul li .errors {
+    .recomienda_lugar_caja ul li .errors {
       margin: 5px 0 0 170px;
       width: 470px; }
-    .recomienda_lugar ul li .recomienda_estrellas {
+    .recomienda_lugar_caja ul li .recomienda_estrellas {
       float: left;
       margin: 5px 20px 0 0;
       width: 110px !important; }
-      .recomienda_lugar ul li .recomienda_estrellas img {
+      .recomienda_lugar_caja ul li .recomienda_estrellas img {
         margin: 0 2px 0 0; }
-    .recomienda_lugar ul li #estrellas-recomienda {
+    .recomienda_lugar_caja ul li #estrellas-recomienda {
       color: #999999;
       float: left;
       font-size: 11px;
       margin: 9px 0 0 0;
       width: 340px; }
-    .recomienda_lugar ul li .recomienda_precio {
+    .recomienda_lugar_caja ul li .recomienda_precio {
       float: left;
       margin: 8px 20px 0 0;
       width: 55px !important; }
-      .recomienda_lugar ul li .recomienda_precio img {
+      .recomienda_lugar_caja ul li .recomienda_precio img {
         margin: 0 2px 0 0; }
-    .recomienda_lugar ul li #precio-recomienda {
+    .recomienda_lugar_caja ul li #precio-recomienda {
       color: #999999;
       float: left;
       font-size: 11px;
       margin: 9px 0 0 0;
       width: 395px; }
-    .recomienda_lugar ul li .detalle_maximo_caracteres_recomendacion {
+    .recomienda_lugar_caja ul li .detalle_maximo_caracteres_recomendacion {
       font-size: 12px;
       font-weight: normal; }
-    .recomienda_lugar ul li .detalle_llevas_caracteres_recomendacion {
+    .recomienda_lugar_caja ul li .detalle_llevas_caracteres_recomendacion {
       color: #999999;
       font-size: 12px;
       font-weight: normal; }
-    .recomienda_lugar ul li .tags_recomienda_lugar {
+    .recomienda_lugar_caja ul li .tags_recomienda_lugar {
       display: block;
       float: left;
       font-size: 14px;
       margin: 8px 0 0;
       width: 468px; }
-  .recomienda_lugar .enviar_recomendacion {
+  .recomienda_lugar_caja .enviar_recomendacion {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
     border: 0px;
     cursor: pointer;
     height: 30px;
     margin: 10px 0 0 170px;
     width: 100px; }
-    .recomienda_lugar .enviar_recomendacion:hover {
+    .recomienda_lugar_caja .enviar_recomendacion:hover {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
 
 /* Otros lugares */
@@ -1356,8 +1363,7 @@
   display: block;
   float: left;
   margin: 0 0 20px 0;
-  width: 298px;
-  /* AGREGADO POR EL SUR */ }
+  width: 298px; }
   .otros_lugares .otro_lugar {
     border-bottom: 1px solid #f2f2f6;
     display: block;
@@ -1426,207 +1432,201 @@
           .otros_lugares .otro_lugar .otro_lugar_info .categoria a:hover {
             color: #666666;
             text-decoration: underline; }
-  .otros_lugares .subcategorias {
-    width: 400px;
-    margin: 5px 0 0 92px;
-    display: none; }
-    .otros_lugares .subcategorias li {
-      display: inline-block;
-      margin: 1px; }
-      .otros_lugares .subcategorias li label {
-        display: inline-block;
-        width: 170px;
-        font-size: 10px;
-        line-height: 10px;
-        float: left; }
-        .otros_lugares .subcategorias li label span:hover {
-          border-bottom: 1px dotted #0066cc; }
-  .otros_lugares .caracteristicas {
-    width: 400px;
-    margin: -20px 0 0 93px; }
-    .otros_lugares .caracteristicas ul li {
-      display: inline-block;
-      margin: 1px; }
-    .otros_lugares .caracteristicas ul label {
-      width: 180px;
-      font-size: 10px; }
-      .otros_lugares .caracteristicas ul label span:hover {
-        border-bottom: 1px dotted #0066cc; }
 
-/* Galería de fotos de lugar */
-#agregar_foto_lugar a {
-  color: #0066cc; }
-  #agregar_foto_lugar a:hover {
-    color: #0066cc;
-    text-decoration: underline; }
-#agregar_foto_lugar h1 {
-  border-bottom: 1px solid #cccccc;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  font-weight: bold;
-  font-size: 1.4em; }
-#agregar_foto_lugar p {
-  margin-bottom: 30px; }
-#agregar_foto_lugar .agregar_paso_1 p {
-  font-weight: bold;
-  margin-bottom: 10px; }
-#agregar_foto_lugar .agregar_paso_1 ul li {
-  margin: 10px 0; }
-  #agregar_foto_lugar .agregar_paso_1 ul li label {
-    width: 82px;
-    font-size: 11px; }
-  #agregar_foto_lugar .agregar_paso_1 ul li.opcional {
-    display: none; }
-  #agregar_foto_lugar .agregar_paso_1 ul li a {
-    font-size: 11px; }
-#agregar_foto_lugar .agregar_paso_2 p {
-  font-weight: bold;
-  margin-bottom: 20px; }
-#agregar_foto_lugar .agregar_paso_2 ul li {
-  margin: 10px 0;
-  padding-left: 36px;
-  padding-bottom: 20px; }
-  #agregar_foto_lugar .agregar_paso_2 ul li img {
-    float: left;
-    border: 1px solid #444444;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    padding: 1px; }
-  #agregar_foto_lugar .agregar_paso_2 ul li label {
-    display: block;
-    margin-left: 60px;
-    font-size: 11px;
-    line-height: normal; }
-  #agregar_foto_lugar .agregar_paso_2 ul li input[type=text] {
-    margin-left: 10px;
-    width: 362px; }
-
-#editar_foto_lugar a {
-  color: #0066cc; }
-  #editar_foto_lugar a:hover {
-    color: #0066cc;
-    text-decoration: underline; }
-#editar_foto_lugar h1 {
-  border-bottom: 1px solid #cccccc;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  font-weight: bold;
-  font-size: 1.4em; }
-#editar_foto_lugar ul li {
-  margin: 10px 0;
-  padding-left: 36px;
-  padding-bottom: 20px; }
-  #editar_foto_lugar ul li img {
-    float: left;
-    border: 1px solid #444444;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    padding: 1px; }
-  #editar_foto_lugar ul li label {
-    display: block;
-    margin-left: 64px;
-    font-size: 11px;
-    line-height: normal; }
-  #editar_foto_lugar ul li input[type=text] {
-    margin-left: 10px;
-    width: 362px; }
-  #editar_foto_lugar ul li input[type=submit] {
-    margin-left: 64px; }
-
-#galeria a {
-  color: #0066cc; }
-  #galeria a:hover {
-    color: #0066cc;
-    text-decoration: underline; }
-#galeria h1 {
-  border-bottom: 1px solid #cccccc;
-  padding-bottom: 10px;
-  font-weight: bold;
-  font-size: 1.4em;
-  width: 64.6%; }
-#galeria #contenido-galeria {
+/* Agregar foto al lugar */
+.agregar_foto_lugar {
+  border: 1px solid #f2f2f6;
   float: left;
-  width: 64.6%;
-  margin-top: 30px; }
-  #galeria #contenido-galeria .foto-galeria {
-    text-align: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-    background-color: #eeeeee; }
-  #galeria #contenido-galeria .foto-info {
-    font-size: 11px; }
-    #galeria #contenido-galeria .foto-info .fecha {
-      display: block; }
-    #galeria #contenido-galeria .foto-info ul {
-      margin-bottom: 20px; }
-      #galeria #contenido-galeria .foto-info ul li.autor {
-        float: left; }
-      #galeria #contenido-galeria .foto-info ul li.opciones {
-        float: right; }
-      #galeria #contenido-galeria .foto-info ul li.anterior {
-        float: left; }
-      #galeria #contenido-galeria .foto-info ul li.siguiente {
-        float: right; }
-#galeria #sidebar-galeria {
-  float: right;
-  width: 31.2%; }
-  #galeria #sidebar-galeria .fotos-pagina {
-    width: 100%;
-    margin-bottom: 20px; }
-    #galeria #sidebar-galeria .fotos-pagina #pagina .fila-pagina {
-      float: left;
-      margin: 0 15px 10px 15px; }
-      #galeria #sidebar-galeria .fotos-pagina #pagina .fila-pagina li {
-        display: inline;
-        margin: 0 5px; }
-        #galeria #sidebar-galeria .fotos-pagina #pagina .fila-pagina li img {
-          padding: 1px;
-          border: 1px solid #444444;
-          border-radius: 2px;
-          -moz-border-radius: 2px; }
-    #galeria #sidebar-galeria .fotos-pagina #pagina .paginacion {
-      font-size: 11px; }
-      #galeria #sidebar-galeria .fotos-pagina #pagina .paginacion .orden li {
-        display: inline;
-        margin: 0 5px; }
-  #galeria #sidebar-galeria .banner {
-    width: 100%;
-    height: 300px;
-    border: 1px solid #cccccc; }
-
-#reporte, #enviar_lugar, #reclamar_lugar {
-  width: 70%; }
-  #reporte a, #enviar_lugar a, #reclamar_lugar a {
-    color: #0066cc; }
-    #reporte a:hover, #enviar_lugar a:hover, #reclamar_lugar a:hover {
+  font-size: 14px;
+  padding: 20px;
+  width: 610px; }
+  .agregar_foto_lugar a {
+    color: #0066cc;
+    text-decoration: none; }
+    .agregar_foto_lugar a:hover {
       color: #0066cc;
       text-decoration: underline; }
-  #reporte h1, #enviar_lugar h1, #reclamar_lugar h1 {
-    border-bottom: 1px solid #cccccc;
-    padding-bottom: 10px;
-    font-weight: bold;
-    font-size: 1.4em; }
-  #reporte p, #enviar_lugar p, #reclamar_lugar p {
-    margin: 10px 0;
-    line-height: normal; }
-  #reporte ul li, #enviar_lugar ul li, #reclamar_lugar ul li {
-    margin: 10px 0;
-    display: block; }
-    #reporte ul li label, #enviar_lugar ul li label, #reclamar_lugar ul li label {
+  .agregar_foto_lugar .imagenes_agregadas {
+    margin: 0 0 30px 0 !important; }
+  .agregar_foto_lugar li, .agregar_foto_lugar .opcional {
+    float: left;
+    margin: 0 0 10px;
+    width: 610px; }
+    .agregar_foto_lugar li.opcional, .agregar_foto_lugar .opcional.opcional {
+      display: none; }
+    .agregar_foto_lugar li a, .agregar_foto_lugar .opcional a {
+      color: #0066cc;
+      text-decoration: none;
+      display: block;
       font-size: 11px;
-      width: 180px;
+      margin: 9px 0; }
+      .agregar_foto_lugar li a:hover, .agregar_foto_lugar .opcional a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
+    .agregar_foto_lugar li label, .agregar_foto_lugar .opcional label {
       float: left;
-      margin-right: 10px;
-      height: 10px; }
-    #reporte ul li textarea, #enviar_lugar ul li textarea, #reclamar_lugar ul li textarea {
+      height: 10px;
+      margin: 4px 10px 4px 0;
+      width: 150px; }
+    .agregar_foto_lugar li input, .agregar_foto_lugar .opcional input {
+      float: left;
+      margin: 0 10px 0 0;
+      padding: 8px;
       width: 350px; }
-    #reporte ul li span, #enviar_lugar ul li span, #reclamar_lugar ul li span {
-      font-size: 11px; }
-    #reporte ul li small.errors, #enviar_lugar ul li small.errors, #reclamar_lugar ul li small.errors {
-      margin-left: 335px; }
-  #reporte .reporte_error, #reporte .enviar_error, #reporte .reclamar_error, #enviar_lugar .reporte_error, #enviar_lugar .enviar_error, #enviar_lugar .reclamar_error, #reclamar_lugar .reporte_error, #reclamar_lugar .enviar_error, #reclamar_lugar .reclamar_error {
-    border: 1px solid #ff8a8a;
-    line-height: 18px;
-    margin: 0 0 20px 0;
-    padding: 5px 10px;
-    width: 456px; }
+    .agregar_foto_lugar li .input_sin_borde, .agregar_foto_lugar .opcional .input_sin_borde {
+      border: 0px;
+      margin: 0 10px 0 0;
+      padding: 8px 0; }
+    .agregar_foto_lugar li .imagen_agregada, .agregar_foto_lugar .opcional .imagen_agregada {
+      float: left;
+      height: 52px;
+      margin: 0 20px 0 0;
+      width: 52px; }
+    .agregar_foto_lugar li .imagen_agregar_descripcion_titulo, .agregar_foto_lugar .opcional .imagen_agregar_descripcion_titulo {
+      color: #666666;
+      float: left;
+      margin: 0 0 20px; }
+    .agregar_foto_lugar li .input_descripcion_agregada, .agregar_foto_lugar .opcional .input_descripcion_agregada {
+      width: 480px; }
+    .agregar_foto_lugar li .enviar_foto, .agregar_foto_lugar .opcional .enviar_foto {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+      border: 0px;
+      cursor: pointer;
+      height: 30px;
+      margin: 20px 0 0;
+      width: 100px; }
+      .agregar_foto_lugar li .enviar_foto:hover, .agregar_foto_lugar .opcional .enviar_foto:hover {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
+    .agregar_foto_lugar li .enviar_descripcion_foto, .agregar_foto_lugar .opcional .enviar_descripcion_foto {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+      border: 0px;
+      cursor: pointer;
+      height: 30px;
+      margin: 20px 0 0 72px;
+      width: 100px; }
+      .agregar_foto_lugar li .enviar_descripcion_foto:hover, .agregar_foto_lugar .opcional .enviar_descripcion_foto:hover {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
+  .agregar_foto_lugar .li_separacion {
+    float: left;
+    margin: 50px 0 30px; }
+  .agregar_foto_lugar .pasos {
+    color: #666666;
+    font-weight: bold; }
+  .agregar_foto_lugar .tips {
+    color: #999999;
+    margin: 0 0 30px 0; }
+
+/* Galería de fotos */
+.galeria_de_fotos {
+  border: 1px solid #f2f2f6;
+  float: left;
+  font-size: 14px;
+  padding: 20px;
+  width: 600px; }
+  .galeria_de_fotos a {
+    color: #0066cc;
+    text-decoration: none; }
+    .galeria_de_fotos a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
+  .galeria_de_fotos .foto_galeria {
+    float: left;
+    position: relative;
+    width: 600px; }
+    .galeria_de_fotos .foto_galeria .botones_anterior_siguiente {
+      height: 100%;
+      position: absolute; }
+      .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior {
+        float: left;
+        height: 100%;
+        position: absolute;
+        width: 300px; }
+      .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente {
+        float: right;
+        height: 100%;
+        left: 300px;
+        position: absolute;
+        text-align: right;
+        width: 300px; }
+      .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_anterior {
+        cursor: pointer; }
+      .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_siguiente {
+        cursor: pointer; }
+    .galeria_de_fotos .foto_galeria .imagen_principal {
+      float: left;
+      margin: 0 0 20px;
+      text-align: center;
+      width: 600px; }
+  .galeria_de_fotos .foto_info {
+    color: #666666;
+    float: left;
+    font-size: 12px;
+    width: 600px; }
+    .galeria_de_fotos .foto_info .fecha_foto {
+      color: #999999;
+      float: left;
+      margin: 0 0 10px;
+      width: 600px; }
+    .galeria_de_fotos .foto_info .descripcion_foto {
+      float: left;
+      margin: 0 0 20px;
+      width: 600px; }
+    .galeria_de_fotos .foto_info .autor_foto {
+      float: left;
+      margin: 0 0 20px;
+      width: 300px; }
+    .galeria_de_fotos .foto_info .opciones_foto {
+      float: left;
+      margin: 0 0 20px;
+      text-align: right;
+      width: 300px; }
+
+.sidebar_galeria {
+  float: left;
+  margin: 0 0 0 18px;
+  width: 300px; }
+  .sidebar_galeria .thumbs_galeria {
+    float: left;
+    width: 300px; }
+    .sidebar_galeria .thumbs_galeria .thumb_fotos_galeria {
+      float: left;
+      height: 50px;
+      margin: 0 12px 12px 0;
+      width: 50px; }
+    .sidebar_galeria .thumbs_galeria .thumb_fotos_galeria_last {
+      float: left;
+      height: 50px;
+      margin: 0 0 12px 0;
+      width: 50px; }
+
+/* Paginación de la galería de fotos */
+.paginacion_galeria {
+  color: #666666;
+  display: block;
+  float: left;
+  font-size: 12px;
+  margin: 0 0 30px 0;
+  width: 300px; }
+  .paginacion_galeria p {
+    float: left;
+    display: block;
+    margin: 2px 0 0; }
+  .paginacion_galeria ul {
+    float: right; }
+    .paginacion_galeria ul li {
+      border: 1px solid #cccccc;
+      float: left;
+      height: 5px;
+      margin: 0 0 0 2px;
+      padding: 2px 5px 8px; }
+      .paginacion_galeria ul li a {
+        color: #666666 !important; }
+    .paginacion_galeria ul .pagina-actual {
+      background: #0066cc;
+      border: 1px solid #0066cc;
+      float: left;
+      height: 5px;
+      margin: 0 0 0 2px;
+      padding: 2px 5px 8px; }
+      .paginacion_galeria ul .pagina-actual a {
+        color: white !important; }
