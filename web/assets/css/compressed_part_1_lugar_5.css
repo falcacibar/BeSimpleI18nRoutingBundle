@@ -410,6 +410,12 @@
     float: left;
     line-height: 16px;
     width: 146px; }
+    .lugar_info .multimedia_lugar a {
+      color: #666666;
+      text-decoration: none; }
+      .lugar_info .multimedia_lugar a:hover {
+        color: #666666;
+        text-decoration: none; }
     .lugar_info .multimedia_lugar .foto_lugar {
       -box-shadow: -3px 3px 1px #f2f2f6;
       -o-box-shadow: -3px 3px 1px #f2f2f6;
@@ -464,6 +470,12 @@
       font-size: 14px;
       margin: 0 0 20px 0;
       width: 442px; }
+      .lugar_info .datos_principales_lugar .url_lugar a {
+        color: #0066cc;
+        text-decoration: none; }
+        .lugar_info .datos_principales_lugar .url_lugar a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
     .lugar_info .datos_principales_lugar .redes_sociales_lugar {
       display: block;
       float: left;
@@ -525,7 +537,7 @@
     color: #666666;
     float: left;
     line-height: 14px;
-    margin: 40px 0 0 0;
+    margin: 30px 0 0 0;
     width: 598px; }
     .lugar_info .datos_secundarios_lugar .subtitulos_lugar {
       display: block;
@@ -536,6 +548,7 @@
     .lugar_info .datos_secundarios_lugar .tags_primero_lugar {
       display: block;
       float: left;
+      height: 10px;
       width: 146px; }
       .lugar_info .datos_secundarios_lugar .tags_primero_lugar .primero_en_recomendar_lugar {
         display: block;
@@ -614,6 +627,11 @@
         margin: 0 0 10px 0;
         width: 216px; }
       .lugar_info .datos_secundarios_lugar .sector_lugar .subcategoria_lugar_box {
+        display: block;
+        float: left;
+        margin: 0 0 10px 0;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .sector_lugar .profesional_ano_material_box {
         display: block;
         float: left;
         width: 216px; }
@@ -1009,6 +1027,12 @@
     display: inline-block;
     float: left;
     margin: 0 5px 0 0; }
+    .ordenar_por_recomendaciones li a {
+      color: #0066cc;
+      text-decoration: none; }
+      .ordenar_por_recomendaciones li a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
 
 .resultados_por_pagina {
   float: left;
@@ -1044,6 +1068,12 @@
       font-size: 14px;
       margin: 0 0 10px 0;
       width: 470px; }
+      .recomendacion .texto_recomendacion .nombre_recomendacion a {
+        color: #444444;
+        text-decoration: none; }
+        .recomendacion .texto_recomendacion .nombre_recomendacion a:hover {
+          color: #444444;
+          text-decoration: underline; }
     .recomendacion .texto_recomendacion .util_recomendacion {
       display: block;
       float: left;
@@ -1246,6 +1276,12 @@
     float: left;
     margin: 0 0 20px 0;
     width: 640px; }
+    .recomienda_lugar ul li a {
+      color: #0066cc;
+      text-decoration: none; }
+      .recomienda_lugar ul li a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
     .recomienda_lugar ul li label {
       float: left;
       font-size: 14px;
@@ -1254,6 +1290,7 @@
       width: 150px; }
     .recomienda_lugar ul li input {
       font-size: 14px;
+      padding: 8px;
       margin: 0px;
       width: 452px; }
     .recomienda_lugar ul li textarea {

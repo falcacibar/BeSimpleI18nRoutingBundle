@@ -18,34 +18,34 @@
   .filtro_admin .periodo {
     display: block;
     float: left;
-    width: 320px; }
+    width: 312px; }
     .filtro_admin .periodo input.periodo_fecha {
       font-size: 10px;
-      margin: 0 5px;
+      margin: 0 3px;
       padding: 5px 8px;
       width: 80px; }
   .filtro_admin .buscar {
     display: block;
     float: left;
-    margin: 0 0 0 15px;
-    width: 212px; }
+    margin: 0 0 0 10px;
+    width: 208px; }
     .filtro_admin .buscar input.buscar_lugar {
       font-size: 10px;
-      margin: 0 5px;
+      margin: 0 3px;
       padding: 5px 8px;
       width: 145px; }
   .filtro_admin .seleccionar_estado {
     float: left;
-    margin: 0 0 0 14px;
-    width: 395px; }
+    margin: 0 0 0 10px;
+    width: 415px; }
     .filtro_admin .seleccionar_estado select {
-      margin: 3px 0px 3px 5px;
-      width: 120px; }
+      margin: 3px 0px 3px 3px;
+      width: 100px; }
     .filtro_admin .seleccionar_estado input {
       background: #66ccff;
       border: 1px solid #0099ff;
       color: white;
-      margin: 0 5px;
+      margin: 0 3px;
       width: 60px; }
       .filtro_admin .seleccionar_estado input:hover {
         background: #0099ff; }
@@ -75,6 +75,10 @@
       font-size: 12px;
       text-align: left;
       width: 4000px; }
+    .listado_admin .table-data .listado_usuarios {
+      font-size: 12px;
+      text-align: left;
+      width: 3200px; }
     .listado_admin .table-data .listado_fotos {
       font-size: 12px;
       text-align: left;
@@ -163,7 +167,17 @@
     .listado_admin .table-data .foto_link {
       width: 200px !important; }
     .listado_admin .table-data .foto_fecha {
+      text-align: center;
       width: 60px !important; }
+    .listado_admin .table-data .usuario_fecha {
+      text-align: center;
+      width: 120px !important; }
+    .listado_admin .table-data .usuario_sexo {
+      text-align: center;
+      width: 80px !important; }
+    .listado_admin .table-data .usuario_agregados {
+      text-align: center;
+      width: 200px !important; }
     .listado_admin .table-data .titulos_tabla {
       float: left; }
     .listado_admin .table-data .list-actions {
@@ -1613,6 +1627,12 @@ small {
     float: left;
     line-height: 16px;
     width: 146px; }
+    .lugar_info .multimedia_lugar a {
+      color: #666666;
+      text-decoration: none; }
+      .lugar_info .multimedia_lugar a:hover {
+        color: #666666;
+        text-decoration: none; }
     .lugar_info .multimedia_lugar .foto_lugar {
       -box-shadow: -3px 3px 1px #f2f2f6;
       -o-box-shadow: -3px 3px 1px #f2f2f6;
@@ -1667,6 +1687,12 @@ small {
       font-size: 14px;
       margin: 0 0 20px 0;
       width: 442px; }
+      .lugar_info .datos_principales_lugar .url_lugar a {
+        color: #0066cc;
+        text-decoration: none; }
+        .lugar_info .datos_principales_lugar .url_lugar a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
     .lugar_info .datos_principales_lugar .redes_sociales_lugar {
       display: block;
       float: left;
@@ -1728,7 +1754,7 @@ small {
     color: #666666;
     float: left;
     line-height: 14px;
-    margin: 40px 0 0 0;
+    margin: 30px 0 0 0;
     width: 598px; }
     .lugar_info .datos_secundarios_lugar .subtitulos_lugar {
       display: block;
@@ -1739,6 +1765,7 @@ small {
     .lugar_info .datos_secundarios_lugar .tags_primero_lugar {
       display: block;
       float: left;
+      height: 10px;
       width: 146px; }
       .lugar_info .datos_secundarios_lugar .tags_primero_lugar .primero_en_recomendar_lugar {
         display: block;
@@ -1817,6 +1844,11 @@ small {
         margin: 0 0 10px 0;
         width: 216px; }
       .lugar_info .datos_secundarios_lugar .sector_lugar .subcategoria_lugar_box {
+        display: block;
+        float: left;
+        margin: 0 0 10px 0;
+        width: 216px; }
+      .lugar_info .datos_secundarios_lugar .sector_lugar .profesional_ano_material_box {
         display: block;
         float: left;
         width: 216px; }
@@ -2212,6 +2244,12 @@ small {
     display: inline-block;
     float: left;
     margin: 0 5px 0 0; }
+    .ordenar_por_recomendaciones li a {
+      color: #0066cc;
+      text-decoration: none; }
+      .ordenar_por_recomendaciones li a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
 
 .resultados_por_pagina {
   float: left;
@@ -2247,6 +2285,12 @@ small {
       font-size: 14px;
       margin: 0 0 10px 0;
       width: 470px; }
+      .recomendacion .texto_recomendacion .nombre_recomendacion a {
+        color: #444444;
+        text-decoration: none; }
+        .recomendacion .texto_recomendacion .nombre_recomendacion a:hover {
+          color: #444444;
+          text-decoration: underline; }
     .recomendacion .texto_recomendacion .util_recomendacion {
       display: block;
       float: left;
@@ -2449,6 +2493,12 @@ small {
     float: left;
     margin: 0 0 20px 0;
     width: 640px; }
+    .recomienda_lugar ul li a {
+      color: #0066cc;
+      text-decoration: none; }
+      .recomienda_lugar ul li a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
     .recomienda_lugar ul li label {
       float: left;
       font-size: 14px;
@@ -2457,6 +2507,7 @@ small {
       width: 150px; }
     .recomienda_lugar ul li input {
       font-size: 14px;
+      padding: 8px;
       margin: 0px;
       width: 452px; }
     .recomienda_lugar ul li textarea {

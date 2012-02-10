@@ -63,10 +63,10 @@
                 <div class="foto_lugar" id="lugar-foto">
                     <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}"><img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 </div>
-                <a class="link_gris_686" href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.galeria'|transchoice(lugar.totalFotos,{'%total%': lugar.totalFotos}) }}</a><br />
-                <a class="link_gris_686" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.agregar_foto'|trans}}</a>
+                <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.galeria'|transchoice(lugar.totalFotos,{'%total%': lugar.totalFotos}) }}</a><br />
+                <a href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.agregar_foto'|trans}}</a>
                 <div class="video_lugar">
-                    <a class="link_gris_686 ver_video_lugar" href="#">{{'lugar.ficha.multimedia.video'|trans}}</a>
+                    <a class="ver_video_lugar" href="#">{{'lugar.ficha.multimedia.video'|trans}}</a>
                 </div>
             </div>
 
@@ -81,9 +81,10 @@
                 {% endif %}
                 {% if lugar.sitioWeb %}
                     <div class="url_lugar" id="lugar-url">
-                        <a class="link_azul" href="http://{{ lugar.sitioWeb }}" target="_blank">{{ lugar.sitioWeb }}</a>
+                        <a href="http://{{ lugar.sitioWeb }}" target="_blank">{{ lugar.sitioWeb }}</a>
                     </div>
                 {% endif %}
+                {% if lugar.facebook != '' or lugar.twitter != '' %}
                 <div class="redes_sociales_lugar">
                     {% if lugar.facebook %}
                         <a class="facebook_lugar" href="http://{{ lugar.facebook }}" target="_blank"></a>
@@ -92,6 +93,7 @@
                         <a class="twitter_lugar" href="http://{{ lugar.twitter }}" target="_blank"></a>
                     {% endif %}
                 </div>
+                {% endif %}
                 
                 {% if lugar.mostrarPrecio != null %}
                     <div class="precio_lugar" id="precio">
@@ -134,12 +136,15 @@
                         {% endif %}
                     </div>
 
+                    {% if lugar.tagsPopulares[0] is defined %}
                     <div class="tags_populares_lugar">
                         <p>{{'lugar.ficha.tags'|trans}}</p>
                         {% for tagsPopulares in lugar.tagsPopulares %}
                             <a href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
                         {% endfor %}
                     </div>
+                    {% endif %}
+                    
                 </div>
 
                 <div class="categoria_lugar">
@@ -181,15 +186,17 @@
                                 <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% endfor %}
                         </div>
                     {% endif %}
-                    {% if lugar.profesional != null %}
-                        <span class="subtitulos_lugar">{{'lugar.ficha.datos.profesional'|trans}}: {{lugar.profesional}}</span>
-                    {% endif %}
-                    {% if lugar.agnoConstruccion != null %}
-                        <span class="subtitulos_lugar">{{'lugar.ficha.datos.agnoConstruccion'|trans}}: {{lugar.agnoConstruccion}}</span>
-                    {% endif %}
-                    {% if lugar.materiales != null %}
-                        <span class="subtitulos_lugar">{{'lugar.ficha.datos.materiales'|trans}}: {{lugar.materiales}}</span>
-                    {% endif %}
+                    <div class="profesional_ano_material_box">
+                        {% if lugar.profesional != null %}
+                            <span class="subtitulos_lugar">{{'lugar.ficha.datos.profesional'|trans}}: {{lugar.profesional}}</span>
+                        {% endif %}
+                        {% if lugar.agnoConstruccion != null %}
+                            <span class="subtitulos_lugar">{{'lugar.ficha.datos.agnoConstruccion'|trans}}: {{lugar.agnoConstruccion}}</span>
+                        {% endif %}
+                        {% if lugar.materiales != null %}
+                            <span class="subtitulos_lugar">{{'lugar.ficha.datos.materiales'|trans}}: {{lugar.materiales}}</span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
 
@@ -214,18 +221,22 @@
                 {% if lugar.accionesUsuario.4.puede == 1 %}
                     <a class="recomendar_despues_lugar boton_accion {{(lugar.accionesUsuario.4.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></a>
                 {% else %}
-                    <p class="recomendar_despues_lugar boton_desactivado"></p>
+                    <p class="recomendar_despues_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></p>
                 {% endif %}
             </div>
             <div class="flota_derecha">
-                <a class="favoritos_lugar boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
+                {% if lugar.accionesUsuario.3.puede == 1 %}
+                    <a class="favoritos_lugar boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
+                {% else %}
+                    <p class="favoritos_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
+                {% endif %}
                 <p class="favoritos_valor conteo">{{lugar.totalAcciones.3.total}}</p>
             </div>           
             <div class="flota_derecha">
                 {% if lugar.accionesUsuario.2.puede == 1 %}
                     <a class="estuve_alla_lugar boton_accion {{(lugar.accionesUsuario.2.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></a>
                 {% else %}
-                    <p class="estuve_alla_lugar boton_desactivado"></p>
+                    <p class="estuve_alla_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></p>
                 {% endif %}
                 <p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
             </div> 
@@ -233,15 +244,15 @@
                 {% if lugar.accionesUsuario.1.puede == 1 %}
                     <a class="quiero_volver_lugar boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}">Quiero volver</a>
                 {% else %}
-                    <p class="quiero_volver_lugar boton_desactivado">Quiero volver</p>
-                {% endif %}                
+                    <p class="quiero_volver_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.1.hecho}}">Quiero volver</p>
+                {% endif %}
                 <p class="quiero_volver_valor conteo">{{lugar.totalAcciones.1.total}}</p>
             </div>            
             <div class="flota_derecha">
                 {% if lugar.accionesUsuario.0.puede == 1 %}
                     <a class="quiero_ir_lugar boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></a>
                 {% else %}
-                    <p class="quiero_ir_lugar boton_desactivado"></p>
+                    <p class="quiero_ir_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.0.hecho}}"</p>
                 {% endif %}                
                 <p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>            
@@ -298,7 +309,7 @@
                 {% if query.orden == 'mejor-evaluadas' %}
                     <strong>{{'general.terminos.mejor_evaluadas'|trans}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejor_evaluadas'|trans}}</a>
+                    <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejor_evaluadas'|trans}}</a>
                 {% endif %}
             </li>
             <li>|</li>
@@ -306,7 +317,7 @@
                 {% if query.orden == 'ultimas' %}
                     <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</a>
+                    <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</a>
                 {% endif %}
             </li>
             <li>|</li>
@@ -314,7 +325,7 @@
                 {% if query.orden == 'mas-utiles' %}
                     <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
                 {% else %}
-                    <a class="link_azul" href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+                    <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
                 {% endif %}
             </li>
         </ul>
@@ -339,7 +350,7 @@
                 <div class="texto_recomendacion">
                     <p class="nombre_recomendacion">
                         <strong>
-                            <a class="link_gris_444" href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
+                            <a href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
                                 {% if recomendacion.nombre != '' and recomendacion.apellido != '' %}
                                     {{ recomendacion.nombre }} {{ recomendacion.apellido }}
                                 {% else %}

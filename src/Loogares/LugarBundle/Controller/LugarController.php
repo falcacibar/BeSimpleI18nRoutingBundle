@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Loogares\LugarBundle\Entity\Lugar;
 use Loogares\LugarBundle\Entity\CategoriaLugar;
 use Loogares\LugarBundle\Entity\CaracteristicaLugar;

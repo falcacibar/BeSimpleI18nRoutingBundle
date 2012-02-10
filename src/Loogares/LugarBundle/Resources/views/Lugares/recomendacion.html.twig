@@ -82,45 +82,47 @@
     	}
     }
 </script>
-<h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
+<div class="recomienda_lugar_caja">
+	<h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
 
-<form class="recomienda_lugar" name="recomienda" action="{{ path('_recomienda', {'slug': lugar.slug}) }}" method="post">
-	<ul>
-		<li>
-			<label>{{'lugar.recomendacion.evaluacion'|trans}}</label>
-			<div class="recomendacion-star-raty recomienda_estrellas"></div>
-			<div id="estrellas-recomienda"></div>
-		</li>
-		{% if lugar is defined or recomendacion is defined %} <!-- Cuando aplican las categorías -->
-		<li>
-			<label>{{'lugar.recomendacion.precio'|trans}}</label> 
-			<div class="recomendacion-precio-raty recomienda_precio"></div>
-			<div id="precio-recomienda"></div>
-		</li>
+	<form name="recomienda" action="{{ path('_recomienda', {'slug': lugar.slug}) }}" method="post">
+		<ul>
+			<li>
+				<label>{{'lugar.recomendacion.evaluacion'|trans}}</label>
+				<div class="recomendacion-star-raty recomienda_estrellas"></div>
+				<div id="estrellas-recomienda"></div>
+			</li>
+			{% if lugar is defined or recomendacion is defined %} <!-- Cuando aplican las categorías -->
+			<li>
+				<label>{{'lugar.recomendacion.precio'|trans}}</label> 
+				<div class="recomendacion-precio-raty recomienda_precio"></div>
+				<div id="precio-recomienda"></div>
+			</li>
+			{% endif %}
+			<li>
+				<label>
+					{{'lugar.recomendacion.titulo'|trans}}
+					<span class="detalle_maximo_caracteres_recomendacion">({{'lugar.recomendacion.maximo'|trans}} <span class="max">3000</span> / <span class="detalle_llevas_caracteres_recomendacion">{{'lugar.recomendacion.llevas'|trans}} <span class="llevas">0</span></span>)</span>
+				</label> 
+				<textarea name="texto" class="texto" cols="30" rows="10">{% if recomendacion is defined %}{{recomendacion.texto}}{% endif %}</textarea>
+			</li>
+			<li>
+				<label>{{'lugar.recomendacion.tags'|trans}}</label> 
+				<input placeholder="{{'lugar.recomendacion.placeholders.tags'|trans}}" name="tags" type="text" class="tags" value="{% if recomendacion is defined %}{% for tagRecomendacion in recomendacion.tagRecomendacion %}{{tagRecomendacion.tag.tag}}{% if loop.last != true %}, {% endif %}{% endfor %}{% endif %}"/>
+			</li>
+			{% if lugar is defined and lugar.tagsPopulares is defined and lugar.tagsPopulares|length > 0 %}
+			<li>
+			    <label>{{'lugar.recomendacion.tagsPopulares'|trans}}</label>
+	            <div class="tags_recomienda_lugar">
+	            {% for tagsPopulares in lugar.tagsPopulares %}
+	                <a href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
+	            {% endfor %}
+	            </div>
+			</li>
+			{% endif %}
+		</ul>
+		{% if lugar.slug  %}
+			<input class="enviar_recomendacion" type="submit" value=""/>
 		{% endif %}
-		<li>
-			<label>
-				{{'lugar.recomendacion.titulo'|trans}}
-				<span class="detalle_maximo_caracteres_recomendacion">({{'lugar.recomendacion.maximo'|trans}} <span class="max">3000</span> / <span class="detalle_llevas_caracteres_recomendacion">{{'lugar.recomendacion.llevas'|trans}} <span class="llevas">0</span></span>)</span>
-			</label> 
-			<textarea name="texto" class="texto" cols="30" rows="10">{% if recomendacion is defined %}{{recomendacion.texto}}{% endif %}</textarea>
-		</li>
-		<li>
-			<label>{{'lugar.recomendacion.tags'|trans}}</label> 
-			<input placeholder="{{'lugar.recomendacion.placeholders.tags'|trans}}" name="tags" type="text" class="tags" value="{% if recomendacion is defined %}{% for tagRecomendacion in recomendacion.tagRecomendacion %}{{tagRecomendacion.tag.tag}}{% if loop.last != true %}, {% endif %}{% endfor %}{% endif %}"/>
-		</li>
-		{% if lugar is defined and lugar.tagsPopulares is defined and lugar.tagsPopulares|length > 0 %}
-		<li>
-		    <label>{{'lugar.recomendacion.tagsPopulares'|trans}}</label>
-            <div class="tags_recomienda_lugar">
-            {% for tagsPopulares in lugar.tagsPopulares %}
-                <a class="link_azul" href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
-            {% endfor %}
-            </div>
-		</li>
-		{% endif %}
-	</ul>
-	{% if lugar.slug  %}
-		<input class="enviar_recomendacion" type="submit" value=""/>
-	{% endif %}
-</form>
+	</form>
+</div>

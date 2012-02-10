@@ -604,6 +604,12 @@ $rojo: #F72121
         line-height: 16px
         width: 146px
 
+        a
+            @include link_gris_666
+
+            &:hover
+                @include link_gris_666
+
         .foto_lugar
             @include sombra_fuerte
             border: 1px solid $gris_ccc
@@ -665,6 +671,12 @@ $rojo: #F72121
                 size: 14px
             margin: 0 0 20px 0
             width: 442px
+
+            a
+                @include link_azul
+                    
+                &:hover
+                    @include link_azul_hover
         
         .redes_sociales_lugar
             display: block
@@ -743,7 +755,7 @@ $rojo: #F72121
         color: $gris_666
         float: left
         line-height: 14px
-        margin: 40px 0 0 0
+        margin: 30px 0 0 0
         width: 598px
 
         .subtitulos_lugar
@@ -758,6 +770,7 @@ $rojo: #F72121
         .tags_primero_lugar
             display: block
             float: left
+            height: 10px
             width: 146px
 
             .primero_en_recomendar_lugar
@@ -853,6 +866,12 @@ $rojo: #F72121
                 width: 216px
 
             .subcategoria_lugar_box
+                display: block
+                float: left
+                margin: 0 0 10px 0
+                width: 216px
+
+            .profesional_ano_material_box
                 display: block
                 float: left
                 width: 216px
@@ -1309,6 +1328,12 @@ $rojo: #F72121
         float: left
         margin: 0 5px 0 0
 
+        a
+            @include link_azul
+
+            &:hover
+                @include link_azul_hover
+
 .resultados_por_pagina
     float: left
     margin: 0 0 30px 0
@@ -1352,6 +1377,12 @@ $rojo: #F72121
             margin: 0 0 10px 0
             width: 470px
             
+            a
+                @include link_gris_444
+
+                &:hover
+                    @include link_gris_444_hover
+
         .util_recomendacion
             display: block
             float: left
@@ -1593,6 +1624,12 @@ $rojo: #F72121
             float: left
             margin: 0 0 20px 0
             width: 640px
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
             
             label
                 float: left
@@ -1605,6 +1642,7 @@ $rojo: #F72121
             input
                 font:
                     size: 14px
+                padding: 8px
                 margin: 0px
                 width: 452px
 

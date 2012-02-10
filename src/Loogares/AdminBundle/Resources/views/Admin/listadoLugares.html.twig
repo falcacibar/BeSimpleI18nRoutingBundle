@@ -21,7 +21,7 @@
         <div class="seleccionar_estado">
             Seleccionar 
             <select name="pestado">
-                <option value=''>Todos</option>
+                <option value=''>Estado</option>
                 <option {% if query.pestado is defined and query.pestado == 'Aprobado'%} selected="selected" {% endif %}value="Aprobado">Aprobados</option>
                 <option {% if query.pestado is defined and query.pestado == 'Por Revisar'%} selected="selected" {% endif %}value="Por Revisar">Por Revisar</option>
                 <option {% if query.pestado is defined and query.pestado == 'Cerrado'%} selected="selected" {% endif %}value="Cerrado">Cerrados</option>
