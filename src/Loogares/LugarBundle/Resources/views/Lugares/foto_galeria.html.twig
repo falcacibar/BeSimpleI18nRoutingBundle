@@ -3,24 +3,31 @@
 {% block title %}{{'lugar.fotos.galeria.titulo_pag'|trans}} {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
+
 	{% if app.session.hasFlash('reportar-imagen') %}
             {{ app.session.flash('reportar-imagen') | trans }}
     {% endif %}
-	<div id="galeria">
-		<h1>{{'lugar.fotos.galeria.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>		
-		<div id="contenido-galeria">
+
+	<div class="galeria_de_fotos">
+
+		<h1 class="titulo">{{'lugar.fotos.galeria.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
+				
+		<div class="contenido_galeria">
 			{% include 'LoogaresLugarBundle:Lugares:contenido_galeria.html.twig' %}
 		</div>
 
-		<div id="sidebar-galeria">
-			<div class="fotos-pagina">
-				{% render "LoogaresLugarBundle:Ajax:paginaGaleria" with {'id': imagen.lugar.id} %}
-			</div>
+	</div>
 
-			<div class="banner">
-			</div>
+	<div class="sidebar_galeria">
+	
+		<div class="thumbs_galeria">
+			{% render "LoogaresLugarBundle:Ajax:paginaGaleria" with {'id': imagen.lugar.id} %}
+		</div>
+
+		<div class="banner_300x250">
 		</div>
 	</div>
+
 {% endblock %}
 
 {% block javascripts %}

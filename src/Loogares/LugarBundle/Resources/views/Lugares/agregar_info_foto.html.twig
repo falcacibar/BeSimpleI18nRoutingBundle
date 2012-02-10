@@ -3,30 +3,27 @@
 {% block title %}{{'lugar.fotos.agregar.titulo_pag'|trans}} {{lugar.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
-	<div id="agregar_foto_lugar">
-		<h1>{{'lugar.fotos.agregar.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
 
-		<div class="agregar_paso_2">
-			<p>{{'lugar.fotos.agregar.segundo_paso'|transchoice(imagenes|length,{'%imagenes%':imagenes|length}) }}</p>
+	<div class="agregar_foto_lugar">
 
-			<form action="{{ path('_agregarFotoLugar', { 'slug' : lugar.slug }) }}" method="post" }}>
-				<ul>
-					{% for imagen in imagenes %}
-						<li>
-							<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('small_lugar') }}" />
-							<label>{{'lugar.fotos.agregar.descripcion'|trans}}</label>
-							<input type="text" name="imagenes[{{imagen.id}}]" />
+		<h1 class="titulo">{{'lugar.fotos.agregar.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
 
-						</li>
-					{% endfor %}
-					<li>
-						<label></label>
-						<input type="hidden" name="info" value="true" />
-						<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" />
+		<form action="{{ path('_agregarFotoLugar', { 'slug' : lugar.slug }) }}" method="post" }}>
+			<ul>
+				{% for imagen in imagenes %}
+					<li class="imagenes_agregadas">
+						<img class="imagen_agregada" src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('small_lugar') }}" />
+						<span class="imagen_agregar_descripcion_titulo">{{'lugar.fotos.agregar.descripcion'|trans}}</span>
+						<input class="input_descripcion_agregada" type="text" name="imagenes[{{imagen.id}}]" />
 					</li>
-				</ul>
-			</form>			
-		</div>
-
+				{% endfor %}
+				<li>
+					<input type="hidden" name="info" value="true" />
+					<input class="enviar_descripcion_foto" type="submit" value="" />
+				</li>
+			</ul>
+		</form>
+						
 	</div>
+
 {% endblock %}

@@ -1,20 +1,28 @@
 <div id="pagina">
+
 	{% set cinco = 0 %}
+
 	{% for imagen in imagenes %}					
+
 		{% if loop.index == 1 or (loop.index > 5 and (loop.index - 1) % 5 == 0)  %}
+
 			{% set cinco = 0 %}
-			<ul class="fila-pagina">
+
+			<ul class="fila-thumbs">
+
 		{% endif %}
 
-				<li class="imagen" data-id="{{imagen.id}}" data-slug="{{imagen.lugar.slug}}" >
+				<li class="{{(cinco < 4) ? 'thumb_fotos_galeria' : 'thumb_fotos_galeria_last'}} imagen" data-id="{{imagen.id}}" data-slug="{{imagen.lugar.slug}}" >
 					<a href="{{path('_fotoGaleria', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">
-						<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('tiny_lugar') }}" height="36" width="36" />
+						<img src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('small_lugar') }}" height="50" width="50" />
 					</a>
 				</li>
 
 		{% set cinco = cinco + 1 %}
 		{% if cinco == 5 %}
+
 			</ul>				
+
 		{% endif %}
 		
 	{% endfor %}
@@ -23,12 +31,13 @@
 		</ul>				
 	{% endif %}
 
-	{% if paginacion.totalPaginas > 1 %}
-		<div class="paginacion">
-			<span>{{paginacion.mostrandoDe}} al {{paginacion.mostrandoHasta}} de {{paginacion.total}}| Ir a la página:</span>
+	<div class="paginacion_galeria">
+		{% if paginacion.totalPaginas > 1 %}
+			<p><strong>{{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong></p>
 			<ul class="orden">
 				{{paginacion.paginacion|raw}}
 			</ul>
-		</div>
-	{% endif %}
+		{% endif %}
+	</div>
+
 </div>

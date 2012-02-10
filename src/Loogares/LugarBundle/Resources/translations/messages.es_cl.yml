@@ -137,16 +137,16 @@ lugar:
             titulo_pag: Agregar foto a
             titulo: Agrega foto en
             subtitulo: Puedes agregar una o más fotos a la galería de fotos de %lugar% en sólo 2 pasos:
-            primer_paso: 1. Cargar fotos (sólo JPG, GIF y PNG, máx. 5 MB)
+            primer_paso: Cargar fotos desde tu computador /
+            primer_paso_tips: Máximo 5 MB, sólo JPG, GIF y PNG
             segundo_paso: 2. Ya cargaste %imagenes% foto. Ahora puedes agregarle links o una descripción.|2. Ya cargaste %imagenes% fotos. Ahora puedes agregar links o descripción a cada una.
-            computador: Cargar fotos desde tu computador
-            imagen: Imagen
+            computador: Subir foto
             url: Cargar fotos desde un sitio web
             url_label: Dirección (URL)
             agregar_foto: Agregar otra foto (Máx.
             agregar_url: Agregar otra URL (Máx.            	
             quitar: Quitar
-            descripcion: Descripción o Dirección (URL) del link
+            descripcion: Descripción o dirección URL para linkear a la imagen a su sitio original.
             submit: Enviar
         editar:
             titulo_pag: Editar foto en

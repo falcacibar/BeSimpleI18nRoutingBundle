@@ -1,24 +1,43 @@
-<div class="foto-galeria">
-	<img src="{{ asset('assets/images/lugares/'~imagen.imagenFull)}}" height="{{dimensiones.alto}}" width="{{dimensiones.ancho}}"/>
+<div class="foto_galeria">
+	
+	<div class="botones_anterior_siguiente">
+		<ul>
+			{% if vecinas.prev is not empty %}
+				<a class="boton_anterior" href="{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.prev } )}}">
+					<li class="anterior"></li>
+				</a>
+			{% endif %}
+				<a class="boton_siguiente" href="{{ (vecinas.next is not empty) ? path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next }) : path( '_galeria', { 'slug' : imagen.lugar.slug }) }}">
+					<li class="siguiente"></li>
+				</a>
+		</ul>
+	</div>
+
+	<div class="imagen_principal">
+		<img src="{{ asset('assets/images/lugares/'~imagen.imagenFull)}}" height="{{dimensiones.alto}}" width="{{dimensiones.ancho}}"/>
+	</div>
 </div>
 
-<div class="foto-info">
-	<span class="fecha">
+<div class="foto_info">
+
+	<span class="fecha_foto">
 		{{-imagen.fechaCreacion | date('d/m/Y')-}}
+	</span>
+
+	<span class="descripcion_foto">
 		{% if imagen.tituloEnlace is not empty %}
-			{{-' | '-}}
 			{% if imagen.esEnlace %}
 				<a href="{{imagen.tituloEnlace}}" target="blank">{{imagen.tituloEnlace}}</a>
-
 			{% else %}
 				{{imagen.tituloEnlace}}
 			{% endif %}
 		{% endif %}
 	</span>
-	<ul>
-		<li class="autor">{{'lugar.fotos.galeria.autor'|trans}} <a href="{{ path('showUsuario', {'param' : imagen.usuario.slug })}}">{{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</a></li>
 
-		<li class="opciones">			
+	<ul>
+		<li class="autor_foto">{{'lugar.fotos.galeria.autor'|trans}} <a href="{{ path('showUsuario', {'param' : imagen.usuario.slug })}}">{{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</a></li>
+
+		<li class="opciones_foto">			
 			{% if imagen.loggeadoCorrecto %}
 				{{-'|'-}}
 				<span><a href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id })}}">{{'lugar.fotos.galeria.editar'|trans}}</a></span>
@@ -28,17 +47,6 @@
 				<span><a href="{{path('_reportarFoto', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'lugar.fotos.galeria.reportar'|trans}}</a></span>
 			{% endif %}
 		</li>
+	</ul>
 
-		
-	</ul>
-	<ul>
-		<li class="anterior">
-			{% if vecinas.prev is not empty %}
-				<a href="{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.prev } )}}">{{'lugar.fotos.galeria.anterior'|trans}}</a>
-			{% endif %}
-		</li>
-		<li class="siguiente">
-				<a href="{{ (vecinas.next is not empty) ? path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next }) : path( '_galeria', { 'slug' : imagen.lugar.slug }) }}">{{'lugar.fotos.galeria.siguiente'|trans}}</a>
-		</li>
-	</ul>
 </div>	
