@@ -7,7 +7,7 @@ $(function(){
 		$(this).find('.opciones_lugar_imagen').toggle();
 	});	
 
-	$('.borrar-foto-lugar').click(function(){
+	$('.borrar_lugar_imagen').click(function(){
 		if(!confirm('¿Estás seguro de querer borrar tu foto?'))
 			return false;
 	});

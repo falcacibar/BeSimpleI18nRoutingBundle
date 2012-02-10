@@ -150,7 +150,7 @@
                 <div class="categoria_lugar">
                     {% if lugar.categoriaLugar %}
                         <div class="categoria_lugar_box" id="lugar-categorias">
-                            <span class="subtitulos_lugar">{{'lugar.ficha.datos.categorias'|trans}}</span>
+                            <span class="subtitulos_lugar">{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}</span>
                             {% for categoriaLugar in lugar.categoriaLugar %} 
                                 <a href="">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
                             {% endfor %}
@@ -336,7 +336,7 @@
                 <option value="15">15</option>
                 <option value="20">20</option>
             </select>
-            <p class="resultados_por_pagina_txt">{{'lugar.ficha.recomendaciones.resultados'|trans}}</p>
+            <p class="resultados_por_pagina_txt">{{'general.terminos.resultados_pagina'|trans}}</p>
         </div>
 
 

@@ -204,7 +204,11 @@ $(document).ready(function(){
         e.preventDefault();
         if($('.recomienda_lugar_caja h3').offset() != null)
             $('body').animate({'scrollTop': $('.recomienda_lugar_caja h3').offset().top - 20}, 200);
-    });   
+    }); 
+    $('.cerrar-popup').click(function(e){
+        e.preventDefault();
+        $.fancybox.close()
+    });  
 });
 
 function precioLugar(precio, tipo){
