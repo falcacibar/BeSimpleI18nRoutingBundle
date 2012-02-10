@@ -1,11 +1,4 @@
 <div class="login">
-    {% if errors is defined and errors | length > 0 %}   
-        <div class="login_error">         
-            {% for error in errors %}           
-                {{error | trans}}
-            {% endfor %}
-        </div>
-    {% endif %}
 
     <form action="{{ path('login_check') }}" method="post" class="login_form">
         <div>
@@ -15,23 +8,19 @@
 
         <div>
             <label for="password">{% trans %}usuario.login.form.password{% endtrans %}</label>
-            <input type="password" id="password" name="_password" class="{{(errors is defined and errors|length > 0) ? 'input-error' : ' '}}"/>
+            <input type="password" id="password" name="_password" class="{{(errors is defined and errors|length > 0) ? 'input-error' : ' '}} password_width"/>
+            <input class="boton_entrar" type="submit" name="login" value=""/>
         </div>
 
         <div>
             <label></label>
-            <span class="tip"><a href="{{ path('olvidarPassword') }}">{% trans %}usuario.login.form.olvidar_password{% endtrans %}</a></span>
+            <input class="recordar_checkbox" type="checkbox" id="remember_me" name="_remember_me" />
+            <span class="checkbox_tip">{% trans %}usuario.login.form.recordar_sesion{% endtrans %} |</span><span class="tip"><a href="{{ path('olvidarPassword') }}"> {% trans %}usuario.login.form.olvidar_password{% endtrans %}</a></span>
         </div>
 
         <div>
-            <label></label>
-            <input class="checkbox" type="checkbox" id="remember_me" name="_remember_me" />
-            <span class="checkbox_tip">{% trans %}usuario.login.form.recordar_sesion{% endtrans %}</span>
+           <a class="entrar_con_facebook" href="#"></a>
         </div>
 
-        <div class="submit">
-            <label></label>
-            <input class="boton_entrar" type="submit" name="login" value="{% trans %}usuario.login.form.submit{% endtrans %}"/>
-        </div>
     </form>
 </div>

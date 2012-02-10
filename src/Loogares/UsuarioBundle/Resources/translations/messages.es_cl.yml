@@ -1,20 +1,23 @@
 # Locale 'es' UsuarioBundle
 usuario:
     login:
-        titulo: ¡Entra a Loogares.com!
+        titulo: Entra a Loogares.com y empieza a recomendar
         form:
-            mail: E-mail:
-            password: Password:
+            mail: E-mail
+            password: Password
             olvidar_password: ¿Olvidaste tu password?
             recordar_sesion: Recordar sesión
             submit: Entrar
         registro:
-            titulo: ¿Aún no eres parte de Loogares.com?
-            texto: Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares increíbles de los que la gente está hablando... y esos otros que no lo son tanto.
+            titulo: ¿Aún no eres parte de Loogares.com? ¡Regístrate!
+            texto: Regístrate y escribe recomendaciones de lugares que conoces en tu ciudad para ganar increíbles premios. Desde invitaciones a restaurantes hasta entradas al cine, conciertos, fiestas y más.
+            o: o
+            mail: regístrate con tu E-mail
             boton: ¡Regístrate!
 
     registro:
-        titulo: ¡Regístrate en Loogares.com!
+        mensaje: Escribe recomendaciones de lugares que conoces en tu ciudad y semanalmente gana invitaciones a restaurantes, entradas al cine, a conciertos, fiestas y más.
+        titulo: ¡O regístrate con tu E-mail en Loogares.com!
         form:
             nombre: Nombre
             apellido: Apellido
@@ -31,14 +34,14 @@ usuario:
             submit: Registrar
 
         facebook:
-            titulo: ¡O regístrate rápidamente con tu Facebook!
+            titulo: ¡Regístrate rápidamente con tu Facebook!
             texto: Haz click en el botón de abajo y regístrate en un solo paso con tu cuenta de Facebook.
         login:
             titulo: ¿Ya eres parte de Loogares.com? ¡Entra ahora!
         confirmar:
             titulo_pag: Confirma tu cuenta
             titulo: ¡Estás a sólo segundos de convertirte en Loogareño!
-            texto: Confírmanos tu cuenta en el E-mail que acabamos de mandarte y estarás listo (revisa la casilla de spam, por si acaso).<br />¡Te esperamos!<br />
+            texto: Confírmanos tu cuenta en el E-mail que acabamos de mandarte y estarás listo.<br />¡Te esperamos!
             link: Volver a la %open_a%Página de inicio%close_a%
             mail:
                 titulo: ¡Felicitaciones %nombre% %apellido%!
@@ -164,8 +167,7 @@ usuario:
         mensaje:
             titulo_pag: Cambio de password
             titulo: ¡Cabeza de pollo!
-            subtitulo: Te acabamos de mandar un correo con las instrucciones para cambiar el password de tu cuenta en Loogares.com.
-            texto: Revisa tu casilla de E-mail (revisa la casilla de spam, por si acaso).
+            subtitulo: Te acabamos de enviar un correo para que resetees el password de tu cuenta en Loogares.com.<br />Revisa tu casilla de E-mail
             inicio: Volver a la %open_tag%Página de Inicio%close_tag%
     regenerar:
         titulo_pag: Ingresa tu nuevo password

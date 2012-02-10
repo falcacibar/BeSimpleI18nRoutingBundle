@@ -47,22 +47,23 @@ table
 /* Colores */
 
 $amarillo: #FFF08C
+
 $azul: #0066CC
+$azul_medio: #0099FF
 $azul_claro: #66CCFF
+
 $blanco: #FFF
-$error: #F66
-$caja_error: #FF8A8A
-$gris_333: #333
-$gris_444: #444
-$gris_666: #666
-$gris_686: #686868
-$gris_999: #999
-$gris_ccc: #CCC
-$gris_ddd: #DDD
-$gris_eee: #EEE
-$gris_f6f: #F6F6F6
+
 $gris_faf: #FAFAFC
-$rojo: #FF3300
+$gris_f6f: #F2F2F6
+$gris_ccc: #CCC
+$gris_999: #999
+$gris_666: #666
+$gris_444: #444
+
+$rojo_claro: #FF8A8A
+$rojo_medio: #FF5353
+$rojo: #F72121
 
 /* Mixin */
 
@@ -129,13 +130,13 @@ $rojo: #FF3300
     color: $gris_444
     text-decoration: underline
 
-@mixin link_gris_686
-    color: $gris_686
+@mixin link_gris_666
+    color: $gris_666
     text-decoration: none
 
-@mixin link_gris_686_hover
-    color: $gris_686
-    text-decoration: underline
+@mixin link_gris_666_hover
+    color: $gris_666
+    text-decoration: underline 
 
 @mixin link_gris_999
     color: $gris_999
@@ -145,11 +146,32 @@ $rojo: #FF3300
     color: $gris_999
     text-decoration: underline
 
-@mixin textos
+@mixin titulo_grosero
+    font:
+        size: 29px
+    line-height: 40px
+
+@mixin titulo_grande
+    font:
+        size: 24px
+    line-height: 35px
+
+@mixin titulo_medio
+    font:
+        size: 20px
+    line-height: 30px
+
+@mixin textos_13
     font:
         family: Arial
         size: 13px
-    line-height: 18px
+    line-height: 22px
+
+@mixin box-sizing
+    box-sizing: border-box
+    -o-box-sizing: border-box
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
 
 body
     background: url('../images/extras/fondo.gif') repeat-x $blanco
@@ -186,7 +208,7 @@ body
 
 .mensaje_error
     @include borde_redondeado_grande
-    background: $caja_error
+    background: $rojo_claro
     color: $blanco
     display: block
     float: left
@@ -209,28 +231,87 @@ body
         margin: 2px 0 0 0
         width: 910px
 
+.errors
+    color: $rojo_medio
+    font:
+        size: 12px
+
 .errors.categoria
     margin-right: 100px
 
 .input-error
-    border: 1px solid $error !important
+    border: 1px solid $rojo_claro !important
 
 a.chzn-single.chzn-error
-    background:
-        color: lighten($error, 25%)
-    border: 1px solid $error
+    border: 1px solid $rojo_claro
 
 /* Títulos */
 
 .titulo
-    font:
-        size: 20px
+    @include titulo_medio
     margin: 0 0 30px 0
+
+.titulo_gigante
+    @include titulo_grosero
+    margin: 0 0 30px 0
+
+.titulo_lugar
+    @include titulo_grande
+    display: block
+    float: left
+    margin: 0 0 15px 0
+    width: 598px
+
+.titulo_recomendaciones
+    @include titulo_medio
+    display: block
+    float: left
+    margin: 0 0 20px 0
+    padding: 30px 0 0
+    width: 640px
+
+.titulo_otros_lugares
+    @include titulo_medio
+    display: block
+    float: left
+    margin: 20px 10px 10px
+    width: 298px
+
+.titulo_accion_usuario
+    @include titulo_medio
+
+.titulo_edicion_usuario
+    @include titulo_medio
+    padding: 20px 0 0
 
 /* Elementos obligatorios */
 
 .obligatorio
     color: $gris_ccc
+
+/* Inputs de los forms */
+
+input
+    border: 1px solid $gris_ccc
+
+    &:hover
+        border: 1px solid $gris_999
+
+    &:focus
+        border: 1px solid $azul_claro
+        outline: none
+
+/* Textareas de los forms */
+
+textarea
+    border: 1px solid $gris_ccc
+
+    &:hover
+        border: 1px solid $gris_999
+
+    &:focus
+        border: 1px solid $azul_claro
+        outline: none
 
 /* Header */
 
@@ -572,12 +653,34 @@ a.chzn-single.chzn-error
         position: relative
 
         .textos
-            @include textos
+            @include textos_13
 
         .confirmar_registro
-            background: url('../images/extras/confirmar_registro.jpg') 400px 50px no-repeat
-            height: 382px
+            float: left
+            text-align: center
             width: 960px
+
+            p
+                font:
+                    size: 14px
+                    weight: bold
+                margin: 0 0 50px 0
+
+            img
+                margin: 30px 0 60px
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+            .titulo
+                @include titulo_medio
+                color: $gris_666
+                font:
+                    weight: normal
+                line-height: 45px
 
         .sidebar
             display: block
@@ -589,265 +692,318 @@ a.chzn-single.chzn-error
             display: block
             float: left
             width: 640px
-
-        .columna_izquierda
-            float: left
-            padding: 0 20px 0 0
-            width: 459px
-
-        .columna_izquierda_borde
-            border-right: 1px solid $gris_ddd
-            float: left
-            padding: 0 20px 0 0
-            width: 459px
-
-        .columna_derecha
-            float: left
-            padding: 0 0px 0 20px
-            width: 460px
-
-        .columna_derecha_borde
-            border-left: 1px solid $gris_ddd
-            float: left
-            padding: 0 0px 0 20px
-            width: 460px
         
-        /* Login Usuario */
-
-        .login
+        .mensaje_registro
+            @include titulo_grosero
+            border: 1px solid $gris_ccc
+            color: $gris_999
             float: left
-            width: 459px
-
-            .login_error
-                background:
-                    color: lighten($error, 25%)
-                border: 1px solid $error
-                float: left
-                line-height: 18px
-                margin: 0 0 20px 0
-                padding: 5px 10px
-                width: 439px
-
-            .login_form
-                font:
-                    size: 12px
-
-                div
-
-                    label
-                        display: block
-                        float: left
-                        margin: 5px 0
-                        width: 90px
-                    
-                    input
-                        border: 1px solid $gris_999
-                        height: 20px
-                        margin: 0 0 10px
-                        padding: 3px 5px
-                        width: 250px
-
-                        &:hover
-                            border: 1px solid $gris_444
-                        
-                        &:focus
-                            border: 1px solid $azul
-
-                        &.checkbox
-                            float: left
-                            margin: 0 0 10px 0
-                            width: 20px
-
-                    .tip
-                        float: left
-                        font:
-                            size: 11px
-                        margin: 0 0 10px
-                        width: 360px
-
-                        a
-                            @include link_azul
-
-                            &:hover
-                                @include link_azul_hover
-
-                    .checkbox_tip
-                        float: left
-                        font:
-                            size: 12px
-                        margin: 2px 5px 10px
-                        width: 250px
-                    
-                .submit
-                    float: left
-                    width: 459px
-
-                    .boton_entrar
-                        @include gradiente_botones (#FF3300, #FF6600)
-                        @include borde_redondeado
-                        color: $blanco
-                        font:
-                            size: 12px
-                            weight: bold
-                        height: 30px
-                        margin: 10px 0 0 0
-                        text-shadow: 1px 1px 1px $gris_444
-                        width: 60px
-
-                        &:hover
-                            @include gradiente_botones (#FF4400, #FF7700)
-                            height: 30px
-                            text-shadow: 1px 1px 1px $gris_444
-                            width: 60px
-
-        .texto_registro
-            @include textos
-                    
-        a
-            @include link_blanco
-
-        .link_azul
-            @include link_azul
-            
-            &:hover
-                @include link_azul_hover
-
-        .link_gris_444
-            @include link_gris_444
-            
-            &:hover
-                @include link_gris_444_hover
-
-        .link_gris_686
-            @include link_gris_686
-            
-            &:hover
-                @include link_gris_686_hover
-
-        /* Registro Usuario */
-
-        .registro
-            float: left
-            width: 459px
-
-            .registro_error
-                background:
-                    color: lighten($error, 25%)
-                border: 1px solid $error
-                float: left
-                line-height: 18px
-                margin: 0 0 20px 0
-                padding: 5px 10px
-                width: 439px
-
-            .registro_form
-                font:
-                    size: 12px
-
-                li
-
-                    label
-                        display: block
-                        float: left
-                        margin: 5px 0
-                        width: 120px
-                  
-                    input
-                        border: 1px solid $gris_999
-                        height: 20px
-                        margin: 0 0 10px
-                        padding: 3px 5px
-                        width: 250px
-
-                        &:hover
-                            border: 1px solid $gris_444
-
-                        &.checkbox
-                            float: left
-                            margin: 0 0 10px 0
-                            width: 20px
-
-                    small.errors
-                        margin-right: 76px
-                    
-
-                    .tip_registro
-                        float: left
-                        font:
-                            size: 11px
-                        margin: 0 0 10px
-                        width: 330px
-
-                        a
-                            @include link_azul
-
-                            &:hover
-                                @include link_azul_hover
-
-                .submit
-                    float: left
-                    width: 459px
-
-                    .boton_registrar
-                        @include gradiente_botones (#FF3300, #FF6600)
-                        @include borde_redondeado
-                        color: $blanco
-                        font:
-                            size: 12px
-                            weight: bold
-                        height: 30px
-                        margin: 10px 0 0 0
-                        text-shadow: 1px 1px 1px $gris_444
-                        width: 80px
-
-                        &:hover
-                            @include gradiente_botones (#FF4400, #FF7700)
-                            height: 30px
-                            text-shadow: 1px 1px 1px $gris_444
-                            width: 80px
-        
-        .caja_registro_facebook
-            background: #EDEFF4
-            border: 1px solid #3B5998
-            float: left
-            margin: 0 0 30px 0
-            width: 458px
-            
-            .registro_facebook_img
-                padding: 10px
-                float: left
-                width: 135px
-            
-            .registro_facebook_txt
-                @include textos
-                padding: 10px
-                float: left
-                width: 283px
-            
-            .registro_facebook_btn
-                padding: 10px 129px
-                float: left
-                width: 200px   
-                                                                                        
-        .boton_registro
-            @include gradiente_botones (#FF3300, #FF6600)
-            @include borde_redondeado                        
-            color: $blanco
-            font:
-                size: 25px
-            height: 30px
-            margin: 20px 135px
-            padding: 15px 10px
+            margin: 0 0 10px 0
+            padding: 30px
             text-align: center
-            text-shadow: 1px 1px 1px $gris_444
-            width: 175px
+            width: 898px
 
-            &:hover
-                @include gradiente_botones (#FF4400, #FF7700)
-                height: 30px
-                text-shadow: 1px 1px 1px $gris_444
-                width: 175px
+        .separacion_del_header
+            display: block
+            height: 40px
+            float: left
+            width: 960px
 
+        .cajas_registro
+            float: left
+            margin: 0 0 40px 0
+            position: relative
+            width: 960px
+
+            .columna_izquierda_registro
+                @include box-sizing
+                background: $gris_faf
+                border-bottom: 1px solid $gris_ccc
+                color: $gris_666
+                height: 100%
+                float: left
+                margin: 0 14px 0 0
+                padding: 30px 20px 60px
+                position: absolute
+                text-align: center
+                width: 473px
+
+                .registro_facebook_img
+                    background: url('../images/extras/botones_registro_usuario.png') no-repeat 0 0
+                    height: 31px
+                    margin: 0 150px
+                    width: 134px
+
+                .registro_facebook_btn
+                    background: url('../images/extras/botones_registro_usuario.png') no-repeat 0 -31px
+                    cursor: pointer
+                    height: 50px
+                    margin: 20px 42px 60px
+                    width: 350px
+                    
+                    &:hover
+                        background: url('../images/extras/botones_registro_usuario.png') no-repeat 0 -81px                         
+
+            .columna_derecha_registro
+                background: $gris_faf
+                border-bottom: 1px solid $gris_ccc
+                color: $gris_666
+                float: left
+                left: 486px
+                padding: 30px 20px
+                position: relative
+                text-align: center
+                width: 433px
+            
+            .columna_izquierda_password
+                background: $gris_faf
+                border-bottom: 1px solid $gris_ccc
+                color: $gris_666
+                float: left
+                margin: 0 14px 0 0
+                padding: 30px 20px 60px
+                text-align: center
+                width: 433px
+
+                p
+                    font:
+                        size: 14px
+                    line-height: 22px
+                    margin: 0 0 20px 0
+
+                ul
+                    
+                    li
+                        
+                        label
+                            display: block
+                            float: left
+                            font:
+                                size: 14px
+                                weight: bold
+                            margin: 2px 15px 2px 0
+                            text-align: right
+                            width: 110px
+                        
+                        input
+                            float: left
+                            height: 22px
+                            margin: 0 0 10px
+                            padding: 3px 5px
+                            width: 270px
+
+                        .errors
+                            float: left
+                            margin: 0px 0px 10px 125px
+
+                        .boton_enviar
+                            background: url('../images/extras/botones_registro_usuario.png') no-repeat -854px -31px
+                            border: 0px
+                            cursor: pointer
+                            height: 30px
+                            margin: 10px 0 0 125px
+                            width: 100px
+
+                            &:hover
+                                background: url('../images/extras/botones_registro_usuario.png') no-repeat -854px -81px
+            
+            /* Login Usuario */
+
+            .login
+                float: left
+                width: 433px
+
+                .login_form
+
+                    div
+
+                        label
+                            display: block
+                            float: left
+                            font:
+                                size: 14px
+                                weight: bold
+                            margin: 2px 15px 2px 0
+                            text-align: right
+                            width: 110px
+                        
+                        input
+                            float: left
+                            height: 22px
+                            margin: 0 0 10px
+                            padding: 3px 5px
+                            width: 270px
+                        
+                        .password_width
+                            width: 180px
+
+                        .boton_entrar
+                            background: url('../images/extras/botones_registro_usuario.png') no-repeat -420px -31px
+                            border: 0px
+                            cursor: pointer
+                            height: 30px
+                            margin: 0 0 0 10px
+                            width: 80px
+
+                            &:hover
+                                background: url('../images/extras/botones_registro_usuario.png') no-repeat -420px -81px
+
+                        .recordar_checkbox
+                            height: 15px
+                            width: 15px
+
+                        .checkbox_tip
+                            color: $gris_999
+                            float: left
+                            font:
+                                size: 12px
+                            margin: 2px 0px 10px 5px
+                            text-align: left
+
+                        .tip
+                            float: left
+                            font:
+                                size: 12px
+                            margin: 2px 5px 10px 3px
+
+                            a
+                                @include link_gris_999
+
+                                &:hover
+                                    @include link_gris_999_hover
+
+                        .entrar_con_facebook
+                            background: url('../images/extras/botones_registro_usuario.png') no-repeat -350px -31px
+                            cursor: pointer
+                            float: left
+                            height: 21px
+                            margin: 0 238px 0 125px
+                            width: 70px
+
+                            &:hover
+                                background: url('../images/extras/botones_registro_usuario.png') no-repeat -350px -81px
+                        
+            .texto_registro
+                @include textos_13
+                margin: 20px 0 0 0
+            
+            .registro_mail
+                font:
+                    size: 14px
+                    weight: bold
+                
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
+
+            a
+                @include link_blanco
+
+            .link_azul
+                @include link_azul
+                
+                &:hover
+                    @include link_azul_hover
+
+            .link_gris_444
+                @include link_gris_444
+                
+                &:hover
+                    @include link_gris_444_hover
+
+            .link_gris_666
+                @include link_gris_666
+                
+                &:hover
+                    @include link_gris_666_hover
+
+            /* Registro Usuario */
+
+            .registro
+                float: left
+                width: 433px
+
+                .registro_form
+                    font:
+                        size: 12px
+
+                    li
+
+                        label
+                            display: block
+                            float: left
+                            font:
+                                size: 14px
+                                weight: bold
+                            margin: 5px 0
+                            text-align: left
+                            width: 140px
+                      
+                        input
+                            float: left
+                            height: 20px
+                            margin: 0 0 10px 20px
+                            padding: 3px 5px
+                            width: 255px
+
+                            .checkbox
+                                float: left
+                                margin: 0 0 10px 0
+                                width: 20px
+
+                        .errors
+                            float: left
+                            margin: 0px 0px 10px 160px
+                        
+                        .tip_password
+                            color: $gris_999
+                            float: left
+                            font:
+                                size: 12px
+                            line-height: 18px
+                            margin: 0 0 10px 160px
+                            text-align: left
+                            width: 268px
+
+                        .tip_registro
+                            color: $gris_666
+                            float: left
+                            font:
+                                size: 12px
+                            line-height: 18px
+                            margin: 0 0 10px 160px
+                            text-align: left
+                            width: 268px
+
+                            a
+                                @include link_azul
+
+                                &:hover
+                                    @include link_azul_hover
+
+                        .boton_registrar
+                            background: url('../images/extras/botones_registro_usuario.png') no-repeat -500px -31px
+                            border: 0px
+                            cursor: pointer
+                            height: 30px
+                            margin: 20px 0 0 160px
+                            width: 100px
+
+                            &:hover
+                                background: url('../images/extras/botones_registro_usuario.png') no-repeat -500px -81px
+                                                                                                    
+            .boton_registro
+                background: url('../images/extras/botones_registro_usuario.png') no-repeat -600px -31px
+                border: 0px
+                cursor: pointer
+                height: 36px
+                margin: 0 90px 10px
+                width: 254px
+
+                &:hover
+                    background: url('../images/extras/botones_registro_usuario.png') no-repeat -600px -81px
 /* Banners */
 
 .banner_300x250
@@ -980,13 +1136,6 @@ a.chzn-single.chzn-error
 
 /* AGREGADO POR EL SUR */
 
-input[type=text], textarea, input[type=password]
-    border: 1px solid #ccc
-    color: $gris_666
-    outline: none
-    padding: 8px
-    width: 280px
-
 select
     width: 298px
 
@@ -996,12 +1145,6 @@ label
 
 .placeholder
     color: #ccc
-
-.input-active
-    border: 1px solid #0066cc
-
-input:focus, textarea
-    outline: none
 
 small
     font-size: 10px

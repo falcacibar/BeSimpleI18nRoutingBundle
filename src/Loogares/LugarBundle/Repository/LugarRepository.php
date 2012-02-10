@@ -306,6 +306,17 @@ class LugarRepository extends EntityRepository
       return $q->getResult();
     }
 
+    public function getTotalAccionesUsuario($accion, $usuario) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT count(au.id)
+                             FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                             WHERE au.accion = ?1
+                             AND au.usuario = ?2");
+      $q->setParameter(1, $accion);
+      $q->setParameter(2, $usuario);
+      return $q->getSingleScalarResult();
+    }
+
     public function getAccionesUsuario($lugar, $usuario=null) {
       
       $em = $this->getEntityManager();
@@ -317,7 +328,6 @@ class LugarRepository extends EntityRepository
       if($usuario ==  null) {
         $sq = "0";
       }
-
       $q = $em->createQuery("SELECT a.id, a.nombre,
                              (" . $sq . ") hecho
                              FROM Loogares\UsuarioBundle\Entity\Accion a");          

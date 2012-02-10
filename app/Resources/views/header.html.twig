@@ -18,7 +18,7 @@
 								<a href="{{path('actividadUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.actividad'|trans}}</span></li></a>
 								<a href="{{path('recomendacionesUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.recomendaciones'|trans}}</span></li></a>
 								<a href="{{path('fotosLugaresUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.fotos'|trans}}</span></li></a>
-								<a href="#"><li><span>{{'general.header.usuario.lugares'|trans}}</span></li></a>
+								<a href="#"><li><span>{{'general.header.usuario.lugares'|trans}}</span>{% render "LoogaresUsuarioBundle:Usuario:totalRecomendacionesPendientes" %}</li></a>
 								<a href="{{path('logout')}}"><li><span>{{'general.header.usuario.logout'|trans}}</span></li></a>
 							</ul>
 						</div>

@@ -82,7 +82,6 @@
     	}
     }
 </script>
-
 <h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
 
 <form class="recomienda_lugar" name="recomienda" action="{{ path('_recomienda', {'slug': lugar.slug}) }}" method="post">
@@ -125,5 +124,3 @@
 		<input class="enviar_recomendacion" type="submit" value=""/>
 	{% endif %}
 </form>
-
-

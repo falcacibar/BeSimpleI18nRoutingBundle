@@ -21,6 +21,7 @@ use Loogares\UsuarioBundle\Entity\Recomendacion;
 use Loogares\UsuarioBundle\Entity\Tag;
 use Loogares\UsuarioBundle\Entity\TagRecomendacion;
 use Loogares\UsuarioBundle\Entity\Dueno;
+use Loogares\UsuarioBundle\Entity\AccionUsuario;
 
 use Loogares\AdminBundle\Entity\TempLugar;
 use Loogares\AdminBundle\Entity\TempCategoriaLugar;
@@ -182,24 +183,31 @@ class LugarController extends Controller{
                                                                          OFFSET $offset");
                 $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
                 
-                if($this->get('security.context')->isGranted('ROLE_USER'))
+                if($this->get('security.context')->isGranted('ROLE_USER')) {
                     $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId(), $this->get('security.context')->getToken()->getUser()->getId());
-                else
-                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
-
-                // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
-                for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
-                    $accionesUsuario[$i]['puede'] = 1;
                     
-                    // Si el usuario ya estuvo, no puede desmarcar esta opción
-                    if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
-                        $accionesUsuario[$i]['puede'] = 0;
-                }
-                // Si el usuario ya estuvo o quiere volver, no puede querer ir
-                if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
-                    $accionesUsuario[0]['puede'] = 0;
+                    // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
+                    for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+                        $accionesUsuario[$i]['puede'] = 1;
+                        
+                        // Si el usuario ya estuvo, no puede desmarcar esta opción
+                        if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
+                            $accionesUsuario[$i]['puede'] = 0;
+                        else if($accionesUsuario[$i]['id'] == 5 && $accionesUsuario[$i]['hecho'] == 1)
+                            $accionesUsuario[$i]['puede'] = 0;
+                    }
+                    // Si el usuario ya estuvo o quiere volver, no puede querer ir
+                    if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
+                        $accionesUsuario[0]['puede'] = 0;
 
-                }                 
+                    }  
+                } 
+                else {
+                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
+                     for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+                        $accionesUsuario[$i]['puede'] = 0;
+                    }
+                }
 
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
@@ -1038,7 +1046,27 @@ class LugarController extends Controller{
 
                     $em->persist($newTagRecomendacion[sizeOf($newTagRecomendacion)-1]);
                 }
+            }            
+
+            // Se marca la acción 'Ya estuve' del usuario en el lugar
+            $ar = $em->getRepository("LoogaresUsuarioBundle:Accion");
+            $accionResult = $lr->getAccionUsuarioLugar($lugar, $recomendacion->getUsuario(), "estuve_alla");
+
+            if(!is_object($accionResult)){
+                $accionObj = new AccionUsuario();
+                $accionObj->setUsuario($recomendacion->getUsuario());
+                $accionObj->setAccion($ar->findOneById($accionResult));
+                $accionObj->setLugar($lugar);
+                $accionObj->setFecha(new \DateTime());
+                $em->persist($accionObj);
+
+                // Verificamos estado de 'Quiero ir'
+                $quieroIr = $lr->getAccionUsuarioLugar($lugar, $recomendacion->getUsuario(), 'quiero_ir');
+                if(is_object($quieroIr)) {
+                    $em->remove($quieroIr);
+                }        
             }
+
             $em->flush();
             $lr->actualizarPromedios($lugar->getSlug());
 

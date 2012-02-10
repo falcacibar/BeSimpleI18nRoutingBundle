@@ -42,8 +42,15 @@
       margin: 3px 0px 3px 5px;
       width: 120px; }
     .filtro_admin .seleccionar_estado input {
+      background: #66ccff;
+      border: 1px solid #0099ff;
+      color: white;
       margin: 0 5px;
       width: 60px; }
+      .filtro_admin .seleccionar_estado input:hover {
+        background: #0099ff; }
+      .filtro_admin .seleccionar_estado input:focus {
+        background: #0066cc; }
     .filtro_admin .seleccionar_estado a {
       color: #0066cc;
       text-decoration: none; }
@@ -52,7 +59,7 @@
         text-decoration: underline; }
 
 .listado_admin {
-  border: 1px solid #dddddd;
+  border: 1px solid #cccccc;
   float: left;
   width: 960px; }
   .listado_admin a {
@@ -73,11 +80,11 @@
       text-align: left;
       width: 960px; }
     .listado_admin .table-data .tablescroll_head {
-      background: #e9e9e9; }
+      background: #f2f2f6; }
     .listado_admin .table-data th {
-      border-bottom: 1px solid #f6f6f6; }
+      border-bottom: 1px solid #f2f2f6; }
     .listado_admin .table-data th, .listado_admin .table-data td {
-      border-right: 1px solid #dddddd;
+      border-right: 1px solid #cccccc;
       word-break: break-all; }
     .listado_admin .table-data td {
       padding: 8px 0; }
@@ -90,7 +97,7 @@
         display: block;
         margin: 0 5px; }
     .listado_admin .table-data tr:nth-child(even) {
-      background: #f9f9f9; }
+      background: #fafafc; }
     .listado_admin .table-data .lugar_checkbox {
       text-align: center;
       width: 20px !important; }
@@ -179,30 +186,60 @@
   font-size: 11px;
   margin: 30px 0 0;
   width: 960px; }
+  .seleccion_masiva a {
+    color: #0066cc;
+    text-decoration: none; }
+    .seleccion_masiva a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
+  .seleccion_masiva input {
+    background: #66ccff;
+    border: 1px solid #0099ff;
+    color: white;
+    margin: 0 5px;
+    width: 85px; }
+    .seleccion_masiva input:hover {
+      background: #0099ff; }
+    .seleccion_masiva input:focus {
+      background: #0066cc; }
   .seleccion_masiva select {
     margin: 0 5px; }
 
 .total_paginacion {
-  border-bottom: 1px solid #f6f6f6;
-  border-top: 1px solid #f6f6f6;
+  border-bottom: 1px solid #f2f2f6;
+  border-top: 1px solid #f2f2f6;
   color: #666666;
   display: block;
   float: left;
   font-size: 12px;
   margin: 30px 0 30px;
   padding: 13px 0 12px;
-  width: 225px; }
+  width: 370px; }
+  .total_paginacion input {
+    margin: 0px;
+    padding: 3px 0;
+    width: 60px; }
+  .total_paginacion .ir_a_la_pagina {
+    background: #66ccff;
+    border: 1px solid #0099ff;
+    color: white;
+    margin: 0 3px;
+    width: 40px; }
+    .total_paginacion .ir_a_la_pagina:hover {
+      background: #0099ff; }
+    .total_paginacion .ir_a_la_pagina:focus {
+      background: #0066cc; }
 
 .paginacion {
-  border-bottom: 1px solid #f6f6f6;
-  border-top: 1px solid #f6f6f6;
+  border-bottom: 1px solid #f2f2f6;
+  border-top: 1px solid #f2f2f6;
   color: #666666;
   display: block;
   float: left;
   font-size: 12px;
   margin: 30px 0 30px;
-  padding: 10px 0;
-  width: 735px; }
+  padding: 15px 0 14px 0;
+  width: 590px; }
   .paginacion p {
     float: left;
     display: block;
@@ -228,7 +265,7 @@
       text-decoration: none; }
 
 .footer_admin {
-  color: #dddddd;
+  color: #cccccc;
   float: left;
   font-size: 11px;
   margin: 0 0 30px 0;
@@ -356,24 +393,85 @@ body {
     margin: 2px 0 0 0;
     width: 910px; }
 
+.errors {
+  color: #ff5353;
+  font-size: 12px; }
+
 .errors.categoria {
   margin-right: 100px; }
 
 .input-error {
-  border: 1px solid #ff6666 !important; }
+  border: 1px solid #ff8a8a !important; }
 
 a.chzn-single.chzn-error {
-  background-color: #ffe5e5;
-  border: 1px solid #ff6666; }
+  border: 1px solid #ff8a8a; }
 
 /* Títulos */
 .titulo {
   font-size: 20px;
+  line-height: 30px;
   margin: 0 0 30px 0; }
+
+.titulo_gigante {
+  font-size: 29px;
+  line-height: 40px;
+  margin: 0 0 30px 0; }
+
+.titulo_lugar {
+  font-size: 24px;
+  line-height: 35px;
+  display: block;
+  float: left;
+  margin: 0 0 15px 0;
+  width: 598px; }
+
+.titulo_recomendaciones {
+  font-size: 20px;
+  line-height: 30px;
+  display: block;
+  float: left;
+  margin: 0 0 20px 0;
+  padding: 30px 0 0;
+  width: 640px; }
+
+.titulo_otros_lugares {
+  font-size: 20px;
+  line-height: 30px;
+  display: block;
+  float: left;
+  margin: 20px 10px 10px;
+  width: 298px; }
+
+.titulo_accion_usuario {
+  font-size: 20px;
+  line-height: 30px; }
+
+.titulo_edicion_usuario {
+  font-size: 20px;
+  line-height: 30px;
+  padding: 20px 0 0; }
 
 /* Elementos obligatorios */
 .obligatorio {
   color: #cccccc; }
+
+/* Inputs de los forms */
+input {
+  border: 1px solid #cccccc; }
+  input:hover {
+    border: 1px solid #999999; }
+  input:focus {
+    border: 1px solid #66ccff;
+    outline: none; }
+
+/* Textareas de los forms */
+textarea {
+  border: 1px solid #cccccc; }
+  textarea:hover {
+    border: 1px solid #999999; }
+  textarea:focus {
+    border: 1px solid #66ccff;
+    outline: none; }
 
 /* Header */
 .barra_ciudad {
@@ -596,7 +694,7 @@ a.chzn-single.chzn-error {
               padding: 9px 6px 1px;
               width: 238px; }
               .menu .centrado_menu .menu_categorias li ul li a:hover {
-                background: #f6f6f6;
+                background: #f2f2f6;
                 border: 0px;
                 padding: 9px 6px 1px;
                 text-decoration: underline;
@@ -657,17 +755,33 @@ a.chzn-single.chzn-error {
   .contenedor .contenido {
     margin: 0 auto;
     width: 960px;
-    position: relative;
-    /* Login Usuario */
-    /* Registro Usuario */ }
+    position: relative; }
     .contenedor .contenido .textos {
       font-family: Arial;
       font-size: 13px;
-      line-height: 18px; }
+      line-height: 22px; }
     .contenedor .contenido .confirmar_registro {
-      background: url("../images/extras/confirmar_registro.jpg") 400px 50px no-repeat;
-      height: 382px;
+      float: left;
+      text-align: center;
       width: 960px; }
+      .contenedor .contenido .confirmar_registro p {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 0 50px 0; }
+      .contenedor .contenido .confirmar_registro img {
+        margin: 30px 0 60px; }
+      .contenedor .contenido .confirmar_registro a {
+        color: #0066cc;
+        text-decoration: none; }
+        .contenedor .contenido .confirmar_registro a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+      .contenedor .contenido .confirmar_registro .titulo {
+        font-size: 20px;
+        line-height: 30px;
+        color: #666666;
+        font-weight: normal;
+        line-height: 45px; }
     .contenedor .contenido .sidebar {
       display: block;
       float: left;
@@ -677,268 +791,266 @@ a.chzn-single.chzn-error {
       display: block;
       float: left;
       width: 640px; }
-    .contenedor .contenido .columna_izquierda {
+    .contenedor .contenido .mensaje_registro {
+      font-size: 29px;
+      line-height: 40px;
+      border: 1px solid #cccccc;
+      color: #999999;
       float: left;
-      padding: 0 20px 0 0;
-      width: 459px; }
-    .contenedor .contenido .columna_izquierda_borde {
-      border-right: 1px solid #dddddd;
+      margin: 0 0 10px 0;
+      padding: 30px;
+      text-align: center;
+      width: 898px; }
+    .contenedor .contenido .separacion_del_header {
+      display: block;
+      height: 40px;
       float: left;
-      padding: 0 20px 0 0;
-      width: 459px; }
-    .contenedor .contenido .columna_derecha {
+      width: 960px; }
+    .contenedor .contenido .cajas_registro {
       float: left;
-      padding: 0 0px 0 20px;
-      width: 460px; }
-    .contenedor .contenido .columna_derecha_borde {
-      border-left: 1px solid #dddddd;
-      float: left;
-      padding: 0 0px 0 20px;
-      width: 460px; }
-    .contenedor .contenido .login {
-      float: left;
-      width: 459px; }
-      .contenedor .contenido .login .login_error {
-        background-color: #ffe5e5;
-        border: 1px solid #ff6666;
+      margin: 0 0 40px 0;
+      position: relative;
+      width: 960px;
+      /* Login Usuario */
+      /* Registro Usuario */ }
+      .contenedor .contenido .cajas_registro .columna_izquierda_registro {
+        box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        background: #fafafc;
+        border-bottom: 1px solid #cccccc;
+        color: #666666;
+        height: 100%;
         float: left;
-        line-height: 18px;
-        margin: 0 0 20px 0;
-        padding: 5px 10px;
-        width: 439px; }
-      .contenedor .contenido .login .login_form {
-        font-size: 12px; }
-        .contenedor .contenido .login .login_form div label {
+        margin: 0 14px 0 0;
+        padding: 30px 20px 60px;
+        position: absolute;
+        text-align: center;
+        width: 473px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_registro .registro_facebook_img {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat 0 0;
+          height: 31px;
+          margin: 0 150px;
+          width: 134px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_registro .registro_facebook_btn {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat 0 -31px;
+          cursor: pointer;
+          height: 50px;
+          margin: 20px 42px 60px;
+          width: 350px; }
+          .contenedor .contenido .cajas_registro .columna_izquierda_registro .registro_facebook_btn:hover {
+            background: url("../images/extras/botones_registro_usuario.png") no-repeat 0 -81px; }
+      .contenedor .contenido .cajas_registro .columna_derecha_registro {
+        background: #fafafc;
+        border-bottom: 1px solid #cccccc;
+        color: #666666;
+        float: left;
+        left: 486px;
+        padding: 30px 20px;
+        position: relative;
+        text-align: center;
+        width: 433px; }
+      .contenedor .contenido .cajas_registro .columna_izquierda_password {
+        background: #fafafc;
+        border-bottom: 1px solid #cccccc;
+        color: #666666;
+        float: left;
+        margin: 0 14px 0 0;
+        padding: 30px 20px 60px;
+        text-align: center;
+        width: 433px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password p {
+          font-size: 14px;
+          line-height: 22px;
+          margin: 0 0 20px 0; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li label {
           display: block;
           float: left;
-          margin: 5px 0;
-          width: 90px; }
-        .contenedor .contenido .login .login_form div input {
-          border: 1px solid #999999;
-          height: 20px;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 2px 15px 2px 0;
+          text-align: right;
+          width: 110px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li input {
+          float: left;
+          height: 22px;
           margin: 0 0 10px;
           padding: 3px 5px;
-          width: 250px; }
-          .contenedor .contenido .login .login_form div input:hover {
-            border: 1px solid #444444; }
-          .contenedor .contenido .login .login_form div input:focus {
-            border: 1px solid #0066cc; }
-          .contenedor .contenido .login .login_form div input.checkbox {
-            float: left;
-            margin: 0 0 10px 0;
-            width: 20px; }
-        .contenedor .contenido .login .login_form div .tip {
+          width: 270px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .errors {
           float: left;
-          font-size: 11px;
+          margin: 0px 0px 10px 125px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -31px;
+          border: 0px;
+          cursor: pointer;
+          height: 30px;
+          margin: 10px 0 0 125px;
+          width: 100px; }
+          .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar:hover {
+            background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -81px; }
+      .contenedor .contenido .cajas_registro .login {
+        float: left;
+        width: 433px; }
+        .contenedor .contenido .cajas_registro .login .login_form div label {
+          display: block;
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 2px 15px 2px 0;
+          text-align: right;
+          width: 110px; }
+        .contenedor .contenido .cajas_registro .login .login_form div input {
+          float: left;
+          height: 22px;
           margin: 0 0 10px;
-          width: 360px; }
-          .contenedor .contenido .login .login_form div .tip a {
-            color: #0066cc;
-            text-decoration: none; }
-            .contenedor .contenido .login .login_form div .tip a:hover {
-              color: #0066cc;
-              text-decoration: underline; }
-        .contenedor .contenido .login .login_form div .checkbox_tip {
+          padding: 3px 5px;
+          width: 270px; }
+        .contenedor .contenido .cajas_registro .login .login_form div .password_width {
+          width: 180px; }
+        .contenedor .contenido .cajas_registro .login .login_form div .boton_entrar {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat -420px -31px;
+          border: 0px;
+          cursor: pointer;
+          height: 30px;
+          margin: 0 0 0 10px;
+          width: 80px; }
+          .contenedor .contenido .cajas_registro .login .login_form div .boton_entrar:hover {
+            background: url("../images/extras/botones_registro_usuario.png") no-repeat -420px -81px; }
+        .contenedor .contenido .cajas_registro .login .login_form div .recordar_checkbox {
+          height: 15px;
+          width: 15px; }
+        .contenedor .contenido .cajas_registro .login .login_form div .checkbox_tip {
+          color: #999999;
           float: left;
           font-size: 12px;
-          margin: 2px 5px 10px;
-          width: 250px; }
-        .contenedor .contenido .login .login_form .submit {
+          margin: 2px 0px 10px 5px;
+          text-align: left; }
+        .contenedor .contenido .cajas_registro .login .login_form div .tip {
           float: left;
-          width: 459px; }
-          .contenedor .contenido .login .login_form .submit .boton_entrar {
-            background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
-            border: 1px solid #ff3300;
-            cursor: pointer;
-            border-radius: 2px;
-            -o-border-radius: 2px;
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            height: 30px;
-            margin: 10px 0 0 0;
-            text-shadow: 1px 1px 1px #444444;
-            width: 60px; }
-            .contenedor .contenido .login .login_form .submit .boton_entrar:hover {
-              background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
-              border: 1px solid #ff4400;
-              cursor: pointer;
-              height: 30px;
-              text-shadow: 1px 1px 1px #444444;
-              width: 60px; }
-    .contenedor .contenido .texto_registro {
-      font-family: Arial;
-      font-size: 13px;
-      line-height: 18px; }
-    .contenedor .contenido a {
-      color: white;
-      text-decoration: none; }
-    .contenedor .contenido .link_azul {
-      color: #0066cc;
-      text-decoration: none; }
-      .contenedor .contenido .link_azul:hover {
-        color: #0066cc;
-        text-decoration: underline; }
-    .contenedor .contenido .link_gris_444 {
-      color: #444444;
-      text-decoration: none; }
-      .contenedor .contenido .link_gris_444:hover {
-        color: #444444;
-        text-decoration: underline; }
-    .contenedor .contenido .link_gris_686 {
-      color: #686868;
-      text-decoration: none; }
-      .contenedor .contenido .link_gris_686:hover {
-        color: #686868;
-        text-decoration: underline; }
-    .contenedor .contenido .registro {
-      float: left;
-      width: 459px; }
-      .contenedor .contenido .registro .registro_error {
-        background-color: #ffe5e5;
-        border: 1px solid #ff6666;
-        float: left;
-        line-height: 18px;
-        margin: 0 0 20px 0;
-        padding: 5px 10px;
-        width: 439px; }
-      .contenedor .contenido .registro .registro_form {
-        font-size: 12px; }
-        .contenedor .contenido .registro .registro_form li label {
-          display: block;
-          float: left;
-          margin: 5px 0;
-          width: 120px; }
-        .contenedor .contenido .registro .registro_form li input {
-          border: 1px solid #999999;
-          height: 20px;
-          margin: 0 0 10px;
-          padding: 3px 5px;
-          width: 250px; }
-          .contenedor .contenido .registro .registro_form li input:hover {
-            border: 1px solid #444444; }
-          .contenedor .contenido .registro .registro_form li input.checkbox {
-            float: left;
-            margin: 0 0 10px 0;
-            width: 20px; }
-        .contenedor .contenido .registro .registro_form li small.errors {
-          margin-right: 76px; }
-        .contenedor .contenido .registro .registro_form li .tip_registro {
-          float: left;
-          font-size: 11px;
-          margin: 0 0 10px;
-          width: 330px; }
-          .contenedor .contenido .registro .registro_form li .tip_registro a {
-            color: #0066cc;
+          font-size: 12px;
+          margin: 2px 5px 10px 3px; }
+          .contenedor .contenido .cajas_registro .login .login_form div .tip a {
+            color: #999999;
             text-decoration: none; }
-            .contenedor .contenido .registro .registro_form li .tip_registro a:hover {
-              color: #0066cc;
+            .contenedor .contenido .cajas_registro .login .login_form div .tip a:hover {
+              color: #999999;
               text-decoration: underline; }
-        .contenedor .contenido .registro .registro_form .submit {
+        .contenedor .contenido .cajas_registro .login .login_form div .entrar_con_facebook {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat -350px -31px;
+          cursor: pointer;
           float: left;
-          width: 459px; }
-          .contenedor .contenido .registro .registro_form .submit .boton_registrar {
-            background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
-            border: 1px solid #ff3300;
-            cursor: pointer;
-            border-radius: 2px;
-            -o-border-radius: 2px;
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            height: 30px;
-            margin: 10px 0 0 0;
-            text-shadow: 1px 1px 1px #444444;
-            width: 80px; }
-            .contenedor .contenido .registro .registro_form .submit .boton_registrar:hover {
-              background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-              background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
-              border: 1px solid #ff4400;
-              cursor: pointer;
-              height: 30px;
-              text-shadow: 1px 1px 1px #444444;
-              width: 80px; }
-    .contenedor .contenido .caja_registro_facebook {
-      background: #edeff4;
-      border: 1px solid #3b5998;
-      float: left;
-      margin: 0 0 30px 0;
-      width: 458px; }
-      .contenedor .contenido .caja_registro_facebook .registro_facebook_img {
-        padding: 10px;
-        float: left;
-        width: 135px; }
-      .contenedor .contenido .caja_registro_facebook .registro_facebook_txt {
+          height: 21px;
+          margin: 0 238px 0 125px;
+          width: 70px; }
+          .contenedor .contenido .cajas_registro .login .login_form div .entrar_con_facebook:hover {
+            background: url("../images/extras/botones_registro_usuario.png") no-repeat -350px -81px; }
+      .contenedor .contenido .cajas_registro .texto_registro {
         font-family: Arial;
         font-size: 13px;
-        line-height: 18px;
-        padding: 10px;
+        line-height: 22px;
+        margin: 20px 0 0 0; }
+      .contenedor .contenido .cajas_registro .registro_mail {
+        font-size: 14px;
+        font-weight: bold; }
+        .contenedor .contenido .cajas_registro .registro_mail a {
+          color: #0066cc;
+          text-decoration: none; }
+          .contenedor .contenido .cajas_registro .registro_mail a:hover {
+            color: #0066cc;
+            text-decoration: underline; }
+      .contenedor .contenido .cajas_registro a {
+        color: white;
+        text-decoration: none; }
+      .contenedor .contenido .cajas_registro .link_azul {
+        color: #0066cc;
+        text-decoration: none; }
+        .contenedor .contenido .cajas_registro .link_azul:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+      .contenedor .contenido .cajas_registro .link_gris_444 {
+        color: #444444;
+        text-decoration: none; }
+        .contenedor .contenido .cajas_registro .link_gris_444:hover {
+          color: #444444;
+          text-decoration: underline; }
+      .contenedor .contenido .cajas_registro .link_gris_666 {
+        color: #666666;
+        text-decoration: none; }
+        .contenedor .contenido .cajas_registro .link_gris_666:hover {
+          color: #666666;
+          text-decoration: underline; }
+      .contenedor .contenido .cajas_registro .registro {
         float: left;
-        width: 283px; }
-      .contenedor .contenido .caja_registro_facebook .registro_facebook_btn {
-        padding: 10px 129px;
-        float: left;
-        width: 200px; }
-    .contenedor .contenido .boton_registro {
-      background-image: linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-      background-image: -o-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-      background-image: -moz-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-      background-image: -webkit-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-      background-image: -ms-linear-gradient(bottom, #ff3300 30%, #ff6600 70%);
-      background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff3300), color-stop(0.7, #ff6600));
-      border: 1px solid #ff3300;
-      cursor: pointer;
-      border-radius: 2px;
-      -o-border-radius: 2px;
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      color: white;
-      font-size: 25px;
-      height: 30px;
-      margin: 20px 135px;
-      padding: 15px 10px;
-      text-align: center;
-      text-shadow: 1px 1px 1px #444444;
-      width: 175px; }
-      .contenedor .contenido .boton_registro:hover {
-        background-image: linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-        background-image: -o-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-        background-image: -moz-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-        background-image: -webkit-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-        background-image: -ms-linear-gradient(bottom, #ff4400 30%, #ff7700 70%);
-        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, #ff4400), color-stop(0.7, #ff7700));
-        border: 1px solid #ff4400;
+        width: 433px; }
+        .contenedor .contenido .cajas_registro .registro .registro_form {
+          font-size: 12px; }
+          .contenedor .contenido .cajas_registro .registro .registro_form li label {
+            display: block;
+            float: left;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 5px 0;
+            text-align: left;
+            width: 140px; }
+          .contenedor .contenido .cajas_registro .registro .registro_form li input {
+            float: left;
+            height: 20px;
+            margin: 0 0 10px 20px;
+            padding: 3px 5px;
+            width: 255px; }
+            .contenedor .contenido .cajas_registro .registro .registro_form li input .checkbox {
+              float: left;
+              margin: 0 0 10px 0;
+              width: 20px; }
+          .contenedor .contenido .cajas_registro .registro .registro_form li .errors {
+            float: left;
+            margin: 0px 0px 10px 160px; }
+          .contenedor .contenido .cajas_registro .registro .registro_form li .tip_password {
+            color: #999999;
+            float: left;
+            font-size: 12px;
+            line-height: 18px;
+            margin: 0 0 10px 160px;
+            text-align: left;
+            width: 268px; }
+          .contenedor .contenido .cajas_registro .registro .registro_form li .tip_registro {
+            color: #666666;
+            float: left;
+            font-size: 12px;
+            line-height: 18px;
+            margin: 0 0 10px 160px;
+            text-align: left;
+            width: 268px; }
+            .contenedor .contenido .cajas_registro .registro .registro_form li .tip_registro a {
+              color: #0066cc;
+              text-decoration: none; }
+              .contenedor .contenido .cajas_registro .registro .registro_form li .tip_registro a:hover {
+                color: #0066cc;
+                text-decoration: underline; }
+          .contenedor .contenido .cajas_registro .registro .registro_form li .boton_registrar {
+            background: url("../images/extras/botones_registro_usuario.png") no-repeat -500px -31px;
+            border: 0px;
+            cursor: pointer;
+            height: 30px;
+            margin: 20px 0 0 160px;
+            width: 100px; }
+            .contenedor .contenido .cajas_registro .registro .registro_form li .boton_registrar:hover {
+              background: url("../images/extras/botones_registro_usuario.png") no-repeat -500px -81px; }
+      .contenedor .contenido .cajas_registro .boton_registro {
+        background: url("../images/extras/botones_registro_usuario.png") no-repeat -600px -31px;
+        border: 0px;
         cursor: pointer;
-        height: 30px;
-        text-shadow: 1px 1px 1px #444444;
-        width: 175px; }
+        height: 36px;
+        margin: 0 90px 10px;
+        width: 254px; }
+        .contenedor .contenido .cajas_registro .boton_registro:hover {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat -600px -81px; }
 
 /* Banners */
 .banner_300x250 {
-  background: #f6f6f6;
+  background: #f2f2f6;
   display: block;
   height: 250px;
   float: left;
@@ -947,7 +1059,7 @@ a.chzn-single.chzn-error {
 
 /* Footer */
 .footer {
-  background: #f6f6f6;
+  background: #f2f2f6;
   float: right;
   margin: 20px 0 0 0;
   width: 100%; }
@@ -1052,13 +1164,6 @@ a.chzn-single.chzn-error {
           text-decoration: underline; }
 
 /* AGREGADO POR EL SUR */
-input[type=text], textarea, input[type=password] {
-  border: 1px solid #cccccc;
-  color: #666666;
-  outline: none;
-  padding: 8px;
-  width: 280px; }
-
 select {
   width: 298px; }
 
@@ -1068,12 +1173,6 @@ label {
 
 .placeholder {
   color: #cccccc; }
-
-.input-active {
-  border: 1px solid #0066cc; }
-
-input:focus, textarea {
-  outline: none; }
 
 small {
   font-size: 10px; }
@@ -1106,7 +1205,7 @@ small {
 /* Mixin */
 /* Agregar / Editar Lugar */
 .agregar_editar_datos_lugar {
-  border: 1px solid #f6f6f6;
+  border: 1px solid #f2f2f6;
   float: left;
   margin: 0 20px 0 0;
   padding: 20px;
@@ -1123,9 +1222,7 @@ small {
       .agregar_editar_datos_lugar .agregar-lugar li.no-default {
         display: none; }
       .agregar_editar_datos_lugar .agregar-lugar li .errors {
-        color: #ff6666;
         display: block;
-        font-size: 11px;
         float: left;
         line-height: 14px;
         margin: 5px 0 0 140px;
@@ -1207,15 +1304,10 @@ small {
       margin: 0 0 0 5px;
       width: 180px; }
     .agregar_editar_datos_lugar .agregar-lugar input {
-      border: 1px solid #cccccc;
       float: left;
       height: 20px;
       padding: 3px 5px;
       width: 290px; }
-      .agregar_editar_datos_lugar .agregar-lugar input:hover {
-        border: 1px solid #999999; }
-      .agregar_editar_datos_lugar .agregar-lugar input:focus {
-        border: 1px solid #66ccff; }
     .agregar_editar_datos_lugar .agregar-lugar select {
       border: 1px solid #999999;
       float: left;
@@ -1406,20 +1498,12 @@ small {
           font-size: 12px;
           margin: 0px;
           width: 408px; }
-          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li input:hover {
-            border: 1px solid #444444; }
-          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li input:focus {
-            border: 1px solid #66ccff; }
         .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li textarea {
           float: left;
           font-size: 12px;
           margin: 0px;
           padding: 10px;
           width: 398px; }
-          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li textarea:hover {
-            border: 1px solid #444444; }
-          .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li textarea:focus {
-            border: 1px solid #66ccff; }
         .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li .errors {
           margin: 5px 0 0 140px;
           width: 420px; }
@@ -1502,17 +1586,11 @@ small {
 
 /* Ficha lugares */
 .lugar_info {
-  border: 1px solid #f6f6f6;
+  border: 1px solid #f2f2f6;
   border-bottom: 1px solid #cccccc;
   float: left;
   padding: 20px 20px 10px;
   width: 598px; }
-  .lugar_info .titulo_lugar {
-    display: block;
-    float: left;
-    font-size: 24px;
-    margin: 0 0 15px 0;
-    width: 598px; }
   .lugar_info .estrellas {
     display: block;
     float: left;
@@ -1536,10 +1614,10 @@ small {
     line-height: 16px;
     width: 146px; }
     .lugar_info .multimedia_lugar .foto_lugar {
-      -box-shadow: -3px 3px 1px #eeeeee;
-      -o-box-shadow: -3px 3px 1px #eeeeee;
-      -moz-box-shadow: -3px 3px 1px #eeeeee;
-      -webkit-box-shadow: -3px 3px 1px #eeeeee;
+      -box-shadow: -3px 3px 1px #f2f2f6;
+      -o-box-shadow: -3px 3px 1px #f2f2f6;
+      -moz-box-shadow: -3px 3px 1px #f2f2f6;
+      -webkit-box-shadow: -3px 3px 1px #f2f2f6;
       border: 1px solid #cccccc;
       display: block;
       float: left;
@@ -1647,7 +1725,7 @@ small {
         .lugar_info .datos_principales_lugar .pedido_reserva_lugar .reserva_online_lugar:hover {
           background: url("../images/extras/botones_ficha_lugar.png") no-repeat -630px -30px; }
   .lugar_info .datos_secundarios_lugar {
-    color: #686868;
+    color: #666666;
     float: left;
     line-height: 14px;
     margin: 40px 0 0 0;
@@ -1905,7 +1983,7 @@ small {
         width: 119px; }
 
 .actividad_lugar {
-  background: #f6f6f6;
+  background: #f2f2f6;
   border-bottom: 1px solid #cccccc;
   display: block;
   float: left;
@@ -1969,7 +2047,7 @@ small {
     float: left;
     height: 10px;
     margin: 15px 0;
-    text-shadow: 1px 1px 1px #333333;
+    text-shadow: 1px 1px 1px #444444;
     padding: 4px 5px 6px; }
   .actividad_lugar .estuve_alla_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -292px 0;
@@ -1995,7 +2073,7 @@ small {
     float: left;
     height: 10px;
     margin: 15px 0;
-    text-shadow: 1px 1px 1px #333333;
+    text-shadow: 1px 1px 1px #444444;
     padding: 4px 5px 6px; }
   .actividad_lugar .favoritos_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -415px 0;
@@ -2021,20 +2099,20 @@ small {
     float: left;
     height: 10px;
     margin: 15px 0;
-    text-shadow: 1px 1px 1px #333333;
+    text-shadow: 1px 1px 1px #444444;
     padding: 4px 5px 6px; }
 
 .caja_inferior_ficha {
-  border-left: 1px solid #f6f6f6;
-  border-bottom: 1px solid #f6f6f6;
-  border-right: 1px solid #f6f6f6;
+  border-left: 1px solid #f2f2f6;
+  border-bottom: 1px solid #f2f2f6;
+  border-right: 1px solid #f2f2f6;
   display: block;
   float: left;
   height: 15px;
   width: 638px; }
 
 .opciones_lugar {
-  border: 1px solid #f6f6f6;
+  border: 1px solid #f2f2f6;
   display: block;
   float: left;
   margin: 10px 0 0;
@@ -2125,14 +2203,6 @@ small {
   width: 300px; }
 
 /* Recomendaciones */
-.titulo_recomendaciones {
-  display: block;
-  float: left;
-  font-size: 20px;
-  margin: 0 0 20px 0;
-  padding: 30px 0 0;
-  width: 640px; }
-
 .ordenar_por_recomendaciones {
   float: left;
   font-size: 14px;
@@ -2158,7 +2228,7 @@ small {
 
 .recomendacion {
   border-bottom: 1px solid white;
-  border-top: 1px solid #f6f6f6;
+  border-top: 1px solid #f2f2f6;
   float: left;
   padding: 30px 0;
   width: 640px; }
@@ -2337,8 +2407,8 @@ small {
             padding: 0 0 0 13px; }
 
 .paginacion_recomendacion {
-  border-bottom: 1px solid #f6f6f6;
-  border-top: 1px solid #f6f6f6;
+  border-bottom: 1px solid #f2f2f6;
+  border-top: 1px solid #f2f2f6;
   color: #666666;
   display: block;
   float: left;
@@ -2389,20 +2459,12 @@ small {
       font-size: 14px;
       margin: 0px;
       width: 452px; }
-      .recomienda_lugar ul li input:hover {
-        border: 1px solid #444444; }
-      .recomienda_lugar ul li input:focus {
-        border: 1px solid #66ccff; }
     .recomienda_lugar ul li textarea {
       float: left;
       font-size: 14px;
       margin: 0px;
       padding: 10px;
       width: 448px; }
-      .recomienda_lugar ul li textarea:hover {
-        border: 1px solid #444444; }
-      .recomienda_lugar ul li textarea:focus {
-        border: 1px solid #66ccff; }
     .recomienda_lugar ul li .errors {
       margin: 5px 0 0 170px;
       width: 470px; }
@@ -2455,21 +2517,15 @@ small {
 
 /* Otros lugares */
 .otros_lugares {
-  border: 1px solid #f6f6f6;
+  border: 1px solid #f2f2f6;
   border-bottom: 0px;
   display: block;
   float: left;
   margin: 0 0 20px 0;
   width: 298px;
   /* AGREGADO POR EL SUR */ }
-  .otros_lugares .titulo_otros_lugares {
-    display: block;
-    float: left;
-    font-size: 20px;
-    margin: 20px 10px 10px;
-    width: 298px; }
   .otros_lugares .otro_lugar {
-    border-bottom: 1px solid #f6f6f6;
+    border-bottom: 1px solid #f2f2f6;
     display: block;
     float: left;
     padding: 20px 10px;
@@ -2735,8 +2791,7 @@ small {
     #reporte ul li small.errors, #enviar_lugar ul li small.errors, #reclamar_lugar ul li small.errors {
       margin-left: 335px; }
   #reporte .reporte_error, #reporte .enviar_error, #reporte .reclamar_error, #enviar_lugar .reporte_error, #enviar_lugar .enviar_error, #enviar_lugar .reclamar_error, #reclamar_lugar .reporte_error, #reclamar_lugar .enviar_error, #reclamar_lugar .reclamar_error {
-    background-color: #ffe5e5;
-    border: 1px solid #ff6666;
+    border: 1px solid #ff8a8a;
     line-height: 18px;
     margin: 0 0 20px 0;
     padding: 5px 10px;
@@ -2750,7 +2805,7 @@ small {
   margin: 0 0 50px;
   width: 960px; }
   .caja_usuario .datos_usuario {
-    border: 1px solid #f6f6f6;
+    border: 1px solid #f2f2f6;
     display: block;
     float: left;
     padding: 20px;
@@ -2881,7 +2936,7 @@ small {
       padding: 2px 0 0 26px; }
 
 .caja_contenidos_usuario {
-  border-top: 1px solid #f6f6f6;
+  border-top: 1px solid #f2f2f6;
   float: left;
   margin: 20px 0 0;
   position: relative;
@@ -2892,8 +2947,8 @@ small {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     background: #fafafc;
-    border-bottom: 1px solid #f6f6f6;
-    border-right: 1px solid #f6f6f6;
+    border-bottom: 1px solid #f2f2f6;
+    border-right: 1px solid #f2f2f6;
     height: 100%;
     float: left;
     left: 0;
@@ -2906,9 +2961,9 @@ small {
       text-decoration: none; }
       .caja_contenidos_usuario .menu_actividad_usuario a li {
         background: #fafafc;
-        border-bottom: 1px solid #f6f6f6;
-        border-top: 1px solid #f6f6f6;
-        border-right: 1px solid #f6f6f6;
+        border-bottom: 1px solid #f2f2f6;
+        border-top: 1px solid #f2f2f6;
+        border-right: 1px solid #f2f2f6;
         cursor: pointer;
         float: left;
         padding: 15px 10px 15px 15px;
@@ -2921,10 +2976,10 @@ small {
           width: 134px; }
     .caja_contenidos_usuario .menu_actividad_usuario .selected {
       background: white;
-      border-bottom: 1px solid #f6f6f6;
+      border-bottom: 1px solid #f2f2f6;
       border-left: 5px solid #66ccff;
       border-right: 1px solid white;
-      border-top: 1px solid #f6f6f6;
+      border-top: 1px solid #f2f2f6;
       float: left;
       padding: 15px 10px;
       width: 135px; }
@@ -2942,8 +2997,8 @@ small {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     background: #fafafc;
-    border-bottom: 1px solid #f6f6f6;
-    border-left: 1px solid #f6f6f6;
+    border-bottom: 1px solid #f2f2f6;
+    border-left: 1px solid #f2f2f6;
     float: right;
     height: 100%;
     left: 660px;
@@ -2956,9 +3011,9 @@ small {
       text-decoration: none; }
       .caja_contenidos_usuario .menu_edicion_usuario a li {
         background: #fafafc;
-        border-bottom: 1px solid #f6f6f6;
-        border-top: 1px solid #f6f6f6;
-        border-left: 1px solid #f6f6f6;
+        border-bottom: 1px solid #f2f2f6;
+        border-top: 1px solid #f2f2f6;
+        border-left: 1px solid #f2f2f6;
         cursor: pointer;
         float: right;
         text-align: right;
@@ -2972,10 +3027,10 @@ small {
           width: 114px; }
     .caja_contenidos_usuario .menu_edicion_usuario .selected {
       background: white;
-      border-bottom: 1px solid #f6f6f6;
+      border-bottom: 1px solid #f2f2f6;
       border-left: 1px solid white;
       border-right: 5px solid #66ccff;
-      border-top: 1px solid #f6f6f6;
+      border-top: 1px solid #f2f2f6;
       float: right;
       text-align: right;
       padding: 15px 10px;
@@ -3001,8 +3056,7 @@ small {
       margin: 40px 0 0;
       width: 620px; }
       .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos .edicion_usuario_error {
-        background-color: #ffe5e5;
-        border: 1px solid #ff6666;
+        border: 1px solid #ff8a8a;
         float: left;
         line-height: 18px;
         margin: 0 0 20px 0;
@@ -3026,10 +3080,6 @@ small {
           margin: 0px;
           padding: 6px 10px;
           width: 306px; }
-          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li input:hover {
-            border: 1px solid #444444; }
-          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li input:focus {
-            border: 1px solid #0066cc; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li select {
           float: left;
           width: 310px; }
@@ -3095,8 +3145,7 @@ small {
       margin: 40px 0 0;
       width: 620px; }
       .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos .edicion_usuario_error {
-        background-color: #ffe5e5;
-        border: 1px solid #ff6666;
+        border: 1px solid #ff8a8a;
         float: left;
         line-height: 18px;
         margin: 0 0 20px 0;
@@ -3114,6 +3163,7 @@ small {
           margin: 4px 20px 4px 0;
           width: 80px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul li input {
+          border: 0px;
           margin: 6px 0; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul li .tips {
           color: #999999;
@@ -3159,8 +3209,7 @@ small {
       margin: 40px 0 0;
       width: 620px; }
       .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password .edicion_usuario_error {
-        background-color: #ffe5e5;
-        border: 1px solid #ff6666;
+        border: 1px solid #ff8a8a;
         float: left;
         line-height: 18px;
         margin: 0 0 20px 0;
@@ -3184,10 +3233,6 @@ small {
           margin: 0px;
           padding: 6px 10px;
           width: 306px; }
-          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul li input:hover {
-            border: 1px solid #444444; }
-          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul li input:focus {
-            border: 1px solid #0066cc; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul li .errors {
           margin: 5px 0 0 230px; }
       .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul .enviar_password_prefil {
@@ -3206,8 +3251,7 @@ small {
       margin: 40px 0 0;
       width: 620px; }
       .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta .edicion_usuario_error {
-        background-color: #ffe5e5;
-        border: 1px solid #ff6666;
+        border: 1px solid #ff8a8a;
         float: left;
         line-height: 18px;
         margin: 0 0 20px 0;
@@ -3230,10 +3274,6 @@ small {
           margin: 0px;
           padding: 6px 10px;
           width: 306px; }
-          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li input:hover {
-            border: 1px solid #444444; }
-          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li input:focus {
-            border: 1px solid #0066cc; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li textarea {
           color: #666666;
           float: left;
@@ -3242,10 +3282,6 @@ small {
           min-height: 80px;
           padding: 6px 10px;
           width: 306px; }
-          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li textarea:hover {
-            border: 1px solid #444444; }
-          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li textarea:focus {
-            border: 1px solid #0066cc; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta ul li .detalle_motivo_borrar_cuenta {
           display: block;
           font-size: 12px;
@@ -3299,7 +3335,7 @@ small {
           color: #cccccc;
           margin: 0 5px; }
     .caja_contenidos_usuario .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario {
-      border-top: 1px solid #f6f6f6;
+      border-top: 1px solid #f2f2f6;
       float: left;
       display: block;
       padding: 30px 0;
@@ -3438,7 +3474,7 @@ small {
         padding: 0px;
         width: 780px; }
         .caja_contenidos_usuario .caja_fotos_usuario .caja_fotos_lugar_usuario .listado_foto_lugar_usuario li {
-          border-bottom: 1px solid #f6f6f6;
+          border-bottom: 1px solid #f2f2f6;
           display: block;
           float: left;
           height: 85px;
@@ -3507,8 +3543,8 @@ small {
                     color: #666666 !important;
                     text-decoration: underline; }
   .caja_contenidos_usuario .paginacion_perfil {
-    border-bottom: 1px solid #f6f6f6;
-    border-top: 1px solid #f6f6f6;
+    border-bottom: 1px solid #f2f2f6;
+    border-top: 1px solid #f2f2f6;
     color: #666666;
     display: block;
     float: left;
@@ -3543,10 +3579,3 @@ small {
         padding: 2px 5px 8px; }
         .caja_contenidos_usuario .paginacion_perfil ul .pagina-actual a {
           color: white !important; }
-
-.titulo_accion_usuario {
-  font-size: 20px; }
-
-.titulo_edicion_usuario {
-  font-size: 20px;
-  padding: 20px 0 0; }
