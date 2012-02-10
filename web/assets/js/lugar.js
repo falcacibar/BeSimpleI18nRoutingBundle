@@ -1,6 +1,14 @@
-$(document).ready(function(){
-    var compartirTimeout;
+oldBrowser = false;
 
+var IE;
+//@cc_on IE = navigator.appVersion;
+if(/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){var ffx=new Number(RegExp.$1);}
+if(IE || ffx < 3.7){
+    oldBrowser = true;
+}
+
+$(document).ready(function(){
+    var compartirTimeout,
     fechasRecomendaciones = [];
         
     $('.fecha_recomendacion').each(function(){ 
@@ -58,13 +66,22 @@ $(document).ready(function(){
     });
 
     $('.permalink_recomendacion').click(function(e){
-        e.preventDefault();
+        $estaRecomendacion = $(this).closest('.recomendacion');
 
-        $estaRecomendacion = $(this).closest('.recomendacion').hide();
+        //Si es browser moderno, evitamos el link, hacemos pushstate, y escondemos el itennnnn
+        if(oldBrowser == false){
+            e.preventDefault();
+            window.history.pushState({}, "", $(this).attr('href'));
+            $estaRecomendacion.hide();
+        }
+        
         nombre = $estaRecomendacion.find('.nombre_recomendacion > strong > a').text();
 
         if($('.recomendacion_pedida').length > 0){
-            $pedida = $('.recomendacion_pedida').hide();
+            if(oldBrowser == false){
+                $pedida = $('.recomendacion_pedida').hide();
+            }
+            
             fechaPedida = $pedida.find('.fecha_recomendacion').text().split('/');
             fechaPedidaObj = Date.parse(fechaPedida[2] + "-" + fechaPedida[1] + "-" + fechaPedida[0]);
 
@@ -78,17 +95,18 @@ $(document).ready(function(){
                 }else{
                     $('.recomendacion').eq(eq).after($pedida.show());
                 }
-            }else{
+            }else if(oldBrowser == false){
                 $pedida.remove();
             }
         }
         
         $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200);
-        window.history.pushState({}, "", $(this).attr('href'));
+
         $estaRecomendacion.addClass('recomendacion_pedida');
         $('.recomendacion_pedida_container').append($estaRecomendacion.fadeIn(800));
         $('.recomendacion_pedida_container > h1').text('Recomendacion De '+nombre);
     });
+
     var send_util_mail = function(){
         $.ajax({
             url: WEBROOT+'ajax/util_mail',
@@ -204,7 +222,11 @@ $(document).ready(function(){
         e.preventDefault();
         if($('.recomienda_lugar_caja h3').offset() != null)
             $('body').animate({'scrollTop': $('.recomienda_lugar_caja h3').offset().top - 20}, 200);
-    });   
+    }); 
+    $('.cerrar-popup').click(function(e){
+        e.preventDefault();
+        $.fancybox.close()
+    });  
 });
 
 function precioLugar(precio, tipo){
@@ -285,5 +307,5 @@ function editarRecomendacion(lugar){
 }
 
 function recomendacionPedida(slug){
-    $('.recomendacion[data-slug="christopher-uribe-espina"]').find('.permalink_recomendacion').click();
+    $('.recomendacion[data-slug="'+slug+'"]').find('.permalink_recomendacion').click();
 }
