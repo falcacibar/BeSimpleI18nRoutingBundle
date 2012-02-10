@@ -186,7 +186,8 @@ $(document).ready(function(){
     
     $('.recomendar_ahora').click(function(e){
         e.preventDefault();
-        $('body').animate({'scrollTop': $('.recomienda h3').offset().top}, 200);
+        if($('.recomienda_lugar_caja h3').offset().top != null)
+            $('body').animate({'scrollTop': $('.recomienda_lugar_caja h3').offset().top - 20}, 200);
         $.fancybox.close()
     });
     
@@ -197,7 +198,13 @@ $(document).ready(function(){
             $boton.click();
         }
         $.fancybox.close()        
-    });    
+    });
+    
+    $('.recomienda_lugar').click(function(e){
+        e.preventDefault();
+        if($('.recomienda_lugar_caja h3').offset() != null)
+            $('body').animate({'scrollTop': $('.recomienda_lugar_caja h3').offset().top - 20}, 200);
+    });   
 });
 
 function precioLugar(precio, tipo){

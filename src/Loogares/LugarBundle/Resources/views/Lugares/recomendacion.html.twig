@@ -82,10 +82,10 @@
     	}
     }
 </script>
-<div class="recomienda">
+<div class="recomienda_lugar_caja">
 	<h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
 
-	<form class="recomienda_lugar" name="recomienda" action="{{ path('_recomienda', {'slug': lugar.slug}) }}" method="post">
+	<form name="recomienda" action="{{ path('_recomienda', {'slug': lugar.slug}) }}" method="post">
 		<ul>
 			<li>
 				<label>{{'lugar.recomendacion.evaluacion'|trans}}</label>
