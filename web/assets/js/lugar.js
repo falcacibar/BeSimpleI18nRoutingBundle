@@ -226,7 +226,12 @@ $(document).ready(function(){
     $('.cerrar-popup').click(function(e){
         e.preventDefault();
         $.fancybox.close()
-    });  
+    });
+    
+    $('.not_logged').hover(function() {
+        //$(this).val($(this).parent().parent().find('.not_logged_acciones_popup'));
+        $(this).parent().parent().find('.not_logged_acciones_popup').toggle();
+    });
 });
 
 function precioLugar(precio, tipo){

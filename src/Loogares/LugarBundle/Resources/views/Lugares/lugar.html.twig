@@ -228,7 +228,7 @@
                 {% if lugar.accionesUsuario.3.puede == 1 %}
                     <a class="favoritos_lugar boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
                 {% else %}
-                    <p class="favoritos_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
+                    <p class="favoritos_lugar boton_desactivado{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
                 {% endif %}
                 <p class="favoritos_valor conteo">{{lugar.totalAcciones.3.total}}</p>
             </div>           
@@ -236,7 +236,7 @@
                 {% if lugar.accionesUsuario.2.puede == 1 %}
                     <a class="estuve_alla_lugar boton_accion {{(lugar.accionesUsuario.2.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></a>
                 {% else %}
-                    <p class="estuve_alla_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></p>
+                    <p class="estuve_alla_lugar boton_desactivado{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></p>
                 {% endif %}
                 <p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
             </div> 
@@ -244,7 +244,7 @@
                 {% if lugar.accionesUsuario.1.puede == 1 %}
                     <a class="quiero_volver_lugar boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}">Quiero volver</a>
                 {% else %}
-                    <p class="quiero_volver_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.1.hecho}}">Quiero volver</p>
+                    <p class="quiero_volver_lugar boton_desactivado{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}" data-hecho="{{lugar.accionesUsuario.1.hecho}}">Quiero volver</p>
                 {% endif %}
                 <p class="quiero_volver_valor conteo">{{lugar.totalAcciones.1.total}}</p>
             </div>            
@@ -252,10 +252,15 @@
                 {% if lugar.accionesUsuario.0.puede == 1 %}
                     <a class="quiero_ir_lugar boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></a>
                 {% else %}
-                    <p class="quiero_ir_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.0.hecho}}"</p>
+                    <p class="quiero_ir_lugar boton_desactivado{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></p>
                 {% endif %}                
                 <p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
-            </div>            
+            </div>
+            <div class="not_logged_acciones_popup" style="display:none;height:50px;width:150px">
+                <p>¿Ingresar a Loogares.com?</p>
+                <p>Para utilizar este botón, debes entrar con tu cuenta</p>
+                <a href="{{path('login')}}">Entrar</a>
+            </div>          
         </div>
 
         <div class="caja_inferior_ficha"></div>
