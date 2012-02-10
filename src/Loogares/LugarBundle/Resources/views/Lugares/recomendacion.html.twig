@@ -55,32 +55,32 @@
 		});
 	});
 
-		function validarRecomendacion(){
-	    	var error = false;
-	    	$('.errors').remove();
-	    	$('.input-error').removeClass('input-error');
-	    	if($('.texto').val().length < 250){
-	    		error = true;
-	    		$('.texto').addClass('input-error');
-	    		$('.texto').parent().append("<small class='errors'>{{'lugar.recomendacion.error_recomendacion'|trans}}</small>");
-	    	}
+	function validarRecomendacion(){
+    	var error = false;
+    	$('.errors').remove();
+    	$('.input-error').removeClass('input-error');
+    	if($('.texto').val().length < 250){
+    		error = true;
+    		$('.texto').addClass('input-error');
+    		$('.texto').parent().append("<small class='errors'>{{'lugar.recomendacion.error_recomendacion'|trans}}</small>");
+    	}
 
-	    	if($('[name="recomienda-precio"]').val() == 0){
-	    		error = true;
-	    		$('.recomendacion-precio-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_precio'|trans}}</small>")
-	    	}
-	    	
-	    	if($('[name="recomienda-estrellas"]').val() == 0){
-	    		error = true;
-	    		$('.recomendacion-star-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_estrellas'|trans}}</small>")
-	    	}
+    	if($('[name="recomienda-precio"]').val() == 0){
+    		error = true;
+    		$('.recomendacion-precio-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_precio'|trans}}</small>")
+    	}
+    	
+    	if($('[name="recomienda-estrellas"]').val() == 0){
+    		error = true;
+    		$('.recomendacion-star-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_estrellas'|trans}}</small>")
+    	}
 
-	    	if(error){
-	    		return false;
-	    	}else{
-	    		return true;
-	    	}
-	    }
+    	if(error){
+    		return false;
+    	}else{
+    		return true;
+    	}
+    }
 </script>
 
 <h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>

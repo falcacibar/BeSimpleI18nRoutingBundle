@@ -33,12 +33,44 @@
 				});
 			});
 
-			$('.expandir_resultados > span').live('click', function(){
-				var altoBusqueda = $('.resultados_busqueda').height();
-				$('.expandir_resultados').animate({
-					'height': altoBusqueda + 25,
-					'width': 950
-				}, 500);
+
+
+			$('.ver_categorias').live('click', function(){
+				var $div = $( ".expandir_resultados" ),
+					alto = $div.height();
+					
+				if(alto == 100){
+					var startHeight = $div.height();
+					$div.css( "height", "auto" );
+					var endHeight = $div.height();
+					$div.height( startHeight ).animate({ 
+						height: endHeight 
+					}, 500);
+				}else{
+					$div.animate({
+						'height': 100
+					}, 500);	
+				}
+			});
+
+			$('.ver_zonas').live('click', function(){
+				var $div = $('.expandir_zonas'),
+					alto = $div.height();
+
+				if(alto == 7){
+					var startHeight = $div.height();
+					$div.css( "height", "auto" );
+					var endHeight = $div.height();
+					$div.height( startHeight ).animate({ 
+						height: endHeight,
+						width: 940
+					}, 500);
+				}else{
+					$div.animate({
+						'width': 145,
+						'height': 7
+					});					
+				}
 			});
 
 			$('.expandir_resultados a').live('click', function(e){
@@ -49,77 +81,84 @@
 				$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
 				
 				$('.resultados-wrapper').load(window.location.href + " .resultados", {'categoria': slug}, function(data){
-					$('#overlay, .loader').remove();
+					$('#overlay, .loader').fadeOut(function(){remove()});
 				});
 				return false;
 			});
 
-			$('')
+
 		});
 	</script>
 {% endblock %}
 
 {% block content %}
 <style>
+
 	.filtros-busqueda li{
-		display:inline;
+		display: inline;
 	}
+
+	.expandir_zonas{
+		display: inline-block;
+		font-size: 12px;
+		background: #fafafa;
+		border: 1px #eee solid;
+		padding: 10px;
+		position: relative;
+		overflow: hidden;
+		width: 145px;
+		height: 7px;
+	}
+
+		.expandir_zonas span{
+			display: inline-block;
+			cursor: pointer;
+		}
 
 	.expandir_resultados{
 		display: inline-block;
 		font-size: 12px;
-		line-height: 10px;
 		background: #fafafa;
 		border: 1px #eee solid;
-		padding: 5px;
+		padding: 10px;
 		position: relative;
-		overflow:hidden;
+		width: 940px;
+		height: 100px;
+		overflow: hidden;
 	}
 		.expandir_resultados span{
-			width: 180px;
-			height: 10px;
-			display: block;
+			display: inline-block;
 			cursor: pointer;
 		}
 
-		.resultados_busqueda{
-			top: 25px;
-			width: 800px;
-			position:absolute;
+		.expandir_resultados .ver_categorias{
+			float: right;
 		}
 
-		.resultados_busqueda > div{
-			float: left;
+		.expandir_resultados ul, .expandir_zonas ul{
+			width: 940px;
 		}
 
-		.resultados_busqueda > div ul{
-			margin-right: 15px;
-			margin-top: 5px;
-		}
-
-		.resultados_busqueda > div strong{
-			text-decoration: underline;
-		}
-
-		.resultados_busqueda > div li{
-			padding: 5px 0;
-		}
+			.expandir_resultados ul li, .expandir_zonas ul li{
+				display: inline-block;
+				width: 232px;
+				margin: 10px 0;
+				font-size: 12px !important;
+			}
 </style>
 	<div class="resultados-wrapper">
 		<div class="resultados">
-			<h2>{{'general.terminos.resultados'|trans}}: {{buscar}}</h2>
-			{% if es == 'busqueda' or es == 'categoria' %}
+			<h1 class="titulo">Resultados de Busqueda en {{slug}}</h1>
+			{% if results.totalPorCategoria is defined or results.totalPorSubcategoria is defined %}
 			<div class="expandir_resultados">
-				<span>Expande tus Resultados</span>
+				<span>Resultados por categoria</span>
+				<span class="ver_categorias">Ver Todas ></span>
 				<div class="resultados_busqueda">
 					{% if es == 'busqueda' %}
 					<div class="resultados_categorias">
-						<strong>Categorías</strong>
 						<ul>
 							{% for categoria in results.totalPorCategoria %}
-								<li><a data-slug="{{categoria.slug}}" class="link_azul" href="">{{categoria.nombre}} ({{ categoria.total }} Resultados)</a></li>
-							{% else %}
-								<li>No se encontraron Resultados :(</li>
+								<li><a data-slug="{{categoria.slug}}" class="link_azul" href="">{{categoria.nombre}} ({{ categoria.total }})</a></li>
 							{% endfor %}
 						</ul>
 					</div>
@@ -130,8 +169,6 @@
 						<ul>
 							{% for subcategoria in results.totalPorSubcategoria %}
 								<li><a class="link_azul" href="">{{subcategoria.nombre}} ({{subcategoria.total }} Resultados)</a></li>
-							{% else %}
-								<li>No se encontraron Resultados :(</li>
 							{% endfor %}
 						</ul>
 					</div>
@@ -139,8 +176,34 @@
 				</div>
 			</div>
 			{% endif %}
-			
-			{% if lugares|length > 0 %}
+			{% if results.totalPorSectores is defined or results.totalPorComunas is defined %}
+			<div class="expandir_zonas">
+				<span class="ver_zonas">Ver resultados por zonas ></span>
+				{% if results.totalPorSectores is defined %}
+				<div class="resultados_sectores">
+					<strong>Sectores</strong>
+					<ul>
+						{% for sector in results.totalPorSectores %}
+							<li><a class="link_azul" href="">{{sector.nombre}} ({{sector.total }})</a></li>
+						{% endfor %}
+					</ul>
+				</div>
+				{% endif %}
+				{% if results.totalPorComunas is defined %}
+				<div class="resultados_comunas">
+					<strong>Comunas</strong>
+					<ul>
+						{% for comuna in results.totalPorComunas %}
+							<li><a class="link_azul" href="#" data-slug="{{comuna.slug}}">{{comuna.nombre}} ({{comuna.total }})</a></li>
+						{% endfor %}
+					</ul>
+				</div>
+				{% endif %}
+			</div>
+			{% endif %}
+			{% if lugares|length == 0 %}
+				No hay resultados, :()
+			{% else %}
 				<br/>
 
 				<div class="total_paginacion">
