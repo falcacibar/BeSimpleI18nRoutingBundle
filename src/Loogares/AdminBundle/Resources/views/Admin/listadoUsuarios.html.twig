@@ -277,8 +277,9 @@ Hasta: {{paginacion.mostrandoHasta}}
 						  {{usuario.comunaNombre}}
 					   </a>
                     </td>
+
 					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pfecha_registro': usuario.fecha_registro|date('Y-d-m') }) }}">
-						{{usuario.fecha_registro|date('d/m/Y')}}
+						{{usuario.fecha_nacimiento|date('d/m/Y')}}
 					</a></td>
 					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pwww': usuario.web }) }}">{{usuario.web}}</a></td>
 					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'ptwitter': usuario.twitter }) }}">{{usuario.twitter}}</a></td>
