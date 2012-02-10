@@ -114,7 +114,7 @@
 		    <label>{{'lugar.recomendacion.tagsPopulares'|trans}}</label>
             <div class="tags_recomienda_lugar">
             {% for tagsPopulares in lugar.tagsPopulares %}
-                <a class="link_azul" href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                <a href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
             {% endfor %}
             </div>
 		</li>

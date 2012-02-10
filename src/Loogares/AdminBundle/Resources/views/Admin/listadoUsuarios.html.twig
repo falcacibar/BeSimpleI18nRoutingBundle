@@ -1,10 +1,5 @@
 {% extends 'LoogaresAdminBundle:Admin:base.html.twig' %}
 
-{% block style %}
-	<style>
-		
-	</style>
-{% endblock %}
 {% block javascript %}
     <script>
         $(document).ready(function(){
@@ -48,264 +43,412 @@
         });
     </script>
 {% endblock %}
+
 {% block content %}
-<ul class="paginacion">
-{{paginacion.paginacion | raw}}
-</ul>
-Total: {{paginacion.total}}
-Desde: {{paginacion.mostrandoDe}}
-Hasta: {{paginacion.mostrandoHasta}}
-<input type="text" id="fecha-desde-ph" value="">
-<input type="text" id="fecha-hasta-ph" value="">
-<form class="filtrar" action="{{ path('LoogaresAdminBundle_listadoUsuarios')}}" method="get">
-<input type="hidden" name="fecha-desde" id="fecha-desde" value="">
-<input type="hidden" name="fecha-hasta" id="fecha-hasta" value="01/01/01">
-<select name="tipo-fecha">
-    <option value=''>Selecciones</option>
-	<option {% if query['tipo-fecha'] is defined and query['tipo-fecha'] == 'fecha_nacimiento'%} selected="selected" {% endif %}value="fecha_nacimiento">Fecha de Nacimiento</option>
-	<option {% if query['tipo-fecha'] is defined and query['tipo-fecha'] == 'fecha_registro'%} selected="selected" {% endif %} value="fecha_registro">Fecha de Registro</option>
-</select>
-<input type="text" name="buscar" placeholder="Buscar por..." value="{% if query.buscar is defined %}{{query.buscar}}{% endif %}"/>
-<select name="pestado">
-    <option value=''>Todos</option>
-    <option {% if query.pestado is defined and query.pestado == 'Activo'%} selected="selected" {% endif %}value="Activo">Activos</option>
-    <option {% if query.pestado is defined and query.pestado == 'Inactivo'%} selected="selected" {% endif %}value="Inactivo">Inactivo</option>
-    <option {% if query.pestado is defined and query.pestado == 'Por Confirmar'%} selected="selected" {% endif %}value="Por%20Confirmar">Por Confirmar</option>
-</select>
-<input type="submit" value="Filtrar"/>
-</form>
-<a href="{{ path('LoogaresAdminBundle_listadoUsuarios')}}">Limpiar Filtros</a>
+
+<h1 class="titulo_admin">Usuarios</h1>
+
+<div class="filtro_admin">
+    <div class="periodo">
+        Período entre el <input type="text" class="periodo_fecha" id="fecha-desde-ph" value="">
+        y el <input type="text" class="periodo_fecha" id="fecha-hasta-ph" value="">
+    </div>
+
+    <form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_listadoUsuarios')}}" method="get">
+        <input type="hidden" name="fecha-desde" id="fecha-desde" value="">
+        <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="">
+        <div class="buscar">
+            Buscar <input type="text" name="buscar" class="buscar_lugar" placeholder="Usuarios" value="{% if query.buscar is defined %}{{query.buscar}}{% endif %}"/>
+        </div>
+
+        <div class="seleccionar_estado">
+            Seleccionar 
+            <select name="tipo-fecha">
+                <option value=''>Fechas</option>
+                <option {% if query['tipo-fecha'] is defined and query['tipo-fecha'] == 'fecha_nacimiento'%} selected="selected" {% endif %}value="fecha_nacimiento">Nacimiento</option>
+                <option {% if query['tipo-fecha'] is defined and query['tipo-fecha'] == 'fecha_registro'%} selected="selected" {% endif %} value="fecha_registro">Registro</option>
+            </select>
+            <select name="pestado">
+                <option value=''>Estado</option>
+                <option {% if query.pestado is defined and query.pestado == 'Activo'%} selected="selected" {% endif %}value="Activo">Activos</option>
+                <option {% if query.pestado is defined and query.pestado == 'Inactivo'%} selected="selected" {% endif %}value="Inactivo">Inactivo</option>
+                <option {% if query.pestado is defined and query.pestado == 'Por Confirmar'%} selected="selected" {% endif %}value="Por%20Confirmar">Por Confirmar</option>
+            </select>
+            <input type="submit" value="Filtrar"/>
+            <a href="{{ path('LoogaresAdminBundle_listadoUsuarios')}}">Quitar filtros</a>
+        </div>
+    </form>
+</div>
 
 <form action="{{ path('LoogaresAdminBundle_accionUsuario') }}" method="post">
-	<div class="table-data">
-		<table>
-			<tr>
-				<th></th>
-                <th>
-                    <a href="">ID</a>
-                    <p class="list-actions">
-                        <a class="{% if query.id is defined and query.id == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"id": 'asc' }))}}">⬆</a>
+    <div class="listado_admin">
+    	<div class="table-data">
+            <table class="listado_usuarios">
+                <thead>
+                    <th class="lugar_checkbox">
+                    </th>
+                    <th class="lugar_id">
+                        <span>
+                        <p class="titulos_tabla">Id</p>
+                        <p class="list-actions">
+                            <a class="{% if query.id is defined and query.id == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"id": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.id is defined and query.id == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"id": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.id is defined and query.id == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"id": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'id': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Nombre</a>
-                    <p class="list-actions">
-                        <a class="{% if query.nombre is defined and query.nombre == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"nombre": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'id': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_nombre">
+                        <span>
+                        <p class="titulos_tabla">Nombre</p>
+                        <p class="list-actions">
+                            <a class="{% if query.nombre is defined and query.nombre == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"nombre": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.nombre is defined and query.nombre == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"nombre": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.nombre is defined and query.nombre == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"nombre": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'nombre': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Apellido</a>
-                    <p class="list-actions">
-                        <a class="{% if query.apellido is defined and query.apellido == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"apellido": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'nombre': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_nombre">
+                        <span>
+                        <p class="titulos_tabla">Apellido</p>
+                        <p class="list-actions">
+                            <a class="{% if query.apellido is defined and query.apellido == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"apellido": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.apellido is defined and query.apellido == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"apellido": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.apellido is defined and query.apellido == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"apellido": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'apellido': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">E-Mail</a>
-                    <p class="list-actions">
-                        <a class="{% if query.mail is defined and query.mail == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"mail": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'apellido': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_nombre">
+                        <span>
+                        <p class="titulos_tabla">E-mail</p>
+                        <p class="list-actions">
+                            <a class="{% if query.mail is defined and query.mail == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"mail": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.mail is defined and query.mail == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"mail": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.mail is defined and query.mail == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"mail": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'mail': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Slug</a>
-                    <p class="list-actions">
-                        <a class="{% if query.slug is defined and query.slug == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"slug": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'mail': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_nombre">
+                        <span>
+                        <p class="titulos_tabla">Slug</p>
+                        <p class="list-actions">
+                            <a class="{% if query.slug is defined and query.slug == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"slug": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.slug is defined and query.slug == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"slug": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.slug is defined and query.slug == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"slug": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'slug': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Sexo</a>
-                    <p class="list-actions">
-                        <a class="{% if query.sexo is defined and query.sexo == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"sexo": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'slug': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="usuario_sexo">
+                        <span>
+                        <p class="titulos_tabla">Sexo</p>
+                        <p class="list-actions">
+                            <a class="{% if query.sexo is defined and query.sexo == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"sexo": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.sexo is defined and query.sexo == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"sexo": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.sexo is defined and query.sexo == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"sexo": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'sexo': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Comuna</a>
-                    <p class="list-actions">
-                        <a class="{% if query.comuna is defined and query.comuna == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"comuna": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'sexo': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_comuna">
+                        <span>
+                        <p class="titulos_tabla">Comuna</p>
+                        <p class="list-actions">
+                            <a class="{% if query.comuna is defined and query.comuna == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"comuna": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.comuna is defined and query.comuna == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"comuna": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.comuna is defined and query.comuna == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"comuna": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'comuna': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">F. Nacimiento</a>
-                    <p class="list-actions">
-                        <a class="{% if query.fecha_nacimiento is defined and query.fecha_nacimiento == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"fecha_nacimiento": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'comuna': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="usuario_fecha">
+                        <span>
+                        <p class="titulos_tabla">Nacimiento</p>
+                        <p class="list-actions">
+                            <a class="{% if query.fecha_nacimiento is defined and query.fecha_nacimiento == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"fecha_nacimiento": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.fecha_nacimiento is defined and query.fecha_nacimiento == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"fecha_nacimiento": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.fecha_nacimiento is defined and query.fecha_nacimiento == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"fecha_nacimiento": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'fecha_nacimiento': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">F. Registro</a>
-                    <p class="list-actions">
-                        <a class="{% if query.fecha_registro is defined and query.fecha_registro == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"fecha_registro": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'fecha_nacimiento': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="usuario_fecha">
+                        <span>
+                        <p class="titulos_tabla">Registro</p>
+                        <p class="list-actions">
+                            <a class="{% if query.fecha_registro is defined and query.fecha_registro == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"fecha_registro": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.fecha_registro is defined and query.fecha_registro == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"fecha_registro": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.fecha_registro is defined and query.fecha_registro == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"fecha_registro": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'fecha_registro': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">www</a>
-                    <p class="list-actions">
-                        <a class="{% if query.web is defined and query.web == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"www": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'fecha_registro': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_sitio_web">
+                        <span>
+                        <p class="titulos_tabla">Sitio web</p>
+                        <p class="list-actions">
+                            <a class="{% if query.web is defined and query.web == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"www": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.web is defined and query.web == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"www": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.web is defined and query.web == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"www": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'www': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Twitter</a>
-                    <p class="list-actions">
-                        <a class="{% if query.web is defined and query.web == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"twitter": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'www': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_facebook">
+                        <span>
+                        <p class="titulos_tabla">Facebook</p>
+                        <p class="list-actions">
+                            <a class="{% if query.web is defined and query.web == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"facebook": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.web is defined and query.web == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"twitter": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.web is defined and query.web == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"facebook": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'twitter': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Facebook</a>
-                    <p class="list-actions">
-                        <a class="{% if query.web is defined and query.web == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"facebook": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'facebook': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_twitter">
+                        <span>
+                        <p class="titulos_tabla">Twitter</p>
+                        <p class="list-actions">
+                            <a class="{% if query.web is defined and query.web == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"twitter": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.web is defined and query.web == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"facebook": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.web is defined and query.web == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"twitter": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'facebook': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Lugares</a>
-                    <p class="list-actions">
-                        <a class="{% if query.lugares is defined and query.lugares == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"lugares": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'twitter': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="usuario_agregados">
+                        <span>
+                        <p class="titulos_tabla">Lugares</p>
+                        <p class="list-actions">
+                            <a class="{% if query.lugares is defined and query.lugares == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"lugares": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.lugares is defined and query.lugares == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"lugares": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.lugares is defined and query.lugares == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"lugares": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'lugares': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Imagenes</a>
-                    <p class="list-actions">
-                        <a class="{% if query.imagenes is defined and query.imagenes == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"imagenes": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'lugares': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="usuario_agregados">
+                        <span>
+                        <p class="titulos_tabla">Fotos</p>
+                        <p class="list-actions">
+                            <a class="{% if query.imagenes is defined and query.imagenes == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"imagenes": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.imagenes is defined and query.imagenes == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"imagenes": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.imagenes is defined and query.imagenes == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"imagenes": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'imagenes': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Recomendaciones</a>
-                    <p class="list-actions">
-                        <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"recomendaciones": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'imagenes': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="usuario_agregados">
+                        <span>
+                        <p class="titulos_tabla">Recomendaciones</p>
+                        <p class="list-actions">
+                            <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"recomendaciones": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"recomendaciones": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"recomendaciones": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'recomendaciones': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Utiles</a>
-                    <p class="list-actions">
-                        <a class="{% if query.utiles is defined and query.utiles == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"utiles": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'recomendaciones': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="usuario_agregados">
+                        <span>
+                        <p class="titulos_tabla">Útiles</p>
+                        <p class="list-actions">
+                            <a class="{% if query.utiles is defined and query.utiles == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"utiles": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.utiles is defined and query.utiles == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"utiles": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.utiles is defined and query.utiles == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"utiles": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'utiles': null }))}}">✖</a>
-                    </p>
-                </th>	
-                <th>
-                    <a href="">Estado</a>
-                    <p class="list-actions">
-                        <a class="{% if query.estado is defined and query.estado == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"estado": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'utiles': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>	
+                    <th class="lugar_estado">
+                        <span>
+                        <p class="titulos_tabla">Estado</p>
+                        <p class="list-actions">
+                            <a class="{% if query.estado is defined and query.estado == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"estado": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.estado is defined and query.estado == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"estado": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.estado is defined and query.estado == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"estado": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'estado': null }))}}">✖</a>
-                    </p>
-                </th>
-                <th>
-                    <a href="">Tipo Usuario</a>
-                    <p class="list-actions">
-                        <a class="{% if query.tipo_usuario is defined and query.tipo_usuario == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"tipo_usuario": 'asc' }))}}">⬆</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'estado': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_tipo">
+                        <span>
+                        <p class="titulos_tabla">Tipo</p>
+                        <p class="list-actions">
+                            <a class="{% if query.tipo_usuario is defined and query.tipo_usuario == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"tipo_usuario": 'asc' }))}}">⬆</a>
 
-                        <a class="{% if query.tipo_usuario is defined and query.tipo_usuario == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"tipo_usuario": 'desc' }))}}">⬇</a>
+                            <a class="{% if query.tipo_usuario is defined and query.tipo_usuario == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({"tipo_usuario": 'desc' }))}}">⬇</a>
 
-                        <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'tipo_usuario': null }))}}">✖</a>
-                    </p>
-                </th>
-				<th>Accion</th>
-			</tr>
-			{% for usuario in usuarios %}
-				<tr>
-					<td><input type="checkbox" name="id[]" value="{{usuario.id}}"/></td>
-                    <td>{{usuario.id}}</td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pnombre': usuario.nombre }) }}">{{usuario.nombre}}</a></td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'papellido': usuario.apellido }) }}">{{usuario.apellido}}</a></td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pmail': usuario.mail }) }}">{{usuario.mail}}</a></td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pslug': usuario.slug }) }}">{{usuario.slug}}</a></td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'psexo': usuario.sexo }) }}">{{usuario.sexo}}</a></td>
-                    <td>
-                        <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pcomuna': usuario.comunaNombre}) }}">
-						  {{usuario.comunaNombre}}
-					   </a>
-                    </td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pfecha_registro': usuario.fecha_registro|date('Y-d-m') }) }}">
-						{{usuario.fecha_registro|date('d/m/Y')}}
-					</a></td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pwww': usuario.web }) }}">{{usuario.web}}</a></td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'ptwitter': usuario.twitter }) }}">{{usuario.twitter}}</a></td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pfacebook': usuario.facebook }) }}">{{usuario.facebook}}</a></td>
-					<td>{{usuario.lugares}}</td>
-					<td>{{usuario.imagenes}}</td>
-					<td>{{usuario.recomendaciones}}</td>
-					<td>{{usuario.utiles}}</td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pestado': usuario.estadoNombre }) }}">{{usuario.estadoNombre}}</a></td>
-					<td><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'ptipo_usuario': usuario.tipoUsuarioNombre }) }}">{{usuario.tipoUsuarioNombre}}</a></td>
-					<td>
-                    	<a target="_blank" href="{{ path('editarUsuario', {'param':usuario.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
-                	    {% if usuario.estadoNombre == 'Activo' %}
-                            <a href="{{ path('LoogaresAdminBundle_desactivarUsuario', query|merge({'id': usuario.id})) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
-                        {% elseif usuario.estadoNombre == 'Inactivo' %}
-                            <a href="{{ path('LoogaresAdminBundle_activarUsuario', query|merge({'id':usuario.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
-                        {% endif %}
-					</td>
-				</tr>
-			{% endfor %}
-		</table>
-	</div>
-    <select name="accion">
-        <option>Seleccionar accion masiva</option>
-        <option value="activar">Activar</option>
-        <option value="desactivar">Desactivar</option>
-    </select>
-    <input type="submit" value="Enviar"/>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoUsuarios', query|merge({'tipo_usuario': null }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>
+                    <th class="lugar_acciones">
+                        <span>
+                        <p class="titulos_tabla">Acciones</p>
+                        </span>
+                    </th>
+                </thead>
+
+                <tbody>
+        			{% for usuario in usuarios %}
+                        <tr>
+                            <td class="lugar_checkbox">
+                                <input type="checkbox" name="id[]" value="{{usuario.id}}"/>
+                            </td>
+                            <td class="lugar_id">
+                                <span>
+                                {{usuario.id}}
+                                </span>
+                            </td>
+                            <td class="lugar_nombre">
+                                <span>
+                                <strong><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pnombre': usuario.nombre }) }}">{{usuario.nombre}}</a></strong>
+                                </span>
+                            </td>
+                            <td class="lugar_nombre">
+                                <span>
+                                <strong><a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'papellido': usuario.apellido }) }}">{{usuario.apellido}}</a></strong>
+                                </span>
+                            </td>
+                            <td class="lugar_nombre">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pmail': usuario.mail }) }}">{{usuario.mail}}</a>
+                                </span>
+                            </td>
+                            <td class="lugar_nombre">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pslug': usuario.slug }) }}">{{usuario.slug}}</a>
+                                </span>
+                            </td>
+                            <td class="usuario_sexo">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'psexo': usuario.sexo }) }}">{{usuario.sexo}}</a>
+                                </span>
+                            </td>
+                            <td class="lugar_comuna">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pcomuna': usuario.comunaNombre}) }}">{{usuario.comunaNombre}}</a>
+                                </span>
+                            </td>
+                            <td class="usuario_fecha">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pfecha_nacimiento': usuario.fecha_nacimiento|date('Y-d-m') }) }}">{{usuario.fecha_nacimiento|date('d/m/Y')}}</a>
+                                </span>
+                            </td>
+                            <td class="usuario_fecha">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pfecha_registro': usuario.fecha_registro|date('Y-d-m') }) }}">{{usuario.fecha_registro|date('d/m/Y')}}</a>
+                                </span>
+                            </td>
+                            <td class="lugar_sitio_web">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pwww': usuario.web }) }}">{{usuario.web}}</a>
+                                </span>
+                            </td>
+                            <td class="lugar_facebook">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pfacebook': usuario.facebook }) }}">{{usuario.facebook}}</a>
+                                </span>
+                            </td>
+                            <td class="lugar_twitter">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'ptwitter': usuario.twitter }) }}">{{usuario.twitter}}</a>
+                                </span>
+                            </td>
+                            <td class="usuario_agregados">
+                                <span>
+                                    {{usuario.lugares}}
+                                </span>
+                            </td>
+                            <td class="usuario_agregados">
+                                <span>
+                                    {{usuario.imagenes}}
+                                </span>
+                            </td>
+                            <td class="usuario_agregados">
+                                <span>
+                                    {{usuario.recomendaciones}}
+                                </span>
+                            </td>
+                            <td class="usuario_agregados">
+                                <span>
+                                    {{usuario.utiles}}
+                                </span>
+                            </td>
+                            <td class="lugar_estado">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'pestado': usuario.estadoNombre }) }}">{{usuario.estadoNombre}}</a>
+                                </span>
+                            </td>
+                            <td class="lugar_tipo">
+                                <span>
+                                <a href="{{ path('LoogaresAdminBundle_listadoUsuarios', {'ptipo_usuario': usuario.tipoUsuarioNombre }) }}">{{usuario.tipoUsuarioNombre}}</a>
+                                </span>
+                            </td>
+                            <td class="lugar_acciones">
+                                <span>
+                                    <a target="_blank" href="{{ path('editarUsuario', {'param':usuario.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
+                                    {% if usuario.estadoNombre == 'Activo' %}
+                                        <a href="{{ path('LoogaresAdminBundle_desactivarUsuario', query|merge({'id': usuario.id})) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
+                                    {% elseif usuario.estadoNombre == 'Inactivo' %}
+                                        <a href="{{ path('LoogaresAdminBundle_activarUsuario', query|merge({'id':usuario.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+                                    {% endif %}
+                                </span>
+                            </td>
+        				</tr>
+        			{% endfor %}
+                </tbody>
+    		</table>
+    	</div>
+    </div>
+
+    <div class="seleccion_masiva">
+        <a href="#" class="seleccionar-todo">Seleccionar todo</a> | <a href="#" class="deseleccionar-todo">Deseleccionar todo</a> | 
+        <select name="accion">
+            <option>Acciones para la selección</option>
+            <option value="activar">Activar</option>
+            <option value="desactivar">Desactivar</option>
+        </select>
+        <input type="submit" value="Enviar datos"/>
+    </div>
+
 </form>
+
+<div class="total_paginacion">
+    <form action="{{ path('LoogaresAdminBundle_listadoUsuarios')}}" method="get">
+        <strong>
+            {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
+            <input class="ir_a_la_pagina" type="submit" value="Ir"/> o navegar...
+    </form>
+</div>
+
+<ul class="paginacion">
+    {{paginacion.paginacion | raw}}
+</ul>
+
+<div class="footer_admin">
+    © 2010~2012 Loogares.com
+</div>
+
 {% endblock %}
