@@ -1,0 +1,17 @@
+Loogares\LugarBundle\Entity\ServicioPedido:
+    type: entity
+    table: servicios_pedido
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        nombre:
+            type: string
+            length: 255
+        link_base:
+            type: text
+        imagen_chica:
+            type: text
+        imagen_grande:
+            type: text

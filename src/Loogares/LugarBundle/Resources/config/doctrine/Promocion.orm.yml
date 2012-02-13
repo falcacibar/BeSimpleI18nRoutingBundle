@@ -1,0 +1,17 @@
+Loogares\LugarBundle\Entity\Promocion:
+    type: entity
+    table: promociones
+    oneToOne:
+        pedido_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\PedidoLugar
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        titulo:
+            type: text
+        dias:
+            type: text
+        descripcion:
+            type: text

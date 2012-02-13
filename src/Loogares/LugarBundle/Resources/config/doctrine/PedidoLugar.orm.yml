@@ -1,0 +1,21 @@
+Loogares\LugarBundle\Entity\PedidoLugar:
+    type: entity
+    table: pedidos_lugar
+    manyToOne:       
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+        servicio_pedido:
+            targetEntity: Loogares\LugarBundle\Entity\ServicioPedido
+        tipo_pedido:
+            targetEntity: Loogares\LugarBundle\Entity\TipoPedido
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        prioridad:
+            type: integer
+        referral:
+            type: text
+        promocion:
+            type: boolean

@@ -155,6 +155,9 @@ include('check_migration.php');
         <li>
             <?php echo ($migratedTables['horario'] == 1) ? "<span class='migrated'>horario</span>" : "<a href='horarios.php'>horario</a>" ?>            
         </li>
+        <li>
+            <?php echo ($migratedTables['pedidos'] == 1) ? "<span class='migrated'>pedidos</span>" : "<a href='pedidos.php'>pedidos</a>" ?>            
+        </li>
     </ol>
     <ol id="usuarios">
         <li>
@@ -175,7 +178,7 @@ include('check_migration.php');
         <li>
             <?php echo ($migratedTables['util'] == 1) ? "<span class='migrated'>util</span>" : "<a href='util.php'>util</a>" ?>
            
-        </li>
+        </li>       
     </ol>
     <ol id="extras">
         <li>

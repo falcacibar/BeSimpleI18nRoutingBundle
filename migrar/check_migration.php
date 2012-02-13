@@ -112,6 +112,15 @@ $migratedTables['horario'] = ($count['total'] > 0) ? 1 : 0;
 
 
 
+$STH = $DBH->query('SELECT COUNT(id) total FROM pedidos_lugar');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['pedidos'] = ($count['total'] > 0) ? 1 : 0;
+
+
+
 $STH = $DBH->query('SELECT COUNT(id) total FROM usuarios');
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 

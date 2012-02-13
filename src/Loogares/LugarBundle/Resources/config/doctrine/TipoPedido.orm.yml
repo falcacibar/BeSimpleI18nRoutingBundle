@@ -1,0 +1,11 @@
+Loogares\LugarBundle\Entity\TipoPedido:
+    type: entity
+    table: tipo_pedido
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:      
+        nombre:
+            type: string
+            length: 255
