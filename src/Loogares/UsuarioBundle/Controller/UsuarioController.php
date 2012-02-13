@@ -82,7 +82,7 @@ class UsuarioController extends Controller
         $data = $ur->getDatosUsuario($usuarioResult, $orderBy);
         $data->tipo = 'recomendaciones';
         $data->orden = $orden;
-        $data->pagina = $pagina;
+        $data->pagina = $paginaActual;
         $data->totalPaginas = ($data->totalRecomendaciones > 10) ? ceil($data->totalRecomendaciones / 10) : 1;
         $data->offset = $offset;
         $data->recomendacionesTodas = $recomendaciones;
@@ -95,7 +95,7 @@ class UsuarioController extends Controller
 
         $paginacion = $fn->paginacion($data->totalRecomendaciones, $porPagina, 'recomendacionesUsuario', $extras, $router );
 
-        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data, 'paginacion' => $paginacion,'query' => array()));  
+        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data, 'paginacion' => $paginacion));  
     }
 
     public function fotosAction($param) {
@@ -153,6 +153,65 @@ class UsuarioController extends Controller
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
             'usuario' => $data,
             'paginacion' => $paginacion
+        ));  
+    }
+
+    public function lugaresAction($param) {
+        $fn = $this->get('fn');
+        $router = $this->get('router');
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        if(!$usuarioResult) {
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
+        }
+
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        else
+            $loggeadoCorrecto = false;
+
+        if(!$loggeadoCorrecto)
+            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+
+        $accion = (!$this->getRequest()->query->get('accion')) ? 3 : $this->getRequest()->query->get('accion');
+
+        $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
+        $ppag = 30;
+        $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
+
+        $acciones = $ur->getAccionUsuario($this->get('security.context')->getToken()->getUser(), $accion, $offset);
+        $totalAcciones = $ur->getTotalAccionesUsuario($accion, $this->get('security.context')->getToken()->getUser());
+
+        $data = $ur->getDatosUsuario($usuarioResult);
+        $data->tipo = 'lugares';
+        $data->accion = $accion;
+        $data->pagina = $pagina;
+        $data->totalPaginas = ($totalAcciones > $ppag) ? floor($totalAcciones / $ppag) : 1;
+        $data->offset = $offset;
+        $data->acciones = $acciones;
+        $data->totalAcciones = $totalAcciones;
+
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
+
+        $params = array(
+            'param' => $data->getSlug()
+        );
+            
+        $paginacion = $fn->paginacion($totalAcciones, $ppag, 'lugaresUsuario', $params, $router );
+
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render('LoogaresUsuarioBundle:Usuarios:lugares_usuario.html.twig', array(
+                'usuario' => $data,
+                'paginacion' => $paginacion,
+            ));
+
+        }
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
+            'usuario' => $data,
+            'paginacion' => $paginacion,
         ));  
     }
 
@@ -803,9 +862,9 @@ class UsuarioController extends Controller
 
     public function totalRecomendacionesPendientesAction() {
         $em = $this->getDoctrine()->getEntityManager();
-        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
-        $cantidad = $lr->getTotalAccionesUsuario(5, $this->get('security.context')->getToken()->getUser());
+        $cantidad = $ur->getTotalAccionesUsuario(5, $this->get('security.context')->getToken()->getUser());
 
         return new Response($cantidad);
     }

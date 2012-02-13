@@ -21,7 +21,7 @@
 		<li><strong>{{'usuario.fotos.orden.texto'|trans}}</strong></li>		
 		<li>
 			{% if usuario.orden == 'ultimas' %}
-				{{'usuario.fotos.orden.ultimas'|trans}} | 
+				{{'usuario.fotos.orden.ultimas'|trans}}<span class="orden_separacion">|</span>
 			{% else %}
 				<a href="{{path('fotosLugaresUsuario', { 'param' : slug, 'orden' : 'ultimas', 'pagina' : usuario.pagina })}}">{{'usuario.fotos.orden.ultimas'|trans}}</a><span class="orden_separacion">|</span>
 			{% endif %}

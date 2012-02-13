@@ -211,9 +211,9 @@ $(document).ready(function(){
     
     $('.recomendar_despues').click(function(e){
         e.preventDefault();
-        $boton = $('.recomendar_despues_lugar');
-        if($boton.attr('data-hecho') == 0) {
-            $boton.click();
+        var boton = $('.recomendar_despues_lugar');
+        if(boton.attr('data-hecho') == 0) {
+            boton.click();
         }
         $.fancybox.close()        
     });
@@ -229,8 +229,9 @@ $(document).ready(function(){
     });
     
     $('.not_logged').hover(function() {
-        //$(this).val($(this).parent().parent().find('.not_logged_acciones_popup'));
-        $(this).parent().parent().find('.not_logged_acciones_popup').toggle();
+        var popup = $(this).parent().find('.not_logged_acciones_popup')
+        popup.appendTo($(this));
+        popup.toggle();
     });
 });
 

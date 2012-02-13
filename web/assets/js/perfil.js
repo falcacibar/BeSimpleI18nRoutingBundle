@@ -24,6 +24,47 @@ $(function(){
 		return false;
 	});
 
+	$('a.lugares_usuario_link, a.reload_link').live("click", function(e){
+		e.preventDefault();
+		$.ajax({
+		  type: "GET",
+		  url: $(this).attr('href'),
+		}).done(function( data ) {
+		  $('.caja_contenido').html($(data).fadeIn('fast'));
+		}).fail(function( data ) {
+		  console.log(data);
+		});
+		return false;		
+	});
+
+	$('a.accion_borrar_usuario').live('click', function(e){
+		e.preventDefault();
+		var $this = $(this),
+			idLugar = $this.parent().parent().attr('data-id'),
+			accion = $this.parent().parent().attr('data-accion');
+
+		if(accion == 1){
+            var dataObj = {'lugar': idLugar,'accion': 'quiero_ir'};
+        }else if(accion == 2){
+            var dataObj = {'lugar': idLugar,'accion': 'quiero_volver'};
+        }else if(accion == 3){
+            var dataObj = {'lugar': idLugar,'accion': 'estuve_alla'};    
+        }else if(accion == 4){
+            var dataObj = {'lugar': idLugar,'accion': 'favoritos'};
+        }else if(accion == 5){
+            var dataObj = {'lugar': idLugar,'accion': 'recomendar_despues'};
+        }
+		$.ajax({
+            url: WEBROOT+'ajax/accion',
+            type: 'post',
+            data: dataObj,
+            dataType: 'json',
+            success: function(data){
+                $('a.reload_link').click();
+            }
+        });
+	});
+
 	// Esto es hasta que encuentre una forma de desplegar nombres en vez de números
 	$('select.month option').each(function(){
 			if($(this).val() == '1')
@@ -52,3 +93,16 @@ $(function(){
 				$(this).html('Diciembre');
 		});
 });	
+
+function estrellasLugares(estrellas, $this){
+    $this.raty({
+        width: 140,
+        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
+        starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
+        starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
+        half: true,
+        start: estrellas,
+        readOnly: true,
+        space: false
+    });
+}

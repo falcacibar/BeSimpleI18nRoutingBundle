@@ -211,6 +211,34 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
       $q->setParameter(2, 3);
       return $q->getOneOrNullResult();
     }
+
+    public function getTotalAccionesUsuario($accion, $usuario) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT count(au.id)
+                             FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                             WHERE au.accion = ?1
+                             AND au.usuario = ?2");
+      $q->setParameter(1, $accion);
+      $q->setParameter(2, $usuario);
+      return $q->getSingleScalarResult();
+    }
+
+    public function getAccionUsuario($usuario, $accion, $offset=null) {
+      $em = $this->getEntityManager();
+      if($offset == null)
+            $offset = '';
+      $q = $em->createQuery("SELECT au, l
+                             FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                             INNER JOIN au.lugar l
+                             WHERE au.accion = ?1
+                             AND au.usuario = ?2")
+              ->setMaxResults(30)
+              ->setFirstResult($offset);
+      $q->setParameter(1, $accion);
+      $q->setParameter(2, $usuario);
+
+      return $q->getResult();
+    }
     
     public function getDatosUsuario($usuario) {
 

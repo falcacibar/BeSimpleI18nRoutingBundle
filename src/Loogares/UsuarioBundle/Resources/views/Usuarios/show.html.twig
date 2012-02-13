@@ -15,12 +15,15 @@
 
 		<div class="caja_contenidos_usuario">
 			{% include 'LoogaresUsuarioBundle:Usuarios:menu_usuario.html.twig' %}
-			{% include 'LoogaresUsuarioBundle:Usuarios:'~usuario.tipo~'_usuario.html.twig' %}
+			<div class="caja_contenido">
+				{% include 'LoogaresUsuarioBundle:Usuarios:'~usuario.tipo~'_usuario.html.twig' %}
+			</div>
 		</div>
 
 	</div>
 {% endblock %}
 
 {% block javascripts %}
+	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/perfil.js')}}"></script>
 {% endblock %}

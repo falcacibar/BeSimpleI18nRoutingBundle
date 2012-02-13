@@ -1,0 +1,130 @@
+{% set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
+
+<div class="caja_fotos_usuario">
+	
+	<h2 class="titulo_accion_usuario">
+		{% if usuario.accion == 1 %}
+			Lugares por visitar
+		{% elseif usuario.accion == 2 %}
+			Lugares por volver
+		{% elseif usuario.accion == 3 %}
+			Lugares visitados
+		{% elseif usuario.accion == 4 %}
+			Favoritos
+		{% else %}
+			Lugares por recomendar
+		{% endif %}
+	</h2>
+
+	<ul>
+		<li><strong>{{'usuario.fotos.orden.texto'|trans}}</strong></li>		
+		<li>
+			{% if usuario.accion == 3 %}
+				# Lugares visitados<span class="orden_separacion">|</span>
+				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '3', 'pagina' : usuario.pagina })}}" style="display:none"></a>
+			{% else %}
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '3', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># Lugares visitados</a><span class="orden_separacion">|</span>
+			{% endif %}
+		</li>
+		<li>
+			{% if usuario.accion == 4 %}
+				# Favoritos<span class="orden_separacion">|</span>
+				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '4', 'pagina' : usuario.pagina })}}" style="display:none"></a>
+			{% else %}
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '4', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># Favoritos</a><span class="orden_separacion">|</span>
+			{% endif %}
+		</li>
+		<li>
+			{% if usuario.accion == 1 %}
+				# Lugares por visitar<span class="orden_separacion">|</span>
+				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '1', 'pagina' : usuario.pagina })}}" style="display:none"></a>
+			{% else %}
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '1', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># Lugares por visitar</a><span class="orden_separacion">|</span>
+			{% endif %}
+		</li>
+		<li>
+			{% if usuario.accion == 2 %}
+				# Lugares por volver<span class="orden_separacion">|</span>
+				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '2', 'pagina' : usuario.pagina })}}" style="display:none"></a>
+			{% else %}
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '2', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># Lugares por volver</a><span class="orden_separacion">|</span>
+			{% endif %}
+		</li>
+		<li>
+			{% if usuario.accion == 5 %}
+				# Lugares por recomendar
+				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '5', 'pagina' : usuario.pagina })}}" style="display:none"></a>
+			{% else %}
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '5', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># Lugares por recomendar</a>
+			{% endif %}
+		</li>
+	</ul>
+
+	<div class="caja_fotos_lugar_usuario">
+		{% set tres = 0 %}
+		{% set i = 0 %}
+		{% for accion in usuario.acciones%}					
+			{% if loop.index == 1 or (loop.index > 3 and (loop.index - 1) % 3 == 0)  %}
+				{% set tres = 0 %}
+				<ul class="listado_foto_lugar_usuario">
+			{% endif %}
+					<li data-id="{{accion.lugar.id}}" data-accion="{{usuario.accion}}">
+						<div class="imagen_lugar_perfil_usuario">
+							<a href="{{path('_lugar', {'slug' : accion.lugar.slug})}}">
+								{% for img in accion.lugar.imagenesLugar %}		
+									{% if loop.last %}						
+										<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('small_lugar') }}" />
+									{% endif %}
+								{% endfor %}
+							</a>							
+						</div>
+
+						<div class="textos_imagen_lugar_perfil_usuario">							
+							<strong><a class="nombre_lugar_imagen_lugar_perfil_usuario" href="{{path('_lugar', {'slug' : accion.lugar.slug})}}">{{accion.lugar.nombre}}</a></strong>
+							<p class="estrellas_lugar" data-stars="{{accion.lugar.estrellas}}"></p>
+							<span class="fecha_imagen_lugar_perfil_usuario">{{accion.lugar.calle}} {{accion.lugar.numero}}, {{accion.lugar.comuna.nombre}}</span>
+							<p class="categorias_lugar_recomendacion"><strong>{{'usuario.recomendaciones.recomendacion.categorias'|trans}}</strong>
+								{% for categoriaLugar in accion.lugar.categoriaLugar %}
+									<a href="#">{{categoriaLugar.categoria.nombre}}</a>
+									{{-((loop.index == accion.lugar.categoriaLugar|length) ? '' : ', ')}}
+								{% endfor %}
+							</p>
+						</div>
+						{% if usuario.accion != 3 %}
+							<div class="opciones_accion_usuario">
+								<a class="accion_borrar_usuario" href="">{{'usuario.fotos.lista.borrar'|trans}}</a>
+							</div>
+						{% endif %}
+					</li>
+
+			{% set tres = tres + 1 %}
+			{% if tres == 3 %}
+				</ul>				
+			{% endif %}
+				
+			{% set i = i + 1 %}
+			
+		{% endfor %}
+	</div>
+
+	{% if usuario.totalPaginas > 1 %}
+		<div class="paginacion_perfil">
+        	<p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{usuario.totalAcciones}}</strong>
+            {% if paginacion.totalPaginas != 1 %}
+                 | Ir a la página
+                <ul>
+                    {{ paginacion.paginacion | raw }}
+                </ul>
+            {% endif %}
+        </div>
+	{% endif %}
+</div>
+
+<script>
+	$(function(){
+		$('.estrellas_lugar').each(function(i){
+			var estrellas = $(this).attr('data-stars');
+			estrellasLugares(estrellas, $(this));
+		});
+	});	
+</script>
