@@ -115,8 +115,10 @@ _enviarRecomendacion:
 # NAVEGACION
 #
 _buscar:
-    pattern: /{slug}/buscar/{term}
-    defaults: {_controller: LoogaresLugarBundle:Search:buscar, esBusqueda: true, term: false }
+    pattern: /{slug}/buscar
+    defaults: { _controller: LoogaresLugarBundle:Search:buscar }
+
+
 _categoria:
     pattern: /{slug}/categoria/{term}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esCategoria: true}

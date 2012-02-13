@@ -1,9 +1,7 @@
 <div class="barra_ciudad">
 	<div class="centrado_ciudad">
 		<div class="logo_ciudad">
-			<a href="{{path('root')}}">
-				<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />
-			</a>
+			<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />
 		</div>
 		{% render "LoogaresExtraBundle:Default:ciudad" %}
 		<div class="login">
@@ -20,7 +18,7 @@
 								<a href="{{path('actividadUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.actividad'|trans}}</span></li></a>
 								<a href="{{path('recomendacionesUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.recomendaciones'|trans}}</span></li></a>
 								<a href="{{path('fotosLugaresUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.fotos'|trans}}</span></li></a>
-								<a href="{{path('lugaresUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.lugares'|trans}}</span>{% render "LoogaresUsuarioBundle:Usuario:totalRecomendacionesPendientes" %}</li></a>
+								<a href="#"><li><span>{{'general.header.usuario.lugares'|trans}}</span>{% render "LoogaresUsuarioBundle:Usuario:totalRecomendacionesPendientes" %}</li></a>
 								<a href="{{path('logout')}}"><li><span>{{'general.header.usuario.logout'|trans}}</span></li></a>
 							</ul>
 						</div>
@@ -44,15 +42,13 @@
 <div class="menu">
 	<div class="centrado_menu">
 		<div class="logo_ciudad_menu">
-			<a href="{{path('root')}}">
-				<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
-			</a>
+			<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
 		</div>
 		{% render "LoogaresExtraBundle:Default:menu" %}
 		<div class="buscador_box">
 			<form action="{{ path('_buscar', { 'slug': 'santiago-de-chile' }) }}">
 				<div class="buscar">
-						<input class="buscador" name="term" type="text" placeholder="Completos, Lastarria, bares, La Moneda" />
+						<input class="buscador" name="q" type="text" placeholder="Completos, Lastarria, bares, La Moneda" />
 					<div class="caja_icono">
 						<a class="icono_buscar" href="#"></a>
 					</div>

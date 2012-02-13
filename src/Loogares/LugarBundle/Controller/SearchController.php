@@ -7,8 +7,272 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SearchController extends Controller
 {
-  public function buscarAction(Request $request, $slug, $term, $esBusqueda = false, $esCategoria = false, $esSubCategoria = false, $esTag = false, $esComuna = false, $esSector = false){
-    $em = $this->getDoctrine()->getEntityManager();
+  public function buscarAction(Request $request, $slug){
+    $fn = $this->get('fn');
+    $order = "ranking desc";
+
+    $term = $_GET['q'];
+    $termSlug = $fn->generarSlug($term);
+    $termArray = preg_split('/\s/', $term);
+
+    $fields = "lugares.id, lugares.nombre as nombre_lugar, lugares.slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, categorias.slug, categorias.nombre, group_concat(DISTINCT subcategoria.nombre) as subcategorias_slug";   
+    $noCategorias = false;
+    $filterCat = false;
+    $filterSubCat = false;
+    $countRows = "SQL_CALC_FOUND_ROWS";
+
+    if(isset($_GET['categoria']) || isset($_GET['subcategoria'])){
+      $noCategorias = true;
+    }
+
+
+    if($noCategorias == false){
+      //Buscamos por Slug
+      $unionQuery[] = "(SELECT SQL_CALC_FOUND_ROWS $fields FROM lugares 
+                        LEFT JOIN categoria_lugar
+                        ON categoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN categorias
+                        ON categoria_lugar.categoria_id = categorias.id
+                        LEFT JOIN subcategoria_lugar
+                        ON subcategoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN subcategoria
+                        ON subcategoria_lugar.subcategoria_id = subcategoria.id   
+                        WHERE lugares.slug like '%$termSlug%' GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+      
+      foreach($termArray as $key => $value){
+        $unionQuery[] = "(SELECT $fields 
+                          FROM lugares
+                          LEFT JOIN categoria_lugar
+                          ON categoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN categorias
+                          ON categoria_lugar.categoria_id = categorias.id
+                          LEFT JOIN subcategoria_lugar
+                          ON subcategoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN subcategoria
+                          ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                          WHERE lugares.slug LIKE '%$value%' GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+      }
+
+      //Buscamos por Categorias
+      $unionQuery[] = "(SELECT $fields FROM lugares
+                        LEFT JOIN categoria_lugar
+                        ON categoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN categorias
+                        ON categoria_lugar.categoria_id = categorias.id
+                        LEFT JOIN subcategoria_lugar
+                        ON subcategoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN subcategoria
+                        ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                        GROUP BY lugares.id 
+                        HAVING categorias_slug LIKE '%$termSlug%'
+                        LIMIT 2000)";
+
+      //Total de Categorias Generadas por el Slug
+      $totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
+                             FROM lugares
+
+                             LEFT JOIN categoria_lugar
+                             ON categoria_lugar.lugar_id = lugares.id
+
+                             LEFT JOIN categorias
+                             ON categoria_lugar.categoria_id = categorias.id
+
+                             WHERE lugares.slug LIKE '%$termSlug%')";
+
+      foreach($termArray as $key => $value){
+        $totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
+                               FROM lugares
+
+                               LEFT JOIN categoria_lugar
+                               ON categoria_lugar.lugar_id = lugares.id
+
+                               LEFT JOIN categorias
+                               ON categoria_lugar.categoria_id = categorias.id
+
+                               WHERE lugares.slug LIKE '%$value%')";
+      }
+
+      //Total de Categorias Generadas por la Categoria
+      $totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
+                             FROM lugares
+
+                             LEFT JOIN categoria_lugar
+                             ON categoria_lugar.lugar_id = lugares.id
+
+                             LEFT JOIN categorias
+                             ON categoria_lugar.categoria_id = categorias.id
+
+                             WHERE lugares.slug LIKE '%$termSlug%')";
+
+      //Generacion y Ejecucion de Query
+      $totalCategorias = join(" UNION ", $totalCategorias);
+      $totalCategorias =  "select count(lid) as total, lid, cid, nombre, slug from (" . $totalCategorias . ") sq group by cid order by total desc";
+      $results['totalPorCategoria'] = $this->getDoctrine()->getConnection()->fetchAll($totalCategorias);
+
+    }else{
+
+      if(isset($_GET['categoria'])){
+        $filterCat = ' AND categorias.slug = "' . $_GET['categoria'] . '"';      
+      }
+
+      if(isset($_GET['subcategoria'])){
+        $filterSubCat = ' AND subcategoria.slug = "' . $_GET['subcategoria'] . '"';      
+      }
+
+      if(isset($_GET['comuna'])){
+        $filter .= ' AND comuna.slug = "' . $_GET['comuna'] . '"';      
+      }
+
+      if(isset($_GET['sector'])){
+        $filter .= ' AND sector.slug = "' . $_GET['sector'] . '"';      
+      }
+
+      //Buscamos por Slug
+      $unionQuery[] = "(SELECT SQL_CALC_FOUND_ROWS $fields FROM lugares 
+                        LEFT JOIN categoria_lugar
+                        ON categoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN categorias
+                        ON categoria_lugar.categoria_id = categorias.id
+                        LEFT JOIN subcategoria_lugar
+                        ON subcategoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN subcategoria
+                        ON subcategoria_lugar.subcategoria_id = subcategoria.id   
+                        WHERE lugares.slug like '%$termSlug%' $filterCat $filterSubCat GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+
+      foreach($termArray as $key => $value){
+          $unionQuery[] = "(SELECT $fields 
+                            FROM lugares
+                            LEFT JOIN categoria_lugar
+                            ON categoria_lugar.lugar_id = lugares.id
+                            LEFT JOIN categorias
+                            ON categoria_lugar.categoria_id = categorias.id
+                            LEFT JOIN subcategoria_lugar
+                            ON subcategoria_lugar.lugar_id = lugares.id
+                            LEFT JOIN subcategoria
+                            ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                            WHERE lugares.slug LIKE '%$value%' $filterCat $filterSubCat GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+      }
+
+      //Buscamos por SubCategorias
+      $unionQuery[] = "(SELECT $fields FROM lugares
+                        LEFT JOIN categoria_lugar
+                        ON categoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN categorias
+                        ON categoria_lugar.categoria_id = categorias.id
+                        LEFT JOIN subcategoria_lugar
+                        ON subcategoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN subcategoria
+                        ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                        WHERE lugares.slug LIKE '%$termSlug%' $filterCat $filterSubCat
+                        GROUP BY lugares.id 
+                        LIMIT 2000)";
+
+      //Total de Categorias generadas por el Slug
+      $totalSubCategorias[] = "(SELECT lugares.id as lid, subcategoria.id as sid, subcategoria.nombre, subcategoria.slug
+                                FROM lugares
+
+                                JOIN subcategoria_lugar
+                                ON subcategoria_lugar.lugar_id = lugares.id
+
+                                JOIN subcategoria
+                                ON subcategoria_lugar.subcategoria_id = subcategoria.id
+
+                                JOIN categorias
+                                ON subcategoria.categoria_id = categorias.id
+
+                                WHERE lugares.slug LIKE '%$termSlug%' $filterCat)";
+
+      foreach($termArray as $key => $value){
+        $totalSubCategorias[] = "(SELECT lugares.id as lid, subcategoria.id as sid, subcategoria.nombre, subcategoria.slug
+                                  FROM lugares
+
+                                  JOIN subcategoria_lugar
+                                  ON subcategoria_lugar.lugar_id = lugares.id
+
+                                  JOIN subcategoria
+                                  ON subcategoria_lugar.subcategoria_id = subcategoria.id
+
+                                  JOIN categorias
+                                  ON subcategoria.categoria_id = categorias.id
+
+                                  WHERE lugares.slug LIKE '%$value%' $filterCat)";
+      }
+
+      //Total de Categorias generadas por la Subcategoria
+      $totalSubCategorias[] = "(SELECT lugares.id as lid, subcategoria.id as sid, subcategoria.nombre, subcategoria.slug
+                                FROM lugares
+
+                                JOIN subcategoria_lugar
+                                ON subcategoria_lugar.lugar_id = lugares.id
+
+                                JOIN subcategoria
+                                ON subcategoria_lugar.subcategoria_id = subcategoria.id
+
+                                JOIN categorias
+                                ON subcategoria.categoria_id = categorias.id
+
+                                WHERE lugares.slug like '%$termSlug%' and subcategoria.slug LIKE '%$termSlug%' $filterCat)";
+
+
+      //Generacion y Ejecucion de Query
+      $totalSubCategorias = join(" UNION ", $totalSubCategorias);
+      $totalSubCategorias =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalSubCategorias . ") sq group by sid order by total desc";
+      $results['totalPorSubcategoria'] = $this->getDoctrine()->getConnection()->fetchAll($totalSubCategorias);
+    }
+
+    //Armamos y ejecutamos las queries
+    if(is_array($unionQuery)){
+      $unionQuery = join(" UNION ", $unionQuery);
+      $unionQuery .= " LIMIT 30 OFFSET 0";  
+      $arr['lugares'] = $this->getDoctrine()->getConnection()->fetchAll($unionQuery);
+      $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");   
+    }
+
+    //Sacamos los otros datos de los 30 resultados que corresponden
+    foreach($arr['lugares'] as $key => $lugar){
+      $arr['lugares'][$key]['categorias_nombre'] = explode(',', $lugar['categorias_nombre']);
+      $arr['lugares'][$key]['categorias_slug'] = explode(',', $lugar['categorias_slug']);
+
+      foreach($arr['lugares'][$key]['categorias_nombre'] as $i => $categoria){
+        $catPath = $this->generateUrl('_lugar', array('slug' => $arr['lugares'][$key]['categorias_slug'][$i]));
+        $arr['lugares'][$key]['categorias_nombre'][$i] = "<a href='$catPath'>".$categoria."</a>";
+      }
+
+      $buffer = $this->getDoctrine()->getConnection()
+      ->fetchAll("SELECT imagenes_lugar.imagen_full as imagen_lugar, comuna.nombre as comuna_nombre, comuna.slug as comuna_slug, sector.nombre as sector_nombre, sector.slug as sector_slug, LEFT(recomendacion.texto, 140) as ultima_recomendacion, usuarios.slug as usuario_slug, usuarios.nombre as usuario_nombre, usuarios.apellido as usuario_apellido, usuarios.imagen_full as usuario_imagen
+        from lugares 
+        LEFT JOIN comuna
+        ON comuna.id = lugares.comuna_id
+        LEFT JOIN sector
+        ON sector.id = lugares.sector_id
+        LEFT JOIN imagenes_lugar 
+        ON imagenes_lugar.lugar_id = lugares.id 
+        AND imagenes_lugar.id in (select max(imagenes_lugar.id))
+        LEFT JOIN recomendacion
+        ON recomendacion.lugar_id = lugares.id
+        AND recomendacion.id in (select max(recomendacion.id))
+        LEFT JOIN usuarios 
+        ON usuarios.id = recomendacion.usuario_id
+        WHERE lugares.id = ".$lugar['id']." group by lugares.id");
+      $arr['lugares'][$key] = array_merge($arr['lugares'][$key], $buffer[0]);
+    }
+
+    $categoria = ((isset($_GET['categoria']))?$_GET['categoria']:NULL);
+    $subcategoria = ((isset($_GET['subcategoria']))?$_GET['subcategoria']:NULL);
+
+    return $this->render('LoogaresLugarBundle:Search:search.html.twig', array(
+      'term' => $term,
+      'slug' => $slug,
+      'lugares' => $arr['lugares'],
+      'total' => $resultSetSize[0]['rows'],
+      'results' => $results,
+      'categoria' => $categoria
+    ));
+
+
+
+
+    /*$em = $this->getDoctrine()->getEntityManager();
     $fn = $this->get('fn');
     if(isset($_GET['term'])){ $term = $_GET['term']; }
     $terminosBuscar = explode(' ', $term);
@@ -22,11 +286,13 @@ class SearchController extends Controller
     $unionQuery = '';
     $filter = null;
     $filterCategoria = '';
+    $mostrarSubCategorias = false;
 
     if($esBusqueda == true){
       $es = 'busqueda';
     }else if($esCategoria == true){
       $es = 'categoria';
+      $mostrarSubCategorias = true;
     }else if($esSubCategoria == true){
       $es = 'categoria';
     }else if($esTag == true){
@@ -37,25 +303,26 @@ class SearchController extends Controller
       $es = 'sector';
     }
 
-    if(isset($_POST['categoria'])){
+    if(isset($_GET['categoria'])){
       $esCategoria = true;
+      $mostrarSubCategorias = true;
       $es = 'categoria';
-      $filter .= 'AND categorias.slug = "' . $_POST['categoria'] . '"';      
+      $filter = ' AND categorias.slug = "' . $_GET['categoria'] . '"';      
     }
 
-    if(isset($_POST['comuna'])){
-      $filter .= 'AND comuna.slug = "' . $_POST['comuna'] . '"';      
+    if(isset($_GET['subcategoria'])){
+      $filter = ' AND subcategoria.slug = "' . $_GET['subcategoria'] . '"';
     }
 
-    if(isset($_POST['sector'])){
-      $filter .= 'AND sector.slug = "' . $_POST['sector'] . '"';      
+    if(isset($_GET['comuna'])){
+      $filter .= ' AND comuna.slug = "' . $_GET['comuna'] . '"';      
     }
 
-    if(isset($_POST['subcategoria'])){
-      $es = 'categoria';
-      $esCategoria = true;
-      $filter .= 'AND subcategoria.slug = "' . $_POST['subcategoria'] . '"';
+    if(isset($_GET['sector'])){
+      $filter .= ' AND sector.slug = "' . $_GET['sector'] . '"';      
     }
+
+
 
     $orderFilters = array(
       'recomendaciones' => 'lugares.total_recomendaciones desc',
@@ -78,7 +345,7 @@ class SearchController extends Controller
     $resultadosPorPagina = (!isset($_GET['resultados']))?30:$_GET['resultados'];
     $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
 
-    $fields = "lugares.id, lugares.nombre, lugares.slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, categorias.slug, categorias.nombre";    
+    $fields = "lugares.id, lugares.nombre as nombre_lugar, lugares.slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, categorias.slug, categorias.nombre";    
 
     foreach($buscarArray as $term){
         $cleanTerm = $fn->generarSlug($term);
@@ -91,7 +358,7 @@ class SearchController extends Controller
     //Hacemos las consultas para ver que datos tenemos.
 
     //Categorias
-    if($esBusqueda == true || $esCategoria == true){
+    if($esBusqueda == true && $esCategoria == false){
       $q = $em->createQuery("SELECT count(u.id) FROM Loogares\LugarBundle\Entity\Categoria u WHERE u.slug LIKE '%$buscarSlug%'");
       $results['lugaresPorCategoria'] = $q->getSingleScalarResult();
       $totalResults = $totalResults + $results['lugaresPorCategoria'];
@@ -102,6 +369,7 @@ class SearchController extends Controller
       $q = $em->createQuery("SELECT count(u.id) FROM Loogares\LugarBundle\Entity\SubCategoria u WHERE u.slug LIKE '%$buscarSlug%'");
       $results['lugaresPorSubcategoria'] = $q->getSingleScalarResult();
       $totalResults = $totalResults + $results['lugaresPorSubcategoria'];
+      echo "Buscando por SubCategoria<br/>";
     }
 
     if($esBusqueda == true){
@@ -110,15 +378,19 @@ class SearchController extends Controller
       $results['lugaresPorSlug'] = $q->getSingleScalarResult();
       $totalResults = $totalResults + $results['lugaresPorSlug'];
 
+
       //Lugares por termino
       $lugaresPorTermino = $em->getConnection()->fetchAll("SELECT count(id) as ct FROM lugares where lugares.slug LIKE $buscarLike");
       $results['lugaresPorTermino'] = $lugaresPorTermino[0]['ct'];
       $totalResults = $totalResults + $results['lugaresPorTermino'];
-
-      //Calles
-      $calles = $em->getConnection()->fetchAll("SELECT count(id) as ct FROM lugares where lugares.calle LIKE $callesLike");
-      $results['lugaresPorCalles'] = $calles[0]['ct'];
-      $totalResults = $totalResults + $results['lugaresPorCalles'];
+      echo "Buscando por Termino<br/>";
+    
+      if($esCategoria == false && $esSubCategoria == false){
+        //Calles
+        $calles = $em->getConnection()->fetchAll("SELECT count(id) as ct FROM lugares where lugares.calle LIKE $callesLike");
+        $results['lugaresPorCalles'] = $calles[0]['ct'];
+        $totalResults = $totalResults + $results['lugaresPorCalles'];
+      }
     }
 
     //Tags
@@ -144,16 +416,18 @@ class SearchController extends Controller
       $totalResults = $totalResults + $results['lugaresPorSector'];      
     }
 
-    /*
-    * PRIORIDADES
-    * DE
-    * BUSQUEDA
-    */
 
     //Si hay una categoria con ese nombre...
-    if(isset($results['lugaresPorCategoria']) && $results['lugaresPorCategoria'] != 0){
-      $unionQuery[] = "(SELECT $countRows $fields FROM categoria_lugar
-                        JOIN lugares
+    if($esCategoria == false && (isset($results['lugaresPorCategoria']) && $results['lugaresPorCategoria'] != 0)){
+      if($filter != ''){
+        $filterCategoria = preg_replace('/^\sAND/', 'WHERE', $filter);
+        $having = '';
+      }else{
+        $having = "HAVING categorias_slug LIKE '%$buscarSlug%'";
+      }
+
+      $unionQuery[] = "(SELECT $countRows $fields FROM lugares
+                        LEFT JOIN categoria_lugar
                         ON categoria_lugar.lugar_id = lugares.id
                         LEFT JOIN categorias
                         ON categoria_lugar.categoria_id = categorias.id
@@ -161,92 +435,19 @@ class SearchController extends Controller
                         ON subcategoria_lugar.lugar_id = lugares.id
                         LEFT JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id
-                        GROUP BY lugares.id HAVING categorias_slug LIKE '%$buscarSlug%' $filterCategoria ORDER BY $order LIMIT 2000)";
-
-      $totalCategorias[] = "(SELECT count(categorias.id) as total, categorias.nombre, categorias.slug
-                             FROM categorias
+                        $filterCategoria
+                        GROUP BY lugares.id $having ORDER BY $order LIMIT 2000)";
+      
+      $totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
+                             FROM lugares
 
                              LEFT JOIN categoria_lugar
-                             ON categoria_lugar.categoria_id = categorias.id
-
-                             LEFT JOIN lugares
                              ON categoria_lugar.lugar_id = lugares.id
 
-                             WHERE lugares.slug LIKE '%$buscarSlug%'
-                             GROUP BY categorias.nombre)";
+                             LEFT JOIN categorias
+                             ON categoria_lugar.categoria_id = categorias.id
 
-
-      if($esCategoria == true){
-        if($esBusqueda == false){
-          $totalSubCategorias[] = "(SELECT count(subcategoria.id) as total, subcategoria.nombre, subcategoria.slug
-                                              FROM subcategoria
-
-                                              LEFT JOIN subcategoria_lugar
-                                              ON subcategoria_lugar.subcategoria_id = subcategoria.id
-
-                                              LEFT JOIN lugares
-                                              ON subcategoria_lugar.lugar_id = lugares.id
-
-                                              LEFT JOIN categorias
-                                              on subcategoria.categoria_id = categorias.id
-
-                                              WHERE categorias.slug LIKE '%$buscarSlug%'
-                                              GROUP BY subcategoria.nombre)";
-        }else{
-        $totalSubCategorias[] = "(SELECT count(subcategoria.id) as total, subcategoria.nombre, subcategoria.slug
-                                  FROM subcategoria
-
-                                  LEFT JOIN subcategoria_lugar
-                                  ON subcategoria_lugar.subcategoria_id = subcategoria.id
-
-                                  LEFT JOIN lugares
-                                  ON subcategoria_lugar.lugar_id = lugares.id
-
-                                  LEFT JOIN categorias
-                                  on subcategoria.categoria_id = categorias.id
-
-                                  WHERE categorias.slug LIKE '%$buscarSlug%'
-                                  GROUP BY subcategoria.nombre)";
-        }
-
-        $totalComunas[] = "(SELECT count(comuna.id) as total, comuna.nombre, comuna.slug
-                            FROM subcategoria
-
-                            LEFT JOIN subcategoria_lugar ON subcategoria_lugar.subcategoria_id = subcategoria.id 
-                            LEFT JOIN lugares ON subcategoria_lugar.lugar_id = lugares.id 
-                            LEFT JOIN categorias ON subcategoria.categoria_id = categorias.id
-                            LEFT JOIN comuna on lugares.comuna_id = comuna.id 
-
-                            WHERE categorias.slug LIKE '%$buscarSlug%' and comuna.ciudad_id = 1 group by comuna.nombre order by total desc)";
-
-        $totalSectores[] = "(SELECT count(sector.id) as total, sector.nombre, sector.slug
-                             FROM subcategoria
-
-                             LEFT JOIN subcategoria_lugar ON subcategoria_lugar.subcategoria_id = subcategoria.id 
-                             LEFT JOIN lugares ON subcategoria_lugar.lugar_id = lugares.id 
-                             LEFT JOIN categorias ON subcategoria.categoria_id = categorias.id
-                             LEFT JOIN sector on lugares.sector_id = sector.id 
-
-                             WHERE categorias.slug LIKE '%$buscarSlug%' and sector.ciudad_id = 1 group by sector.nombre order by total desc)";
-      }else{
-        $totalComunas[] = "(SELECT count(comuna.id) as total, comuna.nombre, comuna.slug
-                            FROM categorias 
-
-                            LEFT JOIN categoria_lugar ON categoria_lugar.categoria_id = categorias.id 
-                            LEFT JOIN lugares ON categoria_lugar.lugar_id = lugares.id 
-                            LEFT JOIN comuna on lugares.comuna_id = comuna.id 
-
-                            WHERE lugares.slug LIKE '%$buscarSlug%' and comuna.ciudad_id = 1 group by comuna.nombre order by total desc)";
-
-        $totalSectores[] = "(SELECT count(sector.id) as total, sector.nombre, sector.slug
-                             FROM categorias 
-
-                             LEFT JOIN categoria_lugar ON categoria_lugar.categoria_id = categorias.id 
-                             LEFT JOIN lugares ON categoria_lugar.lugar_id = lugares.id 
-                             LEFT JOIN sector on lugares.sector_id = sector.id 
-
-                             WHERE lugares.slug LIKE '%$buscarSlug%' and sector.ciudad_id = 1 group by sector.nombre order by total desc)";
-      }
+                             WHERE categorias.slug LIKE '%$buscarSlug%' $filter)";
 
       $countRows = null;
     }
@@ -262,78 +463,36 @@ class SearchController extends Controller
                         ON categoria_lugar.lugar_id = lugares.id
                         LEFT JOIN categorias
                         ON categoria_lugar.categoria_id = categorias.id
+                        WHERE categorias.slug LIKE '%$buscarSlug%' $filter GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
 
-                        WHERE subcategoria.slug LIKE '%$buscarSlug%' $filter GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+      $totalSubCategorias[] = "(SELECT lugares.id as lid, subcategoria.id as sid, subcategoria.nombre, subcategoria.slug
+                                FROM lugares
 
-        $totalComunas[] = "(SELECT count(comuna.id) as total, comuna.nombre, comuna.slug
-                            FROM subcategoria
+                                LEFT JOIN subcategoria_lugar
+                                ON subcategoria_lugar.lugar_id = lugares.id
 
-                            LEFT JOIN subcategoria_lugar ON subcategoria_lugar.subcategoria_id = subcategoria.id 
-                            LEFT JOIN lugares ON subcategoria_lugar.lugar_id = lugares.id 
-                            LEFT JOIN comuna on lugares.comuna_id = comuna.id 
+                                LEFT JOIN subcategoria
+                                ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
-                            WHERE subcategoria.slug LIKE '%$buscarSlug%' and comuna.ciudad_id = 1 group by comuna.nombre order by total desc)";
-
-        $totalSectores[] = "(SELECT count(sector.id) as total, sector.nombre, sector.slug
-                             FROM subcategoria
-
-                             LEFT JOIN subcategoria_lugar ON subcategoria_lugar.subcategoria_id = subcategoria.id 
-                             LEFT JOIN lugares ON subcategoria_lugar.lugar_id = lugares.id 
-                             LEFT JOIN sector on lugares.sector_id = sector.id 
-
-                             WHERE subcategoria.slug LIKE '%$buscarSlug%' and sector.ciudad_id = 1 group by sector.nombre order by total desc)";
+                                WHERE subcategoria.slug LIKE '%".$_GET['subcategoria']."%' AND lugares.slug LIKE '%$buscarSlug%')"; 
       
       $countRows = null;
     }
 
-    /*
-    * Si no encontramos una Categoria o Subcategoria que haga match con el termino de busqueda, 
-    * pasamos a una busqueda mas particular
-    */
 
     //Busqueda General por termino transformado a slug, muy especifico, hace match solamente cuando el lugar es buscado por el nombre correcto
 
     if(isset($results['lugaresPorSlug']) && $results['lugaresPorSlug'] != 0){
-        /*$unionQuery[] = "(SELECT $countRows $fields FROM lugares 
-                          LEFT JOIN categoria_lugar
-                          ON categoria_lugar.lugar_id = lugares.id
-                          LEFT JOIN categorias
-                          ON categoria_lugar.categoria_id = categorias.id
-                          LEFT JOIN subcategoria_lugar
-                          ON subcategoria_lugar.lugar_id = lugares.id
-                          LEFT JOIN subcategoria
-                          ON subcategoria_lugar.subcategoria_id = subcategoria.id   
-                          WHERE lugares.slug like '%$buscarSlug%' $filter GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
-
-      $totalCategorias[] = "(SELECT count(categorias.id) as total, categorias.nombre, categorias.slug
-                             FROM categorias
-
-                             LEFT JOIN categoria_lugar
-                             ON categoria_lugar.categoria_id = categorias.id
-
-                             LEFT JOIN lugares
-                             ON categoria_lugar.lugar_id = lugares.id
-
-                             WHERE lugares.slug LIKE '%$buscarSlug%'
-                             GROUP BY categorias.nombre)";
-
-      $totalComunas[] = "(SELECT count(comuna.id) as total, comuna.nombre, comuna.slug
-                          FROM categorias 
-
-                          LEFT JOIN categoria_lugar ON categoria_lugar.categoria_id = categorias.id 
-                          LEFT JOIN lugares ON categoria_lugar.lugar_id = lugares.id 
-                          LEFT JOIN comuna on lugares.comuna_id = comuna.id 
-
-                          WHERE lugares.slug LIKE '%$buscarSlug%' and comuna.ciudad_id = 1 group by comuna.nombre order by total desc)";
-
-      $totalSectores[] = "(SELECT count(sector.id) as total, sector.nombre, sector.slug
-                           FROM categorias 
-
-                           LEFT JOIN categoria_lugar ON categoria_lugar.categoria_id = categorias.id 
-                           LEFT JOIN lugares ON categoria_lugar.lugar_id = lugares.id 
-                           LEFT JOIN sector on lugares.sector_id = sector.id 
-
-                           WHERE lugares.slug LIKE '%$buscarSlug%' and sector.ciudad_id = 1 group by sector.nombre order by total desc)";*/
+      $unionQuery[] = "(SELECT $countRows $fields FROM lugares 
+                        LEFT JOIN categoria_lugar
+                        ON categoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN categorias
+                        ON categoria_lugar.categoria_id = categorias.id
+                        LEFT JOIN subcategoria_lugar
+                        ON subcategoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN subcategoria
+                        ON subcategoria_lugar.subcategoria_id = subcategoria.id   
+                        WHERE lugares.slug like '%$buscarSlug%' $filter GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
     }
 
     if(isset($results['lugaresPorTags']) && $results['lugaresPorTags'] != 0){
@@ -354,22 +513,13 @@ class SearchController extends Controller
                           LEFT JOIN subcategoria
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
                           WHERE tag.tag LIKE '$buscarSlug' $filter GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
-    
+        
       $countRows = null;
     }
 
     //Si no encontramos nada con el slug, tenemos que adivinar que es lo que el usuario quiere buscar, hacemos una busqueda por termino...
     if(isset($results['lugaresPorTermino']) && $results['lugaresPorTermino'] != 0){
         //Ejecutamos una consulta por termino...
-        
-        if($esCategoria == true){
-          $sqlSubCategorias = "(SELECT * FROM(";
-        }else{
-          $sqlCategorias = "(SELECT * FROM("; 
-        }
-        
-        $sqlComunas = "(SELECT * FROM(";
-        $sqlSectores = "(SELECT * FROM(";
 
         foreach($buscarArray as $key => $term){
           $unionQuery[] = "(SELECT $countRows $fields 
@@ -383,64 +533,35 @@ class SearchController extends Controller
                             LEFT JOIN subcategoria
                             ON subcategoria_lugar.subcategoria_id = subcategoria.id
                             WHERE lugares.slug LIKE '%$term%' $filter GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+
           $countRows = null;
 
           if($esCategoria == true){
-            $sqlSubCategorias .= "(SELECT count(subcategoria.id) as total, subcategoria.nombre, subcategoria.slug
-                                   FROM subcategoria
+            $totalSubCategorias[] = "(SELECT lugares.id as lid, subcategoria.id as sid, subcategoria.nombre, subcategoria.slug
+                                      FROM lugares
 
-                                   LEFT JOIN subcategoria_lugar ON subcategoria_lugar.subcategoria_id = subcategoria.id
-                                   LEFT JOIN lugares ON subcategoria_lugar.lugar_id = lugares.id
+                                      LEFT JOIN subcategoria_lugar
+                                      ON subcategoria_lugar.lugar_id = lugares.id
 
-                                   WHERE lugares.slug LIKE '%$term%' group by subcategoria.nombre) UNION ";
+                                      LEFT JOIN subcategoria
+                                      ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
-            $sqlComunas .= "(SELECT count(comuna.id) as total, comuna.nombre, comuna.slug
-                             FROM subcategoria
-
-                             LEFT JOIN subcategoria_lugar ON subcategoria_lugar.subcategoria_id = subcategoria.id 
-                             LEFT JOIN lugares ON subcategoria_lugar.lugar_id = lugares.id 
-                             LEFT JOIN comuna on lugares.comuna_id = comuna.id 
-
-                             WHERE lugares.slug LIKE '%$term%' and comuna.ciudad_id = 1 group by comuna.nombre order by total desc) UNION ";
-
-            $sqlSectores .= "(SELECT count(sector.id) as total, sector.nombre, sector.slug
-                             FROM subcategoria
-
-                             LEFT JOIN subcategoria_lugar ON subcategoria_lugar.subcategoria_id = subcategoria.id 
-                             LEFT JOIN lugares ON subcategoria_lugar.lugar_id = lugares.id 
-                             LEFT JOIN sector on lugares.sector_id = sector.id
-
-                             WHERE lugares.slug LIKE '%$term%' and sector.ciudad_id = 1 group by sector.nombre order by total desc) UNION ";     
+                                      WHERE lugares.slug LIKE '%$term%')";    
           }else{
-            $sqlCategorias .= "(SELECT count(categorias.id) as total, categorias.nombre, categorias.slug 
-                                FROM categorias 
+            $totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
+                                   FROM lugares
 
-                                LEFT JOIN categoria_lugar ON categoria_lugar.categoria_id = categorias.id 
-                                LEFT JOIN lugares ON categoria_lugar.lugar_id = lugares.id 
+                                   LEFT JOIN categoria_lugar
+                                   ON categoria_lugar.lugar_id = lugares.id
 
-                                WHERE lugares.slug LIKE '%$term%' group by categorias.nombre) UNION ";
+                                   LEFT JOIN categorias
+                                   ON categoria_lugar.categoria_id = categorias.id
 
-            $sqlComunas .= "(SELECT count(comuna.id) as total, comuna.nombre, comuna.slug
-                             FROM categorias 
-
-                             LEFT JOIN categoria_lugar ON categoria_lugar.categoria_id = categorias.id 
-                             LEFT JOIN lugares ON categoria_lugar.lugar_id = lugares.id 
-                             LEFT JOIN comuna on lugares.comuna_id = comuna.id 
-
-                             WHERE lugares.slug LIKE '%$term%' and comuna.ciudad_id = 1 group by comuna.nombre order by total desc) UNION ";
-
-            $sqlSectores .= "(SELECT count(sector.id) as total, sector.nombre, sector.slug
-                             FROM categorias 
-
-                             LEFT JOIN categoria_lugar ON categoria_lugar.categoria_id = categorias.id 
-                             LEFT JOIN lugares ON categoria_lugar.lugar_id = lugares.id 
-                             LEFT JOIN sector on lugares.sector_id = sector.id 
-
-                             WHERE lugares.slug LIKE '%$term%' and sector.ciudad_id = 1 group by sector.nombre order by total desc) UNION ";
+                                   WHERE lugares.slug LIKE '%$term%')";
           }
             
         }
-
+      
         if($esCategoria == true){
           $sqlSubCategorias = preg_replace('/UNION\s$/', '', $sqlSubCategorias);
           $sqlSubCategorias .= ") sq group by sq.nombre order by total desc)";
@@ -450,13 +571,7 @@ class SearchController extends Controller
           $sqlCategorias .= ") sq group by sq.nombre order by total desc)";
           $totalCategorias[] = $sqlCategorias;
         }
-        
-        $sqlComunas = preg_replace('/UNION\s$/', '', $sqlComunas);
-        $sqlSectores = preg_replace('/UNION\s$/', '', $sqlSectores);
-        $sqlComunas .= ") sq group by sq.nombre order by total desc)";
-        $sqlSectores .= ") sq group by sq.nombre order by total desc)";       
-        $totalComunas[] = $sqlComunas;
-        $totalSectores[] = $sqlSectores;
+
     }
 
     //Y POR ULTIMOOOOOOO, buscamos por calles
@@ -505,7 +620,6 @@ class SearchController extends Controller
                         LEFT JOIN sector
                         ON sector.id = lugares.sector_id
                         WHERE sector.slug = '$term' $filter GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
-            
       $countRows = null;
     }
 
@@ -517,26 +631,14 @@ class SearchController extends Controller
              
         if($esCategoria == true){
           $totalSubCategorias = join(" UNION ", $totalSubCategorias);
-          $totalSubCategorias .= " order by total desc";
-        
+          $totalSubCategorias =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalSubCategorias . ") sq group by sid order by total desc";
           $results['totalPorSubcategoria'] = $this->getDoctrine()->getConnection()->fetchAll($totalSubCategorias);
         }else if($esBusqueda == true){
           $totalCategorias = join(" UNION ", $totalCategorias);
-          $totalCategorias .= " order by total desc";
+          $totalCategorias =  "select count(lid) as total, lid, cid, nombre, slug from (" . $totalCategorias . ") sq group by cid order by total desc";
           $results['totalPorCategoria'] = $this->getDoctrine()->getConnection()->fetchAll($totalCategorias);
         }
-
-        $totalSectores = join(" UNION ", $totalSectores);
-        $totalSectores .= " order by total desc";
-        $results['totalPorSectores'] = $this->getDoctrine()->getConnection()->fetchAll($totalSectores);
-
-        $totalComunas = join(" UNION ", $totalComunas);
-        $totalComunas .= " order by total desc";
-        $results['totalPorComunas'] = $this->getDoctrine()->getConnection()->fetchAll($totalComunas);
-
-    }
-
-    
+    }   
 
     $params = array(  
         'slug' => $slug
@@ -573,6 +675,10 @@ class SearchController extends Controller
       $arr['lugares'][$key] = array_merge($arr['lugares'][$key], $buffer[0]);
     }
 
+
+    $categoria = ((isset($_GET['categoria']))?$_GET['categoria']:NULL);
+    $subcategoria = ((isset($_GET['subcategoria']))?$_GET['subcategoria']:NULL);
+
     return $this->render('LoogaresLugarBundle:Search:search.html.twig', array(
         'lugares' => $arr['lugares'],
         'buscar' => $term,
@@ -580,8 +686,15 @@ class SearchController extends Controller
         'query' => $_GET,
         'slug' => $slug,
         'results' => $results,
-        'es' => $es
-    ));
+        'es' => $es,
+        'categoria' => $categoria,
+        'subcategoria' => $subcategoria,
+        'total' => $resultSetSize[0]['rows']
+    ));*/
 
+  }
+
+  public function pocAction(){
+    return $this->render('LoogaresLugarBundle:Search:poc.html.twig', array('i' => $_GET['i']));
   }
 }
