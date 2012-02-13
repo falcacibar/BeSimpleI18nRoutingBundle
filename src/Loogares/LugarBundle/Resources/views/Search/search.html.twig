@@ -1,9 +1,10 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{'lugar.buscar.titulo'|trans({'%buscar%' : buscar})}} | {{parent()}}{% endblock %}
+{% block title %}{{'lugar.buscar.titulo'|trans({'%buscar%' : term})}} | {{parent()}}{% endblock %}
 
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
+	<script src="{{asset('assets/js/jquery.pjax.js')}}"></script>
 	<script>
 		$(document).ready(function(){
 			$('.resultado-busqueda-stars-raty').each(function(){
@@ -73,22 +74,54 @@
 				}
 			});
 
-			$('.expandir_resultados a, .expandir_zonas a').live('click', function(e){
-				var $this = $(this),
-					data = {};
-
-				data[$this.attr('rel')] = $this.attr('data-slug');
-
-				$('.resultados-wrapper').html('').append("<div id='overlay'/>");
+			$('a').click(function(e){e.preventDefault();}).pjax({
+				url: $(this).attr('href'),
+				container: '.resultados',
+				fragment: '.resultados',
+				timeout: 20000,
+				beforeSend: function(){
+					$('.resultados-wrapper').hide().html('').append("<div id='overlay'/>").fadeIn(300);
 				
-				$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
-				
-				$('.resultados-wrapper').load(window.location.href + " .resultados", data, function(data){
-					$('#overlay, .loader').fadeOut(function(){$this.remove()});
-					console.log(data)
-				});
-				return false;
+			 		$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
+
+				},
+				success: function(data){
+					console.log('wegud')
+					$('#overlay, .loader').fadeOut(0, function(){
+						$(this).remove(); 
+						
+					});
+					$('.resultados-wrapper').hide().append(data).fadeIn(300)
+				}
 			});
+
+			$('body').bind('pjax:start', function(){
+			 	$('.resultados-wrapper').html('').append("<div id='overlay'/>");
+				
+			 	$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
+			});
+
+
+			$('body').bind('pjax:end', function(){
+				console.log('end')
+			});
+
+			// $('.expandir_resultados a, .expandir_zonas a').live('click', function(e){
+			// 	var $this = $(this),
+			// 		data = {};
+
+			// 	data[$this.attr('rel')] = $this.attr('data-slug');
+
+			// 	$('.resultados-wrapper').html('').append("<div id='overlay'/>");
+				
+			// 	$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
+				
+			// 	$('.resultados-wrapper').load(window.location.href + " .resultados", data, function(data){
+			// 		$('#overlay, .loader').fadeOut(function(){$this.remove()});
+			// 		console.log(data)
+			// 	});
+			// 	return false;
+			// });
 
 
 		});
@@ -97,7 +130,12 @@
 
 {% block content %}
 <style>
-
+	.menu_ciudad a{
+		color: blue !important;
+	}
+	body{
+		color: black !important;
+	}
 	.filtros-busqueda li{
 		display: inline;
 	}
@@ -150,6 +188,8 @@
 				font-size: 12px !important;
 			}
 </style>
+
+
 	<div class="resultados-wrapper">
 		<div class="resultados">
 			<h1 class="titulo">Resultados de Busqueda en {{slug}}</h1>
@@ -158,21 +198,21 @@
 				<span>Resultados por categoria</span>
 				<span class="ver_categorias">Ver Todas ></span>
 				<div class="resultados_busqueda">
-					{% if es == 'busqueda' %}
+					{% if results.totalPorCategoria[0] is defined %}
 					<div class="resultados_categorias">
 						<ul>
 							{% for categoria in results.totalPorCategoria %}
-								<li><a rel="categoria" data-slug="{{categoria.slug}}" class="link_azul" href="">{{categoria.nombre}} ({{ categoria.total }})</a></li>
+								<li><a rel="categoria" class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria.slug}) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
 							{% endfor %}
 						</ul>
 					</div>
 					{% endif %}
-					{% if es == 'categoria' %}
+					{% if results.totalPorSubcategoria[0] is defined %}
 					<div class="resultados_subcategorias">
 						<strong>Subcategorías</strong>
 						<ul>
 							{% for subcategoria in results.totalPorSubcategoria %}
-								<li><a rel="subcategoria" data-slug="{{subcategoria.slug}}" class="link_azul" href="">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>								
+								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria.slug}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>								
 							{% endfor %}
 						</ul>
 					</div>
@@ -188,7 +228,6 @@
 					<strong>Sectores</strong>
 					<ul>
 						{% for sector in results.totalPorSectores %}
-							<li><a rel="sector" class="link_azul" data-slug="{{sector.slug}}" href="">{{sector.nombre}} ({{sector.total }})</a></li>
 						{% endfor %}
 					</ul>
 				</div>
@@ -198,7 +237,7 @@
 					<strong>Comunas</strong>
 					<ul>
 						{% for comuna in results.totalPorComunas %}
-							<li><a rel="comuna" class="link_azul" href="#" data-slug="{{comuna.slug}}">{{comuna.nombre}} ({{comuna.total }})</a></li>
+							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'term': buscar, 'categoria': categoria, 'subcategoria': subcategoria, 'comuna': comuna.slug}) }}">{{comuna.nombre}} ({{comuna.total }})</a></li>
 						{% endfor %}
 					</ul>
 				</div>
@@ -209,16 +248,8 @@
 				No hay resultados, :()
 			{% else %}
 				<br/>
+				Length:	{{total}}
 
-				<div class="total_paginacion">
-				    <strong>
-				        {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}
-				    </strong>
-				</div>
-
-				<ul class="paginacion">
-				    {{paginacion.paginacion | raw}}
-				</ul>
 
 			    <ul class="filtros-busqueda">
 			        <li>
@@ -228,7 +259,7 @@
 			            {% if query.orden is not defined or query.orden == 'relevantes' %}
 			                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'relevantes' }) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': term, 'orden': 'relevantes' }) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
 			            {% endif %}	
 			        </li>
 			        <li>|</li>
@@ -236,7 +267,7 @@
 			            {% if query.orden is defined and query.orden == 'recomendaciones' %}
 			                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'recomendaciones' }) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': term, 'orden': 'recomendaciones' }) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -244,7 +275,7 @@
 			            {% if query.orden is defined and query.orden == 'utiles' %}
 			                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'utiles' }) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': term, 'orden': 'utiles' }) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -252,7 +283,7 @@
 			            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
 			                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': buscar, 'orden': 'ultima-recomendacion' }) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': term, 'orden': 'ultima-recomendacion' }) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -260,7 +291,7 @@
 			            {% if query.orden is defined and query.orden == 'alfabetico' %}
 			                <strong>{{'general.terminos.alfabetico'|trans}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug, 'buscar': buscar, 'orden': 'alfabetico' }) }}">{{'general.terminos.alfabetico'|trans}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug, 'buscar': term, 'orden': 'alfabetico' }) }}">{{'general.terminos.alfabetico'|trans}}</a>
 			            {% endif %}
 			        </li>
 			    </ul>
@@ -282,7 +313,7 @@
 							<li>
 								<div class="indice-resultado">{{loop.index}}</div>
 								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
-								<a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>
+								<a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre_lugar}}</a>
 							</li>
 							{% if lugar.categorias_nombre != '' %}
 							<li>
@@ -319,7 +350,7 @@
 							<li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div></li>
 							<li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
 							{% if lugar.precio != null %}
-								<div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div>
+								<li><div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div></li>
 							{% endif %}
 							<li>{{lugar.calle}} {{lugar.numero}} - <a href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a></li>
 							<li>Ranking: {{lugar.ranking}}</li>
