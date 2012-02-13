@@ -1,7 +1,9 @@
 <div class="barra_ciudad">
 	<div class="centrado_ciudad">
 		<div class="logo_ciudad">
-			<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />
+			<a href="{{path('root')}}">
+				<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />
+			</a>
 		</div>
 		{% render "LoogaresExtraBundle:Default:ciudad" %}
 		<div class="login">
@@ -42,7 +44,9 @@
 <div class="menu">
 	<div class="centrado_menu">
 		<div class="logo_ciudad_menu">
-			<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
+			<a href="{{path('root')}}">
+				<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
+			</a>
 		</div>
 		{% render "LoogaresExtraBundle:Default:menu" %}
 		<div class="buscador_box">

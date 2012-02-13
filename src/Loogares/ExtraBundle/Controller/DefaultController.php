@@ -60,7 +60,7 @@ class DefaultController extends Controller
     }
 
     public function homepageAction() {
-        return $this->forward('LoogaresUsuarioBundle:Usuario:login');
+        return $this->render('LoogaresExtraBundle:Default:home.html.twig');
     }
 
 }
