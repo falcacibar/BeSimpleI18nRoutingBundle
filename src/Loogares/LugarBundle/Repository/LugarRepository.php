@@ -351,6 +351,18 @@ class LugarRepository extends EntityRepository
       }
     }
 
+    public function getPedidosLugar($lugar, $tipo) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT pl
+                             FROM Loogares\LugarBundle\Entity\PedidoLugar pl
+                             WHERE pl.lugar = ?1
+                             AND pl.tipo_pedido = ?2
+                             ORDER BY pl.prioridad ASC");
+      $q->setParameter(1, $lugar);
+      $q->setParameter(2, $tipo);
+      return $q->getResult();
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");

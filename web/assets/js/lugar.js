@@ -193,13 +193,23 @@ $(document).ready(function(){
 
     });
 
-    $(".fancybox").fancybox({
-        helpers: {
-            title : {
-                type : 'float'
-            }
+    $(".fancybox").fancybox({        
+        hideOnContentClick : false,
+        padding: 0,
+        showCloseButton: false         
+    });
+
+    $('.pedido_fancybox').fancybox({
+        hideOnContentClick : false,
+        padding: 0,
+        type: 'ajax',
+        showCloseButton: false,
+        onStart: function(){
+            $.fancybox.showActivity;
         },
-        hideOnContentClick : false
+        onComplete: function(){
+            $.fancybox.hideActivity;
+        }
     });
     
     $('.recomendar_ahora').click(function(e){

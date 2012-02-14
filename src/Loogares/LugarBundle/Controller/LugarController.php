@@ -182,6 +182,7 @@ class LugarController extends Controller{
                                                                          $orderBy
                                                                          LIMIT $resultadosPorPagina
                                                                          OFFSET $offset");
+
                 $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
                 
                 if($this->get('security.context')->isGranted('ROLE_USER')) {
@@ -209,6 +210,10 @@ class LugarController extends Controller{
                         $accionesUsuario[$i]['puede'] = 0;
                     }
                 }
+
+                // Revisamos si el lugar tiene pedidos asociados
+                $reservas = $lr->getPedidosLugar($lugarResult[0], 1);
+                $pedidos = $lr->getPedidosLugar($lugarResult[0], 2);
 
                 //Explotamos los tags, BOOM
                 for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
@@ -259,6 +264,8 @@ class LugarController extends Controller{
                 $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
                 $data->totalAcciones = $totalAcciones;
                 $data->accionesUsuario = $accionesUsuario;
+                $data->reservas = $reservas;
+                $data->pedidos = $pedidos;
 
                 $params = array(
                     'slug' => $data->getSlug()
@@ -1667,6 +1674,24 @@ class LugarController extends Controller{
             'lugar' => $lugar,
             'form' => $form->createView(),
             'errors' => $formErrors
+        ));
+    }
+
+    public function pedidosLugarAction($slug, $tipo) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+
+        $tipoPedido = 1;
+        if($tipo == 'pedidos')
+            $tipoPedido = 2;
+            
+        $pedidos = $lr->getPedidosLugar($lugar, $tipoPedido);
+
+        return $this->render('LoogaresLugarBundle:Ajax:pedidos_popup.html.twig', array(
+            'lugar' => $lugar,
+            'pedidos' => $pedidos,
         ));
     }
 }

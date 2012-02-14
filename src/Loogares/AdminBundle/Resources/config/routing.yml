@@ -111,6 +111,10 @@ LoogaresAdminBundle_fotosLugar:
     pattern:  /lugares/{ciudad}/{slug}/fotos
     defaults: { _controller: LoogaresAdminBundle:Admin:fotosLugar }
 
+LoogaresAdminBundle_pedidosLugar:
+    pattern:  /lugares/{ciudad}/{slug}/pedidos
+    defaults: { _controller: LoogaresAdminBundle:Admin:pedidosLugares }
+
 
 _test_mail:
     pattern:  /test/mail
