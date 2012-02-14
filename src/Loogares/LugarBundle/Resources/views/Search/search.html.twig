@@ -7,34 +7,39 @@
 	<script src="{{asset('assets/js/jquery.pjax.js')}}"></script>
 	<script>
 		$(document).ready(function(){
-			$('.resultado-busqueda-stars-raty').each(function(){
-				var estrellas = $(this).attr('data-stars');
-				$(this).raty({
-					width: 140,
-				    starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
-				    starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
-				    starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
-				    half: true,
-				    start: estrellas,
-				    readOnly: true,
-				    space: false
+			var populateRaty = function(){
+				$('.resultado-busqueda-stars-raty').each(function(){
+					var estrellas = $(this).attr('data-stars');
+					console.log(estrellas)
+					$(this).raty({
+						width: 140,
+					    starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
+					    starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
+					    starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
+					    half: true,
+					    start: estrellas,
+					    readOnly: true,
+					    space: false
+					});
 				});
-			});
 
-			$('.resultado-busqueda-precio-raty').each(function(){
-				var precio = $(this).attr('data-precio');
-				$(this).raty({
-					width: 140,
-			        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
-			        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
-				    half: true,
-				    start: precio,
-				    readOnly: true,
-				    space: false
-				});
-			});
+				$('.resultado-busqueda-precio-raty').each(function(){
+					var precio = $(this).attr('data-precio');
+					$(this).raty({
+						width: 140,
+				        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
+				        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
+					    half: true,
+					    start: precio,
+					    readOnly: true,
+					    space: false
+					});
+				});		
+				console.log('populating')
+			}
 
 
+			populateRaty();
 
 			$('.ver_categorias').live('click', function(){
 				var $div = $( ".expandir_resultados" ),
@@ -89,9 +94,10 @@
 					console.log('wegud')
 					$('#overlay, .loader').fadeOut(0, function(){
 						$(this).remove(); 
-						
 					});
-					$('.resultados-wrapper').hide().append(data).fadeIn(300)
+					$('.resultados-wrapper').hide().append(data).fadeIn(300, function(){
+						populateRaty();
+					});
 				}
 			});
 
@@ -105,25 +111,6 @@
 			$('body').bind('pjax:end', function(){
 				console.log('end')
 			});
-
-			// $('.expandir_resultados a, .expandir_zonas a').live('click', function(e){
-			// 	var $this = $(this),
-			// 		data = {};
-
-			// 	data[$this.attr('rel')] = $this.attr('data-slug');
-
-			// 	$('.resultados-wrapper').html('').append("<div id='overlay'/>");
-				
-			// 	$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
-				
-			// 	$('.resultados-wrapper').load(window.location.href + " .resultados", data, function(data){
-			// 		$('#overlay, .loader').fadeOut(function(){$this.remove()});
-			// 		console.log(data)
-			// 	});
-			// 	return false;
-			// });
-
-
 		});
 	</script>
 {% endblock %}
@@ -193,7 +180,7 @@
 	<div class="resultados-wrapper">
 		<div class="resultados">
 			<h1 class="titulo">Resultados de Busqueda en {{slug}}</h1>
-			{% if results.totalPorCategoria is defined or results.totalPorSubcategoria is defined %}
+			{% if results.totalPorCategoria[0] is defined or results.totalPorSubcategoria[0] is defined %}
 			<div class="expandir_resultados">
 				<span>Resultados por categoria</span>
 				<span class="ver_categorias">Ver Todas ></span>
@@ -202,7 +189,7 @@
 					<div class="resultados_categorias">
 						<ul>
 							{% for categoria in results.totalPorCategoria %}
-								<li><a rel="categoria" class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria.slug}) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
+								<li><a rel="categoria" class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria.slug, 'sector': sector, 'comuna': comuna}) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
 							{% endfor %}
 						</ul>
 					</div>
@@ -212,7 +199,7 @@
 						<strong>Subcategorías</strong>
 						<ul>
 							{% for subcategoria in results.totalPorSubcategoria %}
-								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria.slug}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>								
+								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria.slug, 'sector': sector, 'comuna': comuna}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>								
 							{% endfor %}
 						</ul>
 					</div>
@@ -223,11 +210,12 @@
 			{% if results.totalPorSectores is defined or results.totalPorComunas is defined %}
 			<div class="expandir_zonas">
 				<span class="ver_zonas">Ver resultados por zonas ></span>
-				{% if results.totalPorSectores is defined %}
+				{% if results.totalPorSectores[0] is defined %}
 				<div class="resultados_sectores">
 					<strong>Sectores</strong>
 					<ul>
 						{% for sector in results.totalPorSectores %}
+							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'sector': sector.slug}) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
 						{% endfor %}
 					</ul>
 				</div>
@@ -237,7 +225,7 @@
 					<strong>Comunas</strong>
 					<ul>
 						{% for comuna in results.totalPorComunas %}
-							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'term': buscar, 'categoria': categoria, 'subcategoria': subcategoria, 'comuna': comuna.slug}) }}">{{comuna.nombre}} ({{comuna.total }})</a></li>
+							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'comuna': comuna.slug}) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
 						{% endfor %}
 					</ul>
 				</div>
@@ -259,7 +247,7 @@
 			            {% if query.orden is not defined or query.orden == 'relevantes' %}
 			                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': term, 'orden': 'relevantes' }) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'q': term, 'orden': 'relevantes' }) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
 			            {% endif %}	
 			        </li>
 			        <li>|</li>
@@ -267,7 +255,7 @@
 			            {% if query.orden is defined and query.orden == 'recomendaciones' %}
 			                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': term, 'orden': 'recomendaciones' }) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'q': term, 'orden': 'recomendaciones' }) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -275,7 +263,7 @@
 			            {% if query.orden is defined and query.orden == 'utiles' %}
 			                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': term, 'orden': 'utiles' }) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'q': term, 'orden': 'utiles' }) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -283,7 +271,7 @@
 			            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
 			                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'buscar': term, 'orden': 'ultima-recomendacion' }) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'q': term, 'orden': 'ultima-recomendacion' }) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -291,7 +279,7 @@
 			            {% if query.orden is defined and query.orden == 'alfabetico' %}
 			                <strong>{{'general.terminos.alfabetico'|trans}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug, 'buscar': term, 'orden': 'alfabetico' }) }}">{{'general.terminos.alfabetico'|trans}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug, 'q': term, 'orden': 'alfabetico' }) }}">{{'general.terminos.alfabetico'|trans}}</a>
 			            {% endif %}
 			        </li>
 			    </ul>
