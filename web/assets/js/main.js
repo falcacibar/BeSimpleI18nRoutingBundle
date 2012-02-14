@@ -3,10 +3,12 @@ var hintListEstrellas = ['¡Argh, no me gustó nada!', 'Mmm, más o menos nomás
 /* Función para el menú desplegable */
 
 $(document).ready(function() {
-    var getResultados = getParameterByName('resultados');
     
+    var getResultados = getParameterByName('resultados');
+
     $('.seleccionar_resultados_por_pagina').find('option[value="'+getResultados+'"]').attr('selected', 'selected')
-        .end().change(function(){
+        .end().live('change', function(){
+          console.log('test');
             if( getResultados == ''){
                 if(window.location.href.match(/\?/)){
                     var location = window.location.href.replace(/pagina=\d+/, 'pagina=1');

@@ -16,10 +16,12 @@ class SearchController extends Controller
     $termSlug = $fn->generarSlug($term);
     $termArray = preg_split('/\s/', $term);
 
-    $fields = "lugares.id, lugares.nombre as nombre_lugar, lugares.slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, categorias.slug, categorias.nombre, group_concat(DISTINCT subcategoria.slug) as subcategoria_slug, subcategoria.slug";   
+    $fields = "STRAIGHT_JOIN lugares.id, lugares.nombre as nombre_lugar, lugares.slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, categorias.slug, categorias.nombre, group_concat(DISTINCT subcategoria.slug) as subcategoria_slug, subcategoria.slug";   
     $noCategorias = false;
     $filterCat = false;
     $filterSubCat = false;
+    $filterComuna = false;
+    $filterSector = false;
     $countRows = "SQL_CALC_FOUND_ROWS";
 
     $orderFilters = array(
@@ -37,6 +39,14 @@ class SearchController extends Controller
     if(isset($_GET['categoria']) || isset($_GET['subcategoria'])){
       $noCategorias = true;
     }
+
+    if(isset($_GET['comuna'])){
+      $filterComuna .= ' AND comuna.slug = "' . $_GET['comuna'] . '"';      
+    }
+
+    if(isset($_GET['sector'])){
+      $filterSector .= ' AND sector.slug = "' . $_GET['sector'] . '"';      
+    }
     
     //Vemos si no es igual a una categoria...
     $q = $em->createQuery("SELECT count(u.id) FROM Loogares\LugarBundle\Entity\Categoria u WHERE u.slug = '$termSlug'");
@@ -50,34 +60,12 @@ class SearchController extends Controller
 
 
     if($noCategorias == false){
-      //Buscamos por Slug
-      $unionQuery[] = "(SELECT SQL_CALC_FOUND_ROWS $fields FROM lugares 
-                        LEFT JOIN categoria_lugar
-                        ON categoria_lugar.lugar_id = lugares.id
-                        LEFT JOIN categorias
-                        ON categoria_lugar.categoria_id = categorias.id
-                        LEFT JOIN subcategoria_lugar
-                        ON subcategoria_lugar.lugar_id = lugares.id
-                        LEFT JOIN subcategoria
-                        ON subcategoria_lugar.subcategoria_id = subcategoria.id   
-                        WHERE lugares.slug like '%$termSlug%' GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
-      
-      foreach($termArray as $key => $value){
-        $unionQuery[] = "(SELECT $fields 
-                          FROM lugares
-                          LEFT JOIN categoria_lugar
-                          ON categoria_lugar.lugar_id = lugares.id
-                          LEFT JOIN categorias
-                          ON categoria_lugar.categoria_id = categorias.id
-                          LEFT JOIN subcategoria_lugar
-                          ON subcategoria_lugar.lugar_id = lugares.id
-                          LEFT JOIN subcategoria
-                          ON subcategoria_lugar.subcategoria_id = subcategoria.id
-                          WHERE lugares.slug LIKE '%$value%' GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
-      }
-
       //Buscamos por Categorias
-      $unionQuery[] = "(SELECT $fields FROM lugares
+      $unionQuery[] = "(SELECT SQL_CALC_FOUND_ROWS $fields FROM lugares
+                        LEFT JOIN comuna
+                        ON lugares.comuna_id = comuna.id
+                        LEFT JOIN sector
+                        ON lugares.sector_id = sector.id
                         LEFT JOIN categoria_lugar
                         ON categoria_lugar.lugar_id = lugares.id
                         LEFT JOIN categorias
@@ -86,14 +74,54 @@ class SearchController extends Controller
                         ON subcategoria_lugar.lugar_id = lugares.id
                         LEFT JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id
-                        GROUP BY lugares.id 
+                        WHERE lugares.id != 0 $filterSector $filterComuna
+                        GROUP BY lugares.id
                         HAVING categorias_slug LIKE '%$termSlug%'
                         ORDER BY $order
                         LIMIT 2000)";
 
+      //Buscamos por Slug
+      $unionQuery[] = "(SELECT  $fields FROM lugares 
+                        LEFT JOIN comuna
+                        ON lugares.comuna_id = comuna.id
+                        LEFT JOIN sector
+                        ON lugares.sector_id = sector.id
+                        LEFT JOIN categoria_lugar
+                        ON categoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN categorias
+                        ON categoria_lugar.categoria_id = categorias.id
+                        LEFT JOIN subcategoria_lugar
+                        ON subcategoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN subcategoria
+                        ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                        WHERE lugares.slug like '%$termSlug%' $filterSector $filterComuna GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+      
+      foreach($termArray as $key => $value){
+        $unionQuery[] = "(SELECT $fields 
+                          FROM lugares
+                          LEFT JOIN comuna
+                          ON lugares.comuna_id = comuna.id
+                          LEFT JOIN sector
+                          ON lugares.sector_id = sector.id
+                          LEFT JOIN categoria_lugar
+                          ON categoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN categorias
+                          ON categoria_lugar.categoria_id = categorias.id
+                          LEFT JOIN subcategoria_lugar
+                          ON subcategoria_lugar.lugar_id = lugares.id
+                          LEFT JOIN subcategoria
+                          ON subcategoria_lugar.subcategoria_id = subcategoria.id
+                          WHERE lugares.slug LIKE '%$value%' $filterSector $filterComuna GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+      }
+
       //Total de Categorias Generadas por el Slug
       $totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
                              FROM lugares
+
+                             LEFT JOIN comuna
+                             ON lugares.comuna_id = comuna.id
+                             LEFT JOIN sector
+                             ON lugares.sector_id = sector.id
 
                              LEFT JOIN categoria_lugar
                              ON categoria_lugar.lugar_id = lugares.id
@@ -101,11 +129,16 @@ class SearchController extends Controller
                              LEFT JOIN categorias
                              ON categoria_lugar.categoria_id = categorias.id
 
-                             WHERE lugares.slug LIKE '%$termSlug%')";
+                             WHERE lugares.slug LIKE '%$termSlug%' $filterSector $filterComuna)";
 
       foreach($termArray as $key => $value){
         $totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
                                FROM lugares
+
+                               LEFT JOIN comuna
+                               ON lugares.comuna_id = comuna.id
+                               LEFT JOIN sector
+                               ON lugares.sector_id = sector.id
 
                                LEFT JOIN categoria_lugar
                                ON categoria_lugar.lugar_id = lugares.id
@@ -113,32 +146,38 @@ class SearchController extends Controller
                                LEFT JOIN categorias
                                ON categoria_lugar.categoria_id = categorias.id
 
-                               WHERE lugares.slug LIKE '%$value%')";
+                               WHERE lugares.slug LIKE '%$value%' $filterSector $filterComuna)";
       }
 
       //Total de Categorias Generadas por la Categoria
-      /*$totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
+      $totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
                              FROM lugares
-
+                             LEFT JOIN comuna
+                             ON lugares.comuna_id = comuna.id
+                             LEFT JOIN sector
+                             ON lugares.sector_id = sector.id
                              LEFT JOIN categoria_lugar
                              ON categoria_lugar.lugar_id = lugares.id
 
                              LEFT JOIN categorias
                              ON categoria_lugar.categoria_id = categorias.id
 
-                             WHERE categorias.slug LIKE '%$termSlug%')";*/
+                             WHERE categorias.slug LIKE '%$termSlug%' $filterSector $filterComuna )";
     
       //Total de Categorias por Calle
       $totalCategorias[] = "(SELECT lugares.id as lid, categorias.id as cid, categorias.nombre, categorias.slug
                              FROM lugares
-
+                             LEFT JOIN comuna
+                             ON lugares.comuna_id = comuna.id
+                             LEFT JOIN sector
+                             ON lugares.sector_id = sector.id
                              LEFT JOIN categoria_lugar
                              ON categoria_lugar.lugar_id = lugares.id
 
                              LEFT JOIN categorias
                              ON categoria_lugar.categoria_id = categorias.id
 
-                             WHERE lugares.calle LIKE '%$term%')";
+                             WHERE lugares.calle LIKE '%$term%' $filterSector $filterComuna)";
 
       /*
       * Totales de Sectores
@@ -150,6 +189,21 @@ class SearchController extends Controller
                              ON sector.id = lugares.sector_id
 
                              WHERE lugares.slug LIKE '%$termSlug%')";
+
+      //Total de Categorias Generadas por la Categoria
+      $totalSectores[] = "(SELECT lugares.id as lid, sector.id as sid, sector.nombre, sector.slug
+                             FROM lugares
+                             JOIN comuna
+                             ON lugares.comuna_id = comuna.id
+                             JOIN sector
+                             ON lugares.sector_id = sector.id
+                             LEFT JOIN categoria_lugar
+                             ON categoria_lugar.lugar_id = lugares.id
+
+                             LEFT JOIN categorias
+                             ON categoria_lugar.categoria_id = categorias.id
+
+                             WHERE categorias.slug LIKE '%$termSlug%' )";
 
       foreach($termArray as $key => $value){
         $totalSectores[] = "(SELECT lugares.id as lid, sector.id as sid, sector.nombre, sector.slug
@@ -172,30 +226,38 @@ class SearchController extends Controller
       /*
       * Totales de Sectores
       */
+
+      //Total de Categorias Generadas por la Categoria
+      $totalComunas[] = "(SELECT lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug
+                             FROM lugares
+                             JOIN comuna
+                             ON lugares.comuna_id = comuna.id
+                             JOIN sector
+                             ON lugares.sector_id = sector.id
+                             LEFT JOIN categoria_lugar
+                             ON categoria_lugar.lugar_id = lugares.id
+                             LEFT JOIN categorias
+                             ON categoria_lugar.categoria_id = categorias.id
+                             WHERE categorias.slug LIKE '%$termSlug%' )";
+
         $totalComunas[] = "(SELECT lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug
                              FROM lugares
-
                              JOIN comuna
                              ON comuna.id = lugares.comuna_id
-
                              WHERE lugares.slug LIKE '%$termSlug%')";
 
       foreach($termArray as $key => $value){
         $totalComunas[] = "(SELECT lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug
                              FROM lugares
-
                              JOIN comuna
                              ON comuna.id = lugares.comuna_id
-
                              WHERE lugares.slug LIKE '%$value%')";
       }
 
         $totalComunas[] = "(SELECT lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug
                              FROM lugares
-
                              JOIN comuna
                              ON comuna.id = lugares.comuna_id
-
                              WHERE lugares.calle LIKE '%$term%')";
 
       //Total de Categorias por Tags
@@ -228,16 +290,12 @@ class SearchController extends Controller
         $filterSubCat = ' AND subcategoria.slug = "' . $_GET['subcategoria'] . '"';      
       }
 
-      if(isset($_GET['comuna'])){
-        $filter .= ' AND comuna.slug = "' . $_GET['comuna'] . '"';      
-      }
-
-      if(isset($_GET['sector'])){
-        $filter .= ' AND sector.slug = "' . $_GET['sector'] . '"';      
-      }
-
       //Buscamos por Slug
       $unionQuery[] = "(SELECT SQL_CALC_FOUND_ROWS $fields FROM lugares 
+                       JOIN comuna
+                       ON lugares.comuna_id = comuna.id
+                       JOIN sector
+                       ON lugares.sector_id = sector.id
                         LEFT JOIN categoria_lugar
                         ON categoria_lugar.lugar_id = lugares.id
                         LEFT JOIN categorias
@@ -246,11 +304,15 @@ class SearchController extends Controller
                         ON subcategoria_lugar.lugar_id = lugares.id
                         LEFT JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id   
-                        WHERE lugares.slug like '%$termSlug%' $filterCat $filterSubCat GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+                        WHERE lugares.slug like '%$termSlug%' $filterComuna $filterSector $filterCat $filterSubCat GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
 
       foreach($termArray as $key => $value){
           $unionQuery[] = "(SELECT $fields 
                             FROM lugares
+                          JOIN comuna
+                           ON lugares.comuna_id = comuna.id
+                           JOIN sector
+                           ON lugares.sector_id = sector.id
                             LEFT JOIN categoria_lugar
                             ON categoria_lugar.lugar_id = lugares.id
                             LEFT JOIN categorias
@@ -259,7 +321,7 @@ class SearchController extends Controller
                             ON subcategoria_lugar.lugar_id = lugares.id
                             LEFT JOIN subcategoria
                             ON subcategoria_lugar.subcategoria_id = subcategoria.id
-                            WHERE lugares.slug LIKE '%$value%' $filterCat $filterSubCat GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+                            WHERE lugares.slug LIKE '%$value%' $filterComuna $filterSector $filterCat $filterSubCat GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
       }
 
       //Buscamos por Categorias
@@ -292,6 +354,7 @@ class SearchController extends Controller
                                 ON subcategoria.categoria_id = categorias.id
 
                                 WHERE lugares.slug LIKE '%$termSlug%' $filterCat)";
+
 
       foreach($termArray as $key => $value){
         $totalSubCategorias[] = "(SELECT lugares.id as lid, subcategoria.id as sid, subcategoria.nombre, subcategoria.slug
@@ -362,10 +425,84 @@ class SearchController extends Controller
                                 ON tag_recomendacion.tag_id = tag.id
 
                                 WHERE tag.tag LIKE '%$term%' $filterCat)";*/
+
+
+      /*
+      * Totales de Sectores
+      */
+        $totalSectores[] = "(SELECT lugares.id as lid, sector.id as sid, sector.nombre, sector.slug
+                             FROM lugares
+                             JOIN sector
+                             ON sector.id = lugares.sector_id
+                             WHERE lugares.slug LIKE '%$termSlug%')";
+
+      //Total de Categorias Generadas por la Categoria
+      $totalSectores[] = "(SELECT lugares.id as lid, sector.id as sid, sector.nombre, sector.slug
+                             FROM lugares
+                             JOIN sector
+                             ON sector.id = lugares.sector_id
+                             LEFT JOIN categoria_lugar
+                             ON categoria_lugar.lugar_id = lugares.id
+                             LEFT JOIN categorias
+                             ON categorias.id = categoria_lugar.categoria_id
+                             WHERE categorias.slug LIKE '%$termSlug%' )";
+
+      foreach($termArray as $key => $value){
+        $totalSectores[] = "(SELECT lugares.id as lid, sector.id as sid, sector.nombre, sector.slug
+                             FROM lugares
+                             JOIN sector
+                             ON sector.id = lugares.sector_id
+                             WHERE lugares.slug LIKE '%$value%')";
+      }
+
+        $totalSectores[] = "(SELECT lugares.id as lid, sector.id as sid, sector.nombre, sector.slug
+                             FROM lugares
+                             JOIN sector
+                             ON sector.id = lugares.sector_id
+                             WHERE lugares.calle LIKE '%$term%')";
+
+      /*
+      * Totales de Sectores
+      */
+
+      //Total de Categorias Generadas por la Categoria
+      $totalComunas[] = "(SELECT lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug
+                             FROM lugares
+                             JOIN comuna
+                             ON lugares.comuna_id = comuna.id
+                             LEFT JOIN categoria_lugar
+                             ON categoria_lugar.lugar_id = lugares.id
+                             LEFT JOIN categorias
+                             ON categorias.id = categoria_lugar.categoria_id
+                             WHERE categorias.slug LIKE '%$termSlug%')";
+
+        $totalComunas[] = "(SELECT lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug
+                             FROM lugares
+                             JOIN comuna
+                             ON comuna.id = lugares.comuna_id
+                             WHERE lugares.slug LIKE '%$termSlug%')";
+
+      foreach($termArray as $key => $value){
+        $totalComunas[] = "(SELECT lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug
+                             FROM lugares
+                             JOIN comuna
+                             ON comuna.id = lugares.comuna_id
+                             WHERE lugares.slug LIKE '%$value%')";
+      }
+
+        $totalComunas[] = "(SELECT lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug
+                             FROM lugares
+                             JOIN comuna
+                             ON comuna.id = lugares.comuna_id
+                             WHERE lugares.calle LIKE '%$term%')";
     }
 
     //Query por Calles
-    $unionQuery[] = "(SELECT $fields FROM lugares 
+    $unionQuery[] = "(SELECT $fields FROM lugares
+                      LEFT JOIN sector
+                      ON sector.id = lugares.sector_id
+                      LEFT JOIN comuna
+                      ON comuna.id = lugares.comuna_id 
                       LEFT JOIN categoria_lugar
                       ON categoria_lugar.lugar_id = lugares.id
                       LEFT JOIN categorias
@@ -374,7 +511,7 @@ class SearchController extends Controller
                       ON subcategoria_lugar.lugar_id = lugares.id
                       LEFT JOIN subcategoria
                       ON subcategoria_lugar.subcategoria_id = subcategoria.id   
-                      WHERE lugares.calle like '%$term%' $filterCat $filterSubCat GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
+                      WHERE lugares.calle like '%$term%' $filterComuna $filterSector $filterCat $filterSubCat GROUP BY lugares.id ORDER BY $order LIMIT 2000)";
 
     /*$unionQuery[] = "(SELECT $fields FROM lugares 
                       LEFT JOIN categoria_lugar
@@ -459,6 +596,8 @@ class SearchController extends Controller
 
     $categoria = ((isset($_GET['categoria']))?$_GET['categoria']:NULL);
     $subcategoria = ((isset($_GET['subcategoria']))?$_GET['subcategoria']:NULL);
+    $sector = ((isset($_GET['sector']))?$_GET['sector']:NULL);
+    $comuna = ((isset($_GET['comuna']))?$_GET['comuna']:NULL);
 
     return $this->render('LoogaresLugarBundle:Search:search.html.twig', array(
       'term' => $term,
@@ -467,7 +606,9 @@ class SearchController extends Controller
       'total' => $resultSetSize[0]['rows'],
       'results' => $results,
       'categoria' => $categoria,
-      'subcategoria' => $subcategoria
+      'subcategoria' => $subcategoria,
+      'sector' => $sector,
+      'comuna' => $comuna
     ));
 
 
