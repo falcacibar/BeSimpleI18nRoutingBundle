@@ -17,7 +17,7 @@ while($row = $STH->fetch()){
         'tipo_pedido_id' => $row['TipoPedido'],
         'prioridad' => $row['Prioridad'],
         'referral' => $row['LinkPedido'],
-        'promocion' => '0'
+        'tiene_promocion' => '0'
     );
 }
 
@@ -29,7 +29,7 @@ foreach($data as $entry){
         $sql .= '"'.$value.'", ';
     }
     $sql =  substr($sql, 0, -2);
-    $sql = "INSERT INTO pedidos_lugar(lugar_id, servicio_pedido_id, tipo_pedido_id, prioridad, referral, promocion) values(" . $sql . ");";
+    $sql = "INSERT INTO pedidos_lugar(lugar_id, servicio_pedido_id, tipo_pedido_id, prioridad, referral, tiene_promocion) values(" . $sql . ");";
     //echo $sql;
     if(!$DBH->exec($sql)){
         $i++;

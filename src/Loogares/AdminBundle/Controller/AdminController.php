@@ -1128,50 +1128,109 @@ class AdminController extends Controller
         ));
     }
 
-    public function testMailAction() {
+    public function pedidosLugaresAction($ciudad, $slug) {
         $em = $this->getDoctrine()->getEntityManager();
-        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
-        $recomendacion = $rr->find(4167);
+        $fn = $this->get('fn');
 
-        // Buscamos dueño del lugar
-        $owner = $em->getRepository("LoogaresUsuarioBundle:Usuario")->getDuenoLugar($recomendacion->getLugar()->getId());
-
-        $mailParam = '';
-        if($owner != null)
-            $mailParam = md5($owner->getMail());
-
-        // Extraemos preview de la recomendación
-        $preview = '';
-        if(strlen($recomendacion->getTexto()) > 300) {
-            $preview = substr($recomendacion->getTexto(),0,300).'...';
+        if($slug == 'todos'){
+            $nombre = "Todos";
+            $where = null;
+            $slug = 'todos';
+        }else{
+            $lugar = $lr->findOneBySlug($slug);
+            $where = "where il.lugar_id = " . $lugar->getId();
+            $nombre = $lugar->getNombre();
         }
-        else {
-            $preview = $recomendacion->getTexto();
-        }
-
-        // Cálculo de las estrellas de la recomendación
-        $estrellas = array();
         
-        $numEstrellas = $recomendacion->getEstrellas() * 2;
-        $estrellas['llenas'] = (int)($numEstrellas/2);
-        $estrellas['medias'] = 0;
-        if($numEstrellas%2 != 0)
-            $estrellas['medias'] = 1;
+        $order = null;
+        $like = null;
+        $offset = 0;       
 
-        $estrellas['vacias'] = 5 - $estrellas['llenas'] - $estrellas['medias'];        
+        $filters = array(
+            'pservicio' => 'servicio',
+            'ptipo' => 'tipo',
+            'plugar' => 'lugar'
+        );
 
-        $mail = array();
-        $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.nueva_recomendacion.mail.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));
-        $mail['recomendacion'] = $recomendacion;
-        $mail['preview'] = $preview;
-        $mail['estrellas'] = $estrellas;
-        $mail['mailParam'] = $mailParam;
-        $mail['usuario'] = $recomendacion->getUsuario();
-        $mail['tipo'] = "nueva-recomendacion";
-        $logo = '/web/assets/images/extras/logo_mails.jpg';
+        $listadoFilters = array(
+            'servicio_pedido' => 'servicio',
+            'tipo_pedido' => 'tipo',
+        );
 
-        return $this->render('LoogaresLugarBundle:Mails:mail_lugar.html.twig', array('mail' => $mail, 'logo' => $logo));
+        if(isset($_GET['buscar'])){
+            $buscar = $_GET['buscar'];
+            if(preg_match('/[A-Za-z]+/', $buscar) == false){
+                if($where != null){
+                    $where .= " and lugares.id = '$buscar'";
+                }else{
+                    $where .= "WHERE lugares.id = '$buscar'";
+                }
+            }else if($slug == 'todos'){
+                if($where != null){
+                    $where .= " and lugares.nombre like '%$buscar%'";
+                }else{
+                    $where = "WHERE lugares.nombre like '%$buscar%'";
+                }
+            }
+        }
+
+        foreach($_GET as $column => $filter){
+            if(!$like && isset($filters[$column])){
+                $like = "HAVING ".$filters[$column]." LIKE '%$filter%'";
+            }
+             if($filter == 'asc' || $filter == 'desc'){
+                if(!$order){
+                    $order .= "ORDER BY ".$listadoFilters[$column]." $filter";
+                }else{
+                    $order .= ", $listadoFilters[$column] $filter";
+                }
+                $filters[$column] = ($filter == 'asc')?'desc':'asc';
+            }
+        }
+
+        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
+
+        $pedidos = $this->getDoctrine()->getConnection()
+        ->fetchAll("select SQL_CALC_FOUND_ROWS pl.*,
+                    lugares.nombre as lugar,
+                    (select lugares.nombre from lugares where lugares.id = pl.lugar_id) as lugar,
+                    (select lugares.id from lugares where lugares.id = pl.lugar_id) as idLugar,
+                    (select sp.nombre from servicios_pedido sp where pl.servicio_pedido_id = sp.id) as servicio
+
+                    from pedidos_lugar as pl
+
+                    left join lugares
+                    on lugares.id = pl.lugar_id
+
+                    inner join servicios_pedido sp
+                    on sp.id = pl.servicio_pedido_id
+
+                    $where
+                    GROUP BY pl.id
+                    $like
+                    $order
+                    LIMIT 30
+                    OFFSET $offset");
+
+        $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
+
+        $params = array(
+            'slug'=> $slug,
+            'ciudad' => $ciudad
+        );
+            
+        $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_pedidosLugar', $params, $this->get('router'));
+
+        return $this->render('LoogaresAdminBundle:Admin:listadoPedidos.html.twig', array(
+            'pedidos' => $pedidos,
+            'ciudad' => $ciudad,
+            'lugar' => $nombre,
+            'slug' => $slug,
+            'query' => $_GET,
+            'paginacion' => $paginacion
+        ));
     }
 
 }

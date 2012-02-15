@@ -108,7 +108,11 @@ _enviarLugar:
 _enviarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarRecomendacion }
-
+_pedidosLugar:
+    pattern: /lugar/{slug}/{tipo}
+    defaults: { _controller: LoogaresLugarBundle:Lugar:pedidosLugar }
+    requirements:
+        tipo: reservas|pedidos
 
 
 #

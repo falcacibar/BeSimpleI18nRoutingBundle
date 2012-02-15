@@ -106,10 +106,34 @@
                         <div class="precio-detalle"></div>
                     </div>
                 {% endif %}
-                <div class="pedido_reserva_lugar">
-                    <a class="pedido_online_lugar" href="#" alt="Pedido Online"></a>
-                    <a class="reserva_online_lugar" href="#" alt="Reserva Online"></a>
-                </div>
+
+                {% if lugar.reservas|length > 0 or lugar.pedidos|length > 0 %}
+                    {% if lugar.pedidos|length > 0  and lugar.pedidos.0.promocion != null %}
+                        <div class="pedido_promocion" style="border: 1px solid #ccc; padding:10px; width: 435px; float:left;margin: 0 0 20px 0">
+                            <strong style="display:block;line-height:20px;font-size:12px">{{lugar.pedidos.0.promocion.titulo}}</strong>
+                            <span style="display:block;line-height:20px;font-size:11px;color:#999">{{lugar.pedidos.0.promocion.dias}}</span>
+                            <p style="display:block;line-height:20px;font-size:11px;color:#999">{{lugar.pedidos.0.promocion.descripcion}}</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="pedido_reserva_lugar">
+                        {% if lugar.pedidos|length > 0 %}
+                            {% if lugar.pedidos|length == 1 %}
+                                <a class="pedido_online_lugar" href="{{lugar.pedidos.0.servicioPedido.linkBase}}{{lugar.pedidos.0.referral}}" alt="Pedido Online" target="blank"></a>
+                            {% else %}
+                                <a class="pedido_online_lugar pedido_fancybox" href="{{path('_pedidosLugar', {'slug' : lugar.slug, 'tipo' : 'pedidos'})}}" alt="Pedido Online"></a>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if lugar.reservas|length > 0 %}
+                            {% if lugar.reservas|length == 1 %}
+                                <a class="reserva_online_lugar" href="{{lugar.reservas.0.servicioPedido.linkBase}}{{lugar.reservas.0.referral}}" alt="Reserva Online" target="blank"></a>
+                            {% else %}
+                                <a class="reserva_online_lugar pedido_fancybox" href="{{path('_pedidosLugar', {'slug' : lugar.slug, 'tipo' : 'reservas'})}}" alt="Reserva Online"></a>
+                            {% endif %}
+                        {% endif %}
+                    </div>                    
+                {% endif %}
             </div>
 
             <div class="datos_secundarios_lugar">

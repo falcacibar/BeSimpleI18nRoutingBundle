@@ -1,0 +1,30 @@
+<div id="pedidos_popup" style="width:500px;height:300px;background-color:#DDD; float: left">	
+	<a href="#" class="cerrar-popup" style="float: right">Cerrar</a>
+	{% if pedidos|length == 0 %}
+		<div style="margin: 0 auto; width: 85%">
+			No existen servicios asociados	
+		</div>
+	{% else %}
+		<div style="margin: 0 auto; width: 85%">
+			<div style="display:block; margin: 20px 0 20px 0">
+				<h1 style="font-size:18px;font-weight:bold">Elige el servicio que deseas usar:</h1>
+			</div>
+			<div style="display:block">
+				{% for pedido in pedidos %}
+					<a href="{{pedido.servicioPedido.linkBase}}{{pedido.referral}}" target="blank">
+						<img src="{{asset('assets/images/extras/'~pedido.servicioPedido.imagenGrande)}}" />
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+</div>
+
+<script>
+	$(function(){
+		$('.cerrar-popup').click(function(e){
+	        e.preventDefault();
+	        $.fancybox.close()
+	    });
+	});
+</script>
