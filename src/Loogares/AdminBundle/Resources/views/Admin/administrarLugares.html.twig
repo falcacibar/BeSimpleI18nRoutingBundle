@@ -37,6 +37,9 @@
 	<li>
 		<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad, 'pestado': 'Reportado', 'fecha_creacion': 'asc' }) }}">Recomendaciones Reportadas</a> {{totalRecomendacionesReportadas}}
 	</li>
+	<li>
+		<a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'ciudad': ciudad, 'slug': 'todos' }) }}">Pedidos</a> {{totalPedidos}}
+	</li>
 </ul>
 <br />
 
