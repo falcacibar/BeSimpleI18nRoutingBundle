@@ -117,12 +117,6 @@
 
 {% block content %}
 <style>
-	.menu_ciudad a{
-		color: blue !important;
-	}
-	body{
-		color: black !important;
-	}
 	.filtros-busqueda li{
 		display: inline;
 	}
@@ -176,11 +170,17 @@
 			}
 </style>
 
+    <!-- Mensajes de éxito -->
+    {% if app.session.hasFlash('buscar_flash') %}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('buscar_flash') | raw }}</p>
+            </div>
+    {% endif %}
 
 	<div class="resultados-wrapper">
 		<div class="resultados">
 			<h1 class="titulo">Resultados de Busqueda en {{slug}}</h1>
-			{% if results.totalPorCategoria[0] is defined or results.totalPorSubcategoria[0] is defined %}
+			{% if results.totalPorCategoria[0] is defined or (results.totalPorSubcategoria[0] is defined and subcategoria == null) %}
 			<div class="expandir_resultados">
 				<span>Resultados por categoria</span>
 				<span class="ver_categorias">Ver Todas ></span>
@@ -189,7 +189,7 @@
 					<div class="resultados_categorias">
 						<ul>
 							{% for categoria in results.totalPorCategoria %}
-								<li><a rel="categoria" class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria.slug, 'sector': sector, 'comuna': comuna}) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
+								<li><a rel="categoria" class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
 							{% endfor %}
 						</ul>
 					</div>
@@ -199,7 +199,7 @@
 						<strong>Subcategorías</strong>
 						<ul>
 							{% for subcategoria in results.totalPorSubcategoria %}
-								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria.slug, 'sector': sector, 'comuna': comuna}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>								
+								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>								
 							{% endfor %}
 						</ul>
 					</div>
@@ -215,7 +215,7 @@
 					<strong>Sectores</strong>
 					<ul>
 						{% for sector in results.totalPorSectores %}
-							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'sector': sector.slug}) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
+							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'sector': sector.slug, 'resultados': resultados}) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
 						{% endfor %}
 					</ul>
 				</div>
@@ -225,12 +225,23 @@
 					<strong>Comunas</strong>
 					<ul>
 						{% for comuna in results.totalPorComunas %}
-							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'comuna': comuna.slug}) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
+							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'comuna': comuna.slug, 'resultados': resultados}) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
 						{% endfor %}
 					</ul>
 				</div>
 				{% endif %}
 			</div>
+
+	        <div class="paginacion_recomendacion">
+	            <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong>
+	            {% if paginacion.totalPaginas != 1 %}
+	                 | Ir a la página
+	                <ul>
+	                    {{ paginacion.paginacion | raw }}
+	                </ul>
+	            {% endif %}
+	        </div>
+
 			{% endif %}
 			{% if lugares|length == 0 %}
 				No hay resultados, :()
