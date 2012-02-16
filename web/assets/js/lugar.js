@@ -128,14 +128,14 @@ $(document).ready(function(){
                 if($this.hasClass('boton_util')){
                     if($this.hasClass('boton_activado')){
                         $this.prev('.conteo').text(conteo+1);
-                        $this.removeClass('boton_activado').addClass('boton_desactivado'); 
+                        $this.removeClass('boton_activado').addClass('boton_clickeado'); 
 
                         // Request para enviar mail a usuario de recomendación solo si es un util
                         send_util_mail();
                     }
-                    else if($this.hasClass('boton_desactivado')){
+                    else if($this.hasClass('boton_clickeado')){
                         $this.prev('.conteo').text(conteo-1);
-                        $this.removeClass('boton_desactivado').addClass('boton_activado');
+                        $this.removeClass('boton_clickeado').addClass('boton_activado');
                     }
                 }
                 else {
