@@ -50,6 +50,14 @@
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
+            <div class="favoritos_lugar{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
+                {% if lugar.accionesUsuario.3.puede == 1 %}
+                    <a class="favoritos_lugar_icono boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
+                {% else %}
+                    <p class="favoritos_lugar_icono boton_desactivado" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
+                {% endif %}
+                <!-- <p class="conteo">{{lugar.totalAcciones.3.total}}</p> -->
+            </div>           
             <div class="estrellas">
                 <script>
                     $(document).ready(function(){
@@ -167,8 +175,7 @@
                             <a href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
                         {% endfor %}
                     </div>
-                    {% endif %}
-                    
+                    {% endif %}    
                 </div>
 
                 <div class="categoria_lugar">
@@ -189,7 +196,6 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-
                 </div>
 
                 <div class="sector_lugar">
@@ -240,7 +246,6 @@
 
         <div class="actividad_lugar">
             <a class="recomienda_lugar"></a>
-            <a class="recomienda_despues_lugar"></a>
             <div style="display:none">
                 {% if lugar.accionesUsuario.4.puede == 1 %}
                     <a class="recomendar_despues_lugar boton_accion {{(lugar.accionesUsuario.4.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></a>
@@ -248,15 +253,7 @@
                     <p class="recomendar_despues_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></p>
                 {% endif %}
             </div>
-            <div class="flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
-                {% if lugar.accionesUsuario.3.puede == 1 %}
-                    <a class="favoritos_lugar boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
-                {% else %}
-                    <p class="favoritos_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
-                {% endif %}
-                <p class="favoritos_valor conteo">{{lugar.totalAcciones.3.total}}</p>
-            </div>           
-            <div class="flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
+            <div class="estuve_alla_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.2.puede == 1 %}
                     <a class="estuve_alla_lugar boton_accion {{(lugar.accionesUsuario.2.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></a>
                 {% else %}
@@ -264,15 +261,15 @@
                 {% endif %}
                 <p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
             </div> 
-            <div class="flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
+            <div class="quiero_volver_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.1.puede == 1 %}
-                    <a class="quiero_volver_lugar boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}">Quiero volver</a>
+                    <a class="quiero_volver_lugar boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}"></a>
                 {% else %}
-                    <p class="quiero_volver_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.1.hecho}}">Quiero volver</p>
+                    <p class="quiero_volver_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.1.hecho}}"></p>
                 {% endif %}
                 <p class="quiero_volver_valor conteo">{{lugar.totalAcciones.1.total}}</p>
             </div>            
-            <div class="flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
+            <div class="quiero_ir_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.0.puede == 1 %}
                     <a class="quiero_ir_lugar boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></a>
                 {% else %}
@@ -391,16 +388,16 @@
                         </strong>
                     </p>
                     <div class="util_recomendacion">
-                    {% if is_granted('ROLE_USER') and app.security.token.user.id != recomendacion.userId %}
-                        {% if recomendacion.apretoUtil == 0 %}
-                            <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util boton_accion"></a>
-                        {% else %}
-                            <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_desactivado boton_util boton_accion"></a>
-                        {% endif %}
-                    {% else %}
-                        <p class="boton_desactivado boton_util"></p>
-                    {% endif %}
                         <p class="conteo conteo_util">{{ recomendacion.utiles }}</p>
+                        {% if is_granted('ROLE_USER') and app.security.token.user.id != recomendacion.userId %}
+                            {% if recomendacion.apretoUtil == 0 %}
+                                <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util boton_accion"></a>
+                            {% else %}
+                                <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_desactivado boton_util boton_accion"></a>
+                            {% endif %}
+                        {% else %}
+                            <p class="boton_desactivado boton_util"></p>
+                        {% endif %}
                     </div>
                     <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
                     <div class="recomendacion-bloque">

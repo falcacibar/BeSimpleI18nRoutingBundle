@@ -394,6 +394,20 @@
   float: left;
   padding: 20px 20px 10px;
   width: 598px; }
+  .lugar_info .favoritos_lugar {
+    float: left; }
+    .lugar_info .favoritos_lugar .favoritos_lugar_icono {
+      background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -613px;
+      display: block;
+      cursor: pointer;
+      float: left;
+      height: 16px;
+      margin: 10px 0 0 4px;
+      width: 16px; }
+      .lugar_info .favoritos_lugar .favoritos_lugar_icono:hover {
+        background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -613px; }
+    .lugar_info .favoritos_lugar .boton_desactivado {
+      background: url("../images/extras/iconos_ficha_lugar_click.png") no-repeat 0 -613px; }
   .lugar_info .estrellas {
     display: block;
     float: left;
@@ -445,6 +459,8 @@
         background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -595px;
         float: left;
         padding: 0 0 0 20px; }
+        .lugar_info .multimedia_lugar .video_lugar .ver_video_lugar:hover {
+          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -595px; }
   .lugar_info .datos_principales_lugar {
     float: left;
     margin: 0 0 0 10px;
@@ -524,19 +540,21 @@
       width: 442px; }
       .lugar_info .datos_principales_lugar .pedido_reserva_lugar .pedido_online_lugar {
         background: url("../images/extras/botones_ficha_lugar.png") no-repeat -531px 0px;
+        cursor: pointer;
         display: inline-block;
         float: left;
-        height: 20px;
-        width: 99px; }
+        height: 21px;
+        width: 100px; }
         .lugar_info .datos_principales_lugar .pedido_reserva_lugar .pedido_online_lugar:hover {
           background: url("../images/extras/botones_ficha_lugar.png") no-repeat -531px -30px; }
       .lugar_info .datos_principales_lugar .pedido_reserva_lugar .reserva_online_lugar {
         background: url("../images/extras/botones_ficha_lugar.png") no-repeat -630px 0px;
+        cursor: pointer;
         display: inline-block;
         float: left;
-        height: 20px;
+        height: 21px;
         margin: 0 0 0 10px;
-        width: 99px; }
+        width: 100px; }
         .lugar_info .datos_principales_lugar .pedido_reserva_lugar .reserva_online_lugar:hover {
           background: url("../images/extras/botones_ficha_lugar.png") no-repeat -630px -30px; }
   .lugar_info .datos_secundarios_lugar {
@@ -554,7 +572,6 @@
     .lugar_info .datos_secundarios_lugar .tags_primero_lugar {
       display: block;
       float: left;
-      height: 10px;
       width: 146px; }
       .lugar_info .datos_secundarios_lugar .tags_primero_lugar .primero_en_recomendar_lugar {
         display: block;
@@ -843,7 +860,7 @@
       height: 30px;
       margin: 10px 0;
       width: 29px; }
-  .actividad_lugar .quiero_ir_lugar {
+  .actividad_lugar .quiero_ir_btn .quiero_ir_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -190px 0;
     display: block;
     cursor: pointer;
@@ -851,14 +868,15 @@
     height: 21px;
     margin: 15px 0px 14px 10px;
     width: 85px; }
-    .actividad_lugar .quiero_ir_lugar:hover {
-      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -190px -30px;
-      display: block;
-      float: left;
-      height: 21px;
-      margin: 15px 0px 14px 10px;
-      width: 85px; }
-  .actividad_lugar .quiero_ir_valor {
+    .actividad_lugar .quiero_ir_btn .quiero_ir_lugar:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -190px -30px; }
+  .actividad_lugar .quiero_ir_btn .boton_desactivado {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -190px -60px; }
+  .actividad_lugar .quiero_ir_btn .boton_clickeado {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -190px -90px; }
+    .actividad_lugar .quiero_ir_btn .boton_clickeado:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -190px -120px; }
+  .actividad_lugar .quiero_ir_btn .quiero_ir_valor {
     background: #999999;
     color: white;
     cursor: pointer;
@@ -870,7 +888,35 @@
     margin: 15px 0;
     text-shadow: 1px 1px 1px #444444;
     padding: 4px 5px 6px; }
-  .actividad_lugar .estuve_alla_lugar {
+  .actividad_lugar .quiero_volver_btn .quiero_volver_lugar {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -415px 0;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 21px;
+    margin: 15px 0px 14px 10px;
+    width: 105px; }
+    .actividad_lugar .quiero_volver_btn .quiero_volver_lugar:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -415px -30px; }
+  .actividad_lugar .quiero_volver_btn .boton_desactivado {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -415px -60px; }
+  .actividad_lugar .quiero_volver_btn .boton_clickeado {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -415px -90px; }
+    .actividad_lugar .quiero_volver_btn .boton_clickeado:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -415px -120px; }
+  .actividad_lugar .quiero_volver_btn .quiero_volver_valor {
+    background: #999999;
+    color: white;
+    cursor: pointer;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    float: left;
+    height: 10px;
+    margin: 15px 0;
+    text-shadow: 1px 1px 1px #444444;
+    padding: 4px 5px 6px; }
+  .actividad_lugar .estuve_alla_btn .estuve_alla_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -292px 0;
     display: block;
     cursor: pointer;
@@ -878,40 +924,13 @@
     height: 21px;
     margin: 15px 0px 14px 10px;
     width: 101px; }
-    .actividad_lugar .estuve_alla_lugar:hover {
-      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -292px -30px;
-      display: block;
-      float: left;
-      height: 21px;
-      margin: 15px 0px 14px 10px;
-      width: 101px; }
-  .actividad_lugar .estuve_alla_valor {
-    background: #999999;
-    color: white;
-    display: block;
-    font-size: 11px;
-    font-weight: bold;
-    float: left;
-    height: 10px;
-    margin: 15px 0;
-    text-shadow: 1px 1px 1px #444444;
-    padding: 4px 5px 6px; }
-  .actividad_lugar .favoritos_lugar {
-    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -415px 0;
-    display: block;
-    cursor: pointer;
-    float: left;
-    height: 21px;
-    margin: 15px 0px 14px 10px;
-    width: 90px; }
-    .actividad_lugar .favoritos_lugar:hover {
-      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -415px -30px;
-      display: block;
-      float: left;
-      height: 21px;
-      margin: 15px 0px 14px 10px;
-      width: 90px; }
-  .actividad_lugar .favoritos_valor {
+    .actividad_lugar .estuve_alla_btn .estuve_alla_lugar:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -292px -30px; }
+  .actividad_lugar .estuve_alla_btn .boton_desactivado {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -292px -60px; }
+  .actividad_lugar .estuve_alla_btn .boton_clickeado {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -292px -90px; }
+  .actividad_lugar .estuve_alla_btn .estuve_alla_valor {
     background: #999999;
     color: white;
     display: block;
@@ -1087,31 +1106,30 @@
       text-align: right;
       width: 100px; }
       .recomendacion .texto_recomendacion .util_recomendacion .conteo_util {
-        border-radius: 2px;
-        -o-border-radius: 2px;
-        -moz-border-radius: 2px;
-        -webkit-border-radius: 2px;
-        border: 1px solid #666666;
+        background: #cccccc;
+        color: white;
         display: block;
         float: right;
+        font-size: 11px;
         font-weight: bold;
         height: 10px;
         margin: 0 5px 0 0;
-        padding: 2px 5px 6px; }
+        text-shadow: 1px 1px 1px #444444;
+        padding: 4px 6px 6px; }
       .recomendacion .texto_recomendacion .util_recomendacion .boton_activado {
-        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -755px 0;
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -729px 0;
         cursor: pointer;
         float: right;
         height: 20px;
-        width: 43px; }
+        width: 53px; }
         .recomendacion .texto_recomendacion .util_recomendacion .boton_activado:hover {
-          background: url("../images/extras/botones_ficha_lugar.png") no-repeat -755px -30px; }
+          background: url("../images/extras/botones_ficha_lugar.png") no-repeat -729px -30px; }
       .recomendacion .texto_recomendacion .util_recomendacion .boton_desactivado {
-        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -755px -60px;
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -729px -60px;
         cursor: pointer;
         float: right;
         height: 20px;
-        width: 43px; }
+        width: 53px; }
     .recomendacion .texto_recomendacion .fecha_recomendacion {
       color: #999999;
       display: block;
