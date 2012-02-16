@@ -122,7 +122,7 @@ lugar:
             imprimir: Imprimir
         recomendaciones:
             titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
-            enviar: Enviar
+            enviar: Compartir
             editar: Edita tu recomendación
             borrar: Borra tu recomendación
             reportar: Reporta esta recomendación

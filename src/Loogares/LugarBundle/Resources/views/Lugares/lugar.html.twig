@@ -117,10 +117,11 @@
 
                 {% if lugar.reservas|length > 0 or lugar.pedidos|length > 0 %}
                     {% if lugar.pedidos|length > 0  and lugar.pedidos.0.promocion != null %}
-                        <div class="pedido_promocion" style="border: 1px solid #ccc; padding:10px; width: 435px; float:left;margin: 0 0 20px 0">
-                            <strong style="display:block;line-height:20px;font-size:12px">{{lugar.pedidos.0.promocion.titulo}}</strong>
-                            <span style="display:block;line-height:20px;font-size:11px;color:#999">{{lugar.pedidos.0.promocion.dias}}</span>
-                            <p style="display:block;line-height:20px;font-size:11px;color:#999">{{lugar.pedidos.0.promocion.descripcion}}</p>
+                        <div class="pedido_promocion">
+                            <span class="icono_pedido_promocion"></span>
+                            <span class="titulo_pedido_promocion">{{lugar.pedidos.0.promocion.titulo}}</span>
+                            <span class="dias_pedido_promocion">{{lugar.pedidos.0.promocion.dias}}</span>
+                            <p class="descripcion_pedido_promocion">{{lugar.pedidos.0.promocion.descripcion}}</p>
                         </div>
                     {% endif %}
 
