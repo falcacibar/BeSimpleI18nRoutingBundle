@@ -71,7 +71,7 @@
 {% if app.session.hasFlash('accionFoto') %}
         {{ app.session.flash('accionFoto')|raw }}
 {% endif %}
-<h1 class="titulo_admin">Fotos | {{ lugar }}</h1>
+<h1 class="titulo_admin">Fotos | {{ ciudad }}</h1>
 
 <div class="filtro_admin">
     <div class="periodo">
@@ -182,7 +182,11 @@
                                 </a>
                             </td>
                             {% if slug == 'todos' %}
-                                <td><a href="{{ path('LoogaresAdminBundle_fotosLugar', {'plugar': foto.lugar, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.lugar}}</a></td>
+                                <td class="lugar_nombre">
+                                    <span>
+                                        <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'plugar': foto.lugar, 'ciudad': ciudad, 'slug': slug}) }}">{{foto.lugar}}</a>
+                                    </span>
+                                </td>
                             {% endif %}
                             <td class="lugar_usuario">
                                 <span>
@@ -230,11 +234,12 @@
         <input type="submit" value="Enviar datos"/>
     </div>
 </form>
+
 <div class="total_paginacion">
     <form action="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': slug })}}" method="get">
         <strong>
             {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
-            <input type="submit" value="Ir"/>
+            <input class="ir_a_la_pagina" type="submit" value="Ir"/> o navegar...
     </form>
 </div>
 

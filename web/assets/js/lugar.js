@@ -123,22 +123,29 @@ $(document).ready(function(){
             data: dataObj,
             dataType: 'json',
             success: function(data){
-                var conteo = parseInt($this.next('.conteo').text());
+                var conteo = parseInt($this.prev('.conteo').text());
 
                 if($this.hasClass('boton_util')){
                     if($this.hasClass('boton_activado')){
-                        $this.next('.conteo').text(conteo+1);
+                        $this.prev('.conteo').text(conteo+1);
                         $this.removeClass('boton_activado').addClass('boton_desactivado'); 
 
                         // Request para enviar mail a usuario de recomendación solo si es un util
                         send_util_mail();
                     }
                     else if($this.hasClass('boton_desactivado')){
-                        $this.next('.conteo').text(conteo-1);
+                        $this.prev('.conteo').text(conteo-1);
                         $this.removeClass('boton_desactivado').addClass('boton_activado');
                     }
                 }
                 else {
+                    if($this.hasClass('boton_activado')) {
+                        $this.removeClass('boton_activado').addClass('boton_desactivado');                    
+                    }
+                    else if($this.hasClass('boton_desactivado')) {
+                        $this.removeClass('boton_desactivado').addClass('boton_activado');
+                    }
+
                     $('.quiero_ir_valor').text(data.totalAcciones[0].total)                       
                     $('.quiero_volver_valor').text(data.totalAcciones[1].total)
                     $('.estuve_alla_valor').text(data.totalAcciones[2].total)
@@ -147,7 +154,7 @@ $(document).ready(function(){
                     $('.quiero_ir_lugar').attr('data-hecho',data.accionesUsuario[0].hecho)
                     $('.quiero_volver_lugar').attr('data-hecho',data.accionesUsuario[1].hecho)
                     $('.estuve_alla_lugar').attr('data-hecho',data.accionesUsuario[2].hecho)
-                    $('.favoritos_lugar').attr('data-hecho',data.accionesUsuario[3].hecho)
+                    $('.favoritos_lugar_icono').attr('data-hecho',data.accionesUsuario[3].hecho)
                     $('.recomendar_despues_lugar').attr('data-hecho',data.accionesUsuario[4].hecho)
 
                     // Pop-up para recomendar
@@ -171,9 +178,10 @@ $(document).ready(function(){
     $('.boton_accion').click(function(e){
         e.preventDefault();
 
+
         var $this = $(this),
             idLugar = $('#lugar-ficha').attr('data-id');         
-
+        console.log($this)
         //UTIL: Recomendacion ID y Usuario(OBSOLETE)
         if($this.hasClass('boton_util')){
             dataObj = {'recomendacion': $this.closest('.recomendacion').attr('data-id'),'accion': 'util'};
@@ -183,7 +191,7 @@ $(document).ready(function(){
             dataObj = {'lugar': idLugar,'accion': 'quiero_volver'};
         }else if($this.hasClass('estuve_alla_lugar')){
             dataObj = {'lugar': idLugar,'accion': 'estuve_alla'};    
-        }else if($this.hasClass('favoritos_lugar')){
+        }else if($this.hasClass('favoritos_lugar_icono')){
             dataObj = {'lugar': idLugar,'accion': 'favoritos'};
         }else if($this.hasClass('recomendar_despues_lugar')){
             dataObj = {'lugar': idLugar,'accion': 'recomendar_despues'};
@@ -239,7 +247,7 @@ $(document).ready(function(){
     });
     
     $('.not_logged').hover(function() {
-        var popup = $(this).parent().find('.not_logged_acciones_popup')
+        var popup = $('.not_logged_acciones_popup')
         popup.appendTo($(this));
         popup.toggle();
     });
