@@ -52,7 +52,7 @@
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
             <div class="favoritos_lugar{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.3.puede == 1 %}
-                    <a class="favoritos_lugar_icono boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
+                    <a class="favoritos_lugar_icono boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
                 {% else %}
                     <p class="favoritos_lugar_icono boton_desactivado" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
                 {% endif %}
@@ -248,14 +248,14 @@
             <a class="recomienda_lugar"></a>
             <div style="display:none">
                 {% if lugar.accionesUsuario.4.puede == 1 %}
-                    <a class="recomendar_despues_lugar boton_accion {{(lugar.accionesUsuario.4.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></a>
+                    <a class="recomendar_despues_lugar boton_accion {{(lugar.accionesUsuario.4.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></a>
                 {% else %}
                     <p class="recomendar_despues_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></p>
                 {% endif %}
             </div>
             <div class="estuve_alla_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.2.puede == 1 %}
-                    <a class="estuve_alla_lugar boton_accion {{(lugar.accionesUsuario.2.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></a>
+                    <a class="estuve_alla_lugar boton_accion {{(lugar.accionesUsuario.2.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></a>
                 {% else %}
                     <p class="estuve_alla_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></p>
                 {% endif %}
@@ -263,7 +263,7 @@
             </div> 
             <div class="quiero_volver_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.1.puede == 1 %}
-                    <a class="quiero_volver_lugar boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}"></a>
+                    <a class="quiero_volver_lugar boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}"></a>
                 {% else %}
                     <p class="quiero_volver_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.1.hecho}}"></p>
                 {% endif %}
@@ -271,7 +271,7 @@
             </div>            
             <div class="quiero_ir_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.0.puede == 1 %}
-                    <a class="quiero_ir_lugar boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_desactivado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></a>
+                    <a class="quiero_ir_lugar boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></a>
                 {% else %}
                     <p class="quiero_ir_lugar boton_desactivado" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></p>
                 {% endif %}                
