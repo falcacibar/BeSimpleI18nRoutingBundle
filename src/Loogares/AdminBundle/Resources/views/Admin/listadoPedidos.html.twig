@@ -164,21 +164,21 @@
                                
                                 <td>{{pedido.idLugar}}</td>
                                 {% if slug == 'todos' %}                                    
-                                    <td><a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'plugar': pedido.lugar, 'ciudad': ciudad, 'slug': slug}) }}">{{pedido.lugar}}</a></td>
+                                    <td><a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'plugar': pedido.lugar, 'ciudad': ciudad, 'slug': slug})) }}">{{pedido.lugar}}</a></td>
                                 {% endif %}
                                  <td class="tipo_pedido_nombre">
                                     <span>
-                                        <a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'ptipo': pedido.tipo, 'ciudad': ciudad, 'slug': slug}) }}">{{pedido.tipo}}</a>
+                                        <a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'ptipo': pedido.tipo, 'ciudad': ciudad, 'slug': slug})) }}">{{pedido.tipo}}</a>
                                     </span>
                                 </td>
                                 <td class="servicio_nombre">
                                     <span>
-                                        <a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'pservicio': pedido.servicio, 'ciudad': ciudad, 'slug': slug}) }}">{{pedido.servicio}}</a>
+                                        <a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'pservicio': pedido.servicio, 'ciudad': ciudad, 'slug': slug})) }}">{{pedido.servicio}}</a>
                                     </span>
                                 </td>
                                 <td class="pedido_prioridad">
                                     <span>
-                                        <a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'pprioridad': pedido.prioridad, 'ciudad': ciudad, 'slug': slug}) }}">{{pedido.prioridad}}</a>
+                                        <a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'pprioridad': pedido.prioridad, 'ciudad': ciudad, 'slug': slug})) }}">{{pedido.prioridad}}</a>
                                     </span>
                                 </td>
                                 <td class="pedido_link">
@@ -188,7 +188,7 @@
                                 </td>
                                 <td class="pedido_promocion">
                                     <span>
-                                        <a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'ppromocion': pedido.tiene_promocion, 'ciudad': ciudad, 'slug': slug}) }}">{{(pedido.tiene_promocion == 1) ? 'Sí' : 'No'}}</a>
+                                        <a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'ppromocion': pedido.tiene_promocion, 'ciudad': ciudad, 'slug': slug})) }}">{{(pedido.tiene_promocion == 1) ? 'Sí' : 'No'}}</a>
                                     </span>
                                 </td>
                                 <td class="pedido_acciones">
@@ -212,9 +212,14 @@
         </div>
     </form>
     <div class="total_paginacion">
-        <form action="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'ciudad': ciudad, 'slug': slug }))}}" method="get">
+        <form action="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'ciudad': ciudad, 'slug' : slug })) }}" method="get">
             <strong>
                 {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
+
+                {# Parámetros GET como hidden #}
+                {% for key, q in query %}
+                    <input type="hidden" name="{{key}}" value="{{q}}" />
+                {% endfor %}
                 <input type="submit" value="Ir"/>
         </form>
     </div>

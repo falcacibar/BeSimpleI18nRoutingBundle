@@ -1257,7 +1257,7 @@ class AdminController extends Controller
 
         $params = array(
             'slug'=> $slug,
-            'ciudad' => $ciudad
+            'ciudad' => $ciudad,
         );
             
         $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_pedidosLugar', $params, $this->get('router'));
