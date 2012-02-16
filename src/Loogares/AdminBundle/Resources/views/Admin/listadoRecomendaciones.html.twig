@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1 class="titulo_admin">Recomendaciones | {{ ciudadNombre | default('Todos')}}</h1>
+<h1 class="titulo_admin">Recomendaciones | {{ ciudad }}</h1>
 
 <div class="filtro_admin">
     <div class="periodo">
@@ -16,16 +16,16 @@
         <input type="hidden" name="fecha-desde" id="fecha-desde" value="">
         <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="">
         <div class="buscar">
-            Buscar <input type="text" name="buscar" class="buscar_lugar" placeholder="Lugares por Nombre o Id" {% if query.buscar is defined %}value="{{query.buscar}}{% endif %}"/>
+            Buscar <input type="text" name="buscar" class="buscar_lugar" placeholder="Recomendaciones..." {% if query.buscar is defined %}value="{{query.buscar}}{% endif %}"/>
         </div>
 
         <div class="seleccionar_estado">
             Seleccionar 
             <select name="pestado">
                 <option value=''>Todos</option>
-                <option {% if query.pestado is defined and query.pestado == 'Aprobado'%} selected="selected" {% endif %}value="Aprobado">Aprobados</option>
-                <option {% if query.pestado is defined and query.pestado == 'Reportado'%} selected="selected" {% endif %}value="Reportado">Reportados</option>
-                <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Aprobado'%} selected="selected" {% endif %}value="Aprobado">Aprobadas</option>
+                <option {% if query.pestado is defined and query.pestado == 'Reportado'%} selected="selected" {% endif %}value="Reportado">Reportadas</option>
+                <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminadas</option>
             </select>
             <input type="submit" value="Filtrar"/>
             <a href="">Quitar filtros</a>
@@ -36,10 +36,15 @@
 <form action="" method="post">
     <div class="listado_admin">
         <div class="table-data">
-            <table class="listado_lugares">
+            <table class="listado_recomendaciones">
                 <thead>
-                    <th></th>
-                    <th>id</th>
+                    <th class="lugar_checkbox">
+                    </th>
+                    <th class="lugar_id">
+                        <span>
+                        <p class="titulos_tabla">Id</p>
+                        </span>
+                    </th>
                     <th class="lugar_usuario">
                         <span>
                         <p class="titulos_tabla">Usuario</p>
@@ -52,7 +57,7 @@
                         </p>
                         </span>
                     </th>
-                    <th class="lugar_lugar">
+                    <th class="lugar_nombre">
                         <span>
                         <p class="titulos_tabla">Lugar</p>
                         <p class="list-actions">
@@ -64,8 +69,12 @@
                         </p>
                         </span>
                     </th>
-                    <th>Texto</th>
-                    <th class="lugar_fecha_creacion">
+                    <th class="recomendacion_textos">
+                        <span>
+                        <p class="titulos_tabla">Texto</p>
+                        </span>
+                    </th>
+                    <th class="usuario_fecha">
                         <span>
                         <p class="titulos_tabla">Fecha de Creacion</p>
                         <p class="list-actions">
@@ -101,7 +110,7 @@
                         </p>
                         </span>
                     </th>
-                    <th class="lugar_util">
+                    <th class="lugar_utiles">
                         <span>
                         <p class="titulos_tabla">Utiles</p>
                         <p class="list-actions">
@@ -113,7 +122,11 @@
                         </p>
                         </span>
                     </th>
-                    <th>Tags</th>
+                    <th class="recomendacion_tags">
+                        <span>
+                            Tags
+                        </span>
+                    </th>
                     <th class="lugar_estado">
                         <span>
                         <p class="titulos_tabla">Estado</p>
@@ -126,15 +139,21 @@
                         </p>
                         </span>
                     </th>
-                    <th>Acciones</th>
+                    <th class="lugar_acciones">Accion</th>
                 </thead>
 
                 <tbody>
                     {% for recomendacion in recomendaciones %}
                         <tr>
-                            <td><input type="checkbox" name="id[]"/></td>
-                            <td>{{recomendacion.id}}</td>
-                            <td class="lugar_nombre">
+                            <td class="lugar_checkbox">
+                                <input type="checkbox" name="id[]"/>
+                            </td>
+                            <td class="lugar_id">
+                                <span>
+                                    {{recomendacion.id}}
+                                </span>
+                            </td>
+                            <td class="lugar_usuario">
                                 <span>
                                     <strong>
                                         <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'pusuario': recomendacion.usuarioSlug, 'ciudad': ciudad }) }}">{{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}}</a>
@@ -148,42 +167,52 @@
                                     </strong>
                                 </span>
                             </td>
-                            <td>{{recomendacion.texto}}...</td>
-                            <td>{{recomendacion.fecha_creacion|date('d/m/Y')}}</td>
-                            <td class="lugar_nombre">
+                            <td class="recomendacion_textos">
+                                <span>
+                                    {{recomendacion.texto}}...
+                                </span>
+                            </td>
+                            <td class="usuario_fecha">
+                                <span>
+                                    {{recomendacion.fecha_creacion|date('d/m/Y')}}
+                                </span>    
+                            </td>
+                            <td class="lugar_estrellas">
                                 <span>
                                     <strong>
                                         <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'pestrellas': recomendacion.estrellas, 'ciudad': ciudad }) }}">{{recomendacion.estrellas}}</a>
                                     </strong>
                                 </span>
                             </td>
-                            <td class="lugar_nombre">
+                            <td class="lugar_precio">
                                 <span>
                                     <strong>
                                         <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'pprecio': recomendacion.precio, 'ciudad': ciudad }) }}">{{recomendacion.precio}}</a>
                                     </strong>
                                 </span>
                             </td>
-                            <td class="lugar_nombre">
+                            <td class="lugar_utiles">
                                 <span>
                                     <strong>
                                         <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'putil': recomendacion.util, 'ciudad': ciudad }) }}">{{recomendacion.util}}</a>
                                     </strong>
                                 </span>
                             </td>
-                            <td>
-                                {% for tag in recomendacion.tags %}
-                                    {{tag}}{% if loop.last != true %}, {% endif %}
-                                {% endfor %}
+                            <td class="recomendacion_tags">
+                                <span>
+                                    {% for tag in recomendacion.tags %}
+                                        {{tag}}{% if loop.last != true %}, {% endif %}
+                                    {% endfor %}
+                                </span>
                             </td>
-                            <td class="lugar_nombre">
+                            <td class="lugar_estado">
                                 <span>
                                     <strong>
                                         <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'pestado': recomendacion.estado, 'ciudad': ciudad }) }}">{{recomendacion.estado}}</a>
                                     </strong>
                                 </span>
                             </td>
-                            <td>
+                            <td class="lugar_acciones">
                                 <a target="_blank" href="{{ path('LoogaresAdminBundle_editarRecomendacion', {'ciudad': ciudad, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
                                 {% if recomendacion.estado == 'Eliminado' %}
                                     <a href="{{ path('LoogaresAdminBundle_habilitarRecomendacion', query|merge({'ciudad': ciudad, 'id':recomendacion.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>

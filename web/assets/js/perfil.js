@@ -7,6 +7,10 @@ $(function(){
 		$(this).find('.opciones_lugar_imagen').toggle();
 	});	
 
+	$('.listado_lugares_guardados_usuario li').live('hover', function(){
+		$(this).find('.opciones_lugar_guardado').toggle();
+	});	
+
 	$('.borrar_lugar_imagen').click(function(){
 		if(!confirm('¿Estás seguro de querer borrar tu foto?'))
 			return false;
@@ -40,8 +44,8 @@ $(function(){
 	$('a.accion_borrar_usuario').live('click', function(e){
 		e.preventDefault();
 		var $this = $(this),
-			idLugar = $this.parent().parent().attr('data-id'),
-			accion = $this.parent().parent().attr('data-accion');
+			idLugar = $this.parent().parent().parent().attr('data-id'),
+			accion = $this.parent().parent().parent().attr('data-accion');
 
 		if(accion == 1){
             var dataObj = {'lugar': idLugar,'accion': 'quiero_ir'};
