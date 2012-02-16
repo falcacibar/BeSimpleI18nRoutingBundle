@@ -1574,12 +1574,39 @@
     .galeria_de_fotos .foto_info .autor_foto {
       float: left;
       margin: 0 0 20px;
-      width: 300px; }
+      width: 350px; }
     .galeria_de_fotos .foto_info .opciones_foto {
       float: left;
       margin: 0 0 20px;
       text-align: right;
-      width: 300px; }
+      width: 250px; }
+      .galeria_de_fotos .foto_info .opciones_foto a {
+        color: #666666;
+        text-decoration: none; }
+        .galeria_de_fotos .foto_info .opciones_foto a:hover {
+          color: #666666;
+          text-decoration: underline; }
+      .galeria_de_fotos .foto_info .opciones_foto .editar_foto {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
+        height: 10px;
+        padding: 0 0 0 13px;
+        width: 10px; }
+        .galeria_de_fotos .foto_info .opciones_foto .editar_foto:hover {
+          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -19px;
+          height: 10px;
+          padding: 0 0 0 13px;
+          width: 10px; }
+      .galeria_de_fotos .foto_info .opciones_foto .borrar_foto {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
+        height: 10px;
+        margin: 0 0 0 20px;
+        padding: 0 0 0 13px;
+        width: 10px; }
+        .galeria_de_fotos .foto_info .opciones_foto .borrar_foto:hover {
+          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px;
+          height: 10px;
+          padding: 0 0 0 13px;
+          width: 10px; }
 
 .sidebar_galeria {
   float: left;

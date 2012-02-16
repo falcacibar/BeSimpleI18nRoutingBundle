@@ -1996,14 +1996,44 @@ $rojo: #F72121
         .autor_foto
             float: left
             margin: 0 0 20px
-            width: 300px
+            width: 350px
 
         .opciones_foto
             float: left
             margin: 0 0 20px
             text-align: right
-            width: 300px
+            width: 250px
 
+            a
+                @include link_gris_666
+
+                &:hover
+                    @include link_gris_666_hover
+
+            .editar_foto
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                height: 10px
+                padding: 0 0 0 13px
+                width: 10px
+
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -19px
+                    height: 10px
+                    padding: 0 0 0 13px
+                    width: 10px
+
+            .borrar_foto
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
+                height: 10px
+                margin: 0 0 0 20px
+                padding: 0 0 0 13px
+                width: 10px
+
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                    height: 10px
+                    padding: 0 0 0 13px
+                    width: 10px
 .sidebar_galeria
     float: left
     margin: 0 0 0 18px
