@@ -140,10 +140,10 @@ $(document).ready(function(){
                 }
                 else {
                     if($this.hasClass('boton_activado')) {
-                        $this.removeClass('boton_activado').addClass('boton_desactivado');                    
+                        $this.removeClass('boton_activado').addClass('boton_clickeado');                    
                     }
-                    else if($this.hasClass('boton_desactivado')) {
-                        $this.removeClass('boton_desactivado').addClass('boton_activado');
+                    else if($this.hasClass('boton_clickeado')) {
+                        $this.removeClass('boton_clickeado').addClass('boton_activado');
                     }
 
                     $('.quiero_ir_valor').text(data.totalAcciones[0].total)                       
