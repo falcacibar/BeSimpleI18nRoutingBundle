@@ -1,0 +1,72 @@
+{% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
+
+{% block title %}Pedidos | {{parent()}}{% endblock %}
+
+{% block content %}
+	<h1>Agregar Pedido</h1>
+
+	<form action="{{ path('LoogaresAdminBundle_agregarPedido', {'ciudad': ciudad, 'slug': slug }) }}" method="post">
+		<ul>
+			<li>
+				<label>Lugar</label>
+				<input id="lugar" type="text" />
+				<input type="hidden" name="lugar_id" id="lugar_id" />
+			</li>
+
+			<li>
+				<label for="tipo">Tipo Pedido</label>
+				<select name="tipo">
+					{% for tipo in tipos %}
+						<option value="{{tipo.id}}">{{tipo.nombre}}</option>
+					{% endfor %}
+				</select>
+			</li>
+
+			<li>
+				<label for="servicio">Servicio</label>
+				<select name="servicio">
+					{% for servicio in servicios %}
+						<option value="{{servicio.id}}">{{servicio.nombre}}</option>
+					{% endfor %}
+				</select>
+			</li>
+
+			<li>
+				<label for="prioridad">Prioridad</label>
+				<input type="number" name="prioridad" />
+			</li>
+
+			<li>
+				<label for="referral">Referral (ruta relativa)</label>
+				<textarea rows="2" name="referral"></textarea>
+			</li>
+
+			{# Promoción #}
+			<div class="promocion">	
+				{% include 'LoogaresAdminBundle:Admin:promocion.html.twig' %}
+			</div>
+		</ul>
+		<input type="submit" value="Guardar"/>
+	</form>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function(){
+        	$( "#lugar" ).autocomplete({
+	            source: "http://localhost"+WEBROOT+"admin/ajax/sugerirLugar",
+	            minLength: 1,
+	            select: function(event, ui){
+	            	$('#lugar_id').val(ui.item.value.match(/(\d+)/)[0])
+	            }
+	        });
+        	$('.habilitar_promocion').live('click', function(){
+		        if($(this).is(':checked')){
+		            $(this).parent().find('.campos_promocion').fadeIn();
+		        }else{
+		            $(this).parent().find('.campos_promocion').fadeOut('fast');
+		        }
+		    });
+        });
+    </script>
+{% endblock %}

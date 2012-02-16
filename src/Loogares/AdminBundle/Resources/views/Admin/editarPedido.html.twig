@@ -1,0 +1,85 @@
+{% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
+
+{% block title %}Pedidos | {{parent()}}{% endblock %}
+
+{% block content %}
+	<h1>Edición de Pedido nº {{pedido.id}} en {{pedido.lugar.nombre}}</h1>
+
+	<form action="{{ path('LoogaresAdminBundle_editarPedido', {'ciudad': ciudad, 'slug': slug, 'id': pedido.id }) }}" method="post">
+		<ul>
+			<li>
+				<label>Lugar</label>
+				<span>{{pedido.lugar.nombre}} (ID: {{pedido.lugar.id}})</span>
+			</li>
+
+			<li>
+				<label for="tipo">Tipo Pedido</label>
+				<select name="tipo">
+					{% for tipo in tipos %}
+						<option value="{{tipo.id}}" {% if pedido.tipoPedido.id  == tipo.id %} selected="selected" {% endif %}>{{tipo.nombre}}</option>
+					{% endfor %}
+				</select>
+			</li>
+
+			<li>
+				<label for="servicio">Servicio</label>
+				<select name="servicio">
+					{% for servicio in servicios %}
+						<option value="{{servicio.id}}" {% if pedido.servicioPedido.id  == servicio.id %} selected="selected" {% endif %}>{{servicio.nombre}}</option>
+					{% endfor %}
+				</select>
+			</li>
+
+			<li>
+				<label for="prioridad">Prioridad</label>
+				<input type="number" name="prioridad" value="{{pedido.prioridad}}" />
+			</li>
+
+			<li>
+				<label for="referral">Referral (ruta relativa)</label>
+				<textarea rows="2" name="referral">{{pedido.referral}}</textarea>
+			</li>
+
+			{# Promoción #}
+			<div class="promocion">	
+				{% include 'LoogaresAdminBundle:Admin:promocion.html.twig' %}
+			</div>
+
+			<li>
+				<label>¿Eliminar pedido?</label>							
+			    <a href="{{ path('LoogaresAdminBundle_borrarPedido', {'slug': slug, 'ciudad': ciudad, 'id': pedido.id}) }}">
+			    	<img src="{{asset('assets/images/administrador/cross.png')}}" title="Eliminar el pedido"/>
+			    </a>
+			</li>
+		</ul>
+		<input type="submit" value="Guardar"/>
+	</form>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function(){
+        	$('.quitar_promocion').click(function(e){
+        		e.preventDefault();
+				$.ajax({
+				  type: "GET",
+				  url: $(this).attr('href')+"?asd=asd",
+				}).done(function( data ) {
+				  $('.promocion').html($(data).fadeIn('fast'));
+				  $('.campos_promocion').css('display','none')
+				}).fail(function( data ) {
+				  console.log(data);
+				});
+				return false;
+        	});
+
+        	$('.habilitar_promocion').live('click', function(){
+		        if($(this).is(':checked')){
+		            $(this).parent().find('.campos_promocion').fadeIn();
+		        }else{
+		            $(this).parent().find('.campos_promocion').fadeOut('fast');
+		        }
+		    });
+        });
+    </script>
+{% endblock %}
