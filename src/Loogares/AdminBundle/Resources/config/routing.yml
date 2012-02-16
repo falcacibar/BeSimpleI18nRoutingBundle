@@ -119,3 +119,22 @@ LoogaresAdminBundle_pedidosLugar:
 _test_mail:
     pattern:  /test/mail
     defaults: { _controller: LoogaresAdminBundle:Admin:testMail }
+
+
+#
+#
+#Rutas del Administrador de Pedidos
+#
+#
+LoogaresAdminBundle_accionPedidos:
+    pattern:  /lugares/{ciudad}/{slug}/pedidos/massive
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionPedidos, aprobar: false, borrar: false }
+LoogaresAdminBundle_editarPedido:
+    pattern:  /lugares/{ciudad}/{slug}/pedidos/editar/{id}
+    defaults: { _controller: LoogaresAdminBundle:Admin:editarPedido }
+LoogaresAdminBundle_borrarPedido:
+    pattern:  /lugares/{ciudad}/{slug}/pedidos/borrar/{id}
+    defaults: { _controller: LoogaresAdminBundle:Admin:borrarPedido }
+LoogaresAdminBundle_borrarPromocion:
+    pattern:  /lugares/{ciudad}/{slug}/pedidos/borrar/{id}/promocion
+    defaults: { _controller: LoogaresAdminBundle:AdminAjax:borrarPromocion }

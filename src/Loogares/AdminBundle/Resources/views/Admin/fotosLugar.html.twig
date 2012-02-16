@@ -236,7 +236,7 @@
 </form>
 
 <div class="total_paginacion">
-    <form action="{{ path('LoogaresAdminBundle_accionFotos', {'ciudad': ciudad, 'slug': slug })}}" method="get">
+    <form action="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': slug })}}" method="get">
         <strong>
             {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
             <input class="ir_a_la_pagina" type="submit" value="Ir"/> o navegar...

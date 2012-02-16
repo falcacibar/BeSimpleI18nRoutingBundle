@@ -30,4 +30,25 @@ class AdminAjaxController extends Controller{
 
       return new Response(json_encode($lugares));
     }
+
+    public function borrarPromocionAction($ciudad, $slug, $id) {
+      $em = $this->getDoctrine()->getEntityManager();
+      $plr = $em->getRepository("LoogaresLugarBundle:PedidoLugar");
+
+      $pedido = $plr->find($id);
+      $promocion = $pedido->getPromocion();
+
+      if($promocion != null) {
+        // Borramos la promocion
+        $em->remove($promocion);        
+        $em->flush();
+        $em->refresh();
+      }
+      
+      return $this->render('LoogaresAdminBundle:Admin:promocion.html.twig', array(
+          'pedido' => $pedido,
+          'slug' => $slug,
+          'ciudad' => $ciudad
+      ));
+    }
 }

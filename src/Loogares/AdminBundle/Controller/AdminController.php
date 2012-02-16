@@ -124,6 +124,15 @@ class AdminController extends Controller
         $q->setParameter(1, $idCiudad);
         $totalRecomendacionesReportadasResult = $q->getSingleScalarResult();
 
+        //Total pedidos por $ciudad
+        $q = $em->createQuery("SELECT count(pl)
+                             FROM Loogares\LugarBundle\Entity\PedidoLugar pl
+                             LEFT JOIN pl.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1");
+        $q->setParameter(1, $idCiudad);
+        $totalPedidosResult = $q->getSingleScalarResult();
+
         return $this->render('LoogaresAdminBundle:Admin:administrarLugares.html.twig', array(
             'totalLugares' => $totalLugaresResult,
             'totalLugaresPorRevisar' => $totalLugaresPorRevisarResult,
@@ -134,6 +143,7 @@ class AdminController extends Controller
             'totalFotosPorRevisar' => $totalFotosPorRevisarResult,
             'totalRecomendaciones' => $totalRecomendacionesResult,
             'totalRecomendacionesReportadas' => $totalRecomendacionesReportadasResult,
+            'totalPedidos' => $totalPedidosResult,
             'ciudad' => $ciudad
         ));
     }
@@ -629,6 +639,7 @@ class AdminController extends Controller
         );
 
         $listadoFilters = array(
+            'lugar' => 'lugar',
             'usuario' => 'usuario',
             'fecha_creacion' => 'fecha_creacion',
             'estado' => 'estado'
@@ -1112,6 +1123,8 @@ class AdminController extends Controller
             $em->persist($imagen);
             $em->flush();
 
+            echo $slug;
+
             return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarFoto', array(
                 'ciudad' => $ciudad,
                 'slug' => $slug,
@@ -1131,6 +1144,8 @@ class AdminController extends Controller
     public function pedidosLugaresAction($ciudad, $slug) {
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $sp = $em->getRepository("LoogaresLugarBundle:ServicioPedido");
         $fn = $this->get('fn');
 
         if($slug == 'todos'){
@@ -1139,9 +1154,11 @@ class AdminController extends Controller
             $slug = 'todos';
         }else{
             $lugar = $lr->findOneBySlug($slug);
-            $where = "where il.lugar_id = " . $lugar->getId();
+            $where = "where pl.lugar_id = " . $lugar->getId();
             $nombre = $lugar->getNombre();
         }
+
+        $idCiudad = $cr->findOneBySlug($ciudad)->getId();
         
         $order = null;
         $like = null;
@@ -1150,12 +1167,18 @@ class AdminController extends Controller
         $filters = array(
             'pservicio' => 'servicio',
             'ptipo' => 'tipo',
-            'plugar' => 'lugar'
+            'plugar' => 'lugar',
+            'pprioridad' => 'prioridad',
+            'ppromocion' => 'tiene_promocion'
         );
 
         $listadoFilters = array(
-            'servicio_pedido' => 'servicio',
-            'tipo_pedido' => 'tipo',
+            'lugar' => 'lugar',
+            'servicio' => 'servicio',
+            'tipo' => 'tipo',
+            'idLugar' => 'idLugar',
+            'prioridad' => 'prioridad',
+            'promocion' => 'tiene_promocion'
         );
 
         if(isset($_GET['buscar'])){
@@ -1179,7 +1202,11 @@ class AdminController extends Controller
             if(!$like && isset($filters[$column])){
                 $like = "HAVING ".$filters[$column]." LIKE '%$filter%'";
             }
-             if($filter == 'asc' || $filter == 'desc'){
+            elseif ($like && isset($filters[$column])) {
+                $like .= " AND ".$filters[$column]." LIKE '%$filter%'";
+            }
+
+            if($filter == 'asc' || $filter == 'desc'){
                 if(!$order){
                     $order .= "ORDER BY ".$listadoFilters[$column]." $filter";
                 }else{
@@ -1191,23 +1218,30 @@ class AdminController extends Controller
 
         $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
-
         $pedidos = $this->getDoctrine()->getConnection()
-        ->fetchAll("select SQL_CALC_FOUND_ROWS pl.*,
-                    lugares.nombre as lugar,
-                    (select lugares.nombre from lugares where lugares.id = pl.lugar_id) as lugar,
-                    (select lugares.id from lugares where lugares.id = pl.lugar_id) as idLugar,
-                    (select sp.nombre from servicios_pedido sp where pl.servicio_pedido_id = sp.id) as servicio
+        ->fetchAll("SELECT SQL_CALC_FOUND_ROWS pl.*,
+                    lugares.nombre AS lugar,
+                    lugares.id AS idLugar,
+                    sp.nombre AS servicio,
+                    tp.nombre AS tipo,
+                    sp.link_base as link
 
-                    from pedidos_lugar as pl
+                    FROM pedidos_lugar AS pl
 
-                    left join lugares
-                    on lugares.id = pl.lugar_id
+                    INNER JOIN lugares
+                    ON lugares.id = pl.lugar_id
 
-                    inner join servicios_pedido sp
-                    on sp.id = pl.servicio_pedido_id
+                    INNER JOIN comuna
+                    ON lugares.comuna_id = comuna.id
+
+                    INNER JOIN servicios_pedido sp
+                    ON sp.id = pl.servicio_pedido_id
+
+                    INNER JOIN tipo_pedido tp
+                    ON tp.id = pl.tipo_pedido_id
 
                     $where
+                    AND comuna.ciudad_id = $idCiudad
                     GROUP BY pl.id
                     $like
                     $order
@@ -1215,6 +1249,9 @@ class AdminController extends Controller
                     OFFSET $offset");
 
         $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
+
+        // Obtenemos todos los servicios disponibles
+        $servicios = $sp->findAll();
 
         $params = array(
             'slug'=> $slug,
@@ -1229,7 +1266,54 @@ class AdminController extends Controller
             'lugar' => $nombre,
             'slug' => $slug,
             'query' => $_GET,
+            'servicios' => $servicios,
             'paginacion' => $paginacion
+        ));
+    }
+
+    public function editarPedidoAction(Request $request, $ciudad, $slug, $id) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $plr = $em->getRepository("LoogaresLugarBundle:PedidoLugar");
+        $spr = $em->getRepository("LoogaresLugarBundle:ServicioPedido");
+        $tpr = $em->getRepository("LoogaresLugarBundle:TipoPedido");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $pedido = $plr->find($id);
+        $servicios = $spr->findAll();
+        $tipos = $tpr->findAll();
+
+        if($request->getMethod() == 'POST') {
+            $pedido->setServicioPedido = $spr->find($request->request->get('servicio'));
+            $pedido->setTipoPedido = $spr->find($request->request->get('tipo'));
+            $pedido->setPrioridad($request->request->get('prioridad'));
+            $pedido->setReferral($request->request->get('referral'));
+
+            // Manejo de las promociones
+            if($pedido->getPromocion() != null) {
+                $promocion = $pedido->getPromocion();
+                $promocion->setTitulo($request->request->get('titulo'));
+                $promocion->setDias($request->request->get('dias'));
+                $promocion->setDescripcion($request->request->get('descripcion'));
+            }
+            else {
+                
+            }
+
+            $em->flush();
+            return $this->render('LoogaresAdminBundle:Admin:editarPedido.html.twig', array(
+                'pedido' => $pedido,
+                'servicios' => $servicios,
+                'tipos' => $tipos,
+                'ciudad' => $ciudad,
+                'slug' => $slug
+            ));
+        }
+
+        return $this->render('LoogaresAdminBundle:Admin:editarPedido.html.twig', array(
+            'pedido' => $pedido,
+            'servicios' => $servicios,
+            'tipos' => $tipos,
+            'ciudad' => $ciudad,
+            'slug' => $slug
         ));
     }
 
