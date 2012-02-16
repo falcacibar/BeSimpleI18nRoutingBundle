@@ -46,7 +46,7 @@
 			</div>
 
 			<li>
-				<label>¿Eliminar pedido?</label>				
+				<label>¿Eliminar pedido?</label>							
 			    <a href="{{ path('LoogaresAdminBundle_borrarPedido', {'slug': slug, 'ciudad': ciudad, 'id': pedido.id}) }}">
 			    	<img src="{{asset('assets/images/administrador/cross.png')}}" title="Eliminar el pedido"/>
 			    </a>
@@ -63,14 +63,23 @@
         		e.preventDefault();
 				$.ajax({
 				  type: "GET",
-				  url: $(this).attr('href'),
+				  url: $(this).attr('href')+"?asd=asd",
 				}).done(function( data ) {
 				  $('.promocion').html($(data).fadeIn('fast'));
+				  $('.campos_promocion').css('display','none')
 				}).fail(function( data ) {
 				  console.log(data);
 				});
 				return false;
         	});
+
+        	$('.habilitar_promocion').live('click', function(){
+		        if($(this).is(':checked')){
+		            $(this).parent().find('.campos_promocion').fadeIn();
+		        }else{
+		            $(this).parent().find('.campos_promocion').fadeOut('fast');
+		        }
+		    });
         });
     </script>
 {% endblock %}

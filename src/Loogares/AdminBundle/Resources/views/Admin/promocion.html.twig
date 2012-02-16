@@ -1,11 +1,14 @@
-{% if pedido.promocion != null %} 
+{% if pedido is defined and pedido.promocion != null %} 
 	<strong>Promoción</strong>
-	<a href="{{ path('LoogaresAdminBundle_borrarPromocion', {'slug': slug, 'ciudad': ciudad, 'id' : pedido.id}) }}" class="quitar_promocion">Quitar promoción</a>					
+	<a href="{{ path('LoogaresAdminBundle_borrarPromocion', {'slug': slug, 'ciudad': ciudad, 'id' : pedido.id}) }}" class="quitar_promocion">Quitar promoción</a>
+	<ul class="campos_promocion">		
 {% else %}
-	<strong>Este pedido no incluye promoción</strong>
+	<strong>¿Agregar promoción?</strong>
+	<input type="checkbox" class="habilitar_promocion" name="habilitar_promocion" />
+	{# AGREGAR CLASE AL ul QUE TENGA display:none #}
+	<ul class="campos_promocion" style="display:none">
 {% endif %}
 
-<ul>
 	<li>
 		<label for="titulo">Título</label>
 		<textarea name="titulo" rows="2">{{(pedido is defined and pedido.promocion != null) ? pedido.promocion.titulo : ''}}</textarea>

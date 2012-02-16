@@ -40,9 +40,10 @@ class AdminAjaxController extends Controller{
 
       if($promocion != null) {
         // Borramos la promocion
-        $em->remove($promocion);        
+        $pedido->setPromocion(null);
+        $pedido->setTienePromocion(false);
+        $em->remove($promocion);                
         $em->flush();
-        $em->refresh();
       }
       
       return $this->render('LoogaresAdminBundle:Admin:promocion.html.twig', array(

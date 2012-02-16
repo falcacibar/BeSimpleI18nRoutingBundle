@@ -5,6 +5,8 @@ namespace Loogares\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Loogares\LugarBundle\Entity\Promocion;
+use Loogares\LugarBundle\Entity\PedidoLugar;
 
 class AdminController extends Controller
 {
@@ -1271,6 +1273,54 @@ class AdminController extends Controller
         ));
     }
 
+    public function agregarPedidoAction(Request $request, $ciudad, $slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $spr = $em->getRepository("LoogaresLugarBundle:ServicioPedido");
+        $tpr = $em->getRepository("LoogaresLugarBundle:TipoPedido");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $servicios = $spr->findAll();
+        $tipos = $tpr->findAll();
+
+        if($request->getMethod() == 'POST') {
+            $pedido = new PedidoLugar();
+            $pedido->setLugar($lr->find($request->request->get('lugar_id')));
+            $pedido->setServicioPedido($spr->find($request->request->get('servicio')));
+            $pedido->setTipoPedido($tpr->find($request->request->get('tipo')));
+            $pedido->setPrioridad($request->request->get('prioridad'));
+            $pedido->setReferral($request->request->get('referral'));
+            
+            if($request->request->get('habilitar_promocion')) {
+                // Agregamos la promoción
+                $promocion = new Promocion();
+                $promocion->setPedidoLugar($pedido);
+                $promocion->setTitulo($request->request->get('titulo'));
+                $promocion->setDias($request->request->get('dias'));
+                $promocion->setDescripcion($request->request->get('descripcion'));
+                $em->persist($promocion);
+
+                $pedido->setTienePromocion(true);
+                $pedido->setPromocion($promocion);
+            }
+            else {
+                $pedido->setTienePromocion(false);
+            }
+
+            $em->persist($pedido);
+            $em->flush();
+            return $this->redirect($this->generateUrl('LoogaresAdminBundle_pedidosLugar', array(
+                'ciudad' => $ciudad,
+                'slug' => $pedido->getLugar()->getSlug()
+            )));
+        }
+
+        return $this->render('LoogaresAdminBundle:Admin:agregarPedido.html.twig', array(
+            'servicios' => $servicios,
+            'tipos' => $tipos,
+            'ciudad' => $ciudad,
+            'slug' => $slug
+        ));
+    }
+
     public function editarPedidoAction(Request $request, $ciudad, $slug, $id) {
         $em = $this->getDoctrine()->getEntityManager();
         $plr = $em->getRepository("LoogaresLugarBundle:PedidoLugar");
@@ -1282,8 +1332,8 @@ class AdminController extends Controller
         $tipos = $tpr->findAll();
 
         if($request->getMethod() == 'POST') {
-            $pedido->setServicioPedido = $spr->find($request->request->get('servicio'));
-            $pedido->setTipoPedido = $spr->find($request->request->get('tipo'));
+            $pedido->setServicioPedido($spr->find($request->request->get('servicio')));
+            $pedido->setTipoPedido($tpr->find($request->request->get('tipo')));
             $pedido->setPrioridad($request->request->get('prioridad'));
             $pedido->setReferral($request->request->get('referral'));
 
@@ -1295,19 +1345,22 @@ class AdminController extends Controller
                 $promocion->setDescripcion($request->request->get('descripcion'));
             }
             else {
-                
+                if($request->request->get('habilitar_promocion')) {
+                    // Agregamos la promoción
+                    $promocion = new Promocion();
+                    $promocion->setPedidoLugar($pedido);
+                    $promocion->setTitulo($request->request->get('titulo'));
+                    $promocion->setDias($request->request->get('dias'));
+                    $promocion->setDescripcion($request->request->get('descripcion'));
+                    $em->persist($promocion);
+
+                    $pedido->setTienePromocion(true);
+                    $pedido->setPromocion($promocion);
+                }
             }
 
             $em->flush();
-            return $this->render('LoogaresAdminBundle:Admin:editarPedido.html.twig', array(
-                'pedido' => $pedido,
-                'servicios' => $servicios,
-                'tipos' => $tipos,
-                'ciudad' => $ciudad,
-                'slug' => $slug
-            ));
         }
-
         return $this->render('LoogaresAdminBundle:Admin:editarPedido.html.twig', array(
             'pedido' => $pedido,
             'servicios' => $servicios,
@@ -1315,6 +1368,53 @@ class AdminController extends Controller
             'ciudad' => $ciudad,
             'slug' => $slug
         ));
+    }
+
+    public function accionPedidosAction(Request $request, $ciudad, $slug, $borrar = false) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $plr = $em->getRepository("LoogaresLugarBundle:PedidoLugar");
+
+        if($request->getMethod() == 'POST'){
+            $vars = $_POST['id'];
+            if($request->request->get('accion') == 'borrar'){
+                $borrar = true;
+            }
+        }else{
+            $vars = $request->query->get('id');
+        }
+
+        if(is_array($vars)){
+            $items = $vars;
+        }else{
+            $items[] = $vars;
+        }
+        foreach($items as $item){    
+            $pedido = $plr->find($item);
+
+            if($borrar == true){
+                if($pedido->getPromocion() != null) {
+                    $em->remove($pedido->getPromocion());
+                }
+                $em->remove($pedido);
+            }
+        }
+
+        $em->flush();
+
+        if(sizeof($items) == 1)
+            $this->get('session')->setFlash('accionPedido','Pedido eliminado');    
+        else if(sizeof($items) > 1)
+            $this->get('session')->setFlash('accionPedido','Pedidos eliminados');       
+
+        $args = array(
+            'ciudad' => $ciudad,
+            'slug' => $slug
+        );
+        $args = array_merge($args, $_GET);
+        unset($args['id']);
+
+        return $this->redirect($this->generateUrl('LoogaresAdminBundle_pedidosLugar', $args));    
     }
 
 }
