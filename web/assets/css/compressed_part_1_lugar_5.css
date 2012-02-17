@@ -597,6 +597,7 @@
     .lugar_info .datos_secundarios_lugar .tags_primero_lugar {
       display: block;
       float: left;
+      min-height: 10px;
       width: 146px; }
       .lugar_info .datos_secundarios_lugar .tags_primero_lugar .primero_en_recomendar_lugar {
         display: block;
@@ -1286,7 +1287,8 @@
       margin: 0 0 0 2px;
       padding: 2px 5px 8px; }
       .paginacion_recomendacion ul li a {
-        color: #666666 !important; }
+        color: #666666;
+        text-decoration: none; }
     .paginacion_recomendacion ul .pagina-actual {
       background: #0066cc;
       border: 1px solid #0066cc;
@@ -1295,9 +1297,10 @@
       margin: 0 0 0 2px;
       padding: 2px 5px 8px; }
       .paginacion_recomendacion ul .pagina-actual a {
-        color: white !important; }
+        color: white;
+        text-decoration: none; }
 
-/* Reomienda el lugar */
+/* Recomienda el lugar */
 .recomienda_lugar_caja {
   float: left;
   display: block;
@@ -1407,6 +1410,7 @@
       width: 218px; }
       .otros_lugares .otro_lugar .otro_lugar_info .otro_lugar_nombre {
         color: #444444;
+        text-decoration: none;
         display: block;
         float: left;
         font-weight: bold;
@@ -1417,7 +1421,7 @@
       .otros_lugares .otro_lugar .otro_lugar_info .otro_lugar_estrellas {
         display: block;
         float: left;
-        width: 85px !important; }
+        width: 90px !important; }
       .otros_lugares .otro_lugar .otro_lugar_info img {
         margin: 0 2px 0 0; }
       .otros_lugares .otro_lugar .otro_lugar_info p {
@@ -1664,7 +1668,8 @@
       margin: 0 0 0 2px;
       padding: 2px 5px 8px; }
       .paginacion_galeria ul li a {
-        color: #666666 !important; }
+        color: #666666;
+        text-decoration: none; }
     .paginacion_galeria ul .pagina-actual {
       background: #0066cc;
       border: 1px solid #0066cc;
@@ -1673,4 +1678,5 @@
       margin: 0 0 0 2px;
       padding: 2px 5px 8px; }
       .paginacion_galeria ul .pagina-actual a {
-        color: white !important; }
+        color: white;
+        text-decoration: none; }

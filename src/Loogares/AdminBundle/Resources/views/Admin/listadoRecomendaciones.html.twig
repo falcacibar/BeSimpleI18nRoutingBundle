@@ -76,7 +76,7 @@
                     </th>
                     <th class="usuario_fecha">
                         <span>
-                        <p class="titulos_tabla">Fecha de Creacion</p>
+                        <p class="titulos_tabla">Creacion</p>
                         <p class="list-actions">
                             <a class="{% if query.fecha_creacion is defined and query.fecha_creacion == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', query|merge({"fecha_creacion": 'asc', 'ciudad': ciudad }))}}">⬆</a>
 
@@ -243,7 +243,7 @@
     <form action="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad })}}" method="get">
         <strong>
             {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
-            <input type="submit" value="Ir"/>
+            <input class="ir_a_la_pagina" type="submit" value="Ir"/> o navegar...
     </form>
 </div>
 

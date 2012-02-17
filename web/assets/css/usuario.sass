@@ -51,6 +51,14 @@ $rojo: #F72121
     color: $azul !important
     text-decoration: underline
 
+@mixin link_blanco
+    color: $blanco !important
+    text-decoration: none
+
+@mixin link_blanco_hover
+    color: $blanco !important
+    text-decoration: underline
+
 @mixin link_gris_444
     color: $gris_444 !important
     text-decoration: none
@@ -1142,7 +1150,7 @@ $rojo: #F72121
                 padding: 2px 5px 8px
             
                 a
-                    color: $gris_666 !important
+                    @include link_gris_666
             
             .pagina-actual
                 background: $azul
@@ -1153,4 +1161,4 @@ $rojo: #F72121
                 padding: 2px 5px 8px
 
                 a
-                    color: $blanco !important
+                    @include link_blanco
