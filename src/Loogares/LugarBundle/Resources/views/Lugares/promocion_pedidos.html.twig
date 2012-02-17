@@ -1,5 +1,5 @@
 <div class="caja_promociones">
-    <h2>Restaurantes con descuentos en Pedidos Online</h2>
+    <h2>{{'lugar.ficha.promociones.titulo'|trans}}</h2>
 
 	<ul id="promocion-delivery-sidebar">
 		{% for promocion in promociones %}
@@ -16,12 +16,12 @@
 						<div class="promocion_delivery_info_sidebar">
 							<p class="promocion_lugar">{{promocion.pedidoLugar.lugar.nombre}}</p>
 							<strong class="promocion_titulo">{{promocion.titulo}}</strong>
-							<p class="promocion_dias"><strong>Días:</strong> {{promocion.dias}}</p>
+							<p class="promocion_dias"><strong>{{'lugar.ficha.promociones.dias'|trans}}:</strong> {{promocion.dias}}</p>
 						</div>
 	            	</div>
 	            </a>
 	        </li>
 	    {% endfor %}
     </ul>
-    <a href="">Ver todos los descuentos &raquo;</a>
+    <a href="">{{'lugar.ficha.promociones.ver_dctos'|trans}} &raquo;</a>
 </div>
