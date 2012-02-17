@@ -3,8 +3,21 @@
 {% block title %}{{((tipo == 'lugar') ? 'compartir.lugar.mail.titulo_pag' : 'compartir.recomendacion.mail.titulo_pag')|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
 
 {% block content %}
-	<div id="enviar_lugar">
-		<h1>
+
+	<!-- Mensajes de error --> 
+	{% if errors %}
+		<div class="mensaje_error">
+			<div class="imagen_error"></div>
+			<div class="txt_error">
+				{% for error in errors %}
+			        <p>{{ error | trans}}</p>
+			    {% endfor %}
+		    </div>
+		</div>
+	{% endif %}	
+
+	<div class="enviar_lugar">
+		<h1 class="titulo">
 			{% if tipo == 'lugar'%}
 				{{'compartir.lugar.mail.titulo'|trans}} 
 			{% else %}
@@ -14,13 +27,6 @@
 			<a href="{{path('_lugar', {'slug' : lugar.slug})}}">{{lugar.nombre}}</a>
 		</h1>
 
-		{% if errors %}
-			<div class="enviar_error">
-				{% for error in errors %}
-			        <p>{{ error | trans}}</p>
-			    {% endfor %}
-			</div>
-		{% endif %}
 		{% set ruta = (tipo == 'lugar') ? path('_enviarLugar', { 'slug' : lugar.slug }) : path('_enviarRecomendacion', { 'slug' : lugar.slug, 'usuarioSlug' : ((recomendacion.usuario.slug is not empty) ? recomendacion.usuario.slug : recomendacion.usuario.id) })%}
 		<form action="{{ ruta }}" method="post">
 				<ul>
@@ -42,7 +48,7 @@
 					</li>
 					{% endif %}
 
-					<li>
+					<li class="separacion_chica">
 						<label>{{'compartir.form.mails_amigos'|trans}}</label>
 						<input type="text" name="mails" class="{{errors.mails is defined ? 'input-error' : ' '}}"/>
 						{% if errors.mails is defined %}
@@ -52,22 +58,22 @@
 
 					<li>
 						<label></label>
-						<span class="tip">{{'compartir.form.tips.comas'|trans}}</span>
+						<span class="tips">{{'compartir.form.tips.comas'|trans}}</span>
 					</li>
 
-					<li>
+					<li class="separacion_chica">
 						<label>{{'compartir.form.cuerpo'|trans}}</label>
 						<textarea rows="8" name="cuerpo" placeholder="{{(tipo == 'lugar') ? 'compartir.lugar.placeholder'|trans : 'compartir.recomendacion.placeholder'|trans}}"></textarea>
 					</li>
 
 					<li>
 						<label></label>
-						<span class="tip">{{'compartir.form.tips.obligatorio'|trans}}</span>
+						<span class="tips">{{'compartir.form.tips.obligatorio'|trans}}</span>
 					</li>
 
 					<li class="submit">
 						<label></label>
-						<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}"/>
+						<input class="enviar_mail" type="submit" value=""/>
 					</li>
 				</ul>
 			</form>
