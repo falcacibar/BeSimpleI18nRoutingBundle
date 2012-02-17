@@ -2966,6 +2966,58 @@ small {
         color: white;
         text-decoration: none; }
 
+/* Enviar lugar por mail */
+.enviar_lugar {
+  border: 1px solid #f2f2f6;
+  float: left;
+  font-size: 14px;
+  padding: 20px;
+  width: 610px; }
+  .enviar_lugar a {
+    color: #0066cc;
+    text-decoration: none; }
+    .enviar_lugar a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
+  .enviar_lugar li {
+    float: left;
+    margin: 0 0 20px;
+    width: 610px; }
+    .enviar_lugar li a {
+      color: #0066cc;
+      text-decoration: none;
+      display: block;
+      font-size: 11px;
+      margin: 9px 0; }
+      .enviar_lugar li a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
+    .enviar_lugar li label {
+      float: left;
+      height: 10px;
+      margin: 4px 10px 4px 0;
+      width: 150px; }
+    .enviar_lugar li input, .enviar_lugar li textarea {
+      float: left;
+      margin: 0 10px 0 0;
+      padding: 8px;
+      width: 350px; }
+    .enviar_lugar li .enviar_mail {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+      border: 0px;
+      cursor: pointer;
+      height: 30px;
+      margin: 20px 0 0;
+      width: 100px; }
+      .enviar_lugar li .enviar_mail:hover {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
+  .enviar_lugar .separacion_chica {
+    margin: 0 0 10px; }
+  .enviar_lugar .tips {
+    color: #999999;
+    font-size: 12px;
+    margin: 0 0 30px 0; }
+
 /* Colores */
 /* Mixin */
 /* Clases */
