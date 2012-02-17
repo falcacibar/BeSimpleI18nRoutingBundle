@@ -1,0 +1,66 @@
+<body>
+    <div style="font-family:Arial,sans-serif">
+        <table align="center" cellpadding="0" cellspacing="0" width="600" style="width:600px">
+            <tr>
+                <td width="160"><img src="{{ asset('assets/images/extras/logo_mails.jpg') }}" width="160" height="100" /></td>
+                <td valign="middle" width="440"><hr /></td>
+            </tr>
+            <tr>
+                <td style="font-size:14px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                    <br />
+                    <br />
+                    <strong>{{'lugar.notificaciones.nueva_recomendacion.mail.titulo'|trans}}</strong>
+                    <p>{% trans with {'%lugar%' : "<a href=''>nombre</a>", '%loogares%' : "<a href='http://www.loogares.com'>Loogares.com</a>"}%}lugar.notificaciones.nueva_recomendacion.mail.subtitulo{% endtrans %}</p>
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:12px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                    <div style="float:left">
+                        <div style="float:left;">
+                            <img src="dsds" />
+                        </div>
+                        <div style="float:left;margin-left:10px">
+                            <strong style="display:block;font-size:14px">{{'mail.usuario.nombre'}} {{'mail.usuario.apellido'}}</strong>
+                            <span style="font-size:11px;display:block">{{'mail.recomendacion.fechaCreacion | date'}}</span>
+                            <span style="display:block">
+                                    {% for llena in 1..5 %}
+                                        <img src="{{asset('assets/images/extras/estrella_llena_recomendacion.png')}}" />
+                                    {% endfor %}
+                            </span>
+                            <p>
+                                {{'mail.preview'}}
+                                <a href="">Leer más</a>
+                            </p>
+                        </div>
+                        <br />
+                        <br />                        
+                    </div>
+                    <div style="font-size:14px">
+                        <strong>{{'lugar.notificaciones.nueva_recomendacion.mail.subsubtitulo'|trans({'%lugar%' : 'mail.recomendacion.lugar.nombre'})}}</strong>
+                        <p>{{'lugar.notificaciones.nueva_recomendacion.mail.primero'|trans}}</p>
+                        <p>{{'lugar.notificaciones.nueva_recomendacion.mail.segundo'|trans({'%lugar%' : 'mail.recomendacion.lugar.nombre'})}}</p>
+                        <a href="sdada">{{'lugar.notificaciones.nueva_recomendacion.mail.propuesta'|trans}}</a>
+                    </div>
+                    <br />
+                    <br />                    
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:11px; color:#999; font-family:Arial,sans-serif" colspan="2">
+                    <hr />
+                    <br />
+                    {% trans with {'%open_tag%': "<b><a href='http://www.loogares.com' style='color:#06f; text-decoration:none'>", '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
+                    <br />
+                    {% trans with {'%open_a%': "<a href='mailto:contacto@loogares.com' style='color:#06f; text-decoration:none'>", '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
+                    <br />
+                    <br />
+                    &copy; {{'usuario.mail.firma'|trans}}
+                </td>
+
+            </tr>
+        </table>
+    </div>
+</body>

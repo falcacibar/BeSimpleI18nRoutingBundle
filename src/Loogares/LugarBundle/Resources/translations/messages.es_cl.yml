@@ -245,7 +245,7 @@ compartir:
             saludo: ¡Hola %destinatario%!
             subtitulo: quiere contarte sobre un Lugar que te puede gustar:
             texto: Lo que te dice: 
-        placeholder: ¡Este lugar es increíble!           
+        placeholder: ¡Quiero que conozcas este lugar!           
     recomendacion:
         mail:
             titulo_pag: Enviar recomendación en %lugar% a tus amigos
@@ -258,7 +258,7 @@ compartir:
         nombre: Tu Nombre *
         mail: Tu E-mail *
         mails_amigos: E-mails de tus amigos *
-        cuerpo: ¿Y qué les vas a contar?
+        cuerpo: ¿Y qué les vas a decir?
         tips:
             comas: Para enviar a más de una dirección de E-mail, sepáralas por una coma (,)
             obligatorio: Los campos con (*) son obligatorios

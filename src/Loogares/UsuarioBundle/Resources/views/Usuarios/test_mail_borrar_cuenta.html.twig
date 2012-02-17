@@ -1,0 +1,50 @@
+<body>
+    <div style="font-family:Arial,sans-serif">
+        <table align="center" cellpadding="0" cellspacing="0" width="600" style="width:600px">
+            <tr>
+                <td width="160"><img src="{{ asset('assets/images/extras/logo_mails.jpg') }}" width="160" height="100" /></td>
+                <td valign="middle" width="440"><hr /></td>
+            </tr>
+            <tr>
+                <td style="font-size:14px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                    <br />
+                    <br />
+                    {{'mail.asunto'}}
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:12px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                    <br />
+                    <br />
+                    <dl>
+                        <dt>{{'usuario.edicion.borrar.mail.nombre'|trans}}</dt>
+                        <dd>{{ 'slug' }} - {{'mail.usuario.nombre'}} {{'mail.usuario.apellido'}}</dd>                        
+                        <dt>{{'usuario.edicion.borrar.mail.mail'|trans}}</dt>
+                        <dd>{{'mail.usuario.mail'}}</dd>
+                        <dt>{{'usuario.edicion.borrar.mail.fecha_registro'|trans}}</dt>
+                        <dd>{{'mail.fechaRegistro'}}</dd>
+                        <dt>{{'usuario.edicion.borrar.mail.motivo'|trans}}</dt>
+                        <dd>{{'mail.motivo'}}</dd>
+                    </dl>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:11px; color:#999; font-family:Arial,sans-serif" colspan="2">
+                    <hr />
+                    <br />
+                    {% trans with {'%open_tag%': "<b><a href='http://www.loogares.com' style='color:#06f; text-decoration:none'>", '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
+                    <br />
+                    {% trans with {'%open_a%': "<a href='mailto:contacto@loogares.com' style='color:#06f; text-decoration:none'>", '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
+                    <br />
+                    <br />
+                    &copy; {{'usuario.mail.firma'|trans}}
+                </td>
+
+            </tr>
+        </table>
+    </div>
+</body>

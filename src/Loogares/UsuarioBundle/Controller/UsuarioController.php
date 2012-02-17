@@ -644,8 +644,9 @@ class UsuarioController extends Controller
                             ->setSubject($this->get('translator')->trans('usuario.registro.confirmar.mail.asunto'))
                             ->setFrom('noreply@loogares.com')
                             ->setTo($usuario->getMail());
-                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
-                    $message->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.html.twig', array('usuario' => $usuario, 'logo' => $logo)), 'text/html')
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
+                    $boton = $message->embed(\Swift_Image::fromPath('assets/images/mails/confirmar_cuenta.png'));
+                    $message->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.html.twig', array('usuario' => $usuario, 'logo' => $logo, 'boton' => $boton)), 'text/html')
                             ->addPart($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_registro.txt.twig', array('usuario' => $usuario)), 'text/plain');
                     $this->get('mailer')->send($message);
 
@@ -748,7 +749,7 @@ class UsuarioController extends Controller
                     $mail['usuario'] = $usuario;
 
                     $paths = array();
-                    $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
+                    $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
                     $message = $this->get('fn')->enviarMail($mail['asunto'], $usuario->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresUsuarioBundle:Mails:mail_olvidar_password.html.twig', $this->get('templating'));
                     $this->get('mailer')->send($message);

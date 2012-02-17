@@ -992,6 +992,17 @@ textarea {
           font-size: 14px;
           line-height: 22px;
           margin: 0 0 20px 0; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .usuario_reset_password {
+          display: block;
+          float: left;
+          font-size: 14px;
+          margin: 2px 0 10px;
+          text-align: left;
+          width: 240px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .label_reset_password {
+          width: 140px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .input_reset_password {
+          width: 240px; }
         .contenedor .contenido .cajas_registro .columna_izquierda_password ul li label {
           display: block;
           float: left;
@@ -1009,6 +1020,8 @@ textarea {
         .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .errors {
           float: left;
           margin: 0px 0px 10px 125px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .errors_reset_password {
+          margin: 0px 0px 10px 155px; }
         .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar {
           background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -31px;
           border: 0px;
@@ -1017,6 +1030,15 @@ textarea {
           margin: 10px 0 0 125px;
           width: 100px; }
           .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar:hover {
+            background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -81px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar_reset_password {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -31px;
+          border: 0px;
+          cursor: pointer;
+          height: 30px;
+          margin: 10px 0 0 155px;
+          width: 100px; }
+          .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar_reset_password:hover {
             background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -81px; }
       .contenedor .contenido .cajas_registro .login {
         float: left;
@@ -3015,6 +3037,7 @@ small {
 /* Enviar lugar por mail */
 .enviar_lugar {
   border: 1px solid #f2f2f6;
+  color: #666666;
   float: left;
   font-size: 14px;
   padding: 20px;
@@ -3040,6 +3063,7 @@ small {
         text-decoration: underline; }
     .enviar_lugar li label {
       float: left;
+      font-weight: bold;
       height: 10px;
       margin: 4px 10px 4px 0;
       width: 150px; }
@@ -3047,7 +3071,11 @@ small {
       float: left;
       margin: 0 10px 0 0;
       padding: 8px;
-      width: 350px; }
+      width: 420px; }
+    .enviar_lugar li .errors {
+      float: left;
+      margin: 5px 0 0 160px;
+      width: 438px; }
     .enviar_lugar li .enviar_mail {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
       border: 0px;
@@ -3058,7 +3086,7 @@ small {
       .enviar_lugar li .enviar_mail:hover {
         background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
   .enviar_lugar .separacion_chica {
-    margin: 0 0 10px; }
+    margin: 0 0 5px; }
   .enviar_lugar .tips {
     color: #999999;
     font-size: 12px;

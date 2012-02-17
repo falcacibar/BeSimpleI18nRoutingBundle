@@ -572,6 +572,17 @@ textarea {
           font-size: 14px;
           line-height: 22px;
           margin: 0 0 20px 0; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .usuario_reset_password {
+          display: block;
+          float: left;
+          font-size: 14px;
+          margin: 2px 0 10px;
+          text-align: left;
+          width: 240px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .label_reset_password {
+          width: 140px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .input_reset_password {
+          width: 240px; }
         .contenedor .contenido .cajas_registro .columna_izquierda_password ul li label {
           display: block;
           float: left;
@@ -589,6 +600,8 @@ textarea {
         .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .errors {
           float: left;
           margin: 0px 0px 10px 125px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .errors_reset_password {
+          margin: 0px 0px 10px 155px; }
         .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar {
           background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -31px;
           border: 0px;
@@ -597,6 +610,15 @@ textarea {
           margin: 10px 0 0 125px;
           width: 100px; }
           .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar:hover {
+            background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -81px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar_reset_password {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -31px;
+          border: 0px;
+          cursor: pointer;
+          height: 30px;
+          margin: 10px 0 0 155px;
+          width: 100px; }
+          .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar_reset_password:hover {
             background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -81px; }
       .contenedor .contenido .cajas_registro .login {
         float: left;
