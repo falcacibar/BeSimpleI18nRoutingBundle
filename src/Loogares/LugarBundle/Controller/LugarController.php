@@ -729,7 +729,7 @@ class LugarController extends Controller{
                         $newImagen->setLugar($lugar);
                         if($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                         $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
-                                        ->findOneByNombre('Aprobado');
+                                        ->findOneByNombre('Por revisar');
                         }
                         else {
                              $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
