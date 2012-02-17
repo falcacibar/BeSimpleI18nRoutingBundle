@@ -1694,4 +1694,23 @@ class LugarController extends Controller{
             'pedidos' => $pedidos,
         ));
     }
+
+    public function moduloDescuentosAction($ciudad) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $promociones = $lr->getPedidosRandom($ciudad);
+
+        // Sort Random
+        shuffle($promociones);
+        $promociones = array(
+            $promociones[0],
+            $promociones[1],
+            $promociones[2]
+        );
+
+        return $this->render('LoogaresLugarBundle:Lugares:promocion_pedidos.html.twig', array(
+            'promociones' => $promociones,
+        ));        
+    }
 }
