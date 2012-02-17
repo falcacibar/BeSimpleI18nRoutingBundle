@@ -336,32 +336,47 @@
 .filtros_zonas, .filtros_precios, .filtros_caracteristicas {
   margin: 0 5px; }
 
-.filtros_subcategorias, .filtros_zonas, .filtros_precios, .filtros_caracteristicas {
+.filtros_categorias {
+  width: 700px; }
+
+.filtros_subcategorias, .filtros_zonas, .filtros_precios, .filtros_caracteristicas, .filtros_categorias {
   display: inline-block;
   background: #fafafc;
   color: #666666;
   text-shadow: 0 1px 0 white;
   vertical-align: top;
   height: 185px; }
-  .filtros_subcategorias ul li, .filtros_zonas ul li, .filtros_precios ul li, .filtros_caracteristicas ul li {
+  .filtros_subcategorias ul li, .filtros_zonas ul li, .filtros_precios ul li, .filtros_caracteristicas ul li, .filtros_categorias ul li {
     display: inline-block;
     width: 160px;
     margin-bottom: 13px;
-    vertical-align: top; }
-  .filtros_subcategorias .filtros_header, .filtros_zonas .filtros_header, .filtros_precios .filtros_header, .filtros_caracteristicas .filtros_header {
+    vertical-align: middle; }
+  .filtros_subcategorias .filtros_header, .filtros_zonas .filtros_header, .filtros_precios .filtros_header, .filtros_caracteristicas .filtros_header, .filtros_categorias .filtros_header {
     background: #f2f1f6;
     height: 25px;
     line-height: 25px;
     border-bottom: 1px #cccccc solid;
     padding: 0 10px; }
-    .filtros_subcategorias .filtros_header .filtros_expandir, .filtros_zonas .filtros_header .filtros_expandir, .filtros_precios .filtros_header .filtros_expandir, .filtros_caracteristicas .filtros_header .filtros_expandir {
+    .filtros_subcategorias .filtros_header .filtros_expandir, .filtros_zonas .filtros_header .filtros_expandir, .filtros_precios .filtros_header .filtros_expandir, .filtros_caracteristicas .filtros_header .filtros_expandir, .filtros_categorias .filtros_header .filtros_expandir {
       padding: 0 10px;
       float: right;
       width: 69px;
       border-left: 1px #cccccc solid;
-      cursor: pointer; }
-  .filtros_subcategorias .resultados_filtros, .filtros_zonas .resultados_filtros, .filtros_precios .resultados_filtros, .filtros_caracteristicas .resultados_filtros {
+      cursor: pointer;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none; }
+  .filtros_subcategorias .resultados_filtros, .filtros_zonas .resultados_filtros, .filtros_precios .resultados_filtros, .filtros_caracteristicas .resultados_filtros, .filtros_categorias .resultados_filtros {
     padding: 8px 10px; }
+    .filtros_subcategorias .resultados_filtros a, .filtros_zonas .resultados_filtros a, .filtros_precios .resultados_filtros a, .filtros_caracteristicas .resultados_filtros a, .filtros_categorias .resultados_filtros a {
+      color: #666666;
+      text-decoration: none; }
+      .filtros_subcategorias .resultados_filtros a:visited, .filtros_zonas .resultados_filtros a:visited, .filtros_precios .resultados_filtros a:visited, .filtros_caracteristicas .resultados_filtros a:visited, .filtros_categorias .resultados_filtros a:visited {
+        color: #666666; }
 
 .filtros_precios .precio_container {
   display: inline-block;
@@ -371,6 +386,37 @@
     display: none; }
   .filtros_precios .precio_container .filtro_precios_raty {
     display: inline; }
+
+.close_qtip {
+  background: url(../images/extras/x.gif) #666666;
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 0;
+  top: 3px;
+  cursor: pointer; }
+
+.qtip_subcategorias, .qtip_zonas, .qtip_categorias {
+  display: none;
+  padding-top: 10px;
+  position: relative;
+  font-size: 12px;
+  font-weight: 400; }
+  .qtip_subcategorias a, .qtip_zonas a, .qtip_categorias a {
+    color: #666666;
+    text-decoration: none; }
+    .qtip_subcategorias a:visited, .qtip_zonas a:visited, .qtip_categorias a:visited {
+      color: #666666; }
+  .qtip_subcategorias p, .qtip_zonas p, .qtip_categorias p {
+    color: #999999;
+    margin-bottom: 8px;
+    font-size: 14px; }
+  .qtip_subcategorias li, .qtip_zonas li, .qtip_categorias li {
+    display: inline-block;
+    width: 170px;
+    margin: 8px 0;
+    vertical-align: middle; }
 
 /* CSS Reset */
 html, body, div, span, applet, object, iframe,

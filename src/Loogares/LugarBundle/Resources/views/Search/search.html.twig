@@ -9,7 +9,7 @@
 
 	<script>
 		$(document).ready(function(){
-			var populateRaty = function(){
+			var rebindEvents = function(){
 				$('.resultado-busqueda-stars-raty').each(function(){
 					var estrellas = $(this).attr('data-stars');
 					$(this).raty({
@@ -50,48 +50,129 @@
 					});
 					$(this).prev('input').show();
 				});
+
+				var precio = getTipo('dondeComer');
+				var	qTipPrecio = '<div class="qtip_precio">';
+
+				for(i=precio.length -1; i >= 0; i--){
+					qTipPrecio += "<p><span class='signo_precio'>";
+
+					for(j=precio.length;i<j;j--){qTipPrecio += "$"}
+
+					qTipPrecio += "</span> = "+precio[i]+"</p>";	
+				}
+				qTipPrecio += "</div>";
+
+				$('.explicacion_precio').qtip({
+				   content: {
+				      text: 'Corresponde al valor del consumo promedio aproximado por persona según las caracteristicas del lugar.<br/><br/>'+qTipPrecio
+				   },
+				   style: {
+				      classes: 'ui-tooltip-precio',
+				      tip: {
+					   	border: 0,
+					   	width: 12,
+					   	color: '#f0f'
+					   }
+				   },
+				   position: {
+					my: 'top center', 
+					at: 'bottom center'
+				   }
+				});
+
+				$('.filtros_subcategorias .filtros_expandir').qtip({
+					content: {
+						text: $('.qtip_subcategorias')
+					},
+					style: {
+						classes: 'ui-tooltip-filtros',
+						tip: {
+							border: 0,
+							width: 12,
+							color: '#f0f',
+							corner: true,
+							offset: 378
+						},
+					},
+					position: {
+						my: 'top center', 
+						at: 'bottom left',
+						adjust: {
+							x: 50
+						},
+					},
+					show: {
+				      event: 'click',
+				      solo: true
+				    },
+				    hide:{
+				    	event: 'click'
+				    }
+				});
+
+				$('.filtros_zonas .filtros_expandir').qtip({
+					content: {
+						text: $('.qtip_zonas')
+					},
+					style: {
+						classes: 'ui-tooltip-filtros',
+						tip: {
+							border: 0,
+							width: 12,
+							color: '#f0f',
+							corner: true,
+							offset: 19
+						},
+					},
+					position: {
+						my: 'top center', 
+						at: 'bottom left',
+						adjust: {
+							x: 50
+						},
+					},
+					show: {
+				      event: 'click',
+				      solo: true
+				    },
+				    hide:{
+				    	event: 'click'
+				    }
+				});
+
+				$('.filtros_categorias .filtros_expandir').qtip({
+					content: {
+						text: $('.qtip_categorias')
+					},
+					style: {
+						classes: 'ui-tooltip-filtros',
+						tip: {
+							border: 0,
+							width: 12,
+							color: '#f0f',
+							corner: true,
+							offset: 709
+						},
+					},
+					position: {
+						my: 'top center', 
+						at: 'bottom left',
+						adjust: {
+							x: 50
+						},
+					},
+					show: {
+				      event: 'click',
+				      solo: true
+				    },
+				    hide:{
+				    	event: 'click'
+				    }
+				});
 			}
 
-			populateRaty();
-
-			//Expandir las categorias
-			$('.ver_categorias').live('click', function(){
-				var $div = $( ".expandir_resultados" ),
-					alto = $div.height();
-					
-				if(alto == 100){
-					var startHeight = $div.height();
-					$div.css( "height", "auto" );
-					var endHeight = $div.height();
-					$div.height( startHeight ).animate({ 
-						height: endHeight 
-					}, 500);
-				}else{
-					$div.animate({
-						'height': 100
-					}, 500);	
-				}
-			});
-
-			$('.ver_zonas').live('click', function(){
-				var $div = $('.expandir_zonas'),
-					alto = $div.height();
-
-				if(alto == 7){
-					var startHeight = $div.height();
-					$div.css( "height", "auto" );
-					var endHeight = $div.height();
-					$div.height( startHeight ).animate({ 
-						height: endHeight,
-						width: 940
-					}, 500);
-				}else{
-					$div.animate({
-						'width': 145,
-						'height': 7
-					});					
-				}
-			});
+			rebindEvents();
 			
 			$('a').click(function(e){e.preventDefault();}).pjax({
 				url: $(this).attr('href'),
@@ -99,94 +180,23 @@
 				fragment: '.resultados',
 				timeout: 20000,
 				beforeSend: function(){
+					$('.filtros_expandir').qtip('toggle', false)
 					$('.resultados-wrapper').hide().html('').append("<div id='overlay'/>").fadeIn(300);
-				
 			 		$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
-
 				},
 				success: function(data){
-					console.log('wegud')
 					$('#overlay, .loader').fadeOut(0, function(){
 						$(this).remove(); 
 					});
 					$('.resultados-wrapper').hide().append(data).fadeIn(300, function(){
-						populateRaty();
+						rebindEvents();
 					});
 				}
 			});
 
-			$('body').bind('pjax:start', function(){
-			 	$('.resultados-wrapper').html('').append("<div id='overlay'/>");
-				
-			 	$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
-			});
-
-
-			$('body').bind('pjax:end', function(){
-				console.log('end')
-			});
-
-			var precio = getTipo('dondeComer');
-			var	qTipPrecio = '<div class="qtip_precio">';
-
-			for(i=precio.length -1; i >= 0; i--){
-				qTipPrecio += "<p><span class='signo_precio'>";
-
-				for(j=precio.length;i<j;j--){qTipPrecio += "$"}
-
-				qTipPrecio += "</span> = "+precio[i]+"</p>";	
-			}
-			qTipPrecio += "</div>";
-
-			$('.explicacion_precio').qtip({
-			   content: {
-			      text: 'Corresponde al valor del consumo promedio aproximado por persona según las caracteristicas del lugar.<br/><br/>'+qTipPrecio
-			   },
-			   style: {
-			      classes: 'ui-tooltip-precio',
-			      tip: {
-				   	border: 0,
-				   	width: 12,
-				   	color: '#f0f'
-				   }
-			   },
-			   position: {
-				my: 'top center', 
-				at: 'bottom center'
-			   }
-			});
-			$('.filtros_subcategorias .filtros_expandir').qtip({
-				content: {
-					text: 'Corresponde al valor del consumo promedio aproximado por persona según las caracteristicas del lugar.<br/><br/>'+qTipPrecio
-				},
-				style: {
-					classes: 'ui-tooltip-filtros',
-					tip: {
-						border: 0,
-						width: 12,
-						color: '#f0f',
-						corner: true,
-						offset: 150
-					},
-				},
-				position: {
-					my: 'top center', 
-					at: 'bottom left',
-					adjust: {
-						x: 50
-					},
-				},
-				show: {
-			      event: 'click'
-			    },
-			    hide:{
-			    	event: 'click'
-			    },
-			   events: {
-			      hide: function(event, api) {
-					event: 'click'
-			      },
-			   }
+			$('.close_qtip').live('click',function(){
+				var rel = $(this).parent().attr('rel');
+				$('.'+rel+' .filtros_expandir').qtip('toggle', false);
 			});
 		});
 	</script>
@@ -255,33 +265,62 @@
             </div>
     {% endif %}
 
+	<ul class="qtip_zonas" rel="filtros_zonas">
+		<span class="close_qtip"></span>
+		{% if results.totalPorSectores[0] is defined%}
+			<p>Sectores</p>
+			<ul>
+				{% for sector in results.totalPorSectores %}
+					<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria, 'sector': sector.slug, 'resultados': resultados}) }}">{{sector.nombre}} ({{ sector.total }})</a></li>							
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		{% if results.totalPorComunas[0] is defined%}
+			<br/><br/>
+			<p>Comunas</p>
+			<ul>
+				{% for comuna in results.totalPorComunas %}
+					<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria, 'comuna': comuna.slug, 'resultados': resultados}) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>							
+				{% endfor %}
+			</ul>
+		{% endif %}
+	</ul>
+
+    {% if results.totalPorSubcategoria[0] is defined %}
+	<ul class="qtip_subcategorias" rel="filtros_subcategorias">
+		<span class="close_qtip"></span>
+		{% for subcategoria in results.totalPorSubcategoria %}
+			<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>							
+		{% endfor %}
+	</ul>
+	{% endif %}
+
+	{% if results.totalPorCategoria[0] is defined %}
+		<ul class="qtip_categorias" rel="filtros_categorias">
+			<span class="close_qtip"></span>
+			{% for categoria in results.totalPorCategoria %}
+				<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>							
+			{% endfor %}
+		</ul>
+	{% endif %}
 
 	<div class="resultados-wrapper">
 		<div class="resultados">
-			<h1 class="titulo">Resultados de Busqueda en {{slug}}</h1>
-
-				<div class="filtros_subcategorias">
-					<div class="filtros_header">
-						<span class="filtros_titulo">Subcategorias</span>
-						{% if (results.totalPorSubcategoria[0] is defined and subcategoria == null) %}
-							<span class="filtros_expandir">Ver Todas</span>
-						{% endif %}
-					</div>
-					<div class="resultados_filtros">
-						{% if (results.totalPorSubcategoria[0] is defined and subcategoria == null) %}
-						<ul>
-							{% for subcategoria in results.totalPorSubcategoria %}
-								{% if loop.index <= 10 %}
-								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>	
-								{% endif %}							
-							{% endfor %}
-						</ul>
-						{% else %}
-							No resultados
-						{% endif %}
-					</div>
-				</div>
-
+				<h1 class="titulo">
+				Resultados de Busqueda en {{slug}}			
+				<small>
+	                 {{slug}}
+	                 {% if sector != null %}
+	                 	> {{sector}}
+	                 {% elseif comuna != null %}
+	                 	> {{comuna}}
+	                 {% endif %}
+	                 {% if subcategoria != null and subcategoria != 'none' %}
+	                 	> {{subcategoria}}
+	                 {% endif %}
+				</small>
+			</h1>
 				<div class="filtros_zonas">
 					<div class="filtros_header">
 						<span class="filtros_titulo">Zonas</span>
@@ -293,16 +332,39 @@
 						<ul>
 							{% for sector in results.totalPorSectores %}
 								{% if loop.index <= 5 %}
-								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria, 'sector': sector.slug, 'comuna': comuna, 'resultados': resultados}) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
+								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria, 'sector': sector.slug, 'resultados': resultados}) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
 								{% endif %}							
 							{% endfor %}
 							{% if results.totalPorSectores is defined and results.totalPorSectores|length < 5%}
 								{% for comuna in results.totalPorComunas %}
 									{% if loop.index <= (5 - results.totalPorComunas|length) %}
-									<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria, 'sector': sector, 'comuna': comuna.slug, 'resultados': resultados}) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
+									<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria, 'comuna': comuna.slug, 'resultados': resultados}) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
 									{% endif %}							
 								{% endfor %}							
 							{% endif %}
+						</ul>
+						{% else %}
+							No resultados
+						{% endif %}
+					</div>
+				</div>
+
+				{% if results.totalPorCategoria[0] is not defined %}
+				<div class="filtros_subcategorias">
+					<div class="filtros_header">
+						<span class="filtros_titulo">Subcategorias</span>
+						{% if results.totalPorSubcategoria[0] is defined %}
+							<span class="filtros_expandir">Ver Todas</span>
+						{% endif %}
+					</div>
+					<div class="resultados_filtros">
+						{% if results.totalPorSubcategoria[0] is defined %}
+						<ul>
+							{% for subcategoria in results.totalPorSubcategoria %}
+								{% if loop.index <= 10 %}
+								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'subcategoria': subcategoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>	
+								{% endif %}							
+							{% endfor %}
 						</ul>
 						{% else %}
 							No resultados
@@ -338,6 +400,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="filtros_caracteristicas">
 					<div class="filtros_header">
 						<span class="filtros_titulo">Caracteristicas</span>
@@ -349,51 +412,27 @@
 						Caracteristicas
 					</div>
 				</div>
+			{% endif %}
 
 			{% if results.totalPorCategoria[0] is defined %}
-			<div class="expandir_resultados">
-				<span>Resultados por categoria</span>
-				<span class="ver_categorias">Ver Todas ></span>
-				<div class="resultados_busqueda">
-					{% if results.totalPorCategoria[0] is defined %}
-					<div class="resultados_categorias">
+				<div class="filtros_categorias">
+					<div class="filtros_header">
+						<span class="filtros_titulo">Categorias</span>
+						{% if results.totalPorCategoria[0] is defined %} 
+						<span class="filtros_expandir">Ver Todas</span>
+						{% endif %}
+					</div>
+					<div class="resultados_filtros">
 						<ul>
 							{% for categoria in results.totalPorCategoria %}
+								{% if loop.index <= 20 %}
 								<li><a rel="categoria" class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
+								{% endif %}
 							{% endfor %}
 						</ul>
 					</div>
-					{% endif %}
 				</div>
-			</div>
 			{% endif %}
-
-
-
-			{% if results.totalPorSectores is defined or results.totalPorComunas is defined %}
-			<div class="expandir_zonas">
-				<span class="ver_zonas">Ver resultados por zonas ></span>
-				{% if results.totalPorSectores[0] is not defined %}
-				<div class="resultados_sectores">
-					<strong>Sectores</strong>
-					<ul>
-						{% for sector in results.totalPorSectores %}
-							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'sector': sector.slug, 'resultados': resultados}) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
-						{% endfor %}
-					</ul>
-				</div>
-				{% endif %}
-				{% if results.totalPorComunas is not defined %}
-				<div class="resultados_comunas">
-					<strong>Comunas</strong>
-					<ul>
-						{% for comuna in results.totalPorComunas %}
-							<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'categoria': categoria, 'comuna': comuna.slug, 'resultados': resultados}) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
-						{% endfor %}
-					</ul>
-				</div>
-				{% endif %}
-			</div>
 
 	        <div class="paginacion_recomendacion">
 	            <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong>
@@ -405,7 +444,7 @@
 	            {% endif %}
 	        </div>
 
-			{% endif %}
+
 			{% if lugares|length == 0 %}
 				No hay resultados, :()
 			{% else %}
