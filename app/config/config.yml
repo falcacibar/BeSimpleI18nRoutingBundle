@@ -25,6 +25,7 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         googlemaps_apikey: %googlemaps_apikey%
+        adsense_service: %adsense_service%
 
 # Assetic Configuration
 assetic:

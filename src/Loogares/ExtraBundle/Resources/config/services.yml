@@ -4,3 +4,8 @@ parameters:
 services:
     fn:
         class: %loogares_fn.class%
+
+    twig.extension.loogares:
+        class: Loogares\ExtraBundle\Extension\LoogaresExtension
+        tags:
+            -  { name: twig.extension }
