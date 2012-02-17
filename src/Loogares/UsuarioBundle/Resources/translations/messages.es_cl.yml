@@ -30,7 +30,7 @@ usuario:
                 mail: Ej. juanito@empresa.com
             tip:
                 password: El password debe tener un mínimo de 6 caracteres.
-                terminos: Al hacer click en Registrar confirmo ser mayor de 14 años y acepto los %open_a%Términos de uso%close_a% de Loogares.com
+                terminos: Al hacer click en <strong>Registrar</strong> confirmo ser mayor de 14 años y acepto los %open_a%Términos de uso%close_a% de Loogares.com
             submit: Registrar
 
         facebook:
@@ -56,7 +56,7 @@ usuario:
         primeras_recomendaciones: primera recomendación|primeras recomendaciones
         lugares_agregados: lugar agregado|lugares agregados
         fotos_agregadas: foto agregada|fotos agregadas
-        por_visitar: lugar por visitar|lugares por visitar
+        por_visitar: lugar para visitar|lugares para visitar
         visitados: lugar visitado|lugares visitados
         por_recomendar: lugar por recomendar|lugares por recomendar
         favoritos: lugar favorito|lugares favoritos
@@ -94,6 +94,23 @@ usuario:
         lista:
             editar: Edita tu foto
             borrar: Borra tu foto
+
+    lugares:
+        titulo:
+            1: Lugares visitados
+            2: Favoritos
+            3: Lugares para visitar
+            4: Lugares para volver
+            5: Lugares por recomendar
+        orden:
+            texto: Ordenar por:
+            visitados: Visitados
+            favoritos: Favoritos
+            por_visitar: Para visitar
+            por_volver: Para volver
+            por_recomendar: Por recomendar
+        lista:
+            borrar: Borrar
 
     edicion:
         titulo_pag: Edita tus datos

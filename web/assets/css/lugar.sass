@@ -45,6 +45,14 @@ $rojo: #F72121
     color: $azul
     text-decoration: underline
 
+@mixin link_blanco
+    color: $blanco
+    text-decoration: none
+
+@mixin link_blanco_hover
+    color: $blanco
+    text-decoration: underline 
+
 @mixin link_gris_444
     color: $gris_444
     text-decoration: none
@@ -127,10 +135,6 @@ $rojo: #F72121
                     
                     &:hover
                         background: url('../images/extras/botones_ficha_lugar.png') no-repeat -898px -30px
-                        display: block
-                        float: left
-                        height: 30px
-                        width: 127px      
         
         .lugar-existe
             background: $gris_faf
@@ -385,12 +389,6 @@ $rojo: #F72121
             
             &:hover
                 background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1025px -30px
-                border: 0px
-                display: block
-                float: left
-                height: 30px
-                margin: 0 0 0 140px
-                width: 166px      
 
         .caracteristica_titulo
             float: left
@@ -596,8 +594,15 @@ $rojo: #F72121
             &:hover
                 background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -613px
             
-        .boton_desactivado
+        .boton_clickeado
             background: url('../images/extras/iconos_ficha_lugar_click.png') no-repeat 0 -613px
+
+        .boton_desactivado
+            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -613px
+            cursor: default
+
+            &:hover
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -613px                
 
     .estrellas
         display: block
@@ -753,6 +758,44 @@ $rojo: #F72121
                 margin: 0 0 0 10px
                 width: 327px
         
+        .pedido_promocion
+            border: 1px solid $gris_ccc
+            float: left
+            font:
+                size: 12px
+            line-height: 18px
+            margin: 0 0 10px 0
+            padding: 10px
+            width: 421px
+
+            .icono_pedido_promocion
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -663px
+                float: left
+                height: 16px
+                width: 16px            
+
+            .titulo_pedido_promocion
+                color: $gris_666
+                display: block
+                float: left
+                font:
+                    weight: bold
+                margin: 0 0 10px 10px
+                width: 395px
+
+            .dias_pedido_promocion
+                color: $gris_999
+                display: block
+                float: left
+                font:
+                    weight: bold
+                margin: 0 0 10px 0
+                
+            .descripcion_pedido_promocion
+                color: $gris_999
+                display: block
+                float: left
+
         .pedido_reserva_lugar
             display: block
             float: left
@@ -800,6 +843,7 @@ $rojo: #F72121
         .tags_primero_lugar
             display: block
             float: left
+            min-height: 10px
             width: 146px
 
             .primero_en_recomendar_lugar
@@ -1113,11 +1157,6 @@ $rojo: #F72121
         
         &:hover
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 -30px
-            display: block
-            float: left
-            height: 30px
-            margin: 10px 0
-            width: 150px      
 
     .recomienda_despues_lugar
         background: url('../images/extras/botones_ficha_lugar.png') no-repeat -161px 0
@@ -1130,11 +1169,6 @@ $rojo: #F72121
 
         &:hover
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat -161px -30px
-            display: block
-            float: left
-            height: 30px
-            margin: 10px 0
-            width: 29px      
    
     .quiero_ir_btn
 
@@ -1152,6 +1186,10 @@ $rojo: #F72121
 
         .boton_desactivado
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat -190px -60px
+            cursor: default
+
+            &:hover
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -190px -60px
         
         .boton_clickeado
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat -190px -90px
@@ -1162,7 +1200,6 @@ $rojo: #F72121
         .quiero_ir_valor
             background: $gris_999
             color: $blanco
-            cursor: pointer
             display: block
             font:
                 size: 11px
@@ -1189,7 +1226,11 @@ $rojo: #F72121
 
         .boton_desactivado
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat -415px -60px
+            cursor: default
         
+            &:hover
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -415px -60px
+
         .boton_clickeado
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat -415px -90px
 
@@ -1199,7 +1240,6 @@ $rojo: #F72121
         .quiero_volver_valor
             background: $gris_999
             color: $blanco
-            cursor: pointer
             display: block
             font:
                 size: 11px
@@ -1226,6 +1266,10 @@ $rojo: #F72121
 
         .boton_desactivado
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat -292px -60px
+            cursor: default
+
+            &:hover
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -292px -60px
         
         .boton_clickeado
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat -292px -90px
@@ -1292,9 +1336,6 @@ $rojo: #F72121
 
                 &:hover
                     background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -19px
-                    height: 10px
-                    padding: 0 0 0 13px
-                    width: 10px
 
             .cerro_lugar
                 background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
@@ -1304,9 +1345,6 @@ $rojo: #F72121
 
                 &:hover
                     background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
-                    height: 10px
-                    padding: 0 0 0 13px
-                    width: 10px
 
             .compartir
                 background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -567px
@@ -1316,9 +1354,6 @@ $rojo: #F72121
             
                 &:hover
                     background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -567px
-                    height: 10px
-                    padding: 0 0 0 13px
-                    width: 10px
 
             .imprimir_lugar
                 background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -580px
@@ -1328,9 +1363,7 @@ $rojo: #F72121
 
                 &:hover
                     background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -580px
-                    height: 10px
-                    padding: 0 0 0 13px
-                    width: 10px
+
     div.compartir_lugar
         display: none
         border : 1px solid #ccc
@@ -1450,22 +1483,35 @@ $rojo: #F72121
                 padding: 4px 6px 6px
 
             .boton_activado
-                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -729px 0
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -730px 0
                 cursor: pointer
                 float: right
                 height: 20px 
                 width: 53px
 
                 &:hover
-                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -729px -30px
+                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -730px -30px
 
-            .boton_desactivado
-                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -729px -60px
+            .boton_clickeado
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -730px -30px
                 cursor: pointer
                 float: right
                 height: 20px 
                 width: 53px
 
+                &:hover
+                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -730px -60px
+                                
+            .boton_desactivado
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -730px -60px
+                cursor: default
+                float: right
+                height: 20px 
+                width: 53px
+
+                &:hover
+                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -730px -60px
+                    
         .fecha_recomendacion
             color: $gris_999
             display: block
@@ -1532,30 +1578,24 @@ $rojo: #F72121
                             @include link_gris_666_hover
 
                 .permalink_recomendacion
-                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -633px
                     height: 10px
                     margin: 0 0 0 10px
                     padding: 0 0 0 13px
                     width: 10px
 
                     &:hover
-                        background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
-                        height: 10px
-                        padding: 0 0 0 13px
-                        width: 10px
+                        background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -633px
 
                 .compartir
-                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -567px
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -648px
                     height: 10px
                     margin: 0 0 0 10px
                     padding: 0 0 0 13px
                     width: 10px
 
                     &:hover
-                        background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -567px
-                        height: 10px
-                        padding: 0 0 0 13px
-                        width: 10px
+                        background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -648px
 
                 .edita_recomendacion
                     background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
@@ -1566,9 +1606,6 @@ $rojo: #F72121
             
                     &:hover
                         background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -19px
-                        height: 10px
-                        padding: 0 0 0 13px
-                        width: 10px
 
                 .borra_recomendacion
                     background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
@@ -1579,9 +1616,6 @@ $rojo: #F72121
 
                     &:hover
                         background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
-                        height: 10px
-                        padding: 0 0 0 13px
-                        width: 10px
 
                 .reporta_recomendacion
                     background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
@@ -1592,9 +1626,6 @@ $rojo: #F72121
 
                     &:hover
                         background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
-                        height: 10px
-                        padding: 0 0 0 13px
-                        width: 10px
 
             .compartir_recomendacion
                 display: none
@@ -1647,7 +1678,7 @@ $rojo: #F72121
             padding: 2px 5px 8px
         
             a
-                color: $gris_666 !important
+                @include link_gris_666
         
         .pagina-actual
             background: $azul
@@ -1658,9 +1689,9 @@ $rojo: #F72121
             padding: 2px 5px 8px
 
             a
-                color: $blanco !important
+                @include link_blanco
 
-/* Reomienda el lugar */
+/* Recomienda el lugar */
 
 .recomienda_lugar_caja
     float: left
@@ -1802,7 +1833,7 @@ $rojo: #F72121
             width: 218px
 
             .otro_lugar_nombre
-                color: $gris_444
+                @include link_gris_444
                 display: block
                 float: left
                 font:
@@ -1816,7 +1847,7 @@ $rojo: #F72121
             .otro_lugar_estrellas
                 display: block
                 float: left
-                width: 85px !important
+                width: 90px !important
 
             img
                 margin: 0 2px 0 0
@@ -2059,9 +2090,6 @@ $rojo: #F72121
 
                 &:hover
                     background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -19px
-                    height: 10px
-                    padding: 0 0 0 13px
-                    width: 10px
 
             .borrar_foto
                 background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
@@ -2072,9 +2100,7 @@ $rojo: #F72121
 
                 &:hover
                     background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
-                    height: 10px
-                    padding: 0 0 0 13px
-                    width: 10px
+
 .sidebar_galeria
     float: left
     margin: 0 0 0 18px
@@ -2123,7 +2149,7 @@ $rojo: #F72121
             padding: 2px 5px 8px
         
             a
-                color: $gris_666 !important
+                @include link_gris_666
         
         .pagina-actual
             background: $azul
@@ -2134,4 +2160,4 @@ $rojo: #F72121
             padding: 2px 5px 8px
 
             a
-                color: $blanco !important
+                @include link_blanco

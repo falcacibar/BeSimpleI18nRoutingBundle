@@ -122,7 +122,7 @@ lugar:
             imprimir: Imprimir
         recomendaciones:
             titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
-            enviar: Enviar
+            enviar: Compartir
             editar: Edita tu recomendación
             borrar: Borra tu recomendación
             reportar: Reporta esta recomendación
@@ -135,7 +135,7 @@ lugar:
     fotos:
         agregar:
             titulo_pag: Agregar foto a
-            titulo: Agrega foto en
+            titulo: Agrega una foto en
             subtitulo: Puedes agregar una o más fotos a la galería de fotos de %lugar% en sólo 2 pasos:
             primer_paso: Cargar fotos desde tu computador /
             primer_paso_tips: Máximo 5 MB, sólo JPG, GIF y PNG

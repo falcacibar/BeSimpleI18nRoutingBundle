@@ -51,6 +51,14 @@ $rojo: #F72121
     color: $azul !important
     text-decoration: underline
 
+@mixin link_blanco
+    color: $blanco !important
+    text-decoration: none
+
+@mixin link_blanco_hover
+    color: $blanco !important
+    text-decoration: underline
+
 @mixin link_gris_444
     color: $gris_444 !important
     text-decoration: none
@@ -188,7 +196,6 @@ $rojo: #F72121
                     height: 16px
                     padding: 0 0 0 20px
 
-
                     &:hover
                         @include link_azul_hover
 
@@ -289,9 +296,7 @@ $rojo: #F72121
                 &:hover
                     border-bottom: 1px solid $gris_ccc
                     border-left: 5px solid $gris_ccc
-                    float: left
                     padding: 15px 10px
-                    width: 134px
                     
         .selected
             background: $blanco
@@ -343,9 +348,7 @@ $rojo: #F72121
                 &:hover
                     border-bottom: 1px solid $gris_ccc
                     border-right: 5px solid $gris_ccc
-                    float: right
                     padding: 15px 10px
-                    width: 114px
                     
         .selected
             background: $blanco
@@ -365,8 +368,6 @@ $rojo: #F72121
 
                 &:hover
                     @include link_gris_999_hover
-                    font:
-                        weight: bold
 
     .contenidos_edicion_usuario
         float: left
@@ -624,7 +625,6 @@ $rojo: #F72121
 
                     &:hover
                         background: url('../images/extras/botones_perfil_usuario.png') no-repeat 0 -30px
-                        border: 0px
 
         .caja_borrar_cuenta
             display: block
@@ -694,7 +694,6 @@ $rojo: #F72121
 
                     &:hover
                         background: url('../images/extras/botones_perfil_usuario.png') no-repeat -233px -30px
-                        border: 0px
 
     .caja_actividad_usuario
         float: left
@@ -760,12 +759,15 @@ $rojo: #F72121
                 width: 581px
             
             .nombre_lugar_recomendacion
-                color: $gris_444
+                @include link_gris_444
                 display: block
                 font:
                     size: 14px
                 float: left
                 width: 581px
+
+                &:hover
+                    @include link_gris_444_hover
             
             .categorias_lugar_recomendacion
                 display: block
@@ -834,11 +836,7 @@ $rojo: #F72121
                         padding: 0 0 0 13px
 
                         &:hover
-                            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
-                            float: right
-                            height: 11px
-                            margin: 0 0 0 20px
-                            padding: 0 0 0 13px
+                            background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -19px
 
                     .borrar_lugar_recomendacion
                         background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
@@ -849,10 +847,6 @@ $rojo: #F72121
 
                         &:hover
                             background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
-                            float: right
-                            height: 11px
-                            margin: 0 0 0 20px
-                            padding: 0 0 0 13px
                                             
                     a
                         @include link_gris_444
@@ -970,7 +964,7 @@ $rojo: #F72121
                                     padding: 0 0 0 13px
 
                                     &:hover
-                                        background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -19px
+                                        background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -19px
 
                                 .borrar_lugar_imagen
                                     background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
@@ -987,7 +981,142 @@ $rojo: #F72121
 
                                     &:hover
                                         @include link_gris_666_hover
-                     
+
+    .caja_lugares_usuario
+        float: left
+        left: 160px
+        top: 0
+        padding: 20px 20px 0
+        position: relative
+        width: 779px
+
+        ul
+            color: $gris_666
+            font:
+                size: 14px
+            float: left
+            line-height: 20px
+            list-style: none
+            margin: 40px 0 0
+            padding: 0 0 20px 0
+            width: 779px
+
+            li
+                float: left
+                margin: 0 5px 0 0
+
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
+
+                .orden_separacion
+                    color: $gris_ccc
+                    margin: 0 5px
+
+        .caja_lugares_guardados_usuario
+            float: left
+            display: block
+            padding: 30px 0 0
+
+            .listado_lugares_guardados_usuario
+                border: 0px
+                float: left
+                display: block
+                margin: 0px
+                padding: 0px
+                width: 780px
+
+                li
+                    border-bottom: 1px solid $gris_f6f
+                    display: block
+                    float: left
+                    height: 180px
+                    margin: 0 20px 50px 0
+                    width: 240px
+
+                    &:hover
+                        border-bottom: 1px solid $gris_ccc
+
+                    .imagen_lugar_guardado_usuario
+                        display: block
+                        float: left
+                        margin: 0 10px 20px 0
+                        width: 50px
+                    
+                    .textos_lugar_guardado_usuario
+                        display: block
+                        float: left
+                        width: 180px
+
+                        .nombre_lugar_guardado_usuario
+                            @include link_gris_444
+                            display: block
+                            float: left
+                            font:
+                                size: 12px
+                            line-height: 16px
+                            margin: 0 0 10px 0
+                            width: 180px
+
+                            &:hover
+                                @include link_gris_444_hover
+                            
+                        .estrellas_lugar
+                            float: left
+                            margin: 0 0 10px 0
+
+                        .direccion_lugar_guardado_usuario
+                            color: $gris_666
+                            display: block
+                            float: left
+                            font:
+                                size: 11px
+                            line-height: 15px
+                            margin: 5px 0 10px
+                            width: 180px
+
+                        .categorias_lugar_guardado_usuario
+                            float: left
+                            font:
+                                size: 11px
+                            line-height: 15px
+                            margin: 0 0 10px 0
+                            width: 180px
+
+                    .caja_opciones_lugar_guardado
+                        display: block
+                        float: left
+                        height: 12px
+                        width: 240px
+                        margin: 5px 0 0
+
+                        .opciones_lugar_guardado
+                            color: $gris_666
+                            display: none
+                            float: left
+                            font:
+                                size: 11px
+                            margin: 0 0 0 60px
+
+                            .accion_borrar_usuario
+                                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
+                                float: left
+                                height: 11px
+                                line-height: 11px
+                                margin: 0 5px 0 0
+                                padding: 0 0 0 13px
+
+                                &:hover
+                                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+                                                    
+                            a
+                                @include link_gris_666
+
+                                &:hover
+                                    @include link_gris_666_hover
+                                                             
     .paginacion_perfil
         border-bottom: 1px solid $gris_f6f
         border-top: 1px solid $gris_f6f
@@ -1021,7 +1150,7 @@ $rojo: #F72121
                 padding: 2px 5px 8px
             
                 a
-                    color: $gris_666 !important
+                    @include link_gris_666
             
             .pagina-actual
                 background: $azul
@@ -1032,4 +1161,4 @@ $rojo: #F72121
                 padding: 2px 5px 8px
 
                 a
-                    color: $blanco !important
+                    @include link_blanco
