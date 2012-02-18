@@ -52,9 +52,23 @@ doctrine:
         password: %database_password%
         charset:  UTF8
 
-    orm:
+    orm:        
         auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
+        #auto_mapping: true
+        default_entity_manager:   default
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    LoogaresAdminBundle: ~
+                    LoogaresExtraBundle: ~
+                    LoogaresUsuarioBundle: ~
+                    LoogaresLugarBundle: ~
+                    StofDoctrineExtensionsBundle: ~
+                dql:
+                    string_functions:
+                        RAND: Loogares\ExtraBundle\DQL\Rand
+       
 
 # Swiftmailer Configuration
 swiftmailer:

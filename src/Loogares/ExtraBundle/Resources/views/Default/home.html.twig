@@ -1,1 +1,32 @@
 {% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'general.home.title'|trans}}{% endblock %}
+
+{% block content %}
+	<div id="home">
+		<div class="columna_izq">
+			{% render 'LoogaresLugarBundle:Lugar:moduloDescuentos' with {'ciudad' : app.session.get('ciudad').id}%}
+		</div>
+		<div class="columna_der">
+			<div class="actividad_loogares">
+				<div class="titulo_actividad">
+					<h2>Actividad en Loogares.com</h2>
+				</div>
+				<div class="contenido_actividad">
+					<div class="numero_actividad">
+						<p>9.935</p>
+						<p>1.155</p>
+					</div>
+					<div class="texto_actividad">
+						<p>Recomendaciones escritas</p>
+						<p>Premios regalados</p>
+					</div>
+				</div>
+			</div>
+			<div class="recomendacion_dia">
+			</div>
+			<div class="ultimos_conectados">
+			</div>
+		</div>		
+	</div>
+{% endblock %}

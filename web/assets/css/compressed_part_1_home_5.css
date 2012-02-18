@@ -1,0 +1,86 @@
+/* Colores */
+/* Mixin */
+#home {
+  height: 500px; }
+  #home .columna_izq {
+    float: left;
+    width: 630px;
+    height: 100%;
+    border: 1px solid #dddddd; }
+    #home .columna_izq .caja_promociones {
+      float: left;
+      margin: 0 0 20px 0;
+      width: 100%; }
+      #home .columna_izq .caja_promociones a {
+        color: #231f20;
+        text-decoration: none; }
+      #home .columna_izq .caja_promociones h2 {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 20px 0; }
+      #home .columna_izq .caja_promociones ul li {
+        background: whiteSmoke;
+        border-bottom: 1px solid #dddddd;
+        height: 126px;
+        width: 198px;
+        float: left;
+        margin: 0 15px 0 0;
+        padding: 1px;
+        display: inline; }
+        #home .columna_izq .caja_promociones ul li.ultimo_pedido {
+          margin-right: 0px; }
+        #home .columna_izq .caja_promociones ul li .promocion_delivery_img {
+          float: left;
+          padding: 9px;
+          width: 50px; }
+        #home .columna_izq .caja_promociones ul li .promocion_delivery_info_sidebar {
+          float: left;
+          padding: 9px 9px 9px 0;
+          text-align: left;
+          width: 120px; }
+          #home .columna_izq .caja_promociones ul li .promocion_delivery_info_sidebar .promocion_lugar {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 5px 0; }
+          #home .columna_izq .caja_promociones ul li .promocion_delivery_info_sidebar .promocion_descripcion {
+            font-size: 12px; }
+          #home .columna_izq .caja_promociones ul li .promocion_delivery_info_sidebar .promocion_dias {
+            font-size: 11px;
+            margin: 10px 0 0 0;
+            color: #999999; }
+  #home .columna_der {
+    float: right;
+    width: 300px;
+    height: 100%;
+    border: 1px solid #dddddd; }
+    #home .columna_der .actividad_loogares {
+      width: 100%; }
+      #home .columna_der .actividad_loogares .titulo_actividad {
+        border-left: 5px solid #ff3300;
+        background: #444444;
+        padding: 5px 10px 5px 20px; }
+        #home .columna_der .actividad_loogares .titulo_actividad h2 {
+          color: white;
+          font-size: 14px; }
+      #home .columna_der .actividad_loogares .contenido_actividad {
+        background: whiteSmoke;
+        height: 70px;
+        padding: 17px 10px; }
+        #home .columna_der .actividad_loogares .contenido_actividad .numero_actividad {
+          color: #0099ff;
+          float: left;
+          font-size: 28px;
+          text-align: right;
+          width: 75px;
+          letter-spacing: 1px;
+          text-shadow: -3px 0 1px #cccccc;
+          -moz-text-shadow: -3px 0 1px #cccccc;
+          -webkit-text-shadow: -3px 0 1px #cccccc; }
+        #home .columna_der .actividad_loogares .contenido_actividad .texto_actividad {
+          float: left;
+          font-size: 15px;
+          font-weight: bold;
+          line-height: 31px;
+          padding: 0 0 0 5px;
+          text-align: left;
+          width: 200px; }

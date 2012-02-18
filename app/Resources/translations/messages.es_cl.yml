@@ -10,7 +10,6 @@ general:
             lugares: Listado de lugares
             logout: Salir
             registro: Regístrate
-
     footer:
         participa:
             titulo: Participa
@@ -46,6 +45,9 @@ general:
         recomendacion: Recomendación|Recomendaciones
         sector: Sector
         resultados: Resultados para
+
+    home:
+        title: Comparte y Vive la ciudad
 
 
 

@@ -363,6 +363,22 @@ class LugarRepository extends EntityRepository
       return $q->getResult();
     }
 
+    public function getPedidosRandom($ciudad) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT DISTINCT p, pl
+                             FROM Loogares\LugarBundle\Entity\Promocion p
+                             JOIN p.pedido_lugar pl
+                             JOIN pl.lugar l
+                             JOIN l.comuna c
+                             WHERE c.ciudad = ?1
+                             AND l.estado != ?2
+                             GROUP BY l.id");
+      $q->setParameter(1, $ciudad);
+      $q->setParameter(2, 3);
+      
+      return $q->getResult();
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");

@@ -729,7 +729,7 @@ class LugarController extends Controller{
                         $newImagen->setLugar($lugar);
                         if($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                         $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
-                                        ->findOneByNombre('Aprobado');
+                                        ->findOneByNombre('Por revisar');
                         }
                         else {
                              $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
@@ -1693,5 +1693,24 @@ class LugarController extends Controller{
             'lugar' => $lugar,
             'pedidos' => $pedidos,
         ));
+    }
+
+    public function moduloDescuentosAction($ciudad) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $promociones = $lr->getPedidosRandom($ciudad);
+
+        // Sort Random
+        shuffle($promociones);
+        $promociones = array(
+            $promociones[0],
+            $promociones[1],
+            $promociones[2]
+        );
+
+        return $this->render('LoogaresLugarBundle:Lugares:promocion_pedidos.html.twig', array(
+            'promociones' => $promociones,
+        ));        
     }
 }

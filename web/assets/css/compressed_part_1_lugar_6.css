@@ -1047,51 +1047,51 @@
         padding: 0 0 0 13px; }
 
 /* Mapa ficha lugar */
-.mapa_sidebar {
-  float: left;
-  height: 300px;
-  margin: 0 0 20px 0;
-  width: 300px; }
-
-/* Promociones */
-.caja_promociones {
-  float: left;
-  margin: 0 0 20px 0;
-  width: 300px; }
-  .caja_promociones a {
-    color: #231f20;
-    text-decoration: none; }
-  .caja_promociones h2 {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 20px 0; }
-  .caja_promociones ul li {
-    background: whiteSmoke;
-    border-bottom: 1px solid #dddddd;
-    height: 94px;
-    width: 100%;
+.sidebar {
+  /* Promociones */ }
+  .sidebar .mapa_sidebar {
     float: left;
-    margin: 0 0 10px 0;
-    padding: 1px; }
-    .caja_promociones ul li .promocion_delivery_img {
+    height: 300px;
+    margin: 0 0 20px 0;
+    width: 300px; }
+  .sidebar .caja_promociones {
+    float: left;
+    margin: 0 0 20px 0;
+    width: 300px; }
+    .sidebar .caja_promociones a {
+      color: #231f20;
+      text-decoration: none; }
+    .sidebar .caja_promociones h2 {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 20px 0; }
+    .sidebar .caja_promociones ul li {
+      background: whiteSmoke;
+      border-bottom: 1px solid #dddddd;
+      height: 94px;
+      width: 100%;
       float: left;
-      padding: 9px;
-      width: 50px; }
-    .caja_promociones ul li .promocion_delivery_info_sidebar {
-      float: left;
-      padding: 9px 9px 9px 0;
-      text-align: left;
-      width: 220px; }
-      .caja_promociones ul li .promocion_delivery_info_sidebar .promocion_lugar {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 0 0 5px 0; }
-      .caja_promociones ul li .promocion_delivery_info_sidebar .promocion_descripcion {
-        font-size: 12px; }
-      .caja_promociones ul li .promocion_delivery_info_sidebar .promocion_dias {
-        font-size: 11px;
-        margin: 10px 0 0 0;
-        color: #999999; }
+      margin: 0 0 10px 0;
+      padding: 1px; }
+      .sidebar .caja_promociones ul li .promocion_delivery_img {
+        float: left;
+        padding: 9px;
+        width: 50px; }
+      .sidebar .caja_promociones ul li .promocion_delivery_info_sidebar {
+        float: left;
+        padding: 9px 9px 9px 0;
+        text-align: left;
+        width: 220px; }
+        .sidebar .caja_promociones ul li .promocion_delivery_info_sidebar .promocion_lugar {
+          font-size: 14px;
+          font-weight: bold;
+          margin: 0 0 5px 0; }
+        .sidebar .caja_promociones ul li .promocion_delivery_info_sidebar .promocion_descripcion {
+          font-size: 12px; }
+        .sidebar .caja_promociones ul li .promocion_delivery_info_sidebar .promocion_dias {
+          font-size: 11px;
+          margin: 10px 0 0 0;
+          color: #999999; }
 
 /* Recomendaciones */
 .ordenar_por_recomendaciones {

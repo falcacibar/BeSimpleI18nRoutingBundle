@@ -130,6 +130,10 @@ lugar:
         otros:
             titulo: Otros Lugares en el área
             categoria: Categoría:|Categorías:
+        promociones:
+            titulo: Restaurantes con descuentos en Pedidos Online 
+            dias: Días
+            ver_dctos: Ver todos los descuentos 
         recomienda:
             titulo: Recomienda
     fotos:
