@@ -57,6 +57,21 @@
       .filtro_admin .seleccionar_estado a:hover {
         color: #0066cc;
         text-decoration: underline; }
+  .filtro_admin .agregar_pedido {
+    background: #66ccff;
+    border: 1px solid #0099ff;
+    color: white;
+    cursor: pointer;
+    float: right;
+    margin: 2px 0;
+    padding: 3px 3px 4px;
+    text-align: center;
+    text-decoration: none;
+    width: 80px; }
+    .filtro_admin .agregar_pedido:hover {
+      background: #0099ff; }
+    .filtro_admin .agregar_pedido:focus {
+      background: #0066cc; }
 
 .listado_admin {
   border: 1px solid #cccccc;
@@ -87,6 +102,10 @@
       font-size: 12px;
       text-align: left;
       width: 1850px; }
+    .listado_admin .table-data .listado_pedidos {
+      font-size: 12px;
+      text-align: left;
+      width: 1400px; }
     .listado_admin .table-data .tablescroll_head {
       background: #f2f2f6; }
     .listado_admin .table-data th {
@@ -678,7 +697,8 @@ textarea {
           float: left;
           display: block;
           padding: 0 5px 0 0;
-          position: relative; }
+          position: relative;
+          min-width: 200px; }
         .barra_ciudad .centrado_ciudad .login li .imagen_usuario_header {
           float: left;
           height: 25px;
@@ -690,7 +710,7 @@ textarea {
         .barra_ciudad .centrado_ciudad .login li .flecha_ciudad {
           background: url("../images/extras/botones_sprite.png") -99px -1px;
           display: block;
-          float: left;
+          float: right;
           height: 3px;
           margin: 11px 0;
           width: 6px; }
@@ -723,6 +743,21 @@ textarea {
               .barra_ciudad .centrado_ciudad .login li ul a li .con_icono {
                 float: left;
                 padding: 10px 10px 10px 5px; }
+              .barra_ciudad .centrado_ciudad .login li ul a li .subconjunto {
+                float: left;
+                padding: 10px 10px 10px 20px; }
+              .barra_ciudad .centrado_ciudad .login li ul a li .numero_notificacion {
+                border-radius: 4px;
+                -o-border-radius: 4px;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                background: #ff5353;
+                color: white;
+                float: right;
+                font-weight: bold;
+                margin: 8px 10px 0px;
+                padding: 3px 5px;
+                text-shadow: 0px 1px 1px #444444; }
       .barra_ciudad .centrado_ciudad .login .facebook_login {
         background: url("../images/extras/botones_sprite.png") 0px 0px;
         float: right;
@@ -3396,6 +3431,8 @@ small {
   margin: 20px 0 0;
   position: relative;
   width: 960px; }
+  .caja_contenidos_usuario .caja_contenido {
+    min-height: 350px; }
   .caja_contenidos_usuario .menu_actividad_usuario {
     box-sizing: border-box;
     -o-box-sizing: border-box;

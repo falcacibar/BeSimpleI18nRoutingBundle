@@ -258,7 +258,8 @@ textarea {
           float: left;
           display: block;
           padding: 0 5px 0 0;
-          position: relative; }
+          position: relative;
+          min-width: 200px; }
         .barra_ciudad .centrado_ciudad .login li .imagen_usuario_header {
           float: left;
           height: 25px;
@@ -270,7 +271,7 @@ textarea {
         .barra_ciudad .centrado_ciudad .login li .flecha_ciudad {
           background: url("../images/extras/botones_sprite.png") -99px -1px;
           display: block;
-          float: left;
+          float: right;
           height: 3px;
           margin: 11px 0;
           width: 6px; }
@@ -303,6 +304,21 @@ textarea {
               .barra_ciudad .centrado_ciudad .login li ul a li .con_icono {
                 float: left;
                 padding: 10px 10px 10px 5px; }
+              .barra_ciudad .centrado_ciudad .login li ul a li .subconjunto {
+                float: left;
+                padding: 10px 10px 10px 20px; }
+              .barra_ciudad .centrado_ciudad .login li ul a li .numero_notificacion {
+                border-radius: 4px;
+                -o-border-radius: 4px;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                background: #ff5353;
+                color: white;
+                float: right;
+                font-weight: bold;
+                margin: 8px 10px 0px;
+                padding: 3px 5px;
+                text-shadow: 0px 1px 1px #444444; }
       .barra_ciudad .centrado_ciudad .login .facebook_login {
         background: url("../images/extras/botones_sprite.png") 0px 0px;
         float: right;

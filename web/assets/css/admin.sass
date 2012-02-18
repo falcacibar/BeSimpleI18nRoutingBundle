@@ -154,6 +154,24 @@ $rojo: #F72121
 
             &:hover
                 @include link_azul_hover
+    
+    .agregar_pedido
+        background: $azul_claro
+        border: 1px solid $azul_medio
+        color: $blanco
+        cursor: pointer
+        float: right
+        margin: 2px 0
+        padding: 3px 3px 4px
+        text-align: center
+        text-decoration: none
+        width: 80px
+
+        &:hover
+            background: $azul_medio
+
+        &:focus
+            background: $azul
 
 .listado_admin
     border: 1px solid $gris_ccc
@@ -193,6 +211,12 @@ $rojo: #F72121
                 size: 12px
             text-align: left
             width: 1850px
+
+        .listado_pedidos
+            font:
+                size: 12px
+            text-align: left
+            width: 1400px
 
         .tablescroll_head
             background: $gris_f6f            

@@ -142,6 +142,8 @@
   margin: 20px 0 0;
   position: relative;
   width: 960px; }
+  .caja_contenidos_usuario .caja_contenido {
+    min-height: 350px; }
   .caja_contenidos_usuario .menu_actividad_usuario {
     box-sizing: border-box;
     -o-box-sizing: border-box;

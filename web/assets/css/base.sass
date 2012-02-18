@@ -402,6 +402,7 @@ textarea
                     display: block
                     padding: 0 5px 0 0
                     position: relative
+                    min-width: 200px
 
                 .imagen_usuario_header
                     float: left
@@ -416,7 +417,7 @@ textarea
                 .flecha_ciudad
                     background: url('../images/extras/botones_sprite.png') -99px -1px
                     display: block
-                    float: left
+                    float: right
                     height: 3px
                     margin: 11px 0
                     width: 6px
@@ -456,6 +457,21 @@ textarea
                             .con_icono
                                 float: left
                                 padding: 10px 10px 10px 5px
+
+                            .subconjunto
+                                float: left
+                                padding: 10px 10px 10px 20px
+
+                            .numero_notificacion
+                                @include borde_redondeado_4px
+                                background: $rojo_medio
+                                color: $blanco
+                                float: right
+                                font:
+                                    weight: bold
+                                margin: 8px 10px 0px
+                                padding: 3px 5px
+                                text-shadow: 0px 1px 1px $gris_444
 
             .facebook_login
                 background: url('../images/extras/botones_sprite.png') 0px 0px

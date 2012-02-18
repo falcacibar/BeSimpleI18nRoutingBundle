@@ -8,6 +8,8 @@ general:
             recomendaciones: Recomendaciones
             fotos: Fotos
             lugares: Listado de lugares
+            por_recomendar: Lugares por recomendar
+            para_visitar: Lugares para visitar
             logout: Salir
             registro: Regístrate
     footer:

@@ -34,7 +34,6 @@
 
     <div class="filtro_admin">
         <form class="filtrar-or-fecha" action="{{ path('LoogaresAdminBundle_pedidosLugar', {'ciudad': ciudad, 'slug': slug })}}" method="get">
-            <a href="{{ path('LoogaresAdminBundle_agregarPedido', {'ciudad': ciudad, 'slug': slug }) }}" style="background:#6CF;border:1px solid #09F;color:white;margin:0 3px;padding:3px 5px;cursor:pointer">Agregar Pedido</a>
             {% if slug != 'todos' %}
                 <a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'ciudad': ciudad, 'slug': 'todos' })}}">Ver todos</a>
             {% endif %}
@@ -59,6 +58,9 @@
                 <input type="submit" value="Filtrar"/>
                 <a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'ciudad': ciudad, 'slug': slug})}}">Quitar filtros</a>
             </div>
+
+            <a class="agregar_pedido" href="{{ path('LoogaresAdminBundle_agregarPedido', {'ciudad': ciudad, 'slug': slug }) }}">Agregar Pedido</a>
+
         </form>
     </div>
 
@@ -70,7 +72,7 @@
                         <th class="lugar_checkbox"></th>
                         <th class="lugar_id">
                             <span>
-                            <p class="titulos_tabla">ID Lugar</p>
+                            <p class="titulos_tabla">Id</p>
                             <p class="list-actions">
                                 <a class="{% if query.idLugar is defined and query.idLugar == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({"idLugar": 'asc', 'ciudad': ciudad, 'slug': slug }))}}">⬆</a>
 
@@ -95,7 +97,7 @@
                             </th>
                         {% endif %}
                         
-                        <th class="tipo_pedido_nombre">
+                        <th class="lugar_nombre">
                             <span>
                             <p class="titulos_tabla">Tipo Pedido</p>
                             <p class="list-actions">
@@ -108,7 +110,7 @@
                             </span>
                         </th>
 
-                        <th class="servicio_nombre">
+                        <th class="lugar_nombre">
                             <span>
                             <p class="titulos_tabla">Servicio</p>
                             <p class="list-actions">
@@ -121,7 +123,7 @@
                             </span>
                         </th>
 
-                        <th class="pedido_prioridad">
+                        <th class="lugar_estrellas">
                             <span>
                             <p class="titulos_tabla">Prioridad</p>
                             <p class="list-actions">
@@ -134,13 +136,13 @@
                             </span>
                         </th>
 
-                        <th class="pedido_link">
+                        <th class="lugar_estrellas">
                             <span>
                                 <p class="titulos_tabla">Link</p>
                             </span>
                         </th>
 
-                        <th class="pedido_promocion">
+                        <th class="lugar_estrellas">
                             <span>
                             <p class="titulos_tabla">Promoción</p>
                             <p class="list-actions">
@@ -162,38 +164,48 @@
                                     <input type="checkbox" name="id[]" value="{{pedido.id}}"/>
                                 </td>
                                
-                                <td>{{pedido.idLugar}}</td>
+                                <td class="lugar_id">
+                                    <span>
+                                        {{pedido.idLugar}}
+                                    </span>
+                                </td>
                                 {% if slug == 'todos' %}                                    
-                                    <td><a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'plugar': pedido.lugar, 'ciudad': ciudad, 'slug': slug})) }}">{{pedido.lugar}}</a></td>
+                                    <td class="lugar_nombre">
+                                        <span>
+                                            <a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'plugar': pedido.lugar, 'ciudad': ciudad, 'slug': slug})) }}">{{pedido.lugar}}</a>
+                                        </span>
+                                    </td>
                                 {% endif %}
-                                 <td class="tipo_pedido_nombre">
+                                 <td class="lugar_nombre">
                                     <span>
                                         <a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'ptipo': pedido.tipo, 'ciudad': ciudad, 'slug': slug})) }}">{{pedido.tipo}}</a>
                                     </span>
                                 </td>
-                                <td class="servicio_nombre">
+                                <td class="lugar_nombre">
                                     <span>
                                         <a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'pservicio': pedido.servicio, 'ciudad': ciudad, 'slug': slug})) }}">{{pedido.servicio}}</a>
                                     </span>
                                 </td>
-                                <td class="pedido_prioridad">
+                                <td class="lugar_estrellas">
                                     <span>
                                         <a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'pprioridad': pedido.prioridad, 'ciudad': ciudad, 'slug': slug})) }}">{{pedido.prioridad}}</a>
                                     </span>
                                 </td>
-                                <td class="pedido_link">
+                                <td class="lugar_estrellas">
                                     <span>
                                         <a href="{{ pedido.link }}{{ pedido.referral }}" target="blank">Ir</a>
                                     </span>
                                 </td>
-                                <td class="pedido_promocion">
+                                <td class="lugar_estrellas">
                                     <span>
                                         <a href="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'ppromocion': pedido.tiene_promocion, 'ciudad': ciudad, 'slug': slug})) }}">{{(pedido.tiene_promocion == 1) ? 'Sí' : 'No'}}</a>
                                     </span>
                                 </td>
-                                <td class="pedido_acciones">
-                                    <a target="_blank" href="{{ path('LoogaresAdminBundle_editarPedido', {'slug': slug, 'ciudad': ciudad, 'id' : pedido.id}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}" title="Editar el pedido"/></a>
-                                    <a href="{{ path('LoogaresAdminBundle_borrarPedido', query|merge({'slug': slug, 'ciudad': ciudad, 'id': pedido.id})) }}"><img src="{{asset('assets/images/administrador/cross.png')}}" title="Eliminar el pedido"/></a>
+                                <td class="lugar_acciones">
+                                    <span>
+                                        <a target="_blank" href="{{ path('LoogaresAdminBundle_editarPedido', {'slug': slug, 'ciudad': ciudad, 'id' : pedido.id}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}" title="Editar el pedido"/></a>
+                                        <a href="{{ path('LoogaresAdminBundle_borrarPedido', query|merge({'slug': slug, 'ciudad': ciudad, 'id': pedido.id})) }}"><img src="{{asset('assets/images/administrador/cross.png')}}" title="Eliminar el pedido"/></a>
+                                    </span>
                                 </td>                   
                             </tr>
                         {% endfor %}
@@ -202,33 +214,36 @@
             </div>
         </div>
         
-        <div class="seleccion_masiva">
-            <a href="#" class="seleccionar-todo">Seleccionar todo</a> | <a href="#" class="deseleccionar-todo">Deseleccionar todo</a> | 
-            <select name="accion">
-                <option>Acciones para la selección</option>
-                <option value="borrar">Borrar Pedidos</option>
-            </select>
-            <input type="submit" value="Enviar datos"/>
-        </div>
+    <div class="seleccion_masiva">
+        <a href="#" class="seleccionar-todo">Seleccionar todo</a> | <a href="#" class="deseleccionar-todo">Deseleccionar todo</a> | 
+        <select name="accion">
+            <option>Acciones para la selección</option>
+            <option value="borrar">Borrar pedidos</option>
+        </select>
+        <input type="submit" value="Enviar datos"/>
+    </div>
+
+</form>
+
+<div class="total_paginacion">
+    <form action="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'ciudad': ciudad, 'slug' : slug })) }}" method="get">
+        <strong>
+            {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
+
+            {# Parámetros GET como hidden #}
+            {% for key, q in query %}
+                <input type="hidden" name="{{key}}" value="{{q}}" />
+            {% endfor %}
+            <input class="ir_a_la_pagina" type="submit" value="Ir"/> o navegar...
     </form>
-    <div class="total_paginacion">
-        <form action="{{ path('LoogaresAdminBundle_pedidosLugar', query|merge({'ciudad': ciudad, 'slug' : slug })) }}" method="get">
-            <strong>
-                {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
+</div>
 
-                {# Parámetros GET como hidden #}
-                {% for key, q in query %}
-                    <input type="hidden" name="{{key}}" value="{{q}}" />
-                {% endfor %}
-                <input type="submit" value="Ir"/>
-        </form>
-    </div>
+<ul class="paginacion">
+    {{paginacion.paginacion | raw}}
+</ul>
 
-    <ul class="paginacion">
-        {{paginacion.paginacion | raw}}
-    </ul>
+<div class="footer_admin">
+    © 2010~2012 Loogares.com
+</div>
 
-    <div class="footer_admin">
-        © 2010~2012 Loogares.com
-    </div>
 {% endblock %}
