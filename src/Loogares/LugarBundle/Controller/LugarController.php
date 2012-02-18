@@ -1118,6 +1118,7 @@ class LugarController extends Controller{
 
                 $paths = array();
                 $paths['logo'] = 'assets/images/mails/logo_mails.png';
+                $paths['boton'] = 'assets/images/mails/recibir_propuesta.png';
                 $paths['estrella_llena'] =  'assets/images/extras/estrella_llena_recomendacion.png';
                 $paths['estrella_media'] =  'assets/images/extras/estrella_media_recomendacion.png';
                 $paths['estrella_vacia'] =  'assets/images/extras/estrella_vacia_recomendacion.png';
