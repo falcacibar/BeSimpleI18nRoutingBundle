@@ -12,7 +12,7 @@
                     {% if mail.tipo == 'aprobar' %}
                         {{'admin.notificaciones.imagen.aprobar.primero'|trans({'%lugar%' : mail.imagen.lugar.nombre})}}
                     {% elseif mail.tipo == 'mover' %}                        
-                        {% trans with {'%open_tag%' : "<a href="~url('_fotoGaleria',{'slug' : mail.imagen.lugar.slug,'id' : mail.imagen.id})~">",'%close_tag%' : "</a>", '%old_lugar%' : mail.old_lugar.nombre,'%new_lugar%' : mail.imagen.lugar.nombre} %}admin.notificaciones.imagen.mover.primero{% endtrans %}
+                        {% trans with {'%open_tag%' : "<a style='color: #0066CC; text-decoration: none;' href="~url('_fotoGaleria',{'slug' : mail.imagen.lugar.slug,'id' : mail.imagen.id})~">",'%close_tag%' : "</a>", '%old_lugar%' : mail.old_lugar.nombre,'%new_lugar%' : mail.imagen.lugar.nombre} %}admin.notificaciones.imagen.mover.primero{% endtrans %}
                         {{'admin.notificaciones.imagen.mover.segundo'|trans}}
                     {% elseif mail.tipo == 'borrar' %}
                         {{'admin.notificaciones.imagen.borrar.primero'|trans({'%lugar%' : mail.imagen.lugar.nombre})}}

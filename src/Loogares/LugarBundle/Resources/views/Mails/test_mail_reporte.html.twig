@@ -1,54 +1,51 @@
 <body>
-    <div style="font-family:Arial,sans-serif">
-        <table align="center" cellpadding="0" cellspacing="0" width="600" style="width:600px">
+    <div style="font-family: Arial; font-size: 14px;">
+        <table align="center" cellpadding="0" cellspacing="0" width="650" style="width:650px">
             <tr>
-                <td width="160"><img src="{{ asset('assets/images/extras/logo_mails.jpg') }}" width="160" height="100" /></td>
-                <td valign="middle" width="440"><hr /></td>
+                <td width="650"><center><img style="margin: 0 0 10px;" src="{{ asset('assets/images/mails/logo_mails.png') }}" width="180" height="128" /></center></td>
             </tr>
             <tr>
-                <td style="font-size:14px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; padding: 30px 20px; width: 610px;">
+                    <strong>{{'mail.asunto'}}</strong>
                     <br />
                     <br />
-                    {{'mail.asunto'}}
-                    <br />
-                    <br />
+                    <strong>Nombre</strong>
+                    <br/>
+                    {{'mail.owner.nombre'}} {{'mail.owner.apellido'}}
+                    <br/>
+                    <br/>
+                    <strong>E-mail</strong>
+                    <br/>
+                    {{'mail.owner.mail'}}
+                    <br/>
+                    <br/>
+                    <strong>Teléfono</strong>
+                    <br/>
+                    {{'mail.owner.telefono'}}
+                    <br/>
+                    <br/>
+                    <strong>¿Cómo comprobar que eres dueño?</strong>
+                    <br/>
+                    {{'mail.owner.texto'}}
+                    <br/>
+                    <br/>
+                    <strong>Lugar</strong>
+                    <br/>
+                    {{'mail.owner.lugar.nombre'}} (ID: {{'mail.owner.lugar.id'}})
+                    <a href="">Slug nombre dueno lugar</a>
                 </td>
             </tr>
             <tr>
-                <td style="font-size:12px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                <td style="color: #CCC; font-size: 11px; padding: 20px">
+                    <br />
+                    {{'mail.usuario.nombre'}} {% trans with {'%open_tag%': "<b><a href='mailto:sivicencio@gmail.com' style='color: #0066CC; text-decoration: none'>", '%close_tag%' : '</a></b>', '%mail%' : 'mail.usuario.mail'}%}usuario.mail.usuario{% endtrans %}
                     <br />
                     <br />
-                    <dl>
-                            <dt>Nombre</dt>
-                            <dd>{{'mail.owner.nombre'}} {{'mail.owner.apellido'}}</dd>
-                            <dt>E-mail</dt>
-                            <dd>{{'mail.owner.mail'}}</dd>
-                            <dt>Teléfono</dt>
-                            <dd>{{'mail.owner.telefono'}}</dd>
-                            <dt>¿Cómo comprobar que eres dueño?</dt>
-                            <dd>{{'mail.owner.texto'}}</dd>
-                            <dt>Lugar</dt>
-                            <dd>{{'mail.owner.lugar.nombre'}} (ID: {{'mail.owner.lugar.id'}})
-                                <br />
-                                <a href="">Slug nombre dueno lugar</a>
-                            </dd>
-                    </dl>
+                    {% trans with {'%open_a%': '<a href="mailto:contacto@loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
                     <br />
                     <br />
+                    <span style="display: block; text-align: center;">&copy; {{'usuario.mail.firma'|trans}}</span>
                 </td>
-            </tr>
-            <tr>
-                <td style="font-size:11px; color:#999; font-family:Arial,sans-serif" colspan="2">
-                    <hr />
-                    <br />
-                    {% trans with {'%open_tag%': "<b><a href='http://www.loogares.com' style='color:#06f; text-decoration:none'>", '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
-                    <br />
-                    {% trans with {'%open_a%': "<a href='mailto:contacto@loogares.com' style='color:#06f; text-decoration:none'>", '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
-                    <br />
-                    <br />
-                    &copy; {{'usuario.mail.firma'|trans}}
-                </td>
-
             </tr>
         </table>
     </div>

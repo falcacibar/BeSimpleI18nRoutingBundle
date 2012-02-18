@@ -12,7 +12,7 @@
                     {% if mail.tipo == 'aprobar' %}
                         {{'admin.notificaciones.recomendacion.aprobar.primero'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}
                     {% elseif mail.tipo == 'mover' %}                        
-                        {% trans with {'%open_tag%' : "<a href="~url('_recomendacion',{'slug' : mail.recomendacion.lugar.slug,'usuarioSlug' : (mail.usuario.slug is not empty) ? mail.usuario.slug : mail.usuario.id})~">",'%close_tag%' : "</a>", '%old_lugar%' : mail.old_lugar.nombre,'%new_lugar%' : mail.recomendacion.lugar.nombre} %}admin.notificaciones.recomendacion.mover.primero{% endtrans %}
+                        {% trans with {'%open_tag%' : "<a style='color: #0066CC; text-decoration: none;' href="~url('_recomendacion',{'slug' : mail.recomendacion.lugar.slug,'usuarioSlug' : (mail.usuario.slug is not empty) ? mail.usuario.slug : mail.usuario.id})~">",'%close_tag%' : "</a>", '%old_lugar%' : mail.old_lugar.nombre,'%new_lugar%' : mail.recomendacion.lugar.nombre} %}admin.notificaciones.recomendacion.mover.primero{% endtrans %}
                         {{'admin.notificaciones.recomendacion.mover.segundo'|trans}}                          
                     {% elseif mail.tipo == 'borrar' %}
                         {{'admin.notificaciones.recomendacion.borrar.primero'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}

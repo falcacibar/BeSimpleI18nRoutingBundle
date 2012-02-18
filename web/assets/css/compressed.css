@@ -2745,7 +2745,6 @@ small {
 
 /* Paginación de las recomendaciones */
 .paginacion_recomendacion {
-  border-bottom: 1px solid #f2f2f6;
   border-top: 1px solid #f2f2f6;
   color: #666666;
   display: block;
@@ -2782,6 +2781,7 @@ small {
 
 /* Recomienda el lugar */
 .recomienda_lugar_caja {
+  border-top: 1px solid #f2f2f6;
   float: left;
   display: block;
   width: 640px; }
