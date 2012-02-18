@@ -1392,53 +1392,86 @@ $rojo: #F72121
         margin: 0 0 20px 0
         width: 300px
 
-    /* Promociones */
+    /* Restaurantes con descuentos en Pedidos Online */
     .caja_promociones
+        border: 1px solid $gris_f6f
+        border-bottom: 0px
         float: left
         margin: 0 0 20px 0
-        width: 300px
+        width: 298px
 
         a
-            color: #231F20
-            text-decoration: none
+            @include link_gris_444
 
-        h2
-            font-size: 16px
-            font-weight: bold
-            margin: 20px 0
+        .ver_todos
+            @include link_azul
+            font:
+                size: 11px
+            float: left
+            padding: 0 10px 10px
+            width: 278px
+
+            &:hover
+                @include link_azul_hover
+
         ul
+
             li
-                background: whiteSmoke
-                border-bottom: 1px solid #DDD
-                height: 94px
-                width: 100%
+                background: $gris_f6f
+                border-bottom: 1px solid $gris_ccc
+                height: 125px
                 float: left
-                margin: 0 0 10px 0
-                padding: 1px
+                margin: 10px 0 0 0
+                width: 100%
 
-                .promocion_delivery_img
-                    float: left
-                    padding: 9px
-                    width: 50px
+                &:hover
+                    border-bottom: 1px solid $gris_999
 
-                .promocion_delivery_info_sidebar
-                    float: left
-                    padding: 9px 9px 9px 0
-                    text-align: left
-                    width: 220px
+                .promocion_delivery_box_sidebar
+                    flaot: left
+                    margin: 20px 10px
 
-                    .promocion_lugar
-                        font-size: 14px
-                        font-weight: bold
-                        margin: 0 0 5px 0
+                    .promocion_delivery_img
+                        float: left
+                        width: 50px
 
-                    .promocion_descripcion
-                        font-size: 12px
+                    .promocion_delivery_info_sidebar
+                        float: left
+                        margin: 0 0 0 10px
+                        text-align: left
+                        width: 218px
 
-                    .promocion_dias
-                        font-size: 11px
-                        margin: 10px 0 0 0
-                        color: #999
+                        .promocion_lugar
+                            font:
+                                size: 14px
+                                weight: bold
+                            margin: 0 0 5px 0
+                        
+                        .promocion_detalle
+                            float: left
+
+                            .promocion_icono
+                                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -663px
+                                float: left
+                                height: 16px
+                                width: 16px            
+
+                            .promocion_titulo
+                                color: $gris_666
+                                font:
+                                    size: 11px
+                                    weight: bold
+                                float: left
+                                line-height: 14px
+                                margin: 0 0 0 5px
+                                width: 197px
+
+                        .promocion_dias
+                            color: $gris_999
+                            font:
+                                size: 11px
+                            float: left
+                            margin: 10px 0 0 0
 
 /* Recomendaciones */
 
