@@ -3,7 +3,7 @@
 
 	<ul id="promocion-delivery-sidebar">
 		{% for promocion in promociones %}
-	        <li>
+	        <li {{(loop.last) ? "class='ultimo_pedido'" : ''}}>
 	            <a href="{{path('_lugar', {'slug' : promocion.pedidoLugar.lugar.slug})}}">
 					<div class="promocion_delivery_box_sidebar">
 	                    <div class="promocion_delivery_img">
