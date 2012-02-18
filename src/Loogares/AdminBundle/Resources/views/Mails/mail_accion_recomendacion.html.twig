@@ -1,51 +1,38 @@
 <body>
-    <div style="font-family:Arial,sans-serif">
-        <table align="center" cellpadding="0" cellspacing="0" width="600" style="width:600px">
+    <div style="font-family: Arial; font-size: 14px;">
+        <table align="center" cellpadding="0" cellspacing="0" width="650" style="width:650px">
             <tr>
-                <td width="160"><img src="{{ logo }}" width="160" height="100" /></td>
-                <td valign="middle" width="440"><hr /></td>
+                <td width="650"><center><img style="margin: 0 0 10px;" src="{{ logo }}" width="180" height="128" /></center></td>
             </tr>
             <tr>
-                <td style="font-size:14px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; padding: 30px 20px; width: 610px;">
+                    <strong>{{'admin.notificaciones.saludo'|trans({'%nombre%' : mail.usuario.nombre, '%apellido%' : mail.usuario.apellido})}}</strong>
                     <br />
                     <br />
-                    {{mail.asunto}}
+                    {% if mail.tipo == 'aprobar' %}
+                        {{'admin.notificaciones.recomendacion.aprobar.primero'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}
+                    {% elseif mail.tipo == 'mover' %}                        
+                        {% trans with {'%open_tag%' : "<a href="~url('_recomendacion',{'slug' : mail.recomendacion.lugar.slug,'usuarioSlug' : (mail.usuario.slug is not empty) ? mail.usuario.slug : mail.usuario.id})~">",'%close_tag%' : "</a>", '%old_lugar%' : mail.old_lugar.nombre,'%new_lugar%' : mail.recomendacion.lugar.nombre} %}admin.notificaciones.recomendacion.mover.primero{% endtrans %}
+                        {{'admin.notificaciones.recomendacion.mover.segundo'|trans}}                          
+                    {% elseif mail.tipo == 'borrar' %}
+                        {{'admin.notificaciones.recomendacion.borrar.primero'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}
+                        {{'admin.notificaciones.recomendacion.borrar.segundo'|trans}}
+                    {% endif %}
                     <br />
                     <br />
+                    {{'admin.notificaciones.recomendacion.despedida'|trans}}
                 </td>
             </tr>
             <tr>
-                <td style="font-size:12px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                <td style="color: #CCC; font-size: 11px; padding: 20px">
                     <br />
-                    <div>
-                        <p>{{'admin.notificaciones.saludo'|trans({'%nombre%' : mail.usuario.nombre, '%apellido%' : mail.usuario.apellido})}}</p>
-                        {% if mail.tipo == 'aprobar' %}
-                            <p>{{'admin.notificaciones.recomendacion.aprobar.primero'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}</p>
-                        {% elseif mail.tipo == 'mover' %}                        
-                            <p>{% trans with {'%open_tag%' : "<a href="~url('_recomendacion',{'slug' : mail.recomendacion.lugar.slug,'usuarioSlug' : (mail.usuario.slug is not empty) ? mail.usuario.slug : mail.usuario.id})~">",'%close_tag%' : "</a>", '%old_lugar%' : mail.old_lugar.nombre,'%new_lugar%' : mail.recomendacion.lugar.nombre} %}admin.notificaciones.recomendacion.mover.primero{% endtrans %}</p>
-                            <p>{{'admin.notificaciones.recomendacion.mover.segundo'|trans}}</p>                           
-                        {% elseif mail.tipo == 'borrar' %}
-                            <p>{{'admin.notificaciones.recomendacion.borrar.primero'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}</p>
-                            <p>{{'admin.notificaciones.recomendacion.borrar.segundo'|trans}}</p>
-                        {% endif %}
-                        <p>{{'admin.notificaciones.recomendacion.despedida'|trans}}</p>
-                    </div>
+                    {% trans with {'%open_tag%': '<b><a href="http://www.loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
+                    <br />
+                    {% trans with {'%open_a%': '<a href="mailto:contacto@loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
                     <br />
                     <br />
+                    <span style="display: block; text-align: center;">&copy; {{'usuario.mail.firma'|trans}}</span>
                 </td>
-            </tr>
-            <tr>
-                <td style="font-size:11px; color:#999; font-family:Arial,sans-serif" colspan="2">
-                    <hr />
-                    <br />
-                    {% trans with {'%open_tag%': "<b><a href='http://www.loogares.com' style='color:#06f; text-decoration:none'>", '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
-                    <br />
-                    {% trans with {'%open_a%': "<a href='mailto:contacto@loogares.com' style='color:#06f; text-decoration:none'>", '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
-                    <br />
-                    <br />
-                    &copy; {{'usuario.mail.firma'|trans}}
-                </td>
-
             </tr>
         </table>
     </div>

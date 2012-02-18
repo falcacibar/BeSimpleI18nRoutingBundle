@@ -6,23 +6,22 @@
             </tr>
             <tr>
                 <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; padding: 30px 20px; width: 610px;">
-                    <strong>
-                        {{'admin.notificaciones.saludo'|trans({'%nombre%' : mail.usuario.nombre, '%apellido%' : mail.usuario.apellido})}}
-                        {% if mail.tipo == 'aprobar' %}                        
-                            {{'admin.notificaciones.lugar.aprobar.primero'|trans({'%lugar%' : mail.lugar.nombre})}}
-                        {% elseif mail.tipo == 'cerrar' %}                        
-                            {{'admin.notificaciones.lugar.cerrar.primero'|trans({'%lugar%' : mail.lugar.nombre})}}
-                            {{'admin.notificaciones.lugar.cerrar.segundo'|trans}}
-                            
-                        {% elseif mail.tipo == 'borrar' %}
-                            {{'admin.notificaciones.lugar.borrar.primero'|trans({'%lugar%' : mail.lugar.nombre})}}
-                            {{'admin.notificaciones.lugar.borrar.segundo'|trans}}
-                        {% elseif mail.tipo == 'rechazar' %}
-                            {{(mail.usuario.nombre is empty and mail.usuario.apellido is empty) ? mail.usuario.slug : mail.usuario.nombre~' '~mail.usuario.apellido}},
-                            {% trans with {'%lugar%' : mail.lugar.nombre, '%open_tag%' : "<a href="~'#'~">", '%close_tag%' : "</a>"}%}admin.notificaciones.lugar.rechazar.primero{% endtrans %}
-                            {{'admin.notificaciones.lugar.rechazar.segundo'|trans}}
-                        {% endif %}
-                    </strong>
+                    <strong>{{'admin.notificaciones.saludo'|trans({'%nombre%' : mail.usuario.nombre, '%apellido%' : mail.usuario.apellido})}}</strong>
+                    <br />
+                    <br />
+                    {% if mail.tipo == 'aprobar' %}                        
+                        {{'admin.notificaciones.lugar.aprobar.primero'|trans({'%lugar%' : mail.lugar.nombre})}}
+                    {% elseif mail.tipo == 'cerrar' %}                        
+                        {{'admin.notificaciones.lugar.cerrar.primero'|trans({'%lugar%' : mail.lugar.nombre})}}
+                        {{'admin.notificaciones.lugar.cerrar.segundo'|trans}}
+                        
+                    {% elseif mail.tipo == 'borrar' %}
+                        {{'admin.notificaciones.lugar.borrar.primero'|trans({'%lugar%' : mail.lugar.nombre})}}
+                        {{'admin.notificaciones.lugar.borrar.segundo'|trans}}
+                    {% elseif mail.tipo == 'rechazar' %}
+                        {% trans with {'%lugar%' : mail.lugar.nombre, '%open_tag%' : "<a href="~'#'~">", '%close_tag%' : "</a>"}%}admin.notificaciones.lugar.rechazar.primero{% endtrans %}
+                        {{'admin.notificaciones.lugar.rechazar.segundo'|trans}}
+                    {% endif %} 
                     <br />
                     <br />
                     {{(mail.tipo != 'rechazar') ? 'admin.notificaciones.lugar.despedida'|trans : 'admin.notificaciones.lugar.comprension'|trans}}
