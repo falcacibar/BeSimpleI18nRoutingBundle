@@ -30,18 +30,25 @@
 {% block title %}{{titulo_pag|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
 
 {% block content %}
-	<div id="reporte">
-		<h1>{% transchoice tipo_titulo with {'%usuario%' : "<a href="~linkUsuario~">"~usuario.nombre~' '~usuario.apellido~"</a>",'%lugar%': "<a href="~linkLugar~">"~lugar.nombre~"</a>"}%}reportes.titulo{% endtranschoice %}</h1>
 
-		{% if errors %}
-			<div class="reporte_error">
+	<!-- Mensajes de error --> 
+	{% if errors %}
+		<div class="mensaje_error">
+			<div class="imagen_error"></div>
+			<div class="txt_error">
 				{% for error in errors %}
 			        <p>{{ error | trans}}</p>
 			    {% endfor %}
-			</div>
-		{% endif %}
+		    </div>
+		</div>
+	{% endif %}	
 
-		<p>{{subtitulo|trans}}</p>
+	<div class="reporte">
+		<h1 class="titulo">
+			{% transchoice tipo_titulo with {'%usuario%' : "<a href="~linkUsuario~">"~usuario.nombre~' '~usuario.apellido~"</a>",'%lugar%': "<a href="~linkLugar~">"~lugar.nombre~"</a>"}%}reportes.titulo{% endtranschoice %}
+		</h1>
+
+		<p class="texto_reporte">{{subtitulo|trans}}</p>
 
 		<form action="{{ ruta }}" method="post" {{ form_enctype(form) }}>
 			<ul>
@@ -56,16 +63,14 @@
 				
 				<li>
 					<label></label>
-					<span class="tip">{{'reportes.tip.gracias'|trans}}</span>
+					<span class="tips">
+						{{'reportes.tip.obligatorio'|trans}}
+					</span>
 				</li>
 
-				<li>
+				<li class="submit">
 					<label></label>
-					<span class="tip">{{'reportes.tip.obligatorio'|trans}}</span>
-				</li>
-				<li>
-					<label></label>
-					<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" formnovalidate />
+					<input class="enviar_reporte" type="submit" value="" formnovalidate />
 				</li>
 
 				{{form_rest(form)}}

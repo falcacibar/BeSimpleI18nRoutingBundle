@@ -3287,6 +3287,68 @@ small {
     font-size: 12px;
     margin: 0 0 30px 0; }
 
+/* Reportes */
+.reporte {
+  border: 1px solid #f2f2f6;
+  color: #666666;
+  float: left;
+  font-size: 14px;
+  padding: 20px;
+  width: 610px; }
+  .reporte .texto_reporte {
+    display: block;
+    float: left;
+    line-height: 22px;
+    margin: 0 0 30px 0;
+    width: 610px; }
+  .reporte a {
+    color: #0066cc;
+    text-decoration: none; }
+    .reporte a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
+  .reporte li {
+    float: left;
+    margin: 0 0 20px;
+    width: 610px; }
+    .reporte li a {
+      color: #0066cc;
+      text-decoration: none;
+      display: block;
+      font-size: 11px;
+      margin: 9px 0; }
+      .reporte li a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
+    .reporte li label {
+      float: left;
+      font-weight: bold;
+      height: 10px;
+      margin: 4px 10px 4px 0;
+      width: 150px; }
+    .reporte li input, .reporte li textarea {
+      float: left;
+      margin: 0 10px 0 0;
+      padding: 8px;
+      width: 420px; }
+    .reporte li .errors {
+      float: left;
+      margin: 5px 0 0 160px;
+      width: 438px; }
+    .reporte li .enviar_reporte {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+      border: 0px;
+      cursor: pointer;
+      height: 30px;
+      margin: 20px 0 0;
+      width: 100px; }
+      .reporte li .enviar_reporte:hover {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
+  .reporte .tips {
+    color: #999999;
+    font-size: 12px;
+    margin: 0 0 30px 0; }
+
 /* Colores */
 /* Mixin */
 /* Clases */

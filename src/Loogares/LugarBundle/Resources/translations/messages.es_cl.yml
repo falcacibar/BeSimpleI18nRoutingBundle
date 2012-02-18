@@ -209,7 +209,7 @@ lugar:
             mail: ¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora deberías exigirles una salida... ¡todo incluido!
 
 reportes:
-    titulo: "{0} Reporta %lugar%|{1} Reporta la recomendación de %usuario% en %lugar%|]1,Inf] Reporta la foto de %usuario% en %lugar%"
+    titulo: "{0} Reportar %lugar%|{1} Reportar la recomendación de %usuario% en %lugar%|]1,Inf] Reportar la foto de %usuario% en %lugar%"
     lugar:
         titulo_pag: Reportar %lugar%
         subtitulo: ¿Este lugar ya no existe? ¿O está repetido? Recuerda que puedes editar los datos de los lugares que tengan errores en su información. Para cualquier otro problema no dudes en avisarnos.
