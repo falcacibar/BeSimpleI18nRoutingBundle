@@ -1704,14 +1704,17 @@ class LugarController extends Controller{
 
         // Sort Random
         shuffle($promociones);
-        $promociones = array(
-            $promociones[0],
-            $promociones[1],
-            $promociones[2]
-        );
+        $promocionesRandom = array();
+        if(count($promociones) > 0) {
+            $promocionesRandom[] = $promociones[0];
+            if(count($promociones) > 1)
+                $promocionesRandom[] = $promociones[1];
+            if(count($promociones) >= 2)
+                $promocionesRandom[] = $promociones[2];
+        }
 
         return $this->render('LoogaresLugarBundle:Lugares:promocion_pedidos.html.twig', array(
-            'promociones' => $promociones,
+            'promociones' => $promocionesRandom,
         ));        
     }
 }

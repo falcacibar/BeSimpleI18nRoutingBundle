@@ -16,7 +16,7 @@
 			{% endif %}
 		</p>
 		{% if usuario.comuna is defined %}
-			<p class="ciudad_pais_usuario">{{ usuario.comuna.ciudad.nombre }}, {{usuario.comuna.ciudad.pais.nombre}}</p>
+			<p class="ciudad_pais_usuario">{% if usuario.comuna != null %}{{ usuario.comuna.ciudad.nombre }}, {{usuario.comuna.ciudad.pais.nombre}}{% endif %}</p>
 		{% endif %}
 
 		{% if usuario.links|length > 0 %}
@@ -45,10 +45,10 @@
 
 	<div class="actividad_usuario_der">
 		<ul>
-			<li class="lugares_por_visitar_usuario"># {% transchoice usuario.totalPrimerasRecomendaciones%}usuario.datos.por_visitar{% endtranschoice %}</li>
-			<li class="lugares_visitados_usuario"># {% transchoice usuario.totalRecomendaciones%}usuario.datos.visitados{% endtranschoice %}</li>
-			<li class="lugares_por_recomendar_usuario"># {% transchoice usuario.totalImagenesLugar%}usuario.datos.por_recomendar{% endtranschoice %}</li>
-			<li class="lugares_favoritos_usuario"># {% transchoice usuario.totalLugaresAgregados%}usuario.datos.favoritos{% endtranschoice %}</li>
+			<li class="lugares_por_visitar_usuario"><span>{{usuario.totalAcciones[0]}}</span> {% transchoice usuario.totalAcciones[0]%}usuario.datos.por_visitar{% endtranschoice %}</li>
+			<li class="lugares_visitados_usuario">{{usuario.totalAcciones[2]}} {% transchoice usuario.totalAcciones[2]%}usuario.datos.visitados{% endtranschoice %}</li>
+			<li class="lugares_por_recomendar_usuario"><span>{{usuario.totalAcciones[4]}}</span> {% transchoice usuario.totalAcciones[4]%}usuario.datos.por_recomendar{% endtranschoice %}</li>
+			<li class="lugares_favoritos_usuario"><span>{{usuario.totalAcciones[3]}}</span> {% transchoice usuario.totalAcciones[3]%}usuario.datos.favoritos{% endtranschoice %}</li>
 		</ul>
 	</div>
 

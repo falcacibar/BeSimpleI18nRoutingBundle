@@ -34,9 +34,9 @@ $(function(){
 		  type: "GET",
 		  url: $(this).attr('href'),
 		}).done(function( data ) {
-		  $('.caja_contenido').html($(data).fadeIn('fast'));
+		  	$('.caja_contenido').html($(data).fadeIn('fast'));
 		}).fail(function( data ) {
-		  console.log(data);
+		  	console.log(data);
 		});
 		return false;		
 	});
@@ -64,6 +64,30 @@ $(function(){
             data: dataObj,
             dataType: 'json',
             success: function(data){
+            	// Se actualizan datos del usuario
+	            $.ajax({
+	              type: "GET",
+	              url: WEBROOT+'usuario/acciones_pendientes/5',
+	            }).done(function( data ) {
+	              $('.por_recomendar').html(data);
+	              $('.lugares_por_recomendar_usuario span').html(data);
+	            });
+
+	            $.ajax({
+	              type: "GET",
+	              url: WEBROOT+'usuario/acciones_pendientes/1',
+	            }).done(function( data ) {
+	              $('.para_visitar').html(data);
+	              $('.lugares_por_visitar_usuario span').html(data);
+	            });
+
+	            $.ajax({
+	              type: "GET",
+	              url: WEBROOT+'usuario/acciones_pendientes/4',
+	            }).done(function( data ) {
+	              $('.lugares_favoritos_usuario span').html(data);
+	            });
+            	
                 $('a.reload_link').click();
             }
         });
