@@ -724,6 +724,8 @@ textarea {
             display: block;
             float: left;
             width: 100%; }
+            .barra_ciudad .centrado_ciudad .login li ul a:hover {
+              text-decoration: none; }
             .barra_ciudad .centrado_ciudad .login li ul a li {
               background: #666666;
               float: left;
@@ -752,11 +754,12 @@ textarea {
                 -moz-border-radius: 4px;
                 -webkit-border-radius: 4px;
                 background: #ff5353;
+                border: 1px solid #ff8a8a;
                 color: white;
                 float: right;
                 font-weight: bold;
-                margin: 8px 10px 0px;
-                padding: 3px 5px;
+                margin: 7px 10px 0px;
+                padding: 2px 4px 3px;
                 text-shadow: 0px 1px 1px #444444; }
       .barra_ciudad .centrado_ciudad .login .facebook_login {
         background: url("../images/extras/botones_sprite.png") 0px 0px;
