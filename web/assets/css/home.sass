@@ -198,6 +198,7 @@ $rojo: #F72121
         .actividad_loogares
             width: 100%
             float: left
+            margin: 0 0 20px
 
             .titulo_actividad
                 border-left: 5px solid #F30
@@ -231,3 +232,53 @@ $rojo: #F72121
                     padding: 0 0 0 5px
                     text-align: left
                     width: 200px
+        .recomendacion_dia
+            width: 100%
+            float: left
+
+            h2
+                margin: 0 0 20px
+                font-size: 16px
+
+            .recomendacion_info
+                height: 60px
+
+                .link_usuario
+                    float: left
+
+                .usuario_recomendacion
+                    float: left
+                    margin: 0 0 0 10px
+
+                    a
+                        display: block
+                        @include link_azul
+                        font-weight: bold
+
+                        &:hover
+                            @include link_azul_hover
+
+                    span
+                        color: $gris_999
+                        font:
+                            size: 11px
+            .recomendacion_preview
+                margin: 10px 0
+                font-size: 11px
+
+                a  
+                    @include link_azul                   
+
+                    &:hover
+                        @include link_azul_hover
+
+                span
+                    display: block
+                    margin: 0 0 10px 0
+
+                    a
+                        font-weight: bold
+
+                .ver_mas
+                    float: right
+

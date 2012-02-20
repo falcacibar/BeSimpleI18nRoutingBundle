@@ -69,11 +69,48 @@ class DefaultController extends Controller
             return new Response('');
         }
         // Redirección a vista de login 
-        return $this->redirect($this->generateUrl('login'));
+        return $this->redirect($this->generateUrl('root'));
     }
 
     public function homepageAction() {
-        return $this->render('LoogaresExtraBundle:Default:home.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+
+        // Cantidad de premios regalados (totales)
+        $q = $em->createQuery("SELECT count(cu.id)
+                               FROM Loogares\ExtraBundle\Entity\ConcursoUsuario cu
+                               JOIN cu.usuario u
+                               WHERE u.estado != ?1");
+        $q->setParameter(1, 3);
+        $totalPremios = $q->getSingleScalarResult();
+
+        // Cantidad de recomendaciones escritas
+        $totalRecomendaciones = $rr->getTotalRecomendaciones();
+
+        $ciudad = $this->get('session')->get('ciudad');
+
+        // Recomendación del día
+        $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
+
+        $preview = '';
+        if(strlen($recomendacionDelDia->getTexto()) > 300) {
+            $preview = substr($recomendacionDelDia->getTexto(),0,300).'...';
+        }
+        else {
+            $preview = $recomendacionDelDia->getTexto();
+        }
+
+        $home = array();
+        $home['totalPremios'] = $totalPremios;        
+        $home['totalPremios_format'] = number_format( $totalPremios , 0 , '' , '.' );
+        $home['totalRecomendaciones'] = $totalRecomendaciones;
+        $home['totalRecomendaciones_format'] = number_format( $totalRecomendaciones , 0 , '' , '.' );
+        $home['recDia'] = $recomendacionDelDia;
+        $home['previewRecDia'] = $preview;
+
+        return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
+            'home' => $home,     
+        ));
     }
 
     public function staticAction($static){
