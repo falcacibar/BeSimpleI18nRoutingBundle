@@ -10,6 +10,13 @@
 	<script>
 		$(document).ready(function(){
 			var rebindEvents = function(){
+				var getCaracteristicas = getParameterByName('caracteristicas').split(',');
+
+				$.each(getCaracteristicas, function(i){
+					$('.qtip_caracteristicas input[value="'+getCaracteristicas[i]+'"]').click();
+					console.log(getCaracteristicas[i])
+				});
+
 				$('.resultado-busqueda-stars-raty').each(function(){
 					var estrellas = $(this).attr('data-stars');
 					$(this).raty({
@@ -212,8 +219,24 @@
 					$('.reset_precio').click();
 				}
 			});
-			
-			$('.resultados-wrapper a').click(function(e){e.preventDefault();}).pjax({
+
+			$('.link_filtrar_caracteristicas').live('click', function(e){
+				e.preventDefault();
+
+				var $this = $(this),
+					caracteristica = '',
+					href = $this.data('ohref');
+
+				$('.qtip_caracteristicas input[type=checkbox]:checked').each(function(){
+					caracteristica += $(this).val() + ",";
+				});
+				
+				href += "&caracteristicas=" +  caracteristica.substring(0, caracteristica.length-1);
+				$this.attr('href', href);
+				console.log(href)
+			});
+
+			$('.resultados-wrapper a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
 				url: $(this).attr('href'),
 				container: '.resultados',
 				fragment: '.resultados',
@@ -228,6 +251,7 @@
 						$(this).remove(); 
 					});
 					$('.resultados-wrapper').hide().append(data).fadeIn(300, function(){
+						$('.qtip').remove();
 						rebindEvents();
 					});
 				}
@@ -306,100 +330,122 @@
             </div>
     {% endif %}
 
-	<div class="qtip_zonas" rel="filtros_zonas">
-		<span class="close_qtip"></span>
-		{% if results.totalPorSectores[0] is defined%}
-			<p>Sectores</p>
-			<ul>
-				{% for sector in results.totalPorSectores %}
-					<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria, 'subcategoria': subcategoria, 'sector': sector.slug, 'resultados': resultados}) }}">{{sector.nombre}} ({{ sector.total }})</a></li>							
-				{% endfor %}
-			</ul>
-		{% endif %}
-
-		{% if results.totalPorComunas[0] is defined%}
-			<br/><br/>
-			<p>Comunas</p>
-			<ul>
-				{% for comuna in results.totalPorComunas %}
-					<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria, 'subcategoria': subcategoria, 'comuna': comuna.slug, 'resultados': resultados}) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>							
-				{% endfor %}
-			</ul>
-		{% endif %}
-	</div>
-
-    {% if results.totalPorSubcategoria[0] is defined %}
-	<div class="qtip_subcategorias" rel="filtros_subcategorias">
-		<span class="close_qtip"></span>
-		<ul>
-			{% for subcategoria in results.totalPorSubcategoria %}
-				<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria, 'subcategoria': subcategoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>							
-			{% endfor %}
-		</ul>
-	</div>
-
-	<div class="qtip_caracteristicas" rel="filtros_caracteristicas">
-		<span class="close_qtip"></span>
-		<ul>
-		{% for caracteristica in results.totalPorCaracteristica %}
-			<li><input type="checkbox" value="{{caracteristica.slug}}" name="caracteristica"/><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{caracteristica.nombre}} ({{ caracteristica.total }})</a></li>
-		{% endfor %}
-		</ul>
-		<a class="link_filtrar_caracteristicas"  href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">Filtrar</a>
-	</div>
-	{% endif %}
-
-	{% if results.totalPorCategoria[0] is defined %}
-		<div class="qtip_categorias" rel="filtros_categorias">
-			<span class="close_qtip"></span>
-			<ul>
-			{% for categoria in results.totalPorCategoria %}
-				<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
-			{% endfor %}
-			</ul>
-		</div>
-	{% endif %}
+	
 
 	<div class="resultados-wrapper">
 		<div class="resultados">
-				<h1 class="titulo">
-				Resultados de Busqueda en {{slug}}			
+
+			{% if results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined %}
+			<div class="qtip_zonas qtip_filtros" rel="filtros_zonas">
+				<span class="close_qtip"></span>
+				{% if results.totalPorSectores[0] is defined %}
+					<p>Sectores</p>
+					<ul>
+						{% for sector in results.totalPorSectores %}
+							<li><a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug })) }}">{{sector.nombre}} ({{ sector.total }})</a></li>							
+						{% endfor %}
+					</ul>
+				{% endif %}
+
+				{% if results.totalPorComunas[0] is defined %}
+					<br/><br/>
+					<p>Comunas</p>
+					<ul>
+						{% for comuna in results.totalPorComunas %}
+							<li><a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>							
+						{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+			{% endif %}
+
+			{% if results.totalPorCategorias is not defined %}
+		    {% if results.totalPorSubcategoria[0] is defined %}
+			<div class="qtip_subcategorias qtip_filtros" rel="filtros_subcategorias">
+				<span class="close_qtip"></span>
+				<ul>
+					{% for subcategoria in results.totalPorSubcategoria %}
+						<li><a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>							
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+
+			<div class="qtip_caracteristicas qtip_filtros" rel="filtros_caracteristicas">
+				<span class="close_qtip"></span>
+				<ul>
+				{% for caracteristica in results.totalPorCaracteristica %}
+					<li><input type="checkbox" value="{{caracteristica.slug}}" name="caracteristica[]"/><a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'caracteristica': caracteristica.slug})) }}">{{caracteristica.nombre}} ({{ caracteristica.total }})</a></li>
+				{% endfor %}
+				</ul>
+				<a class="link_filtrar_caracteristicas"  href="" data-ohref="{{ path('_buscar', query|merge({'slug': slug, 'caracteristicas': null })) }}">Filtrar</a>
+			</div>
+			{% endif %}
+
+			{% if results.totalPorCategoria[0] is defined %}
+			<div class="qtip_categorias qtip_filtros" rel="filtros_categorias">
+				<span class="close_qtip"></span>
+				<ul>
+				{% for categoria in results.totalPorCategoria %}
+					<li><a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'categoria': categoria.slug })) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
+				{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+
+
+			<h1 class="titulo">
+				Resultados de {{term}} 
+				 {% if subcategoria != null %}
+                 	en {{subcategoria.nombre}}
+                 {% elseif categoria != null %}
+                 	en {{categoria.nombre}}
+                 {% endif %}
+				en {{ciudad.nombre}}			
 				<small>
-	                 {{slug}}
+	                 <a href="{{ path('_buscar', {'slug': slug, 'q': term }) }}">{{ciudad.nombre}}</a>
 	                 {% if sector != null %}
-	                 	> {{sector}}
+	                 	» <a href="{{ path('_buscar', query|merge({'slug': slug, 'sector': sector.slug, 'comuna': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{sector.nombre}}</a>
 	                 {% elseif comuna != null %}
-	                 	> {{comuna}}
+	                 	» <a href="{{ path('_buscar', query|merge({'slug': slug, 'comuna': comuna.slug, 'sector': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{comuna.nombre}}</a>
 	                 {% endif %}
-	                 {% if subcategoria != null and subcategoria != 'none' %}
-	                 	> {{subcategoria}}
+	                 {% if categoria != null %}
+	                 	» <a href="{{ path('_buscar', query|merge({'slug': slug, 'categoria': categoria.slug, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{categoria.nombre}}</a>
+	                 {% endif %}
+	                 {% if subcategoria != null %}
+	                 	» <a href="{{ path('_buscar', query|merge({'slug': slug, 'subcategoria': subcategoria.slug, 'caracteristicas': null, 'pagina': null })) }}">{{subcategoria.nombre}}</a>
 	                 {% endif %}
 				</small>
 			</h1>
+
 				<div class="filtros_zonas">
 					<div class="filtros_header">
 						<span class="filtros_titulo">Zonas</span>
-						{% if (results.totalPorSectores[0] is defined) %}
+						{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
 							<span class="filtros_expandir">Ver Todas</span>
-						{% endif %}					</div>
+						{% endif %}					
+					</div>
 					<div class="resultados_filtros">
-						{% if (results.totalPorSectores is defined) %}
-						<ul>
+						{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
+							<ul>
+						
 							{% for sector in results.totalPorSectores %}
 								{% if loop.index <= 5 %}
-								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria, 'subcategoria': subcategoria, 'sector': sector.slug, 'resultados': resultados}) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
+								<li><a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
 								{% endif %}							
 							{% endfor %}
-							{% if results.totalPorSectores is defined and results.totalPorSectores|length < 5%}
+
+
+							{% if results.totalPorSectores is defined and results.totalPorSectores|length < 5 %}
 								{% for comuna in results.totalPorComunas %}
 									{% if loop.index <= (5 - results.totalPorComunas|length) %}
-									<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria, 'subcategoria': subcategoria, 'comuna': comuna.slug, 'resultados': resultados}) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
+									<li><a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
 									{% endif %}							
 								{% endfor %}							
 							{% endif %}
 						</ul>
 						{% else %}
-							No resultados
+							No Resultados
 						{% endif %}
 					</div>
 				</div>
@@ -417,7 +463,7 @@
 						<ul>
 							{% for subcategoria in results.totalPorSubcategoria %}
 								{% if loop.index <= 10 %}
-								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria, 'subcategoria': subcategoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>	
+								<li><a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'q': term, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>	
 								{% endif %}							
 							{% endfor %}
 						</ul>
@@ -481,7 +527,7 @@
 						<ul>
 							{% for caracteristica in results.totalPorCaracteristica %}
 								{% if loop.index <= 5 %}
-								<li><a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria, 'subcategoria': subcategoria, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{caracteristica.nombre}} ({{ caracteristica.total }})</a></li>	
+								<li><a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'caracteristicas': caracteristica.slug})) }}">{{caracteristica.nombre}} ({{ caracteristica.total }})</a></li>	
 								{% endif %}							
 							{% endfor %}	
 						</ul>					
@@ -501,7 +547,7 @@
 						<ul>
 							{% for categoria in results.totalPorCategoria %}
 								{% if loop.index <= 20 %}
-								<li><a rel="categoria" class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term, 'o': override, 'categoria': categoria.slug, 'sector': sector, 'comuna': comuna, 'resultados': resultados}) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
+								<li><a rel="categoria" class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'categoria': categoria.slug })) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
 								{% endif %}
 							{% endfor %}
 						</ul>
@@ -535,7 +581,7 @@
 			            {% if query.orden is not defined or query.orden == 'relevantes' %}
 			                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'q': term, 'orden': 'relevantes' }) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", query|merge({'slug': slug, 'orden': 'relevantes' })) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
 			            {% endif %}	
 			        </li>
 			        <li>|</li>
@@ -543,7 +589,7 @@
 			            {% if query.orden is defined and query.orden == 'recomendaciones' %}
 			                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'q': term, 'o': override, 'orden': 'recomendaciones' }) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", query|merge({'slug': slug, 'orden': 'recomendaciones' })) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -551,7 +597,7 @@
 			            {% if query.orden is defined and query.orden == 'utiles' %}
 			                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'q': term, 'o': override, 'orden': 'utiles' }) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", query|merge({'slug': slug, 'orden': 'utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -559,7 +605,7 @@
 			            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
 			                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug,'q': term, 'o': override, 'orden': 'ultima-recomendacion' }) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", query|merge({'slug': slug, 'orden': 'ultima-recomendacion' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -567,7 +613,7 @@
 			            {% if query.orden is defined and query.orden == 'alfabetico' %}
 			                <strong>{{'general.terminos.alfabetico'|trans}}</strong>
 			            {% else %}
-			                <a class="link_azul" href="{{ path("_buscar", {'slug': slug, 'q': term, 'o': override,  'orden': 'alfabetico' }) }}">{{'general.terminos.alfabetico'|trans}}</a>
+			                <a class="link_azul" href="{{ path("_buscar", query|merge({'slug': slug, 'orden': 'alfabetico' })) }}">{{'general.terminos.alfabetico'|trans}}</a>
 			            {% endif %}
 			        </li>
 			    </ul>

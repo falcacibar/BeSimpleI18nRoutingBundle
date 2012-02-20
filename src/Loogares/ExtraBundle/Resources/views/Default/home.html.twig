@@ -61,6 +61,22 @@
 				</div>
 			</div>
 			<div class="ultimos_conectados">
+				<h2>{{'general.home.ultimos_conectados.titulo'|trans}}</h2>
+				{% if home.ultimosConectados|length > 0%}
+					<ul>
+					{% for conectado in home.ultimosConectados %}
+						<li>
+							<a href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_img">
+								<img src="{{('assets/images/usuarios/'~conectado.imagenFull) | apply_filter('tiny_usuario')}}" width="20" height="20" />
+							</a>
+							<div class="conectado_info">
+								<a href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_nombre">{{conectado.nombre}} {{conectado.apellido}}</a>
+								<span class="conectado_recomendaciones">{{conectado.recomendaciones|length}} {{'general.terminos.recomendacion' | transchoice(conectado.recomendaciones|length) | lower }}</span>
+							</div>
+						</li>
+					{% endfor %}
+					</ul>
+				{% endif %}
 			</div>
 		</div>		
 	</div>

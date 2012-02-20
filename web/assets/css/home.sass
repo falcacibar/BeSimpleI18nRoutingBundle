@@ -235,6 +235,7 @@ $rojo: #F72121
         .recomendacion_dia
             width: 100%
             float: left
+            margin: 0 0 20px
 
             h2
                 margin: 0 0 20px
@@ -282,3 +283,35 @@ $rojo: #F72121
                 .ver_mas
                     float: right
 
+        .ultimos_conectados
+            width: 100%
+            float: left
+            margin: 0 0 20px
+
+            h2
+                margin: 0 0 20px
+                font-size: 16px
+            
+            ul
+                li
+                    height: 25px
+                    margin: 0 0 10px
+
+                    .conectado_img
+                        float: left
+
+                    .conectado_info
+                        float: left
+                        font-size: 11px
+                        margin: 0 0 0 10px
+
+                        .conectado_nombre
+                            font-weight: bold
+                            display: block
+                            @include link_azul                   
+
+                            &:hover
+                                @include link_azul_hover
+                        .conectado_recomendaciones
+                            font-style: italic
+                            display: block

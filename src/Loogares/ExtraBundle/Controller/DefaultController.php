@@ -49,8 +49,8 @@ class DefaultController extends Controller
     }
 
     public function localeAction($slug, $start=null) {
-        if((!$this->get('session')->get('ciudad') && $start) || !$start ) {
-            $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getEntityManager();
+        if((!$this->get('session')->get('ciudad') && $start) || !$start ) {            
             $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
             $ciudad = $cr->findOneBySlug($slug);
 
@@ -63,7 +63,14 @@ class DefaultController extends Controller
             $ciudadArray['slug'] = $ciudad->getSlug();
 
             $this->get('session')->set('ciudad',$ciudadArray);
-        }     
+        }
+        
+        // Si usuario está loggeado, significa que tuvo actividad
+        if($this->get('security.context')->isGranted('ROLE_USER')) {
+            $usuario = $this->get('security.context')->getToken()->getUser();
+            $usuario->setFechaUltimaActividad(new \DateTime());
+            $em->flush();
+        }
 
         if($start) {
             return new Response('');
@@ -75,6 +82,7 @@ class DefaultController extends Controller
     public function homepageAction() {
         $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
         // Cantidad de premios regalados (totales)
         $q = $em->createQuery("SELECT count(cu.id)
@@ -100,6 +108,9 @@ class DefaultController extends Controller
             $preview = $recomendacionDelDia->getTexto();
         }
 
+        // Últimos conectados
+        $ultimosConectados = $ur->getUltimosConectados(0.02);
+
         $home = array();
         $home['totalPremios'] = $totalPremios;        
         $home['totalPremios_format'] = number_format( $totalPremios , 0 , '' , '.' );
@@ -107,6 +118,7 @@ class DefaultController extends Controller
         $home['totalRecomendaciones_format'] = number_format( $totalRecomendaciones , 0 , '' , '.' );
         $home['recDia'] = $recomendacionDelDia;
         $home['previewRecDia'] = $preview;
+        $home['ultimosConectados'] = $ultimosConectados;
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,     
