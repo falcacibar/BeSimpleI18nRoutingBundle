@@ -76,4 +76,8 @@ class DefaultController extends Controller
         return $this->render('LoogaresExtraBundle:Default:home.html.twig');
     }
 
+    public function staticAction($static){
+        return $this->render('LoogaresExtraBundle:Default:'.$static.'.html.twig');
+    }
+
 }

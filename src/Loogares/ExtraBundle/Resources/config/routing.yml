@@ -1,3 +1,7 @@
 locale:
     pattern:  /ciudad/{slug}
     defaults: { _controller: LoogaresExtraBundle:Default:locale, slug : santiago-de-chile }
+
+static:
+    pattern:  /{static}
+    defaults: { _controller: LoogaresExtraBundle:Default:Static }
