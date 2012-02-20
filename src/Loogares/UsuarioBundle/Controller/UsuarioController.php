@@ -188,18 +188,16 @@ class UsuarioController extends Controller
         $data->tipo = 'lugares';
         $data->accion = $accion;
         $data->pagina = $pagina;
-        $data->totalPaginas = ($totalAcciones > $ppag) ? floor($totalAcciones / $ppag) : 1;
+        $data->totalPaginas = ($data->totalAcciones[$accion - 1] > $ppag) ? ceil($data->totalAcciones[$accion - 1] / $ppag) : 1;
         $data->offset = $offset;
         $data->acciones = $acciones;
-        $data->totalAcciones = $totalAcciones;
-
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
         $params = array(
             'param' => $data->getSlug()
         );
             
-        $paginacion = $fn->paginacion($totalAcciones, $ppag, 'lugaresUsuario', $params, $router );
+        $paginacion = $fn->paginacion($data->totalAcciones[$accion - 1], $ppag, 'lugaresUsuario', $params, $router );
 
         if ($this->getRequest()->isXmlHttpRequest()) {
             return $this->render('LoogaresUsuarioBundle:Usuarios:lugares_usuario.html.twig', array(
@@ -850,10 +848,6 @@ class UsuarioController extends Controller
             
         $session->set(SecurityContext::AUTHENTICATION_ERROR, null);
 
-        // Variable de sesión con ciudad (temporal)
-        $er = $em->getRepository("LoogaresExtraBundle:Ciudad");
-        $this->get('session')->set('ciudad',$er->find(1)->getId());
-
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
             'errors' => $formErrors,
@@ -861,11 +855,11 @@ class UsuarioController extends Controller
         ));
     }
 
-    public function totalRecomendacionesPendientesAction() {
+    public function totalAccionesPendientesAction($accion) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
-        $cantidad = $ur->getTotalAccionesUsuario(5, $this->get('security.context')->getToken()->getUser());
+        $cantidad = $ur->getTotalAccionesUsuario($accion, $this->get('security.context')->getToken()->getUser());
 
         return new Response($cantidad);
     }

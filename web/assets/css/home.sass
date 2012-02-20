@@ -96,12 +96,15 @@ $rojo: #F72121
     -webkit-box-sizing: border-box
 
 #home
-    height: 500px
     .columna_izq
         float: left
         width: 630px
-        height: 100%
-        border: 1px solid #DDD
+
+        .home_something
+            background: #F2F2F6
+            height: 250px
+            float: left
+            width: 100%
 
         .caja_promociones
             float: left
@@ -112,57 +115,89 @@ $rojo: #F72121
                 color: #231F20
                 text-decoration: none
 
+                &.ver_todos
+                    @include link_azul
+                    font:
+                        size: 11px
+                    float: right
+                    margin: 60px 0 0 0
+
             h2
                 font-size: 16px
                 font-weight: bold
                 margin: 20px 0
             ul
+                float: left
                 li
-                    background: whiteSmoke
-                    border-bottom: 1px solid #DDD
-                    height: 126px
+                    background: $gris_f6f
+                    border-bottom: 1px solid $gris_ccc
+                    height: 150px
                     width: 198px
                     float: left
                     margin: 0 15px 0 0
                     padding: 1px
                     display: inline
 
+                    &:hover
+                        border-bottom: 1px solid $gris_999
+
+
                     &.ultimo_pedido
                         margin-right: 0px
-
-                    .promocion_delivery_img
+                    
+                    .promocion_delivery_box_sidebar
                         float: left
-                        padding: 9px
-                        width: 50px
+                        margin: 20px 10px
 
-                    .promocion_delivery_info_sidebar
-                        float: left
-                        padding: 9px 9px 9px 0
-                        text-align: left
-                        width: 120px
+                        .promocion_delivery_img
+                            float: left
+                            width: 50px
 
-                        .promocion_lugar
-                            font-size: 14px
-                            font-weight: bold
-                            margin: 0 0 5px 0
+                        .promocion_delivery_info_sidebar
+                            float: left
+                            margin: 0 0 0 8px
+                            text-align: left
+                            width: 120px
 
-                        .promocion_descripcion
-                            font-size: 12px
+                            .promocion_lugar
+                                font:
+                                    size: 14px
+                                    weight: bold
+                                margin: 0 0 5px 0
+                                color: $gris_444
+                            .promocion_detalle
+                                float: left
 
-                        .promocion_dias
-                            font-size: 11px
-                            margin: 10px 0 0 0
-                            color: #999
+                                .promocion_icono
+                                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -663px
+                                    float: left
+                                    height: 16px
+                                    width: 16px 
+
+                                .promocion_titulo
+                                    color: $gris_666
+                                    font:
+                                        size: 11px
+                                        weight: bold
+                                    float: left
+                                    line-height: 14px
+                                    margin: 0 0 0 5px
+
+                            .promocion_dias
+                                color: $gris_999
+                                font:
+                                    size: 11px
+                                float: left
+                                margin: 10px 0 0 0
 
 
     .columna_der
         float: right
         width: 300px
-        height: 100%
-        border: 1px solid #DDD
 
         .actividad_loogares
             width: 100%
+            float: left
 
             .titulo_actividad
                 border-left: 5px solid #F30
@@ -182,8 +217,7 @@ $rojo: #F72121
                     float: left
                     font-size: 28px
                     text-align: right
-                    width: 75px                    
-                    letter-spacing: 1px
+                    width: 75px
                     text-shadow: -3px 0 1px #CCC
                     -moz-text-shadow: -3px 0 1px #CCC
                     -webkit-text-shadow: -3px 0 1px #CCC

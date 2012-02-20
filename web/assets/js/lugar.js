@@ -162,6 +162,7 @@ $(document).ready(function(){
                         $(".fancybox").click();   
                     }
 
+                    // Se desactivan botones pertinentes
                     if(data.accionesUsuario[0].puede == 0) {
                         $('.quiero_ir_lugar').replaceWith("<p class='quiero_ir_lugar boton_desactivado' data-hecho=''></p>");
                     }
@@ -171,6 +172,21 @@ $(document).ready(function(){
                     if(data.accionesUsuario[4].puede == 0) {
                         $('.recomendar_despues_lugar').replaceWith("<p class='recomendar_despues_lugar boton_desactivado' data-hecho=''></p>");                        
                     }
+
+                    // Se actualiza el menú del usuario
+                    $.ajax({
+                      type: "GET",
+                      url: WEBROOT+'usuario/acciones_pendientes/5',
+                    }).done(function( data ) {
+                      $('.por_recomendar').html(data);
+                    });
+
+                    $.ajax({
+                      type: "GET",
+                      url: WEBROOT+'usuario/acciones_pendientes/1',
+                    }).done(function( data ) {
+                      $('.para_visitar').html(data);
+                    });
                 }
             }
         });
@@ -178,10 +194,8 @@ $(document).ready(function(){
     $('.boton_accion').click(function(e){
         e.preventDefault();
 
-
         var $this = $(this),
-            idLugar = $('#lugar-ficha').attr('data-id');         
-        console.log($this)
+            idLugar = $('#lugar-ficha').attr('data-id');
         //UTIL: Recomendacion ID y Usuario(OBSOLETE)
         if($this.hasClass('boton_util')){
             dataObj = {'recomendacion': $this.closest('.recomendacion').attr('data-id'),'accion': 'util'};
@@ -198,7 +212,6 @@ $(document).ready(function(){
         }             
 
         ejecutar_accion(dataObj, $this);
-
     });
 
     $(".fancybox").fancybox({        

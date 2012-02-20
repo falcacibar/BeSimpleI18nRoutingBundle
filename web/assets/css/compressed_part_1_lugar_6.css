@@ -1083,7 +1083,7 @@
       .sidebar .caja_promociones ul li:hover {
         border-bottom: 1px solid #999999; }
       .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar {
-        flaot: left;
+        float: left;
         margin: 20px 10px; }
         .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_img {
           float: left;
