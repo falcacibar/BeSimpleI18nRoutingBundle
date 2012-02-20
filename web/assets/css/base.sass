@@ -526,10 +526,10 @@ textarea
                 margin: 2px 0 0 5px
 
 .menu
-    background: $blanco
-    border-bottom: 1px solid $gris_ccc
+    background: url('../images/extras/fondo_header.png') 0 0 repeat-x
+    border-bottom: 1px solid $gris_f6f
     float: left
-    height: 40px
+    height: 42px
     position: absolute
     top: 25px
     width: 100%
@@ -562,21 +562,22 @@ textarea
                 list-style-type: none
                             
                 a
-                    border-bottom: 1px solid $gris_ccc
+                    border-left: 1px solid $gris_ccc
+                    border-right: 1px solid $blanco
                     color: $gris_444
                     float: left
-                    padding: 14px 6px 14px
+                    padding: 15px 5px 14px
                     text-decoration: none
                     z-index: 20
                 
                     &:hover, &.li-activo
-                        background: url('../images/extras/flecha_menu.png') center 34px no-repeat
+                        background: url('../images/extras/flecha_menu.png') center 34px no-repeat $blanco
                         border-bottom: 1px solid $blanco
                         border-left: 1px solid $gris_ccc
-                        border-right: 1px solid $gris_ccc
-                        border-top: 3px solid $azul
+                        border-right: none
+                        border-top: 4px solid $azul_claro
                         color: $gris_444
-                        padding: 11px 5px 14px
+                        padding: 11px 6px 18px 5px
                         z-index: 20
 
                 ul
@@ -588,7 +589,7 @@ textarea
                     display: none
                     padding: 14px 0 0 0
                     position: absolute
-                    top: 41px
+                    top: 42px
                     width: 250px
 
                     li
@@ -610,34 +611,37 @@ textarea
                                 width: 238px
         
         .buscador_box
+            background: url('../images/extras/fondo_buscador.png') 0 0 repeat-x
             border-left: 1px solid $gris_ccc
             border-right: 1px solid $gris_ccc
             float: left
-            height: 40px
+            height: 41px
                  
             .buscar
+                border-right: 1px solid $blanco
                 float: left
-                height: 30px
-                margin: 4px
+                height: 32px
+                padding: 4px
                 position: relative
                             
                 .buscador
-                    border: 1px solid $gris_ccc
+                    border: 1px solid $gris_999
                     height: 30px
                     float: left
                     padding: 0px 5px
-                    width: 191px
+                    width: 190px
 
                     &:hover
-                        border: 1px solid $gris_999
+                        border: 1px solid $gris_666
 
                     &:focus
                         border: 1px solid $azul_claro
                     
                 .caja_icono
-                    border-bottom: 1px solid $gris_ccc
-                    border-right: 1px solid $gris_ccc
-                    border-top: 1px solid $gris_ccc
+                    background: $blanco
+                    border-bottom: 1px solid $gris_999
+                    border-right: 1px solid $gris_999
+                    border-top: 1px solid $gris_999
                     cursor: pointer
                     float: left
                     height: 16px
@@ -666,6 +670,10 @@ textarea
 .fixed
     position: fixed
     top: 0
+
+.borde_detalle_menu
+    border-top: 1px solid $blanco
+    border-bottom: 1px solid $gris_ccc
 
 /* Contenidos */
 

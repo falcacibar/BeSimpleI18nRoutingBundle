@@ -814,10 +814,10 @@ textarea {
         margin: 2px 0 0 5px; }
 
 .menu {
-  background: white;
-  border-bottom: 1px solid #cccccc;
+  background: url("../images/extras/fondo_header.png") 0 0 repeat-x;
+  border-bottom: 1px solid #f2f2f6;
   float: left;
-  height: 40px;
+  height: 42px;
   position: absolute;
   top: 25px;
   width: 100%;
@@ -845,20 +845,21 @@ textarea {
         float: left;
         list-style-type: none; }
         .menu .centrado_menu .menu_categorias li a {
-          border-bottom: 1px solid #cccccc;
+          border-left: 1px solid #cccccc;
+          border-right: 1px solid white;
           color: #444444;
           float: left;
-          padding: 14px 6px 14px;
+          padding: 15px 5px 14px;
           text-decoration: none;
           z-index: 20; }
           .menu .centrado_menu .menu_categorias li a:hover, .menu .centrado_menu .menu_categorias li a.li-activo {
-            background: url("../images/extras/flecha_menu.png") center 34px no-repeat;
+            background: url("../images/extras/flecha_menu.png") center 34px no-repeat white;
             border-bottom: 1px solid white;
             border-left: 1px solid #cccccc;
-            border-right: 1px solid #cccccc;
-            border-top: 3px solid #0066cc;
+            border-right: none;
+            border-top: 4px solid #66ccff;
             color: #444444;
-            padding: 11px 5px 14px;
+            padding: 11px 6px 18px 5px;
             z-index: 20; }
         .menu .centrado_menu .menu_categorias li ul {
           background: white;
@@ -869,7 +870,7 @@ textarea {
           display: none;
           padding: 14px 0 0 0;
           position: absolute;
-          top: 41px;
+          top: 42px;
           width: 250px; }
           .menu .centrado_menu .menu_categorias li ul li {
             display: list-item;
@@ -887,29 +888,32 @@ textarea {
                 text-decoration: underline;
                 width: 238px; }
     .menu .centrado_menu .buscador_box {
+      background: url("../images/extras/fondo_buscador.png") 0 0 repeat-x;
       border-left: 1px solid #cccccc;
       border-right: 1px solid #cccccc;
       float: left;
-      height: 40px; }
+      height: 41px; }
       .menu .centrado_menu .buscador_box .buscar {
+        border-right: 1px solid white;
         float: left;
-        height: 30px;
-        margin: 4px;
+        height: 32px;
+        padding: 4px;
         position: relative; }
         .menu .centrado_menu .buscador_box .buscar .buscador {
-          border: 1px solid #cccccc;
+          border: 1px solid #999999;
           height: 30px;
           float: left;
           padding: 0px 5px;
-          width: 191px; }
+          width: 190px; }
           .menu .centrado_menu .buscador_box .buscar .buscador:hover {
-            border: 1px solid #999999; }
+            border: 1px solid #666666; }
           .menu .centrado_menu .buscador_box .buscar .buscador:focus {
             border: 1px solid #66ccff; }
         .menu .centrado_menu .buscador_box .buscar .caja_icono {
-          border-bottom: 1px solid #cccccc;
-          border-right: 1px solid #cccccc;
-          border-top: 1px solid #cccccc;
+          background: white;
+          border-bottom: 1px solid #999999;
+          border-right: 1px solid #999999;
+          border-top: 1px solid #999999;
           cursor: pointer;
           float: left;
           height: 16px;
@@ -933,6 +937,10 @@ textarea {
 .fixed {
   position: fixed;
   top: 0; }
+
+.borde_detalle_menu {
+  border-top: 1px solid white;
+  border-bottom: 1px solid #cccccc; }
 
 /* Contenidos */
 .contenedor {
