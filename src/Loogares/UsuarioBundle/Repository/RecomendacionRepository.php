@@ -54,4 +54,51 @@ class RecomendacionRepository extends EntityRepository
       $q->setParameter(3, $estado);
       return $q->getResult();
   }
+
+  public function getTotalRecomendaciones() {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT count(r.id)
+                             FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                             WHERE r.estado != ?1");
+      $q->setParameter(1, 3);
+
+      return $q->getSingleScalarResult();
+  }
+
+  public function getRecomendacionDelDia($ciudad) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT r
+                             FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                             JOIN r.lugar l
+                             JOIN l.comuna c
+                             WHERE r.fecha_ultima_vez_destacada = CURRENT_DATE()
+                             AND c.ciudad = ?1");
+
+      $q->setParameter(1, $ciudad);
+      $rec = $q->getOneOrNullResult();
+      if($rec ==  null) {
+          // Seleccionamos una como destacada
+          $q = $em->createQuery("SELECT r, l, SIZE(r.util) util
+                             FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                             JOIN r.lugar l
+                             JOIN l.comuna c
+                             WHERE c.ciudad = ?1
+                             AND l.estado != ?2
+                             AND DATE_SUB(CURRENT_DATE(), 90, 'DAY') >= r.fecha_ultima_vez_destacada
+                             AND DATE_SUB(CURRENT_DATE(), 8, 'MONTH') <= r.fecha_creacion
+                             GROUP BY r.id
+                             ORDER BY util DESC, r.estrellas DESC, r.fecha_creacion DESC");
+          $q->setParameter(1, $ciudad);
+          $q->setParameter(2, 3);
+          $q->setMaxResults(1);
+          $rec = $q->getOneOrNullResult();
+          if($rec != null) {
+              $rec = $rec[0];
+
+              $rec->setFechaUltimaVezDestacada(new \DateTime());
+              $em->flush();
+          }
+      }      
+      return $rec;
+  }
 }

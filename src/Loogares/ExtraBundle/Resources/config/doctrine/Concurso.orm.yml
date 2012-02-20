@@ -1,0 +1,21 @@
+Loogares\ExtraBundle\Entity\Concurso:
+    type: entity
+    table: concursos
+    manyToOne:       
+        ciudad:
+            targetEntity: Loogares\ExtraBundle\Entity\Ciudad
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:      
+        titulo:
+            type: text
+        premios:
+            type: text
+        descripcion:
+            type: text
+        fecha_inicio:
+            type: date
+        fecha_termino:
+            type: date

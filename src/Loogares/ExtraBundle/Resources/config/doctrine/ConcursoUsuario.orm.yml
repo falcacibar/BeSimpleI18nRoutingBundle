@@ -1,0 +1,15 @@
+Loogares\ExtraBundle\Entity\ConcursoUsuario:
+    type: entity
+    table: concursos_usuario
+    manyToOne:       
+        concurso:
+            targetEntity: Loogares\ExtraBundle\Entity\Concurso
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:      
+        ganador:
+            type: boolean

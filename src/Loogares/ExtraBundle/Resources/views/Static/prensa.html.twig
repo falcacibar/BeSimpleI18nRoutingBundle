@@ -1,0 +1,64 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'general.home.title'|trans}}{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo">Prensa</h1>
+
+			<p><strong>02/02/12 - Start-Up Chile Blog</strong></p>
+			<p><a href="">Loogares.com raises capital from NXTP Labs Incubator</a></p><br />
+
+			<p class="ano">2011</p><br />
+
+			<p><strong>19/12/11 - AndesBeat</strong></p>
+			<p><a href="">Loogares.com online entertainment guide nears 10,000 reviews</a></p><br />
+
+			<p><strong>28/11/11 - Diario Financiero</strong></p>
+			<p><a href="">Guía de ocio de Buenos Aires</a></p><br />
+
+			<p><strong>11/11/11 - La Tercera</strong></p>
+			<p><a href="">Salir a descubrir Santiago</a></p><br />
+
+			<p><strong>12/10/11 - Pymesur</strong></p>
+			<p><a href="">Emprendedores seleccionados de Start-Up Chile entre 65 países que crearon una plataforma turística ciudadana</a></p><br />
+
+			<p><strong>07/10/11 - Kissmybit.com</strong></p>
+			<p><a href="">Loogares.com, la revelación de Start-Up Chile</a></p><br />
+
+			<p><strong>27/09/11 - Nativo Digital</strong></p>
+			<p><a href="">El emprendimiento chileno Loogares.com se suma a Start-Up Chile</a></p><br />
+
+			<p><strong>27/09/11 - Revista City</strong></p>
+			<p><a href="">Loogares.com, uno de los proyectos seleccionados en Start-Up Chile</a></p><br />
+
+			<p><strong>13/09/11 - LUN</strong></p>
+			<p><a href="">Hasta la Iphonda en guía online</a></p><br />
+
+			<p><strong>11/08/11 - SerDigital.cl</strong></p>
+			<p><a href="">Loogares.com: Busca, comparte y recomienda lugares</a></p><br />
+
+			<p><strong>18/07/11 - Arriesgo.cl</strong></p>
+			<p><a href="">Loogares.com: El punto de partida para emprender el rumbo</a></p><br />
+
+			<p><strong>18/07/11 - Kissmybit.com</strong></p>
+			<p><a href="">Loogares.com: La guía online del turismo y el ocio</a></p><br />
+
+			<p><strong>13/06/11 - FayerWayer</strong></p>
+			<p><a href="">Loogares.com apuesta por convertirse en la mayor guía de ciudades</a></p><br />
+
+			<p class="ano">2010</p><br />
+
+			<p><strong>24/08/10 - Para Ti</strong></p>
+			<p><a href="">Una nueva forma de conocer la ciudad!</a></p><br />
+			
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}

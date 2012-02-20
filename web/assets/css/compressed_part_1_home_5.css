@@ -80,7 +80,8 @@
   width: 300px; }
   #home .columna_der .actividad_loogares {
     width: 100%;
-    float: left; }
+    float: left;
+    margin: 0 0 20px; }
     #home .columna_der .actividad_loogares .titulo_actividad {
       border-left: 5px solid #ff3300;
       background: #444444;
@@ -109,3 +110,71 @@
         padding: 0 0 0 5px;
         text-align: left;
         width: 200px; }
+  #home .columna_der .recomendacion_dia {
+    width: 100%;
+    float: left;
+    margin: 0 0 20px; }
+    #home .columna_der .recomendacion_dia h2 {
+      margin: 0 0 20px;
+      font-size: 16px; }
+    #home .columna_der .recomendacion_dia .recomendacion_info {
+      height: 60px; }
+      #home .columna_der .recomendacion_dia .recomendacion_info .link_usuario {
+        float: left; }
+      #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion {
+        float: left;
+        margin: 0 0 0 10px; }
+        #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion a {
+          display: block;
+          color: #0066cc !important;
+          text-decoration: none;
+          font-weight: bold; }
+          #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion a:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+        #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion span {
+          color: #999999;
+          font-size: 11px; }
+    #home .columna_der .recomendacion_dia .recomendacion_preview {
+      margin: 10px 0;
+      font-size: 11px; }
+      #home .columna_der .recomendacion_dia .recomendacion_preview a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        #home .columna_der .recomendacion_dia .recomendacion_preview a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
+      #home .columna_der .recomendacion_dia .recomendacion_preview span {
+        display: block;
+        margin: 0 0 10px 0; }
+        #home .columna_der .recomendacion_dia .recomendacion_preview span a {
+          font-weight: bold; }
+      #home .columna_der .recomendacion_dia .recomendacion_preview .ver_mas {
+        float: right; }
+  #home .columna_der .ultimos_conectados {
+    width: 100%;
+    float: left;
+    margin: 0 0 20px; }
+    #home .columna_der .ultimos_conectados h2 {
+      margin: 0 0 20px;
+      font-size: 16px; }
+    #home .columna_der .ultimos_conectados ul li {
+      height: 25px;
+      margin: 0 0 10px; }
+      #home .columna_der .ultimos_conectados ul li .conectado_img {
+        float: left; }
+      #home .columna_der .ultimos_conectados ul li .conectado_info {
+        float: left;
+        font-size: 11px;
+        margin: 0 0 0 10px; }
+        #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_nombre {
+          font-weight: bold;
+          display: block;
+          color: #0066cc !important;
+          text-decoration: none; }
+          #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_nombre:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+        #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_recomendaciones {
+          font-style: italic;
+          display: block; }

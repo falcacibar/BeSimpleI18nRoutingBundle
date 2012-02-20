@@ -1,0 +1,31 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'general.home.title'|trans}}{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo">Trabaja con nosotros</h1>
+
+			<p>WE WANT YOU! ¿Te la puedes?</p><br />
+
+			<p></p><br />
+
+			<p>En Loogares.com siempre estamos buscando talentos de diferentes áreas para integrarlos al equipo y sumarlos a la familia de profesionales y amigos que somos. Queremos trabajar con los mejores.</p><br />
+
+			<p>Actualmente estamos buscando:</p><br />
+
+			<p>- Desarrollador web</p>
+			<p>- Periodistas / Blogueros Colaboradores</p><br />
+			
+			<p>Escríbenos ahora mismo a <a href="mailto:contacto@loogares.com">contacto@loogares.com</a> para contarnos de ti y tu interés por ser parte de Loogares.com. ¡Te estamos esperando!</p><br />
+
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}

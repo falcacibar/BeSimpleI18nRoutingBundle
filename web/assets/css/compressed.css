@@ -1259,13 +1259,80 @@ textarea {
 
 /* Estáticas */
 .estaticas {
-  border-left: 1px solid #f2f2f6;
   border-top: 1px solid #f2f2f6;
-  color: #666666;
   float: left;
-  font-size: 14px;
-  padding: 20px;
-  width: 619px; }
+  position: relative;
+  width: 960px; }
+  .estaticas a {
+    color: #0066cc;
+    text-decoration: none; }
+    .estaticas a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
+  .estaticas .contenido {
+    border-left: 1px solid #f2f2f6;
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    line-height: 24px;
+    min-height: 565px;
+    padding: 20px;
+    width: 619px; }
+    .estaticas .contenido .ano {
+      color: #66ccff;
+      font-weight: bold; }
+    .estaticas .contenido ul li {
+      list-style-type: disc;
+      margin: 0 0 10px 20px; }
+  .estaticas .menu_estaticas {
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    background: #fafafc;
+    border-bottom: 1px solid #f2f2f6;
+    border-left: 1px solid #f2f2f6;
+    float: right;
+    height: 100%;
+    left: 660px;
+    padding: 75px 0;
+    position: absolute;
+    top: 0;
+    width: 300px; }
+    .estaticas .menu_estaticas a {
+      color: #999999;
+      text-decoration: none; }
+      .estaticas .menu_estaticas a li {
+        background: #fafafc;
+        border-bottom: 1px solid #f2f2f6;
+        border-top: 1px solid #f2f2f6;
+        border-left: 1px solid #f2f2f6;
+        cursor: pointer;
+        float: right;
+        text-align: right;
+        padding: 15px 15px 15px 10px;
+        width: 274px; }
+        .estaticas .menu_estaticas a li:hover {
+          border-bottom: 1px solid #cccccc;
+          border-right: 5px solid #cccccc;
+          padding: 15px 10px; }
+    .estaticas .menu_estaticas .selected {
+      background: white;
+      border-bottom: 1px solid #f2f2f6;
+      border-left: 1px solid white;
+      border-right: 5px solid #66ccff;
+      border-top: 1px solid #f2f2f6;
+      float: right;
+      text-align: right;
+      padding: 15px 10px;
+      width: 274px; }
+      .estaticas .menu_estaticas .selected a {
+        color: #999999;
+        text-decoration: none;
+        font-weight: bold; }
+        .estaticas .menu_estaticas .selected a:hover {
+          color: #999999;
+          text-decoration: underline; }
 
 /* Banners */
 .banner_300x250 {
@@ -1502,7 +1569,8 @@ small {
   width: 300px; }
   #home .columna_der .actividad_loogares {
     width: 100%;
-    float: left; }
+    float: left;
+    margin: 0 0 20px; }
     #home .columna_der .actividad_loogares .titulo_actividad {
       border-left: 5px solid #ff3300;
       background: #444444;
@@ -1531,6 +1599,74 @@ small {
         padding: 0 0 0 5px;
         text-align: left;
         width: 200px; }
+  #home .columna_der .recomendacion_dia {
+    width: 100%;
+    float: left;
+    margin: 0 0 20px; }
+    #home .columna_der .recomendacion_dia h2 {
+      margin: 0 0 20px;
+      font-size: 16px; }
+    #home .columna_der .recomendacion_dia .recomendacion_info {
+      height: 60px; }
+      #home .columna_der .recomendacion_dia .recomendacion_info .link_usuario {
+        float: left; }
+      #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion {
+        float: left;
+        margin: 0 0 0 10px; }
+        #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion a {
+          display: block;
+          color: #0066cc !important;
+          text-decoration: none;
+          font-weight: bold; }
+          #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion a:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+        #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion span {
+          color: #999999;
+          font-size: 11px; }
+    #home .columna_der .recomendacion_dia .recomendacion_preview {
+      margin: 10px 0;
+      font-size: 11px; }
+      #home .columna_der .recomendacion_dia .recomendacion_preview a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        #home .columna_der .recomendacion_dia .recomendacion_preview a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
+      #home .columna_der .recomendacion_dia .recomendacion_preview span {
+        display: block;
+        margin: 0 0 10px 0; }
+        #home .columna_der .recomendacion_dia .recomendacion_preview span a {
+          font-weight: bold; }
+      #home .columna_der .recomendacion_dia .recomendacion_preview .ver_mas {
+        float: right; }
+  #home .columna_der .ultimos_conectados {
+    width: 100%;
+    float: left;
+    margin: 0 0 20px; }
+    #home .columna_der .ultimos_conectados h2 {
+      margin: 0 0 20px;
+      font-size: 16px; }
+    #home .columna_der .ultimos_conectados ul li {
+      height: 25px;
+      margin: 0 0 10px; }
+      #home .columna_der .ultimos_conectados ul li .conectado_img {
+        float: left; }
+      #home .columna_der .ultimos_conectados ul li .conectado_info {
+        float: left;
+        font-size: 11px;
+        margin: 0 0 0 10px; }
+        #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_nombre {
+          font-weight: bold;
+          display: block;
+          color: #0066cc !important;
+          text-decoration: none; }
+          #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_nombre:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+        #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_recomendaciones {
+          font-style: italic;
+          display: block; }
 
 /* Colores */
 /* Mixin */

@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'general.home.title'|trans}}{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo">Publicidad</h1>
+
+			<p></p><br />
+
+			<p>En Loogares.com puedes lograr que tu marca, producto o servicio sea visto por miles de personas que buscan exactamente lo que tú ofreces. La publicidad en Internet es efectiva, eficiente e innovadora.</p><br />
+
+			<p>Si quieres saber sobre el perfil del público al que llegamos y los tamaños y formatos de los espacios que ofrecemos, descarga nuestro PDF. Para conocer los precios, descuentos y otras alternativas de publicidad, envíanos el formulario con tu información o mándanos un mail a <a href="mailto:publicidad@loogares.com">publicidad@loogares.com</a>, y en menos de 48 horas tendrás una respuesta.</p><br />
+
+			<p><a href="">Descargar PDF</a></p><br />
+
+			<form>
+			</form>
+
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}

@@ -50,9 +50,15 @@ general:
 
     home:
         title: Comparte y Vive la ciudad
-
-
-
+        actividad_loogares:
+            titulo: Actividad en Loogares.com
+            recomendaciones: Recomendación escrita|Recomendaciones escritas 
+            premios: Premio regalado|Premios regalados
+        recomendacion_dia:
+            titulo: Recomendación del día
+            ver_mas: Ver más
+        ultimos_conectados:
+            titulo: Últimos Loogareños Conectados
 
 olvidar:
     titulo_pag: ¿Olvidaste tu password?

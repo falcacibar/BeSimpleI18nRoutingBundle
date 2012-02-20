@@ -49,8 +49,8 @@ class DefaultController extends Controller
     }
 
     public function localeAction($slug, $start=null) {
-        if((!$this->get('session')->get('ciudad') && $start) || !$start ) {
-            $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getEntityManager();
+        if((!$this->get('session')->get('ciudad') && $start) || !$start ) {            
             $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
             $ciudad = $cr->findOneBySlug($slug);
 
@@ -63,17 +63,66 @@ class DefaultController extends Controller
             $ciudadArray['slug'] = $ciudad->getSlug();
 
             $this->get('session')->set('ciudad',$ciudadArray);
-        }     
+        }
+        
+        // Si usuario está loggeado, significa que tuvo actividad
+        if($this->get('security.context')->isGranted('ROLE_USER')) {
+            $usuario = $this->get('security.context')->getToken()->getUser();
+            $usuario->setFechaUltimaActividad(new \DateTime());
+            $em->flush();
+        }
 
         if($start) {
             return new Response('');
         }
         // Redirección a vista de login 
-        return $this->redirect($this->generateUrl('login'));
+        return $this->redirect($this->generateUrl('root'));
     }
 
     public function homepageAction() {
-        return $this->render('LoogaresExtraBundle:Default:home.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+        // Cantidad de premios regalados (totales)
+        $q = $em->createQuery("SELECT count(cu.id)
+                               FROM Loogares\ExtraBundle\Entity\ConcursoUsuario cu
+                               JOIN cu.usuario u
+                               WHERE u.estado != ?1");
+        $q->setParameter(1, 3);
+        $totalPremios = $q->getSingleScalarResult();
+
+        // Cantidad de recomendaciones escritas
+        $totalRecomendaciones = $rr->getTotalRecomendaciones();
+
+        $ciudad = $this->get('session')->get('ciudad');
+
+        // Recomendación del día
+        $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
+
+        $preview = '';
+        if(strlen($recomendacionDelDia->getTexto()) > 300) {
+            $preview = substr($recomendacionDelDia->getTexto(),0,300).'...';
+        }
+        else {
+            $preview = $recomendacionDelDia->getTexto();
+        }
+
+        // Últimos conectados
+        $ultimosConectados = $ur->getUltimosConectados(0.02);
+
+        $home = array();
+        $home['totalPremios'] = $totalPremios;        
+        $home['totalPremios_format'] = number_format( $totalPremios , 0 , '' , '.' );
+        $home['totalRecomendaciones'] = $totalRecomendaciones;
+        $home['totalRecomendaciones_format'] = number_format( $totalRecomendaciones , 0 , '' , '.' );
+        $home['recDia'] = $recomendacionDelDia;
+        $home['previewRecDia'] = $preview;
+        $home['ultimosConectados'] = $ultimosConectados;
+
+        return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
+            'home' => $home,     
+        ));
     }
 
     public function staticAction($static){

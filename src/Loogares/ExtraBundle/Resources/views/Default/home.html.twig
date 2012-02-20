@@ -30,23 +30,59 @@
 			</div>
 			<div class="actividad_loogares">
 				<div class="titulo_actividad">
-					<h2>Actividad en Loogares.com</h2>
+					<h2>{{'general.home.actividad_loogares.titulo'|trans}}</h2>
 				</div>
 				<div class="contenido_actividad">
 					<div class="numero_actividad">
-						<p>9.935</p>
-						<p>1.155</p>
+						<p>{{home.totalRecomendaciones_format}}</p>
+						<p>{{home.totalPremios_format}}</p>
 					</div>
 					<div class="texto_actividad">
-						<p>Recomendaciones escritas</p>
-						<p>Premios regalados</p>
+						<p>{{'general.home.actividad_loogares.recomendaciones'|transchoice(home.totalRecomendaciones)}}</p>
+						<p>{{'general.home.actividad_loogares.premios'|transchoice(home.totalPremios)}}</p>
 					</div>
 				</div>
 			</div>
 			<div class="recomendacion_dia">
+				<h2>{{'general.home.recomendacion_dia.titulo'|trans}}</h2>
+				<div class="recomendacion_info">
+					<a href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
+						<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="60" width="60"/>
+					</a>
+					<div class="usuario_recomendacion">
+						<a href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">{{home.recDia.usuario.nombre}} {{home.recDia.usuario.apellido}}</a>
+						<span>{{home.recDia.fechaCreacion | date('d/m/Y')}}</span>
+						<p class="estrellas_recDia" data-stars="{{home.recDia.estrellas}}"></p>
+					</div>
+				</div>
+				<div class="recomendacion_preview">					
+					<span><a href="{{path('_lugar', {'slug' : home.recDia.lugar.slug})}}">{{home.recDia.lugar.nombre}}: </a>{{home.previewRecDia}}</span>
+					<a href="{{path('_recomendacion', {'slug' : home.recDia.lugar.slug, 'usuarioSlug' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="ver_mas">{{'general.home.recomendacion_dia.ver_mas'|trans}} &raquo;</a>
+				</div>
 			</div>
 			<div class="ultimos_conectados">
+				<h2>{{'general.home.ultimos_conectados.titulo'|trans}}</h2>
+				{% if home.ultimosConectados|length > 0%}
+					<ul>
+					{% for conectado in home.ultimosConectados %}
+						<li>
+							<a href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_img">
+								<img src="{{('assets/images/usuarios/'~conectado.imagenFull) | apply_filter('tiny_usuario')}}" width="20" height="20" />
+							</a>
+							<div class="conectado_info">
+								<a href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_nombre">{{conectado.nombre}} {{conectado.apellido}}</a>
+								<span class="conectado_recomendaciones">{{conectado.recomendaciones|length}} {{'general.terminos.recomendacion' | transchoice(conectado.recomendaciones|length) | lower }}</span>
+							</div>
+						</li>
+					{% endfor %}
+					</ul>
+				{% endif %}
 			</div>
 		</div>		
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
+	<script src="{{asset('assets/js/home.js')}}"></script>
 {% endblock %}

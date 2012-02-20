@@ -48,5 +48,4 @@ Loogares\UsuarioBundle\Entity\Recomendacion:
         fecha_ultima_modificacion:
             type: datetime
         fecha_ultima_vez_destacada:
-            type: datetime
-            nullable: true
+            type: date

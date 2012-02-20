@@ -1,0 +1,35 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'general.home.title'|trans}}{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo">Copyright</h1>
+
+			<p><strong>Quedan reservados todos los derechos de explotación</strong></p><br />
+
+			<p><strong>Loogares.com</strong> se rige por las leyes de <strong>Creative Commons (CC)</strong>, y se encuentra protegido por la legislación nacional e internacional sobre propiedad intelectual e industrial.</p><br />
+
+			<p>Todos los contenidos que se muestran en el sitio web y, en especial, diseños, textos, gráficos, logos, íconos, código en lenguaje, software, nombres comerciales, marcas, dibujos industriales o cualquier otros signo susceptible de utilización industrial y comercial están sujetos a derechos de propiedad intelectual e industrial de <strong>Loogares.com</strong> y/o de terceros titulares de los mismos que han autorizado debidamente su inclusión en el sitio web.</p><br />
+
+			<p>Queda prohibida la distribución, modificación, transformación, cesión, puesta a disposición del público, y cualquier otra actividad a menos que se rija por las siguientes condiciones:</p><br />
+
+			<ul>
+				<li>Atribución: reconocer y citar la obra de la forma especificada por el autor o el licenciante.</li>
+				<li>No Comercial: no utilizar esta obra para fines comerciales.</li>
+			</ul><br />
+			
+			<p>Al reutilizar o distribuir la obra, se tiene que dejar bien claro los términos de la licencia de la misma. Alguna de estas condiciones pueden no aplicarse si se obtiene el permiso del titular de los derechos de autor. Nada en esta licencia menoscaba o restringe los derechos morales del autor.</p><br />
+
+			<p>El uso no autorizado de los materiales e información contenida en el sitio web puede suponer la violación de la legislación sobre propiedad intelectual o industrial y de otras leyes aplicables positivamente por otros miembros.</p><br />
+			
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}
