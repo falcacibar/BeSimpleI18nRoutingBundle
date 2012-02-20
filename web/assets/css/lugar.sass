@@ -1385,12 +1385,93 @@ $rojo: #F72121
                     padding: 0 0 0 13px
 
 /* Mapa ficha lugar */
+.sidebar
+    .mapa_sidebar
+        float: left
+        height: 300px
+        margin: 0 0 20px 0
+        width: 300px
 
-.mapa_sidebar
-    float: left
-    height: 300px
-    margin: 0 0 20px 0
-    width: 300px    
+    /* Restaurantes con descuentos en Pedidos Online */
+    .caja_promociones
+        border: 1px solid $gris_f6f
+        border-bottom: 0px
+        float: left
+        margin: 0 0 20px 0
+        width: 298px
+
+        a
+            @include link_gris_444
+
+        .ver_todos
+            @include link_azul
+            font:
+                size: 11px
+            float: left
+            padding: 0 10px 10px
+            width: 278px
+
+            &:hover
+                @include link_azul_hover
+
+        ul
+
+            li
+                background: $gris_f6f
+                border-bottom: 1px solid $gris_ccc
+                height: 125px
+                float: left
+                margin: 10px 0 0 0
+                width: 100%
+
+                &:hover
+                    border-bottom: 1px solid $gris_999
+
+                .promocion_delivery_box_sidebar
+                    float: left
+                    margin: 20px 10px
+
+                    .promocion_delivery_img
+                        float: left
+                        width: 50px
+
+                    .promocion_delivery_info_sidebar
+                        float: left
+                        margin: 0 0 0 10px
+                        text-align: left
+                        width: 218px
+
+                        .promocion_lugar
+                            font:
+                                size: 14px
+                                weight: bold
+                            margin: 0 0 5px 0
+                        
+                        .promocion_detalle
+                            float: left
+
+                            .promocion_icono
+                                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -663px
+                                float: left
+                                height: 16px
+                                width: 16px            
+
+                            .promocion_titulo
+                                color: $gris_666
+                                font:
+                                    size: 11px
+                                    weight: bold
+                                float: left
+                                line-height: 14px
+                                margin: 0 0 0 5px
+                                width: 197px
+
+                        .promocion_dias
+                            color: $gris_999
+                            font:
+                                size: 11px
+                            float: left
+                            margin: 10px 0 0 0
 
 /* Recomendaciones */
 
@@ -1651,7 +1732,6 @@ $rojo: #F72121
 /* Paginación de las recomendaciones */
 
 .paginacion_recomendacion
-    border-bottom: 1px solid $gris_f6f
     border-top: 1px solid $gris_f6f
     color: $gris_666
     display: block
@@ -1694,6 +1774,7 @@ $rojo: #F72121
 /* Recomienda el lugar */
 
 .recomienda_lugar_caja
+    border-top: 1px solid $gris_f6f
     float: left
     display: block
     width: 640px
@@ -2166,6 +2247,7 @@ $rojo: #F72121
 
 .enviar_lugar
     border: 1px solid $gris_f6f
+    color: $gris_666
     float: left
     font:
         size: 14px
@@ -2195,6 +2277,8 @@ $rojo: #F72121
                     
         label
             float: left
+            font:
+                weight: bold
             height: 10px
             margin: 4px 10px 4px 0
             width: 150px
@@ -2203,7 +2287,12 @@ $rojo: #F72121
             float: left
             margin: 0 10px 0 0
             padding: 8px
-            width: 350px
+            width: 420px
+
+        .errors
+            float: left
+            margin: 5px 0 0 160px
+            width: 438px
 
         .enviar_mail
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
@@ -2217,7 +2306,82 @@ $rojo: #F72121
                 background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
 
     .separacion_chica
-        margin: 0 0 10px
+        margin: 0 0 5px
+
+    .tips
+        color: $gris_999
+        font:
+            size: 12px
+        margin: 0 0 30px 0
+
+/* Reportes */
+
+.reporte
+    border: 1px solid $gris_f6f
+    color: $gris_666
+    float: left
+    font:
+        size: 14px
+    padding: 20px
+    width: 610px
+
+    .texto_reporte
+        display: block
+        float: left
+        line-height: 22px
+        margin: 0 0 30px 0
+        width: 610px
+
+    a
+        @include link_azul
+
+        &:hover
+            @include link_azul_hover
+    
+    li
+        float: left
+        margin: 0 0 20px
+        width: 610px
+
+        a
+            @include link_azul
+            display: block
+            font:
+                size: 11px
+            margin: 9px 0
+            
+            &:hover
+                @include link_azul_hover
+                    
+        label
+            float: left
+            font:
+                weight: bold
+            height: 10px
+            margin: 4px 10px 4px 0
+            width: 150px
+
+        input, textarea
+            float: left
+            margin: 0 10px 0 0
+            padding: 8px
+            width: 420px
+
+        .errors
+            float: left
+            margin: 5px 0 0 160px
+            width: 438px
+
+        .enviar_reporte
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+            border: 0px
+            cursor: pointer
+            height: 30px
+            margin: 20px 0 0
+            width: 100px
+
+            &:hover
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
 
     .tips
         color: $gris_999

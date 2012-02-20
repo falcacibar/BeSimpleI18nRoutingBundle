@@ -1,79 +1,84 @@
 <body>
-    <div style="font-family:Arial,sans-serif">
-        <table align="center" cellpadding="0" cellspacing="0" width="600" style="width:600px">
+    <div style="font-family: Arial; font-size: 14px;">
+        <table align="center" cellpadding="0" cellspacing="0" width="650" style="width:650px">
             <tr>
-                <td width="160"><img src="{{ logo }}" width="160" height="100" /></td>
-                <td valign="middle" width="440"><hr /></td>
+                <td width="650"><center><img style="margin: 0 0 10px;" src="{{ logo }}" width="180" height="128" /></center></td>
             </tr>
             <tr>
-                <td style="font-size:14px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; padding: 30px 20px; width: 610px;">
+                    <strong>{{mail.asunto}}</strong>
                     <br />
                     <br />
-                    {{mail.asunto}}
+                    {% if mail.tipo != 'owner' %}
+                    <strong>{{'reportes.mail.usuario'|trans}}</strong>
+                    <br />
+                    {{mail.reporte.usuario.nombre}} {{mail.reporte.usuario.apellido}}
                     <br />
                     <br />
-                </td>
-            </tr>
-            <tr>
-                <td style="font-size:12px; color:#000; font-family:Arial,sans-serif" colspan="2">
+                    <strong>{{'reportes.mail.observacion'|trans}}</strong>
+                    <br />
+                    {{mail.reporte.reporte}}
                     <br />
                     <br />
-                    <dl>
-                        {% if mail.tipo != 'owner' %}
-                        <dt>{{'reportes.mail.usuario'|trans}}</dt>
-                        <dd>{{mail.reporte.usuario.nombre}} {{mail.reporte.usuario.apellido}}</dd>
-                        <dt>{{'reportes.mail.observacion'|trans}}</dt>
-                        <dd>{{mail.reporte.reporte}}</dd>
-                        <dt>{{'reportes.mail.lugar.titulo'|trans}}</dt>
-                        <dd> 
-                            {% if mail.tipo == 'lugar' %}
-                                {{mail.reporte.lugar.nombre}}
-                                <br />
-                                <a href="{{url('_lugar',{'slug' : mail.reporte.lugar.slug}) }}">{{url('_lugar',{'slug' : mail.reporte.lugar.slug}) }}</a>
-                            {% elseif mail.tipo == 'imagen' %}
-                                {{mail.reporte.imagenLugar.lugar.nombre}}
-                                </dd>
-                                <dt>{{'reportes.mail.imagen.titulo'|trans}}</dt>
-                                <dd><a href="{{url('_fotoGaleria',{'slug' : mail.reporte.imagenLugar.lugar.slug, 'id' : mail.reporte.imagenLugar.id}) }}">{{url('_fotoGaleria',{'slug' : mail.reporte.imagenLugar.lugar.slug, 'id' : mail.reporte.imagenLugar.id}) }}</a>
-                            {% elseif mail.tipo == 'recomendacion' %}
-                                {{mail.reporte.recomendacion.lugar.nombre}}
-                                </dd>
-                                <dt>{{'reportes.mail.recomendacion.titulo'|trans}}</dt>
-                                <dd><a href="{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}">{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}</a>
-                            {% endif %}
-                        </dd>
-                        {% else %}
-                            <dt>Nombre</dt>
-                            <dd>{{mail.owner.nombre}} {{mail.owner.apellido}}</dd>
-                            <dt>E-mail</dt>
-                            <dd>{{mail.owner.mail}}</dd>
-                            <dt>Teléfono</dt>
-                            <dd>{{mail.owner.telefono}}</dd>
-                            <dt>¿Cómo comprobar que eres dueño?</dt>
-                            <dd>{{mail.owner.texto}}</dd>
-                            <dt>Lugar</dt>
-                            <dd>{{mail.owner.lugar.nombre}} (ID: {{mail.owner.lugar.id}})
-                                <br />
-                                <a href="{{url('_lugar', {'slug' : mail.owner.lugar.slug})}}">{{url('_lugar', {'slug' : mail.owner.lugar.slug})}}</a>
-                            </dd>
+                    {{'reportes.mail.lugar.titulo'|trans}}
+                        {% if mail.tipo == 'lugar' %}
+                            <strong>{{mail.reporte.lugar.nombre}}</strong>
+                            <br />
+                            <a href="{{url('_lugar',{'slug' : mail.reporte.lugar.slug}) }}">{{url('_lugar',{'slug' : mail.reporte.lugar.slug}) }}</a>
+                        {% elseif mail.tipo == 'imagen' %}
+                            <strong>{{mail.reporte.imagenLugar.lugar.nombre}}</strong>
+                            <br />
+                            <strong>{{'reportes.mail.imagen.titulo'|trans}}</strong>
+                            <br />
+                            <a href="{{url('_fotoGaleria',{'slug' : mail.reporte.imagenLugar.lugar.slug, 'id' : mail.reporte.imagenLugar.id}) }}">{{url('_fotoGaleria',{'slug' : mail.reporte.imagenLugar.lugar.slug, 'id' : mail.reporte.imagenLugar.id}) }}</a>
+                        {% elseif mail.tipo == 'recomendacion' %}
+                            <strong>{{mail.reporte.recomendacion.lugar.nombre}}</strong>
+                            <br />
+                            <br />
+                            <strong>{{'reportes.mail.recomendacion.titulo'|trans}}</strong>
+                            <br />
+                            <a href="{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}">{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}</a>
                         {% endif %}
-                    </dl>
-                    <br />
-                    <br />
+                    {% else %}
+                        <strong>Nombre</strong>
+                        <br/>
+                        {{mail.owner.nombre}} {{mail.owner.apellido}}
+                        <br/>
+                        <br/>
+                        <strong>E-mail</strong>
+                        <br/>
+                        {{mail.owner.mail}}
+                        <br/>
+                        <br/>
+                        <strong>Teléfono</strong>
+                        <br/>
+                        {{mail.owner.telefono}}
+                        <br/>
+                        <br/>
+                        <strong>¿Cómo comprobar que eres dueño?</strong>
+                        <br/>
+                        {{mail.owner.texto}}
+                        <br/>
+                        <br/>
+                        <strong>Lugar</strong>
+                        <br/>
+                        {{mail.owner.lugar.nombre}} (ID: {{mail.owner.lugar.id}})
+                        <br />
+                        <a href="{{url('_lugar', {'slug' : mail.owner.lugar.slug})}}">{{url('_lugar', {'slug' : mail.owner.lugar.slug})}}</a>
+                    {% endif %}
                 </td>
             </tr>
             <tr>
-                <td style="font-size:11px; color:#999; font-family:Arial,sans-serif" colspan="2">
-                    <hr />
+                <td style="color: #CCC; font-size: 11px; padding: 20px">
                     <br />
-                    {% trans with {'%open_tag%': "<b><a href='http://www.loogares.com' style='color:#06f; text-decoration:none'>", '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
-                    <br />
-                    {% trans with {'%open_a%': "<a href='mailto:contacto@loogares.com' style='color:#06f; text-decoration:none'>", '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
+                    {{'mail.usuario.nombre'}} {% trans with {'%open_tag%': "<b><a href='mailto:sivicencio@gmail.com' style='color: #0066CC; text-decoration: none'>", '%close_tag%' : '</a></b>', '%mail%' : 'mail.usuario.mail'}%}usuario.mail.usuario{% endtrans %}
                     <br />
                     <br />
-                    &copy; {{'usuario.mail.firma'|trans}}
+                    {% trans with {'%open_a%': '<a href="mailto:contacto@loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
+                    <br />
+                    <br />
+                    <span style="display: block; text-align: center;">&copy; {{'usuario.mail.firma'|trans}}</span>
                 </td>
-
             </tr>
         </table>
     </div>

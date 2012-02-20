@@ -1,8 +1,10 @@
 <div class="barra_ciudad">
 	<div class="centrado_ciudad">
-		<div class="logo_ciudad">
-			<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />
-		</div>
+		<a href="{{path('root')}}">
+			<div class="logo_ciudad">			
+				<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />			
+			</div>
+		</a>
 		{% render "LoogaresExtraBundle:Default:ciudad" %}
 		<div class="login">
 			{% if is_granted('ROLE_USER') %}
@@ -18,7 +20,9 @@
 								<a href="{{path('actividadUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.actividad'|trans}}</span></li></a>
 								<a href="{{path('recomendacionesUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.recomendaciones'|trans}}</span></li></a>
 								<a href="{{path('fotosLugaresUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.fotos'|trans}}</span></li></a>
-								<a href="#"><li><span>{{'general.header.usuario.lugares'|trans}}</span>{% render "LoogaresUsuarioBundle:Usuario:totalRecomendacionesPendientes" %}</li></a>
+								<a href="{{path('lugaresUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.lugares'|trans}}</span></li></a>
+								<a href="{{path('lugaresUsuario', { 'param': slug })}}"><li><span class="subconjunto">{{'general.header.usuario.por_recomendar'|trans}}</span><span class="numero_notificacion por_recomendar">{% render "LoogaresUsuarioBundle:Usuario:totalAccionesPendientes" with {'accion' : 5} %}</span></li></a>
+								<a href="{{path('lugaresUsuario', { 'param': slug })}}"><li><span class="subconjunto">{{'general.header.usuario.para_visitar'|trans}}</span><span class="numero_notificacion para_visitar">{% render "LoogaresUsuarioBundle:Usuario:totalAccionesPendientes" with {'accion' : 1} %}</span></li></a>
 								<a href="{{path('logout')}}"><li><span>{{'general.header.usuario.logout'|trans}}</span></li></a>
 							</ul>
 						</div>
@@ -41,9 +45,11 @@
 
 <div class="menu">
 	<div class="centrado_menu">
-		<div class="logo_ciudad_menu">
-			<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
-		</div>
+		<a href="{{path('root')}}">
+			<div class="logo_ciudad_menu">
+				<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
+			</div>
+		</a>
 		{% render "LoogaresExtraBundle:Default:menu" %}
 		<div class="buscador_box">
 			<form action="{{ path('_buscar', { 'slug': 'santiago-de-chile' }) }}">

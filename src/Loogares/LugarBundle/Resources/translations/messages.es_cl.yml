@@ -130,6 +130,10 @@ lugar:
         otros:
             titulo: Otros Lugares en el área
             categoria: Categoría:|Categorías:
+        promociones:
+            titulo: Restaurantes con descuentos en Pedidos Online 
+            dias: Días
+            ver_dctos: Ver todos los descuentos 
         recomienda:
             titulo: Recomienda
     fotos:
@@ -205,7 +209,7 @@ lugar:
             mail: ¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora deberías exigirles una salida... ¡todo incluido!
 
 reportes:
-    titulo: "{0} Reporta %lugar%|{1} Reporta la recomendación de %usuario% en %lugar%|]1,Inf] Reporta la foto de %usuario% en %lugar%"
+    titulo: "{0} Reportar %lugar%|{1} Reportar la recomendación de %usuario% en %lugar%|]1,Inf] Reportar la foto de %usuario% en %lugar%"
     lugar:
         titulo_pag: Reportar %lugar%
         subtitulo: ¿Este lugar ya no existe? ¿O está repetido? Recuerda que puedes editar los datos de los lugares que tengan errores en su información. Para cualquier otro problema no dudes en avisarnos.
@@ -245,7 +249,7 @@ compartir:
             saludo: ¡Hola %destinatario%!
             subtitulo: quiere contarte sobre un Lugar que te puede gustar:
             texto: Lo que te dice: 
-        placeholder: ¡Este lugar es increíble!           
+        placeholder: ¡Quiero que conozcas este lugar!           
     recomendacion:
         mail:
             titulo_pag: Enviar recomendación en %lugar% a tus amigos
@@ -258,7 +262,7 @@ compartir:
         nombre: Tu Nombre *
         mail: Tu E-mail *
         mails_amigos: E-mails de tus amigos *
-        cuerpo: ¿Y qué les vas a contar?
+        cuerpo: ¿Y qué les vas a decir?
         tips:
             comas: Para enviar a más de una dirección de E-mail, sepáralas por una coma (,)
             obligatorio: Los campos con (*) son obligatorios

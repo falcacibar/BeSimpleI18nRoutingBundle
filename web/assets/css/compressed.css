@@ -57,6 +57,21 @@
       .filtro_admin .seleccionar_estado a:hover {
         color: #0066cc;
         text-decoration: underline; }
+  .filtro_admin .agregar_pedido {
+    background: #66ccff;
+    border: 1px solid #0099ff;
+    color: white;
+    cursor: pointer;
+    float: right;
+    margin: 2px 0;
+    padding: 3px 3px 4px;
+    text-align: center;
+    text-decoration: none;
+    width: 80px; }
+    .filtro_admin .agregar_pedido:hover {
+      background: #0099ff; }
+    .filtro_admin .agregar_pedido:focus {
+      background: #0066cc; }
 
 .listado_admin {
   border: 1px solid #cccccc;
@@ -87,6 +102,10 @@
       font-size: 12px;
       text-align: left;
       width: 1850px; }
+    .listado_admin .table-data .listado_pedidos {
+      font-size: 12px;
+      text-align: left;
+      width: 1400px; }
     .listado_admin .table-data .tablescroll_head {
       background: #f2f2f6; }
     .listado_admin .table-data th {
@@ -566,13 +585,21 @@ a.chzn-single.chzn-error {
   padding: 30px 0 0;
   width: 640px; }
 
+.titulo_promocion_pedidos {
+  font-size: 20px;
+  line-height: 30px;
+  display: block;
+  float: left;
+  margin: 20px 10px 10px;
+  width: 278px; }
+
 .titulo_otros_lugares {
   font-size: 20px;
   line-height: 30px;
   display: block;
   float: left;
   margin: 20px 10px 10px;
-  width: 298px; }
+  width: 278px; }
 
 .titulo_accion_usuario {
   font-size: 20px;
@@ -674,7 +701,8 @@ textarea {
           float: left;
           display: block;
           padding: 0 5px 0 0;
-          position: relative; }
+          position: relative;
+          min-width: 200px; }
         .barra_ciudad .centrado_ciudad .login li .imagen_usuario_header {
           float: left;
           height: 25px;
@@ -686,7 +714,7 @@ textarea {
         .barra_ciudad .centrado_ciudad .login li .flecha_ciudad {
           background: url("../images/extras/botones_sprite.png") -99px -1px;
           display: block;
-          float: left;
+          float: right;
           height: 3px;
           margin: 11px 0;
           width: 6px; }
@@ -719,6 +747,21 @@ textarea {
               .barra_ciudad .centrado_ciudad .login li ul a li .con_icono {
                 float: left;
                 padding: 10px 10px 10px 5px; }
+              .barra_ciudad .centrado_ciudad .login li ul a li .subconjunto {
+                float: left;
+                padding: 10px 10px 10px 20px; }
+              .barra_ciudad .centrado_ciudad .login li ul a li .numero_notificacion {
+                border-radius: 4px;
+                -o-border-radius: 4px;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                background: #ff5353;
+                color: white;
+                float: right;
+                font-weight: bold;
+                margin: 8px 10px 0px;
+                padding: 3px 5px;
+                text-shadow: 0px 1px 1px #444444; }
       .barra_ciudad .centrado_ciudad .login .facebook_login {
         background: url("../images/extras/botones_sprite.png") 0px 0px;
         float: right;
@@ -996,6 +1039,17 @@ textarea {
           font-size: 14px;
           line-height: 22px;
           margin: 0 0 20px 0; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .usuario_reset_password {
+          display: block;
+          float: left;
+          font-size: 14px;
+          margin: 2px 0 10px;
+          text-align: left;
+          width: 240px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .label_reset_password {
+          width: 140px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .input_reset_password {
+          width: 240px; }
         .contenedor .contenido .cajas_registro .columna_izquierda_password ul li label {
           display: block;
           float: left;
@@ -1013,6 +1067,8 @@ textarea {
         .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .errors {
           float: left;
           margin: 0px 0px 10px 125px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .errors_reset_password {
+          margin: 0px 0px 10px 155px; }
         .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar {
           background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -31px;
           border: 0px;
@@ -1021,6 +1077,15 @@ textarea {
           margin: 10px 0 0 125px;
           width: 100px; }
           .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar:hover {
+            background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -81px; }
+        .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar_reset_password {
+          background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -31px;
+          border: 0px;
+          cursor: pointer;
+          height: 30px;
+          margin: 10px 0 0 155px;
+          width: 100px; }
+          .contenedor .contenido .cajas_registro .columna_izquierda_password ul li .boton_enviar_reset_password:hover {
             background: url("../images/extras/botones_registro_usuario.png") no-repeat -854px -81px; }
       .contenedor .contenido .cajas_registro .login {
         float: left;
@@ -1332,6 +1397,118 @@ small {
     padding: 10px;
     box-sizing: border-box;
     -moz-box-sizing: border-box; }
+
+/* Colores */
+/* Mixin */
+#home .columna_izq {
+  float: left;
+  width: 630px; }
+  #home .columna_izq .home_something {
+    background: #f2f2f6;
+    height: 250px;
+    float: left;
+    width: 100%; }
+  #home .columna_izq .caja_promociones {
+    float: left;
+    margin: 0 0 20px 0;
+    width: 100%; }
+    #home .columna_izq .caja_promociones a {
+      color: #231f20;
+      text-decoration: none; }
+      #home .columna_izq .caja_promociones a.ver_todos {
+        color: #0066cc !important;
+        text-decoration: none;
+        font-size: 11px;
+        float: right;
+        margin: 60px 0 0 0; }
+    #home .columna_izq .caja_promociones h2 {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 20px 0; }
+    #home .columna_izq .caja_promociones ul {
+      float: left; }
+      #home .columna_izq .caja_promociones ul li {
+        background: #f2f2f6;
+        border-bottom: 1px solid #cccccc;
+        height: 150px;
+        width: 198px;
+        float: left;
+        margin: 0 15px 0 0;
+        padding: 1px;
+        display: inline; }
+        #home .columna_izq .caja_promociones ul li:hover {
+          border-bottom: 1px solid #999999; }
+        #home .columna_izq .caja_promociones ul li.ultimo_pedido {
+          margin-right: 0px; }
+        #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar {
+          float: left;
+          margin: 20px 10px; }
+          #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_img {
+            float: left;
+            width: 50px; }
+          #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar {
+            float: left;
+            margin: 0 0 0 8px;
+            text-align: left;
+            width: 120px; }
+            #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_lugar {
+              font-size: 14px;
+              font-weight: bold;
+              margin: 0 0 5px 0;
+              color: #444444; }
+            #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_detalle {
+              float: left; }
+              #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_detalle .promocion_icono {
+                background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -663px;
+                float: left;
+                height: 16px;
+                width: 16px; }
+              #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_detalle .promocion_titulo {
+                color: #666666;
+                font-size: 11px;
+                font-weight: bold;
+                float: left;
+                line-height: 14px;
+                margin: 0 0 0 5px; }
+            #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_dias {
+              color: #999999;
+              font-size: 11px;
+              float: left;
+              margin: 10px 0 0 0; }
+#home .columna_der {
+  float: right;
+  width: 300px; }
+  #home .columna_der .actividad_loogares {
+    width: 100%;
+    float: left; }
+    #home .columna_der .actividad_loogares .titulo_actividad {
+      border-left: 5px solid #ff3300;
+      background: #444444;
+      padding: 5px 10px 5px 20px; }
+      #home .columna_der .actividad_loogares .titulo_actividad h2 {
+        color: white;
+        font-size: 14px; }
+    #home .columna_der .actividad_loogares .contenido_actividad {
+      background: whiteSmoke;
+      height: 70px;
+      padding: 17px 10px; }
+      #home .columna_der .actividad_loogares .contenido_actividad .numero_actividad {
+        color: #0099ff;
+        float: left;
+        font-size: 28px;
+        text-align: right;
+        width: 75px;
+        text-shadow: -3px 0 1px #cccccc;
+        -moz-text-shadow: -3px 0 1px #cccccc;
+        -webkit-text-shadow: -3px 0 1px #cccccc; }
+      #home .columna_der .actividad_loogares .contenido_actividad .texto_actividad {
+        float: left;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 31px;
+        padding: 0 0 0 5px;
+        text-align: left;
+        width: 200px; }
 
 /* Colores */
 /* Mixin */
@@ -2382,11 +2559,76 @@ small {
         padding: 0 0 0 13px; }
 
 /* Mapa ficha lugar */
-.mapa_sidebar {
-  float: left;
-  height: 300px;
-  margin: 0 0 20px 0;
-  width: 300px; }
+.sidebar {
+  /* Restaurantes con descuentos en Pedidos Online */ }
+  .sidebar .mapa_sidebar {
+    float: left;
+    height: 300px;
+    margin: 0 0 20px 0;
+    width: 300px; }
+  .sidebar .caja_promociones {
+    border: 1px solid #f2f2f6;
+    border-bottom: 0px;
+    float: left;
+    margin: 0 0 20px 0;
+    width: 298px; }
+    .sidebar .caja_promociones a {
+      color: #444444;
+      text-decoration: none; }
+    .sidebar .caja_promociones .ver_todos {
+      color: #0066cc;
+      text-decoration: none;
+      font-size: 11px;
+      float: left;
+      padding: 0 10px 10px;
+      width: 278px; }
+      .sidebar .caja_promociones .ver_todos:hover {
+        color: #0066cc;
+        text-decoration: underline; }
+    .sidebar .caja_promociones ul li {
+      background: #f2f2f6;
+      border-bottom: 1px solid #cccccc;
+      height: 125px;
+      float: left;
+      margin: 10px 0 0 0;
+      width: 100%; }
+      .sidebar .caja_promociones ul li:hover {
+        border-bottom: 1px solid #999999; }
+      .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar {
+        float: left;
+        margin: 20px 10px; }
+        .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_img {
+          float: left;
+          width: 50px; }
+        .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar {
+          float: left;
+          margin: 0 0 0 10px;
+          text-align: left;
+          width: 218px; }
+          .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_lugar {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 5px 0; }
+          .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_detalle {
+            float: left; }
+            .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_detalle .promocion_icono {
+              background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -663px;
+              float: left;
+              height: 16px;
+              width: 16px; }
+            .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_detalle .promocion_titulo {
+              color: #666666;
+              font-size: 11px;
+              font-weight: bold;
+              float: left;
+              line-height: 14px;
+              margin: 0 0 0 5px;
+              width: 197px; }
+          .sidebar .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_dias {
+            color: #999999;
+            font-size: 11px;
+            float: left;
+            margin: 10px 0 0 0; }
 
 /* Recomendaciones */
 .ordenar_por_recomendaciones {
@@ -2600,7 +2842,6 @@ small {
 
 /* Paginación de las recomendaciones */
 .paginacion_recomendacion {
-  border-bottom: 1px solid #f2f2f6;
   border-top: 1px solid #f2f2f6;
   color: #666666;
   display: block;
@@ -2637,6 +2878,7 @@ small {
 
 /* Recomienda el lugar */
 .recomienda_lugar_caja {
+  border-top: 1px solid #f2f2f6;
   float: left;
   display: block;
   width: 640px; }
@@ -3019,6 +3261,7 @@ small {
 /* Enviar lugar por mail */
 .enviar_lugar {
   border: 1px solid #f2f2f6;
+  color: #666666;
   float: left;
   font-size: 14px;
   padding: 20px;
@@ -3044,6 +3287,7 @@ small {
         text-decoration: underline; }
     .enviar_lugar li label {
       float: left;
+      font-weight: bold;
       height: 10px;
       margin: 4px 10px 4px 0;
       width: 150px; }
@@ -3051,7 +3295,11 @@ small {
       float: left;
       margin: 0 10px 0 0;
       padding: 8px;
-      width: 350px; }
+      width: 420px; }
+    .enviar_lugar li .errors {
+      float: left;
+      margin: 5px 0 0 160px;
+      width: 438px; }
     .enviar_lugar li .enviar_mail {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
       border: 0px;
@@ -3062,8 +3310,70 @@ small {
       .enviar_lugar li .enviar_mail:hover {
         background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
   .enviar_lugar .separacion_chica {
-    margin: 0 0 10px; }
+    margin: 0 0 5px; }
   .enviar_lugar .tips {
+    color: #999999;
+    font-size: 12px;
+    margin: 0 0 30px 0; }
+
+/* Reportes */
+.reporte {
+  border: 1px solid #f2f2f6;
+  color: #666666;
+  float: left;
+  font-size: 14px;
+  padding: 20px;
+  width: 610px; }
+  .reporte .texto_reporte {
+    display: block;
+    float: left;
+    line-height: 22px;
+    margin: 0 0 30px 0;
+    width: 610px; }
+  .reporte a {
+    color: #0066cc;
+    text-decoration: none; }
+    .reporte a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
+  .reporte li {
+    float: left;
+    margin: 0 0 20px;
+    width: 610px; }
+    .reporte li a {
+      color: #0066cc;
+      text-decoration: none;
+      display: block;
+      font-size: 11px;
+      margin: 9px 0; }
+      .reporte li a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
+    .reporte li label {
+      float: left;
+      font-weight: bold;
+      height: 10px;
+      margin: 4px 10px 4px 0;
+      width: 150px; }
+    .reporte li input, .reporte li textarea {
+      float: left;
+      margin: 0 10px 0 0;
+      padding: 8px;
+      width: 420px; }
+    .reporte li .errors {
+      float: left;
+      margin: 5px 0 0 160px;
+      width: 438px; }
+    .reporte li .enviar_reporte {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+      border: 0px;
+      cursor: pointer;
+      height: 30px;
+      margin: 20px 0 0;
+      width: 100px; }
+      .reporte li .enviar_reporte:hover {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
+  .reporte .tips {
     color: #999999;
     font-size: 12px;
     margin: 0 0 30px 0; }
@@ -3212,6 +3522,8 @@ small {
   margin: 20px 0 0;
   position: relative;
   width: 960px; }
+  .caja_contenidos_usuario .caja_contenido {
+    min-height: 350px; }
   .caja_contenidos_usuario .menu_actividad_usuario {
     box-sizing: border-box;
     -o-box-sizing: border-box;

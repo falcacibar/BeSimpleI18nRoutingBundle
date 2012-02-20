@@ -45,9 +45,10 @@ usuario:
             link: Volver a la %open_a%Página de inicio%close_a%
             mail:
                 titulo: ¡Felicitaciones %nombre% %apellido%!
-                texto: Estás a punto de convertirte en un Loogareño, haz clic %open_a%acá%close_a% para confirmar tu cuenta.
+                texto: Estás a punto de convertirte en un Loogareño, clickea el botón para confirmar tu cuenta.
+                texto_bajada: ¿Estás preparado para lo que viene? ¡No te arrepentirás!
                 texto_plano: Estás a punto de convertirte en un Loogareño. Para confirmar tu cuenta, ingresa el siguiente link en tu navegador:
-                asunto: Confirma tu cuenta en Loogares.com
+                asunto: Confírma tu cuenta en Loogares.com
     perfil:
         titulo_pag: Perfil De 
     datos:

@@ -270,12 +270,19 @@ a.chzn-single.chzn-error
     padding: 30px 0 0
     width: 640px
 
+.titulo_promocion_pedidos
+    @include titulo_medio
+    display: block
+    float: left
+    margin: 20px 10px 10px
+    width: 278px
+
 .titulo_otros_lugares
     @include titulo_medio
     display: block
     float: left
     margin: 20px 10px 10px
-    width: 298px
+    width: 278px
 
 .titulo_accion_usuario
     @include titulo_medio
@@ -395,6 +402,7 @@ textarea
                     display: block
                     padding: 0 5px 0 0
                     position: relative
+                    min-width: 200px
 
                 .imagen_usuario_header
                     float: left
@@ -409,7 +417,7 @@ textarea
                 .flecha_ciudad
                     background: url('../images/extras/botones_sprite.png') -99px -1px
                     display: block
-                    float: left
+                    float: right
                     height: 3px
                     margin: 11px 0
                     width: 6px
@@ -449,6 +457,21 @@ textarea
                             .con_icono
                                 float: left
                                 padding: 10px 10px 10px 5px
+
+                            .subconjunto
+                                float: left
+                                padding: 10px 10px 10px 20px
+
+                            .numero_notificacion
+                                @include borde_redondeado_4px
+                                background: $rojo_medio
+                                color: $blanco
+                                float: right
+                                font:
+                                    weight: bold
+                                margin: 8px 10px 0px
+                                padding: 3px 5px
+                                text-shadow: 0px 1px 1px $gris_444
 
             .facebook_login
                 background: url('../images/extras/botones_sprite.png') 0px 0px
@@ -774,7 +797,22 @@ textarea
                 ul
                     
                     li
+
+                        .usuario_reset_password
+                            display: block
+                            float: left
+                            font:
+                                size: 14px
+                            margin: 2px 0 10px
+                            text-align: left
+                            width: 240px
                         
+                        .label_reset_password
+                            width: 140px
+
+                        .input_reset_password
+                            width: 240px
+
                         label
                             display: block
                             float: left
@@ -796,12 +834,26 @@ textarea
                             float: left
                             margin: 0px 0px 10px 125px
 
+                        .errors_reset_password
+                            margin: 0px 0px 10px 155px
+
                         .boton_enviar
                             background: url('../images/extras/botones_registro_usuario.png') no-repeat -854px -31px
                             border: 0px
                             cursor: pointer
                             height: 30px
                             margin: 10px 0 0 125px
+                            width: 100px
+
+                            &:hover
+                                background: url('../images/extras/botones_registro_usuario.png') no-repeat -854px -81px
+
+                        .boton_enviar_reset_password
+                            background: url('../images/extras/botones_registro_usuario.png') no-repeat -854px -31px
+                            border: 0px
+                            cursor: pointer
+                            height: 30px
+                            margin: 10px 0 0 155px
                             width: 100px
 
                             &:hover

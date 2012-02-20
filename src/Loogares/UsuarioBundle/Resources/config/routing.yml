@@ -65,4 +65,6 @@ editarBorrarUsuario:
     pattern:  /{param}/editar/borrar
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarBorrar }
 
-
+accionesPendientes:
+    pattern:  /acciones_pendientes/{accion}
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:totalAccionesPendientes }

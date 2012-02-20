@@ -241,7 +241,6 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
     }
     
     public function getDatosUsuario($usuario) {
-
         
         //Total recomendaciones usuario         
         $totalRecomendaciones = $this->getTotalUsuarioRecomendaciones($usuario->getId());
@@ -255,6 +254,12 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
 
         //Total de fotos de lugares agregadas por el usuario
         $totalImagenesLugar = $this->getTotalFotosLugaresAgregadasUsuario($usuario->getId());
+
+        //Total acciones del usuario
+        $totalAcciones = array();
+        for($i = 1; $i <= 5; $i++) {
+            $totalAcciones[] = $this->getTotalAccionesUsuario($i, $usuario);
+        }
         
         //Cálculo de edad
         if($usuario->getFechaNacimiento() != null) {
@@ -310,6 +315,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         $data->totalPrimerasRecomendaciones = $totalPrimerasRecomendaciones;
         $data->totalLugaresAgregados = $totalLugaresAgregados;
         $data->totalImagenesLugar = $totalImagenesLugar;
+        $data->totalAcciones = $totalAcciones;
         $data->edad = $edad;
         $data->sexoResult = $sexoResult;
         $data->links = $links;

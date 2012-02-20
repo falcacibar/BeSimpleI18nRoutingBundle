@@ -8,9 +8,10 @@ general:
             recomendaciones: Recomendaciones
             fotos: Fotos
             lugares: Listado de lugares
+            por_recomendar: Lugares por recomendar
+            para_visitar: Lugares para visitar
             logout: Salir
             registro: Regístrate
-
     footer:
         participa:
             titulo: Participa
@@ -46,6 +47,9 @@ general:
         recomendacion: Recomendación|Recomendaciones
         sector: Sector
         resultados: Resultados para
+
+    home:
+        title: Comparte y Vive la ciudad
 
 
 

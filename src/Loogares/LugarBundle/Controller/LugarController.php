@@ -729,7 +729,7 @@ class LugarController extends Controller{
                         $newImagen->setLugar($lugar);
                         if($this->get('security.context')->isGranted('ROLE_ADMIN')) {
                         $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
-                                        ->findOneByNombre('Aprobado');
+                                        ->findOneByNombre('Por revisar');
                         }
                         else {
                              $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
@@ -1117,7 +1117,8 @@ class LugarController extends Controller{
                 $mail['tipo'] = "nueva-recomendacion";
 
                 $paths = array();
-                $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
+                $paths['logo'] = 'assets/images/mails/logo_mails.png';
+                $paths['boton'] = 'assets/images/mails/recibir_propuesta.png';
                 $paths['estrella_llena'] =  'assets/images/extras/estrella_llena_recomendacion.png';
                 $paths['estrella_media'] =  'assets/images/extras/estrella_media_recomendacion.png';
                 $paths['estrella_vacia'] =  'assets/images/extras/estrella_vacia_recomendacion.png';
@@ -1147,7 +1148,7 @@ class LugarController extends Controller{
                     $mail['tipo'] = "despues-recomendacion";
 
                     $paths = array();
-                    $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
+                    $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
                     $message = $this->get('fn')->enviarMail($mail['asunto'], $usuarioAnterior->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
                     $this->get('mailer')->send($message);
@@ -1234,7 +1235,7 @@ class LugarController extends Controller{
                             ->setSubject($mail['asunto'])
                             ->setFrom($usuario['mail'])
                             ->setTo($e);
-                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                     $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_enviar.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                     $this->get('mailer')->send($message);  
                 }
@@ -1313,7 +1314,7 @@ class LugarController extends Controller{
                             ->setSubject($mail['asunto'])
                             ->setFrom($usuario['mail'])
                             ->setTo($e);
-                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                     $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_enviar.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                     $this->get('mailer')->send($message);  
                 }
@@ -1393,7 +1394,7 @@ class LugarController extends Controller{
                         ->setSubject($mail['asunto'])
                         ->setFrom('noreply@loogares.com')
                         ->setTo('reportar@loogares.com');
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                 $this->get('mailer')->send($message);               
 
@@ -1478,7 +1479,7 @@ class LugarController extends Controller{
                         ->setSubject($mail['asunto'])
                         ->setFrom('noreply@loogares.com')
                         ->setTo('reportar@loogares.com');
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                 $this->get('mailer')->send($message);               
 
@@ -1549,7 +1550,7 @@ class LugarController extends Controller{
                         ->setSubject($mail['asunto'])
                         ->setFrom('noreply@loogares.com')
                         ->setTo('reportar@loogares.com');
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                 $this->get('mailer')->send($message);               
 
@@ -1600,7 +1601,7 @@ class LugarController extends Controller{
                             ->setSubject($mail['asunto'])
                             ->setFrom('noreply@loogares.com')
                             ->setTo('duenos.local@loogares.com');
-                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                     $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                     $this->get('mailer')->send($message);
 
@@ -1653,7 +1654,7 @@ class LugarController extends Controller{
                         ->setSubject($mail['asunto'])
                         ->setFrom('noreply@loogares.com')
                         ->setTo('duenos.local@loogares.com');
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                 $this->get('mailer')->send($message); 
 
@@ -1693,5 +1694,27 @@ class LugarController extends Controller{
             'lugar' => $lugar,
             'pedidos' => $pedidos,
         ));
+    }
+
+    public function moduloDescuentosAction($ciudad) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $promociones = $lr->getPedidosRandom($ciudad);
+
+        // Sort Random
+        shuffle($promociones);
+        $promocionesRandom = array();
+        if(count($promociones) > 0) {
+            $promocionesRandom[] = $promociones[0];
+            if(count($promociones) > 1)
+                $promocionesRandom[] = $promociones[1];
+            if(count($promociones) >= 2)
+                $promocionesRandom[] = $promociones[2];
+        }
+
+        return $this->render('LoogaresLugarBundle:Lugares:promocion_pedidos.html.twig', array(
+            'promociones' => $promocionesRandom,
+        ));        
     }
 }

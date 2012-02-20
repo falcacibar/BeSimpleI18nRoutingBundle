@@ -422,7 +422,7 @@ class AdminController extends Controller
 
             // Se envía mail a usuario que agregó el lugar
             $paths = array();
-            $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
+            $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
             $message = $this->get('fn')->enviarMail($mail['asunto'], $mail['usuario']->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresAdminBundle:Mails:mail_accion_lugar.html.twig', $this->get('templating'));
             $this->get('mailer')->send($message);
@@ -777,7 +777,7 @@ class AdminController extends Controller
                         ->setSubject($mail['asunto'])
                         ->setFrom('noreply@loogares.com')
                         ->setTo($mail['usuario']->getMail());
-            $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+            $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
             $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_foto.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
             $this->get('mailer')->send($message);
             
@@ -975,7 +975,7 @@ class AdminController extends Controller
                         ->setSubject($mail['asunto'])
                         ->setFrom('noreply@loogares.com')
                         ->setTo($mail['usuario']->getMail());
-            $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+            $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
             $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_recomendacion.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
             $this->get('mailer')->send($message);
 
@@ -1028,7 +1028,7 @@ class AdminController extends Controller
                         ->setSubject($mail['asunto'])
                         ->setFrom('noreply@loogares.com')
                         ->setTo($mail['usuario']->getMail());
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_recomendacion.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                 $this->get('mailer')->send($message);   
             }
@@ -1118,7 +1118,7 @@ class AdminController extends Controller
                         ->setSubject($mail['asunto'])
                         ->setFrom('noreply@loogares.com')
                         ->setTo($mail['usuario']->getMail());
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
+                $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_foto.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
                 $this->get('mailer')->send($message);                
             }
@@ -1415,6 +1415,19 @@ class AdminController extends Controller
         unset($args['id']);
 
         return $this->redirect($this->generateUrl('LoogaresAdminBundle_pedidosLugar', $args));    
+    }
+
+    public function testMailAction() {
+    //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_foto.html.twig');
+    //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_lugar.html.twig');
+    //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_recomendacion.html.twig');
+    //    return $this->render('LoogaresLugarBundle:Mails:test_mail_enviar.html.twig');
+        return $this->render('LoogaresLugarBundle:Mails:test_mail_lugar.html.twig');
+    //    return $this->render('LoogaresLugarBundle:Mails:test_mail_recomendar.html.twig');
+    //    return $this->render('LoogaresLugarBundle:Mails:test_mail_reporte.html.twig');
+    //    return $this->render('LoogaresUsuarioBundle:Mails:test_mail_olvidar_password.html.twig');
+    //    return $this->render('LoogaresUsuarioBundle:Usuarios:test_mail_borrar_cuenta.html.twig');
+    //    return $this->render('LoogaresUsuarioBundle:Usuarios:test_mail_registro.html.twig');
     }
 
 }

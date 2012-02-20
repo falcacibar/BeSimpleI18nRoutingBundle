@@ -20,42 +20,42 @@
 		<li><strong>{{'usuario.lugares.orden.texto'|trans}}</strong></li>		
 		<li>
 			{% if usuario.accion == 3 %}
-				# {{'usuario.lugares.orden.visitados'|trans}}<span class="orden_separacion">|</span>
+				{{usuario.totalAcciones[2]}} {{'usuario.lugares.orden.visitados'|trans}}<span class="orden_separacion">|</span>
 				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '3', 'pagina' : usuario.pagina })}}" style="display:none"></a>
 			{% else %}
-				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '3', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># {{'usuario.lugares.orden.visitados'|trans}}</a><span class="orden_separacion">|</span>
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '3', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link">{{usuario.totalAcciones[2]}} {{'usuario.lugares.orden.visitados'|trans}}</a><span class="orden_separacion">|</span>
 			{% endif %}
 		</li>
 		<li>
 			{% if usuario.accion == 4 %}
-				# {{'usuario.lugares.orden.favoritos'|trans}}<span class="orden_separacion">|</span>
+				{{usuario.totalAcciones[3]}} {{'usuario.lugares.orden.favoritos'|trans}}<span class="orden_separacion">|</span>
 				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '4', 'pagina' : usuario.pagina })}}" style="display:none"></a>
 			{% else %}
-				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '4', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># {{'usuario.lugares.orden.favoritos'|trans}}</a><span class="orden_separacion">|</span>
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '4', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link">{{usuario.totalAcciones[3]}} {{'usuario.lugares.orden.favoritos'|trans}}</a><span class="orden_separacion">|</span>
 			{% endif %}
 		</li>
 		<li>
 			{% if usuario.accion == 1 %}
-				# {{'usuario.lugares.orden.por_visitar'|trans}}<span class="orden_separacion">|</span>
+				{{usuario.totalAcciones[0]}} {{'usuario.lugares.orden.por_visitar'|trans}}<span class="orden_separacion">|</span>
 				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '1', 'pagina' : usuario.pagina })}}" style="display:none"></a>
 			{% else %}
-				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '1', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># {{'usuario.lugares.orden.por_visitar'|trans}}</a><span class="orden_separacion">|</span>
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '1', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link">{{usuario.totalAcciones[0]}} {{'usuario.lugares.orden.por_visitar'|trans}}</a><span class="orden_separacion">|</span>
 			{% endif %}
 		</li>
 		<li>
 			{% if usuario.accion == 2 %}
-				# {{'usuario.lugares.orden.por_volver'|trans}}<span class="orden_separacion">|</span>
+				{{usuario.totalAcciones[1]}} {{'usuario.lugares.orden.por_volver'|trans}}<span class="orden_separacion">|</span>
 				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '2', 'pagina' : usuario.pagina })}}" style="display:none"></a>
 			{% else %}
-				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '2', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># {{'usuario.lugares.orden.por_volver'|trans}}</a><span class="orden_separacion">|</span>
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '2', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link">{{usuario.totalAcciones[1]}} {{'usuario.lugares.orden.por_volver'|trans}}</a><span class="orden_separacion">|</span>
 			{% endif %}
 		</li>
 		<li>
 			{% if usuario.accion == 5 %}
-				# {{'usuario.lugares.orden.por_recomendar'|trans}}
+				{{usuario.totalAcciones[4]}} {{'usuario.lugares.orden.por_recomendar'|trans}}
 				<a class="reload_link" href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '5', 'pagina' : usuario.pagina })}}" style="display:none"></a>
 			{% else %}
-				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '5', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link"># {{'usuario.lugares.orden.por_recomendar'|trans}}</a>
+				<a href="{{path('lugaresUsuario', { 'param' : slug, 'accion' : '5', 'pagina' : usuario.pagina })}}" class="lugares_usuario_link">{{usuario.totalAcciones[4]}} {{'usuario.lugares.orden.por_recomendar'|trans}}</a>
 			{% endif %}
 		</li>
 	</ul>
@@ -112,7 +112,7 @@
 
 	{% if usuario.totalPaginas > 1 %}
 		<div class="paginacion_perfil">
-        	<p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{usuario.totalAcciones}}</strong>
+        	<p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{usuario.totalAcciones[usuario.accion - 1]}}</strong>
             {% if paginacion.totalPaginas != 1 %}
                  | Ir a la página
                 <ul>
