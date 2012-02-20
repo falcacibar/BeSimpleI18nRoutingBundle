@@ -2,10 +2,6 @@ _imagine:
     resource: .
     type:     imagine
 
-LoogaresExtraBundle:
-    resource: "@LoogaresExtraBundle/Resources/config/routing.yml"
-    prefix:   /
-
 LoogaresUsuarioBundle:
     resource: "@LoogaresUsuarioBundle/Resources/config/routing.yml"
     prefix:   /usuario
@@ -18,6 +14,10 @@ LoogaresAdminBundle:
     resource: "@LoogaresAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
 
+LoogaresExtraBundle:
+    resource: "@LoogaresExtraBundle/Resources/config/routing.yml"
+    prefix:   /
+    
 root:
     pattern:   /
     defaults:  { _controller: LoogaresExtraBundle:Default:homepage }

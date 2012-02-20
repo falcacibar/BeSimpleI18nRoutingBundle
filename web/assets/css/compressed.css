@@ -1601,7 +1601,8 @@ small {
         width: 200px; }
   #home .columna_der .recomendacion_dia {
     width: 100%;
-    float: left; }
+    float: left;
+    margin: 0 0 20px; }
     #home .columna_der .recomendacion_dia h2 {
       margin: 0 0 20px;
       font-size: 16px; }
@@ -1639,6 +1640,33 @@ small {
           font-weight: bold; }
       #home .columna_der .recomendacion_dia .recomendacion_preview .ver_mas {
         float: right; }
+  #home .columna_der .ultimos_conectados {
+    width: 100%;
+    float: left;
+    margin: 0 0 20px; }
+    #home .columna_der .ultimos_conectados h2 {
+      margin: 0 0 20px;
+      font-size: 16px; }
+    #home .columna_der .ultimos_conectados ul li {
+      height: 25px;
+      margin: 0 0 10px; }
+      #home .columna_der .ultimos_conectados ul li .conectado_img {
+        float: left; }
+      #home .columna_der .ultimos_conectados ul li .conectado_info {
+        float: left;
+        font-size: 11px;
+        margin: 0 0 0 10px; }
+        #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_nombre {
+          font-weight: bold;
+          display: block;
+          color: #0066cc !important;
+          text-decoration: none; }
+          #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_nombre:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+        #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_recomendaciones {
+          font-style: italic;
+          display: block; }
 
 /* Colores */
 /* Mixin */

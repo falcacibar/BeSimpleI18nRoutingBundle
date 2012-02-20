@@ -191,53 +191,68 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
     }
 
     public function getTotalFotosLugar($id) {
-      $em = $this->getEntityManager();
-      $q = $em->createQuery("SELECT count(u.id)
-                             FROM Loogares\LugarBundle\Entity\ImagenLugar u
-                             WHERE u.lugar = ?1
-                             AND u.estado != ?2");
-      $q->setParameter(1, $id);
-      $q->setParameter(2, 3);
-      return $q->getSingleScalarResult();
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT count(u.id)
+                               FROM Loogares\LugarBundle\Entity\ImagenLugar u
+                               WHERE u.lugar = ?1
+                               AND u.estado != ?2");
+        $q->setParameter(1, $id);
+        $q->setParameter(2, 3);
+        return $q->getSingleScalarResult();
     }
 
     public function getDuenoLugar($lugar) {
-      $em = $this->getEntityManager();
-      $q = $em->createQuery("SELECT d
-                             FROM Loogares\UsuarioBundle\Entity\Dueno d
-                             WHERE d.lugar = ?1
-                             AND d.estado != ?2");
-      $q->setParameter(1, $lugar);
-      $q->setParameter(2, 3);
-      return $q->getOneOrNullResult();
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT d
+                               FROM Loogares\UsuarioBundle\Entity\Dueno d
+                               WHERE d.lugar = ?1
+                               AND d.estado != ?2");
+        $q->setParameter(1, $lugar);
+        $q->setParameter(2, 3);
+        return $q->getOneOrNullResult();
     }
 
     public function getTotalAccionesUsuario($accion, $usuario) {
-      $em = $this->getEntityManager();
-      $q = $em->createQuery("SELECT count(au.id)
-                             FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
-                             WHERE au.accion = ?1
-                             AND au.usuario = ?2");
-      $q->setParameter(1, $accion);
-      $q->setParameter(2, $usuario);
-      return $q->getSingleScalarResult();
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT count(au.id)
+                               FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                               WHERE au.accion = ?1
+                               AND au.usuario = ?2");
+        $q->setParameter(1, $accion);
+        $q->setParameter(2, $usuario);
+        return $q->getSingleScalarResult();
     }
 
     public function getAccionUsuario($usuario, $accion, $offset=null) {
-      $em = $this->getEntityManager();
-      if($offset == null)
-            $offset = '';
-      $q = $em->createQuery("SELECT au, l
-                             FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
-                             INNER JOIN au.lugar l
-                             WHERE au.accion = ?1
-                             AND au.usuario = ?2")
-              ->setMaxResults(30)
-              ->setFirstResult($offset);
-      $q->setParameter(1, $accion);
-      $q->setParameter(2, $usuario);
+        $em = $this->getEntityManager();
+        if($offset == null)
+              $offset = '';
+        $q = $em->createQuery("SELECT au, l
+                               FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                               INNER JOIN au.lugar l
+                               WHERE au.accion = ?1
+                               AND au.usuario = ?2")
+                ->setMaxResults(30)
+                ->setFirstResult($offset);
+        $q->setParameter(1, $accion);
+        $q->setParameter(2, $usuario);
 
-      return $q->getResult();
+        return $q->getResult();
+    }
+
+    public function getUltimosConectados($minutos) {
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT u
+                               FROM Loogares\UsuarioBundle\Entity\Usuario u
+                               WHERE u.id > 1
+                               AND u.estado != ?1
+                               AND u.fecha_ultima_actividad >= DATE_SUB(CURRENT_DATE(), ?2, 'DAY')
+                               ORDER BY u.fecha_ultima_actividad DESC")
+                ->setMaxResults(15);
+        $q->setParameter(1, 3);
+        $q->setParameter(2, $minutos);
+
+        return $q->getResult();
     }
     
     public function getDatosUsuario($usuario) {
