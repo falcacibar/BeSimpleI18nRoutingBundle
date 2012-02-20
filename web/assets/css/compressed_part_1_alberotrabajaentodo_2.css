@@ -1,6 +1,7 @@
 .resultados-wrapper {
   position: relative;
-  height: 400px; }
+  height: 400px;
+  float: left; }
 
 #overlay {
   background: black;
@@ -86,10 +87,13 @@
   display: inline-block;
   margin-bottom: 10px;
   width: 90px; }
+  .filtros_precios .precio_container a {
+    display: inline; }
   .filtros_precios .precio_container input {
     display: none; }
   .filtros_precios .precio_container .filtro_precios_raty {
-    display: inline; }
+    display: inline;
+    cursor: pointer !important; }
 
 .close_qtip {
   background: url(../images/extras/x.gif) #666666;
@@ -101,22 +105,22 @@
   top: 3px;
   cursor: pointer; }
 
-.qtip_subcategorias, .qtip_zonas, .qtip_categorias {
+.qtip_subcategorias, .qtip_zonas, .qtip_categorias, .qtip_caracteristicas {
   display: none;
   padding-top: 10px;
   position: relative;
   font-size: 12px;
   font-weight: 400; }
-  .qtip_subcategorias a, .qtip_zonas a, .qtip_categorias a {
+  .qtip_subcategorias a, .qtip_zonas a, .qtip_categorias a, .qtip_caracteristicas a {
     color: #666666;
     text-decoration: none; }
-    .qtip_subcategorias a:visited, .qtip_zonas a:visited, .qtip_categorias a:visited {
+    .qtip_subcategorias a:visited, .qtip_zonas a:visited, .qtip_categorias a:visited, .qtip_caracteristicas a:visited {
       color: #666666; }
-  .qtip_subcategorias p, .qtip_zonas p, .qtip_categorias p {
+  .qtip_subcategorias p, .qtip_zonas p, .qtip_categorias p, .qtip_caracteristicas p {
     color: #999999;
     margin-bottom: 8px;
     font-size: 14px; }
-  .qtip_subcategorias li, .qtip_zonas li, .qtip_categorias li {
+  .qtip_subcategorias li, .qtip_zonas li, .qtip_categorias li, .qtip_caracteristicas li {
     display: inline-block;
     width: 170px;
     margin: 8px 0;

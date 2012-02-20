@@ -1,6 +1,7 @@
 .resultados-wrapper
 	position: relative
 	height: 400px
+	float: left
 
 #overlay
 	background: black
@@ -102,12 +103,16 @@
 		display: inline-block
 		margin-bottom: 10px
 		width: 90px
+
+		a
+			display: inline
 		
 		input
 			display: none
 		
 		.filtro_precios_raty
 			display: inline
+			cursor: pointer !important
 
 .close_qtip
 	background: url(../images/extras/x.gif) #666
@@ -119,7 +124,7 @@
 	top: 3px
 	cursor: pointer
 
-.qtip_subcategorias, .qtip_zonas, .qtip_categorias
+.qtip_subcategorias, .qtip_zonas, .qtip_categorias, .qtip_caracteristicas
 	display: none
 	padding-top: 10px
 	position: relative
@@ -144,5 +149,16 @@
 		width: 170px
 		margin: 8px 0
 		vertical-align: middle
+
+	.filtrar_caracteristicas
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+        border: 0px
+        cursor: pointer
+        height: 30px
+        margin: 20px 0 0
+        width: 100px
+
+        &:hover
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
 		
 
