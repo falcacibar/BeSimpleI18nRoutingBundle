@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'general.home.title'|trans}}{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo">Contacto</h1>
+
+			<p>¿Tienes alguna duda sobre Loogares.com? </p><br />
+
+			<p>¿Nos quieres preguntar o contar algo? Estaremos felices de ayudarte. </p><br />
+
+			<p>Envíanos el formulario con la información o mándanos un mail a <a href="mailto:contacto@loogares.com">contacto@loogares.com</a>, y en menos de 48 horas tendrás una respuesta.</p><br />
+
+			<form>
+			</form>
+
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'general.home.title'|trans}}{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo">¿Eres el dueño de un lugar?</h1>
+
+			<p>Si eres el dueño de un lugar, te proponemos una interesante alianza comercial entre tu negocio y nosotros</p><br />
+
+			<p><strong>Loogares.com conecta en un mismo espacio:</strong></p><br />
+
+			<p>- La demanda de un numeroso y valioso mercado de consumidores insatisfechos.</p>
+			<p>- La oferta de lugares y negocios de ocio y turismo de la ciudad.</p><br />
+
+			<p>Loogares.com se convierte en un acelerador de consumo inteligente.</p><br />
+
+			<p><strong>Apareciendo en Loogares.com:</strong></p><br />
+
+			<p></p><br />
+
+			<p>Si estás interesado en contactarnos, empieza escribiendo el nombre de tu negocio en el buscador y entra a su ficha. Una vez ahí, identifícate como su dueño haciendo click sobre ¿Eres el dueño de este Lugar“</p><br />
+
+			<p>Si no lo encuentras en el sitio ¡agrégalo!</p><br />
+
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}

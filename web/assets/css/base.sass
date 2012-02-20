@@ -1064,14 +1064,89 @@ textarea
 /* Estáticas */
 
 .estaticas
-    border-left: 1px solid $gris_f6f
     border-top: 1px solid $gris_f6f
-    color: $gris_666
     float: left
-    font:
-        size: 14px
-    padding: 20px
-    width: 619px
+    position: relative
+    width: 960px
+
+    a
+        @include link_azul
+
+        &:hover
+            @include link_azul_hover
+    
+    .contenido
+        border-left: 1px solid $gris_f6f
+        color: $gris_666
+        float: left
+        font:
+            size: 14px
+        line-height: 24px
+        min-height: 565px
+        padding: 20px
+        width: 619px
+
+        .ano
+            color: $azul_claro
+            font:
+                weight: bold
+        
+        ul
+            
+            li
+                list-style-type: disc
+                margin: 0 0 10px 20px
+
+    .menu_estaticas
+        @include box-sizing
+        background: $gris_faf
+        border-bottom: 1px solid $gris_f6f
+        border-left: 1px solid $gris_f6f
+        float: right
+        height: 100%
+        left: 660px
+        padding: 75px 0
+        position: absolute
+        top: 0
+        width: 300px
+
+        a
+            @include link_gris_999
+
+            li
+                background: $gris_faf
+                border-bottom: 1px solid $gris_f6f
+                border-top: 1px solid $gris_f6f
+                border-left: 1px solid $gris_f6f
+                cursor: pointer
+                float: right
+                text-align: right
+                padding: 15px 15px 15px 10px
+                width: 274px
+
+                &:hover
+                    border-bottom: 1px solid $gris_ccc
+                    border-right: 5px solid $gris_ccc
+                    padding: 15px 10px
+                    
+        .selected
+            background: $blanco
+            border-bottom: 1px solid $gris_f6f
+            border-left: 1px solid $blanco
+            border-right: 5px solid $azul_claro
+            border-top: 1px solid $gris_f6f
+            float: right
+            text-align: right
+            padding: 15px 10px
+            width: 274px
+
+            a
+                @include link_gris_999
+                font:
+                    weight: bold
+
+                &:hover
+                    @include link_gris_999_hover
 
 /* Banners */
 
