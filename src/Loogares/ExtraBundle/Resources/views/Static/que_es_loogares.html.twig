@@ -1,0 +1,40 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'general.home.title'|trans}}{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+		<h1 class="titulo">¿Qué es Loogares.com?</h1>
+
+		<p>Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares increíbles de los que la gente está hablando… y esos otros que no lo son tanto.</p><br />
+
+		<p>Es una comunidad de Loogareños en la que puedes compartir datos sobre los lugares que conoces en tu ciudad, aquellos que recomendarías a un amigo o a algún turista, y esos otros a los que no volverías a entrar ni por si acaso.</p><br />
+
+		<p><strong>Dime qué buscas y te diré dónde ir</strong></p><br />
+
+		<p><iframe src="http://player.vimeo.com/video/12363387?title=0&amp;byline=0&amp;portrait=0&amp;color=0066CC" width="629" height="417" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p><br />
+
+		<p>¿Quieres recomendarle a tus amigos turistas un restaurante, pero no sabes cuáles tienen menú en inglés y personal bilingüe?</p><br />
+
+		<p>¿Buscas el lugar más “prendido” de la ciudad para ir a bailar con tus amigos, pero no quieres que pongan reggaeton toda la noche?</p><br />
+
+		<p>¿Eres un turista un poco perdido con ganas de descubrir qué es un café con piernas, pero no sabes por dónde partir?</p><br />
+
+		<p>¿Te gustaría sorprender a tu amiga “artista” con las mejores galerías de arte de la ciudad?</p><br />
+
+		<p>En Loogares.com podrás encontrar lo que andas buscando y saber qué opinan los demás sobre ese lugar. Además, tú también puedes colaborar con tus recomendaciones y experiencias para que los demás sepan dónde ir y se animen a conocer nuevos espacios en su ciudad.</p><br />
+
+		<p><strong>¡ATENCIÓN! La ciudad ya nunca será la misma</strong></p><br />
+
+		<p>Ahora podrás advertirles a tus vecinos en qué local te apareció una mosca en la sopa, dónde fue que te enamoraste de la barwoman, o en cuál de todas las clásicas picadas probaste el mejor “terremoto” de tu vida.</p><br />
+
+		<p>De aquí en adelante, tu relación con la ciudad y tus amigos será otra. Cada vez que salgas y descubras un nuevo local, una plaza o algún rincón de tu barrio en el que jamás estuviste, lo primero que querrás hacer a la vuelta será entrar a Loogares.com, contar tu experiencia y ser el primero compartirlo y darlo a conocer.</p><br />
+
+		<p>Desde ahora, la ciudad se comparte y se “vive” de una nueva manera.</p><br />
+
+	</div>
+
+	{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+{% endblock %}

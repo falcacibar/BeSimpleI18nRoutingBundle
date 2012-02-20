@@ -125,3 +125,12 @@
     width: 170px;
     margin: 8px 0;
     vertical-align: middle; }
+  .qtip_subcategorias .filtrar_caracteristicas, .qtip_zonas .filtrar_caracteristicas, .qtip_categorias .filtrar_caracteristicas, .qtip_caracteristicas .filtrar_caracteristicas {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+    border: 0px;
+    cursor: pointer;
+    height: 30px;
+    margin: 20px 0 0;
+    width: 100px; }
+    .qtip_subcategorias .filtrar_caracteristicas:hover, .qtip_zonas .filtrar_caracteristicas:hover, .qtip_categorias .filtrar_caracteristicas:hover, .qtip_caracteristicas .filtrar_caracteristicas:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }

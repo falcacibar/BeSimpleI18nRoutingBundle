@@ -805,6 +805,16 @@ textarea {
         .contenedor .contenido .cajas_registro .boton_registro:hover {
           background: url("../images/extras/botones_registro_usuario.png") no-repeat -600px -81px; }
 
+/* Estáticas */
+.estaticas {
+  border-left: 1px solid #f2f2f6;
+  border-top: 1px solid #f2f2f6;
+  color: #666666;
+  float: left;
+  font-size: 14px;
+  padding: 20px;
+  width: 619px; }
+
 /* Banners */
 .banner_300x250 {
   background: #f2f2f6;
