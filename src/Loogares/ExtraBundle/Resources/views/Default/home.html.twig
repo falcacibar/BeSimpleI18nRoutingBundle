@@ -7,16 +7,45 @@
     <script type='text/javascript'>
         GS_googleAddAdSenseService("{{adsense_service}}");
         GS_googleEnableAllServices();
-    </script>
-    <script type='text/javascript'>
+
         GA_googleAddSlot("{{adsense_service}}", "{{ad('static','home','top','medium')}}");
-    </script>
-    <script type='text/javascript'>
+
         GA_googleFetchAds();
+    </script>
+
+	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
+    <script>
+    	$(document).ready(function(){
+			$('.tips_icon').qtip({
+			   content: {
+			      text: $('.qtip_recomendacion_del_dia')
+			   },
+				style: {
+					classes: 'ui-tooltip-precio',
+					tip: {
+						border: 0,
+						width: 12,
+						color: '#f0f',
+						corner: true,
+						offset: 85
+					},
+				},
+				position: {
+					my: 'top center', 
+					at: 'bottom left',
+					adjust: {
+						x: 6,
+						y: 6
+					},
+				},
+			});
+    	});
     </script>
 {% endblock %}
 
 {% block content %}
+	
+	<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
 
 	<!-- Si el usuario está conectado, debe mostrar un cambio en la caja -->
 	<div class="saludos_premios">
@@ -83,7 +112,51 @@
 	<!-- Sidebar -->
 	<div class="sidebar_home">
 
-		<!-- Banner Home -->
+		<!-- Banner Home 1 -->
+		<div class="banner_300x250">
+			<script type='text/javascript'>
+            	GA_googleFillSlot("{{ad('static','home','top','medium')}}");
+        	</script>
+		</div>
+
+		<!-- Recomendación del Día -->
+		<div class="recomendacion_dia">
+			<h5 class="titulo_home encabezado">{{'general.home.recomendacion_dia.titulo'|trans}}</h5>
+			<div class="informacion">
+				<div class="imagen_estrellas_recomendacion">
+					<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
+						<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="72" width="72"/>
+					</a>
+					<div class="textos_usuario">
+						<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">
+							{% if home.recDia.usuario.nombre != '' %}
+								{{home.recDia.usuario.nombre}} {{home.recDia.usuario.apellido}}
+							{% else %}
+								{{home.recDia.usuario.slug}}
+							{% endif %}
+						</a>
+						<span class="fecha">{{home.recDia.fechaCreacion | date('d/m/Y')}}</span>
+						<p class="estrellas_recDia" data-stars="{{home.recDia.estrellas}}"></p>
+					</div>
+				</div>
+			</div>
+			<div class="recomendacion_preview">					
+				<span><a href="{{path('_lugar', {'slug' : home.recDia.lugar.slug})}}">{{home.recDia.lugar.nombre}}: </a>{{home.previewRecDia}}</span>
+				<a href="{{path('_recomendacion', {'slug' : home.recDia.lugar.slug, 'usuarioSlug' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="ver_mas">{{'general.home.recomendacion_dia.ver_mas'|trans}} &raquo;</a>
+				<br />
+				<span class="tips">Elegida por la comunidad de Loogareños</span> <span class="tips_icon"></span>
+
+				<!-- Qtip Recomendación del Día -->
+				<div class="qtip_recomendacion_del_dia">
+					Corresponde a las recomendaciones más útiles según la evaluación de los Loogareños. A la vez, consideramos otros factores, como su contenido, la originalidad y que esté bien escrita.
+					<br /><br />
+					Estas recomendaciones fijan la pauta para las demás en el sitio.
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Banner Home 2 -->
 		<div class="banner_300x250">
 			<script type='text/javascript'>
             	GA_googleFillSlot("{{ad('static','home','top','medium')}}");
@@ -92,50 +165,30 @@
 
 	</div>
 
-
-
-
-
-	<div id="home">
-
-		<div class="columna_der">
-			<div class="recomendacion_dia">
-				<h2>{{'general.home.recomendacion_dia.titulo'|trans}}</h2>
-				<div class="recomendacion_info">
-					<a href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
-						<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="60" width="60"/>
+	<!-- Últimos Loogareños conectados -->
+	<div class="loogarenos_conectados">
+		<h6 class="titulo_home encabezado">{{'general.home.ultimos_conectados.titulo'|trans}}</h6>
+		{% if home.ultimosConectados|length > 0%}
+			<ul class="loogarenos_conectado_ahora">
+			{% for conectado in home.ultimosConectados %}
+				<li>
+					<a class="imagen_usuario" href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_img">
+						<img src="{{('assets/images/usuarios/'~conectado.imagenFull) | apply_filter('tiny_usuario')}}" width="20" height="20" />
 					</a>
-					<div class="usuario_recomendacion">
-						<a href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">{{home.recDia.usuario.nombre}} {{home.recDia.usuario.apellido}}</a>
-						<span>{{home.recDia.fechaCreacion | date('d/m/Y')}}</span>
-						<p class="estrellas_recDia" data-stars="{{home.recDia.estrellas}}"></p>
-					</div>
-				</div>
-				<div class="recomendacion_preview">					
-					<span><a href="{{path('_lugar', {'slug' : home.recDia.lugar.slug})}}">{{home.recDia.lugar.nombre}}: </a>{{home.previewRecDia}}</span>
-					<a href="{{path('_recomendacion', {'slug' : home.recDia.lugar.slug, 'usuarioSlug' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="ver_mas">{{'general.home.recomendacion_dia.ver_mas'|trans}} &raquo;</a>
-				</div>
-			</div>
-			<div class="ultimos_conectados">
-				<h2>{{'general.home.ultimos_conectados.titulo'|trans}}</h2>
-				{% if home.ultimosConectados|length > 0%}
-					<ul>
-					{% for conectado in home.ultimosConectados %}
-						<li>
-							<a href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_img">
-								<img src="{{('assets/images/usuarios/'~conectado.imagenFull) | apply_filter('tiny_usuario')}}" width="20" height="20" />
-							</a>
-							<div class="conectado_info">
-								<a href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_nombre">{{conectado.nombre}} {{conectado.apellido}}</a>
-								<span class="conectado_recomendaciones">{{conectado.recomendaciones|length}} {{'general.terminos.recomendacion' | transchoice(conectado.recomendaciones|length) | lower }}</span>
-							</div>
-						</li>
-					{% endfor %}
-					</ul>
-				{% endif %}
-			</div>
-		</div>		
+					<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_nombre">
+						{{conectado.nombre}} {{conectado.apellido}}
+					</a>
+					<!-- Comentado el número de recomendaciones del usuario...
+					<span class="conectado_recomendaciones">
+						{{conectado.recomendaciones|length}} {{'general.terminos.recomendacion' | transchoice(conectado.recomendaciones|length) | lower }}
+					</span>
+					-->
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
 	</div>
+
 {% endblock %}
 
 {% block javascripts %}

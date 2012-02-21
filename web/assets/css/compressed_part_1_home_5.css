@@ -187,7 +187,99 @@
 
 .sidebar_home {
   float: left;
-  width: 300px; }
+  width: 300px;
+  /* Recomendación del Día */ }
+  .sidebar_home .recomendacion_dia {
+    border: 1px solid #f2f2f6;
+    float: left;
+    margin: 0 0 30px 0;
+    width: 298px; }
+    .sidebar_home .recomendacion_dia .encabezado {
+      padding: 10px; }
+    .sidebar_home .recomendacion_dia .informacion {
+      border-top: 1px solid #f2f2f6;
+      float: left;
+      width: 298px; }
+      .sidebar_home .recomendacion_dia .informacion .imagen_estrellas_recomendacion {
+        float: left;
+        padding: 10px;
+        width: 298px; }
+        .sidebar_home .recomendacion_dia .informacion .imagen_estrellas_recomendacion .imagen {
+          float: left;
+          height: 72px;
+          width: 72px; }
+        .sidebar_home .recomendacion_dia .informacion .imagen_estrellas_recomendacion .textos_usuario {
+          float: left;
+          margin: 0 0 0 10px; }
+        .sidebar_home .recomendacion_dia .informacion .imagen_estrellas_recomendacion .nombre_usuario {
+          color: #666666 !important;
+          text-decoration: none;
+          display: block;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 0 0 10px; }
+        .sidebar_home .recomendacion_dia .informacion .imagen_estrellas_recomendacion .fecha {
+          color: #999999;
+          display: block;
+          font-size: 12px;
+          margin: 0 0 10px 0; }
+    .sidebar_home .recomendacion_dia .recomendacion_preview {
+      color: #999999;
+      float: left;
+      font-size: 12px;
+      line-height: 18px;
+      padding: 10px;
+      width: 278px; }
+      .sidebar_home .recomendacion_dia .recomendacion_preview a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        .sidebar_home .recomendacion_dia .recomendacion_preview a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
+      .sidebar_home .recomendacion_dia .recomendacion_preview .tips {
+        float: left;
+        font-weight: bold;
+        margin: 20px 0 0; }
+      .sidebar_home .recomendacion_dia .recomendacion_preview .tips_icon {
+        background: url("../images/extras/botones_sprite.png") no-repeat 0 -213px;
+        float: left;
+        height: 10px;
+        margin: 24px 0 0 5px;
+        width: 10px; }
+        .sidebar_home .recomendacion_dia .recomendacion_preview .tips_icon:hover {
+          background: url("../images/extras/botones_sprite.png") no-repeat 0 -228px; }
+      .sidebar_home .recomendacion_dia .recomendacion_preview .qtip_recomendacion_del_dia {
+        display: none; }
+
+.loogarenos_conectados {
+  border: 1px solid #f2f2f6;
+  float: right;
+  width: 938px; }
+  .loogarenos_conectados .encabezado {
+    padding: 10px; }
+  .loogarenos_conectados .loogarenos_conectado_ahora {
+    border-top: 1px solid #f2f2f6;
+    float: left;
+    padding: 10px 5px;
+    width: 928px; }
+    .loogarenos_conectados .loogarenos_conectado_ahora li {
+      float: left;
+      margin: 0 5px;
+      width: 178px; }
+      .loogarenos_conectados .loogarenos_conectado_ahora li .imagen_usuario {
+        float: left;
+        width: 20px; }
+      .loogarenos_conectados .loogarenos_conectado_ahora li .nombre_usuario {
+        color: #666666 !important;
+        text-decoration: none;
+        float: left;
+        font-size: 12px;
+        font-weight: bold;
+        margin: 4px 0 0 10px;
+        width: 148px; }
+        .loogarenos_conectados .loogarenos_conectado_ahora li .nombre_usuario:hover {
+          color: #666666 !important;
+          text-decoration: underline; }
 
 /* CSS SEBA */
 #home .columna_izq {
