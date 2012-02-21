@@ -69,7 +69,18 @@
       height: 245px;
       width: 204px; }
       .contenido_home .campanas_concursos li:hover {
-        background: url("../images/extras/fondo_link_concurso.png") no-repeat; }
+        _background: url("../images/extras/fondo_link_concurso.png") no-repeat;
+        position: relative; }
+        .contenido_home .campanas_concursos li:hover:hover:after {
+          content: "";
+          height: 235px;
+          width: 194px;
+          display: block;
+          position: absolute;
+          background: #fafafc;
+          top: 5px;
+          left: 5px;
+          z-index: -20; }
       .contenido_home .campanas_concursos li .titulo_concurso {
         color: #666666;
         font-weight: bold;

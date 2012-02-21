@@ -350,11 +350,10 @@
 						<ul>
 							<li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div></li>
 							<li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
+							<li>{{lugar.calle}} {{lugar.numero}} - <a class="link_azul" href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a></li>
 							{% if lugar.precio != null %}
 								<li><div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div></li>
 							{% endif %}
-							<li>{{lugar.calle}} {{lugar.numero}} - <a class="link_azul" href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a></li>
-							<li>Ranking: {{lugar.ranking}}</li>
 						</ul>
 					</div>
 				</div>

@@ -61,7 +61,9 @@
                 <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans }}</p>
             </div>
     {% endif %}
-
+{% if app.security.token.user.id is not defined %}
+no logeado
+{% endif %}
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>

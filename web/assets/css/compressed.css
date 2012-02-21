@@ -1600,7 +1600,8 @@ small {
   width: 600px;
   height: 150px;
   padding: 10px;
-  clear: both; }
+  clear: both;
+  border-bottom: 1px solid #f2f2f2; }
   .resultado-busqueda .datos-principales {
     float: left;
     padding: 10px;
@@ -1646,11 +1647,19 @@ small {
         background: #f1f0f5; }
   .resultado-busqueda .datos-secundarios {
     float: left;
-    height: 150px;
+    margin-top: 15px;
+    height: 120px;
     width: 200px;
     padding: 10px;
     box-sizing: border-box;
-    -moz-box-sizing: border-box; }
+    -moz-box-sizing: border-box;
+    border-left: 1px solid #f2f2f2;
+    vertical-align: middle; }
+    .resultado-busqueda .datos-secundarios li {
+      margin: 0 0 8px; }
+  .resultado-busqueda:hover {
+    background: #fbfcff;
+    border-left: 1px solid #f2f2f2; }
 
 /* Colores */
 /* Mixin */
@@ -1723,7 +1732,18 @@ small {
       height: 245px;
       width: 204px; }
       .contenido_home .campanas_concursos li:hover {
-        background: url("../images/extras/fondo_link_concurso.png") no-repeat; }
+        _background: url("../images/extras/fondo_link_concurso.png") no-repeat;
+        position: relative; }
+        .contenido_home .campanas_concursos li:hover:hover:after {
+          content: "";
+          height: 235px;
+          width: 194px;
+          display: block;
+          position: absolute;
+          background: #fafafc;
+          top: 5px;
+          left: 5px;
+          z-index: -20; }
       .contenido_home .campanas_concursos li .titulo_concurso {
         color: #666666;
         font-weight: bold;
