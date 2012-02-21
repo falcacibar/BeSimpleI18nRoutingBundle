@@ -17,32 +17,84 @@
 {% endblock %}
 
 {% block content %}
-	<div id="home">
-		<div class="columna_izq">
-			<div class="home_something"></div>
-			{% render 'LoogaresLugarBundle:Lugar:moduloDescuentos' with {'ciudad' : app.session.get('ciudad').id}%}
+
+	<!-- Si el usuario está conectado, debe mostrar un cambio en la caja -->
+	<div class="saludos_premios">
+
+		<!-- Está caja se alarga si el usuario está en sesión -->
+		<div class="mensaje">
+			<h1><strong>{{'general.home.saludo_bienvenida'|trans}}</strong></h1>
+
+			<p>{{'general.home.actividad_loogares.actualmente'|trans}} <span class="texto_destacado">{{home.totalRecomendaciones_format}} {{'general.home.actividad_loogares.recomendaciones'|transchoice(home.totalRecomendaciones)}}</span> {{'general.home.actividad_loogares.y'|trans}} <span class="texto_destacado">{{home.totalPremios_format}} {{'general.home.actividad_loogares.premios'|transchoice(home.totalPremios)}}</span> {{'general.home.actividad_loogares.participa'|trans}}</p>
 		</div>
+
+		<!-- Las cajas de clase "flecha" y "registro" se van cuando el usuario está en sesión -->
+		<div class="flecha">
+		</div>
+
+		<div class="registro">
+            <a href="#">
+                <div class="boton_fb"></div>
+            </a>
+            <p class="registro_mail">{% trans %}usuario.login.registro.o{% endtrans %} <a href="{{path('registroUsuario')}}">{% trans %}usuario.login.registro.mail{% endtrans %}</a></p>
+		</div>
+
+	</div>
+
+	<!-- Contenido central -->
+	<div class="contenido_home">
+		<div class="campanas_concursos">
+			<ul>
+				<a href="">
+					<li>
+						<h2 class="titulo_concurso concursos">Concurso: Sólo por hoy</h2>
+						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="124" / >
+						<p class="lugar_concurso">Centro Cultural Amanda</p>
+						<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+					</li>
+				</a>
+				<a href="">
+					<li class="central">
+						<h2 class="titulo_concurso especiales">Concurso: Sólo por hoy</h2>
+						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="124" / >
+						<p class="lugar_concurso">Centro Cultural Amanda</p>
+						<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+					</li>
+				</a>
+				<a href="">
+					<li>
+						<h2 class="titulo_concurso ganadores">Concurso: Sólo por hoy</h2>
+						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="124" / >
+						<p class="lugar_concurso">Centro Cultural Amanda</p>
+						<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+					</li>
+				</a>
+			</ul>
+		</div>
+
+		{% render 'LoogaresLugarBundle:Lugar:moduloDescuentos' with {'ciudad' : app.session.get('ciudad').id}%}
+
+	</div>
+
+	<!-- Sidebar -->
+	<div class="sidebar_home">
+
+		<!-- Banner Home -->
+		<div class="banner_300x250">
+			<script type='text/javascript'>
+            	GA_googleFillSlot("{{ad('static','home','top','medium')}}");
+        	</script>
+		</div>
+
+	</div>
+
+
+
+
+
+	<div id="home">
+
 		<div class="columna_der">
-			<div class="banner_300x250">
-				<script type='text/javascript'>
-                	GA_googleFillSlot("{{ad('static','home','top','medium')}}");
-            	</script>
-			</div>
-			<div class="actividad_loogares">
-				<div class="titulo_actividad">
-					<h2>{{'general.home.actividad_loogares.titulo'|trans}}</h2>
-				</div>
-				<div class="contenido_actividad">
-					<div class="numero_actividad">
-						<p>{{home.totalRecomendaciones_format}}</p>
-						<p>{{home.totalPremios_format}}</p>
-					</div>
-					<div class="texto_actividad">
-						<p>{{'general.home.actividad_loogares.recomendaciones'|transchoice(home.totalRecomendaciones)}}</p>
-						<p>{{'general.home.actividad_loogares.premios'|transchoice(home.totalPremios)}}</p>
-					</div>
-				</div>
-			</div>
 			<div class="recomendacion_dia">
 				<h2>{{'general.home.recomendacion_dia.titulo'|trans}}</h2>
 				<div class="recomendacion_info">
