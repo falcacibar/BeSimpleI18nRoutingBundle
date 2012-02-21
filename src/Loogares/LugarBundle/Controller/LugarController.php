@@ -1696,7 +1696,7 @@ class LugarController extends Controller{
         ));
     }
 
-    public function moduloDescuentosAction($ciudad) {
+    public function moduloDescuentosAction($ciudad, $pagina) {
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
@@ -1713,7 +1713,14 @@ class LugarController extends Controller{
                 $promocionesRandom[] = $promociones[2];
         }
 
-        return $this->render('LoogaresLugarBundle:Lugares:promocion_pedidos.html.twig', array(
+        $template = '';
+        if($pagina == 'lugar') {
+            $template = 'LoogaresLugarBundle:Lugares:promocion_pedidos.html.twig';
+        }
+        else if($pagina == 'home') {
+            $template = 'LoogaresExtraBundle:Default:promocion_pedidos.html.twig';
+        }
+        return $this->render($template, array(
             'promociones' => $promocionesRandom,
         ));        
     }

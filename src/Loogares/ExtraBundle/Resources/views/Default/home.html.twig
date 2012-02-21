@@ -76,7 +76,7 @@
 			</ul>
 		</div>
 
-		{% render 'LoogaresLugarBundle:Lugar:moduloDescuentos' with {'ciudad' : app.session.get('ciudad').id}%}
+		{% render 'LoogaresLugarBundle:Lugar:moduloDescuentos' with {'ciudad' : app.session.get('ciudad').id, 'pagina' : 'home'}%}
 
 	</div>
 
