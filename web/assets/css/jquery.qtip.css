@@ -460,15 +460,24 @@
 /*! Precio tooltip style */
 .ui-tooltip-precio .ui-tooltip-titlebar,
 .ui-tooltip-precio .ui-tooltip-content{
-	font-size: 11px;
-	font-weight: bold;
 	background-color: #666;
-	color: #fff;
-	width: 203px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
 	border: 0;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-o-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	box-shadow: 0px 0px 5px #999;
+	-moz-box-shadow: 0px 0px 5px #999;
+	-o-box-shadow: 0px 0px 5px #999;
+	-webkit-box-shadow: 0px 0px 5px #999;
+	color: #fff;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 18px;
+	padding: 10px;
+	text-align: center;
 	overflow: none;
+	width: 230px;
 }
 
 	.ui-tooltip-precio .ui-tooltip-titlebar{

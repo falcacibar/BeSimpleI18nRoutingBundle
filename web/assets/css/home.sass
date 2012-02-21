@@ -332,6 +332,120 @@ $rojo: #F72121
     float: left
     width: 300px
 
+    /* Recomendación del Día */
+    .recomendacion_dia
+        border: 1px solid $gris_f6f
+        float: left
+        margin: 0 0 30px 0
+        width: 298px
+
+        .encabezado
+            padding: 10px
+
+        .informacion
+            border-top: 1px solid $gris_f6f
+            float: left
+            width: 298px
+
+            .imagen_estrellas_recomendacion
+                float: left
+                padding: 10px
+                width: 298px
+
+                .imagen
+                    float: left
+                    height: 72px
+                    width: 72px
+
+                .textos_usuario
+                    float: left
+                    margin: 0 0 0 10px
+
+
+                .nombre_usuario
+                    @include link_gris_666
+                    display: block
+                    font:
+                        size: 14px
+                        weight: bold
+                    margin: 0 0 10px
+
+                .fecha
+                    color: $gris_999
+                    display: block
+                    font:
+                        size: 12px
+                    margin: 0 0 10px 0
+                
+        .recomendacion_preview
+            color: $gris_999
+            float: left
+            font:
+                size: 12px
+            line-height: 18px
+            padding: 10px
+            width: 278px
+
+            a
+                @include link_azul
+                
+                &:hover
+                    @include link_azul_hover
+
+            .tips
+                float: left
+                font:
+                    weight: bold
+                margin: 20px 0 0
+
+            .tips_icon
+                background: url('../images/extras/botones_sprite.png') no-repeat 0 -213px
+                float: left
+                height: 10px
+                margin: 24px 0 0 5px
+                width: 10px  
+
+                &:hover
+                    background: url('../images/extras/botones_sprite.png') no-repeat 0 -228px
+
+            .qtip_recomendacion_del_dia
+                display: none
+                
+.loogarenos_conectados
+    border: 1px solid $gris_f6f
+    float: right
+    width: 938px
+    
+    .encabezado
+        padding: 10px
+     
+    .loogarenos_conectado_ahora
+        border-top: 1px solid $gris_f6f
+        float: left
+        padding: 10px 5px
+        width: 928px
+                
+        li
+            float: left
+            margin: 0 5px
+            width: 178px
+
+            .imagen_usuario
+                float: left
+                width: 20px
+
+            .nombre_usuario
+                @include link_gris_666
+                float: left
+                font:
+                    size: 12px
+                    weight: bold
+                margin: 4px 0 0 10px
+                width: 148px
+
+                &:hover
+                    @include link_gris_666_hover
+                   
 /* CSS SEBA */
 
 #home
