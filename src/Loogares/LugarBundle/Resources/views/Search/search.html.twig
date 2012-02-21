@@ -371,6 +371,7 @@
 			</div>
 			{% endif %}
 
+			{% if results.totalPorCaracteristica[0] is defined %}
 			<div class="qtip_caracteristicas qtip_filtros" rel="filtros_caracteristicas">
 				<span class="close_qtip"></span>
 				<ul>
@@ -380,6 +381,7 @@
 				</ul>
 				<a class="link_filtrar_caracteristicas"  href="" data-ohref="{{ path('_buscar', query|merge({'slug': slug, 'caracteristicas': null })) }}">Filtrar</a>
 			</div>
+			{% endif %}
 			{% endif %}
 
 			{% if results.totalPorCategoria[0] is defined %}
