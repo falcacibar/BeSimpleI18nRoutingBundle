@@ -22,22 +22,26 @@
 	<div class="saludos_premios">
 
 		<!-- Está caja se alarga si el usuario está en sesión -->
-		<div class="mensaje">
+		<div class="{% if app.security.token.user.id is defined %}mensaje_logeado{% else %}mensaje{% endif %}">
 			<h1><strong>{{'general.home.saludo_bienvenida'|trans}}</strong></h1>
 
 			<p>{{'general.home.actividad_loogares.actualmente'|trans}} <span class="texto_destacado">{{home.totalRecomendaciones_format}} {{'general.home.actividad_loogares.recomendaciones'|transchoice(home.totalRecomendaciones)}}</span> {{'general.home.actividad_loogares.y'|trans}} <span class="texto_destacado">{{home.totalPremios_format}} {{'general.home.actividad_loogares.premios'|transchoice(home.totalPremios)}}</span> {{'general.home.actividad_loogares.participa'|trans}}</p>
 		</div>
 
-		<!-- Las cajas de clase "flecha" y "registro" se van cuando el usuario está en sesión -->
-		<div class="flecha">
-		</div>
+		{% if app.security.token.user.id is defined %} 
 
-		<div class="registro">
-            <a href="#">
-                <div class="boton_fb"></div>
-            </a>
-            <p class="registro_mail">{% trans %}usuario.login.registro.o{% endtrans %} <a href="{{path('registroUsuario')}}">{% trans %}usuario.login.registro.mail{% endtrans %}</a></p>
-		</div>
+		{% else %}
+			<!-- Las cajas de clase "flecha" y "registro" se van cuando el usuario está en sesión -->
+			<div class="flecha">
+			</div>
+
+			<div class="registro">
+	            <a href="#">
+	                <div class="boton_fb"></div>
+	            </a>
+	            <p class="registro_mail">{% trans %}usuario.login.registro.o{% endtrans %} <a href="{{path('registroUsuario')}}">{% trans %}usuario.login.registro.mail{% endtrans %}</a></p>
+			</div>
+		{% endif %}
 
 	</div>
 

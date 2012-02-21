@@ -1602,6 +1602,18 @@ small {
       margin: 5px 0 0; }
     .saludos_premios .mensaje .texto_destacado {
       color: #66ccff; }
+  .saludos_premios .mensaje_logeado {
+    border-left: 1px solid #f2f2f6;
+    border-right: 1px solid #f2f2f6;
+    float: left;
+    padding: 15px 10px;
+    width: 937px; }
+    .saludos_premios .mensaje_logeado p {
+      color: #999999;
+      display: block;
+      margin: 5px 0 0; }
+    .saludos_premios .mensaje_logeado .texto_destacado {
+      color: #66ccff; }
   .saludos_premios .flecha {
     background: url("../images/extras/flecha_grande.png") no-repeat 0 0;
     float: left;
