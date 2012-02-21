@@ -1,23 +1,72 @@
+.link_azul {
+  color: #0066cc;
+  text-decoration: none; }
+  .link_azul:hover {
+    color: #0066cc;
+    text-decoration: underline; }
+
+.resultados-wrapper {
+  position: relative;
+  float: left; }
+
+.listado_resultados {
+  margin-top: -30px;
+  display: inline-block; }
+
 .resultado-busqueda {
-  margin: 5px;
+  margin: 0 0 5px;
   display: block;
-  background: #333333;
   width: 600px;
   height: 150px;
-  padding: 10px; }
+  padding: 10px;
+  clear: both; }
   .resultado-busqueda .datos-principales {
     float: left;
     padding: 10px;
-    height: 100%;
+    height: 150px;
     width: 400px;
-    background: fuchsia;
     box-sizing: border-box;
     -moz-box-sizing: border-box; }
+    .resultado-busqueda .datos-principales li {
+      margin: 8px 0; }
+    .resultado-busqueda .datos-principales .info_lugar .nombre_lugar {
+      display: block;
+      line-height: 20px; }
+      .resultado-busqueda .datos-principales .info_lugar .nombre_lugar .indice_resultado {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: #f1f0f5;
+        text-align: center;
+        border-radius: 20px;
+        color: #a1a1a1;
+        font-size: 11px;
+        text-shadow: 0 1px 0 white; }
+    .resultado-busqueda .datos-principales .info_lugar img {
+      background: #f1f0f5;
+      width: 60px;
+      height: 60px;
+      float: left;
+      margin-right: 5px; }
+    .resultado-busqueda .datos-principales .info_recomendacion {
+      margin: 0; }
+      .resultado-busqueda .datos-principales .info_recomendacion span {
+        display: inline-block;
+        float: left;
+        width: 345px;
+        text-align: justify; }
+        .resultado-busqueda .datos-principales .info_recomendacion span p {
+          display: inline; }
+      .resultado-busqueda .datos-principales .info_recomendacion img {
+        float: left;
+        margin-right: 5px;
+        width: 20px;
+        height: 20px;
+        background: #f1f0f5; }
   .resultado-busqueda .datos-secundarios {
     float: left;
-    height: 100%;
+    height: 150px;
     width: 200px;
-    background: yellow;
     padding: 10px;
     box-sizing: border-box;
     -moz-box-sizing: border-box; }

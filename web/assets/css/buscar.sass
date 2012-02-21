@@ -1,25 +1,96 @@
+$azul: #0066CC
+$azul_medio: #0099FF
+$azul_claro: #66CCFF
+
+@mixin link_azul
+	color: $azul
+	text-decoration: none
+
+@mixin link_azul_hover
+	color: $azul
+	text-decoration: underline
+
+.link_azul
+	@include link_azul
+
+	&:hover
+		@include link_azul_hover
+
+.resultados-wrapper
+	position: relative
+	float: left
+
+.listado_resultados
+	margin-top: -30px
+	display: inline-block
+
 .resultado-busqueda
-	margin: 5px
+	margin: 0 0 5px
 	display: block
-	background: #333
 	width: 600px
 	height: 150px
 	padding: 10px
+	clear: both
 
 	.datos-principales
 		float: left
 		padding: 10px
-		height: 100%
+		height: 150px
 		width: 400px
-		background: #f0f
 		box-sizing: border-box
 		-moz-box-sizing: border-box
 
+		li
+			margin: 8px 0
+
+		.info_lugar
+
+			.nombre_lugar
+				display: block
+				line-height: 20px
+
+				.indice_resultado
+					display: inline-block
+					width: 20px
+					height: 20px
+					background: #f1f0f5
+					text-align: center
+					border-radius: 20px
+					color: #a1a1a1
+					font-size: 11px
+					text-shadow: 0 1px 0 #fff
+
+			img
+				background: #f1f0f5
+				width: 60px
+				height: 60px
+				float: left
+				margin-right: 5px
+
+		.info_recomendacion
+			margin: 0
+
+			span
+				display: inline-block
+				float: left
+				width: 345px
+				text-align: justify
+
+				p
+					display: inline
+					
+
+			img
+				float: left
+				margin-right: 5px
+				width: 20px
+				height: 20px
+				background: #f1f0f5
+
 	.datos-secundarios
 		float: left
-		height: 100%
+		height: 150px
 		width: 200px
-		background: #ff0
 		padding: 10px
 		box-sizing: border-box
 		-moz-box-sizing: border-box

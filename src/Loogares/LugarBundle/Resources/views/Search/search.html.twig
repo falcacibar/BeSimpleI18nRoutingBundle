@@ -6,321 +6,13 @@
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.pjax.js')}}"></script>
-
-	<script>
-		$(document).ready(function(){
-			var rebindEvents = function(){
-				var getCaracteristicas = getParameterByName('caracteristicas').split(',');
-
-				$.each(getCaracteristicas, function(i){
-					$('.qtip_caracteristicas input[value="'+getCaracteristicas[i]+'"]').click();
-					console.log(getCaracteristicas[i])
-				});
-
-				$('.resultado-busqueda-stars-raty').each(function(){
-					var estrellas = $(this).attr('data-stars');
-					$(this).raty({
-						width: 140,
-					    starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
-					    starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
-					    starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
-					    half: true,
-					    start: estrellas,
-					    readOnly: true,
-					    space: false
-					});
-				});
-
-				$('.resultado-busqueda-precio-raty').each(function(){
-					var precio = $(this).attr('data-precio');
-					$(this).raty({
-						width: 140,
-				        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
-				        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
-					    half: true,
-					    start: precio,
-					    readOnly: true,
-					    space: false
-					});
-				});
-				 
-				$('.filtro_precios_raty').each(function(){
-					var precio = $(this).attr('data-precio');
-					$(this).raty({
-						width: 140,
-				        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
-				        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
-					    half: true,
-					    start: precio,
-					    readOnly: true,
-					    space: false
-					});
-					$(this).parent().prev('input').show().css('display', 'inline');
-				});
-
-				var precio = getTipo('dondeComer');
-				var	qTipPrecio = '<div class="qtip_precio">';
-
-				for(i=precio.length -1; i >= 0; i--){
-					qTipPrecio += "<p><span class='signo_precio'>";
-
-					for(j=precio.length;i<j;j--){qTipPrecio += "$"}
-
-					qTipPrecio += "</span> = "+precio[i]+"</p>";	
-				}
-				qTipPrecio += "</div>";
-
-				$('.explicacion_precio').qtip({
-				   content: {
-				      text: 'Corresponde al valor del consumo promedio aproximado por persona según las caracteristicas del lugar.<br/><br/>'+qTipPrecio
-				   },
-				   style: {
-				      classes: 'ui-tooltip-precio',
-				      tip: {
-					   	border: 0,
-					   	width: 12,
-					   	color: '#f0f'
-					   }
-				   },
-				   position: {
-					my: 'top center', 
-					at: 'bottom center'
-				   }
-				});
-
-				$('.filtros_subcategorias .filtros_expandir').qtip({
-					content: {
-						text: $('.qtip_subcategorias')
-					},
-					style: {
-						classes: 'ui-tooltip-filtros',
-						tip: {
-							border: 0,
-							width: 12,
-							color: '#f0f',
-							corner: true,
-							offset: 378
-						},
-					},
-					position: {
-						my: 'top center', 
-						at: 'bottom left',
-						adjust: {
-							x: 50
-						},
-					},
-					show: {
-				      event: 'click',
-				      solo: true
-				    },
-				    hide:{
-				    	event: 'click'
-				    }
-				});
-
-				$('.filtros_zonas .filtros_expandir').qtip({
-					content: {
-						text: $('.qtip_zonas')
-					},
-					style: {
-						classes: 'ui-tooltip-filtros',
-						tip: {
-							border: 0,
-							width: 12,
-							color: '#f0f',
-							corner: true,
-							offset: 19
-						},
-					},
-					position: {
-						my: 'top center', 
-						at: 'bottom left',
-						adjust: {
-							x: 50
-						},
-					},
-					show: {
-				      event: 'click',
-				      solo: true
-				    },
-				    hide:{
-				    	event: 'click'
-				    }
-				});
-
-				$('.filtros_categorias .filtros_expandir').qtip({
-					content: {
-						text: $('.qtip_categorias')
-					},
-					style: {
-						classes: 'ui-tooltip-filtros',
-						tip: {
-							border: 0,
-							width: 12,
-							color: '#f0f',
-							corner: true,
-							offset: 709
-						},
-					},
-					position: {
-						my: 'top center', 
-						at: 'bottom left',
-						adjust: {
-							x: 50
-						},
-					},
-					show: {
-				      event: 'click',
-				      solo: true
-				    },
-				    hide:{
-				    	event: 'click'
-				    }
-				});
-
-				$('.filtros_caracteristicas .filtros_expandir').qtip({
-					content: {
-						text: $('.qtip_caracteristicas')
-					},
-					style: {
-						classes: 'ui-tooltip-filtros',
-						tip: {
-							border: 0,
-							width: 12,
-							color: '#f0f',
-							corner: true,
-							offset: 704
-						},
-					},
-					position: {
-						my: 'top center', 
-						at: 'bottom left',
-						adjust: {
-							x: 50
-						},
-					},
-					show: {
-				      event: 'click',
-				      solo: true
-				    },
-				    hide:{
-				    	event: 'click'
-				    }
-				});
-			}
-
-			rebindEvents();
-
-			$('[name=precio]').live('change', function(){
-				$this = $(this);
-				if($this.is(':checked')){
-					$this.next('a').click();
-				}else{
-					$('.reset_precio').click();
-				}
-			});
-
-			$('.link_filtrar_caracteristicas').live('click', function(e){
-				e.preventDefault();
-
-				var $this = $(this),
-					caracteristica = '',
-					href = $this.data('ohref');
-
-				$('.qtip_caracteristicas input[type=checkbox]:checked').each(function(){
-					caracteristica += $(this).val() + ",";
-				});
-				
-				href += "&caracteristicas=" +  caracteristica.substring(0, caracteristica.length-1);
-				$this.attr('href', href);
-				console.log(href)
-			});
-
-			$('.resultados-wrapper a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
-				url: $(this).attr('href'),
-				container: '.resultados',
-				fragment: '.resultados',
-				timeout: 20000,
-				beforeSend: function(){
-					$('.filtros_expandir').qtip('toggle', false)
-					$('.resultados-wrapper').hide().html('').append("<div id='overlay'/>").fadeIn(300);
-			 		$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
-				},
-				success: function(data){
-					$('#overlay, .loader').fadeOut(0, function(){
-						$(this).remove(); 
-					});
-					$('.resultados-wrapper').hide().append(data).fadeIn(300, function(){
-						$('.qtip').remove();
-						rebindEvents();
-					});
-				}
-			});
-
-			$('.close_qtip').live('click',function(){
-				var rel = $(this).parent().attr('rel');
-				$('.'+rel+' .filtros_expandir').qtip('toggle', false);
-			});
-
-
-		});
-	</script>
+	<script src="{{asset('assets/js/buscar.js')}}"></script>
 {% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
 <style>
-	.filtros-busqueda li{
-		display: inline;
-	}
 
-	.expandir_zonas{
-		display: inline-block;
-		font-size: 12px;
-		background: #fafafa;
-		border: 1px #eee solid;
-		padding: 10px;
-		position: relative;
-		overflow: hidden;
-		width: 145px;
-		height: 7px;
-	}
-
-		.expandir_zonas span{
-			display: inline-block;
-			cursor: pointer;
-		}
-
-	.expandir_resultados{
-		display: inline-block;
-		font-size: 12px;
-		background: #fafafa;
-		border: 1px #eee solid;
-		padding: 10px;
-		position: relative;
-		width: 940px;
-		height: 100px;
-		overflow: hidden;
-	}
-		.expandir_resultados span{
-			display: inline-block;
-			cursor: pointer;
-		}
-
-		.expandir_resultados .ver_categorias{
-			float: right;
-		}
-
-		.expandir_resultados ul, .expandir_zonas ul{
-			width: 940px;
-		}
-
-			.expandir_resultados ul li, .expandir_zonas ul li{
-				display: inline-block;
-				width: 232px;
-				margin: 10px 0;
-				font-size: 12px !important;
-			}
 </style>
 
     <!-- Mensajes de éxito -->
@@ -330,11 +22,8 @@
             </div>
     {% endif %}
 
-	
-
 	<div class="resultados-wrapper">
 		<div class="resultados">
-
 			{% if results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined %}
 			<div class="qtip_zonas qtip_filtros" rel="filtros_zonas">
 				<span class="close_qtip"></span>
@@ -405,17 +94,17 @@
                  {% endif %}
 				en {{ciudad.nombre}}			
 				<small>
-	                 <a href="{{ path('_buscar', {'slug': slug, 'q': term }) }}">{{ciudad.nombre}}</a>
+	                 <a class="link_azul" href="{{ path('_buscar', {'slug': slug, 'q': term }) }}">{{ciudad.nombre}}</a>
 	                 {% if sector != null %}
-	                 	» <a href="{{ path('_buscar', query|merge({'slug': slug, 'sector': sector.slug, 'comuna': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{sector.nombre}}</a>
+	                 	» <a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'sector': sector.slug, 'comuna': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{sector.nombre}}</a>
 	                 {% elseif comuna != null %}
-	                 	» <a href="{{ path('_buscar', query|merge({'slug': slug, 'comuna': comuna.slug, 'sector': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{comuna.nombre}}</a>
+	                 	» <a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'comuna': comuna.slug, 'sector': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{comuna.nombre}}</a>
 	                 {% endif %}
 	                 {% if categoria != null %}
-	                 	» <a href="{{ path('_buscar', query|merge({'slug': slug, 'categoria': categoria.slug, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{categoria.nombre}}</a>
+	                 	» <a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'categoria': categoria.slug, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{categoria.nombre}}</a>
 	                 {% endif %}
 	                 {% if subcategoria != null %}
-	                 	» <a href="{{ path('_buscar', query|merge({'slug': slug, 'subcategoria': subcategoria.slug, 'caracteristicas': null, 'pagina': null })) }}">{{subcategoria.nombre}}</a>
+	                 	» <a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'subcategoria': subcategoria.slug, 'caracteristicas': null, 'pagina': null })) }}">{{subcategoria.nombre}}</a>
 	                 {% endif %}
 				</small>
 			</h1>
@@ -483,31 +172,31 @@
 					<div class="resultados_filtros">
 						<div class="precio_container">
 							<input type="checkbox" {% if query.precio is defined and query.precio == 5 %} checked="checked" {% endif %} name="precio" value="{{ path('_buscar', query|merge({'slug': slug, 'precio': 5})) }}" />
-							<a href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 5})) }}">
+							<a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 5})) }}">
 								<div class="filtro_precios_raty" data-precio="5"></div>
 							</a>
 						</div>
 						<div class="precio_container">
 							<input type="checkbox" {% if query.precio is defined and query.precio == 4 %} checked="checked" {% endif %} name="precio" value="{{ path('_buscar', query|merge({'slug': slug, 'precio': 4})) }}" />
-							<a href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 4})) }}">
+							<a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 4})) }}">
 								<div class="filtro_precios_raty" data-precio="4"></div>
 							</a>
 						</div>
 						<div class="precio_container">
 							<input type="checkbox" {% if query.precio is defined and query.precio == 3 %} checked="checked" {% endif %} name="precio" value="{{ path('_buscar', query|merge({'slug': slug, 'precio': 3})) }}" />
-							<a href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 3})) }}">
+							<a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 3})) }}">
 								<div class="filtro_precios_raty" data-precio="3"></div>
 							</a>
 						</div>
 						<div class="precio_container">
 							<input type="checkbox" {% if query.precio is defined and query.precio == 2 %} checked="checked" {% endif %} name="precio" value="{{ path('_buscar', query|merge({'slug': slug, 'precio': 2})) }}" />
-							<a href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 2})) }}">
+							<a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 2})) }}">
 								<div class="filtro_precios_raty" data-precio="2"></div>
 							</a>
 						</div>
 						<div class="precio_container">
 							<input type="checkbox" {% if query.precio is defined and query.precio == 1 %} checked="checked" {% endif %} name="precio" value="{{ path('_buscar', query|merge({'slug': slug, 'precio': 1})) }}" />
-							<a href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 1})) }}">
+							<a class="link_azul" href="{{ path('_buscar', query|merge({'slug': slug, 'precio': 1})) }}">
 								<div class="filtro_precios_raty" data-precio="1"></div>
 							</a>
 						</div>
@@ -557,25 +246,8 @@
 				</div>
 			{% endif %}
 
-	        <div class="paginacion_recomendacion">
-	            <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong>
-	            {% if paginacion.totalPaginas != 1 %}
-	                 | Ir a la página
-	                <ul>
-	                    {{ paginacion.paginacion | raw }}
-	                </ul>
-	            {% endif %}
-	        </div>
-
-
-			{% if lugares|length == 0 %}
-				No hay resultados, :()
-			{% else %}
-				<br/>
-				Length:	{{total}}
-
-
-			    <ul class="filtros-busqueda">
+			<div class="orden_container">
+				<ul class="filtros_busqueda">
 			        <li>
 			            <strong>{{'general.terminos.ordenar_por'|trans}}: </strong>
 			        </li>
@@ -626,21 +298,24 @@
 			            <option value="45">45</option>
 			            <option value="60">60</option>
 			        </select>
-			        <p class="resultados_por_pagina_txt">{{'general.terminos.resultados'|trans}}</p>
+			        <p class="resultados_por_pagina_txt"><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong> - {{'general.terminos.resultados_pagina'|trans}}</p>
 			    </div>
-		  <br/><br/><br/><br/><br/><br/>
-		  {% endif %}
+	        </div>
+
+	        <div class="listado_resultados">
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">
 					<div class="datos-principales">
 						<ul>
-							<li>
-								<div class="indice-resultado">{{loop.index}}</div>
+							<li class="info_lugar">
 								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
-								<a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre_lugar}}</a>
+								<div class="nombre_lugar">
+									<span class="indice_resultado">{{loop.index}}</span>
+									<strong><a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre_lugar}}</a></strong>
+								</div>
 							</li>
 							{% if lugar.categorias_nombre != '' %}
-							<li>
+							<li class="info_cateogrias">
 								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}</strong></span>
 								{% for categoria in lugar.categorias_nombre %}
 									{{categoria|raw}}{% if loop.last == null %}, {% endif %}
@@ -648,23 +323,25 @@
 							</li>
 							{% endif %}
 							{% if lugar.sector_nombre != '' %}
-							<li>
+							<li class="info_sector">
 								<span><strong>{{'general.terminos.sector'|trans}}</strong></span>
-								<a href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
+								<a class="link_azul" href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
 							</li>
 							{% endif %}
 							{% if lugar.ultima_recomendacion != '' %}
-							<li>
-								<span><strong>
-								    <img src="{{ ('assets/images/usuarios/'~lugar.usuario_imagen) | apply_filter('tiny_usuario')}}" />
-									{{lugar.fecha_ultima_recomendacion|date('y/m/d') }}
-									{% if lugar.usuario_nombre != '' %}
-										<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_nombre}} {{lugar.usuario_apellido}}</a>
-									{% else %}
-										<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_slug}}</a>
-									{% endif %}
-								</strong></span>
-								<p>{{lugar.ultima_recomendacion}}...</p>
+							<li class="info_recomendacion">
+								<img src="{{ ('assets/images/usuarios/'~lugar.usuario_imagen) | apply_filter('tiny_usuario')}}" />
+								<span>
+									<strong>
+										{{lugar.fecha_ultima_recomendacion|date('y/m/d') }} - 
+										{% if lugar.usuario_nombre != '' %}
+											<a class="link_azul" href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_nombre}} {{lugar.usuario_apellido}}</a>
+										{% else %}
+											<a class="link_azul" href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_slug}}</a>
+										{% endif %}
+									</strong>
+									<p>{{lugar.ultima_recomendacion}}...</p>
+								</span>
 							</li>
 							{% endif %}
 						</ul>
@@ -676,14 +353,24 @@
 							{% if lugar.precio != null %}
 								<li><div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div></li>
 							{% endif %}
-							<li>{{lugar.calle}} {{lugar.numero}} - <a href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a></li>
+							<li>{{lugar.calle}} {{lugar.numero}} - <a class="link_azul" href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a></li>
 							<li>Ranking: {{lugar.ranking}}</li>
 						</ul>
 					</div>
 				</div>
 			{% endfor %}
+			</div>
 		</div>
+			        <div class="paginacion_recomendacion">
+	            <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong>
+	            {% if paginacion.totalPaginas != 1 %}
+	                 | Ir a la página
+	                <ul>
+	                    {{ paginacion.paginacion | raw }}
+	                </ul>
+	            {% endif %}
+	        </div>
 		<div id="agrega-lugar"><p>¿No encontraste el Lugar que buscabas?
-¡Entonces agrégalo y sé el primero en recomendarlo!</p><a href="{{ path('_agregar') }}">Boton</a></div>
+¡Entonces agrégalo y sé el primero en recomendarlo!</p><a class="link_azul" href="{{ path('_agregar') }}">Boton</a></div>
 	</div>
 {% endblock %}

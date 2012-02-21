@@ -1,7 +1,30 @@
-.resultados-wrapper {
-  position: relative;
-  height: 400px;
-  float: left; }
+.orden_container {
+  display: block;
+  height: 65px;
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  margin-top: 10px; }
+  .orden_container .resultados_por_pagina {
+    float: left;
+    display: inline-block;
+    width: 260px;
+    text-align: right;
+    height: 65px;
+    line-height: 56px; }
+    .orden_container .resultados_por_pagina select {
+      margin-top: 24px;
+      margin-left: 5px;
+      float: right; }
+    .orden_container .resultados_por_pagina p {
+      float: right; }
+  .orden_container .filtros_busqueda {
+    height: 65px;
+    float: left;
+    display: inline-block;
+    width: 700px;
+    line-height: 65px; }
+    .orden_container .filtros_busqueda li {
+      display: inline; }
 
 #overlay {
   background: black;
@@ -30,7 +53,8 @@
   margin-right: 5px; }
 
 .filtros_zonas {
-  width: 215px; }
+  width: 215px;
+  margin: 0 10px 0 28px; }
 
 .filtros_precios {
   width: 87px; }
@@ -38,7 +62,7 @@
 .filtros_caracteristicas {
   width: 211px; }
 
-.filtros_zonas, .filtros_precios, .filtros_caracteristicas {
+.filtros_precios, .filtros_caracteristicas {
   margin: 0 5px; }
 
 .filtros_categorias {
@@ -50,7 +74,8 @@
   color: #666666;
   text-shadow: 0 1px 0 white;
   vertical-align: top;
-  height: 185px; }
+  height: 185px;
+  overflow: hidden; }
   .filtros_subcategorias ul li, .filtros_zonas ul li, .filtros_precios ul li, .filtros_caracteristicas ul li, .filtros_categorias ul li {
     display: inline-block;
     width: 160px;
