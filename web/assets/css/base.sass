@@ -161,6 +161,11 @@ $rojo: #F72121
         size: 20px
     line-height: 30px
 
+@mixin titulo_chico
+    font:
+        size: 18px
+    line-height: 28px
+
 @mixin textos_13
     font:
         family: Arial
@@ -250,6 +255,9 @@ a.chzn-single.chzn-error
 .titulo
     @include titulo_medio
     margin: 0 0 30px 0
+
+.titulo_home
+    @include titulo_chico
 
 .titulo_gigante
     @include titulo_grosero

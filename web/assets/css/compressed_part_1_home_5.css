@@ -1,5 +1,172 @@
 /* Colores */
 /* Mixin */
+/* Home sitio */
+.saludos_premios {
+  background: url("../images/extras/borde_relieve.png") no-repeat 0 81px;
+  border-top: 1px solid #f2f2f6;
+  color: #666666;
+  float: left;
+  font-size: 13px;
+  height: 86px;
+  line-height: 16px;
+  margin: 0 0 30px;
+  width: 960px; }
+  .saludos_premios .mensaje {
+    border-left: 1px solid #f2f2f6;
+    float: left;
+    padding: 15px 0 15px 10px;
+    width: 677px; }
+    .saludos_premios .mensaje p {
+      color: #999999;
+      display: block;
+      margin: 5px 0 0; }
+    .saludos_premios .mensaje .texto_destacado {
+      color: #66ccff; }
+  .saludos_premios .flecha {
+    background: url("../images/extras/flecha_grande.png") no-repeat 0 0;
+    float: left;
+    height: 81px;
+    width: 31px; }
+  .saludos_premios .registro {
+    border-right: 1px solid #f2f2f6;
+    float: left;
+    height: 51px;
+    padding: 15px 10px;
+    text-align: center;
+    width: 220px; }
+    .saludos_premios .registro a {
+      color: #0066cc !important;
+      text-decoration: none; }
+      .saludos_premios .registro a:hover {
+        color: #0066cc !important;
+        text-decoration: underline; }
+    .saludos_premios .registro .boton_fb {
+      background: url("../images/extras/botones_sprite.png") no-repeat -1px -155px;
+      border: 0px;
+      cursor: pointer;
+      height: 30px;
+      margin: 0 10px 5px;
+      width: 200px; }
+
+.contenido_home {
+  float: left;
+  font-size: 14px;
+  margin: 0 20px 0 0;
+  width: 640px;
+  /* Concursos */
+  /* Promociones en Pedidos Online */ }
+  .contenido_home .campanas_concursos {
+    color: #666666;
+    float: left;
+    margin: 0 0 30px;
+    width: 640px; }
+    .contenido_home .campanas_concursos a {
+      text-decoration: none; }
+    .contenido_home .campanas_concursos li {
+      border: 1px solid #f2f2f6;
+      border-bottom: 5px solid #f2f2f6;
+      float: left;
+      height: 245px;
+      width: 204px; }
+      .contenido_home .campanas_concursos li:hover {
+        background: url("../images/extras/fondo_link_concurso.png") no-repeat; }
+      .contenido_home .campanas_concursos li .titulo_concurso {
+        color: #666666;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center; }
+      .contenido_home .campanas_concursos li .concursos {
+        border-bottom: 5px solid #66ccff; }
+      .contenido_home .campanas_concursos li .especiales {
+        border-bottom: 5px solid #fff08c; }
+      .contenido_home .campanas_concursos li .ganadores {
+        border-bottom: 5px solid #f72121; }
+      .contenido_home .campanas_concursos li .lugar_concurso {
+        background: #f2f2f6;
+        color: #666666;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center; }
+      .contenido_home .campanas_concursos li .sorteo_concurso {
+        color: #666666;
+        padding: 10px;
+        text-align: center; }
+    .contenido_home .campanas_concursos .central {
+      margin: 0 11px; }
+  .contenido_home .caja_promociones {
+    border: 1px solid #f2f2f6;
+    color: #666666;
+    float: left;
+    width: 638px; }
+    .contenido_home .caja_promociones .titulo_promociones {
+      border-bottom: 1px solid #f2f2f6;
+      float: left;
+      height: 50px;
+      width: 638px; }
+      .contenido_home .caja_promociones .titulo_promociones .descuento {
+        background: url("../images/extras/botones_sprite.png") no-repeat 0 -185px;
+        float: left;
+        margin: 10px;
+        padding: 0 0 0 20px;
+        width: 438px; }
+      .contenido_home .caja_promociones .titulo_promociones .ver_todos {
+        color: #0066cc !important;
+        text-decoration: none;
+        float: left;
+        font-size: 12px;
+        padding: 20px 10px 10px 0;
+        width: 150px; }
+    .contenido_home .caja_promociones a {
+      text-decoration: none; }
+    .contenido_home .caja_promociones li {
+      border-right: 1px solid #f2f2f6;
+      float: left;
+      height: 130px;
+      padding: 10px;
+      width: 192px; }
+      .contenido_home .caja_promociones li:hover {
+        background: url("../images/extras/fondo_link_pedidos.png") no-repeat; }
+      .contenido_home .caja_promociones li .promocion_delivery_img {
+        float: left;
+        width: 50px; }
+      .contenido_home .caja_promociones li .promocion_delivery_lugar_dias {
+        float: left;
+        padding: 0 0 0 10px;
+        width: 128px; }
+        .contenido_home .caja_promociones li .promocion_delivery_lugar_dias .promocion_lugar {
+          color: #666666;
+          font-size: 14px;
+          font-weight: bold; }
+        .contenido_home .caja_promociones li .promocion_delivery_lugar_dias .promocion_dias {
+          color: #999999;
+          font-size: 11px;
+          margin: 10px 0 0; }
+      .contenido_home .caja_promociones li .promocion_delivery_descripcion {
+        float: left;
+        padding: 10px 0 0;
+        width: 188px; }
+        .contenido_home .caja_promociones li .promocion_delivery_descripcion .promocion_icono {
+          background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -663px;
+          float: left;
+          height: 16px;
+          width: 16px; }
+        .contenido_home .caja_promociones li .promocion_delivery_descripcion .promocion_titulo {
+          color: #666666;
+          font-size: 12px;
+          font-weight: bold;
+          float: left;
+          line-height: 16px;
+          margin: 0 0 0 5px;
+          width: 167px; }
+    .contenido_home .caja_promociones .ultimo_pedido {
+      border: none; }
+
+.sidebar_home {
+  float: left;
+  width: 300px; }
+
+/* CSS SEBA */
 #home .columna_izq {
   float: left;
   width: 630px; }
@@ -8,73 +175,6 @@
     height: 250px;
     float: left;
     width: 100%; }
-  #home .columna_izq .caja_promociones {
-    float: left;
-    margin: 0 0 20px 0;
-    width: 100%; }
-    #home .columna_izq .caja_promociones a {
-      color: #231f20;
-      text-decoration: none; }
-      #home .columna_izq .caja_promociones a.ver_todos {
-        color: #0066cc !important;
-        text-decoration: none;
-        font-size: 11px;
-        float: right;
-        margin: 60px 0 0 0; }
-    #home .columna_izq .caja_promociones h2 {
-      font-size: 16px;
-      font-weight: bold;
-      margin: 20px 0; }
-    #home .columna_izq .caja_promociones ul {
-      float: left; }
-      #home .columna_izq .caja_promociones ul li {
-        background: #f2f2f6;
-        border-bottom: 1px solid #cccccc;
-        height: 150px;
-        width: 198px;
-        float: left;
-        margin: 0 15px 0 0;
-        padding: 1px;
-        display: inline; }
-        #home .columna_izq .caja_promociones ul li:hover {
-          border-bottom: 1px solid #999999; }
-        #home .columna_izq .caja_promociones ul li.ultimo_pedido {
-          margin-right: 0px; }
-        #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar {
-          float: left;
-          margin: 20px 10px; }
-          #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_img {
-            float: left;
-            width: 50px; }
-          #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar {
-            float: left;
-            margin: 0 0 0 8px;
-            text-align: left;
-            width: 120px; }
-            #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_lugar {
-              font-size: 14px;
-              font-weight: bold;
-              margin: 0 0 5px 0;
-              color: #444444; }
-            #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_detalle {
-              float: left; }
-              #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_detalle .promocion_icono {
-                background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -663px;
-                float: left;
-                height: 16px;
-                width: 16px; }
-              #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_detalle .promocion_titulo {
-                color: #666666;
-                font-size: 11px;
-                font-weight: bold;
-                float: left;
-                line-height: 14px;
-                margin: 0 0 0 5px; }
-            #home .columna_izq .caja_promociones ul li .promocion_delivery_box_sidebar .promocion_delivery_info_sidebar .promocion_dias {
-              color: #999999;
-              font-size: 11px;
-              float: left;
-              margin: 10px 0 0 0; }
 #home .columna_der {
   float: right;
   width: 300px; }

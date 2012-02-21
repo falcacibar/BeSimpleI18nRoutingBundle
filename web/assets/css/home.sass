@@ -95,6 +95,218 @@ $rojo: #F72121
     -moz-box-sizing: border-box
     -webkit-box-sizing: border-box
 
+
+/* Home sitio */
+
+.saludos_premios
+    background: url('../images/extras/borde_relieve.png') no-repeat 0 81px
+    border-top: 1px solid $gris_f6f
+    color: $gris_666
+    float: left
+    font:
+        size: 13px
+    height: 86px
+    line-height: 16px
+    margin: 0 0 30px
+    width: 960px
+
+    .mensaje
+        border-left: 1px solid $gris_f6f
+        float: left
+        padding: 15px 0 15px 10px
+        width: 677px
+
+        p
+            color: $gris_999
+            display: block
+            margin: 5px 0 0
+
+        .texto_destacado
+            color: $azul_claro
+
+    .flecha
+        background: url('../images/extras/flecha_grande.png') no-repeat 0 0
+        float: left
+        height: 81px
+        width: 31px
+        
+    .registro
+        border-right: 1px solid $gris_f6f
+        float: left
+        height: 51px
+        padding: 15px 10px
+        text-align: center
+        width: 220px
+
+        a
+            @include link_azul
+
+            &:hover
+                @include link_azul_hover
+
+        .boton_fb
+            background: url('../images/extras/botones_sprite.png') no-repeat -1px -155px
+            border: 0px
+            cursor: pointer
+            height: 30px
+            margin: 0 10px 5px
+            width: 200px
+
+.contenido_home
+    float: left
+    font:
+        size: 14px
+    margin: 0 20px 0 0
+    width: 640px
+
+    /* Concursos */
+    .campanas_concursos
+        color: $gris_666
+        float: left
+        margin: 0 0 30px
+        width: 640px
+
+        a
+            text-decoration: none
+
+        li
+            border: 1px solid $gris_f6f
+            border-bottom: 5px solid $gris_f6f
+            float: left
+            height: 245px
+            width: 204px
+
+            &:hover
+                background: url('../images/extras/fondo_link_concurso.png') no-repeat
+
+            .titulo_concurso
+                color: $gris_666
+                font:
+                    weight: bold
+                padding: 10px
+                text:
+                    align: center
+
+            .concursos
+                border-bottom: 5px solid $azul_claro
+
+            .especiales
+                border-bottom: 5px solid $amarillo
+
+            .ganadores
+                border-bottom: 5px solid $rojo
+
+            .lugar_concurso
+                background: $gris_f6f
+                color: $gris_666
+                font:
+                    size: 12px
+                    weight: bold
+                padding: 10px
+                text:
+                    align: center
+
+            .sorteo_concurso
+                color: $gris_666
+                padding: 10px
+                text:
+                    align: center
+
+        .central
+            margin: 0 11px
+    
+    /* Promociones en Pedidos Online */
+    .caja_promociones
+        border: 1px solid $gris_f6f
+        color: $gris_666
+        float: left
+        width: 638px
+
+        .titulo_promociones
+            border-bottom: 1px solid $gris_f6f
+            float: left
+            height: 50px
+            width: 638px
+
+            .descuento
+                background: url('../images/extras/botones_sprite.png') no-repeat 0 -185px
+                float: left
+                margin: 10px
+                padding: 0 0 0 20px   
+                width: 438px
+                
+            .ver_todos
+                @include link_azul
+                float: left
+                font:
+                    size: 12px
+                padding: 20px 10px 10px 0
+                width: 150px         
+
+        a
+            text-decoration: none
+
+        li
+            border-right: 1px solid $gris_f6f
+            float: left
+            height: 130px
+            padding: 10px
+            width: 192px
+
+            &:hover
+                background: url('../images/extras/fondo_link_pedidos.png') no-repeat
+
+            .promocion_delivery_img
+                float: left
+                width: 50px
+
+            .promocion_delivery_lugar_dias
+                float: left
+                padding: 0 0 0 10px
+                width: 128px
+
+                .promocion_lugar
+                    color: $gris_666
+                    font:
+                        size: 14px
+                        weight: bold
+
+                .promocion_dias
+                    color: $gris_999
+                    font:
+                        size: 11px
+                    margin: 10px 0 0
+
+            .promocion_delivery_descripcion
+                float: left
+                padding: 10px 0 0
+                width: 188px
+
+                .promocion_icono
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -663px
+                    float: left
+                    height: 16px
+                    width: 16px            
+
+                .promocion_titulo
+                    color: $gris_666
+                    font:
+                        size: 12px
+                        weight: bold
+                    float: left
+                    line-height: 16px
+                    margin: 0 0 0 5px
+                    width: 167px
+
+        .ultimo_pedido
+            border: none
+
+.sidebar_home
+    float: left
+    width: 300px
+
+/* CSS SEBA */
+
 #home
     .columna_izq
         float: left
@@ -105,91 +317,6 @@ $rojo: #F72121
             height: 250px
             float: left
             width: 100%
-
-        .caja_promociones
-            float: left
-            margin: 0 0 20px 0
-            width: 100%
-
-            a
-                color: #231F20
-                text-decoration: none
-
-                &.ver_todos
-                    @include link_azul
-                    font:
-                        size: 11px
-                    float: right
-                    margin: 60px 0 0 0
-
-            h2
-                font-size: 16px
-                font-weight: bold
-                margin: 20px 0
-            ul
-                float: left
-                li
-                    background: $gris_f6f
-                    border-bottom: 1px solid $gris_ccc
-                    height: 150px
-                    width: 198px
-                    float: left
-                    margin: 0 15px 0 0
-                    padding: 1px
-                    display: inline
-
-                    &:hover
-                        border-bottom: 1px solid $gris_999
-
-
-                    &.ultimo_pedido
-                        margin-right: 0px
-                    
-                    .promocion_delivery_box_sidebar
-                        float: left
-                        margin: 20px 10px
-
-                        .promocion_delivery_img
-                            float: left
-                            width: 50px
-
-                        .promocion_delivery_info_sidebar
-                            float: left
-                            margin: 0 0 0 8px
-                            text-align: left
-                            width: 120px
-
-                            .promocion_lugar
-                                font:
-                                    size: 14px
-                                    weight: bold
-                                margin: 0 0 5px 0
-                                color: $gris_444
-                            .promocion_detalle
-                                float: left
-
-                                .promocion_icono
-                                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -663px
-                                    float: left
-                                    height: 16px
-                                    width: 16px 
-
-                                .promocion_titulo
-                                    color: $gris_666
-                                    font:
-                                        size: 11px
-                                        weight: bold
-                                    float: left
-                                    line-height: 14px
-                                    margin: 0 0 0 5px
-
-                            .promocion_dias
-                                color: $gris_999
-                                font:
-                                    size: 11px
-                                float: left
-                                margin: 10px 0 0 0
-
 
     .columna_der
         float: right

@@ -52,10 +52,13 @@ general:
 
     home:
         title: Comparte y Vive la ciudad
+        saludo_bienvenida: Loogares.com es la guía de lugares de ocio en tu ciudad donde escribiendo recomendaciones ganarás invitaciones a restaurantes, entradas al cine, fiestas, conciertos y más.
         actividad_loogares:
-            titulo: Actividad en Loogares.com
-            recomendaciones: Recomendación escrita|Recomendaciones escritas 
-            premios: Premio regalado|Premios regalados
+            actualmente: Actualmente en nuestra comunidad van escritas
+            recomendaciones: Recomendación|Recomendaciones
+            y: y 
+            premios: Premio|Premios
+            participa: regalados. ¡Participa ahora!
         recomendacion_dia:
             titulo: Recomendación del día
             ver_mas: Ver más
