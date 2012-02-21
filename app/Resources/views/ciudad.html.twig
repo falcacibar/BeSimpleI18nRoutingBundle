@@ -1,6 +1,15 @@
 <div class="menu_ciudad">
-	{% for ciudad in ciudades %}
-		<a href="{{path('locale', {'slug': ciudad.slug})}}">{{ciudad.nombre}}</a>
-		<div class="flecha_ciudad"></div>
-	{% endfor %}
+	<ul>
+		<li>
+			<a href="">Santiago de Chile</a>
+			<div class="flecha_ciudad"></div>
+				<ul>
+					{% for ciudad in ciudades %}
+						<a href="{{path('locale', {'slug': ciudad.slug})}}">
+							<li>{{ciudad.nombre}}</li>
+						</a>
+					{% endfor %}
+				</ul>
+		</li>
+	</ul>
 </div>

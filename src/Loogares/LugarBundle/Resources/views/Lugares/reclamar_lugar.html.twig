@@ -3,18 +3,24 @@
 {% block title %}{{'dueno.reclamar.titulo'|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
 
 {% block content %}
-	<div id="reclamar_lugar">
-		<h1>{% trans with {'%lugar%' : "<a href="~path('_lugar', {'slug' : lugar.slug})~">"~lugar.nombre~"</a>"}%}dueno.reclamar.titulo{% endtrans %}</h1>
 
-		{% if errors %}
-			<div class="reclamar_error">
+	<!-- Mensajes de error --> 
+	{% if errors %}
+		<div class="mensaje_error">
+			<div class="imagen_error"></div>
+			<div class="txt_error">
 				{% for error in errors %}
 			        <p>{{ error | trans}}</p>
 			    {% endfor %}
-			</div>
-		{% endif %}
+		    </div>
+		</div>
+	{% endif %}	
+		
+	<div class="reclamar_lugar">
 
-		<p>{{'dueno.reclamar.subtitulo'|trans}}</p>
+		<h1 class="titulo">{% trans with {'%lugar%' : "<a href="~path('_lugar', {'slug' : lugar.slug})~">"~lugar.nombre~"</a>"}%}dueno.reclamar.titulo{% endtrans %}</h1>
+
+		<p class="texto_reclamar">{{'dueno.reclamar.subtitulo'|trans}}</p>
 
 		<form action="{{ path('_reclamarLugar', {'slug' : lugar.slug}) }}" method="post" {{ form_enctype(form) }}>
 			<ul>
@@ -60,20 +66,16 @@
 				
 				<li>
 					<label></label>
-					<span class="tip">{{'reportes.tip.gracias'|trans}}</span>
-				</li>
-
-				<li>
-					<label></label>
-					<span class="tip">{{'reportes.tip.obligatorio'|trans}}</span>
+					<span class="tips">{{'reportes.tip.obligatorio'|trans}}</span>
 				</li>
 				<li>
 					<label></label>
-					<input type="submit" value="{{'lugar.fotos.agregar.submit'|trans}}" formnovalidate />
+					<input class="enviar_reclamo_lugar" type="submit" value="" formnovalidate />
 				</li>
 
 				{{form_rest(form)}}
 			</ul>
 		</form>
+
 	</div>
 {% endblock %}

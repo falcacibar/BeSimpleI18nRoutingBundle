@@ -195,7 +195,7 @@ body
     width: 940px
 
     .imagen_exito
-        background: url('../images/extras/botones_sprite.png') 0px -94px
+        background: url('../images/extras/botones_sprite.png') 0px -129px
         display: block
         float: left
         height: 20px
@@ -217,7 +217,7 @@ body
     width: 940px
 
     .imagen_error
-        background: url('../images/extras/botones_sprite.png') 0px -68px
+        background: url('../images/extras/botones_sprite.png') 0px -103px
         display: block
         float: left
         height: 20px
@@ -336,32 +336,66 @@ textarea
             background: $blanco
             border: 1px solid $gris_ccc
             float: left
-            height: 65px
-            padding: 5px 15px
+            height: 80px
             position: absolute
-            width: 100px
+            width: 130px
             z-index: 11
+
+            .borde_logo
+                background: $blanco
+                border: 2px solid $gris_f6f
+                float: left
+                height: 68px
+                padding: 6px 13px 5px
+                position: absolute
+                top: -3px
+                width: 100px
             
         .menu_ciudad
+            background: $gris_666
             color: $blanco
+            height: 25px
             float: left
             font:
                 size: 12px
-            margin: 6px 10px
-            width: 298px
+            width: 180px
             padding-left: 130px
+            position: relative
 
             a
                 @include link_blanco
                 float: left
 
-                &:hover
-                    @include link_blanco_hover
+            li
+                height: 13px
+                padding: 6px 10px
+
+                ul
+                    background: $gris_666
+                    display: none
+                    font:
+                        size: 11px
+                    left: 132px
+                    padding: 10px 0 0
+                    position: absolute
+                    top: 25px
+                    width: 178px
+                    z-index: 20000
+
+                    li
+                        display: list-item
+                        float: left
+                        padding: 10px
+                        width: 158px
+
+                        &:hover
+                            background: $gris_999
+                            text-decoration: none !important
             
             .flecha_ciudad
                 background: url('../images/extras/botones_sprite.png') -99px -1px
                 display: block
-                float: left
+                float: right
                 height: 3px
                 margin: 5px 0 0 5px
                 width: 6px
@@ -371,7 +405,7 @@ textarea
             float: left
             font:
                 size: 11px
-            width: 420px
+            width: 558px
 
             .usuario_login_entra
                 float: right
@@ -398,6 +432,7 @@ textarea
                     background: $gris_666                
 
                 .usuario_login
+                    background: $gris_666
                     float: left
                     display: block
                     padding: 0 5px 0 0
@@ -544,7 +579,7 @@ textarea
             border-left: 1px solid $gris_ccc
             border-right: 1px solid $gris_ccc
             float: left
-            height: 30px
+            height: 31px
             padding: 5px 40px
             width: 50px
         
@@ -607,7 +642,6 @@ textarea
                                 background: $gris_f6f
                                 border: 0px
                                 padding: 9px 6px 1px
-                                text-decoration: underline
                                 width: 238px
         
         .buscador_box
@@ -638,7 +672,7 @@ textarea
                         border: 1px solid $azul_claro
                     
                 .caja_icono
-                    background: $blanco
+                    background: $gris_faf
                     border-bottom: 1px solid $gris_999
                     border-right: 1px solid $gris_999
                     border-top: 1px solid $gris_999
@@ -1169,7 +1203,7 @@ textarea
 /* Footer */
         
 .footer
-    background: $gris_f6f
+    background: url('../images/extras/fondo_footer.png') 0 0 repeat
     float: right
     margin: 20px 0 0 0
     width: 100%
@@ -1206,8 +1240,29 @@ textarea
             border-top: 1px solid $blanco
 
         .pais
-            @include footer
+            border-bottom: 1px solid $gris_ccc
             border-top: 1px solid $blanco
+            color: $gris_999
+            float: left
+            padding: 30px 0
+            width: 310px
+
+        .idioma
+            border-bottom: 1px solid $gris_ccc
+            border-top: 1px solid $blanco
+            color: $gris_999
+            float: left
+            padding: 30px 0
+            width: 310px
+
+        .redes
+            border-bottom: 1px solid $gris_ccc
+            border-top: 1px solid $blanco
+            color: $gris_999
+            float: left
+            padding: 26px 0
+            text-align: right
+            width: 340px
 
         .ano_loogares
             border-top: 1px solid $blanco
@@ -1238,16 +1293,38 @@ textarea
             padding: 0 0 0 12px
             width: 130px
 
+        p.footer_title_idioma
+            background: url("../images/extras/flecha_footer.png") no-repeat 0px 3px
+            float: left
+            font:
+                size: 14px
+                weight: bold
+            height: 12px
+            padding: 0 0 0 12px
+            width: 145px
+
         .cl
             background: url("../images/extras/botones_sprite.png") no-repeat 0px -32px
             height: 13px
-            padding: 0 0 0 28px 
+            padding: 0 0 0 25px 
             width: 20px
 
         .ar
             background: url("../images/extras/botones_sprite.png") no-repeat 0px -47px
             height: 13px 
-            padding: 0 0 0 28px 
+            padding: 0 0 0 25px 
+            width: 20px
+
+        .en
+            background: url("../images/extras/botones_sprite.png") no-repeat 0px -64px
+            height: 13px 
+            padding: 0 0 0 25px 
+            width: 20px
+
+        .es
+            background: url("../images/extras/botones_sprite.png") no-repeat 0px -83px
+            height: 13px 
+            padding: 0 0 0 25px 
             width: 20px
         
         .participa_listado
@@ -1279,6 +1356,30 @@ textarea
             li
                 float: left
                 margin: 1px 10px 0 0
+                    
+                a
+                    @include link_gris_999
+
+                    &:hover
+                        @include link_gris_999_hover
+
+        .idioma_listado
+
+            li
+                float: left
+                margin: 1px 10px 0 0
+                    
+                a
+                    @include link_gris_999
+
+                    &:hover
+                        @include link_gris_999_hover
+
+        .redes_listado
+
+            li
+                float: right
+                margin: 0 0 0 10px
                     
                 a
                     @include link_gris_999

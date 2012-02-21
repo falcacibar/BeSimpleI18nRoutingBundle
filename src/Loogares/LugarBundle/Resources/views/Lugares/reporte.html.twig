@@ -26,7 +26,6 @@
 {% set linkLugar = path('_lugar', {'slug': lugar.slug}) %}	
 {% set linkUsuario = path('showUsuario', {'param': (usuario.slug is not empty) ? usuario.slug : usuario.id}) %}	
 
-
 {% block title %}{{titulo_pag|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
 
 {% block content %}

@@ -36,6 +36,20 @@ $(document).ready(function() {
       }
    );
 
+   // Menú ciudad
+   $('.menu_ciudad ul li:has(ul)').hover(
+      function(e)
+      {
+         $(this).find('ul').css({display: "block"});
+         $(this).find('a:first').addClass('li-activo');
+      },
+
+      function(e)
+      {
+         $(this).find('ul').css({display: "none"});
+         $(this).find('a:first').removeClass('li-activo')
+      }
+   );
 
    // Menú usuario
    $('.login ul li:has(ul)').hover(

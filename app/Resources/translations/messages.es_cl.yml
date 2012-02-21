@@ -33,6 +33,8 @@ general:
             conducta: Códigos de conducta
         paises:
             titulo: Cambiar de país:
+        idioma:
+            titulo: Cambiar de idioma:
         firma: © 2010~2012 Loogares.com
     terminos:
         categorias: Categoría|Categorías
