@@ -18,20 +18,23 @@ class DefaultController extends Controller
     public function menuAction(){
 
     	$em = $this->getDoctrine()->getEntityManager();
-        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");        
+        $tlr = $em->getRepository("LoogaresLugarBundle:TipoCategoria");    
+        $tipoCategoria = $tlr->findAll();
+        $data = array();
 
-        $tipoCategorias = $lr->getTipoCategoriaPorPrioridad();
-        $categorias = $em->getRepository("LoogaresLugarBundle:Categoria")->findAll();             
-        
-        $data = array();           
-        
-        $data['tipoCategorias'] = $tipoCategorias;
-        $data['categorias']  = $categorias;
+        foreach($tipoCategoria as $key => $value){
+            $q = $em->createQuery("SELECT cl, tl.nombre as tipo_nombre, tl.slug as tipo_slug, c.nombre as categoria_nombre, c.slug as categoria_slug, count(c.id) as total
+                                   FROM Loogares\LugarBundle\Entity\CategoriaLugar cl
 
-        foreach($data['categorias'] as $categoria){
-            $lugares = $em->getRepository("LoogaresLugarBundle:Lugar")->getTotalLugaresPorCategoria($categoria->getId()); 
-
-            $categoria->lugares = $lugares['total'];
+                                   LEFT JOIN cl.categoria c
+                                   LEFT JOIN c.tipo_categoria tl
+                                   WHERE tl.id = ?1
+                                   GROUP BY c.id
+                                   ORDER BY tl.id");
+            $q->setParameter(1, $value->getId());
+            $buff = $q->getResult();
+            $data[$value->getSlug()]['tipo'] = $tipoCategoria[$key];
+            $data[$value->getSlug()]['categorias'] = $buff;
         }
 
     	return $this->render('::menu.html.twig', array('menu' => $data));

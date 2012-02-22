@@ -1,16 +1,35 @@
 <div class="menu_categorias">
 	<ul>
-		{% for tipoCategoria in menu.tipoCategorias %}
-			<li><a href="#">{{tipoCategoria.nombre}}</a>
-				<ul>
+		{% for menu in menu %}
+			<li><a href="">{{menu.tipo.nombre}}</a>
+				{% if menu.categorias|length <= 15 %}
+					<ul>
 					{% for categoria in menu.categorias %}
-						{% if categoria.tipoCategoria == tipoCategoria %}
-							<li><a href="#">{{categoria.nombre}} ({{categoria.lugares}})</a></li>
+						<li><a href="">{{categoria.categoria_nombre}} ({{categoria.total}})({{menu.categorias|length}})</a></li>
+					{% endfor %}
+					</ul>
+				{% elseif menu.categorias|length >= 16 and menu.categorias|length <= 19 %}			
+					<ul>
+					{% for categoria in menu.categorias %}
+						<li><a href="">{{categoria.categoria_nombre}} ({{categoria.total}})({{menu.categorias|length}})</a></li>
+						{% if loop.index == 0 or loop.index % 10 == 0 %}
+							</ul><ul>
 						{% endif %}
 					{% endfor %}
-					
-				</ul>
+					</ul>
+				{% elseif menu.categorias|length > 15 %}
+					<ul>
+					{% for categoria in menu.categorias %}
+						<li><a href="">{{categoria.categoria_nombre}} ({{categoria.total}})({{menu.categorias|length}})</a></li>
+						{% if loop.index == 0 or loop.index % 15 == 0 %}
+							</ul><ul>
+						{% endif %}
+					{% endfor %}
+					</ul>
+				{% endif %}
 			</li>
 		{% endfor %}
 	</ul>
 </div>
+
+
