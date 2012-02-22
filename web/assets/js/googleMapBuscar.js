@@ -1,24 +1,31 @@
-var maxx = [];
-var maxy = [];
-var markersArray = new Array();
-var url = WEBROOT;
-
 $(document).ready(function(){
         if(GBrowserIsCompatible){
             var centroLat = 0, centroLogn = 0,
-                map = new GMap2(document.getElementById("mapa_buscar")),
-                $lugar = $('.lugar_data');
+                maxx = [], maxy = [];
+                $lugar = $('.lugar_data'),
+                zoom = 16,
+                map = new GMap2(document.getElementById("mapa_buscar"));
 
-            map.setCenter(new GLatLng(-33.43692082916139, -70.63445091247559),10);
             map.addControl(new GSmallZoomControl());
             bounds = map.getBounds();
 
             $.each($lugar, function(i){
-                markersArray[markersArray.length] = createMarker($(this));
-                map.addOverlay(markersArray[markersArray.length-1]);
+                var $this = $(this),
+                    coords = $this.data('coords').split(','),
+                    point = new GLatLng(coords[0], coords[1]);
+
+                maxx.push(coords[0]);
+                maxy.push(coords[1]);
+
+                map.addOverlay(createMarker($this, point, i));
+                bounds.extend(point)
+
+                if(i == 0){
+                    map.setCenter(point, zoom);
+                    bounds = map.getBounds();
+                }
             });
 
-            //Sacamos el nivel de zoom en base a los bounds (limites)
             map.setZoom(map.getBoundsZoomLevel(bounds))
 
             maxx.sort();
@@ -32,8 +39,11 @@ $(document).ready(function(){
         }
 });
 
-function createMarker($container){
-    var baseIcon = new GIcon(G_DEFAULT_ICON);
+function createMarker($container, point, i){
+    var baseIcon = new GIcon(G_DEFAULT_ICON),
+        letteredIconMarker = new GIcon(baseIcon),
+        markerOptions = {icon: letteredIconMarker, draggable: false},
+        marker = new GMarker(point, markerOptions);
 
     baseIcon.shadow = "http://www.google.com/mapfiles/shadow50.png",
     baseIcon.iconSize = new GSize(20,34),
@@ -42,24 +52,13 @@ function createMarker($container){
     baseIcon.infoWindowAnchor = new GPoint(1,1),
     baseIcon.infoWindowSize = new GSize(20,34);
 
-    var letteredIconMarker = new GIcon(baseIcon);
-    letteredIconMarker.image = url + "../assets/images/gmaps/gmap"+(markersArray.length + 1)+".png";
-
-    var markerOptions = {icon: letteredIconMarker, draggable: false},
-    coords = $container.data('coords').split(','),
-    point = new GLatLng(coords[0], coords[1]),
-    marker = new GMarker(point, markerOptions);
-
-    //Find out max x and y values and add points to the limits
-    bounds.extend(point)
-
-    maxx.push(coords[0]);
-    maxy.push(coords[1]);
+    letteredIconMarker.image = WEBROOT + "../assets/images/gmaps/gmap"+(i + 1)+".png";
 
     GEvent.addListener(marker, "mouseover", function() {
-        var markerOffset = map.fromLatLngToContainerPixel(marker.getPoint());
-        var t = markerOffset.y - 510;
-        var l = markerOffset.x - 211;
+        var markerOffset = map.fromLatLngToContainerPixel(marker.getPoint()),
+            mapaOffset = $('#mapa_buscar').offset(),
+            t = markerOffset.y + (mapaOffset.top) - 265,
+            l = markerOffset.x + (mapaOffset.left / 2) - 50;
 
         $container.show().css('top', t).css('left', l)
     });

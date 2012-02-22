@@ -24,6 +24,7 @@ $azul_claro: #66CCFF
 	box-shadow: 4px 5px 0 #ccc
 	border: 1px #ccc solid
 	position: absolute
+	z-index: 24
 	display: none
 
 	.flecha
@@ -57,6 +58,10 @@ $azul_claro: #66CCFF
 .resultados-wrapper
 	position: relative
 	float: left
+
+	.sidebar
+		height: 200px
+		background: #333
 
 .listado_resultados
 	margin-top: -29px
@@ -143,10 +148,3 @@ $azul_claro: #66CCFF
 		border: 1px solid #f2f2f2
 		margin: -1px -1px 0 
 		background: #fbfcff
-
-	.sidebar
-		float: left
-		width: 2340px
-		display: inline-block
-		height: 500px
-		background: #330
