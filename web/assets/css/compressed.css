@@ -1729,6 +1729,7 @@ small {
   margin: 0 20px 0 0;
   width: 640px;
   /* Concursos */
+  /* Lugares recientemente recomendados */
   /* Promociones en Pedidos Online */ }
   .contenido_home .campanas_concursos {
     color: #666666;
@@ -1780,6 +1781,49 @@ small {
         text-align: center; }
     .contenido_home .campanas_concursos .central {
       margin: 0 11px; }
+  .contenido_home .lugares_recomendados {
+    border: 1px solid #f2f2f6;
+    color: #666666;
+    float: left;
+    margin: 0 0 30px;
+    width: 638px; }
+    .contenido_home .lugares_recomendados .titulo_recomendados {
+      border-bottom: 1px solid #f2f2f6;
+      float: left;
+      padding: 10px;
+      width: 618px; }
+    .contenido_home .lugares_recomendados li {
+      border-right: 1px solid #f2f2f6;
+      float: left;
+      height: 150px;
+      padding: 20px 10px 10px;
+      width: 192px; }
+      .contenido_home .lugares_recomendados li .titulo_categoria {
+        color: #999999;
+        font-size: 13px; }
+      .contenido_home .lugares_recomendados li img {
+        float: left;
+        margin: 20px 0 0; }
+      .contenido_home .lugares_recomendados li .listado_lugares_recomendados {
+        color: #666666;
+        float: left;
+        font-size: 12px;
+        margin: 20px 0 0 10px;
+        width: 122px; }
+        .contenido_home .lugares_recomendados li .listado_lugares_recomendados li {
+          border: none;
+          height: auto;
+          margin: 0 0 8px;
+          padding: 0;
+          width: 122px; }
+        .contenido_home .lugares_recomendados li .listado_lugares_recomendados a {
+          color: #0066cc !important;
+          text-decoration: none; }
+          .contenido_home .lugares_recomendados li .listado_lugares_recomendados a:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+    .contenido_home .lugares_recomendados .ultima_categoria {
+      border: none; }
   .contenido_home .caja_promociones {
     border: 1px solid #f2f2f6;
     color: #666666;
@@ -2443,6 +2487,8 @@ small {
   float: left;
   padding: 20px 20px 10px;
   width: 598px; }
+  .lugar_info .qtip_favoritos {
+    display: none; }
   .lugar_info .favoritos_lugar {
     float: left; }
     .lugar_info .favoritos_lugar .favoritos_lugar_icono {
@@ -2755,6 +2801,8 @@ small {
     float: left;
     margin: 20px 0 0 0;
     width: 598px; }
+    .lugar_info .caracteristicas_lugar .qtip_caracteristica {
+      display: none; }
     .lugar_info .caracteristicas_lugar ul.caracteristicas_lugar_listado {
       display: block;
       float: left;
@@ -2913,6 +2961,12 @@ small {
   height: 50px;
   padding: 0 20px;
   width: 600px; }
+  .actividad_lugar .qtip_quiero_ir {
+    display: none; }
+  .actividad_lugar .qtip_quiero_volver {
+    display: none; }
+  .actividad_lugar .qtip_ya_estuve {
+    display: none; }
   .actividad_lugar .flota_derecha {
     float: right; }
   .actividad_lugar .recomienda_lugar {
