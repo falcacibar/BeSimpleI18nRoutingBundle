@@ -83,7 +83,7 @@
 				<a href="">
 					<li>
 						<h2 class="titulo_concurso concursos">Concurso: Sólo por hoy</h2>
-						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="124" / >
+						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
 						<p class="lugar_concurso">Centro Cultural Amanda</p>
 						<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
 					</li>
@@ -91,7 +91,7 @@
 				<a href="">
 					<li class="central">
 						<h2 class="titulo_concurso especiales">Concurso: Sólo por hoy</h2>
-						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="124" / >
+						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
 						<p class="lugar_concurso">Centro Cultural Amanda</p>
 						<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
 					</li>
@@ -99,7 +99,7 @@
 				<a href="">
 					<li>
 						<h2 class="titulo_concurso ganadores">Concurso: Sólo por hoy</h2>
-						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="124" / >
+						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
 						<p class="lugar_concurso">Centro Cultural Amanda</p>
 						<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
 					</li>
@@ -167,9 +167,50 @@
         	</script>
 		</div>
 
+		<!-- Colaboradores -->
+		<div class="colaboradores">
+			<h5 class="titulo_home encabezado">Notas y colaboraciones</h5>
+			<img src="" height="160" width="148" />
+			<div class="detalles_nota">
+				<p class="nombre_colaborador">Sabor Platónico</p>
+				<p class="titulo_nota">Rico y liviano en Aioli</p>
+				<p class="texto_nota">Cuando las madres dicen su última palabra no hay nada que hacer y doy fe de que cuando eso, porque... <a href="">Ver más »</a></p>
+			</div>
+			<div class="diapositivas">
+			</div>
+		</div>
+
+		<!-- Loogareño Estrella -->
+		<div class="recomendacion_estrella">
+			<h6 class="titulo_estrella">Loogareño Estrella de la semana</h6>
+			<div class="informacion">
+				<div class="imagen_recomendacion">
+					<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
+						<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="72" width="72"/>
+					</a>
+					<div class="textos_usuario">
+						<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">
+							{% if home.recDia.usuario.nombre != '' %}
+								{{home.recDia.usuario.nombre}} {{home.recDia.usuario.apellido}}
+							{% else %}
+								{{home.recDia.usuario.slug}}
+							{% endif %}
+						</a>
+						<span class="invitada_lugar">Loogareña invitada a <a href="">LUGAR</a> por el equipo de Loogares.com.</span>
+					</div>
+				</div>
+			</div>
+			<div class="recomendacion_preview">					
+				<span><a href="">LUGAR:</a> Con mi pololo, llegamos derechito de nuestras vacaciones a este loogar, con ganas de celebrar el día de San Valentín. El local nos encantó, posee un ambiente...</span>
+				<a href="" class="ver_mas">Ver más &raquo;</a>
+				<br />
+				<span class="tips">¿Quieres ser invitado la próxima semana? <a href="">Entra acá</a></span>
+			</div>
+		</div>
+
 		<!-- Recomendación del Día -->
 		<div class="recomendacion_dia">
-			<h5 class="titulo_home encabezado">{{'general.home.recomendacion_dia.titulo'|trans}}</h5>
+			<h6 class="titulo_home encabezado">{{'general.home.recomendacion_dia.titulo'|trans}}</h6>
 			<div class="informacion">
 				<div class="imagen_estrellas_recomendacion">
 					<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">

@@ -188,7 +188,7 @@ $rojo: #F72121
             border: 1px solid $gris_f6f
             border-bottom: 5px solid $gris_f6f
             float: left
-            height: 245px
+            height: 244px
             width: 204px
 
             &:hover
@@ -235,6 +235,7 @@ $rojo: #F72121
 
             .sorteo_concurso
                 color: $gris_666
+                line-height: 18px
                 padding: 10px
                 text:
                     align: center
@@ -259,7 +260,7 @@ $rojo: #F72121
         li
             border-right: 1px solid $gris_f6f
             float: left
-            height: 150px
+            height: 169px
             padding: 20px 10px 10px
             width: 192px
 
@@ -283,7 +284,7 @@ $rojo: #F72121
                 li
                     border: none
                     height: auto
-                    margin: 0 0 8px
+                    margin: 0 0 10px
                     padding: 0
                     width: 122px
 
@@ -370,7 +371,7 @@ $rojo: #F72121
                     width: 16px            
 
                 .promocion_titulo
-                    color: $gris_666
+                    color: $gris_999
                     font:
                         size: 12px
                         weight: bold
@@ -386,6 +387,85 @@ $rojo: #F72121
     float: left
     width: 300px
 
+    /* Recomendación Estrella */
+    .recomendacion_estrella
+        border: 1px solid $gris_f6f
+        float: left
+        margin: 0 0 30px 0
+        width: 298px
+
+        .titulo_estrella
+            background: url('../images/extras/botones_sprite.png') no-repeat 0 -239px
+            font:
+                size: 16px
+            line-height: 28px
+            margin: 10px
+            padding: 0 0 0 20px
+
+        .informacion
+            border-top: 1px solid $gris_f6f
+            float: left
+            width: 298px
+
+            .imagen_recomendacion
+                float: left
+                padding: 10px
+                width: 298px
+
+                .imagen
+                    float: left
+                    height: 72px
+                    width: 72px
+
+                .textos_usuario
+                    float: left
+                    margin: 0 0 0 10px
+                    width: 197px
+
+                .nombre_usuario
+                    @include link_gris_666
+                    display: block
+                    font:
+                        size: 14px
+                        weight: bold
+                    margin: 0 0 10px
+
+                .invitada_lugar
+                    color: $gris_999
+                    display: block
+                    font:
+                        size: 12px
+                    line-height: 16px
+                    margin: 0 0 10px 0
+
+                    a
+                        @include link_azul
+
+                        &:hover
+                            @include link_azul_hover
+                
+        .recomendacion_preview
+            color: $gris_999
+            float: left
+            font:
+                size: 12px
+            line-height: 18px
+            padding: 0px 10px 10px
+            width: 278px
+
+            a
+                @include link_azul
+                
+                &:hover
+                    @include link_azul_hover
+
+            .tips
+                float: left
+                font:
+                    size: 11px
+                    weight: bold
+                margin: 20px 0 0
+                
     /* Recomendación del Día */
     .recomendacion_dia
         border: 1px solid $gris_f6f
@@ -414,6 +494,7 @@ $rojo: #F72121
                 .textos_usuario
                     float: left
                     margin: 0 0 0 10px
+                    width: 197px
 
 
                 .nombre_usuario
@@ -437,7 +518,7 @@ $rojo: #F72121
             font:
                 size: 12px
             line-height: 18px
-            padding: 10px
+            padding: 0px 10px 10px
             width: 278px
 
             a
@@ -464,6 +545,65 @@ $rojo: #F72121
 
             .qtip_recomendacion_del_dia
                 display: none
+
+    /* Notas y Colaboradores */
+    .colaboradores
+        border: 1px solid $gris_f6f
+        float: left
+        margin: 0 0 30px 0
+        width: 298px
+
+        .encabezado
+            padding: 10px
+
+        img
+            float: left
+            height: 160px
+            width: 135px
+
+        .detalles_nota
+            border-bottom: 1px solid $gris_f6f
+            border-top: 1px solid $gris_f6f
+            float: left
+            height: 158px
+            width: 163px
+
+            .nombre_colaborador
+                background: $gris_faf
+                color: $gris_999
+                float: left
+                font:
+                    size: 12px
+                text-align: center
+                padding: 10px
+                width: 143px
+
+            .titulo_nota
+                color: $gris_666
+                float: left
+                font:
+                    size: 14px
+                margin: 10px
+
+            .texto_nota
+                color: $gris_999
+                float: left
+                font:
+                    size: 12px
+                line-height: 17px
+                margin: 0 10px
+
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
+        
+        .diapositivas
+            float: left
+            height: 20px
+            padding: 10px
+            width: 278px
                 
 .loogarenos_conectados
     border: 1px solid $gris_f6f

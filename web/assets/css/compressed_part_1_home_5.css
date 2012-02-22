@@ -79,7 +79,7 @@
       border: 1px solid #f2f2f6;
       border-bottom: 5px solid #f2f2f6;
       float: left;
-      height: 245px;
+      height: 244px;
       width: 204px; }
       .contenido_home .campanas_concursos li:hover {
         _background: url("../images/extras/fondo_link_concurso.png") no-repeat;
@@ -114,6 +114,7 @@
         text-align: center; }
       .contenido_home .campanas_concursos li .sorteo_concurso {
         color: #666666;
+        line-height: 18px;
         padding: 10px;
         text-align: center; }
     .contenido_home .campanas_concursos .central {
@@ -132,7 +133,7 @@
     .contenido_home .lugares_recomendados li {
       border-right: 1px solid #f2f2f6;
       float: left;
-      height: 150px;
+      height: 169px;
       padding: 20px 10px 10px;
       width: 192px; }
       .contenido_home .lugares_recomendados li .titulo_categoria {
@@ -150,7 +151,7 @@
         .contenido_home .lugares_recomendados li .listado_lugares_recomendados li {
           border: none;
           height: auto;
-          margin: 0 0 8px;
+          margin: 0 0 10px;
           padding: 0;
           width: 122px; }
         .contenido_home .lugares_recomendados li .listado_lugares_recomendados a {
@@ -219,7 +220,7 @@
           height: 16px;
           width: 16px; }
         .contenido_home .caja_promociones li .promocion_delivery_descripcion .promocion_titulo {
-          color: #666666;
+          color: #999999;
           font-size: 12px;
           font-weight: bold;
           float: left;
@@ -232,7 +233,73 @@
 .sidebar_home {
   float: left;
   width: 300px;
-  /* Recomendación del Día */ }
+  /* Recomendación Estrella */
+  /* Recomendación del Día */
+  /* Notas y Colaboradores */ }
+  .sidebar_home .recomendacion_estrella {
+    border: 1px solid #f2f2f6;
+    float: left;
+    margin: 0 0 30px 0;
+    width: 298px; }
+    .sidebar_home .recomendacion_estrella .titulo_estrella {
+      background: url("../images/extras/botones_sprite.png") no-repeat 0 -239px;
+      font-size: 16px;
+      line-height: 28px;
+      margin: 10px;
+      padding: 0 0 0 20px; }
+    .sidebar_home .recomendacion_estrella .informacion {
+      border-top: 1px solid #f2f2f6;
+      float: left;
+      width: 298px; }
+      .sidebar_home .recomendacion_estrella .informacion .imagen_recomendacion {
+        float: left;
+        padding: 10px;
+        width: 298px; }
+        .sidebar_home .recomendacion_estrella .informacion .imagen_recomendacion .imagen {
+          float: left;
+          height: 72px;
+          width: 72px; }
+        .sidebar_home .recomendacion_estrella .informacion .imagen_recomendacion .textos_usuario {
+          float: left;
+          margin: 0 0 0 10px;
+          width: 197px; }
+        .sidebar_home .recomendacion_estrella .informacion .imagen_recomendacion .nombre_usuario {
+          color: #666666 !important;
+          text-decoration: none;
+          display: block;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 0 0 10px; }
+        .sidebar_home .recomendacion_estrella .informacion .imagen_recomendacion .invitada_lugar {
+          color: #999999;
+          display: block;
+          font-size: 12px;
+          line-height: 16px;
+          margin: 0 0 10px 0; }
+          .sidebar_home .recomendacion_estrella .informacion .imagen_recomendacion .invitada_lugar a {
+            color: #0066cc !important;
+            text-decoration: none; }
+            .sidebar_home .recomendacion_estrella .informacion .imagen_recomendacion .invitada_lugar a:hover {
+              color: #0066cc !important;
+              text-decoration: underline; }
+    .sidebar_home .recomendacion_estrella .recomendacion_preview {
+      color: #999999;
+      float: left;
+      font-size: 12px;
+      line-height: 18px;
+      padding: 0px 10px 10px;
+      width: 278px; }
+      .sidebar_home .recomendacion_estrella .recomendacion_preview a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        .sidebar_home .recomendacion_estrella .recomendacion_preview a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
+      .sidebar_home .recomendacion_estrella .recomendacion_preview .tips {
+        float: left;
+        font-size: 11px;
+        font-weight: bold;
+        margin: 20px 0 0; }
   .sidebar_home .recomendacion_dia {
     border: 1px solid #f2f2f6;
     float: left;
@@ -254,7 +321,8 @@
           width: 72px; }
         .sidebar_home .recomendacion_dia .informacion .imagen_estrellas_recomendacion .textos_usuario {
           float: left;
-          margin: 0 0 0 10px; }
+          margin: 0 0 0 10px;
+          width: 197px; }
         .sidebar_home .recomendacion_dia .informacion .imagen_estrellas_recomendacion .nombre_usuario {
           color: #666666 !important;
           text-decoration: none;
@@ -272,7 +340,7 @@
       float: left;
       font-size: 12px;
       line-height: 18px;
-      padding: 10px;
+      padding: 0px 10px 10px;
       width: 278px; }
       .sidebar_home .recomendacion_dia .recomendacion_preview a {
         color: #0066cc !important;
@@ -294,6 +362,53 @@
           background: url("../images/extras/botones_sprite.png") no-repeat 0 -228px; }
       .sidebar_home .recomendacion_dia .recomendacion_preview .qtip_recomendacion_del_dia {
         display: none; }
+  .sidebar_home .colaboradores {
+    border: 1px solid #f2f2f6;
+    float: left;
+    margin: 0 0 30px 0;
+    width: 298px; }
+    .sidebar_home .colaboradores .encabezado {
+      padding: 10px; }
+    .sidebar_home .colaboradores img {
+      float: left;
+      height: 160px;
+      width: 135px; }
+    .sidebar_home .colaboradores .detalles_nota {
+      border-bottom: 1px solid #f2f2f6;
+      border-top: 1px solid #f2f2f6;
+      float: left;
+      height: 158px;
+      width: 163px; }
+      .sidebar_home .colaboradores .detalles_nota .nombre_colaborador {
+        background: #fafafc;
+        color: #999999;
+        float: left;
+        font-size: 12px;
+        text-align: center;
+        padding: 10px;
+        width: 143px; }
+      .sidebar_home .colaboradores .detalles_nota .titulo_nota {
+        color: #666666;
+        float: left;
+        font-size: 14px;
+        margin: 10px; }
+      .sidebar_home .colaboradores .detalles_nota .texto_nota {
+        color: #999999;
+        float: left;
+        font-size: 12px;
+        line-height: 17px;
+        margin: 0 10px; }
+        .sidebar_home .colaboradores .detalles_nota .texto_nota a {
+          color: #0066cc !important;
+          text-decoration: none; }
+          .sidebar_home .colaboradores .detalles_nota .texto_nota a:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+    .sidebar_home .colaboradores .diapositivas {
+      float: left;
+      height: 20px;
+      padding: 10px;
+      width: 278px; }
 
 .loogarenos_conectados {
   border: 1px solid #f2f2f6;
