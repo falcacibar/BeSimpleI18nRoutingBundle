@@ -10,7 +10,7 @@ $(document).ready(function(){
 		$('.resultado-busqueda-stars-raty').each(function(){
 			var estrellas = $(this).attr('data-stars');
 			$(this).raty({
-				width: 140,
+				width: 160,
 			    starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
 			    starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
 			    starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',

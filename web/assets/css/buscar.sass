@@ -16,18 +16,56 @@ $azul_claro: #66CCFF
 	&:hover
 		@include link_azul_hover
 
+.lugar_data
+	background: #fff
+	width: 245px
+	display: block
+	padding: 6px 10px
+	box-shadow: 4px 5px 0 #ccc
+	border: 1px #ccc solid
+	position: absolute
+	display: none
+
+	.flecha
+		background: url('../images/extras/flechita-gmap.png') no-repeat
+		height: 25px
+		width: 25px
+		position: absolute
+		top: 100%
+		left: 180px
+		box-shadow: 5px 0 0 #ccc
+
+	li
+		margin: 4px 0
+
+	.data_lugar
+
+		.nombre_lugar
+			display: block
+			line-height: 20px
+
+		img
+			background: #f1f0f5
+			width: 60px
+			height: 60px
+			float: left
+			margin-right: 5px
+
+	.data_categoria, .data_sector
+		margin-left: 65px
+
 .resultados-wrapper
 	position: relative
 	float: left
 
 .listado_resultados
-	margin-top: -30px
+	margin-top: -29px
 	display: inline-block
+	float: left
 
 .resultado-busqueda
-	margin: 0 0 5px
 	display: block
-	width: 600px
+	width: 610px
 	height: 150px
 	padding: 10px
 	clear: both
@@ -37,7 +75,7 @@ $azul_claro: #66CCFF
 		float: left
 		padding: 10px
 		height: 150px
-		width: 400px
+		width: 399px
 		box-sizing: border-box
 		-moz-box-sizing: border-box
 
@@ -92,7 +130,7 @@ $azul_claro: #66CCFF
 		float: left
 		margin-top: 15px
 		height: 120px
-		width: 200px
+		width: 199px
 		padding: 10px
 		box-sizing: border-box
 		-moz-box-sizing: border-box
@@ -102,5 +140,13 @@ $azul_claro: #66CCFF
 		li
 			margin: 0 0 8px
 	&:hover
+		border: 1px solid #f2f2f2
+		margin: -1px -1px 0 
 		background: #fbfcff
-		border-left: 1px solid #f2f2f2
+
+	.sidebar
+		float: left
+		width: 2340px
+		display: inline-block
+		height: 500px
+		background: #330

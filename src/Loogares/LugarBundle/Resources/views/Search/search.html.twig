@@ -6,6 +6,8 @@
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.pjax.js')}}"></script>
+	<script src="{{asset('assets/js/googleMapBuscar.js')}}"></script>
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
 	<script src="{{asset('assets/js/buscar.js')}}"></script>
 {% endblock %}
 
@@ -207,6 +209,7 @@
 					</div>
 				</div>
 
+				{% if results.totalPorCaracteristica[0] is defined %}
 				<div class="filtros_caracteristicas">
 					<div class="filtros_header">
 						<span class="filtros_titulo">Caracteristicas</span>
@@ -224,6 +227,7 @@
 						</ul>					
 					</div>
 				</div>
+				{% endif %}
 			{% endif %}
 
 			{% if results.totalPorCategoria[0] is defined %}
@@ -305,13 +309,39 @@
 	        <div class="listado_resultados">
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">
+					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.lugar_slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
+						<ul>
+							<li class="data_lugar">
+								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+								<div class="nombre_lugar">
+									<strong><a class="link_azul" href="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}">{{lugar.nombre_lugar }}</a></strong>
+								</div>
+							</li>
+							<li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div></li>
+							<li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
+						{% if lugar.sector_nombre != '' %}
+							<li class="data_sector">
+								<span><strong>{{'general.terminos.sector'|trans}}</strong></span>
+								<a class="link_azul" href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
+							</li>
+						{% endif %}
+						{% if lugar.categorias_nombre != '' %}
+							<li class="data_categoria">
+								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}</strong></span>
+								{% for categoria in lugar.categorias_nombre %}
+									{{categoria|raw}}{% if loop.last == null %}, {% endif %}
+								{% endfor %}
+							</li>
+						{% endif %}
+						<div class="flecha"></div>
+					</div>
 					<div class="datos-principales">
 						<ul>
 							<li class="info_lugar">
 								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
 								<div class="nombre_lugar">
 									<span class="indice_resultado">{{loop.index}}</span>
-									<strong><a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre_lugar}}</a></strong>
+									<strong><a class="link_azul" href="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}">{{lugar.nombre_lugar }}</a></strong>
 								</div>
 							</li>
 							{% if lugar.categorias_nombre != '' %}
@@ -359,7 +389,14 @@
 				</div>
 			{% endfor %}
 			</div>
+			<div class="sidebar">
+		        <div class="mapa_sidebar" id="mapa-sidebar">
+		            <div id="mapa_buscar" style="height: 300px; width: 300px;">
+		            </div>
+		        </div>
+		    </div>
 		</div>
+
 			        <div class="paginacion_recomendacion">
 	            <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong>
 	            {% if paginacion.totalPaginas != 1 %}
