@@ -2355,7 +2355,8 @@ small {
     .agregar_editar_datos_lugar .agregar-lugar .lista_subcategorias {
       float: left;
       margin: 0 10px 0 0;
-      width: 185px; }
+      width: 185px;
+      display: none; }
     .agregar_editar_datos_lugar .agregar-lugar .subcategoria {
       float: left;
       font-size: 11px;
@@ -2547,6 +2548,8 @@ small {
       float: left;
       width: 560px;
       /* Reomienda al momento de agregar el lugar */ }
+      .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar .recomienda-precio-li {
+        display: none; }
       .agregar_editar_datos_lugar .agregar-lugar .recomienda_agregar_lugar ul li {
         float: left;
         margin: 0 0 20px 0;
@@ -3649,6 +3652,8 @@ small {
   float: left;
   display: block;
   width: 640px; }
+  .recomienda_lugar_caja .recomienda-precio-li {
+    display: none; }
   .recomienda_lugar_caja ul li {
     float: left;
     margin: 0 0 20px 0;

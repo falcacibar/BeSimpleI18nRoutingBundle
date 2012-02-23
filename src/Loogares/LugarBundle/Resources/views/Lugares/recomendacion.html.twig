@@ -13,7 +13,7 @@
 	        scoreName: 'recomienda-estrellas'
 	    });
 
-	    $('.recomendacion-precio-raty').raty({
+	    /*$('.recomendacion-precio-raty').raty({
 	        width: 140,
 	        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
 	        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
@@ -22,7 +22,7 @@
 	        hintList: ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'],
 	        target: '#precio-recomienda',
 	        scoreName: 'recomienda-precio'
-	    });
+	    });*/
 
 		$('.texto').keyup(function(){
 		    $('.max').text(3000 - parseInt($(this).val().length));
@@ -83,7 +83,9 @@
     }
 </script>
 <div class="recomienda_lugar_caja">
-	<h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
+	{% if lugar.slug != '' %}
+		<h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
+	{% endif %}
 
 	<form name="recomienda" action="{{ path('_recomienda', {'slug': lugar.slug}) }}" method="post">
 		<ul>
@@ -93,7 +95,7 @@
 				<div id="estrellas-recomienda"></div>
 			</li>
 			{% if lugar is defined or recomendacion is defined %} <!-- Cuando aplican las categorías -->
-			<li>
+			<li class="recomienda-precio-li">
 				<label>{{'lugar.recomendacion.precio'|trans}}</label> 
 				<div class="recomendacion-precio-raty recomienda_precio"></div>
 				<div id="precio-recomienda"></div>

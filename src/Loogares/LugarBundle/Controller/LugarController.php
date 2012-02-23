@@ -354,6 +354,7 @@ class LugarController extends Controller{
                 $comuna = $lr->getComunas($_POST['comuna']);
 
                 $sector = $lr->getSectores($_POST['sector']);
+
                 if(isset($sector[0])){
                     $lugarManipulado->setSector($sector[0]);
                 }
@@ -475,28 +476,30 @@ class LugarController extends Controller{
 
                 $em->flush();
 
-                if(isset($_POST['texto']) && $_POST['texto'] != '' && !preg_match('/^¡Este es tu espacio!/', $_POST['texto'])){
+                if( isset($_POST['texto']) && $_POST['texto'] != '' && !preg_match('/^¡Este es tu espacio!/', $_POST['texto'])){
                     //CURL MAGIC
+
                     if(isset($_POST['recomienda-precio'])){
                         $precio = $_POST['recomienda-precio'];
                     }else{
                         $precio = '';
                     }
 
+
                     if(isset($_POST['recomienda-estrellas'])){
                         $estrellas = $_POST['recomienda-estrellas'];
                     }else{
                         $estrellas = '';
                     }
-                    
+             
                     //set POST variables
                     $fields_string = '';
-                    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_recomendacion', array('slug' => $lugarManipulado->getSlug()));
+                    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_recomienda', array('slug' => $lugarManipulado->getSlug()));
                     $fields = array(
                         'texto'=> urlencode($_POST['texto']),
                         'tags'=> urlencode($_POST['tags']),
-                        'estrellas'=> urlencode($estrellas),
-                        'precio' => urlencode($precio),
+                        'recomienda-estrellas'=> urlencode($estrellas),
+                        'recomienda-precio' => urlencode($precio),
                         'usuario' => $this->get('security.context')->getToken()->getUser()->getId(),
                         'curlSuperVar' => 1
                     );
@@ -518,7 +521,7 @@ class LugarController extends Controller{
 
                     curl_close($ch);
                 }
-
+        
                 if($rolAdmin == 1){
                     /**************************
 
@@ -545,8 +548,6 @@ class LugarController extends Controller{
 
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }else{
-                    //Edicion o Agregar Success
-                    
                     if($esEdicionDeUsuario == true){
                         $this->get('session')->setFlash('lugar_flash','Wena campeon, edito el lugar.');
                     }else{
@@ -620,7 +621,14 @@ class LugarController extends Controller{
             $errors = array_merge($formErrors, $camposExtraErrors);
         }
 
-        $data['categorias'] = $lr->getCategorias();
+        if($rolAdmin == true){
+            $data['categorias'] = $lr->getCategorias();
+        }else{
+            $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u
+                                   WHERE u.slug != ?1");
+            $q->setParameter(1, "atractivos-turisticos");
+            $data['categorias'] = $q->getResult();
+        }
         $data['tipoCategoria'] = $lr->getTipoCategorias();
         $data['subCategorias'] = $lr->getSubCategorias();
         $data['caracteristicas'] = $lr->getCaracteristicas();
@@ -1004,7 +1012,8 @@ class LugarController extends Controller{
             $recomendacion = new Recomendacion();
         }
 
-        if ($request->getMethod() == 'POST') {
+        if($request->getMethod() == 'POST'){
+
             $newTagRecomendacion = array();
             $tag = array();
             $recomendacion->setTexto($_POST['texto']);

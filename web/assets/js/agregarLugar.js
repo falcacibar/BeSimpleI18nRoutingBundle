@@ -21,12 +21,12 @@ $(document).ready(function(){
         }
     });
 
-        $( "#form_calle" ).autocomplete({
-            source: "http://localhost"+WEBROOT+"ajax/recomendarCalle",
-            minLength: 2
-        });
+    $( "#form_calle" ).autocomplete({
+        source: "http://localhost"+WEBROOT+"ajax/recomendarCalle",
+        minLength: 2
+    });
 
-        $('.categoria, .sector, .comuna, select.pais, .ciudad').chosen();
+    $('.categoria, .sector, .comuna, select.pais, .ciudad').chosen();
 
     $('.quitar').click(function(e){
         e.preventDefault();
@@ -93,18 +93,28 @@ $(document).ready(function(){
         $('.categoria').find('option').removeAttr('disabled');
 
         //Habilitamos el precio de ser necesario
-        if($('.precio-li').is(':not(:visible)')){
-            var stars = $('.precio-raty').attr('data-stars');
-            if(categoria == 'nightClubs'){
-                $('.precio').show();
-            }else if($(this).find('option:selected').parent().attr('label').camelCase() == 'dóndeComer'){
-                $('.precio-li').show();
-                precioAgregar(stars, 'dondeComer')
-            }else if($(this).find('option:selected').parent().attr('label').camelCase() == 'dóndeDormir'){
-                $('.precio-li').show();
-                precioAgregar(stars, 'dondeDormir')
-            }
+        var stars = $('.precio-raty').attr('data-stars');
+        if(categoria == 'nightClubs'){
+            $('.precio-li').show();
+            $('.recomienda-precio-li').show();
+        }else if($(this).find('option:selected').parent().attr('label').camelCase() == 'dóndeComer'){
+            $('.precio-li').show();
+            $('.recomienda-precio-li').show();
+            precioAgregar(stars, 'dondeComer')
+        }else if($(this).find('option:selected').parent().attr('label').camelCase() == 'dóndeDormir'){
+            $('.precio-li').show();
+            $('.recomienda-precio-li').show();
+            precioAgregar(stars, 'dondeDormir')
+        }else{
+            $('.precio-li').hide();
+            $('.precio-raty').html('');
+            $('[name=precio]').val('');
+
+            $('.recomendacion-precio-raty').html('');
+            $('[name=recomienda-precio]').val('');
+            $('.recomienda-precio-li').hide();
         }
+        
 
         //Deshabilitar en los demas dropdown
         $('.categoria').not($this).each(function(){
@@ -380,13 +390,25 @@ $(document).ready(function(){
 function precioAgregar(precio, tipo){
     tipo = getTipo(tipo);
 
-    $('.precio-raty').raty({
+    $('.precio-raty').html('').raty({
         width: 140,
         starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
         starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
         start: precio,
         space: false,
         hintList: tipo,
-        target: '.precio-detalle'
+        target: '.precio-detalle',
+        scoreName: 'precio'
+    });
+
+    $('.recomendacion-precio-raty').raty({
+        width: 140,
+        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
+        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
+        start: 0,
+        space: false,
+        hintList: tipo,
+        target: '#precio-recomienda',
+        scoreName: 'recomienda-precio'
     });
 }
