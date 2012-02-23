@@ -228,21 +228,22 @@ $(document).ready(function(){
 
 	$('.resultados-wrapper a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
 		url: $(this).attr('href'),
-		container: '.resultados',
-		fragment: '.resultados',
+		container: '.resultados-wrapper',
+		fragment: '.resultados-wrapper',
 		timeout: 20000,
 		beforeSend: function(){
 			$('.filtros_expandir').qtip('toggle', false)
-			$('.resultados-wrapper').hide().html('').append("<div id='overlay'/>").fadeIn(300);
+			$('.resultados-wrapper').append("<div class='overlay'><div class='loader'>Cargando Lugares</div></div>").fadeIn(300);
 	 		$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
 		},
 		success: function(data){
-			$('#overlay, .loader').fadeOut(0, function(){
+			$('.overlay').fadeOut(0, function(){
 				$(this).remove(); 
 			});
-			$('.resultados-wrapper').hide().append(data).fadeIn(300, function(){
+			$('.resultados-wrapper').html(data).fadeIn(300, function(){
 				$('.qtip').remove();
 				rebindEvents();
+				$.getScript(WEBROOT+'../assets/js/googleMapBuscar.js');
 			});
 		}
 	});

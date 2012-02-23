@@ -26,6 +26,7 @@ class DefaultController extends Controller
             $q = $em->createQuery("SELECT cl, tl.nombre as tipo_nombre, tl.slug as tipo_slug, c.nombre as categoria_nombre, c.slug as categoria_slug, count(c.id) as total
                                    FROM Loogares\LugarBundle\Entity\CategoriaLugar cl
 
+                                   JOIN cl.lugar l 
                                    LEFT JOIN cl.categoria c
                                    LEFT JOIN c.tipo_categoria tl
                                    WHERE tl.id = ?1
