@@ -104,7 +104,7 @@ $(document).ready(function(){
         }else if($(this).find('option:selected').parent().attr('label').camelCase() == 'dóndeDormir'){
             $('.precio-li').show();
             $('.recomienda-precio-li').show();
-            precioAgregar(stars, 'dondeDormir')
+            precioAgregar(stars, 'dondeDormir');
         }else{
             $('.precio-li').hide();
             $('.precio-raty').html('');
@@ -391,7 +391,7 @@ function precioAgregar(precio, tipo){
     tipo = getTipo(tipo);
 
     $('.precio-raty').html('').raty({
-        width: 140,
+        width: 100,
         starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
         starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
         start: precio,
@@ -401,8 +401,8 @@ function precioAgregar(precio, tipo){
         scoreName: 'precio'
     });
 
-    $('.recomendacion-precio-raty').raty({
-        width: 140,
+    $('.recomendacion-precio-raty').html('').raty({
+        width: 100,
         starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
         starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
         start: 0,

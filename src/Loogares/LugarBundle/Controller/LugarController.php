@@ -1132,6 +1132,9 @@ class LugarController extends Controller{
                 $paths['estrella_media'] =  'assets/images/extras/estrella_media_recomendacion.png';
                 $paths['estrella_vacia'] =  'assets/images/extras/estrella_vacia_recomendacion.png';
                 $paths['usuario'] = 'assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull();
+                if(!file_exists($paths['usuario'])){
+                    $paths['usuario'] = 'assets/images/usuarios/default.gif';
+                }
 
                 $message = $this->get('fn')->enviarMail($mail['asunto'], $lugar->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_lugar.html.twig', $this->get('templating'));
                 $this->get('mailer')->send($message);
@@ -1177,15 +1180,18 @@ class LugarController extends Controller{
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
         $lugar = $lr->findOneBySlug($slug);
-        
+
         if($borrar == true){
             $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2");
             $q->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId());
             $q->setParameter(2, $lugar->getId());
-            $recomendacionResult = $q->getSingleResult();
+            $recomendacionResult = $q->getResult();
 
             $estado = $lr->getEstado(3);
-            $recomendacionResult->setEstado($estado);
+
+            foreach($recomendacionResult as $recomendacion){
+                $recomendacion->setEstado($estado);
+            }
 
             $em->flush();
             $this->get('session')->setFlash('lugar_flash','Wena campeon, borro su recomendacion :(.');

@@ -321,6 +321,7 @@ function estrellasOtrosLugares(id, estrellas){
 function editarRecomendacion(lugar){
     $('.edita_recomendacion').click(function(e){
         e.preventDefault(); 
+        console.log(lugar)
         $recomendacionBloque = $(this).parent().parent().find('.recomendacion-bloque');
         $.ajax({
             type:'post',

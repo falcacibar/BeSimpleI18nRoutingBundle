@@ -43,6 +43,7 @@ Loogares\UsuarioBundle\Entity\Recomendacion:
             type: float
         precio:
             type: integer
+            nullable: true
         fecha_creacion:
             type: datetime
         fecha_ultima_modificacion:

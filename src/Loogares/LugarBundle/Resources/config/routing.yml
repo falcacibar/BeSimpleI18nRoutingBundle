@@ -82,13 +82,13 @@ _recomienda:
     pattern: /lugar/{slug}/recomienda
     defaults: { _controller: LoogaresLugarBundle:Lugar:recomendaciones }
 
-_recomendacion:
-    pattern: /lugar/{slug}/recomendacion/{usuarioSlug}
-    defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
-
 _borrarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/borrar
     defaults: { _controller: LoogaresLugarBundle:Lugar:accionRecomendacion, borrar: true}
+
+_recomendacion:
+    pattern: /lugar/{slug}/recomendacion/{usuarioSlug}
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
 
 _reportarLugar:
     pattern: /lugar/{slug}/reportar

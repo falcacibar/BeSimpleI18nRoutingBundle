@@ -1,87 +1,55 @@
-<script>
-	$(document).ready(function(){
-		$('.recomendacion-star-raty').raty({
-	        width: 140,
-	        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia.png',
-	        starOn:   WEBROOT+'../assets/images/extras/estrella_llena.png',
-	        starHalf:   WEBROOT+'../assets/images/extras/estrella_media.png',
-	        half: true,
-	        start: {{recomendacion.estrellas | default(0)}},
-	        space: false,
-	       	hintList: hintListEstrellas,
-	       	target: '#estrellas-recomienda',
-	        scoreName: 'recomienda-estrellas'
-	    });
+{% block javascripts %}
+	{% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
+	    <script src="{{asset('assets/js/recomiendaLugar.js')}}"></script>
+	{% endif %}
+	<script>
+		$(document).ready(function(){
+			//Placeholder obligatorio con salto de linea, duhhh
+		    if($('.texto').val() == ''){
+		      $('.texto').val("{{'lugar.recomendacion.placeholders.textarea'|trans}}");
+		    }
 
-	    /*$('.recomendacion-precio-raty').raty({
-	        width: 140,
-	        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
-	        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
-	        start: {{recomendacion.precio | default(0)}},
-	        space: false,
-	        hintList: ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'],
-	        target: '#precio-recomienda',
-	        scoreName: 'recomienda-precio'
-	    });*/
+			$('.texto').focus(function(){
+				if( $('.texto').val() == "{{'lugar.recomendacion.placeholders.textarea'|trans}}" ){
+				  $('.texto').val('');
+				}
+			});
 
-		$('.texto').keyup(function(){
-		    $('.max').text(3000 - parseInt($(this).val().length));
-		    $('.llevas').text(parseInt($(this).val().length));
+			$('.texto').blur(function(){
+				if( $('.texto').val() == "" ){
+				  $('.texto').val("{{'lugar.recomendacion.placeholders.textarea'|trans}}");
+				}
+			});
 		});
 
-		$('.texto').keyup()
-
-	    $('[name="recomienda"]').submit(function(){
-	    	if(validarRecomendacion()){
-	    		return true
-	    	}else{
-	    		return false
+		function validarRecomendacion(){
+	    	var error = false;
+	    	$('.errors').remove();
+	    	$('.input-error').removeClass('input-error');
+	    	if($('.texto').val().length < 250){
+	    		error = true;
+	    		$('.texto').addClass('input-error');
+	    		$('.texto').parent().append("<small class='errors'>{{'lugar.recomendacion.error_recomendacion'|trans}}</small>");
 	    	}
-	    });
 
-		//Placeholder obligatorio con salto de linea, duhhh
-	    if($('.texto').val() == ''){
-	      $('.texto').val("{{'lugar.recomendacion.placeholders.textarea'|trans}}");
+	    	if($('[name="recomienda-precio"]').val() == 0){
+	    		error = true;
+	    		$('.recomendacion-precio-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_precio'|trans}}</small>")
+	    	}
+	    	
+	    	if($('[name="recomienda-estrellas"]').val() == 0){
+	    		error = true;
+	    		$('.recomendacion-star-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_estrellas'|trans}}</small>")
+	    	}
+
+	    	if(error){
+	    		return false;
+	    	}else{
+	    		return true;
+	    	}
 	    }
-		$('.texto').focus(function(){
-		if( $('.texto').val() == "{{'lugar.recomendacion.placeholders.textarea'|trans}}" ){
-		  $('.texto').val('');
-		}
-		});
-		$('.texto').blur(function(){
-			if( $('.texto').val() == "" ){
-		  $('.texto').val("{{'lugar.recomendacion.placeholders.textarea'|trans}}");
-		}
-		});
-	});
-
-	function validarRecomendacion(){
-    	var error = false;
-    	$('.errors').remove();
-    	$('.input-error').removeClass('input-error');
-    	if($('.texto').val().length < 250){
-    		error = true;
-    		$('.texto').addClass('input-error');
-    		$('.texto').parent().append("<small class='errors'>{{'lugar.recomendacion.error_recomendacion'|trans}}</small>");
-    	}
-
-    	if($('[name="recomienda-precio"]').val() == 0){
-    		error = true;
-    		$('.recomendacion-precio-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_precio'|trans}}</small>")
-    	}
-    	
-    	if($('[name="recomienda-estrellas"]').val() == 0){
-    		error = true;
-    		$('.recomendacion-star-raty').parent().append("<small class='errors'>{{'lugar.recomendacion.error_estrellas'|trans}}</small>")
-    	}
-
-    	if(error){
-    		return false;
-    	}else{
-    		return true;
-    	}
-    }
-</script>
+	</script>
+{% endblock %}
 <div class="recomienda_lugar_caja">
 	{% if lugar.slug != '' %}
 		<h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
@@ -94,10 +62,11 @@
 				<div class="recomendacion-star-raty recomienda_estrellas"></div>
 				<div id="estrellas-recomienda"></div>
 			</li>
-			{% if lugar is defined or recomendacion is defined %} <!-- Cuando aplican las categorías -->
-			<li class="recomienda-precio-li">
+
+			{% if lugar.mostrarPrecio !=  null %}
+			<li {% if lugar.slug == '' %}class="recomienda-precio-li"{% endif %}>
 				<label>{{'lugar.recomendacion.precio'|trans}}</label> 
-				<div class="recomendacion-precio-raty recomienda_precio"></div>
+				<div class="recomendacion-precio-raty recomienda_precio" data-tipo="{{lugar.mostrarPrecio}}"></div>
 				<div id="precio-recomienda"></div>
 			</li>
 			{% endif %}
