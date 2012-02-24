@@ -107,9 +107,10 @@ $(document).ready(function(){
         $('.recomendacion_pedida_container > h1').text('Recomendacion De '+nombre);
     });
 
-    var send_util_mail = function(){
+    var send_util_mail = function(recomendacion){
         $.ajax({
             url: WEBROOT+'ajax/util_mail',
+            data: {'recomendacion': recomendacion},
             type: 'post',
             data: dataObj
         });
@@ -131,7 +132,7 @@ $(document).ready(function(){
                         $this.removeClass('boton_activado').addClass('boton_clickeado'); 
 
                         // Request para enviar mail a usuario de recomendación solo si es un util
-                        send_util_mail();
+                        send_util_mail(dataObj.recomendacion);
                     }
                     else if($this.hasClass('boton_clickeado')){
                         $this.prev('.conteo').text(conteo-1);
@@ -282,7 +283,6 @@ function precioLugar(precio, tipo){
 }
 
 function estrellasPorRecomendacion(id, estrellas){
-    console.log(estrellas)
     $('.recomendacion-'+id+'-raty').raty({
         width: 140,
         starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',

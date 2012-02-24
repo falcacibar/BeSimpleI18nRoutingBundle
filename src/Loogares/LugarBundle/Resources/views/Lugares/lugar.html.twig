@@ -250,7 +250,9 @@
             </div>
 
             <div class="datos_principales_lugar">
-                <div class="direccion_lugar" id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} <a href="#">{{ lugar.comuna.ciudad.nombre }}</a></div>
+                <div class="direccion_lugar" id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %}
+                    <a href="{{ path('_categoria_comuna', {'slug': lugar.comuna.ciudad.slug, 'comuna': lugar.comuna.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.comuna.nombre}}</a>, <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.comuna.ciudad.nombre }}</a>
+                </div>
                 {% if lugar.telefonos %}
                     <div class="telefono_lugar" id="lugar-telefono">
                         {% for telefono in lugar.telefonos %}
@@ -344,7 +346,7 @@
                     <div class="tags_populares_lugar">
                         <p>{{'lugar.ficha.tags'|trans}}</p>
                         {% for tagsPopulares in lugar.tagsPopulares %}
-                            <a href="#">{{tagsPopulares.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                            {{tagsPopulares.nombre}}{% if loop.last == false %}, {% endif %}
                         {% endfor %}
                     </div>
                     {% endif %}    
@@ -354,8 +356,8 @@
                     {% if lugar.categoriaLugar %}
                         <div class="categoria_lugar_box" id="lugar-categorias">
                             <span class="subtitulos_lugar">{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}</span>
-                            {% for categoriaLugar in lugar.categoriaLugar %} 
-                                <a href="">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                            {% for categoriaLugar in lugar.categoriaLugar %}
+                                <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': categoriaLugar.categoria.slug}) }}">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -374,7 +376,7 @@
                     {% if lugar.sector %}
                         <div class="sector_lugar_box" id="lugar-sector">
                             <span class="subtitulos_lugar">{{'lugar.ficha.datos.sector'|trans}}</span>
-                            <a href="">{{ lugar.sector.nombre }}</a>
+                            <a href="{{ path('_categoria_sector', {'slug': lugar.comuna.ciudad.slug, 'sector': lugar.sector.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.sector.nombre }}</a>
                         </div>
                     {% endif %}
                     {% if lugar.subcategoriaLugar %}
@@ -385,7 +387,7 @@
                                     <span class="subtitulos_lugar">{{'lugar.ficha.datos.subcategorias'|trans}} <span class="minusculas">{{categoriaLugar.categoria.nombre}}</span>:</span>{% set isSet = categoriaLugar.categoria.id %}{% endif %}{%endfor%}
                                 {% else %},
                                 {% endif %}
-                                <a href="">{{subcategoriaLugar.subCategoria.nombre}}</a>{% endfor %}
+                                <a href="{{ path('_categoria_subcategoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': subcategoriaLugar.subcategoria.categoria.slug, 'subcategoria': subcategoriaLugar.subcategoria.slug}) }}">{{subcategoriaLugar.subCategoria.nombre}}</a>{% endfor %}
                         </div>
                     {% endif %}
                     <div class="profesional_ano_material_box">
@@ -600,7 +602,7 @@
                             <p class="tags_recomendacion">
                                 {{'lugar.ficha.tags'|trans}} 
                                 {% for tag in recomendacion.tags %}
-                                    <a href='BUSCAR EL TAG: {{tag}}'>{{ tag }}</a>{% if loop.last == false %}, {% endif %}
+                                    {{ tag }}{% if loop.last == false %}, {% endif %}
                                 {% endfor %}
                             </p>
                         {% endif %}

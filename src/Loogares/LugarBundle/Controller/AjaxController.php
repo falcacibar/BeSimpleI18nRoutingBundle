@@ -276,8 +276,8 @@ class AjaxController extends Controller
       $paths = array();
       $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
 
-      $message = $this->get('fn')->enviarMail($mail['asunto'], $recomendacion->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
-      $this->get('mailer')->send($message);
+      //$message = $this->get('fn')->enviarMail($mail['asunto'], $recomendacion->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
+      //$this->get('mailer')->send($message);
 
       return new Response("sent", 200);
     }
