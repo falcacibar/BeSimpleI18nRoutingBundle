@@ -22,16 +22,16 @@ $(document).ready(function() {
         });
 
    // Menú header
-   $('.menu ul li:has(ul)').hover(
+   $('.menu ul li:has(.cajas_menu)').hover(
       function(e)
       {
-         $(this).find('ul').css({display: "block"});
+         $(this).find('.cajas_menu').css({display: "block"});
          $(this).find('a:first').addClass('li-activo');
       },
 
       function(e)
       {
-         $(this).find('ul').css({display: "none"});
+         $(this).find('.cajas_menu').css({display: "none"});
          $(this).find('a:first').removeClass('li-activo')
       }
    );

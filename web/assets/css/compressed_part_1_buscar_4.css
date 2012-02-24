@@ -1,9 +1,17 @@
-.link_azul {
-  color: #0066cc;
-  text-decoration: none; }
-  .link_azul:hover {
-    color: #0066cc;
-    text-decoration: underline; }
+/* Colores */
+/* Mixin */
+/* Resultados buscador */
+.resultados_de_busqueda {
+  border: 1px solid #f2f2f6;
+  float: left;
+  padding: 20px;
+  width: 958px; }
+  .resultados_de_busqueda .link_azul {
+    color: #0066cc !important;
+    text-decoration: none; }
+    .resultados_de_busqueda .link_azul:hover {
+      color: #0066cc !important;
+      text-decoration: underline; }
 
 .lugar_data {
   background: white;

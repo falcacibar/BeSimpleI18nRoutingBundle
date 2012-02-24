@@ -120,6 +120,10 @@ a.chzn-single.chzn-error {
   line-height: 30px;
   margin: 0 0 30px 0; }
 
+.titulo_busqueda {
+  font-size: 20px;
+  line-height: 30px; }
+
 .titulo_home {
   font-size: 18px;
   line-height: 28px; }
@@ -442,7 +446,7 @@ textarea {
             color: #444444;
             padding: 11px 6px 18px 5px;
             z-index: 20; }
-        .menu .centrado_menu .menu_categorias li ul {
+        .menu .centrado_menu .menu_categorias li .cajas_menu {
           background: white;
           border-bottom: 1px solid #cccccc;
           border-left: 1px solid #cccccc;
@@ -451,22 +455,26 @@ textarea {
           display: none;
           padding: 14px 0 0 0;
           position: absolute;
-          top: 42px;
-          width: 250px; }
-          .menu .centrado_menu .menu_categorias li ul li {
-            display: list-item;
+          top: 42px; }
+          .menu .centrado_menu .menu_categorias li .cajas_menu ul {
             float: left;
             width: 250px; }
-            .menu .centrado_menu .menu_categorias li ul li a {
-              border: 0px;
-              height: 20px;
-              padding: 9px 6px 1px;
-              width: 238px; }
-              .menu .centrado_menu .menu_categorias li ul li a:hover {
-                background: #f2f2f6;
+            .menu .centrado_menu .menu_categorias li .cajas_menu ul li {
+              display: list-item;
+              float: left;
+              width: 250px; }
+              .menu .centrado_menu .menu_categorias li .cajas_menu ul li a {
                 border: 0px;
+                height: 20px;
                 padding: 9px 6px 1px;
                 width: 238px; }
+                .menu .centrado_menu .menu_categorias li .cajas_menu ul li a:hover {
+                  background: #f2f2f6;
+                  border: 0px;
+                  padding: 9px 6px 1px;
+                  width: 238px; }
+              .menu .centrado_menu .menu_categorias li .cajas_menu ul li .numero_de_lugares_categoria {
+                color: #cccccc; }
     .menu .centrado_menu .buscador_box {
       background: url("../images/extras/fondo_buscador.png") 0 0 repeat-x;
       border-left: 1px solid #cccccc;

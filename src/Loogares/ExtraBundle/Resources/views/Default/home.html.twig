@@ -47,20 +47,18 @@
 	
 	<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
 
-	<!-- Si el usuario está conectado, debe mostrar un cambio en la caja -->
-	<div class="saludos_premios">
+	<!-- Si el usuario está logeado, no aparece el saludo, de otro modo, aparece. -->
+	{% if app.security.token.user.id is defined %} 
 
-		<!-- Está caja se alarga si el usuario está en sesión -->
-		<div class="{% if app.security.token.user.id is defined %}mensaje_logeado{% else %}mensaje{% endif %}">
-			<h1><strong>{{'general.home.saludo_bienvenida'|trans}}</strong></h1>
+	{% else %}
+		<div class="saludos_premios">
+			<div class="mensaje">
+				<h1><strong>{{'general.home.saludo_bienvenida'|trans}}</strong></h1>
 
-			<p>{{'general.home.actividad_loogares.actualmente'|trans}} <span class="texto_destacado">{{home.totalRecomendaciones_format}} {{'general.home.actividad_loogares.recomendaciones'|transchoice(home.totalRecomendaciones)}}</span> {{'general.home.actividad_loogares.y'|trans}} <span class="texto_destacado">{{home.totalPremios_format}} {{'general.home.actividad_loogares.premios'|transchoice(home.totalPremios)}}</span> {{'general.home.actividad_loogares.participa'|trans}}</p>
-		</div>
+				<!-- Premios y recomendaciones, comentado por ahora -->
+				<!-- <p>{{'general.home.actividad_loogares.actualmente'|trans}} <span class="texto_destacado">{{home.totalRecomendaciones_format}} {{'general.home.actividad_loogares.recomendaciones'|transchoice(home.totalRecomendaciones)}}</span> {{'general.home.actividad_loogares.y'|trans}} <span class="texto_destacado">{{home.totalPremios_format}} {{'general.home.actividad_loogares.premios'|transchoice(home.totalPremios)}}</span> {{'general.home.actividad_loogares.participa'|trans}}</p> -->
+			</div>
 
-		{% if app.security.token.user.id is defined %} 
-
-		{% else %}
-			<!-- Las cajas de clase "flecha" y "registro" se van cuando el usuario está en sesión -->
 			<div class="flecha">
 			</div>
 
@@ -70,9 +68,8 @@
 	            </a>
 	            <p class="registro_mail">{% trans %}usuario.login.registro.o{% endtrans %} <a href="{{path('registroUsuario')}}">{% trans %}usuario.login.registro.mail{% endtrans %}</a></p>
 			</div>
-		{% endif %}
-
-	</div>
+		</div>
+	{% endif %}
 
 	<!-- Contenido central -->
 	<div class="contenido_home">

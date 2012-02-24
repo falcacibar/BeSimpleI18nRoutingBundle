@@ -408,9 +408,9 @@
                         <ul class="caracteristicas_lugar_listado">
                             {% for caracteristicaLugar in lugar.caracteristicaLugar %}
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <li class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>
+                                    <li class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>{% endif %}
                                 {% elseif caracteristica.slug != 'pedido-online' and caracteristica.slug != 'reserva-online' and caracteristica.slug != 'descuentos-en-pedido-online' %}
-                                    <li class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>
+                                    <li class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>{% endif %}
                                 {% endif %}
                             {% endfor %}
                             <!-- Qtip Caractísticas -->

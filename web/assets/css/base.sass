@@ -256,6 +256,9 @@ a.chzn-single.chzn-error
     @include titulo_medio
     margin: 0 0 30px 0
 
+.titulo_busqueda
+    @include titulo_medio
+
 .titulo_home
     @include titulo_chico
 
@@ -623,7 +626,8 @@ textarea
                         padding: 11px 6px 18px 5px
                         z-index: 20
 
-                ul
+                
+                .cajas_menu
                     background: $blanco
                     border-bottom: 1px solid $gris_ccc
                     border-left: 1px solid $gris_ccc
@@ -633,24 +637,30 @@ textarea
                     padding: 14px 0 0 0
                     position: absolute
                     top: 42px
-                    width: 250px
 
-                    li
-                        display: list-item
+                    ul
                         float: left
                         width: 250px
 
-                        a
-                            border: 0px
-                            height: 20px
-                            padding: 9px 6px 1px
-                            width: 238px
+                        li
+                            display: list-item
+                            float: left
+                            width: 250px
 
-                            &:hover
-                                background: $gris_f6f
+                            a
                                 border: 0px
+                                height: 20px
                                 padding: 9px 6px 1px
                                 width: 238px
+
+                                &:hover
+                                    background: $gris_f6f
+                                    border: 0px
+                                    padding: 9px 6px 1px
+                                    width: 238px
+                            
+                            .numero_de_lugares_categoria
+                                color: $gris_ccc
         
         .buscador_box
             background: url('../images/extras/fondo_buscador.png') 0 0 repeat-x
