@@ -49,6 +49,39 @@
     <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 <script>
     $(document).ready(function(){
+        $('.tooltip_estuve_alla, .tooltip_quiero_volver').qtip({
+            show: {
+                solo: true,
+                event: 'click'
+            },
+            content: {
+                text: $('.qtip_estuve_alla')
+            },
+            style: {
+            classes: 'ui-tooltip-precio',
+                tip: {
+                    border: 0,
+                    width: 12,
+                    color: '#f0f',
+                    corner: true,
+                    offset: 0
+                },
+            },
+            position: {
+                my: 'top center', 
+                at: 'bottom left',
+                adjust: {
+                    x: 59,
+                    y: 6
+                },
+            },
+            hide: {
+                fixed: true,
+                delay: 2000,
+                event: 'mouseleave'
+            }
+        });
+
         $('.tooltip').qtip({
             show: {
                 solo: true
@@ -444,14 +477,15 @@
 
         <div class="actividad_lugar">
             <a class="recomienda_lugar"></a>
-            <div style="display:none">
-                {% if lugar.accionesUsuario.4.puede == 1 %}
-                    <a class="recomendar_despues_lugar tooltip_acciones boton_accion {{(lugar.accionesUsuario.4.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></a>
-                {% else %}
-                    <p class="recomendar_despues_lugar tooltip_acciones boton_desactivado" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></p>
-                {% endif %}
+
+            {% if lugar.accionesUsuario.2.puede == 1 %}
+            <div class="qtip_estuve_alla"> 
+                    <a href="#" class="recomendar_despues">Recomendar después</a>
+                    <a href="#" class="recomendar_ahora">Recomendar ahora</a>
             </div>
-            <div class="estuve_alla_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
+            {% endif %}
+
+            <div class="tooltip_estuve_alla estuve_alla_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.2.puede == 1 %}
                     <a class="estuve_alla_lugar tooltip_ya_estuve boton_accion {{(lugar.accionesUsuario.2.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></a>
                 {% else %}
@@ -467,7 +501,7 @@
                 {% endif %}
                 <p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
             </div> 
-            <div class="quiero_volver_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
+            <div class="tooltip_quiero_volver quiero_volver_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.1.puede == 1 %}
                     <a class="quiero_volver_lugar tooltip_quiero_volver boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}"></a>
                 {% else %}
@@ -497,8 +531,6 @@
                 {% endif %}                
                 <p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>
-            {% if is_granted('ROLE_USER') == false %}
-            {% endif %}
         </div>
 
         <div class="caja_inferior_ficha"></div>
