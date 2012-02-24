@@ -2,9 +2,32 @@
     <h4 class="titulo_otros_lugares">{{'lugar.ficha.otros.titulo'|trans}}</h4>
     {% for lugar in lugares %}
         {% set i = loop.index %}
-        <input id="coordenadas{{i}}" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}"/>
-        <input id="num{{i}}" type="hidden" value="{{lugar.tipo}}"/>
-        <input id="linkLugar{{i}}" type="hidden" value="{{lugar.slug}}"/>
+        <div class="mapa_info">
+            <input class="coordenadas" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}"/>
+            <input class="num" type="hidden" value="{{lugar.tipo}}"/>
+            <input class="linkLugar" type="hidden" value="{{lugar.slug}}"/>
+        </div>
+
+        <div class="lugar_data" data-categoria="{{lugar.tipo}}" data-slug="{{lugar.slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
+            <ul>
+                <li class="data_lugar">
+                    <img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" />
+                    <div class="nombre_lugar">
+                        <strong><a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre }}</a></strong>
+                    </div>
+                </li>
+                <li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div></li>
+                <li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
+            {% if lugar.categorias_nombre != '' %}
+                <li class="data_categoria">
+                    <span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}</strong></span>
+                    {% for categoria in lugar.categorias_nombre %}
+                        {{categoria|raw}}{% if loop.last == false %}, {% endif %}
+                    {% endfor %}
+                </li>
+            {% endif %}
+        </div>
+
         {% if i < 6 %}
             <div class="otro_lugar">
                 <a class="otro_lugar_img" href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="{{('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" width="50" height="50" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
@@ -19,26 +42,11 @@
                     <li class="direccion">{{ lugar.calle }} {{ lugar.numero }}, <a href="#">{{lugar.comuna}}</a></li>
                     <li class="categoria">
                         <strong>{{'lugar.ficha.otros.categoria'|transchoice(1)}} </strong>
-                        <a href='BUSCAR LA CATEGORIA: {{lugar.categorias[0]}}'>{{ lugar.categorias[0] }}</a>
+                        {% for categoria in lugar.categorias_nombre %}
+                            {{categoria|raw}}{% if loop.last == false %}, {% endif %}
+                        {% endfor %}
                     </li>
                 </ul>
             </div>
         {% endif %}
-            <div style="display: none;" id="info{{i}}">
-                <span class="top"></span>
-                <img src="{{('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" width="46" height="46" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/>
-                <span>{{lugar.nombre}}</span>
-                <div>
-                        <div id="puntuacion-{{i}}"></div>
-                        <span>{{lugar.recomendaciones}} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.recomendaciones)}}</span>
-                </div>
-                <p>{{lugar.calle}} {{lugar.numero}}, {{lugar.ciudad}}</p>
-                <p>
-                    <strong>{{'lugar.ficha.otros.categoria'|transchoice(0)}} </strong>
-                    {% for categoria in lugar.categorias %}
-                        <a href='BUSCAR LA CATEGORIA: {{categoria}}'>{{ categoria }}</a>{% if loop.last == false %}, {% endif %}
-                    {% endfor %}
-                </p>
-            </div>
-        
     {% endfor %}

@@ -1001,12 +1001,14 @@ class SearchController extends Controller
     //Sacamos los otros datos de los 30 resultados que corresponden
     foreach($arr['lugares'] as $key => $lugar){
       $buffer = $this->getDoctrine()->getConnection()
-      ->fetchAll("SELECT group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, imagenes_lugar.imagen_full as imagen_lugar, comuna.nombre as comuna_nombre, comuna.slug as comuna_slug, sector.nombre as sector_nombre, sector.slug as sector_slug, LEFT(recomendacion.texto, 140) as ultima_recomendacion, usuarios.slug as usuario_slug, usuarios.nombre as usuario_nombre, usuarios.apellido as usuario_apellido, usuarios.imagen_full as usuario_imagen
+      ->fetchAll("SELECT ciudad.slug as ciudad_slug, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, imagenes_lugar.imagen_full as imagen_lugar, comuna.nombre as comuna_nombre, comuna.slug as comuna_slug, sector.nombre as sector_nombre, sector.slug as sector_slug, LEFT(recomendacion.texto, 95) as ultima_recomendacion, usuarios.slug as usuario_slug, usuarios.nombre as usuario_nombre, usuarios.apellido as usuario_apellido, usuarios.imagen_full as usuario_imagen
         from lugares 
         LEFT JOIN comuna
         ON comuna.id = lugares.comuna_id
         LEFT JOIN sector
         ON sector.id = lugares.sector_id
+        LEFT JOIN ciudad
+        ON comuna.ciudad_id = ciudad.id
         LEFT JOIN categoria_lugar
         ON categoria_lugar.lugar_id = lugares.id
         LEFT JOIN categorias
@@ -1027,8 +1029,8 @@ class SearchController extends Controller
       $arr['lugares'][$key]['categorias_slug'] = explode(',', $buffer[0]['categorias_slug']);
 
       foreach($arr['lugares'][$key]['categorias_nombre'] as $i => $value){
-        $catPath = $this->generateUrl('_lugar', array('slug' => $arr['lugares'][$key]['categorias_slug'][$i]));
-        $arr['lugares'][$key]['categorias_nombre'][$i] = "<a class='link_azul' href='$catPath'>".$value."</a>";
+        $catPath = $this->generateUrl('_categoria', array('categoria' => $arr['lugares'][$key]['categorias_slug'][$i], 'slug' => $arr['lugares'][$key]['ciudad_slug']));
+        $arr['lugares'][$key]['categorias_nombre'][$i] = "<a href='$catPath'>".$value."</a>";
       }
     }
 

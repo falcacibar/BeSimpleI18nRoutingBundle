@@ -16,33 +16,41 @@ class AjaxController extends Controller
         list($mapxHasta, $mapyHasta) = explode(',',$_GET['northEast']);
         $idLugar = $_GET['idLugar'];
 
-        $otrosLugaresResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT lugares.*, group_concat(DISTINCT categorias.nombre) as categorias, imagen_full, count(recomendacion.id) as recomendaciones, tipo_categoria.id as tipo, comuna.nombre as comuna, ciudad.nombre as ciudad
-                                                                               FROM lugares
-                                                                               LEFT JOIN categoria_lugar
-                                                                               ON categoria_lugar.lugar_id = lugares.id
-                                                                               LEFT JOIN categorias
-                                                                               ON categorias.id = categoria_lugar.categoria_id
-                                                                               LEFT JOIN imagenes_lugar
-                                                                               ON imagenes_lugar.lugar_id = lugares.id
-                                                                               LEFT JOIN tipo_categoria
-                                                                               ON categorias.tipo_categoria_id = tipo_categoria.id
-                                                                               LEFT JOIN comuna
-                                                                               ON comuna.id = lugares.comuna_id
-                                                                               LEFT JOIN ciudad
-                                                                               ON comuna.ciudad_id = ciudad.id
-                                                                               LEFT JOIN recomendacion
-                                                                               ON recomendacion.lugar_id = lugares.id
-                                                                               WHERE lugares.id != $idLugar
-                                                                               AND mapx BETWEEN $mapxDesde AND $mapxHasta
-                                                                               AND mapy BETWEEN $mapyDesde AND $mapyHasta
-                                                                               AND imagenes_lugar.estado_id != 3
-                                                                               AND lugares.estado_id != 3
-                                                                               GROUP BY lugares.id
-                                                                               ORDER BY RAND()
-                                                                               LIMIT 20");
+        $otrosLugaresResult = $this->getDoctrine()->getConnection()
+        ->fetchAll("SELECT lugares.*, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, imagen_full, 
+          count(recomendacion.id) as recomendaciones, tipo_categoria.id as tipo, comuna.nombre as comuna, ciudad.nombre as ciudad, ciudad.slug as ciudad_slug
+                   FROM lugares
+                   LEFT JOIN categoria_lugar
+                   ON categoria_lugar.lugar_id = lugares.id
+                   LEFT JOIN categorias
+                   ON categorias.id = categoria_lugar.categoria_id
+                   LEFT JOIN imagenes_lugar
+                   ON imagenes_lugar.lugar_id = lugares.id
+                   LEFT JOIN tipo_categoria
+                   ON categorias.tipo_categoria_id = tipo_categoria.id
+                   LEFT JOIN comuna
+                   ON comuna.id = lugares.comuna_id
+                   LEFT JOIN ciudad
+                   ON comuna.ciudad_id = ciudad.id
+                   LEFT JOIN recomendacion
+                   ON recomendacion.lugar_id = lugares.id
+                   WHERE lugares.id != $idLugar
+                   AND mapx BETWEEN $mapxDesde AND $mapxHasta
+                   AND mapy BETWEEN $mapyDesde AND $mapyHasta
+                   AND imagenes_lugar.estado_id != 3
+                   AND lugares.estado_id != 3
+                   GROUP BY lugares.id
+                   ORDER BY RAND()
+                   LIMIT 20");
         
         for($i = 0; $i < sizeOf($otrosLugaresResult); $i++){
-            $otrosLugaresResult[$i]['categorias'] = explode(',',$otrosLugaresResult[$i]['categorias']);
+            $otrosLugaresResult[$i]['categorias_nombre'] = explode(',', $otrosLugaresResult[$i]['categorias_nombre']);
+            $otrosLugaresResult[$i]['categorias_slug'] = explode(',', $otrosLugaresResult[$i]['categorias_slug']);
+
+            foreach($otrosLugaresResult[$i]['categorias_nombre'] as $j => $value){
+              $catPath = $this->generateUrl('_categoria', array('categoria' => $otrosLugaresResult[$i]['categorias_slug'][$j], 'slug' => $otrosLugaresResult[$i]['ciudad_slug']));
+              $otrosLugaresResult[$i]['categorias_nombre'][$j] = "<a href='$catPath'>".$value."</a>";
+            }
         }
 
         return $this->render('LoogaresLugarBundle:Ajax:otrosLugares.html.twig', array('lugares' => $otrosLugaresResult));

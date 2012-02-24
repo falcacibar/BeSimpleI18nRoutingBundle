@@ -47,145 +47,169 @@
     </script>
     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
     <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            $('.tooltip').qtip({
-               content: {
-                  text: $('.qtip_favoritos')
-               },
-                style: {
-                    classes: 'ui-tooltip-precio',
-                    tip: {
-                        border: 0,
-                        width: 12,
-                        color: '#f0f',
-                        corner: true,
-                        offset: 0
-                    },
+<script>
+    $(document).ready(function(){
+        $('.tooltip').qtip({
+            show: {
+                solo: true
+            },
+            content: {
+                text: $('.qtip_favoritos')
+            },
+            style: {
+            classes: 'ui-tooltip-precio',
+                tip: {
+                    border: 0,
+                    width: 12,
+                    color: '#f0f',
+                    corner: true,
+                    offset: 0
                 },
-                position: {
-                    my: 'top center', 
-                    at: 'bottom left',
-                    adjust: {
-                        x: 8,
-                        y: 6
-                    },
+            },
+            position: {
+                my: 'top center', 
+                at: 'bottom left',
+                adjust: {
+                    x: 9,
+                    y: 6
                 },
-            });
+            },
+            hide: {
+                fixed: true,
+                delay: 200,
+                event: 'mouseleave'
+            }
         });
-    </script> 
 
-    <script>
-        $(document).ready(function(){
-            $('.tooltip_caracteristica').qtip({
-               content: {
-                  text: $('.qtip_caracteristica')
-               },
-                style: {
-                    classes: 'ui-tooltip-precio',
-                    tip: {
-                        border: 0,
-                        width: 12,
-                        color: '#f0f',
-                        corner: true,
-                        offset: 0
-                    },
+        $('.tooltip_caracteristica').qtip({
+            show: {
+                solo: true
+            },
+            content: {
+                attr: 'data-texto'
+            },
+            style: {
+                classes: 'ui-tooltip-precio',
+                tip: {
+                    border: 0,
+                    width: 12,
+                    color: '#f0f',
+                    corner: true,
+                    offset: 0
                 },
-                position: {
-                    my: 'top center', 
-                    at: 'bottom left',
-                    adjust: {
-                        x: 9,
-                        y: 6
-                    },
+            },
+            position: {
+                my: 'top center', 
+                at: 'bottom left',
+                adjust: {
+                    x: 9,
+                    y: 6
                 },
-            });
+            },
+            hide: {
+                fixed: true,
+                delay: 200,
+                event: 'mouseleave'
+            }
         });
-    </script>     
 
-    <script>
-        $(document).ready(function(){
-            $('.tooltip_quiero_ir').qtip({
-               content: {
-                  text: $('.qtip_quiero_ir')
-               },
-                style: {
-                    classes: 'ui-tooltip-precio',
-                    tip: {
-                        border: 0,
-                        width: 12,
-                        color: '#f0f',
-                        corner: true,
-                        offset: 0
-                    },
+        $('.tooltip_quiero_ir').qtip({
+            show:{
+                solo: true
+            },
+            content: {
+                text: $('.qtip_quiero_ir')
+            },
+            style: {
+            classes: 'ui-tooltip-precio',
+                tip: {
+                    border: 0,
+                    width: 12,
+                    color: '#f0f',
+                    corner: true,
+                    offset: 0
                 },
-                position: {
-                    my: 'top center', 
-                    at: 'bottom left',
-                    adjust: {
-                        x: 45,
-                        y: 6
-                    },
+            },
+            position: {
+                my: 'top center', 
+                at: 'bottom left',
+                adjust: {
+                    x: 45,
+                    y: 6
                 },
-            });
+            },
+            hide: {
+                fixed: true,
+                delay: 200,
+                event: 'mouseleave'
+            }
         });
-    </script> 
 
-    <script>
-        $(document).ready(function(){
-            $('.tooltip_quiero_volver').qtip({
-               content: {
-                  text: $('.qtip_quiero_volver')
-               },
-                style: {
-                    classes: 'ui-tooltip-precio',
-                    tip: {
-                        border: 0,
-                        width: 12,
-                        color: '#f0f',
-                        corner: true,
-                        offset: 0
-                    },
+        $('.tooltip_quiero_volver').qtip({
+            show:{
+                solo: true
+            },
+            content: {
+                text: $('.qtip_quiero_volver')
+            },
+            style: {
+                classes: 'ui-tooltip-precio',
+                tip: {
+                    border: 0,
+                    width: 12,
+                    color: '#f0f',
+                    corner: true,
+                    offset: 0
                 },
-                position: {
-                    my: 'top center', 
-                    at: 'bottom left',
-                    adjust: {
-                        x: 55,
-                        y: 6
-                    },
+            },
+            position: {
+                my: 'top center', 
+                at: 'bottom left',
+                adjust: {
+                    x: 55,
+                    y: 6
                 },
-            });
+            },
+            hide: {
+                fixed: true,
+                delay: 200,
+                event: 'mouseleave'
+            }
         });
-    </script> 
 
-    <script>
-        $(document).ready(function(){
-            $('.tooltip_ya_estuve').qtip({
-               content: {
-                  text: $('.qtip_ya_estuve')
-               },
-                style: {
-                    classes: 'ui-tooltip-precio',
-                    tip: {
-                        border: 0,
-                        width: 12,
-                        color: '#f0f',
-                        corner: true,
-                        offset: 0
-                    },
+        $('.tooltip_ya_estuve').qtip({
+            show:{
+                solo: true
+            },
+            content: {
+                text: $('.qtip_ya_estuve')
+            },
+            style: {
+                classes: 'ui-tooltip-precio',
+                tip: {
+                    border: 0,
+                    width: 12,
+                    color: '#f0f',
+                    corner: true,
+                    offset: 0
                 },
-                position: {
-                    my: 'top center', 
-                    at: 'bottom left',
-                    adjust: {
-                        x: 55,
-                        y: 6
-                    },
+            },
+            position: {
+                my: 'top center', 
+                at: 'bottom left',
+                adjust: {
+                    x: 55,
+                    y: 6
                 },
-            });
+            },
+            hide: {
+                fixed: true,
+                delay: 200,
+                event: 'mouseleave'
+            }
         });
-    </script>     
+    });
+</script>     
 
 {% endblock %}
 
@@ -204,8 +228,6 @@
             </div>
     {% endif %}
 
-{% if app.security.token.user.id is not defined %}
-{% endif %}
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
@@ -219,7 +241,7 @@
                     </div>
                 {% else %}
                     <p class="favoritos_lugar_icono tooltip boton_desactivado" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
-
+               
                     <!-- Qtip Recomendación del Día -->
                     <div class="qtip_favoritos">
                         Si quieres agregar este lugar como Favorito, debes estar <a style="color: #0066CC; text-decoration: none;" href="">logeado</a>.
@@ -409,16 +431,10 @@
                     <div id="lugar-caracteristicas">
                         <ul class="caracteristicas_lugar_listado">
                             {% for caracteristicaLugar in lugar.caracteristicaLugar %}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <li class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>{% endif %}
-                                {% elseif caracteristica.slug != 'pedido-online' and caracteristica.slug != 'reserva-online' and caracteristica.slug != 'descuentos-en-pedido-online' %}
-                                    <li class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>{% endif %}
+                                {% if caracteristicaLugar.caracteristica.slug != 'pedido-online' and caracteristicaLugar.caracteristica.slug != 'reserva-online' and caracteristicaLugar.caracteristica.slug != 'descuentos-en-pedido-online' %}
+                                    <li data-texto="{{caracteristicaLugar.caracteristica.texto}}" class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>{% endif %}
                                 {% endif %}
                             {% endfor %}
-                            <!-- Qtip Caractísticas -->
-                            <div class="qtip_caracteristica">
-                                Llamado a la columna Texto de la tabla Característica
-                            </div>
                         </ul>
                     </div>
                 {% endif %}
@@ -441,11 +457,13 @@
                 {% else %}
                     <p class="estuve_alla_lugar tooltip_ya_estuve boton_desactivado" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></p>
                     <!-- Qtip Ya Estuve -->
+                    {% if app.security.token.user.id is not defined %}
                     <div class="qtip_ya_estuve">
                         Si quieres agregar este lugar como Favorito, debes estar <a style="color: #0066CC; text-decoration: none;" href="">logeado</a>.
                         <br /><br />
                         Aún no eres usuario, regístrate <a style="color: #0066CC; text-decoration: none;" href="">aquí</a>.
                     </div>
+                    {% endif %}
                 {% endif %}
                 <p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
             </div> 
@@ -469,11 +487,13 @@
                 {% else %}
                     <p class="quiero_ir_lugar tooltip_quiero_ir boton_desactivado" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></p>
                     <!-- Qtip Quiero Ir -->
+                    {% if app.security.token.user.id is not defined %}
                     <div class="qtip_quiero_ir">
                         Si quieres agregar este lugar como Favorito, debes estar <a style="color: #0066CC; text-decoration: none;" href="">logeado</a>.
                         <br /><br />
                         Aún no eres usuario, regístrate <a style="color: #0066CC; text-decoration: none;" href="">aquí</a>.
                     </div>
+                    {% endif %}
                 {% endif %}                
                 <p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>
