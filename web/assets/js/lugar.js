@@ -51,8 +51,8 @@ $(document).ready(function(){
     });
 
     $('.estrellas_recomendacion').each(function(i){
-        var stars = $(this).attr('data-stars');
-        estrellasPorRecomendacion(i, stars);
+        var stars = $(this).data('stars');
+        estrellasPorRecomendacion(i+1, stars);
         if(i == 0 && $('.recomendacion-pedida-raty').length > 0){
             estrellasPorRecomendacion('pedida', stars);
         }
@@ -60,7 +60,7 @@ $(document).ready(function(){
         
     $('.cancelar-recomienda').live('click', function(){
         $('[name="recomienda"]').fadeOut(function(){
-            $(this).parent().parent().find('.recomendacion-bloque').children().show();
+            $(this).closest('.recomendacion').find('.recomendacion-bloque').children().show();
             $(this).remove();
         })
     });
@@ -282,6 +282,7 @@ function precioLugar(precio, tipo){
 }
 
 function estrellasPorRecomendacion(id, estrellas){
+    console.log(estrellas)
     $('.recomendacion-'+id+'-raty').raty({
         width: 140,
         starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
@@ -321,8 +322,8 @@ function estrellasOtrosLugares(id, estrellas){
 function editarRecomendacion(lugar){
     $('.edita_recomendacion').click(function(e){
         e.preventDefault(); 
-        console.log(lugar)
-        $recomendacionBloque = $(this).parent().parent().find('.recomendacion-bloque');
+        $recomendacionBloque = $(this).closest('.recomendacion').find('.recomendacion-bloque');
+        console.log($recomendacionBloque)
         $.ajax({
             type:'post',
             data: {'slug': lugar},
@@ -331,6 +332,7 @@ function editarRecomendacion(lugar){
                 $recomendacionBloque.children().each(function(i){
                     $(this).fadeOut(200, function(){
                         if(i==0){
+                            $.getScript(WEBROOT+'../assets/js/recomiendaLugar.js');
                             $recomendacionBloque
                                 .append(data)
                             $('[name="recomienda"]')

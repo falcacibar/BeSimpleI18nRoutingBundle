@@ -407,7 +407,10 @@
                     <div id="lugar-caracteristicas">
                         <ul class="caracteristicas_lugar_listado">
                             {% for caracteristicaLugar in lugar.caracteristicaLugar %}
-                                <li class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>
+                                {% elseif caracteristica.slug != 'pedido-online' and caracteristica.slug != 'reserva-online' and caracteristica.slug != 'descuentos-en-pedido-online' %}
+                                    <li class="{{caracteristicaLugar.caracteristica.slug}} tooltip_caracteristica">{{caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}</li>
                                 {% endif %}
                             {% endfor %}
                             <!-- Qtip Caractísticas -->
@@ -591,16 +594,16 @@
                     </div>
                     <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
                     <div class="recomendacion-bloque">
-                    <div data-stars="{{recomendacion.estrellas}}" class="recomendacion-{{loop.index}}-raty estrellas_recomendacion"></div>
-                    <p class="texto_recomendacion_usuario">{{ recomendacion.texto }}</p>
-                    {% if recomendacion.tags[0] %}
-                        <p class="tags_recomendacion">
-                            {{'lugar.ficha.tags'|trans}} 
-                            {% for tag in recomendacion.tags %}
-                                <a href='BUSCAR EL TAG: {{tag}}'>{{ tag }}</a>{% if loop.last == false %}, {% endif %}
-                            {% endfor %}
-                        </p>
-                    {% endif %}
+                        <div data-stars="{{recomendacion.estrellas}}" class="recomendacion-{{loop.index}}-raty estrellas_recomendacion"></div>
+                        <p class="texto_recomendacion_usuario">{{ recomendacion.texto }}</p>
+                        {% if recomendacion.tags[0] %}
+                            <p class="tags_recomendacion">
+                                {{'lugar.ficha.tags'|trans}} 
+                                {% for tag in recomendacion.tags %}
+                                    <a href='BUSCAR EL TAG: {{tag}}'>{{ tag }}</a>{% if loop.last == false %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
                      </div>
                     <div class="caja_opciones_recomendacion">
                         <ul class="opciones_recomendacion">

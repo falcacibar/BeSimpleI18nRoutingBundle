@@ -488,7 +488,7 @@
             <span class="agregar_info"><a class="display-more-info" rel="telefono" href="">{{'lugar.agregar.telefono.agregar'|trans}}
             <span>2</span>)</a></span>
         </li>
-        {% if is_granted('ROLE_ADMIN')%}
+        {% if is_granted('ROLE_ADMIN') %}
         <li class="no-default precio-li">
             <label>{{'lugar.agregar.precio'|trans}}</label>
             <div class="precio">
@@ -816,9 +816,15 @@
                 <ul class="alinear_caracteristicas">
                     {% for caracteristica in data.caracteristicas %}
                         <li class="lista_caracteristicas">
-                            <label class="checkbox-label caracteristica">
-                                <input type="checkbox" name="caracteristica[]" class="caracteristica_input" value="{{caracteristica.nombre}}" />
-                                <span class="caracteristica_span">{{caracteristica.nombre}}</span>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <label class="checkbox-label caracteristica">
+                                    <input type="checkbox" name="caracteristica[]" class="caracteristica_input" value="{{caracteristica.nombre}}" />
+                                    <span class="caracteristica_span">{{caracteristica.nombre}}</span>
+                                {% elseif caracteristica.slug != 'pedido-online' and caracteristica.slug != 'reserva-online' and caracteristica.slug != 'descuentos-en-pedido-online' %}
+                                <label class="checkbox-label caracteristica">
+                                    <input type="checkbox" name="caracteristica[]" class="caracteristica_input" value="{{caracteristica.nombre}}" />
+                                    <span class="caracteristica_span">{{caracteristica.nombre}}</span>
+                                {% endif %}
                             </label>
                         </li>
                     {% endfor %}
@@ -829,7 +835,7 @@
                     {% if lugarRevisado.caracteristicaLugar[0] is defined %}
                         <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
                             {% for caracteristicaLugar in lugarRevisado.caracteristicaLugar %}
-                                    {{ caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
+                                {{ caracteristicaLugar.caracteristica.nombre}}{% if loop.last == false %}, {% endif %}
                             {% endfor %}
                         </div>
                     {% endif %}

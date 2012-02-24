@@ -998,7 +998,7 @@ class LugarController extends Controller{
         $nueva = true;
 
         if(isset($_POST['editando']) && $_POST['editando'] == 1){
-            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2");
+            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado = 2");
             $q->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId());
             $q->setParameter(2, $lugar->getId());
             $recomendacion = $q->getSingleResult();
@@ -1018,7 +1018,7 @@ class LugarController extends Controller{
             $tag = array();
             $recomendacion->setTexto($_POST['texto']);
             $recomendacion->setEstrellas($_POST['recomienda-estrellas']);
-            $estado = $lr->getEstado(1);
+            $estado = $lr->getEstado(2);
             $recomendacion->setEstado($estado);
 
             if(isset($_POST['recomienda-precio'])){
