@@ -1013,7 +1013,6 @@ class LugarController extends Controller{
         }
 
         if($request->getMethod() == 'POST'){
-
             $newTagRecomendacion = array();
             $tag = array();
             $recomendacion->setTexto($_POST['texto']);
