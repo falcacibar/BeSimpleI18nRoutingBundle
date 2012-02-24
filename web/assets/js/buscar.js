@@ -226,21 +226,21 @@ $(document).ready(function(){
 		console.log(href)
 	});
 
-	$('.resultados-wrapper a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
+	$('.resultados_wrapper a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
 		url: $(this).attr('href'),
-		container: '.resultados-wrapper',
-		fragment: '.resultados-wrapper',
+		container: '.resultados_wrapper',
+		fragment: '.resultados_wrapper',
 		timeout: 20000,
 		beforeSend: function(){
 			$('.filtros_expandir').qtip('toggle', false)
-			$('.resultados-wrapper').append("<div class='overlay'><div class='loader'>Cargando Lugares</div></div>").fadeIn(300);
-	 		$('.resultados-wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
+			$('.resultados_wrapper').append("<div class='overlay'><div class='loader'>Cargando Lugares</div></div>").fadeIn(300);
+	 		$('.resultados_wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
 		},
 		success: function(data){
 			$('.overlay').fadeOut(0, function(){
 				$(this).remove(); 
 			});
-			$('.resultados-wrapper').html(data).fadeIn(300, function(){
+			$('.resultados_wrapper').html(data).fadeIn(300, function(){
 				$('.qtip').remove();
 				rebindEvents();
 				$.getScript(WEBROOT+'../assets/js/googleMapBuscar.js');

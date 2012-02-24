@@ -122,7 +122,8 @@ a.chzn-single.chzn-error {
 
 .titulo_busqueda {
   font-size: 20px;
-  line-height: 30px; }
+  line-height: 30px;
+  margin: 0 0 10px 0; }
 
 .titulo_home {
   font-size: 18px;

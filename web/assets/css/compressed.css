@@ -313,34 +313,6 @@
   text-align: center;
   width: 960px; }
 
-.orden_container {
-  display: block;
-  height: 65px;
-  border-top: 1px solid #f2f2f2;
-  border-bottom: 1px solid #f2f2f2;
-  margin-top: 10px; }
-  .orden_container .resultados_por_pagina {
-    float: left;
-    display: inline-block;
-    width: 260px;
-    text-align: right;
-    height: 65px;
-    line-height: 56px; }
-    .orden_container .resultados_por_pagina select {
-      margin-top: 24px;
-      margin-left: 5px;
-      float: right; }
-    .orden_container .resultados_por_pagina p {
-      float: right; }
-  .orden_container .filtros_busqueda {
-    height: 65px;
-    float: left;
-    display: inline-block;
-    width: 700px;
-    line-height: 65px; }
-    .orden_container .filtros_busqueda li {
-      display: inline; }
-
 .overlay {
   position: absolute;
   top: -20px;
@@ -377,78 +349,6 @@
   .qtip_precio .signo_precio {
     display: inline-block;
     width: 30px; }
-
-.filtros_subcategorias {
-  width: 350px;
-  margin-right: 5px; }
-
-.filtros_zonas {
-  width: 215px;
-  margin: 0 10px 0 28px; }
-
-.filtros_precios {
-  width: 87px; }
-
-.filtros_caracteristicas {
-  width: 211px; }
-
-.filtros_precios, .filtros_caracteristicas {
-  margin: 0 5px; }
-
-.filtros_categorias {
-  width: 685px; }
-
-.filtros_subcategorias, .filtros_zonas, .filtros_precios, .filtros_caracteristicas, .filtros_categorias {
-  display: inline-block;
-  background: #fafafc;
-  color: #666666;
-  text-shadow: 0 1px 0 white;
-  vertical-align: top;
-  height: 185px;
-  overflow: hidden; }
-  .filtros_subcategorias ul li, .filtros_zonas ul li, .filtros_precios ul li, .filtros_caracteristicas ul li, .filtros_categorias ul li {
-    display: inline-block;
-    width: 160px;
-    margin-bottom: 13px;
-    vertical-align: middle; }
-  .filtros_subcategorias .filtros_header, .filtros_zonas .filtros_header, .filtros_precios .filtros_header, .filtros_caracteristicas .filtros_header, .filtros_categorias .filtros_header {
-    background: #f2f1f6;
-    height: 25px;
-    line-height: 25px;
-    border-bottom: 1px #cccccc solid;
-    padding: 0 10px; }
-    .filtros_subcategorias .filtros_header .filtros_expandir, .filtros_zonas .filtros_header .filtros_expandir, .filtros_precios .filtros_header .filtros_expandir, .filtros_caracteristicas .filtros_header .filtros_expandir, .filtros_categorias .filtros_header .filtros_expandir {
-      padding: 0 10px;
-      float: right;
-      width: 69px;
-      border-left: 1px #cccccc solid;
-      cursor: pointer;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      -o-user-select: none;
-      user-select: none; }
-  .filtros_subcategorias .resultados_filtros, .filtros_zonas .resultados_filtros, .filtros_precios .resultados_filtros, .filtros_caracteristicas .resultados_filtros, .filtros_categorias .resultados_filtros {
-    padding: 8px 10px; }
-    .filtros_subcategorias .resultados_filtros a, .filtros_zonas .resultados_filtros a, .filtros_precios .resultados_filtros a, .filtros_caracteristicas .resultados_filtros a, .filtros_categorias .resultados_filtros a {
-      color: #666666;
-      text-decoration: none; }
-      .filtros_subcategorias .resultados_filtros a:visited, .filtros_zonas .resultados_filtros a:visited, .filtros_precios .resultados_filtros a:visited, .filtros_caracteristicas .resultados_filtros a:visited, .filtros_categorias .resultados_filtros a:visited {
-        color: #666666; }
-
-.filtros_precios .precio_container {
-  display: inline-block;
-  margin-bottom: 10px;
-  width: 90px; }
-  .filtros_precios .precio_container a {
-    display: inline; }
-  .filtros_precios .precio_container input {
-    display: none; }
-  .filtros_precios .precio_container .filtro_precios_raty {
-    display: inline;
-    cursor: pointer !important; }
 
 .close_qtip {
   background: url(../images/extras/x.gif) #666666;
@@ -614,7 +514,8 @@ a.chzn-single.chzn-error {
 
 .titulo_busqueda {
   font-size: 20px;
-  line-height: 30px; }
+  line-height: 30px;
+  margin: 0 0 10px 0; }
 
 .titulo_home {
   font-size: 18px;
@@ -1605,18 +1506,325 @@ small {
 /* Colores */
 /* Mixin */
 /* Resultados buscador */
-.resultados_de_busqueda {
+.resultados_wrapper {
   border: 1px solid #f2f2f6;
   float: left;
   padding: 20px;
-  width: 958px; }
-  .resultados_de_busqueda .link_azul {
-    color: #0066cc !important;
-    text-decoration: none; }
-    .resultados_de_busqueda .link_azul:hover {
-      color: #0066cc !important;
-      text-decoration: underline; }
+  width: 918px; }
 
+.resultados {
+  float: left; }
+  .resultados .breadcrumb {
+    font-size: 12px;
+    margin: 0 0 30px 0; }
+    .resultados .breadcrumb a {
+      color: #999999 !important;
+      text-decoration: none; }
+      .resultados .breadcrumb a:hover {
+        color: #999999 !important;
+        text-decoration: underline; }
+
+/* Filtros Búsquedas y Categorías */
+.filtros_zonas {
+  background: url("../images/extras/borde_relieve_zonas.png") 0 181px no-repeat #fafafc;
+  margin: 0 10px 0 0;
+  width: 215px; }
+
+.filtros_categorias {
+  background: url("../images/extras/borde_relieve_categorias.png") 0 181px no-repeat #fafafc;
+  width: 689px; }
+
+.filtros_subcategorias {
+  background: url("../images/extras/borde_relieve_subcategorias.png") 0 181px no-repeat #fafafc;
+  margin: 0 10px 0 0;
+  width: 345px; }
+
+.filtros_precios {
+  background: url("../images/extras/borde_relieve_precios.png") 0 181px no-repeat #fafafc;
+  margin: 0 10px 0 0;
+  width: 97px; }
+
+.filtros_caracteristicas {
+  background: url("../images/extras/borde_relieve_caracteristicas.png") 0 181px no-repeat #fafafc;
+  width: 219px; }
+
+.filtros_subcategorias, .filtros_zonas, .filtros_precios, .filtros_caracteristicas, .filtros_categorias {
+  color: #666666;
+  display: inline-block;
+  height: 185px;
+  overflow: hidden;
+  text-shadow: 0 1px 0 white;
+  vertical-align: top; }
+  .filtros_subcategorias ul li, .filtros_zonas ul li, .filtros_precios ul li, .filtros_caracteristicas ul li, .filtros_categorias ul li {
+    display: inline-block;
+    margin: 0 10px 14px 0;
+    vertical-align: middle;
+    width: 155px; }
+  .filtros_subcategorias .filtros_header, .filtros_zonas .filtros_header, .filtros_precios .filtros_header, .filtros_caracteristicas .filtros_header, .filtros_categorias .filtros_header {
+    background: #f2f2f6;
+    border-bottom: 1px #cccccc solid;
+    height: 25px;
+    font-size: 13px;
+    line-height: 25px;
+    padding: 0 10px; }
+  .filtros_subcategorias .ver_mas, .filtros_zonas .ver_mas, .filtros_precios .ver_mas, .filtros_caracteristicas .ver_mas, .filtros_categorias .ver_mas {
+    float: right; }
+    .filtros_subcategorias .ver_mas .filtros_expandir, .filtros_zonas .ver_mas .filtros_expandir, .filtros_precios .ver_mas .filtros_expandir, .filtros_caracteristicas .ver_mas .filtros_expandir, .filtros_categorias .ver_mas .filtros_expandir {
+      border-left: 1px #cccccc solid;
+      cursor: pointer;
+      float: left;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      padding: 0 10px;
+      width: 69px; }
+    .filtros_subcategorias .ver_mas .filtros_ver_mas_icono, .filtros_zonas .ver_mas .filtros_ver_mas_icono, .filtros_precios .ver_mas .filtros_ver_mas_icono, .filtros_caracteristicas .ver_mas .filtros_ver_mas_icono, .filtros_categorias .ver_mas .filtros_ver_mas_icono {
+      background: url("../images/extras/botones_sprite.png") -107px 0;
+      float: right;
+      height: 4px;
+      margin: 10px 0;
+      width: 7px; }
+  .filtros_subcategorias .tips_icon, .filtros_zonas .tips_icon, .filtros_precios .tips_icon, .filtros_caracteristicas .tips_icon, .filtros_categorias .tips_icon {
+    background: url("../images/extras/botones_sprite.png") no-repeat 0 -213px;
+    float: right;
+    height: 10px;
+    margin: 7px 0 0 5px;
+    width: 10px; }
+    .filtros_subcategorias .tips_icon:hover, .filtros_zonas .tips_icon:hover, .filtros_precios .tips_icon:hover, .filtros_caracteristicas .tips_icon:hover, .filtros_categorias .tips_icon:hover {
+      background: url("../images/extras/botones_sprite.png") no-repeat 0 -228px; }
+  .filtros_subcategorias .resultados_filtros, .filtros_zonas .resultados_filtros, .filtros_precios .resultados_filtros, .filtros_caracteristicas .resultados_filtros, .filtros_categorias .resultados_filtros {
+    font-size: 12px;
+    padding: 20px 10px; }
+    .filtros_subcategorias .resultados_filtros a, .filtros_zonas .resultados_filtros a, .filtros_precios .resultados_filtros a, .filtros_caracteristicas .resultados_filtros a, .filtros_categorias .resultados_filtros a {
+      color: #999999;
+      text-decoration: none; }
+      .filtros_subcategorias .resultados_filtros a:visited, .filtros_zonas .resultados_filtros a:visited, .filtros_precios .resultados_filtros a:visited, .filtros_caracteristicas .resultados_filtros a:visited, .filtros_categorias .resultados_filtros a:visited {
+        color: #999999; }
+
+.filtros_precios .precio_container {
+  display: inline-block;
+  margin: 0 0 9px;
+  width: 77px; }
+  .filtros_precios .precio_container a {
+    float: left;
+    margin: 0 0 0 5px;
+    width: 62px; }
+  .filtros_precios .precio_container input {
+    float: left;
+    height: 10px;
+    margin: 1px 0 0 0;
+    width: 10px; }
+    .filtros_precios .precio_container input .filtro_precios_raty {
+      display: inline;
+      cursor: pointer !important;
+      widht: 67px; }
+
+/* Orden de los resultados */
+.orden_container {
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  float: left;
+  margin: 10px 0 0 0; }
+  .orden_container .filtros_busqueda {
+    float: left;
+    font-size: 12px;
+    padding: 20px 0;
+    width: 675px; }
+    .orden_container .filtros_busqueda li {
+      display: inline; }
+      .orden_container .filtros_busqueda li a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        .orden_container .filtros_busqueda li a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
+  .orden_container .resultados_por_pagina {
+    float: left;
+    margin: 0px;
+    padding: 17px 0;
+    width: 243px; }
+    .orden_container .resultados_por_pagina select {
+      margin: 0 0 0 10px;
+      float: right; }
+    .orden_container .resultados_por_pagina p {
+      color: #666666;
+      float: right;
+      margin: 4px 0 0 0; }
+
+/* Listado de lugares */
+.listado_resultados {
+  display: inline-block;
+  float: left;
+  width: 598px; }
+  .listado_resultados .resultado-busqueda {
+    border-bottom: 1px solid #f2f2f6;
+    clear: both;
+    color: #666666;
+    float: left;
+    display: block;
+    padding: 30px 10px;
+    width: 580px; }
+    .listado_resultados .resultado-busqueda .datos-principales {
+      border-right: 1px solid #f2f2f2;
+      box-sizing: border-box;
+      -o-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      float: left;
+      padding: 0 10px 0 0;
+      width: 420px; }
+      .listado_resultados .resultado-busqueda .datos-principales .info_lugar img {
+        background: #f2f2f6;
+        float: left;
+        height: 60px;
+        margin: 0 10px 0 0;
+        width: 60px; }
+      .listado_resultados .resultado-busqueda .datos-principales .info_lugar .nombre_lugar {
+        display: block;
+        float: left;
+        line-height: 20px;
+        margin: 0 0 15px;
+        width: 339px; }
+        .listado_resultados .resultado-busqueda .datos-principales .info_lugar .nombre_lugar .indice_resultado {
+          background: #f1f0f5;
+          border-radius: 20px;
+          color: #a1a1a1;
+          display: inline-block;
+          font-size: 11px;
+          height: 20px;
+          text-align: center;
+          text-shadow: 0 1px 0 white;
+          width: 20px; }
+        .listado_resultados .resultado-busqueda .datos-principales .info_lugar .nombre_lugar a {
+          color: #444444 !important;
+          text-decoration: none;
+          font-size: 14px;
+          margin: 0 0 0 5px; }
+          .listado_resultados .resultado-busqueda .datos-principales .info_lugar .nombre_lugar a:hover {
+            color: #444444 !important;
+            text-decoration: underline; }
+      .listado_resultados .resultado-busqueda .datos-principales .info_categorias {
+        margin: 0 0 10px 70px;
+        width: 339px; }
+        .listado_resultados .resultado-busqueda .datos-principales .info_categorias a {
+          color: #0066cc !important;
+          text-decoration: none; }
+          .listado_resultados .resultado-busqueda .datos-principales .info_categorias a:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+      .listado_resultados .resultado-busqueda .datos-principales .info_sector {
+        margin: 0 0 10px 70px;
+        width: 339px; }
+        .listado_resultados .resultado-busqueda .datos-principales .info_sector a {
+          color: #0066cc !important;
+          text-decoration: none; }
+          .listado_resultados .resultado-busqueda .datos-principales .info_sector a:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+      .listado_resultados .resultado-busqueda .datos-principales .info_recomendacion {
+        float: left;
+        margin: 30px 0 0;
+        width: 409px; }
+        .listado_resultados .resultado-busqueda .datos-principales .info_recomendacion img {
+          float: left;
+          margin: 0 10px 0 0;
+          width: 20px;
+          height: 20px; }
+        .listado_resultados .resultado-busqueda .datos-principales .info_recomendacion span {
+          display: inline-block;
+          float: left;
+          font-size: 12px;
+          line-height: 16px;
+          width: 379px; }
+          .listado_resultados .resultado-busqueda .datos-principales .info_recomendacion span p {
+            display: inline; }
+          .listado_resultados .resultado-busqueda .datos-principales .info_recomendacion span a {
+            color: #0066cc !important;
+            text-decoration: none; }
+            .listado_resultados .resultado-busqueda .datos-principales .info_recomendacion span a:hover {
+              color: #0066cc !important;
+              text-decoration: underline; }
+    .listado_resultados .resultado-busqueda .datos-secundarios {
+      box-sizing: border-box;
+      -o-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      float: left;
+      padding: 0 0 0 10px;
+      vertical-align: middle;
+      width: 160px; }
+      .listado_resultados .resultado-busqueda .datos-secundarios li {
+        width: 150px; }
+      .listado_resultados .resultado-busqueda .datos-secundarios .numero_de_recomendaciones {
+        font-size: 11px;
+        margin: 5px 0 15px; }
+      .listado_resultados .resultado-busqueda .datos-secundarios .direccion_lugar {
+        font-size: 11px;
+        line-height: 15px;
+        margin: 0 0 15px; }
+        .listado_resultados .resultado-busqueda .datos-secundarios .direccion_lugar a {
+          color: #0066cc !important;
+          text-decoration: none; }
+          .listado_resultados .resultado-busqueda .datos-secundarios .direccion_lugar a:hover {
+            color: #0066cc !important;
+            text-decoration: underline; }
+      .listado_resultados .resultado-busqueda .datos-secundarios .precio_lugar {
+        font-size: 11px;
+        margin: 0 0 10px; }
+    .listado_resultados .resultado-busqueda:hover {
+      border: 1px solid #f2f2f2;
+      margin: -1px -1px 0;
+      background: #fbfcff; }
+
+/* Sidebar */
+.sidebar_busqueda {
+  float: left;
+  margin: 20px 0 0 20px !important;
+  width: 300px; }
+  .sidebar_busqueda .mapa_sidebar {
+    margin: 0 0 20px; }
+
+/* Paginación de los lugares */
+.paginacion_listado_lugares {
+  border-bottom: 1px solid #f2f2f6;
+  color: #666666;
+  display: block;
+  float: left;
+  font-size: 12px;
+  padding: 20px 0;
+  width: 600px; }
+  .paginacion_listado_lugares p {
+    float: left;
+    display: block;
+    margin: 2px 0 0; }
+  .paginacion_listado_lugares ul {
+    float: left;
+    margin: 0 0 0 10px; }
+    .paginacion_listado_lugares ul li {
+      border: 1px solid #cccccc;
+      float: left;
+      height: 5px;
+      margin: 0 0 0 2px;
+      padding: 2px 5px 8px; }
+      .paginacion_listado_lugares ul li a {
+        color: #666666 !important;
+        text-decoration: none; }
+    .paginacion_listado_lugares ul .pagina-actual {
+      background: #0066cc;
+      border: 1px solid #0066cc;
+      float: left;
+      height: 5px;
+      margin: 0 0 0 2px;
+      padding: 2px 5px 8px; }
+      .paginacion_listado_lugares ul .pagina-actual a {
+        color: white !important;
+        text-decoration: none; }
+
+/* TOMAS */
 .lugar_data {
   background: white;
   width: 245px;
@@ -1648,85 +1856,6 @@ small {
     margin-right: 5px; }
   .lugar_data .data_categoria, .lugar_data .data_sector {
     margin-left: 65px; }
-
-.resultados-wrapper {
-  position: relative;
-  float: left; }
-  .resultados-wrapper .sidebar {
-    height: 200px;
-    background: #333333; }
-
-.listado_resultados {
-  margin-top: -29px;
-  display: inline-block;
-  float: left; }
-
-.resultado-busqueda {
-  display: block;
-  width: 610px;
-  height: 150px;
-  padding: 10px;
-  clear: both;
-  border-bottom: 1px solid #f2f2f2; }
-  .resultado-busqueda .datos-principales {
-    float: left;
-    padding: 10px;
-    height: 150px;
-    width: 399px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box; }
-    .resultado-busqueda .datos-principales li {
-      margin: 8px 0; }
-    .resultado-busqueda .datos-principales .info_lugar .nombre_lugar {
-      display: block;
-      line-height: 20px; }
-      .resultado-busqueda .datos-principales .info_lugar .nombre_lugar .indice_resultado {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        background: #f1f0f5;
-        text-align: center;
-        border-radius: 20px;
-        color: #a1a1a1;
-        font-size: 11px;
-        text-shadow: 0 1px 0 white; }
-    .resultado-busqueda .datos-principales .info_lugar img {
-      background: #f1f0f5;
-      width: 60px;
-      height: 60px;
-      float: left;
-      margin-right: 5px; }
-    .resultado-busqueda .datos-principales .info_recomendacion {
-      margin: 0; }
-      .resultado-busqueda .datos-principales .info_recomendacion span {
-        display: inline-block;
-        float: left;
-        width: 345px;
-        text-align: justify; }
-        .resultado-busqueda .datos-principales .info_recomendacion span p {
-          display: inline; }
-      .resultado-busqueda .datos-principales .info_recomendacion img {
-        float: left;
-        margin-right: 5px;
-        width: 20px;
-        height: 20px;
-        background: #f1f0f5; }
-  .resultado-busqueda .datos-secundarios {
-    float: left;
-    margin-top: 15px;
-    height: 120px;
-    width: 199px;
-    padding: 10px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    border-left: 1px solid #f2f2f2;
-    vertical-align: middle; }
-    .resultado-busqueda .datos-secundarios li {
-      margin: 0 0 8px; }
-  .resultado-busqueda:hover {
-    border: 1px solid #f2f2f2;
-    margin: -1px -1px 0;
-    background: #fbfcff; }
 
 /* Colores */
 /* Mixin */

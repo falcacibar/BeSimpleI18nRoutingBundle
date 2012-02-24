@@ -97,18 +97,387 @@ $rojo: #F72121
 
 /* Resultados buscador */
 
-.resultados_de_busqueda
+.resultados_wrapper
 	border: 1px solid $gris_f6f
 	float: left
 	padding: 20px
-	width: 958px
+	width: 918px
 
-	.link_azul
-		@include link_azul
+.resultados
+	float: left
+
+	.breadcrumb
+		font:
+			size: 12px
+		margin: 0 0 30px 0
+
+		a
+			@include link_gris_999
+
+			&:hover
+				@include link_gris_999_hover
+
+/* Filtros Búsquedas y Categorías */
+.filtros_zonas
+	background: url('../images/extras/borde_relieve_zonas.png') 0 181px no-repeat $gris_faf
+	margin: 0 10px 0 0
+	width: 215px
+
+.filtros_categorias
+	background: url('../images/extras/borde_relieve_categorias.png') 0 181px no-repeat $gris_faf
+	width: 689px
+
+.filtros_subcategorias
+	background: url('../images/extras/borde_relieve_subcategorias.png') 0 181px no-repeat $gris_faf
+	margin: 0 10px 0 0
+	width: 345px
+
+.filtros_precios
+	background: url('../images/extras/borde_relieve_precios.png') 0 181px no-repeat $gris_faf
+	margin: 0 10px 0 0
+	width: 97px
+
+.filtros_caracteristicas
+	background: url('../images/extras/borde_relieve_caracteristicas.png') 0 181px no-repeat $gris_faf
+	width: 219px
+
+.filtros_subcategorias, .filtros_zonas, .filtros_precios, .filtros_caracteristicas, .filtros_categorias
+	color: #666
+	display: inline-block
+	height: 185px
+	overflow: hidden
+	text-shadow: 0 1px 0 $blanco
+	vertical-align: top
+
+	ul
+
+		li
+			display: inline-block
+			margin: 0 10px 14px 0
+			vertical-align: middle
+			width: 155px
+
+	.filtros_header
+		background: $gris_f6f
+		border-bottom: 1px #ccc solid
+		height: 25px
+		font:
+			size: 13px
+		line-height: 25px
+		padding: 0 10px
+
+	.filtros_titulo
+
+	.ver_mas
+		float: right
+	
+		.filtros_expandir
+			border-left: 1px #ccc solid
+			cursor: pointer
+			float: left
+			-webkit-touch-callout: none
+			-webkit-user-select: none
+			-khtml-user-select: none
+			-moz-user-select: none
+			-ms-user-select: none
+			-o-user-select: none
+			user-select: none
+			padding: 0 10px
+			width: 69px
+
+		.filtros_ver_mas_icono
+			background: url('../images/extras/botones_sprite.png') -107px 0
+			float: right
+			height: 4px
+			margin: 10px 0
+			width: 7px
+
+	.tips_icon
+		background: url('../images/extras/botones_sprite.png') no-repeat 0 -213px
+		float: right
+		height: 10px
+		margin: 7px 0 0 5px
+		width: 10px  
 
 		&:hover
-			@include link_azul_hover
+			background: url('../images/extras/botones_sprite.png') no-repeat 0 -228px
 
+	.resultados_filtros
+		font:
+			size: 12px
+		padding: 20px 10px
+
+		a
+			color: $gris_999
+			text-decoration: none
+
+			&:visited
+				color: $gris_999
+
+.filtros_precios
+
+	.precio_container
+		display: inline-block
+		margin: 0 0 9px
+		width: 77px
+
+		a
+			float: left
+			margin: 0 0 0 5px
+			width: 62px
+
+		input
+			float: left
+			height: 10px
+			margin: 1px 0 0 0
+			width: 10px
+
+			.filtro_precios_raty
+				display: inline
+				cursor: pointer !important	
+				widht: 67px	
+
+/* Orden de los resultados */
+.orden_container
+	border-top: 1px solid #f2f2f2
+	border-bottom: 1px solid #f2f2f2
+	float: left
+	margin: 10px 0 0 0
+
+	.filtros_busqueda
+		float: left
+		font:
+			size: 12px
+		padding: 20px 0
+		width: 675px
+
+		li
+			display: inline
+
+			a
+				@include link_azul
+
+				&:hover
+					@include link_azul_hover
+
+	.resultados_por_pagina
+		float: left
+		margin: 0px
+		padding: 17px 0
+		width: 243px
+
+		select
+			margin: 0 0 0 10px
+			float: right
+
+		p
+			color: $gris_666
+			float: right
+			margin: 4px 0 0 0
+
+/* Listado de lugares */
+.listado_resultados
+	display: inline-block
+	float: left
+	width: 598px
+
+	.resultado-busqueda
+		border-bottom: 1px solid $gris_f6f
+		clear: both
+		color: $gris_666
+		float: left
+		display: block
+		padding: 30px 10px
+		width: 580px
+
+		.datos-principales
+			border-right: 1px solid #f2f2f2
+			box-sizing: border-box
+			-o-box-sizing: border-box
+			-moz-box-sizing: border-box
+			-webkit-box-sizing: border-box
+			float: left
+			padding: 0 10px 0 0
+			width: 420px
+
+			.info_lugar
+
+				img
+					background: $gris_f6f
+					float: left
+					height: 60px
+					margin: 0 10px 0 0
+					width: 60px
+
+				.nombre_lugar
+					display: block
+					float: left
+					line-height: 20px
+					margin: 0 0 15px
+					width: 339px
+
+					.indice_resultado
+						background: #f1f0f5
+						border-radius: 20px
+						color: #a1a1a1
+						display: inline-block
+						font-size: 11px
+						height: 20px
+						text:
+							align: center
+							shadow: 0 1px 0 #fff
+						width: 20px
+					
+					a
+						@include link_gris_444
+						font:
+							size: 14px
+						margin: 0 0 0 5px
+
+						&:hover
+							@include link_gris_444_hover
+
+			.info_categorias
+				margin: 0 0 10px 70px
+				width: 339px
+					
+				a
+					@include link_azul
+					
+					&:hover
+						@include link_azul_hover
+
+			.info_sector
+				margin: 0 0 10px 70px
+				width: 339px
+					
+				a
+					@include link_azul
+					
+					&:hover
+						@include link_azul_hover
+
+			.info_recomendacion
+				float: left
+				margin: 30px 0 0
+				width: 409px
+
+				img
+					float: left
+					margin: 0 10px 0 0
+					width: 20px
+					height: 20px
+
+				span
+					display: inline-block
+					float: left
+					font:
+						size: 12px
+					line-height: 16px
+					width: 379px
+
+					p
+						display: inline
+
+					a
+						@include link_azul
+						
+						&:hover
+							@include link_azul_hover
+												
+		.datos-secundarios
+			box-sizing: border-box
+			-o-box-sizing: border-box
+			-moz-box-sizing: border-box
+			-webkit-box-sizing: border-box
+			float: left
+			padding: 0 0 0 10px
+			vertical-align: middle
+			width: 160px
+
+			li
+				width: 150px
+
+			.numero_de_recomendaciones
+				font:
+					size: 11px
+				margin: 5px 0 15px
+
+			.direccion_lugar
+				font:
+					size: 11px
+				line-height: 15px
+				margin: 0 0 15px
+
+				a
+					@include link_azul
+
+					&:hover
+						@include link_azul_hover
+
+			.precio_lugar
+				font:
+					size: 11px
+				margin: 0 0 10px
+
+		&:hover
+			border: 1px solid #f2f2f2
+			margin: -1px -1px 0 
+			background: #fbfcff
+
+/* Sidebar */
+
+.sidebar_busqueda
+	float: left
+	margin: 20px 0 0 20px !important
+	width: 300px
+
+	.mapa_sidebar
+		margin: 0 0 20px
+
+/* Paginación de los lugares */
+
+.paginacion_listado_lugares
+	border-bottom: 1px solid $gris_f6f
+	color: $gris_666
+	display: block
+	float: left
+	font:
+		size: 12px
+	padding: 20px 0
+	width: 600px
+
+	p
+		float: left
+		display: block
+		margin: 2px 0 0
+
+	ul
+		float: left
+		margin: 0 0 0 10px
+
+		li
+			border: 1px solid $gris_ccc
+			float: left
+			height: 5px
+			margin: 0 0 0 2px
+			padding: 2px 5px 8px
+
+			a
+				@include link_gris_666
+
+		.pagina-actual
+			background: $azul
+			border: 1px solid $azul
+			float: left
+			height: 5px
+			margin: 0 0 0 2px
+			padding: 2px 5px 8px
+
+			a
+				@include link_blanco
+
+/* TOMAS */
 .lugar_data
 	background: #fff
 	width: 245px
@@ -147,97 +516,3 @@ $rojo: #F72121
 
 	.data_categoria, .data_sector
 		margin-left: 65px
-
-.resultados-wrapper
-	position: relative
-	float: left
-
-	.sidebar
-		height: 200px
-		background: #333
-
-.listado_resultados
-	margin-top: -29px
-	display: inline-block
-	float: left
-
-.resultado-busqueda
-	display: block
-	width: 610px
-	height: 150px
-	padding: 10px
-	clear: both
-	border-bottom: 1px solid #f2f2f2
-
-	.datos-principales
-		float: left
-		padding: 10px
-		height: 150px
-		width: 399px
-		box-sizing: border-box
-		-moz-box-sizing: border-box
-
-		li
-			margin: 8px 0
-
-		.info_lugar
-
-			.nombre_lugar
-				display: block
-				line-height: 20px
-
-				.indice_resultado
-					display: inline-block
-					width: 20px
-					height: 20px
-					background: #f1f0f5
-					text-align: center
-					border-radius: 20px
-					color: #a1a1a1
-					font-size: 11px
-					text-shadow: 0 1px 0 #fff
-
-			img
-				background: #f1f0f5
-				width: 60px
-				height: 60px
-				float: left
-				margin-right: 5px
-
-		.info_recomendacion
-			margin: 0
-
-			span
-				display: inline-block
-				float: left
-				width: 345px
-				text-align: justify
-
-				p
-					display: inline
-					
-
-			img
-				float: left
-				margin-right: 5px
-				width: 20px
-				height: 20px
-				background: #f1f0f5
-
-	.datos-secundarios
-		float: left
-		margin-top: 15px
-		height: 120px
-		width: 199px
-		padding: 10px
-		box-sizing: border-box
-		-moz-box-sizing: border-box
-		border-left: 1px solid #f2f2f2
-		vertical-align: middle
-
-		li
-			margin: 0 0 8px
-	&:hover
-		border: 1px solid #f2f2f2
-		margin: -1px -1px 0 
-		background: #fbfcff
