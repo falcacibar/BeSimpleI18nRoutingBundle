@@ -57,45 +57,43 @@
             </div>
     {% endif %}
 
-    <div class="resultados_de_busqueda">
+	<div class="resultados_wrapper">
 
-		<div class="resultados-wrapper">
+		<div class="resultados">
 
-			<div class="resultados">
-
-				<h1 class="titulo_busqueda">
-					Resultados de {{term}} 
-					 {% if subcategoria != null %}
-	                 	en {{subcategoria.nombre}}
-	                 {% elseif categoria != null %}
-	                 	en {{categoria.nombre}}
-	                 {% endif %}
-					en {{ciudad.nombre}}			
-				</h1>
-				
-				<p>
-		             <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug })) }}">{{ciudad.nombre}}</a>
-		             {% if sector != null %}
-		             	» <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'sector': sector.slug, 'comuna': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{sector.nombre}}</a>
-		             {% elseif comuna != null %}
-		             	» <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'comuna': comuna.slug, 'sector': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{comuna.nombre}}</a>
-		             {% endif %}
-		             {% if categoria != null %}
-		             	» <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'categoria': categoria.slug, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{categoria.nombre}}</a>
-		             {% endif %}
-		             {% if subcategoria != null %}
-		             	» <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'subcategoria': subcategoria.slug, 'caracteristicas': null, 'pagina': null })) }}">{{subcategoria.nombre}}</a>
-		             {% endif %}
-				</p>
-								
-				{% if results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined %}
+			<h1 class="titulo_busqueda">
+				Resultados de {{term}} 
+				 {% if subcategoria != null %}
+                 	en {{subcategoria.nombre}}
+                 {% elseif categoria != null %}
+                 	en {{categoria.nombre}}
+                 {% endif %}
+				en {{ciudad.nombre}}			
+			</h1>
+			
+			<p class="breadcrumb">
+	             <a href="{{ path(ruta, query|merge({'slug': slug })) }}">{{ciudad.nombre}}</a>
+	             {% if sector != null %}
+	             	» <a href="{{ path(ruta, query|merge({'slug': slug, 'sector': sector.slug, 'comuna': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{sector.nombre}}</a>
+	             {% elseif comuna != null %}
+	             	» <a href="{{ path(ruta, query|merge({'slug': slug, 'comuna': comuna.slug, 'sector': null, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{comuna.nombre}}</a>
+	             {% endif %}
+	             {% if categoria != null %}
+	             	» <a href="{{ path(ruta, query|merge({'slug': slug, 'categoria': categoria.slug, 'subcategoria': null, 'caracteristicas': null, 'pagina': null })) }}">{{categoria.nombre}}</a>
+	             {% endif %}
+	             {% if subcategoria != null %}
+	             	» <a href="{{ path(ruta, query|merge({'slug': slug, 'subcategoria': subcategoria.slug, 'caracteristicas': null, 'pagina': null })) }}">{{subcategoria.nombre}}</a>
+	             {% endif %}
+			</p>
+							
+			{% if results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined %}
 				<div class="qtip_zonas qtip_filtros" rel="filtros_zonas">
 					<span class="close_qtip"></span>
 					{% if results.totalPorSectores[0] is defined %}
 						<p>Sectores</p>
 						<ul>
 							{% for sector in results.totalPorSectores %}
-								<li><a class="link_azul" href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug })) }}">{{sector.nombre}} ({{ sector.total }})</a></li>							
+								<li><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug })) }}">{{sector.nombre}} ({{ sector.total }})</a></li>							
 							{% endfor %}
 						</ul>
 					{% endif %}
@@ -105,328 +103,355 @@
 						<p>Comunas</p>
 						<ul>
 							{% for comuna in results.totalPorComunas %}
-								<li><a class="link_azul" href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>
+								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>
 							{% endfor %}
 						</ul>
 					{% endif %}
 				</div>
-				{% endif %}
+			{% endif %}
 
-				{% if results.totalPorCategorias is not defined %}
-			    {% if results.totalPorSubcategoria[0] is defined %}
+			{% if results.totalPorCategorias is not defined %}
+		    {% if results.totalPorSubcategoria[0] is defined %}
 				<div class="qtip_subcategorias qtip_filtros" rel="filtros_subcategorias">
 					<span class="close_qtip"></span>
 					<ul>
 						{% for subcategoria in results.totalPorSubcategoria %}
-							<li><a class="link_azul" href="{{ path(ruta_subcategoria, query|merge({'slug': slug, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>					
+							<li><a href="{{ path(ruta_subcategoria, query|merge({'slug': slug, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>					
 						{% endfor %}
 					</ul>
 				</div>
-				{% endif %}
+			{% endif %}
 
-				{% if results.totalPorCaracteristica[0] is defined %}
+			{% if results.totalPorCaracteristica[0] is defined %}
 				<div class="qtip_caracteristicas qtip_filtros" rel="filtros_caracteristicas">
 					<span class="close_qtip"></span>
 					<ul>
 					{% for caracteristica in results.totalPorCaracteristica %}
-						<li><input type="checkbox" value="{{caracteristica.slug}}" name="caracteristica[]"/><a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'caracteristica': caracteristica.slug})) }}">{{caracteristica.nombre}} ({{ caracteristica.total }})</a></li>
+						<li><input type="checkbox" value="{{caracteristica.slug}}" name="caracteristica[]"/><a href="{{ path(ruta, query|merge({'slug': slug, 'caracteristica': caracteristica.slug})) }}">{{caracteristica.nombre}} ({{ caracteristica.total }})</a></li>
 					{% endfor %}
 					</ul>
 					<a class="link_filtrar_caracteristicas"  href="" data-ohref="{{ path(ruta, query|merge({'slug': slug, 'caracteristicas': null })) }}">Filtrar</a>
 				</div>
-				{% endif %}
-				{% endif %}
+			{% endif %}
 
-				{% if results.totalPorCategoria[0] is defined %}
+			{% endif %}
+
+			{% if results.totalPorCategoria[0] is defined %}
 				<div class="qtip_categorias qtip_filtros" rel="filtros_categorias">
 					<span class="close_qtip"></span>
 					<ul>
 					{% for categoria in results.totalPorCategoria %}
-						<li><a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'categoria': categoria.slug })) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
+						<li><a href="{{ path(ruta, query|merge({'slug': slug, 'categoria': categoria.slug })) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
 					{% endfor %}
 					</ul>
 				</div>
-				{% endif %}
+			{% endif %}
 
-					<div class="filtros_zonas">
-						<div class="filtros_header">
-							<span class="filtros_titulo">Zonas</span>
-							{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
-								<span class="filtros_expandir">Ver Todas</span>
-							{% endif %}					
+			<div class="filtros_zonas">
+				<div class="filtros_header">
+					<span class="filtros_titulo">Zonas</span>
+					{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
+						<div class="ver_mas">
+							<span class="filtros_expandir">Ver Todas</span>
+							<span class="filtros_ver_mas_icono"></span>
 						</div>
-						<div class="resultados_filtros">
-							{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
-								<ul>
-							
-								{% for sector in results.totalPorSectores %}
-									{% if loop.index <= 5 %}
-									<li><a class="link_azul" href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
-									{% endif %}							
-								{% endfor %}
+					{% endif %}					
+				</div>
+				<div class="resultados_filtros">
+					{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
+						<ul>
+					
+						{% for sector in results.totalPorSectores %}
+							{% if loop.index <= 5 %}
+							<li><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
+							{% endif %}							
+						{% endfor %}
 
 
-								{% if results.totalPorSectores is defined and results.totalPorSectores|length < 5 %}
-									{% for comuna in results.totalPorComunas %}
-										{% if loop.index <= (5 - results.totalPorComunas|length) %}
-										<li><a class="link_azul" href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
-										{% endif %}							
-									{% endfor %}							
+						{% if results.totalPorSectores is defined and results.totalPorSectores|length < 5 %}
+							{% for comuna in results.totalPorComunas %}
+								{% if loop.index <= (5 - results.totalPorComunas|length) %}
+								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
+								{% endif %}							
+							{% endfor %}							
+						{% endif %}
+					</ul>
+					{% else %}
+						
+					{% endif %}
+				</div>
+			</div>
+
+			{% if results.totalPorCategoria[0] is defined %}
+				<div class="filtros_categorias">
+					<div class="filtros_header">
+						<span class="filtros_titulo">Categorias</span>
+						{% if results.totalPorCategoria[0] is defined %} 
+							<div class="ver_mas">
+								<span class="filtros_expandir">Ver Todas</span>
+								<span class="filtros_ver_mas_icono"></span>
+							</div>
+						{% endif %}
+					</div>
+					<div class="resultados_filtros">
+						<ul>
+							{% for categoria in results.totalPorCategoria %}
+								{% if loop.index <= 20 %}
+								<li><a rel="categoria" href="{{ path(ruta, query|merge({'slug': slug, 'categoria': categoria.slug })) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
 								{% endif %}
-							</ul>
-							{% else %}
-								No Resultados
-							{% endif %}
-						</div>
+							{% endfor %}
+						</ul>
 					</div>
+				</div>
+			{% endif %}
 
-					{% if results.totalPorCategoria[0] is not defined %}
-					<div class="filtros_subcategorias">
-						<div class="filtros_header">
-							<span class="filtros_titulo">Subcategorias</span>
-							{% if results.totalPorSubcategoria[0] is defined %}
+			{% if results.totalPorCategoria[0] is not defined %}
+				<div class="filtros_subcategorias">
+					<div class="filtros_header">
+						<span class="filtros_titulo">Subcategorias</span>
+						{% if results.totalPorSubcategoria[0] is defined %}
+							<div class="ver_mas">
 								<span class="filtros_expandir">Ver Todas</span>
-							{% endif %}
+								<span class="filtros_ver_mas_icono"></span>
+							</div>
+						{% endif %}
+					</div>
+					<div class="resultados_filtros">
+						{% if results.totalPorSubcategoria[0] is defined %}
+						<ul>
+							{% for subcategoria in results.totalPorSubcategoria %}
+								{% if loop.index <= 10 %}
+								<li><a href="{{ path(ruta_subcategoria, query|merge({'slug': slug, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>	
+								{% endif %}							
+							{% endfor %}
+						</ul>
+						{% else %}
+							No resultados
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="filtros_precios">
+					<div class="filtros_header">
+						<span class="filtros_titulo">Precios</span>
+						<span class="explicacion_precio tips_icon"></span>
+					</div>
+					<div class="resultados_filtros">
+						<div class="precio_container">
+							<input type="checkbox" {% if query.precio is defined and query.precio == 5 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 5})) }}" />
+							<a href="{{ path(ruta, query|merge({'slug': slug, 'precio': 5})) }}">
+								<div class="filtro_precios_raty" data-precio="5"></div>
+							</a>
 						</div>
-						<div class="resultados_filtros">
-							{% if results.totalPorSubcategoria[0] is defined %}
-							<ul>
-								{% for subcategoria in results.totalPorSubcategoria %}
-									{% if loop.index <= 10 %}
-									<li><a class="link_azul" href="{{ path(ruta_subcategoria, query|merge({'slug': slug, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>	
-									{% endif %}							
-								{% endfor %}
-							</ul>
-							{% else %}
-								No resultados
-							{% endif %}
+						<div class="precio_container">
+							<input type="checkbox" {% if query.precio is defined and query.precio == 4 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 4})) }}" />
+							<a href="{{ path(ruta, query|merge({'slug': slug, 'precio': 4})) }}">
+								<div class="filtro_precios_raty" data-precio="4"></div>
+							</a>
+						</div>
+						<div class="precio_container">
+							<input type="checkbox" {% if query.precio is defined and query.precio == 3 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 3})) }}" />
+							<a href="{{ path(ruta, query|merge({'slug': slug, 'precio': 3})) }}">
+								<div class="filtro_precios_raty" data-precio="3"></div>
+							</a>
+						</div>
+						<div class="precio_container">
+							<input type="checkbox" {% if query.precio is defined and query.precio == 2 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 2})) }}" />
+							<a href="{{ path(ruta, query|merge({'slug': slug, 'precio': 2})) }}">
+								<div class="filtro_precios_raty" data-precio="2"></div>
+							</a>
+						</div>
+						<div class="precio_container">
+							<input type="checkbox" {% if query.precio is defined and query.precio == 1 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 1})) }}" />
+							<a href="{{ path(ruta, query|merge({'slug': slug, 'precio': 1})) }}">
+								<div class="filtro_precios_raty" data-precio="1"></div>
+							</a>
+						</div>
+						<div class="precio_container">
+							<a class="reset_precio" href="{{ path(ruta, query|merge({'slug': slug, 'precio': null})) }}">
+							</a>
 						</div>
 					</div>
+				</div>
 
-					<div class="filtros_precios">
-						<div class="filtros_header">
-							<span class="filtros_titulo">Precios</span>
-							<span class="explicacion_precio">?</span>
-						</div>
-						<div class="resultados_filtros">
-							<div class="precio_container">
-								<input type="checkbox" {% if query.precio is defined and query.precio == 5 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 5})) }}" />
-								<a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'precio': 5})) }}">
-									<div class="filtro_precios_raty" data-precio="5"></div>
-								</a>
-							</div>
-							<div class="precio_container">
-								<input type="checkbox" {% if query.precio is defined and query.precio == 4 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 4})) }}" />
-								<a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'precio': 4})) }}">
-									<div class="filtro_precios_raty" data-precio="4"></div>
-								</a>
-							</div>
-							<div class="precio_container">
-								<input type="checkbox" {% if query.precio is defined and query.precio == 3 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 3})) }}" />
-								<a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'precio': 3})) }}">
-									<div class="filtro_precios_raty" data-precio="3"></div>
-								</a>
-							</div>
-							<div class="precio_container">
-								<input type="checkbox" {% if query.precio is defined and query.precio == 2 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 2})) }}" />
-								<a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'precio': 2})) }}">
-									<div class="filtro_precios_raty" data-precio="2"></div>
-								</a>
-							</div>
-							<div class="precio_container">
-								<input type="checkbox" {% if query.precio is defined and query.precio == 1 %} checked="checked" {% endif %} name="precio" value="{{ path(ruta, query|merge({'slug': slug, 'precio': 1})) }}" />
-								<a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'precio': 1})) }}">
-									<div class="filtro_precios_raty" data-precio="1"></div>
-								</a>
-							</div>
-							<div class="precio_container">
-								<a class="reset_precio" href="{{ path(ruta, query|merge({'slug': slug, 'precio': null})) }}">
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{% if results.totalPorCaracteristica[0] is defined %}
+				{% if results.totalPorCaracteristica[0] is defined %}
 					<div class="filtros_caracteristicas">
 						<div class="filtros_header">
 							<span class="filtros_titulo">Caracteristicas</span>
 							{% if results.totalPorCaracteristica[0] is defined %}
-								<span class="filtros_expandir">Ver Todas</span>
+								<div class="ver_mas">
+									<span class="filtros_expandir">Ver Todas</span>
+									<span class="filtros_ver_mas_icono"></span>
+								</div>
 							{% endif %}
 						</div>
 						<div class="resultados_filtros">
 							<ul>
 								{% for caracteristica in results.totalPorCaracteristica %}
 									{% if loop.index <= 5 %}
-									<li><a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'caracteristicas': caracteristica.slug})) }}">{{caracteristica.nombre}}</a></li>	
+									<li><a href="{{ path(ruta, query|merge({'slug': slug, 'caracteristicas': caracteristica.slug})) }}">{{caracteristica.nombre}}</a></li>	
 									{% endif %}							
 								{% endfor %}	
 							</ul>					
 						</div>
 					</div>
-					{% endif %}
 				{% endif %}
+			
+			{% endif %}
 
-				{% if results.totalPorCategoria[0] is defined %}
-					<div class="filtros_categorias">
-						<div class="filtros_header">
-							<span class="filtros_titulo">Categorias</span>
-							{% if results.totalPorCategoria[0] is defined %} 
-							<span class="filtros_expandir">Ver Todas</span>
-							{% endif %}
-						</div>
-						<div class="resultados_filtros">
-							<ul>
-								{% for categoria in results.totalPorCategoria %}
-									{% if loop.index <= 20 %}
-									<li><a rel="categoria" class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'categoria': categoria.slug })) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
-									{% endif %}
+			<div class="orden_container">
+				<ul class="filtros_busqueda">
+			        <li>
+			            <strong>{{'general.terminos.ordenar_por'|trans}}: </strong>
+			        </li>
+			        <li>
+			            {% if query.orden is not defined or query.orden == 'relevantes' %}
+			                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
+			            {% else %}
+			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'relevantes' })) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
+			            {% endif %}	
+			        </li>
+			        <li>|</li>
+			        <li>
+			            {% if query.orden is defined and query.orden == 'recomendaciones' %}
+			                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
+			            {% else %}
+			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'recomendaciones' })) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
+			            {% endif %}
+			        </li>
+			        <li>|</li>
+			        <li>
+			            {% if query.orden is defined and query.orden == 'utiles' %}
+			                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
+			            {% else %}
+			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+			            {% endif %}
+			        </li>
+			        <li>|</li>
+			        <li>
+			            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
+			                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
+			            {% else %}
+			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'ultima-recomendacion' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
+			            {% endif %}
+			        </li>
+			        <li>|</li>
+			        <li>
+			            {% if query.orden is defined and query.orden == 'alfabetico' %}
+			                <strong>{{'general.terminos.alfabetico'|trans}}</strong>
+			            {% else %}
+			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'alfabetico' })) }}">{{'general.terminos.alfabetico'|trans}}</a>
+			            {% endif %}
+			        </li>
+			    </ul>
+
+			    <div class="resultados_por_pagina">
+			        <select class="seleccionar_resultados_por_pagina">
+			            <option value="30">30</option>
+			            <option value="45">45</option>
+			            <option value="60">60</option>
+			        </select>
+			        <p class="resultados_por_pagina_txt"><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong> - {{'general.terminos.resultados_pagina'|trans}}</p>
+			    </div>
+	        </div>
+
+	        <div class="listado_resultados">
+			{% for lugar in lugares %}
+				<div class="resultado-busqueda">
+					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.lugar_slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
+						<ul>
+							<li class="data_lugar">
+								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+								<div class="nombre_lugar">
+									<strong><a href="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}">{{lugar.nombre_lugar }}</a></strong>
+								</div>
+							</li>
+							<li>
+								<div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div>
+							</li>
+							<li>
+								{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}
+							</li>
+						
+						{% if lugar.sector_nombre != '' %}
+							<li class="data_sector">
+								<span><strong>{{'general.terminos.sector'|trans}}</strong></span>
+								<a href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
+							</li>
+						{% endif %}
+						{% if lugar.categorias_nombre != '' %}
+							<li class="data_categoria">
+								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}:</strong></span>
+								{% for categoria in lugar.categorias_nombre %}
+									{{categoria|raw}}{% if loop.last == null %}, {% endif %}
 								{% endfor %}
-							</ul>
-						</div>
+							</li>
+						{% endif %}
 					</div>
-				{% endif %}
-
-				<div class="orden_container">
-					<ul class="filtros_busqueda">
-				        <li>
-				            <strong>{{'general.terminos.ordenar_por'|trans}}: </strong>
-				        </li>
-				        <li>
-				            {% if query.orden is not defined or query.orden == 'relevantes' %}
-				                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
-				            {% else %}
-				                <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'relevantes' })) }}">{{'general.terminos.mas_relevantes'|transchoice(2)}}</a>
-				            {% endif %}	
-				        </li>
-				        <li>|</li>
-				        <li>
-				            {% if query.orden is defined and query.orden == 'recomendaciones' %}
-				                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
-				            {% else %}
-				                <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'recomendaciones' })) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
-				            {% endif %}
-				        </li>
-				        <li>|</li>
-				        <li>
-				            {% if query.orden is defined and query.orden == 'utiles' %}
-				                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
-				            {% else %}
-				                <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
-				            {% endif %}
-				        </li>
-				        <li>|</li>
-				        <li>
-				            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
-				                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
-				            {% else %}
-				                <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'ultima-recomendacion' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
-				            {% endif %}
-				        </li>
-				        <li>|</li>
-				        <li>
-				            {% if query.orden is defined and query.orden == 'alfabetico' %}
-				                <strong>{{'general.terminos.alfabetico'|trans}}</strong>
-				            {% else %}
-				                <a class="link_azul" href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'alfabetico' })) }}">{{'general.terminos.alfabetico'|trans}}</a>
-				            {% endif %}
-				        </li>
-				    </ul>
-
-				    <div class="resultados_por_pagina">
-				        <select class="seleccionar_resultados_por_pagina">
-				            <option value="30">30</option>
-				            <option value="45">45</option>
-				            <option value="60">60</option>
-				        </select>
-				        <p class="resultados_por_pagina_txt"><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong> - {{'general.terminos.resultados_pagina'|trans}}</p>
-				    </div>
-		        </div>
-
-		        <div class="listado_resultados">
-				{% for lugar in lugares %}
-					<div class="resultado-busqueda">
-						<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.lugar_slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
-							<ul>
-								<li class="data_lugar">
-									<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
-									<div class="nombre_lugar">
-										<strong><a class="link_azul" href="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}">{{lugar.nombre_lugar }}</a></strong>
-									</div>
-								</li>
-								<li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div></li>
-								<li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
-							{% if lugar.sector_nombre != '' %}
-								<li class="data_sector">
-									<span><strong>{{'general.terminos.sector'|trans}}</strong></span>
-									<a class="link_azul" href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
+					<div class="datos-principales">
+						<ul>
+							<li class="info_lugar">
+								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+								<div class="nombre_lugar">
+									<span class="indice_resultado">{{loop.index}}</span>
+									<strong><a href="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}">{{lugar.nombre_lugar }}</a></strong>
+								</div>
+							</li>
+						{% if lugar.categorias_nombre != '' %}
+							<li class="info_categorias">
+								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}:</strong></span>
+								{% for categoria in lugar.categorias_nombre %}
+									{{categoria|raw}}{% if loop.last == null %}, {% endif %}
+								{% endfor %}
+							</li>
+						{% endif %}
+						{% if lugar.sector_nombre != '' %}
+							<li class="info_sector">
+								<span><strong>{{'general.terminos.sector'|trans}}:</strong></span>
+								<a href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
+							</li>
+						{% endif %}
+						{% if lugar.ultima_recomendacion != '' %}
+							<li class="info_recomendacion">
+								<img src="{{ ('assets/images/usuarios/'~lugar.usuario_imagen) | apply_filter('tiny_usuario')}}" />
+								<span>
+									<strong>
+										{{lugar.fecha_ultima_recomendacion|date('y/m/d') }} - 
+										{% if lugar.usuario_nombre != '' %}
+											<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_nombre}} {{lugar.usuario_apellido}}</a>
+										{% else %}
+											<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_slug}}</a>
+										{% endif %}
+									</strong>
+									<p>{{lugar.ultima_recomendacion}}...</p>
+								</span>
+							</li>
+						{% endif %}
+						</ul>
+					</div>
+					<div class="datos-secundarios">
+						<ul>
+							<li>
+								<div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div>
+							</li>
+							<li class="numero_de_recomendaciones">
+								<em>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</em>
+							</li>
+							<li class="direccion_lugar">
+								{{lugar.calle}} {{lugar.numero}}, <a href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a>
+							</li>
+							{% if lugar.precio != null %}
+								<li class="precio_lugar">
+									<div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div>
 								</li>
 							{% endif %}
-							{% if lugar.categorias_nombre != '' %}
-								<li class="data_categoria">
-									<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}</strong></span>
-									{% for categoria in lugar.categorias_nombre %}
-										{{categoria|raw}}{% if loop.last == null %}, {% endif %}
-									{% endfor %}
-								</li>
-							{% endif %}
-						</div>
-						<div class="datos-principales">
-							<ul>
-								<li class="info_lugar">
-									<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
-									<div class="nombre_lugar">
-										<span class="indice_resultado">{{loop.index}}</span>
-										<strong><a class="link_azul" href="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}">{{lugar.nombre_lugar }}</a></strong>
-									</div>
-								</li>
-								{% if lugar.categorias_nombre != '' %}
-								<li class="info_cateogrias">
-									<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}</strong></span>
-									{% for categoria in lugar.categorias_nombre %}
-										{{categoria|raw}}{% if loop.last == null %}, {% endif %}
-									{% endfor %}
-								</li>
-								{% endif %}
-								{% if lugar.sector_nombre != '' %}
-								<li class="info_sector">
-									<span><strong>{{'general.terminos.sector'|trans}}</strong></span>
-									<a class="link_azul" href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
-								</li>
-								{% endif %}
-								{% if lugar.ultima_recomendacion != '' %}
-								<li class="info_recomendacion">
-									<img src="{{ ('assets/images/usuarios/'~lugar.usuario_imagen) | apply_filter('tiny_usuario')}}" />
-									<span>
-										<strong>
-											{{lugar.fecha_ultima_recomendacion|date('y/m/d') }} - 
-											{% if lugar.usuario_nombre != '' %}
-												<a class="link_azul" href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_nombre}} {{lugar.usuario_apellido}}</a>
-											{% else %}
-												<a class="link_azul" href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_slug}}</a>
-											{% endif %}
-										</strong>
-										<p>{{lugar.ultima_recomendacion}}...</p>
-									</span>
-								</li>
-								{% endif %}
-							</ul>
-						</div>
-						<div class="datos-secundarios">
-							<ul>
-								<li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div></li>
-								<li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
-								<li>{{lugar.calle}} {{lugar.numero}} - <a class="link_azul" href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a></li>
-								{% if lugar.precio != null %}
-									<li><div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div></li>
-								{% endif %}
-							</ul>
-						</div>
+						</ul>
 					</div>
-				{% endfor %}
 				</div>
+			{% endfor %}
 			</div>
-			<div class="sidebar">
+
+			<div class="sidebar_busqueda">
 		        <div class="mapa_sidebar">
 		            <div id="mapa_buscar" style="height: 300px; width: 300px;">
 		            </div>
@@ -437,9 +462,22 @@
 		            </script>
 		        </div>
 		    </div>
-			<br/>
-			<div id="agrega-lugar" style="clear:both"><p>¿No encontraste el Lugar que buscabas?
-	¡Entonces agrégalo y sé el primero en recomendarlo!</p><a class="link_azul" href="{{ path('_agregar') }}">Boton</a></div>
+
+		</div>
+
+        <div class="paginacion_listado_lugares">
+            <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong>
+            {% if paginacion.totalPaginas != 1 %}
+                 | Ir a la página
+                <ul>
+                    {{ paginacion.paginacion | raw }}
+                </ul>
+            {% endif %}
+        </div>
+
+		<div id="agrega-lugar" style="clear:both">
+			<p>¿No encontraste el Lugar que buscabas?
+			¡Entonces agrégalo y sé el primero en recomendarlo!</p><a href="{{ path('_agregar') }}">Boton</a>
 		</div>
 
 	</div>
