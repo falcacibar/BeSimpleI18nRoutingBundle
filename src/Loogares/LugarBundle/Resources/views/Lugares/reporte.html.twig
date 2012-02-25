@@ -3,21 +3,21 @@
 {# Según el tipo de reporte, se generan distintos títulos y subtítulos #}
 {% if lugar is defined %}
 	{% set usuario = lugar.usuario%}
-	{% set titulo_pag = 'reportes.lugar.titulo_pag' %}	
+	{% set titulo_pag = 'reportes.lugar.title' %}	
 	{% set tipo_titulo = 0 %}
 	{% set subtitulo = 'reportes.lugar.subtitulo' %}
 	{% set ruta = path('_reportarLugar',{ 'slug': lugar.slug })%}
 {% elseif recomendacion is defined %}
 	{% set lugar = recomendacion.lugar %}
 	{% set usuario = recomendacion.usuario %}
-	{% set titulo_pag = 'reportes.recomendacion.titulo_pag' %}
+	{% set titulo_pag = 'reportes.recomendacion.title' %}
 	{% set tipo_titulo = 1 %}
 	{% set subtitulo = 'reportes.recomendacion.subtitulo' %}
 	{% set ruta = path('_reportarRecomendacion',{ 'slug': lugar.slug, 'usuarioSlug' : (usuario.slug is empty) ? usuario.id : usuario.slug })%}
 {% elseif imagen is defined %}
 	{% set lugar = imagen.lugar %}
 	{% set usuario = imagen.usuario %}
-	{% set titulo_pag = 'reportes.imagen.titulo_pag' %}
+	{% set titulo_pag = 'reportes.imagen.title' %}
 	{% set tipo_titulo = 2 %}
 	{% set subtitulo = 'reportes.imagen.subtitulo' %}
 	{% set ruta = path('_reportarFoto',{ 'slug': lugar.slug, 'id': imagen.id })%}	

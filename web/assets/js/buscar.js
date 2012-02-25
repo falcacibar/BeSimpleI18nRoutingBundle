@@ -226,7 +226,7 @@ $(document).ready(function(){
 		console.log(href)
 	});
 
-	$('.resultados_wrapper a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
+	$('.filtros a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
 		url: $(this).attr('href'),
 		container: '.resultados_wrapper',
 		fragment: '.resultados_wrapper',

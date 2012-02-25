@@ -3,6 +3,7 @@ general:
     header:
         usuario:
             login: Entra
+            registro: Regístrate
             editar: Edita tus datos
             actividad: Actividad
             recomendaciones: Recomendaciones
@@ -11,7 +12,9 @@ general:
             por_recomendar: Lugares por recomendar
             para_visitar: Lugares para visitar
             logout: Salir
-            registro: Regístrate
+        blog: Blog
+        ejemplos_buscador: Completos, Lastarria, bares, La Moneda
+
     footer:
         participa:
             titulo: Participa
@@ -21,21 +24,19 @@ general:
             titulo: Alianzas
         loogares:
             titulo: Loogares.com
-            que: ¿Qué es Loogares.com?
-            contacto: Contacto
-            prensa: Prensa
-            terminos: Términos de uso
-            copyright: Copyright
-            owner: ¿Eres el dueño de un lugar?
-            jobs: Trabaja con nosotros
-            publicidad: Publicidad
-            privacidad: Políticas de privacidad
-            conducta: Códigos de conducta
         paises:
             titulo: Cambiar de país:
+            chile: Chile
+            argentina: Argentina
         idioma:
             titulo: Cambiar de idioma:
+            espanol: Español
+            ingles: Inglés
+        redes:
+            tweet: Twittear
+            twittear: He entrado a Loogares.com y me he enamorado de este sitio, lo comparto para que tu también los sigas...
         firma: © 2010~2012 Loogares.com
+
     terminos:
         categorias: Categoría|Categorías
         mejor_recomendaciones: Mejor Recomendación|Mejores Recomendaciones
@@ -50,20 +51,10 @@ general:
         sector: Sector
         resultados: Resultados para
 
-    home:
-        title: Comparte y Vive la ciudad
-        saludo_bienvenida: Loogares.com es la guía de lugares de ocio en tu ciudad donde escribiendo recomendaciones ganarás invitaciones a restaurantes, entradas al cine, fiestas, conciertos y más.
-        actividad_loogares:
-            actualmente: Actualmente en nuestra comunidad van escritas
-            recomendaciones: Recomendación|Recomendaciones
-            y: y 
-            premios: Premio|Premios
-            participa: regalados. ¡Participa ahora!
-        recomendacion_dia:
-            titulo: Recomendación del día
-            ver_mas: Ver más
-        ultimos_conectados:
-            titulo: Últimos Loogareños Conectados
+paginacion:
+    al: al
+    de: de
+    ir_a: Ir a la página
 
 olvidar:
     titulo_pag: ¿Olvidaste tu password?
