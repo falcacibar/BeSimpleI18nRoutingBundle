@@ -68,3 +68,7 @@ editarBorrarUsuario:
 accionesPendientes:
     pattern:  /acciones_pendientes/{accion}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:totalAccionesPendientes }
+
+forzarDatosUsuario:
+    pattern:  /forzar_datos/{id}
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:forzarDatos }

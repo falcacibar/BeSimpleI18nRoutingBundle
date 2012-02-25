@@ -6,13 +6,13 @@
 				{% if menu.categorias|length <= 15 %}
 					<ul>
 					{% for categoria in menu.categorias %}
-						<li><a href="{{path( '_categoria',{'slug': 'santiago-de-chile', 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
 					{% endfor %}
 					</ul>
 				{% elseif menu.categorias|length >= 16 and menu.categorias|length <= 19 %}			
 					<ul>
 					{% for categoria in menu.categorias %}
-						<li><a href="{{path( '_categoria',{'slug': 'santiago-de-chile', 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
 						{% if loop.index == 0 or loop.index % 10 == 0 %}
 							</ul><ul>
 						{% endif %}
@@ -21,7 +21,7 @@
 				{% elseif menu.categorias|length > 15 %}
 					<ul>
 					{% for categoria in menu.categorias %}
-						<li><a href="{{path( '_categoria',{'slug': 'santiago-de-chile', 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
 						{% if loop.index == 0 or loop.index % 15 == 0 %}
 							</ul><ul>
 						{% endif %}

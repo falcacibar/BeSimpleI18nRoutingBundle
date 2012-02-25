@@ -1,15 +1,15 @@
 <div class="menu_ciudad">
 	<ul>
 		<li>
-			<a href="">Santiago de Chile</a>
+			<a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">{{app.session.get('ciudad').nombre}}</a>
 			<div class="flecha_ciudad"></div>
-				<ul>
-					{% for ciudad in ciudades %}
-						<a href="{{path('locale', {'slug': ciudad.slug})}}">
-							<li>{{ciudad.nombre}}</li>
-						</a>
-					{% endfor %}
-				</ul>
+			<ul>
+				{% for ciudad in ciudades %}
+					<a href="{{path('locale', {'slug': ciudad.slug})}}">
+						<li {% if ciudad.id == app.session.get('ciudad').id %}class="selected"{% endif %}>{{ciudad.nombre}}</li>
+					</a>
+				{% endfor %}
+			</ul>
 		</li>
 	</ul>
 </div>

@@ -864,4 +864,45 @@ class UsuarioController extends Controller
         return new Response($cantidad);
     }
 
+    public function forzarDatosAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+        if($this->get('security.context')->isGranted('ROLE_USER')) {
+            $usuario = $this->get('security.context')->getToken()->getUser();
+            $formErrors = array();
+
+            // Revisamos los errores inmediatamente para indicarle al usuario qué debe ingresar
+            if($usuario->getNombre() == '')
+                $formErrors['nombre'] = "usuario.errors.validacion.nombre.blanco";
+            if($usuario->getApellido() == '')
+                $formErrors['apellido'] = "usuario.errors.validacion.apellido.blanco";
+            /*if($usuario->getComuna() == null)
+                $formErrors['comuna'] = "usuario.errors.validacion.comuna.blanco";*/
+
+            if($request->getMethod() == 'POST') {
+                $formErrors = array();
+                if($request->request->get('nombre') == '')
+                    $formErrors['nombre'] = "usuario.errors.validacion.nombre.blanco";
+                if($request->request->get('apellido') == '')
+                    $formErrors['apellido'] = "usuario.errors.validacion.apellido.blanco";
+
+                if(sizeof($formErrors) == 0) {
+                    $usuario->setNombre($request->request->get('nombre'));
+                    $usuario->setApellido($request->request->get('apellido'));
+                    $em->flush();
+                }
+                // Redirección a perfil de usuario
+                return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuario))));
+            }
+
+            return $this->render('LoogaresUsuarioBundle:Usuarios:datos_obligatorios.html.twig', array(
+                'errors' => $formErrors,
+            ));
+        }
+        else {
+            return new Response('');
+        }        
+    }
+
 }
