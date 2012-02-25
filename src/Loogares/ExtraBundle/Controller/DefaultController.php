@@ -87,6 +87,8 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $cr = $em->getRepository("LoogaresLugarBundle:Categoria");
 
         // Cantidad de premios regalados (totales)
         $q = $em->createQuery("SELECT count(cu.id)
@@ -100,6 +102,24 @@ class DefaultController extends Controller
         $totalRecomendaciones = $rr->getTotalRecomendaciones();
 
         $ciudad = $this->get('session')->get('ciudad');
+
+        // Top Five de tres categorías
+        $categorias = array();
+
+        // Categoría Restaurantes
+        $restaurantes = $cr->findOneBySlug('restaurantes');
+        $restaurantes->top_five = $lr->getTopFivePorCategoria($restaurantes->getId(), $ciudad['id']);
+        $categorias[] = $restaurantes;
+
+        // Categoría Cafés
+        $cafes = $cr->findOneBySlug('cafes-teterias');
+        $cafes->top_five = $lr->getTopFivePorCategoria($cafes->getId(), $ciudad['id']);
+        $categorias[] = $cafes;
+
+        // Categoría Bares/Pubs
+        $bares = $cr->findOneBySlug('bares-pubs');
+        $bares->top_five = $lr->getTopFivePorCategoria($bares->getId(), $ciudad['id']);
+        $categorias[] = $bares;
 
         // Recomendación del día
         $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
@@ -123,6 +143,7 @@ class DefaultController extends Controller
         $home['recDia'] = $recomendacionDelDia;
         $home['previewRecDia'] = $preview;
         $home['ultimosConectados'] = $ultimosConectados;
+        $home['categorias'] = $categorias;
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,     

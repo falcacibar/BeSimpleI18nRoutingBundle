@@ -1033,6 +1033,7 @@ class LugarController extends Controller{
             
             $recomendacion->setFechaCreacion(new \DateTime());
             $recomendacion->setFechaUltimaModificacion(new \DateTime());
+            $lugar->setFechaUltimaRecomendacion($recomendacion->getFechaCreacion());
 
             // Sacamos la recomendación justo anterior a ésta última (para enviar mail)
             $ultimaRecomendacion = $rr->getUltimaRecomendacion($lugar->getId());

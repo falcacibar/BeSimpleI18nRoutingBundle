@@ -379,6 +379,26 @@ class LugarRepository extends EntityRepository
       return $q->getResult();
     }
 
+    public function getTopFivePorCategoria($categoria, $ciudad) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT cl, l
+                             FROM Loogares\LugarBundle\Entity\CategoriaLugar cl
+                             JOIN cl.lugar l
+                             JOIN l.comuna c
+                             WHERE cl.categoria = ?1
+                             AND c.ciudad = ?2
+                             AND l.estado != ?3
+                             AND cl.principal = 1
+                             GROUP BY l.id
+                             ORDER BY l.fecha_ultima_recomendacion DESC");
+      $q->setParameter(1, $categoria);
+      $q->setParameter(2, $ciudad);
+      $q->setParameter(3, 3);
+      $q->setMaxResults(5);
+
+      return $q->getResult();
+    }
+
     public function cleanUp($id){
       $em = $this->getEntityManager();
       $q = $em->createQuery("DELETE Loogares\LugarBundle\Entity\CategoriaLugar u WHERE u.lugar = ?1");

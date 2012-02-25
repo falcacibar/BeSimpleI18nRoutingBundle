@@ -1,35 +1,37 @@
-<div class="caja_promociones">
+{% if promociones|length > 0 %}
+	<div class="caja_promociones">
 
-	<div class="titulo_promociones">
-	    <h4 class="titulo_home descuento">{{'lugar.ficha.promociones.titulo'|trans}}</h4>
-	    <a class="ver_todos" href="">{{'lugar.ficha.promociones.ver_dctos'|trans}} &raquo;</a>
-	</div>
+		<div class="titulo_promociones">
+		    <h4 class="titulo_home descuento">{{'lugar.ficha.promociones.titulo'|trans}}</h4>
+		    <a class="ver_todos" href="">{{'lugar.ficha.promociones.ver_dctos'|trans}} &raquo;</a>
+		</div>
 
-	<ul>
-		{% for promocion in promociones %}
-	        <a href="{{path('_lugar', {'slug' : promocion.pedidoLugar.lugar.slug})}}">	
-	        	<li {{(loop.last) ? "class='ultimo_pedido'" : ''}}>
-	            	<div>
-	                    <div class="promocion_delivery_img">
-	                    	{% for img in promocion.pedidoLugar.lugar.imagenesLugar %}		
-								{% if loop.last %}						
-									<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('small_lugar') }}"  width="50" height="50" />
-								{% endif %}
-							{% endfor %}
-						</div>
-						<div class="promocion_delivery_lugar_dias">
-							<p class="promocion_lugar">{{promocion.pedidoLugar.lugar.nombre}}</p>
-							<p class="promocion_dias"><strong>{{'lugar.ficha.promociones.dias'|trans}}:</strong> {{promocion.dias}}</p>
-						</div>
-						<div class="promocion_delivery_descripcion">							
-							<div class="promocion_icono"></div>
-							<div class="promocion_titulo">
-								{{promocion.titulo}}
+		<ul>
+			{% for promocion in promociones %}
+		        <a href="{{path('_lugar', {'slug' : promocion.pedidoLugar.lugar.slug})}}">	
+		        	<li {{(loop.last) ? "class='ultimo_pedido'" : ''}}>
+		            	<div>
+		                    <div class="promocion_delivery_img">
+		                    	{% for img in promocion.pedidoLugar.lugar.imagenesLugar %}		
+									{% if loop.last %}						
+										<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('small_lugar') }}"  width="50" height="50" />
+									{% endif %}
+								{% endfor %}
 							</div>
-						</div>
-	            	</div>
-		        </li>
-		    </a>
-	    {% endfor %}
-    </ul>
-</div>
+							<div class="promocion_delivery_lugar_dias">
+								<p class="promocion_lugar">{{promocion.pedidoLugar.lugar.nombre}}</p>
+								<p class="promocion_dias"><strong>{{'lugar.ficha.promociones.dias'|trans}}:</strong> {{promocion.dias}}</p>
+							</div>
+							<div class="promocion_delivery_descripcion">							
+								<div class="promocion_icono"></div>
+								<div class="promocion_titulo">
+									{{promocion.titulo}}
+								</div>
+							</div>
+		            	</div>
+			        </li>
+			    </a>
+		    {% endfor %}
+	    </ul>
+	</div>
+{% endif %}

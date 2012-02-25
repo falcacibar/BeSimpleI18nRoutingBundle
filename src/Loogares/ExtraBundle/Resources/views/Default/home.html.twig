@@ -77,30 +77,83 @@
 		<!-- Concursos del sitio -->
 		<div class="campanas_concursos">
 			<ul>
-				<a href="">
-					<li>
-						<h2 class="titulo_concurso concursos">Concurso: Sólo por hoy</h2>
-						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
-						<p class="lugar_concurso">Centro Cultural Amanda</p>
-						<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
-					</li>
-				</a>
-				<a href="">
-					<li class="central">
-						<h2 class="titulo_concurso especiales">Concurso: Sólo por hoy</h2>
-						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
-						<p class="lugar_concurso">Centro Cultural Amanda</p>
-						<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
-					</li>
-				</a>
-				<a href="">
-					<li>
-						<h2 class="titulo_concurso ganadores">Concurso: Sólo por hoy</h2>
-						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
-						<p class="lugar_concurso">Centro Cultural Amanda</p>
-						<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
-					</li>
-				</a>
+				{# Santiago de Chile #}
+				{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+					<a href="">
+						<li>
+							<h2 class="titulo_concurso concursos">Concurso: Sólo por hoy</h2>
+							<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
+							<p class="lugar_concurso">{{app.session.get('ciudad').nombre}}</p>
+							<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+						</li>
+					</a>
+					<a href="">
+						<li class="central">
+							<h2 class="titulo_concurso especiales">Concurso: Sólo por hoy</h2>
+							<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
+							<p class="lugar_concurso">Centro Cultural Amanda</p>
+							<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+						</li>
+					</a>
+					<a href="">
+						<li>
+							<h2 class="titulo_concurso ganadores">Concurso: Sólo por hoy</h2>
+							<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
+							<p class="lugar_concurso">Centro Cultural Amanda</p>
+							<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+						</li>
+					</a>
+				{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+					<a href="">
+						<li>
+							<h2 class="titulo_concurso concursos">Concurso: Sólo por hoy</h2>
+							<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
+							<p class="lugar_concurso">{{app.session.get('ciudad').nombre}}</p>
+							<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+						</li>
+					</a>
+					<a href="">
+						<li class="central">
+							<h2 class="titulo_concurso especiales">Concurso: Sólo por hoy</h2>
+							<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
+							<p class="lugar_concurso">Centro Cultural Amanda</p>
+							<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+						</li>
+					</a>
+					<a href="">
+						<li>
+							<h2 class="titulo_concurso ganadores">Concurso: Sólo por hoy</h2>
+							<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
+							<p class="lugar_concurso">Centro Cultural Amanda</p>
+							<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+						</li>
+					</a>
+				{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+					<a href="">
+						<li>
+							<h2 class="titulo_concurso concursos">Concurso: Sólo por hoy</h2>
+							<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
+							<p class="lugar_concurso">{{app.session.get('ciudad').nombre}}</p>
+							<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+						</li>
+					</a>
+					<a href="">
+						<li class="central">
+							<h2 class="titulo_concurso especiales">Concurso: Sólo por hoy</h2>
+							<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
+							<p class="lugar_concurso">Centro Cultural Amanda</p>
+							<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+						</li>
+					</a>
+					<a href="">
+						<li>
+							<h2 class="titulo_concurso ganadores">Concurso: Sólo por hoy</h2>
+							<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
+							<p class="lugar_concurso">Centro Cultural Amanda</p>
+							<p class="sorteo_concurso">Sorteamos 5 entradas dobles para La Mano Ajena</p>
+						</li>
+					</a>
+				{% endif %}
 			</ul>
 		</div>
 
@@ -108,48 +161,25 @@
 		<div class="lugares_recomendados">
 			<h3 class="titulo_home titulo_recomendados">Últimos Lugares recomendados en las categorías:</h3>
 			<ul>
-				<li>
-					<p class="titulo_categoria">Restaurantes »</p>
-					<img src="" height="60" width="60" />
+				{% for categoria in home.categorias %}
+				<li {% if loop.index == 3 %}class="ultima_categoria"{% endif %}>
+					<p class="titulo_categoria">{{categoria.nombre}} »</p>
+					{% for img in categoria.top_five.0.lugar.imagenesLugar %}		
+						{% if loop.last %}						
+							<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('medium_lugar') }}"  width="60" height="60" />
+						{% endif %}
+					{% endfor %}
 					<div class="listado_lugares_recomendados">
 						<ul>
-							<li>1. <a href="">Restaurantes</a></li>
-							<li>2. <a href="">Restaurantes</a></li>
-							<li>3. <a href="">Restaurantes</a></li>
-							<li>4. <a href="">Restaurantes</a></li>
-							<li>5. <a href="">Restaurantes</a></li>
+							{% for cl in categoria.top_five %}
+								<li>{{loop.index}}. <a href="{{path('_lugar', {'slug' : cl.lugar.slug})}}">{{cl.lugar.nombre}}</a></li>
+							{% endfor %}
 						</ul>
 					</div>
 				</li>
-				<li>
-					<p class="titulo_categoria">Cafés »</p>
-					<img src="" height="60" width="60" />
-					<div class="listado_lugares_recomendados">
-						<ul>
-							<li>1. <a href="">Cafés</a></li>
-							<li>2. <a href="">Cafés</a></li>
-							<li>3. <a href="">Cafés</a></li>
-							<li>4. <a href="">Cafés</a></li>
-							<li>5. <a href="">Cafés</a></li>
-						</ul>
-					</div>
-				</li>
-				<li class="ultima_categoria">
-					<p class="titulo_categoria">Bares / Pubs »</p>
-					<img src="" height="60" width="60" />
-					<div class="listado_lugares_recomendados">
-						<ul>
-							<li>1. <a href="">Bares / Pubs</a></li>
-							<li>2. <a href="">Bares / Pubs</a></li>
-							<li>3. <a href="">Bares / Pubs</a></li>
-							<li>4. <a href="">Bares / Pubs</a></li>
-							<li>5. <a href="">Bares / Pubs</a></li>
-						</ul>
-					</div>
-				</li>
+				{% endfor %}
 			</ul>
 		</div>
-
 		{% render 'LoogaresLugarBundle:Lugar:moduloDescuentos' with {'ciudad' : app.session.get('ciudad').id, 'pagina' : 'home'}%}
 
 	</div>
@@ -165,82 +195,156 @@
 		</div>
 
 		<!-- Colaboradores -->
-		<div class="colaboradores">
-			<h5 class="titulo_home encabezado">Notas y colaboraciones</h5>
-			<img src="" height="160" width="148" />
-			<div class="detalles_nota">
-				<p class="nombre_colaborador">Sabor Platónico</p>
-				<p class="titulo_nota">Rico y liviano en Aioli</p>
-				<p class="texto_nota">Cuando las madres dicen su última palabra no hay nada que hacer y doy fe de que cuando eso, porque... <a href="">Ver más »</a></p>
+		{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+			<div class="colaboradores">
+				<h5 class="titulo_home encabezado">Notas y colaboraciones</h5>
+				<img src="" height="160" width="148" />
+				<div class="detalles_nota">
+					<p class="nombre_colaborador">Sabor Platónico</p>
+					<p class="titulo_nota">{{app.session.get('ciudad').nombre}}</p>
+					<p class="texto_nota">Cuando las madres dicen su última palabra no hay nada que hacer y doy fe de que cuando eso, porque... <a href="">Ver más »</a></p>
+				</div>
+				<div class="diapositivas">
+				</div>
 			</div>
-			<div class="diapositivas">
+		{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+			<div class="colaboradores">
+				<h5 class="titulo_home encabezado">Notas y colaboraciones</h5>
+				<img src="" height="160" width="148" />
+				<div class="detalles_nota">
+					<p class="nombre_colaborador">Sabor Platónico</p>
+					<p class="titulo_nota">{{app.session.get('ciudad').nombre}}</p>
+					<p class="texto_nota">Cuando las madres dicen su última palabra no hay nada que hacer y doy fe de que cuando eso, porque... <a href="">Ver más »</a></p>
+				</div>
+				<div class="diapositivas">
+				</div>
 			</div>
-		</div>
+		{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+			<div class="colaboradores">
+				<h5 class="titulo_home encabezado">Notas y colaboraciones</h5>
+				<img src="" height="160" width="148" />
+				<div class="detalles_nota">
+					<p class="nombre_colaborador">Sabor Platónico</p>
+					<p class="titulo_nota">{{app.session.get('ciudad').nombre}}</p>
+					<p class="texto_nota">Cuando las madres dicen su última palabra no hay nada que hacer y doy fe de que cuando eso, porque... <a href="">Ver más »</a></p>
+				</div>
+				<div class="diapositivas">
+				</div>
+			</div>
+		{% endif %}
 
 		<!-- Loogareño Estrella -->
-		<div class="recomendacion_estrella">
-			<h6 class="titulo_estrella">Loogareño Estrella de la semana</h6>
-			<div class="informacion">
-				<div class="imagen_recomendacion">
-					<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
-						<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="72" width="72"/>
-					</a>
-					<div class="textos_usuario">
-						<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">
-							{% if home.recDia.usuario.nombre != '' %}
-								{{home.recDia.usuario.nombre}} {{home.recDia.usuario.apellido}}
-							{% else %}
-								{{home.recDia.usuario.slug}}
-							{% endif %}
+		
+		{# Santiago de Chile #}
+		{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+			<div class="recomendacion_estrella">
+				<h6 class="titulo_estrella">Loogareño Estrella de la semana</h6>
+				<div class="informacion">
+					<div class="imagen_recomendacion">
+						<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
+							<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="72" width="72"/>
 						</a>
-						<span class="invitada_lugar">Loogareña invitada a <a href="">LUGAR</a> por el equipo de Loogares.com.</span>
+						<div class="textos_usuario">
+							<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">
+								{{app.session.get('ciudad').nombre}}
+							</a>
+							<span class="invitada_lugar">Loogareña invitada a <a href="">LUGAR</a> por el equipo de Loogares.com.</span>
+						</div>
 					</div>
 				</div>
+				<div class="recomendacion_preview">					
+					<span><a href="">LUGAR:</a> Con mi pololo, llegamos derechito de nuestras vacaciones a este loogar, con ganas de celebrar el día de San Valentín. El local nos encantó, posee un ambiente...</span>
+					<a href="" class="ver_mas">Ver más &raquo;</a>
+					<br />
+					<span class="tips">¿Quieres ser invitado la próxima semana? <a href="">Entra acá</a></span>
+				</div>
 			</div>
-			<div class="recomendacion_preview">					
-				<span><a href="">LUGAR:</a> Con mi pololo, llegamos derechito de nuestras vacaciones a este loogar, con ganas de celebrar el día de San Valentín. El local nos encantó, posee un ambiente...</span>
-				<a href="" class="ver_mas">Ver más &raquo;</a>
-				<br />
-				<span class="tips">¿Quieres ser invitado la próxima semana? <a href="">Entra acá</a></span>
+		{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+			<div class="recomendacion_estrella">
+				<h6 class="titulo_estrella">Loogareño Estrella de la semana</h6>
+				<div class="informacion">
+					<div class="imagen_recomendacion">
+						<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
+							<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="72" width="72"/>
+						</a>
+						<div class="textos_usuario">
+							<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">
+								{{app.session.get('ciudad').nombre}}
+							</a>
+							<span class="invitada_lugar">Loogareña invitada a <a href="">LUGAR</a> por el equipo de Loogares.com.</span>
+						</div>
+					</div>
+				</div>
+				<div class="recomendacion_preview">					
+					<span><a href="">LUGAR:</a> Con mi pololo, llegamos derechito de nuestras vacaciones a este loogar, con ganas de celebrar el día de San Valentín. El local nos encantó, posee un ambiente...</span>
+					<a href="" class="ver_mas">Ver más &raquo;</a>
+					<br />
+					<span class="tips">¿Quieres ser invitado la próxima semana? <a href="">Entra acá</a></span>
+				</div>
 			</div>
-		</div>
+		{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+			<div class="recomendacion_estrella">
+				<h6 class="titulo_estrella">Loogareño Estrella de la semana</h6>
+				<div class="informacion">
+					<div class="imagen_recomendacion">
+						<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
+							<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="72" width="72"/>
+						</a>
+						<div class="textos_usuario">
+							<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">
+								{{app.session.get('ciudad').nombre}}
+							</a>
+							<span class="invitada_lugar">Loogareña invitada a <a href="">LUGAR</a> por el equipo de Loogares.com.</span>
+						</div>
+					</div>
+				</div>
+				<div class="recomendacion_preview">					
+					<span><a href="">LUGAR:</a> Con mi pololo, llegamos derechito de nuestras vacaciones a este loogar, con ganas de celebrar el día de San Valentín. El local nos encantó, posee un ambiente...</span>
+					<a href="" class="ver_mas">Ver más &raquo;</a>
+					<br />
+					<span class="tips">¿Quieres ser invitado la próxima semana? <a href="">Entra acá</a></span>
+				</div>
+			</div>
+		{% endif %}
 
 		<!-- Recomendación del Día -->
-		<div class="recomendacion_dia">
-			<h6 class="titulo_home encabezado">{{'general.home.recomendacion_dia.titulo'|trans}}</h6>
-			<div class="informacion">
-				<div class="imagen_estrellas_recomendacion">
-					<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
-						<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="72" width="72"/>
-					</a>
-					<div class="textos_usuario">
-						<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">
-							{% if home.recDia.usuario.nombre != '' %}
-								{{home.recDia.usuario.nombre}} {{home.recDia.usuario.apellido}}
-							{% else %}
-								{{home.recDia.usuario.slug}}
-							{% endif %}
+		{% if home.recDia != null %}
+			<div class="recomendacion_dia">
+				<h6 class="titulo_home encabezado">{{'general.home.recomendacion_dia.titulo'|trans}}</h6>
+				<div class="informacion">
+					<div class="imagen_estrellas_recomendacion">
+						<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
+							<img src="{{('assets/images/usuarios/'~home.recDia.usuario.imagenFull) | apply_filter('small_usuario')}}" height="72" width="72"/>
 						</a>
-						<span class="fecha">{{home.recDia.fechaCreacion | date('d/m/Y')}}</span>
-						<p class="estrellas_recDia" data-stars="{{home.recDia.estrellas}}"></p>
+						<div class="textos_usuario">
+							<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}">
+								{% if home.recDia.usuario.nombre != '' %}
+									{{home.recDia.usuario.nombre}} {{home.recDia.usuario.apellido}}
+								{% else %}
+									{{home.recDia.usuario.slug}}
+								{% endif %}
+							</a>
+							<span class="fecha">{{home.recDia.fechaCreacion | date('d/m/Y')}}</span>
+							<p class="estrellas_recDia" data-stars="{{home.recDia.estrellas}}"></p>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="recomendacion_preview">					
-				<span><a href="{{path('_lugar', {'slug' : home.recDia.lugar.slug})}}">{{home.recDia.lugar.nombre}}: </a>{{home.previewRecDia}}</span>
-				<a href="{{path('_recomendacion', {'slug' : home.recDia.lugar.slug, 'usuarioSlug' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="ver_mas">{{'general.home.recomendacion_dia.ver_mas'|trans}} &raquo;</a>
-				<br />
-				<span class="tips">Elegida por la comunidad de Loogareños</span> <span class="tips_icon"></span>
+				<div class="recomendacion_preview">					
+					<span><a href="{{path('_lugar', {'slug' : home.recDia.lugar.slug})}}">{{home.recDia.lugar.nombre}}: </a>{{home.previewRecDia}}</span>
+					<a href="{{path('_recomendacion', {'slug' : home.recDia.lugar.slug, 'usuarioSlug' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="ver_mas">{{'general.home.recomendacion_dia.ver_mas'|trans}} &raquo;</a>
+					<br />
+					<span class="tips">Elegida por la comunidad de Loogareños</span> <span class="tips_icon"></span>
 
-				<!-- Qtip Recomendación del Día -->
-				<div class="qtip_recomendacion_del_dia">
-					Corresponde a las recomendaciones más útiles según la evaluación de los Loogareños. A la vez, consideramos otros factores, como su contenido, la originalidad y que esté bien escrita.
-					<br /><br />
-					Estas recomendaciones fijan la pauta para las demás en el sitio.
+					<!-- Qtip Recomendación del Día -->
+					<div class="qtip_recomendacion_del_dia">
+						Corresponde a las recomendaciones más útiles según la evaluación de los Loogareños. A la vez, consideramos otros factores, como su contenido, la originalidad y que esté bien escrita.
+						<br /><br />
+						Estas recomendaciones fijan la pauta para las demás en el sitio.
+					</div>
+
 				</div>
-
 			</div>
-		</div>
+		{% endif %}
 
 		<!-- Banner Home 2 -->
 		<div class="banner_300x250">
