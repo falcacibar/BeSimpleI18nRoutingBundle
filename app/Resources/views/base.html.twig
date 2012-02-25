@@ -14,28 +14,24 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
         {% block ads %}{% endblock %}
-	    
     </head>
+
     <body>
         {#{{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}#}
         {% render "LoogaresExtraBundle:Default:locale" with {'slug' : 'santiago-de-chile', 'start': true} %}
 		{% include '::header.html.twig' %}
 
         <div class="contenedor">
-			
 			<div class="contenido">
-            	
 				{% block content %}{% endblock %}
-            
 			</div>
-        
 		</div>
 
 		{% include '::footer.html.twig' %}
-
         
         <script src="{{asset('assets/js/lib.js')}}"></script>
         <script src="{{asset('assets/js/main.js')}}"></script>
         {% block javascripts %}{% endblock %}
     </body>
+
 </html>

@@ -103,6 +103,12 @@ var categorias = {
        caracteristicas: ['Aire Acondicionado', 'Apto para Niños', 'Discapacitados', 'Estacionamiento Autos', 'Estacionamiento Bicicletas', 'Fumadores', 'Gay Friendly', 'Happy Hour', 'No Fumadores', 'Pago con Cheque de Restaurante', 'Pago con Redcompra', 'Pago con Tarjeta', 'Terraza', 'Wifi'],
 	   deshabilitar: ['apart-hotel', 'bed-breakfast', 'hostales', 'hoteles', 'hoteles-boutique', 'moteles', 'residenciales']
 	},
+  delivery: {
+     camposEspeciales: [],
+     subCategorias: ['Bistró', 'Brunch', 'Carnes y Parilladas', 'Cocina de Autor', 'Comida Árabe', 'Comida Argentina', 'Comida Casera', 'Comida Colombiana', 'Comida Coreana', 'Comida Cubana', 'Comida Chilena', 'Comida China', 'Comida Ecuatoriana', 'Comida Española', 'Comida Étnica', 'Comida Francesa', 'Comida Fusión', 'Comida Griega', 'Comida India', 'Comida Internacional', 'Comida Italiana', 'Comida Japonesa', 'Comida Latinoamericana', 'Comida Mexicana', 'Comida Naturista', 'Comida Nikkei', 'Comida Norteamericana', 'Comida Peruana', 'Comida Rápida', 'Comida Tailandesa', 'Comida Uruguaya', 'Comida Vasca', 'Comida Vegetariana', 'Comida Vietnamita', 'Completos y Ases', 'Empanadas', 'Ensaladas', 'Fuentes de Soda', 'Hamburguesas', 'Kebabs y Falafel', 'Otros (especial)', 'Pastas', 'Pescados y Mariscos', 'Picadas', 'Pitas y Wraps', 'Pizzerías', 'Pollos y Pavos', 'Sándwiches', 'Sushi'],
+       caracteristicas: ['Happy Hour', 'Pago con Cheque de Restaurante', 'Pago con Redcompra', 'Pago con Tarjeta'],
+     deshabilitar: ['apart-hotel', 'bed-breakfast', 'hostales', 'hoteles', 'hoteles-boutique', 'moteles', 'residenciales']
+  },
 	heladerias: {
 	   camposEspeciales: [],
 	   subCategorias: [],
@@ -111,7 +117,7 @@ var categorias = {
 	},
 	restaurantes: {
 	   camposEspeciales: [],
-	   subCategorias: ['Bistró', 'Brunch', 'Buffet', 'Carnes y Parilladas', 'Cocina de Autor', 'Comida Alemana', 'Comida Árabe', 'Comida Argentina', 'Comida Austriaca', 'Comida Belga', 'Comida Boliviana', 'Comida Brasilera', 'Comida Casera', 'Comida Catalana', 'Comida Chilena', 'Comida China', 'Comida Colombiana', 'Comida Coreana', 'Comida Croata', 'Comida Cubana', 'Comida Ecuatoriana', 'Comida Española', 'Comida Étnica', 'Comida Francesa', 'Comida Fusión', 'Comida Griega', 'Comida India', 'Comida Internacional', 'Comida Irlandesa', 'Comida Italiana', 'Comida Japonesa', 'Comida Latinoamericana', 'Comida Mediterránea', 'Comida Mexicana', 'Comida Molecular', 'Comida Naturista', 'Comida Neocelandesa', 'Comida Nikkei', 'Comida Norteamericana', 'Comida Patagónica', 'Comida Peruana', 'Comida Polinésica', 'Comida Rápida', 'Comida Rusa', 'Comida Suiza', 'Comida Tailandesa', 'Comida Tradicional', 'Comida Uruguaya', 'Comida Vasca', 'Comida Vegetariana', 'Comida Vietnamita', 'Completos y Asses', 'Creperías', 'Empanadas', 'Ensaladas', 'Fuentes de Soda', 'Hamburguesas', 'Kebabs y Falafel', 'Otros (especial)', 'Pastas', 'Pescados y Mariscos', 'Picadas', 'Pitas y Wraps', 'Pizzerías', 'Pollos y Pavos', 'Sándwiches', 'Sushi', 'Tapas'],
+	   subCategorias: ['Bistró', 'Brunch', 'Buffet', 'Carnes y Parilladas', 'Cocina de Autor', 'Comida Alemana', 'Comida Árabe', 'Comida Argentina', 'Comida Armenia', 'Comida Asiática', 'Comida Austriaca', 'Comida Autóctona', 'Comida Belga', 'Comida Boliviana', 'Comida Brasilera', 'Comida Casera', 'Comida Catalana', 'Comida Chilena', 'Comida China', 'Comida Colombiana', 'Comida Coreana', 'Comida Croata', 'Comida Cubana', 'Comida Ecuatoriana', 'Comida Española', 'Comida Étnica', 'Comida Francesa', 'Comida Fusión', 'Comida Griega', 'Comida India', 'Comida Internacional', 'Comida Irlandesa', 'Comida Italiana', 'Comida Japonesa', 'Comida Judía', 'Comida Latinoamericana', 'Comida Mediterránea', 'Comida Mexicana', 'Comida Molecular', 'Comida Naturista', 'Comida Neocelandesa', 'Comida Nikkei', 'Comida Nórdica', 'Comida Norteamericana', 'Comida Patagónica', 'Comida Peruana', 'Comida Polaca', 'Comida Polinésica', 'Comida Porteña', 'Comida Rápida', 'Comida Rusa', 'Comida Suiza', 'Comida Tailandesa', 'Comida Tradicional', 'Comida Uruguaya', 'Comida Vasca', 'Comida Vegetariana', 'Comida Vietnamita', 'Completos y Asses', 'Creperías', 'Deli', 'Empanadas', 'Ensaladas', 'Fuentes de Soda', 'Hamburguesas', 'Kebabs y Falafel', 'Milanesas', 'Otros (especial)', 'Pastas', 'Pescados y Mariscos', 'Picadas', 'Pitas y Wraps', 'Pizzerías', 'Pollos y Pavos', 'Sándwiches', 'Sushi', 'Tapas'],
        caracteristicas: ['Aire Acondicionado', 'Apto para Niños', 'Delivery', 'Delivery Online', 'Discapacitados', 'Estacionamiento Autos', 'Estacionamiento Bicicletas', 'Fumadores', 'Gay Friendly', 'Happy Hour', 'No Fumadores', 'Pago con Cheque de Restaurante', 'Pago con Redcompra', 'Pago con Tarjeta', 'Para Llevar', 'Reserva', 'Reserva Online', 'Terraza', 'Wifi'],
 	   deshabilitar: ['apart-hotel', 'bed-breakfast', 'hostales', 'hoteles', 'hoteles-boutique', 'moteles', 'residenciales']
 	},
@@ -297,6 +303,12 @@ var categorias = {
        caracteristicas: ['Aire Acondicionado', 'Discapacitados', 'Estacionamiento Autos', 'Estacionamiento Bicicletas', 'Pago con Redcompra', 'Pago con Tarjeta'],
        deshabilitar: []
 	},
+  karting: {
+       camposEspeciales: [],
+       subCategorias: [],
+       caracteristicas: ['Aire Acondicionado', 'Estacionamiento Autos', 'Estacionamiento Bicicletas', 'Pago con Redcompra', 'Pago con Tarjeta'],
+       deshabilitar: []
+  },
 	musicaEnVivo: {
    	   camposEspeciales: [],
        subCategorias: ['Acústica', 'Blues', 'Cueca', 'Electrónica / Djs', 'Folclor', 'Funk', 'Hip-Hop', 'Indie', 'Jazz', 'Metal', 'Música Chilena', 'Música Clásica', 'Música Internacional', 'Música Latinoamericana', 'Ópera / Baller', 'Otros (especial)', 'Pop', 'Reggae', 'Reggaeton', 'Rock', 'Salsa', 'Sonoras / Cumbia', 'Varios'],
@@ -474,6 +486,18 @@ var categorias = {
        caracteristicas: ['Aire Acondicionado', 'Estacionamiento Autos', 'Estacionamiento Bicicletas', 'Pago con Redcompra', 'Pago con Tarjeta'],
        deshabilitar: []
 	},
+  tallerDeAutos: {
+       camposEspeciales: [],
+       subCategorias: [],
+       caracteristicas: ['Aire Acondicionado', 'Estacionamiento Autos', 'Estacionamiento Bicicletas', 'Pago con Redcompra', 'Pago con Tarjeta'],
+       deshabilitar: []
+  },
+  tallerDeBicicletas: {
+       camposEspeciales: [],
+       subCategorias: [],
+       caracteristicas: ['Aire Acondicionado', 'Estacionamiento Autos', 'Estacionamiento Bicicletas', 'Pago con Redcompra', 'Pago con Tarjeta'],
+       deshabilitar: []
+  },
 	telefoniaInternet: {
    	   camposEspeciales: [],
        subCategorias: [],
