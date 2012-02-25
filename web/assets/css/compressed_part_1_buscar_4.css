@@ -279,7 +279,8 @@
 .sidebar_busqueda {
   float: left;
   margin: 20px 0 0 20px !important;
-  width: 300px; }
+  width: 300px;
+  position: relative; }
   .sidebar_busqueda .mapa_sidebar {
     margin: 0 0 20px; }
 
