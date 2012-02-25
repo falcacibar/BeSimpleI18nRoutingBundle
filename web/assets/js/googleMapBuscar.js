@@ -1,4 +1,12 @@
+var markerTimeout;
+
 $(document).ready(function(){
+        $('.lugar_data').mouseover(function(){
+            clearTimeout(markerTimeout);
+        }).mouseleave(function(){
+            $(this).hide();
+        });
+
         if(GBrowserIsCompatible){
             var centroLat = 0, centroLogn = 0,
                 maxx = [], maxy = [];
@@ -55,17 +63,19 @@ function createMarker($container, point, i){
     letteredIconMarker.image = WEBROOT + "../assets/images/gmaps/gmap"+(i + 1)+".png";
 
     GEvent.addListener(marker, "mouseover", function() {
+        $('.lugar_data').hide();
         var markerOffset = map.fromLatLngToContainerPixel(marker.getPoint()),
             mapaOffset = $('#mapa_buscar').offset(),
-            t = markerOffset.y + (mapaOffset.top) - 265,
-            l = markerOffset.x + (mapaOffset.left / 2) - 50;
+            t = markerOffset.y + (mapaOffset.top) - 195,
+            l = markerOffset.x + (mapaOffset.left / 2) - 40;
 
         $container.show().css('top', t).css('left', l)
     });
 
     GEvent.addListener(marker, "mouseout", function() {
-        $container.hide();
+        markerTimeout = setTimeout(function(){ $container.hide(); }, 100)
     });
+
     GEvent.addListener(marker, "click", function() {
         location.href = $container.data('url')
     });
