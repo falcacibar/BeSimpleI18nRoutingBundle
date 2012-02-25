@@ -268,16 +268,16 @@
 
                     <!-- Qtip Recomendación del Día -->
                     <div class="qtip_favoritos">
-                        Agregar a Favoritos
+                        {{'lugar.ficha.qtip.favoritos'|trans}}
                     </div>
                 {% else %}
                     <p class="favoritos_lugar_icono tooltip boton_desactivado" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
                
                     <!-- Qtip Recomendación del Día -->
                     <div class="qtip_favoritos">
-                        Si quieres agregar este lugar como Favorito, debes estar <a style="color: #0066CC; text-decoration: none;" href="">logeado</a>.
+                        {{'lugar.ficha.qtip.favoritos_logeado'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        Aún no eres usuario, regístrate <a style="color: #0066CC; text-decoration: none;" href="">aquí</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                 {% endif %}
                 <!-- <p class="conteo">{{lugar.totalAcciones.3.total}}</p> -->
@@ -491,9 +491,9 @@
                     <!-- Qtip Ya Estuve -->
                     {% if app.security.token.user.id is not defined %}
                     <div class="qtip_ya_estuve">
-                        Si quieres agregar este lugar como Favorito, debes estar <a style="color: #0066CC; text-decoration: none;" href="">logeado</a>.
+                        {{'lugar.ficha.qtip.ya_estuve_logeado'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        Aún no eres usuario, regístrate <a style="color: #0066CC; text-decoration: none;" href="">aquí</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                     {% endif %}
                 {% endif %}
@@ -506,9 +506,9 @@
                     <p class="quiero_volver_lugar tooltip_quiero_volver boton_desactivado" data-hecho="{{lugar.accionesUsuario.1.hecho}}"></p>
                     <!-- Qtip Quiero Volver -->
                     <div class="qtip_quiero_volver">
-                        Si quieres agregar este lugar como Favorito, debes estar <a style="color: #0066CC; text-decoration: none;" href="">logeado</a>.
+                        {{'lugar.ficha.qtip.volver_logeado'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        Aún no eres usuario, regístrate <a style="color: #0066CC; text-decoration: none;" href="">aquí</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                 {% endif %}
                 <p class="quiero_volver_valor conteo">{{lugar.totalAcciones.1.total}}</p>
@@ -521,9 +521,9 @@
                     <!-- Qtip Quiero Ir -->
                     {% if app.security.token.user.id is not defined %}
                     <div class="qtip_quiero_ir">
-                        Si quieres agregar este lugar como Favorito, debes estar <a style="color: #0066CC; text-decoration: none;" href="">logeado</a>.
+                        {{'lugar.ficha.qtip.quiero_ir_logeado'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        Aún no eres usuario, regístrate <a style="color: #0066CC; text-decoration: none;" href="">aquí</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                     {% endif %}
                 {% endif %}                
@@ -552,13 +552,13 @@
                         {% set data_url = url('_lugar', {'slug' : lugar.slug}) %}
                         {% set data_text = lugar.nombre~", "~lugar.comuna.ciudad.nombre~" | Loogares.com" %}
                         {% set data_via = "Loogarescom" %}
-                        <a href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">Twitter</a>
+                        <a href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">{{'lugar.ficha.opciones.twittear'|trans}}</a>
                     </li>
                     <li class="fb_share">
-                        <a name="fb_share" type="icon_link" style="color:#444">Facebook</a>
+                        <a name="fb_share" type="icon_link" style="color:#444">{{'lugar.ficha.opciones.facebook'|trans}}</a>
                     </li>
                     <li class="mail_share">
-                        <a href="{{path('_enviarLugar', {'slug' : lugar.slug})}}">Correo</a>
+                        <a href="{{path('_enviarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.e_mail'|trans}}</a>
                     </li>
                 </ul>
             </div>
@@ -660,9 +660,9 @@
                     <div class="caja_opciones_recomendacion">
                         <ul class="opciones_recomendacion">
                             {% if recomendacion.slug != false %}
-                                <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">Permalink</a></li>
+                                <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
                             {% else %}
-                                <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">Permalink</a></li>
+                                <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
                             {% endif %}   
                             <li><a class="compartir"  rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a></li>
                             {% if is_granted('ROLE_USER') and app.security.token.user.id == recomendacion.userId %}
@@ -679,13 +679,13 @@
                                     {% set data_url = url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId}) %}
                                     {% set data_text = "Recomendación de "~recomendacion.nombre~" "~recomendacion.apellido~" en "~lugar.nombre~", "~lugar.comuna.ciudad.nombre %}
                                     {% set data_via = "Loogarescom" %}
-                                    <a href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">Twitter</a>
+                                    <a href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">{{'lugar.ficha.opciones.twittear'|trans}}</a>
                                 </li>
                                 <li class="fb_share_recomendacion">
-                                    <a name="fb_share" type="icon_link" style="color:#444" share_url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Facebook</a>
+                                    <a name="fb_share" type="icon_link" style="color:#444" share_url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">{{'lugar.ficha.opciones.facebook'|trans}}</a>
                                 </li>
                                 <li class="mail_share">
-                                    <a href="{{path('_enviarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">Correo</a>
+                                    <a href="{{path('_enviarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">{{'lugar.ficha.opciones.e_mail'|trans}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -695,9 +695,9 @@
         {% endfor %}
             
         <div class="paginacion_recomendacion">
-            <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{ lugar.recomendacion|length }}</strong>
+            <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{ lugar.recomendacion|length }}</strong>
             {% if paginacion.totalPaginas != 1 %}
-                 | Ir a la página
+                 | {{'paginacion.ir_a'|trans}}
                 <ul>
                     {{ paginacion.paginacion | raw }}
                 </ul>
@@ -707,7 +707,7 @@
         
         {% else %}
             <div>
-                <h2 class="titulo_recomendaciones">0 Recomendaciones en {{ lugar.nombre }}</h2>
+                <h2 class="titulo_recomendaciones">{{'lugar.ficha.recomendaciones.titulo_0'|trans}} {{ lugar.nombre }}</h2>
             </div>
         {% endif %}
         {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}

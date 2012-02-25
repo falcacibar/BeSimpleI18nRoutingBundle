@@ -16,8 +16,12 @@
                         <strong><a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre }}</a></strong>
                     </div>
                 </li>
-                <li><div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div></li>
-                <li>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</li>
+                <li>
+                    <div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div>
+                </li>
+                <li>
+                    {{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}
+                </li>
             {% if lugar.categorias_nombre != '' %}
                 <li class="data_categoria">
                     <span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}</strong></span>
@@ -32,7 +36,9 @@
             <div class="otro_lugar">
                 <a class="otro_lugar_img" href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="{{('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" width="50" height="50" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
                 <ul class="otro_lugar_info">
-                    <li><a class="otro_lugar_nombre" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></li>
+                    <li>
+                        <a class="otro_lugar_nombre" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>
+                    </li>
                     <li>
                         <div id="puntuacion" class="estrellas_lugar">
                             <div data-stars="{{lugar.estrellas}}" class="star-raty-otrosLugares{{loop.index}} otro_lugar_estrellas"></div>
@@ -41,7 +47,7 @@
                     </li>
                     <li class="direccion">{{ lugar.calle }} {{ lugar.numero }}, <a href="#">{{lugar.comuna}}</a></li>
                     <li class="categoria">
-                        <strong>{{'lugar.ficha.otros.categoria'|transchoice(1)}} </strong>
+                        <strong>{{'general.terminos.categorias'|transchoice(1)}}: </strong>
                         {% for categoria in lugar.categorias_nombre %}
                             {{categoria|raw}}{% if loop.last == false %}, {% endif %}
                         {% endfor %}

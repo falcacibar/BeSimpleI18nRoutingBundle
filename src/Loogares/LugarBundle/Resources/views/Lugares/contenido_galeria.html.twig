@@ -35,14 +35,14 @@
 	</span>
 
 	<ul>
-		<li class="autor_foto">{{'lugar.fotos.galeria.autor'|trans}} <a href="{{ path('showUsuario', {'param' : imagen.usuario.slug })}}">{{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</a></li>
+		<li class="autor_foto">{{'fotos.galeria.autor'|trans}} <a href="{{ path('showUsuario', {'param' : imagen.usuario.slug })}}">{{imagen.usuario.nombre}} {{imagen.usuario.apellido}}</a></li>
 
 		<li class="opciones_foto">			
 			{% if imagen.loggeadoCorrecto %}
-				<a class="editar_foto" href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id })}}">{{'lugar.fotos.galeria.editar'|trans}}</a>
-				<a class="borrar_foto" href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'lugar.fotos.galeria.borrar'|trans}}</a>
+				<a class="editar_foto" href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id })}}">{{'fotos.galeria.editar'|trans}}</a>
+				<a class="borrar_foto" href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'fotos.galeria.borrar'|trans}}</a>
 			{% elseif reportar == 1 %}
-				<a class="borrar_foto" href="{{path('_reportarFoto', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'lugar.fotos.galeria.reportar'|trans}}</a>
+				<a class="borrar_foto" href="{{path('_reportarFoto', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'fotos.galeria.reportar'|trans}}</a>
 			{% endif %}
 		</li>
 	</ul>

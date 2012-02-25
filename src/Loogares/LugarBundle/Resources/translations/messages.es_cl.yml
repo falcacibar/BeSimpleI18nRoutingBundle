@@ -1,26 +1,83 @@
 # Locale 'es_cl' LugarBundle
 lugar:
+    flash:
+        foto:
+            agregar: ¡Ese es el espíritu, %nombre% %apellido%! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.
+            borrar: Tu foto acaba de ser borrada. Agrega otra cuando quieras.
+        compartir:
+            mail: ¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora deberías exigirles una salida... ¡todo incluido!
+
+    errors:
+        agregar:
+            nombre: Ingresa el nombre del lugar
+            categoria: Recuerda asignarle una categoría al lugar
+            comuna: Localiza la comuna del lugar
+            calle: Ingresa la calle del lugar
+            numero: Ingresa el número del lugar
+        fotos:
+            no_imagen: Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.
+            valida: No tienes seleccionado ningún archivo. Por favor, elige uno.
+            titulo_pag: Agrega una Foto
+        enviar:
+            nombre: Es obligatorio que ingreses tu nombre 
+            mail: Es obligatorio que ingreses tu E-mail
+            mails: Es necesario que ingreses al menos un E-mail
+
     buscar:
         titulo: Resultados para: %buscar%
         total_recomendaciones: recomendación|recomendaciones
-    recomendacion:
-        opcional:
-            tip: ¿Deseas agregar una Recomendación?
-        titulo: Recomendaciones
-        maximo: Máx.
-        llevas: Llevas
-        evaluacion: Evaluación
-        tags: Tags
-        tagsPopulares: Tags Populares
-        precio: Precio
-        placeholders:
-            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. \n\nSe creativo en tu recomendación. Escribela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! \n\nA partir de hoy eres un crítico profesional…
-            tags: Ej. bar, buena música, ondeo, hasta las 5 am
-        meta:
-            title: Recomendación de %usuario% en %lugar%
-        error_estrellas: Este campo es obligatorio. Por favor, complétalo.
-        error_precio: Este campo es obligatorio. Por favor, complétalo.
-        error_recomendacion: Debes escribir al menos 255 caracteres para poder publicar tu recomendación.
+
+    ficha:
+        pedidos:
+            cerrar: Cerrar
+            elige: Elige el servicio que deseas usar:
+        otros:
+            titulo: Otros Lugares en el área
+        qtip:
+            favoritos: Agregar a Favoritos
+            favoritos_logeado: Si quieres agregar este lugar como Favorito, debes estar
+            ya_estuve_logeado: Si quieres marcar este lugar como que ya estuviste, debes estar
+            volver_logeado: Si quieres marcar este lugar para volver, debes estar
+            quiero_ir_logeado: Si quieres marcar este lugar para ir después, debes estar
+            logeado: logeado
+            registro: Aún no eres usuario, regístrate
+            aqui: aquí
+        total_recomendaciones: recomendación|recomendaciones
+        multimedia:
+            galeria: Ver galería (%total% foto)|Ver galería (%total% fotos)
+            agregar_foto: » Agrega una foto
+            video: Ver video
+        datos:
+            precio: Precio:
+            primero: Primero en recomendar            
+            horario: Horario:
+            sector: Sector:
+            subcategorias: Subcategorías
+            profesional: Profesional
+            agnoConstruccion: Año de construcción
+            materiales: Materiales
+        opciones:
+            owner: ¿Eres dueño de este Lugar?
+            owner_reclamado: Reclamado por su dueño
+            editar: Edita los datos
+            cerro: ¿Este lugar cerró? Avísanos
+            enviar: Enviar
+            imprimir: Imprimir
+            twittear: Twitter
+            facebook: facebook
+            e_mail: E-mail
+        recomendaciones:
+            titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
+            titulo_0: 0 Recomendaciones en
+            enviar: Compartir
+            permalink: Link a esta recomendación
+            editar: Edita tu recomendación
+            borrar: Borra tu recomendación
+            reportar: Reporta esta recomendación
+        tags: Tags:
+        recomienda:
+            titulo: Recomienda
+
     agregar:
         titulo: Agregar un Lugar
         nombre: Nombre
@@ -73,9 +130,10 @@ lugar:
         construccion: Año de construcción
         descripcion: Descripción
         materiales: Materiales
-        caracteristicas: Características            
+        caracteristicas: Características   
+        recomendacion: Recomendación         
         placeholders:
-            nombre: Ej. Bar El Tufo	
+            nombre: Ej. Bar El Tufo 
             calle: Ej. Tarapallá
             numero: Ej. 1949 o s/n
             detalle: Ej. A, Local 45, Piso 9, Centro Comercial Matta
@@ -97,69 +155,26 @@ lugar:
 
     editar:
         titulo: Edita los datos de
+        sugirio: sugirió
 
-    ficha:
-        total_recomendaciones: recomendación|recomendaciones
-        multimedia:
-            galeria: Ver galería (%total% foto)|Ver galería (%total% fotos)
-            agregar_foto: » Agrega una foto
-            video: Ver video
-        datos:
-            precio: Precio:
-            primero: Primero en recomendar            
-            horario: Horario:
-            sector: Sector:
-            subcategorias: Subcategorías
-            profesional: Profesional
-            agnoConstruccion: Año de construcción
-            materiales: Materiales
-        opciones:
-            owner: ¿Eres dueño de este Lugar?
-            owner_reclamado: Reclamado por su dueño
-            editar: Edita los datos
-            cerro: ¿Este lugar cerró? Avísanos
-            enviar: Enviar
-            imprimir: Imprimir
-        recomendaciones:
-            titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
-            enviar: Compartir
-            editar: Edita tu recomendación
-            borrar: Borra tu recomendación
-            reportar: Reporta esta recomendación
-        tags: Tags:
-        otros:
-            titulo: Otros Lugares en el área
-            categoria: Categoría:|Categorías:
-        recomienda:
-            titulo: Recomienda
-    fotos:
-        agregar:
-            titulo_pag: Agregar foto a
-            titulo: Agrega una foto en
-            subtitulo: Puedes agregar una o más fotos a la galería de fotos de %lugar% en sólo 2 pasos:
-            primer_paso: Cargar fotos desde tu computador /
-            primer_paso_tips: Máximo 5 MB, sólo JPG, GIF y PNG
-            segundo_paso: 2. Ya cargaste %imagenes% foto. Ahora puedes agregarle links o una descripción.|2. Ya cargaste %imagenes% fotos. Ahora puedes agregar links o descripción a cada una.
-            computador: Subir foto
-            url: Cargar fotos desde un sitio web
-            url_label: Dirección (URL)
-            agregar_foto: Agregar otra foto (Máx.
-            agregar_url: Agregar otra URL (Máx.            	
-            quitar: Quitar
-            descripcion: Descripción o dirección URL para linkear a la imagen a su sitio original.
-            submit: Enviar
-        editar:
-            titulo_pag: Editar foto en
-            titulo: Edita tu foto en
-        galeria:
-            titulo_pag: Galería de fotos en
-            titulo: Galería de fotos de
-            autor: Agregada por
-            editar: Edita tu foto
-            borrar: Borra tu foto
-            reportar: Reporta esta foto
-            anterior: Anterior
-            siguiente: Siguiente
+    recomendacion:
+        opcional:
+            tip: ¿Deseas agregar una Recomendación?
+        titulo: Recomendaciones
+        maximo: Máx.
+        llevas: Llevas
+        evaluacion: Evaluación
+        tags: Tags
+        tagsPopulares: Tags Populares
+        precio: Precio
+        placeholders:
+            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. \n\nSe creativo en tu recomendación. Escribela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! \n\nA partir de hoy eres un crítico profesional…
+            tags: Ej. bar, buena música, ondeo, hasta las 5 am
+        meta:
+            title: Recomendación de %usuario% en %lugar%
+        error_estrellas: Este campo es obligatorio. Por favor, complétalo.
+        error_precio: Este campo es obligatorio. Por favor, complétalo.
+        error_recomendacion: Debes escribir al menos 255 caracteres para poder publicar tu recomendación.
 
     notificaciones:
         nueva_recomendacion:
@@ -182,38 +197,72 @@ lugar:
                 primero: %usuario% acaba de escribir una recomendación en %lugar% justo después de la tuya.
                 segundo: ¡Haz click %open_tag%acá%close_tag% para leerla!
 
-    errors:
-        agregar:
-            nombre: Ingresa el nombre del lugar
-            categoria: Recuerda asignarle una categoría al lugar
-            comuna: Localiza la comuna del lugar
-            calle: Ingresa la calle del lugar
-            numero: Ingresa el número del lugar
-        fotos:
-            no_imagen: Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.
-            valida: No tienes seleccionado ningún archivo. Por favor, elige uno.
-            titulo_pag: Agrega una Foto
-        enviar:
-            nombre: Es obligatorio que ingreses tu nombre 
-            mail: Es obligatorio que ingreses tu E-mail
-            mails: Es necesario que ingreses al menos un E-mail
-    flash:
-        foto:
-            agregar: ¡Ese es el espíritu, %nombre% %apellido%! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.
-            borrar: Tu foto acaba de ser borrada. Agrega otra cuando quieras.
-        compartir:
-            mail: ¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora deberías exigirles una salida... ¡todo incluido!
+fotos:
+    agregar:
+        title: Agregar foto a
+        titulo: Agrega una foto en
+        subtitulo: Puedes agregar una o más fotos a la galería de fotos de %lugar% en sólo 2 pasos:
+        primer_paso: Cargar fotos desde tu computador /
+        primer_paso_tips: Máximo 5 MB, sólo JPG, GIF y PNG
+        segundo_paso: 2. Ya cargaste %imagenes% foto. Ahora puedes agregarle links o una descripción.|2. Ya cargaste %imagenes% fotos. Ahora puedes agregar links o descripción a cada una.
+        computador: Subir foto
+        url: Cargar fotos desde un sitio web
+        url_label: Dirección (URL)
+        agregar_foto: Agregar otra foto (Máx.
+        agregar_url: Agregar otra URL (Máx.             
+        quitar: Quitar
+        descripcion: Descripción o dirección URL para linkear a la imagen a su sitio original.
+        submit: Enviar
+    editar:
+        titulo_pag: Editar foto en
+        titulo: Edita tu foto en
+    galeria:
+        titulo_pag: Galería de fotos en
+        titulo: Galería de fotos de
+        autor: Agregada por
+        editar: Edita tu foto
+        borrar: Borra tu foto
+        reportar: Reporta esta foto
+        anterior: Anterior
+        siguiente: Siguiente
+
+compartir:
+    lugar:
+        mail:
+            title: Enviar %lugar% a tus amigos
+            titulo: Cuéntale a tus amigos sobre
+            asunto: quiere que veas un Lugar en Loogares.com
+            saludo: ¡Hola %destinatario%!
+            subtitulo: quiere contarte sobre un Lugar que te puede gustar:
+            texto: Lo que te dice: 
+        placeholder: ¡Quiero que conozcas este lugar!           
+    recomendacion:
+        mail:
+            title: Enviar recomendación en %lugar% a tus amigos
+            titulo: Cuéntale a tus amigos sobre la %open_tag%recomendación%close_tag% de %usuario% en
+            asunto: quiere mostrarte una recomendación en Loogares.com
+            subtitulo: quiere contarte sobre una recomendación de un Lugar que te puede gustar:
+            bajada: Haz clic %open_tag%acá%close_tag% para ver la recomendación de
+        placeholder: ¡Esta recomendación está increíble! 
+    form:
+        nombre: Tu Nombre *
+        mail: Tu E-mail *
+        mails_amigos: E-mails de tus amigos *
+        cuerpo: ¿Y qué les vas a decir?
+        tips:
+            comas: Para enviar a más de una dirección de E-mail, sepáralas por una coma (,)
+            obligatorio: Los campos con (*) son obligatorios
 
 reportes:
     titulo: "{0} Reportar %lugar%|{1} Reportar la recomendación de %usuario% en %lugar%|]1,Inf] Reportar la foto de %usuario% en %lugar%"
     lugar:
-        titulo_pag: Reportar %lugar%
+        title: Reportar %lugar%
         subtitulo: ¿Este lugar ya no existe? ¿O está repetido? Recuerda que puedes editar los datos de los lugares que tengan errores en su información. Para cualquier otro problema no dudes en avisarnos.
     imagen:
-        titulo_pag: Reportar foto en %lugar%
+        title: Reportar foto en %lugar%
         subtitulo: ¿Algo malo con esta foto? Si tiene contenido ofensivo, con derechos reservados o crees que no cumple con los Términos de uso de Loogares.com no dudes en avisarnos.
     recomendacion:
-        titulo_pag: Reportar recomendación en %lugar%
+        title: Reportar recomendación en %lugar%
         subtitulo: ¿Algo malo con esta recomendación? Si tiene contenido ofensivo, con derechos reservados o crees que no cumple con los Términos de uso de Loogares.com no dudes en avisarnos.
     label: Escríbenos el porqué de tu reporte *
     tip:
@@ -235,30 +284,3 @@ reportes:
 
         usuario: Usuario
         observacion: Observación
-
-compartir:
-    lugar:
-        mail:
-            titulo_pag: Enviar %lugar% a tus amigos
-            titulo: Cuéntale a tus amigos sobre
-            asunto: quiere que veas un Lugar en Loogares.com
-            saludo: ¡Hola %destinatario%!
-            subtitulo: quiere contarte sobre un Lugar que te puede gustar:
-            texto: Lo que te dice: 
-        placeholder: ¡Quiero que conozcas este lugar!           
-    recomendacion:
-        mail:
-            titulo_pag: Enviar recomendación en %lugar% a tus amigos
-            titulo: Cuéntale a tus amigos sobre la %open_tag%recomendación%close_tag% de %usuario% en
-            asunto: quiere mostrarte una recomendación en Loogares.com
-            subtitulo: quiere contarte sobre una recomendación de un Lugar que te puede gustar:
-            bajada: Haz clic %open_tag%acá%close_tag% para ver la recomendación de
-        placeholder: ¡Esta recomendación está increíble! 
-    form:
-        nombre: Tu Nombre *
-        mail: Tu E-mail *
-        mails_amigos: E-mails de tus amigos *
-        cuerpo: ¿Y qué les vas a decir?
-        tips:
-            comas: Para enviar a más de una dirección de E-mail, sepáralas por una coma (,)
-            obligatorio: Los campos con (*) son obligatorios

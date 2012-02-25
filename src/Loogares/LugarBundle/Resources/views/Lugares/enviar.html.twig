@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{((tipo == 'lugar') ? 'compartir.lugar.mail.titulo_pag' : 'compartir.recomendacion.mail.titulo_pag')|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
+{% block title %}{{((tipo == 'lugar') ? 'compartir.lugar.mail.title' : 'compartir.recomendacion.mail.title')|trans({'%lugar%' : lugar.nombre})}} | {{parent()}}{% endblock %}
 
 {% block content %}
 

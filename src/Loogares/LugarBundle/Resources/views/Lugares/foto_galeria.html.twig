@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{'lugar.fotos.galeria.titulo_pag'|trans}} {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
+{% block title %}{{'fotos.galeria.title'|trans}} {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
 
@@ -10,7 +10,7 @@
 
 	<div class="galeria_de_fotos">
 
-		<h1 class="titulo">{{'lugar.fotos.galeria.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
+		<h1 class="titulo">{{'fotos.galeria.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
 				
 		<div class="contenido_galeria">
 			{% include 'LoogaresLugarBundle:Lugares:contenido_galeria.html.twig' %}

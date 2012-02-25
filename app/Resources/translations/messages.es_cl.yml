@@ -51,6 +51,11 @@ general:
         sector: Sector
         resultados: Resultados para
 
+paginacion:
+    al: al
+    de: de
+    ir_a: Ir a la página
+
 olvidar:
     titulo_pag: ¿Olvidaste tu password?
     titulo: ¿Olvidaste tu password?... ¡Pero cómo!
