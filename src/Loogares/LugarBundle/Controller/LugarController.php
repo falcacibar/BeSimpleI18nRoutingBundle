@@ -653,6 +653,7 @@ class LugarController extends Controller{
         $formErrors = array();
 
         $lugar = $lr->findOneBySlug($slug);
+        $usuario = $this->get('security.context')->getToken()->getUser();
 
         // Primer paso de agregar fotos
         if(!$request->request->get('info')) {
@@ -703,6 +704,7 @@ class LugarController extends Controller{
                             
                             if(getimagesize('assets/images/temp/'.$fn)) {
                                 $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);
+                                $imagen->url = $url;
                                 $imagenes[] = $imagen;
                             }
                             else {
@@ -748,6 +750,10 @@ class LugarController extends Controller{
                         $newImagen->setImagenFull('.jpg');
 
                         $newImagen->firstImg = $imagen;
+                        if(isset($imagen->url)) {
+                            $newImagen->setTituloEnlace($imagen->url);
+                            $newImagen->setEsEnlace(1);
+                        }
                         
                         $em->persist($newImagen);
                         $em->flush(); 
@@ -755,12 +761,17 @@ class LugarController extends Controller{
                         $newImagen->setFechaCreacion(new \DateTime());
                         $em->flush();
 
-                        $imgs[] = $newImagen;
+                        if(!isset($imagen->url))
+                            $imgs[] = $newImagen;
 
                         $newImagen = null;
                     }
 
-                    // Imágenes agregadas desde URLs
+                    if(sizeof($imgs) == 0 && sizeof($imagenes) > 0) {
+                        // Se agregaron sólo fotos por URL
+                        $this->get('session')->setFlash('lugar_flash',$this->get('translator')->trans('lugar.flash.foto.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
+                        return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
+                    }
 
                     // Generación de vista para agregar descripción a foto 
                     return $this->render('LoogaresLugarBundle:Lugares:agregar_info_foto.html.twig', array(
@@ -806,9 +817,8 @@ class LugarController extends Controller{
                     $em->flush();
                 }
             }
-
-            $this->get('session')->setFlash('lugar_flash','PONER TEXTO');
-            // Redirección a galería de fotos (FICHA POR AHORA)
+            
+            $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.foto.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }
     }
@@ -848,7 +858,7 @@ class LugarController extends Controller{
                 $em->flush();
 
                 // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-foto-lugar','¡Ese es el espíritu, '.$imagen->getUsuario()->getNombre().' '.$imagen->getUsuario()->getApellido().'! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.');
+                $this->get('session')->setFlash('edicion-foto-lugar',$this->get('translator')->trans('lugar.flash.foto.agregar', array('%nombre%' => $imagen->getUsuario()->getNombre(), '%apellido%' => $imagen->getUsuario()->getApellido())));
                     
                 // Redirección a vista de fotos del usuario
                 return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario()))));
@@ -884,12 +894,20 @@ class LugarController extends Controller{
         $imagen->setEstado($estadoImagen);
 
         $em->flush();
+
+        if($request->query->get('redirect') == 'usuario') {
+            // Mensaje de éxito de la eliminación
+            $this->get('session')->setFlash('usuario_flash','lugar.flash.foto.borrar');
+                        
+            // Redirección a vista de fotos del usuario
+            return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario()))));
+        }
                    
         // Mensaje de éxito de la eliminación
-        $this->get('session')->setFlash('usuario_flash','Tu foto acaba de ser borrada. Agrega otra cuando quieras.');
+        $this->get('session')->setFlash('imagen_flash','lugar.flash.foto.borrar');
                     
-        // Redirección a vista de fotos del usuario
-        return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario())))); 
+        // Redirección a galería de fotos del lugar
+        return $this->redirect($this->generateUrl('_galeria', array('slug' => $slug))); 
            
     }
 
