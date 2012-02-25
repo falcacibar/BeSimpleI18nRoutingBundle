@@ -40,7 +40,7 @@
                             </span>
                             <p style="font-size: 14px; color: #444;">
                                 {{mail.preview}}
-                                <a style="color: #0066CC; text-decoration: none;" href="{{url('_recomendacion', {'slug' : mail.recomendacion.lugar.slug, 'usuarioSlug' : (mail.usuario.slug is not empty) ? mail.usuario.slug : mail.usuario.id})}}">» Leer más</a>
+                                <a style="color: #0066CC; text-decoration: none;" href="{{url('_recomendacion', {'slug' : mail.recomendacion.lugar.slug, 'usuarioSlug' : (mail.usuario.slug is not empty) ? mail.usuario.slug : mail.usuario.id})}}">{{'lugar.notificaciones.nueva_recomendacion.mail.leer_mas'|trans}}</a>
                             </p>
                         </div>
                     </div>
