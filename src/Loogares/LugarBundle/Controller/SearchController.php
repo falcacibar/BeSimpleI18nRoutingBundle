@@ -94,7 +94,7 @@ class SearchController extends Controller
     $termSlug = $fn->generarSlug($term);
     $termArray = preg_split('/\s/', $term);
 
-    $fields = "STRAIGHT_JOIN lugares.mapx, lugares.mapy, lugares.id, lugares.nombre as nombre_lugar, lugares.slug as lugar_slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2) as ranking, categorias.slug, categorias.nombre";   
+    $fields = "STRAIGHT_JOIN lugares.mapx, lugares.mapy, lugares.id, lugares.nombre as nombre_lugar, lugares.slug as lugar_slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2+lugares.visitas*0.2) as ranking, categorias.slug, categorias.nombre";   
 
     $noCategorias = false;
     $filterCat = false;
@@ -165,7 +165,8 @@ class SearchController extends Controller
         $termSlug = $esSubCategoria->getCategoria()->getSlug();
         $_GET['categoria'] = $termSlug;
 
-        $this->get('session')->setFlash('buscar_flash','Creemos que estas buscando una SubCategoria!, asi que te enviamos a esta!.<br/>Si quieres intentar tu busqueda y que no adivinemos, haz click aqui: <a href="?o=no">AAAAA</a>');
+        $url = $this->generateUrl('_recomienda', $_GET);
+        $this->get('session')->setFlash('buscar_flash','Creemos que estas buscando una SubCategoria!, asi que te enviamos a esta!.<br/>Si quieres intentar tu busqueda y que no adivinemos, haz click aqui: <a href="'.$url.'">AAAAA</a>');
       }
     }
 
@@ -848,7 +849,8 @@ class SearchController extends Controller
                       WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
                       $filterSubCat $filterSector $filterComuna $filterPrecio
                       $filterCaracteristica
-                      GROUP BY lugares.id";
+                      GROUP BY lugares.id
+                      $order";
         
       $totalSubCategorias = array();
       $totalSubCategorias[] = "(SELECT $subCategoriasFields
@@ -967,28 +969,28 @@ class SearchController extends Controller
       if($noCategorias == false){
        //Generacion y Ejecucion de Query
         $totalCategorias = join(" UNION ", $totalCategorias);
-        $totalCategorias =  "select count(lid) as total, lid, cid, nombre, slug from (" . $totalCategorias . ") sq group by cid order by total desc";
+        $totalCategorias =  "select count(lid) as total, lid, cid, nombre, slug from (" . $totalCategorias . ") sq group by cid order by nombre desc";
         $results['totalPorCategoria'] = $this->getDoctrine()->getConnection()->fetchAll($totalCategorias);
       }else{
         //Generacion y Ejecucion de Query
         $totalSubCategorias = join(" UNION ", $totalSubCategorias);
-        $totalSubCategorias =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalSubCategorias . ") sq group by sid order by total desc";
+        $totalSubCategorias =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalSubCategorias . ") sq group by sid order by nombre desc";
         $results['totalPorSubcategoria'] = $this->getDoctrine()->getConnection()->fetchAll($totalSubCategorias);
 
         //Generacion y Ejecucion de Query
         $totalCaracteristicas = join(" UNION ", $totalCaracteristicas);
-        $totalCaracteristicas =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalCaracteristicas . ") sq group by sid order by total desc";
+        $totalCaracteristicas =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalCaracteristicas . ") sq group by sid order by nombre desc";
         $results['totalPorCaracteristica'] = $this->getDoctrine()->getConnection()->fetchAll($totalCaracteristicas);
       }
 
       //Generacion y Ejecucion de Query
       $totalSectores = join(" UNION ", $totalSectores);
-      $totalSectores =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalSectores . ") sq group by sid order by total desc";
+      $totalSectores =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalSectores . ") sq group by sid order by nombre desc";
       $results['totalPorSectores'] = $this->getDoctrine()->getConnection()->fetchAll($totalSectores);
 
       //Generacion y Ejecucion de Query
       $totalComunas = join(" UNION ", $totalComunas);
-      $totalComunas =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalComunas . ") sq group by sid order by total desc";
+      $totalComunas =  "select count(lid) as total, lid, sid, nombre, slug from (" . $totalComunas . ") sq group by sid order by nombre desc";
       $results['totalPorComunas'] = $this->getDoctrine()->getConnection()->fetchAll($totalComunas);
 
       $unionQuery = join(" UNION ", $unionQuery);

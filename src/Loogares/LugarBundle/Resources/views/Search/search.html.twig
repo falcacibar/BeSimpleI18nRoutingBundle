@@ -23,25 +23,25 @@
         GA_googleFetchAds();
     </script>
 	<script>
-    var $sidebar   = $(".sidebar"),
+    var $sidebar   = $(".sidebar_busqueda"),
     $window    = $(window),
     offset     = $sidebar.offset(),
-    ultimaBusqueda = $('.listado_resultados').height() - 43;
+    ultimaBusqueda = $('.footer').offset().top - 360;
     topPadding = 50;
 
     $window.scroll(function() {
         if ($window.scrollTop() >= offset.top && $window.scrollTop() <= ultimaBusqueda + topPadding) {
             $sidebar.stop().animate({
-                marginTop: $window.scrollTop() - offset.top + topPadding
+                top: $window.scrollTop() - offset.top + topPadding
             });
         }else if($window.scrollTop() >= ultimaBusqueda && ultimaBusqueda <= $window.scrollTop()){
         	$sidebar.stop().animate({
-                marginTop: ultimaBusqueda - offset.top - 15
+                top: ultimaBusqueda - 360
             });
         }else{
             $sidebar.stop().animate({
-                marginTop: 0
-            });	
+                top: 0
+            });
         }
     });
 	</script>

@@ -23,18 +23,12 @@
 		{% include '::header.html.twig' %}
 
         <div class="contenedor">
-<<<<<<< HEAD
-			<div class="contenido">
-=======
-
             {# Por si el usuario no tiene datos básicos #}
             {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.comuna is empty)%}
                 <a href="{{path('forzarDatosUsuario', {'id' : app.security.token.user.id})}}" class="datos_usuario_fancybox"></a>
             {% endif %}
 			
 			<div class="contenido">               
-
->>>>>>> 14c24960dbb454ccb1e86dfca336d33b60cbde49
 				{% block content %}{% endblock %}
 			</div>
 		</div>
