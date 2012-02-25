@@ -1,7 +1,7 @@
 {% if promociones|length > 0 %}
 	<div class="caja_promociones">
-	    <h5 class="titulo_promocion_pedidos">{{'lugar.ficha.promociones.titulo'|trans}}</h5>
-	    <a class="ver_todos" href="">{{'lugar.ficha.promociones.ver_dctos'|trans}} &raquo;</a>
+	    <h5 class="titulo_promocion_pedidos">{{'extra.modulo_pedidos_online.titulo'|trans}}</h5>
+	    <a class="ver_todos" href="">{{'extra.modulo_pedidos_online.ver_mas'|trans}} &raquo;</a>
 
 		<ul id="promocion-delivery-sidebar">
 			{% for promocion in promociones %}
@@ -23,7 +23,7 @@
 										{{promocion.titulo}}
 									</div>
 								</div>
-								<p class="promocion_dias"><strong>{{'lugar.ficha.promociones.dias'|trans}}:</strong> {{promocion.dias}}</p>
+								<p class="promocion_dias"><strong>{{'extra.modulo_pedidos_online.dias'|trans}}:</strong> {{promocion.dias}}</p>
 							</div>
 		            	</div>
 			        </li>

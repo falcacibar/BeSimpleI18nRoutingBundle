@@ -245,7 +245,7 @@
             </select>
             {% if lugaresRevisados is defined %}
                  {% if lugarRevisado.categoriaLugar[1] is defined %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}}
                         {{lugarRevisado.categoriaLugar[1].categoria.nombre}}
                     </div>
                 {% endif %}
@@ -267,7 +267,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugarRevisado.subcategoriaLugar[0] is defined %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}}
                             {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
                                 {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[1].categoria.id %}
                                     {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
@@ -341,7 +341,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.sector.ciudad.pais.id != lugarRevisado.sector.ciudad.pais.id %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.ciudad.pais.nombre}} </div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.sector.ciudad.pais.nombre}} </div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -362,7 +362,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.sector.ciudad.id != lugarRevisado.sector.ciudad.id %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.ciudad.nombre}} </div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.sector.ciudad.nombre}} </div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -384,7 +384,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.comuna.id != lugarRevisado.comuna.id %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.comuna.nombre}} </div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.comuna.nombre}} </div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -397,7 +397,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.calle != lugarRevisado.calle or lugar.numero != lugarRevisado.numero %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.calle}} - {{lugarRevisado.numero}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.calle}} - {{lugarRevisado.numero}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -415,7 +415,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.detalle != lugarRevisado.detalle %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.detalle}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.detalle}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -441,7 +441,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.sector.id != lugarRevisado.sector.id %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sector.nombre}} </div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.sector.nombre}} </div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -453,7 +453,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.tel1 != lugarRevisado.telefono1 %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono1}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.telefono1}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -466,7 +466,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.tel2 != lugarRevisado.telefono2 %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono2}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.telefono2}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -479,7 +479,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.tel3 != lugarRevisado.telefono3 %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.telefono3}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.telefono3}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -503,7 +503,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.sitioWeb != lugarRevisado.sitioWeb %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.sitioWeb}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.sitioWeb}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -514,7 +514,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.facebook != lugarRevisado.facebook %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.facebook}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.facebook}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -525,7 +525,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.twitter != lugarRevisado.twitter %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.twitter}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.twitter}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -536,7 +536,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.mail != lugarRevisado.mail %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.mail}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.mail}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}    
@@ -772,7 +772,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.profesional != lugarRevisado.profesional %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.profesional}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.profesional}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -783,7 +783,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.agnoConstruccion != lugarRevisado.agnoConstruccion %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.agnoConstruccion}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.agnoConstruccion}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -794,7 +794,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.descripcion != lugarRevisado.descripcion %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.descripcion}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.descripcion}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -805,7 +805,7 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugar.materiales != lugarRevisado.materiales %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio {{lugarRevisado.materiales}}</div>
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.materiales}}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}    
@@ -853,7 +853,7 @@
         </li>
         {% if lugar.slug == null %}
         <li>
-            <label>Recomendacion</label>
+            <label>{{'lugar.agrgar.recomendacion'|trans}}</label>
             <input type="checkbox" name="habilitar-recomienda" class="horario display-next-li-cb" />
             <span class="horario_tip">{{'lugar.recomendacion.opcional.tip'|trans}}</span>
         </li>

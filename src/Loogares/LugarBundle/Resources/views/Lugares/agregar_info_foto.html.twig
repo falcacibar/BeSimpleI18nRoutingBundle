@@ -1,19 +1,19 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{'lugar.fotos.agregar.titulo_pag'|trans}} {{lugar.nombre}} | {{parent()}}{% endblock %}
+{% block title %}{{'fotos.agregar.title'|trans}} {{lugar.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
 
 	<div class="agregar_foto_lugar">
 
-		<h1 class="titulo">{{'lugar.fotos.agregar.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
+		<h1 class="titulo">{{'fotos.agregar.titulo'|trans}} <a href="{{path('_lugar', {'slug' : lugar.slug })}}">{{lugar.nombre}}</a></h1>
 
 		<form action="{{ path('_agregarFotoLugar', { 'slug' : lugar.slug }) }}" method="post" }}>
 			<ul>
 				{% for imagen in imagenes %}
 					<li class="imagenes_agregadas">
 						<img class="imagen_agregada" src="{{ ('assets/images/lugares/'~imagen.imagenFull) | apply_filter('small_lugar') }}" />
-						<span class="imagen_agregar_descripcion_titulo">{{'lugar.fotos.agregar.descripcion'|trans}}</span>
+						<span class="imagen_agregar_descripcion_titulo">{{'fotos.agregar.descripcion'|trans}}</span>
 						<input class="input_descripcion_agregada" type="text" name="imagenes[{{imagen.id}}]" />
 					</li>
 				{% endfor %}

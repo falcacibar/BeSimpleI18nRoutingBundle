@@ -33,7 +33,7 @@
 
 	<div class="paginacion_galeria">
 		{% if paginacion.totalPaginas > 1 %}
-			<p><strong>{{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong></p>
+			<p><strong>{{paginacion.mostrandoDe}}</strong> {{'paginacion.al'|trans}} <strong>{{paginacion.mostrandoHasta}}</strong> {{'paginacion.de'|trans}} <strong>{{paginacion.total}}</strong></p>
 			<ul class="orden">
 				{{paginacion.paginacion|raw}}
 			</ul>
