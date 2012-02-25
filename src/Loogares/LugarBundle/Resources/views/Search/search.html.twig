@@ -147,7 +147,7 @@
 				</div>
 			{% endif %}
 
-			<div class="filtros_zonas">
+			<div class="filtros_zonas filtros">
 				<div class="filtros_header">
 					<span class="filtros_titulo">{{'lugar.buscar.zonas'|trans}}</span>
 					{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
@@ -183,7 +183,7 @@
 			</div>
 
 			{% if results.totalPorCategoria[0] is defined %}
-				<div class="filtros_categorias">
+				<div class="filtros_categorias filtros">
 					<div class="filtros_header">
 						<span class="filtros_titulo">{{'lugar.buscar.categorias'|trans}}</span>
 						{% if results.totalPorCategoria[0] is defined %} 
@@ -206,7 +206,7 @@
 			{% endif %}
 
 			{% if results.totalPorCategoria[0] is not defined %}
-				<div class="filtros_subcategorias">
+				<div class="filtros_subcategorias filtros">
 					<div class="filtros_header">
 						<span class="filtros_titulo">{{'lugar.buscar.subcategorias'|trans}}</span>
 						{% if results.totalPorSubcategoria[0] is defined %}
@@ -231,7 +231,7 @@
 					</div>
 				</div>
 
-				<div class="filtros_precios">
+				<div class="filtros_precios filtros">
 					<div class="filtros_header">
 						<span class="filtros_titulo">{{'lugar.buscar.precios'|trans}}</span>
 						<span class="explicacion_precio tips_icon"></span>
@@ -275,7 +275,7 @@
 				</div>
 
 				{% if results.totalPorCaracteristica[0] is defined %}
-					<div class="filtros_caracteristicas">
+					<div class="filtros_caracteristicas filtros">
 						<div class="filtros_header">
 							<span class="filtros_titulo">{{'lugar.buscar.caracteristicas'|trans}}</span>
 							{% if results.totalPorCaracteristica[0] is defined %}
@@ -358,7 +358,7 @@
 	        <div class="listado_resultados">
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">
-					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.lugar_slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
+					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.lugar_slug}}" data-url="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
 						<ul>
 							<li class="data_lugar">
 								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
