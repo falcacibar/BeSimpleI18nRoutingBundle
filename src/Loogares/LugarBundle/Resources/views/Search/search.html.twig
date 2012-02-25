@@ -330,7 +330,7 @@
 			        <li>|</li>
 			        <li>
 			            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
-			                <strong>{{'general.terminos.ultima_recomendacion'|trans}}</strong>
+			                <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
 			            {% else %}
 			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'ultima-recomendacion' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
 			            {% endif %}
