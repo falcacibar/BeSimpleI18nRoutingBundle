@@ -112,7 +112,6 @@ $(document).ready(function(){
             url: WEBROOT+'ajax/util_mail',
             data: {'recomendacion': recomendacion},
             type: 'post',
-            data: dataObj
         });
     }
 

@@ -271,7 +271,7 @@ class AjaxController extends Controller
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
 
       $usuario = $this->get('security.context')->getToken()->getUser();
-      $recomendacion = $rr->findOneById($_POST['recomendacion']);
+      $recomendacion = $rr->find($_POST['recomendacion']);
 
       // Se envía mail al usuario que recomendó informándole del útil
       $mail = array();
@@ -282,10 +282,10 @@ class AjaxController extends Controller
       $mail['tipo'] = "util-recomendacion";
 
       $paths = array();
-      $paths['logo'] = 'assets/images/extras/logo_mails.jpg';
+      $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
-      //$message = $this->get('fn')->enviarMail($mail['asunto'], $recomendacion->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
-      //$this->get('mailer')->send($message);
+      $message = $this->get('fn')->enviarMail($mail['asunto'], $recomendacion->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
+      $this->get('mailer')->send($message);
 
       return new Response("sent", 200);
     }
