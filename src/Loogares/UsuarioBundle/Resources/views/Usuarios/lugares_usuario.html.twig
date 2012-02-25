@@ -112,9 +112,9 @@
 
 	{% if usuario.totalPaginas > 1 %}
 		<div class="paginacion_perfil">
-        	<p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{usuario.totalAcciones[usuario.accion - 1]}}</strong>
+        	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{usuario.totalAcciones[usuario.accion - 1]}}</strong>
             {% if paginacion.totalPaginas != 1 %}
-                 | Ir a la página
+                 | {{'paginacion.ir_a'|trans}}
                 <ul>
                     {{ paginacion.paginacion | raw }}
                 </ul>

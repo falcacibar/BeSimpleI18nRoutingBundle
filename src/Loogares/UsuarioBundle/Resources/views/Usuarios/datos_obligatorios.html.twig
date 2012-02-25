@@ -1,18 +1,18 @@
 <div style="height:300px;width:500px;background:whiteSmoke;padding:10px">
-	<h2 style="font-size:16px;font-weight:bold">Necesitamos que ingreses información personal</h2>
-	<p style="margin: 15px 0;">Hemos detectado que hay cierta información que aún no has ingresado. Queremos hacer un esfuerzo por conocer más de ti y así poder brindarte el mejor servicio.</p>
+	<h2 style="font-size:16px;font-weight:bold">{{'validacion_usuario.titulo'|trans}}</h2>
+	<p style="margin: 15px 0;">{{'validacion_usuario.texto'|trans}}</p>
 
 	<form action="{{path('forzarDatosUsuario', {'id' : app.security.token.user.id})}}" method="post">
 		<ul>
 			<li>
-				<label for="nombre" style="width:100px;font-size:11px">Nombre</label>
+				<label for="nombre" style="width:100px;font-size:11px">{{'validacion_usuario.nombre'|trans}}</label>
 				<input type="text" name="nombre" style="width: 200px" {% if errors.nombre is defined%}class="input-error"{% endif %} value="{{app.security.token.user.nombre}}"/>
 				{% if errors.nombre is defined %}
 					<small class="errors">{{errors.nombre|trans}}</small>
 				{% endif %}
 			</li>
 			<li>
-				<label for="apellido" style="width: 100px;font-size:11px">Apellido</label>
+				<label for="apellido" style="width: 100px;font-size:11px">{{'validacion_usuario.apellido'|trans}}</label>
 				<input type="text" name="apellido" style="width: 200px" {% if errors.apellido is defined%}class="input-error"{% endif %} value="{{app.security.token.user.apellido}}"/>
 				{% if errors.apellido is defined %}
 					<small class="errors">{{errors.apellido|trans}}</small>
