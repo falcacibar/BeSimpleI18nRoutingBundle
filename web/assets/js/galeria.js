@@ -1,7 +1,7 @@
 $(function(){
 	/* Detalle foto */
 
-	$('.borrar-foto-lugar').live("click", function(){
+	$('.borrar_foto').live("click", function(){
 		if(!confirm('¿Estás seguro de querer borrar tu foto?'))
 			return false;
 	});

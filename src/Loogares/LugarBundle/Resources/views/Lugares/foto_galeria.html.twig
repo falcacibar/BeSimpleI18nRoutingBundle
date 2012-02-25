@@ -4,8 +4,8 @@
 
 {% block content %}
 
-	{% if app.session.hasFlash('reportar-imagen') %}
-            {{ app.session.flash('reportar-imagen') | trans }}
+	{% if app.session.hasFlash('imagen_flash') %}
+            {{ app.session.flash('imagen_flash') | trans }}
     {% endif %}
 
 	<div class="galeria_de_fotos">

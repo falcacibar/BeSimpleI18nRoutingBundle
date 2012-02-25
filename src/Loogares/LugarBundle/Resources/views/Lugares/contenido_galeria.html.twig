@@ -40,9 +40,9 @@
 		<li class="opciones_foto">			
 			{% if imagen.loggeadoCorrecto %}
 				<a class="editar_foto" href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id })}}">{{'lugar.fotos.galeria.editar'|trans}}</a>
-				<a class="borrar_foto" href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'lugar.fotos.galeria.borrar'|trans}}</a>
+				<a class="borrar_foto" href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'lugar.fotos.galeria.borrar'|trans}}</a>
 			{% elseif reportar == 1 %}
-				<a class="borrar_foto" href="{{path('_reportarFoto', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'lugar.fotos.galeria.reportar'|trans}}</a>
+				<a class="reportar_foto" href="{{path('_reportarFoto', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'lugar.fotos.galeria.reportar'|trans}}</a>
 			{% endif %}
 		</li>
 	</ul>
