@@ -326,7 +326,6 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
          */
         $data = $usuario;
         $data->totalRecomendaciones = $totalRecomendaciones;
-        //$data->recomendacionesTodas = $recomendaciones;
         $data->totalPrimerasRecomendaciones = $totalPrimerasRecomendaciones;
         $data->totalLugaresAgregados = $totalLugaresAgregados;
         $data->totalImagenesLugar = $totalImagenesLugar;

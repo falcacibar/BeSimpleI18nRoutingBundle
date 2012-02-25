@@ -221,7 +221,11 @@ usuario:
                 minimo: El password debe tener un mínimo de 6 caracteres.:
             confirmar_password: Los passwords no coinciden. Por favor, corrígelos.
             slug:
-                unico: El nombre de usuario está repetido. Por favor, prueba con otro.
+                unico: La URL propia está repetida. Por favor, prueba con otra.
+                blanco: El campo URL propia no puede ser vacío.
+                tipo: La URL propia debe ser texto. 
+            comuna:
+                blanco: El campos Comuna no puede ser vacío.
             imagen:
                 tipo: Sólo JPG, GIF y PNG, máx. 5 MB.
 

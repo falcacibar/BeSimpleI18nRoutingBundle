@@ -20,6 +20,7 @@ class DefaultController extends Controller
     	$em = $this->getDoctrine()->getEntityManager();
         $tlr = $em->getRepository("LoogaresLugarBundle:TipoCategoria");    
         $tipoCategoria = $tlr->findAll();
+        $ciudad = $this->get('session')->get('ciudad');
         $data = array();
 
         foreach($tipoCategoria as $key => $value){
@@ -29,10 +30,13 @@ class DefaultController extends Controller
                                    JOIN cl.lugar l 
                                    LEFT JOIN cl.categoria c
                                    LEFT JOIN c.tipo_categoria tl
+                                   JOIN l.comuna com
                                    WHERE tl.id = ?1
+                                   AND com.ciudad = ?2
                                    GROUP BY c.id
                                    ORDER BY tl.id");
             $q->setParameter(1, $value->getId());
+            $q->setParameter(2, $ciudad['id']);
             $buff = $q->getResult();
             $data[$value->getSlug()]['tipo'] = $tipoCategoria[$key];
             $data[$value->getSlug()]['categorias'] = $buff;
