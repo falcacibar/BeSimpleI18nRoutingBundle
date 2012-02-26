@@ -107,6 +107,18 @@ class DefaultController extends Controller
 
         $ciudad = $this->get('session')->get('ciudad');
 
+        // Cuando entramos al home por primera vez, sesión no existe. Por default, dejamos Santiago de Chile
+        if(!isset($ciudad)) {
+            $cir = $em->getRepository("LoogaresExtraBundle:Ciudad");
+            $ciudad = $cir->find(1);
+            $ciudadArray = array();
+            $ciudadArray['id'] = $ciudad->getId();
+            $ciudadArray['nombre'] = $ciudad->getNombre();
+            $ciudadArray['slug'] = $ciudad->getSlug();
+            $this->get('session')->set('ciudad',$ciudadArray);
+            $ciudad = $this->get('session')->get('ciudad');
+        }
+
         // Top Five de tres categorías
         $categorias = array();
 
