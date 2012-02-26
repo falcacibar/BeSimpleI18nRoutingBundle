@@ -24,7 +24,8 @@
 		{{-imagen.fechaCreacion | date('d/m/Y')-}}
 	</span>
 
-	<span class="descripcion_foto">
+	<span class="descripcion_foto" data-slug="{{imagen.lugar.slug}}" data-id="{{imagen.id}}">
+		<span class="container">
 		{% if imagen.tituloEnlace is not empty %}
 			{% if imagen.esEnlace %}
 				<a href="{{imagen.tituloEnlace}}" target="blank">{{imagen.tituloEnlace}}</a>
@@ -32,6 +33,7 @@
 				{{imagen.tituloEnlace}}
 			{% endif %}
 		{% endif %}
+		</span>
 	</span>
 
 	<ul>
