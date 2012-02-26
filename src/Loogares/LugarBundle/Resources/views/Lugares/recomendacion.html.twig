@@ -63,10 +63,10 @@
 				<div id="estrellas-recomienda"></div>
 			</li>
 
-			{% if lugar.mostrarPrecio is defined and lugar.mostrarPrecio !=  null or lugar.nombre == '' %}
+			{% if (lugar.mostrarPrecio is defined and lugar.mostrarPrecio !=  null) or lugar.nombre == '' %}
 				<li {% if lugar.slug == '' %}class="recomienda-precio-li"{% endif %}>
 					<label>{{'lugar.recomendacion.precio'|trans}}</label> 
-					<div class="recomendacion-precio-raty recomienda_precio" data-precio="{{recomendacion.precio | default(0)}}" data-tipo="{{lugar.mostrarPrecio}}"></div>
+					<div class="recomendacion-precio-raty recomienda_precio" data-precio="{{recomendacion.precio | default(0)}}" data-tipo="{{lugar.mostrarPrecio | default('')}}"></div>
 					<div id="precio-recomienda"></div>
 				</li>
 			{% endif %}

@@ -9,27 +9,33 @@
 	<script src="{{asset('assets/js/googleMapBuscar.js')}}"></script>
 	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
 	<script src="{{asset('assets/js/buscar.js')}}"></script>
-	<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
-    <script type='text/javascript'>
-        GS_googleAddAdSenseService("{{adsense_service}}");
-        GS_googleEnableAllServices();
-    </script>
-    <script type='text/javascript'>
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','details','top','medium')}}");
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','details','bottom','medium')}}");
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','details','bottom','wide')}}");
-    </script>
-    <script type='text/javascript'>
-        GA_googleFetchAds();
-    </script>
+
 	<script>
     var $sidebar   = $(".sidebar_busqueda"),
     $window    = $(window),
-    offset     = $sidebar.offset(),
+    sideBarOffset     = $sidebar.offset(),
     ultimaBusqueda = $('.footer').offset().top - 360;
-    topPadding = 50;
+    topPadding = 60;
 
     $window.scroll(function() {
+    	sideBarOffset     = $sidebar.offset()
+    	agregarLugar = $('.agrega_lugar').offset().top - 1100;
+    	if($window.scrollTop() >= sideBarOffset.top && agregarLugar >= $window.scrollTop()){
+		    $sidebar.stop().animate({
+	            top: $window.scrollTop() - sideBarOffset.top + topPadding
+	        });
+        }else if(agregarLugar + 800 <= $window.scrollTop()){
+		    $sidebar.stop().animate({
+	            top: agregarLugar
+	        });
+        }else{
+		    $sidebar.stop().animate({
+	            top: 0
+	        });
+        }
+    });
+
+    /*$window.scroll(function() {
         if ($window.scrollTop() >= offset.top && $window.scrollTop() <= ultimaBusqueda + topPadding) {
             $sidebar.stop().animate({
                 top: $window.scrollTop() - offset.top + topPadding
@@ -43,7 +49,7 @@
                 top: 0
             });
         }
-    });
+    });*/
 	</script>
 {% endblock %}
 
@@ -475,7 +481,7 @@
             {% endif %}
         </div>
 
-		<div id="agrega-lugar" style="clear:both">
+		<div class="agrega_lugar" style="clear:both; background: #303">
 			<p>¿No encontraste el Lugar que buscabas?
 			¡Entonces agrégalo y sé el primero en recomendarlo!</p><a href="{{ path('_agregar') }}">Boton</a>
 		</div>

@@ -4,7 +4,6 @@ $(document).ready(function(){
 
 		$.each(getCaracteristicas, function(i){
 			$('.qtip_caracteristicas input[value="'+getCaracteristicas[i]+'"]').click();
-			console.log(getCaracteristicas[i])
 		});
 
 		$('.resultado-busqueda-stars-raty').each(function(){
