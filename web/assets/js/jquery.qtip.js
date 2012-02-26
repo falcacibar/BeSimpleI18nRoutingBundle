@@ -57,7 +57,7 @@
 			if(typeof arguments[0] === 'string') { args[0] = 'qTip2: ' + args[0]; }
 
 			// Apply console.warn or .log if not supported
-			a = c.apply ? c.apply(console, args) : c(args);
+			// a = c.apply ? c.apply(console, args) : c(args);
 		}
 	}
 
