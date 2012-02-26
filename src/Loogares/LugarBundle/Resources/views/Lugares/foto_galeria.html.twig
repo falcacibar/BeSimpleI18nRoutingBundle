@@ -32,4 +32,11 @@
 
 {% block javascripts %}
 	<script src="{{asset('assets/js/galeria.js')}}"></script>
+	{% if edicion == true %}
+		<script>
+			$(function(){
+				$('.editar_foto').click();
+			});			
+		</script>
+	{% endif %}
 {% endblock %}

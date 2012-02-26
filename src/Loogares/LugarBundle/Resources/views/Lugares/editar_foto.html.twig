@@ -1,15 +1,20 @@
+{% if tipo == 'form' %}
 <form action="{{ path('_editarFotoLugar', { 'slug' : imagen.lugar.slug, 'id' : imagen.id }) }}" method="post" {{ form_enctype(form) }}>
 	<ul>
 		<li>
-			{{ form_label(form.titulo_enlace, 'fotos.agregar.descripcion') }}
-			{{ form_widget(form.titulo_enlace) }}
+			{{ form_widget(form.titulo_enlace, { 'attr' : {'style' : 'width:300px', 'class' : 'descripcion_texto'}}) }}
+			<input type="submit" value="{{'fotos.agregar.submit'|trans}}" formnovalidate  class="editar_submit"/>
+			<a href='#' class='cancelar_edicion'>{{'fotos.editar.cancelar'|trans}}</a>
 		</li>
 		{{form_rest(form)}}
-
-		<li>
-			<label></label>
-			<input type="submit" value="{{'fotos.agregar.submit'|trans}}" formnovalidate />
-		</li>
-		<a href='#' class='cancelar_edicion'>Cancelar</a>
 	</ul>
 </form>
+{% elseif tipo == 'descripcion' %}
+	{% if imagen.tituloEnlace is not empty %}
+		{% if imagen.esEnlace %}
+			<a href="{{imagen.tituloEnlace}}" target="blank">{{imagen.tituloEnlace}}</a>
+		{% else %}
+			{{imagen.tituloEnlace}}
+		{% endif %}
+	{% endif %}
+{% endif %}

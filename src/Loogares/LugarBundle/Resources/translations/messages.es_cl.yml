@@ -227,6 +227,7 @@ fotos:
     editar:
         titulo_pag: Editar foto en
         titulo: Edita tu foto en
+        cancelar: Cancelar
     galeria:
         titulo_pag: Galería de fotos en
         titulo: Galería de fotos de

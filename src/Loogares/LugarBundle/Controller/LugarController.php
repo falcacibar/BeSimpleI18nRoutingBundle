@@ -841,7 +841,6 @@ class LugarController extends Controller{
         $form = $this->createFormBuilder($imagen)
                          ->add('titulo_enlace', 'text')
                          ->getForm();
-
         // Si el request es POST, se procesa la edición de la foto
         if ($request->getMethod() == 'POST') { 
             $form->bindRequest($request);
@@ -856,18 +855,21 @@ class LugarController extends Controller{
                 else
                     $imagen->setEsEnlace(0);
                 $em->flush();
-
-                // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('edicion-foto-lugar',$this->get('translator')->trans('lugar.flash.foto.agregar', array('%nombre%' => $imagen->getUsuario()->getNombre(), '%apellido%' => $imagen->getUsuario()->getApellido())));
                     
-                // Redirección a vista de fotos del usuario
-                return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario()))));
+                $tipo = 'descripcion';
+                return $this->render('LoogaresLugarBundle:Lugares:editar_foto.html.twig', array(
+                    'imagen' => $imagen,
+                    'form' => $form->createView(),
+                    'tipo' => $tipo,
+                ));
             }
         }
 
+        $tipo = 'form';
         return $this->render('LoogaresLugarBundle:Lugares:editar_foto.html.twig', array(
             'imagen' => $imagen,
             'form' => $form->createView(),
+            'tipo' => $tipo,
         ));
     }
 
@@ -998,6 +1000,7 @@ class LugarController extends Controller{
             'vecinas' => $vecinas,
             'dimensiones' => $dimensiones,
             'reportar' => $reportar,
+            'edicion' => ($this->get('request')->query->get('edicion')) ? true : false, 
         ));
     }
 

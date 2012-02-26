@@ -58,7 +58,7 @@
 							<div class="caja_opciones_lugar_imagen">
 								{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}
 									<div class="opciones_lugar_imagen">
-										<a class="editar_lugar_imagen" href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'usuario.fotos.lista.editar'|trans}}</a>
+										<a class="editar_lugar_imagen" href="{{path('_fotoGaleria', {'slug' : imagen.lugar.slug, 'id' : imagen.id, 'edicion' : true})}}">{{'usuario.fotos.lista.editar'|trans}}</a>
 										<a class="borrar_lugar_imagen" href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id, 'redirect' : 'usuario'})}}">{{'usuario.fotos.lista.borrar'|trans}}</a>
 									</div>
 								{% endif %}

@@ -23,32 +23,22 @@ $(function(){
 	$('.foto_galeria').live("click", function(e){
 		$('.siguiente a').click();
 		return false;
-	});		
+	});	
 
-	$(document).keydown(function(e){
-		e.preventDefault();
-		// Tecla izquierda
-	    if (e.which == 37) {
-	    	$('a .anterior').click();
-	    }
-	    // Tecla derecha
-	    else if(e.which == 39) {
-	    	$('a .siguiente').click();
-	    }
-	    return false;
-	});
-
-	$('.editar_foto').click(function(e){
-        e.preventDefault(); 
-        $descripcion = $('.descripcion_foto');
-        console.log($descripcion)
+	$('.editar_foto').live('click', function(e){		
+        e.preventDefault();
+        var $this = $(this);
+        var $descripcion = $('.descripcion_foto');
         $.ajax({
-            type:'post',
+            type:'get',
             url: WEBROOT+'lugar/'+$descripcion.attr('data-slug')+'/galeria/'+$descripcion.attr('data-id')+'/editar',
             success: function(data){
-                $descripcion.find('.container').fadeOut(200, function(){
+            	// Descripción reemplazada por form
+                $descripcion.find('.container').fadeOut(100, function(){
                     $descripcion.append(data)
-                })
+                });
+                // Inhabilitamos el botón de editar
+                $this.fadeOut(100);
             }
         }); 
     });
@@ -56,10 +46,44 @@ $(function(){
      $('.cancelar_edicion').live('click', function(e){
      	e.preventDefault();
         $('.descripcion_foto form').fadeOut(function(){
+        	// Desaparece form, aparece descripción, y habilitamos botón de editar
             $(this).parent().find('.container').show();
             $(this).remove();
+            $('.editar_foto').show();
         })
     });
+
+    $('.editar_submit').live('click', function(e){
+    	e.preventDefault();
+    	var $this = $(this);
+        var $descripcion = $('.descripcion_foto');
+        var $form = $('.descripcion_foto form');
+        $.ajax({
+            type:'post',
+            data: $form.serializeArray(),
+            url: WEBROOT+'lugar/'+$descripcion.attr('data-slug')+'/galeria/'+$descripcion.attr('data-id')+'/editar',
+            success: function(data){
+            	$form.fadeOut(function(){
+		        	// Desaparece form, aparece descripción, y habilitamos botón de editar
+		            $(this).parent().find('.container').html(data).show();
+		            $(this).remove();
+		            $('.editar_foto').show();
+		        })
+            }
+        }); 
+
+    });
+
+    $(document).keydown(function(e){
+		// Tecla izquierda
+	    if (e.which == 37 && e.target.nodeName == 'BODY') {
+	    	$('a .anterior').click();
+	    }
+	    // Tecla derecha
+	    else if(e.which == 39 && e.target.nodeName == 'BODY') {
+	    	$('a .siguiente').click();
+	    }
+	});
 
 	/* Paginación fotos de lugar */
 
