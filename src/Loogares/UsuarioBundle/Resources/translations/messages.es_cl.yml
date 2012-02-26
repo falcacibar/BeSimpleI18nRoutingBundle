@@ -23,6 +23,7 @@ usuario:
 
     registro:
         mensaje: Escribe recomendaciones de lugares que conoces en tu ciudad y semanalmente gana invitaciones a restaurantes, entradas al cine, a conciertos, fiestas y más.
+        title: Regístrate en Loogares.com
         titulo: ¡O regístrate con tu E-mail en Loogares.com!
         form:
             nombre: Nombre
@@ -209,8 +210,8 @@ usuario:
     errors:
         login:
             completo: Debes completar ambos campos
-            password: Los campos de E-mail y password no coinciden. Por favor, corrígelos.
-            emptyPassword: El campo password es obligatorio. Por favor, complétalo.
+            password: Los campos de E-mail y Password no coinciden. Por favor, corrígelos.
+            emptyPassword: El campo Password es obligatorio. Por favor, complétalo.
             noActivo: La cuenta de usuario no se encuentra activa.
         validacion:
             nombre:
