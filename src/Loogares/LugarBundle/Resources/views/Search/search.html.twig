@@ -12,21 +12,22 @@
 
 	<script>
     var $sidebar   = $(".sidebar_busqueda"),
-    $window    = $(window),
-    sideBarOffset     = $sidebar.offset(),
-    ultimaBusqueda = $('.footer').offset().top - 360;
-    topPadding = 60;
+	    $window    = $(window),
+	    topPadding = 60,
+		sideBarOffset     = $sidebar.offset(),
+		compensation = ($('.mensaje_exito').length > 0)?69:0;
+    	
 
     $window.scroll(function() {
-    	sideBarOffset     = $sidebar.offset()
-    	agregarLugar = $('.agrega_lugar').offset().top - 1100;
-    	if($window.scrollTop() >= sideBarOffset.top && agregarLugar >= $window.scrollTop()){
+    	margin = $(document).height() - 1541 - compensation;
+
+    	if($window.scrollTop() >= sideBarOffset.top && margin + 400 >= $window.scrollTop()){
 		    $sidebar.stop().animate({
 	            top: $window.scrollTop() - sideBarOffset.top + topPadding
 	        });
-        }else if(agregarLugar + 800 <= $window.scrollTop()){
+        }else if(margin - 200 <= $window.scrollTop()){
 		    $sidebar.stop().animate({
-	            top: agregarLugar
+	            top: margin
 	        });
         }else{
 		    $sidebar.stop().animate({
@@ -463,9 +464,6 @@
 		            </div>
 		        </div>
 		        <div class="banner_300x250">
-		            <script type='text/javascript'>
-		                GA_googleFillSlot("{{ad('static','details','top','medium')}}");
-		            </script>
 		        </div>
 		    </div>
 
@@ -482,8 +480,7 @@
         </div>
 
 		<div class="agrega_lugar" style="clear:both; background: #303">
-			<p>¿No encontraste el Lugar que buscabas?
-			¡Entonces agrégalo y sé el primero en recomendarlo!</p><a href="{{ path('_agregar') }}">Boton</a>
+			<a href="{{ path('_agregar') }}">Boton</a>
 		</div>
 
 	</div>
