@@ -549,9 +549,9 @@ class LugarController extends Controller{
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }else{
                     if($esEdicionDeUsuario == true){
-                        $this->get('session')->setFlash('lugar_flash','Wena campeon, edito el lugar.');
+                        $this->get('session')->setFlash('lugar_flash','¡Gracias [[NOMBRE DE USUARIO]] por tu ayuda! No sabríamos qué hacer sin ti. La información quedará bajo revisión antes de ser publicada.');
                     }else{
-                        $this->get('session')->setFlash('lugar_flash','Wena campeon, agrego el lugar.');
+                        $this->get('session')->setFlash('lugar_flash','¡Qué grande, [[NOMBRE DE USUARIO]]! Si tuviéramos medallas te daríamos una. El lugar que agregaste quedará temporalmente en revisión.');
                     }
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }
@@ -1185,7 +1185,7 @@ class LugarController extends Controller{
                 }
 
                 //SET FLASH AND REDIRECTTT
-                $this->get('session')->setFlash('lugar_flash','Wena campeon, recomendo el lugar.');
+                $this->get('session')->setFlash('lugar_flash','¡Eres el mejor, [[NOMBRE DE USUARIO]]! Sigue recomendando y te convertirás en nuestro Loogareño favorito.');
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
 
@@ -1212,7 +1212,7 @@ class LugarController extends Controller{
             }
 
             $em->flush();
-            $this->get('session')->setFlash('lugar_flash','Wena campeon, borro su recomendacion :(.');
+            $this->get('session')->setFlash('lugar_flash','Acabas de borrar tu recomendación, prueba escribiendo una nueva(.');
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
         }
     }
@@ -1225,7 +1225,7 @@ class LugarController extends Controller{
         $lugar = $lr->findOneBySlug($slug);
 
         if($lugar == null)
-            throw $this->createNotFoundException('El lugar con slug '.$slug. ' no existe.');
+            throw $this->createNotFoundException('El lugar '.$slug. ' no existe.');
 
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
