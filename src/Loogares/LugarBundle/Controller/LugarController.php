@@ -30,6 +30,9 @@ use Loogares\AdminBundle\Entity\TempCaracteristicaLugar;
 use Loogares\AdminBundle\Entity\TempHorario;
 use Loogares\AdminBundle\Entity\TempSubcategoriaLugar;
 
+use Loogares\ExtraBundle\Entity\ActividadReciente;
+
+
 
 
 class LugarController extends Controller{
@@ -476,6 +479,26 @@ class LugarController extends Controller{
 
                 $em->flush();
 
+                if(!$esEdicionDeUsuario && !$rolAdmin) {
+                    // Si el lugar es nuevo y no es agregado por administrador, se agrega a actividad reciente
+                    $actividad = new ActividadReciente();
+                    $actividad->setEntidad('Loogares\LugarBundle\Entity\Lugar');
+                    $actividad->setEntidadId($lugarManipulado->getId());
+                    $actividad->setFecha($lugarManipulado->getFechaAgregado());
+                    $actividad->setUsuario($lugarManipulado->getUsuario());
+                    $actividad->setCiudad($lugarManipulado->getComuna()->getCiudad());
+
+                    $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                        ->findOneByNombre('agregar');
+                    $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
+                                          ->findOneByNombre('Aprobado');
+                    $actividad->setTipoActividadReciente($tipoActividad);
+                    $actividad->setEstado($estadoActividad);
+
+                    $em->persist($actividad);
+                    $em->flush();
+                }
+
                 if( isset($_POST['texto']) && $_POST['texto'] != '' && !preg_match('/^¡Este es tu espacio!/', $_POST['texto'])){
                     //CURL MAGIC
 
@@ -759,6 +782,24 @@ class LugarController extends Controller{
                         $em->flush(); 
 
                         $newImagen->setFechaCreacion(new \DateTime());
+
+                        // Agregamos evento a la actividad reciente del usuario
+                        $actividad = new ActividadReciente();
+                        $actividad->setEntidad('Loogares\LugarBundle\Entity\ImagenLugar');
+                        $actividad->setEntidadId($newImagen->getId());
+                        $actividad->setFecha($newImagen->getFechaCreacion());
+                        $actividad->setUsuario($newImagen->getUsuario());
+                        $actividad->setCiudad($lugar->getComuna()->getCiudad());
+
+                        $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                            ->findOneByNombre('agregar');
+                        $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
+                                              ->findOneByNombre('Aprobado');
+                        $actividad->setTipoActividadReciente($tipoActividad);
+                        $actividad->setEstado($estadoActividad);
+
+                        $em->persist($actividad);
+
                         $em->flush();
 
                         if(!isset($imagen->url))
@@ -1056,6 +1097,7 @@ class LugarController extends Controller{
             $recomendacion->setFechaUltimaModificacion(new \DateTime());
             $lugar->setFechaUltimaRecomendacion($recomendacion->getFechaCreacion());
 
+
             // Sacamos la recomendación justo anterior a ésta última (para enviar mail)
             $ultimaRecomendacion = $rr->getUltimaRecomendacion($lugar->getId());
 
@@ -1107,6 +1149,31 @@ class LugarController extends Controller{
 
             $em->flush();
             $lr->actualizarPromedios($lugar->getSlug());
+
+            // Agregamos a la actividad reciente            
+            $actividad = new ActividadReciente();
+            $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Recomendacion');
+            $actividad->setEntidadId($recomendacion->getId());
+            $actividad->setFecha($recomendacion->getFechaCreacion());
+            $actividad->setUsuario($recomendacion->getUsuario());
+            $actividad->setCiudad($lugar->getComuna()->getCiudad());            
+            $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
+                                  ->findOneByNombre('Aprobado');            
+            $actividad->setEstado($estadoActividad);
+
+            if($nueva) {
+                $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                    ->findOneByNombre('agregar');
+                $actividad->setTipoActividadReciente($tipoActividad);
+            }
+            else {
+                $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                    ->findOneByNombre('editar');
+                $actividad->setTipoActividadReciente($tipoActividad);
+            }
+
+            $em->persist($actividad);
+            $em->flush();
 
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '') {

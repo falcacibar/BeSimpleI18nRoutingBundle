@@ -93,6 +93,7 @@ class DefaultController extends Controller
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresLugarBundle:Categoria");
+        $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         // Cantidad de premios regalados (totales)
         $q = $em->createQuery("SELECT count(cu.id)
@@ -148,6 +149,26 @@ class DefaultController extends Controller
             $preview = $recomendacionDelDia->getTexto();
         }
 
+        // Actividad reciente por ciudad
+        $actividad = $ar->getActividadReciente(10, $ciudad['id'], null, null, 0);
+
+        foreach($actividad as $a) {
+            $r = $em->getRepository($a->getEntidad());
+            $entidad = $r->find($a->getEntidadId());
+            if($a->getEntidad() == 'Loogares\UsuarioBundle\Entity\Recomendacion') {
+                $preview = '';
+                if(strlen($entidad->getTexto()) > 160) {
+                    $preview = substr($entidad->getTexto(),0,160).'...';
+                }
+                else {
+                    $preview = $entidad->getTexto();
+                }
+                $entidad->preview = $preview;
+            }
+
+            $a->ent = $entidad;
+        }
+
         // Últimos conectados
         $ultimosConectados = $ur->getUltimosConectados(0.02);
 
@@ -160,6 +181,7 @@ class DefaultController extends Controller
         $home['previewRecDia'] = $preview;
         $home['ultimosConectados'] = $ultimosConectados;
         $home['categorias'] = $categorias;
+        $home['actividad'] = $actividad;
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,     

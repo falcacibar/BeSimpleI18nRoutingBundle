@@ -1,0 +1,10 @@
+Loogares\ExtraBundle\Entity\TipoActividadReciente:
+    type: entity
+    table: tipo_actividad_reciente
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        nombre:
+            type: string

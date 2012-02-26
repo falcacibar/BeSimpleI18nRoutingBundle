@@ -1,5 +1,5 @@
 $(function(){
-    $('.estrellas_recDia').each(function(i){
+    $('.estrellas_recDia, .estrellas_actividad').each(function(i){
 		var estrellas = $(this).attr('data-stars');
 		estrellasRecomendacion(estrellas, $(this));
 	});

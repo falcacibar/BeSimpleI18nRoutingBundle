@@ -1,0 +1,24 @@
+Loogares\ExtraBundle\Entity\ActividadReciente:
+    type: entity
+    repositoryClass: Loogares\ExtraBundle\Repository\ActividadRecienteRepository
+    table: actividad_reciente
+    manyToOne:
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+        ciudad:
+            targetEntity: Loogares\ExtraBundle\Entity\Ciudad
+        estado:
+            targetEntity: Loogares\ExtraBundle\Entity\Estado
+        tipo_actividad_reciente:
+            targetEntity: Loogares\ExtraBundle\Entity\TipoActividadReciente
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        entidad:
+            type: string
+        entidad_id:
+            type: integer
+        fecha:
+            type: datetime

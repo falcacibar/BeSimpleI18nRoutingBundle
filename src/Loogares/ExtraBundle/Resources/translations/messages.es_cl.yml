@@ -27,6 +27,15 @@ extra:
             tip: Corresponde a las recomendaciones más útiles según la evaluación de los Loogareños. A la vez, consideramos otros factores, como su contenido, la originalidad y que esté bien escrita. <br /><br /> Estas recomendaciones fijan la pauta para las demás en el sitio.
         modulo_ultimos_conectados:
             titulo: Últimos Loogareños Conectados
+        actividad_reciente:
+            titulo: Actividad Reciente en
+            agregar:
+                foto: agregó una nueva %open_tag%foto%close_tag% en
+                recomendacion: escribió una %open_tag%recomendación%close_tag% con %estrellas% en
+                util: considera útil la %open_tag%recomendación%close_tag% de %usuario% en
+                lugar: agregó un nuevo lugar
+            editar:
+                recomendacion: editó su %open_tag%recomendación%close_tag% con %estrellas% en
 
     modulo_pedidos_online:
         titulo: Restaurantes con descuentos en Pedidos Online

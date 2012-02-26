@@ -288,6 +288,7 @@ $rojo: #F72121
         color: $gris_666
         float: left
         width: 638px
+        margin: 0 0 30px
 
         .titulo_promociones
             border-bottom: 1px solid $gris_f6f
@@ -367,6 +368,50 @@ $rojo: #F72121
 
         .ultimo_pedido
             border: none
+
+    /* Actividad reciente */
+    .actividad_reciente
+        border: 1px solid $gris_f6f
+        float: left
+        width: 638px
+        color: $gris_666
+        margin: 0 0 30px
+
+        h3
+            padding: 10px
+            border-bottom: 1px solid $gris_f6f
+
+        ul
+            li
+                padding: 10px
+                float: left
+                border-bottom: 1px solid $gris_f6f
+                width: 618px
+
+                &.last_one
+                    border-bottom: none
+
+                .link_usuario
+                    float: left
+
+                .contenido_actividad
+                    float: left
+                    margin: 0 0 0 10px
+
+                    span
+                        font-size: 11px
+                    p
+                        margin: 5px 0 0 0
+                        
+
+                        &.rec_actividad_preview
+                            font-size: 11px    
+                            width: 555px
+                        &.util_actividad
+                            width: 555px                        
+
+                .link_lugar
+                    float: right
 
 .sidebar_home
     float: left

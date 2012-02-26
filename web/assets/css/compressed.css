@@ -1915,7 +1915,8 @@ small {
   width: 640px;
   /* Concursos */
   /* Lugares recientemente recomendados */
-  /* Promociones en Pedidos Online */ }
+  /* Promociones en Pedidos Online */
+  /* Actividad reciente */ }
   .contenido_home .campanas_concursos {
     color: #666666;
     float: left;
@@ -2014,7 +2015,8 @@ small {
     border: 1px solid #f2f2f6;
     color: #666666;
     float: left;
-    width: 638px; }
+    width: 638px;
+    margin: 0 0 30px; }
     .contenido_home .caja_promociones .titulo_promociones {
       border-bottom: 1px solid #f2f2f6;
       float: left;
@@ -2077,6 +2079,38 @@ small {
           width: 167px; }
     .contenido_home .caja_promociones .ultimo_pedido {
       border: none; }
+  .contenido_home .actividad_reciente {
+    border: 1px solid #f2f2f6;
+    float: left;
+    width: 638px;
+    color: #666666;
+    margin: 0 0 30px; }
+    .contenido_home .actividad_reciente h3 {
+      padding: 10px;
+      border-bottom: 1px solid #f2f2f6; }
+    .contenido_home .actividad_reciente ul li {
+      padding: 10px;
+      float: left;
+      border-bottom: 1px solid #f2f2f6;
+      width: 618px; }
+      .contenido_home .actividad_reciente ul li.last_one {
+        border-bottom: none; }
+      .contenido_home .actividad_reciente ul li .link_usuario {
+        float: left; }
+      .contenido_home .actividad_reciente ul li .contenido_actividad {
+        float: left;
+        margin: 0 0 0 10px; }
+        .contenido_home .actividad_reciente ul li .contenido_actividad span {
+          font-size: 11px; }
+        .contenido_home .actividad_reciente ul li .contenido_actividad p {
+          margin: 5px 0 0 0; }
+          .contenido_home .actividad_reciente ul li .contenido_actividad p.rec_actividad_preview {
+            font-size: 11px;
+            width: 555px; }
+          .contenido_home .actividad_reciente ul li .contenido_actividad p.util_actividad {
+            width: 555px; }
+      .contenido_home .actividad_reciente ul li .link_lugar {
+        float: right; }
 
 .sidebar_home {
   float: left;

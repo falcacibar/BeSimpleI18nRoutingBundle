@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Loogares\UsuarioBundle\Entity\Util;
 use Loogares\UsuarioBundle\Entity\AccionUsuario;
 
+use Loogares\ExtraBundle\Entity\ActividadReciente;
+
 
 class AjaxController extends Controller
 {
@@ -189,6 +191,25 @@ class AjaxController extends Controller
           $util->setFecha(new \DateTime());
 
           $em->persist($util);
+          $em->flush();
+
+          // Agregamos a Actividad Reciente
+          $actividad = new ActividadReciente();
+          $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Util');
+          $actividad->setEntidadId($util->getId());
+          $actividad->setFecha($util->getFecha());
+          $actividad->setUsuario($util->getUsuario());
+          $actividad->setCiudad($util->getRecomendacion()->getLugar()->getComuna()->getCiudad());
+
+          $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                              ->findOneByNombre('agregar');
+          $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
+                                ->findOneByNombre('Aprobado');
+          $actividad->setTipoActividadReciente($tipoActividad);
+          $actividad->setEstado($estadoActividad);
+
+          $em->persist($actividad);       
+
         }else{
           $em->remove($utilResult[0]);
         }
