@@ -1,4 +1,10 @@
 # Locale 'es' UsuarioBundle
+validacion_usuario:
+    titulo: Necesitamos que ingreses información personal
+    texto: Hemos detectado que hay cierta información que aún no has ingresado. Queremos hacer un esfuerzo por conocer más de ti y así poder brindarte el mejor servicio.
+    nombre: Nombre
+    apellido: Apellido
+
 usuario:
     login:
         titulo: Entra a Loogares.com y empieza a recomendar
@@ -173,6 +179,7 @@ usuario:
         titulo: ¿Olvidaste tu password?... ¡Pero cómo!
         subtitulo: Mándanos tu dirección de E-mail con la que entras a Loogares.com y te enviaremos un correo con un link para que resetees tu password. ¡Las pasas para la memoria las compras tú!
         form:
+            e_mail: E-mail
             mail: Debes ingresar tu E-mail
 
         flash:

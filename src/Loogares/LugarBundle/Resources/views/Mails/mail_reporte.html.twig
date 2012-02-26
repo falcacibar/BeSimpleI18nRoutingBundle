@@ -40,27 +40,27 @@
                             <a href="{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}">{{url('_recomendacion',{'slug' : mail.reporte.recomendacion.lugar.slug, 'usuarioSlug' : mail.reporte.recomendacion.usuario.slug}) }}</a>
                         {% endif %}
                     {% else %}
-                        <strong>Nombre</strong>
+                        <strong>{{'reportes.mail.nombre'|trans}}</strong>
                         <br/>
                         {{mail.owner.nombre}} {{mail.owner.apellido}}
                         <br/>
                         <br/>
-                        <strong>E-mail</strong>
+                        <strong>{{'reportes.mail.e_mail'|trans}}</strong>
                         <br/>
                         {{mail.owner.mail}}
                         <br/>
                         <br/>
-                        <strong>Teléfono</strong>
+                        <strong>{{'reportes.mail.telefono'|trans}}</strong>
                         <br/>
                         {{mail.owner.telefono}}
                         <br/>
                         <br/>
-                        <strong>¿Cómo comprobar que eres dueño?</strong>
+                        <strong>{{'reportes.mail.comprobar_dueno'|trans}}</strong>
                         <br/>
                         {{mail.owner.texto}}
                         <br/>
                         <br/>
-                        <strong>Lugar</strong>
+                        <strong>{{'reportes.mail.nombre_lugar'|trans}}</strong>
                         <br/>
                         {{mail.owner.lugar.nombre}} (ID: {{mail.owner.lugar.id}})
                         <br />

@@ -26,6 +26,16 @@ lugar:
     buscar:
         titulo: Resultados para: %buscar%
         total_recomendaciones: recomendación|recomendaciones
+        resultado_busqueda: Resultados de
+        en: en
+        sectores: Sectores
+        comunas: Comunas
+        zonas: Zonas
+        categorias: Categorías
+        subcategorias: Subcategorías
+        precios: Precios
+        caracteristicas: Características
+        ver_todas: Ver Todas
 
     ficha:
         pedidos:
@@ -182,6 +192,7 @@ lugar:
                 asunto: ¡Acaban de escribir sobre %lugar% en Loogares.com!
                 titulo: ¡Hola!
                 subtitulo: Te contamos que una persona acaba de escribir una recomendación sobre %lugar% en %loogares%. ¡Léela a continuación!
+                leer_mas: Leer más »
                 subsubtitulo: ¿Quieres que más gente conozca %lugar% en Loogares.com?
                 primero: Loogares.com es una guía online de recomendaciones de lugares de ocio y turismo en la ciudad, donde miles de nuestros usuarios "Loogareños" diariamente comparten sus experiencias escribiendo recomendaciones de lugares que conocen.
                 segundo: Ellos seguramente tienen mucho que contar acerca de tu negocio, por eso te proponemos una interesante alianza comercial para que nuestros Loogareños escriban más recomendaciones en %lugar% y seas más visible en Loogares.com. Te invitamos a que hagas click sobre el botón y en menos de 48 horas te enviaremos nuestra propuesta.
@@ -281,6 +292,10 @@ reportes:
         recomendacion:
             asunto: Reporte: Recomendación de
             titulo: Recomendación
-
         usuario: Usuario
         observacion: Observación
+        nombre: Nombre
+        e_mail: E-mail
+        telefono: Teléfono
+        comprobar_dueno: ¿Cómo comprobar que eres dueño?
+        nombre_lugar: Lugar

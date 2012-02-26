@@ -68,13 +68,13 @@
 		<div class="resultados">
 
 			<h1 class="titulo_busqueda">
-				Resultados de {{term}} 
+				{{'lugar.buscar.resultado_busqueda'|trans}} {{term}} 
 				 {% if subcategoria != null %}
-                 	en {{subcategoria.nombre}}
+                 	{{'lugar.buscar.en'|trans}} {{subcategoria.nombre}}
                  {% elseif categoria != null %}
-                 	en {{categoria.nombre}}
+                 	{{'lugar.buscar.en'|trans}} {{categoria.nombre}}
                  {% endif %}
-				en {{ciudad.nombre}}			
+				{{'lugar.buscar.en'|trans}} {{ciudad.nombre}}			
 			</h1>
 			
 			<p class="breadcrumb">
@@ -96,7 +96,7 @@
 				<div class="qtip_zonas qtip_filtros" rel="filtros_zonas">
 					<span class="close_qtip"></span>
 					{% if results.totalPorSectores[0] is defined %}
-						<p>Sectores</p>
+						<p>{{'lugar.buscar.sectores'|trans}}</p>
 						<ul>
 							{% for sector in results.totalPorSectores %}
 								<li><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug })) }}">{{sector.nombre}} ({{ sector.total }})</a></li>							
@@ -106,7 +106,7 @@
 
 					{% if results.totalPorComunas[0] is defined %}
 						<br/><br/>
-						<p>Comunas</p>
+						<p>{{'lugar.buscar.comunas'|trans}}</p>
 						<ul>
 							{% for comuna in results.totalPorComunas %}
 								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>
@@ -155,10 +155,10 @@
 
 			<div class="filtros_zonas filtros">
 				<div class="filtros_header">
-					<span class="filtros_titulo">Zonas</span>
+					<span class="filtros_titulo">{{'lugar.buscar.zonas'|trans}}</span>
 					{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
 						<div class="ver_mas">
-							<span class="filtros_expandir">Ver Todas</span>
+							<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 							<span class="filtros_ver_mas_icono"></span>
 						</div>
 					{% endif %}					
@@ -191,10 +191,10 @@
 			{% if results.totalPorCategoria[0] is defined %}
 				<div class="filtros_categorias filtros">
 					<div class="filtros_header">
-						<span class="filtros_titulo">Categorias</span>
+						<span class="filtros_titulo">{{'lugar.buscar.categorias'|trans}}</span>
 						{% if results.totalPorCategoria[0] is defined %} 
 							<div class="ver_mas">
-								<span class="filtros_expandir">Ver Todas</span>
+								<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 								<span class="filtros_ver_mas_icono"></span>
 							</div>
 						{% endif %}
@@ -214,10 +214,10 @@
 			{% if results.totalPorCategoria[0] is not defined %}
 				<div class="filtros_subcategorias filtros">
 					<div class="filtros_header">
-						<span class="filtros_titulo">Subcategorias</span>
+						<span class="filtros_titulo">{{'lugar.buscar.subcategorias'|trans}}</span>
 						{% if results.totalPorSubcategoria[0] is defined %}
 							<div class="ver_mas">
-								<span class="filtros_expandir">Ver Todas</span>
+								<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 								<span class="filtros_ver_mas_icono"></span>
 							</div>
 						{% endif %}
@@ -232,14 +232,14 @@
 							{% endfor %}
 						</ul>
 						{% else %}
-							No resultados
+							
 						{% endif %}
 					</div>
 				</div>
 
 				<div class="filtros_precios filtros">
 					<div class="filtros_header">
-						<span class="filtros_titulo">Precios</span>
+						<span class="filtros_titulo">{{'lugar.buscar.precios'|trans}}</span>
 						<span class="explicacion_precio tips_icon"></span>
 					</div>
 					<div class="resultados_filtros">
@@ -283,10 +283,10 @@
 				{% if results.totalPorCaracteristica[0] is defined %}
 					<div class="filtros_caracteristicas filtros">
 						<div class="filtros_header">
-							<span class="filtros_titulo">Caracteristicas</span>
+							<span class="filtros_titulo">{{'lugar.buscar.caracteristicas'|trans}}</span>
 							{% if results.totalPorCaracteristica[0] is defined %}
 								<div class="ver_mas">
-									<span class="filtros_expandir">Ver Todas</span>
+									<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 									<span class="filtros_ver_mas_icono"></span>
 								</div>
 							{% endif %}
@@ -472,9 +472,9 @@
 		</div>
 
         <div class="paginacion_listado_lugares">
-            <p><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong>
+            <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{total}}</strong>
             {% if paginacion.totalPaginas != 1 %}
-                 | Ir a la página
+                 | {{'paginacion.ir_a'|trans}}
                 <ul>
                     {{ paginacion.paginacion | raw }}
                 </ul>

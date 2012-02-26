@@ -1,7 +1,7 @@
 $(function(){
 	/* Detalle foto */
 
-	$('.borrar-foto-lugar').live("click", function(){
+	$('.borrar_foto').live("click", function(){
 		if(!confirm('¿Estás seguro de querer borrar tu foto?'))
 			return false;
 	});
@@ -37,6 +37,29 @@ $(function(){
 	    }
 	    return false;
 	});
+
+	$('.editar_foto').click(function(e){
+        e.preventDefault(); 
+        $descripcion = $('.descripcion_foto');
+        console.log($descripcion)
+        $.ajax({
+            type:'post',
+            url: WEBROOT+'lugar/'+$descripcion.attr('data-slug')+'/galeria/'+$descripcion.attr('data-id')+'/editar',
+            success: function(data){
+                $descripcion.find('.container').fadeOut(200, function(){
+                    $descripcion.append(data)
+                })
+            }
+        }); 
+    });
+
+     $('.cancelar_edicion').live('click', function(e){
+     	e.preventDefault();
+        $('.descripcion_foto form').fadeOut(function(){
+            $(this).parent().find('.container').show();
+            $(this).remove();
+        })
+    });
 
 	/* Paginación fotos de lugar */
 

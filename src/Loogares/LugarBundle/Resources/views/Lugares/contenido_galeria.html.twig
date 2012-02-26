@@ -24,7 +24,8 @@
 		{{-imagen.fechaCreacion | date('d/m/Y')-}}
 	</span>
 
-	<span class="descripcion_foto">
+	<span class="descripcion_foto" data-slug="{{imagen.lugar.slug}}" data-id="{{imagen.id}}">
+		<span class="container">
 		{% if imagen.tituloEnlace is not empty %}
 			{% if imagen.esEnlace %}
 				<a href="{{imagen.tituloEnlace}}" target="blank">{{imagen.tituloEnlace}}</a>
@@ -32,6 +33,7 @@
 				{{imagen.tituloEnlace}}
 			{% endif %}
 		{% endif %}
+		</span>
 	</span>
 
 	<ul>
@@ -40,9 +42,9 @@
 		<li class="opciones_foto">			
 			{% if imagen.loggeadoCorrecto %}
 				<a class="editar_foto" href="{{path('_editarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id })}}">{{'fotos.galeria.editar'|trans}}</a>
-				<a class="borrar_foto" href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}" class="borrar-foto-lugar">{{'fotos.galeria.borrar'|trans}}</a>
+				<a class="borrar_foto" href="{{path('_eliminarFotoLugar', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'fotos.galeria.borrar'|trans}}</a>
 			{% elseif reportar == 1 %}
-				<a class="borrar_foto" href="{{path('_reportarFoto', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'fotos.galeria.reportar'|trans}}</a>
+				<a class="reportar_foto" href="{{path('_reportarFoto', {'slug' : imagen.lugar.slug, 'id' : imagen.id})}}">{{'fotos.galeria.reportar'|trans}}</a>
 			{% endif %}
 		</li>
 	</ul>
