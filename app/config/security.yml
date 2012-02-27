@@ -1,4 +1,6 @@
 security:
+    factories:
+        - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
     encoders:        
         Loogares\UsuarioBundle\Entity\Usuario:
             algorithm: md5
@@ -37,9 +39,9 @@ security:
             remember_me:
                 key: remember
                 lifetime: 1209600
-#            fos_facebook:
- #               app_url: "http://apps.facebook.com/Loogares.com/"
-  #              server_url: "http://localhost/loogares/app_dev.php/" 
+            fos_facebook:
+                app_url: "http://new.loogares.com"
+                server_url: "http://new.loogares.com" 
     access_control:
         - { path: /agregar, roles: ROLE_USER }
         - { path: /editar, roles: ROLE_USER }

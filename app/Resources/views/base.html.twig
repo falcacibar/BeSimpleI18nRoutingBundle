@@ -18,7 +18,7 @@
     </head>
 
     <body>
-        {#{{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}#}
+        {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
 
         {# Ciudad por default si entramos por primera vez a una página que no sea el home #}
         {% render "LoogaresExtraBundle:Default:locale" with {'slug' : 'santiago-de-chile', 'start': true} %}
