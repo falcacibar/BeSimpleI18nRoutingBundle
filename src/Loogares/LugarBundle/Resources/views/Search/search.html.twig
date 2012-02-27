@@ -1,6 +1,12 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{'lugar.buscar.titulo'|trans({'%buscar%' : term})}} | {{parent()}}{% endblock %}
+{% block title %}
+	{% if noCategorias == true %}
+		Categoria {{categoria.nombre}} | {{parent()}}
+	{% else %}
+		{{'lugar.buscar.titulo'|trans({'%buscar%' : term})}} | {{parent()}}
+	{% endif %}
+{% endblock %}
 
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
@@ -35,22 +41,6 @@
 	        });
         }
     });
-
-    /*$window.scroll(function() {
-        if ($window.scrollTop() >= offset.top && $window.scrollTop() <= ultimaBusqueda + topPadding) {
-            $sidebar.stop().animate({
-                top: $window.scrollTop() - offset.top + topPadding
-            });
-        }else if($window.scrollTop() >= ultimaBusqueda && ultimaBusqueda <= $window.scrollTop()){
-        	$sidebar.stop().animate({
-                top: ultimaBusqueda - 360
-            });
-        }else{
-            $sidebar.stop().animate({
-                top: 0
-            });
-        }
-    });*/
 	</script>
 {% endblock %}
 
@@ -69,13 +59,17 @@
 		<div class="resultados">
 
 			<h1 class="titulo_busqueda">
+				{% if noCategorias == true %}
+					Categoria {{categoria.nombre}}
+				{% else %}
 				{{'lugar.buscar.resultado_busqueda'|trans}} {{term}} 
 				 {% if subcategoria != null %}
                  	{{'lugar.buscar.en'|trans}} {{subcategoria.nombre}}
                  {% elseif categoria != null %}
                  	{{'lugar.buscar.en'|trans}} {{categoria.nombre}}
                  {% endif %}
-				{{'lugar.buscar.en'|trans}} {{ciudad.nombre}}			
+				{{'lugar.buscar.en'|trans}} {{ciudad.nombre}}
+				{% endif %}	
 			</h1>
 			
 			<p class="breadcrumb">
@@ -311,6 +305,7 @@
 			        <li>
 			            <strong>{{'general.terminos.ordenar_por'|trans}}: </strong>
 			        </li>
+			        {% if noCategorias == false %}
 			        <li>
 			            {% if query.orden is not defined or query.orden == 'relevantes' %}
 			                <strong>{{'general.terminos.mas_relevantes'|transchoice(2)}}</strong>
@@ -319,6 +314,7 @@
 			            {% endif %}	
 			        </li>
 			        <li>|</li>
+			        {% endif %}
 			        <li>
 			            {% if query.orden is defined and query.orden == 'recomendaciones' %}
 			                <strong>{{'general.terminos.mejor_evaluadas'|transchoice(2)}}</strong>
@@ -340,7 +336,7 @@
 			            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
 			                <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'ultima-recomendacion' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
+			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'ultimas_recomendaciones' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>
@@ -424,7 +420,7 @@
 								<img src="{{ ('assets/images/usuarios/'~lugar.usuario_imagen) | apply_filter('tiny_usuario')}}" />
 								<span>
 									<strong>
-										{{lugar.fecha_ultima_recomendacion|date('y/m/d') }} - 
+										{{lugar.fecha_ultima_recomendacion|date('d/m/y') }} - 
 										{% if lugar.usuario_nombre != '' %}
 											<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_nombre}} {{lugar.usuario_apellido}}</a>
 										{% else %}
