@@ -121,10 +121,14 @@ $(function(){
 			$(this).html('Diciembre');
 	});
 
-	$('.estrella_lugar_recomendacion').each(function(i){
+	$('.estrella_lugar_recomendacion, .estrellas_actividad').each(function(i){
 		var estrellas = $(this).attr('data-stars');
 		estrellasLugares(estrellas, $(this));
 	});
+
+    $('.caja_actividad_usuario form select').change(function(){
+        $(this).parent().submit();
+    });
 });	
 
 function estrellasLugares(estrellas, $this){

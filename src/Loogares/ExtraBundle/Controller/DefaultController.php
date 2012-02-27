@@ -204,7 +204,7 @@ class DefaultController extends Controller
         // Actividad reciente por ciudad
         $actividad = $ar->getActividadReciente($ppag, $ciudad['id'], null, ($filtro != 'todo') ? $filtro : null, $offset);
 
-        $totalActividad = $ar->getTotalActividadCiudad($ciudad['id'], ($filtro != 'todo') ? $filtro : null);
+        $totalActividad = $ar->getTotalActividad($ciudad['id'], null, ($filtro != 'todo') ? $filtro : null);
 
         foreach($actividad as $a) {
             $r = $em->getRepository($a->getEntidad());

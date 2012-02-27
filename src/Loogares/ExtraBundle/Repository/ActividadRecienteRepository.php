@@ -45,10 +45,15 @@ class ActividadRecienteRepository extends EntityRepository
         return $q->getResult();
 	}
 
-	public function getTotalActividadCiudad($ciudad, $entity=null) {
+	public function getTotalActividad($ciudad=null, $usuario=null, $entity=null) {
 		$em = $this->getEntityManager();
 
 		$where = '';
+		if($ciudad != null)
+        	$where = ' WHERE ar.ciudad = '.$ciudad;
+        else if($usuario != null)
+        	$where = ' WHERE ar.usuario = '.$usuario;
+
 		if($entity != null) {
 			if($entity == 'recomendaciones')
 				$entity = "Loogares\UsuarioBundle\Entity\Recomendacion";
@@ -59,14 +64,12 @@ class ActividadRecienteRepository extends EntityRepository
 			else if($entity == 'utiles')
 				$entity = "Loogares\UsuarioBundle\Entity\Util";
 
-			$where = " AND ar.entidad ='".$entity."'";
+			$where .= " AND ar.entidad ='".$entity."'";
 		}
-     		
 		$q = $em->createQuery("SELECT count(ar.id)
-                               FROM Loogares\ExtraBundle\Entity\ActividadReciente ar
-                               WHERE ar.ciudad = ?1".
+                               FROM Loogares\ExtraBundle\Entity\ActividadReciente ar".
                                $where);
-        $q->setParameter(1, $ciudad);
         return $q->getSingleScalarResult();
 	}
+
 }

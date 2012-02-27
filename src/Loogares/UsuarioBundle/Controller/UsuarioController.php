@@ -22,9 +22,12 @@ class UsuarioController extends Controller
         return $this->forward('LoogaresUsuarioBundle:Usuario:actividad', array('param' => $param));          
     }
 
-    public function actividadAction($param) {
+    public function actividadAction(Request $request, $param) {
+        $fn = $this->get('fn');
+        $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
         
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -35,12 +38,46 @@ class UsuarioController extends Controller
             $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         else
             $loggeadoCorrecto = false;
+
+
+        $filtro = (!$request->query->get('filtro')) ? 'todo' : $request->query->get('filtro');
+        $pagina = (!$request->query->get('pagina')) ? 1 : $request->query->get('pagina');
+        $ppag = 20;
+        $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
+
+        // Actividad reciente del usuario
+        $actividad = $ar->getActividadReciente($ppag, null, $usuarioResult->getId(), ($filtro != 'todo') ? $filtro : null, $offset);
+
+        $totalActividad = $ar->getTotalActividad(null, $usuarioResult->getId(),($filtro != 'todo') ? $filtro : null);
+
+        foreach($actividad as $a) {
+            $r = $em->getRepository($a->getEntidad());
+            $entidad = $r->find($a->getEntidadId());
+            $a->ent = $entidad;
+        }
+        
         
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = 'actividad';
-
+        $data->actividad = $actividad;
+        $data->pagina = $pagina;
+        $data->totalPaginas = ($totalActividad > $ppag) ? ceil($totalActividad / $ppag) : 1;
+        $data->totalActividad = $totalActividad;
+        $data->offset = $offset;
+        $data->filtro = $filtro;
         $data->loggeadoCorrecto = $loggeadoCorrecto;
-        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data));  
+
+        $params = array(
+            'param' => $usuarioResult->getSlug(),
+            'filtro' => $filtro,
+        );
+
+        $paginacion = $fn->paginacion($totalActividad, $ppag, 'actividadUsuario', $params, $router );
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
+            'usuario' => $data,
+            'paginacion' => $paginacion,
+        ));  
     }
 
     public function recomendacionesAction($param, $orden=null, $pagina=null) {
