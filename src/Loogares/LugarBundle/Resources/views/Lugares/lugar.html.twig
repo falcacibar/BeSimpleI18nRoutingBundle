@@ -34,7 +34,7 @@
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
     <script src='../../assets/js/googleMapFicha.js'></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>   
-    <script src="{{asset('assets/js/shadowbox.min.js')}}"></script>    
+    <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>    
     <script src="{{asset('assets/js/lugar.js')}}"></script>
 
     <script>
@@ -49,6 +49,18 @@
     <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 <script>
     $(document).ready(function(){
+        $(".ver_video_lugar").fancybox({
+            maxWidth    : 600,
+            maxHeight   : 500,
+            fitToView   : false,
+            width       : '70%',
+            height      : '70%',
+            autoSize    : false,
+            closeClick  : false,
+            openEffect  : 'none',
+            closeEffect : 'none'
+        });
+
         $('.tooltip_estuve_alla, .tooltip_quiero_volver').qtip({
             show: {
                 solo: true,
@@ -248,6 +260,7 @@
 
 {% block stylesheets %}    
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen">
 {% endblock %}
 
 {% block content %}
@@ -300,7 +313,7 @@
                 <a href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.agregar_foto'|trans}}</a>
                 {% if lugar.videosLugar[0].url is defined %}
                     <div class="video_lugar">
-                        <a class="ver_video_lugar" href="#">{{'lugar.ficha.multimedia.video'|trans}}</a>
+                        <a class="fancybox.iframe ver_video_lugar" href="{{lugar.videosLugar[0].url}}">{{'lugar.ficha.multimedia.video'|trans}}</a>
                     </div>
                 {% endif %}
             </div>

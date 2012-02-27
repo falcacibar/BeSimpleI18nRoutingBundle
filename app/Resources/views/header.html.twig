@@ -15,7 +15,13 @@
 					<li>
 						<div class="usuario_login">
 							<img class="imagen_usuario_header" src="{{ ("assets/images/usuarios/"~app.security.token.user.imagenFull) | apply_filter('small_usuario') }}" width="25" height="25" />
-							<a class="nombre_usuario_header" href="{{path('showUsuario', { 'param': slug })}}">{{app.security.token.user.nombre}} {{app.security.token.user.apellido}}</a>
+							<a class="nombre_usuario_header" href="{{path('showUsuario', { 'param': slug })}}">
+								{% if app.security.token.user.nombre == '' %}
+									{{app.security.token.user.slug}}
+								{% else %}
+									{{app.security.token.user.nombre}} {{app.security.token.user.apellido}}
+								{% endif %}
+							</a>
 							<div class="flecha_ciudad"></div>
 							<ul>
 								<a href="{{path('editarCuentaUsuario', { 'param': slug })}}"><li><div class="header_editar_datos_usuario"></div><span class="con_icono">{{'general.header.usuario.editar'|trans}}</span></li></a>
