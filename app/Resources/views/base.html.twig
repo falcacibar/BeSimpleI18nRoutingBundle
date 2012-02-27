@@ -25,7 +25,7 @@
 
                   FB.Event.subscribe('auth.statusChange', function(response) {
                       if (response.session || response.authResponse) {
-                          setTimeout(goLogIn, 500);
+                          //setTimeout(goLogIn, 500);
                       } else {
                           window.location.href = "{{ path('logout') }}";
                       }
