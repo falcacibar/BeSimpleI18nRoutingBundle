@@ -23,10 +23,10 @@ Loogares\UsuarioBundle\Entity\Usuario:
             - NotBlank:
                 message: usuario.errors.validacion.apellido.blanco
             - Type: { type: string, message: "usuario.errors.validacion.apellido.tipo" }
-        slug:
-            - NotBlank:
-                message: usuario.errors.validacion.slug.blanco
-            - Type: { type: string, message: "usuario.errors.validacion.slug.tipo" }
+        #slug:
+         #   - NotBlank:
+          #      message: usuario.errors.validacion.slug.blanco
+           # - Type: { type: string, message: "usuario.errors.validacion.slug.tipo" }
         file:
             - Image:
                 maxSize: 5120k

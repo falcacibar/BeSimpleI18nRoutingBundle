@@ -106,6 +106,7 @@
 				</a>
 			</ul>
 		</div>
+		{{ facebook_login_button({'autologoutlink': true}) }}
 				
 		{# Valparaíso / Viña del Mar #}
 		{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
