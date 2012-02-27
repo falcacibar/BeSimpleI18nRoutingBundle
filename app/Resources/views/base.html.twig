@@ -14,6 +14,26 @@
         <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
+        <script>
+          function goLogIn(){
+                alert('sda')
+              window.location = "{{ path('login_check_facebook') }}";
+          }
+
+          function onFbInit() {
+
+              if (typeof(FB) != 'undefined' && FB != null ) {
+
+                  FB.Event.subscribe('auth.statusChange', function(response) {
+                      if (response.session || response.authResponse) {
+                          setTimeout(goLogIn, 500);
+                      } else {
+                          window.location.href = "{{ path('logout') }}";
+                      }
+                  });
+              }
+          }
+        </script>
         {% block ads %}{% endblock %}
     </head>
 
@@ -53,6 +73,8 @@
                 $('.datos_usuario_fancybox').click();                
             });
         </script>
+
+        
         {% endif %}
         {% block javascripts %}{% endblock %}
     </body>
