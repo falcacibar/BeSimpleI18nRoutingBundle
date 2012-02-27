@@ -1,0 +1,72 @@
+# Locale 'es_ar' ExtraBundle
+extra:
+    home:
+        title: Compartí y Viví la ciudad
+        saludo_bienvenida: Loogares.com es la guía de lugares de ocio en tu ciudad donde escribiendo recomendaciones ganarás invitaciones a restaurantes, entradas al cine, fiestas, conciertos y más.
+        actividad_loogares:
+            actualmente: Actualmente en nuestra comunidad van escritas
+            recomendaciones: Recomendación|Recomendaciones
+            y: y 
+            premios: Premio|Premios
+            participa: regalados. ¡Participá ahora!
+        modulo_ultimas_recomendaciones:
+            titulo: Últimos Lugares recomendados en las categorías:
+        modulo_notas_colaboraciones:
+            titulo: Notas y colaboraciones
+        modulo_loogareno_estrella:
+            titulo: Loogareño Estrella de la semana
+            invitacion: Loogareña invitada a
+            por: por el equipo de Loogares.com.
+            ver_mas: Ver más »
+            quieres_ser_invitado: ¿Querés ser invitado la próxima semana?
+            entra_aca: Entrá acá
+        modulo_recomendacion_del_dia:
+            titulo: Recomendación del día
+            ver_mas: Ver más »
+            elegida_por: Elegida por la comunidad de Loogareños
+            tip: Corresponde a las recomendaciones más útiles según la evaluación de los Loogareños. A la vez, consideramos otros factores, como su contenido, la originalidad y que esté bien escrita. <br /><br /> Estas recomendaciones fijan la pauta para las demás en el sitio.
+        modulo_ultimos_conectados:
+            titulo: Últimos Loogareños Conectados
+        actividad_reciente:
+            titulo: Actividad Reciente en
+            agregar:
+                foto: agregó una nueva %open_tag%foto%close_tag% en
+                recomendacion: escribió una %open_tag%recomendación%close_tag% con %estrellas% en
+                util: considera útil la %open_tag%recomendación%close_tag% de %usuario% en
+                lugar: agregó un nuevo lugar
+            editar:
+                recomendacion: editó su %open_tag%recomendación%close_tag% con %estrellas% en
+            filtro:
+                todo: Todo
+                recomendaciones: Recomendaciones
+                lugares: Lugares agregados
+                fotos: Fotos agregadas
+                utiles: Recomendaciones evaluadas
+            ver_mas: Ver más actividad
+
+    modulo_pedidos_online:
+        titulo: Restaurantes con descuentos en Pedidos Online
+        ver_mas: Ver todos los descuentos »
+        dias: Días
+
+    estaticas:
+        codigos_de_conducta:
+            titulo: Códigos de conducta
+        contacto:
+            titulo: Contacto
+        copyright:
+            titulo: Copyright
+        eres_el_dueno_de_un_lugar:
+            titulo: ¿Sos el dueño de un lugar?
+        politicas_de_privacidad:
+            titulo: Políticas de privacidad
+        prensa:
+            titulo: Prensa
+        publicidad:
+            titulo: Publicidad
+        que_es_loogarescom:
+            titulo: ¿Qué es Loogares.com?
+        terminos_de_uso:
+            titulo: Términos de uso
+        trabaja_con_nosotros:
+            titulo: Trabajá con nosotros

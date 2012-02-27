@@ -255,7 +255,7 @@ usuario:
         edicion:
             cuenta: ¡Tu perfil acaba de actualizarse con los nuevos cambios!
             foto: Cambiaste tu foto de perfil. ¡Nada de mal!
-            password: Has cambiado tu password exitosamente. Puedes comprobarlo entrando al sitio nuevamente.
+            password: ¡Ahora tienes un nuevo password! No lo olvides, lo necesitarás para entrar al sitio.
             borrar_cuenta: Tu cuenta acaba de ser borrada. Fue bonito mientras duró.
 
     mail:

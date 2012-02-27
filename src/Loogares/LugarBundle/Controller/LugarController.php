@@ -1255,7 +1255,7 @@ class LugarController extends Controller{
                 }
 
                 //SET FLASH AND REDIRECTTT
-                $this->get('session')->setFlash('lugar_flash','¡Eres el mejor, [[NOMBRE DE USUARIO]]! Sigue recomendando y te convertirás en nuestro Loogareño favorito.');
+                $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
 

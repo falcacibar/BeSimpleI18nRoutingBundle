@@ -1,0 +1,74 @@
+# Locale 'es_ar' General
+general:
+    header:
+        usuario:
+            login: Entrá
+            registro: Registrate
+            editar: Editá tus datos
+            actividad: Actividad
+            recomendaciones: Recomendaciones
+            fotos: Fotos
+            lugares: Listado de lugares
+            por_recomendar: Lugares por recomendar
+            para_visitar: Lugares para visitar
+            logout: Salir
+        blog: Blog
+        ejemplos_buscador: Panchos, Palermo, bares, La Casa Rosada
+
+    footer:
+        participa:
+            titulo: Participá
+            registro: Registrate
+            agregar: Agregá y recomendá un lugar
+        alianzas:
+            titulo: Alianzas
+        loogares:
+            titulo: Loogares.com
+        paises:
+            titulo: Cambiar de país:
+            chile: Chile
+            argentina: Argentina
+        idioma:
+            titulo: Cambiar de idioma:
+            espanol: Español
+            ingles: Inglés
+        redes:
+            tweet: Twittear
+            twittear: He entrado a Loogares.com y me he enamorado de este sitio, lo comparto para que vos también los sigas...
+        firma: © 2010~2012 Loogares.com
+
+    terminos:
+        ordenar_por: Ordenar por
+        mas_relevantes: Más relevante|Más relevantes
+        mejor_evaluadas: Mejor evaluado|Mejores evaluados
+        mejores_evaluaciones: Mejores evaluaciones
+        mas_recomendados: Más recomendado|Más recomendados
+        mas_utiles: Más útil|Más útiles
+        ultima_recomendacion: Últimos recomendados|Últimos recomendados
+        alfabetico: Orden alfabético
+        categorias: Categoría|Categorías
+        mejor_recomendaciones: Mejor recomendación|Mejores recomendaciones
+        resultados_pagina: Resultados por página
+        recomendacion: Recomendación|Recomendaciones
+        sector: Sector
+        resultados: Resultados para
+
+paginacion:
+    al: al
+    de: de
+    ir_a: Ir a la página
+
+olvidar:
+    titulo_pag: ¿Olvidaste tu password?
+    titulo: ¿Olvidaste tu password?... ¡Pero cómo!
+    subtitulo: Mandanos tu dirección de E-mail con la que entrás a Loogares.com y te enviaremos un correo con un link para que resetees tu password. ¡Las pasas para la memoria las comprás vos!
+    form:
+        mail: Debés ingresar tu E-mail
+
+    flash:
+        usuario_no_existe: El E-mail especificado no corresponde a ningún usuario.
+    mail:
+        asunto: Tu nuevo password en Loogares.com
+        titulo: Hola %usuario%,
+        primero: hacé click %open_tag%acá%close_tag% para crear el nuevo password de tu cuenta de Loogares.com
+        segundo: ¡Y para la próxima, acordate de las pasas!

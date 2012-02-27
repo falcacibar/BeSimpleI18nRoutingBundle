@@ -1,23 +1,300 @@
+# Locale 'es_ar' UsuarioBundle
+validacion_usuario:
+    titulo: Necesitamos que ingreses información personal
+    texto: Hemos detectado que hay cierta información que aún no has ingresado. Queremos hacer un esfuerzo por conocer más de vos y así poder brindarte el mejor servicio.
+    nombre: Nombre
+    apellido: Apellido
+
 usuario:
     login:
-        titulo: ¡Entrá a Loogares.com!
+        titulo: Entrá a Loogares.com y empezá a recomendar
         form:
-            mail: E-mail:
-            password: Password:
-            olvidar_password: ¿Olvidaste tu clave?
-            recordar_sesion: Recordá la sesión
-            submit: Entrá
+            mail: E-mail
+            password: Password
+            olvidar_password: ¿Olvidaste tu password?
+            recordar_sesion: Recordar sesión
+            submit: Entrar
         registro:
-            titulo: ¿Aún no participás en Loogares.com?
-            texto: Loogares.com es la forma fácil y entretenida de buscar, compartir y recomendar todos esos lugares bárbaros de los que la gente está hablando... y esos otros que no lo son tanto.
-            boton: ¡Registráte!
+            titulo: ¿Aún no eres parte de Loogares.com? ¡Registrate!
+            texto: Registrate y escribí recomendaciones de lugares que conocés en tu ciudad para ganar increíbles premios. Desde invitaciones a restaurantes hasta entradas al cine, conciertos, fiestas y más.
+            o: o
+            mail: registrate con tu E-mail
+            boton: ¡Registrate!
+
+    registro:
+        mensaje: Escribí recomendaciones de lugares que conocés en tu ciudad y semanalmente ganá invitaciones a restaurantes, entradas al cine, a conciertos, fiestas y más.
+        title: Registrate en Loogares.com
+        titulo: ¡O registrate con tu E-mail en Loogares.com!
+        form:
+            nombre: Nombre
+            apellido: Apellido
+            mail: E-mail
+            password: Password
+            confirmar_password: Confirmar password
+            placeholders:
+                nombre: Ej. Juan
+                apellido: Ej. Valdéz
+                mail: Ej. juanito@empresa.com
+            tip:
+                password: El password debe tener un mínimo de 6 caracteres.
+                terminos: Al hacer click en <strong>Registrar</strong> confirmo ser mayor de 14 años y acepto los %open_a%Términos de uso%close_a% de Loogares.com
+            submit: Registrar
+
+        facebook:
+            titulo: ¡Registrate rápidamente con tu Facebook!
+            texto: Hacé click en el botón de abajo y registrate en un solo paso con tu cuenta de Facebook.
+        login:
+            titulo: ¿Ya sos parte de Loogares.com? ¡Entrá ahora!
+        confirmar:
+            titulo_pag: Confirmá tu cuenta
+            titulo: ¡Estás a sólo segundos de convertirte en Loogareño!
+            texto: Confirmanos tu cuenta en el E-mail que acabamos de mandarte y estarás listo.<br />¡Te esperamos!
+            link: Volver a la %open_a%Página de inicio%close_a%
+            mail:
+                titulo: ¡Felicitaciones %nombre% %apellido%!
+                texto: Estás a punto de convertirte en un Loogareño, clickea el botón para confirmar tu cuenta.
+                texto_bajada: ¿Estás preparado para lo que viene? ¡No te arrepentirás!
+                texto_plano: Estás a punto de convertirte en un Loogareño. Para confirmar tu cuenta, ingresá el siguiente link en tu navegador:
+                asunto: Confirmá tu cuenta en Loogares.com
+    perfil:
+        titulo_pag: Perfil De 
     datos:
-        recomendaciones: apreciación|apreciaciones
+        edad: año|años
+        recomendaciones: recomendación|recomendaciones
         primeras_recomendaciones: primera recomendación|primeras recomendaciones
         lugares_agregados: lugar agregado|lugares agregados
         fotos_agregadas: foto agregada|fotos agregadas
+        por_visitar: lugar para visitar|lugares para visitar
+        visitados: lugar visitado|lugares visitados
+        por_recomendar: lugar por recomendar|lugares por recomendar
+        favoritos: lugar favorito|lugares favoritos
+        desde: Loogareño desde:
+        editar: Editá los datos de tu perfil
+
+    menu:
+        actividad: Actividad
+        recomendaciones: Recomendaciones
+        fotos: Fotos
+        lugares: Listas de lugares
+
+    actividad:
+        titulo: Mi actividad|Actividad de
+
+    recomendaciones:
+        titulo: Recomendación|Recomendaciones
+        orden:
+            texto: Ordenar por:
+            mejores: Mejores evaluaciones
+            ultimas: Últimas recomendaciones
+            alfabetico: Orden alfabético
+        recomendacion:
+            categorias: Categorías:
+            tags: Tags:
+        lista:
+            editar: Editá esta recomendación
+            borrar: Borrá esta recomendación
+    fotos:
+        titulo: Foto|Fotos
+        orden:
+            texto: Ordenar por:
+            ultimas: Últimas fotos
+            alfabetico: Orden alfabético
+        lista:
+            editar: Editá tu foto
+            borrar: Borrá tu foto
+
+    lugares:
+        titulo:
+            1: Lugares visitados
+            2: Favoritos
+            3: Lugares para visitar
+            4: Lugares para volver
+            5: Lugares por recomendar
+        orden:
+            texto: Ordenar por:
+            visitados: Visitados
+            favoritos: Favoritos
+            por_visitar: Para visitar
+            por_volver: Para volver
+            por_recomendar: Por recomendar
+        lista:
+            borrar: Borrar
+
+    edicion:
+        titulo_pag: Editá tus datos
+        titulo: Editá los datos de tu perfil
+        menu:
+            cuenta: Cuenta
+            foto: Foto de perfil
+            password: Password
+            borrar: Borrar cuenta
+
+        cuenta:
+            nombre: Nombre *
+            tipo: Tipo de Usuario
+            apellido: Apellido *
+            mail: E-mail *
+            slug: URL propia
+            url_propia: http://www.loogares.com/
+            nacimiento:
+                label: Fecha de nacimiento
+                day: Día
+                month: Mes
+                year: Año
+            mostrar_edad: Mostrar edad
+            sexo:
+                label: Sexo
+                hombre: Hombre
+                mujer: Mujer
+                ninguno: No quiero definir
+            web: Sitio web
+            newsletter: Recibir newsletter por E-mail
+            submit: Guardar
+        foto:
+            subir: Subir foto
+            tip:
+                maximo: Máximo 5 MB
+                formato: Sólo JPG, GIF y PNG
+                ajuste: La imagen será ajustada a 100x100 px si tiene un tamaño distinto
+            mypictr: » Crea tu foto de perfil con Mypictr
+            submit: Guardar
+            borrar: Borrá tu foto
+        password:
+            actual: Password actual *
+            nuevo: Password nuevo *
+            confirmar: Confirmar password *
+            submit: Guardar
+        borrar:
+            password: Password *
+            motivo: ¿Por qué te vas? *
+            detalle: Contanos el motivo de tu salida.
+            submit: Borrar cuenta
+            mail:
+                nombre: Nombre
+                mail: E-mail
+                fecha_registro: Fecha de registro
+                motivo: Motivo
+                asunto: Usuario eliminado
+    olvidar:
+        titulo_pag: ¿Olvidaste tu password?
+        titulo: ¿Olvidaste tu password?... ¡Pero cómo!
+        subtitulo: Mándanos tu dirección de E-mail con la que entras a Loogares.com y te enviaremos un correo con un link para que resetees tu password. ¡Las pasas para la memoria las comprás vos!
+        form:
+            e_mail: E-mail
+            mail: Debes ingresar tu E-mail
+
+        flash:
+            usuario_no_existe: El E-mail especificado no corresponde a ningún usuario.
+        mail:
+            asunto: Tu nuevo password en Loogares.com
+            titulo: Hola %usuario%,
+            primero: hacé click %open_tag%acá%close_tag% para crear el nuevo password de tu cuenta de Loogares.com
+            segundo: ¡Y para la próxima, acordate de las pasas!
+        mensaje:
+            titulo_pag: Cambio de password
+            titulo: ¡Cabecita de novia!
+            subtitulo: Te acabamos de enviar un correo para que resetees el password de tu cuenta en Loogares.com.<br />Revisa tu casilla de E-mail
+            inicio: Volver a la %open_tag%Página de Inicio%close_tag%
+    regenerar:
+        titulo_pag: Ingresá tu nuevo password
+        titulo: Cambiar password 
+        form:
+            usuario: Usuario
+            password_nuevo: Password nuevo
+            errors:
+                nuevo: Debés ingresar tu nuevo password
+                confirmar: Debés confirmar el nuevo password
+        flash:
+            hash_incorrecto: El usuario con el hash especificado no existe
+
     errors:
-        completo: Debes completar ambos campos
-        password: Los campos de E-mail y password no coinciden. Por favor, corregílos.
-        emptyPassword: El campo password es obligatorio. Por favor, completálo.
-        noActivo: La cuenta de usuario no se encuentra activa.
+        login:
+            completo: Debés completar ambos campos
+            password: Los campos de E-mail y Password no coinciden. Por favor, corregilos.
+            emptyPassword: El campo Password es obligatorio. Por favor, completalo.
+            noActivo: La cuenta de usuario no se encuentra activa.
+        validacion:
+            nombre:
+                blanco: El campo Nombre no puede ser vacío.
+                tipo: El nombre debe ser texto.
+            apellido:
+                blanco: El campo Apellido no puede ser vacío.
+                tipo: El apellido debe ser texto. 
+            mail:
+                unico: La dirección de E-mail está repetida. Por favor, probá con otra.
+                blanco: El campo E-mail no puede ser vacío.
+                invalido: Email inválido.
+            password:
+                blanco: El campo Password no puede ser vacío.
+                minimo: El password debe tener un mínimo de 6 caracteres.:
+            confirmar_password: Los passwords no coinciden. Por favor, corregilos.
+            slug:
+                unico: La URL propia está repetida. Por favor, probá con otra.
+                blanco: El campo URL propia no puede ser vacío.
+                tipo: La URL propia debe ser texto. 
+            comuna:
+                blanco: El campos Comuna no puede ser vacío.
+            imagen:
+                tipo: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+        editar:
+            foto:
+                blanco: No tenés seleccionado ningún archivo. Por favor, elegí uno.
+            password:
+                actual: Password actual incorrecto
+                confirmar: Debés escribir el mismo password nuevo
+            borrar:
+                pass_obligatorio: El campo password es obligatorio. Por favor, completalo.
+                pass_incorrecto: Los passwords no coinciden. Por favor, corregilos.
+                motivo: Queremos saber por qué te vas. Por favor, completá el campo.
+    flash:
+        confirmar_usuario:
+            incorrecto: Código de confirmación incorrecto
+            anterioridad: Confirmación realizada con anterioridad
+            exito: ¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún lugar para recomendar?
+        edicion:
+            cuenta: ¡Tu perfil acaba de actualizarse con los nuevos cambios!
+            foto: Cambiaste tu foto de perfil. ¡Nada de mal!
+            password: ¡Ahora tenés un nuevo password! No lo olvidés, lo necesitarás para entrar al sitio.
+            borrar_cuenta: Tu cuenta acaba de ser borrada. Fue bonito mientras duró.
+
+    mail:
+        usuario: te escribió desde %open_tag%%mail%%close_tag%
+        equipo: Enviado por el equipo de %open_tag%Loogares.com%close_tag%
+        contacto: Por favor no respondas a este mail automático. Si querés contactarnos escribinos a %open_a%contacto@loogares.com%close_a%
+        contacto_plano: Si querés contactarnos escribinos a contacto@loogares.com
+        firma: 2012. Loogares.com
+
+dueno:
+    errors:
+        validacion:
+            nombre:
+                blanco: El campo Nombre no puede ser vacío.
+            apellido:
+                blanco: El campo Apellido no puede ser vacío.
+            mail:
+                blanco: El campo E-mail no puede ser vacío.
+            telefono:
+                blanco: El campo Teléfono no puede ser vacío.
+            texto:
+                blanco: Desde propocionar una forma de comprobar que eres el dueño.
+    reclamar:
+        titulo: ¿Sos el dueño de %lugar%?
+        subtitulo: Si lo sos... ¡entonces tenemos una propuesta que hacerte! Enviános el formulario con tus datos y en menos de 48 horas te contactaremos para contarte de qué se trata.
+        form:
+            nombre: Nombre *
+            apellido: Apellido *
+            mail: E-mail *
+            telefono: Teléfono *
+            texto: ¿Cómo comprobar que sos el dueño? *
+
+        mail:
+            asunto: Reporte: Dueño de
+            nombre: Nombre
+            mail: E-mail
+            telefono: Teléfono
+            texto: ¿Cómo comprobar que sos dueño?
+            lugar: Lugar
+        flash:
+            existe: Este lugar ya fue reclamado por su dueño anteriormente. Lo sentimos.
+            nuevo: En menos de 48 horas sabrás nuestra propuesta. ¡Grandes cosas están por llegar!... y no es la pizza que pedimos hace 25 minutos.
