@@ -8,6 +8,18 @@
 	{% endif %}
 {% endblock %}
 
+{% block ads %}
+    <script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
+    <script type='text/javascript'>
+        GS_googleAddAdSenseService("{{adsense_service}}");
+        GS_googleEnableAllServices();
+
+        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','top','medium')}}");
+
+        GA_googleFetchAds();
+    </script>
+{% endblock %}
+
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
@@ -461,6 +473,9 @@
 		            </div>
 		        </div>
 		        <div class="banner_300x250">
+					<script type='text/javascript'>
+		            	GA_googleFillSlot("{{ad('static','search','top','medium')}}_{{app.session.get('ciudad').slug}}");
+		        	</script>
 		        </div>
 		    </div>
 
