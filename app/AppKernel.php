@@ -17,7 +17,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            //new FOS\FacebookBundle\FOSFacebookBundle(),
+            new FOS\FacebookBundle\FOSFacebookBundle(),
             new Jirafe\Bundle\MailChimpBundle\JirafeMailChimpBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
