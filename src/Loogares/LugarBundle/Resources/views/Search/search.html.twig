@@ -13,12 +13,15 @@
     <script type='text/javascript'>
         GS_googleAddAdSenseService("{{adsense_service}}");
         GS_googleEnableAllServices();
-
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','top','medium')}}");
-
+    </script>
+    <script type='text/javascript'>
+        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','top','medium')}}_{{app.session.get('ciudad').slug}}");
+    </script>
+    <script type='text/javascript'>
         GA_googleFetchAds();
     </script>
 {% endblock %}
+
 
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
