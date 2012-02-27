@@ -22,23 +22,31 @@ class DefaultController extends Controller
         $tlr = $em->getRepository("LoogaresLugarBundle:TipoCategoria");    
         $tipoCategoria = $tlr->findAll();
         $ciudad = $this->get('session')->get('ciudad');
+        $idCiudad = $ciudad['id'];
         $data = array();
 
         foreach($tipoCategoria as $key => $value){
-            $q = $em->createQuery("SELECT cl, tl.nombre as tipo_nombre, tl.slug as tipo_slug, c.nombre as categoria_nombre, c.slug as categoria_slug, count(c.id) as total
-                                   FROM Loogares\LugarBundle\Entity\CategoriaLugar cl
+            $id = $value->getId();
+            $buff = $this->getDoctrine()
+            ->getConnection()->fetchAll("SELECT count(categorias.id) as total, categorias.nombre as categoria_nombre, categorias.slug as categoria_slug, tipo_categoria.nombre, tipo_categoria.slug
+                                         FROM lugares
 
-                                   JOIN cl.lugar l 
-                                   LEFT JOIN cl.categoria c
-                                   LEFT JOIN c.tipo_categoria tl
-                                   JOIN l.comuna com
-                                   WHERE tl.id = ?1
-                                   AND com.ciudad = ?2
-                                   GROUP BY c.id
-                                   ORDER BY tl.id");
-            $q->setParameter(1, $value->getId());
-            $q->setParameter(2, $ciudad['id']);
-            $buff = $q->getResult();
+                                         JOIN comuna
+                                         ON comuna.id = lugares.comuna_id
+
+                                         LEFT JOIN categoria_lugar
+                                         ON categoria_lugar.lugar_id = lugares.id
+
+                                         JOIN categorias
+                                         ON categorias.id = categoria_lugar.categoria_id
+
+                                         LEFT JOIN tipo_categoria
+                                         ON tipo_categoria.id = categorias.tipo_categoria_id
+
+                                         WHERE tipo_categoria.id = $id AND comuna.ciudad_id = $idCiudad
+
+                                         GROUP BY categorias.id
+                                         ORDER BY tipo_categoria.id, categorias.nombre asc");
             $data[$value->getSlug()]['tipo'] = $tipoCategoria[$key];
             $data[$value->getSlug()]['categorias'] = $buff;
         }

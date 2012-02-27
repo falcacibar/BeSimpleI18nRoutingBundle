@@ -52,9 +52,6 @@ Loogares\LugarBundle\Entity\Lugar:
         caracteristica_lugar:
             targetEntity: Loogares\LugarBundle\Entity\CaracteristicaLugar
             mappedBy: lugar
-        caracteristica_lugar:
-            targetEntity: Loogares\LugarBundle\Entity\CaracteristicaLugar
-            mappedBy: lugar
         recomendacion:
             targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
             mappedBy: lugar
@@ -63,6 +60,9 @@ Loogares\LugarBundle\Entity\Lugar:
             mappedBy: lugar
         temp_lugares:
             targetEntity: Loogares\AdminBundle\Entity\TempLugar
+            mappedBy: lugar
+        videos_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\VideosLugar
             mappedBy: lugar
     id:
         id:

@@ -68,9 +68,9 @@ doctrine:
                 dql:
                     string_functions:
                         RAND: Loogares\ExtraBundle\DQL\Rand
-       
 
-# Swiftmailer Configuration
+
+# Swiftmailer Configuratn
 swiftmailer:
     transport: %mailer_transport%
     host:      %mailer_host%
@@ -114,6 +114,14 @@ jirafe_mail_chimp:
     api_key:    %mailchimp_apikey%
     connection: stub
 
+
+# Doctrine Extensions Configuration
+stof_doctrine_extensions:
+    default_locale: %locale%
+    translation_fallback: true
+    orm:
+        default:
+            translatable: true
 
 # FOS Facebook Configuration
 #fos_facebook:

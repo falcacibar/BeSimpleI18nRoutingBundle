@@ -33,7 +33,8 @@
     {{parent()}}
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
     <script src='../../assets/js/googleMapFicha.js'></script>
-    <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>    
+    <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>   
+    <script src="{{asset('assets/js/shadowbox.min.js')}}"></script>    
     <script src="{{asset('assets/js/lugar.js')}}"></script>
 
     <script>
@@ -297,9 +298,11 @@
                 </div>
                 <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.galeria'|transchoice(lugar.totalFotos,{'%total%': lugar.totalFotos}) }}</a><br />
                 <a href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.agregar_foto'|trans}}</a>
-                <div class="video_lugar">
-                    <a class="ver_video_lugar" href="#">{{'lugar.ficha.multimedia.video'|trans}}</a>
-                </div>
+                {% if lugar.videosLugar[0].url is defined %}
+                    <div class="video_lugar">
+                        <a class="ver_video_lugar" href="#">{{'lugar.ficha.multimedia.video'|trans}}</a>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="datos_principales_lugar">

@@ -1,0 +1,18 @@
+Loogares\LugarBundle\Entity\VideosLugar:
+    type: entity
+    table: videos_lugar
+    manyToOne:
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+            joinTable:
+                name: videos_lugar
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        url:
+            type: string
