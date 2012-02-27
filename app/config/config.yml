@@ -131,3 +131,4 @@ fos_facebook:
     secret: %facebook_appsecret%
     cookie: true
     permissions: [email, user_birthday, user_location]
+    culture: es_LA

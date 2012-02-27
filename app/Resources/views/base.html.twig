@@ -16,7 +16,6 @@
         <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
         <script>
           function goLogIn(){
-                console.log("siempre se ejecuta")
               window.location = "{{ path('login_check_facebook') }}";
           }
 
@@ -26,7 +25,7 @@
 
                   FB.Event.subscribe('auth.statusChange', function(response) {
                       if (response.session || response.authResponse) {
-                          //setTimeout(goLogIn, 500);
+                          setTimeout(goLogIn, 500);
                       } else {
                           window.location.href = "{{ path('logout') }}";
                       }
