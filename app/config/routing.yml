@@ -21,13 +21,6 @@ LoogaresExtraBundle:
 root:
     pattern:   /
     defaults:  { _controller: LoogaresExtraBundle:Default:homepage }
-    
-
-
-_security_check:
-    pattern:  /login_check
-_security_logout:
-    pattern:  /logout
 
 # Internal routing configuration to handle ESI
 #_internal:

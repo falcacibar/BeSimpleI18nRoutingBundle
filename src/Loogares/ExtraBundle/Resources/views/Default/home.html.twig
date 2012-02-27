@@ -7,13 +7,14 @@
     <script type='text/javascript'>
         GS_googleAddAdSenseService("{{adsense_service}}");
         GS_googleEnableAllServices();
-
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','home','top','medium')}}");
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','home','bottom','medium')}}");
-
+    </script>
+    <script type='text/javascript'>
+        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','home','top','medium')}}_{{app.session.get('ciudad').slug}}");
+        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','home','bottom','medium')}}_{{app.session.get('ciudad').slug}}");
+    </script>
+    <script type='text/javascript'>
         GA_googleFetchAds();
     </script>
-
 {% endblock %}
 
 {% block content %}

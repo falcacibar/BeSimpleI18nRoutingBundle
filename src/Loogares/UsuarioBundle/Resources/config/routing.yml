@@ -21,6 +21,9 @@ login:
 login_check:
     pattern:   /login_check
 
+login_check_facebook:
+    pattern:  /login_check/facebook
+
 logout:
     pattern:   /logout
 

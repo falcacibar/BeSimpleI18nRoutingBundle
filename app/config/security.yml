@@ -12,7 +12,11 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
+        chain_provider:
+            providers: [main, facebook]
         main:           
+            entity: { class: Loogares\UsuarioBundle\Entity\Usuario }
+        facebook:
             entity: { class: Loogares\UsuarioBundle\Entity\Usuario }
 
     firewalls:
@@ -33,15 +37,17 @@ security:
                 login_path: /usuario
                 username_parameter: _mail
                 default_target_path: /usuario
+            fos_facebook:
+                app_url: http://new.loogares.com
+                server_url: http://new.loogares.com
+                check_path: /usuario/login_check/facebook
+                login_path: /usuario 
             logout:
                 path:   /usuario/logout
                 target: /usuario
             remember_me:
                 key: remember
-                lifetime: 1209600
-            fos_facebook:
-                app_url: "http://new.loogares.com"
-                server_url: "http://new.loogares.com" 
+                lifetime: 1209600            
     access_control:
         - { path: /agregar, roles: ROLE_USER }
         - { path: /editar, roles: ROLE_USER }
