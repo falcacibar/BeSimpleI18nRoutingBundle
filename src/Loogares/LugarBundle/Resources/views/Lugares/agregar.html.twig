@@ -182,7 +182,7 @@
             {% endif %}
         </li>
         <li class="categoria-container">
-            <label>{{'lugar.agregar.categorias.label'|trans}}</label>
+            <label>{{'lugar.agregar.categorias.label'|trans}} <span class="obligatorio">*<span></label>
             <select class='categoria required' title="{{'lugar.errors.agregar.categoria'|trans}}" name='categoria[]'>
                 <option value="elige">{{'lugar.agregar.categorias.principal'|trans}}</option>
                 {% for tipoCategoria in data.tipoCategoria %}
@@ -230,7 +230,7 @@
             {% endif %}
         </li>
         <li class="no-default categoria-container">
-            <label>{{'lugar.agregar.categorias.label_secundario'|trans}}</label>
+            <label>{{'lugar.agregar.categorias.label'|trans}} <span class="obligatorio">*<span></label>
             <select class='categoria secundaria' title='' name='categoria[]'>
                 <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
                 {% for tipoCategoria in data.tipoCategoria %}
@@ -279,7 +279,7 @@
             {% endif %}
         </li>
         <li class="no-default categoria-container">
-            <label>{{'lugar.agregar.categorias.label_secundario'|trans}}</label>
+            <label>{{'lugar.agregar.categorias.label'|trans}} <span class="obligatorio">*<span></label>
             <select class='categoria secundaria' title='' name='categoria[]'>
                 <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
                 {% for tipoCategoria in data.tipoCategoria %}
@@ -853,7 +853,7 @@
         </li>
         {% if lugar.slug == null %}
         <li>
-            <label>{{'lugar.agrgar.recomendacion'|trans}}</label>
+            <label>{{'lugar.agregar.recomendacion'|trans}}</label>
             <input type="checkbox" name="habilitar-recomienda" class="horario display-next-li-cb" />
             <span class="horario_tip">{{'lugar.recomendacion.opcional.tip'|trans}}</span>
         </li>

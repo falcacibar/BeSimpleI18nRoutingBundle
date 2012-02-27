@@ -321,17 +321,18 @@
 			        <li>|</li>
 			        <li>
 			            {% if query.orden is defined and query.orden == 'recomendaciones' %}
-			                <strong>{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</strong>
+			                <strong>{{'general.terminos.mejor_evaluadas'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'recomendaciones' })) }}">{{'general.terminos.mejor_recomendaciones'|transchoice(2)}}</a>
+			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'recomendaciones' })) }}">{{'general.terminos.mejor_evaluadas'|transchoice(2)}}</a>
 			            {% endif %}
+			            <!-- Aclaración mejores evaluados <span class="explicacion_precio tips_icon"></span> -->
 			        </li>
 			        <li>|</li>
 			        <li>
 			            {% if query.orden is defined and query.orden == 'utiles' %}
-			                <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
+			                <strong>{{'general.terminos.mas_recomendados'|transchoice(2)}}</strong>
 			            {% else %}
-			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'utiles' })) }}">{{'general.terminos.mas_recomendados'|transchoice(2)}}</a>
 			            {% endif %}
 			        </li>
 			        <li>|</li>

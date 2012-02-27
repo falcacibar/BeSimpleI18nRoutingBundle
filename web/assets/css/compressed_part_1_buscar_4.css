@@ -118,6 +118,16 @@
       cursor: pointer !important;
       widht: 67px; }
 
+/* Qtip box precios */
+.qtip_precio {
+  display: block;
+  margin: 0 auto 5px auto;
+  text-align: left;
+  width: 200px; }
+  .qtip_precio .signo_precio {
+    display: inline-block;
+    width: 45px; }
+
 /* Orden de los resultados */
 .orden_container {
   border-top: 1px solid #f2f2f2;

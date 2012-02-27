@@ -4,8 +4,11 @@
 
 {% block content %}
 
+    <!-- Mensajes de éxito -->
 	{% if app.session.hasFlash('imagen_flash') %}
-            {{ app.session.flash('imagen_flash') | trans }}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('imagen_flash') | trans }}</p>
+            </div>
     {% endif %}
 
 	<div class="galeria_de_fotos">

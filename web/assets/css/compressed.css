@@ -342,14 +342,6 @@
     display: block;
     font-size: 120px; }
 
-.qtip_precio {
-  display: block;
-  width: 140px;
-  margin: 0 auto 5px auto; }
-  .qtip_precio .signo_precio {
-    display: inline-block;
-    width: 30px; }
-
 .close_qtip {
   background: url(../images/extras/x.gif) #666666;
   display: block;
@@ -1622,6 +1614,16 @@ small {
       display: inline;
       cursor: pointer !important;
       widht: 67px; }
+
+/* Qtip box precios */
+.qtip_precio {
+  display: block;
+  margin: 0 auto 5px auto;
+  text-align: left;
+  width: 200px; }
+  .qtip_precio .signo_precio {
+    display: inline-block;
+    width: 45px; }
 
 /* Orden de los resultados */
 .orden_container {

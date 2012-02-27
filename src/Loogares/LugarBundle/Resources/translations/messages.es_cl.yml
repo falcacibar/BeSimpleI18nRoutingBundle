@@ -70,7 +70,7 @@ lugar:
             owner: ¿Eres dueño de este Lugar?
             owner_reclamado: Reclamado por su dueño
             editar: Edita los datos
-            cerro: ¿Este lugar cerró? Avísanos
+            cerro: ¿Este Lugar cerró? Avísanos
             enviar: Enviar
             imprimir: Imprimir
             twittear: Twitter
@@ -92,8 +92,9 @@ lugar:
         titulo: Agregar un Lugar
         nombre: Nombre
         categorias:
-            principal: Elige una Categoria Principal
-            secundaria: Elige una Categoria Secundaria
+            label: Categorías
+            principal: Elige una Categoría Principal
+            secundaria: Elige una Categoría Secundaria
             agregar: » Agrega una categoría secundaria (Máx.
         subcategorias: Subcategorías * (Máx. 3)
         pais: País
@@ -170,7 +171,7 @@ lugar:
     recomendacion:
         opcional:
             tip: ¿Deseas agregar una Recomendación?
-        titulo: Recomendaciones
+        titulo: Recomendación
         maximo: Máx.
         llevas: Llevas
         evaluacion: Evaluación
@@ -178,7 +179,7 @@ lugar:
         tagsPopulares: Tags Populares
         precio: Precio
         placeholders:
-            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. \n\nSe creativo en tu recomendación. Escribela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! \n\nA partir de hoy eres un crítico profesional…
+            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. \n\nSe creativo en tu recomendación. Escríbela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! \n\nA partir de hoy eres un crítico profesional…
             tags: Ej. bar, buena música, ondeo, hasta las 5 am
         meta:
             title: Recomendación de %usuario% en %lugar%
@@ -247,7 +248,7 @@ compartir:
             saludo: ¡Hola %destinatario%!
             subtitulo: quiere contarte sobre un Lugar que te puede gustar:
             texto: Lo que te dice: 
-        placeholder: ¡Quiero que conozcas este lugar!           
+        placeholder: ¡Este lugar es increíble!           
     recomendacion:
         mail:
             title: Enviar recomendación en %lugar% a tus amigos
@@ -260,7 +261,7 @@ compartir:
         nombre: Tu Nombre *
         mail: Tu E-mail *
         mails_amigos: E-mails de tus amigos *
-        cuerpo: ¿Y qué les vas a decir?
+        cuerpo: ¿Y qué les vas a contar?
         tips:
             comas: Para enviar a más de una dirección de E-mail, sepáralas por una coma (,)
             obligatorio: Los campos con (*) son obligatorios

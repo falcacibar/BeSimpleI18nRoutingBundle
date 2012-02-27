@@ -38,15 +38,17 @@ general:
         firma: © 2010~2012 Loogares.com
 
     terminos:
+        ordenar_por: Ordenar por
+        mas_relevantes: Más relevante|Más relevantes
+        mejor_evaluadas: Mejor evaluado|Mejores evaluados
+        mejores_evaluaciones: Mejores evaluaciones
+        mas_recomendados: Más recomendados|Más recomendados
+        mas_utiles: Más útil|Más útiles
+        ultima_recomendacion: Últimos recomendados|Últimos recomendados
+        alfabetico: Orden alfabético
         categorias: Categoría|Categorías
-        mejor_recomendaciones: Mejor Recomendación|Mejores Recomendaciones
-        mas_relevantes: Más Relevante|Más Relevantes
-        mas_utiles: Más Util|Más Utiles
-        mejor_evaluadas: Mejor Evaluadas
-        ultima_recomendacion: Ultima Recomendación|Últimas Recomendaciones
-        alfabetico: Orden Alfábetico
-        ordenar_por: Ordenar Por
-        resultados_pagina: Resultados por Página
+        mejor_recomendaciones: Mejor recomendación|Mejores recomendaciones
+        resultados_pagina: Resultados por página
         recomendacion: Recomendación|Recomendaciones
         sector: Sector
         resultados: Resultados para

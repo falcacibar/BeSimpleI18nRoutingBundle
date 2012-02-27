@@ -27,14 +27,6 @@
     display: block;
     font-size: 120px; }
 
-.qtip_precio {
-  display: block;
-  width: 140px;
-  margin: 0 auto 5px auto; }
-  .qtip_precio .signo_precio {
-    display: inline-block;
-    width: 30px; }
-
 .close_qtip {
   background: url(../images/extras/x.gif) #666666;
   display: block;

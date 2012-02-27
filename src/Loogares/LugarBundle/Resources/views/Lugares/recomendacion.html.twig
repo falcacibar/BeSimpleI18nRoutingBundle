@@ -72,7 +72,7 @@
 			{% endif %}
 			<li>
 				<label>
-					{{'lugar.recomendacion.titulo'|trans}}
+					{{'lugar.recomendacion.titulo'|trans}}<br />
 					<span class="detalle_maximo_caracteres_recomendacion">({{'lugar.recomendacion.maximo'|trans}} <span class="max">3000</span> / <span class="detalle_llevas_caracteres_recomendacion">{{'lugar.recomendacion.llevas'|trans}} <span class="llevas">0</span></span>)</span>
 				</label> 
 				<textarea name="texto" class="texto" cols="30" rows="10">{% if recomendacion is defined %}{{recomendacion.texto}}{% endif %}</textarea>

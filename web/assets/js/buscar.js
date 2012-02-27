@@ -61,7 +61,7 @@ $(document).ready(function(){
 
 		$('.explicacion_precio').qtip({
 		   content: {
-		      text: 'Corresponde al valor del consumo promedio aproximado por persona según las caracteristicas del lugar.<br/><br/>'+qTipPrecio
+		      text: 'Corresponde al valor del consumo promedio apróximado por persona según las características del lugar.<br/><br/>'+qTipPrecio
 		   },
 		   style: {
 		      classes: 'ui-tooltip-precio',
