@@ -16,7 +16,6 @@
         <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
         <script>
           function goLogIn(){
-                alert('sda')
               window.location = "{{ path('login_check_facebook') }}";
           }
 
