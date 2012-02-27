@@ -4,6 +4,7 @@ namespace Loogares\ExtraBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Loogares\LugarBundle\Entity\TipoCategoria;
 
 
@@ -185,6 +186,59 @@ class DefaultController extends Controller
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,     
+        ));
+    }
+
+    public function actividadAction(Request $request) {
+        $fn = $this->get('fn');
+        $router = $this->get('router');
+        $em = $this->getDoctrine()->getEntityManager();
+        $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $ciudad = $this->get('session')->get('ciudad');
+
+        $filtro = (!$request->query->get('filtro')) ? 'todo' : $request->query->get('filtro');
+        $pagina = (!$request->query->get('pagina')) ? 1 : $request->query->get('pagina');
+        $ppag = 20;
+        $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
+
+        // Actividad reciente por ciudad
+        $actividad = $ar->getActividadReciente($ppag, $ciudad['id'], null, ($filtro != 'todo') ? $filtro : null, $offset);
+
+        $totalActividad = $ar->getTotalActividadCiudad($ciudad['id'], ($filtro != 'todo') ? $filtro : null);
+
+        foreach($actividad as $a) {
+            $r = $em->getRepository($a->getEntidad());
+            $entidad = $r->find($a->getEntidadId());
+            if($a->getEntidad() == 'Loogares\UsuarioBundle\Entity\Recomendacion') {
+                $preview = '';
+                if(strlen($entidad->getTexto()) > 160) {
+                    $preview = substr($entidad->getTexto(),0,160).'...';
+                }
+                else {
+                    $preview = $entidad->getTexto();
+                }
+                $entidad->preview = $preview;
+            }
+            $a->ent = $entidad;
+        }
+
+        $data = array();
+        $data['lista'] = $actividad;
+        $data['pagina'] = $pagina;
+        $data['totalPaginas'] = ($totalActividad > $ppag) ? ceil($totalActividad / $ppag) : 1;
+        $data['totalActividad'] = $totalActividad;
+        $data['offset'] = $offset;
+        $data['filtro'] = $filtro;
+
+        $params = array(
+            'filtro' => $filtro,
+        );
+
+        $paginacion = $fn->paginacion($totalActividad, $ppag, 'actividad', $params, $router );
+
+        return $this->render('LoogaresExtraBundle:Default:actividad_extendida.html.twig', array(
+            'actividad' => $data,
+            'paginacion' => $paginacion,
         ));
     }
 

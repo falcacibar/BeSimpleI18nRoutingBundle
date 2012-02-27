@@ -669,141 +669,42 @@ $rojo: #F72121
 
                 &:hover
                     @include link_gris_666_hover
-                   
-/* CSS SEBA */
 
-#home
-    .columna_izq
-        float: left
-        width: 630px
+.actividad_extendida
+    color: $gris_666
 
-        .home_something
-            background: #F2F2F6
-            height: 250px
+    h3
+        padding: 10px
+        border-bottom: 1px solid $gris_f6f
+
+    ul
+        li
+            padding: 10px
             float: left
-            width: 100%
+            border-bottom: 1px solid $gris_f6f
+            width: 618px
 
-    .columna_der
-        float: right
-        width: 300px
+            &.last_one
+                border-bottom: none
 
-        .actividad_loogares
-            width: 100%
-            float: left
-            margin: 0 0 20px
+            .link_usuario
+                float: left
 
-            .titulo_actividad
-                border-left: 5px solid #F30
-                background: #444
-                padding: 5px 10px 5px 20px
-
-                h2
-                    color: white
-                    font-size: 14px
             .contenido_actividad
-                background: whiteSmoke
-                height: 70px
-                padding: 17px 10px
-
-                .numero_actividad
-                    color: #09F
-                    float: left
-                    font-size: 28px
-                    text-align: right
-                    width: 75px
-                    text-shadow: -3px 0 1px #CCC
-                    -moz-text-shadow: -3px 0 1px #CCC
-                    -webkit-text-shadow: -3px 0 1px #CCC
-                    -0-text-shadow: -3px 0 1px #CCC
-                    
-                .texto_actividad
-                    float: left
-                    font-size: 15px
-                    font-weight: bold
-                    line-height: 31px
-                    padding: 0 0 0 5px
-                    text-align: left
-                    width: 200px
-        .recomendacion_dia
-            width: 100%
-            float: left
-            margin: 0 0 20px
-
-            h2
-                margin: 0 0 20px
-                font-size: 16px
-
-            .recomendacion_info
-                height: 60px
-
-                .link_usuario
-                    float: left
-
-                .usuario_recomendacion
-                    float: left
-                    margin: 0 0 0 10px
-
-                    a
-                        display: block
-                        @include link_azul
-                        font-weight: bold
-
-                        &:hover
-                            @include link_azul_hover
-
-                    span
-                        color: $gris_999
-                        font:
-                            size: 11px
-            .recomendacion_preview
-                margin: 10px 0
-                font-size: 11px
-
-                a  
-                    @include link_azul                   
-
-                    &:hover
-                        @include link_azul_hover
+                float: left
+                margin: 0 0 0 10px
 
                 span
-                    display: block
-                    margin: 0 0 10px 0
+                    font-size: 11px
+                p
+                    margin: 5px 0 0 0
+                    
 
-                    a
-                        font-weight: bold
+                    &.rec_actividad_preview
+                        font-size: 11px    
+                        width: 555px
+                    &.util_actividad
+                        width: 555px                        
 
-                .ver_mas
-                    float: right
-
-        .ultimos_conectados
-            width: 100%
-            float: left
-            margin: 0 0 20px
-
-            h2
-                margin: 0 0 20px
-                font-size: 16px
-            
-            ul
-                li
-                    height: 25px
-                    margin: 0 0 10px
-
-                    .conectado_img
-                        float: left
-
-                    .conectado_info
-                        float: left
-                        font-size: 11px
-                        margin: 0 0 0 10px
-
-                        .conectado_nombre
-                            font-weight: bold
-                            display: block
-                            @include link_azul                   
-
-                            &:hover
-                                @include link_azul_hover
-                        .conectado_recomendaciones
-                            font-style: italic
-                            display: block
+            .link_lugar
+                float: right

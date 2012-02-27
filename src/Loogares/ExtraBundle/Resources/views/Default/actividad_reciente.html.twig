@@ -1,5 +1,6 @@
+{% set lista = (home is defined) ? home.actividad : actividad.lista %}
 <ul>
-	{% for a in home.actividad %}
+	{% for a in lista %}
 		<li {% if loop.last %}class="last_one"{% endif %}>
 			<a class="link_usuario" href="{{path('showUsuario', {'param' : a.usuario.slug})}}">
 				<img src="{{('assets/images/usuarios/'~a.usuario.imagenFull) | apply_filter('small_usuario')}}" width="50" height="50" />

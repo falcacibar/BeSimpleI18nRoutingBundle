@@ -182,7 +182,6 @@ class UsuarioController extends Controller
         $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
 
         $acciones = $ur->getAccionUsuario($this->get('security.context')->getToken()->getUser(), $accion, $offset);
-        $totalAcciones = $ur->getTotalAccionesUsuario($accion, $this->get('security.context')->getToken()->getUser());
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = 'lugares';

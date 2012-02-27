@@ -2,6 +2,10 @@ locale:
     pattern:  /ciudad/{slug}
     defaults: { _controller: LoogaresExtraBundle:Default:locale, slug : santiago-de-chile }
 
+actividad:
+    pattern:  /actividad
+    defaults: { _controller: LoogaresExtraBundle:Default:actividad }
+
 static:
     pattern:  /{static}
     defaults: { _controller: LoogaresExtraBundle:Default:Static }

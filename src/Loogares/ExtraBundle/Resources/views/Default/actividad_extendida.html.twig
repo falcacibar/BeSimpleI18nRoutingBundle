@@ -1,0 +1,38 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div class="actividad_extendida">
+		<h3 class="titulo_home titulo_actividad">{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}}</h3>
+
+		<form action="{{path('actividad')}}" method="get">
+			<select name="filtro">
+				<option value="todo" {% if actividad.filtro == 'todo'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.todo'|trans}}</option>
+				<option value="recomendaciones" {% if actividad.filtro == 'recomendaciones'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.recomendaciones'|trans}}</option>
+				<option value="lugares" {% if actividad.filtro == 'lugares'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.lugares'|trans}}</option>
+				<option value="fotos" {% if actividad.filtro == 'fotos'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.fotos'|trans}}</option>
+				<option value="utiles" {% if actividad.filtro == 'utiles'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.utiles'|trans}}</option>
+			</select>
+		</form>
+
+		{% include 'LoogaresExtraBundle:Default:actividad_reciente.html.twig'%}
+
+		{% if actividad.totalPaginas > 1 %}
+			<div class="paginacion_actividad">
+	        	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{actividad.totalActividad}}</strong>
+	            {% if paginacion.totalPaginas != 1 %}
+	                 | {{'paginacion.ir_a'|trans}}
+	                <ul>
+	                    {{ paginacion.paginacion | raw }}
+	                </ul>
+	            {% endif %}
+	        </div>
+        {% endif %}
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
+	<script src="{{asset('assets/js/home.js')}}"></script>
+{% endblock %}

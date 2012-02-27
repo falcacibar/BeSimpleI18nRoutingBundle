@@ -14,7 +14,18 @@ class ActividadRecienteRepository extends EntityRepository
 {
 	public function getActividadReciente($results, $ciudad=null, $usuario=null, $entity=null, $offset=null) {
 		$em = $this->getEntityManager();
-
+		
+		if($entity != null) {
+			if($entity == 'recomendaciones')
+				$entity = "Loogares\UsuarioBundle\Entity\Recomendacion";
+			else if($entity == 'lugares') 
+				$entity = "Loogares\LugarBundle\Entity\Lugar";
+			else if($entity == 'fotos')
+				$entity = "Loogares\LugarBundle\Entity\ImagenLugar";
+			else if($entity == 'utiles')
+				$entity = "Loogares\UsuarioBundle\Entity\Util";
+		}
+		
 		if($offset == null)
           	$offset = '';
         if($ciudad != null)
@@ -22,16 +33,40 @@ class ActividadRecienteRepository extends EntityRepository
         if($usuario != null)
         	$where = ' WHERE ar.usuario = '.$usuario;
         if($entity != null)
-        	$where .= ' AND ar.entity = '.$entity;        	
-
+        	$where .= " AND ar.entidad = '".$entity."'";
         $q = $em->createQuery("SELECT ar, u
                                FROM Loogares\ExtraBundle\Entity\ActividadReciente ar
                                JOIN ar.usuario u".
                                $where.
-                               "ORDER BY ar.fecha DESC")
+                               " ORDER BY ar.fecha DESC")
                 ->setMaxResults($results)
                 ->setFirstResult($offset);       
 
         return $q->getResult();
+	}
+
+	public function getTotalActividadCiudad($ciudad, $entity=null) {
+		$em = $this->getEntityManager();
+
+		$where = '';
+		if($entity != null) {
+			if($entity == 'recomendaciones')
+				$entity = "Loogares\UsuarioBundle\Entity\Recomendacion";
+			else if($entity == 'lugares')
+				$entity = "Loogares\LugarBundle\Entity\Lugar";
+			else if($entity == 'fotos')
+				$entity = "Loogares\LugarBundle\Entity\ImagenLugar";
+			else if($entity == 'utiles')
+				$entity = "Loogares\UsuarioBundle\Entity\Util";
+
+			$where = " AND ar.entidad ='".$entity."'";
+		}
+     		
+		$q = $em->createQuery("SELECT count(ar.id)
+                               FROM Loogares\ExtraBundle\Entity\ActividadReciente ar
+                               WHERE ar.ciudad = ?1".
+                               $where);
+        $q->setParameter(1, $ciudad);
+        return $q->getSingleScalarResult();
 	}
 }

@@ -462,115 +462,31 @@
           color: #666666 !important;
           text-decoration: underline; }
 
-/* CSS SEBA */
-#home .columna_izq {
-  float: left;
-  width: 630px; }
-  #home .columna_izq .home_something {
-    background: #f2f2f6;
-    height: 250px;
+.actividad_extendida {
+  color: #666666; }
+  .actividad_extendida h3 {
+    padding: 10px;
+    border-bottom: 1px solid #f2f2f6; }
+  .actividad_extendida ul li {
+    padding: 10px;
     float: left;
-    width: 100%; }
-#home .columna_der {
-  float: right;
-  width: 300px; }
-  #home .columna_der .actividad_loogares {
-    width: 100%;
-    float: left;
-    margin: 0 0 20px; }
-    #home .columna_der .actividad_loogares .titulo_actividad {
-      border-left: 5px solid #ff3300;
-      background: #444444;
-      padding: 5px 10px 5px 20px; }
-      #home .columna_der .actividad_loogares .titulo_actividad h2 {
-        color: white;
-        font-size: 14px; }
-    #home .columna_der .actividad_loogares .contenido_actividad {
-      background: whiteSmoke;
-      height: 70px;
-      padding: 17px 10px; }
-      #home .columna_der .actividad_loogares .contenido_actividad .numero_actividad {
-        color: #0099ff;
-        float: left;
-        font-size: 28px;
-        text-align: right;
-        width: 75px;
-        text-shadow: -3px 0 1px #cccccc;
-        -moz-text-shadow: -3px 0 1px #cccccc;
-        -webkit-text-shadow: -3px 0 1px #cccccc; }
-      #home .columna_der .actividad_loogares .contenido_actividad .texto_actividad {
-        float: left;
-        font-size: 15px;
-        font-weight: bold;
-        line-height: 31px;
-        padding: 0 0 0 5px;
-        text-align: left;
-        width: 200px; }
-  #home .columna_der .recomendacion_dia {
-    width: 100%;
-    float: left;
-    margin: 0 0 20px; }
-    #home .columna_der .recomendacion_dia h2 {
-      margin: 0 0 20px;
-      font-size: 16px; }
-    #home .columna_der .recomendacion_dia .recomendacion_info {
-      height: 60px; }
-      #home .columna_der .recomendacion_dia .recomendacion_info .link_usuario {
-        float: left; }
-      #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion {
-        float: left;
-        margin: 0 0 0 10px; }
-        #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion a {
-          display: block;
-          color: #0066cc !important;
-          text-decoration: none;
-          font-weight: bold; }
-          #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion a:hover {
-            color: #0066cc !important;
-            text-decoration: underline; }
-        #home .columna_der .recomendacion_dia .recomendacion_info .usuario_recomendacion span {
-          color: #999999;
-          font-size: 11px; }
-    #home .columna_der .recomendacion_dia .recomendacion_preview {
-      margin: 10px 0;
-      font-size: 11px; }
-      #home .columna_der .recomendacion_dia .recomendacion_preview a {
-        color: #0066cc !important;
-        text-decoration: none; }
-        #home .columna_der .recomendacion_dia .recomendacion_preview a:hover {
-          color: #0066cc !important;
-          text-decoration: underline; }
-      #home .columna_der .recomendacion_dia .recomendacion_preview span {
-        display: block;
-        margin: 0 0 10px 0; }
-        #home .columna_der .recomendacion_dia .recomendacion_preview span a {
-          font-weight: bold; }
-      #home .columna_der .recomendacion_dia .recomendacion_preview .ver_mas {
-        float: right; }
-  #home .columna_der .ultimos_conectados {
-    width: 100%;
-    float: left;
-    margin: 0 0 20px; }
-    #home .columna_der .ultimos_conectados h2 {
-      margin: 0 0 20px;
-      font-size: 16px; }
-    #home .columna_der .ultimos_conectados ul li {
-      height: 25px;
-      margin: 0 0 10px; }
-      #home .columna_der .ultimos_conectados ul li .conectado_img {
-        float: left; }
-      #home .columna_der .ultimos_conectados ul li .conectado_info {
-        float: left;
-        font-size: 11px;
-        margin: 0 0 0 10px; }
-        #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_nombre {
-          font-weight: bold;
-          display: block;
-          color: #0066cc !important;
-          text-decoration: none; }
-          #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_nombre:hover {
-            color: #0066cc !important;
-            text-decoration: underline; }
-        #home .columna_der .ultimos_conectados ul li .conectado_info .conectado_recomendaciones {
-          font-style: italic;
-          display: block; }
+    border-bottom: 1px solid #f2f2f6;
+    width: 618px; }
+    .actividad_extendida ul li.last_one {
+      border-bottom: none; }
+    .actividad_extendida ul li .link_usuario {
+      float: left; }
+    .actividad_extendida ul li .contenido_actividad {
+      float: left;
+      margin: 0 0 0 10px; }
+      .actividad_extendida ul li .contenido_actividad span {
+        font-size: 11px; }
+      .actividad_extendida ul li .contenido_actividad p {
+        margin: 5px 0 0 0; }
+        .actividad_extendida ul li .contenido_actividad p.rec_actividad_preview {
+          font-size: 11px;
+          width: 555px; }
+        .actividad_extendida ul li .contenido_actividad p.util_actividad {
+          width: 555px; }
+    .actividad_extendida ul li .link_lugar {
+      float: right; }

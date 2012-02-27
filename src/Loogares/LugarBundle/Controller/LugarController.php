@@ -1041,7 +1041,7 @@ class LugarController extends Controller{
             'vecinas' => $vecinas,
             'dimensiones' => $dimensiones,
             'reportar' => $reportar,
-            'edicion' => ($this->get('request')->query->get('edicion')) ? true : false, 
+            'edicion' => ($this->getRequest()->query->get('edicion')) ? true : false, 
         ));
     }
 

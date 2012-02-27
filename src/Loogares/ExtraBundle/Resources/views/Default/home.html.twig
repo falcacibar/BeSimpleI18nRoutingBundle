@@ -144,6 +144,7 @@
 		<div class="actividad_reciente">
 			<h3 class="titulo_home titulo_actividad">{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}}</h3>
 			{% include 'LoogaresExtraBundle:Default:actividad_reciente.html.twig'%}
+			<a href="{{path('actividad')}}">{{'extra.home.actividad_reciente.ver_mas'|trans}} »</a>
 		</div>
 
 	</div>

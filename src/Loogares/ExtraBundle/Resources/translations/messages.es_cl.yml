@@ -36,6 +36,13 @@ extra:
                 lugar: agregó un nuevo lugar
             editar:
                 recomendacion: editó su %open_tag%recomendación%close_tag% con %estrellas% en
+            filtro:
+                todo: Todo
+                recomendaciones: Recomendaciones
+                lugares: Lugares agregados
+                fotos: Fotos agregadas
+                utiles: Recomendaciones evaluadas
+            ver_mas: Ver más actividad
 
     modulo_pedidos_online:
         titulo: Restaurantes con descuentos en Pedidos Online

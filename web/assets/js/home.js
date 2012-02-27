@@ -3,6 +3,10 @@ $(function(){
 		var estrellas = $(this).attr('data-stars');
 		estrellasRecomendacion(estrellas, $(this));
 	});
+
+    $('.actividad_extendida form select').change(function(){
+        $(this).parent().submit();
+    });
 });	
 
 function estrellasRecomendacion(estrellas, $this){
