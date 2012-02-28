@@ -99,4 +99,8 @@ class FacebookProvider implements UserProviderInterface
 
         return $this->loadUserByUsername($user->getFacebookUid());
     }
+
+    public function getFacebook() {
+        return $this->facebook;
+    }
 }
