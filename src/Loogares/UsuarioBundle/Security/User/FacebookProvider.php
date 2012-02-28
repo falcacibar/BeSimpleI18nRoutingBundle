@@ -19,10 +19,10 @@ class FacebookProvider implements UserProviderInterface
     protected $userManager;
     protected $validator;
 
-    public function __construct(BaseFacebook $facebook, $userManager, $validator)
+    public function __construct(BaseFacebook $facebook, $em, $validator)
     {
         $this->facebook = $facebook;
-        $this->userManager = $userManager;
+        $this->userManager = $em;
         $this->validator = $validator;
     }
 

@@ -11,7 +11,7 @@ services:
         class: %loogares_facebook_provider.class%
         arguments:
             facebook: "@fos_facebook.api"
-            userManager: "@doctrine.orm.entity_managers.default"
+            em: "@doctrine.orm.default_entity_manager"
             validator: "@validator"
             container: "@service_container"
 
