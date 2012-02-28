@@ -48,6 +48,7 @@ class FacebookProvider implements UserProviderInterface
             $fbdata = $this->facebook->api('/me');
         } catch (FacebookApiException $e) {
             $fbdata = null;
+            echo "hola";
         }
 
         if (!empty($fbdata)) {
@@ -79,7 +80,7 @@ class FacebookProvider implements UserProviderInterface
             $em->flush();
         }
         else {
-            echo "hola";
+
         }
 
         if (empty($user)) {
