@@ -9,12 +9,15 @@
             'assets/css/*.sass'
         %}
         {% endstylesheets %}
+        {% block partial_stylesheets %}
+        {% endblock %}
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
         <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />
         <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.comuna is empty)%}
             <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
+            <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
         {% endif %}
         <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
         <script>
@@ -65,8 +68,9 @@
         <script src="{{asset('assets/js/lib.js')}}"></script>
         <script src="{{asset('assets/js/main.js')}}"></script>
         
-        {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.comuna is empty)%}
+        {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.pais is empty)%}
         <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
+        <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
         <script>
             $(function(){               
                 $('.datos_usuario_fancybox').fancybox({
@@ -91,7 +95,10 @@
             });
         </script>
         {% endif %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        {% endblock %}
+        {% block parial_javascripts %}
+        {% endblock %}
     </body>
 
 </html>

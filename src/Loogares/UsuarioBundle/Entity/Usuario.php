@@ -860,4 +860,54 @@ class Usuario implements AdvancedUserInterface, \Serializable
         }
     }
 
+    /**
+     * @var Loogares\ExtraBundle\Entity\Pais
+     */
+    private $pais;
+
+    /**
+     * @var Loogares\ExtraBundle\Entity\Ciudad
+     */
+    private $ciudad;
+
+
+    /**
+     * Set pais
+     *
+     * @param Loogares\ExtraBundle\Entity\Pais $pais
+     */
+    public function setPais(\Loogares\ExtraBundle\Entity\Pais $pais)
+    {
+        $this->pais = $pais;
+    }
+
+    /**
+     * Get pais
+     *
+     * @return Loogares\ExtraBundle\Entity\Pais 
+     */
+    public function getPais()
+    {
+        return $this->pais;
+    }
+
+    /**
+     * Set ciudad
+     *
+     * @param Loogares\ExtraBundle\Entity\Ciudad $ciudad
+     */
+    public function setCiudad(\Loogares\ExtraBundle\Entity\Ciudad $ciudad)
+    {
+        $this->ciudad = $ciudad;
+    }
+
+    /**
+     * Get ciudad
+     *
+     * @return Loogares\ExtraBundle\Entity\Ciudad 
+     */
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
 }

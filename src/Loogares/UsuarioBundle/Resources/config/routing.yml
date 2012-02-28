@@ -16,8 +16,8 @@ regenerarPassword:
 
 login:
     pattern:   /
-    defaults:  { _controller: LoogaresUsuarioBundle:Usuario:login }    
-    
+    defaults:  { _controller: LoogaresUsuarioBundle:Usuario:login }
+
 login_check:
     pattern:   /login_check
 
@@ -27,6 +27,10 @@ login_check_facebook:
 
 logout:
     pattern:   /logout
+    
+forzarDatosUsuario:
+    pattern:  /forzar_datos
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:forzarDatos }
 
 showUsuario:
     pattern:  /{param}
@@ -73,6 +77,3 @@ accionesPendientes:
     pattern:  /acciones_pendientes/{accion}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:totalAccionesPendientes }
 
-forzarDatosUsuario:
-    pattern:  /forzar_datos/{id}
-    defaults: { _controller: LoogaresUsuarioBundle:Usuario:forzarDatos }

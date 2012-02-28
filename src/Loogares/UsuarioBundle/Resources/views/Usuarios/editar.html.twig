@@ -12,10 +12,13 @@
 		{% endif %}
 
 		<!-- Mensajes de error --> 
-		{% if errors %}
+		{% if errors or erroresLocalidad %}
 			<div class="mensaje_error">
 				<div class="imagen_error"></div>
 				<div class="txt_error">
+					{% for error in erroresLocalidad %}
+				        <p>{{ error | trans}}</p>
+				    {% endfor %}
 					{% for error in errors %}
 				        <p>{{ error | trans}}</p>
 				    {% endfor %}
