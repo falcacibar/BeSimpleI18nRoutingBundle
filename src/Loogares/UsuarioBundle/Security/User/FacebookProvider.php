@@ -28,12 +28,12 @@ class FacebookProvider implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return $this->userManager->supportsClass($class);
+        return $class === 'Loogares\UsuarioBundle\Entity\Usuario';
     }
 
     public function findUserByFbId($fbId)
     {
-        return $this->userManager->findUserBy(array('facebook_uid' => $fbId));
+        return $this->userManager->getRepository('LoogaresUsuarioBundle:Usuario')->findUserBy(array('facebook_uid' => $fbId));
     }
 
     public function loadUserByUsername($username)
