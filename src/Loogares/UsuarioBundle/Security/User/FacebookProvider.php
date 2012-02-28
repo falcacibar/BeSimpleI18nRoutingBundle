@@ -38,8 +38,8 @@ class FacebookProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
-        $em = $this->getEntityManager();
-
+        $em = $this->userManager->getEntityManager();
+        
         // Buscamos por UID para ver si existe en nuestra DB
         $user = $this->findUserByFbId($username);
 
