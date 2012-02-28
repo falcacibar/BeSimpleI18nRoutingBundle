@@ -281,6 +281,8 @@
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li select {
           float: left;
           width: 310px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .pais_select, .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .ciudad_select, .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .comuna_select {
+          width: 327px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .errors {
           margin: 5px 0 0 230px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .tipo_usuario {

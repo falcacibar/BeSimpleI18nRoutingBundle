@@ -142,6 +142,12 @@ usuario:
                 day: Día
                 month: Mes
                 year: Año
+            pais: País
+            pais_agregar: Seleccioná tu país de residencia
+            ciudad: Ciudad
+            ciudad_agregar: Seleccioná tu ciudad de residencia
+            comuna: Comuna
+            comuna_agregar: Seleccioná tu comuna de residencia
             mostrar_edad: Mostrar edad
             sexo:
                 label: Sexo

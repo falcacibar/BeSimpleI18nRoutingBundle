@@ -61,9 +61,18 @@
 						<small class="errors">{{errors.slug | trans}}</small>
 					{% endif %}
 				</li> 
+				<li>
+					{{ form_label(form.fecha_nacimiento, 'usuario.edicion.cuenta.nacimiento.label', {'attr' :{'class' : 'label-up'}}) }}
+					<div class="edicion-fecha-nacimiento">
+						{{ form_widget(form.fecha_nacimiento.day, { 'attr': {'class': 'day'}}) }}
+						{{ form_widget(form.fecha_nacimiento.month, { 'attr': {'class': 'month'}}) }}
+						{{ form_widget(form.fecha_nacimiento.year, { 'attr': {'class': 'year'}}) }}					
+					</div>
+				</li>
 				<li class="container_pais">
-			   		<select class="pais" name="pais">
-			   			<option value='elige'>{{'lugar.agregar.pais.title'|trans}}</option>
+					<label>{{'usuario.edicion.cuenta.pais'|trans}}</label>
+					<select class="pais pais_select" name="pais">
+			   			<option value='elige'>{{'usuario.edicion.cuenta.pais_agregar'|trans}}</option>
 			            {% for pais in paises %}
 			                <option 
 				                {% if usuario.pais is not empty and pais.slug == usuario.pais.slug or (paisSeleccionado != '' and paisSeleccionado == pais.slug)%}
@@ -76,10 +85,10 @@
 						<small class="errors">{{erroresLocalidad.pais}}</small>
 					{% endif %}
 		   		</li>
-
 		   		<li class="container_ciudad">
-			   		<select class='ciudad' name='ciudad' id='ciudad'>
-			   			<option value='elige'>{{'lugar.agregar.ciudad.title'|trans}}</option>
+					<label>{{'usuario.edicion.cuenta.ciudad'|trans}}</label>
+			   		<select class='ciudad ciudad_select' name='ciudad' id='ciudad'>
+			   			<option value='elige'>{{'usuario.edicion.cuenta.ciudad_agregar'|trans}}</option>
 			            {% for pais in paises %}
 			            	{% if pais.mostrarLugar == 3 %}
 			                <optgroup label="{{pais.nombre}}">
@@ -100,10 +109,10 @@
 						<small class="errors">{{erroresLocalidad.ciudad}}</small>
 					{% endif %}
 		        </li>
-
 	            <li class="container_comuna" {% if usuario.comuna is defined or ciudadSeleccionada != '' %}style="display:block;"{% endif %}>
-					<select class='comuna' name='comuna' id='comuna'>
-			            <option value='elige'>{{'lugar.agregar.comuna.title'|trans}}</option>
+					<label>{{'usuario.edicion.cuenta.comuna'|trans}}</label>
+					<select class='comuna comuna_select' name='comuna' id='comuna'>
+			            <option value='elige'>{{'usuario.edicion.cuenta.comuna_agregar'|trans}}</option>
 			            {% for ciudad in ciudades %}
 			            	{% if ciudad.mostrarLugar == 3  or ciudad.mostrarLugar == 1 %}
 			                <optgroup label="{{ciudad.nombre}}">
@@ -124,15 +133,7 @@
 						<small class="errors">{{erroresLocalidad.comuna}}</small>
 					{% endif %}
 		        </li>
-				<li>
-					{{ form_label(form.fecha_nacimiento, 'usuario.edicion.cuenta.nacimiento.label', {'attr' :{'class' : 'label-up'}}) }}
-					<div class="edicion-fecha-nacimiento">
-						{{ form_widget(form.fecha_nacimiento.day, { 'attr': {'class': 'day'}}) }}
-						{{ form_widget(form.fecha_nacimiento.month, { 'attr': {'class': 'month'}}) }}
-						{{ form_widget(form.fecha_nacimiento.year, { 'attr': {'class': 'year'}}) }}					
-					</div>
-				</li>
-				<li>					
+		        <li>					
 					{{ form_label(form.mostrar_edad, 'usuario.edicion.cuenta.mostrar_edad', {'attr' :{'class' : 'label-up'}})}}
 					{{ form_widget(form.mostrar_edad)}}
 				</li>
