@@ -24,7 +24,12 @@ class FacebookProvider implements UserProviderInterface
         $this->facebook = $facebook;
         $this->userManager = $em;
         $this->validator = $validator;
-        echo "hola";
+        try {
+            $fbdata = $this->facebook->api('/me');
+        } catch (FacebookApiException $e) {
+            echo "cagamos";
+
+        }
     }
 
     public function supportsClass($class)
