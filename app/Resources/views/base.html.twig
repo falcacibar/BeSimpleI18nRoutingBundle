@@ -75,6 +75,16 @@
 
         
         {% endif %}
+        {% if is_granted('ROLE_USER') == false %}
+        <script>
+            $(function(){
+                $('.facebook_login').click(function(e){
+                    e.preventDefault();
+                    $('.fb_hidden_button').find('.fb_button').click();
+                });
+            });
+        </script>
+        {% endif %}
         {% block javascripts %}{% endblock %}
     </body>
 
