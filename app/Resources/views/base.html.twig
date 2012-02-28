@@ -25,9 +25,6 @@
 
                   FB.Event.subscribe('auth.statusChange', function(response) {
                       if (response.session || response.authResponse) {
-                            FB.api('/me', function(response) {
-                              console.log('Good to see you, ' + response.name + '.');
-                              });
                           setTimeout(goLogIn, 500);
                       } else {
                           window.location.href = "{{ path('logout') }}";
