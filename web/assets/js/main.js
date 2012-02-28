@@ -99,8 +99,8 @@ $(document).ready(function() {
 
 function getTipo(tipo){
     if(tipo == 'dondeComer'){
-        return ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Mas de $18.000'];
+        return ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Más de $18.000'];
     }else if(tipo == 'dondeDormir'){
-        return ['Minimo', 'Barato', 'Medio', 'Alto', 'Maximo'];
+        return ['Mínimo', 'Barato', 'Medio', 'Alto', 'Máximo'];
     }
 }

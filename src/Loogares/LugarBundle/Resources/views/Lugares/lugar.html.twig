@@ -731,11 +731,15 @@
             <div style="display:none">{% include 'LoogaresLugarBundle:Ajax:recomendacion_popup.html.twig' %}</div>
         {% endif %}
         {% if is_granted('ROLE_USER') == false %}
-            <div class="">
-                <p>¿Aún no eres parte de Loogares.com?</p>
-                <p>Para recomendarle este lugar a otros Loogareños, tienes que registrarte antes.</p>
-                <a class="registro_loogares"></a>
-                <a class="registro_facebook"></a>
+            <div class="caja_registro_recomendacion">
+                <div class="texto">
+                    <p><strong>{{'lugar.ficha.aun_no_eres_parte'|trans}}</strong></p><br />
+                    <p>{{'lugar.ficha.registrate'|trans}}</p>
+                </div>
+                <div class="botones_registro">
+                    <a class="registro_loogares" href="{{path('registroUsuario')}}"></a>
+                    <a class="registro_facebook" href="#"></a>
+                </div>
             </div>
         {% endif %}
 

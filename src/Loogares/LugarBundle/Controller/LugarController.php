@@ -1281,6 +1281,13 @@ class LugarController extends Controller{
                 $recomendacion->setEstado($estado);
             }
 
+            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 ORDER BY u.id desc");
+            $q->setMaxResults(1);
+            $q->setParameter(1, $lugar->getId());
+            $ultimaRecomendacion = $q->getResult();
+
+            $lugar->setFechaUltimaRecomendacion($ultimaRecomendacion[0]->getFechaCreacion());
+
             $em->flush();
             $this->get('session')->setFlash('lugar_flash','Acabas de borrar tu recomendación, prueba escribiendo una nueva(.');
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));

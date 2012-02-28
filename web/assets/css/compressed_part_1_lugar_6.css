@@ -1348,7 +1348,7 @@
   display: block;
   float: left;
   font-size: 12px;
-  padding: 10px 0;
+  padding: 20px 0;
   width: 640px; }
   .paginacion_recomendacion p {
     float: left;
@@ -1461,6 +1461,43 @@
     width: 100px; }
     .recomienda_lugar_caja .enviar_recomendacion:hover {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
+
+/* Regístrate para recomendar */
+.caja_registro_recomendacion {
+  border-top: 1px solid #f2f2f6;
+  float: left;
+  padding: 20px 0 30px;
+  width: 640px; }
+  .caja_registro_recomendacion .texto {
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 10px 0 0;
+    width: 375px; }
+  .caja_registro_recomendacion .botones_registro {
+    float: left;
+    margin: 0 0 0 10px;
+    width: 255px; }
+    .caja_registro_recomendacion .botones_registro .registro_loogares {
+      background: url("../images/extras/botones_registro_usuario.png") no-repeat -954px -31px;
+      border: 0px;
+      cursor: pointer;
+      float: left;
+      height: 50px;
+      width: 254px; }
+      .caja_registro_recomendacion .botones_registro .registro_loogares:hover {
+        background: url("../images/extras/botones_registro_usuario.png") no-repeat -954px -81px; }
+    .caja_registro_recomendacion .botones_registro .registro_facebook {
+      background: url("../images/extras/botones_registro_usuario.png") no-repeat -600px -31px;
+      border: 0px;
+      cursor: pointer;
+      float: left;
+      height: 36px;
+      margin: 10px 0 0;
+      width: 254px; }
+      .caja_registro_recomendacion .botones_registro .registro_facebook:hover {
+        background: url("../images/extras/botones_registro_usuario.png") no-repeat -600px -81px; }
 
 /* Otros lugares */
 .otros_lugares {

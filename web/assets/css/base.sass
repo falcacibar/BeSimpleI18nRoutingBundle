@@ -364,7 +364,7 @@ textarea
                 width: 100px
             
         .menu_ciudad
-            background: $gris_666
+            background: $gris_444
             color: $blanco
             height: 25px
             float: left
@@ -373,6 +373,9 @@ textarea
             width: 180px
             padding-left: 130px
             position: relative
+
+            &:hover
+                background: $gris_666
 
             a
                 @include link_blanco
@@ -444,12 +447,15 @@ textarea
                     background: $gris_666                
 
                 .usuario_login
-                    background: $gris_666
+                    background: $gris_444
                     float: left
                     display: block
                     padding: 0 5px 0 0
                     position: relative
                     min-width: 200px
+
+                    &:hover
+                        background: $gris_666
 
                 .imagen_usuario_header
                     float: left
@@ -537,7 +543,7 @@ textarea
             font:
                 size: 12px
             height: 20px
-            padding: 5px 10px 0
+            padding: 4px 10px 1px
             width: 70px
             
             a
@@ -570,7 +576,7 @@ textarea
             .blog
                 float: left
                 display: block
-                margin: 2px 0 0 5px
+                margin: 3px 0 0 5px
 
 .menu
     background: url('../images/extras/fondo_header.png') 0 0 repeat-x
@@ -587,7 +593,6 @@ textarea
         height: 40px
     
         .logo_ciudad_menu
-            background: $blanco
             border-left: 1px solid $gris_ccc
             border-right: 1px solid $gris_ccc
             float: left

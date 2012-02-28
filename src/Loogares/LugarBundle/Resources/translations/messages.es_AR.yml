@@ -91,6 +91,8 @@ lugar:
         tags: Tags:
         recomienda:
             titulo: Recomendá
+        aun_no_eres_parte: ¿Aún no sos parte de Loogares.com?
+        registrate: Para recomendarle este lugar a otros Loogareños, tenés que registrarte antes.
 
     agregar:
         titulo: Agregar un Lugar

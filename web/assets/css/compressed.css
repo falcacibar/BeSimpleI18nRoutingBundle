@@ -610,7 +610,7 @@ textarea {
         top: -3px;
         width: 100px; }
     .barra_ciudad .centrado_ciudad .menu_ciudad {
-      background: #666666;
+      background: #444444;
       color: white;
       height: 25px;
       float: left;
@@ -618,6 +618,8 @@ textarea {
       width: 180px;
       padding-left: 130px;
       position: relative; }
+      .barra_ciudad .centrado_ciudad .menu_ciudad:hover {
+        background: #666666; }
       .barra_ciudad .centrado_ciudad .menu_ciudad a {
         color: white;
         text-decoration: none;
@@ -676,12 +678,14 @@ textarea {
         .barra_ciudad .centrado_ciudad .login li:hover {
           background: #666666; }
         .barra_ciudad .centrado_ciudad .login li .usuario_login {
-          background: #666666;
+          background: #444444;
           float: left;
           display: block;
           padding: 0 5px 0 0;
           position: relative;
           min-width: 200px; }
+          .barra_ciudad .centrado_ciudad .login li .usuario_login:hover {
+            background: #666666; }
         .barra_ciudad .centrado_ciudad .login li .imagen_usuario_header {
           float: left;
           height: 25px;
@@ -755,7 +759,7 @@ textarea {
       float: left;
       font-size: 12px;
       height: 20px;
-      padding: 5px 10px 0;
+      padding: 4px 10px 1px;
       width: 70px; }
       .barra_ciudad .centrado_ciudad .redes_sociales a {
         color: #444444;
@@ -781,7 +785,7 @@ textarea {
       .barra_ciudad .centrado_ciudad .redes_sociales .blog {
         float: left;
         display: block;
-        margin: 2px 0 0 5px; }
+        margin: 3px 0 0 5px; }
 
 .menu {
   background: url("../images/extras/fondo_header.png") 0 0 repeat-x;
@@ -797,7 +801,6 @@ textarea {
     width: 960px;
     height: 40px; }
     .menu .centrado_menu .logo_ciudad_menu {
-      background: white;
       border-left: 1px solid #cccccc;
       border-right: 1px solid #cccccc;
       float: left;
@@ -3733,7 +3736,7 @@ small {
   display: block;
   float: left;
   font-size: 12px;
-  padding: 10px 0;
+  padding: 20px 0;
   width: 640px; }
   .paginacion_recomendacion p {
     float: left;
@@ -3846,6 +3849,43 @@ small {
     width: 100px; }
     .recomienda_lugar_caja .enviar_recomendacion:hover {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
+
+/* Regístrate para recomendar */
+.caja_registro_recomendacion {
+  border-top: 1px solid #f2f2f6;
+  float: left;
+  padding: 20px 0 30px;
+  width: 640px; }
+  .caja_registro_recomendacion .texto {
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 10px 0 0;
+    width: 375px; }
+  .caja_registro_recomendacion .botones_registro {
+    float: left;
+    margin: 0 0 0 10px;
+    width: 255px; }
+    .caja_registro_recomendacion .botones_registro .registro_loogares {
+      background: url("../images/extras/botones_registro_usuario.png") no-repeat -954px -31px;
+      border: 0px;
+      cursor: pointer;
+      float: left;
+      height: 50px;
+      width: 254px; }
+      .caja_registro_recomendacion .botones_registro .registro_loogares:hover {
+        background: url("../images/extras/botones_registro_usuario.png") no-repeat -954px -81px; }
+    .caja_registro_recomendacion .botones_registro .registro_facebook {
+      background: url("../images/extras/botones_registro_usuario.png") no-repeat -600px -31px;
+      border: 0px;
+      cursor: pointer;
+      float: left;
+      height: 36px;
+      margin: 10px 0 0;
+      width: 254px; }
+      .caja_registro_recomendacion .botones_registro .registro_facebook:hover {
+        background: url("../images/extras/botones_registro_usuario.png") no-repeat -600px -81px; }
 
 /* Otros lugares */
 .otros_lugares {
@@ -4451,12 +4491,12 @@ small {
       margin: 0 20px 0 0;
       padding: 2px 0 0 26px; }
     .caja_usuario .actividad_usuario_der .lugares_visitados_usuario {
-      background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -105px;
+      background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -126px;
       height: 16px;
       margin: 10px 20px 0 0;
       padding: 2px 0 0 26px; }
     .caja_usuario .actividad_usuario_der .lugares_por_recomendar_usuario {
-      background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -126px;
+      background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -105px;
       height: 16px;
       margin: 10px 20px 0 0;
       padding: 2px 0 0 26px; }
