@@ -61,11 +61,14 @@ class FacebookProvider implements UserProviderInterface
                 // Si en este punto el usuario no existe, entonces debemos registrarlo
                 if (empty($user)) {
                     $user = new Usuario();
-                    $user->setPassword('');
+                    $user->setPassword(md5(''));
 
                     if (isset($fbdata['email'])) {
                         $user->setMail($fbdata['email']);
                     }
+                    $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
+                                      ->findOneByNombre('Activo');
+                    $user->setEstado($estadoUsuario);
                     $user->setFBData($fbdata);
                     $em->persist($user);
                 }
