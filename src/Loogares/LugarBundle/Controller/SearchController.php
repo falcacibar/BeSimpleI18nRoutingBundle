@@ -84,7 +84,7 @@ class SearchController extends Controller
     $termSlug = $fn->generarSlug($term);
     $termArray = preg_split('/\s/', $term);
 
-    $fields = "STRAIGHT_JOIN lugares.mapx, lugares.mapy, lugares.id, lugares.nombre as nombre_lugar, lugares.slug as lugar_slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2+lugares.visitas*0.2) as ranking, categorias.slug, categorias.nombre, ( select max(recomendacion.fecha_creacion) from recomendacion where recomendacion.lugar_id = lugares.id) as ultima_recomendacion";   
+    $fields = "STRAIGHT_JOIN lugares.mapx, lugares.mapy, lugares.id, lugares.nombre as nombre_lugar, lugares.slug as lugar_slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2+lugares.visitas*0.2) as ranking, categorias.slug, categorias.nombre, ( select max(recomendacion.fecha_creacion) from recomendacion where recomendacion.lugar_id = lugares.id and recomendacion.estado_id = 2) as ultima_recomendacion";   
 
     $noCategorias = false;
     $filterCat = false;
@@ -94,6 +94,7 @@ class SearchController extends Controller
     $filterPrecio = false;
     $filterCaracteristica = false;
     $filterCiudad = " AND comuna.ciudad_id = $idCiudad";
+    $filterCiudadSector = " AND sector.ciudad_id = $idCiudad";
 
     if(!isset($_GET['o']) || $_GET['o'] != 'no'){
       $mappedCategorias = array(
@@ -135,8 +136,9 @@ class SearchController extends Controller
         $categoriaResult = ((isset($_GET['categoria']))?$categoria_repo->findOneBySlug($_GET['categoria']):NULL);
  
       if(!preg_match('/categoria/', $path)){
-        $generateParams = $_GET;
+        $generateParams = array();
         $generateParams['slug'] = $slug;
+        $generateParams['q'] = $_GET['q'];
         $generateParams['o'] = 'no';
         $url = $this->generateUrl('_buscar', $generateParams);
         $this->get('session')->setFlash('buscar_flash','Creemos que estas buscando una Categoria!, asi que te enviamos a esta!.<br/>Si quieres intentar tu busqueda y que no adivinemos, haz click aqui: <a href="'.$url.'">AAAAA</a>');
@@ -176,7 +178,6 @@ class SearchController extends Controller
 
     $orderFilters = array(
       'recomendaciones' => 'lugares.total_recomendaciones desc',
-      'utiles' => 'lugares.utiles desc',
       'alfabetico' => 'lugares.nombre asc',
       'recomendaciones' => 'ranking desc',
       'ultimas_recomendaciones' => 'ultima_recomendacion desc'
@@ -732,7 +733,7 @@ class SearchController extends Controller
                            ON sector.id = lugares.sector_id
 
                            WHERE lugares.slug LIKE '%$termSlug%'
-                           $filterPrecio
+                           $filterPrecio $filterCiudadSector
                            $filterCaracteristica)";
 
       //Total de Categorias Generadas por la Categoria
@@ -750,7 +751,7 @@ class SearchController extends Controller
                            ON categoria_lugar.categoria_id = categorias.id
 
                            WHERE categorias.slug LIKE '%$termSlug%' 
-                           $filterPrecio
+                           $filterPrecio $filterCiudadSector
                            $filterCaracteristica)";
 
       foreach($termArray as $key => $value){
@@ -762,7 +763,7 @@ class SearchController extends Controller
                              ON sector.id = lugares.sector_id
 
                              WHERE lugares.slug LIKE '%$value%'
-                             $filterPrecio
+                             $filterPrecio $filterCiudadSector
                              $filterCaracteristica)";
       }
 
@@ -773,7 +774,7 @@ class SearchController extends Controller
                              ON sector.id = lugares.sector_id
 
                              WHERE lugares.calle LIKE '%$term%'
-                             $filterPrecio
+                             $filterPrecio $filterCiudadSector
                              $filterCaracteristica)";
 
       /*

@@ -30,33 +30,6 @@
 	<script src="{{asset('assets/js/googleMapBuscar.js')}}"></script>
 	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
 	<script src="{{asset('assets/js/buscar.js')}}"></script>
-
-	<script>
-    var $sidebar   = $(".sidebar_busqueda"),
-	    $window    = $(window),
-	    topPadding = 60,
-		sideBarOffset     = $sidebar.offset(),
-		compensation = ($('.mensaje_exito').length > 0)?69:0;
-    	
-
-    $window.scroll(function() {
-    	margin = $(document).height() - 1541 - compensation;
-
-    	if($window.scrollTop() >= sideBarOffset.top && margin + 400 >= $window.scrollTop()){
-		    $sidebar.stop().animate({
-	            top: $window.scrollTop() - sideBarOffset.top + topPadding
-	        });
-        }else if(margin - 200 <= $window.scrollTop()){
-		    $sidebar.stop().animate({
-	            top: margin
-	        });
-        }else{
-		    $sidebar.stop().animate({
-	            top: 0
-	        });
-        }
-    });
-	</script>
 {% endblock %}
 
 {% block content %}
@@ -75,7 +48,7 @@
 
 			<h1 class="titulo_busqueda">
 				{% if noCategorias == true %}
-					Categoria {{categoria.nombre}}
+					{{categoria.nombre}} en {{ciudad.nombre}}
 				{% else %}
 				{{'lugar.buscar.resultado_busqueda'|trans}} {{term}} 
 				 {% if subcategoria != null %}
@@ -340,15 +313,7 @@
 			        </li>
 			        <li>|</li>
 			        <li>
-			            {% if query.orden is defined and query.orden == 'utiles' %}
-			                <strong>{{'general.terminos.mas_recomendados'|transchoice(2)}}</strong>
-			            {% else %}
-			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'utiles' })) }}">{{'general.terminos.mas_recomendados'|transchoice(2)}}</a>
-			            {% endif %}
-			        </li>
-			        <li>|</li>
-			        <li>
-			            {% if query.orden is defined and query.orden == 'ultima-recomendacion' %}
+			            {% if query.orden is defined and query.orden == 'ultimas_recomendaciones' %}
 			                <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
 			            {% else %}
 			                <a href="{{ path(ruta, query|merge({'slug': slug, 'orden': 'ultimas_recomendaciones' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(1)}}</a>
