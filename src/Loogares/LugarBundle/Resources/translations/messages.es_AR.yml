@@ -8,6 +8,8 @@ lugar:
             mail: ¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora exigiles una salida... ¡todo incluido!
         recomendacion:
             agregar: ¡Sos el mejor, %nombre% %apellido%! Seguí recomendando y te convertirás en nuestro Loogareño favorito.
+            agregar_revision: ¡Qué grande, %nombre% %apellido%! Si tuviéramos medallas te daríamos una. El lugar que agregaste quedará temporalmente en revisión.
+            edicion_revision: ¡Gracias %nombre% %apellido% por tu ayuda! No sabríamos qué hacer sin vos. La información quedará bajo revisión antes de ser publicada.
             
     errors:
         agregar:
