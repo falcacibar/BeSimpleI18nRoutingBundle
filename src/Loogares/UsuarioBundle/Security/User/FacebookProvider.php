@@ -7,11 +7,10 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Loogares\UsuarioBundle\Entity\Usuario;
-use Loogares\UsuarioBundle\Repository\UsuarioRepository;
 use \BaseFacebook;
 use \FacebookApiException;
 
-class FacebookProvider extends UsuarioRepository implements UserProviderInterface
+class FacebookProvider implements UserProviderInterface
 {
     /**
      * @var \Facebook
@@ -45,7 +44,7 @@ class FacebookProvider extends UsuarioRepository implements UserProviderInterfac
         echo $this->facebook->getUser();
         // Buscamos por UID para ver si existe en nuestra DB
         $user = $ur->findUserByFbId($username);
-
+        
         try {
             $fbdata = $this->facebook->api('/me');
         } catch (FacebookApiException $e) {
