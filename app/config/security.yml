@@ -41,7 +41,7 @@ security:
                 app_url: "http://new.loogares.com"
                 server_url: "http://new.loogares.com"
                 check_path: /usuario/login_check/facebook
-                login_path: /usuario 
+                login_path: /usuario
                 provider: facebook
             logout:
                 path:   /usuario/logout
