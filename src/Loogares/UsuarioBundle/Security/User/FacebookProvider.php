@@ -38,10 +38,11 @@ class FacebookProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
-        $em = $this->userManager->getRepository('LoogaresUsuarioBundle:Usuario');
+        $em = $this->userManager;
+        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
 
         // Buscamos por UID para ver si existe en nuestra DB
-        $user = $this->findUserByFbId($username);
+        $user = $ur->findUserByFbId($username);
 
         try {
             $fbdata = $this->facebook->api('/me');
@@ -53,7 +54,7 @@ class FacebookProvider implements UserProviderInterface
             if (empty($user)) {
                 // Revisamos si un usuario con el mismo email está registrado (para quienes conectan estando registrados)
                 if (isset($fbdata['email'])) {
-                    $user = $this->userManager->findUserByMail($fbdata['email']);
+                    $user = $ur->findUserByMail($fbdata['email']);
                 }
                 
                 // Si en este punto el usuario no existe, entonces debemos registrarlo
