@@ -11,7 +11,7 @@ services:
         class: %loogares_facebook_provider.class%
         arguments:
             facebook: "@fos_facebook.api"
-            userManager: %loogares_usuario_repository.class%
+            userManager: { class:  %loogares_usuario_repository.class% }
             validator: "@validator"
             container: "@service_container"
 
