@@ -3,6 +3,11 @@
 	<p style="margin: 15px 0;">{{'validacion_usuario.texto'|trans}}</p>
 
 	<form action="{{path('forzarDatosUsuario', {'id' : app.security.token.user.id})}}" method="post">
+		{% if 
+	    	is_granted('ROLE_USER') and 
+	    	(app.security.token.user.nombre is empty or 
+	    	 app.security.token.user.apellido is empty)
+	   	%}
 		<ul>
 			<li>
 				<label for="nombre" style="width:100px;font-size:11px">{{'validacion_usuario.nombre'|trans}}</label>
@@ -23,5 +28,98 @@
 				<input type="submit" value="Enviar" />
 			</li>
 		</ul>
+		{% endif %}
+
+	    {% if 
+	    	is_granted('ROLE_USER') and 
+	    	app.security.token.user.comuna is empty
+	   	%}
+	   	<script>
+	   		$(document).ready(function(){
+	   		    var optGroupCiudades = [],
+			        optGroupComunas = [],
+			        selected = {};
+
+		    $('.ciudad optgroup').each(function(i){
+		        optGroupCiudades[i] = $(this).outerHTML();
+		        $(this).remove();
+		    });
+
+		    $('.comuna optgroup').each(function(i){
+		        optGroupComunas[i] = $(this).outerHTML();
+		        $(this).remove();
+		    });
+
+		     function actualizarComunas(){
+		        var ciudadSeleccionada = $('.ciudad option:selected').text();
+
+		        $.each(optGroupComunas, function(i){
+		            if(optGroupComunas[i].match(ciudadSeleccionada)){
+		                $('.comuna > optgroup').remove('optgroup');
+		                $('.comuna').append(optGroupComunas[i]);
+		                $(".comuna").trigger("liszt:updated")
+		            }
+		        });
+		    }
+
+		    function actualizarCiudades(){
+		        var paisSeleccionado = $('.pais option:selected').text();
+		        console.log(paisSeleccionado)
+		        $.each(optGroupCiudades, function(i){
+		            if(optGroupCiudades[i].match(paisSeleccionado)){
+		                $('.ciudad optgroup').remove('optgroup');
+		                $('.ciudad').append(optGroupCiudades[i]);
+		                $(".ciudad").trigger("liszt:updated")
+		            }
+		        });
+
+		        actualizarComunas();
+		    }
+
+			    $('.ciudad').change(function(){
+			        actualizarComunas();
+			    });
+		        $('.pais').change(function(){
+		        	actualizarCiudades();
+		    	});
+		    })
+	   	</script>
+	   		<select class="pais">
+            {% for pais in paises %}
+                <option value="{{pais.slug}}">{{pais.nombre}}</option>
+            {% endfor %}
+	   		</select>
+
+	   		<select class='ciudad required' title='' name='ciudad' id='ciudad'>
+            {% for pais in paises %}
+            	{% if pais.mostrarLugar == 3 %}
+                <optgroup label="{{pais.nombre}}">
+                    {% for ciudad in ciudades %}
+                        {% if ciudad.pais.id == pais.id %}
+                        <option value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </optgroup>
+                {% endif %}
+            {% endfor %}
+            </select>
+
+			<select class='comuna required' title="{{'lugar.errors.agregar.comuna'|trans}}" name='comuna' id='comuna'>
+            <option value='elige'>{{'lugar.agregar.comuna.title'|trans}}</option>
+            {% for ciudad in ciudades %}
+            	{% if ciudad.mostrarLugar == 3  or ciudad.mostrarLugar == 1 %}
+                <optgroup label="{{ciudad.nombre}}">
+                    {% for comuna in comunas %}
+                        {% if ciudad.id == comuna.ciudad.id %}
+                        	<option value="{{comuna.slug}}">{{comuna.nombre}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </optgroup>
+                {% endif %}
+            {% endfor %}
+            </select>
+
+	   	{% endif %}
 	</form>
+	
 </div>

@@ -117,7 +117,7 @@ jirafe_mail_chimp:
 
 # Doctrine Extensions Configuration
 stof_doctrine_extensions:
-    default_locale: %locale%
+    default_locale: es_AR
     translation_fallback: true
     orm:
         default:

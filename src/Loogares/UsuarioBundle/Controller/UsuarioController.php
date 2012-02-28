@@ -904,6 +904,15 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u order by u.nombre asc");
+        $ciudades = $q->getResult();
+
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Pais u WHERE u.mostrar_lugar = 2 or u.mostrar_lugar = 3 order by u.nombre asc");
+        $paises = $q->getResult();
+
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u order by u.nombre asc");
+        $comunas = $q->getResult();
+
         if($this->get('security.context')->isGranted('ROLE_USER')) {
             $usuario = $this->get('security.context')->getToken()->getUser();
             $formErrors = array();
@@ -934,6 +943,9 @@ class UsuarioController extends Controller
 
             return $this->render('LoogaresUsuarioBundle:Usuarios:datos_obligatorios.html.twig', array(
                 'errors' => $formErrors,
+                'ciudades' => $ciudades,
+                'paises' => $paises,
+                'comunas' => $comunas
             ));
         }
         else {

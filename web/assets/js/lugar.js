@@ -322,7 +322,6 @@ function editarRecomendacion(lugar){
     $('.edita_recomendacion').click(function(e){
         e.preventDefault(); 
         $recomendacionBloque = $(this).closest('.recomendacion').find('.recomendacion-bloque');
-        console.log($recomendacionBloque)
         $.ajax({
             type:'post',
             data: {'slug': lugar},
