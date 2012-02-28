@@ -40,8 +40,7 @@ security:
             fos_facebook:
                 app_url: "http://new.loogares.com"
                 server_url: "http://new.loogares.com"
-                check_path: /usuario/login_check/facebook
-                login_path: /usuario
+                check_path: /usuario/login_check_facebook
                 default_target_path: /
                 provider: facebook
             logout:
