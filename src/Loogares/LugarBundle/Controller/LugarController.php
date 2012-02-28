@@ -572,9 +572,9 @@ class LugarController extends Controller{
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }else{
                     if($esEdicionDeUsuario == true){
-                        $this->get('session')->setFlash('lugar_flash','¡Gracias [[NOMBRE DE USUARIO]] por tu ayuda! No sabríamos qué hacer sin ti. La información quedará bajo revisión antes de ser publicada.');
+                        $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.edicion_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
                     }else{
-                        $this->get('session')->setFlash('lugar_flash','¡Qué grande, [[NOMBRE DE USUARIO]]! Si tuviéramos medallas te daríamos una. El lugar que agregaste quedará temporalmente en revisión.');
+                        $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
                     }
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }
