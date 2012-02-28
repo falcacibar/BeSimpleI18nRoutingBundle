@@ -73,7 +73,7 @@ body {
     width: 20px; }
   .mensaje_exito .txt_exito {
     float: left;
-    margin: 3px 0 0 0; }
+    margin: 3px 0 0; }
 
 .mensaje_error {
   border-radius: 8px;
@@ -98,7 +98,6 @@ body {
     display: block;
     float: left;
     line-height: 20px;
-    margin: 2px 0 0 0;
     width: 910px; }
 
 .errors {
