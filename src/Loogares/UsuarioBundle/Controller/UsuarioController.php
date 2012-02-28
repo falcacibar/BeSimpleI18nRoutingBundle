@@ -892,7 +892,7 @@ class UsuarioController extends Controller
     }
 
     public function loginCheckFacebookAction() {
-        //$facebook = $this->get('my.facebook.user');
+        
     }
 
     public function totalAccionesPendientesAction($accion) {

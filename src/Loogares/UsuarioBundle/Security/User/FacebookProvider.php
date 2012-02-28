@@ -40,7 +40,7 @@ class FacebookProvider implements UserProviderInterface
     {
         $em = $this->userManager;
         $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-        
+
         // Buscamos por UID para ver si existe en nuestra DB
         $user = $this->findUserByFbId($username);
 
@@ -97,9 +97,5 @@ class FacebookProvider implements UserProviderInterface
         }
 
         return $this->loadUserByUsername($user->getFacebookUid());
-    }
-
-    public function getFacebook() {
-        return $this->facebook;
     }
 }
