@@ -61,7 +61,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         $q = $em->createQuery("SELECT r, l
                                FROM Loogares\UsuarioBundle\Entity\Recomendacion r
                                LEFT JOIN r.lugar l
-                               WHERE r.usuario = ?1 and r.lugar = l.id "
+                               WHERE r.usuario = ?1 and r.lugar = l.id and r.estado = 2"
                                .$orden)
                 ->setMaxResults(10)
                 ->setFirstResult($offset);
