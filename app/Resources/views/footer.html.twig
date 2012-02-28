@@ -47,15 +47,8 @@
 		<div class="pais">
 			<p class="footer_title_pais">{{'general.footer.paises.titulo'|trans}}</p>
 			<ul class="pais_listado">
-				<li><a class="cl" href="#">{{'general.footer.paises.chile'|trans}}</a></li>
-				<li><a class="ar" href="#">{{'general.footer.paises.argentina'|trans}}</a></li>
-			</ul>
-		</div>
-		<div class="idioma">
-			<p class="footer_title_idioma">{{'general.footer.idioma.titulo'|trans}}</p>
-			<ul class="idioma_listado">
-				<li><a class="es" href="#">{{'general.footer.idioma.espanol'|trans}}</a></li>
-				<li><a class="en" href="#">{{'general.footer.idioma.ingles'|trans}}</a></li>
+				<li><a class="cl" href='{{path("locale", {"slug": "santiago-de-chile"})}}'>{{'general.footer.paises.chile'|trans}}</a></li>
+				<li><a class="ar" href="{{path('locale', {'slug': 'buenos-aires'})}}">{{'general.footer.paises.argentina'|trans}}</a></li>
 			</ul>
 		</div>
 		<div class="redes">

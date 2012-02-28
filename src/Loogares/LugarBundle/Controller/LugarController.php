@@ -393,7 +393,7 @@ class LugarController extends Controller{
                 $lr->cleanUp($lugarManipulado->getId());
 
                 foreach($_POST['categoria'] as $postCategoria){
-                    if($slug && $rolAdmin == false){
+                    if($slug != null && $rolAdmin == false){
                         $categoriaLugar[] = new TempCategoriaLugar();
                     }else{
                         $categoriaLugar[] = new CategoriaLugar();
@@ -416,7 +416,7 @@ class LugarController extends Controller{
 
                 if(isset($_POST['caracteristica']) && is_array($_POST['caracteristica'])){
                     foreach($_POST['caracteristica'] as $postCaracteristica){
-                        if($rolAdmin == false){
+                        if($slug != null && $rolAdmin == false){
                             $caracteristicaLugar[] = new TempCaracteristicaLugar();
                         }else{
                             $caracteristicaLugar[] = new CaracteristicaLugar();  
@@ -433,7 +433,7 @@ class LugarController extends Controller{
 
                 if(isset($_POST['subcategoria']) && is_array($_POST['subcategoria'])){
                     foreach($_POST['subcategoria'] as $postSubCategoria){
-                        if($rolAdmin == false){
+                        if($slug != null && $rolAdmin == false){
                             $subCategoriaLugar[] = new TempSubcategoriaLugar();
                         }else{
                             $subCategoriaLugar[] = new SubcategoriaLugar();
@@ -451,7 +451,7 @@ class LugarController extends Controller{
                 $dias = array('lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo');
 
                 foreach($dias as $key => $value){
-                    if($rolAdmin == false){
+                    if($slug != null && $rolAdmin == false){
                         $horario[] = new TempHorario();    
                     }else{
                         $horario[] = new Horario(); 
@@ -651,7 +651,7 @@ class LugarController extends Controller{
             $q->setParameter(1, "atractivos-turisticos");
             $data['categorias'] = $q->getResult();
         }
-        
+
         $data['tipoCategoria'] = $lr->getTipoCategorias();
         $data['subCategorias'] = $lr->getSubCategorias();
         $data['caracteristicas'] = $lr->getCaracteristicas();
