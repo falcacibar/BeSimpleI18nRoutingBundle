@@ -133,7 +133,7 @@ $rojo: #F72121
                 width: 300px
 
             .sexo_usuario_Hombre
-                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -176px
+                background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -189px
                 display: block
                 float: left
                 height: 16px
@@ -141,7 +141,7 @@ $rojo: #F72121
                 width: 16px
 
             .sexo_usuario_Mujer
-                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -210px
+                background: url('../images/extras/iconos_perfil_usuario.png') no-repeat 0 -209px
                 display: block
                 float: left
                 height: 16px
@@ -705,6 +705,39 @@ $rojo: #F72121
         padding: 20px 20px 0
         position: relative
         width: 759px
+
+        .filtrar_actividad_por
+            float: left
+            font:
+                size: 14px
+                weight: bold
+            margin: 34px 0
+            width: 85px
+        
+        .filtrar_select
+            float: left
+            margin: 30px 0
+            width: 670px
+
+        ul
+            float: left
+            font:
+                size: 14px
+            width: 755px
+
+            li
+                margin: 0 0 25px
+                
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
+
+                span
+                    color: $gris_999
+                    font:
+                        size: 11px
 
     .caja_recomendaciones_usuario
         color: gris_444

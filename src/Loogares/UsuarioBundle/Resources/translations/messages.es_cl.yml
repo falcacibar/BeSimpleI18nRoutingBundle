@@ -78,7 +78,8 @@ usuario:
         lugares: Listas de lugares
 
     actividad:
-        titulo: Mi actividad|Actividad de
+        titulo: Actividad|Actividad de
+        filtrar: Filtrar por:
 
     recomendaciones:
         titulo: Recomendación|Recomendaciones

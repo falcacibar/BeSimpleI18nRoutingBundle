@@ -4,15 +4,18 @@
 		{{(usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto) ? 'usuario.actividad.titulo'|transchoice(1) : 'usuario.actividad.titulo'|transchoice(0)~" "~usuario.nombre~" "~usuario.apellido}}
 	</h2>
 	
-	<form action="{{path('actividadUsuario', {'param' : usuario.slug})}}" method="get">
-		<select name="filtro">
-			<option value="todo" {% if usuario.filtro == 'todo'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.todo'|trans}}</option>
-			<option value="recomendaciones" {% if usuario.filtro == 'recomendaciones'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.recomendaciones'|trans}}</option>
-			<option value="lugares" {% if usuario.filtro == 'lugares'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.lugares'|trans}}</option>
-			<option value="fotos" {% if usuario.filtro == 'fotos'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.fotos'|trans}}</option>
-			<option value="utiles" {% if usuario.filtro == 'utiles'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.utiles'|trans}}</option>
-		</select>
-	</form>
+	<p class="filtrar_actividad_por">{{'usuario.actividad.filtrar'|trans}}</p>
+	<div class="filtrar_select">
+		<form action="{{path('actividadUsuario', {'param' : usuario.slug})}}" method="get">
+			<select name="filtro">
+				<option value="todo" {% if usuario.filtro == 'todo'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.todo'|trans}}</option>
+				<option value="recomendaciones" {% if usuario.filtro == 'recomendaciones'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.recomendaciones'|trans}}</option>
+				<option value="lugares" {% if usuario.filtro == 'lugares'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.lugares'|trans}}</option>
+				<option value="fotos" {% if usuario.filtro == 'fotos'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.fotos'|trans}}</option>
+				<option value="utiles" {% if usuario.filtro == 'utiles'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.utiles'|trans}}</option>
+			</select>
+		</form>	
+	</div>
 
 	<ul>
 	{% for a in usuario.actividad %}
@@ -37,8 +40,8 @@
 					<a href="{{path('showUsuario', {'param' : a.usuario.slug})}}">{{a.usuario.nombre}} {{a.usuario.apellido}}</a> {% trans with {'%open_tag%' : "<a href='"~path('_recomendacion', {'slug' : a.ent.lugar.slug, 'usuarioSlug' : a.usuario.slug})~"'>", '%close_tag%' : '</a>', '%estrellas%' : "<span class='estrellas_actividad' data-stars="~a.ent.estrellas~"></span>"}%}extra.home.actividad_reciente.editar.recomendacion{% endtrans %} <a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a>
 				{% endif %}
 			{% endif %}
+				<span> - {{a.fecha|date('d/m/Y')}}</span>
 			</p>
-			<span> - {{a.fecha|date('d/m/Y')}}</span>
 		</li>
 	{% endfor %}
 	</ul>

@@ -66,7 +66,7 @@
 			   			<option value='elige'>{{'lugar.agregar.pais.title'|trans}}</option>
 			            {% for pais in paises %}
 			                <option 
-				                {% if pais.slug == usuario.pais.slug or (paisSeleccionado != '' and paisSeleccionado == pais.slug)%}
+				                {% if usuario.pais is not empty and pais.slug == usuario.pais.slug or (paisSeleccionado != '' and paisSeleccionado == pais.slug)%}
 				                	selected="selected" 
 				                {% endif %}
 				                value="{{pais.slug}}">{{pais.nombre}}</option>
@@ -86,7 +86,7 @@
 			                    {% for ciudad in ciudades %}
 			                        {% if ciudad.pais.id == pais.id %}
 			                        <option 
-			                        	{% if ciudad.slug == usuario.ciudad.slug or (ciudadSeleccionada != '' and ciudadSeleccionada == ciudad.slug) %}
+			                        	{% if usuario.ciudad is not empty and ciudad.slug == usuario.ciudad.slug or (ciudadSeleccionada != '' and ciudadSeleccionada == ciudad.slug) %}
 			                        		selected="selected" 
 			                        	{% endif %}
 			                        	value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
@@ -110,7 +110,7 @@
 			                    {% for comuna in comunas %}
 			                        {% if ciudad.id == comuna.ciudad.id %}
 			                        	<option 
-			                        		{% if (usuario.comuna.slug is defined and comuna.slug == usuario.comuna.slug) or (comunaSeleccionada != '' and comunaSeleccionada == comuna.slug) %}
+			                        		{% if usuario.comuna is not empty and comuna.slug == usuario.comuna.slug or (comunaSeleccionada != '' and comunaSeleccionada == comuna.slug) %}
 			                        			selected="selected" 
 			                        		{% endif %}
 			                        		value="{{comuna.slug}}">{{comuna.nombre}}</option>
