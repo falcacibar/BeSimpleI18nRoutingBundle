@@ -66,6 +66,7 @@ class FacebookProvider implements UserProviderInterface
                     if (isset($fbdata['email'])) {
                         $user->setMail($fbdata['email']);
                     }
+                    $user->setFBData($fbdata);
                     $em->persist($user);
                 }
 
