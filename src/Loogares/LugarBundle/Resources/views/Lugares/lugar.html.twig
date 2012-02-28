@@ -32,7 +32,8 @@
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
     <script src='../../assets/js/googleMapFicha.js'></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>   
-    <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>    
+    <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>  
+    <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>   
     <script src="{{asset('assets/js/lugar.js')}}"></script>
 
     <script>
@@ -44,216 +45,6 @@
         })
     </script>
     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
-    <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
-<script>
-    $(document).ready(function(){
-        $(".ver_video_lugar").fancybox({
-            maxWidth    : 600,
-            maxHeight   : 500,
-            fitToView   : false,
-            width       : '70%',
-            height      : '70%',
-            autoSize    : false,
-            closeClick  : false,
-            openEffect  : 'none',
-            closeEffect : 'none'
-        });
-
-        $('.tooltip_estuve_alla, .tooltip_quiero_volver').qtip({
-            show: {
-                solo: true,
-                event: 'click'
-            },
-            content: {
-                text: $('.qtip_estuve_alla')
-            },
-            style: {
-            classes: 'ui-tooltip-precio',
-                tip: {
-                    border: 0,
-                    width: 12,
-                    color: '#f0f',
-                    corner: true,
-                    offset: 0
-                },
-            },
-            position: {
-                my: 'top center', 
-                at: 'bottom left',
-                adjust: {
-                    x: 59,
-                    y: 6
-                },
-            },
-            hide: {
-                fixed: true,
-                delay: 2000,
-                event: 'mouseleave'
-            }
-        });
-
-        $('.tooltip').qtip({
-            show: {
-                solo: true
-            },
-            content: {
-                text: $('.qtip_favoritos')
-            },
-            style: {
-            classes: 'ui-tooltip-precio',
-                tip: {
-                    border: 0,
-                    width: 12,
-                    color: '#f0f',
-                    corner: true,
-                    offset: 0
-                },
-            },
-            position: {
-                my: 'top center', 
-                at: 'bottom left',
-                adjust: {
-                    x: 9,
-                    y: 6
-                },
-            },
-            hide: {
-                fixed: true,
-                delay: 200,
-                event: 'mouseleave'
-            }
-        });
-
-        $('.tooltip_caracteristica').qtip({
-            show: {
-                solo: true
-            },
-            content: {
-                attr: 'data-texto'
-            },
-            style: {
-                classes: 'ui-tooltip-precio',
-                tip: {
-                    border: 0,
-                    width: 12,
-                    color: '#f0f',
-                    corner: true,
-                    offset: 0
-                },
-            },
-            position: {
-                my: 'top center', 
-                at: 'bottom left',
-                adjust: {
-                    x: 9,
-                    y: 6
-                },
-            },
-            hide: {
-                fixed: true,
-                delay: 200,
-                event: 'mouseleave'
-            }
-        });
-
-        $('.tooltip_quiero_ir').qtip({
-            show:{
-                solo: true
-            },
-            content: {
-                text: $('.qtip_quiero_ir')
-            },
-            style: {
-            classes: 'ui-tooltip-precio',
-                tip: {
-                    border: 0,
-                    width: 12,
-                    color: '#f0f',
-                    corner: true,
-                    offset: 0
-                },
-            },
-            position: {
-                my: 'top center', 
-                at: 'bottom left',
-                adjust: {
-                    x: 45,
-                    y: 6
-                },
-            },
-            hide: {
-                fixed: true,
-                delay: 200,
-                event: 'mouseleave'
-            }
-        });
-
-        $('.tooltip_quiero_volver').qtip({
-            show:{
-                solo: true
-            },
-            content: {
-                text: $('.qtip_quiero_volver')
-            },
-            style: {
-                classes: 'ui-tooltip-precio',
-                tip: {
-                    border: 0,
-                    width: 12,
-                    color: '#f0f',
-                    corner: true,
-                    offset: 0
-                },
-            },
-            position: {
-                my: 'top center', 
-                at: 'bottom left',
-                adjust: {
-                    x: 55,
-                    y: 6
-                },
-            },
-            hide: {
-                fixed: true,
-                delay: 200,
-                event: 'mouseleave'
-            }
-        });
-
-        $('.tooltip_ya_estuve').qtip({
-            show:{
-                solo: true
-            },
-            content: {
-                text: $('.qtip_ya_estuve')
-            },
-            style: {
-                classes: 'ui-tooltip-precio',
-                tip: {
-                    border: 0,
-                    width: 12,
-                    color: '#f0f',
-                    corner: true,
-                    offset: 0
-                },
-            },
-            position: {
-                my: 'top center', 
-                at: 'bottom left',
-                adjust: {
-                    x: 55,
-                    y: 6
-                },
-            },
-            hide: {
-                fixed: true,
-                delay: 200,
-                event: 'mouseleave'
-            }
-        });
-    });
-</script>     
-
 {% endblock %}
 
 {% block stylesheets %}    
@@ -678,7 +469,9 @@
                             {% else %}
                                 <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
                             {% endif %}   
-                            <li><a class="compartir"  rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a></li>
+                            <li>
+                                <a class="tooltip_compartir_recomendacion" rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>
+                            </li>
                             {% if is_granted('ROLE_USER') and app.security.token.user.id == recomendacion.userId %}
                                 <li><a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a></li>
                                 <li><a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a></li>

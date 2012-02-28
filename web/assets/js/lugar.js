@@ -61,8 +61,9 @@ $(document).ready(function(){
     $('.cancelar-recomienda').live('click', function(){
         $('[name="recomienda"]').fadeOut(function(){
             $(this).closest('.recomendacion').find('.recomendacion-bloque').children().show();
+            $(this).closest('.recomendacion').find('.recomienda_lugar_caja').remove();
             $(this).remove();
-        })
+        });
     });
 
     $('.permalink_recomendacion').click(function(e){
@@ -263,6 +264,248 @@ $(document).ready(function(){
         var popup = $('.not_logged_acciones_popup')
         popup.appendTo($(this));
         popup.toggle();
+    });
+
+    $(".ver_video_lugar").fancybox({
+            maxWidth    : 600,
+            maxHeight   : 500,
+            fitToView   : false,
+            width       : '70%',
+            height      : '70%',
+            autoSize    : false,
+            closeClick  : false,
+            openEffect  : 'none',
+            closeEffect : 'none'
+        });
+
+    $compartirRecomendacion = $('.tooltip_compartir_recomendacion');
+    $.each($compartirRecomendacion, function(){
+        $container = $(this).closest('.recomendacion').find('.compartir_recomendacion');
+
+        $(this).qtip({
+                show: {
+                    solo: true
+                },
+                content: {
+                    text: $container
+                },
+                style: {
+                classes: 'ui-tooltip-precio',
+                    tip: {
+                        border: 0,
+                        width: 12,
+                        color: '#f0f',
+                        corner: true,
+                        offset: 0
+                    },
+                },
+                position: {
+                    my: 'top center', 
+                    at: 'bottom left',
+                    adjust: {
+                        x: 9,
+                        y: 6
+                    },
+                },
+                hide: {
+                    fixed: true,
+                    delay: 200,
+                    event: 'mouseleave'
+                }
+            });
+    });
+
+    $('.tooltip_estuve_alla, .tooltip_quiero_volver').qtip({
+        show: {
+            solo: true,
+            event: 'click'
+        },
+        content: {
+            text: $('.qtip_estuve_alla')
+        },
+        style: {
+        classes: 'ui-tooltip-precio',
+            tip: {
+                border: 0,
+                width: 12,
+                color: '#f0f',
+                corner: true,
+                offset: 0
+            },
+        },
+        position: {
+            my: 'top center', 
+            at: 'bottom left',
+            adjust: {
+                x: 59,
+                y: 6
+            },
+        },
+        hide: {
+            fixed: true,
+            delay: 2000,
+            event: 'mouseleave'
+        }
+    });
+
+    $('.tooltip').qtip({
+        show: {
+            solo: true
+        },
+        content: {
+            text: $('.qtip_favoritos')
+        },
+        style: {
+        classes: 'ui-tooltip-precio',
+            tip: {
+                border: 0,
+                width: 12,
+                color: '#f0f',
+                corner: true,
+                offset: 0
+            },
+        },
+        position: {
+            my: 'top center', 
+            at: 'bottom left',
+            adjust: {
+                x: 9,
+                y: 6
+            },
+        },
+        hide: {
+            fixed: true,
+            delay: 200,
+            event: 'mouseleave'
+        }
+    });
+
+    $('.tooltip_caracteristica').qtip({
+        show: {
+            solo: true
+        },
+        content: {
+            attr: 'data-texto'
+        },
+        style: {
+            classes: 'ui-tooltip-precio',
+            tip: {
+                border: 0,
+                width: 12,
+                color: '#f0f',
+                corner: true,
+                offset: 0
+            },
+        },
+        position: {
+            my: 'top center', 
+            at: 'bottom left',
+            adjust: {
+                x: 9,
+                y: 6
+            },
+        },
+        hide: {
+            fixed: true,
+            delay: 200,
+            event: 'mouseleave'
+        }
+    });
+
+    $('.tooltip_quiero_ir').qtip({
+        show:{
+            solo: true
+        },
+        content: {
+            text: $('.qtip_quiero_ir')
+        },
+        style: {
+        classes: 'ui-tooltip-precio',
+            tip: {
+                border: 0,
+                width: 12,
+                color: '#f0f',
+                corner: true,
+                offset: 0
+            },
+        },
+        position: {
+            my: 'top center', 
+            at: 'bottom left',
+            adjust: {
+                x: 45,
+                y: 6
+            },
+        },
+        hide: {
+            fixed: true,
+            delay: 200,
+            event: 'mouseleave'
+        }
+    });
+
+    $('.tooltip_quiero_volver').qtip({
+        show:{
+            solo: true
+        },
+        content: {
+            text: $('.qtip_quiero_volver')
+        },
+        style: {
+            classes: 'ui-tooltip-precio',
+            tip: {
+                border: 0,
+                width: 12,
+                color: '#f0f',
+                corner: true,
+                offset: 0
+            },
+        },
+        position: {
+            my: 'top center', 
+            at: 'bottom left',
+            adjust: {
+                x: 55,
+                y: 6
+            },
+        },
+        hide: {
+            fixed: true,
+            delay: 200,
+            event: 'mouseleave'
+        }
+    });
+
+    $('.tooltip_ya_estuve').qtip({
+        show:{
+            solo: true
+        },
+        content: {
+            text: $('.qtip_ya_estuve')
+        },
+        style: {
+            classes: 'ui-tooltip-precio',
+            tip: {
+                border: 0,
+                width: 12,
+                color: '#f0f',
+                corner: true,
+                offset: 0
+            },
+        },
+        position: {
+            my: 'top center', 
+            at: 'bottom left',
+            adjust: {
+                x: 55,
+                y: 6
+            },
+        },
+        hide: {
+            fixed: true,
+            delay: 200,
+            event: 'mouseleave'
+        }
     });
 });
 
