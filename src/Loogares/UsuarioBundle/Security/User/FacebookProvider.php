@@ -24,19 +24,7 @@ class FacebookProvider implements UserProviderInterface
         $this->facebook = $facebook;
         $this->userManager = $em;
         $this->validator = $validator;
-        try {
-            $fbdata = $this->facebook->api('/me');
-            echo "ok - ";
-            if (!empty($fbdata)) {
-                "no hay data";
-            }
-            else {
-                "habemus data!";
-            }
-        } catch (FacebookApiException $e) {
-            echo "cagamos";
-
-        }
+        echo $this->facebook->getUser();
     }
 
     public function supportsClass($class)
@@ -105,6 +93,7 @@ class FacebookProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user)
     {
+        echo "refreshUser";
         if (!$this->supportsClass(get_class($user)) || !$user->getFacebookUid()) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
