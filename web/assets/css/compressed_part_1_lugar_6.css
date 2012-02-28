@@ -1,6 +1,9 @@
 /* Colores */
 /* Mixin */
 /* Agregar - Editar Lugar */
+.subcategorias {
+  display: none; }
+
 .agregar_editar_datos_lugar {
   border: 1px solid #f2f2f6;
   float: left;

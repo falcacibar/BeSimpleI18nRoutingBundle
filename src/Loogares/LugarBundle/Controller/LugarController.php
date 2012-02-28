@@ -583,7 +583,6 @@ class LugarController extends Controller{
             }
         }
 
-
         $data['horarios'] = '<option value="cerrado">Cerrado</option>
                             <option value="06:00">06:00</option>
                             <option value="06:30">06:30</option>    
@@ -652,6 +651,7 @@ class LugarController extends Controller{
             $q->setParameter(1, "atractivos-turisticos");
             $data['categorias'] = $q->getResult();
         }
+        
         $data['tipoCategoria'] = $lr->getTipoCategorias();
         $data['subCategorias'] = $lr->getSubCategorias();
         $data['caracteristicas'] = $lr->getCaracteristicas();

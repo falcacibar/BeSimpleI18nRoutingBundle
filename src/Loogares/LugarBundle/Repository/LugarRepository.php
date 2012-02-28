@@ -86,7 +86,7 @@ class LugarRepository extends EntityRepository
 
     public function getPaises(){
         $em = $this->getEntityManager();
-        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Pais u order by u.id asc");
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Pais u where (u.mostrar_lugar = 1 or u.mostrar_lugar = 3) order by u.id asc");
         $paisResult = $q->getResult();
 
         return $paisResult;
@@ -95,9 +95,9 @@ class LugarRepository extends EntityRepository
     public function getCiudades($slug = null){
         $em = $this->getEntityManager();
         if($slug){
-          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where u.mostrar_lugar = 1 and u.slug = '$slug' order by u.id asc"); 
+          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where (u.mostrar_lugar = 1 or u.mostrar_lugar = 3) and u.slug = '$slug' order by u.id asc"); 
         }else{
-          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where u.mostrar_lugar = 1 order by u.id asc");
+          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where (u.mostrar_lugar = 1 or u.mostrar_lugar = 3) order by u.id asc");
         }
         $ciudadesResult = $q->getResult();
 
@@ -106,7 +106,7 @@ class LugarRepository extends EntityRepository
 
     public function getCiudadById($id){
         $em = $this->getEntityManager();
-        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where u.mostrar_lugar = 1 and u.id = '$id' order by u.id asc");
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where (u.mostrar_lugar = 1 or u.mostrar_lugar = 3) and u.id = '$id' order by u.id asc");
         $ciudadesResult = $q->getSingleResult();
 
         return $ciudadesResult;

@@ -27,28 +27,6 @@ $(document).ready(function(){
     $('.recomendacion').hover(function(){
         $(this).find('.opciones_recomendacion').toggle();
     });
-    
-    $('.compartir').click(function(e){
-        e.preventDefault();
-        var rel = $(this).attr('rel'),
-            $compartir = $('.'+rel);
-            $compartir = $(this).parent().parent().parent().find('.'+rel)
-
-        if($compartir.is(':hidden')){
-            $compartir.fadeIn('fast');
-            compartirTimeout = setTimeout(function(){$compartir.fadeOut('fast')}, 5000);
-        }else{
-            $compartir.fadeOut('fast');
-            clearTimeout(compartirTimeout);  
-        }
-    });
-
-    $('.compartir_lugar, .compartir_recomendacion').mouseover(function(){
-        clearTimeout(compartirTimeout);
-    }).mouseout(function(){
-        $this = $(this);
-        compartirTimeout = setTimeout(function(){$this.fadeOut('fast')}, 2500);
-    });
 
     $('.estrellas_recomendacion').each(function(i){
         var stars = $(this).data('stars');
@@ -313,6 +291,38 @@ $(document).ready(function(){
                     event: 'mouseleave'
                 }
             });
+    });
+
+    $('.tooltip_compartir').qtip({
+        show: {
+            solo: true
+        },
+        content: {
+            text: $('.compartir_lugar')
+        },
+        style: {
+        classes: 'ui-tooltip-precio',
+            tip: {
+                border: 0,
+                width: 12,
+                color: '#f0f',
+                corner: true,
+                offset: 0
+            },
+        },
+        position: {
+            my: 'top center', 
+            at: 'bottom left',
+            adjust: {
+                x: 9,
+                y: 6
+            },
+        },
+        hide: {
+            fixed: true,
+            delay: 200,
+            event: 'mouseleave'
+        }
     });
 
     $('.tooltip_estuve_alla, .tooltip_quiero_volver').qtip({
