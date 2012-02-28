@@ -38,6 +38,8 @@ lugar:
         precios: Precios
         caracteristicas: Características
         ver_todas: Ver Todas
+        no_encontraste: ¿No encontraste el Lugar que buscabas?
+        agregalo: ¡Entonces agrégalo y sé el primero en recomendarlo!
 
     ficha:
         pedidos:

@@ -22,7 +22,6 @@
     </script>
 {% endblock %}
 
-
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
@@ -74,7 +73,7 @@
 		<div class="resultados">
 
 			<h1 class="titulo_busqueda">
-				{% if noCategorias == true %}
+				{% if noCategorias == true and categoria is not defined %}
 					Categoria {{categoria.nombre}}
 				{% else %}
 				{{'lugar.buscar.resultado_busqueda'|trans}} {{term}} 
@@ -179,7 +178,7 @@
 					
 						{% for sector in results.totalPorSectores %}
 							{% if loop.index <= 5 %}
-							<li><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}} ({{ sector.total }})</a></li>	
+							<li class="zonas"><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}}</a></li>	
 							{% endif %}							
 						{% endfor %}
 
@@ -187,7 +186,7 @@
 						{% if results.totalPorSectores is defined and results.totalPorSectores|length < 5 %}
 							{% for comuna in results.totalPorComunas %}
 								{% if loop.index <= (5 - results.totalPorComunas|length) %}
-								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>	
+								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}}</a></li>	
 								{% endif %}							
 							{% endfor %}							
 						{% endif %}
@@ -212,8 +211,8 @@
 					<div class="resultados_filtros">
 						<ul>
 							{% for categoria in results.totalPorCategoria %}
-								{% if loop.index <= 20 %}
-								<li><a rel="categoria" href="{{ path(ruta, query|merge({'slug': slug, 'categoria': categoria.slug })) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
+								{% if loop.index <= 15 %}
+								<li class="categoria"><a rel="categoria" href="{{ path(ruta, query|merge({'slug': slug, 'categoria': categoria.slug })) }}">{{categoria.nombre}} ({{ categoria.total }})</a></li>
 								{% endif %}
 							{% endfor %}
 						</ul>
@@ -236,8 +235,8 @@
 						{% if results.totalPorSubcategoria[0] is defined %}
 						<ul>
 							{% for subcategoria in results.totalPorSubcategoria %}
-								{% if loop.index <= 10 %}
-								<li><a href="{{ path(ruta_subcategoria, query|merge({'slug': slug, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>	
+								{% if loop.index <= 5 %}
+								<li class="subcategoria"><a href="{{ path(ruta_subcategoria, query|merge({'slug': slug, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>	
 								{% endif %}							
 							{% endfor %}
 						</ul>
@@ -305,7 +304,7 @@
 							<ul>
 								{% for caracteristica in results.totalPorCaracteristica %}
 									{% if loop.index <= 5 %}
-									<li><a href="{{ path(ruta, query|merge({'slug': slug, 'caracteristicas': caracteristica.slug})) }}">{{caracteristica.nombre}}</a></li>	
+									<li class="caracteristicas"><a href="{{ path(ruta, query|merge({'slug': slug, 'caracteristicas': caracteristica.slug})) }}">{{caracteristica.nombre}}</a></li>	
 									{% endif %}							
 								{% endfor %}	
 							</ul>					
@@ -494,8 +493,12 @@
             {% endif %}
         </div>
 
-		<div class="agrega_lugar" style="clear:both; background: #303">
-			<a href="{{ path('_agregar') }}">Boton</a>
+		<div class="agrega_lugar">
+			<div class="textos">
+				<p><strong>{{'lugar.buscar.no_encontraste'|trans}}</strong></p>
+				<p>{{'lugar.buscar.agregalo'|trans}}</p>
+			</div>
+			<a class="boton_agregar" href="{{ path('_agregar') }}"></a>
 		</div>
 
 	</div>

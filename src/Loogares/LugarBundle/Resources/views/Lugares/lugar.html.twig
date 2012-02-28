@@ -724,12 +724,21 @@
                 <h2 class="titulo_recomendaciones">{{'lugar.ficha.recomendaciones.titulo_0'|trans}} {{ lugar.nombre }}</h2>
             </div>
         {% endif %}
-        {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
+        {% if is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
             {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
 
             <a class="fancybox" href="#recomendacion_popup"></a>
             <div style="display:none">{% include 'LoogaresLugarBundle:Ajax:recomendacion_popup.html.twig' %}</div>
         {% endif %}
+        {% if is_granted('ROLE_USER') == false %}
+            <div class="">
+                <p>¿Aún no eres parte de Loogares.com?</p>
+                <p>Para recomendarle este lugar a otros Loogareños, tienes que registrarte antes.</p>
+                <a class="registro_loogares"></a>
+                <a class="registro_facebook"></a>
+            </div>
+        {% endif %}
+
     </div>
 
     <div class="sidebar">
