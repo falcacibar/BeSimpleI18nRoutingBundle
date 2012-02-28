@@ -42,7 +42,7 @@ class FacebookProvider implements UserProviderInterface
         $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
         echo $this->facebook->getUser();
         // Buscamos por UID para ver si existe en nuestra DB
-        $user = $ur->findUserByFbId($username);
+        $user = $this->findUserByFbId($username);
 
         try {
             $fbdata = $this->facebook->api('/me');
