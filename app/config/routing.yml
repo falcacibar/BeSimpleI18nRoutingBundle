@@ -17,10 +17,6 @@ LoogaresAdminBundle:
 LoogaresExtraBundle:
     resource: "@LoogaresExtraBundle/Resources/config/routing.yml"
     prefix:   /
-
-login_check_facebook:
-    pattern:  /login_check/facebook
-    defaults:  { _controller: LoogaresUsuarioBundle:Usuario:loginCheckFacebook }
     
 root:
     pattern:   /
