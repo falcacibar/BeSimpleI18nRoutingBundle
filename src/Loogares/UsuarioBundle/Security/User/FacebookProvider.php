@@ -24,7 +24,7 @@ class FacebookProvider implements UserProviderInterface
         $this->facebook = $facebook;
         $this->userManager = $em;
         $this->validator = $validator;
-        echo $this->facebook->getUser();
+        
     }
 
     public function supportsClass($class)
@@ -41,10 +41,10 @@ class FacebookProvider implements UserProviderInterface
     {
         $em = $this->userManager;
         $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-
+        echo $this->facebook->getUser();
         // Buscamos por UID para ver si existe en nuestra DB
         $user = $ur->findUserByFbId($username);
-
+        
         try {
             $fbdata = $this->facebook->api('/me');
         } catch (FacebookApiException $e) {
