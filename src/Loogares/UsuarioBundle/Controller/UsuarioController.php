@@ -892,7 +892,7 @@ class UsuarioController extends Controller
     }
 
     public function loginCheckFacebookAction() {
-        
+        echo "login_check_facebook";
     }
 
     public function totalAccionesPendientesAction($accion) {
