@@ -26,6 +26,13 @@ class FacebookProvider implements UserProviderInterface
         $this->validator = $validator;
         try {
             $fbdata = $this->facebook->api('/me');
+            echo "ok - ";
+            if (!empty($fbdata)) {
+                "no hay data";
+            }
+            else {
+                "habemus data!";
+            }
         } catch (FacebookApiException $e) {
             echo "cagamos";
 
