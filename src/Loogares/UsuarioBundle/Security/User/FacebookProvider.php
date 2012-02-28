@@ -40,7 +40,7 @@ class FacebookProvider implements UserProviderInterface
     {
         $em = $this->userManager;
         $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-        echo $this->facebook->getUser();
+        
         // Buscamos por UID para ver si existe en nuestra DB
         $user = $this->findUserByFbId($username);
 
@@ -92,7 +92,6 @@ class FacebookProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user)
     {
-        echo "refreshUser";
         if (!$this->supportsClass(get_class($user)) || !$user->getFacebookUid()) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
