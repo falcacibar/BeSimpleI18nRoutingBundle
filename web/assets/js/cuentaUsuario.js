@@ -66,7 +66,7 @@ $(document).ready(function(){
         actualizarCiudades();
     });
 
-    $('.comuna, .ciudad, select.pais').chosen();
+    $('.comuna, .ciudad, select.pais, #form_fecha_nacimiento_day, #form_fecha_nacimiento_month, #form_fecha_nacimiento_year').chosen();
 
     actualizarCiudades()
 });
