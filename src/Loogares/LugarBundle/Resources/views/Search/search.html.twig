@@ -46,13 +46,9 @@
 		<div class="resultados">
 
 			<h1 class="titulo_busqueda">
-<<<<<<< HEAD
-				{% if noCategorias == true and categoria is not defined %}
-					Categoria {{categoria.nombre}}
-=======
+
 				{% if noCategorias == true %}
 					{{categoria.nombre}} en {{ciudad.nombre}}
->>>>>>> 1709a4bacc78fb929d6aa26c1463b4e1a363469c
 				{% else %}
 				{{'lugar.buscar.resultado_busqueda'|trans}} {{term}} 
 				 {% if subcategoria != null %}
