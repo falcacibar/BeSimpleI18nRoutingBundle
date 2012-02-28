@@ -23,8 +23,7 @@ class FacebookProvider implements UserProviderInterface
     {
         $this->facebook = $facebook;
         $this->userManager = $em;
-        $this->validator = $validator;
-        
+        $this->validator = $validator;        
     }
 
     public function supportsClass($class)
@@ -34,7 +33,7 @@ class FacebookProvider implements UserProviderInterface
 
     public function findUserByFbId($fbId)
     {
-        return $this->userManager->getRepository('LoogaresUsuarioBundle:Usuario')->findUserBy(array('facebook_uid' => $fbId));
+        return $this->userManager->getRepository('LoogaresUsuarioBundle:Usuario')->findOneBy(array('facebook_uid' => $fbId));
     }
 
     public function loadUserByUsername($username)
@@ -44,7 +43,7 @@ class FacebookProvider implements UserProviderInterface
         echo $this->facebook->getUser();
         // Buscamos por UID para ver si existe en nuestra DB
         $user = $ur->findUserByFbId($username);
-        
+
         try {
             $fbdata = $this->facebook->api('/me');
         } catch (FacebookApiException $e) {
@@ -56,7 +55,7 @@ class FacebookProvider implements UserProviderInterface
             if (empty($user)) {
                 // Revisamos si un usuario con el mismo email está registrado (para quienes conectan estando registrados)
                 if (isset($fbdata['email'])) {
-                    $user = $ur->findUserByMail($fbdata['email']);
+                    $user = $ur->findOneByMail($fbdata['email']);
                 }
                 
                 // Si en este punto el usuario no existe, entonces debemos registrarlo
