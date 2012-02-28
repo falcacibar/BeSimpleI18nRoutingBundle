@@ -893,7 +893,6 @@ class UsuarioController extends Controller
 
     public function loginCheckFacebookAction() {
         $facebook = $this->get('my.facebook.user');
-        echo $facebook->getFacebook()->getUser();
     }
 
     public function totalAccionesPendientesAction($accion) {
