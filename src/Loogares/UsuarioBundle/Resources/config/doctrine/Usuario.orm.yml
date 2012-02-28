@@ -7,6 +7,10 @@ Loogares\UsuarioBundle\Entity\Usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\TipoUsuario
         estado:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
+        pais:
+            targetEntity: Loogares\ExtraBundle\Entity\Pais
+        ciudad:
+            targetEntity: Loogares\ExtraBundle\Entity\Ciudad
         comuna:
             targetEntity: Loogares\ExtraBundle\Entity\Comuna
 

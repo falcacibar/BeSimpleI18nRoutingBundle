@@ -258,9 +258,21 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $tur = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario");
+        $erroresLocalidad = array();
+
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u WHERE u.mostrar_lugar = 2 or u.mostrar_lugar = 3 order by u.nombre asc");
+        $ciudades = $q->getResult();
+
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Pais u WHERE u.mostrar_lugar = 2 or u.mostrar_lugar = 3 order by u.nombre asc");
+        $paises = $q->getResult();
+
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u order by u.nombre asc");
+        $comunas = $q->getResult();
+
         $formErrors = array();
         
         $usuarioResult = $ur->findOneByIdOrSlug($param);
+
         if(!$usuarioResult)
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         
@@ -298,16 +310,57 @@ class UsuarioController extends Controller
         $mail = $usuarioResult->getMail();
         
         // Si el request es POST, se procesa edición de datos
-        if ($request->getMethod() == 'POST') {
+        if ($request->getMethod() == 'POST'){
 
             $usuario = $ur->findOneByMail($usuarioResult->getMail());
             $form->bindRequest($request);            
 
-            if ($form->isValid()) {
+            if(isset($_POST['pais']) && $_POST['pais'] != 'elige'){
+                //hay pais
+                if($_POST['pais'] == 'chile'){
+                    if(isset($_POST['ciudad']) && $_POST['ciudad'] != 'elige'){
+                        //hay ciudad
+                        if($_POST['ciudad'] == 'santiago-de-chile'){
+                            if(isset($_POST['comuna']) && $_POST['comuna'] == 'elige'){
+                                $erroresLocalidad['comuna'] = "Selecciona una Comuna";
+                            }
+                        }
+                        if($_POST['ciudad'] == 'valparaiso'){
+                            if($_POST['comuna'] == 'elige'){
+                                $erroresLocalidad['comuna'] = "Selecciona una Comuna";
+                            }                            
+                        }
+                        if($_POST['ciudad'] == 'vina-del-mar'){
+                            if($_POST['comuna'] == 'elige'){
+                                $erroresLocalidad['comuna'] = "Selecciona una Comuna";
+                            }
+                        }
+                    }else{
+                        $erroresLocalidad['ciudad'] = "Selecciona una Ciudad";
+                    }
+                }
+
+                if($_POST['pais'] == 'argentina'){
+                    if(isset($_POST['ciudad']) && $_POST['ciudad'] == 'buenos-aires'){
+                        if($_POST['comuna'] == 'elige'){
+                            $erroresLocalidad['comuna'] = "Selecciona una Comuna";
+                        }
+                    }
+                }
+
+                if($_POST['pais'] == 'elige'){
+                    $erroresLocalidad['ciudad'] = "Selecciona una Ciudad";
+                }
+            }else{
+                $erroresLocalidad['pais'] = "Selecciona un País";  
+            }
+
+            if ($form->isValid() && empty($erroresLocalidad)) {
                 if(isset($_POST['tipo_usuario'])){
                     $tipoUsuario = $tur->find($_POST['tipo_usuario']);
                     $usuarioResult->setTipoUsuario($tipoUsuario);
                 }  
+
                  // Stripeamos las URLs de http://
                 $usuarioResult->setWeb(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getWeb()));
                 $usuarioResult->setFacebook(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getFacebook()));
@@ -317,6 +370,23 @@ class UsuarioController extends Controller
                 else               
                     $usuarioResult->setTwitter(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getTwitter()));
 
+                if(isset($_POST['pais']) && $request->request->get('pais') != 'elige'){
+                    $pr = $em->getRepository("LoogaresExtraBundle:Pais");
+                    $pais = $pr->findOneBySlug($request->request->get('pais'));
+                    $usuarioResult->setPais($pais);
+                }
+
+                if(isset($_POST['comuna']) && $request->request->get('comuna') != 'elige'){
+                    $ccr = $em->getRepository("LoogaresExtraBundle:Comuna");
+                    $comuna = $ccr->findOneBySlug($request->request->get('comuna'));
+                    $usuarioResult->setComuna($comuna);
+                }
+
+                if(isset($_POST['ciudad']) && $request->request->get('ciudad') != 'elige'){
+                    $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+                    $ciudad = $cr->findOneBySlug($request->request->get('ciudad'));
+                    $usuarioResult->setCiudad($ciudad);
+                }
 
                 $em->flush();
 
@@ -377,6 +447,14 @@ class UsuarioController extends Controller
                 $usuarioResult->setMail($mail);
             }
         }
+$comunaSeleccionada ='';
+ $ciudadSeleccionada='';
+   $paisSeleccionado = '';
+        if( !empty($erroresLocalidad) ){
+            $comunaSeleccionada = (isset($_POST['comuna']) && $_POST['comuna'] != 'elige')?$_POST['comuna']:'';
+            $ciudadSeleccionada = (isset($_POST['ciudad']) && $_POST['ciudad'] != 'elige')?$_POST['ciudad']:'';
+            $paisSeleccionado = (isset($_POST['pais']) && $_POST['pais'] != 'elige')?$_POST['pais']:'';
+        }
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'cuenta';
@@ -385,7 +463,14 @@ class UsuarioController extends Controller
             'usuario' => $data,
             'form' => $form->createView(),
             'errors' => $formErrors,
-            'tipoUsuarios' => $tur->findAll()
+            'tipoUsuarios' => $tur->findAll(),
+            'comunas' => $comunas,
+            'paises' => $paises,
+            'ciudades' => $ciudades,
+            'erroresLocalidad' => $erroresLocalidad,
+            'paisSeleccionado' => $paisSeleccionado,
+            'comunaSeleccionada' => $comunaSeleccionada,
+            'ciudadSeleccionada' => $ciudadSeleccionada
         )); 
     }
 
@@ -904,11 +989,11 @@ class UsuarioController extends Controller
         return new Response($cantidad);
     }
 
-    public function forzarDatosAction(Request $request, $id) {
+    public function forzarDatosAction(Request $request) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
-        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u order by u.nombre asc");
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u WHERE u.mostrar_lugar = 2 or u.mostrar_lugar = 3 order by u.nombre asc");
         $ciudades = $q->getResult();
 
         $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Pais u WHERE u.mostrar_lugar = 2 or u.mostrar_lugar = 3 order by u.nombre asc");
@@ -930,19 +1015,31 @@ class UsuarioController extends Controller
                 $formErrors['comuna'] = "usuario.errors.validacion.comuna.blanco";*/
 
             if($request->getMethod() == 'POST') {
-                $formErrors = array();
-                if($request->request->get('nombre') == '')
-                    $formErrors['nombre'] = "usuario.errors.validacion.nombre.blanco";
-                if($request->request->get('apellido') == '')
-                    $formErrors['apellido'] = "usuario.errors.validacion.apellido.blanco";
-
-                if(sizeof($formErrors) == 0) {
+                if($request->request->get('nombre')){
                     $usuario->setNombre($request->request->get('nombre'));
                     $usuario->setApellido($request->request->get('apellido'));
-                    $em->flush();
                 }
-                // Redirección a perfil de usuario
-                return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuario))));
+
+                if(isset($_POST['pais']) && $request->request->get('pais') != 'elige'){
+                    $pr = $em->getRepository("LoogaresExtraBundle:Pais");
+                    $pais = $pr->findOneBySlug($request->request->get('pais'));
+                    $usuario->setPais($pais);
+                }
+
+                if(isset($_POST['comuna']) && $request->request->get('comuna') != 'elige'){
+                    $ccr = $em->getRepository("LoogaresExtraBundle:Comuna");
+                    $comuna = $ccr->findOneBySlug($request->request->get('comuna'));
+                    $usuario->setComuna($comuna);
+                }
+
+                if(isset($_POST['ciudad']) && $request->request->get('ciudad') != 'elige'){
+                    $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+                    $ciudad = $cr->findOneBySlug($request->request->get('ciudad'));
+                    $ciudad->setCiudad($ciudad);
+                }
+
+                $em->flush();
+                return new Response('gud gud', 200);
             }
 
             return $this->render('LoogaresUsuarioBundle:Usuarios:datos_obligatorios.html.twig', array(
