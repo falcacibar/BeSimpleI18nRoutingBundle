@@ -18,6 +18,7 @@ security:
             entity: { class: Loogares\UsuarioBundle\Entity\Usuario }
         facebook:
             id: my.facebook.user
+            entity: { class: Loogares\UsuarioBundle\Entity\Usuario }
 
     firewalls:
         dev:
