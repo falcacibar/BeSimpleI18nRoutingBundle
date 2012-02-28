@@ -43,12 +43,12 @@ class FacebookProvider implements UserProviderInterface
 
         // Buscamos por UID para ver si existe en nuestra DB
         $user = $ur->findUserByFbId($username);
-        
+        echo "hola";
         try {
             $fbdata = $this->facebook->api('/me');
         } catch (FacebookApiException $e) {
             $fbdata = null;
-            
+
         }
 
         if (!empty($fbdata)) {
