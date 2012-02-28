@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:fb="http://www.facebook.com/2008/fbml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         {% block meta %}{% endblock %}
@@ -17,11 +17,30 @@
             <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
         {% endif %}
         <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
+        <script>
+          function goLogIn(){
+              window.location.href = "{{ path('login_check_facebook') }}";
+          }
+
+          function onFbInit() {
+
+              if (typeof(FB) != 'undefined' && FB != null ) {
+
+                  FB.Event.subscribe('auth.statusChange', function(response) {
+                      if (response.session || response.authResponse) {
+                          setTimeout(goLogIn, 500);
+                      } else {
+                          window.location.href = "{{ path('logout') }}";
+                      }
+                  });
+              }
+          }
+        </script>
         {% block ads %}{% endblock %}
     </head>
 
     <body>
-        {#{{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}#}
+        {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
 
         {# Ciudad por default si entramos por primera vez a una página que no sea el home #}
         {% render "LoogaresExtraBundle:Default:locale" with {'slug' : 'santiago-de-chile', 'start': true} %}
@@ -57,6 +76,18 @@
                     showCloseButton: true
                 });
                 $('.datos_usuario_fancybox').click();                
+            });
+        </script>
+
+        
+        {% endif %}
+        {% if is_granted('ROLE_USER') == false %}
+        <script>
+            $(function(){
+                $('.facebook_login').click(function(e){
+                    e.preventDefault();
+                    $('.fb_hidden_button').find('.fb_button').click();
+                });
             });
         </script>
         {% endif %}

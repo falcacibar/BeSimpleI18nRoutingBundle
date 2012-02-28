@@ -1,4 +1,6 @@
 security:
+    factories:
+        - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
     encoders:        
         Loogares\UsuarioBundle\Entity\Usuario:
             algorithm: md5
@@ -10,8 +12,12 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
+        chain_provider:
+            providers: [main, facebook]
         main:           
             entity: { class: Loogares\UsuarioBundle\Entity\Usuario }
+        facebook:
+            id: my.facebook.user
 
     firewalls:
         dev:
@@ -24,22 +30,26 @@ security:
 
         secured_area:
             pattern:    ^/
-            anonymous: ~
-            provider: main
+            anonymous: ~            
             form_login:
                 check_path: /usuario/login_check
                 login_path: /usuario
                 username_parameter: _mail
                 default_target_path: /usuario
+                provider: main
+            fos_facebook:
+                app_url: "http://new.loogares.com"
+                server_url: "http://new.loogares.com"
+                check_path: /usuario/login_check_facebook
+                login_path: /usuario
+                default_target_path: /usuario
+                provider: facebook
             logout:
                 path:   /usuario/logout
-                target: /usuario
+                target: /
             remember_me:
                 key: remember
-                lifetime: 1209600
-#            fos_facebook:
- #               app_url: "http://apps.facebook.com/Loogares.com/"
-  #              server_url: "http://localhost/loogares/app_dev.php/" 
+                lifetime: 1209600            
     access_control:
         - { path: /agregar, roles: ROLE_USER }
         - { path: /editar, roles: ROLE_USER }

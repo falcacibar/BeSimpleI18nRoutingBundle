@@ -7,6 +7,11 @@ $(function(){
     $('.actividad_extendida form select').change(function(){
         $(this).parent().submit();
     });
+
+    $('.boton_fb').parent().click(function(e){
+        e.preventDefault();
+        $('.fb_hidden_button').find('.fb_button').click();
+    });
 });	
 
 function estrellasRecomendacion(estrellas, $this){

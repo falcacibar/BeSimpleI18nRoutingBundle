@@ -1495,6 +1495,9 @@ label {
 small {
   font-size: 10px; }
 
+.fb_hidden_button {
+  display: none; }
+
 /* Colores */
 /* Mixin */
 /* Resultados buscador */

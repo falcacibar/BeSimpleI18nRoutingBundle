@@ -24,7 +24,7 @@
 		<div class="columna_izquierda_registro">
 			<h1 class="titulo">{% trans %}usuario.registro.facebook.titulo{% endtrans %}</h1>
 			<div class="registro_facebook_img"></div>
-			<div class="registro_facebook_btn">{#{{ facebook_login_button({'autologoutlink': true, 'label' : tituloFacebook }) }}#}</div>
+			<div class="registro_facebook_btn"></div>
 			
 			<h3 class="titulo">{% trans %}usuario.registro.login.titulo{% endtrans %}</h3>
 			{% include 'LoogaresUsuarioBundle:Usuarios:login_form.html.twig' %}
@@ -105,17 +105,29 @@
 
 {% block javascripts %}
 	{{parent()}}
-	<script type="text/javascript">
-		$.each($('#registro-corriente .form-registro div input[type=text]'), function(){
-			$(this).placeholder();
-		});
-
-		$('.submit input').click(function(){
+	<script type="text/javascript">	
+		$(function(){
 			$.each($('#registro-corriente .form-registro div input[type=text]'), function(){
-				if($(this).attr('data-placeholder') == $(this).val()){
-					$(this).val('');
-				};
+				$(this).placeholder();
 			});
-		});
+
+			$('.submit input').click(function(){
+				$.each($('#registro-corriente .form-registro div input[type=text]'), function(){
+					if($(this).attr('data-placeholder') == $(this).val()){
+						$(this).val('');
+					};
+				});
+			});
+
+            $('.registro_facebook_btn').click(function(e){
+                e.preventDefault();
+                $('.fb_hidden_button').find('.fb_button').click();
+            });
+            
+            $('.entrar_con_facebook').click(function(e){
+                e.preventDefault();
+                $('.fb_hidden_button').find('.fb_button').click();
+            });
+        });
 	</script>
 {% endblock %}

@@ -42,3 +42,19 @@
     </div>
 
 {% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        $(function(){
+            $('.boton_registro').parent().click(function(e){
+                e.preventDefault();
+                $('.fb_hidden_button').find('.fb_button').click();
+            });
+            $('.entrar_con_facebook').click(function(e){
+                e.preventDefault();
+                $('.fb_hidden_button').find('.fb_button').click();
+            });
+        });
+    </script>
+{% endblock %}

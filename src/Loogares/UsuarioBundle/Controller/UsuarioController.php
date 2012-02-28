@@ -891,6 +891,10 @@ class UsuarioController extends Controller
         ));
     }
 
+    public function loginCheckFacebookAction() {
+        
+    }
+
     public function totalAccionesPendientesAction($accion) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");

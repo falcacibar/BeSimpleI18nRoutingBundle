@@ -1,9 +1,18 @@
 parameters:
     loogares_fn.class: Loogares\ExtraBundle\Functions\LoogaresFunctions
+    loogares_facebook_provider.class: Loogares\UsuarioBundle\Security\User\FacebookProvider
 
 services:
     fn:
         class: %loogares_fn.class%
+
+    my.facebook.user:
+        class: %loogares_facebook_provider.class%
+        arguments:
+            facebook: "@fos_facebook.api"
+            em: "@doctrine.orm.default_entity_manager"
+            validator: "@validator"
+            container: "@service_container"
 
     twig.extension.loogares:
         class: Loogares\ExtraBundle\Extension\LoogaresExtension
