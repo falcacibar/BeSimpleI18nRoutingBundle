@@ -1148,7 +1148,7 @@ textarea
             size: 14px
         line-height: 24px
         min-height: 565px
-        padding: 20px
+        padding: 20px 20px 60px
         width: 619px
 
         .ano
@@ -1162,6 +1162,57 @@ textarea
                 list-style-type: disc
                 margin: 0 0 10px 20px
 
+        .formulario_estaticas
+            float: left
+            margin: 40px 0 0
+            width: 619px
+
+            ul
+
+                li
+                    float: left
+                    list-style-type: none
+                    margin: 0 0 20px
+                    width: 619px
+
+                    label
+                        float: left
+                        font:
+                            weight: bold
+                        width: 169px
+
+                    input
+                        float: left
+                        padding: 8px
+                        width: 421px
+                    
+                    textarea
+                        float: left
+                        height: 90px
+                        padding: 8px
+                        width: 421px
+                    
+                    .obligatorio
+                        color: $gris_ccc
+
+                    .tip
+                        color: $gris_999
+                        font:
+                            size: 12px
+                        float: left
+                        margin: 15px 0 0 169px
+
+                    .enviar_datos
+                        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+                        border: 0px
+                        cursor: pointer
+                        height: 14px
+                        margin: 0 0 0 169px
+                        width: 84px
+
+                        &:hover
+                            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
+                        
     .menu_estaticas
         @include box-sizing
         background: $gris_faf
@@ -1275,7 +1326,7 @@ textarea
             border-top: 1px solid $blanco
             color: $gris_999
             float: left
-            padding: 30px 0
+            padding: 37px 0
             width: 310px
 
         .redes

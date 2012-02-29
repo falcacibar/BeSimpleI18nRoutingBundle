@@ -1,1 +1,18 @@
-¡DEBEMOS HACER LA PÁGINA DE ERROR!
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'extra.home.title'|trans}}{% endblock %}
+
+{% block content %}
+	
+	<h2>Se nos pasó esta página porque...</h2><br />
+	<h1>¡Nos fuimos de viaje a Alaska!</h1>
+
+	<p></p><br />
+
+	<p>Loogareño, encontraste una página que no existe, que se fue de viaje y seguramente no volverá...</p><br />
+
+	<p>¡Pero existen muchas más!</p><br />
+
+	<p>Si quieres, puedes Volver a la página anterior, ir a la Página de Inicio o intentar con una nueva búsqueda.</p><br />
+
+{% endblock %}

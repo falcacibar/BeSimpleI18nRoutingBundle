@@ -17,9 +17,41 @@
 
 			<p><a href="">Descargar PDF</a></p><br />
 
-			<form>
-			</form>
-
+			<div class="formulario_estaticas">
+				<form>
+					<ul>
+						<li>
+							<label>{{'extra.estaticas.publicidad.formulario.nombre'|trans}} <span class="obligatorio">*</span></label>
+							<input></input>
+						</li>
+						<li>
+							<label>{{'extra.estaticas.publicidad.formulario.e_mail'|trans}} <span class="obligatorio">*</span></label>
+							<input></input>
+						</li>
+						<li>
+							<label>{{'extra.estaticas.publicidad.formulario.empresa'|trans}} <span class="obligatorio">*</span></label>
+							<input></input>
+						</li>
+						<li>
+							<label>{{'extra.estaticas.publicidad.formulario.sitio_web'|trans}} <span class="obligatorio">*</span></label>
+							<input></input>
+						</li>
+						<li>
+							<label>{{'extra.estaticas.publicidad.formulario.telefono'|trans}} <span class="obligatorio">*</span></label>
+							<input></input>
+						</li>
+						<li>
+							<label>{{'extra.estaticas.publicidad.formulario.info'|trans}}</label>
+							<textarea></textarea>
+							<span class="tip">{{'extra.estaticas.obligatorio'|trans}}</span>
+						</li>
+						<li>
+							<label></label>
+							<input class="enviar_datos"></input>
+						</li>
+					</ul>
+				</form>
+			</div>
 		</div>
 
 		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}

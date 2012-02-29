@@ -54,6 +54,11 @@ extra:
             titulo: Códigos de conducta
         contacto:
             titulo: Contacto
+            formulario:
+                nombre: Nombre
+                e_mail: E-mail
+                asunto: Asunto
+                info: ¿Qué información te gustaría saber?
         copyright:
             titulo: Copyright
         eres_el_dueno_de_un_lugar:
@@ -64,9 +69,21 @@ extra:
             titulo: Prensa
         publicidad:
             titulo: Publicidad
+            formulario:
+                nombre: Nombre
+                e_mail: E-mail
+                empresa: Empresa
+                sitio_web: Sitio web
+                telefono: Teléfono
+                info: ¿Qué información te gustaría saber?
         que_es_loogarescom:
             titulo: ¿Qué es Loogares.com?
         terminos_de_uso:
             titulo: Términos de uso
         trabaja_con_nosotros:
             titulo: Trabaja con nosotros
+        loogareno_estrella:
+            title: Loogareño Estrella
+            titulo: ¿Quieres que te invitemos a restaurantes, cafés, bares y más?
+            bajada: ¡Conviértete en un Loogareño Estrella!
+        obligatorio: Los campos con (*) son obligatorios

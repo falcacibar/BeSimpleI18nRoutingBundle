@@ -1,0 +1,43 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | {{'extra.estaticas.loogareno_estrella.title'|trans}}{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo">{{'extra.estaticas.loogareno_estrella.titulo'|trans}}</h1>
+
+			<h2>{{'extra.estaticas.loogareno_estrella.bajada'|trans}}</h2><br />
+
+			<p>Cada semana convertiremos a un Loogareño en Loogareño Estrella, invitándolo a un restaurante, café, bar y más, para que junto a su mejor compañía vayan al lugar y compartan su experiencia escribiendo una gran recomendación que se exhibirá durante una semana en la página de inicio de Loogares.com.</p><br />
+
+			<p></p><br />
+
+			<p><strong>¿Cómo convertirse en Loogareño Estrella?</strong></p><br />
+
+			<p>Es muy fácil, simplemente debes ser un usuario activo de nuestra comunidad, escribiendo recomendaciones semana a semana, que estén bien escritas, sean críticas y bien fundamentadas, con el objetivo de que sean útiles para los miles de Loogareños que nos visitan diariamente.</p><br />
+
+			<p>Tenemos los ojos abiertos y estamos viendo lo que haces, cuando menos lo esperes llegará tu turno de convertirte en Loogareño Estrella y disfrutar de una gran velada haciendo lo que más te gusta: Compartir y Vivir la Ciudad.</p><br />
+
+			<p><strong>Tips para una buena recomendación</strong></p><br />
+
+			<ul>
+				<li>Tener una imagen tuya como foto de perfil</li>
+				<li>Escribir con buena ortografía</li>
+				<li>Fundamentar bien el por qué te gustó o no el lugar</li>
+				<li>Ser responsable con las estrellas. (Considerar que 5 estrellas = Perfecto)</li>
+				<li>No ser muy conciso ni extenderse (Un párrafo y medio basta y sobra)</li>
+				<li>Escribir teniendo en mente que tu recomendación debe ser útil para otro</li>
+			</ul><br />
+
+			<p>¡Mucha suerte, Loogareños!</p><br />
+
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}

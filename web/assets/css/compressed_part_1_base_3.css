@@ -875,7 +875,7 @@ textarea {
     font-size: 14px;
     line-height: 24px;
     min-height: 565px;
-    padding: 20px;
+    padding: 20px 20px 60px;
     width: 619px; }
     .estaticas .contenido .ano {
       color: #66ccff;
@@ -883,6 +883,44 @@ textarea {
     .estaticas .contenido ul li {
       list-style-type: disc;
       margin: 0 0 10px 20px; }
+    .estaticas .contenido .formulario_estaticas {
+      float: left;
+      margin: 40px 0 0;
+      width: 619px; }
+      .estaticas .contenido .formulario_estaticas ul li {
+        float: left;
+        list-style-type: none;
+        margin: 0 0 20px;
+        width: 619px; }
+        .estaticas .contenido .formulario_estaticas ul li label {
+          float: left;
+          font-weight: bold;
+          width: 169px; }
+        .estaticas .contenido .formulario_estaticas ul li input {
+          float: left;
+          padding: 8px;
+          width: 421px; }
+        .estaticas .contenido .formulario_estaticas ul li textarea {
+          float: left;
+          height: 90px;
+          padding: 8px;
+          width: 421px; }
+        .estaticas .contenido .formulario_estaticas ul li .obligatorio {
+          color: #cccccc; }
+        .estaticas .contenido .formulario_estaticas ul li .tip {
+          color: #999999;
+          font-size: 12px;
+          float: left;
+          margin: 15px 0 0 169px; }
+        .estaticas .contenido .formulario_estaticas ul li .enviar_datos {
+          background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+          border: 0px;
+          cursor: pointer;
+          height: 14px;
+          margin: 0 0 0 169px;
+          width: 84px; }
+          .estaticas .contenido .formulario_estaticas ul li .enviar_datos:hover {
+            background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
   .estaticas .menu_estaticas {
     box-sizing: border-box;
     -o-box-sizing: border-box;
@@ -992,7 +1030,7 @@ textarea {
       border-top: 1px solid white;
       color: #999999;
       float: left;
-      padding: 30px 0;
+      padding: 37px 0;
       width: 310px; }
     .footer .contenido_footer .redes {
       border-bottom: 1px solid #cccccc;
