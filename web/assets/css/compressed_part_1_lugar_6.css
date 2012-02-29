@@ -1724,6 +1724,26 @@
     color: #999999;
     margin: 0 0 30px 0; }
 
+/* Editar foto Lugar */
+.editar_foto .enviar_foto {
+  background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
+  border: 0px;
+  cursor: pointer;
+  height: 30px;
+  float: left;
+  margin: 0 0 0 10px;
+  width: 100px; }
+  .editar_foto .enviar_foto:hover {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
+.editar_foto .cancelar_edicion {
+  color: #0066cc;
+  text-decoration: none;
+  float: left;
+  margin: 10px 0 9px 10px; }
+  .editar_foto .cancelar_edicion:hover {
+    color: #0066cc;
+    text-decoration: underline; }
+
 /* Galería de fotos */
 .galeria_de_fotos {
   border: 1px solid #f2f2f6;
@@ -1749,6 +1769,14 @@
         height: 100%;
         position: absolute;
         width: 300px; }
+        .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior span {
+          background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 0;
+          height: 73px;
+          float: left;
+          margin: 60% 0 60% 15px;
+          width: 41px; }
+          .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior span:hover {
+            background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 -73px; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente {
         float: right;
         height: 100%;
@@ -1756,6 +1784,14 @@
         position: absolute;
         text-align: right;
         width: 300px; }
+        .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente span {
+          background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px 0;
+          height: 73px;
+          float: right;
+          margin: 60% 15px 60% 0;
+          width: 41px; }
+          .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente span:hover {
+            background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px -73px; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_anterior {
         cursor: pointer; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_siguiente {

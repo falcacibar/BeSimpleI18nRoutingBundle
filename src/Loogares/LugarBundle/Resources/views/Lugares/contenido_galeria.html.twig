@@ -4,11 +4,11 @@
 		<ul>
 			{% if vecinas.prev is not empty %}
 				<a class="boton_anterior" href="{{ path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.prev } )}}">
-					<li class="anterior"></li>
+					<li class="anterior"><span></span></li>
 				</a>
 			{% endif %}
 				<a class="boton_siguiente" href="{{ (vecinas.next is not empty) ? path( '_fotoGaleria', { 'slug' : imagen.lugar.slug, 'id' : vecinas.next }) : path( '_galeria', { 'slug' : imagen.lugar.slug }) }}">
-					<li class="siguiente"></li>
+					<li class="siguiente"><span></span></li>
 				</a>
 		</ul>
 	</div>

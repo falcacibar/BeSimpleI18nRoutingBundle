@@ -88,10 +88,10 @@ body {
   padding: 10px;
   width: 940px; }
   .mensaje_error .imagen_error {
-    background: url("../images/extras/botones_sprite.png") 0px -103px;
+    background: url("../images/extras/botones_sprite.png") 0px -102px;
     display: block;
     float: left;
-    height: 20px;
+    height: 21px;
     padding: 0 10px 0 0;
     width: 20px; }
   .mensaje_error .txt_error {

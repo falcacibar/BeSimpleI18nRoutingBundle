@@ -1,9 +1,9 @@
 {% if tipo == 'form' %}
 <form action="{{ path('_editarFotoLugar', { 'slug' : imagen.lugar.slug, 'id' : imagen.id }) }}" method="post" {{ form_enctype(form) }}>
-	<ul>
+	<ul class="editar_foto">
 		<li>
-			{{ form_widget(form.titulo_enlace, { 'attr' : {'style' : 'width:300px', 'class' : 'descripcion_texto'}}) }}
-			<input type="submit" value="{{'fotos.agregar.submit'|trans}}" formnovalidate  class="editar_submit"/>
+			{{ form_widget(form.titulo_enlace, { 'attr' : {'style' : 'float: left; margin: 0px; padding: 8px; width: 400px', 'class' : 'descripcion_texto'}}) }}
+			<input type="submit" value="" formnovalidate  class="enviar_foto"/>
 			<a href='#' class='cancelar_edicion'>{{'fotos.editar.cancelar'|trans}}</a>
 		</li>
 		{{form_rest(form)}}

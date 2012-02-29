@@ -229,7 +229,7 @@
       padding: 0 0 30px;
       width: 640px; }
       .contenido_home .actividad_reciente .encabezado_actividad .actividad_icono {
-        background: url("../images/extras/botones_sprite.png") no-repeat 0 -185px;
+        background: url("../images/extras/botones_sprite.png") no-repeat 0 -264px;
         float: left;
         height: 18px;
         margin: 5px 0 0;
@@ -316,6 +316,7 @@
     .sidebar_home .recomendacion_estrella .titulo_estrella {
       background: url("../images/extras/botones_sprite.png") no-repeat 0 -239px;
       font-size: 16px;
+      height: 26px;
       line-height: 28px;
       margin: 10px;
       padding: 0 0 0 20px; }
