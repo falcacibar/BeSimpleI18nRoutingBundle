@@ -1,5 +1,7 @@
 {% set slug = (usuario.slug != '') ? usuario.slug : usuario.id %}
-
+{% block partial_javascript %}
+    <script src="{{asset('assets/js/recomendacionesUsuario.js')}}"></script> 
+{% endblock %}
 <div class="caja_recomendaciones_usuario">
 	<h2 class="titulo_accion_usuario">
 		{{usuario.totalRecomendaciones}} {{'usuario.recomendaciones.titulo'|transchoice(usuario.totalRecomendaciones)}}
@@ -55,15 +57,15 @@
 					<p class="tags_lugar_recomendacion">
 						{{'usuario.recomendaciones.recomendacion.tags'|trans}}
 						{% for tagRec in recomendacion.tagRecomendacion%}
-							<a href="{{path('_tags', {'slug' : app.session.get('ciudad').slug, 'term' : tagRec.tag.slug})}}">{{tagRec.tag.tag}}</a>{% if loop.last == false %}{{', '}}{% endif %}
+							{{tagRec.tag.tag}}{% if loop.last != true %}, {% endif %}
 						{% endfor %}
 					</p>
 				{% endif %}
 
 				<div class="caja_opciones_lugar_recomendacion">
 					<div class="opciones_lugar_recomendacion">
-						<a class="borrar_lugar_recomendacion" href="#">{{'usuario.recomendaciones.lista.borrar'|trans}}</a>
-						<a class="editar_lugar_recomendacion" href="#">{{'usuario.recomendaciones.lista.editar'|trans}}</a>
+						<a class="borrar_lugar_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": recomendacion.lugar.slug}) }}">{{'usuario.recomendaciones.lista.borrar'|trans}}</a>
+						<a class="editar_lugar_recomendacion" data-lugar="{{recomendacion.lugar.slug}}" href="#">{{'usuario.recomendaciones.lista.editar'|trans}}</a>
 					</div>
 				</div>
 			</div>
