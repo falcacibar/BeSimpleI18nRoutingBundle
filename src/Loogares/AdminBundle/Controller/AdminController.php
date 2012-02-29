@@ -24,10 +24,10 @@ class AdminController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
 
-        $q = $em->createQuery('SELECT u from Loogares\ExtraBundle\Entity\Pais u where u.mostrar_lugar = 1');
+        $q = $em->createQuery('SELECT u from Loogares\ExtraBundle\Entity\Pais u where u.mostrar_lugar = 1 or u.mostrar_lugar = 3');
         $paisesResult = $q->getResult();
 
-        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u where u.mostrar_lugar = 1");
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u where u.mostrar_lugar = 1 or u.mostrar_lugar = 3");
         $ciudadesResult = $q->getResult();
 
         return $this->render('LoogaresAdminBundle:Admin:seleccionPais.html.twig', array(

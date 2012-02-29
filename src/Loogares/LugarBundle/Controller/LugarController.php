@@ -991,7 +991,7 @@ class LugarController extends Controller{
         // Dimensiones de la imagen para manejar bien el output
         try {
             $sizeArray = getimagesize('assets/images/lugares/'.$imagen->getImagenFull());
-            $anchoDefault = 610;
+            $anchoDefault = 600;
             $altoDefault = 500;
             $ancho = $sizeArray[0];
             $alto = $sizeArray[1];        

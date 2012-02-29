@@ -85,9 +85,42 @@ $rojo: #F72121
 
 /* CSS Administrador */
 
+.header_admin
+    background: $gris_faf
+    border-bottom: 1px solid $gris_f6f
+    height: 75px
+    margin: 0 0 20px
+
+    span
+        background: $blanco
+        float: left
+        margin: 0 auto
+        padding: 5px 20px 5px 0
+        text-align: center
+        width: 100px
+
 .contenedor_admin
-    margin: 20px auto
+    margin: 0 auto
     width: 960px
+
+    .menu_admin
+        color: $gris_666
+        float: left
+        font:
+            size: 14px
+        line-height: 22px
+        margin: 40px 0
+        width: 960px
+
+        a
+            @include link_gris_666
+            font:
+                weight: bold
+
+            &:hover
+                @include link_gris_666_hover
+                font:
+                    weight: bold
 
 .titulo_admin
     font:

@@ -30,19 +30,25 @@
 
     <div class="contenedor_admin">
 
+        <div class="header_admin">
+            <span><img src="{{ asset('assets/images/administrador/logo.png') }}" height="65" width="100" /></span>
+        </div>
+
         <div class="contenido">
             
             {% block content %}{% endblock %}
         
         </div>
-    </div>
-        <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
-        <script src="{{asset('assets/js/jquery.ui.datepicker-es.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/js/admin.js')}}" type="text/javascript"></script>
-        {% block javascript %}
-            
-        {% endblock %}
 
+    </div>
+
+    <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.ui.datepicker-es.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/admin.js')}}" type="text/javascript"></script>
+    
+    {% block javascript %}
+        
+    {% endblock %}
 
 </body>
 </html>

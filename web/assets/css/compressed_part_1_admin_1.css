@@ -1,9 +1,37 @@
 /* Colores */
 /* Mixin */
 /* CSS Administrador */
+.header_admin {
+  background: #fafafc;
+  border-bottom: 1px solid #f2f2f6;
+  height: 75px;
+  margin: 0 0 20px; }
+  .header_admin span {
+    background: white;
+    float: left;
+    margin: 0 auto;
+    padding: 5px 20px 5px 0;
+    text-align: center;
+    width: 100px; }
+
 .contenedor_admin {
-  margin: 20px auto;
+  margin: 0 auto;
   width: 960px; }
+  .contenedor_admin .menu_admin {
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 40px 0;
+    width: 960px; }
+    .contenedor_admin .menu_admin a {
+      color: #666666;
+      text-decoration: none;
+      font-weight: bold; }
+      .contenedor_admin .menu_admin a:hover {
+        color: #666666;
+        text-decoration: underline;
+        font-weight: bold; }
 
 .titulo_admin {
   font-size: 24px;
