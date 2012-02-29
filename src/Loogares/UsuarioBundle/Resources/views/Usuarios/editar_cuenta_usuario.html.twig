@@ -1,12 +1,6 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
+<script src="{{asset('assets/js/cuentaUsuario.js')}}"></script>
 
-{% block partial_stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
-{% endblock %}
-{% block parial_javascripts %}
-	<script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
-	<script src="{{asset('assets/js/cuentaUsuario.js')}}"></script>
-{% endblock %}
 <style>
 	.container_ciudad, .container_comuna{
 		display: none;

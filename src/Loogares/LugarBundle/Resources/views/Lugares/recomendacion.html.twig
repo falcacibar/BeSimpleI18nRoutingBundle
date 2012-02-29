@@ -1,7 +1,5 @@
 {% block javascripts %}
-	{% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
-		<script src="{{asset('assets/js/recomiendaLugar.js')}}"></script>
-	{% endif %}
+	<script src="{{asset('assets/js/recomiendaLugar.js')}}"></script>
 	<script>
 		$(document).ready(function(){
 			//Placeholder obligatorio con salto de linea, duhhh

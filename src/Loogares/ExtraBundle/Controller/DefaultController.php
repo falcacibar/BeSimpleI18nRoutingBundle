@@ -149,12 +149,13 @@ class DefaultController extends Controller
 
         // Recomendación del día
         $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
+
         $preview = '';
         if(strlen($recomendacionDelDia->getTexto()) > 160) {
-            $preview = substr($recomendacionDelDia->getTexto(),0,160).'...';
+            $previewRecDia = substr($recomendacionDelDia->getTexto(),0,160).'...';
         }
         else {
-            $preview = $recomendacionDelDia->getTexto();
+            $previewRecDia = $recomendacionDelDia->getTexto();
         }
 
         // Actividad reciente por ciudad
@@ -173,7 +174,6 @@ class DefaultController extends Controller
                 }
                 $entidad->preview = $preview;
             }
-
             $a->ent = $entidad;
         }
 
@@ -186,7 +186,7 @@ class DefaultController extends Controller
         $home['totalRecomendaciones'] = $totalRecomendaciones;
         $home['totalRecomendaciones_format'] = number_format( $totalRecomendaciones , 0 , '' , '.' );
         $home['recDia'] = $recomendacionDelDia;
-        $home['previewRecDia'] = $preview;
+        $home['previewRecDia'] = $previewRecDia;
         $home['ultimosConectados'] = $ultimosConectados;
         $home['categorias'] = $categorias;
         $home['actividad'] = $actividad;

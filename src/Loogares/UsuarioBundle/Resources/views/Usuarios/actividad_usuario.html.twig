@@ -1,5 +1,5 @@
+<script>$(document).ready(function(){$('[name=filtro]').chosen();});</script>
 <div class="caja_actividad_usuario">
-	
 	<h2 class="titulo_accion_usuario">
 		{{(usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto) ? 'usuario.actividad.titulo'|transchoice(1) : 'usuario.actividad.titulo'|transchoice(0)~" "~usuario.nombre~" "~usuario.apellido}}
 	</h2>

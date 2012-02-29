@@ -72,26 +72,29 @@ class RecomendacionRepository extends EntityRepository
                              JOIN r.lugar l
                              JOIN l.comuna c
                              WHERE r.fecha_ultima_vez_destacada = CURRENT_DATE()
-                             AND c.ciudad = ?1");
+                             AND c.ciudad = ?1
+                             AND r.estado != 3");
 
       $q->setParameter(1, $ciudad);
       $rec = $q->getOneOrNullResult();
+
       if($rec ==  null) {
           // Seleccionamos una como destacada
           $q = $em->createQuery("SELECT r, l, SIZE(r.util) util
-                             FROM Loogares\UsuarioBundle\Entity\Recomendacion r
-                             JOIN r.lugar l
-                             JOIN l.comuna c
-                             WHERE c.ciudad = ?1
-                             AND l.estado != ?2
-                             AND DATE_SUB(CURRENT_DATE(), 90, 'DAY') >= r.fecha_ultima_vez_destacada
-                             AND DATE_SUB(CURRENT_DATE(), 8, 'MONTH') <= r.fecha_creacion
-                             GROUP BY r.id
-                             ORDER BY util DESC, r.estrellas DESC, r.fecha_creacion DESC");
+                                 FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                                 JOIN r.lugar l
+                                 JOIN l.comuna c
+                                 WHERE c.ciudad = ?1
+                                 AND l.estado != ?2
+                                 AND DATE_SUB(CURRENT_DATE(), 90, 'DAY') >= r.fecha_ultima_vez_destacada
+                                 AND DATE_SUB(CURRENT_DATE(), 8, 'MONTH') <= r.fecha_creacion
+                                 GROUP BY r.id
+                                 ORDER BY util DESC, r.estrellas DESC, r.fecha_creacion DESC");
           $q->setParameter(1, $ciudad);
           $q->setParameter(2, 3);
           $q->setMaxResults(1);
           $rec = $q->getOneOrNullResult();
+
           if($rec != null) {
               $rec = $rec[0];
 

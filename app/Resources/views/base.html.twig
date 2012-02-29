@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />
         <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-        {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.comuna is empty)%}
+        {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.pais is empty)%}
             <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
             <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
         {% endif %}
@@ -97,7 +97,7 @@
         {% endif %}
         {% block javascripts %}
         {% endblock %}
-        {% block parial_javascripts %}
+        {% block partial_javascripts %}
         {% endblock %}
     </body>
 

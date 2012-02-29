@@ -583,7 +583,6 @@ function editarRecomendacion(lugar){
                 $recomendacionBloque.children().each(function(i){
                     $(this).fadeOut(200, function(){
                         if(i==0){
-                            $.getScript(WEBROOT+'../assets/js/recomiendaLugar.js');
                             $recomendacionBloque
                                 .append(data)
                             $('[name="recomienda"]')
