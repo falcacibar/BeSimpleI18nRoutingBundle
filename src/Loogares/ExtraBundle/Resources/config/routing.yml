@@ -8,4 +8,4 @@ actividad:
 
 static:
     pattern:  /{static}
-    defaults: { _controller: LoogaresExtraBundle:Default:Static }
+    defaults: { _controller: LoogaresExtraBundle:Default:Static}

@@ -91,6 +91,7 @@ $(document).ready(function(){
 				url: WEBROOT+"usuario/forzar_datos",
 				success: function(data){
 					console.log(data)
+					$.fancybox.close()
 				}
 			});
 		}

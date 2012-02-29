@@ -2,16 +2,16 @@
 
 	<div class="menu_estaticas">
 		<ul>
-			<a href="{{ path('static', {'static': 'que_es_loogares'}) }}"><li>{{'extra.estaticas.que_es_loogarescom.titulo'|trans}}</li></a>
-			<a href="{{ path('static', {'static': 'eres_el_dueno_de_un_lugar'}) }}"><li>{{'extra.estaticas.eres_el_dueno_de_un_lugar.titulo'|trans}}</li></a>
-			<a href="{{ path('static', {'static': 'publicidad'}) }}"><li>{{'extra.estaticas.publicidad.titulo'|trans}}</li></a>
-			<a href="{{ path('static', {'static': 'contacto'}) }}"><li>{{'extra.estaticas.contacto.titulo'|trans}}</li></a>
-			<a href="{{ path('static', {'static': 'prensa'}) }}"><li>{{'extra.estaticas.prensa.titulo'|trans}}</li></a>
-			<a href="{{ path('static', {'static': 'trabaja_con_nosotros'}) }}"><li>{{'extra.estaticas.trabaja_con_nosotros.titulo'|trans}}</li></a>
-			<a href="{{ path('static', {'static': 'terminos_de_uso'}) }}"><li>{{'extra.estaticas.terminos_de_uso.titulo'|trans}}</li></a>
-			<a href="{{ path('static', {'static': 'politicas_de_privacidad'}) }}"><li>{{'extra.estaticas.politicas_de_privacidad.titulo'|trans}}</li></a>
-			<a href="{{ path('static', {'static': 'copyright'}) }}"><li>{{'extra.estaticas.copyright.titulo'|trans}}</li></a>
-			<a href="{{ path('static', {'static': 'codigos_de_conducta'}) }}"><li>{{'extra.estaticas.codigos_de_conducta.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'que_es_loogares'}) }}"><li {% if static == 'que_es_loogares'%}class="selected"{% endif %}>{{'extra.estaticas.que_es_loogarescom.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'eres_el_dueno_de_un_lugar'}) }}"><li {% if static == 'eres_el_dueno_de_un_lugar'%}class="selected"{% endif %}>{{'extra.estaticas.eres_el_dueno_de_un_lugar.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'publicidad'}) }}"><li {% if static == 'publicidad'%}class="selected"{% endif %}>{{'extra.estaticas.publicidad.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'contacto'}) }}"><li {% if static == 'contacto'%}class="selected"{% endif %}>{{'extra.estaticas.contacto.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'prensa'}) }}"><li {% if static == 'prensa'%}class="selected"{% endif %}>{{'extra.estaticas.prensa.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'trabaja_con_nosotros'}) }}"><li {% if static == 'trabaja_con_nosotros'%}class="selected"{% endif %}>{{'extra.estaticas.trabaja_con_nosotros.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'terminos_de_uso'}) }}"><li {% if static == 'terminos_de_uso'%}class="selected"{% endif %}>{{'extra.estaticas.terminos_de_uso.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'politicas_de_privacidad'}) }}"><li {% if static == 'politicas_de_privacidad'%}class="selected"{% endif %}>{{'extra.estaticas.politicas_de_privacidad.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'copyright'}) }}"><li {% if static == 'copyright'%}class="selected"{% endif %}>{{'extra.estaticas.copyright.titulo'|trans}}</li></a>
+			<a href="{{ path('static', {'static': 'codigos_de_conducta'}) }}"><li {% if static == 'codigos_de_conducta'%}class="selected"{% endif %}>{{'extra.estaticas.codigos_de_conducta.titulo'|trans}}</li></a>
 		</ul>
 	</div>
 

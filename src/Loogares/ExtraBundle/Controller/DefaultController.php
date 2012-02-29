@@ -149,7 +149,6 @@ class DefaultController extends Controller
 
         // Recomendación del día
         $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
-
         $preview = '';
         if(strlen($recomendacionDelDia->getTexto()) > 160) {
             $preview = substr($recomendacionDelDia->getTexto(),0,160).'...';
@@ -160,10 +159,10 @@ class DefaultController extends Controller
 
         // Actividad reciente por ciudad
         $actividad = $ar->getActividadReciente(5, $ciudad['id'], null, null, 0);
-
         foreach($actividad as $a) {
             $r = $em->getRepository($a->getEntidad());
             $entidad = $r->find($a->getEntidadId());
+            
             if($a->getEntidad() == 'Loogares\UsuarioBundle\Entity\Recomendacion') {
                 $preview = '';
                 if(strlen($entidad->getTexto()) > 160) {
@@ -251,7 +250,9 @@ class DefaultController extends Controller
     }
 
     public function staticAction($static){
-        return $this->render('LoogaresExtraBundle:Static:'.$static.'.html.twig');
+        return $this->render('LoogaresExtraBundle:Static:'.$static.'.html.twig', array(
+            'static' => $static
+        ));
     }
 
 }

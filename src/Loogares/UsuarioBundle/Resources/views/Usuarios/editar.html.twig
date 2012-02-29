@@ -12,7 +12,7 @@
 		{% endif %}
 
 		<!-- Mensajes de error --> 
-		{% if errors or erroresLocalidad %}
+		{% if errors or (erroresLocalidad is defined and erroresLocalidad) %}
 			<div class="mensaje_error">
 				<div class="imagen_error"></div>
 				<div class="txt_error">

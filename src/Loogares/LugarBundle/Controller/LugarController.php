@@ -1216,10 +1216,14 @@ class LugarController extends Controller{
                 $paths = array();
                 $paths['logo'] = 'assets/images/mails/logo_mails.png';
                 $paths['boton'] = 'assets/images/mails/recibir_propuesta.png';
-                $paths['estrella_llena'] =  'assets/images/extras/estrella_llena_recomendacion.png';
-                $paths['estrella_media'] =  'assets/images/extras/estrella_media_recomendacion.png';
-                $paths['estrella_vacia'] =  'assets/images/extras/estrella_vacia_recomendacion.png';
-                $paths['usuario'] = 'assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull();
+                if($estrellas['llenas'] > 0)
+                    $paths['estrella_llena'] =  'assets/images/extras/estrella_llena_recomendacion.png';
+                if($estrellas['medias'] > 0)
+                    $paths['estrella_media'] =  'assets/images/extras/estrella_media_recomendacion.png';
+                if($estrellas['vacias'] > 0)
+                    $paths['estrella_vacia'] =  'assets/images/extras/estrella_vacia_recomendacion.png';
+                $this->get('imagine.controller')->filter('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull(), "small_usuario");
+                $paths['usuario'] = 'assets/media/cache/small_usuario/assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull();
                 if(!file_exists($paths['usuario'])){
                     $paths['usuario'] = 'assets/images/usuarios/default.gif';
                 }

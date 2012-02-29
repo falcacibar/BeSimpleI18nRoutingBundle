@@ -16,7 +16,7 @@
                     <br />
                     <div style="margin: 0 0 40px 0; float: left;">
                         <div style="float: left;">
-                            <img src="{{assets.usuario | apply_filter('small_usuario')}}" height="60" width="60" />
+                            <img src="{{ assets.usuario }}" height="60" width="60" />
                         </div>
                         <div style="float: left; margin: 0 0 0 10px; width: 530px;">
                             <strong style="display: block; font-size: 14px; margin: 0px; padding: 0px; color: #444;">{{mail.usuario.nombre}} {{mail.usuario.apellido}}</strong>
@@ -51,7 +51,7 @@
                     <br />
                     <p>{{'lugar.notificaciones.nueva_recomendacion.mail.segundo'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}</p>
                     <br />
-                    <a href="{{(mail.mailParam is empty) ? url('_reclamarLugar',{'slug' : mail.recomendacion.lugar.slug}) : url('_reclamarLugar',{'slug' : mail.recomendacion.lugar.slug, 'mail' : mail.mailParam})}}"><img style="margin: 0 156px;" src="{{ asset('assets/images/mails/recibir_propuesta.png') }}" height="45" width="295" /></a>
+                    <a href="{{(mail.mailParam is empty) ? url('_reclamarLugar',{'slug' : mail.recomendacion.lugar.slug}) : url('_reclamarLugar',{'slug' : mail.recomendacion.lugar.slug, 'mail' : mail.mailParam})}}"><img style="margin: 0 156px;" src="{{ assets.boton }}" height="45" width="295" /></a>
                 </td>
             </tr>
             <tr>

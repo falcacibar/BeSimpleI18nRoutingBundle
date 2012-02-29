@@ -1035,7 +1035,7 @@ $comunaSeleccionada ='';
                 if(isset($_POST['ciudad']) && $request->request->get('ciudad') != 'elige'){
                     $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
                     $ciudad = $cr->findOneBySlug($request->request->get('ciudad'));
-                    $ciudad->setCiudad($ciudad);
+                    $usuario->setCiudad($ciudad);
                 }
 
                 $em->flush();
