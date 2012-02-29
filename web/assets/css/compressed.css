@@ -3700,14 +3700,22 @@ small {
         width: 53px; }
         .recomendacion .texto_recomendacion .util_recomendacion .boton_clickeado:hover {
           background: url("../images/extras/botones_ficha_lugar.png") no-repeat -730px -60px; }
-      .recomendacion .texto_recomendacion .util_recomendacion .boton_desactivado {
-        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -730px -60px;
+      .recomendacion .texto_recomendacion .util_recomendacion a.boton_desactivado {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -730px -30px;
+        cursor: pointer;
+        float: right;
+        height: 20px;
+        width: 53px; }
+        .recomendacion .texto_recomendacion .util_recomendacion a.boton_desactivado:hover {
+          background: url("../images/extras/botones_ficha_lugar.png") no-repeat -730px -60px; }
+      .recomendacion .texto_recomendacion .util_recomendacion p.boton_desactivado {
+        background: url("../images/extras/botones_ficha_lugar.png") no-repeat -730px -90px;
         cursor: default;
         float: right;
         height: 20px;
         width: 53px; }
-        .recomendacion .texto_recomendacion .util_recomendacion .boton_desactivado:hover {
-          background: url("../images/extras/botones_ficha_lugar.png") no-repeat -730px -60px; }
+        .recomendacion .texto_recomendacion .util_recomendacion p.boton_desactivado:hover {
+          background: url("../images/extras/botones_ficha_lugar.png") no-repeat -730px -90px; }
     .recomendacion .texto_recomendacion .fecha_recomendacion {
       color: #999999;
       display: block;
