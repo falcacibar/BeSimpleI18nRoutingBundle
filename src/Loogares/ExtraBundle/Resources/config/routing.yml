@@ -9,3 +9,11 @@ actividad:
 static:
     pattern:  /{static}
     defaults: { _controller: LoogaresExtraBundle:Default:Static}
+
+_contacto_mail:
+    pattern:  /mail/enviar_contacto
+    defaults: { _controller: LoogaresExtraBundle:Default:ContactoMail}
+
+_publicidad_mail:
+    pattern:  /mail/enviar_publicidad
+    defaults: { _controller: LoogaresExtraBundle:Default:PublicidadMail}

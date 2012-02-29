@@ -84,7 +84,7 @@ class SearchController extends Controller
     $termSlug = $fn->generarSlug($term);
     $termArray = preg_split('/\s/', $term);
 
-    $fields = "STRAIGHT_JOIN lugares.mapx, lugares.mapy, lugares.id, lugares.nombre as nombre_lugar, lugares.slug as lugar_slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2+lugares.visitas*0.2) as ranking, categorias.slug, categorias.nombre, ( select max(recomendacion.fecha_creacion) from recomendacion where recomendacion.lugar_id = lugares.id and recomendacion.estado_id = 2) as ultima_recomendacion";   
+    $fields = "STRAIGHT_JOIN lugares.mapx, lugares.mapy, lugares.id, lugares.nombre as nombre_lugar, lugares.slug as lugar_slug, lugares.calle, lugares.numero, lugares.estrellas, lugares.precio, lugares.total_recomendaciones, lugares.fecha_ultima_recomendacion, lugares.utiles, lugares.visitas, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2+lugares.visitas*0.2) as ranking, categorias.slug, categorias.nombre, ( select max(recomendacion.fecha_creacion) from recomendacion where recomendacion.lugar_id = lugares.id and recomendacion.estado_id != 3 ) as ultima_recomendacion";   
 
     $noCategorias = false;
     $filterCat = false;
@@ -180,7 +180,8 @@ class SearchController extends Controller
       'recomendaciones' => 'lugares.total_recomendaciones desc',
       'alfabetico' => 'lugares.nombre asc',
       'recomendaciones' => 'ranking desc',
-      'ultimas_recomendaciones' => 'ultima_recomendacion desc'
+      'ultimas_recomendaciones' => 'ultima_recomendacion desc',
+      'mas_recomendados' => 'lugares.total_recomendaciones desc'
     );
 
     if(isset($_GET['orden'])){
@@ -1024,7 +1025,7 @@ class SearchController extends Controller
       $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");   
     }
 
-
+$a = null;
     //Sacamos los otros datos de los 30 resultados que corresponden
     foreach($arr['lugares'] as $key => $lugar){
       $buffer = $this->getDoctrine()->getConnection()
@@ -1046,6 +1047,7 @@ class SearchController extends Controller
         LEFT JOIN recomendacion
         ON recomendacion.lugar_id = lugares.id
         AND recomendacion.id in (select max(recomendacion.id))
+        AND recomendacion.estado_id != 3
         LEFT JOIN usuarios 
         ON usuarios.id = recomendacion.usuario_id
         WHERE lugares.id = ".$lugar['id']." group by lugares.id");

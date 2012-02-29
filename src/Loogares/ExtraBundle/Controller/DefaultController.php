@@ -288,4 +288,56 @@ class DefaultController extends Controller
         ));
     }
 
+    public function contactoMailAction(){
+        $contacto['nombre'] = $_POST['nombre'];
+        $contacto['asunto'] = $_POST['asunto'];
+        $contacto['mail'] = $_POST['mail'];
+        $contacto['mensaje'] = preg_split('/\n/', $_POST['mensaje']);
+        // Se envía mail a administradores notificando reporte
+        $mail = array();
+        $mail['asunto'] = $_POST['asunto']; 
+        $mail['contacto'] = $contacto;
+        $mail['tipo'] = "imagen";
+        $message = \Swift_Message::newInstance()
+                ->setSubject($this->get('translator')->trans('static.mail.asunto.contacto').' - '.$mail['asunto'])
+                ->setFrom($contacto['mail'])
+                ->setTo('contacto@loogares.com');
+        $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
+        $message->setBody($this->renderView('LoogaresExtraBundle:Mails:mail_contacto.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+        $this->get('mailer')->send($message);
+
+         // Mensaje de éxito del reporte
+        $this->get('session')->setFlash('contacto_flash','Wena onda por contactarnos!');
+            
+        // Redirección a galería de fotos
+        return $this->redirect($this->generateUrl('static', array('static' => 'contacto')));
+    }
+
+    public function publicidadMailAction(){
+        $contacto['nombre'] = $_POST['nombre'];
+        $contacto['empresa'] = $_POST['empresa'];
+        $contacto['mail'] = $_POST['mail'];
+        $contacto['www'] = $_POST['www'];
+        $contacto['tel'] = $_POST['tel'];
+        $contacto['mensaje'] = preg_split('/\n/', $_POST['mensaje']);
+        // Se envía mail a administradores notificando reporte
+        $mail = array();
+        $mail['asunto'] = 'Publicidad'; 
+        $mail['contacto'] = $contacto;
+        $mail['tipo'] = "imagen";
+        $message = \Swift_Message::newInstance()
+                ->setSubject($this->get('translator')->trans('static.mail.asunto.publicidad').' - '.$contacto['empresa'])
+                ->setFrom($contacto['mail'])
+                ->setTo('contacto@loogares.com');
+        $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
+        $message->setBody($this->renderView('LoogaresExtraBundle:Mails:mail_publicidad.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+        $this->get('mailer')->send($message);
+
+         // Mensaje de éxito del reporte
+        $this->get('session')->setFlash('publicidad_flash','Wena onda por contactarnos!');
+            
+        // Redirección a galería de fotos
+        return $this->redirect($this->generateUrl('static', array('static' => 'publicidad')));
+    }
+
 }
