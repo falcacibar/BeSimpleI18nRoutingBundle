@@ -362,6 +362,10 @@ class LugarController extends Controller{
                     $lugarManipulado->setSector($sector[0]);
                 }
 
+                if(isset($_POST['precio'])){
+                    $lugarManipulado->setPrecio($_POST['precio']);
+                }
+
                 $estado = $lr->getEstado(1);
                 $tipo_lugar = $lr->getTipoLugar('lugar');
 
@@ -1280,7 +1284,7 @@ class LugarController extends Controller{
         $lugar = $lr->findOneBySlug($slug);
 
         if($borrar == true){
-            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2");
+            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado != 3 order by u.id desc");
             $q->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId());
             $q->setParameter(2, $lugar->getId());
             $recomendacionResult = $q->getResult();
@@ -1301,13 +1305,10 @@ class LugarController extends Controller{
             $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ActividadReciente u WHERE u.entidad_id = ?1");
             $q->setParameter(1, $recomendacionResult[0]->getId());
             $reciente = $q->getResult();
-            echo $recomendacionResult[0]->getId();
-                        echo $reciente[0]->getId();
-            die();
-            if($reciente != null){
-                $em->remove($reciente);
-            }
 
+            if($reciente != null){
+                $em->remove($reciente[0]);
+            }
 
             $em->flush();
             $this->get('session')->setFlash('lugar_flash','Acabas de borrar tu recomendación, prueba escribiendo una nueva(.');

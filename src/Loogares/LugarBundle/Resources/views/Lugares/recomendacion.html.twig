@@ -60,8 +60,7 @@
 				<div class="recomendacion-star-raty recomienda_estrellas" data-stars="{{recomendacion.estrellas | default(0)}}"></div>
 				<div id="estrellas-recomienda"></div>
 			</li>
-
-			{% if (lugar.mostrarPrecio is defined and lugar.mostrarPrecio !=  null)  %}
+			{% if (lugar.mostrarPrecio is defined and lugar.mostrarPrecio !=  null) or (lugar.nombre is defined and lugar.nombre == '') %}
 				<li {% if lugar.slug == '' %}class="recomienda-precio-li"{% endif %}>
 					<label>{{'lugar.recomendacion.precio'|trans}}</label> 
 					<div class="recomendacion-precio-raty recomienda_precio" data-precio="{{recomendacion.precio | default(0)}}" data-tipo="{{lugar.mostrarPrecio | default('')}}"></div>
