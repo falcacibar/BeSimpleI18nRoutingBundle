@@ -159,7 +159,7 @@ class DefaultController extends Controller
         }
 
         // Actividad reciente por ciudad
-        $actividad = $ar->getActividadReciente(10, $ciudad['id'], null, null, 0);
+        $actividad = $ar->getActividadReciente(5, $ciudad['id'], null, null, 0);
 
         foreach($actividad as $a) {
             $r = $em->getRepository($a->getEntidad());

@@ -56,7 +56,7 @@
   /* Concursos */
   /* Lugares recientemente recomendados */
   /* Promociones en Pedidos Online */
-  /* Actividad reciente */ }
+  /* Actividad reciente por ciudad */ }
   .contenido_home .campanas_concursos {
     color: #666666;
     float: left;
@@ -220,37 +220,87 @@
     .contenido_home .caja_promociones .ultimo_pedido {
       border: none; }
   .contenido_home .actividad_reciente {
-    border: 1px solid #f2f2f6;
-    float: left;
-    width: 638px;
     color: #666666;
-    margin: 0 0 30px; }
-    .contenido_home .actividad_reciente h3 {
-      padding: 10px;
-      border-bottom: 1px solid #f2f2f6; }
-    .contenido_home .actividad_reciente ul li {
-      padding: 10px;
-      float: left;
+    float: left;
+    width: 640px; }
+    .contenido_home .actividad_reciente .encabezado_actividad {
       border-bottom: 1px solid #f2f2f6;
-      width: 618px; }
-      .contenido_home .actividad_reciente ul li.last_one {
-        border-bottom: none; }
-      .contenido_home .actividad_reciente ul li .link_usuario {
-        float: left; }
-      .contenido_home .actividad_reciente ul li .contenido_actividad {
+      float: left;
+      padding: 0 0 30px;
+      width: 640px; }
+      .contenido_home .actividad_reciente .encabezado_actividad .actividad_icono {
+        background: url("../images/extras/botones_sprite.png") no-repeat 0 -185px;
         float: left;
-        margin: 0 0 0 10px; }
-        .contenido_home .actividad_reciente ul li .contenido_actividad span {
-          font-size: 11px; }
-        .contenido_home .actividad_reciente ul li .contenido_actividad p {
-          margin: 5px 0 0 0; }
-          .contenido_home .actividad_reciente ul li .contenido_actividad p.rec_actividad_preview {
+        height: 18px;
+        margin: 5px 0 0;
+        width: 18px; }
+      .contenido_home .actividad_reciente .encabezado_actividad h3 {
+        float: left;
+        margin: 0 0 0 10px;
+        width: 492px; }
+      .contenido_home .actividad_reciente .encabezado_actividad .ver_mas_actividad {
+        color: #0066cc !important;
+        text-decoration: none;
+        float: left;
+        font-size: 12px;
+        margin: 9px 0 0;
+        text-align: right;
+        width: 120px; }
+    .contenido_home .actividad_reciente ul {
+      float: left;
+      width: 640px; }
+      .contenido_home .actividad_reciente ul li {
+        border-bottom: 1px solid #f2f2f6;
+        float: left;
+        padding: 20px 10px 30px;
+        width: 618px; }
+        .contenido_home .actividad_reciente ul li.last_one {
+          border-bottom: none; }
+        .contenido_home .actividad_reciente ul li .link_usuario {
+          float: left;
+          width: 50px; }
+        .contenido_home .actividad_reciente ul li .contenido_actividad {
+          float: left;
+          margin: 0 0 0 10px;
+          width: 558px; }
+          .contenido_home .actividad_reciente ul li .contenido_actividad span {
+            color: #999999;
+            display: block;
+            float: left;
             font-size: 11px;
-            width: 555px; }
-          .contenido_home .actividad_reciente ul li .contenido_actividad p.util_actividad {
-            width: 555px; }
-      .contenido_home .actividad_reciente ul li .link_lugar {
-        float: right; }
+            margin: 0 0 15px; }
+          .contenido_home .actividad_reciente ul li .contenido_actividad p {
+            float: left;
+            margin: 0 0 15px;
+            width: 558px; }
+            .contenido_home .actividad_reciente ul li .contenido_actividad p a {
+              color: #0066cc !important;
+              text-decoration: none; }
+              .contenido_home .actividad_reciente ul li .contenido_actividad p a:hover {
+                color: #0066cc !important;
+                text-decoration: underline; }
+            .contenido_home .actividad_reciente ul li .contenido_actividad p span {
+              float: none;
+              display: inline; }
+            .contenido_home .actividad_reciente ul li .contenido_actividad p.rec_actividad_preview {
+              font-size: 12px;
+              float: left;
+              line-height: 20px;
+              margin: 0;
+              width: 558px; }
+            .contenido_home .actividad_reciente ul li .contenido_actividad p.util_actividad {
+              width: 555px; }
+        .contenido_home .actividad_reciente ul li .link_lugar {
+          float: right; }
+    .contenido_home .actividad_reciente .ver_mas_actividad_inferior {
+      color: #0066cc !important;
+      text-decoration: none;
+      border-top: 1px solid #f2f2f6;
+      float: left;
+      font-size: 12px;
+      padding: 20px 0 30px;
+      text-align: right;
+      width: 640px; }
 
 .sidebar_home {
   float: left;
@@ -435,18 +485,19 @@
 .loogarenos_conectados {
   border: 1px solid #f2f2f6;
   float: right;
-  width: 938px; }
+  margin: 30px 0;
+  width: 958px; }
   .loogarenos_conectados .encabezado {
     padding: 10px; }
   .loogarenos_conectados .loogarenos_conectado_ahora {
     border-top: 1px solid #f2f2f6;
     float: left;
     padding: 10px 5px;
-    width: 928px; }
+    width: 948px; }
     .loogarenos_conectados .loogarenos_conectado_ahora li {
       float: left;
       margin: 0 5px;
-      width: 178px; }
+      width: 180px; }
       .loogarenos_conectados .loogarenos_conectado_ahora li .imagen_usuario {
         float: left;
         width: 20px; }

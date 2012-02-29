@@ -28,7 +28,7 @@ extra:
         modulo_ultimos_conectados:
             titulo: Últimos Loogareños Conectados
         actividad_reciente:
-            titulo: Actividad Reciente en
+            titulo: Actividad reciente en
             agregar:
                 foto: agregó una nueva %open_tag%foto%close_tag% en
                 recomendacion: escribió una %open_tag%recomendación%close_tag% con %estrellas% en

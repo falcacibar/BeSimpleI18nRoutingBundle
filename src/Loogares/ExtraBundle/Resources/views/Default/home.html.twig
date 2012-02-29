@@ -116,9 +116,15 @@
 		{% render 'LoogaresLugarBundle:Lugar:moduloDescuentos' with {'ciudad' : app.session.get('ciudad').id, 'pagina' : 'home'}%}
 
 		<div class="actividad_reciente">
-			<h3 class="titulo_home titulo_actividad">{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}}</h3>
+			<div class="encabezado_actividad">
+				<span class="actividad_icono"></span>
+				<h3 class="titulo_home">{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}}</h3>
+				<a class="ver_mas_actividad" href="{{path('actividad')}}">{{'extra.home.actividad_reciente.ver_mas'|trans}} »</a>
+			</div>
+
 			{% include 'LoogaresExtraBundle:Default:actividad_reciente.html.twig'%}
-			<a href="{{path('actividad')}}">{{'extra.home.actividad_reciente.ver_mas'|trans}} »</a>
+
+			<a class="ver_mas_actividad_inferior" href="{{path('actividad')}}">{{'extra.home.actividad_reciente.ver_mas'|trans}} »</a>
 		</div>
 
 	</div>
