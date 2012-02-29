@@ -114,18 +114,58 @@ $rojo: #F72121
 
         a
             @include link_gris_666
-            font:
-                weight: bold
+            float: left
+            width: 280px
 
             &:hover
                 @include link_gris_666_hover
+
+        input
+            background: $azul_claro
+            border: 1px solid $azul_medio
+            color: $blanco
+            margin: 0 3px
+            width: 100px
+
+            &:hover
+                background: $azul_medio
+
+            &:focus
+                background: $azul
+
+    .submenu_admin
+        float: left
+        margin: 0 0 30px
+        width: 960
+
+        li
+            border-bottom: 1px dotted $gris_f6f
+            display: block
+            float: left
+            padding: 10px 0
+            width: 960px
+
+            .totales
+                color: $gris_ccc
+                float: left
                 font:
-                    weight: bold
+                    style: italic
+                text-align: right
+                width: 100px
+
+.selecciona_zona_admin
+    float: left
+    font:
+        size: 14px
+    margin: 3px 10px 0 0 
+    width: 200px
 
 .titulo_admin
     font:
         size: 24px
     margin: 0 0 30px 0
+
+
 
 .filtro_admin
     display: block
