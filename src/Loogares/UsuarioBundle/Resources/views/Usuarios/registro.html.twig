@@ -87,7 +87,7 @@
 					    {{ form_rest(form) }}
 
 					    <li>
-					    	{% set terminos = path('login')%}
+					    	{% set terminos = path('static', {'static': 'terminos_de_uso'}) %}
 					    	<span class="tip_registro">{% trans with {'%open_a%': '<a href='~terminos~'>', '%close_a%' : '</a>'}%}usuario.registro.form.tip.terminos{% endtrans %}</span>
 						</li>
 
