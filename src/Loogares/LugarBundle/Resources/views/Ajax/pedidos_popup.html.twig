@@ -14,7 +14,13 @@
 				{% for pedido in pedidos %}
 					<a class="link_pedido" href="{{pedido.servicioPedido.linkBase}}{{pedido.referral}}" target="blank">
 						<img class="servicio" src="{{asset('assets/images/pedidos_online/'~pedido.servicioPedido.imagenGrande)}}" />
-						<img class="descuento" src="{{asset('assets/images/pedidos_online/descuento.gif')}}" height="35" width="104" />
+						<!-- Debe aparecer la imagen de descuento solo si es que en la base de datos así lo dice -->
+						{% if pedido.tienePromocion == 1 %}
+							<img class="descuento" src="{{asset('assets/images/pedidos_online/descuento.gif')}}" height="35" width="104" />
+						{% elseif pedido.tienePromocion == 0 %}
+							<div class="descuento_no">
+							</div>
+						{% endif %}
 					</a>
 				{% endfor %}
 			</div>

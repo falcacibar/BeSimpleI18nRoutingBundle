@@ -7,7 +7,7 @@ $(document).ready(function(){
 	$('.siguiente_paso').click(function(e){
 		e.preventDefault();
 		$('.datos_obligatorios_lista').animate({
-			marginLeft: -540
+			marginLeft: -600
 		});
 	});
 
@@ -79,7 +79,7 @@ $(document).ready(function(){
 			});
 		}else if(errorComuna){
 			$('.datos_obligatorios_lista').animate({
-				marginLeft: $('.datos_obligatorios_lista li').width()+40-540
+				marginLeft: $('.datos_obligatorios_lista li').width()+600
 			});
 		}
 

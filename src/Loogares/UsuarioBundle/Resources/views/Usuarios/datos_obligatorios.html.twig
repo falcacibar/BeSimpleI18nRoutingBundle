@@ -1,36 +1,11 @@
-<style>
-	.datos_obligatorios{
-		height:300px;
-		width:500px;
-		padding:10px;
-		overflow: hidden;
-	}
-
-	.datos_obligatorios_lista{
-		width: 1100px;
-		height: 200px;
-		display: block;
-		padding: 0;
-		margin: 0;
-	}
-
-		.datos_obligatorios_lista > li{
-			float: left;
-			background: #303;
-			display: block;
-			height: 300px;
-			width: 500px;
-			margin-right: 40px;
-		}
-
-	.container_ciudad, .container_comuna{
-		display: none;
-	}
-</style>
 <script src="{{asset('assets/js/datosObligatorios.js')}}"></script>
+
 <div class="datos_obligatorios">
-	<h2>{{'validacion_usuario.titulo'|trans}}</h2>
-	<p>{{'validacion_usuario.texto'|trans}}</p>
+	
+	<div class="mensaje_obligatorio">
+		<h1>{{'validacion_usuario.titulo'|trans}}</h1>
+		<p>{{'validacion_usuario.texto'|trans}}</p>
+	</div>
 
 	<form name="forzar_datos_form" action="{{ path('forzarDatosUsuario') }}" method="post">
 		<ul class="datos_obligatorios_lista">		
@@ -42,12 +17,12 @@
 		   	<li>
 				<ul>
 					<li>
-						<label for="nombre" style="width:100px;font-size:11px">{{'validacion_usuario.nombre'|trans}}</label>
-						<input type="text" class="nombre" name="nombre" style="width: 200px" {% if errors.nombre is defined%}class="input-error"{% endif %} value="{{app.security.token.user.nombre}}"/>
+						<label for="nombre">{{'validacion_usuario.nombre'|trans}}</label>
+						<input type="text" class="nombre" name="nombre" {% if errors.nombre is defined%}class="input-error"{% endif %} value="{{app.security.token.user.nombre}}"/>
 					</li>
 					<li>
-						<label for="apellido" style="width: 100px;font-size:11px">{{'validacion_usuario.apellido'|trans}}</label>
-						<input type="text" class="apellido" name="apellido" style="width: 200px" {% if errors.apellido is defined%}class="input-error"{% endif %} value="{{app.security.token.user.apellido}}"/>
+						<label for="apellido">{{'validacion_usuario.apellido'|trans}}</label>
+						<input type="text" class="apellido" name="apellido" {% if errors.apellido is defined%}class="input-error"{% endif %} value="{{app.security.token.user.apellido}}"/>
 					</li>
 					<li>
 						<label></label>
@@ -55,9 +30,9 @@
 							is_granted('ROLE_USER') and 
 					    	app.security.token.user.pais is empty
 						%}
-							<button class="siguiente_paso">Siguiente</button>
+							<button class="siguiente_paso"></button>
 						{% else %}
-							<input type="submit" value="Enviar">
+							<input class="enviar_datos" type="submit" value="">
 						{% endif %}
 					</li>
 				</ul>
@@ -68,11 +43,13 @@
 		    	is_granted('ROLE_USER') and 
 		    	app.security.token.user.pais is empty
 		   	%}
+
 		   	<li>
 			   	<ul>
 			   		<li class="container_pais">
+						<label for="pais">{{'validacion_usuario.pais'|trans}}</label>
 				   		<select class="pais" name="pais">
-				   			<option value='elige'>{{'lugar.agregar.pais.title'|trans}}</option>
+				   			<option value='elige'>{{'usuario.edicion.cuenta.pais_agregar'|trans}}</option>
 				            {% for pais in paises %}
 				                <option value="{{pais.slug}}">{{pais.nombre}}</option>
 				            {% endfor %}
@@ -80,8 +57,9 @@
 			   		</li>
 
 			   		<li class="container_ciudad">
+						<label for="ciudad">{{'validacion_usuario.ciudad'|trans}}</label>
 				   		<select class='ciudad' name='ciudad' id='ciudad'>
-				   			<option value='elige'>{{'lugar.agregar.ciudad.title'|trans}}</option>
+				   			<option value='elige'>{{'usuario.edicion.cuenta.ciudad_agregar'|trans}}</option>
 				            {% for pais in paises %}
 				            	{% if pais.mostrarLugar == 3 %}
 				                <optgroup label="{{pais.nombre}}">
@@ -97,8 +75,9 @@
 			        </li>
 
 		            <li class="container_comuna">
+						<label for="comuna">{{'validacion_usuario.comuna'|trans}}</label>
 						<select class='comuna' name='comuna' id='comuna'>
-				            <option value='elige'>{{'lugar.agregar.comuna.title'|trans}}</option>
+				            <option value='elige'>{{'usuario.edicion.cuenta.comuna_agregar'|trans}}</option>
 				            {% for ciudad in ciudades %}
 				            	{% if ciudad.mostrarLugar == 3  or ciudad.mostrarLugar == 1 %}
 				                <optgroup label="{{ciudad.nombre}}">
@@ -118,9 +97,9 @@
 				    	(app.security.token.user.nombre is empty or 
 				    	 app.security.token.user.apellido is empty)
 					%}
-						<button class="anterior_paso">Anterior</button>
+						<button class="anterior_paso"></button>
 					{% endif %}
-				<input type="submit" value="Enviar">
+				<input class="enviar_datos" type="submit" value="">
 			</li>
 		   	{% endif %}
 		</ul>

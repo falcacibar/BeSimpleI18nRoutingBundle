@@ -1,9 +1,12 @@
 # Locale 'es_ar' UsuarioBundle
 validacion_usuario:
-    titulo: Necesitamos que ingreses información personal
-    texto: Hemos detectado que hay cierta información que aún no has ingresado. Queremos hacer un esfuerzo por conocer más de vos y así poder brindarte el mejor servicio.
+    titulo: Para mejorar el uso del sitio, necesitamos que ingreses algunos datos
+    texto: Hemos detectado que no has ingresado cierta información. Estamos haciendo un esfuerzo por conocer más de vos y brindarte un mejor servicio. Por favor ingresá los siguientes datos:
     nombre: Nombre
     apellido: Apellido
+    pais: País
+    ciudad: Ciudad
+    comuna: Comuna
 
 usuario:
     login:
