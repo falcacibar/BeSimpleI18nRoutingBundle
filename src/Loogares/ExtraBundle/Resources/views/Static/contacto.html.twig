@@ -3,7 +3,11 @@
 {% block title %}{{parent()}} | {{'extra.estaticas.contacto.titulo'|trans}}{% endblock %}
 
 {% block content %}
-
+    {% if app.session.hasFlash('contacto_flash') %}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('contacto_flash') | trans }}</p>
+            </div>
+    {% endif %}
 	<div class="estaticas">
 
 		<div class="contenido">
@@ -16,28 +20,28 @@
 			<p>Envíanos el formulario con la información o mándanos un mail a <a href="mailto:contacto@loogares.com">contacto@loogares.com</a>, y en menos de 48 horas tendrás una respuesta.</p><br />
 
 			<div class="formulario_estaticas">
-				<form>
+				<form action="{{ path('_contacto_mail') }}" method="post">
 					<ul>
 						<li>
 							<label>{{'extra.estaticas.contacto.formulario.nombre'|trans}} <span class="obligatorio">*</span></label>
-							<input></input>
+							<input type="text" name="nombre"/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.contacto.formulario.e_mail'|trans}} <span class="obligatorio">*</span></label>
-							<input></input>
+							<input type="text" name="mail"/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.contacto.formulario.asunto'|trans}} <span class="obligatorio">*</span></label>
-							<input></input>
+							<input type="text" name="asunto"/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.contacto.formulario.info'|trans}}</label>
-							<textarea></textarea>
+							<textarea name="mensaje"></textarea>
 							<span class="tip">{{'extra.estaticas.obligatorio'|trans}}</span>
 						</li>
 						<li>
 							<label></label>
-							<input class="enviar_datos"></input>
+							<input type="submit" class="enviar_datos"/>
 						</li>
 					</ul>
 				</form>
