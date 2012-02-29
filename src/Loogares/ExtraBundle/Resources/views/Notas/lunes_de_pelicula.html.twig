@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{parent()}} | Lunes de película{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo">Lunes de película</h1>
+			
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}

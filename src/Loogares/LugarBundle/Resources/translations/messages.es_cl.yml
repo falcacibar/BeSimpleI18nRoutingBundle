@@ -46,7 +46,7 @@ lugar:
     ficha:
         pedidos:
             cerrar: Cerrar
-            elige: Elige el servicio que deseas usar:
+            elige: Elige el servicio que quieres usar:
         otros:
             titulo: Otros Lugares en el área
         qtip:
