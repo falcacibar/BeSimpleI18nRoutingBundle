@@ -50,8 +50,8 @@ fotosLugaresUsuario:
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:fotos }
 
 lugaresUsuario:
-    pattern:  /{param}/lugares
-    defaults: { _controller: LoogaresUsuarioBundle:Usuario:lugares }
+    pattern:  /{param}/lugares/{accionLugar}
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:lugares, accionLugar: visitar }
 
 editarUsuario:
     pattern:  /{param}/editar

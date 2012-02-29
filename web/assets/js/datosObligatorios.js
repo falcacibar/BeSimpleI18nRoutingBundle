@@ -90,8 +90,9 @@ $(document).ready(function(){
 				data: $('[name="forzar_datos_form"]').serialize(),
 				url: WEBROOT+"usuario/forzar_datos",
 				success: function(data){
-					console.log(data)
-					$.fancybox.close()
+					if(data == 'gud gud'){
+						window.location = window.location.href;
+					}
 				}
 			});
 		}

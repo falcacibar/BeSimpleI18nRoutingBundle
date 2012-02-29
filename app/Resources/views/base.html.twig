@@ -90,12 +90,12 @@
         <script>
             $(function(){               
                 $('.datos_usuario_fancybox').fancybox({
-                    hideOnContentClick : false,
                     padding: 0,
                     type: 'ajax',
-                    showCloseButton: true
+                    beforeClose: function(){return false;}
                 });
-                $('.datos_usuario_fancybox').click();                
+                $('.datos_usuario_fancybox').click();
+                       
             });
         </script>
 

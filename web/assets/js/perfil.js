@@ -28,19 +28,6 @@ $(function(){
 		return false;
 	});
 
-	$('a.lugares_usuario_link, a.reload_link').live("click", function(e){
-		e.preventDefault();
-		$.ajax({
-		  type: "GET",
-		  url: $(this).attr('href'),
-		}).done(function( data ) {
-		  	$('.caja_contenido').html($(data).fadeIn('fast'));
-		}).fail(function( data ) {
-		  	console.log(data);
-		});
-		return false;		
-	});
-
 	$('a.accion_borrar_usuario').live('click', function(e){
 		e.preventDefault();
 		var $this = $(this),

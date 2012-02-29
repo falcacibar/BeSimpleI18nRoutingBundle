@@ -193,12 +193,22 @@ class UsuarioController extends Controller
         ));  
     }
 
-    public function lugaresAction($param) {
+    public function lugaresAction($param, $accion = 3, $accionLugar = null) {
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
-        
+
+        $acciones = array(
+            'visitados' => 3,
+            'favoritos' => 4,
+            'visitar' => 1,
+            'volver' => 2,
+            'recomendar' => 5
+        );
+
+        $accion = $acciones[$accionLugar];
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
@@ -212,7 +222,7 @@ class UsuarioController extends Controller
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
 
-        $accion = (!$this->getRequest()->query->get('accion')) ? 3 : $this->getRequest()->query->get('accion');
+        $accion = (!$this->getRequest()->query->get('accion')) ? $accion : $this->getRequest()->query->get('accion');
 
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
         $ppag = 30;
@@ -239,6 +249,7 @@ class UsuarioController extends Controller
             return $this->render('LoogaresUsuarioBundle:Usuarios:lugares_usuario.html.twig', array(
                 'usuario' => $data,
                 'paginacion' => $paginacion,
+                'query' => $_GET
             ));
 
         }
@@ -246,6 +257,7 @@ class UsuarioController extends Controller
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
             'usuario' => $data,
             'paginacion' => $paginacion,
+            'query' => $_GET
         ));  
     }
 
