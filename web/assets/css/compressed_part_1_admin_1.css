@@ -27,11 +27,43 @@
     .contenedor_admin .menu_admin a {
       color: #666666;
       text-decoration: none;
-      font-weight: bold; }
+      float: left;
+      width: 280px; }
       .contenedor_admin .menu_admin a:hover {
         color: #666666;
-        text-decoration: underline;
-        font-weight: bold; }
+        text-decoration: underline; }
+    .contenedor_admin .menu_admin input {
+      background: #66ccff;
+      border: 1px solid #0099ff;
+      color: white;
+      margin: 0 3px;
+      width: 100px; }
+      .contenedor_admin .menu_admin input:hover {
+        background: #0099ff; }
+      .contenedor_admin .menu_admin input:focus {
+        background: #0066cc; }
+  .contenedor_admin .submenu_admin {
+    float: left;
+    margin: 0 0 30px;
+    width: 960; }
+    .contenedor_admin .submenu_admin li {
+      border-bottom: 1px dotted #f2f2f6;
+      display: block;
+      float: left;
+      padding: 10px 0;
+      width: 960px; }
+      .contenedor_admin .submenu_admin li .totales {
+        color: #cccccc;
+        float: left;
+        font-style: italic;
+        text-align: right;
+        width: 100px; }
+
+.selecciona_zona_admin {
+  float: left;
+  font-size: 14px;
+  margin: 3px 10px 0 0;
+  width: 200px; }
 
 .titulo_admin {
   font-size: 24px;

@@ -27,24 +27,27 @@
 	</script>
 {% endblock %}
 {% block content %}
-<h1>Selecciona un pais a Administrar</h1>
-<form action="{{ path('LoogaresAdminBundle_seleccionarPais') }}" method="POST">
-	<select name="pais">
-		{% for pais in paises %}
-			<option value="{{pais.slug}}">{{pais.nombre}}</option>
-		{% endfor %}
-	</select>
-	<select name="ciudad">
-        {% for pais in paises %}
-            <optgroup label="{{pais.nombre}}">
-                {% for ciudad in ciudades %}
-                	{% if ciudad.pais.id == pais.id %}
-                    	<option value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
-                    {% endif %}
+
+    <div class="menu_admin">
+        <h1 class="titulo_admin">Selecciona país y ciudad para administrar:</h1>
+        <form action="{{ path('LoogaresAdminBundle_seleccionarPais') }}" method="POST">
+        	<select class="selecciona_zona_admin" name="pais">
+        		{% for pais in paises %}
+        			<option value="{{pais.slug}}">{{pais.nombre}}</option>
+        		{% endfor %}
+        	</select>
+        	<select class="selecciona_zona_admin" name="ciudad">
+                {% for pais in paises %}
+                    <optgroup label="{{pais.nombre}}">
+                        {% for ciudad in ciudades %}
+                        	{% if ciudad.pais.id == pais.id %}
+                            	<option value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </optgroup>
                 {% endfor %}
-            </optgroup>
-        {% endfor %}
-	</select>
-	<input type="submit" value="Administrar"/>
-</form>
+        	</select>
+        	<input type="submit" value="Administrar"/>
+        </form>
+    </div>
 {% endblock %}
