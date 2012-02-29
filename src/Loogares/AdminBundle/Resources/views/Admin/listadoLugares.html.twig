@@ -446,7 +446,7 @@
                                     <a href="{{ path('LoogaresAdminBundle_borrarLugar', query|merge({'ciudad': ciudad, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
                                 {% endif %}
 
-                                {% if lugar.estado == 'Cerrado' %}
+                                {% if lugar.estado == 'Cerrado' or lugar.estado == 'Por revisar' %}
                                     <a href="{{ path('LoogaresAdminBundle_habilitarLugar', query|merge({'ciudad': ciudad, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                                 {% else %}
                                     <a href="{{ path('LoogaresAdminBundle_cerrarLugar', query|merge({'ciudad': ciudad, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
