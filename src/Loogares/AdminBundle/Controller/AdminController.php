@@ -70,6 +70,26 @@ class AdminController extends Controller
         $q->setParameter(2, 1);
         $totalLugaresPorRevisarResult = $q->getSingleScalarResult();
 
+        //Total Lugares por $ciudad sin revisar
+        $q = $em->createQuery("SELECT count(u) 
+                                FROM Loogares\LugarBundle\Entity\Lugar u 
+                                LEFT JOIN u.comuna c
+                                where c.ciudad = ?1
+                                and u.estado = ?2");
+        $q->setParameter(1, $idCiudad);
+        $q->setParameter(2, 3);
+        $totalLugaresEliminadosResult = $q->getSingleScalarResult();
+
+        //Total Lugares por $ciudad sin revisar
+        $q = $em->createQuery("SELECT count(u) 
+                                FROM Loogares\LugarBundle\Entity\Lugar u 
+                                LEFT JOIN u.comuna c
+                                where c.ciudad = ?1
+                                and u.estado = ?2");
+        $q->setParameter(1, $idCiudad);
+        $q->setParameter(2, 4);
+        $totalLugaresCerradosResult = $q->getSingleScalarResult();
+
         //Total de lugares con revision por $ciudad
         $q = $em->createQuery("SELECT count(distinct tl.lugar)
                              FROM Loogares\AdminBundle\Entity\TempLugar tl
@@ -108,6 +128,16 @@ class AdminController extends Controller
         $q->setParameter(2, 1);
         $totalFotosPorRevisarResult = $q->getSingleScalarResult();
 
+        //Total de fotos eliminadas por $ciudad
+        $q = $em->createQuery("SELECT count(il)
+                             FROM Loogares\LugarBundle\Entity\ImagenLugar il
+                             LEFT JOIN il.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1 and il.estado = ?2");
+        $q->setParameter(1, $idCiudad);
+        $q->setParameter(2, 3);
+        $totalFotosEliminadasResult = $q->getSingleScalarResult();
+
         //Total recomendaciones por $ciudad
         $q = $em->createQuery("SELECT count(r)
                              FROM Loogares\UsuarioBundle\Entity\Recomendacion r
@@ -126,6 +156,15 @@ class AdminController extends Controller
         $q->setParameter(1, $idCiudad);
         $totalRecomendacionesReportadasResult = $q->getSingleScalarResult();
 
+        //Total recomendaciones eliminadas por $ciudad
+        $q = $em->createQuery("SELECT count(r)
+                             FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                             LEFT JOIN r.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1 and r.estado = 3");
+        $q->setParameter(1, $idCiudad);
+        $totalRecomendacionesEliminadasResult = $q->getSingleScalarResult();
+
         //Total pedidos por $ciudad
         $q = $em->createQuery("SELECT count(pl)
                              FROM Loogares\LugarBundle\Entity\PedidoLugar pl
@@ -140,11 +179,15 @@ class AdminController extends Controller
             'totalLugaresPorRevisar' => $totalLugaresPorRevisarResult,
             'totalLugaresReportados' => $totalLugaresReportadosResult,
             'totalLugaresConRevision' => $totalLugaresConRevisionResult,
+            'totalLugaresEliminados' => $totalLugaresEliminadosResult,
+            'totalLugaresCerrados' => $totalLugaresCerradosResult,
             'totalFotos' => $totalFotosResult,
             'totalFotosReportadas' => $totalFotosReportadasResult,
             'totalFotosPorRevisar' => $totalFotosPorRevisarResult,
+            'totalFotosEliminadas' => $totalFotosEliminadasResult,
             'totalRecomendaciones' => $totalRecomendacionesResult,
             'totalRecomendacionesReportadas' => $totalRecomendacionesReportadasResult,
+            'totalRecomendacionesEliminadas' => $totalRecomendacionesEliminadasResult,
             'totalPedidos' => $totalPedidosResult,
             'ciudad' => $ciudad
         ));

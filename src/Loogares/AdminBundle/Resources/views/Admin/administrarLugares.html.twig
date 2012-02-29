@@ -7,7 +7,7 @@
 
 	<ul class="submenu_admin">
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad}) }}">Publicados</a> <span class="totales">{{totalLugares}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad}) }}">Total</a> <span class="totales_azul">{{totalLugares}}</span>
 		</li>
 		<li>
 			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Por Revisar'}) }}">Agregados (por revisar)</a> <span class="totales">{{totalLugaresPorRevisar}}</span>
@@ -19,43 +19,49 @@
 			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Reportado'}) }}">Reportados</a> <span class="totales">{{totalLugaresReportados}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Cerrado'}) }}">Cerrados</a> <span class="totales"></span>
+			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Cerrado'}) }}">Cerrados</a> <span class="totales_rojo">{{totalLugaresCerrados}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Eliminado'}) }}">Eliminados</a> <span class="totales"></span>
+			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Eliminado'}) }}">Eliminados</a> <span class="totales_rojo">{{totalLugaresEliminados}}</span>
 		</li>
 	</ul>
 
-	<h2 class="titulo_admin">Recomendaciones</h2>
+	<h2 class="titulo_admin">Pedidos Online</h2>
+
+	<ul class="submenu_admin">
+		<li>
+			<a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'ciudad': ciudad, 'slug': 'todos' }) }}">Pedidos Online</a> <span class="totales_azul">{{totalPedidos}}</span>
+		</li>
+	</ul>
+
+	<h3 class="titulo_admin">Recomendaciones</h3>
 
 	<ul class="submenu_admin">	
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad }) }}">Publicadas</a> <span class="totales">{{totalRecomendaciones}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad }) }}">Total</a> <span class="totales_azul">{{totalRecomendaciones}}</span>
 		</li>
 		<li>
 			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad, 'pestado': 'Reportado', 'fecha_creacion': 'asc' }) }}">Reportadas</a> <span class="totales">{{totalRecomendacionesReportadas}}</span>
 		</li>
-	</ul>
-
-	<h3 class="titulo_admin">Pedidos Online</h2>
-
-	<ul class="submenu_admin">
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'ciudad': ciudad, 'slug': 'todos' }) }}">Pedidos Online</a> <span class="totales">{{totalPedidos}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad, 'pestado': 'Eliminado', 'fecha_creacion': 'asc' }) }}">Eliminadas</a> <span class="totales_rojo">{{totalRecomendacionesEliminadas}}</span>
 		</li>
 	</ul>
 
-	<h4 class="titulo_admin">Fotos</h2>
+	<h4 class="titulo_admin">Fotos</h4>
 
 	<ul class="submenu_admin">
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos'}) }}">Publicadas</a> <span class="totales">{{totalFotos}}</span>
+			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos'}) }}">Total</a> <span class="totales_azul">{{totalFotos}}</span>
 		</li>
 		<li>
 			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'pestado': 'Por Revisar', 'fecha_creacion': 'desc'}) }}">Agregadas (por revisar)</a> <span class="totales">{{totalFotosPorRevisar}}</span>
 		</li>
 		<li>
 			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'pestado': 'Reportado', 'fecha_creacion': 'desc'}) }}">Reportadas</a> <span class="totales">{{totalFotosReportadas}}</span>
+		</li>
+		<li>
+			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'pestado': 'Eliminado', 'fecha_creacion': 'desc'}) }}">Eliminadas</a> <span class="totales_rojo">{{totalFotosEliminadas}}</span>
 		</li>
 	</ul>
 

@@ -574,13 +574,18 @@ class LugarController extends Controller{
 
 
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
-                }else{
+                }else{                    
                     if($esEdicionDeUsuario == true){
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.edicion_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
+                       
+                        return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
                     }else{
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
+
+                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));    
                     }
-                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
+                    
+                    
                 }
                 //Agregar, solo, nada maish.
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => ''));

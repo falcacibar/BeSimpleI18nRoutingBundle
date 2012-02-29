@@ -28,7 +28,7 @@
       color: #666666;
       text-decoration: none;
       float: left;
-      width: 280px; }
+      width: 760px; }
       .contenedor_admin .menu_admin a:hover {
         color: #666666;
         text-decoration: underline; }
@@ -57,7 +57,20 @@
         float: left;
         font-style: italic;
         text-align: right;
-        width: 100px; }
+        width: 200px; }
+      .contenedor_admin .submenu_admin li .totales_azul {
+        color: #66ccff;
+        float: left;
+        font-style: italic;
+        font-weight: bold;
+        text-align: right;
+        width: 200px; }
+      .contenedor_admin .submenu_admin li .totales_rojo {
+        color: #ff8a8a;
+        float: left;
+        font-style: italic;
+        text-align: right;
+        width: 200px; }
 
 .selecciona_zona_admin {
   float: left;
