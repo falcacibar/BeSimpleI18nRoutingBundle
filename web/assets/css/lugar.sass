@@ -286,6 +286,18 @@ $rojo: #F72121
             margin: 8px 0 0
             width: 400px
 
+            .precio-raty
+                float: left
+                width: 65px !important
+
+            .precio-detalle
+                color: $gris_999
+                float: left
+                font:
+                    size: 12px
+                margin: 1px 0 0
+                width: 335px
+
         .horario
             display: block
             float: left
@@ -437,107 +449,110 @@ $rojo: #F72121
             width: 420px
 
         .recomienda_agregar_lugar
-            float: left
-            width: 560px
 
-            .recomienda-precio-li
-                display: none
-
-            /* Reomienda al momento de agregar el lugar */
-
-            ul
-
-                li
-                    float: left
-                    margin: 0 0 20px 0
-                    width: 560px
-                    
-                    label
-                        float: left
-                        font:
-                            size: 14px
-                        margin: 4px 10px 0 0
-                        width: 130px
-
-                    input
-                        font:
-                            size: 12px
-                        margin: 0px
-                        width: 408px
-
-                    textarea
-                        float: left
-                        font:
-                            size: 12px
-                        margin: 0px
-                        padding: 10px
-                        width: 398px
-                                        
-                    .errors
-                        margin: 5px 0 0 140px
-                        width: 420px
-
-                    .recomienda_estrellas
-                        float: left
-                        margin: 5px 20px 0 0
-                        width: 110px !important
-
-                        img
-                            margin: 0 2px 0 0
-
-                    #estrellas-recomienda
-                        color: $gris_999
-                        float: left
-                        font:
-                            size: 11px
-                        margin: 9px 0 0 0
-                        width: 290px
-
-                    .recomienda_precio
-                        float: left
-                        margin: 8px 20px 0 0
-                        width: 55px !important
-
-                        img
-                            margin: 0 2px 0 0
-
-                    #precio-recomienda
-                        color: $gris_999
-                        float: left
-                        font:
-                            size: 11px
-                        margin: 9px 0 0 0
-                        width: 345px
-
-                    .detalle_maximo_caracteres_recomendacion
-                        font:
-                            size: 12px
-                            weight: normal
-
-                    .detalle_llevas_caracteres_recomendacion
-                        color: $gris_999
-                        font:
-                            size: 12px
-                            weight: normal
-                        
-                    .tags_recomienda_lugar
-                        display: block
-                        float: left
-                        font:
-                            size: 14px
-                        margin: 8px 0 0
-                        width: 388px
-
-            .enviar_recomendacion
-                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+            .recomienda_lugar_caja
                 border: 0px
-                cursor: pointer
-                height: 30px
-                margin: 10px 0 0 170px
-                width: 100px
+                float: left
+                width: 560px
 
-                &:hover
-                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
+                .recomienda-precio-li
+                    display: none
+
+                /* Reomienda al momento de agregar el lugar */
+
+                ul
+
+                    li
+                        float: left
+                        margin: 0 0 20px 0
+                        width: 560px
+                        
+                        label
+                            float: left
+                            font:
+                                size: 14px
+                            margin: 4px 10px 0 0
+                            width: 130px
+
+                        input
+                            font:
+                                size: 12px
+                            margin: 0px
+                            width: 408px
+
+                        textarea
+                            float: left
+                            font:
+                                size: 12px
+                            margin: 0px
+                            padding: 10px
+                            width: 398px
+                                            
+                        .errors
+                            margin: 5px 0 0 140px
+                            width: 420px
+
+                        .recomienda_estrellas
+                            float: left
+                            margin: 5px 20px 0 0
+                            width: 110px !important
+
+                            img
+                                margin: 0 2px 0 0
+
+                        #estrellas-recomienda
+                            color: $gris_999
+                            float: left
+                            font:
+                                size: 11px
+                            margin: 9px 0 0 0
+                            width: 290px
+
+                        .recomienda_precio
+                            float: left
+                            margin: 8px 20px 0 0
+                            width: 55px !important
+
+                            img
+                                margin: 0 2px 0 0
+
+                        #precio-recomienda
+                            color: $gris_999
+                            float: left
+                            font:
+                                size: 11px
+                            margin: 9px 0 0 0
+                            width: 345px
+
+                        .detalle_maximo_caracteres_recomendacion
+                            font:
+                                size: 12px
+                                weight: normal
+
+                        .detalle_llevas_caracteres_recomendacion
+                            color: $gris_999
+                            font:
+                                size: 12px
+                                weight: normal
+                            
+                        .tags_recomienda_lugar
+                            display: block
+                            float: left
+                            font:
+                                size: 14px
+                            margin: 8px 0 0
+                            width: 388px
+
+                .enviar_recomendacion
+                    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+                    border: 0px
+                    cursor: pointer
+                    height: 30px
+                    margin: 10px 0 0 170px
+                    width: 100px
+
+                    &:hover
+                        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
 
 /* Agregar mapa */
 
@@ -1403,6 +1418,53 @@ $rojo: #F72121
                 &.mail_share
                     background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px
                     padding: 0 0 0 13px
+
+/* Pedidos Online Lightbox Popup */
+.popup
+    background: $blanco
+    border: 1px solid $gris_999
+    float: left
+    width: 600px
+
+    .bloque_cerrar
+        background: $gris_444
+        float: left
+        font:
+            size: 11px
+        height: 12px
+        padding: 5px 10px
+
+        h1
+            color: $blanco
+            float: left
+            font:
+                size: 11px
+            width: 558px
+
+        .cerrar_popup
+            float: left
+            margin: 0 0 0 10px
+            width: 12px
+
+    .bloque_pedidos
+        float: left
+        margin: 15px 20px 25px
+
+        .link_pedido
+            float: left
+            margin: 15px 15px 5px
+            width: 250px
+
+            .servicio
+                float: left
+                height: 80px
+                width: 250px
+
+            .descuento
+                float: left
+                height: 35px
+                margin: 5px 73px 0
+                width: 104px
 
 /* Mapa ficha lugar */
 .sidebar

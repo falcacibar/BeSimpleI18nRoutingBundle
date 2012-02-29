@@ -250,7 +250,40 @@ class DefaultController extends Controller
     }
 
     public function staticAction($static){
-        return $this->render('LoogaresExtraBundle:Static:'.$static.'.html.twig', array(
+        $path = null;
+
+        $paginas = array(
+            'lunes_de_pelicula' => 'Notas',
+            'beneficio_exclusivo' => 'Notas',
+            'martes_de_amanda' => 'Notas',
+            'miercoles_de_municipal' => 'Notas',
+            'jueves_de_gam' => 'Notas',
+            'sabor_platonico' => 'Notas',
+            'sanduich' => 'Notas',
+            'codigos_de_conducta' => 'Static',
+            'contacto' => 'Static',
+            'copyright' => 'Static',
+            'eres_el_dueno_de_un_lugar' => 'Static',
+            'loogareno_estrella' => 'Static',
+            'politicas_de_privacidad' => 'Static',
+            'prensa' => 'Static',
+            'publicidad' => 'Static',
+            'que_es_loogares' => 'Static',
+            'terminos_de_uso' => 'Static',
+            'trabaja_con_nosotros' => 'Static'
+        );
+
+        foreach($paginas as $key => $value){
+            if($key == $static){
+                $path = $value;
+            }
+        }
+
+        if($path == null){
+            return $this->render(':erroresHTTP:404.html.twig');   
+        }
+
+        return $this->render('LoogaresExtraBundle:'.$path.':'.$static.'.html.twig', array(
             'static' => $static
         ));
     }
