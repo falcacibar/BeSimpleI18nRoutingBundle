@@ -1222,11 +1222,16 @@ class LugarController extends Controller{
                     $paths['estrella_media'] =  'assets/images/extras/estrella_media_recomendacion.png';
                 if($estrellas['vacias'] > 0)
                     $paths['estrella_vacia'] =  'assets/images/extras/estrella_vacia_recomendacion.png';
-                $this->get('imagine.controller')->filter('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull(), "small_usuario");
-                $paths['usuario'] = 'assets/media/cache/small_usuario/assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull();
-                if(!file_exists($paths['usuario'])){
+
+                if(!file_exists('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull())){
+                    $this->get('imagine.controller')->filter('assets/images/usuarios/default.gif', "small_usuario");
                     $paths['usuario'] = 'assets/images/usuarios/default.gif';
+                }else{
+                    $this->get('imagine.controller')->filter('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull(), "small_usuario");
+                    $paths['usuario'] = 'assets/media/cache/small_usuario/assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull();
                 }
+                 
+
 
                 $message = $this->get('fn')->enviarMail($mail['asunto'], $lugar->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_lugar.html.twig', $this->get('templating'));
                 $this->get('mailer')->send($message);
@@ -1270,6 +1275,7 @@ class LugarController extends Controller{
     public function accionRecomendacionAction($slug, $borrar){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         $lugar = $lr->findOneBySlug($slug);
 
@@ -1291,6 +1297,17 @@ class LugarController extends Controller{
             $ultimaRecomendacion = $q->getResult();
 
             $lugar->setFechaUltimaRecomendacion($ultimaRecomendacion[0]->getFechaCreacion());
+
+            $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ActividadReciente u WHERE u.entidad_id = ?1");
+            $q->setParameter(1, $recomendacionResult[0]->getId());
+            $reciente = $q->getResult();
+            echo $recomendacionResult[0]->getId();
+                        echo $reciente[0]->getId();
+            die();
+            if($reciente != null){
+                $em->remove($reciente);
+            }
+
 
             $em->flush();
             $this->get('session')->setFlash('lugar_flash','Acabas de borrar tu recomendación, prueba escribiendo una nueva(.');
