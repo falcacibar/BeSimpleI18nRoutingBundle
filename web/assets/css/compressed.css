@@ -1079,13 +1079,16 @@ textarea {
         border-bottom: 1px solid #cccccc;
         color: #666666;
         height: 100%;
+        *height: 270px;
         float: left;
         margin: 0 14px 0 0;
         padding: 30px 20px 60px;
+        *padding: 30px 20px 0;
         position: absolute;
         left: 0;
         text-align: center;
-        width: 473px; }
+        width: 473px;
+        *width: 433px; }
         .contenedor .contenido .cajas_registro .columna_izquierda_registro .registro_facebook_img {
           background: url("../images/extras/botones_registro_usuario.png") no-repeat 0 0;
           height: 31px;
@@ -1105,10 +1108,13 @@ textarea {
         color: #666666;
         float: left;
         left: 486px;
+        *height: 270px;
         padding: 30px 20px;
+        *padding: 30px 20px 0;
         position: relative;
         text-align: center;
-        width: 433px; }
+        width: 433px;
+        *width: 393px; }
       .contenedor .contenido .cajas_registro .columna_izquierda_password {
         background: #fafafc;
         border-bottom: 1px solid #cccccc;
@@ -1503,6 +1509,7 @@ textarea {
       color: #999999;
       float: left;
       padding: 37px 0;
+      *padding: 30px 0 31px;
       width: 310px; }
     .footer .contenido_footer .redes {
       border-bottom: 1px solid #cccccc;
@@ -1510,6 +1517,7 @@ textarea {
       color: #999999;
       float: left;
       padding: 26px 0;
+      *padding: 26px 0 25px;
       text-align: right;
       width: 340px; }
     .footer .contenido_footer .ano_loogares {
@@ -2488,19 +2496,23 @@ small {
         font-size: 12px;
         text-align: center;
         padding: 10px;
-        width: 143px; }
+        *padding: 10px 4px;
+        width: 143px;
+        *width: 155px; }
       .sidebar_home .colaboradores .detalles_nota .titulo_nota {
         color: #666666;
         float: left;
         font-size: 14px;
         line-height: 18px;
-        margin: 10px; }
+        margin: 10px;
+        *margin: 10px 4px; }
       .sidebar_home .colaboradores .detalles_nota .texto_nota {
         color: #999999;
         float: left;
         font-size: 12px;
         line-height: 16px;
-        margin: 0 10px; }
+        margin: 0 10px;
+        *margin: 0 4px; }
         .sidebar_home .colaboradores .detalles_nota .texto_nota a {
           color: #0066cc !important;
           text-decoration: none; }

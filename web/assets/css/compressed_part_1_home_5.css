@@ -468,19 +468,23 @@
         font-size: 12px;
         text-align: center;
         padding: 10px;
-        width: 143px; }
+        *padding: 10px 4px;
+        width: 143px;
+        *width: 155px; }
       .sidebar_home .colaboradores .detalles_nota .titulo_nota {
         color: #666666;
         float: left;
         font-size: 14px;
         line-height: 18px;
-        margin: 10px; }
+        margin: 10px;
+        *margin: 10px 4px; }
       .sidebar_home .colaboradores .detalles_nota .texto_nota {
         color: #999999;
         float: left;
         font-size: 12px;
         line-height: 16px;
-        margin: 0 10px; }
+        margin: 0 10px;
+        *margin: 0 4px; }
         .sidebar_home .colaboradores .detalles_nota .texto_nota a {
           color: #0066cc !important;
           text-decoration: none; }
