@@ -379,11 +379,14 @@
       text-decoration: none; }
 
 .footer_admin {
-  color: #cccccc;
+  background: #fafafc;
+  border-top: 1px solid #f2f2f6;
+  color: #999999;
   float: left;
   font-size: 11px;
-  margin: 0 0 30px 0;
+  margin: 30px 0 0;
   text-align: center;
+  padding: 50px 0;
   width: 960px; }
 
 .overlay {

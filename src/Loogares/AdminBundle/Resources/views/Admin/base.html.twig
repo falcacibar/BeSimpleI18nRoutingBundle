@@ -31,13 +31,15 @@
     <div class="contenedor_admin">
 
         <div class="header_admin">
-            <span><img src="{{ asset('assets/images/administrador/logo.png') }}" height="65" width="100" /></span>
+            <span><a href=""><img src="{{ asset('assets/images/administrador/logo.png') }}" height="65" width="100" /></a></span>
         </div>
 
         <div class="contenido">
-            
             {% block content %}{% endblock %}
-        
+        </div>
+
+        <div class="footer_admin">
+            © 2010~2012 Loogares.com
         </div>
 
     </div>

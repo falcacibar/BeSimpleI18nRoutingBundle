@@ -230,11 +230,6 @@
                         <span>
                         <p class="titulos_tabla">Características</p>
                         <p class="list-actions">
-                            <a class="{% if query.caracteristicas is defined and query.caracteristicas == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"caracteristicas": 'asc', 'ciudad': ciudad }))}}">⬆</a>
-
-                            <a class="{% if query.caracteristicas is defined and query.caracteristicas == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"caracteristicas": 'desc', 'ciudad': ciudad }))}}">⬇</a>
-
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'caracteristicas': null, 'ciudad': ciudad }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -483,9 +478,5 @@
 <ul class="paginacion">
     {{paginacion.paginacion | raw}}
 </ul>
-
-<div class="footer_admin">
-    © 2010~2012 Loogares.com
-</div>
 
 {% endblock %}
