@@ -674,7 +674,8 @@ textarea {
       height: 80px;
       position: absolute;
       width: 130px;
-      z-index: 11; }
+      z-index: 11;
+      left: 0; }
       .barra_ciudad .centrado_ciudad .logo_ciudad .borde_logo {
         background: white;
         border: 2px solid #f2f2f6;
@@ -1072,6 +1073,7 @@ textarea {
         margin: 0 14px 0 0;
         padding: 30px 20px 60px;
         position: absolute;
+        left: 0;
         text-align: center;
         width: 473px; }
         .contenedor .contenido .cajas_registro .columna_izquierda_registro .registro_facebook_img {
