@@ -342,20 +342,17 @@ textarea
     .centrado_ciudad
         @include centrado
         height: 25px
+        position: relative
         
         .logo_ciudad
             background: $blanco
             border: 1px solid $gris_ccc
             float: left
             height: 80px
+            left: 0
             position: absolute
             width: 130px
-<<<<<<< HEAD
             z-index: 1000
-=======
-            z-index: 11
-            left: 0
->>>>>>> 02220d0ccd6090e255fd6a18f3c1267d31331b2e
 
             .borde_logo
                 background: $blanco
@@ -404,7 +401,9 @@ textarea
                     li
                         display: list-item
                         float: left
+                        left: 0
                         padding: 10px
+                        position: relative
                         width: 158px
 
                         &:hover
@@ -595,12 +594,14 @@ textarea
     .centrado_menu
         @include centrado
         height: 40px
+        position: relative
     
         .logo_ciudad_menu
             border-left: 1px solid $gris_ccc
             border-right: 1px solid $gris_ccc
             float: left
             height: 31px
+            left: 0
             padding: 5px 40px
             width: 50px
         
@@ -611,11 +612,11 @@ textarea
                 size: 12px
             text-transform: lowercase
             width: 584px
-            margin: 0 auto
                 
             li
                 float: left
                 list-style-type: none
+                position: relative
                             
                 a
                     border-left: 1px solid $gris_ccc
@@ -635,7 +636,6 @@ textarea
                         color: $gris_444
                         padding: 11px 6px 18px 5px
                         z-index: 20
-
                 
                 .cajas_menu
                     background: $blanco
@@ -644,6 +644,7 @@ textarea
                     border-right: 1px solid $gris_ccc
                     border-top: 1px solid $blanco
                     display: none
+                    left: 0
                     padding: 14px 0 0 0
                     position: absolute
                     top: 42px

@@ -206,20 +206,17 @@ textarea {
   .barra_ciudad .centrado_ciudad {
     margin: 0px auto;
     width: 960px;
-    height: 25px; }
+    height: 25px;
+    position: relative; }
     .barra_ciudad .centrado_ciudad .logo_ciudad {
       background: white;
       border: 1px solid #cccccc;
       float: left;
       height: 80px;
+      left: 0;
       position: absolute;
       width: 130px;
-<<<<<<< HEAD
       z-index: 1000; }
-=======
-      z-index: 11;
-      left: 0; }
->>>>>>> 02220d0ccd6090e255fd6a18f3c1267d31331b2e
       .barra_ciudad .centrado_ciudad .logo_ciudad .borde_logo {
         background: white;
         border: 2px solid #f2f2f6;
@@ -260,7 +257,9 @@ textarea {
           .barra_ciudad .centrado_ciudad .menu_ciudad li ul li {
             display: list-item;
             float: left;
+            left: 0;
             padding: 10px;
+            position: relative;
             width: 158px; }
             .barra_ciudad .centrado_ciudad .menu_ciudad li ul li:hover {
               background: #999999;
@@ -419,12 +418,14 @@ textarea {
   .menu .centrado_menu {
     margin: 0px auto;
     width: 960px;
-    height: 40px; }
+    height: 40px;
+    position: relative; }
     .menu .centrado_menu .logo_ciudad_menu {
       border-left: 1px solid #cccccc;
       border-right: 1px solid #cccccc;
       float: left;
       height: 31px;
+      left: 0;
       padding: 5px 40px;
       width: 50px; }
     .menu .centrado_menu .menu_categorias {
@@ -432,11 +433,11 @@ textarea {
       float: left;
       font-size: 12px;
       text-transform: lowercase;
-      width: 584px;
-      margin: 0 auto; }
+      width: 584px; }
       .menu .centrado_menu .menu_categorias li {
         float: left;
-        list-style-type: none; }
+        list-style-type: none;
+        position: relative; }
         .menu .centrado_menu .menu_categorias li a {
           border-left: 1px solid #cccccc;
           border-right: 1px solid white;
@@ -461,6 +462,7 @@ textarea {
           border-right: 1px solid #cccccc;
           border-top: 1px solid white;
           display: none;
+          left: 0;
           padding: 14px 0 0 0;
           position: absolute;
           top: 42px; }

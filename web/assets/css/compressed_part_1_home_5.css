@@ -87,6 +87,7 @@
         color: #666666;
         font-weight: bold;
         padding: 10px;
+        *padding: 10px 0;
         text-align: center; }
       .contenido_home .campanas_concursos li .concursos {
         border-bottom: 5px solid #66ccff; }
