@@ -8,6 +8,11 @@
 			</div>
 		</a>
 		{% render "LoogaresExtraBundle:Default:ciudad" %}
+		<div class="redes_sociales">
+			<a class="facebook_btn" href="http://www.facebook.com/Loogarescom" target="blank"></a>
+			<a class="twitter_btn" href="http://www.twitter.com/Loogarescom" target="blank"></a>
+			<a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a>
+		</div>
 		<div class="login">
 			{% if is_granted('ROLE_USER') %}
 				{% set slug = (app.security.token.user.slug != '') ? app.security.token.user.slug : app.security.token.user.id %}					
@@ -43,11 +48,6 @@
 				<span class="fb_hidden_button">{{ facebook_login_button({'autologoutlink': false}) }}</span>
 				<a class="facebook_login" href="#"></a>
 			{% endif %}
-		</div>
-		<div class="redes_sociales">
-			<a class="facebook_btn" href="http://www.facebook.com/Loogarescom" target="blank"></a>
-			<a class="twitter_btn" href="http://www.twitter.com/Loogarescom" target="blank"></a>
-			<a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a>
 		</div>
 	</div>
 </div>

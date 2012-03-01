@@ -274,9 +274,10 @@ textarea {
         width: 6px; }
     .barra_ciudad .centrado_ciudad .login {
       color: white;
-      float: left;
+      float: right;
+      *margin-right: 46px;
       font-size: 11px;
-      width: 558px; }
+      width: 158px; }
       .barra_ciudad .centrado_ciudad .login .usuario_login_entra {
         float: right;
         margin: 6px 10px 0px 10px; }
@@ -326,6 +327,7 @@ textarea {
           position: absolute;
           top: 24px;
           width: 100%;
+          *right: 0;
           z-index: 1000; }
           .barra_ciudad .centrado_ciudad .login li ul a {
             display: block;
@@ -337,7 +339,8 @@ textarea {
               background: #666666;
               float: left;
               position: relative;
-              width: 100%; }
+              width: 100%;
+              height: 30px; }
               .barra_ciudad .centrado_ciudad .login li ul a li:hover {
                 background: #999999; }
               .barra_ciudad .centrado_ciudad .login li ul a li .header_editar_datos_usuario {
@@ -376,7 +379,8 @@ textarea {
         margin: 4px 0px 0px 20px; }
     .barra_ciudad .centrado_ciudad .redes_sociales {
       background: #cccccc;
-      float: left;
+      float: right;
+      margin-right: 2px;
       font-size: 12px;
       height: 20px;
       padding: 4px 10px 1px;
