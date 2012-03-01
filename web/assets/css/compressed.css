@@ -674,7 +674,7 @@ textarea {
       height: 80px;
       position: absolute;
       width: 130px;
-      z-index: 11; }
+      z-index: 1000; }
       .barra_ciudad .centrado_ciudad .logo_ciudad .borde_logo {
         background: white;
         border: 2px solid #f2f2f6;
@@ -711,7 +711,7 @@ textarea {
           position: absolute;
           top: 25px;
           width: 178px;
-          z-index: 20000; }
+          z-index: 1000; }
           .barra_ciudad .centrado_ciudad .menu_ciudad li ul li {
             display: list-item;
             float: left;
@@ -781,7 +781,7 @@ textarea {
           position: absolute;
           top: 24px;
           width: 100%;
-          z-index: 10000; }
+          z-index: 1000; }
           .barra_ciudad .centrado_ciudad .login li ul a {
             display: block;
             float: left;
@@ -870,7 +870,7 @@ textarea {
   position: absolute;
   top: 25px;
   width: 100%;
-  z-index: 10; }
+  z-index: 900; }
   .menu .centrado_menu {
     margin: 0px auto;
     width: 960px;
@@ -2148,15 +2148,21 @@ small {
         .contenido_home .lugares_recomendados li .listado_lugares_recomendados li {
           border: none;
           height: auto;
-          margin: 0 0 10px;
+          line-height: 14px;
+          margin: 0 0 8px;
           padding: 0;
           width: 122px; }
-        .contenido_home .lugares_recomendados li .listado_lugares_recomendados a {
-          color: #0066cc !important;
-          text-decoration: none; }
-          .contenido_home .lugares_recomendados li .listado_lugares_recomendados a:hover {
+          .contenido_home .lugares_recomendados li .listado_lugares_recomendados li .numeracion {
+            float: left;
+            width: 15px; }
+          .contenido_home .lugares_recomendados li .listado_lugares_recomendados li .ultimo_lugar_recomendado {
             color: #0066cc !important;
-            text-decoration: underline; }
+            text-decoration: none;
+            float: left;
+            width: 107px; }
+            .contenido_home .lugares_recomendados li .listado_lugares_recomendados li .ultimo_lugar_recomendado:hover {
+              color: #0066cc !important;
+              text-decoration: underline; }
     .contenido_home .lugares_recomendados .ultima_categoria {
       border: none; }
   .contenido_home .caja_promociones {
@@ -2451,8 +2457,10 @@ small {
     .sidebar_home .colaboradores .encabezado {
       padding: 10px; }
     .sidebar_home .colaboradores img {
+      border-bottom: 1px solid #f2f2f6;
+      border-top: 1px solid #f2f2f6;
       float: left;
-      height: 160px;
+      height: 158px;
       width: 135px; }
     .sidebar_home .colaboradores .detalles_nota {
       border-bottom: 1px solid #f2f2f6;
@@ -2472,12 +2480,13 @@ small {
         color: #666666;
         float: left;
         font-size: 14px;
+        line-height: 18px;
         margin: 10px; }
       .sidebar_home .colaboradores .detalles_nota .texto_nota {
         color: #999999;
         float: left;
         font-size: 12px;
-        line-height: 17px;
+        line-height: 16px;
         margin: 0 10px; }
         .sidebar_home .colaboradores .detalles_nota .texto_nota a {
           color: #0066cc !important;
@@ -2553,6 +2562,29 @@ small {
 
 /* Colores */
 /* Mixin */
+.qtip_estuve_alla {
+  display: none; }
+  .qtip_estuve_alla .recomendar_ahora {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 0;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    margin: 0 40px 10px;
+    width: 150px; }
+    .qtip_estuve_alla .recomendar_ahora:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -30px; }
+  .qtip_estuve_alla .recomendar_despues {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -1463px 0;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    margin: 0 40px;
+    width: 150px; }
+    .qtip_estuve_alla .recomendar_despues:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -1463px -30px; }
+
 /* Agregar - Editar Lugar */
 .subcategorias {
   display: none; }
@@ -3035,6 +3067,7 @@ small {
       display: block;
       float: left;
       font-size: 16px;
+      line-height: 22px;
       margin: 0 0 20px 0;
       width: 442px; }
       .lugar_info .datos_principales_lugar .direccion_lugar a {

@@ -1,5 +1,28 @@
 /* Colores */
 /* Mixin */
+.qtip_estuve_alla {
+  display: none; }
+  .qtip_estuve_alla .recomendar_ahora {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 0;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    margin: 0 40px 10px;
+    width: 150px; }
+    .qtip_estuve_alla .recomendar_ahora:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -30px; }
+  .qtip_estuve_alla .recomendar_despues {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat -1463px 0;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    margin: 0 40px;
+    width: 150px; }
+    .qtip_estuve_alla .recomendar_despues:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat -1463px -30px; }
+
 /* Agregar - Editar Lugar */
 .subcategorias {
   display: none; }
@@ -482,6 +505,7 @@
       display: block;
       float: left;
       font-size: 16px;
+      line-height: 22px;
       margin: 0 0 20px 0;
       width: 442px; }
       .lugar_info .datos_principales_lugar .direccion_lugar a {

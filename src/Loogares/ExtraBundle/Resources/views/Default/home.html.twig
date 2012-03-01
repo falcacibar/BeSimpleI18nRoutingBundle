@@ -56,26 +56,26 @@
 			<ul>
 				<a href="">
 					<li>
-						<h2 class="titulo_concurso concursos">PERÍODO</h2>
-						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
-						<p class="lugar_concurso">NOMBRE LOCAL</p>
-						<p class="sorteo_concurso">CONCURSO</p>
+						<h2 class="titulo_concurso concursos">Sólo por hoy</h2>
+						<img src="http://www.loogares.com/images/slideshow/guincho-denver-slide.jpg" width="204" height="115" / >
+						<p class="lugar_concurso">Centro Cultural Amanda</p>
+						<p class="sorteo_concurso">Gana 2 entradas dobles para El Guincho / Dënver</p>
 					</li>
 				</a>
 				<a href="">
 					<li class="central">
-						<h2 class="titulo_concurso especiales">PERÍODO</h2>
-						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
-						<p class="lugar_concurso">NOMBRE LOCAL</p>
-						<p class="sorteo_concurso">CONCURSO</p>
+						<h2 class="titulo_concurso concursos">27 de febrero al 4 de marzo</h2>
+						<img src="http://www.loogares.com/images/slideshow/Johnny_Rockets.jpg" width="204" height="115" / >
+						<p class="lugar_concurso">Johnny Rockets</p>
+						<p class="sorteo_concurso">Gana 1 de 2 almuerzos para 2 personas</p>
 					</li>
 				</a>
 				<a href="">
 					<li>
-						<h2 class="titulo_concurso ganadores">PERÍODO</h2>
-						<img src="http://www.animalesyanimales.com/wp-content/uploads/2011/05/animales1.jpg" width="204" height="115" / >
-						<p class="lugar_concurso">NOMBRE LOCAL</p>
-						<p class="sorteo_concurso">CONCURSO</p>
+						<h2 class="titulo_concurso ganadores">Ganadores</h2>
+						<img src="http://www.loogares.com/images/blog/sublime-enoteca-blog.jpg" width="204" height="115" / >
+						<p class="lugar_concurso">Enoteca</p>
+						<p class="sorteo_concurso">Ganadores entradas dobles Fiestas Sublime Ultrabailable</p>
 					</li>
 				</a>
 			</ul>
@@ -104,7 +104,10 @@
 					<div class="listado_lugares_recomendados">
 						<ul>
 							{% for cl in categoria.top_five %}
-								<li>{{loop.index}}. <a href="{{path('_lugar', {'slug' : cl.lugar.slug})}}">{{cl.lugar.nombre}}</a></li>
+								<li>
+									<span class="numeracion">{{loop.index}}.</span>
+									<a class="ultimo_lugar_recomendado" href="{{path('_lugar', {'slug' : cl.lugar.slug})}}">{{cl.lugar.nombre}}</a>
+								</li>
 							{% endfor %}
 						</ul>
 					</div>
@@ -144,11 +147,11 @@
 		{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
 			<div class="colaboradores">
 				<h5 class="titulo_home encabezado">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
-				<img src="" height="160" width="148" />
+				<img src="http://www.loogares.com/images/blog/ruby-tuesday-blog.jpg" height="158" width="148" />
 				<div class="detalles_nota">
-					<p class="nombre_colaborador">NOMBRE COLABORADOR</p>
-					<p class="titulo_nota">TÍTULO</p>
-					<p class="texto_nota">Texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto... <a href="">Ver más »</a></p>
+					<p class="nombre_colaborador">Sanduich</p>
+					<p class="titulo_nota">¡The Ultimate Chicken en Ruby Tuesday!</p>
+					<p class="texto_nota">Luego de un agotador día de trabajo, queríamos relajarnos un poco tomando algo... <a href="">Ver más »</a></p>
 				</div>
 				<div class="diapositivas">
 				</div>
@@ -170,18 +173,18 @@
 				<div class="informacion">
 					<div class="imagen_recomendacion">
 						<a class="imagen" href="#" class="link_usuario">
-							<img src="#" height="72" width="72"/>
+							<img src="http://www.loogares.com/images/usuarios/amandamina-96x96_1.jpg" height="72" width="72"/>
 						</a>
 						<div class="textos_usuario">
 							<a class="nombre_usuario" href="#">
-								NOMBRE USUARIO
+								Antonia Malig
 							</a>
-							<span class="invitada_lugar">{{'extra.home.modulo_loogareno_estrella.invitacion'|trans}} <a href="">NOMBRE LUGAR</a> {{'extra.home.modulo_loogareno_estrella.por'|trans}}</span>
+							<span class="invitada_lugar">{{'extra.home.modulo_loogareno_estrella.invitacion'|trans}} <a href="">Mikai Sushi</a> {{'extra.home.modulo_loogareno_estrella.por'|trans}}</span>
 						</div>
 					</div>
 				</div>
 				<div class="recomendacion_preview">					
-					<span><a href="">LUGAR:</a> Recomendación texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto...</span>
+					<span><a href="">Mikai Sushi:</a> Nos juntamos con unos amigos a un after office en mi propio departamento, hace tiempo que no nos veíamos por lo que era bueno tener comida para mantener...</span>
 					<a href="" class="ver_mas">{{'extra.home.modulo_loogareno_estrella.ver_mas'|trans}}</a>
 					<br />
 					<span class="tips">{{'extra.home.modulo_loogareno_estrella.quieres_ser_invitado'|trans}} <a href="{{ path('static', {'static': 'loogareno_estrella'}) }}">{{'extra.home.modulo_loogareno_estrella.entra_aca'|trans}}</a></span>

@@ -83,9 +83,37 @@ $rojo: #F72121
     -moz-box-shadow: -3px 3px 1px $gris_f6f
     -webkit-box-shadow: -3px 3px 1px $gris_f6f
 
+.qtip_estuve_alla
+    display: none
+
+    .recomendar_ahora
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 0
+        display: block
+        cursor: pointer
+        float: left
+        height: 30px
+        margin: 0 40px 10px
+        width: 150px      
+        
+        &:hover
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 -30px
+
+    .recomendar_despues
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1463px 0
+        display: block
+        cursor: pointer
+        float: left
+        height: 30px
+        margin: 0 40px
+        width: 150px      
+        
+        &:hover
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1463px -30px
+
 /* Agregar - Editar Lugar */
 .subcategorias
     display: none
+
 .agregar_editar_datos_lugar
     border: 1px solid $gris_f6f
     float: left
@@ -700,6 +728,7 @@ $rojo: #F72121
             float: left
             font:
                 size: 16px
+            line-height: 22px
             margin: 0 0 20px 0
             width: 442px
 

@@ -78,9 +78,9 @@
                
                     <!-- Qtip Recomendación del Día -->
                     <div class="qtip_favoritos">
-                        {{'lugar.ficha.qtip.favoritos_logeado'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        {{'lugar.ficha.qtip.favoritos_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                 {% endif %}
                 <!-- <p class="conteo">{{lugar.totalAcciones.3.total}}</p> -->
@@ -283,8 +283,8 @@
 
             {% if lugar.accionesUsuario.2.puede == 1 %}
             <div class="qtip_estuve_alla"> 
-                    <a href="#" class="recomendar_despues">Recomendar después</a>
-                    <a href="#" class="recomendar_ahora">Recomendar ahora</a>
+                    <a href="#" class="recomendar_ahora"></a>
+                    <a href="#" class="recomendar_despues"></a>
             </div>
             {% endif %}
 
@@ -296,9 +296,9 @@
                     <!-- Qtip Ya Estuve -->
                     {% if app.security.token.user.id is not defined %}
                     <div class="qtip_ya_estuve">
-                        {{'lugar.ficha.qtip.ya_estuve_logeado'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        {{'lugar.ficha.qtip.ya_estuve_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                     {% endif %}
                 {% endif %}
@@ -311,9 +311,9 @@
                     <p class="quiero_volver_lugar tooltip_quiero_volver boton_desactivado" data-hecho="{{lugar.accionesUsuario.1.hecho}}"></p>
                     <!-- Qtip Quiero Volver -->
                     <div class="qtip_quiero_volver">
-                        {{'lugar.ficha.qtip.volver_logeado'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        {{'lugar.ficha.qtip.volver_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                 {% endif %}
                 <p class="quiero_volver_valor conteo">{{lugar.totalAcciones.1.total}}</p>
@@ -326,9 +326,9 @@
                     <!-- Qtip Quiero Ir -->
                     {% if app.security.token.user.id is not defined %}
                     <div class="qtip_quiero_ir">
-                        {{'lugar.ficha.qtip.quiero_ir_logeado'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        {{'lugar.ficha.qtip.quiero_ir_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #0066CC; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                     {% endif %}
                 {% endif %}                
@@ -347,7 +347,7 @@
                 {% endif %}
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
-                <li><a class="tooltip_compartir" rel="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
+                <li><a class="compartir tooltip_compartir" rel="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
                 <li><a class="imprimir_lugar" href="">{{'lugar.ficha.opciones.imprimir'|trans}}</a></li>
                 
             </ul>
@@ -470,7 +470,7 @@
                                 <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
                             {% endif %}   
                             <li>
-                                <a class="tooltip_compartir_recomendacion" rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>
+                                <a class="compartir tooltip_compartir_recomendacion" rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>
                             </li>
                             {% if is_granted('ROLE_USER') and app.security.token.user.id == recomendacion.userId %}
                                 <li><a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a></li>
@@ -522,6 +522,7 @@
 
             <a class="fancybox" href="#recomendacion_popup"></a>
             <div style="display:none">{% include 'LoogaresLugarBundle:Ajax:recomendacion_popup.html.twig' %}</div>
+            
         {% endif %}
         {% if is_granted('ROLE_USER') == false %}
             <div class="caja_registro_recomendacion">

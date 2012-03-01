@@ -269,15 +269,22 @@ $rojo: #F72121
                 li
                     border: none
                     height: auto
-                    margin: 0 0 10px
+                    line-height: 14px
+                    margin: 0 0 8px
                     padding: 0
                     width: 122px
 
-                a
-                    @include link_azul
-                    
-                    &:hover
-                        @include link_azul_hover
+                    .numeracion
+                        float: left
+                        width: 15px
+
+                    .ultimo_lugar_recomendado
+                        @include link_azul
+                        float: left
+                        width: 107px
+                                            
+                        &:hover
+                            @include link_azul_hover
 
         .ultima_categoria
             border: none
@@ -645,8 +652,10 @@ $rojo: #F72121
             padding: 10px
 
         img
+            border-bottom: 1px solid $gris_f6f
+            border-top: 1px solid $gris_f6f
             float: left
-            height: 160px
+            height: 158px
             width: 135px
 
         .detalles_nota
@@ -671,6 +680,7 @@ $rojo: #F72121
                 float: left
                 font:
                     size: 14px
+                line-height: 18px
                 margin: 10px
 
             .texto_nota
@@ -678,7 +688,7 @@ $rojo: #F72121
                 float: left
                 font:
                     size: 12px
-                line-height: 17px
+                line-height: 16px
                 margin: 0 10px
 
                 a

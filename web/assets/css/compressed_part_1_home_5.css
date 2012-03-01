@@ -140,15 +140,21 @@
         .contenido_home .lugares_recomendados li .listado_lugares_recomendados li {
           border: none;
           height: auto;
-          margin: 0 0 10px;
+          line-height: 14px;
+          margin: 0 0 8px;
           padding: 0;
           width: 122px; }
-        .contenido_home .lugares_recomendados li .listado_lugares_recomendados a {
-          color: #0066cc !important;
-          text-decoration: none; }
-          .contenido_home .lugares_recomendados li .listado_lugares_recomendados a:hover {
+          .contenido_home .lugares_recomendados li .listado_lugares_recomendados li .numeracion {
+            float: left;
+            width: 15px; }
+          .contenido_home .lugares_recomendados li .listado_lugares_recomendados li .ultimo_lugar_recomendado {
             color: #0066cc !important;
-            text-decoration: underline; }
+            text-decoration: none;
+            float: left;
+            width: 107px; }
+            .contenido_home .lugares_recomendados li .listado_lugares_recomendados li .ultimo_lugar_recomendado:hover {
+              color: #0066cc !important;
+              text-decoration: underline; }
     .contenido_home .lugares_recomendados .ultima_categoria {
       border: none; }
   .contenido_home .caja_promociones {
@@ -443,8 +449,10 @@
     .sidebar_home .colaboradores .encabezado {
       padding: 10px; }
     .sidebar_home .colaboradores img {
+      border-bottom: 1px solid #f2f2f6;
+      border-top: 1px solid #f2f2f6;
       float: left;
-      height: 160px;
+      height: 158px;
       width: 135px; }
     .sidebar_home .colaboradores .detalles_nota {
       border-bottom: 1px solid #f2f2f6;
@@ -464,12 +472,13 @@
         color: #666666;
         float: left;
         font-size: 14px;
+        line-height: 18px;
         margin: 10px; }
       .sidebar_home .colaboradores .detalles_nota .texto_nota {
         color: #999999;
         float: left;
         font-size: 12px;
-        line-height: 17px;
+        line-height: 16px;
         margin: 0 10px; }
         .sidebar_home .colaboradores .detalles_nota .texto_nota a {
           color: #0066cc !important;
