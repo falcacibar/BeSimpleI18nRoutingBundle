@@ -311,9 +311,6 @@ $(document).ready(function(){
                            $('.lugar-existe').append("<p>"+data.lugar[i]+"</p>"); 
                         })
                         $('.lugar-existe').fadeIn();
-                        
-                    /*  }else{
-                        $('.lugar-existe').append('¡No existen lugares en esta dirección!').fadeIn(); */
                     }
                 },
                 error: function(data) {console.log(data)}

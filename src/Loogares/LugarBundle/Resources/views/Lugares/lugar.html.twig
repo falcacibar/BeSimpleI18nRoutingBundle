@@ -29,8 +29,7 @@
 
 {% block javascripts %}
     {{parent()}}
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
-    <script src='{{asset('assets/js/googleMapFicha.js')}}'></script>
+
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>   
     <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>  
     <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>   
@@ -86,12 +85,7 @@
                 <!-- <p class="conteo">{{lugar.totalAcciones.3.total}}</p> -->
             </div>           
             <div class="estrellas">
-                <script>
-                    $(document).ready(function(){
-                        estrellasDelLugar({{lugar.estrellas}});
-                    });
-                </script>
-                <div class="star-raty estrellas_lugar"></div>
+                <div data-stars="{{lugar.estrellas}}" class="star-raty estrellas_lugar"></div>
                 <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}</span>
             </div>
             <div class="multimedia_lugar">
@@ -135,13 +129,8 @@
                 {% endif %}
                 
                 {% if lugar.mostrarPrecio != null %}
-                    <div class="precio_lugar" id="precio">
-                        <script>
-                            $(document).ready(function(){
-                                precioLugar({{lugar.precio|default(0)}}, '{{lugar.mostrarPrecio}}');    
-                            }); 
-                        </script>                          
-                        <p style="float: left;">{{'lugar.ficha.datos.precio'|trans}}</p><div class="precio-raty precio_global"></div>
+                    <div class="precio_lugar" id="precio">                      
+                        <p style="float: left;">{{'lugar.ficha.datos.precio'|trans}}</p><div data-precio="{{lugar.precio}}" data-tipo="{{lugar.mostrarPrecio}}" class="precio-raty precio_global"></div>
                         <div class="precio-detalle"></div>
                     </div>
                 {% endif %}

@@ -17,7 +17,6 @@
 {% block title %}{{'fotos.galeria.title'|trans}} {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
-
     <!-- Mensajes de éxito -->
 	{% if app.session.hasFlash('imagen_flash') %}
             <div class="mensaje_exito">
@@ -52,7 +51,7 @@
 
 {% block javascripts %}
 	<script src="{{asset('assets/js/galeria.js')}}"></script>
-	{% if edicion == true %}
+	{% if editar == true %}
 		<script>
 			$(function(){
 				$('.editar_foto').click();

@@ -84,7 +84,6 @@ $(document).ready(function(){
 		}
 
 		if(errorNombre == 0 && errorComuna == 0){
-			console.log('s')
 			$.ajax({
 				type: 'POST',
 				data: $('[name="forzar_datos_form"]').serialize(),

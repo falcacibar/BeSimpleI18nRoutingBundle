@@ -907,6 +907,7 @@ class LugarController extends Controller{
                 $em->flush();
                     
                 $tipo = 'descripcion';
+                return $this->redirect($this->generateUrl('_fotoGaleria', array('id' => $id, 'slug' => $slug)));
                 return $this->render('LoogaresLugarBundle:Lugares:editar_foto.html.twig', array(
                     'imagen' => $imagen,
                     'form' => $form->createView(),
@@ -915,12 +916,20 @@ class LugarController extends Controller{
             }
         }
 
-        $tipo = 'form';
-        return $this->render('LoogaresLugarBundle:Lugares:editar_foto.html.twig', array(
-            'imagen' => $imagen,
-            'form' => $form->createView(),
-            'tipo' => $tipo,
-        ));
+
+        if ($this->getRequest()->isXmlHttpRequest()){
+            $tipo = 'form';
+            return $this->render('LoogaresLugarBundle:Lugares:editar_foto.html.twig', array(
+                'imagen' => $imagen,
+                'form' => $form->createView(),
+                'tipo' => $tipo,
+            ));
+        }else{
+            return $this->fotoGaleriaAction($slug, $id, $editar = true);
+            return $this->redirect($this->generateUrl('_fotoGaleria', array('id' => $id, 'slug' => $slug)));
+        }
+
+
     }
 
     public function eliminarFotoAction(Request $request, $slug, $id) {
@@ -973,7 +982,7 @@ class LugarController extends Controller{
         return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
     }
 
-    public function fotoGaleriaAction($slug, $id) {
+    public function fotoGaleriaAction($slug, $id, $editar = false) {
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
@@ -1004,21 +1013,25 @@ class LugarController extends Controller{
             // Primer caso: sólo ancho mayor que default
             if($ancho > $anchoDefault && $alto <= $altoDefault) {
                 $dimensiones['ancho'] = $anchoDefault;
+                $dimensiones['alto'] = ($anchoDefault * $alto) / $ancho;
             }
 
             // Segundo caso: ancho mayor que default, pero alto mayor que default y ancho
             else if($ancho > $anchoDefault && $alto > $altoDefault && $alto > $ancho) {
                 $dimensiones['alto'] = $altoDefault;
+                $dimensiones['ancho'] = ($altoDefault * $ancho) / $alto;
             }
 
             // Tercer caso: sólo alto mayor que default
             else if($alto > $altoDefault && $ancho <= $anchoDefault ) {
                 $dimensiones['alto'] = $altoDefault;
+                $dimensiones['ancho'] = ($altoDefault * $ancho) / $alto;
             }
 
             // Cuarto caso: alto mayor que default, pero ancho mayor que default y alto
             else if($alto > $altoDefault && $ancho > $anchoDefault && $ancho > $alto) {
                 $dimensiones['ancho'] = $anchoDefault;
+                $dimensiones['alto'] = ($anchoDefault * $alto) / $ancho; 
             }
         }
         catch(\Exception $e) {
@@ -1040,8 +1053,6 @@ class LugarController extends Controller{
                 'dimensiones' => $dimensiones,
                 'reportar' => $reportar,
             ));
-
-
         } 
 
         return $this->render('LoogaresLugarBundle:Lugares:foto_galeria.html.twig', array(
@@ -1050,6 +1061,7 @@ class LugarController extends Controller{
             'vecinas' => $vecinas,
             'dimensiones' => $dimensiones,
             'reportar' => $reportar,
+            'editar' => $editar,
             'edicion' => ($this->getRequest()->query->get('edicion')) ? true : false, 
         ));
     }

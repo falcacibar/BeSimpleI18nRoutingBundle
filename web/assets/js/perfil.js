@@ -54,7 +54,7 @@ $(function(){
             	// Se actualizan datos del usuario
 	            $.ajax({
 	              type: "GET",
-	              url: WEBROOT+'usuario/acciones_pendientes/5',
+	              url: WEBROOT+'usuario/acciones_pendientes/5'
 	            }).done(function( data ) {
 	              $('.por_recomendar').html(data);
 	              $('.lugares_por_recomendar_usuario span').html(data);
@@ -62,7 +62,7 @@ $(function(){
 
 	            $.ajax({
 	              type: "GET",
-	              url: WEBROOT+'usuario/acciones_pendientes/1',
+	              url: WEBROOT+'usuario/acciones_pendientes/1'
 	            }).done(function( data ) {
 	              $('.para_visitar').html(data);
 	              $('.lugares_por_visitar_usuario span').html(data);
@@ -70,7 +70,7 @@ $(function(){
 
 	            $.ajax({
 	              type: "GET",
-	              url: WEBROOT+'usuario/acciones_pendientes/4',
+	              url: WEBROOT+'usuario/acciones_pendientes/4'
 	            }).done(function( data ) {
 	              $('.lugares_favoritos_usuario span').html(data);
 	            });

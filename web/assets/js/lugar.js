@@ -9,7 +9,7 @@ if(IE || ffx < 3.7){
 
 $(document).ready(function(){
     var compartirTimeout,
-    fechasRecomendaciones = [];
+        fechasRecomendaciones = [];
         
     $('.fecha_recomendacion').each(function(){ 
         var date = $(this).text().split('/'),
@@ -18,7 +18,6 @@ $(document).ready(function(){
     });
 
     fechasRecomendaciones.sort().reverse();
-
 
     if(window.location.href.match(/\/recomendacion\//)){
         $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200);
@@ -90,7 +89,7 @@ $(document).ready(function(){
         $.ajax({
             url: WEBROOT+'ajax/util_mail',
             data: {'recomendacion': recomendacion},
-            type: 'post',
+            type: 'post'
         });
     }
 
@@ -155,14 +154,14 @@ $(document).ready(function(){
                     // Se actualiza el menú del usuario
                     $.ajax({
                       type: "GET",
-                      url: WEBROOT+'usuario/acciones_pendientes/5',
+                      url: WEBROOT+'usuario/acciones_pendientes/5'
                     }).done(function( data ) {
                       $('.por_recomendar').html(data);
                     });
 
                     $.ajax({
                       type: "GET",
-                      url: WEBROOT+'usuario/acciones_pendientes/1',
+                      url: WEBROOT+'usuario/acciones_pendientes/1'
                     }).done(function( data ) {
                       $('.para_visitar').html(data);
                     });
@@ -275,7 +274,7 @@ $(document).ready(function(){
                         color: '#f0f',
                         corner: true,
                         offset: 0
-                    },
+                    }
                 },
                 position: {
                     my: 'top center', 
@@ -283,7 +282,7 @@ $(document).ready(function(){
                     adjust: {
                         x: 9,
                         y: 6
-                    },
+                    }
                 },
                 hide: {
                     fixed: true,
@@ -308,7 +307,7 @@ $(document).ready(function(){
                 color: '#f0f',
                 corner: true,
                 offset: 0
-            },
+            }
         },
         position: {
             my: 'top center', 
@@ -316,7 +315,7 @@ $(document).ready(function(){
             adjust: {
                 x: 9,
                 y: 6
-            },
+            }
         },
         hide: {
             fixed: true,
@@ -341,7 +340,7 @@ $(document).ready(function(){
                 color: '#f0f',
                 corner: true,
                 offset: 0
-            },
+            }
         },
         position: {
             my: 'top center', 
@@ -349,7 +348,7 @@ $(document).ready(function(){
             adjust: {
                 x: 59,
                 y: 6
-            },
+            }
         },
         hide: {
             fixed: true,
@@ -373,7 +372,7 @@ $(document).ready(function(){
                 color: '#f0f',
                 corner: true,
                 offset: 0
-            },
+            }
         },
         position: {
             my: 'top center', 
@@ -381,7 +380,7 @@ $(document).ready(function(){
             adjust: {
                 x: 9,
                 y: 6
-            },
+            }
         },
         hide: {
             fixed: true,
@@ -405,7 +404,7 @@ $(document).ready(function(){
                 color: '#f0f',
                 corner: true,
                 offset: 0
-            },
+            }
         },
         position: {
             my: 'top center', 
@@ -413,7 +412,7 @@ $(document).ready(function(){
             adjust: {
                 x: 9,
                 y: 6
-            },
+            }
         },
         hide: {
             fixed: true,
@@ -437,7 +436,7 @@ $(document).ready(function(){
                 color: '#f0f',
                 corner: true,
                 offset: 0
-            },
+            }
         },
         position: {
             my: 'top center', 
@@ -445,7 +444,7 @@ $(document).ready(function(){
             adjust: {
                 x: 45,
                 y: 6
-            },
+            }
         },
         hide: {
             fixed: true,
@@ -469,7 +468,7 @@ $(document).ready(function(){
                 color: '#f0f',
                 corner: true,
                 offset: 0
-            },
+            }
         },
         position: {
             my: 'top center', 
@@ -477,7 +476,7 @@ $(document).ready(function(){
             adjust: {
                 x: 55,
                 y: 6
-            },
+            }
         },
         hide: {
             fixed: true,
@@ -501,7 +500,7 @@ $(document).ready(function(){
                 color: '#f0f',
                 corner: true,
                 offset: 0
-            },
+            }
         },
         position: {
             my: 'top center', 
@@ -509,7 +508,7 @@ $(document).ready(function(){
             adjust: {
                 x: 55,
                 y: 6
-            },
+            }
         },
         hide: {
             fixed: true,
@@ -517,23 +516,31 @@ $(document).ready(function(){
             event: 'mouseleave'
         }
     });
-});
 
-function precioLugar(precio, tipo){
-    tipo = getTipo(tipo);
-
-    $('.precio-raty').raty({
+    var estrellas_lugar = $('.estrellas_lugar').data('stars');
+    $('.star-raty').raty({
         width: 140,
-        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
-        starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
-        start: precio,
+        half: true,
+        start: estrellas_lugar,
         readOnly: true,
         space: false
     });
 
-    $('.precio-detalle').append(tipo[precio-1])
-}
+    var precio_lugar = $('.precio-raty').data('precio'),
+        tipo_lugar = getTipo($('.precio-raty').data('tipo'));
 
+        $('.precio-raty').raty({
+            width: 140,
+            starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
+            starOn:   WEBROOT+'../assets/images/extras/precio_lleno.png',
+            start: precio_lugar,
+            readOnly: true,
+            space: false
+        });
+
+        $('.precio-detalle').append(tipo_lugar[precio_lugar-1]);
+});
+            
 function estrellasPorRecomendacion(id, estrellas){
     $('.recomendacion-'+id+'-raty').raty({
         width: 140,
@@ -545,16 +552,6 @@ function estrellasPorRecomendacion(id, estrellas){
         readOnly: true,
         space: false,
         scoreName: 'estrellas'
-    });
-}
-
-function estrellasDelLugar(estrellas){
-    $('.star-raty').raty({
-        width: 140,
-        half: true,
-        start: estrellas,
-        readOnly: true,
-        space: false
     });
 }
 
