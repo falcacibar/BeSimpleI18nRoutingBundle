@@ -25,7 +25,6 @@ $(document).ready(function(){
         	found = 0;
 
         $.each(optGroupCiudades, function(i){
-            console.log(optGroupCiudades[i])
             if(optGroupCiudades[i].match(paisSeleccionado)){
                 $('.ciudad optgroup').remove('optgroup');
                 $('.ciudad').append(optGroupCiudades[i]);
@@ -68,5 +67,5 @@ $(document).ready(function(){
 
     $('.comuna, .ciudad, select.pais, #form_fecha_nacimiento_day, #form_fecha_nacimiento_month, #form_fecha_nacimiento_year').chosen();
 
-    actualizarCiudades()
+    actualizarCiudades();
 });

@@ -66,8 +66,6 @@ $(document).ready(function() {
       }
    );
 
-  $('.logo_ciudad_menu').css('position', 'absolute').css('display', 'none')
-  $('.menu_categorias').css('padding-left', '131px')
     var msie6 = $.browser == 'msie' && $.browser.version < 7;
 
     if (!msie6) {
