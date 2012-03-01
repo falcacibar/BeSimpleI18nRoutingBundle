@@ -202,7 +202,9 @@ textarea {
   background: #444444;
   float: left;
   height: 25px;
-  width: 100%; }
+  width: 100%;
+  position: relative;
+  z-index: 1000; }
   .barra_ciudad .centrado_ciudad {
     margin: 0px auto;
     width: 960px;
@@ -211,12 +213,11 @@ textarea {
     .barra_ciudad .centrado_ciudad .logo_ciudad {
       background: white;
       border: 1px solid #cccccc;
-      float: left;
       height: 80px;
       left: 0;
       position: absolute;
       width: 130px;
-      z-index: 1000; }
+      z-index: 1001; }
       .barra_ciudad .centrado_ciudad .logo_ciudad .borde_logo {
         background: white;
         border: 2px solid #f2f2f6;
