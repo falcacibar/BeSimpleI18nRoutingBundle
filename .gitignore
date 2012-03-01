@@ -19,6 +19,7 @@ src/Loogares/AdminBundle/Entity/*
 #Imagenes
 web/assets/images/*
 web/assets/media/cache/*
+web/media/cache/*
 
 #Logs
 app/logs/*
