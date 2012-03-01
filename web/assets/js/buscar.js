@@ -53,7 +53,7 @@ $(document).ready(function(){
 		for(i=precio.length -1; i >= 0; i--){
 			qTipPrecio += "<p><span class='signo_precio'>";
 
-			for(j=precio.length;i<j;j--){qTipPrecio += "$"}
+			for(j=precio.length;i<j;j--){qTipPrecio += "$";}
 
 			qTipPrecio += "</span> = "+precio[i]+"</p>";	
 		}
@@ -89,14 +89,14 @@ $(document).ready(function(){
 					color: '#f0f',
 					corner: true,
 					offset: 378
-				},
+				}
 			},
 			position: {
 				my: 'top center', 
 				at: 'bottom left',
 				adjust: {
 					x: 50
-				},
+				}
 			},
 			show: {
 		      event: 'click',
@@ -119,14 +119,14 @@ $(document).ready(function(){
 					color: '#f0f',
 					corner: true,
 					offset: 19
-				},
+				}
 			},
 			position: {
 				my: 'top center', 
 				at: 'bottom left',
 				adjust: {
 					x: 50
-				},
+				}
 			},
 			show: {
 		      event: 'click',
@@ -149,14 +149,14 @@ $(document).ready(function(){
 					color: '#f0f',
 					corner: true,
 					offset: 709
-				},
+				}
 			},
 			position: {
 				my: 'top center', 
 				at: 'bottom left',
 				adjust: {
 					x: 50
-				},
+				}
 			},
 			show: {
 		      event: 'click',
@@ -179,14 +179,14 @@ $(document).ready(function(){
 					color: '#f0f',
 					corner: true,
 					offset: 704
-				},
+				}
 			},
 			position: {
 				my: 'top center', 
 				at: 'bottom left',
 				adjust: {
 					x: 50
-				},
+				}
 			},
 			show: {
 		      event: 'click',
@@ -222,7 +222,6 @@ $(document).ready(function(){
 		
 		href += "&caracteristicas=" +  caracteristica.substring(0, caracteristica.length-1);
 		$this.attr('href', href);
-		console.log(href)
 	});
 
 	$('.filtros a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({

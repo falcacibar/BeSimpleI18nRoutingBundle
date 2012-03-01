@@ -270,35 +270,6 @@
 
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
-	<script src="{{asset('assets/js/home.js')}}"></script>
-
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
-    <script>
-    	$(document).ready(function(){
-			$('.tips_icon').qtip({
-			   content: {
-			      text: $('.qtip_recomendacion_del_dia')
-			   },
-				style: {
-					classes: 'ui-tooltip-precio',
-					tip: {
-						border: 0,
-						width: 12,
-						color: '#f0f',
-						corner: true,
-						offset: 85
-					},
-				},
-				position: {
-					my: 'top center', 
-					at: 'bottom left',
-					adjust: {
-						x: 6,
-						y: 6
-					},
-				},
-			});
-    	});
-    </script>
-
+	<script src="{{asset('assets/js/home.js')}}"></script>
 {% endblock %}

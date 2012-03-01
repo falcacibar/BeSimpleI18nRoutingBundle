@@ -12,6 +12,30 @@ $(function(){
         e.preventDefault();
         $('.fb_hidden_button').find('.fb_button').click();
     });
+
+    $('.tips_icon').qtip({
+       content: {
+          text: $('.qtip_recomendacion_del_dia')
+       },
+        style: {
+            classes: 'ui-tooltip-precio',
+            tip: {
+                border: 0,
+                width: 12,
+                color: '#f0f',
+                corner: true,
+                offset: 85
+            }
+        },
+        position: {
+            my: 'top center', 
+            at: 'bottom left',
+            adjust: {
+                x: 6,
+                y: 6
+            }
+        }
+    });
 });	
 
 function estrellasRecomendacion(estrellas, $this){
