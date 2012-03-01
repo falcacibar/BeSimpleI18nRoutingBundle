@@ -1197,7 +1197,7 @@ class LugarController extends Controller{
             $em->flush();
 
             // Se envía mail al lugar
-            if($lugar->getMail() != null && $lugar->getMail() != '') {
+            if($lugar->getMail() != null && $lugar->getMail() != '' && !isset($_POST['editando'])) {
                 // Buscamos dueño del lugar
                 $owner = $em->getRepository("LoogaresUsuarioBundle:Usuario")->getDuenoLugar($recomendacion->getLugar()->getId());
 
@@ -1264,26 +1264,27 @@ class LugarController extends Controller{
                 return new Response('',200);
             }else{
                 // Enviamos mail al usuario que recomendó justo antes del actual, si es el caso
-                $recomendacionAnterior = $ultimaRecomendacion;
-                if($recomendacionAnterior != null) {
-                    // Existe una recomendación justo anterior
-                    $usuario = $recomendacion->getUsuario();
-                    $usuarioAnterior = $recomendacionAnterior->getUsuario();
-                    $mail = array();
-                    $nombreUsuario = ($usuario->getNombre() == '' && $usuario->getApellido() == '') ? $usuario->getSlug() : $usuario->getNombre().' '.$usuario->getApellido();
-                    $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.despues_recomendacion.mail.asunto', array('%usuario%' => $nombreUsuario,'%lugar%' => $recomendacion->getLugar()->getNombre()));
-                    $mail['recomendacion'] = $recomendacion;
-                    $mail['usuario'] = $usuario;
-                    $mail['usuarioAnterior'] = $usuarioAnterior;
-                    $mail['tipo'] = "despues-recomendacion";
+                if(!isset($_POST['editando'])){
+                    $recomendacionAnterior = $ultimaRecomendacion;
+                    if($recomendacionAnterior != null) {
+                        // Existe una recomendación justo anterior
+                        $usuario = $recomendacion->getUsuario();
+                        $usuarioAnterior = $recomendacionAnterior->getUsuario();
+                        $mail = array();
+                        $nombreUsuario = ($usuario->getNombre() == '' && $usuario->getApellido() == '') ? $usuario->getSlug() : $usuario->getNombre().' '.$usuario->getApellido();
+                        $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.despues_recomendacion.mail.asunto', array('%usuario%' => $nombreUsuario,'%lugar%' => $recomendacion->getLugar()->getNombre()));
+                        $mail['recomendacion'] = $recomendacion;
+                        $mail['usuario'] = $usuario;
+                        $mail['usuarioAnterior'] = $usuarioAnterior;
+                        $mail['tipo'] = "despues-recomendacion";
 
-                    $paths = array();
-                    $paths['logo'] = 'assets/images/mails/logo_mails.png';
+                        $paths = array();
+                        $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
-                    $message = $this->get('fn')->enviarMail($mail['asunto'], $usuarioAnterior->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
-                    $this->get('mailer')->send($message);
+                        $message = $this->get('fn')->enviarMail($mail['asunto'], $usuarioAnterior->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
+                        $this->get('mailer')->send($message);
+                    }
                 }
-
                 //SET FLASH AND REDIRECTTT
                 $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
