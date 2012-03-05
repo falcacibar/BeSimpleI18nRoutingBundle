@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}
-	{% if noCategorias == true %}
+	{% if categoria != null and noCategorias == true %}
 		Categoria {{categoria.nombre}} | {{parent()}}
 	{% else %}
 		{{'lugar.buscar.titulo'|trans({'%buscar%' : term})}} | {{parent()}}
@@ -47,7 +47,7 @@
 
 			<h1 class="titulo_busqueda">
 
-				{% if noCategorias == true %}
+				{% if categoria != null and noCategorias == true %}
 					{{categoria.nombre}} en {{ciudad.nombre}}
 				{% else %}
 				{{'lugar.buscar.resultado_busqueda'|trans}} {{term}} 

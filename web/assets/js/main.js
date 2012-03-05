@@ -1,3 +1,16 @@
+oldBrowser = false, IE = '';
+
+//@cc_on IE = navigator.appVersion;
+if(/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){var ffx=new Number(RegExp.$1);}
+if(IE || ffx < 3.7){
+    oldBrowser = true;
+    
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = WEBROOT+"../assets/js/legacy.js";
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+
 var hintListEstrellas = ['¡Argh, no me gustó nada!', 'Mmm, más o menos nomás.', 'Está bien, cumple.', 'Me gusta, me gusta.', '¡Me encanta, es el mejor de todos!'];
 
 /* Función para el menú desplegable */

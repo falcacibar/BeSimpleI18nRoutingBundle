@@ -66,7 +66,7 @@
 						<li>
 							{% set inputClass = (formErrors.password is defined) ? 'input-error' : ' '%}
 							{{ form_label(form.password, 'usuario.registro.form.password') }}
-							{{ form_widget(form.password, { 'attr': {'class': inputClass}}) }}
+							{{ form_widget(form.password, { 'attr': {'placeholder': 'Ingresa tu Contraseña', 'class': inputClass}}) }}
 							{% if formErrors.password is defined %}
 								<small class="errors">{{formErrors.password | trans}}</small>
 							{% endif %}
@@ -74,7 +74,7 @@
 
 						<li>
 							<label for="confirmarPassword" >{% trans %}usuario.registro.form.confirmar_password{% endtrans %}</label>
-							<input type="password" id="confirmarPassword" name="confirmarPassword" class="{{formErrors.confirmar is defined ? 'input-error' : ' '}}"/>
+							<input type="password" id="confirmarPassword" placeholder="Confirma tu Contraseña" name="confirmarPassword" class="{{formErrors.confirmar is defined ? 'input-error' : ' '}}"/>
 							{% if formErrors.confirmar is defined %}
 								<small class="errors">{{formErrors.confirmar | trans}}</small>
 							{% endif %}

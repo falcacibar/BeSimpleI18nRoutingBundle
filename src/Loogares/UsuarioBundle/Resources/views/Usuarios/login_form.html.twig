@@ -3,12 +3,12 @@
     <form action="{{ path('login_check') }}" method="post" class="login_form">
         <div>
             <label for="mail">{% trans %}usuario.login.form.mail{% endtrans %}</label>
-            <input type="text" id="mail" name="_mail" value="{{ last_mail }}" class="{{(errors.completo is defined) ? 'input-error' : ' '}}"/>
+            <input placeholder="Ingresa tu Email" type="text" id="mail" name="_mail" value="{{ last_mail }}" class="{{(errors.completo is defined) ? 'input-error' : ' '}}"/>
         </div>
 
         <div>
             <label for="password">{% trans %}usuario.login.form.password{% endtrans %}</label>
-            <input type="password" id="password" name="_password" class="{{(errors is defined and errors|length > 0) ? 'input-error' : ' '}} password_width"/>
+            <input placeholder="Ingresa tu Contraseña" type="password" id="password" name="_password" class="{{(errors is defined and errors|length > 0) ? 'input-error' : ' '}} password_width"/>
             <input class="boton_entrar" type="submit" name="login" value=""/>
         </div>
 

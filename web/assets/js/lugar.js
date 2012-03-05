@@ -1,12 +1,3 @@
-oldBrowser = false;
-
-var IE;
-//@cc_on IE = navigator.appVersion;
-if(/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){var ffx=new Number(RegExp.$1);}
-if(IE || ffx < 3.7){
-    oldBrowser = true;
-}
-
 $(document).ready(function(){
     var compartirTimeout,
         fechasRecomendaciones = [];

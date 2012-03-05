@@ -227,24 +227,26 @@ $(document).ready(function(){
         actualizarCiudades();
     });
 
-    $('form[name="agregar-lugar"]').submit(function(e){
+    $('form[name="agregar-lugar"]').on('submit', function(e){
         errores = '';
         $('.errors').remove();
-        $.each($('.required'), function(){
-            if(($(this).val() == $(this).attr('placeholder') || $(this).val() == '') || ($(this).val() == 'elige')){
-                errores += "<p>"+$(this).attr('title')+"</p>";
-                $(this).addClass('input-error');
-                if($(this).hasClass('calle')){
-                    $('.numero').after('<small class="errors">'+$(this).attr('title')+'</small>');
-                }else if($(this).is('select') && $(this).not('.secundaria')){
-                    $(this).next('.chzn-container').find('.chzn-single').addClass('chzn-error');
-                    $(this).after('<small class="errors">'+$(this).attr('title')+'</small>'); 
+        $required = $('.required');
+        $.each($required, function(){
+            $this = $(this);
+            if(($this.val() == $this.attr('placeholder') || $this.val() == '') || ($this.val() == 'elige')){
+                errores += "<p>"+$this.attr('title')+"</p>";
+                $this.addClass('input-error');
+                if($this.hasClass('calle')){
+                    $('.numero').after('<small class="errors">'+$this.attr('title')+'</small>');
+                }else if($this.is('select') && $this.not('.secundaria')){
+                    $this.next('.chzn-container').find('.chzn-single').addClass('chzn-error');
+                    $this.after('<small class="errors">'+$this.attr('title')+'</small>'); 
                 }else{
-                   $(this).after('<small class="errors">'+$(this).attr('title')+'</small>'); 
+                   $this.after('<small class="errors">'+$this.attr('title')+'</small>'); 
                 }
                 
             }else{
-                $(this).removeClass('input-error');
+                $this.removeClass('input-error');
             }
         });
 
@@ -254,7 +256,8 @@ $(document).ready(function(){
             $('input[name="form[numero]"]').after('<small class="errors">Debes ingresar sólo números o "s/n" en el campo de Nº</small>')
         }
 
-        $.each($('.categoria:not(:hidden)'), function(){
+        $categoriasNoHidden = $('.categoria:visible');
+        $.each($categoriasNoHidden, function(){
             $this = $(this);
             if($this.parent().find('.subcategorias ul').children(':visible').length > 0){
                 if($this.parent().find('.subcategorias').find('ul > li').length > 0 && $this.parent().find('.subcategorias').find('ul > li > label').children(':checked').length == 0){

@@ -5,6 +5,7 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
+    {% if lugar.slug %}
     <style>
         .comparacion{
             padding: 5px;
@@ -44,16 +45,17 @@
             background: lightblue;
         }
     </style>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{asset('assets/js/masterObject.js')}}"></script>
-    <script src="{{asset('assets/js/googleMapAgregar.js')}}"></script>
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
-    <script src="{{asset('assets/js/agregarLugar.js')}}"></script>
     <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
     <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
+    <script src="{{asset('assets/js/agregarLugar.js')}}"></script>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
+    <script src="{{asset('assets/js/googleMapAgregar.js')}}"></script>
 
     <script>
         $(document).ready(function(){
@@ -170,7 +172,7 @@
 
     <ul class="agregar-lugar">
         <li>
-            <label>{{'lugar.agregar.nombre'|trans}} <span class="obligatorio">*<span></label>
+            <label>{{'lugar.agregar.nombre'|trans}} <span class="obligatorio">*</span></label>
             <input type="text" value="{{lugar.nombre}}" title="{{'lugar.errors.agregar.nombre'|trans}}" class="required" minlength="2" name="form[nombre]" id="form_nombre" placeholder="{{'lugar.agregar.placeholders.nombre'|trans}}"/>
             <input type="hidden" value="{{lugar.slug}}" minlength="2" name="form[slug]" id="form_slug"/>
             {% if lugaresRevisados is defined %}
@@ -182,7 +184,7 @@
             {% endif %}
         </li>
         <li class="categoria-container">
-            <label>{{'lugar.agregar.categorias.label'|trans}} <span class="obligatorio">*<span></label>
+            <label>{{'lugar.agregar.categorias.label'|trans}} <span class="obligatorio">*</span></label>
             <select class='categoria required' title="{{'lugar.errors.agregar.categoria'|trans}}" name='categoria[]'>
                 <option value="elige">{{'lugar.agregar.categorias.principal'|trans}}</option>
                 {% for tipoCategoria in data.tipoCategoria %}
@@ -230,7 +232,7 @@
             {% endif %}
         </li>
         <li class="no-default categoria-container">
-            <label>{{'lugar.agregar.categorias.label'|trans}} <span class="obligatorio">*<span></label>
+            <label>{{'lugar.agregar.categorias.label'|trans}} <span class="obligatorio">*</span></label>
             <select class='categoria secundaria' title='' name='categoria[]'>
                 <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
                 {% for tipoCategoria in data.tipoCategoria %}
@@ -279,7 +281,7 @@
             {% endif %}
         </li>
         <li class="no-default categoria-container">
-            <label>{{'lugar.agregar.categorias.label'|trans}} <span class="obligatorio">*<span></label>
+            <label>{{'lugar.agregar.categorias.label'|trans}} <span class="obligatorio">*</span></label>
             <select class='categoria secundaria' title='' name='categoria[]'>
                 <option value="elige">{{'lugar.agregar.categorias.secundaria'|trans}}</option>
                 {% for tipoCategoria in data.tipoCategoria %}
@@ -332,7 +334,7 @@
             <span>2</span>)</a></span>
         </li>
         <li>
-            <label>{{'lugar.agregar.pais'|trans}} <span class="obligatorio">*<span></label>
+            <label>{{'lugar.agregar.pais'|trans}} <span class="obligatorio">*</span></label>
             <select class='pais required' title='' name='pais' id='pais'>
             {% for pais in data.pais %}
                 <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
@@ -347,7 +349,7 @@
             {% endif %}
         </li>
         <li>
-            <label>{{'lugar.agregar.ciudad'|trans}} <span class="obligatorio">*<span></label>
+            <label>{{'lugar.agregar.ciudad'|trans}} <span class="obligatorio">*</span></label>
             <select class='ciudad required' title='' name='ciudad' id='ciudad'>
             {% for pais in data.pais %}
                 <optgroup label="{{pais.nombre}}">
@@ -368,7 +370,7 @@
             {% endif %}
         </li>
         <li>
-            <label>{{'lugar.agregar.comuna.label'|trans}} <span class="obligatorio">*<span></label>
+            <label>{{'lugar.agregar.comuna.label'|trans}} <span class="obligatorio">*</span></label>
             <select class='comuna required' title="{{'lugar.errors.agregar.comuna'|trans}}" name='comuna' id='comuna'>
             <option value='elige'>{{'lugar.agregar.comuna.title'|trans}}</option>
             {% for ciudad in data.ciudad %}
@@ -390,9 +392,9 @@
             {% endif %}
         </li>
         <li>
-            <label>{{'lugar.agregar.calle'|trans}} <span class="obligatorio">*<span></label>
+            <label>{{'lugar.agregar.calle'|trans}} <span class="obligatorio">*</span></label>
             <input type="text" value="{{lugar.calle}}" name="form[calle]" title="{{'lugar.errors.agregar.calle'|trans}}" class="calle required" id="form_calle" placeholder="{{'lugar.agregar.placeholders.calle'|trans}}"/>
-            <label class="label_numero">{{'lugar.agregar.numero'|trans}} <span class="obligatorio">*<span></label>
+            <label class="label_numero">{{'lugar.agregar.numero'|trans}} <span class="obligatorio">*</span></label>
             <input type="text" value="{{lugar.numero}}" name="form[numero]" class="numero required" title="{{'lugar.errors.agregar.numero'|trans}}" id="form_numero" placeholder="{{'lugar.agregar.placeholders.numero'|trans}}"/>
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}

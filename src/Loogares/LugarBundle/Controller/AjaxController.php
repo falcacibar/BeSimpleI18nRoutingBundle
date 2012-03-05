@@ -149,13 +149,10 @@ class AjaxController extends Controller
       $lugar = $lr->findOneBySlug($_POST['slug']);
       $usuario = $this->get('security.context')->getToken()->getUser();
 
-
-
       $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado = 2");
       $q->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId());
       $q->setParameter(2, $lugar->getId());
       $recomendacionResult = $q->getSingleResult();
-
 
       return $this->render('LoogaresLugarBundle:Lugares:recomendacion.html.twig',array(
         'recomendacion' => $recomendacionResult, 

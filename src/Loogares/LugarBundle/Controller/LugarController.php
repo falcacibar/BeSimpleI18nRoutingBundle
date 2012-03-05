@@ -1098,7 +1098,14 @@ class LugarController extends Controller{
         if($request->getMethod() == 'POST'){
             $newTagRecomendacion = array();
             $tag = array();
-            $recomendacion->setTexto($_POST['texto']);
+            $paragraph = $fn->cleanInput($_POST['texto']);
+            
+            $paragraph = preg_split('/\n/', $paragraph);
+            foreach($paragraph as $key => $value){
+                $paragraph[$key] = "<p>$value</p>";
+            }
+            $recomendacion->setTexto(join($paragraph));
+
             $recomendacion->setEstrellas($_POST['recomienda-estrellas']);
             $estado = $lr->getEstado(2);
             $recomendacion->setEstado($estado);
@@ -1264,14 +1271,16 @@ class LugarController extends Controller{
                 return new Response('',200);
             }else{
                 // Enviamos mail al usuario que recomendó justo antes del actual, si es el caso
-                if(!isset($_POST['editando'])){
+                
                     $recomendacionAnterior = $ultimaRecomendacion;
                     if($recomendacionAnterior != null) {
                         // Existe una recomendación justo anterior
                         $usuario = $recomendacion->getUsuario();
                         $usuarioAnterior = $recomendacionAnterior->getUsuario();
-                        $mail = array();
                         $nombreUsuario = ($usuario->getNombre() == '' && $usuario->getApellido() == '') ? $usuario->getSlug() : $usuario->getNombre().' '.$usuario->getApellido();
+                    
+                    if(!isset($_POST['editando'])){
+                        $mail = array();
                         $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.despues_recomendacion.mail.asunto', array('%usuario%' => $nombreUsuario,'%lugar%' => $recomendacion->getLugar()->getNombre()));
                         $mail['recomendacion'] = $recomendacion;
                         $mail['usuario'] = $usuario;

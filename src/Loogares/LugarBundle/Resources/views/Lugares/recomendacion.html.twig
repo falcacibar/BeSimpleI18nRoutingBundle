@@ -5,17 +5,20 @@
 			//Placeholder obligatorio con salto de linea, duhhh
 		    if($('.texto').val() == ''){
 		      $('.texto').val("{{'lugar.recomendacion.placeholders.textarea'|trans}}");
+		      $('.texto').css('color', '#aaa');
 		    }
 
 			$('.texto').focus(function(){
 				if( $('.texto').val() == "{{'lugar.recomendacion.placeholders.textarea'|trans}}" ){
 				  $('.texto').val('');
+				  $('.texto').removeAttr('style');
 				}
 			});
 
 			$('.texto').blur(function(){
 				if( $('.texto').val() == "" ){
 				  $('.texto').val("{{'lugar.recomendacion.placeholders.textarea'|trans}}");
+				  $('.texto').css('color', '#aaa');
 				}
 			});
 		});
@@ -48,12 +51,14 @@
 	    }
 	</script>
 {% endblock %}
-<div class="recomienda_lugar_caja">
-	{% if lugar.nombre is defined and lugar.nombre != '' %}
-		<h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
-	{% endif %}
 
+<div class="recomienda_lugar_caja">
+{% if lugar.nombre is defined and lugar.nombre != ''  %}
+	<h3 class="titulo_recomendaciones">{{'lugar.ficha.recomienda.titulo'|trans}} {{ lugar.nombre }}</h3>
+{% endif %}
+{% if lugar.slug is defined and lugar.slug != ''  %}
 	<form name="recomienda" action="{{ path('_recomienda', {'slug': lugar.slug}) }}" method="post">
+{% endif %}
 		<ul>
 			<li>
 				<label>{{'lugar.recomendacion.evaluacion'|trans}}</label>
@@ -91,6 +96,7 @@
 		</ul>
 		{% if lugar.slug  %}
 			<input class="enviar_recomendacion" type="submit" value=""/>
+			</form>
 		{% endif %}
-	</form>
+	
 </div>

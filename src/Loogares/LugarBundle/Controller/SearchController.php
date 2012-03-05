@@ -27,6 +27,62 @@ class SearchController extends Controller
     $idCiudad = $ciudad['id'];
     $order = null;
 
+    foreach($_GET as $key => $value){
+      // Estandarizamos caracteres de $string  
+      $string = trim($value);
+   
+      $string = str_replace(
+          array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+          array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+          $string
+      );
+   
+      $string = str_replace(
+          array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+          array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+          $string
+      );
+   
+      $string = str_replace(
+          array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+          array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+          $string
+      );
+   
+      $string = str_replace(
+          array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+          array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+          $string
+      );
+   
+      $string = str_replace(
+          array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+          array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+          $string
+      );
+   
+      $string = str_replace(
+          array('ñ', 'Ñ', 'ç', 'Ç'),
+          array('n', 'N', 'c', 'C',),
+          $string
+      );
+   
+      // Esta parte se encarga de eliminar cualquier caracter extraño
+      $string = str_replace(
+          array("\\", "¨", "º", "~",".",
+               "#", "@", "|", "!", "\"",
+               "·", "$", "%", "&", "/",
+               "(", ")", "?", "'", "¡",
+               "¿", "[", "^", "`", "]",
+               "+", "}", "{", "¨", "´",
+               ">", "<", ";", ",", ":"),
+          '',
+          $string
+      );
+       $_GET[$key] = htmlspecialchars($string, ENT_QUOTES);
+    }
+
+
     if($path != '_buscar'){
       $_GET['q'] = $categoria;
       $_GET['sector'] = $sector;
@@ -127,14 +183,15 @@ class SearchController extends Controller
     $q = $em->createQuery("SELECT count(u.id) FROM Loogares\LugarBundle\Entity\Categoria u WHERE u.slug = '$termSlug'");
     $esCategoria = $q->getSingleScalarResult();
  
-    if($esCategoria[0] == 1){
+    if($esCategoria[0] == 1 && (!isset($_GET['o']) || $_GET['o'] != 'no')){
         $_GET['orden'] = (isset($_GET['orden']))?$_GET['orden']:'recomendaciones';
         $term = 'somethingneverfound';
         $termArray = array();
         $noCategorias = true;
         $_GET['categoria'] = $termSlug;
         $categoriaResult = ((isset($_GET['categoria']))?$categoria_repo->findOneBySlug($_GET['categoria']):NULL);
- 
+        $categoria = $categoriaResult->getSlug();
+
       if(!preg_match('/categoria/', $path)){
         $generateParams = array();
         $generateParams['slug'] = $slug;
@@ -143,7 +200,7 @@ class SearchController extends Controller
         $url = $this->generateUrl('_buscar', $generateParams);
         $this->get('session')->setFlash('buscar_flash','Creemos que estas buscando una Categoria!, asi que te enviamos a esta!.<br/>Si quieres intentar tu busqueda y que no adivinemos, haz click aqui: <a href="'.$url.'">AAAAA</a>');
       }
-    }else{
+    }else if((!isset($_GET['o']) || $_GET['o'] != 'no')){
       if(isset($mappedSubCategorias[$term])){
         $termSlug = $mappedSubCategorias[$term];
         $categoria = $mappedSubCategorias[$term];
@@ -159,8 +216,11 @@ class SearchController extends Controller
         $termArray = array();
         $noCategorias = true;
 
+
         //Subcategoria pasa a ser condicion
         $_GET['subcategoria'] = $termSlug;
+        $subcategoriaResult = ((isset($_GET['subcategoria']))?$subcat_repo->findOneBySlug($_GET['subcategoria']):NULL);
+        $categoriaResult = $subcategoriaResult->getCategoria();
 
         //Categoria pasa a ser el termino buscado
         $termSlug = $esSubCategoria->getCategoria()->getSlug();
