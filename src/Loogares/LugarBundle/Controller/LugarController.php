@@ -1098,13 +1098,7 @@ class LugarController extends Controller{
         if($request->getMethod() == 'POST'){
             $newTagRecomendacion = array();
             $tag = array();
-            $paragraph = $fn->cleanInput($_POST['texto']);
-            
-            $paragraph = preg_split('/\n/', $paragraph);
-            foreach($paragraph as $key => $value){
-                $paragraph[$key] = "<p>$value</p>";
-            }
-            $recomendacion->setTexto(join($paragraph));
+            $recomendacion->setTexto($_POST['texto']);
 
             $recomendacion->setEstrellas($_POST['recomienda-estrellas']);
             $estado = $lr->getEstado(2);

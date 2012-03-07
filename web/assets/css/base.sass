@@ -186,6 +186,12 @@ body
         size: 13px
 
 /* Elementos generales del sitio */
+input[type=checkbox], input[type=radio]
+    border: none\9
+
+    &:hover
+        border: none\9
+
 
 /* Mensajes */
 
@@ -422,10 +428,9 @@ textarea
         .login
             color: $blanco
             float: right
-            *margin-right: 46px
             font:
                 size: 11px
-            width: 158px
+            width: 180px
 
             .usuario_login_entra
                 float: right
@@ -542,7 +547,8 @@ textarea
                 float: right
                 height: 15px
                 width: 48px
-                margin: 4px 0px 0px 20px
+                margin: 5px 0px 0px 20px
+                margin: 4px 0 0 20px\9
                                 
         .redes_sociales
             background: $gris_ccc
@@ -551,7 +557,8 @@ textarea
             font:
                 size: 12px
             height: 20px
-            padding: 4px 10px 1px
+            padding: 4px 9px 1px
+            padding: 4px 7px 1px\9
             width: 70px
             
             a
@@ -700,7 +707,8 @@ textarea
                     float: left
                     padding: 0px 5px
                     width: 190px
-                    *width: 181px
+                    width: 181px\9
+                    line-height: 30px\9
 
                     &:hover
                         border: 1px solid $gris_666
@@ -820,6 +828,9 @@ textarea
             margin: 0 0 40px 0
             position: relative
             width: 960px
+
+            input
+                line-height: 20px
 
             .columna_izquierda_registro
                 @include box-sizing
@@ -1473,6 +1484,7 @@ textarea
                         @include link_gris_999_hover
 
         .redes_listado
+            width: 350px
 
             li
                 float: right

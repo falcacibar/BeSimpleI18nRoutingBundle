@@ -575,7 +575,7 @@ function editarRecomendacion(lugar){
                                 .append(data)
                             $('[name="recomienda"]')
                                 .append('<input type="hidden" name="editando" value="1"/>')
-                                .append("<input type='button' value='cancelar' class='cancelar-recomienda'/>");
+                                .append("<a href='#' class='link_azul cancelar-recomienda'>Cancelar</a>");
                         }
                     })
                 });  

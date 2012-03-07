@@ -31,6 +31,9 @@ Loogares\UsuarioBundle\Entity\Usuario:
         password:
             type: string
             length: 40
+        sha1password:
+            type: string
+            length: 40
         slug:
             type: string
         mail:

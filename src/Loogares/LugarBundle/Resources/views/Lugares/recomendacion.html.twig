@@ -27,7 +27,7 @@
 	    	var error = false;
 	    	$('.errors').remove();
 	    	$('.input-error').removeClass('input-error');
-	    	if($('.texto').val().length < 250){
+	    	if($('.texto').val().length < 250 || $('.texto').val() == "{{'lugar.recomendacion.placeholders.textarea'|trans}}"){
 	    		error = true;
 	    		$('.texto').addClass('input-error');
 	    		$('.texto').parent().append("<small class='errors'>{{'lugar.recomendacion.error_recomendacion'|trans}}</small>");

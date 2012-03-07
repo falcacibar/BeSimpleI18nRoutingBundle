@@ -51,6 +51,11 @@ body {
   font-size: 13px; }
 
 /* Elementos generales del sitio */
+input[type=checkbox], input[type=radio] {
+  border: none\9; }
+  input[type=checkbox]:hover, input[type=radio]:hover {
+    border: none\9; }
+
 /* Mensajes */
 .mensaje_exito {
   border-radius: 8px;
@@ -275,9 +280,8 @@ textarea {
     .barra_ciudad .centrado_ciudad .login {
       color: white;
       float: right;
-      *margin-right: 46px;
       font-size: 11px;
-      width: 158px; }
+      width: 180px; }
       .barra_ciudad .centrado_ciudad .login .usuario_login_entra {
         float: right;
         margin: 6px 10px 0px 10px; }
@@ -376,14 +380,16 @@ textarea {
         float: right;
         height: 15px;
         width: 48px;
-        margin: 4px 0px 0px 20px; }
+        margin: 5px 0px 0px 20px;
+        margin: 4px 0 0 20px \9; }
     .barra_ciudad .centrado_ciudad .redes_sociales {
       background: #cccccc;
       float: right;
       margin-right: 2px;
       font-size: 12px;
       height: 20px;
-      padding: 4px 10px 1px;
+      padding: 4px 9px 1px;
+      padding: 4px 7px 1px \9;
       width: 70px; }
       .barra_ciudad .centrado_ciudad .redes_sociales a {
         color: #444444;
@@ -510,7 +516,8 @@ textarea {
           float: left;
           padding: 0px 5px;
           width: 190px;
-          *width: 181px; }
+          width: 181px \9;
+          line-height: 30px \9; }
           .menu .centrado_menu .buscador_box .buscar .buscador:hover {
             border: 1px solid #666666; }
           .menu .centrado_menu .buscador_box .buscar .buscador:focus {
@@ -614,6 +621,8 @@ textarea {
       width: 960px;
       /* Login Usuario */
       /* Registro Usuario */ }
+      .contenedor .contenido .cajas_registro input {
+        line-height: 20px; }
       .contenedor .contenido .cajas_registro .columna_izquierda_registro {
         box-sizing: border-box;
         -o-box-sizing: border-box;
@@ -1151,15 +1160,17 @@ textarea {
         .footer .contenido_footer .idioma_listado li a:hover {
           color: #999999;
           text-decoration: underline; }
-    .footer .contenido_footer .redes_listado li {
-      float: right;
-      margin: 0 0 0 10px; }
-      .footer .contenido_footer .redes_listado li a {
-        color: #999999;
-        text-decoration: none; }
-        .footer .contenido_footer .redes_listado li a:hover {
+    .footer .contenido_footer .redes_listado {
+      width: 350px; }
+      .footer .contenido_footer .redes_listado li {
+        float: right;
+        margin: 0 0 0 10px; }
+        .footer .contenido_footer .redes_listado li a {
           color: #999999;
-          text-decoration: underline; }
+          text-decoration: none; }
+          .footer .contenido_footer .redes_listado li a:hover {
+            color: #999999;
+            text-decoration: underline; }
 
 /* AGREGADO POR EL SUR */
 select {

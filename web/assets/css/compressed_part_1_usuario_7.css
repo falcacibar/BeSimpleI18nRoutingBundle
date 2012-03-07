@@ -374,7 +374,7 @@
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .day {
           float: left;
           margin: 6px 0;
-          width: 50px; }
+          width: 55px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .month {
           float: left;
           margin: 6px 6px;
@@ -384,10 +384,12 @@
           margin: 6px 0;
           width: 60px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li #form_mostrar_edad {
-          margin: 10px 0 0; }
+          margin: 10px 0 0;
+          margin: 4px 0 0 \9; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li #form_sexo {
           float: left;
           margin: 6px 0 0;
+          margin: 0 \9;
           width: 390px; }
           .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li #form_sexo input {
             float: left;
@@ -397,9 +399,11 @@
             float: left;
             font-weight: normal;
             margin: 0 20px 0 10px;
+            margin: 5px 20px 0 0 \9;
             width: auto; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .newsletter_checkbox {
-          margin: 12px 0 0; }
+          margin: 12px 0 0;
+          margin: 2px 0 0 \9; }
       .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul .enviar_datos_prefil {
         background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 0;
         border: 0px;

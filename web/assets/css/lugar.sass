@@ -1636,6 +1636,33 @@ $rojo: #F72121
     &:hover
         border-bottom: 1px solid $gris_999
 
+    .recomienda_lugar_caja
+        width: 570px
+        margin-bottom: 30px 
+
+        input
+            width: 380px
+
+        textarea
+            width: 375px
+
+        a
+            line-height: 65px
+            display: inline-block
+            height: 30px
+            margin-left: 5px
+
+        .enviar_recomendacion
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+            border: 0px
+            cursor: pointer
+            height: 30px
+            margin: 10px 0 0 170px
+            width: 100px
+
+            &:hover
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
+
     .foto_recomendacion
         float: left
         width: 60px
@@ -1916,6 +1943,11 @@ $rojo: #F72121
             float: left
             margin: 0 0 20px 0
             width: 640px
+
+            small.errors
+                margin: 5px 0 0 170px
+                display: block
+                float: left
 
             a
                 @include link_azul

@@ -138,7 +138,6 @@ class AjaxController extends Controller
             'imagenes' => $imagenesLugar,
             'paginacion' => $paginacion
         ));
-
     }
 
     public function recomendacionAction(){
