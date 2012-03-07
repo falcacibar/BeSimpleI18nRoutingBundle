@@ -20,6 +20,7 @@ login:
 
 login_check:
     pattern:   /login_check
+    defaults:  { _controller: LoogaresUsuarioBundle:Usuario:loginCheck }
 
 login_check_facebook:
     pattern:  /login_check_facebook

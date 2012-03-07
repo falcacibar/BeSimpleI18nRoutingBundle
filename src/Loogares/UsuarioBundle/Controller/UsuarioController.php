@@ -988,6 +988,10 @@ $comunaSeleccionada ='';
         ));
     }
 
+    public function loginCheck() {
+        echo $this->getRequest()->request->get('_password');
+    }
+
     public function loginCheckFacebookAction() {
         
     }
