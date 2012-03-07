@@ -750,7 +750,8 @@ $comunaSeleccionada ='';
                     $usuario->setFechaRegistro(new \DateTime());
 
                     // Password codificado en SHA2 (por ahora MD5 por compatibilidad)
-                    $usuario->setPassword(md5($usuario->getPassword()));                
+                    $usuario->setSha1password(1);
+                    $usuario->setPassword(sha1($usuario->getPassword()));               
 
                     // Usuario queda con el estado 'Por confirmar' y se genera hash confirmación
                     $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")

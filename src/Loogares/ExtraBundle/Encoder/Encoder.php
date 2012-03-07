@@ -16,17 +16,17 @@ class Encoder extends BasePasswordEncoder {
     public function encodePassword($raw, $salt){
         $mail = $salt;
         $ur = $this->em->getRepository("LoogaresUsuarioBundle:Usuario");
-        $user=$ur->findOneByMail($mail);
+        $usuario = $ur->findOneByMail($mail);
         
-        if($user->getSha1password() == null && $user->getPassword() == md5($raw)){      
-            $user->setSha1password(1);
-            $user->setPassword(sha1($raw));
-            $this->em->persist($user);
+        if($usuario->getSha1password() == null && $usuario->getPassword() == md5($raw)){      
+            $usuario->setSha1password(1);
+            $usuario->setPassword(sha1($raw));
+            $this->em->persist($usuario);
             $this->em->flush();
             return true;
         }
 
-        return $this->comparePasswords($user->getPassword(), sha1($raw));
+        return $this->comparePasswords($usuario->getPassword(), sha1($raw));
     }
 	
     public function isPasswordValid($encoded, $raw, $salt){
