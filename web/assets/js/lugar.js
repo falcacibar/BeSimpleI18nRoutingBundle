@@ -126,11 +126,6 @@ $(document).ready(function(){
                     $('.favoritos_lugar_icono').attr('data-hecho',data.accionesUsuario[3].hecho)
                     $('.recomendar_despues_lugar').attr('data-hecho',data.accionesUsuario[4].hecho)
 
-                    // Pop-up para recomendar
-                    if($this.attr('data-hecho') == "1" && ($this.hasClass('estuve_alla_lugar') || $this.hasClass('quiero_volver_lugar')) && $('.recomendar_despues_lugar').attr('data-hecho') == 0) {
-                        $(".fancybox").click();   
-                    }
-
                     // Se desactivan botones pertinentes
                     if(data.accionesUsuario[0].puede == 0) {
                         $('.quiero_ir_lugar').replaceWith("<p class='quiero_ir_lugar boton_desactivado' data-hecho=''></p>");
@@ -183,12 +178,6 @@ $(document).ready(function(){
         ejecutar_accion(dataObj, $this);
     });
 
-    $(".fancybox").fancybox({        
-        hideOnContentClick : false,
-        padding: 0,
-        showCloseButton: false         
-    });
-
     $('.pedido_fancybox').fancybox({
         hideOnContentClick : false,
         padding: 0,
@@ -206,32 +195,30 @@ $(document).ready(function(){
         e.preventDefault();
         if($('.recomienda_lugar_caja h3').offset().top != null)
             $('body').animate({'scrollTop': $('.recomienda_lugar_caja h3').offset().top - 20}, 200);
-        $.fancybox.close()
     });
     
     $('.recomendar_despues').click(function(e){
         e.preventDefault();
+        var $this = $(this);
         var boton = $('.recomendar_despues_lugar');
         if(boton.attr('data-hecho') == 0) {
             boton.click();
         }
-        $.fancybox.close()        
+        if ($this.parent().attr('class') == 'qtip_estuve_alla') {
+            $('.tooltip_estuve_alla').qtip('toggle',false)
+            $('.tooltip_quiero_volver').qtip('toggle',false)
+        }
     });
     
     $('.recomienda_lugar').click(function(e){
         e.preventDefault();
         if($('.recomienda_lugar_caja h3').offset() != null)
             $('body').animate({'scrollTop': $('.recomienda_lugar_caja h3').offset().top - 20}, 200);
-    }); 
+    });
+
     $('.cerrar-popup').click(function(e){
         e.preventDefault();
         $.fancybox.close()
-    });
-    
-    $('.not_logged').hover(function() {
-        var popup = $('.not_logged_acciones_popup')
-        popup.appendTo($(this));
-        popup.toggle();
     });
 
     $(".ver_video_lugar").fancybox({

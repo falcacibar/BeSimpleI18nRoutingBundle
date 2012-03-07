@@ -325,6 +325,13 @@
                 {% endif %}                
                 <p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>
+            <div>
+                {% if lugar.accionesUsuario.4.puede == 1 %}
+                    <a class="recomendar_despues_lugar boton_accion" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></a>
+                {% else %}
+                    <p class="recomendar_despues_lugar" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></p>
+                {% endif %}
+            </div>
         </div>
 
         <div class="caja_inferior_ficha"></div>
