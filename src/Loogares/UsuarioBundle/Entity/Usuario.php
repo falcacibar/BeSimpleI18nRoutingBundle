@@ -910,4 +910,29 @@ class Usuario implements AdvancedUserInterface, \Serializable
     {
         return $this->ciudad;
     }
+    /**
+     * @var string $sha1password
+     */
+    private $sha1password;
+
+
+    /**
+     * Set sha1password
+     *
+     * @param string $sha1password
+     */
+    public function setSha1password($sha1password)
+    {
+        $this->sha1password = $sha1password;
+    }
+
+    /**
+     * Get sha1password
+     *
+     * @return string 
+     */
+    public function getSha1password()
+    {
+        return $this->sha1password;
+    }
 }
