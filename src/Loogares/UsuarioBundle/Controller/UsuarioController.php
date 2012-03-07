@@ -955,13 +955,15 @@ $comunaSeleccionada ='';
 
     public function loginAction()
     {
+        $error=null;
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
         // Usuario loggeado es redirigido a su perfil
-        if($this->get('security.context')->isGranted('ROLE_USER'))
-            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
+        if($this->get('security.context')->isGranted('ROLE_USER')){
             
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
+        }
         $request = $this->getRequest();
         $session = $request->getSession();
         
@@ -980,7 +982,7 @@ $comunaSeleccionada ='';
             $formErrors['noActivo'] = 'usuario.errors.login.noActivo';
             
         $session->set(SecurityContext::AUTHENTICATION_ERROR, null);
-
+        
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
             'errors' => $formErrors,
