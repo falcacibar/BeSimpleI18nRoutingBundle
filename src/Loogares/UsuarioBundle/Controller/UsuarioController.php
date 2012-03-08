@@ -192,17 +192,17 @@ class UsuarioController extends Controller
         ));  
     }
 
-    public function lugaresAction($param, $accion = 3, $accionLugar = null) {
+    public function lugaresAction($param, $accionLugar = null) {
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
         $acciones = array(
-            'visitados' => 3,
-            'favoritos' => 4,
             'visitar' => 1,
             'volver' => 2,
+            'visitados' => 3,
+            'favoritos' => 4,
             'recomendar' => 5
         );
 
@@ -221,8 +221,6 @@ class UsuarioController extends Controller
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
 
-        $accion = (!$this->getRequest()->query->get('accion')) ? $accion : $this->getRequest()->query->get('accion');
-
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
         $ppag = 30;
         $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
@@ -239,7 +237,8 @@ class UsuarioController extends Controller
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
         $params = array(
-            'param' => $data->getSlug()
+            'param' => $data->getSlug(),
+            'accionLugar' => $accionLugar
         );
             
         $paginacion = $fn->paginacion($data->totalAcciones[$accion - 1], $ppag, 'lugaresUsuario', $params, $router );

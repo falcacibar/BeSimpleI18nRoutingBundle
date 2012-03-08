@@ -109,10 +109,10 @@ usuario:
 
     lugares:
         titulo:
-            1: Lugares visitados
-            2: Favoritos
-            3: Lugares para visitar
-            4: Lugares para volver
+            1: Lugares para visitar
+            2: Lugares para volver
+            3: Lugares visitados
+            4: Favoritos
             5: Lugares por recomendar
         orden:
             texto: Ordenar por:
