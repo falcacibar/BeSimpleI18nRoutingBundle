@@ -629,10 +629,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
      *
      * @return string 
      */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
+    public function getSalt(){ return $this->getMail();}
 
     /**
      * Set tipo_usuario

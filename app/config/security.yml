@@ -1,11 +1,9 @@
 security:
     factories:
         - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
-    encoders:        
+    encoders: 
         Loogares\UsuarioBundle\Entity\Usuario:
-            algorithm: md5
-            iterations: 1
-            encode_as_base64: false
+            id: sha1_login_encoder
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER

@@ -27,3 +27,4 @@ app/logs/*
 #Parametros
 app/config/parameters.ini
 
+/nbproject/private/

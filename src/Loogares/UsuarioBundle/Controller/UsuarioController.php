@@ -750,7 +750,8 @@ $comunaSeleccionada ='';
                     $usuario->setFechaRegistro(new \DateTime());
 
                     // Password codificado en SHA2 (por ahora MD5 por compatibilidad)
-                    $usuario->setPassword(md5($usuario->getPassword()));                
+                    $usuario->setSha1password(1);
+                    $usuario->setPassword(sha1($usuario->getPassword()));               
 
                     // Usuario queda con el estado 'Por confirmar' y se genera hash confirmación
                     $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
@@ -955,13 +956,15 @@ $comunaSeleccionada ='';
 
     public function loginAction()
     {
+        $error=null;
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
         // Usuario loggeado es redirigido a su perfil
-        if($this->get('security.context')->isGranted('ROLE_USER'))
-            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
+        if($this->get('security.context')->isGranted('ROLE_USER')){
             
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
+        }
         $request = $this->getRequest();
         $session = $request->getSession();
         
@@ -980,12 +983,16 @@ $comunaSeleccionada ='';
             $formErrors['noActivo'] = 'usuario.errors.login.noActivo';
             
         $session->set(SecurityContext::AUTHENTICATION_ERROR, null);
-
+        
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
             'errors' => $formErrors,
             'locale' => $this->get('session')->getLocale()
         ));
+    }
+
+    public function loginCheck() {
+        echo $this->getRequest()->request->get('_password');
     }
 
     public function loginCheckFacebookAction() {
