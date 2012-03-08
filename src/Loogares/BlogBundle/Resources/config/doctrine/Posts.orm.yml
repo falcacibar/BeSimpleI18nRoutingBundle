@@ -1,0 +1,31 @@
+Loogares\BlogBundle\Entity\Posts:
+    type: entity
+    table: posts
+    manyToOne:       
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:      
+        titulo:
+            type: string
+        slug:
+            type: string
+        imagen:
+            type: string
+        contenido:
+            type: text
+        preview:
+            type: string
+        fecha:
+            type: date
+        tipo:
+            type: string
+        condiciones:
+            type: text
+        ganadores:
+            type: text

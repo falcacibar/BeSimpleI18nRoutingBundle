@@ -629,6 +629,10 @@ textarea {
       .contenedor .contenido .cajas_registro input {
         line-height: 20px; }
       .contenedor .contenido .cajas_registro .columna_izquierda_registro {
+        box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
         background: #fafafc;
         border-bottom: 1px solid #cccccc;
         color: #666666;

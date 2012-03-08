@@ -1,5 +1,4 @@
 <?php
-
 namespace Loogares\UsuarioBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

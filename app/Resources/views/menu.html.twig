@@ -1,7 +1,7 @@
 <div class="menu_categorias">
 	<ul>
 		{% for menu in menu %}
-			<li><a href="">{{menu.tipo.nombre}}</a>
+			<li><span class="tipo_categoria">{{menu.tipo.nombre}}</span>
 				{% if menu.categorias|length <= 15 %}
 				<div class="cajas_menu">
 					<ul>

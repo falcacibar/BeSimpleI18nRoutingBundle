@@ -18,8 +18,8 @@ services:
         class: Loogares\ExtraBundle\Extension\LoogaresExtension
         tags:
             -  { name: twig.extension }
+
     sha1_login_encoder:
         class: Loogares\ExtraBundle\Encoder\Encoder
         arguments:
             em: "@doctrine.orm.default_entity_manager"  
-        

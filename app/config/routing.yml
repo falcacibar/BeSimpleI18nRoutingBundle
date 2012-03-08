@@ -1,3 +1,7 @@
+LoogaresBlogBundle:
+    resource: "@LoogaresBlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
 _imagine:
     resource: .
     type:     imagine
@@ -17,7 +21,7 @@ LoogaresAdminBundle:
 LoogaresExtraBundle:
     resource: "@LoogaresExtraBundle/Resources/config/routing.yml"
     prefix:   /
-    
+
 root:
     pattern:   /
     defaults:  { _controller: LoogaresExtraBundle:Default:homepage }

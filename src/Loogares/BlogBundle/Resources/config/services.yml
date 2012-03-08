@@ -1,0 +1,7 @@
+parameters:
+#    loogares_blog.example.class: Loogares\Bundle\BlogBundle\Example
+
+services:
+#    loogares_blog.example:
+#        class: %loogares_blog.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -631,8 +631,11 @@ textarea
                 float: left
                 list-style-type: none
                 position: relative
+
+                .tipo_categoria
+                    cursor: none
                             
-                a
+                a, .tipo_categoria
                     border-left: 1px solid $gris_ccc
                     border-right: 1px solid $blanco
                     color: $gris_444
@@ -652,8 +655,7 @@ textarea
                         z-index: 20
                 
                 .cajas_menu.dos_columnas
-                    width: 450px
-                    *width: 500px
+                    width: 500px
 
                 .cajas_menu
                     background: $blanco
@@ -681,6 +683,7 @@ textarea
                                 height: 20px
                                 padding: 9px 6px 1px
                                 width: 238px
+                                cursor: default
 
                                 &:hover
                                     background: $gris_f6f
@@ -843,7 +846,6 @@ textarea
                 color: $gris_666
                 height: 100%
                 *height: 270px
-                float: left
                 margin: 0 14px 0 0
                 padding: 30px 20px 60px
                 *padding: 30px 20px 0

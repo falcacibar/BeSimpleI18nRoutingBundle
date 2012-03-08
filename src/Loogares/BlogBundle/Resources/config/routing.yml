@@ -1,0 +1,7 @@
+post:
+    pattern:  /blog/{slug}
+    defaults: { _controller: LoogaresBlogBundle:Default:post }
+
+blog:
+    pattern:  /blog
+    defaults: { _controller: LoogaresBlogBundle:Default:index }

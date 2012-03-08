@@ -1,0 +1,390 @@
+/* Colores */
+/* Mixin */
+/* CSS Administrador */
+.header_admin {
+  background: #fafafc;
+  border-bottom: 1px solid #f2f2f6;
+  height: 75px;
+  margin: 0 0 20px; }
+  .header_admin span {
+    background: white;
+    float: left;
+    margin: 0 auto;
+    padding: 5px 20px 5px 0;
+    text-align: center;
+    width: 100px; }
+
+.contenedor_admin {
+  margin: 0 auto;
+  width: 960px; }
+  .contenedor_admin .menu_admin {
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 40px 0;
+    width: 960px; }
+    .contenedor_admin .menu_admin a {
+      color: #666666;
+      text-decoration: none;
+      float: left;
+      width: 760px; }
+      .contenedor_admin .menu_admin a:hover {
+        color: #666666;
+        text-decoration: underline; }
+    .contenedor_admin .menu_admin input {
+      background: #66ccff;
+      border: 1px solid #0099ff;
+      color: white;
+      margin: 0 3px;
+      width: 100px; }
+      .contenedor_admin .menu_admin input:hover {
+        background: #0099ff; }
+      .contenedor_admin .menu_admin input:focus {
+        background: #0066cc; }
+  .contenedor_admin .submenu_admin {
+    float: left;
+    margin: 0 0 30px;
+    width: 960; }
+    .contenedor_admin .submenu_admin li {
+      border-bottom: 1px dotted #f2f2f6;
+      display: block;
+      float: left;
+      padding: 10px 0;
+      width: 960px; }
+      .contenedor_admin .submenu_admin li .totales {
+        color: #cccccc;
+        float: left;
+        font-style: italic;
+        text-align: right;
+        width: 200px; }
+      .contenedor_admin .submenu_admin li .totales_azul {
+        color: #66ccff;
+        float: left;
+        font-style: italic;
+        font-weight: bold;
+        text-align: right;
+        width: 200px; }
+      .contenedor_admin .submenu_admin li .totales_rojo {
+        color: #ff8a8a;
+        float: left;
+        font-style: italic;
+        text-align: right;
+        width: 200px; }
+
+.selecciona_zona_admin {
+  float: left;
+  font-size: 14px;
+  margin: 3px 10px 0 0;
+  width: 200px; }
+
+.titulo_admin {
+  font-size: 24px;
+  margin: 0 0 30px 0; }
+
+.filtro_admin {
+  display: block;
+  float: left;
+  font-size: 11px;
+  margin: 0 0 30px 0;
+  width: 960px; }
+  .filtro_admin .periodo {
+    display: block;
+    float: left;
+    width: 312px; }
+    .filtro_admin .periodo input.periodo_fecha {
+      font-size: 10px;
+      margin: 0 3px;
+      padding: 5px 8px;
+      width: 80px; }
+  .filtro_admin .buscar {
+    display: block;
+    float: left;
+    margin: 0 0 0 10px;
+    width: 208px; }
+    .filtro_admin .buscar input.buscar_lugar {
+      font-size: 10px;
+      margin: 0 3px;
+      padding: 5px 8px;
+      width: 145px; }
+  .filtro_admin .seleccionar_estado {
+    float: left;
+    margin: 0 0 0 10px;
+    width: 415px; }
+    .filtro_admin .seleccionar_estado select {
+      margin: 3px 0px 3px 3px;
+      width: 100px; }
+    .filtro_admin .seleccionar_estado input {
+      background: #66ccff;
+      border: 1px solid #0099ff;
+      color: white;
+      margin: 0 3px;
+      width: 60px; }
+      .filtro_admin .seleccionar_estado input:hover {
+        background: #0099ff; }
+      .filtro_admin .seleccionar_estado input:focus {
+        background: #0066cc; }
+    .filtro_admin .seleccionar_estado a {
+      color: #0066cc;
+      text-decoration: none; }
+      .filtro_admin .seleccionar_estado a:hover {
+        color: #0066cc;
+        text-decoration: underline; }
+  .filtro_admin .agregar_pedido {
+    background: #66ccff;
+    border: 1px solid #0099ff;
+    color: white;
+    cursor: pointer;
+    float: right;
+    margin: 2px 0;
+    padding: 3px 3px 4px;
+    text-align: center;
+    text-decoration: none;
+    width: 80px; }
+    .filtro_admin .agregar_pedido:hover {
+      background: #0099ff; }
+    .filtro_admin .agregar_pedido:focus {
+      background: #0066cc; }
+
+.listado_admin {
+  border: 1px solid #cccccc;
+  float: left;
+  width: 960px; }
+  .listado_admin a {
+    color: #0066cc;
+    text-decoration: none; }
+    .listado_admin a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
+  .listado_admin .table-data {
+    overflow: scroll;
+    position: relative; }
+    .listado_admin .table-data .listado_lugares {
+      font-size: 12px;
+      text-align: left;
+      width: 4000px; }
+    .listado_admin .table-data .listado_usuarios {
+      font-size: 12px;
+      text-align: left;
+      width: 3200px; }
+    .listado_admin .table-data .listado_fotos {
+      font-size: 12px;
+      text-align: left;
+      width: 1000px; }
+    .listado_admin .table-data .listado_recomendaciones {
+      font-size: 12px;
+      text-align: left;
+      width: 1850px; }
+    .listado_admin .table-data .listado_pedidos {
+      font-size: 12px;
+      text-align: left;
+      width: 1400px; }
+    .listado_admin .table-data .tablescroll_head {
+      background: #f2f2f6; }
+    .listado_admin .table-data th {
+      border-bottom: 1px solid #f2f2f6; }
+    .listado_admin .table-data th, .listado_admin .table-data td {
+      border-right: 1px solid #cccccc;
+      word-break: break-all; }
+    .listado_admin .table-data td {
+      padding: 8px 0; }
+      .listado_admin .table-data td span {
+        display: block;
+        margin: 0 5px; }
+    .listado_admin .table-data th {
+      padding: 8px 0; }
+      .listado_admin .table-data th span {
+        display: block;
+        margin: 0 5px; }
+    .listado_admin .table-data tr:nth-child(even) {
+      background: #fafafc; }
+    .listado_admin .table-data .lugar_checkbox {
+      text-align: center;
+      width: 20px !important; }
+    .listado_admin .table-data .lugar_id {
+      text-align: center;
+      width: 60px !important; }
+    .listado_admin .table-data .lugar_nombre {
+      width: 200px !important; }
+    .listado_admin .table-data .lugar_usuario {
+      width: 200px !important; }
+    .listado_admin .table-data .lugar_categoria {
+      width: 200px !important; }
+    .listado_admin .table-data .lugar_subcategoria {
+      width: 200px !important; }
+    .listado_admin .table-data .lugar_direccion {
+      width: 200px !important; }
+    .listado_admin .table-data .lugar_detalle {
+      width: 150px !important; }
+    .listado_admin .table-data .lugar_comuna {
+      width: 150px !important; }
+    .listado_admin .table-data .lugar_sector {
+      width: 150px !important; }
+    .listado_admin .table-data .lugar_recomendaciones {
+      text-align: center;
+      width: 160px !important; }
+    .listado_admin .table-data .lugar_estrellas {
+      text-align: center;
+      width: 100px !important; }
+    .listado_admin .table-data .lugar_utiles {
+      text-align: center;
+      width: 100px !important; }
+    .listado_admin .table-data .lugar_precio {
+      text-align: center;
+      width: 100px !important; }
+    .listado_admin .table-data .lugar_ranking {
+      text-align: center;
+      width: 100px !important; }
+    .listado_admin .table-data .lugar_imagenes {
+      text-align: center;
+      width: 120px !important; }
+    .listado_admin .table-data .lugar_caracteristicas {
+      width: 200px !important; }
+    .listado_admin .table-data .lugar_sitio_web {
+      width: 250px !important; }
+    .listado_admin .table-data .lugar_facebook {
+      width: 250px !important; }
+    .listado_admin .table-data .lugar_twitter {
+      width: 250px !important; }
+    .listado_admin .table-data .lugar_e_mail {
+      width: 250px !important; }
+    .listado_admin .table-data .lugar_dueno {
+      width: 100px !important; }
+    .listado_admin .table-data .lugar_estado {
+      width: 100px !important; }
+    .listado_admin .table-data .lugar_tipo {
+      width: 100px !important; }
+    .listado_admin .table-data .lugar_acciones {
+      text-align: center;
+      width: 80px !important; }
+    .listado_admin .table-data .foto_preview {
+      text-align: center;
+      width: 60px !important; }
+    .listado_admin .table-data .foto_link {
+      width: 200px !important; }
+    .listado_admin .table-data .foto_fecha {
+      text-align: center;
+      width: 60px !important; }
+    .listado_admin .table-data .usuario_fecha {
+      text-align: center;
+      width: 120px !important; }
+    .listado_admin .table-data .usuario_sexo {
+      text-align: center;
+      width: 80px !important; }
+    .listado_admin .table-data .usuario_agregados {
+      text-align: center;
+      width: 200px !important; }
+    .listado_admin .table-data .recomendacion_textos {
+      width: 450px !important; }
+    .listado_admin .table-data .recomendacion_tags {
+      width: 300px !important; }
+    .listado_admin .table-data .titulos_tabla {
+      float: left; }
+    .listado_admin .table-data .list-actions {
+      float: left;
+      font-size: 10px;
+      font-weight: 100;
+      display: inline-block;
+      margin: 0 0 0 5px; }
+      .listado_admin .table-data .list-actions span {
+        cursor: pointer;
+        color: #cccccc; }
+      .listado_admin .table-data .list-actions a, .listado_admin .table-data .list-actions a:visited {
+        color: #cccccc;
+        text-decoration: none; }
+    .listado_admin .table-data .active-sort, .listado_admin .table-data .list-actions a:active {
+      color: #333333 !important; }
+
+.seleccion_masiva {
+  float: left;
+  font-size: 11px;
+  margin: 30px 0 0;
+  width: 960px; }
+  .seleccion_masiva a {
+    color: #0066cc;
+    text-decoration: none; }
+    .seleccion_masiva a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
+  .seleccion_masiva input {
+    background: #66ccff;
+    border: 1px solid #0099ff;
+    color: white;
+    margin: 0 5px;
+    width: 85px; }
+    .seleccion_masiva input:hover {
+      background: #0099ff; }
+    .seleccion_masiva input:focus {
+      background: #0066cc; }
+  .seleccion_masiva select {
+    margin: 0 5px; }
+
+.total_paginacion {
+  border-bottom: 1px solid #f2f2f6;
+  border-top: 1px solid #f2f2f6;
+  color: #666666;
+  display: block;
+  float: left;
+  font-size: 12px;
+  margin: 30px 0 30px;
+  padding: 13px 0 12px;
+  width: 370px; }
+  .total_paginacion input {
+    margin: 0px;
+    padding: 3px 0;
+    width: 60px; }
+  .total_paginacion .ir_a_la_pagina {
+    background: #66ccff;
+    border: 1px solid #0099ff;
+    color: white;
+    margin: 0 3px;
+    width: 40px; }
+    .total_paginacion .ir_a_la_pagina:hover {
+      background: #0099ff; }
+    .total_paginacion .ir_a_la_pagina:focus {
+      background: #0066cc; }
+
+.paginacion {
+  border-bottom: 1px solid #f2f2f6;
+  border-top: 1px solid #f2f2f6;
+  color: #666666;
+  display: block;
+  float: left;
+  font-size: 12px;
+  margin: 30px 0 30px;
+  padding: 15px 0 14px 0;
+  width: 590px; }
+  .paginacion p {
+    float: left;
+    display: block;
+    margin: 2px 0 0; }
+  .paginacion li {
+    border: 1px solid #cccccc;
+    float: left;
+    height: 5px;
+    margin: 0 0 0 2px;
+    padding: 2px 5px 8px; }
+    .paginacion li a {
+      color: #666666;
+      text-decoration: none; }
+  .paginacion .pagina-actual {
+    background: #0066cc;
+    border: 1px solid #0066cc;
+    float: left;
+    height: 5px;
+    margin: 0 0 0 2px;
+    padding: 2px 5px 8px; }
+    .paginacion .pagina-actual a {
+      color: white;
+      text-decoration: none; }
+
+.footer_admin {
+  background: #fafafc;
+  border-top: 1px solid #f2f2f6;
+  color: #999999;
+  float: left;
+  font-size: 11px;
+  margin: 30px 0 0;
+  text-align: center;
+  padding: 50px 0;
+  width: 960px; }

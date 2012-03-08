@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{parent()}} | {{post.titulo}}{% endblock %}
+
+{% block content %}
+<div class="post">
+	<div class="post_contenido">
+		<div class="post_header">
+			<h1>{{post.titulo}}<h1>
+			<p class="metadata">Escrito Por: {{post.usuario.nombre}} en {{post.fecha | date('y-m-d')}}</p>
+		</div>
+		
+		(imagen) <br/>
+
+		{{post.contenido | raw }}<br/>
+	</div>
+
+	<div class="condiciones">
+		<div class="sombra"></div>
+		{{post.condiciones | raw }}
+	</div>
+
+	<div class="como_participar">
+		<p><strong>¿Cómo participar?</strong></p>
+		<p>Premiaremos a los Loogareños que escriban las mejores recomendaciones durante el diá de hoy martes 6 de marzo y sobre cualquier lugar que esté en Loogares.com y al cual efectivamente hayan ido (tanto de Santiago como de Valparaáso y/o Viña del Mar).
+		Mientras más recomendaciones hagan, más posibilidades tienen de ganar.</p>
+
+		<p><strong>¿Guías para participar:</strong></p>
+		<ol>
+			<li>Los Loogareños con foto de perfil tienen más posibilidades de ganar.</li>
+			<li>No entrarán en el sorteo aquellas recomendaciones que no estén basadas en hechos reales, experiencias personales del autor, o que no tengan relación con el lugar que se está recomendando.</li>
+		</ol>
+	</div>
+</div>
+{% endblock %}

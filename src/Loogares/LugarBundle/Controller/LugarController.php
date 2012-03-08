@@ -55,10 +55,7 @@ class LugarController extends Controller{
                 
                 $lugarResult = $lr->getLugares($slug);
 
-                //Id del Lugar
-                if(!isset($lugarResult[0])){
-                    return $this->render(':erroresHTTP:404.html.twig');   
-                }
+            
 
                 $visitas = $lugarResult[0]->getVisitas();
                 $visitas++;

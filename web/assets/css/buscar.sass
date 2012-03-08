@@ -144,6 +144,8 @@ $rojo: #F72121
 .filtros_subcategorias, .filtros_zonas, .filtros_precios, .filtros_caracteristicas, .filtros_categorias
 	color: #666
 	display: inline-block
+	*zoom: 1
+	*display: inline
 	height: 185px
 	overflow: hidden
 	text-shadow: 0 1px 0 $blanco
@@ -153,6 +155,8 @@ $rojo: #F72121
 
 		li
 			display: inline-block
+			*zoom: 1
+			*display: inline
 			margin: 0 10px 14px 0
 			vertical-align: middle
 			width: 155px
@@ -167,6 +171,7 @@ $rojo: #F72121
 		padding: 0 10px
 
 	.filtros_titulo
+		float: left
 
 	.ver_mas
 		float: right
@@ -174,7 +179,6 @@ $rojo: #F72121
 		.filtros_expandir
 			border-left: 1px #ccc solid
 			cursor: pointer
-			float: left
 			-webkit-touch-callout: none
 			-webkit-user-select: none
 			-khtml-user-select: none
@@ -184,6 +188,7 @@ $rojo: #F72121
 			user-select: none
 			padding: 0 10px
 			width: 69px
+			float: right
 
 		.filtros_ver_mas_icono
 			background: url('../images/extras/botones_sprite.png') -107px 0
