@@ -18,6 +18,13 @@ services:
         class: Loogares\ExtraBundle\Extension\LoogaresExtension
         tags:
             -  { name: twig.extension }
+
+    controllers.action_listener:
+        class: Loogares\ExtraBundle\EventListener\BeforeControllerListener
+        arguments: [@service_container, @doctrine.orm.default_entity_manager]
+        tags:
+            -  { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+            
     sha1_login_encoder:
         class: Loogares\ExtraBundle\Encoder\Encoder
         arguments:
