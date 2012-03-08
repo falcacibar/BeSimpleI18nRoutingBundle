@@ -15,6 +15,7 @@ src/Loogares/UsuarioBundle/Entity/*
 !src/Loogares/UsuarioBundle/Entity/Usuario.php
 src/Loogares/ExtraBundle/Entity/*
 src/Loogares/AdminBundle/Entity/*
+src/Loogares/BlogBundle/Entity/*
 
 #Imagenes
 web/assets/images/*
