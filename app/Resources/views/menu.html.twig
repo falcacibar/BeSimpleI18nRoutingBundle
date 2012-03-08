@@ -2,14 +2,16 @@
 	<ul>
 		{% for menu in menu %}
 			<li><a href="">{{menu.tipo.nombre}}</a>
-				<div class="cajas_menu">
 				{% if menu.categorias|length <= 15 %}
+				<div class="cajas_menu">
 					<ul>
 					{% for categoria in menu.categorias %}
 						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
 					{% endfor %}
 					</ul>
-				{% elseif menu.categorias|length >= 16 and menu.categorias|length <= 19 %}			
+				</div>
+				{% elseif menu.categorias|length >= 16 and menu.categorias|length <= 19 %}		
+				<div class="cajas_menu dos_columnas">	
 					<ul>
 					{% for categoria in menu.categorias %}
 						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
@@ -18,7 +20,9 @@
 						{% endif %}
 					{% endfor %}
 					</ul>
+				</div>
 				{% elseif menu.categorias|length > 15 %}
+				<div class="cajas_menu dos_columnas">
 					<ul>
 					{% for categoria in menu.categorias %}
 						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
@@ -27,8 +31,8 @@
 						{% endif %}
 					{% endfor %}
 					</ul>
-				{% endif %}
 				</div>
+				{% endif %}
 			</li>
 		{% endfor %}
 	</ul>

@@ -928,6 +928,9 @@ textarea {
             color: #444444;
             padding: 11px 6px 18px 5px;
             z-index: 20; }
+        .menu .centrado_menu .menu_categorias li .cajas_menu.dos_columnas {
+          width: 450px;
+          *width: 500px; }
         .menu .centrado_menu .menu_categorias li .cajas_menu {
           background: white;
           border-bottom: 1px solid #cccccc;
