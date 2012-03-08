@@ -17,6 +17,8 @@ Loogares\BlogBundle\Entity\Posts:
             type: string
         imagen:
             type: string
+        imagen_detalle:
+            type: string
         contenido:
             type: text
         preview:
@@ -27,5 +29,5 @@ Loogares\BlogBundle\Entity\Posts:
             type: string
         condiciones:
             type: text
-        ganadores:
+        detalles:
             type: text

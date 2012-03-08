@@ -1670,7 +1670,8 @@ small {
 .post {
   width: 640px;
   color: #666666;
-  line-height: 20px; }
+  line-height: 20px;
+  float: left; }
   .post p {
     margin: 18px 0; }
   .post h1 {
@@ -1685,25 +1686,50 @@ small {
       font-size: 10px;
       margin: 10px 0 20px;
       color: #aaaaaa; }
-  .post .condiciones, .post .como_participar {
+  .post .condiciones, .post .detalles {
     margin-top: 5px;
-    padding: 10px 20px;
-    border: 1px solid #eeeef3;
-    border-top: none; }
-  .post .condiciones {
+    padding: 20px;
+    border: 1px solid #eeeef3; }
+  .post .detalles {
     font-size: 14px; }
-    .post .condiciones .condiciones_titulo {
+    .post .detalles .detalles_titulo {
       font-weight: bold;
       color: #7ec9ff;
       font-size: 16px; }
-    .post .condiciones .condiciones_finaliza {
+    .post .detalles .detalles_finaliza {
       color: #888888;
       font-weight: bold; }
-  .post .como_participar ol {
+    .post .detalles .detalles_contenido {
+      padding-left: 170px; }
+    .post .detalles .detalles_foto {
+      height: 150px;
+      width: 150px;
+      background: #333333;
+      display: block;
+      float: left;
+      margin-top: 10px; }
+  .post .condiciones ol {
     list-style: decimal;
     padding-left: 20px; }
-    .post .como_participar ol li {
+    .post .condiciones ol li {
       margin-top: 10px; }
+
+.sidebar h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 16px; }
+.sidebar .imagen_blog {
+  width: 300px;
+  height: 400px;
+  display: block;
+  background: #333333;
+  margin-bottom: 10px; }
+.sidebar .gads {
+  width: 300px;
+  height: 250px;
+  display: block;
+  background: #333333;
+  margin-bottom: 10px; }
 
 /* Colores */
 /* Mixin */

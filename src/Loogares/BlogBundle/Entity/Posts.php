@@ -299,4 +299,54 @@ class Posts
     {
         return $this->condiciones;
     }
+    /**
+     * @var text $detalles
+     */
+    private $detalles;
+
+
+    /**
+     * Set detalles
+     *
+     * @param text $detalles
+     */
+    public function setDetalles($detalles)
+    {
+        $this->detalles = $detalles;
+    }
+
+    /**
+     * Get detalles
+     *
+     * @return text 
+     */
+    public function getDetalles()
+    {
+        return $this->detalles;
+    }
+    /**
+     * @var string $imagen_detalle
+     */
+    private $imagen_detalle;
+
+
+    /**
+     * Set imagen_detalle
+     *
+     * @param string $imagenDetalle
+     */
+    public function setImagenDetalle($imagenDetalle)
+    {
+        $this->imagen_detalle = $imagenDetalle;
+    }
+
+    /**
+     * Get imagen_detalle
+     *
+     * @return string 
+     */
+    public function getImagenDetalle()
+    {
+        return $this->imagen_detalle;
+    }
 }
