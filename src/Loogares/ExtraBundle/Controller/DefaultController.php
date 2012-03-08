@@ -65,33 +65,21 @@ class DefaultController extends Controller
         return $this->render('::ciudad.html.twig', array('ciudades' => $data));
     }
 
-    public function localeAction($slug, $start=null) {
-        $em = $this->getDoctrine()->getEntityManager();
-        if((!$this->get('session')->get('ciudad') && $start) || !$start ) {            
-            $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
-            $ciudad = $cr->findOneBySlug($slug);
+    public function localeAction($slug) {
+        $em = $this->getDoctrine()->getEntityManager();        
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $ciudad = $cr->findOneBySlug($slug);
 
-            // Seteamos el locale correspondiente a la ciudad en la sesión
-            $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+        // Seteamos el locale correspondiente a la ciudad en la sesión
+        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
 
-            $ciudadArray = array();
-            $ciudadArray['id'] = $ciudad->getId();
-            $ciudadArray['nombre'] = $ciudad->getNombre();
-            $ciudadArray['slug'] = $ciudad->getSlug();
+        $ciudadArray = array();
+        $ciudadArray['id'] = $ciudad->getId();
+        $ciudadArray['nombre'] = $ciudad->getNombre();
+        $ciudadArray['slug'] = $ciudad->getSlug();
 
-            $this->get('session')->set('ciudad',$ciudadArray);
-        }
-        
-        // Si usuario está loggeado, significa que tuvo actividad
-        if($this->get('security.context')->isGranted('ROLE_USER')) {
-            $usuario = $this->get('security.context')->getToken()->getUser();
-            $usuario->setFechaUltimaActividad(new \DateTime());
-            $em->flush();
-        }
+        $this->get('session')->set('ciudad',$ciudadArray);
 
-        if($start) {
-            return new Response('');
-        }
         // Redirección a vista de login 
         return $this->redirect($this->generateUrl('root'));
     }
@@ -116,18 +104,6 @@ class DefaultController extends Controller
         $totalRecomendaciones = $rr->getTotalRecomendaciones();
 
         $ciudad = $this->get('session')->get('ciudad');
-
-        // Cuando entramos al home por primera vez, sesión no existe. Por default, dejamos Santiago de Chile
-        if(!isset($ciudad)) {
-            $cir = $em->getRepository("LoogaresExtraBundle:Ciudad");
-            $ciudad = $cir->find(1);
-            $ciudadArray = array();
-            $ciudadArray['id'] = $ciudad->getId();
-            $ciudadArray['nombre'] = $ciudad->getNombre();
-            $ciudadArray['slug'] = $ciudad->getSlug();
-            $this->get('session')->set('ciudad',$ciudadArray);
-            $ciudad = $this->get('session')->get('ciudad');
-        }
 
         // Top Five de tres categorías
         $categorias = array();
