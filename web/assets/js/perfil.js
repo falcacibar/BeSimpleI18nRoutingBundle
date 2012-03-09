@@ -80,6 +80,16 @@ $(function(){
         });
 	});
 
+	$('a.reload_link').live('click', function(){
+		$.ajax({
+            url: $(this).attr('href'),
+            type: 'get',
+            success: function(data){
+            	$('.caja_contenido').html($(data).fadeIn('fast'));
+            }
+        });
+	});
+
 	// Esto es hasta que encuentre una forma de desplegar nombres en vez de números
 	$('select.month option').each(function(){
 		if($(this).val() == '1')
