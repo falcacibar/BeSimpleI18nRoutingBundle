@@ -3,7 +3,7 @@
 {% block title %}{{parent()}} | {{post.titulo}}{% endblock %}
 
 {% block content %}
-<div class="post">
+<div class="post" style="border-top-color: #{{post.tipoPost.hex}}}">
 	<div class="post_contenido">
 		<div class="post_header">
 			<h1>{{post.titulo}}<h1>
@@ -13,12 +13,24 @@
 		(imagen) <br/>
 
 		{{post.contenido | raw }}<br/>
+		<div class="colaborador_post_lugar">
+			<div class="colaborador_foto_lugar"></div>
+			<div class="colaborador_texto_lugar"><h3>Titulo</h3>asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd </div>
+		</div>
 	</div>
 
 	<div class="detalles">
 		<div class="detalles_foto">		
-			{% if post.tipo == 'beneficio-exclusivo' %}
-				Social stuff
+			{% if post.tipoPost.slug == 'beneficio-exclusivo' %}
+				{% if post.lugar.facebook != '' %}
+					<a class="facebook_lugar" href="http://{{ post.lugar.facebook }}" target="_blank"></a>
+				{% endif %}
+				{% if post.lugar.twitter != '' %}
+					<a class="twitter_lugar" href="http://{{ post.lugar.twitter }}" target="_blank"></a>
+				{% endif %}
+				{% if post.lugar.sitioWeb != '' %}
+					<a href="http://{{post.lugar.sitioWeb}}" target="_blank">{{post.lugar.sitioWeb}}</a>
+				{% endif %}
 			{% endif %}
 		</div>
 
@@ -36,7 +48,7 @@
 	<div class="gads"></div>
 	<div class="social_sidebar">Loogares social stuff</div>
 	<div class="anteriores">
-		<h2>Anteriores {{post.tipo}}:</h2>
+		<h2>Anteriores {{post.tipoPost.nombre}}:</h2>
 		<ul>
 		{% for anterior in anteriores %}
 			<li><p>{{anterior.titulo}}</p></li>

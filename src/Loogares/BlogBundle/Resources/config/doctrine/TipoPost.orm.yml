@@ -1,0 +1,14 @@
+Loogares\BlogBundle\Entity\TipoPost:
+    type: entity
+    table: tipo_post
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:      
+        nombre:
+            type: string
+        slug:
+            type: string
+        hex:
+            type: string

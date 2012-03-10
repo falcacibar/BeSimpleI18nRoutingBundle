@@ -81,10 +81,6 @@
     target=imagine
     version=v0.2.0
 
-[AvalancheImagineBundle]
-    git=http://github.com/avalanche123/AvalancheImagineBundle.git
-    target=/bundles/Avalanche/Bundle/ImagineBundle
-
 [gedmo-doctrine-extensions]
     git=http://github.com/l3pp4rd/DoctrineExtensions.git
     version=v2.1.0

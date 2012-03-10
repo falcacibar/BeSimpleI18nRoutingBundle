@@ -349,4 +349,29 @@ class Posts
     {
         return $this->imagen_detalle;
     }
+    /**
+     * @var Loogares\BlogBundle\Entity\TipoPost
+     */
+    private $tipo_post;
+
+
+    /**
+     * Set tipo_post
+     *
+     * @param Loogares\BlogBundle\Entity\TipoPost $tipoPost
+     */
+    public function setTipoPost(\Loogares\BlogBundle\Entity\TipoPost $tipoPost)
+    {
+        $this->tipo_post = $tipoPost;
+    }
+
+    /**
+     * Get tipo_post
+     *
+     * @return Loogares\BlogBundle\Entity\TipoPost 
+     */
+    public function getTipoPost()
+    {
+        return $this->tipo_post;
+    }
 }

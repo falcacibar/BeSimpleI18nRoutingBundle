@@ -4,3 +4,7 @@
 [submodule "vendor/bundles/Stof/DoctrineExtensionsBundle"]
 	path = vendor/bundles/Stof/DoctrineExtensionsBundle
 	url = git://github.com/stof/StofDoctrineExtensionsBundle.git
+[submodule "vendor/bundles/Avalanche/Bundle/ImagineBundle"]
+	path = vendor/bundles/Avalanche/Bundle/ImagineBundle.git
+    url = git://github.com//avalanche123/Imagine.git
+    version = v0.2.0
