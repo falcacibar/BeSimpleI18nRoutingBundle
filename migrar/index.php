@@ -167,6 +167,9 @@ include('check_migration.php');
             <?php echo ($migratedTables['tipo_usuario'] == 1) ? "<span class='migrated'>tipo_usuario</span>" : "<a href='tipo_usuario.php'>tipo_usuario</a>" ?>
         </li>
         <li>
+            <?php echo ($migratedTables['acciones'] == 1 && $migratedTables['acciones_usuario'] == 1) ? "<span class='migrated'>acciones</span>" : "<a href='acciones.php'>acciones</a>" ?>
+        </li>
+        <li>
             <?php echo ($migratedTables['recomendaciones'] == 1) ? "<span class='migrated'>recomendaciones</span>" : "<a href='recomendaciones.php'>recomendaciones</a>" ?>
         </li>
         <li>
