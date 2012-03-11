@@ -593,9 +593,15 @@ class UsuarioController extends Controller
         // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST') {
 
-            // Verificación de password actual
-            if(md5($request->request->get('passwordActual')) != $usuarioResult->getPassword()) {
-                $formErrors['actual'] = "usuario.errors.editar.password.actual";        
+            if($usuarioResult->getSha1password() == 0){
+                // Verificación de password actual
+                if(md5($request->request->get('passwordActual')) != $usuarioResult->getPassword()) {
+                    $formErrors['actual'] = "usuario.errors.editar.password.actual";        
+                }
+            }else{
+                  if(sha1($request->request->get('passwordActual')) != $usuarioResult->getPassword()) {
+                    $formErrors['actual'] = "usuario.errors.editar.password.actual";        
+                }              
             }
 
             $form->bindRequest($request);           
@@ -610,7 +616,8 @@ class UsuarioController extends Controller
                 // Input correcto. Se guarda nuevo password
                 else{
                     // Encode de password a MD5 (SHA2 más adelante)
-                    $usuarioResult->setPassword(md5($usuarioResult->getPassword()));
+                    $usuarioResult->setPassword(sha1($usuarioResult->getPassword()));
+                    $usuarioResult->setSha1password(1);
                     $em->flush();
 
                     // Mensaje de éxito en la edición
@@ -967,7 +974,8 @@ class UsuarioController extends Controller
                     $formErrors['confirmar_incorrecto'] = 'usuario.errors.validacion.confirmar_password';
                 else {
                     // Todo ok. Guardamos nuevo password encoded MD5 (SHA2 más adelante)
-                    $usuario->setPassword(md5($request->request->get('nuevo')));
+                    $usuario->setPassword(sha1($request->request->get('nuevo')));
+                    $usuario->setSha1password(1);
                     $em->flush();
 
                     // Usuario inicia sesión automáticamente

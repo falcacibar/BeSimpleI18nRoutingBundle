@@ -2669,8 +2669,8 @@ small {
     width: 948px; }
     .loogarenos_conectados .loogarenos_conectado_ahora li {
       float: left;
-      margin: 0 5px;
-      width: 180px; }
+      margin: 10px 5px;
+      width: 179px; }
       .loogarenos_conectados .loogarenos_conectado_ahora li .imagen_usuario {
         float: left;
         width: 20px; }
@@ -2686,34 +2686,129 @@ small {
           color: #666666 !important;
           text-decoration: underline; }
 
+/* Actividad reciente extendida por ciudad */
 .actividad_extendida {
-  color: #666666; }
-  .actividad_extendida h3 {
-    padding: 10px;
-    border-bottom: 1px solid #f2f2f6; }
-  .actividad_extendida ul li {
-    padding: 10px;
-    float: left;
+  color: #666666;
+  float: left;
+  width: 640px; }
+  .actividad_extendida .encabezado_actividad {
     border-bottom: 1px solid #f2f2f6;
-    width: 618px; }
-    .actividad_extendida ul li.last_one {
-      border-bottom: none; }
-    .actividad_extendida ul li .link_usuario {
-      float: left; }
-    .actividad_extendida ul li .contenido_actividad {
+    float: left;
+    padding: 0 0 30px;
+    width: 640px; }
+    .actividad_extendida .encabezado_actividad .actividad_icono {
+      background: url("../images/extras/botones_sprite.png") no-repeat 0 -264px;
       float: left;
-      margin: 0 0 0 10px; }
-      .actividad_extendida ul li .contenido_actividad span {
-        font-size: 11px; }
-      .actividad_extendida ul li .contenido_actividad p {
-        margin: 5px 0 0 0; }
-        .actividad_extendida ul li .contenido_actividad p.rec_actividad_preview {
+      height: 18px;
+      margin: 5px 0 0;
+      width: 18px; }
+    .actividad_extendida .encabezado_actividad h3 {
+      float: left;
+      margin: 0 0 0 10px;
+      width: 412px; }
+    .actividad_extendida .encabezado_actividad .filtrar_actividad {
+      float: left;
+      font-size: 12px;
+      margin: 4px 0 0;
+      text-align: right;
+      width: 200px; }
+      .actividad_extendida .encabezado_actividad .filtrar_actividad select {
+        width: 200px; }
+  .actividad_extendida ul {
+    float: left;
+    width: 640px; }
+    .actividad_extendida ul li {
+      border-bottom: 1px solid #f2f2f6;
+      float: left;
+      padding: 20px 10px 30px;
+      width: 618px; }
+      .actividad_extendida ul li.last_one {
+        border-bottom: none; }
+      .actividad_extendida ul li .link_usuario {
+        float: left;
+        width: 50px; }
+      .actividad_extendida ul li .contenido_actividad {
+        float: left;
+        margin: 0 0 0 10px;
+        width: 558px; }
+        .actividad_extendida ul li .contenido_actividad span {
+          color: #999999;
+          display: block;
+          float: left;
           font-size: 11px;
-          width: 555px; }
-        .actividad_extendida ul li .contenido_actividad p.util_actividad {
-          width: 555px; }
-    .actividad_extendida ul li .link_lugar {
-      float: right; }
+          margin: 0 0 15px; }
+        .actividad_extendida ul li .contenido_actividad p {
+          float: left;
+          margin: 0 0 15px;
+          width: 558px; }
+          .actividad_extendida ul li .contenido_actividad p a {
+            color: #0066cc !important;
+            text-decoration: none; }
+            .actividad_extendida ul li .contenido_actividad p a:hover {
+              color: #0066cc !important;
+              text-decoration: underline; }
+          .actividad_extendida ul li .contenido_actividad p span {
+            float: none;
+            display: inline; }
+          .actividad_extendida ul li .contenido_actividad p.rec_actividad_preview {
+            font-size: 12px;
+            float: left;
+            line-height: 20px;
+            margin: 0;
+            width: 558px; }
+          .actividad_extendida ul li .contenido_actividad p.util_actividad {
+            width: 555px; }
+      .actividad_extendida ul li .link_lugar {
+        float: right; }
+  .actividad_extendida .ver_mas_actividad_inferior {
+    color: #0066cc !important;
+    text-decoration: none;
+    border-top: 1px solid #f2f2f6;
+    float: left;
+    font-size: 12px;
+    padding: 20px 0 30px;
+    text-align: right;
+    width: 640px; }
+
+.paginacion_actividad {
+  border-bottom: 1px solid #f2f2f6;
+  border-top: 1px solid #f2f2f6;
+  color: #666666;
+  display: block;
+  float: left;
+  font-size: 12px;
+  padding: 10px 0;
+  width: 778px; }
+  .paginacion_actividad p {
+    float: left;
+    display: block;
+    margin: 2px 0 0; }
+  .paginacion_actividad ul {
+    border: 0px;
+    float: left;
+    font-size: 12px;
+    margin: 0 0 0 10px;
+    padding: 0px;
+    width: 560px; }
+    .paginacion_actividad ul li {
+      border: 1px solid #cccccc;
+      float: left;
+      height: 5px;
+      margin: 0 0 0 2px;
+      padding: 2px 5px 8px; }
+      .paginacion_actividad ul li a {
+        color: #666666 !important;
+        text-decoration: none; }
+    .paginacion_actividad ul .pagina-actual {
+      background: #0066cc;
+      border: 1px solid #0066cc;
+      float: left;
+      height: 5px;
+      margin: 0 0 0 2px;
+      padding: 2px 5px 8px; }
+      .paginacion_actividad ul .pagina-actual a {
+        color: white !important;
+        text-decoration: none; }
 
 /* Colores */
 /* Mixin */
