@@ -23,7 +23,8 @@
 {% endblock %}
 
 {% block javascripts %}
-
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
+    <script src="{{asset('assets/js/googleMapBuscar.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.pjax.js')}}"></script>
@@ -41,7 +42,7 @@
     {% endif %}
 
 	<div class="resultados_wrapper">
-
+{% if lugares[0] is defined %}		
 		<div class="resultados">
 
 			<h1 class="titulo_busqueda">
@@ -73,7 +74,7 @@
 	             	» <a href="{{ path(ruta, query|merge({'slug': slug, 'subcategoria': subcategoria.slug, 'caracteristicas': null, 'pagina': null })) }}">{{subcategoria.nombre}}</a>
 	             {% endif %}
 			</p>
-							
+					
 			{% if results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined %}
 				<div class="qtip_zonas qtip_filtros" rel="filtros_zonas">
 					<span class="close_qtip"></span>
@@ -465,6 +466,9 @@
                 </ul>
             {% endif %}
         </div>
+{% else %} <!--Fin de Lugares-->
+	No hay lugares perro
+{% endif %}
 
 		<div class="agrega_lugar">
 			<div class="textos">
