@@ -58,8 +58,6 @@ class LugarController extends Controller{
                 
                 $lugarResult = $lr->getLugares($slug);
 
-            
-
                 $visitas = $lugarResult[0]->getVisitas();
                 $visitas++;
                 $lugarResult[0]->setVisitas($visitas);
@@ -950,6 +948,7 @@ class LugarController extends Controller{
         $em = $this->getDoctrine()->getEntityManager();
         $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         $imagen = $ilr->find($id);
 
@@ -967,7 +966,7 @@ class LugarController extends Controller{
         $estadoImagen = $em->getRepository("LoogaresExtraBundle:Estado")
                            ->findOneByNombre('Eliminado');
         $imagen->setEstado($estadoImagen);
-
+        $ar->actualizarActividadReciente($imagen->getId(), 'Loogares\LugarBundle\Entity\ImagenLugar');
         $em->flush();
 
         if($request->query->get('redirect') == 'usuario') {
@@ -1338,15 +1337,10 @@ class LugarController extends Controller{
 
             $lugar->setFechaUltimaRecomendacion($ultimaRecomendacion[0]->getFechaCreacion());
 
-            $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ActividadReciente u WHERE u.entidad_id = ?1");
-            $q->setParameter(1, $recomendacionResult[0]->getId());
-            $reciente = $q->getResult();
-
-            if($reciente != null){
-                $em->remove($reciente[0]);
-            }
+            $ar->actualizarActividadReciente($recomendacionResult[0]->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
 
             $em->flush();
+
             $this->get('session')->setFlash('lugar_flash','Acabas de borrar tu recomendación, prueba escribiendo una nueva(.');
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
         }

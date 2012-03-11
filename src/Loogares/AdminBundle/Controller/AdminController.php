@@ -421,6 +421,7 @@ class AdminController extends Controller
     public function accionLugarAction($id, $ciudad, $cerrar = false, $borrar = false, $habilitar = false, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         if($request->getMethod() == 'POST'){
             $vars = $_POST['id'];
@@ -479,6 +480,9 @@ class AdminController extends Controller
             $this->get('mailer')->send($message);
 
             $lugar->setEstado($estado);
+            
+            $ar->actualizarActividadReciente($lugar->getId(), 'Loogares\LugarBundle\Entity\Lugar');
+
             $em->persist($lugar);
         }
 

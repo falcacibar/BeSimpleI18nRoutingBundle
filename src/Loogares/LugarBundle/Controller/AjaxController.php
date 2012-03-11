@@ -41,6 +41,7 @@ class AjaxController extends Controller
                    ON comuna.ciudad_id = ciudad.id
                    LEFT JOIN recomendacion
                    ON recomendacion.lugar_id = lugares.id
+                   AND recomendacion.estado_id != 3
                    WHERE lugares.id != $idLugar
                    AND mapx BETWEEN $mapxDesde AND $mapxHasta
                    AND mapy BETWEEN $mapyDesde AND $mapyHasta
@@ -184,6 +185,7 @@ class AjaxController extends Controller
       $utr = $em->getRepository("LoogaresUsuarioBundle:Util");
       $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
       $ar = $em->getRepository("LoogaresUsuarioBundle:Accion");
+      $arr = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
       $data = array();
 
@@ -222,6 +224,7 @@ class AjaxController extends Controller
           $em->persist($actividad);       
 
         }else{
+          $arr->actualizarActividadReciente($utilResult[0]->getId(), 'Loogares\UsuarioBundle\Entity\Util');
           $em->remove($utilResult[0]);
         }
 

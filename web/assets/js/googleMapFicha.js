@@ -172,9 +172,7 @@ function createMarker($container, point){
         $container.hide()
     });
     GEvent.addListener(marker, "click", function() {
-        if(document.getElementById('linkLugar'+num) != null) {
-            location.href=document.getElementById('linkLugar'+num).value;
-        }
+        location.href = $container.data('url');
     });
     return marker;
 }

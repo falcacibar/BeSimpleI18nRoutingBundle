@@ -14,6 +14,14 @@ $(document).ready(function(){
         $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200);
     }
 
+    $('.borra_recomendacion').click(function(e){
+        if(confirm('¿Estás seguro de que quieres borrar tu recomendación?')){
+           return true; 
+        }else{
+            return false;
+        };
+    });
+
     $('.recomendacion').hover(function(){
         $(this).find('.opciones_recomendacion').toggle();
     });
@@ -504,7 +512,9 @@ $(document).ready(function(){
         space: false
     });
 
-    var precio_lugar = $('.precio-raty').data('precio'),
+    var precio_lugar = $('.precio-raty').data('precio');
+
+    if(precio_lugar !=  undefined){
         tipo_lugar = getTipo($('.precio-raty').data('tipo'));
 
         $('.precio-raty').raty({
@@ -517,6 +527,7 @@ $(document).ready(function(){
         });
 
         $('.precio-detalle').append(tipo_lugar[precio_lugar-1]);
+    }
 });
             
 function estrellasPorRecomendacion(id, estrellas){

@@ -346,7 +346,7 @@
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
                 <li><a class="compartir tooltip_compartir" rel="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
-                <li><a class="imprimir_lugar" href="">{{'lugar.ficha.opciones.imprimir'|trans}}</a></li>
+                <li><a class="imprimir_lugar" href="javascript:window.print()">{{'lugar.ficha.opciones.imprimir'|trans}}</a></li>
                 
             </ul>
             <div class="compartir_lugar">
@@ -408,9 +408,9 @@
 
         <div class="resultados_por_pagina">
             <select class="seleccionar_resultados_por_pagina">
-                <option value="10">10</option>
-                <option value="15">15</option>
                 <option value="20">20</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
             </select>
             <p class="resultados_por_pagina_txt">{{'general.terminos.resultados_pagina'|trans}}</p>
         </div>
