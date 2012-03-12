@@ -76,7 +76,7 @@ class UsuarioController extends Controller
         $data->filtro = $filtro;
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
-        if($actividad_total == false){
+        if($actividad_total == true){
             $totalActividad = $ar->getTotalActividad(null, $usuarioResult->getId(),($filtro != 'todo') ? $filtro : null);
             $data->totalPaginas = ($totalActividad > $ppag) ? ceil($totalActividad / $ppag) : 1;
 
