@@ -126,11 +126,11 @@ _buscar:
 
 
 _categoria_subcategoria_sector:
-    pattern: /{slug}/{sector}/categoria/{categoria}/{subcategoria}
+    pattern: /{slug}/sector/{sector}/categoria/{categoria}/{subcategoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria_subcategoria }
 
 _categoria_subcategoria_comuna:
-    pattern: /{slug}/{comuna}/categoria/{categoria}/{subcategoria}
+    pattern: /{slug}/comuna/{comuna}/categoria/{categoria}/{subcategoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria_subcategoria }
 
 _categoria_subcategoria:
@@ -139,11 +139,11 @@ _categoria_subcategoria:
 
 
 _categoria_sector:
-    pattern: /{slug}/{sector}/categoria/{categoria}
+    pattern: /{slug}/sector/{sector}/categoria/{categoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria }
 
 _categoria_comuna:
-    pattern: /{slug}/{comuna}/categoria/{categoria}
+    pattern: /{slug}/comuna/{comuna}/categoria/{categoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria }
 
 _categoria:
@@ -156,12 +156,6 @@ _subcategoria:
     defaults: { _controller: LoogaresLugarBundle:Search:subcategoria, path: _subcategoria }
 
 
-
-
-
-_tags:
-    pattern: /{slug}/tags/{term}
-    defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esTag: true }
 _comuna:
     pattern: /{slug}/comuna/{term}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esComuna: true }

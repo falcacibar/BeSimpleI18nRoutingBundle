@@ -44,18 +44,28 @@
 	<div class="resultados_wrapper">
 {% if lugares[0] is defined %}		
 		<div class="resultados">
-
 			<h1 class="titulo_busqueda">
-
 				{% if categoria != null and noCategorias == true %}
-					{{categoria.nombre}} en {{ciudad.nombre}}
+					{{categoria.nombre}}
+	                 {% if sector != null %}
+	                 	{{'lugar.buscar.en'|trans}} {{sector.nombre}}
+	                 {% elseif comuna != null %}
+	                 	{{'lugar.buscar.en'|trans}} {{comuna.nombre}}
+	                 {% endif %}
+					{{'lugar.buscar.en'|trans}} {{ciudad.nombre}}
 				{% else %}
 				{{'lugar.buscar.resultado_busqueda'|trans}} {{term}} 
-				 {% if subcategoria != null %}
-                 	{{'lugar.buscar.en'|trans}} {{subcategoria.nombre}}
-                 {% elseif categoria != null %}
-                 	{{'lugar.buscar.en'|trans}} {{categoria.nombre}}
-                 {% endif %}
+					 {% if subcategoria != null %}
+	                 	{{'lugar.buscar.en'|trans}} {{subcategoria.nombre}}
+	                 {% elseif categoria != null %}
+	                 	{{'lugar.buscar.en'|trans}} {{categoria.nombre}}
+	                 {% endif %}
+
+	                 {% if sector != null %}
+	                 	{{'lugar.buscar.en'|trans}} {{sector.nombre}}
+	                 {% elseif comuna != null %}
+	                 	{{'lugar.buscar.en'|trans}} {{comuna.nombre}}
+	                 {% endif %}
 				{{'lugar.buscar.en'|trans}} {{ciudad.nombre}}
 				{% endif %}	
 			</h1>
@@ -82,7 +92,7 @@
 						<p>{{'lugar.buscar.sectores'|trans}}</p>
 						<ul>
 							{% for sector in results.totalPorSectores %}
-								<li><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug })) }}">{{sector.nombre}} ({{ sector.total }})</a></li>							
+								<li><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug })) }}">{{sector.nombre}} {{ruta_sector}}({{ sector.total }})</a></li>							
 							{% endfor %}
 						</ul>
 					{% endif %}
@@ -92,7 +102,7 @@
 						<p>{{'lugar.buscar.comunas'|trans}}</p>
 						<ul>
 							{% for comuna in results.totalPorComunas %}
-								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} ({{ comuna.total }})</a></li>
+								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} {{ruta_comuna}}({{ comuna.total }})</a></li>
 							{% endfor %}
 						</ul>
 					{% endif %}

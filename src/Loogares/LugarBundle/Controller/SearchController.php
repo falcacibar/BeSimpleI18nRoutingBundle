@@ -5,8 +5,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class SearchController extends Controller
-{
+class SearchController extends Controller{
+
   public function subcategoriaAction($slug, $subcategoria, $path){
     $em = $this->getDoctrine()->getEntityManager();
     $cr = $em->getRepository('LoogaresLugarBundle:SubCategoria');
@@ -94,9 +94,11 @@ class SearchController extends Controller
         if($sector){
           $path_subcategoria = "_categoria_subcategoria_sector";
           $path = '_categoria_subcategoria_sector';
+          unset($_GET['comuna']);
         }else if($comuna){
           $path_subcategoria = "_categoria_subcategoria_comuna";
           $path = '_categoria_subcategoria_comuna';
+          unset($_GET['sector']);
         }
         $path_sector = "_categoria_subcategoria_sector";
         $path_comuna = "_categoria_subcategoria_comuna";
@@ -106,9 +108,11 @@ class SearchController extends Controller
         if($sector){
           $path_subcategoria = "_categoria_subcategoria_sector";
           $path = "_categoria_sector";
+          unset($_GET['comuna']);
         }else if($comuna){
           $path_subcategoria = "_categoria_subcategoria_comuna";
           $path = "_categoria_comuna";
+          unset($_GET['sector']);
         }
       }
     }else{
@@ -531,7 +535,7 @@ class SearchController extends Controller
                             $order LIMIT 3000)";
       }
 
-      $subCategoriasFields = "lugares.id as lid, subcategoria.id as sid, subcategoria.nombre, subcategoria.slug,
+      $subCategoriasFields = "distinct lugares.id as lid, subcategoria.id as sid, subcategoria.nombre, subcategoria.slug,
                                 (
                                   select group_concat(distinct caracteristica.slug order by caracteristica.slug asc) as caracteristica_slug from caracteristica_lugar
                                   left join caracteristica
@@ -652,7 +656,7 @@ class SearchController extends Controller
       * Totales de Caracteristicas
       */
 
-      $caracteristicasFields = "lugares.id as lid, caracteristica.id as sid, caracteristica.nombre, caracteristica.slug";
+      $caracteristicasFields = "distinct lugares.id as lid, caracteristica.id as sid, caracteristica.nombre, caracteristica.slug";
 
       $totalCaracteristicas[] = "(SELECT $caracteristicasFields
 
@@ -778,7 +782,7 @@ class SearchController extends Controller
       * Totales de Sectores
       */
 
-      $sectoresFields = "lugares.id as lid, sector.id as sid, sector.nombre, sector.slug,                                 
+      $sectoresFields = "distinct lugares.id as lid, sector.id as sid, sector.nombre, sector.slug,                                 
                           (
                             select group_concat(distinct caracteristica.slug order by caracteristica.slug asc) as caracteristica_slug from caracteristica_lugar
                             left join caracteristica
@@ -842,7 +846,7 @@ class SearchController extends Controller
       * Totales de Comunas
       */
 
-      $comunasFields = "lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug,
+      $comunasFields = "distinct lugares.id as lid, comuna.id as sid, comuna.nombre, comuna.slug,
                           (
                             select group_concat(distinct caracteristica.slug order by caracteristica.slug asc) as caracteristica_slug from caracteristica_lugar
                             left join caracteristica
@@ -903,40 +907,41 @@ class SearchController extends Controller
                             $filterCaracteristica)";
 
     if($categoria){
-    $unionQuery = array();
-    $unionQuery[] = "SELECT SQL_CALC_FOUND_ROWS $fields
-                      FROM lugares
-                      
-                      JOIN comuna
-                      ON comuna.id = lugares.comuna_id 
-                
-                      LEFT JOIN sector
-                      ON sector.id = lugares.sector_id
+      $unionQuery = array();
+      $unionQuery[] = "SELECT SQL_CALC_FOUND_ROWS $fields
+                        FROM lugares
+                        
+                        JOIN comuna
+                        ON comuna.id = lugares.comuna_id 
+                  
+                        LEFT JOIN sector
+                        ON sector.id = lugares.sector_id
 
-                      LEFT JOIN categoria_lugar
-                      ON categoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN categoria_lugar
+                        ON categoria_lugar.lugar_id = lugares.id
 
-                      JOIN categorias
-                      ON categoria_lugar.categoria_id = categorias.id
+                        JOIN categorias
+                        ON categoria_lugar.categoria_id = categorias.id
 
-                      LEFT JOIN subcategoria_lugar
-                      ON subcategoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN subcategoria_lugar
+                        ON subcategoria_lugar.lugar_id = lugares.id
 
-                      LEFT JOIN subcategoria
-                      ON subcategoria_lugar.subcategoria_id = subcategoria.id   
-          
-                      LEFT JOIN caracteristica_lugar
-                      ON caracteristica_lugar.lugar_id = lugares.id
+                        LEFT JOIN subcategoria
+                        ON subcategoria_lugar.subcategoria_id = subcategoria.id   
+            
+                        LEFT JOIN caracteristica_lugar
+                        ON caracteristica_lugar.lugar_id = lugares.id
 
-                      LEFT JOIN caracteristica
-                      ON caracteristica.id = caracteristica_lugar.caracteristica_id
-                      
-                      WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
-                      $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad
-                      $filterCaracteristica
-                      GROUP BY lugares.id
-                      $order";
-      
+                        LEFT JOIN caracteristica
+                        ON caracteristica.id = caracteristica_lugar.caracteristica_id
+                        
+                        WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
+
+                        $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad
+                        GROUP BY lugares.id
+                        $filterCaracteristica
+                        $order";
+
       $totalSubCategorias = array();
       $totalSubCategorias[] = "(SELECT $subCategoriasFields
 
@@ -961,6 +966,7 @@ class SearchController extends Controller
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id  
 
                                 WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
+                                AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                                 $filterSector $filterComuna $filterPrecio $filterCiudad
                                 $filterCaracteristica)";
 
@@ -997,8 +1003,8 @@ class SearchController extends Controller
                             ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                             WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
-                            $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad
-                            $filterCaracteristica)";
+                            AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
+                            $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad)";
 
       $totalSectores[] = "(SELECT $sectoresFields
 
@@ -1023,6 +1029,7 @@ class SearchController extends Controller
                            ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                            WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
+                           AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                            $filterPrecio $filterSubCat $filterCiudad
                            $filterCaracteristica)";
 
@@ -1046,6 +1053,7 @@ class SearchController extends Controller
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                           WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
+                          AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                           $filterPrecio $filterSubCat $filterCiudad
                           $filterCaracteristica)";
 }

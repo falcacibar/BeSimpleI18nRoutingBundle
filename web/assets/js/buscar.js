@@ -1,5 +1,32 @@
 $(document).ready(function(){
 	var rebindEvents = function(){
+
+		if($('.resultados_wrapper').height() > 2000){
+			var $sidebar   = $(".sidebar_busqueda"),
+			    $window    = $(window),
+			    topPadding = 60,
+				sideBarOffset     = $sidebar.offset(),
+				compensation = ($('.mensaje_exito').length > 0)?69:0;
+	    	
+
+		    $window.scroll(function() {
+		    	margin = $(document).height() - 1541 - compensation;
+
+		    	if($window.scrollTop() >= sideBarOffset.top && margin + 400 >= $window.scrollTop()){
+				    $sidebar.stop().animate({
+			            top: $window.scrollTop() - sideBarOffset.top + topPadding
+			        });
+		        }else if(margin - 200 <= $window.scrollTop()){
+				    $sidebar.stop().animate({
+			            top: margin
+			        });
+		        }else{
+				    $sidebar.stop().animate({
+			            top: 0
+			        });
+		        }
+		    });
+	    }
 		var getCaracteristicas = getParameterByName('caracteristicas').split(',');
 
 		$.each(getCaracteristicas, function(i){
@@ -250,30 +277,4 @@ $(document).ready(function(){
 		var rel = $(this).parent().attr('rel');
 		$('.'+rel+' .filtros_expandir').qtip('toggle', false);
 	});
-	
-	//Scrolling del mapa
-	var $sidebar   = $(".sidebar_busqueda"),
-	    $window    = $(window),
-	    topPadding = 60,
-		sideBarOffset     = $sidebar.offset(),
-		compensation = ($('.mensaje_exito').length > 0)?69:0;
-    	
-
-    $window.scroll(function() {
-    	margin = $(document).height() - 1541 - compensation;
-
-    	if($window.scrollTop() >= sideBarOffset.top && margin + 400 >= $window.scrollTop()){
-		    $sidebar.stop().animate({
-	            top: $window.scrollTop() - sideBarOffset.top + topPadding
-	        });
-        }else if(margin - 200 <= $window.scrollTop()){
-		    $sidebar.stop().animate({
-	            top: margin
-	        });
-        }else{
-		    $sidebar.stop().animate({
-	            top: 0
-	        });
-        }
-    });
 });
