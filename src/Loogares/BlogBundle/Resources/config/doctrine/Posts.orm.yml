@@ -6,6 +6,8 @@ Loogares\BlogBundle\Entity\Posts:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
         usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+        tipo_post:
+            targetEntity: Loogares\BlogBundle\Entity\TipoPost
     id:
         id:
             type: integer
@@ -25,8 +27,6 @@ Loogares\BlogBundle\Entity\Posts:
             type: string
         fecha:
             type: date
-        tipo:
-            type: string
         condiciones:
             type: text
         detalles:

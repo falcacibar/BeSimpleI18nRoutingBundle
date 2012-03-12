@@ -15,11 +15,14 @@ while($row = $STH->fetch()){
     $numero = ($numero[0][0] != '')?$numero[0][0]:'s/n';
     $direccion = preg_replace('/(?<=[\w]\s)[0-9s\/n]+/', '', $row['Direccion']);
 
+    require_once('../src/Loogares/ExtraBundle/Functions/LoogaresFunctions.php');
+    $fn = new Loogares\ExtraBundle\Functions\LoogaresFunctions();
+
     $data[] = array(
         'id' => $row['Id'],
         'nombre' => $row['Nombre'],
         'texto' => $row['Tooltip'],
-        'slug' => $row['Icono'],
+        'slug' => $fn->generarSlug($row['Nombre']),
         'color' => $row['Color'],
         'orden' => $row['Orden']
     );

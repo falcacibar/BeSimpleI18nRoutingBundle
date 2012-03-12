@@ -130,6 +130,24 @@ $migratedTables['usuarios'] = ($count['total'] > 0) ? 1 : 0;
 
 
 
+$STH = $DBH->query('SELECT COUNT(id) total FROM acciones');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['acciones'] = ($count['total'] > 0) ? 1 : 0;
+
+
+
+$STH = $DBH->query('SELECT COUNT(id) total FROM acciones_usuario');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['acciones_usuario'] = ($count['total'] > 0) ? 1 : 0;
+
+
+
 $STH = $DBH->query('SELECT COUNT(id) total FROM tipo_usuario');
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 

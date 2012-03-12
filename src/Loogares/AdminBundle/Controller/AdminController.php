@@ -10,6 +10,14 @@ use Loogares\LugarBundle\Entity\PedidoLugar;
 
 class AdminController extends Controller
 {
+    public function __construct(){
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
+        foreach($_GET as $key => $value){
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+        }
+    }
 
     public function indexAction(){
         return $this->render('LoogaresAdminBundle:Admin:index.html.twig');

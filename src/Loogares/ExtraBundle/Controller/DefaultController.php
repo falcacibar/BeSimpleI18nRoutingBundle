@@ -173,6 +173,9 @@ class DefaultController extends Controller
     }
 
     public function actividadAction(Request $request) {
+        foreach($_GET as $key => $value){
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+        }
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
