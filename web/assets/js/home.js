@@ -37,6 +37,8 @@ $(function(){
         }
     });
 
+    $('.slider li').css('visibility', 'visible')
+
     var slider = $('.slider').bxSlider({
         auto: true,
         controls: false,
