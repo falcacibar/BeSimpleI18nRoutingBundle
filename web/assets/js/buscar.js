@@ -251,27 +251,29 @@ $(document).ready(function(){
 		$this.attr('href', href);
 	});
 
-	$('.filtros a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
-		url: $(this).attr('href'),
-		container: '.resultados_wrapper',
-		fragment: '.resultados_wrapper',
-		timeout: 20000,
-		beforeSend: function(){
-			$('.filtros_expandir').qtip('toggle', false)
-			$('.resultados_wrapper').append("<div class='overlay'><div class='loader'>Cargando Lugares</div></div>").fadeIn(300);
-	 		$('.resultados_wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
-		},
-		success: function(data){
-			$('.overlay').fadeOut(0, function(){
-				$(this).remove(); 
-			});
-			$('.resultados_wrapper').html(data).fadeIn(300, function(){
-				$('.qtip').remove();
-				rebindEvents();
-				$.getScript(WEBROOT+'../assets/js/googleMapBuscar.js');
-			});
-		}
-	});
+	if(oldBrowser == false){
+		$('.filtros a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
+			url: $(this).attr('href'),
+			container: '.resultados_wrapper',
+			fragment: '.resultados_wrapper',
+			timeout: 20000,
+			beforeSend: function(){
+				$('.filtros_expandir').qtip('toggle', false)
+				$('.resultados_wrapper').append("<div class='overlay'><div class='loader'>Cargando Lugares</div></div>").fadeIn(300);
+		 		$('.resultados_wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
+			},
+			success: function(data){
+				$('.overlay').fadeOut(0, function(){
+					$(this).remove(); 
+				});
+				$('.resultados_wrapper').html(data).fadeIn(300, function(){
+					$('.qtip').remove();
+					rebindEvents();
+					$.getScript(WEBROOT+'../assets/js/googleMapBuscar.js');
+				});
+			}
+		});
+	}
 
 	$('.close_qtip').live('click',function(){
 		var rel = $(this).parent().attr('rel');

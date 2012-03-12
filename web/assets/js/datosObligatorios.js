@@ -79,7 +79,7 @@ $(document).ready(function(){
 			});
 		}else if(errorComuna){
 			$('.datos_obligatorios_lista').animate({
-				marginLeft: $('.datos_obligatorios_lista li').width()+600
+				marginLeft: -(($('.datos_obligatorios_lista > li').length-1)*600)
 			});
 		}
 
