@@ -320,6 +320,13 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         if($usuario->getTwitter() != null || $usuario->getTwitter() != '') {
             $links['twitter'] = $usuario->getTwitter();
         }
+
+        /* Ubicación */
+        $ubicacion = array();
+        if($usuario->getCiudad() != null)
+          $ubicacion[] = $usuario->getCiudad()->getNombre();
+        if($usuario->getPais() != null)
+          $ubicacion[] = $usuario->getPais()->getNombre();
         
         /*
          *  Armado de Datos para pasar a Twig
@@ -331,6 +338,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         $data->totalImagenesLugar = $totalImagenesLugar;
         $data->totalAcciones = $totalAcciones;
         $data->edad = $edad;
+        $data->ubicacion = $ubicacion;
         $data->sexoResult = $sexoResult;
         $data->links = $links;
 
