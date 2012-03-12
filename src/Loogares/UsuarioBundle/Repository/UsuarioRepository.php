@@ -275,7 +275,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         for($i = 1; $i <= 5; $i++) {
             $totalAcciones[] = $this->getTotalAccionesUsuario($i, $usuario);
         }
-        
+
         //Cálculo de edad
         if($usuario->getFechaNacimiento() != null) {
             $birthday = $usuario->getFechaNacimiento()->format('d-m-Y');

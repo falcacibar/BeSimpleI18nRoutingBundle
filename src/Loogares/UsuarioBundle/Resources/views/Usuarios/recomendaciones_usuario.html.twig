@@ -36,6 +36,9 @@
 	{% for recomendacion in usuario.recomendacionesTodas %}			
 		<div class="caja_recomendaciones_lugar_usuario">
 			<div class="imagen_recomendaciones_lugar_usuario">
+				{% if recomendacion.lugar.imagenesLugar[0] is not defined %}
+					<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('small_lugar') }}"  width="50" height="50" />
+				{% endif %}
 				{% for img in recomendacion.lugar.imagenesLugar %}		
 					{% if loop.last %}						
 						<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('small_lugar') }}"  width="50" height="50" />

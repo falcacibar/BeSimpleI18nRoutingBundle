@@ -10,7 +10,11 @@
 
         <div class="lugar_data" data-categoria="{{lugar.tipo}}" data-slug="{{lugar.slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
             <div class="imagen_gmaps">
-                <img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" />
+                {% if lugar.imagen_full == '' %}
+                    <img src="{{ ('assets/images/lugares/default.gif') | apply_filter('small_lugar') }}"  width="50" height="50" />
+                {% else %}
+                    <img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" />
+                {% endif %}
             </div>
             <ul>
                 <li class="nombre_lugar_gmaps">
@@ -35,7 +39,10 @@
 
         {% if i < 6 %}
             <div class="otro_lugar">
-                <a class="otro_lugar_img" href="{{ path('_lugar', {'slug': lugar.slug}) }}"><img src="{{('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" width="50" height="50" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
+                <a class="otro_lugar_img" href="{{ path('_lugar', {'slug': lugar.slug}) }}">
+                    
+                    <img src="{{('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" width="50" height="50" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/>
+                </a>
                 <ul class="otro_lugar_info">
                     <li>
                         <a class="otro_lugar_nombre" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a>

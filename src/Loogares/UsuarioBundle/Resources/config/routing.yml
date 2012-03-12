@@ -41,6 +41,9 @@ actividadUsuario:
     pattern:  /{param}/actividad
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:actividad }
 
+actividadUsuario_total:
+    pattern:  /{param}/actividad/toda
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:actividad, actividad_total: true }
 
 recomendacionesUsuario:
     pattern:  /{param}/recomendaciones

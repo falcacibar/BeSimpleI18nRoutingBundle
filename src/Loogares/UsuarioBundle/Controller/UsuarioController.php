@@ -21,7 +21,7 @@ class UsuarioController extends Controller
         return $this->forward('LoogaresUsuarioBundle:Usuario:actividad', array('param' => $param));          
     }
 
-    public function actividadAction(Request $request, $param) {
+    public function actividadAction(Request $request, $param, $actividad_total = false) {
         foreach($_GET as $key => $value){
             $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
         }
@@ -30,6 +30,7 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $paginacion = false;
         
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -44,13 +45,19 @@ class UsuarioController extends Controller
 
         $filtro = (!$request->query->get('filtro')) ? 'todo' : $request->query->get('filtro');
         $pagina = (!$request->query->get('pagina')) ? 1 : $request->query->get('pagina');
-        $ppag = 20;
+
+        if($actividad_total == true){ //Si es actividad total, mostramos por pagina, si no, solo 5
+            $ppag = 20;
+        }else{
+            $ppag = 5;
+        }
+
         $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
 
         // Actividad reciente del usuario
         $actividad = $ar->getActividadReciente($ppag, null, $usuarioResult->getId(), ($filtro != 'todo') ? $filtro : null, $offset);
 
-        $totalActividad = $ar->getTotalActividad(null, $usuarioResult->getId(),($filtro != 'todo') ? $filtro : null);
+        
 
         foreach($actividad as $a) {
             $r = $em->getRepository($a->getEntidad());
@@ -63,22 +70,29 @@ class UsuarioController extends Controller
         $data->tipo = 'actividad';
         $data->actividad = $actividad;
         $data->pagina = $pagina;
-        $data->totalPaginas = ($totalActividad > $ppag) ? ceil($totalActividad / $ppag) : 1;
-        $data->totalActividad = $totalActividad;
+        
+        
         $data->offset = $offset;
         $data->filtro = $filtro;
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
-        $params = array(
-            'param' => $usuarioResult->getSlug(),
-            'filtro' => $filtro,
-        );
+        if($actividad_total == false){
+            $totalActividad = $ar->getTotalActividad(null, $usuarioResult->getId(),($filtro != 'todo') ? $filtro : null);
+            $data->totalPaginas = ($totalActividad > $ppag) ? ceil($totalActividad / $ppag) : 1;
 
-        $paginacion = $fn->paginacion($totalActividad, $ppag, 'actividadUsuario', $params, $router );
+            $params = array(
+                'param' => $usuarioResult->getSlug(),
+                'filtro' => $filtro,
+            );
+
+            $paginacion = $fn->paginacion($totalActividad, $ppag, 'actividadUsuario', $params, $router );
+            $data->totalActividad = $totalActividad;
+        }
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
             'usuario' => $data,
             'paginacion' => $paginacion,
+            'actividad_total' => $actividad_total
         ));  
     }
 

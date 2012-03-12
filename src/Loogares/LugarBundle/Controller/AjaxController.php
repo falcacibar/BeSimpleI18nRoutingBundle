@@ -113,7 +113,7 @@ class AjaxController extends Controller
 
     public function recomendarCalleAction(){
 
-      $d = filter_var($_POST['term'], FILTER_SANITIZE_STRING);  
+      $d = filter_var($_GET['term'], FILTER_SANITIZE_STRING);  
       $calles = '';
       $em = $this->getDoctrine()->getEntityManager();
       $q = $em->createQuery('SELECT DISTINCT u.calle FROM Loogares\LugarBundle\Entity\Lugar u where u.calle LIKE ?1');
