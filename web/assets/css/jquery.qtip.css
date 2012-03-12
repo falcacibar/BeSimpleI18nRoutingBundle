@@ -501,7 +501,8 @@
 	font-weight: bold;
 	background-color: #fff;
 	color: #333;
-	width: 868px;
+	width: 880px;
+	margin: 0 10px;
 	border: 1px solid #999;
 	border-top: 5px solid #999;
 	overflow: none;

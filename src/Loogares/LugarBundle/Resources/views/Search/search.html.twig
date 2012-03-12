@@ -91,7 +91,7 @@
 						<p>{{'lugar.buscar.sectores'|trans}}</p>
 						<ul>
 							{% for sector in results.totalPorSectores %}
-								<li><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug })) }}">{{sector.nombre}} {{ruta_sector}}({{ sector.total }})</a></li>							
+								<li><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug })) }}">{{sector.nombre}}</a></li>							
 							{% endfor %}
 						</ul>
 					{% endif %}
@@ -101,7 +101,7 @@
 						<p>{{'lugar.buscar.comunas'|trans}}</p>
 						<ul>
 							{% for comuna in results.totalPorComunas %}
-								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} {{ruta_comuna}}({{ comuna.total }})</a></li>
+								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}}</a></li>
 							{% endfor %}
 						</ul>
 					{% endif %}
@@ -114,7 +114,7 @@
 					<span class="close_qtip"></span>
 					<ul>
 						{% for subcategoria in results.totalPorSubcategoria %}
-							<li><a href="{{ path(ruta_subcategoria, query|merge({'slug': slug, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} ({{ subcategoria.total }})</a></li>					
+							<li><a href="{{ path(ruta_subcategoria, query|merge({'slug': slug, 'subcategoria': subcategoria.slug })) }}">{{subcategoria.nombre}} <span class="totales">({{ subcategoria.total }})</span></a></li>					
 						{% endfor %}
 					</ul>
 				</div>
@@ -125,10 +125,10 @@
 					<span class="close_qtip"></span>
 					<ul>
 					{% for caracteristica in results.totalPorCaracteristica %}
-						<li><input type="checkbox" value="{{caracteristica.slug}}" name="caracteristica[]"/><a href="{{ path(ruta, query|merge({'slug': slug, 'caracteristica': caracteristica.slug})) }}">{{caracteristica.nombre}} ({{ caracteristica.total }})</a></li>
+						<li><input type="checkbox" value="{{caracteristica.slug}}" name="caracteristica[]"/><a href="{{ path(ruta, query|merge({'slug': slug, 'caracteristica': caracteristica.slug})) }}">{{caracteristica.nombre}} <span class="totales">({{ caracteristica.total }})</span></a></li>
 					{% endfor %}
 					</ul>
-					<a class="link_filtrar_caracteristicas"  href="" data-ohref="{{ path(ruta, query|merge({'slug': slug, 'caracteristicas': null })) }}">Filtrar</a>
+					<a class="filtrar_caracteristicas"  href="" data-ohref="{{ path(ruta, query|merge({'slug': slug, 'caracteristicas': null })) }}"></a>
 				</div>
 			{% endif %}
 
@@ -477,10 +477,11 @@
         </div>
 {% else %} <!--Fin de Lugares-->
 <div class="no_resultado">
-	<h1>¡Mala suerte!... No encontramos ojsdgjkosg en Santiago de Chile</h1>
-	<p>Prueba lo siguiente para mejorar tu búsqueda:</p>
+	<h1 class="titulo_busqueda">¡Mala suerte!... No encontramos {{term}} en {{ciudad.nombre}}</h1>
+	<br/>
+	<p class="sub_titulo_busqueda">Prueba lo siguiente para mejorar tu búsqueda:</p>
 
-	<ul>
+	<ul class="listado_no_resultados">
 		<li>Busca en otra zona. Ej. "Santiago", "Ñuñoa" o "Bellavista"</li>
 		<li>Revisa si está bien escrito, sin faltas de ortografía</li>
 		<li>Haz una búsqueda más general. Ej. "Cines" o "Bares"</li>

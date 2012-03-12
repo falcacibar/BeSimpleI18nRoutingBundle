@@ -70,6 +70,10 @@ editarPasswordUsuario:
     pattern:  /{param}/editar/password
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarPassword }
 
+editarConexionesUsuario:
+    pattern:  /{param}/editar/conectar
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarConexiones }
+
 editarBorrarUsuario:
     pattern:  /{param}/editar/borrar
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarBorrar }

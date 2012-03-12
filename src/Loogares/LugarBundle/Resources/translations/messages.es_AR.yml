@@ -238,7 +238,7 @@ fotos:
         titulo: Editá tu foto en
         cancelar: Cancelar
     galeria:
-        titulo_pag: Galería de fotos en
+        title: Galería de fotos de
         titulo: Galería de fotos de
         autor: Agregada por
         editar: Editá tu foto

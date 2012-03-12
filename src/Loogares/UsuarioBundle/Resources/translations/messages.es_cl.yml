@@ -131,6 +131,7 @@ usuario:
             cuenta: Cuenta
             foto: Foto de perfil
             password: Password
+            connect: Conectar cuenta
             borrar: Borrar cuenta
 
         cuenta:
@@ -174,6 +175,12 @@ usuario:
             nuevo: Password nuevo *
             confirmar: Confirmar password *
             submit: Guardar
+        conexiones:
+            facebook:
+                conectado:
+                    texto: Actualmente no tienes Facebook asociado a tu cuenta
+                    texto_link: Conectar con Facebook
+                
         borrar:
             password: Password *
             motivo: ¿Por qué te vas? *

@@ -18,7 +18,7 @@ class Encoder extends BasePasswordEncoder {
         $ur = $this->em->getRepository("LoogaresUsuarioBundle:Usuario");
         $usuario = $ur->findOneByMail($mail);
         
-        if($usuario->getSha1password() == null && $usuario->getPassword() == md5($raw)){      
+        if($usuario->getSha1password() == 0 && $usuario->getPassword() == md5($raw)){      
             $usuario->setSha1password(1);
             $usuario->setPassword(sha1($raw));
             $this->em->persist($usuario);

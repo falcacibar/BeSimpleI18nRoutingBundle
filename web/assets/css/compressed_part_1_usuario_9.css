@@ -67,7 +67,7 @@
     cursor: pointer;
     height: 30px;
     margin: 50px 0 0 10px;
-    width: 99px; }
+    width: 99px !important; }
     .datos_obligatorios .enviar_datos:hover {
       background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
 
@@ -109,8 +109,8 @@
         background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -209px;
         display: block;
         float: left;
-        height: 16px;
-        margin: 12px 0 0;
+        height: 17px;
+        margin: 11px 0 0;
         width: 16px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .edad_usuario {
         display: block;
@@ -136,14 +136,14 @@
           float: left;
           height: 16px;
           margin: 0 10px 0 0;
-          width: 16px; }
+          width: 17px; }
         .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario .twitter_link {
           background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -92px;
           display: inline-block;
           float: left;
           height: 16px;
           margin: 0 10px 0 0;
-          width: 16px; }
+          width: 17px; }
         .caja_usuario .datos_usuario .datos_principales_usuario .link_usuario .url_link {
           color: #0066cc !important;
           text-decoration: none;
