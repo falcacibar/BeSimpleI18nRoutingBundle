@@ -496,6 +496,21 @@
       height: 20px;
       padding: 10px;
       width: 278px; }
+  .sidebar_home .pages {
+    padding: 14px;
+    text-align: center; }
+  .sidebar_home .pages li {
+    display: inline; }
+    .sidebar_home .pages li .slide-change {
+      width: 8px;
+      height: 8px;
+      display: inline-block;
+      *zoom: 1;
+      *display: inline;
+      cursor: pointer;
+      background: url("../images/extras/boton-colaboradores-inactivo.png") no-repeat center; }
+    .sidebar_home .pages li .active {
+      background: url("../images/extras/boton-colaboradores-activo.png") no-repeat center; }
 
 .loogarenos_conectados {
   border: 1px solid #f2f2f6;
