@@ -35,6 +35,10 @@ $data[] = array(
         'nombre' => 'Inactivo'
 );
 
+$data[] = array(
+        'nombre' => utf8_decode('Edición Aprobada')
+);
+
 $i = 0;
 foreach($data as $entry){
     $sql = null;
@@ -42,14 +46,14 @@ foreach($data as $entry){
         $sql .= '"'.$value.'", ';
     }
     $sql =  substr($sql, 0, -2);
-    $sql = "INSERT INTO estado (nombre) values(" . $sql . ");";
+    $sql = "INSERT INTO estado values(" . ($i+1) . ", " . $sql . ");";
     //echo $sql;
-    if(!$DBH->exec($sql)){
-        $i++;
+    $i++;
+    if(!$DBH->exec($sql)){        
         echo "$sql </br>";
     }
 }
-
+$i = 0;
 echo $i;
 $DBH->exec("SET FOREIGN_KEY_CHECKS = 1");
 ?>

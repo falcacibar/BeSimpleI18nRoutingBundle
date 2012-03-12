@@ -19,4 +19,4 @@ Loogares\ExtraBundle\Entity\CategoriaCiudad:
     id:
         id:
             type: integer
-            generator: { strategy: none }
+            generator: { strategy: auto }
