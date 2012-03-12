@@ -1,26 +1,318 @@
+/* CSS Reset */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video
+	margin: 0
+	padding: 0
+	border: 0
+	font-size: 100%
+	font: inherit
+	vertical-align: baseline
+
+/* HTML5 display-role reset para navegadores antiguos */
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section
+	display: block
+
+body
+	line-height: 1
+
+ol, ul
+	list-style: none
+
+blockquote, q
+	quotes: none
+
+blockquote:before, blockquote:after,
+q:before, q:after
+	content: ''
+	content: none
+
+table
+	border-collapse: collapse
+	border-spacing: 0
+
+/* Colores */
+
+$amarillo: #FFF08C
+
+$azul: #0066CC
+$azul_medio: #0099FF
+$azul_claro: #66CCFF
+
+$blanco: #FFF
+
+$gris_faf: #FAFAFC
+$gris_f6f: #F2F2F6
+$gris_ccc: #CCC
+$gris_999: #999
+$gris_666: #666
+$gris_444: #444
+
+$rojo_claro: #FF8A8A
+$rojo_medio: #FF5353
+$rojo: #F72121
+
+/* Mixin */
+
+@mixin borde_redondeado
+	border-radius: 2px
+	-o-border-radius: 2px
+	-moz-border-radius: 2px
+	-webkit-border-radius: 2px
+
+@mixin borde_redondeado_4px
+	border-radius: 4px
+	-o-border-radius: 4px
+	-moz-border-radius: 4px
+	-webkit-border-radius: 4px
+
+@mixin borde_redondeado_grande
+	border-radius: 8px
+	-o-border-radius: 8px
+	-moz-border-radius: 8px
+	-webkit-border-radius: 8px
+
+@mixin centrado
+	margin: 0px auto
+	width: 960px
+
+@mixin footer
+	border-bottom: 1px solid $gris_ccc
+	color: $gris_999
+	float: left
+	padding: 30px 0
+	width: 960px
+
+@mixin gradiente_botones ($color_1, $color_2)
+	background-image: linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -o-linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -moz-linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -webkit-linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -ms-linear-gradient(bottom, $color_1 30%, $color_2 70%)
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.3, $color_1), color-stop(0.7, $color_2))
+	border: 1px solid $color_1
+	cursor: pointer
+
+@mixin link_azul
+	color: $azul
+	text-decoration: none
+
+@mixin link_azul_hover
+	color: $azul
+	text-decoration: underline
+
+@mixin link_blanco
+	color: $blanco
+	text-decoration: none
+
+@mixin link_blanco_hover
+	color: $blanco
+	text-decoration: underline
+
+@mixin link_gris_444
+	color: $gris_444
+	text-decoration: none
+
+@mixin link_gris_444_hover
+	color: $gris_444
+	text-decoration: underline
+
+@mixin link_gris_666
+	color: $gris_666
+	text-decoration: none
+
+@mixin link_gris_666_hover
+	color: $gris_666
+	text-decoration: underline 
+
+@mixin link_gris_999
+	color: $gris_999
+	text-decoration: none
+
+@mixin link_gris_999_hover
+	color: $gris_999
+	text-decoration: underline
+
+@mixin titulo_grosero
+	font:
+		size: 29px
+	line-height: 40px
+
+@mixin titulo_grande
+	font:
+		size: 24px
+	line-height: 35px
+
+@mixin titulo_medio
+	font:
+		size: 20px
+	line-height: 30px
+
+@mixin titulo_chico
+	font:
+		size: 18px
+	line-height: 28px
+
+@mixin titulo_muy_chico
+	font:
+		size: 16px
+	line-height: 26px
+
+@mixin textos_13
+	font:
+		family: Arial
+		size: 13px
+	line-height: 22px
+
+@mixin box-sizing
+	box-sizing: border-box
+	-o-box-sizing: border-box
+	-moz-box-sizing: border-box
+	-webkit-box-sizing: border-box
+
+body
+	background: url('../images/extras/fondo.gif') repeat-x $blanco
+	color: $gris_444
+	font:
+		family: Arial
+		size: 13px
+
+/* Etiquetas Posts */
 .post
-	width: 640px
-	color: #666
+	color: $gris_666
+	border-top: 5px solid $gris_444
 	line-height: 20px
 	float: left
-	border-top: 5px solid #333
-
-	p
-		margin: 18px 0
-
-	h1
-		font-size: 24px
-		line-height: 30px
+	width: 640px
 
 	.post_contenido
-		font-size: 14px
+		border: 1px solid $gris_f6f
+		font:
+			size: 13px
+		line-height: 20px
 		padding: 20px
-		border: 1px solid #eeeef3
 
-		.metadata
-			font-size: 10px
-			margin: 10px 0 20px
-			color: #aaa
+		.metadata_post
+			color: $gris_999
+			font:
+				size: 11px
+			margin: 0 0 30px
+
+		.contenido_post
+			white-space: pre-line
+
+	.detalles, .condiciones
+		background: url('../images/extras/borde_relieve_posts.png') 0 0 no-repeat
+		font:
+			size: 14px
+		float: left
+		padding: 12px 0 0
+		width: 640px
+
+		.borde_cajas
+			border: 1px solid $gris_f6f
+			float: left
+			padding: 20px
+
+			.imagen_detalles
+				float: left
+				margin: 0 20px 0 0
+				width: 145px
+
+				a
+					@include link_azul
+					font:
+						size: 12px
+					margin: 0 0 0 10px
+
+					&:hover
+						@include link_azul_hover
+					
+				img
+					height: 145px
+					margin: 0 0 17px 0
+					width: 145px
+
+				.facebook_lugar
+					background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
+					display: inline-block
+					float: left
+					height: 16px
+					margin: 3px 0 0 0
+					width: 17px
+
+				.twitter_lugar
+					background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
+					display: inline-block
+					float: left
+					height: 16px
+					margin: 3px 0 0 10px
+					width: 17px
+			
+			.texto_detalles
+				float: left
+				width: 433px
+				
+				p
+					white-space: pre-line
+
+					.titulo_detalle
+						color: $azul_claro
+						font:
+							weight: bold
+
+					.finaliza_detalle
+						color: $gris_999
+						font:
+							size: 13px
+							weight: bold
+
+			.texto_condiciones
+				color: $gris_999
+				float: left
+				font:
+					size: 12px
+				line-height: 20px
+				width: 598px
+				white-space: pre-line
+
+			ol
+				color: $gris_999
+				list-style: decimal
+				float: left
+				font: 
+					size: 12px
+				margin: 20px 0 0 20px 
+
+				li
+					margin: 0 0 10px
+
+
+
+
+		.detalles_contenido
+			padding-left: 170px
+
+		.detalles_foto
+			height: 150px
+			width: 150px
+			background: #333
+			display: block
+			float: left
+			margin-top: 10px
 
 	.colaborador_post_lugar
 		overflow: auto
@@ -40,74 +332,35 @@
 				margin-bottom: 10px
 				font-weight: bold
 
+.sidebar
 
-	.condiciones, .detalles
-		margin-top: 5px
-		padding: 20px
-		border: 1px solid #eeeef3
+	.imagen_post
+		margin: 0 0 20px
+		width: 300px
 
-	.detalles
-		font-size: 14px
+	.social_post
+		margin: 0 0 20px
+		width: 300px
 
-		.detalles_titulo
-			font-weight: bold
-			color: #7ec9ff
-			font-size: 16px
+	.posts_anteriores
+		color: $gris_666
+		margin: 0 0 20px
+		width: 300px
 
-		.detalles_finaliza
-			color: #888
-			font-weight: bold
+		.subtitulo_posts
+			font:
+				size: 14px
+				weight: bold
 
-		.detalles_contenido
-			padding-left: 170px
-
-		.detalles_foto
-			height: 150px
-			width: 150px
-			background: #333
-			display: block
-			float: left
-			margin-top: 10px
-
-			.facebook_lugar
-				background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
-				display: inline-block
-				float: left
-				height: 16px
-				width: 16px
-
-			.twitter_lugar
-				background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
-				display: inline-block
-				float: left
-				height: 16px
-				margin: 0 0 0 10px
-				width: 16px
-
-	.condiciones
-		ol
-			list-style: decimal
-			padding-left: 20px
+		ul
 
 			li
-				margin-top: 10px
+				font:
+					size: 13px
+				margin: 10px 0
 
-.sidebar
-	h2
-		font-size: 16px
-		font-weight: bold
-		margin-bottom: 16px
+				a
+					@include link_gris_666
 
-	.imagen_blog
-		width: 300px
-		height: 400px
-		display: block
-		background: #333
-		margin-bottom: 10px
-
-	.gads
-		width: 300px
-		height: 250px
-		display: block
-		background: #333
-		margin-bottom: 10px
+					&:hover
+						@include link_gris_666_hover

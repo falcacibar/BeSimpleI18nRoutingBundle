@@ -109,6 +109,12 @@ avalanche_imagine:
         large_lugar:
             type:    thumbnail
             options: { size: [600, 500], mode: outbound }
+        blog:
+            type:    thumbnail
+            options: { size: [600, 300], mode: outbound }
+        blog_detalle:
+            type:    thumbnail
+            options: { size: [145, 145], mode: outbound }
 
 # MailChimp Configuration
 jirafe_mail_chimp:

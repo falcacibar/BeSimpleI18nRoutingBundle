@@ -66,9 +66,16 @@ input[type=checkbox], input[type=radio] {
   color: #666666;
   display: block;
   float: left;
+  line-height: 20px;
   margin: 0 0 20px 0;
   padding: 10px;
   width: 940px; }
+  .mensaje_exito a {
+    color: #0066cc;
+    text-decoration: none; }
+    .mensaje_exito a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
   .mensaje_exito .imagen_exito {
     background: url("../images/extras/botones_sprite.png") 0px -129px;
     display: block;
@@ -127,6 +134,11 @@ a.chzn-single.chzn-error {
 .titulo_busqueda {
   font-size: 20px;
   line-height: 30px;
+  margin: 0 0 10px 0; }
+
+.sub_titulo_busqueda {
+  font-size: 16px;
+  line-height: 26px;
   margin: 0 0 10px 0; }
 
 .titulo_home {
@@ -385,9 +397,9 @@ textarea {
     .barra_ciudad .centrado_ciudad .redes_sociales {
       background: #cccccc;
       float: right;
-      margin-right: 2px;
       font-size: 12px;
       height: 20px;
+      margin: 0 1px 0 0;
       padding: 4px 9px 1px;
       padding: 4px 7px 1px \9;
       width: 70px; }
@@ -452,7 +464,7 @@ textarea {
         list-style-type: none;
         position: relative; }
         .menu .centrado_menu .menu_categorias li .tipo_categoria {
-          cursor: none; }
+          cursor: default; }
         .menu .centrado_menu .menu_categorias li a, .menu .centrado_menu .menu_categorias li .tipo_categoria {
           border-left: 1px solid #cccccc;
           border-right: 1px solid white;
@@ -487,6 +499,7 @@ textarea {
             float: left;
             width: 250px; }
             .menu .centrado_menu .menu_categorias li .cajas_menu ul li {
+              cursor: pointer;
               display: list-item;
               float: left;
               width: 250px; }
@@ -494,8 +507,7 @@ textarea {
                 border: 0px;
                 height: 20px;
                 padding: 9px 6px 1px;
-                width: 238px;
-                cursor: default; }
+                width: 238px; }
                 .menu .centrado_menu .menu_categorias li .cajas_menu ul li a:hover {
                   background: #f2f2f6;
                   border: 0px;
@@ -507,7 +519,7 @@ textarea {
       background: url("../images/extras/fondo_buscador.png") 0 0 repeat-x;
       border-left: 1px solid #cccccc;
       border-right: 1px solid #cccccc;
-      float: left;
+      float: right;
       height: 41px; }
       .menu .centrado_menu .buscador_box .buscar {
         border-right: 1px solid white;
@@ -629,6 +641,10 @@ textarea {
       .contenedor .contenido .cajas_registro input {
         line-height: 20px; }
       .contenedor .contenido .cajas_registro .columna_izquierda_registro {
+        box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
         background: #fafafc;
         border-bottom: 1px solid #cccccc;
         color: #666666;
@@ -947,9 +963,9 @@ textarea {
           background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
           border: 0px;
           cursor: pointer;
-          height: 14px;
+          height: 30px;
           margin: 0 0 0 169px;
-          width: 84px; }
+          width: 100px; }
           .estaticas .contenido .formulario_estaticas ul li .enviar_datos:hover {
             background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
   .estaticas .menu_estaticas {
@@ -979,6 +995,7 @@ textarea {
         float: right;
         text-align: right;
         padding: 15px 15px 15px 10px;
+        text-shadow: 1px 1px 1px white;
         width: 274px; }
         .estaticas .menu_estaticas a li:hover {
           border-bottom: 1px solid #cccccc;

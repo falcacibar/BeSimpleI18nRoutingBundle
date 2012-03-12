@@ -5,53 +5,56 @@
 {% block content %}
 <div class="post" style="border-top-color: #{{post.tipoPost.hex}}}">
 	<div class="post_contenido">
-		<div class="post_header">
-			<h1>{{post.titulo}}<h1>
-			<p class="metadata">Escrito Por: {{post.usuario.nombre}} en {{post.fecha | date('y-m-d')}}</p>
-		</div>
-		
-		(imagen) <br/>
-
-		{{post.contenido | raw }}<br/>
-		<div class="colaborador_post_lugar">
-			<div class="colaborador_foto_lugar"></div>
-			<div class="colaborador_texto_lugar"><h3>Titulo</h3>asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd asdasd asdasd asd asdasdasdasd </div>
-		</div>
+		<h1 class="titulo">{{post.titulo}}</h1>
+		<p class="metadata_post">Escrito por {{post.usuario.nombre}} el {{post.fecha | date('d-m-y')}}</p>
+		<p class="contenido_post">{{post.contenido | raw }}</p>
 	</div>
 
 	<div class="detalles">
-		<div class="detalles_foto">		
-			{% if post.tipoPost.slug == 'beneficio-exclusivo' %}
-				{% if post.lugar.facebook != '' %}
-					<a class="facebook_lugar" href="http://{{ post.lugar.facebook }}" target="_blank"></a>
+		<div class="borde_cajas">
+			<div class="imagen_detalles">
+				<img src="{{ ('assets/images/blog/'~post.imagenDetalle) | apply_filter('blog_detalle')}}" height="145" width="145" />
+				{% if post.tipoPost.slug == 'beneficio-exclusivo' %}
+					{% if post.lugar.facebook != '' %}
+						<a class="facebook_lugar" href="http://{{ post.lugar.facebook }}" target="_blank"></a>
+					{% endif %}
+					{% if post.lugar.twitter != '' %}
+						<a class="twitter_lugar" href="http://{{ post.lugar.twitter }}" target="_blank"></a>
+					{% endif %}
+					{% if post.lugar.sitioWeb != '' %}
+						<a href="http://{{post.lugar.sitioWeb}}" target="_blank">{{post.lugar.sitioWeb}}</a>
+					{% endif %}
 				{% endif %}
-				{% if post.lugar.twitter != '' %}
-					<a class="twitter_lugar" href="http://{{ post.lugar.twitter }}" target="_blank"></a>
-				{% endif %}
-				{% if post.lugar.sitioWeb != '' %}
-					<a href="http://{{post.lugar.sitioWeb}}" target="_blank">{{post.lugar.sitioWeb}}</a>
-				{% endif %}
-			{% endif %}
-		</div>
+			</div>
 
-		<div class="detalles_contenido">
-			{{post.detalles | raw }}
+			<div class="texto_detalles">
+				<p>{{post.detalles | raw }}</p>
+			</div>
 		</div>
 	</div>
 
 	<div class="condiciones">
-		{{post.condiciones | raw}}
+		<div class="borde_cajas">
+			<p class="texto_condiciones">{{post.condiciones | raw}}</p>
+		</div>
 	</div>
 </div>
+
 <div class="sidebar">
-	<div class="imagen_blog"></div>
-	<div class="gads"></div>
-	<div class="social_sidebar">Loogares social stuff</div>
-	<div class="anteriores">
-		<h2>Anteriores {{post.tipoPost.nombre}}:</h2>
+	<div class="imagen_post">
+		<img src="{{ ('assets/images/blog/'~post.imagen) | apply_filter('blog')}}" height="" width="300" />
+	</div>
+
+    <div class="banner_300x250">
+    </div>
+
+    <div class="social_post"></div>
+
+	<div class="posts_anteriores">
+		<h2 class="subtitulo_posts">Anteriores {{post.tipoPost.nombre}}:</h2>
 		<ul>
 		{% for anterior in anteriores %}
-			<li><p>{{anterior.titulo}}</p></li>
+			<li><a href="{{ path('post', {'slug': anterior.slug}) }}">- {{anterior.titulo}}</a></li>
 		{% endfor %}
 		</ul>
 	</div>
