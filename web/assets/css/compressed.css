@@ -540,9 +540,16 @@ input[type=checkbox], input[type=radio] {
   color: #666666;
   display: block;
   float: left;
+  line-height: 20px;
   margin: 0 0 20px 0;
   padding: 10px;
   width: 940px; }
+  .mensaje_exito a {
+    color: #0066cc;
+    text-decoration: none; }
+    .mensaje_exito a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
   .mensaje_exito .imagen_exito {
     background: url("../images/extras/botones_sprite.png") 0px -129px;
     display: block;
@@ -1425,9 +1432,9 @@ textarea {
           background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
           border: 0px;
           cursor: pointer;
-          height: 14px;
+          height: 30px;
           margin: 0 0 0 169px;
-          width: 84px; }
+          width: 100px; }
           .estaticas .contenido .formulario_estaticas ul li .enviar_datos:hover {
             background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
   .estaticas .menu_estaticas {
@@ -3924,9 +3931,6 @@ small {
     padding: 5px 10px;
     position: absolute;
     width: 300px; }
-    .opciones_lugar .compartir_lugar ul li {
-      float: left;
-      margin: 11px 15px 0 0; }
 
 /* Pedidos Online Lightbox Popup */
 .popup {

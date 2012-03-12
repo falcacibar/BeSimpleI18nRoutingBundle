@@ -1341,7 +1341,7 @@ class LugarController extends Controller{
 
             $em->flush();
 
-            $this->get('session')->setFlash('lugar_flash','Acabas de borrar tu recomendación, prueba escribiendo una nueva(.');
+            $this->get('session')->setFlash('lugar_flash','Acabas de borrar tu recomendación, prueba escribiendo una nueva.');
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
         }
     }
