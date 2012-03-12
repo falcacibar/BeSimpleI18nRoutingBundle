@@ -4,7 +4,56 @@
 	<h2 class="titulo_accion_usuario">
 		{{(usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto) ? 'usuario.actividad.titulo'|transchoice(1) : 'usuario.actividad.titulo'|transchoice(0)~" "~usuario.nombre~" "~usuario.apellido}}
 	</h2>
-	{% set full = 0 %}
 	{% include 'LoogaresUsuarioBundle:Usuarios:actividad_usuario_full.html.twig' %}
 
+	{% if actividad_total is defined and actividad_total == false %}
+ 		{% if usuario.recientemente[0] is defined %}
+ 			<h2 class="titulo_accion_usuario">Visitados Recientemente</h2>
+ 			{% for reciente in usuario.recientemente %}
+				<div class="textos_lugar_guardado_usuario">							
+					<strong><a class="nombre_lugar_guardado_usuario" href="{{path('_lugar', {'slug' : reciente.lugar.slug})}}">{{reciente.lugar.nombre}}</a></strong>
+					<p class="estrellas_lugar" data-stars="{{reciente.lugar.estrellas}}"></p>
+					<span class="direccion_lugar_guardado_usuario">{{reciente.lugar.calle}} {{reciente.lugar.numero}}, {{reciente.lugar.comuna.nombre}}</span>
+					<p class="categorias_lugar_guardado_usuario"><strong>{{'usuario.recomendaciones.recomendacion.categorias'|trans}}</strong>
+						{% for categoriaLugar in reciente.lugar.categoriaLugar %}
+							<a href="#">{{categoriaLugar.categoria.nombre}}</a>
+							{{-((loop.index == reciente.lugar.categoriaLugar|length) ? '' : ', ')}}
+						{% endfor %}
+					</p>
+				</div>
+ 			{% endfor %}
+ 		{% endif %}
+  		{% if usuario.porVisitar[0] is defined %}
+ 			<h2 class="titulo_accion_usuario">Visitados porVisitar</h2>
+ 			{% for visitar in usuario.porVisitar %}
+				<div class="textos_lugar_guardado_usuario">							
+					<strong><a class="nombre_lugar_guardado_usuario" href="{{path('_lugar', {'slug' : visitar.lugar.slug})}}">{{visitar.lugar.nombre}}</a></strong>
+					<p class="estrellas_lugar" data-stars="{{visitar.lugar.estrellas}}"></p>
+					<span class="direccion_lugar_guardado_usuario">{{visitar.lugar.calle}} {{visitar.lugar.numero}}, {{visitar.lugar.comuna.nombre}}</span>
+					<p class="categorias_lugar_guardado_usuario"><strong>{{'usuario.recomendaciones.recomendacion.categorias'|trans}}</strong>
+						{% for categoriaLugar in visitar.lugar.categoriaLugar %}
+							<a href="#">{{categoriaLugar.categoria.nombre}}</a>
+							{{-((loop.index == visitar.lugar.categoriaLugar|length) ? '' : ', ')}}
+						{% endfor %}
+					</p>
+				</div>
+ 			{% endfor %}
+ 		{% endif %}
+  		{% if usuario.favoritos[0] is defined %}
+ 			<h2 class="titulo_accion_usuario">Favoritos</h2>
+ 			{% for favorito in usuario.favoritos %}
+				<div class="textos_lugar_guardado_usuario">							
+					<strong><a class="nombre_lugar_guardado_usuario" href="{{path('_lugar', {'slug' : favorito.lugar.slug})}}">{{favorito.lugar.nombre}}</a></strong>
+					<p class="estrellas_lugar" data-stars="{{favorito.lugar.estrellas}}"></p>
+					<span class="direccion_lugar_guardado_usuario">{{favorito.lugar.calle}} {{favorito.lugar.numero}}, {{favorito.lugar.comuna.nombre}}</span>
+					<p class="categorias_lugar_guardado_usuario"><strong>{{'usuario.recomendaciones.recomendacion.categorias'|trans}}</strong>
+						{% for categoriaLugar in favorito.lugar.categoriaLugar %}
+							<a href="#">{{categoriaLugar.categoria.nombre}}</a>
+							{{-((loop.index == favorito.lugar.categoriaLugar|length) ? '' : ', ')}}
+						{% endfor %}
+					</p>
+				</div>
+ 			{% endfor %}
+ 		{% endif %}
+	{% endif %}
 </div>
