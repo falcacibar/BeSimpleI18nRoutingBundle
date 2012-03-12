@@ -38,6 +38,9 @@ use Loogares\ExtraBundle\Entity\ActividadReciente;
 class LugarController extends Controller{
 
     public function lugarAction($slug, Request $request, $usuarioSlug = false){
+                foreach($_GET as $key => $value){
+                    $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);  
+                }
                 $fn = $this->get('fn');
                 $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
                 $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
@@ -339,6 +342,9 @@ class LugarController extends Controller{
             ->getForm();
    
         if ($request->getMethod() == 'POST') {
+            foreach($_POST as $key => $value){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);  
+            }
 
             $form->bindRequest($request);
 
@@ -677,6 +683,12 @@ class LugarController extends Controller{
     }
 
     public function agregarFotoAction(Request $request, $slug) {
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
+        foreach($_GET as $key => $value){
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+        }
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $formErrors = array();
@@ -846,6 +858,7 @@ class LugarController extends Controller{
 
             // Si el request es POST, se procesan descripciones de fotos
             if ($request->getMethod() == 'POST') { 
+
                 $infoImgs = $request->request->get('imagenes');
 
                 // A cada imagen le asociamos la descripción/URL correspondiente
@@ -891,6 +904,10 @@ class LugarController extends Controller{
         // Si el request es POST, se procesa la edición de la foto
         if ($request->getMethod() == 'POST') { 
             $form->bindRequest($request);
+
+            foreach($_POST as $key => $value){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            }
 
             if ($form->isValid()) {
                 $imagen->setFechaModificacion(new \DateTime());
@@ -1066,6 +1083,11 @@ class LugarController extends Controller{
     /* RECOMENDACIONES */
     public function recomendacionesAction($slug, Request $request, $curlSuperVar = false){
         $em = $this->getDoctrine()->getEntityManager();
+
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
+        
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $tr = $em->getRepository("LoogaresUsuarioBundle:Tag");
         $trr = $em->getRepository("LoogaresUsuarioBundle:TagRecomendacion");
@@ -1250,13 +1272,9 @@ class LugarController extends Controller{
                     $paths['usuario'] = 'assets/media/cache/small_usuario/assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull();
                 }
                  
-
-
                 $message = $this->get('fn')->enviarMail($mail['asunto'], $lugar->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_lugar.html.twig', $this->get('templating'));
                 $this->get('mailer')->send($message);
             }
-
-            
 
             if(isset($_POST['curlSuperVar']) && $_POST['curlSuperVar'] == 1){
                 return new Response('',200);
@@ -1346,6 +1364,9 @@ class LugarController extends Controller{
 
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
+            foreach($_POST as $key => $value){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            }
 
             if(!$this->get('security.context')->isGranted('ROLE_USER')) {
                 if($request->request->get('nombre') == '')
@@ -1425,6 +1446,10 @@ class LugarController extends Controller{
 
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
+            foreach($_POST as $key => $value){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            }
+
             if(!$this->get('security.context')->isGranted('ROLE_USER')) {
                 if($request->request->get('nombre') == '')
                 $formErrors['nombre'] = "lugar.errors.enviar.nombre";
@@ -1517,6 +1542,10 @@ class LugarController extends Controller{
         if ($request->getMethod() == 'POST') { 
             $form->bindRequest($request);
 
+            foreach($_POST as $key => $value){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            }
+
             if ($form->isValid()) {
 
                 $reporte->setImagenLugar($imagen);
@@ -1602,6 +1631,10 @@ class LugarController extends Controller{
         if ($request->getMethod() == 'POST') { 
             $form->bindRequest($request);
 
+            foreach($_POST as $key => $value){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            }
+
             if ($form->isValid()) {
 
                 $reporte->setRecomendacion($recomendacion);
@@ -1673,6 +1706,10 @@ class LugarController extends Controller{
         if ($request->getMethod() == 'POST') { 
             $form->bindRequest($request);
 
+            foreach($_POST as $key => $value){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            }
+
             if ($form->isValid()) {
                 $reporte->setLugar($lugar);
                 $reporte->setUsuario($this->get('security.context')->getToken()->getUser());
@@ -1736,6 +1773,9 @@ class LugarController extends Controller{
         
         // Si lugar ya tiene dueño, se redirecciona a ficha    
         if($lugar->getDuenoId() > 0) {
+            foreach($_POST as $key => $value){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            }
             // Request proviene desde E-mail del dueño
             if($request->query->get('mail')) {
                 // Buscamos el dueño del lugar, y enviamos mail a administradores con datos de lugar
@@ -1778,6 +1818,9 @@ class LugarController extends Controller{
 
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
+            foreach($_POST as $key => $value){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            }
 
             $form->bindRequest($request);
 

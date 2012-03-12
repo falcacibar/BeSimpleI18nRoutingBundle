@@ -15,9 +15,7 @@
 				{{usuario.edad}} {% transchoice usuario.edad%}usuario.datos.edad{% endtranschoice %}
 			{% endif %}
 		</p>
-		{% if usuario.comuna is defined %}
-			<p class="ciudad_pais_usuario">{% if usuario.comuna != null %}{{ usuario.comuna.ciudad.nombre }}, {{usuario.comuna.ciudad.pais.nombre}}{% endif %}</p>
-		{% endif %}
+		<p class="ciudad_pais_usuario">{{usuario.ubicacion | join(', ')}}</p>
 
 		{% if usuario.links|length > 0 %}
 			<ul class="link_usuario">

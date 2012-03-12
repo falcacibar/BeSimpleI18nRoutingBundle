@@ -14,6 +14,11 @@ use Loogares\ExtraBundle\Entity\ActividadReciente;
 class AjaxController extends Controller
 {
     public function otrosLugaresEnElAreaAction(){
+
+        foreach($_GET as $key => $value){
+          $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);  
+        }
+
         list($mapxDesde, $mapyDesde) = explode(',',$_GET['southWest']);
         list($mapxHasta, $mapyHasta) = explode(',',$_GET['northEast']);
         $idLugar = $_GET['idLugar'];
@@ -67,7 +72,8 @@ class AjaxController extends Controller
     }
 
     public function generarComunasPorCiudadAction(){
-      $idCiudad = $_POST['ciudad'];
+
+      $idCiudad = filter_var($_POST['ciudad'], FILTER_SANITIZE_STRING);  
     
       $em = $this->getDoctrine()->getEntityManager();
       $q = $em->createQuery('SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u where u.ciudad = ?1');
@@ -78,6 +84,10 @@ class AjaxController extends Controller
     }
 
     public function lugarYaExisteAction(){
+      foreach($_POST as $key => $value){
+        $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);  
+      }
+
       $calle = $_POST['calle'];
       $numero = $_POST['numero'];
       $id = $_POST['id'];
@@ -101,7 +111,8 @@ class AjaxController extends Controller
     }
 
     public function recomendarCalleAction(){
-      $d = $_GET['term'];
+
+      $d = filter_var($_POST['term'], FILTER_SANITIZE_STRING);  
       $calles = '';
       $em = $this->getDoctrine()->getEntityManager();
       $q = $em->createQuery('SELECT DISTINCT u.calle FROM Loogares\LugarBundle\Entity\Lugar u where u.calle LIKE ?1');
@@ -141,6 +152,7 @@ class AjaxController extends Controller
     }
 
     public function recomendacionAction(){
+      $_POST['slug'] = filter_var($_POST['slug'], FILTER_SANITIZE_STRING);
       $em = $this->getDoctrine()->getEntityManager();
       $fn = $this->get('fn');
       $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
@@ -163,6 +175,9 @@ class AjaxController extends Controller
     }
 
     public function accionAction(){
+      foreach($_POST as $key => $value){
+        $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);  
+      }      
       $em = $this->getDoctrine()->getEntityManager();
       $accion = $_POST['accion'];
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
@@ -284,6 +299,9 @@ class AjaxController extends Controller
     }
 
     public function utilMailAction() {
+      foreach($_POST as $key => $value){
+        $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);  
+      }
       $em = $this->getDoctrine()->getEntityManager();
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
 

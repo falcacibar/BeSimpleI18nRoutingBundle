@@ -22,6 +22,9 @@ class UsuarioController extends Controller
     }
 
     public function actividadAction(Request $request, $param) {
+        foreach($_GET as $key => $value){
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+        }
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
@@ -80,6 +83,10 @@ class UsuarioController extends Controller
     }
 
     public function recomendacionesAction($param, $orden=null, $pagina=null) {
+        foreach($_GET as $key => $value){
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+        }
+
         $router = $this->get('router');
         $fn = $this->get('fn');
         $em = $this->getDoctrine()->getEntityManager();
@@ -135,6 +142,9 @@ class UsuarioController extends Controller
     }
 
     public function fotosAction($param) {
+        foreach($_GET as $key => $value){
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+        }
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
@@ -193,6 +203,9 @@ class UsuarioController extends Controller
     }
 
     public function lugaresAction($param, $accionLugar = null) {
+        foreach($_GET as $key => $value){
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+        }
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
@@ -264,7 +277,9 @@ class UsuarioController extends Controller
     }
 
     public function editarCuentaAction(Request $request, $param) {
-
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $tur = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario");
@@ -457,9 +472,11 @@ class UsuarioController extends Controller
                 $usuarioResult->setMail($mail);
             }
         }
-$comunaSeleccionada ='';
- $ciudadSeleccionada='';
-   $paisSeleccionado = '';
+
+        $comunaSeleccionada ='';
+        $ciudadSeleccionada='';
+        $paisSeleccionado = '';
+
         if( !empty($erroresLocalidad) ){
             $comunaSeleccionada = (isset($_POST['comuna']) && $_POST['comuna'] != 'elige')?$_POST['comuna']:'';
             $ciudadSeleccionada = (isset($_POST['ciudad']) && $_POST['ciudad'] != 'elige')?$_POST['ciudad']:'';
@@ -485,6 +502,10 @@ $comunaSeleccionada ='';
     }
 
     public function editarFotoAction(Request $request, $param) {
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
+
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
@@ -547,6 +568,10 @@ $comunaSeleccionada ='';
     }
 
     public function editarPasswordAction(Request $request, $param) {
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
+
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
@@ -620,6 +645,10 @@ $comunaSeleccionada ='';
     }
 
     public function editarBorrarAction(Request $request, $param) {
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
+
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
@@ -711,6 +740,9 @@ $comunaSeleccionada ='';
     }
 
     public function registroAction(Request $request) {
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
 
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
@@ -859,6 +891,10 @@ $comunaSeleccionada ='';
     }
 
     public function olvidarPasswordAction(Request $request) {
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
+
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
@@ -905,6 +941,10 @@ $comunaSeleccionada ='';
     }
 
     public function regenerarPasswordAction(Request $request, $hash) {
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
+
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
@@ -1015,6 +1055,10 @@ $comunaSeleccionada ='';
     }
 
     public function forzarDatosAction(Request $request) {
+        foreach($_POST as $key => $value){
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+        }
+        
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
