@@ -725,8 +725,8 @@ $rojo: #F72121
                 
         li
             float: left
-            margin: 0 5px
-            width: 180px
+            margin: 10px 5px
+            width: 179px
 
             .imagen_usuario
                 float: left
@@ -744,18 +744,49 @@ $rojo: #F72121
                 &:hover
                     @include link_gris_666_hover
 
+/* Actividad reciente extendida por ciudad */
 .actividad_extendida
     color: $gris_666
+    float: left
+    width: 640px
 
-    h3
-        padding: 10px
+    .encabezado_actividad
         border-bottom: 1px solid $gris_f6f
+        float: left
+        padding: 0 0 30px
+        width: 640px
+
+        .actividad_icono
+            background: url('../images/extras/botones_sprite.png') no-repeat 0 -264px
+            float: left
+            height: 18px
+            margin: 5px 0 0
+            width: 18px
+
+        h3
+            float: left
+            margin: 0 0 0 10px
+            width: 412px
+        
+        .filtrar_actividad
+            float: left
+            font:
+                size: 12px
+            margin: 4px 0 0
+            text-align: right
+            width: 200px
+
+            select
+                width: 200px
 
     ul
+        float: left
+        width: 640px
+
         li
-            padding: 10px
-            float: left
             border-bottom: 1px solid $gris_f6f
+            float: left
+            padding: 20px 10px 30px
             width: 618px
 
             &.last_one
@@ -763,22 +794,101 @@ $rojo: #F72121
 
             .link_usuario
                 float: left
+                width: 50px
 
             .contenido_actividad
                 float: left
                 margin: 0 0 0 10px
+                width: 558px
 
                 span
-                    font-size: 11px
+                    color: $gris_999
+                    display: block
+                    float: left
+                    font:
+                        size: 11px
+                    margin: 0 0 15px
                 p
-                    margin: 5px 0 0 0
+                    float: left
+                    margin: 0 0 15px
+                    width: 558px
                     
+                    a
+                        @include link_azul
+
+                        &:hover
+                            @include link_azul_hover
+
+                    span
+                        float: none
+                        display: inline
 
                     &.rec_actividad_preview
-                        font-size: 11px    
-                        width: 555px
+                        font:
+                            size: 12px
+                        float: left
+                        line-height: 20px
+                        margin: 0    
+                        width: 558px
+
                     &.util_actividad
                         width: 555px                        
 
             .link_lugar
                 float: right
+
+    .ver_mas_actividad_inferior
+        @include link_azul
+        border-top: 1px solid $gris_f6f
+        float: left
+        font:
+            size: 12px
+        padding: 20px 0 30px
+        text-align: right
+        width: 640px
+
+.paginacion_actividad
+    border-bottom: 1px solid $gris_f6f
+    border-top: 1px solid $gris_f6f
+    color: $gris_666
+    display: block
+    float: left
+    font:
+        size: 12px
+    padding: 10px 0
+    width: 778px
+
+    p
+        float: left
+        display: block
+        margin: 2px 0 0
+
+    ul
+        border: 0px
+        float: left
+        font:
+            size: 12px
+        margin: 0 0 0 10px
+        padding: 0px
+        width: 560px
+    
+        li
+            border: 1px solid $gris_ccc
+            float: left
+            height: 5px
+            margin: 0 0 0 2px
+            padding: 2px 5px 8px
+        
+            a
+                @include link_gris_666
+        
+        .pagina-actual
+            background: $azul
+            border: 1px solid $azul
+            float: left
+            height: 5px
+            margin: 0 0 0 2px
+            padding: 2px 5px 8px
+
+            a
+                @include link_blanco
