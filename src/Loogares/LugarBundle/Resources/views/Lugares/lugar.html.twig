@@ -350,18 +350,24 @@
                 
             </ul>
             <div class="compartir_lugar">
-                <ul>
-                    <li class="twitter_share">                       
+                <ul style="text-align: left;">
+                    <li class="mail_share" style="margin: 0 0 5px;">
+                        <a style="color: white; text-decoration: none;" href="{{path('_enviarLugar', {'slug' : lugar.slug})}}">
+                            <span style="background: url('{{ asset('assets/images/extras/iconos_ficha_lugar.png') }}') no-repeat 0 -567px; height: 10px; float: left; padding: 0 0 0 13px; margin: 2px 4px 0 3px;"></span>
+                            {{'lugar.ficha.opciones.e_mail'|trans}}
+                        </a>
+                    </li>
+                    <li class="fb_share" style="margin: 0 0 5px;">
+                        <a style="color: white; text-decoration: none;" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
+                    </li>
+                    <li class="twitter_share" style="margin: 0 0 5px;">                       
                         {% set data_url = url('_lugar', {'slug' : lugar.slug}) %}
                         {% set data_text = lugar.nombre~", "~lugar.comuna.ciudad.nombre~" | Loogares.com" %}
                         {% set data_via = "Loogarescom" %}
-                        <a href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">{{'lugar.ficha.opciones.twittear'|trans}}</a>
-                    </li>
-                    <li class="fb_share">
-                        <a name="fb_share" type="icon_link" style="color:#444">{{'lugar.ficha.opciones.facebook'|trans}}</a>
-                    </li>
-                    <li class="mail_share">
-                        <a href="{{path('_enviarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.e_mail'|trans}}</a>
+                        <a style="color: white; text-decoration: none;" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">
+                            <span style="background: url('{{ asset('assets/images/extras/iconos_ficha_lugar.png') }}') no-repeat 0 -684px; height: 14px; float: left; padding: 0 0 0 13px; margin: 1px 6px 0 0; width: 1px"></span>
+                            {{'lugar.ficha.opciones.twittear'|trans}}
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -479,18 +485,26 @@
                         </ul>
 
                         <div class="compartir_recomendacion">
-                            <ul>
-                                <li class="twitter_share_recomendacion">                                    
+                            <ul style="text-align: left;">
+                                <li style="color: white; text-decoration: none;" class="mail_share" style="margin: 0 0 5px;">
+                                    <a style="color: white; text-decoration: none;" href="{{path('_enviarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">
+                                        <span style="background: url('{{ asset('assets/images/extras/iconos_ficha_lugar.png') }}') no-repeat 0 -567px; height: 10px; float: left; padding: 0 0 0 13px; margin: 2px 4px 0 3px;"></span>
+                                        {{'lugar.ficha.opciones.e_mail'|trans}}
+                                    </a>
+                                </li>
+                                <li class="fb_share_recomendacion" style="margin: 0 0 5px;">
+                                    <a style="color: white; text-decoration: none;" name="fb_share" type="icon_link" style="color:#444" share_url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">
+                                        {{'lugar.ficha.opciones.facebook'|trans}}
+                                    </a>
+                                </li>
+                                <li class="twitter_share_recomendacion" style="margin: 0 0 5px;">                                    
                                     {% set data_url = url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId}) %}
                                     {% set data_text = "Recomendación de "~recomendacion.nombre~" "~recomendacion.apellido~" en "~lugar.nombre~", "~lugar.comuna.ciudad.nombre %}
                                     {% set data_via = "Loogarescom" %}
-                                    <a href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">{{'lugar.ficha.opciones.twittear'|trans}}</a>
-                                </li>
-                                <li class="fb_share_recomendacion">
-                                    <a name="fb_share" type="icon_link" style="color:#444" share_url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">{{'lugar.ficha.opciones.facebook'|trans}}</a>
-                                </li>
-                                <li class="mail_share">
-                                    <a href="{{path('_enviarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">{{'lugar.ficha.opciones.e_mail'|trans}}</a>
+                                    <a style="color: white; text-decoration: none;" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">
+                                        <span style="background: url('{{ asset('assets/images/extras/iconos_ficha_lugar.png') }}') no-repeat 0 -684px; height: 14px; float: left; padding: 0 0 0 13px; margin: 1px 6px 0 0; width: 1px"></span>
+                                        {{'lugar.ficha.opciones.twittear'|trans}}
+                                    </a>
                                 </li>
                             </ul>
                         </div>

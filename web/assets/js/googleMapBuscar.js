@@ -66,8 +66,8 @@ function createMarker($container, point, i){
         $('.lugar_data').hide();
         var markerOffset = map.fromLatLngToContainerPixel(marker.getPoint()),
             mapaOffset = $('#mapa_buscar').offset(),
-            t = markerOffset.y + (mapaOffset.top) - 195,
-            l = markerOffset.x + (mapaOffset.left / 2) - 40;
+            t = markerOffset.y + (mapaOffset.top) - 180,
+            l = markerOffset.x + (mapaOffset.left / 2) - 70;
 
         $container.show().css('top', t).css('left', l)
     });

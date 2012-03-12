@@ -1428,26 +1428,15 @@ $rojo: #F72121
                 &:hover
                     background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -580px
 
-    div.compartir_lugar
+    .compartir_lugar
+        border : 1px solid $gris_ccc
         display: none
-        border : 1px solid #ccc
-        width: 300px
         height: 40px
-        position: absolute
         margin: 44px 0 0 317px
         padding: 5px 10px
-
-        a
-            color: #444
-
-        ul
-            li
-                float: left
-                margin: 11px 15px 0 0
-                &.mail_share
-                    background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px
-                    padding: 0 0 0 13px
-
+        position: absolute
+        width: 300px
+                
 /* Pedidos Online Lightbox Popup */
 .popup
     background: $blanco
@@ -2285,27 +2274,29 @@ $rojo: #F72121
         margin: 0 0 30px 0
 
 /* Editar foto Lugar */
-.editar_foto
+.editar_foto_container
 
-    .enviar_foto
-        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
-        border: 0px
-        cursor: pointer
-        height: 30px
-        float: left
-        margin: 0 0 0 10px
-        width: 100px
+    li
 
-        &:hover
-            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
+        .enviar_foto
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px 0
+            border: 0px
+            cursor: pointer
+            height: 30px
+            float: left
+            margin: 0 0 0 10px
+            width: 100px
 
-    .cancelar_edicion
-        @include link_azul
-        float: left
-        margin: 10px 0 9px 10px
+            &:hover
+                background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
 
-        &:hover
-            @include link_azul_hover
+        .cancelar_edicion
+            @include link_azul
+            float: left
+            margin: 10px 0 9px 10px
+
+            &:hover
+                @include link_azul_hover
 
 /* Galería de fotos */
 
@@ -2426,6 +2417,16 @@ $rojo: #F72121
                 background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
                 height: 10px
                 margin: 0 0 0 20px
+                padding: 0 0 0 13px
+                width: 10px
+
+                &:hover
+                    background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -553px
+
+            .reportar_foto
+                background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -553px
+                height: 10px
+                margin: 0 0 0 10px
                 padding: 0 0 0 13px
                 width: 10px
 

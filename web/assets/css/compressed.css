@@ -859,9 +859,9 @@ textarea {
     .barra_ciudad .centrado_ciudad .redes_sociales {
       background: #cccccc;
       float: right;
-      margin-right: 2px;
       font-size: 12px;
       height: 20px;
+      margin: 0 1px 0 0;
       padding: 4px 9px 1px;
       padding: 4px 7px 1px \9;
       width: 70px; }
@@ -926,7 +926,7 @@ textarea {
         list-style-type: none;
         position: relative; }
         .menu .centrado_menu .menu_categorias li .tipo_categoria {
-          cursor: none; }
+          cursor: default; }
         .menu .centrado_menu .menu_categorias li a, .menu .centrado_menu .menu_categorias li .tipo_categoria {
           border-left: 1px solid #cccccc;
           border-right: 1px solid white;
@@ -961,6 +961,7 @@ textarea {
             float: left;
             width: 250px; }
             .menu .centrado_menu .menu_categorias li .cajas_menu ul li {
+              cursor: pointer;
               display: list-item;
               float: left;
               width: 250px; }
@@ -968,8 +969,7 @@ textarea {
                 border: 0px;
                 height: 20px;
                 padding: 9px 6px 1px;
-                width: 238px;
-                cursor: default; }
+                width: 238px; }
                 .menu .centrado_menu .menu_categorias li .cajas_menu ul li a:hover {
                   background: #f2f2f6;
                   border: 0px;
@@ -981,7 +981,7 @@ textarea {
       background: url("../images/extras/fondo_buscador.png") 0 0 repeat-x;
       border-left: 1px solid #cccccc;
       border-right: 1px solid #cccccc;
-      float: left;
+      float: right;
       height: 41px; }
       .menu .centrado_menu .buscador_box .buscar {
         border-right: 1px solid white;
@@ -2123,38 +2123,63 @@ small {
     margin: 0 0 0 10px;
     width: 260px; }
 
-/* TOMAS */
+/* Caja Google Maps */
 .lugar_data {
   background: white;
-  width: 245px;
-  display: block;
-  padding: 6px 10px;
+  border: 1px solid #cccccc;
   box-shadow: 4px 5px 0 #cccccc;
-  border: 1px #cccccc solid;
+  display: block;
+  display: none;
+  padding: 6px 10px;
   position: absolute;
-  z-index: 24;
-  display: none; }
+  width: 265px;
+  z-index: 24; }
   .lugar_data .flecha {
     background: url("../images/extras/flechita-gmap.png") no-repeat;
+    box-shadow: 5px 0 0 #cccccc;
     height: 25px;
-    width: 25px;
+    left: 180px;
     position: absolute;
     top: 100%;
-    left: 180px;
-    box-shadow: 5px 0 0 #cccccc; }
-  .lugar_data li {
-    margin: 4px 0; }
-  .lugar_data .data_lugar .nombre_lugar {
-    display: block;
-    line-height: 20px; }
-  .lugar_data .data_lugar img {
-    background: #f1f0f5;
-    width: 60px;
-    height: 60px;
+    width: 25px; }
+  .lugar_data .imagen_gmaps {
+    height: 50px;
     float: left;
-    margin-right: 5px; }
-  .lugar_data .data_categoria, .lugar_data .data_sector {
-    margin-left: 65px; }
+    margin: 0 10px 0 0;
+    width: 50px; }
+  .lugar_data ul {
+    float: left;
+    width: 200px; }
+    .lugar_data ul li {
+      margin: 0 0 10px; }
+    .lugar_data ul .nombre_lugar_gmaps {
+      float: left;
+      width: 200px; }
+      .lugar_data ul .nombre_lugar_gmaps a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        .lugar_data ul .nombre_lugar_gmaps a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
+    .lugar_data ul .estrellas_gmaps {
+      float: left;
+      margin: 0 5px 10px 0;
+      width: 80px; }
+    .lugar_data ul .recomendacion_gmaps {
+      float: left;
+      font-size: 11px;
+      font-style: italic;
+      margin: 2px 0 0;
+      width: 115px; }
+    .lugar_data ul .data_categoria, .lugar_data ul .data_sector {
+      float: left;
+      width: 200px; }
+      .lugar_data ul .data_categoria a, .lugar_data ul .data_sector a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        .lugar_data ul .data_categoria a:hover, .lugar_data ul .data_sector a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
 
 /* Colores */
 /* Mixin */
@@ -3891,22 +3916,17 @@ small {
         width: 10px; }
         .opciones_lugar ul.opciones_lugar_f6f li .imprimir_lugar:hover {
           background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -580px; }
-  .opciones_lugar div.compartir_lugar {
-    display: none;
+  .opciones_lugar .compartir_lugar {
     border: 1px solid #cccccc;
-    width: 300px;
+    display: none;
     height: 40px;
-    position: absolute;
     margin: 44px 0 0 317px;
-    padding: 5px 10px; }
-    .opciones_lugar div.compartir_lugar a {
-      color: #444444; }
-    .opciones_lugar div.compartir_lugar ul li {
+    padding: 5px 10px;
+    position: absolute;
+    width: 300px; }
+    .opciones_lugar .compartir_lugar ul li {
       float: left;
       margin: 11px 15px 0 0; }
-      .opciones_lugar div.compartir_lugar ul li.mail_share {
-        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
-        padding: 0 0 0 13px; }
 
 /* Pedidos Online Lightbox Popup */
 .popup {
@@ -4586,7 +4606,7 @@ small {
     margin: 0 0 30px 0; }
 
 /* Editar foto Lugar */
-.editar_foto .enviar_foto {
+.editar_foto_container li .enviar_foto {
   background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
   border: 0px;
   cursor: pointer;
@@ -4594,14 +4614,14 @@ small {
   float: left;
   margin: 0 0 0 10px;
   width: 100px; }
-  .editar_foto .enviar_foto:hover {
+  .editar_foto_container li .enviar_foto:hover {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
-.editar_foto .cancelar_edicion {
+.editar_foto_container li .cancelar_edicion {
   color: #0066cc;
   text-decoration: none;
   float: left;
   margin: 10px 0 9px 10px; }
-  .editar_foto .cancelar_edicion:hover {
+  .editar_foto_container li .cancelar_edicion:hover {
     color: #0066cc;
     text-decoration: underline; }
 
@@ -4705,6 +4725,14 @@ small {
         padding: 0 0 0 13px;
         width: 10px; }
         .galeria_de_fotos .foto_info .opciones_foto .borrar_foto:hover {
+          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px; }
+      .galeria_de_fotos .foto_info .opciones_foto .reportar_foto {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
+        height: 10px;
+        margin: 0 0 0 10px;
+        padding: 0 0 0 13px;
+        width: 10px; }
+        .galeria_de_fotos .foto_info .opciones_foto .reportar_foto:hover {
           background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px; }
 
 .sidebar_galeria {

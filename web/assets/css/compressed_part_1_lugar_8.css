@@ -1079,22 +1079,17 @@
         width: 10px; }
         .opciones_lugar ul.opciones_lugar_f6f li .imprimir_lugar:hover {
           background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -580px; }
-  .opciones_lugar div.compartir_lugar {
-    display: none;
+  .opciones_lugar .compartir_lugar {
     border: 1px solid #cccccc;
-    width: 300px;
+    display: none;
     height: 40px;
-    position: absolute;
     margin: 44px 0 0 317px;
-    padding: 5px 10px; }
-    .opciones_lugar div.compartir_lugar a {
-      color: #444444; }
-    .opciones_lugar div.compartir_lugar ul li {
+    padding: 5px 10px;
+    position: absolute;
+    width: 300px; }
+    .opciones_lugar .compartir_lugar ul li {
       float: left;
       margin: 11px 15px 0 0; }
-      .opciones_lugar div.compartir_lugar ul li.mail_share {
-        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -567px;
-        padding: 0 0 0 13px; }
 
 /* Pedidos Online Lightbox Popup */
 .popup {
@@ -1774,7 +1769,7 @@
     margin: 0 0 30px 0; }
 
 /* Editar foto Lugar */
-.editar_foto .enviar_foto {
+.editar_foto_container li .enviar_foto {
   background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
   border: 0px;
   cursor: pointer;
@@ -1782,14 +1777,14 @@
   float: left;
   margin: 0 0 0 10px;
   width: 100px; }
-  .editar_foto .enviar_foto:hover {
+  .editar_foto_container li .enviar_foto:hover {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
-.editar_foto .cancelar_edicion {
+.editar_foto_container li .cancelar_edicion {
   color: #0066cc;
   text-decoration: none;
   float: left;
   margin: 10px 0 9px 10px; }
-  .editar_foto .cancelar_edicion:hover {
+  .editar_foto_container li .cancelar_edicion:hover {
     color: #0066cc;
     text-decoration: underline; }
 
@@ -1893,6 +1888,14 @@
         padding: 0 0 0 13px;
         width: 10px; }
         .galeria_de_fotos .foto_info .opciones_foto .borrar_foto:hover {
+          background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px; }
+      .galeria_de_fotos .foto_info .opciones_foto .reportar_foto {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -553px;
+        height: 10px;
+        margin: 0 0 0 10px;
+        padding: 0 0 0 13px;
+        width: 10px; }
+        .galeria_de_fotos .foto_info .opciones_foto .reportar_foto:hover {
           background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -553px; }
 
 .sidebar_galeria {

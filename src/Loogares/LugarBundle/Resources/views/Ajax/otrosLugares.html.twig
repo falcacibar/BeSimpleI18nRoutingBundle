@@ -9,24 +9,25 @@
         </div>
 
         <div class="lugar_data" data-categoria="{{lugar.tipo}}" data-slug="{{lugar.slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
+            <div class="imagen_gmaps">
+                <img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" />
+            </div>
             <ul>
-                <li class="data_lugar">
-                    <img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('small_lugar')}}" />
-                    <div class="nombre_lugar">
-                        <strong><a class="link_azul" href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre }}</a></strong>
-                    </div>
+                <li class="nombre_lugar_gmaps">
+                    <a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre }}</a>
                 </li>
-                <li>
+                <li class="estrellas_gmaps">
                     <div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div>
                 </li>
-                <li>
+                <li class="recomendacion_gmaps">
                     {{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}
                 </li>
+
             {% if lugar.categorias_nombre != '' %}
                 <li class="data_categoria">
-                    <span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}</strong></span>
+                    <span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}:</strong></span>
                     {% for categoria in lugar.categorias_nombre %}
-                        {{categoria|raw}}{% if loop.last == false %}, {% endif %}
+                        {{categoria|raw}} {% if loop.last == false %}, {% endif %}
                     {% endfor %}
                 </li>
             {% endif %}
