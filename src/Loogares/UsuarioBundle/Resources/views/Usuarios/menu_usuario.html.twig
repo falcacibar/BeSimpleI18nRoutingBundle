@@ -2,7 +2,7 @@
 
 <div class="menu_actividad_usuario">
 	<ul>
-		<a href="{{path('actividadUsuario', { 'param': slug })}}"><li class="{{(usuario.tipo is defined and usuario.tipo == 'actividad') ? 'selected' : ''}}">
+		<a href="{{path('actividadUsuario_total', { 'param': slug })}}"><li class="{{(usuario.tipo is defined and usuario.tipo == 'actividad' and actividad_total == true) ? 'selected' : ''}}">
 			{{'usuario.menu.actividad'|trans}}
 		</li></a>
 		{% if usuario.loggeadoCorrecto is defined and usuario.loggeadoCorrecto %}

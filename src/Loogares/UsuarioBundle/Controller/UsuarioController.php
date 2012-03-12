@@ -114,7 +114,7 @@ class UsuarioController extends Controller
             $q->setParameter(2, 4);
             $q->setMaxResults(3);
 
-            $data->recientes = $q->getResult();
+            $data->favoritos = $q->getResult();
         }
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(

@@ -29,5 +29,9 @@ Loogares\BlogBundle\Entity\Posts:
             type: date
         condiciones:
             type: text
+        ganadores:
+            type: text
         detalles:
             type: text
+        publicado:
+            type: smallint

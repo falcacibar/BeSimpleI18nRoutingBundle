@@ -38,11 +38,11 @@ showUsuario:
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:show }
 
 actividadUsuario:
-    pattern:  /{param}/actividad
+    pattern:  /{param}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:actividad }
 
 actividadUsuario_total:
-    pattern:  /{param}/actividad/toda
+    pattern:  /{param}/actividad
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:actividad, actividad_total: true }
 
 recomendacionesUsuario:
