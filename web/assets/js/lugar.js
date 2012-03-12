@@ -503,6 +503,38 @@ $(document).ready(function(){
         }
     });
 
+    $('.tips_icon').qtip({
+        show:{
+            solo: true
+        },
+        content: {
+            text: $('.qtip_dueno')
+        },
+        style: {
+            classes: 'ui-tooltip-precio',
+            tip: {
+                border: 0,
+                width: 12,
+                color: '#f0f',
+                corner: true,
+                offset: 0
+            }
+        },
+        position: {
+            my: 'top center', 
+            at: 'bottom left',
+            adjust: {
+                x: 5,
+                y: 6
+            }
+        },
+        hide: {
+            fixed: true,
+            delay: 200,
+            event: 'mouseleave'
+        }
+    });
+
     var estrellas_lugar = $('.estrellas_lugar').data('stars');
     $('.star-raty').raty({
         width: 140,

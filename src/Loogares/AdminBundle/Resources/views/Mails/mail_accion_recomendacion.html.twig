@@ -15,6 +15,7 @@
                         {% trans with {'%open_tag%' : "<a style='color: #0066CC; text-decoration: none;' href="~url('_recomendacion',{'slug' : mail.recomendacion.lugar.slug,'usuarioSlug' : (mail.usuario.slug is not empty) ? mail.usuario.slug : mail.usuario.id})~">",'%close_tag%' : "</a>", '%old_lugar%' : mail.old_lugar.nombre,'%new_lugar%' : mail.recomendacion.lugar.nombre} %}admin.notificaciones.recomendacion.mover.primero{% endtrans %}
                         {{'admin.notificaciones.recomendacion.mover.segundo'|trans}}                          
                     {% elseif mail.tipo == 'borrar' %}
+                        {% trans with {'%lugar%' : mail.lugar.nombre, '%open_tag%' : "<a href="~url('static', {'static' : 'terminos_de_uso'})~">", '%close_tag%' : "</a>"}%}admin.notificaciones.lugar.rechazar.primero{% endtrans %}
                         {{'admin.notificaciones.recomendacion.borrar.primero'|trans({'%lugar%' : mail.recomendacion.lugar.nombre})}}
                         {{'admin.notificaciones.recomendacion.borrar.segundo'|trans}}
                     {% endif %}

@@ -19,7 +19,7 @@
                         {{'admin.notificaciones.lugar.borrar.primero'|trans({'%lugar%' : mail.lugar.nombre})}}
                         {{'admin.notificaciones.lugar.borrar.segundo'|trans}}
                     {% elseif mail.tipo == 'rechazar' %}
-                        {% trans with {'%lugar%' : mail.lugar.nombre, '%open_tag%' : "<a href="~'#'~">", '%close_tag%' : "</a>"}%}admin.notificaciones.lugar.rechazar.primero{% endtrans %}
+                        {% trans with {'%lugar%' : mail.lugar.nombre, '%open_tag%' : "<a href="~url('static', {'static' : 'terminos_de_uso'})~">", '%close_tag%' : "</a>"}%}admin.notificaciones.lugar.rechazar.primero{% endtrans %}
                         {{'admin.notificaciones.lugar.rechazar.segundo'|trans}}
                     {% endif %} 
                     <br />
