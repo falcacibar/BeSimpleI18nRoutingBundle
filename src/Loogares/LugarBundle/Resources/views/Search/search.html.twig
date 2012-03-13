@@ -477,10 +477,11 @@
         </div>
 {% else %} <!--Fin de Lugares-->
 <div class="no_resultado">
-	<h1>¡Mala suerte!... No encontramos ojsdgjkosg en Santiago de Chile</h1>
-	<p>Prueba lo siguiente para mejorar tu búsqueda:</p>
+	<h1 class="titulo_busqueda">¡Mala suerte!... No encontramos {{term}} en {{ciudad.nombre}}</h1>
+	<br/>
+	<p class="sub_titulo_busqueda">Prueba lo siguiente para mejorar tu búsqueda:</p>
 
-	<ul>
+	<ul class="listado_no_resultados">
 		<li>Busca en otra zona. Ej. "Santiago", "Ñuñoa" o "Bellavista"</li>
 		<li>Revisa si está bien escrito, sin faltas de ortografía</li>
 		<li>Haz una búsqueda más general. Ej. "Cines" o "Bares"</li>
