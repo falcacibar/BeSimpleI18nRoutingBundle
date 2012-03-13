@@ -1033,12 +1033,13 @@
   .opciones_lugar ul.opciones_lugar_f6f {
     display: block;
     float: left;
-    padding: 15px 20px;
-    width: 598px; }
+    padding: 15px 20px 15px 0;
+    width: 618px; }
     .opciones_lugar ul.opciones_lugar_f6f li {
       font-size: 11px;
+      float: left;
       display: inline;
-      margin: 0 15px 0 0; }
+      margin: 0 0 0 19px; }
       .opciones_lugar ul.opciones_lugar_f6f li a {
         color: #666666;
         text-decoration: none;
@@ -1079,6 +1080,14 @@
         width: 10px; }
         .opciones_lugar ul.opciones_lugar_f6f li .imprimir_lugar:hover {
           background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -580px; }
+    .opciones_lugar ul.opciones_lugar_f6f .tips_icon {
+      background: url("../images/extras/botones_sprite.png") no-repeat 0 -213px;
+      float: left;
+      height: 10px;
+      margin: 1px 0 0 5px;
+      width: 10px; }
+      .opciones_lugar ul.opciones_lugar_f6f .tips_icon:hover {
+        background: url("../images/extras/botones_sprite.png") no-repeat 0 -228px; }
   .opciones_lugar .compartir_lugar {
     border: 1px solid #cccccc;
     display: none;
