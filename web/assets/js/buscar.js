@@ -259,8 +259,8 @@ $(document).ready(function(){
 			timeout: 20000,
 			beforeSend: function(){
 				$('.filtros_expandir').qtip('toggle', false)
-				$('.resultados_wrapper').append("<div class='overlay'><div class='loader'>Cargando Lugares</div></div>").fadeIn(300);
-		 		$('.resultados_wrapper').append("<img class='loader' src='"+WEBROOT+"../assets/images/extras/loader.gif'>");
+		 		$('.resultados_wrapper').append("<div class='overlay'><img class='loader' src='"+WEBROOT+"../assets/images/extras/cargando.gif' height='20' width='20' /></div>");
+				$('.resultados_wrapper').append("<div class='overlay'><div class='loader_txt'>Cargando lugares...</div></div>").fadeIn(300);
 			},
 			success: function(data){
 				$('.overlay').fadeOut(0, function(){

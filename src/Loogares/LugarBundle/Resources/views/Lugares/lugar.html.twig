@@ -270,7 +270,11 @@
         </div>
 
         <div class="actividad_lugar">
+            {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
             <a class="recomienda_lugar"></a>
+            {% else %}
+                Ya recomendo, imagen nueva
+            {% endif %}
 
             {% if lugar.accionesUsuario.2.puede == 1 %}
             <div class="qtip_estuve_alla"> 
@@ -343,11 +347,13 @@
                         <a class="dueno_lugar" href="{{path('_reclamarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.owner'|trans}}</a>
                     </li>
                      <span class="tips_icon"></span>
+                     <div class="qtip_dueno">Si lo eres, entonces te proponemos una interesante alianza comercial entre tu negocio y nosotros. Haz click sobre el link y envíanos el formulario con tus datos. En menos de 48 horas te contactaremos para contarte de qué se trata.</div>
                 {% else %}
                     <li>
-                        <span class="dueno_lugar">{{'lugar.ficha.opciones.owner_reclamado'|trans}}</span>
+                        <span class="dueno_lugar_si"><strong>{{'lugar.ficha.opciones.owner_reclamado'|trans}}</strong></span>
                     </li>
                     <span class="tips_icon"></span>
+                    <div class="qtip_dueno">Este lugar ya fue reclamado por su dueño, por lo que ahora es miembro activo de Loogares.com, con todos los beneficios que trae ser parte de esta gran comunidad de personas y lugares.</div>
                 {% endif %}
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>

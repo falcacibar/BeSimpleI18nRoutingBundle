@@ -1,31 +1,35 @@
 .overlay {
+  left: 0px;
+  height: 100%;
+  top: 0px;
   position: absolute;
-  top: -20px;
-  left: -20px;
-  width: 100%;
-  height: 100%; }
+  width: 960px; }
   .overlay:after {
+    background: #f2f2f6;
     content: "";
-    background: #cccccc;
-    position: absolute;
-    opacity: 0.28;
-    width: 100%;
     height: 100%;
-    padding: 20px;
-    top: 0;
     left: 0;
+    position: absolute;
+    opacity: 0.5;
+    top: 0;
+    width: 100%;
     z-index: 20; }
   .overlay .loader {
-    background: fuchsia;
-    z-index: 22;
-    position: relative;
-    color: cyan;
-    font-weight: bold;
-    margin-left: 20px;
-    text-align: center;
-    width: 100%;
+    color: #666666;
     display: block;
-    font-size: 120px; }
+    font-size: 14px;
+    margin: 185px 470px 0;
+    text-align: center;
+    position: relative;
+    z-index: 22; }
+  .overlay .loader_txt {
+    color: #666666;
+    display: block;
+    font-size: 12px;
+    margin: 215px 0 0;
+    text-align: center;
+    position: relative;
+    z-index: 22; }
 
 .close_qtip {
   background: url(../images/extras/x.gif) #666666;
