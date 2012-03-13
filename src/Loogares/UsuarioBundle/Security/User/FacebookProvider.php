@@ -63,7 +63,7 @@ class FacebookProvider implements UserProviderInterface
                 if (empty($user)) {
                     //$user = new Usuario();
                     $user = new Usuario();
-                    $user->setPassword(sha1('probandopass'));
+                    $user->setPassword(sha1(''));
                     $user->setSha1Password(1);
 
                     if (isset($fbdata['email'])) {
