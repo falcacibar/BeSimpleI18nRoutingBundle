@@ -206,25 +206,15 @@
 							<img src="#" height="72" width="72"/>
 						</a>
 						<div class="textos_usuario">
-							<a class="nombre_usuario" href="#">
-<<<<<<< HEAD
+							<a class="nombre_usuario" href="{{ path('usuario', {'param': home.estrella.obj.usuario.slug}) }}">
 								{{home.estrella.obj.usuario.nombre}} {{home.estrella.obj.usuario.apellido}} 
 							</a>
 							<span class="invitada_lugar">{{'extra.home.modulo_loogareno_estrella.invitacion'|trans}} <a href="{{ path('_lugar', {'slug': home.estrella.obj.lugar.slug}) }}">{{ home.estrella.obj.lugar.nombre}}</a> {{'extra.home.modulo_loogareno_estrella.por'|trans}}</span>
-=======
-								María José Binfa
-							</a>
-							<span class="invitada_lugar">{{'extra.home.modulo_loogareno_estrella.invitacion'|trans}} <a href="">Arlecchino</a> {{'extra.home.modulo_loogareno_estrella.por'|trans}}</span>
->>>>>>> b967eb73a507a0b1c7cd1b34eec994bc8889519a
 						</div>
 					</div>
 				</div>
 				<div class="recomendacion_preview">					
-<<<<<<< HEAD
-					<span><a href="">{{ home.estrella.obj.lugar.nombre}}:</a> {{ home.estrella.truncated }}...</span>
-=======
-					<span><a href="">Arlecchino:</a> Hace tiempo que no tenía el privilegio de comer una pizza horneada a la piedra. Y tengo que decir que éstas son EXQUISITAS!! Vamos a partir del principio...</span>
->>>>>>> b967eb73a507a0b1c7cd1b34eec994bc8889519a
+					<span><a href="{{ path('_lugar', {'slug': home.estrella.obj.lugar.slug}) }}">{{ home.estrella.obj.lugar.nombre}}:</a> {{ home.estrella.truncated }}...</span>
 					<a href="" class="ver_mas">{{'extra.home.modulo_loogareno_estrella.ver_mas'|trans}}</a>
 					<br />
 					<span class="tips">{{'extra.home.modulo_loogareno_estrella.quieres_ser_invitado'|trans}} <a href="{{ path('static', {'static': 'loogareno_estrella'}) }}">{{'extra.home.modulo_loogareno_estrella.entra_aca'|trans}}</a></span>
