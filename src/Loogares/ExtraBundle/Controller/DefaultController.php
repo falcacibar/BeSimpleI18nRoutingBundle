@@ -286,7 +286,7 @@ class DefaultController extends Controller
         $this->get('mailer')->send($message);
 
          // Mensaje de éxito del reporte
-        $this->get('session')->setFlash('contacto_flash','Wena onda por contactarnos!');
+        $this->get('session')->setFlash('contacto_flash','¡Gracias por el contacto! En menos de 48 horas tendrás nuestra respuesta... y si no, que nos parta un rayo.');
             
         // Redirección a galería de fotos
         return $this->redirect($this->generateUrl('static', array('static' => 'contacto')));
@@ -313,7 +313,7 @@ class DefaultController extends Controller
         $this->get('mailer')->send($message);
 
          // Mensaje de éxito del reporte
-        $this->get('session')->setFlash('publicidad_flash','Wena onda por contactarnos!');
+        $this->get('session')->setFlash('publicidad_flash','¡Gracias por el contacto! En menos de 48 horas tendrás nuestra respuesta... y si no, que nos parta un rayo.');
             
         // Redirección a galería de fotos
         return $this->redirect($this->generateUrl('static', array('static' => 'publicidad')));
