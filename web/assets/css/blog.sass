@@ -205,6 +205,12 @@ body
 		line-height: 20px
 		padding: 20px
 
+		a
+			@include link_azul
+			
+			&:hover
+				@include link_azul_hover
+
 		.metadata_post
 			color: $gris_999
 			font:
@@ -213,6 +219,47 @@ body
 
 		.contenido_post
 			white-space: pre-line
+
+		.info_pelicula
+			border-bottom: 1px solid $gris_ccc
+			border-top: 1px solid $gris_ccc
+			float: left
+			margin: 0 0 20px 0
+			padding: 20px 0
+			width: 600px
+
+			img
+				float: left
+				margin: 0 20px 0 0
+				width: 80px
+
+			ul
+				float: left
+				width: 498px
+
+				.titulo_pelicula
+					margin: 0 0 15px
+
+				.descripcion_pelicula
+					margin: 15px 0 0
+
+		.colaboradores_review
+			border-bottom: 1px solid $gris_ccc
+			border-top: 1px solid $gris_ccc
+			float: left
+			margin: 0 0 20px 0
+			padding: 20px 0
+			width: 600px
+
+			img
+				float: left
+				margin: 0 20px 0 0
+				width: 100px
+
+			p
+				float: left
+				width: 478px
+				white-space: pre-line
 
 	.detalles, .condiciones
 		background: url('../images/extras/borde_relieve_posts.png') 0 0 no-repeat
@@ -291,6 +338,19 @@ body
 						&:hover
 							@include link_azul_hover
 
+				.ganadores_concurso
+					text-align: center
+					margin: 0 0 20px 0
+					width: 433px
+
+					li
+						
+						a
+							@include link_azul
+								
+							&:hover
+								@include link_azul_hover
+
 			.texto_condiciones
 				color: $gris_999
 				float: left
@@ -306,42 +366,89 @@ body
 				float: left
 				font: 
 					size: 12px
-				margin: 20px 0 0 20px 
+				margin: 20px 0 20px 20px 
 
 				li
 					margin: 0 0 10px
+			
+			.caja_colaborador
+				float: left
+				font:
+					size: 12px
 
+				.imagen_colaborador
+					border: 1px solid $gris_ccc
+					float: left
+					width: 100px
 
+				.info_colaborador
+					float: left
+					padding: 0 0 0 20px
+					width: 476px
 
+					a
+						@include link_azul
 
-		.detalles_contenido
-			padding-left: 170px
+						&:hover
+							@include link_azul_hover
 
-		.detalles_foto
-			height: 150px
-			width: 150px
-			background: #333
-			display: block
-			float: left
-			margin-top: 10px
+					.chico
+						font:
+							size: 11px
 
-	.colaborador_post_lugar
-		overflow: auto
-		border-top: 1px solid #eee
-		padding-top: 20px
+					.grande
+						font:
+							size: 15px
 
-		.colaborador_foto_lugar
-			float: left
-			background: #333
-			width: 100px
-			height: 100px
+					.tag_colaborador
+						display: block
+						font:
+							size: 11px
+						float: left
+						margin: 0pt 0pt 10px
 
-		.colaborador_texto_lugar
-			padding-left: 120px
+					.imagen_tag_colaborador
+						display: block
+						float: left
+						padding: 2px 0pt 0pt
+						width: 12px
 
-			h3
-				margin-bottom: 10px
-				font-weight: bold
+					.txt_tag_colaborador
+						display: block
+						float: left
+						padding: 0px 0px 0px 5px
+						width: 429px
+					
+					.descripcion_colaborador
+						margin: 20px 0
+
+					.redes_colaborador
+						
+						a
+							@include link_gris_444
+							font:
+								size: 11px
+
+							&:hover
+								@include link_gris_444_hover
+
+						.icono_colaboradores
+							display: block
+							float: left
+							padding: 2px 0 0 0
+							width: 4px
+
+						.icono_twitter, .icono_facebook, .icono_flickr
+							display: block
+							float: left
+							padding: 2px 0 0 10px
+							width: 16px
+
+						.link_colaboradores
+							display: block
+							float: left
+							padding: 0 0 0 5px
+							width: auto
 
 .sidebar
 

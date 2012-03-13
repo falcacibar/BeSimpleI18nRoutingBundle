@@ -175,6 +175,14 @@ usuario:
             nuevo: Password nuevo *
             confirmar: Confirmar password *
             submit: Guardar
+        conexiones:
+            facebook:
+                no_conectado:
+                    texto: Actualmente no tienes Facebook asociado a tu cuenta
+                    texto_link: Conectar con Facebook
+                conectado:
+                    texto: Actualmente tienes Facebook conectado con la cuenta de %nombre%, y correo %mail%
+                    texto_link: Desconectar de Facebook
         borrar:
             password: Password *
             motivo: ¿Por qué te vas? *

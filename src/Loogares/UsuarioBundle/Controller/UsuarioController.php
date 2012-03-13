@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Imagine\Image\Box;
 use Imagine\Image;
+use Mailchimp\MCAPI;
 
 
 class UsuarioController extends Controller
@@ -460,8 +461,8 @@ class UsuarioController extends Controller
                 $em->flush();
 
                 /* Manejo de suscripción a Mailchimp */
-                /*$mc = $this->get('mail_chimp.client');
-                $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
+                $mc = $this->get('mail_chimp.client');
+                /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
                 echo "respuesta";
                 /*$mcId = 0;
 
@@ -709,17 +710,26 @@ class UsuarioController extends Controller
         if(!$loggeadoCorrecto)
             throw new AccessDeniedException('No puedes editar información de otro usuario');
 
-        // Si el request es POST, se procesa edición de datos
-        if ($request->getMethod() == 'POST') {
-
-            
+        if($request->query->get('disconnect')) {
+            // Desconectamos a usuario
+            $usuario = $this->get('security.context')->getToken()->getUser();
+            $usuario->setFacebookUid(0);
+            $em->flush();
         }
+
+
+        $fbdata = $this->get('my.facebook.user')->getFacebook()->api(array(
+            'method' => 'fql.query',
+            'query' => "SELECT name,email FROM user WHERE uid = ".$this->get('security.context')->getToken()->getUser()->getFacebookUid(),
+            'callback' => ''
+        ));
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'conexiones';
         $data->loggeadoCorrecto = $loggeadoCorrecto;
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
-            'usuario' => $data
+            'usuario' => $data,
+            'fbdata' => $fbdata
         ));  
     }
 

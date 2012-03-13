@@ -177,9 +177,12 @@ usuario:
             submit: Guardar
         conexiones:
             facebook:
-                conectado:
+                no_conectado:
                     texto: Actualmente no tienes Facebook asociado a tu cuenta
                     texto_link: Conectar con Facebook
+                conectado:
+                    texto: Actualmente tienes Facebook conectado con la cuenta de %nombre%, y correo %mail%
+                    texto_link: Desconectar de Facebook
                 
         borrar:
             password: Password *
