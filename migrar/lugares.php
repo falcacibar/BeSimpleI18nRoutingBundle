@@ -1,8 +1,8 @@
 <?php
 include('config.php');
 
-//require_once('telefonos_pais_santiago.php');
-//require_once('telefonos_pais_valpo.php');
+require_once('telefonos_pais_santiago.php');
+require_once('telefonos_pais_valpo.php');
 
 $STH = $LBH->query('select * from Lugares order by Id asc');
 $STH->setFetchMode(PDO::FETCH_ASSOC);

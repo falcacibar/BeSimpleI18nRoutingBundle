@@ -173,6 +173,9 @@ include('check_migration.php');
             <?php echo ($migratedTables['tipo_pedido'] == 1) ? "<span class='migrated'>tipo_pedido</span>" : "<a href='tipo_pedido.php'>tipo_pedido</a>" ?>     
         </li>
         <li>
+            <?php echo ($migratedTables['actividad_reciente'] == 1) ? "<span class='migrated'>actividad_reciente</span>" : "<a href='actividad_reciente.php'>actividad_reciente</a>" ?>            
+        </li>
+        <li>
             <?php echo ($migratedTables['tipo_actividad_reciente'] == 1) ? "<span class='migrated'>tipo_actividad_reciente</span>" : "<a href='tipo_actividad_reciente.php'>tipo_actividad_reciente</a>" ?>            
         </li>
         <li>
