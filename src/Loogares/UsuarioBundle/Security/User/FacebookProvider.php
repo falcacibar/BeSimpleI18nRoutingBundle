@@ -61,7 +61,7 @@ class FacebookProvider implements UserProviderInterface
                 // Si en este punto el usuario no existe, entonces debemos registrarlo
                 if (empty($user)) {
                     //$user = new Usuario();
-                    $user = $ur->findOneByMail("sivicencio@gail.com");
+                    $user = new Usuario();
                     $user->setPassword(sha1('probandopass'));
                     $user->setSha1Password(1);
 
@@ -72,6 +72,18 @@ class FacebookProvider implements UserProviderInterface
                                       ->findOneByNombre('Activo');
                     $user->setEstado($estadoUsuario);
                     $user->setFBData($fbdata);
+                    $user->setSlug('probando-slug');
+                    $usuario->setImagenFull("default.gif");
+                    $usuario->setFechaRegistro(new \DateTime());
+                    $usuario->setNewsletterActivo(1);
+                    $hashConfirmacion = md5($user->getMail().time());
+                    $usuario->setHashConfirmacion($hashConfirmacion);
+                    $usuario->setSalt('');
+
+                    // Seteamos tipo_usuario a ROLE_USER
+                    $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")
+                                      ->findOneByNombre('ROLE_USER');
+                    $usuario->setTipoUsuario($tipoUsuario);
                     $em->persist($user);
                 }
 
