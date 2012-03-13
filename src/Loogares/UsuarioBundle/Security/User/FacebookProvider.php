@@ -73,12 +73,12 @@ class FacebookProvider implements UserProviderInterface
                     $user->setEstado($estadoUsuario);
                     $user->setFBData($fbdata);
                     $user->setSlug('probando-slug');
-                    $usuario->setImagenFull("default.gif");
-                    $usuario->setFechaRegistro(new \DateTime());
-                    $usuario->setNewsletterActivo(1);
+                    $user->setImagenFull("default.gif");
+                    $user->setFechaRegistro(new \DateTime());
+                    $user->setNewsletterActivo(1);
                     $hashConfirmacion = md5($user->getMail().time());
-                    $usuario->setHashConfirmacion($hashConfirmacion);
-                    $usuario->setSalt('');
+                    $user->setHashConfirmacion($hashConfirmacion);
+                    $user->setSalt('');
 
                     // Seteamos tipo_usuario a ROLE_USER
                     $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")
