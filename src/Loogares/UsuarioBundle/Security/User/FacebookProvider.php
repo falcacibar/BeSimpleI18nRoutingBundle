@@ -63,8 +63,6 @@ class FacebookProvider implements UserProviderInterface
                 if (empty($user)) {
                     //$user = new Usuario();
                     $user = new Usuario();
-                    $user->setPassword(sha1(''));
-                    $user->setSha1Password(1);
 
                     if (isset($fbdata['email'])) {
                         $user->setMail($fbdata['email']);
@@ -85,6 +83,9 @@ class FacebookProvider implements UserProviderInterface
                     $hashConfirmacion = md5($user->getMail().time());
                     $user->setHashConfirmacion($hashConfirmacion);
                     $user->setSalt('');
+
+                    $user->setPassword(sha1(time().$user->getSlug().time()));
+                    $user->setSha1Password(1);
 
                     // Seteamos tipo_usuario a ROLE_USER
                     $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")
