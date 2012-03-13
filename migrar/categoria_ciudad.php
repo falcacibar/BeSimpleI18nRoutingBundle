@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 
-$STH = $LBH->query('select * from Categoria order by id asc');
+$STH = $LBH->query('select * from SubCat_Ciudad order by id asc');
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 
 $data = array();
@@ -11,10 +11,9 @@ while($row = $STH->fetch()){
     }
 
     $data[] = array(
-        'id' => $row['Id'],
-        'nombre' => $row['Nombre'],
-        'slug' => $row['slug_cat'],
-        'prioridad_web' => $row['Orden']
+        'id' => 0,
+        'ciudad_id' => $row['Id_Ciudad'],
+        'categoria_id' => $row['Id_SubCategoria']
     );
 }
 
@@ -25,7 +24,7 @@ foreach($data as $entry){
         $sql .= '"'.$value.'", ';
     }
     $sql =  substr($sql, 0, -2);
-    $sql = "INSERT INTO tipo_categoria values(" . $sql . ");";
+    $sql = "INSERT INTO categoria_ciudad values(" . $sql . ");";
     //echo $sql;
     if(!$DBH->exec($sql)){
         $i++;

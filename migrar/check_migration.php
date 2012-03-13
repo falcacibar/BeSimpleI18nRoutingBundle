@@ -49,6 +49,15 @@ $migratedTables['tipo_categoria'] = ($count['total'] > 0) ? 1 : 0;
 
 
 
+$STH = $DBH->query('SELECT COUNT(id) total FROM categoria_ciudad');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['categoria_ciudad'] = ($count['total'] > 0) ? 1 : 0;
+
+
+
 $STH = $DBH->query('SELECT COUNT(id) total FROM caracteristica');
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -118,6 +127,41 @@ $STH->setFetchMode(PDO::FETCH_ASSOC);
 $count = $STH->fetch();
 
 $migratedTables['pedidos'] = ($count['total'] > 0) ? 1 : 0;
+
+
+
+$STH = $DBH->query('SELECT COUNT(id) total FROM servicios_pedido');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['servicios_pedido'] = ($count['total'] > 0) ? 1 : 0;
+
+
+
+$STH = $DBH->query('SELECT COUNT(id) total FROM tipo_pedido');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['tipo_pedido'] = ($count['total'] > 0) ? 1 : 0;
+
+
+$STH = $DBH->query('SELECT COUNT(id) total FROM tipo_actividad_reciente');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['tipo_actividad_reciente'] = ($count['total'] > 0) ? 1 : 0;
+
+
+
+$STH = $DBH->query('SELECT COUNT(id) total FROM tipo_lugar');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['tipo_lugar'] = ($count['total'] > 0) ? 1 : 0;
 
 
 
@@ -208,6 +252,15 @@ $STH->setFetchMode(PDO::FETCH_ASSOC);
 $count = $STH->fetch();
 
 $migratedTables['ciudad'] = ($count['total'] > 0) ? 1 : 0;
+
+
+
+$STH = $DBH->query('SELECT COUNT(id) total FROM pais');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['pais'] = ($count['total'] > 0) ? 1 : 0;
 
 
 

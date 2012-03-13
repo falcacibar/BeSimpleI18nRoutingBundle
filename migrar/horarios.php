@@ -9,12 +9,7 @@ while($row = $STH->fetch()){
     foreach($row as $key => $value){
         $row[$key] = preg_replace('/"/',"'",$row[$key]);
     }
-
-
-    preg_match('/(?<=[\w]\s)[0-9s\/n]+/',$row['Direccion'], $numero, PREG_OFFSET_CAPTURE);
-    $numero = ($numero[0][0] != '')?$numero[0][0]:'s/n';
-    $direccion = preg_replace('/(?<=[\w]\s)[0-9s\/n]+/', '', $row['Direccion']);
-
+    
     $data[] = array(
         'id' => $row['Id'],
         'lugar_id' => $row['Id_Lugar'],

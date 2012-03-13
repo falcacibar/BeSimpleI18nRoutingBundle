@@ -1,5 +1,5 @@
 <?php
-include('config.php');
+//include('config.php');
 
 $STH = $LBH->query("SELECT TelefonosLugar.Id, TelefonosLugar.Telefono FROM `TelefonosLugar`
                     LEFT JOIN Lugares ON Lugares.Id=TelefonosLugar.Id_Lugar WHERE Ciudad='2'"
@@ -94,7 +94,7 @@ while($row = $STH->fetch()){
         $update= "UPDATE TelefonosLugar
             SET Telefono='".$valpo."'
             WHERE Id='".$row['Id']."'";
-    echo "$update </br>";
+    //echo "$update </br>";
     //if($row['Id'] == 7974){
         $LBH->exec($update);
     //}

@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
 <head>
 <meta charset="utf-8">
+<title>Loogares Migration System</title>
 </head>
 <body>
 <style>
@@ -45,6 +46,10 @@
 
     ol#lugares{
         display: block;
+    }
+
+    .title {
+        text-decoration:none;
     }
 
     li a{
@@ -104,7 +109,7 @@
         })
     })
 </script>
-<h1>Loogares Migration System</h1>
+<a class="title" href=""><h1>Loogares Migration System</h1></a>
 <h2>Migracion de DB actual a Modelo basado en ORM</h2>
 <ul class="tabs">
     <li class="selected"><a href="#lugares">Lugares</a></li>
@@ -119,7 +124,7 @@ include('check_migration.php');
 <div id="list">
     <ol id="lugares">
         <li>
-            <?php echo ($migratedTables['estado'] == 1) ? "<span class='migrated'>estado_lugares</span>" : "<a href='estado_lugar.php'>estado_lugares</a>" ?>
+            <?php echo ($migratedTables['estado'] == 1) ? "<span class='migrated'>estado</span>" : "<a href='estado.php'>estado</a>" ?>
         </li>
         <li>
             <?php echo ($migratedTables['lugares'] == 1) ? "<span class='migrated'>lugares</span>" : "<a href='lugares.php'>lugares</a>" ?>
@@ -132,6 +137,9 @@ include('check_migration.php');
         </li>
         <li>
             <?php echo ($migratedTables['tipo_categoria'] == 1) ? "<span class='migrated'>tipo_categoria</span>" : "<a href='tipo_categoria.php'>tipo_categoria</a>" ?>            
+        </li>
+        <li>
+            <?php echo ($migratedTables['categoria_ciudad'] == 1) ? "<span class='migrated'>categoria_ciudad</span>" : "<a href='categoria_ciudad.php'>categoria_ciudad</a>" ?>
         </li>
         <li>
             <?php echo ($migratedTables['caracteristica'] == 1) ? "<span class='migrated'>caracteristica</span>" : "<a href='caracteristica.php'>caracteristica</a>" ?> 
@@ -157,6 +165,18 @@ include('check_migration.php');
         </li>
         <li>
             <?php echo ($migratedTables['pedidos'] == 1) ? "<span class='migrated'>pedidos</span>" : "<a href='pedidos.php'>pedidos</a>" ?>            
+        </li>
+        <li>
+            <?php echo ($migratedTables['servicios_pedido'] == 1) ? "<span class='migrated'>servicios_pedido</span>" : "<a href='servicios_pedido.php'>servicios_pedido</a>" ?>            
+        </li>
+        <li>
+            <?php echo ($migratedTables['tipo_pedido'] == 1) ? "<span class='migrated'>tipo_pedido</span>" : "<a href='tipo_pedido.php'>tipo_pedido</a>" ?>     
+        </li>
+        <li>
+            <?php echo ($migratedTables['tipo_actividad_reciente'] == 1) ? "<span class='migrated'>tipo_actividad_reciente</span>" : "<a href='tipo_actividad_reciente.php'>tipo_actividad_reciente</a>" ?>            
+        </li>
+        <li>
+            <?php echo ($migratedTables['tipo_lugar'] == 1) ? "<span class='migrated'>tipo_lugar</span>" : "<a href='tipo_lugar.php'>tipo_lugar</a>" ?>            
         </li>
     </ol>
     <ol id="usuarios">
@@ -189,6 +209,9 @@ include('check_migration.php');
         </li>
         <li>
             <?php echo ($migratedTables['ciudad'] == 1) ? "<span class='migrated'>ciudad</span>" : "<a href='ciudad.php'>ciudad</a>" ?>
+        </li>
+        <li>
+            <?php echo ($migratedTables['pais'] == 1) ? "<span class='migrated'>pais</span>" : "<a href='pais.php'>pais</a>" ?>
         </li>
         <li>
             <?php echo ($migratedTables['sector'] == 1) ? "<span class='migrated'>sector</span>" : "<a href='sector.php'>sector</a>" ?>

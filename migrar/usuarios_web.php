@@ -1,7 +1,6 @@
 <?php
-include('config.php');
 
-$STH = $LBH->query('SELECT Id, Link_1, Link_2, Link_3 FROM `Usuario`');
+$STH = $LBH->query("SELECT Id, Link_1, Link_2, Link_3 FROM Usuario");
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 
 
@@ -14,11 +13,11 @@ while($row = $STH->fetch()){
     foreach($row as $key => $value){
         if($key != 'Id') {
             //Comprobamos Link_1
-            if(strpos($value, "facebook") !== FALSE){
+            if(strpos($value, "facebook") !== false){
                 //echo ' Si';
                 $final['facebook']=$value;
                 
-            }elseif(strpos($value, "twitter") !== FALSE){
+            }elseif(strpos($value, "twitter") !== false){
                 //Si
                 $final['twitter']=$value;
                 
