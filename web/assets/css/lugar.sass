@@ -1370,14 +1370,15 @@ $rojo: #F72121
     ul.opciones_lugar_f6f
         display: block
         float: left
-        padding: 15px 20px
-        width: 598px
+        padding: 15px 20px 15px 0
+        width: 618px
 
         li
             font:
                 size: 11px
+            float: left
             display: inline
-            margin: 0 15px 0 0
+            margin: 0 0 0 19px
 
             a
                 @include link_gris_666
@@ -1427,6 +1428,16 @@ $rojo: #F72121
 
                 &:hover
                     background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -580px
+
+        .tips_icon
+            background: url('../images/extras/botones_sprite.png') no-repeat 0 -213px
+            float: left
+            height: 10px
+            margin: 1px 0 0 5px
+            width: 10px  
+
+            &:hover
+                background: url('../images/extras/botones_sprite.png') no-repeat 0 -228px
 
     .compartir_lugar
         border : 1px solid $gris_ccc
@@ -1763,6 +1774,7 @@ $rojo: #F72121
             line-height: 22px
             margin: 0 0 20px 0
             width: 570px
+            white-space: pre-line
 
         .tags_recomendacion
             display: block

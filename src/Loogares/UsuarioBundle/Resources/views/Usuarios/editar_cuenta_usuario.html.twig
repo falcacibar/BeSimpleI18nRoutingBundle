@@ -60,8 +60,12 @@
 					<div class="edicion-fecha-nacimiento">
 						{{ form_widget(form.fecha_nacimiento.day, { 'attr': {'class': 'day'}}) }}
 						{{ form_widget(form.fecha_nacimiento.month, { 'attr': {'class': 'month'}}) }}
-						{{ form_widget(form.fecha_nacimiento.year, { 'attr': {'class': 'year'}}) }}					
+						{{ form_widget(form.fecha_nacimiento.year, { 'attr': {'class': 'year'}}) }}	
 					</div>
+				</li>
+		        <li>					
+					{{ form_label(form.mostrar_edad, 'usuario.edicion.cuenta.mostrar_edad', {'attr' :{'class' : 'label-up'}})}}
+					{{ form_widget(form.mostrar_edad)}}
 				</li>
 				<li class="container_pais">
 					<label>{{'usuario.edicion.cuenta.pais'|trans}}</label>
@@ -127,10 +131,6 @@
 						<small class="errors">{{erroresLocalidad.comuna}}</small>
 					{% endif %}
 		        </li>
-		        <li>					
-					{{ form_label(form.mostrar_edad, 'usuario.edicion.cuenta.mostrar_edad', {'attr' :{'class' : 'label-up'}})}}
-					{{ form_widget(form.mostrar_edad)}}
-				</li>
 				
 				<li>
 					{{ form_label(form.sexo, 'usuario.edicion.cuenta.sexo.label') }}

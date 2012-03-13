@@ -202,7 +202,7 @@ class SearchController extends Controller{
         $generateParams['q'] = $_GET['q'];
         $generateParams['o'] = 'no';
         $url = $this->generateUrl('_buscar', $generateParams);
-        $this->get('session')->setFlash('buscar_flash','Creemos que estas buscando una Categoria!, asi que te enviamos a esta!.<br/>Si quieres intentar tu busqueda y que no adivinemos, haz click aqui: <a href="'.$url.'">AAAAA</a>');
+        $this->get('session')->setFlash('buscar_flash','Creemos que estás buscando una Categoría del sitio, por lo que te sugerimos los siguientes resultados.<br/>Si no es lo que buscas, haz click <a href="'.$url.'">aquí</a>');
       }
     }else if((!isset($_GET['o']) || $_GET['o'] != 'no')){
       if(isset($mappedSubCategorias[$term])){

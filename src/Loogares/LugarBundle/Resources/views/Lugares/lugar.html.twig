@@ -339,9 +339,15 @@
         <div class="opciones_lugar">
             <ul class="opciones_lugar_f6f">
                 {% if lugar.duenoId == 0 %}
-                    <li><a class="dueno_lugar" href="{{path('_reclamarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.owner'|trans}}</a></li>
+                    <li>
+                        <a class="dueno_lugar" href="{{path('_reclamarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.owner'|trans}}</a>
+                    </li>
+                     <span class="tips_icon"></span>
                 {% else %}
-                    <li><span class="dueno_lugar">{{'lugar.ficha.opciones.owner_reclamado'|trans}}</span></li>
+                    <li>
+                        <span class="dueno_lugar">{{'lugar.ficha.opciones.owner_reclamado'|trans}}</span>
+                    </li>
+                    <span class="tips_icon"></span>
                 {% endif %}
                 <li><a class="editar_lugar" href="{{ path('_editar', {'slug': lugar.slug}) }}">{{'lugar.ficha.opciones.editar'|trans}}</a></li>
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>

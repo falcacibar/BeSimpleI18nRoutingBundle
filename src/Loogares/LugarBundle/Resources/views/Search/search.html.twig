@@ -23,8 +23,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAPoxFphWUxvaTpvs1yb1jqBRX_WqUqrejFKb9vXi20jSGe-5jpRSMwbi_H9382JcFVerJmLKxcJLs0w" type="text/javascript"></script>
-    <script src="{{asset('assets/js/googleMapBuscar.js')}}"></script>
+
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.pjax.js')}}"></script>
@@ -151,8 +150,8 @@
 					<span class="filtros_titulo">{{'lugar.buscar.zonas'|trans}}</span>
 					{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
 						<div class="ver_mas">
-							<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 							<span class="filtros_ver_mas_icono"></span>
+							<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 						</div>
 					{% endif %}					
 				</div>
@@ -187,8 +186,8 @@
 						<span class="filtros_titulo">{{'lugar.buscar.categorias'|trans}}</span>
 						{% if results.totalPorCategoria[0] is defined %} 
 							<div class="ver_mas">
-								<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 								<span class="filtros_ver_mas_icono"></span>
+								<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 							</div>
 						{% endif %}
 					</div>
@@ -210,8 +209,8 @@
 						<span class="filtros_titulo">{{'lugar.buscar.subcategorias'|trans}}</span>
 						{% if results.totalPorSubcategoria[0] is defined %}
 							<div class="ver_mas">
-								<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 								<span class="filtros_ver_mas_icono"></span>
+								<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 							</div>
 						{% endif %}
 					</div>
@@ -279,8 +278,8 @@
 							<span class="filtros_titulo">{{'lugar.buscar.caracteristicas'|trans}}</span>
 							{% if results.totalPorCaracteristica[0] is defined %}
 								<div class="ver_mas">
-									<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 									<span class="filtros_ver_mas_icono"></span>
+									<span class="filtros_expandir">{{'lugar.buscar.ver_todas'|trans}}</span>
 								</div>
 							{% endif %}
 						</div>

@@ -540,9 +540,16 @@ input[type=checkbox], input[type=radio] {
   color: #666666;
   display: block;
   float: left;
+  line-height: 20px;
   margin: 0 0 20px 0;
   padding: 10px;
   width: 940px; }
+  .mensaje_exito a {
+    color: #0066cc;
+    text-decoration: none; }
+    .mensaje_exito a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
   .mensaje_exito .imagen_exito {
     background: url("../images/extras/botones_sprite.png") 0px -129px;
     display: block;
@@ -1425,9 +1432,9 @@ textarea {
           background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px 0;
           border: 0px;
           cursor: pointer;
-          height: 14px;
+          height: 30px;
           margin: 0 0 0 169px;
-          width: 84px; }
+          width: 100px; }
           .estaticas .contenido .formulario_estaticas ul li .enviar_datos:hover {
             background: url("../images/extras/botones_ficha_lugar.png") no-repeat -798px -30px; }
   .estaticas .menu_estaticas {
@@ -1457,6 +1464,7 @@ textarea {
         float: right;
         text-align: right;
         padding: 15px 15px 15px 10px;
+        text-shadow: 1px 1px 1px white;
         width: 274px; }
         .estaticas .menu_estaticas a li:hover {
           border-bottom: 1px solid #cccccc;
@@ -3870,12 +3878,13 @@ small {
   .opciones_lugar ul.opciones_lugar_f6f {
     display: block;
     float: left;
-    padding: 15px 20px;
-    width: 598px; }
+    padding: 15px 20px 15px 0;
+    width: 618px; }
     .opciones_lugar ul.opciones_lugar_f6f li {
       font-size: 11px;
+      float: left;
       display: inline;
-      margin: 0 15px 0 0; }
+      margin: 0 0 0 19px; }
       .opciones_lugar ul.opciones_lugar_f6f li a {
         color: #666666;
         text-decoration: none;
@@ -3916,6 +3925,14 @@ small {
         width: 10px; }
         .opciones_lugar ul.opciones_lugar_f6f li .imprimir_lugar:hover {
           background: url("../images/extras/iconos_ficha_lugar_hover.png") no-repeat 0 -580px; }
+    .opciones_lugar ul.opciones_lugar_f6f .tips_icon {
+      background: url("../images/extras/botones_sprite.png") no-repeat 0 -213px;
+      float: left;
+      height: 10px;
+      margin: 1px 0 0 5px;
+      width: 10px; }
+      .opciones_lugar ul.opciones_lugar_f6f .tips_icon:hover {
+        background: url("../images/extras/botones_sprite.png") no-repeat 0 -228px; }
   .opciones_lugar .compartir_lugar {
     border: 1px solid #cccccc;
     display: none;
@@ -3924,9 +3941,6 @@ small {
     padding: 5px 10px;
     position: absolute;
     width: 300px; }
-    .opciones_lugar .compartir_lugar ul li {
-      float: left;
-      margin: 11px 15px 0 0; }
 
 /* Pedidos Online Lightbox Popup */
 .popup {
@@ -4190,7 +4204,8 @@ small {
       font-size: 14px;
       line-height: 22px;
       margin: 0 0 20px 0;
-      width: 570px; }
+      width: 570px;
+      white-space: pre-line; }
     .recomendacion .texto_recomendacion .tags_recomendacion {
       display: block;
       float: left;
@@ -5211,6 +5226,7 @@ small {
         cursor: pointer;
         float: left;
         padding: 15px 10px 15px 15px;
+        text-shadow: 1px 1px 1px white;
         width: 134px; }
         .caja_contenidos_usuario .menu_actividad_usuario a li:hover {
           border-bottom: 1px solid #cccccc;
@@ -5260,6 +5276,7 @@ small {
         float: right;
         text-align: right;
         padding: 15px 15px 15px 10px;
+        text-shadow: 1px 1px 1px white;
         width: 114px; }
         .caja_contenidos_usuario .menu_edicion_usuario a li:hover {
           border-bottom: 1px solid #cccccc;
@@ -5345,15 +5362,18 @@ small {
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .day {
           float: left;
           margin: 6px 0;
-          width: 55px; }
+          text-align: center;
+          width: 90px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .month {
           float: left;
           margin: 6px 6px;
-          width: 205px; }
+          text-align: center;
+          width: 90px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .year {
           float: left;
           margin: 6px 0;
-          width: 60px; }
+          text-align: center;
+          width: 140px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li #form_mostrar_edad {
           margin: 10px 0 0;
           margin: 4px 0 0 \9; }
@@ -5558,7 +5578,11 @@ small {
     .caja_contenidos_usuario .caja_actividad_usuario .filtrar_select {
       float: left;
       margin: 30px 0;
-      width: 670px; }
+      width: 298px; }
+      .caja_contenidos_usuario .caja_actividad_usuario .filtrar_select ul {
+        margin: 0;
+        padding: 0;
+        width: 296px; }
     .caja_contenidos_usuario .caja_actividad_usuario ul {
       float: left;
       font-size: 14px;
@@ -5936,6 +5960,7 @@ small {
       border: 0px;
       float: left;
       font-size: 12px;
+      line-height: 12px;
       margin: 0 0 0 10px;
       padding: 0px;
       width: 560px; }

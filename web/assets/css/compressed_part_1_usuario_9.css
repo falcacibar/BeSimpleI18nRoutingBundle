@@ -240,6 +240,7 @@
         cursor: pointer;
         float: left;
         padding: 15px 10px 15px 15px;
+        text-shadow: 1px 1px 1px white;
         width: 134px; }
         .caja_contenidos_usuario .menu_actividad_usuario a li:hover {
           border-bottom: 1px solid #cccccc;
@@ -289,6 +290,7 @@
         float: right;
         text-align: right;
         padding: 15px 15px 15px 10px;
+        text-shadow: 1px 1px 1px white;
         width: 114px; }
         .caja_contenidos_usuario .menu_edicion_usuario a li:hover {
           border-bottom: 1px solid #cccccc;
@@ -374,15 +376,18 @@
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .day {
           float: left;
           margin: 6px 0;
-          width: 55px; }
+          text-align: center;
+          width: 90px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .month {
           float: left;
           margin: 6px 6px;
-          width: 205px; }
+          text-align: center;
+          width: 90px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li .year {
           float: left;
           margin: 6px 0;
-          width: 60px; }
+          text-align: center;
+          width: 140px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_datos ul li #form_mostrar_edad {
           margin: 10px 0 0;
           margin: 4px 0 0 \9; }
@@ -587,7 +592,11 @@
     .caja_contenidos_usuario .caja_actividad_usuario .filtrar_select {
       float: left;
       margin: 30px 0;
-      width: 670px; }
+      width: 298px; }
+      .caja_contenidos_usuario .caja_actividad_usuario .filtrar_select ul {
+        margin: 0;
+        padding: 0;
+        width: 296px; }
     .caja_contenidos_usuario .caja_actividad_usuario ul {
       float: left;
       font-size: 14px;
@@ -965,6 +974,7 @@
       border: 0px;
       float: left;
       font-size: 12px;
+      line-height: 12px;
       margin: 0 0 0 10px;
       padding: 0px;
       width: 560px; }
