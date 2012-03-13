@@ -77,7 +77,10 @@ class FacebookProvider implements UserProviderInterface
                     if($repetidos > 0)
                         $slug = $slug.'-'.++$repetidos;                    
                     $user->setSlug($slug);
-                    $user->setImagenFull("default.gif");
+                     if (isset($fbdata['picture'])) {
+                        $user->setImagenFull($fbdata['picture']);
+                    }
+                    //$user->setImagenFull("default.gif");
                     $user->setFechaRegistro(new \DateTime());
                     $user->setNewsletterActivo(1);
                     $hashConfirmacion = md5($user->getMail().time());
