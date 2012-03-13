@@ -1,0 +1,19 @@
+Loogares\UsuarioBundle\Entity\LoogarenoEstrella:
+    type: entity
+    table: loogareno_estrella
+    oneToOne:
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+    manyToOne:       
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+
+    fields:
+        detalle:
+            type: text
+        fecha:
+            type: datetime

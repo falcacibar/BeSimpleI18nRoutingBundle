@@ -36,9 +36,10 @@ $(document).ready(function(){
 
     $('[name="recomienda"]').submit(function(){
     	if(validarRecomendacion()){
-    		return true
+    		$('.enviar_recomendacion').click(function(){return false;});
+            return true;
     	}else{
-    		return false
+    		return false;
     	}
     });
-});
+}); 
