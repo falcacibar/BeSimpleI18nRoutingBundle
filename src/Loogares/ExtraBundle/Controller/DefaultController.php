@@ -93,9 +93,12 @@ class DefaultController extends Controller
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         //Recomendacion Estrella
-        $estrellaResult = $rr->findOneById(15789);
-        $estrella['obj'] = $estrellaResult;
-        $estrella['truncated'] = substr($estrellaResult->getTexto(), 0, 180);
+        $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\LoogarenoEstrella u ORDER BY u.id desc");
+        $q->setMaxResults(1);
+        $estrellaResult = $q->getResult();
+
+        $estrella['obj'] = $estrellaResult[0]->getRecomendacion();
+        $estrella['truncated'] = substr($estrellaResult[0]->getRecomendacion()->getTexto(), 0, 180);
 
         // Cantidad de premios regalados (totales)
         $q = $em->createQuery("SELECT count(cu.id)

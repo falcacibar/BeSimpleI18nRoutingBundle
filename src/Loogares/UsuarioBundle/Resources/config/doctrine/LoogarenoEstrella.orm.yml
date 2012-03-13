@@ -2,11 +2,8 @@ Loogares\UsuarioBundle\Entity\LoogarenoEstrella:
     type: entity
     table: loogareno_estrella
     oneToOne:
-        lugar:
-            targetEntity: Loogares\LugarBundle\Entity\Lugar
-    manyToOne:       
-        usuario:
-            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+        recomendacion:
+            targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
     id:
         id:
             type: integer
