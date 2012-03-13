@@ -15,7 +15,7 @@ class ActividadRecienteRepository extends EntityRepository
     public function actualizarActividadReciente($id, $entidad){
     	$em = $this->getEntityManager();
 
-        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ActividadReciente u WHERE u.entidad_id = ?1 and u.endidad = $entidad");
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ActividadReciente u WHERE u.entidad_id = ?1 and u.entidad = ?2");
         $q->setParameter(1, $id);
         $q->setParameter(2, $entidad);
         $reciente = $q->getResult();
