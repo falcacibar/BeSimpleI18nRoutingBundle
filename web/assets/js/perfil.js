@@ -126,6 +126,11 @@ $(function(){
     $('.caja_actividad_usuario form select').change(function(){
         $(this).parent().submit();
     });
+
+    $('.facebook_connect').click(function(e){
+        e.preventDefault();
+        $('.fb_hidden_button').find('.fb_button').click();
+    });
 });	
 
 function estrellasLugares(estrellas, $this){

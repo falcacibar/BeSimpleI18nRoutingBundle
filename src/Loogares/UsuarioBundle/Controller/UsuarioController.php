@@ -333,11 +333,13 @@ class UsuarioController extends Controller
 
         // Guardamos mail de usuario actual
         $mail = $usuarioResult->getMail();
+        $nombre = $usuarioResult->getNombre();
+        $apellido = $usuarioResult->getApellido();
         
         // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST'){
 
-            $usuario = $ur->findOneByMail($usuarioResult->getMail());
+            //$usuario = $ur->findOneByMail($usuarioResult->getMail());
             $form->bindRequest($request);            
 
             if(isset($_POST['pais']) && $_POST['pais'] != 'elige'){
@@ -462,6 +464,7 @@ class UsuarioController extends Controller
                 // Redirección a vista de edición de password 
                 return $this->redirect($this->generateUrl('editarCuentaUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
             }
+
         }
 
         //Errores
@@ -470,6 +473,12 @@ class UsuarioController extends Controller
 
             if(substr($formError->getPropertyPath(), 5) == 'mail') {
                 $usuarioResult->setMail($mail);
+            }
+            if(substr($formError->getPropertyPath(), 5) == 'nombre') {
+                $usuarioResult->setNombre($nombre);
+            }
+            if(substr($formError->getPropertyPath(), 5) == 'apellido') {
+                $usuarioResult->setApellido($apellido);
             }
         }
 
@@ -641,6 +650,34 @@ class UsuarioController extends Controller
             'usuario' => $data,
             'form' => $form->createView(),
             'errors' => $formErrors
+        ));  
+    }
+
+    public function editarConexionesAction(Request $request, $param) {
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        if(!$usuarioResult) {
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
+        }
+
+        $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        if(!$loggeadoCorrecto)
+            throw new AccessDeniedException('No puedes editar información de otro usuario');
+
+        // Si el request es POST, se procesa edición de datos
+        if ($request->getMethod() == 'POST') {
+
+            
+        }
+
+        $data = $ur->getDatosUsuario($usuarioResult);
+        $data->edicion = 'conexiones';
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
+        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
+            'usuario' => $data
         ));  
     }
 
