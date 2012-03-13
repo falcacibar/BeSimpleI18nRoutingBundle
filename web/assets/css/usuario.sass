@@ -442,6 +442,16 @@ $rojo: #F72121
                     border-bottom: 1px solid $gris_ccc
                     border-right: 5px solid $gris_ccc
                     padding: 15px 10px
+
+                .icono_facebook
+                    background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
+                    float: right
+                    height: 16px
+                    width: 17px
+                
+                .txt_conectar
+                    float: right
+                    margin: 2px 0 0 5px
                     
         .selected
             background: $blanco
@@ -466,6 +476,7 @@ $rojo: #F72121
         float: left
         left: 160px
         top: 0
+        min-height: 350px
         padding: 0 0 20px 20px
         position: relative
         width: 779px
@@ -714,6 +725,75 @@ $rojo: #F72121
                         margin: 0px
                         padding: 6px 10px
                         width: 306px
+                    
+                    .errors
+                        margin: 5px 0 0 230px
+                        
+                .enviar_password_prefil
+                    background: url('../images/extras/botones_perfil_usuario.png') no-repeat 0 0
+                    border: 0px
+                    cursor: pointer
+                    height: 30px
+                    margin: 0 0 0 230px
+                    width: 99px
+
+                    &:hover
+                        background: url('../images/extras/botones_perfil_usuario.png') no-repeat 0 -30px
+
+        .caja_edicion_conexiones
+            display: block
+            float: left
+            margin: 40px 0 0
+            width: 620px
+
+            ul
+
+                li
+                    float: left
+                    margin: 0 0 20px 0
+                    width: 620px
+                    
+                    label
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                            weight: bold
+                        margin: 4px 20px 4px 0
+                        width: 210px
+
+                    p
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 14px
+                        margin: 0px
+                        padding: 6px 10px
+                        width: 306px
+                    
+                        a
+                            @include link_azul
+                            
+                            &:hover
+                                @include link_azul_hover
+
+                        .facebook_connect
+                            background: url("../images/extras/caja_registro_facebook.png") no-repeat 17px 0px
+                            display: block
+                            height: 65px
+                            margin: 20px 68px
+                            padding: 40px 0
+                            text-align: center
+                            width: 170px
+
+                        .facebook_disconnect
+                            background: url("../images/extras/caja_registro_facebook.png") no-repeat 17px 0px
+                            display: block
+                            height: 65px
+                            margin: 20px 68px
+                            padding: 40px 0
+                            text-align: center
+                            width: 170px
                     
                     .errors
                         margin: 5px 0 0 230px

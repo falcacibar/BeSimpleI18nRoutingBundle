@@ -1,18 +1,21 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
 
-<div class="caja_edicion_password">
+<div class="caja_edicion_conexiones">
 	<div class="form-edicion">	
 		<ul class="editar-usuario">
 			<li>
-				<label>Facebook Connect</label
-				<span>
+				<label>Facebook Connect</label>
 					{% if fbdata == null %}
-						{{'usuario.edicion.conexiones.facebook.no_conectado.texto'|trans}}<br/>
-						<a href="" class="facebook_connect">{{'usuario.edicion.conexiones.facebook.no_conectado.texto_link'|trans}}</a>
-						<span class="fb_hidden_button">{{ facebook_login_button({'autologoutlink': false}) }}</span>
+						<p>
+							{{'usuario.edicion.conexiones.facebook.no_conectado.texto'|trans}}<br/>
+							<a href="" class="facebook_connect">{{'usuario.edicion.conexiones.facebook.no_conectado.texto_link'|trans}}</a>
+							<span class="fb_hidden_button">{{ facebook_login_button({'autologoutlink': false}) }}</span>
+						</p>
 					{% else %}
-						{{'usuario.edicion.conexiones.facebook.conectado.texto'|trans({'%nombre%' : fbdata.0.name, '%mail%' : fbdata.0.email})}}<br/>
-						<a href="{{path('editarConexionesUsuario', {'param' : (usuario.slug != '') ? usuario.slug : usuario.id, 'disconnect' : 1 })}}" class="facebook_disconnect">{{'usuario.edicion.conexiones.facebook.conectado.texto_link'|trans}}</a>
+						<p>
+							{{'usuario.edicion.conexiones.facebook.conectado.texto'|trans({'%nombre%' : fbdata.0.name, '%mail%' : fbdata.0.email})}}<br/>
+							<a href="{{path('editarConexionesUsuario', {'param' : (usuario.slug != '') ? usuario.slug : usuario.id, 'disconnect' : 1 })}}" class="facebook_disconnect">{{'usuario.edicion.conexiones.facebook.conectado.texto_link'|trans}}</a>
+						</p>
 					{% endif %}
 				</span>
 			</li>
