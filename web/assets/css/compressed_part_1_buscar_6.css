@@ -363,35 +363,60 @@
     margin: 0 0 0 10px;
     width: 260px; }
 
-/* TOMAS */
+/* Caja Google Maps */
 .lugar_data {
   background: white;
-  width: 245px;
-  display: block;
-  padding: 6px 10px;
+  border: 1px solid #cccccc;
   box-shadow: 4px 5px 0 #cccccc;
-  border: 1px #cccccc solid;
+  display: block;
+  display: none;
+  padding: 6px 10px;
   position: absolute;
-  z-index: 24;
-  display: none; }
+  width: 265px;
+  z-index: 24; }
   .lugar_data .flecha {
     background: url("../images/extras/flechita-gmap.png") no-repeat;
+    box-shadow: 5px 0 0 #cccccc;
     height: 25px;
-    width: 25px;
+    left: 180px;
     position: absolute;
     top: 100%;
-    left: 180px;
-    box-shadow: 5px 0 0 #cccccc; }
-  .lugar_data li {
-    margin: 4px 0; }
-  .lugar_data .data_lugar .nombre_lugar {
-    display: block;
-    line-height: 20px; }
-  .lugar_data .data_lugar img {
-    background: #f1f0f5;
-    width: 60px;
-    height: 60px;
+    width: 25px; }
+  .lugar_data .imagen_gmaps {
+    height: 50px;
     float: left;
-    margin-right: 5px; }
-  .lugar_data .data_categoria, .lugar_data .data_sector {
-    margin-left: 65px; }
+    margin: 0 10px 0 0;
+    width: 50px; }
+  .lugar_data ul {
+    float: left;
+    width: 200px; }
+    .lugar_data ul li {
+      margin: 0 0 10px; }
+    .lugar_data ul .nombre_lugar_gmaps {
+      float: left;
+      width: 200px; }
+      .lugar_data ul .nombre_lugar_gmaps a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        .lugar_data ul .nombre_lugar_gmaps a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }
+    .lugar_data ul .estrellas_gmaps {
+      float: left;
+      margin: 0 5px 10px 0;
+      width: 80px; }
+    .lugar_data ul .recomendacion_gmaps {
+      float: left;
+      font-size: 11px;
+      font-style: italic;
+      margin: 2px 0 0;
+      width: 115px; }
+    .lugar_data ul .data_categoria, .lugar_data ul .data_sector {
+      float: left;
+      width: 200px; }
+      .lugar_data ul .data_categoria a, .lugar_data ul .data_sector a {
+        color: #0066cc !important;
+        text-decoration: none; }
+        .lugar_data ul .data_categoria a:hover, .lugar_data ul .data_sector a:hover {
+          color: #0066cc !important;
+          text-decoration: underline; }

@@ -510,6 +510,7 @@ $rojo: #F72121
 				@include link_blanco
 
 /* Caja sugerencia agregar lugar */
+
 .agrega_lugar
 	clear: both
 	float: left
@@ -531,42 +532,70 @@ $rojo: #F72121
 		margin: 0 0 0 10px
 		width: 260px
 
-/* TOMAS */
+/* Caja Google Maps */
+
 .lugar_data
-	background: #fff
-	width: 245px
+	background: $blanco
+	border: 1px solid $gris_ccc
+	box-shadow: 4px 5px 0 $gris_ccc
 	display: block
-	padding: 6px 10px
-	box-shadow: 4px 5px 0 #ccc
-	border: 1px #ccc solid
-	position: absolute
-	z-index: 24
 	display: none
+	padding: 6px 10px
+	position: absolute
+	width: 265px
+	z-index: 24
 
 	.flecha
 		background: url('../images/extras/flechita-gmap.png') no-repeat
+		box-shadow: 5px 0 0 $gris_ccc
 		height: 25px
-		width: 25px
+		left: 180px
 		position: absolute
 		top: 100%
-		left: 180px
-		box-shadow: 5px 0 0 #ccc
+		width: 25px
 
-	li
-		margin: 4px 0
+	.imagen_gmaps
+		height: 50px
+		float: left
+		margin: 0 10px 0 0
+		width: 50px
 
-	.data_lugar
+	ul
+		float: left
+		width: 200px
 
-		.nombre_lugar
-			display: block
-			line-height: 20px
+		li
+			margin: 0 0 10px
 
-		img
-			background: #f1f0f5
-			width: 60px
-			height: 60px
+		.nombre_lugar_gmaps
 			float: left
-			margin-right: 5px
+			width: 200px
 
-	.data_categoria, .data_sector
-		margin-left: 65px
+			a
+				@include link_azul
+
+				&:hover
+					@include link_azul_hover
+
+		.estrellas_gmaps
+			float: left
+			margin: 0 5px 10px 0
+			width: 80px
+		
+		.recomendacion_gmaps
+			float: left
+			font:
+				size: 11px
+				style: italic
+			margin: 2px 0 0
+			width: 115px
+
+		.data_categoria, .data_sector
+			float: left
+			width: 200px
+
+			a
+				@include link_azul
+					
+				&:hover
+					@include link_azul_hover

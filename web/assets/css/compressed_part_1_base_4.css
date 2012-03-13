@@ -385,9 +385,9 @@ textarea {
     .barra_ciudad .centrado_ciudad .redes_sociales {
       background: #cccccc;
       float: right;
-      margin-right: 2px;
       font-size: 12px;
       height: 20px;
+      margin: 0 1px 0 0;
       padding: 4px 9px 1px;
       padding: 4px 7px 1px \9;
       width: 70px; }
@@ -452,7 +452,7 @@ textarea {
         list-style-type: none;
         position: relative; }
         .menu .centrado_menu .menu_categorias li .tipo_categoria {
-          cursor: none; }
+          cursor: default; }
         .menu .centrado_menu .menu_categorias li a, .menu .centrado_menu .menu_categorias li .tipo_categoria {
           border-left: 1px solid #cccccc;
           border-right: 1px solid white;
@@ -487,6 +487,7 @@ textarea {
             float: left;
             width: 250px; }
             .menu .centrado_menu .menu_categorias li .cajas_menu ul li {
+              cursor: pointer;
               display: list-item;
               float: left;
               width: 250px; }
@@ -494,8 +495,7 @@ textarea {
                 border: 0px;
                 height: 20px;
                 padding: 9px 6px 1px;
-                width: 238px;
-                cursor: default; }
+                width: 238px; }
                 .menu .centrado_menu .menu_categorias li .cajas_menu ul li a:hover {
                   background: #f2f2f6;
                   border: 0px;
@@ -507,7 +507,7 @@ textarea {
       background: url("../images/extras/fondo_buscador.png") 0 0 repeat-x;
       border-left: 1px solid #cccccc;
       border-right: 1px solid #cccccc;
-      float: left;
+      float: right;
       height: 41px; }
       .menu .centrado_menu .buscador_box .buscar {
         border-right: 1px solid white;
