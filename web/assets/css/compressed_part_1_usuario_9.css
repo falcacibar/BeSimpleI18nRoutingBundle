@@ -67,7 +67,7 @@
     cursor: pointer;
     height: 30px;
     margin: 50px 0 0 10px;
-    width: 99px; }
+    width: 99px !important; }
     .datos_obligatorios .enviar_datos:hover {
       background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
 

@@ -280,7 +280,7 @@ $rojo: #F72121
 		font:
 			size: 12px
 		padding: 20px 0
-		width: 675px
+		width: 665px
 
 		li
 			display: inline
@@ -295,7 +295,7 @@ $rojo: #F72121
 		float: left
 		margin: 0px
 		padding: 17px 0
-		width: 243px
+		width: 253px
 
 		select
 			margin: 0 0 0 10px
@@ -527,11 +527,14 @@ $rojo: #F72121
 		width: 330px
 
 	.boton_agregar
-		background: #000
+		background: url('../images/extras/botones_busqueda.png') no-repeat -85px 0
 		float: left
 		height: 50px
 		margin: 0 0 0 10px
-		width: 260px
+		width: 254px
+
+		&:hover
+			background: url('../images/extras/botones_busqueda.png') no-repeat -85px -50px
 
 /* Caja Google Maps */
 
@@ -654,3 +657,59 @@ $rojo: #F72121
 	position: absolute
 	top: 3px
 	width: 20px
+
+.qtip_subcategorias, .qtip_zonas, .qtip_categorias, .qtip_caracteristicas
+	display: none
+	padding-top: 10px
+	position: relative
+	font-size: 12px
+	font-weight: 400
+
+	a
+		color: #666
+		text-decoration: none
+
+		&:visited
+			color: #666
+
+	p
+		color: #ccc
+		margin-bottom: 20px
+		font-size: 12px
+
+	li
+		color: #999
+		display: inline-block
+		font-size: 12px
+		*zoom: 1
+		*display: inline
+		width: 170px
+		margin: 0 0 15px
+		vertical-align: middle
+
+		.totales
+			color: #ccc
+			font:
+				style: italic
+
+	.filtrar_caracteristicas
+		background: url('../images/extras/botones_busqueda.png') no-repeat 0 0
+		border: 0px
+		cursor: pointer
+		display: block
+		float: right
+		height: 30px
+		margin: 0 0px 5px
+		width: 85px
+
+		&:hover
+			background: url('../images/extras/botones_busqueda.png') no-repeat 0 -50px
+
+/* No hay resultados */
+
+.listado_no_resultados
+	line-height: 18px
+
+	li
+		list-style-type: disc
+		margin: 0 0 0 20px

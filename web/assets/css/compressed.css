@@ -401,44 +401,6 @@
   padding: 50px 0;
   width: 960px; }
 
-.qtip_subcategorias, .qtip_zonas, .qtip_categorias, .qtip_caracteristicas {
-  display: none;
-  padding-top: 10px;
-  position: relative;
-  font-size: 12px;
-  font-weight: 400; }
-  .qtip_subcategorias a, .qtip_zonas a, .qtip_categorias a, .qtip_caracteristicas a {
-    color: #666666;
-    text-decoration: none; }
-    .qtip_subcategorias a:visited, .qtip_zonas a:visited, .qtip_categorias a:visited, .qtip_caracteristicas a:visited {
-      color: #666666; }
-  .qtip_subcategorias p, .qtip_zonas p, .qtip_categorias p, .qtip_caracteristicas p {
-    color: #cccccc;
-    margin-bottom: 20px;
-    font-size: 12px; }
-  .qtip_subcategorias li, .qtip_zonas li, .qtip_categorias li, .qtip_caracteristicas li {
-    color: #999999;
-    display: inline-block;
-    font-size: 12px;
-    *zoom: 1;
-    *display: inline;
-    width: 170px;
-    margin: 0 0 15px;
-    vertical-align: middle; }
-    .qtip_subcategorias li .totales, .qtip_zonas li .totales, .qtip_categorias li .totales, .qtip_caracteristicas li .totales {
-      color: #cccccc;
-      font-style: italic; }
-  .qtip_subcategorias .filtrar_caracteristicas, .qtip_zonas .filtrar_caracteristicas, .qtip_categorias .filtrar_caracteristicas, .qtip_caracteristicas .filtrar_caracteristicas {
-    background: url("../images/extras/cargar_tooltip.png") no-repeat 0 0;
-    border: 0px;
-    cursor: pointer;
-    display: block;
-    float: right;
-    height: 30px;
-    margin: 0 0px 5px;
-    width: 85px; }
-    .qtip_subcategorias .filtrar_caracteristicas:hover, .qtip_zonas .filtrar_caracteristicas:hover, .qtip_categorias .filtrar_caracteristicas:hover, .qtip_caracteristicas .filtrar_caracteristicas:hover {
-      background: url("../images/extras/cargar_tooltip.png") no-repeat 0 -30px; }
 
 /* CSS Reset */
 html, body, div, span, applet, object, iframe,
@@ -576,6 +538,11 @@ a.chzn-single.chzn-error {
 .titulo_busqueda {
   font-size: 20px;
   line-height: 30px;
+  margin: 0 0 10px 0; }
+
+.sub_titulo_busqueda {
+  font-size: 16px;
+  line-height: 26px;
   margin: 0 0 10px 0; }
 
 .titulo_home {
@@ -1889,7 +1856,7 @@ small {
     float: left;
     font-size: 12px;
     padding: 20px 0;
-    width: 675px; }
+    width: 665px; }
     .orden_container .filtros_busqueda li {
       display: inline; }
       .orden_container .filtros_busqueda li a {
@@ -1902,7 +1869,7 @@ small {
     float: left;
     margin: 0px;
     padding: 17px 0;
-    width: 243px; }
+    width: 253px; }
     .orden_container .resultados_por_pagina select {
       margin: 0 0 0 10px;
       float: right; }
@@ -2094,11 +2061,13 @@ small {
     line-height: 22px !important;
     width: 330px; }
   .agrega_lugar .boton_agregar {
-    background: black;
+    background: url("../images/extras/botones_busqueda.png") no-repeat -85px 0;
     float: left;
     height: 50px;
     margin: 0 0 0 10px;
-    width: 260px; }
+    width: 254px; }
+    .agrega_lugar .boton_agregar:hover {
+      background: url("../images/extras/botones_busqueda.png") no-repeat -85px -50px; }
 
 /* Caja Google Maps */
 .lugar_data {
@@ -2202,6 +2171,52 @@ small {
   position: absolute;
   top: 3px;
   width: 20px; }
+
+.qtip_subcategorias, .qtip_zonas, .qtip_categorias, .qtip_caracteristicas {
+  display: none;
+  padding-top: 10px;
+  position: relative;
+  font-size: 12px;
+  font-weight: 400; }
+  .qtip_subcategorias a, .qtip_zonas a, .qtip_categorias a, .qtip_caracteristicas a {
+    color: #666666;
+    text-decoration: none; }
+    .qtip_subcategorias a:visited, .qtip_zonas a:visited, .qtip_categorias a:visited, .qtip_caracteristicas a:visited {
+      color: #666666; }
+  .qtip_subcategorias p, .qtip_zonas p, .qtip_categorias p, .qtip_caracteristicas p {
+    color: #cccccc;
+    margin-bottom: 20px;
+    font-size: 12px; }
+  .qtip_subcategorias li, .qtip_zonas li, .qtip_categorias li, .qtip_caracteristicas li {
+    color: #999999;
+    display: inline-block;
+    font-size: 12px;
+    *zoom: 1;
+    *display: inline;
+    width: 170px;
+    margin: 0 0 15px;
+    vertical-align: middle; }
+    .qtip_subcategorias li .totales, .qtip_zonas li .totales, .qtip_categorias li .totales, .qtip_caracteristicas li .totales {
+      color: #cccccc;
+      font-style: italic; }
+  .qtip_subcategorias .filtrar_caracteristicas, .qtip_zonas .filtrar_caracteristicas, .qtip_categorias .filtrar_caracteristicas, .qtip_caracteristicas .filtrar_caracteristicas {
+    background: url("../images/extras/botones_busqueda.png") no-repeat 0 0;
+    border: 0px;
+    cursor: pointer;
+    display: block;
+    float: right;
+    height: 30px;
+    margin: 0 0px 5px;
+    width: 85px; }
+    .qtip_subcategorias .filtrar_caracteristicas:hover, .qtip_zonas .filtrar_caracteristicas:hover, .qtip_categorias .filtrar_caracteristicas:hover, .qtip_caracteristicas .filtrar_caracteristicas:hover {
+      background: url("../images/extras/botones_busqueda.png") no-repeat 0 -50px; }
+
+/* No hay resultados */
+.listado_no_resultados {
+  line-height: 18px; }
+  .listado_no_resultados li {
+    list-style-type: disc;
+    margin: 0 0 0 20px; }
 
 /* Colores */
 /* Mixin */
@@ -5074,7 +5089,7 @@ small {
     cursor: pointer;
     height: 30px;
     margin: 50px 0 0 10px;
-    width: 99px; }
+    width: 99px !important; }
     .datos_obligatorios .enviar_datos:hover {
       background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
 
