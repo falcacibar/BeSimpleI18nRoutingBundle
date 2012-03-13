@@ -18,9 +18,9 @@
 
 {% block content %}
 {% if post.ganadores == '' %}
-<div class="post" style="border-top-color: #{{post.tipoPost.hex}}}">
+<div class="post" style="border-top: 5px solid #{{post.tipoPost.hex}}}">
 {% else %}
-<div class="post" style="border-top-color: #FF8A8A">
+<div class="post" style="border-top: 5px solid #FF8A8A">
 {% endif %}
 	<div class="post_contenido">
 		<h1 class="titulo">{{post.titulo}}</h1>
