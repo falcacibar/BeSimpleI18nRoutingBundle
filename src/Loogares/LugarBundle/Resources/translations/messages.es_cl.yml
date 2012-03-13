@@ -80,7 +80,7 @@ lugar:
             enviar: Enviar
             imprimir: Imprimir
             twittear: Twitter
-            facebook: facebook
+            facebook: Facebook
             e_mail: E-mail
         recomendaciones:
             titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
