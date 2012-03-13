@@ -98,7 +98,7 @@ function ajaxGmapFiltro(idLugar, southWest, northEast, latitude, longitude, base
         // Sacar variables
         //var info = escape(document.getElementById('blah').value);
         // Enviar via get
-        ajaxReq.open("GET", WEBROOT+'ajax/otrosLugaresEnElArea?idLugar='+idLugar+'&southWest='+southWest + '&northEast='+northEast+'&latitude='+latitude+'&longitude='+longitude, true);
+        ajaxReq.open("GET", WEBROOT+'../ajax/otrosLugaresEnElArea?idLugar='+idLugar+'&southWest='+southWest + '&northEast='+northEast+'&latitude='+latitude+'&longitude='+longitude, true);
         ajaxReq.onreadystatechange = handleMapa;
         ajaxReq.send(null);
     }
