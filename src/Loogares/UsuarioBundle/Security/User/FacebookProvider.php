@@ -88,7 +88,7 @@ class FacebookProvider implements UserProviderInterface
                     $user->setSalt('');
 
                     $user->setPassword(sha1(time().$user->getSlug().time()));
-                    $user->setSha1Password(1);
+                    $user->setSha1password(1);
 
                     // Seteamos tipo_usuario a ROLE_USER
                     $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")

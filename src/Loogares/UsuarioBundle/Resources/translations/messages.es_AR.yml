@@ -131,6 +131,7 @@ usuario:
             cuenta: Cuenta
             foto: Foto de perfil
             password: Password
+            connect: Conectar cuenta
             borrar: Borrar cuenta
 
         cuenta:
