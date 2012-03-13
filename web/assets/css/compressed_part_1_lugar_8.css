@@ -1052,6 +1052,11 @@
         height: 10px;
         padding: 0 0 0 12px;
         width: 10px; }
+      .opciones_lugar ul.opciones_lugar_f6f li .dueno_lugar_si {
+        background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -702px;
+        height: 10px;
+        padding: 0 0 0 12px;
+        width: 10px; }
       .opciones_lugar ul.opciones_lugar_f6f li .editar_lugar {
         background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -19px;
         height: 10px;
