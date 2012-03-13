@@ -147,6 +147,15 @@ $count = $STH->fetch();
 $migratedTables['tipo_pedido'] = ($count['total'] > 0) ? 1 : 0;
 
 
+
+$STH = $DBH->query('SELECT COUNT(id) total FROM actividad_reciente');
+$STH->setFetchMode(PDO::FETCH_ASSOC);
+
+$count = $STH->fetch();
+
+$migratedTables['actividad_reciente'] = ($count['total'] > 0) ? 1 : 0;
+
+
 $STH = $DBH->query('SELECT COUNT(id) total FROM tipo_actividad_reciente');
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 
