@@ -3938,6 +3938,8 @@ small {
       width: 10px; }
       .opciones_lugar ul.opciones_lugar_f6f .tips_icon:hover {
         background: url("../images/extras/botones_sprite.png") no-repeat 0 -228px; }
+    .opciones_lugar ul.opciones_lugar_f6f .qtip_dueno {
+      display: none; }
   .opciones_lugar .compartir_lugar {
     border: 1px solid #cccccc;
     display: none;
