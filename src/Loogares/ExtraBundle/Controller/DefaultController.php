@@ -78,13 +78,16 @@ class DefaultController extends Controller
         $ciudadArray['nombre'] = $ciudad->getNombre();
         $ciudadArray['slug'] = $ciudad->getSlug();
 
+        $root = "root_".preg_replace('/-/', '_', $slug);
+
         $this->get('session')->set('ciudad',$ciudadArray);
 
         // Redirección a vista de login 
-        return $this->redirect($this->generateUrl('root'));
+        return new Response('ok');
     }
 
-    public function homepageAction() {
+    public function homepageAction($slug) {
+        $this->localeAction($slug);
         $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
