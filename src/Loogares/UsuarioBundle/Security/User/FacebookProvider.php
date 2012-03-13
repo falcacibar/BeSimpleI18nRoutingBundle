@@ -83,7 +83,7 @@ class FacebookProvider implements UserProviderInterface
                     // Seteamos tipo_usuario a ROLE_USER
                     $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")
                                       ->findOneByNombre('ROLE_USER');
-                    $usuario->setTipoUsuario($tipoUsuario);
+                    $user->setTipoUsuario($tipoUsuario);
                     $em->persist($user);
                 }
 
