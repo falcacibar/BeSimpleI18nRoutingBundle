@@ -990,6 +990,7 @@ textarea {
         float: right;
         text-align: right;
         padding: 15px 15px 15px 10px;
+        text-shadow: 1px 1px 1px white;
         width: 274px; }
         .estaticas .menu_estaticas a li:hover {
           border-bottom: 1px solid #cccccc;

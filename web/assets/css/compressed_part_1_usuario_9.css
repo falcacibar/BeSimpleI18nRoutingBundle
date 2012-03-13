@@ -240,6 +240,7 @@
         cursor: pointer;
         float: left;
         padding: 15px 10px 15px 15px;
+        text-shadow: 1px 1px 1px white;
         width: 134px; }
         .caja_contenidos_usuario .menu_actividad_usuario a li:hover {
           border-bottom: 1px solid #cccccc;
@@ -289,6 +290,7 @@
         float: right;
         text-align: right;
         padding: 15px 15px 15px 10px;
+        text-shadow: 1px 1px 1px white;
         width: 114px; }
         .caja_contenidos_usuario .menu_edicion_usuario a li:hover {
           border-bottom: 1px solid #cccccc;

@@ -1464,6 +1464,7 @@ textarea {
         float: right;
         text-align: right;
         padding: 15px 15px 15px 10px;
+        text-shadow: 1px 1px 1px white;
         width: 274px; }
         .estaticas .menu_estaticas a li:hover {
           border-bottom: 1px solid #cccccc;
@@ -5215,6 +5216,7 @@ small {
         cursor: pointer;
         float: left;
         padding: 15px 10px 15px 15px;
+        text-shadow: 1px 1px 1px white;
         width: 134px; }
         .caja_contenidos_usuario .menu_actividad_usuario a li:hover {
           border-bottom: 1px solid #cccccc;
@@ -5264,6 +5266,7 @@ small {
         float: right;
         text-align: right;
         padding: 15px 15px 15px 10px;
+        text-shadow: 1px 1px 1px white;
         width: 114px; }
         .caja_contenidos_usuario .menu_edicion_usuario a li:hover {
           border-bottom: 1px solid #cccccc;
