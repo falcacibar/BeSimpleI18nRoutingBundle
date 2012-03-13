@@ -1694,65 +1694,68 @@ class LugarController extends Controller{
         $lugar = $lr->findOneBySlug($slug);
         
         $reportes = $lr->getReportesUsuarioLugar($lugar->getId(), $this->get('security.context')->getToken()->getUser(), 1);
-        if(sizeof($reportes) > 0)
-            throw $this->createNotFoundException('Nos has notificado anteriormente que este lugar cerró. Aún estamos corroborando datos al respecto.');
+       
+        if(sizeof($reportes) > 0){
+            $this->get('session')->setFlash('lugar_flash','Nos has notificado anteriormente que este lugar cerró. Aún estamos corroborando datos al respecto.');
+            return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+        }else{
+            $reporte = new ReportarLugar();
 
-        $reporte = new ReportarLugar();
+            $form = $this->createFormBuilder($reporte)
+                             ->add('reporte', 'textarea')
+                             ->getForm();
 
-        $form = $this->createFormBuilder($reporte)
-                         ->add('reporte', 'textarea')
-                         ->getForm();
+            if ($request->getMethod() == 'POST') { 
+                $form->bindRequest($request);
 
-        if ($request->getMethod() == 'POST') { 
-            $form->bindRequest($request);
-
-            foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
-            }
-
-            if ($form->isValid()) {
-                $reporte->setLugar($lugar);
-                $reporte->setUsuario($this->get('security.context')->getToken()->getUser());
-                $reporte->setFecha(new \Datetime());
-
-                $estadoReporte = $em->getRepository("LoogaresExtraBundle:Estado")
-                                    ->findOneByNombre('Por revisar');
-
-                $reporte->setEstado($estadoReporte);
-
-                $em->persist($reporte);
-                $em->flush();
-
-                $estadoLugar = $em->getRepository("LoogaresExtraBundle:Estado")
-                                    ->findOneByNombre('Reportado');
-                $lugar->setEstado($estadoLugar);
-                $em->flush();
-                
-                // Se envía mail a administradores notificando reporte
-                $mail = array();
-                $mail['asunto'] = $this->get('translator')->trans('reportes.mail.lugar.asunto').' '.$lugar->getNombre();
-                $mail['reporte'] = $reporte;
-                $mail['tipo'] = "lugar";
-                $message = \Swift_Message::newInstance()
-                        ->setSubject($mail['asunto'])
-                        ->setFrom('noreply@loogares.com')
-                        ->setTo('reportar@loogares.com');
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
-                $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                $this->get('mailer')->send($message);               
-
-                 // Mensaje de éxito del reporte
-                $this->get('session')->setFlash('lugar_flash','reportes.flash');
-                    
-                // Redirección a ficha del lugar 
-                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
-            }
-            else {
-                foreach($this->get('validator')->validate( $form ) as $formError){
-                    $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
+                foreach($_POST as $key => $value){
+                    $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
                 }
-            }         
 
+                if ($form->isValid()) {
+                    $reporte->setLugar($lugar);
+                    $reporte->setUsuario($this->get('security.context')->getToken()->getUser());
+                    $reporte->setFecha(new \Datetime());
+
+                    $estadoReporte = $em->getRepository("LoogaresExtraBundle:Estado")
+                                        ->findOneByNombre('Por revisar');
+
+                    $reporte->setEstado($estadoReporte);
+
+                    $em->persist($reporte);
+                    $em->flush();
+
+                    $estadoLugar = $em->getRepository("LoogaresExtraBundle:Estado")
+                                        ->findOneByNombre('Reportado');
+                    $lugar->setEstado($estadoLugar);
+                    $em->flush();
+                    
+                    // Se envía mail a administradores notificando reporte
+                    $mail = array();
+                    $mail['asunto'] = $this->get('translator')->trans('reportes.mail.lugar.asunto').' '.$lugar->getNombre();
+                    $mail['reporte'] = $reporte;
+                    $mail['tipo'] = "lugar";
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject($mail['asunto'])
+                            ->setFrom('noreply@loogares.com')
+                            ->setTo('reportar@loogares.com');
+                    $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
+                    $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
+                    $this->get('mailer')->send($message);               
+
+                     // Mensaje de éxito del reporte
+                    $this->get('session')->setFlash('lugar_flash','reportes.flash');
+                        
+                    // Redirección a ficha del lugar 
+                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+                }
+                else {
+                    foreach($this->get('validator')->validate( $form ) as $formError){
+                        $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
+                    }
+                }         
+
+            }
         }
         return $this->render('LoogaresLugarBundle:Lugares:reporte.html.twig', array(
             'lugar' => $lugar,
