@@ -30,3 +30,8 @@ app/config/parameters.ini
 
 nbproject
 migrar
+web/mails
+web/images
+
+#Paginas de error
+vendors/symfony/src/Symfony/Bundle/TwigBundle/Resources/views
