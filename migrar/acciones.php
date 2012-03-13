@@ -27,10 +27,10 @@ foreach($data as $entry){
     }
     $sql =  substr($sql, 0, -2);
 
-    $sql = "INSERT INTO acciones_usuario(lugar_id, usuario_id, accion_id, fecha) values(" . $sql . ");";
+    $sql = "INSERT INTO acciones_usuario values(" . ($i+1) . ", " . $sql . ");";
     //echo $sql;
-    if(!$DBH->exec($sql)){
-        $i++;
+    $i++;
+    if(!$DBH->exec($sql)){        
         echo "$sql </br>";
     }
 }
@@ -62,14 +62,15 @@ foreach($data as $entry){
     }
     $sql =  substr($sql, 0, -2);
 
-    $sql = "INSERT INTO acciones(nombre) values(" . $sql . ");";
+    $sql = "INSERT INTO acciones values(" . ($i+1) . ", " . $sql . ");";
     //echo $sql;
+    $i++;
     if(!$DBH->exec($sql)){
-        $i++;
         echo "$sql </br>";
     }
 }
 
+$i = 0;
 echo $i;
 $DBH->exec("SET FOREIGN_KEY_CHECKS = 1");
 ?>

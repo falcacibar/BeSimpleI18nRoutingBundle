@@ -1,6 +1,9 @@
 <?php
 include('config.php');
 
+//require_once('telefonos_pais_santiago.php');
+//require_once('telefonos_pais_valpo.php');
+
 $STH = $LBH->query('select * from Lugares order by Id asc');
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -35,14 +38,19 @@ while($row = $STH->fetch()){
     else if($row['Id_Estado'] == '7')
         $estado_lugar = '4';
 
+    $sector_lugar = $row['Barrio'];
+    if($sector_lugar == 0)
+        $sector_lugar = 'NULL';
+
+
     preg_match('/(?<=[\w]\s)[0-9s\/n]+/',$row['Direccion'], $numero, PREG_OFFSET_CAPTURE);
     $numero = ($numero[0][0] != '')?$numero[0][0]:'s/n';
-    $direccion = preg_replace('/(?<=[\w]\s)[0-9s\/n]+/', '', $row['Direccion']);    
+    $direccion = preg_replace('/(?<=[\w]\s)[0-9s\/n]+/', '', $row['Direccion']);
 
     $data[] = array(
         'id' => $idLugar,
         'comuna_id' => $row['Comuna'],
-        'sector_id' => $row['Barrio'],
+        'sector_id' => $sector_lugar,
         'tipo_lugar_id' => $row['Id_Tipo'],
         'estado_id' => $estado_lugar,
         'usuario_id' => $row['Usuario_Id'],
@@ -103,9 +111,13 @@ foreach($data as $entry){
     }
 }
 
+/* Actualizamos Sectores con id = 0 */
+$query = "UPDATE lugares SET sector_id = NULL WHERE sector_id = 0";
+if(!$DBH->exec($query)) {
+    echo "sector_id not updated" . ' <br>';
+}
+
+
 echo $i;
 $DBH->exec("SET FOREIGN_KEY_CHECKS = 1");
-//SET FOREIGN_KEY_CHECKS = 0;
-//truncate table lugares;
-//SET FOREIGN_KEY_CHECKS = 1
 ?>
