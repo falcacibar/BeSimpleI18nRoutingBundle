@@ -457,18 +457,18 @@ class AdminController extends Controller
                 }
                 // Lugar eliminado
                 else {
-                    $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.lugar.borrar.asunto').' '.$lugar->getNombre();                
+                    $mail['asunto'] = $lugar->getNombre().' '.$this->get('translator')->trans('admin.notificaciones.lugar.borrar.asunto');                
                     $mail['tipo'] = "borrar";
                 }               
 
             }else if($cerrar == true){
                 $estado = $lr->getEstado(4);                
-                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.lugar.cerrar.asunto').' '.$lugar->getNombre();
+                $mail['asunto'] = $lugar->getNombre().' '.$this->get('translator')->trans('admin.notificaciones.lugar.cerrar.asunto');
                 $mail['tipo'] = "cerrar";                
 
             }else if($habilitar == true){
                 $estado = $lr->getEstado(2);
-                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.lugar.aprobar.asunto').' '.$lugar->getNombre();
+                $mail['asunto'] = $lugar->getNombre().' '.$this->get('translator')->trans('admin.notificaciones.lugar.aprobar.asunto');
                 $mail['tipo'] = "aprobar";    
             }
 
@@ -824,7 +824,7 @@ class AdminController extends Controller
 
             }else if($aprobar == true){
                 $estado = $lr->getEstado(2);
-                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.imagen.aprobar.asunto', array('%lugar%' => $imagen->sgetLugar()->getNombre()));
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.imagen.aprobar.asunto', array('%lugar%' => $imagen->getLugar()->getNombre()));
                 $mail['tipo'] = "aprobar";
             }
 

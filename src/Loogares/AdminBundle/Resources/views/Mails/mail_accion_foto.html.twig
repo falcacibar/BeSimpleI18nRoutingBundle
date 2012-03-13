@@ -15,9 +15,8 @@
                         {% trans with {'%open_tag%' : "<a style='color: #0066CC; text-decoration: none;' href="~url('_fotoGaleria',{'slug' : mail.imagen.lugar.slug,'id' : mail.imagen.id})~">",'%close_tag%' : "</a>", '%old_lugar%' : mail.old_lugar.nombre,'%new_lugar%' : mail.imagen.lugar.nombre} %}admin.notificaciones.imagen.mover.primero{% endtrans %}
                         {{'admin.notificaciones.imagen.mover.segundo'|trans}}
                     {% elseif mail.tipo == 'borrar' %}
-                        {% trans with {'%lugar%' : mail.lugar.nombre, '%open_tag%' : "<a href="~url('static', {'static' : 'terminos_de_uso'})~">", '%close_tag%' : "</a>"}%}admin.notificaciones.lugar.rechazar.primero{% endtrans %}
                         {{'admin.notificaciones.imagen.borrar.primero'|trans({'%lugar%' : mail.imagen.lugar.nombre})}}
-                        {{'admin.notificaciones.imagen.borrar.segundo'|trans}}
+                        {% trans with {'%lugar%' : mail.imagen.lugar.nombre, '%open_tag%' : "<a href="~url('static', {'static' : 'terminos_de_uso'})~">", '%close_tag%' : "</a>"}%}admin.notificaciones.imagen.borrar.segundo{% endtrans %}
                     {% endif %} 
                     <br />
                     <br />

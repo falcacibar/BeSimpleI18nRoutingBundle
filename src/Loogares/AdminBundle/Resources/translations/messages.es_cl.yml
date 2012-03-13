@@ -3,48 +3,47 @@ admin:
     notificaciones:
         saludo: %nombre% %apellido%,
         lugar:            
-            despedida: Esperamos que te animes a agregar más lugares.
-            comprension: Te agradecemos tu comprensión y buena onda.
             aprobar:
-                asunto: Aprobación de
-                primero: Enviamos este E-mail para notificarte que el lugar %lugar% que agragaste a nuestro sitio ha sido aprobado sin problemas.
+                asunto: ha sido agregado a Loogares.com
+                primero: Te escribimos para notificar que el lugar %lugar% que agregaste a Loogares.com ha sido aprobado sin problemas.
+            despedida: Esperamos seguir contando con tu ayuda y que continúes agregando lugares al sitio.
             rechazar:
                 asunto: El lugar que agregaste no fue publicado
                 primero: lamentablemente no se pudo agregar el lugar %lugar%. Después de revisarlo con detención, se decidió no aceptar la solicitud para agregarlo al no cumplir con las políticas para la publicación de lugares. Entre ellas están: el lugar ya no existe o se encuentra cerrado, ya está presente en nuestra base de datos, no pertenece a alguna de las categorías en el sitio, o al área de cobertura geográfica. Estas políticas las puedes ver en los %open_tag%Términos de uso%close_tag%.
                 segundo: Asegúrate de cumplir con estos requisitos antes de agregar nuevos lugares.
                 tercero: Te agradecemos tu comprensión y buena onda.   
             borrar:
-                asunto: Eliminación de
-                primero: Enviamos este E-mail para notificarte que el lugar %lugar%, que fue agregado por ti, ha sido eliminado de nuestros registros.
-                segundo: Las razones por las cuales tomamos la decisión de eliminar un lugar suelen ser porque el lugar no existe, o porque está repetido.
+                asunto: ha sido eliminado de Loogares.com
+                primero: Te escribimos para notificar que el lugar %lugar%, agregado por ti, ha sido eliminado de nuestros registros.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que el lugar no existe o ya fue agregado al sitio.
             cerrar:
-                asunto: Cierre de
-                primero: Enviamos este E-mail para notificarte que el lugar %lugar%, que fue agregado por ti, ha cerrado sus puertas.
-                segundo: Esto no significa que pierdas la calidad de ser quien agregó el lugar. Mantendremos esta información en la ficha misma del lugar, sólo que no será posible recomendar.
+                asunto: ha sido cerrado
+                primero: Te escribimos para notificar que el lugar %lugar%, agregado por ti, ha cerrado sus puertas.
+                segundo: Mantendremos en nuestros registros tu constante participación y la tomaremos en cuenta para eventuales premios y beneficios.
+            comprension: Te agradecemos tu comprensión y buena onda.
         imagen:
-            despedida: Esperamos que sigas agregando fotos. ¡Siéntete parte de la construcción de esta comunidad!
             aprobar:
-                asunto: Imagen en %lugar% aprobada
-                primero: Enviamos este E-mail para notificarte que la foto que agregaste al lugar %lugar% ha sido aprobada sin problemas.   
+                asunto: La foto agregada al lugar %lugar% ha sido aprobada
+                primero: Te escribimos para notificar que la foto que agregaste al lugar %lugar% ha sido aprobada sin problemas.   
             mover:
-                asunto: Imagen en %old_lugar% trasladada a %new_lugar%
-                primero: Enviamos este E-mail para notificarte que la %open_tag%foto%close_tag% que agregaste al lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%.
-                segundo: La razón por las cual tomamos la decisión de reubicar una foto suele ser porque corresponde a otro lugar.
+                asunto: La foto del lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%
+                primero: Te escribimos para notificar que la %open_tag%foto%close_tag% que agregaste al lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que tu foto correspondía a otro lugar. 
             borrar:
-                asunto: Imagen en %lugar% eliminada
-                primero: Enviamos este E-mail para notificarte que la foto que agregaste al lugar %lugar% ha sido eliminada.
-                segundo: Las razones por las cuales tomamos la decisión de eliminar una foto suelen ser porque no muestra lo que el lugar es, o porque muestra contenido que infringe los términos de servicio.
+                asunto: La foto agregada al lugar %lugar% ha sido eliminada
+                primero: Te escribimos para notificar que la foto que agregaste al lugar %lugar% ha sido eliminada.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que tu foto puede estar mostrando otro lugar, o porque muestra contenido que infringe los %open_tag%Términos de uso%close_tag%.
+            despedida: Esperamos seguir contando con tu ayuda y que continúes agregando fotos al sitio.
         recomendacion:
-            despedida: ¡Esperamos que sigas recomendando lugares!
             aprobar:
-                asunto: Recomendación en %lugar% aprobada
-                primero: Enviamos este E-mail para notificarte que la recomendación que la recomendación que hiciste en el lugar %lugar% ha sido aprobada sin problemas.
+                asunto: Tu recomendación en el lugar %lugar% ha sido aprobada
+                primero: Te escribimos para notificar que la recomendación que escribiste en el lugar %lugar% ha sido aprobada sin problemas.
             mover:
-                asunto: Recomendación en %old_lugar% trasladada a %new_lugar%
-                primero: Enviamos este E-mail para notificarte que la %open_tag%recomendación%close_tag% que agregaste al lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%.
-                segundo: La razón por las cual tomamos la decisión de reubicar una recomendación suele ser porque corresponde a otro lugar.
+                asunto: La recomendación del lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%
+                primero: Te escribimos para notificar que la %open_tag%recomendación%close_tag% que agregaste al lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que tu recomendación correspondía a otro lugar.
             borrar:
-                asunto: Recomendación en %lugar% eliminada
-                primero: Enviamos este E-mail para notificarte que la recomendación que hiciste en el lugar %lugar% ha sido eliminada.
-                segundo: Las razones por las cuales tomamos la decisión de eliminar una recomendación suelen ser porque no describe la experiencia en el lugar, o porque posee contenido que infringe los términos de servicio.      
-                    
+                asunto: La recomendación agregada al lugar %lugar% ha sido eliminada
+                primero: Te escribimos para notificar que la recomendación que agregaste al lugar %lugar% ha sido eliminada.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que tu recomendación infringe los %open_tag%Términos de uso%close_tag%.
+            despedida: ¡Esperamos que sigas recomendando lugares y contando tu experiencia a la comunidad!
