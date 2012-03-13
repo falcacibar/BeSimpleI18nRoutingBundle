@@ -207,14 +207,14 @@
 						</a>
 						<div class="textos_usuario">
 							<a class="nombre_usuario" href="#">
-								Antonia Malig
+								{{home.estrella.obj.usuario.nombre}} {{home.estrella.obj.usuario.apellido}} 
 							</a>
-							<span class="invitada_lugar">{{'extra.home.modulo_loogareno_estrella.invitacion'|trans}} <a href="">Mikai Sushi</a> {{'extra.home.modulo_loogareno_estrella.por'|trans}}</span>
+							<span class="invitada_lugar">{{'extra.home.modulo_loogareno_estrella.invitacion'|trans}} <a href="{{ path('_lugar', {'slug': home.estrella.obj.lugar.slug}) }}">{{ home.estrella.obj.lugar.nombre}}</a> {{'extra.home.modulo_loogareno_estrella.por'|trans}}</span>
 						</div>
 					</div>
 				</div>
 				<div class="recomendacion_preview">					
-					<span><a href="">Mikai Sushi:</a> Nos juntamos con unos amigos a un after office en mi propio departamento, hace tiempo que no nos veíamos por lo que era bueno tener comida para mantener...</span>
+					<span><a href="">{{ home.estrella.obj.lugar.nombre}}:</a> {{ home.estrella.truncated }}...</span>
 					<a href="" class="ver_mas">{{'extra.home.modulo_loogareno_estrella.ver_mas'|trans}}</a>
 					<br />
 					<span class="tips">{{'extra.home.modulo_loogareno_estrella.quieres_ser_invitado'|trans}} <a href="{{ path('static', {'static': 'loogareno_estrella'}) }}">{{'extra.home.modulo_loogareno_estrella.entra_aca'|trans}}</a></span>

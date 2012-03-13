@@ -36,6 +36,7 @@ while($row = $STH->fetch()){
     }
 
     if($entidad != 'ComentarioBlog'){
+        echo $row['Id'];
         $data[] = array(
             'id' => $row['Id'],
             'usuario_id' => $row['Usuario_Id'],
@@ -53,16 +54,16 @@ $i = 0;
 foreach($data as $entry){
     $sql = null;
     foreach($entry as $key => $value){
-        $sql .= "\"".$value."\", ";
+        $sql .= ":" . $key .", ";
     }
     $sql =  substr($sql, 0, -2);
-    $sql = "INSERT INTO actividad_reciente values(" . $sql . ");";
-    echo $sql.' <br>';
+    $sql = "INSERT INTO actividad_reciente values($sql);";
+    //echo $sql.' <br>';
     $stmt = $DBH->prepare($sql);
-    /*if(!$stmt->execute()){
+    if(!$stmt->execute($entry)){
         $i++;
         echo "$sql </br>";
-    }*/
+    }
 }
 
 echo $i;
