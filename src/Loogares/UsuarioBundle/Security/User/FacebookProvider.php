@@ -60,8 +60,9 @@ class FacebookProvider implements UserProviderInterface
                 
                 // Si en este punto el usuario no existe, entonces debemos registrarlo
                 if (empty($user)) {
-                    $user = new Usuario();
-                    $user->setPassword(sha1('probandounpassword'));
+                    //$user = new Usuario();
+                    $user = $ur->findOneByMail($fbdata['email']);
+                    $user->setPassword(sha1('probandopass'));
                     $user->setSha1Password(1);
 
                     if (isset($fbdata['email'])) {
