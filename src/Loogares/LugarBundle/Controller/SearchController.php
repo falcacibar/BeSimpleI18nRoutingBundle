@@ -26,6 +26,7 @@ class SearchController extends Controller{
     $ciudad = $this->get('session')->get('ciudad');
     $idCiudad = $ciudad['id'];
     $order = null;
+    $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
 
     foreach($_GET as $key => $value){
       // Estandarizamos caracteres de $string  
@@ -279,7 +280,8 @@ class SearchController extends Controller{
 
                         WHERE categorias.slug LIKE '%$termSlug%' 
                         $filterSector $filterComuna $filterCiudad
-                        
+                        AND lugares.estado_id != 3
+
                         GROUP BY lugares.id $order LIMIT 3000)";
 
       //Buscamos por Slug
@@ -306,6 +308,7 @@ class SearchController extends Controller{
 
                         WHERE lugares.slug like '%$termSlug%' 
                         $filterSector $filterComuna  $filterCiudad
+                        AND lugares.estado_id != 3
 
                         GROUP BY lugares.id $order LIMIT 3000)";
       
@@ -333,6 +336,7 @@ class SearchController extends Controller{
 
                           WHERE lugares.slug LIKE '%$value%' 
                           $filterSector $filterComuna  $filterCiudad
+                          AND lugares.estado_id != 3
 
                           GROUP BY lugares.id $order LIMIT 3000)";
       }
@@ -354,6 +358,7 @@ class SearchController extends Controller{
                              ON categoria_lugar.categoria_id = categorias.id
 
                              WHERE lugares.slug LIKE '%$termSlug%' 
+                             AND lugares.estado_id != 3
                              $filterSector $filterComuna $filterCiudad)";
 
       foreach($termArray as $key => $value){
@@ -373,6 +378,7 @@ class SearchController extends Controller{
                                ON categoria_lugar.categoria_id = categorias.id
 
                                WHERE lugares.slug LIKE '%$value%' 
+                               AND lugares.estado_id != 3
                                $filterSector $filterComuna $filterCiudad)";
       }
 
@@ -393,6 +399,7 @@ class SearchController extends Controller{
                              ON categoria_lugar.categoria_id = categorias.id
 
                              WHERE categorias.slug LIKE '%$termSlug%' 
+                             AND lugares.estado_id != 3
                              $filterSector $filterComuna $filterCiudad)";
                              
  
@@ -413,6 +420,7 @@ class SearchController extends Controller{
                              ON categoria_lugar.categoria_id = categorias.id
 
                              WHERE lugares.calle LIKE '%$term%' 
+                             AND lugares.estado_id != 3
                              $filterSector $filterComuna $filterCiudad)";
 
     }else{
@@ -432,7 +440,7 @@ class SearchController extends Controller{
       }
 
       if(isset($_GET['precio'])){
-        $filterPrecio = ' AND lugares.precio <= "' . $_GET['precio'] . '"';      
+        $filterPrecio = ' AND lugares.precio = "' . $_GET['precio'] . '"';      
       }
 
       if(isset($_GET['caracteristicas'])){
@@ -470,6 +478,7 @@ class SearchController extends Controller{
   
                         WHERE categorias.slug LIKE '%$termSlug%'
                         AND categorias.slug = '".$_GET['categoria']."'
+                        AND lugares.estado_id != 3
                         $filterSector $filterComuna $filterSubCat $filterPrecio $filterCiudad
                         
                         GROUP BY lugares.id
@@ -499,6 +508,7 @@ class SearchController extends Controller{
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id  
                          
                         WHERE lugares.slug like '%$termSlug%' 
+                        AND lugares.estado_id != 3
                         $filterComuna $filterSector $filterCat $filterSubCat $filterPrecio  $filterCiudad
 
                         GROUP BY lugares.id  
@@ -528,6 +538,7 @@ class SearchController extends Controller{
                             ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                             WHERE lugares.slug LIKE '%$value%' 
+                            AND lugares.estado_id != 3
                             $filterComuna $filterSector $filterCat $filterSubCat  $filterPrecio  $filterCiudad
 
                             GROUP BY lugares.id 
@@ -567,6 +578,7 @@ class SearchController extends Controller{
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                                 WHERE lugares.slug LIKE '%$termSlug%' 
+                                AND lugares.estado_id != 3
                                 $filterCat $filterComuna $filterSector  $filterCiudad
                                 $filterCaracteristica)";
 
@@ -595,6 +607,7 @@ class SearchController extends Controller{
                                   ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                                   WHERE lugares.slug LIKE '%$value%' 
+                                  AND lugares.estado_id != 3
                                   $filterCat $filterSector $filterComuna $filterPrecio  $filterCiudad
                                   $filterCaracteristica)";
       }
@@ -623,6 +636,7 @@ class SearchController extends Controller{
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id  
 
                                 WHERE categorias.slug LIKE '%$termSlug%'
+                                AND lugares.estado_id != 3
                                 $filterCat $filterSector $filterComuna $filterPrecio  $filterCiudad
                                 $filterCaracteristica)";
                 
@@ -650,6 +664,7 @@ class SearchController extends Controller{
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id  
 
                                 WHERE lugares.calle like '%$termSlug%' 
+                                AND lugares.estado_id != 3
                                 $filterCat $filterSector $filterComuna $filterPrecio $filterCiudad
                                 $filterCaracteristica)";
       /*
@@ -675,6 +690,7 @@ class SearchController extends Controller{
                                   ON caracteristica.id = caracteristica_lugar.caracteristica_id
 
                                   WHERE lugares.slug LIKE '%$termSlug%'
+                                  AND lugares.estado_id != 3
                                   $filterSector $filterComuna $filterPrecio $filterCiudad)";
 
       //Total de Categorias Generadas por la Categoria
@@ -701,6 +717,7 @@ class SearchController extends Controller{
                                   ON categoria_lugar.categoria_id = categorias.id
 
                                   WHERE categorias.slug LIKE '%$termSlug%'
+                                  AND lugares.estado_id != 3
                                   $filterSector $filterComuna $filterPrecio $filterCiudad)";
 
       foreach($termArray as $key => $value){
@@ -721,6 +738,7 @@ class SearchController extends Controller{
                                     ON caracteristica.id = caracteristica_lugar.caracteristica_id
 
                                     WHERE lugares.slug LIKE '%$value%'
+                                    AND lugares.estado_id != 3
                                     $filterSector $filterComuna $filterPrecio $filterCiudad)";
       }
 
@@ -741,6 +759,7 @@ class SearchController extends Controller{
                                     ON caracteristica.id = caracteristica_lugar.caracteristica_id
 
                                     WHERE lugares.calle LIKE '%$term%'
+                                    AND lugares.estado_id != 3
                                     $filterSector $filterComuna $filterPrecio $filterCiudad)";
     } 
 
@@ -774,6 +793,7 @@ class SearchController extends Controller{
                       ON caracteristica.id = caracteristica_lugar.caracteristica_id
 
                       WHERE lugares.calle like '%$term%' 
+                      AND lugares.estado_id != 3
                       $filterComuna $filterSector $filterCat $filterSubCat $filterCiudad
 
                       GROUP BY lugares.id $order LIMIT 3000)";
@@ -798,6 +818,7 @@ class SearchController extends Controller{
                            ON sector.id = lugares.sector_id
 
                            WHERE lugares.slug LIKE '%$termSlug%'
+                           AND lugares.estado_id != 3
                            $filterPrecio $filterCiudadSector
                            $filterCaracteristica)";
 
@@ -816,6 +837,7 @@ class SearchController extends Controller{
                            ON categoria_lugar.categoria_id = categorias.id
 
                            WHERE categorias.slug LIKE '%$termSlug%' 
+                           AND lugares.estado_id != 3
                            $filterPrecio $filterCiudadSector
                            $filterCaracteristica)";
 
@@ -828,6 +850,7 @@ class SearchController extends Controller{
                              ON sector.id = lugares.sector_id
 
                              WHERE lugares.slug LIKE '%$value%'
+                             AND lugares.estado_id != 3
                              $filterPrecio $filterCiudadSector
                              $filterCaracteristica)";
       }
@@ -839,6 +862,7 @@ class SearchController extends Controller{
                              ON sector.id = lugares.sector_id
 
                              WHERE lugares.calle LIKE '%$term%'
+                             AND lugares.estado_id != 3
                              $filterPrecio $filterCiudadSector
                              $filterCaracteristica)";
 
@@ -869,6 +893,7 @@ class SearchController extends Controller{
                           ON categoria_lugar.categoria_id = categorias.id
 
                           WHERE categorias.slug LIKE '%$termSlug%'
+                          AND lugares.estado_id != 3
                           $filterPrecio $filterCiudad
                           $filterCaracteristica)";
 
@@ -880,6 +905,7 @@ class SearchController extends Controller{
                           ON comuna.id = lugares.comuna_id
 
                           WHERE lugares.slug LIKE '%$termSlug%'
+                          AND lugares.estado_id != 3
                           $filterPrecio $filterCiudad
                           $filterCaracteristica)";
 
@@ -892,6 +918,7 @@ class SearchController extends Controller{
                             ON comuna.id = lugares.comuna_id
 
                             WHERE lugares.slug LIKE '%$value%'
+                            AND lugares.estado_id != 3
                             $filterPrecio $filterCiudad
                             $filterCaracteristica)";
       }
@@ -903,6 +930,7 @@ class SearchController extends Controller{
                             ON comuna.id = lugares.comuna_id
 
                             WHERE lugares.calle LIKE '%$term%'
+                            AND lugares.estado_id != 3
                             $filterPrecio $filterCiudad
                             $filterCaracteristica)";
 
@@ -936,6 +964,7 @@ class SearchController extends Controller{
                         ON caracteristica.id = caracteristica_lugar.caracteristica_id
                         
                         WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
+                        AND lugares.estado_id != 3
 
                         $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad
                         GROUP BY lugares.id
@@ -967,6 +996,7 @@ class SearchController extends Controller{
 
                                 WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
                                 AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
+                                AND lugares.estado_id != 3
                                 $filterSector $filterComuna $filterPrecio $filterCiudad
                                 $filterCaracteristica)";
 
@@ -1003,6 +1033,7 @@ class SearchController extends Controller{
                             ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                             WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
+                            AND lugares.estado_id != 3
                             AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                             $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad)";
 
@@ -1029,6 +1060,7 @@ class SearchController extends Controller{
                            ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                            WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
+                           AND lugares.estado_id != 3
                            AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                            $filterPrecio $filterSubCat $filterCiudad
                            $filterCaracteristica)";
@@ -1053,6 +1085,7 @@ class SearchController extends Controller{
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                           WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
+                          AND lugares.estado_id != 3
                           AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                           $filterPrecio $filterSubCat $filterCiudad
                           $filterCaracteristica)";
@@ -1093,7 +1126,7 @@ class SearchController extends Controller{
       $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");   
     }
 
-$a = null;
+    $a = null;
     //Sacamos los otros datos de los 30 resultados que corresponden
     foreach($arr['lugares'] as $key => $lugar){
       $buffer = $this->getDoctrine()->getConnection()
@@ -1120,6 +1153,8 @@ $a = null;
         ON usuarios.id = recomendacion.usuario_id
         WHERE lugares.id = ".$lugar['id']." group by lugares.id");
 
+      $lugar = $lr->findOneById($lugar['id']);
+      $buffer[0]['mostrarPrecio'] = $fn->mostrarPrecio($lugar);
       $arr['lugares'][$key] = array_merge($arr['lugares'][$key], $buffer[0]);
 
       $arr['lugares'][$key]['categorias_nombre'] = explode(',', $buffer[0]['categorias_nombre']);

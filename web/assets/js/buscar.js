@@ -236,7 +236,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$('.link_filtrar_caracteristicas').live('click', function(e){
+	$('.filtrar_caracteristicas').live('click', function(e){
 		e.preventDefault();
 
 		var $this = $(this),
@@ -248,7 +248,9 @@ $(document).ready(function(){
 		});
 		
 		href += "&caracteristicas=" +  caracteristica.substring(0, caracteristica.length-1);
+		console.log(href)
 		$this.attr('href', href);
+		return false;
 	});
 
 	if(oldBrowser == false){

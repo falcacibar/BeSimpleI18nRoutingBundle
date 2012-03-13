@@ -450,7 +450,7 @@
 							<li class="direccion_lugar">
 								{{lugar.calle}} {{lugar.numero}}, <a href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a>
 							</li>
-							{% if lugar.precio != null %}
+							{% if lugar.mostrarPrecio != null %}
 								<li class="precio_lugar">
 									<div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div>
 								</li>

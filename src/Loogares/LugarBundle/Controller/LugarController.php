@@ -38,135 +38,97 @@ use Loogares\ExtraBundle\Entity\ActividadReciente;
 class LugarController extends Controller{
 
     public function lugarAction($slug, Request $request, $usuarioSlug = false){
-                foreach($_GET as $key => $value){
-                    $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);  
-                }
-                $fn = $this->get('fn');
-                $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
-                $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
-                $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-                $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
-                $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
-                $router = $this->get('router');
-                $precioPromedio = 0;
-                $estrellasPromedio = 0;
-                $sacarRecomendacionPedida = false;
+        foreach($_GET as $key => $value){
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);  
+        }
+        
+        $fn = $this->get('fn');
+        $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
+        $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
+        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
+        $router = $this->get('router');
+        $precioPromedio = 0;
+        $estrellasPromedio = 0;
+        $sacarRecomendacionPedida = false;
 
-                $em = $this->getDoctrine()->getEntityManager();
-                $qb = $em->createQueryBuilder();
-                $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
-                
-                $lugarResult = $lr->getLugares($slug);
+        $em = $this->getDoctrine()->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
+        
+        $lugarResult = $lr->getLugares($slug);
 
-                $visitas = $lugarResult[0]->getVisitas();
-                $visitas++;
-                $lugarResult[0]->setVisitas($visitas);
-                $em->persist($lugarResult[0]);
-                $em->flush();
+        $visitas = $lugarResult[0]->getVisitas();
+        $visitas++;
+        $lugarResult[0]->setVisitas($visitas);
+        $em->persist($lugarResult[0]);
+        $em->flush();
 
-                $idLugar = $lugarResult[0]->getId();
-                $idUsuario = ($this->get('security.context')->isGranted('ROLE_USER')) ? $this->get('security.context')->getToken()->getUser()->getId() : 0;
-                $codigoArea = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getCodigoArea();
+        $idLugar = $lugarResult[0]->getId();
+        $idUsuario = ($this->get('security.context')->isGranted('ROLE_USER')) ? $this->get('security.context')->getToken()->getUser()->getId() : 0;
+        $codigoArea = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getCodigoArea();
 
-                //Ultima foto del Lugar
-                $q = $em->createQuery("SELECT u
-                                       FROM Loogares\LugarBundle\Entity\ImagenLugar u
-                                       WHERE u.lugar = ?1
-                                       AND u.estado != ?2
-                                       ORDER BY u.fecha_creacion DESC, u.id DESC");
-                $q->setMaxResults(1)
-                  ->setParameter(1, $idLugar)
-                  ->setParameter(2, 3);
-                $imagenLugarResult = $q->getResult();
+        //Ultima foto del Lugar
+        $q = $em->createQuery("SELECT u
+                               FROM Loogares\LugarBundle\Entity\ImagenLugar u
+                               WHERE u.lugar = ?1
+                               AND u.estado != ?2
+                               ORDER BY u.fecha_creacion DESC, u.id DESC");
+        $q->setMaxResults(1)
+          ->setParameter(1, $idLugar)
+          ->setParameter(2, 3);
+        $imagenLugarResult = $q->getResult();
 
-                //Total Fotos Lugar
-                $q = $em->createQuery("SELECT count(u.id)
-                                       FROM Loogares\LugarBundle\Entity\ImagenLugar u
-                                       WHERE u.lugar = ?1
-                                       AND u.estado != ?2");
-                $q->setParameter(1, $idLugar);
-                $q->setParameter(2, 3);
-                $totalFotosResult = $q->getSingleScalarResult();
+        //Total Fotos Lugar
+        $q = $em->createQuery("SELECT count(u.id)
+                               FROM Loogares\LugarBundle\Entity\ImagenLugar u
+                               WHERE u.lugar = ?1
+                               AND u.estado != ?2");
+        $q->setParameter(1, $idLugar);
+        $q->setParameter(2, 3);
+        $totalFotosResult = $q->getSingleScalarResult();
 
-                //Query para sacar la primera recomendacion
-                $q = $em->createQuery("SELECT u 
-                                       FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
-                                       WHERE u.lugar = ?1 
-                                       ORDER BY u.id ASC");
-                $q->setParameter(1, $idLugar)
-                  ->setMaxResults(1);
-                $primeroRecomendarResult = $q->getResult();
+        //Query para sacar la primera recomendacion
+        $q = $em->createQuery("SELECT u 
+                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+                               WHERE u.lugar = ?1 
+                               ORDER BY u.id ASC");
+        $q->setParameter(1, $idLugar)
+          ->setMaxResults(1);
+        $primeroRecomendarResult = $q->getResult();
 
-                //Query para sacar el Total de las recomendaciones
-                $q = $em->createQuery("SELECT count(u.id) 
-                                       FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
-                                       WHERE u.lugar = ?1 and u.estado != ?2");
-                $q->setParameter(1, $idLugar);
-                $q->setParameter(2, 3);
-                $totalRecomendacionesResult = $q->getSingleScalarResult();
+        //Query para sacar el Total de las recomendaciones
+        $q = $em->createQuery("SELECT count(u.id) 
+                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+                               WHERE u.lugar = ?1 and u.estado != ?2");
+        $q->setParameter(1, $idLugar);
+        $q->setParameter(2, 3);
+        $totalRecomendacionesResult = $q->getSingleScalarResult();
 
-                //Query para sacar el Total de las recomendaciones
-                $q = $em->createQuery("SELECT u.id 
-                                       FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
-                                       WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado != ?3");
-                $q->setParameter(1, $idUsuario);                      
-                $q->setParameter(2, $idLugar);
-                $q->setParameter(3, 3);
-                $yaRecomendoResult = $q->getResult();
+        //Query para sacar el Total de las recomendaciones
+        $q = $em->createQuery("SELECT u.id 
+                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+                               WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado != ?3");
+        $q->setParameter(1, $idUsuario);                      
+        $q->setParameter(2, $idLugar);
+        $q->setParameter(3, 3);
+        $yaRecomendoResult = $q->getResult();
 
-                if($usuarioSlug != false){
-                    $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-                    if(preg_match('/\w/', $usuarioSlug)){
-                        $usuario = $ur->findOneBySlug($usuarioSlug);
-                    }else{
-                        $usuario = $ur->findOneById($usuarioSlug);
-                    }
+        if($usuarioSlug != false){
+            $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+            if(preg_match('/\w/', $usuarioSlug)){
+                $usuario = $ur->findOneBySlug($usuarioSlug);
+            }else{
+                $usuario = $ur->findOneById($usuarioSlug);
+            }
 
-                    if($usuario){ 
-                        $idRecomendacionPedida = $usuario->getId();
+            if($usuario){ 
+                $idRecomendacionPedida = $usuario->getId();
 
-                        //Sacar la recomendacion del usuario slugeado
-                        $recomendacionPedidaResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
-                            (select min(id) from util where util.usuario_id = $idRecomendacionPedida and util.recomendacion_id = recomendacion.id) as apretoUtil
-                                                                                 FROM recomendacion
-                                                                                 LEFT JOIN util
-                                                                                 ON util.recomendacion_id = recomendacion.id
-                                                                                 LEFT JOIN tag_recomendacion
-                                                                                 ON tag_recomendacion.recomendacion_id = recomendacion.id
-                                                                                 LEFT JOIN tag
-                                                                                 ON tag_recomendacion.tag_id = tag.id
-                                                                                 LEFT JOIN usuarios
-                                                                                 ON recomendacion.usuario_id = usuarios.id
-                                                                                 WHERE recomendacion.lugar_id = $idLugar
-                                                                                 AND recomendacion.usuario_id = $idRecomendacionPedida
-                                                                                 AND recomendacion.estado_id != 3
-                                                                                 GROUP BY recomendacion.id
-                                                                                 LIMIT 1");
-                            //Explotamos los tags, BOOM
-                            for($i = 0; $i < sizeOf($recomendacionPedidaResult); $i++){
-                                $recomendacionPedidaResult[$i]['tags'] = explode(',', $recomendacionPedidaResult[$i]['tags']); 
-                            }
-
-                            $resultadosPorPagina++;
-                    }else{
-                        $usuarioSlug = false;
-                    }
-                    
-                }
-
-
-                //Definicion del orden para la siguiente consulta
-                if($_GET['orden'] == 'ultimas'){
-                        $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
-                }else if($_GET['orden'] == 'mas-utiles'){
-                        $orderBy = "ORDER BY utiles DESC";
-                }else if($_GET['orden'] == 'mejor-evaluadas'){
-                        $orderBy = "ORDER BY recomendacion.estrellas desc, recomendacion.fecha_creacion DESC";
-                }
-
-                //Query para las recomendaciones a mostrar
-                $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
-                    (select min(id) from util where util.usuario_id = $idUsuario and util.recomendacion_id = recomendacion.id) as apretoUtil
+                //Sacar la recomendacion del usuario slugeado
+                $recomendacionPedidaResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
+                    (select min(id) from util where util.usuario_id = $idRecomendacionPedida and util.recomendacion_id = recomendacion.id) as apretoUtil
                                                                          FROM recomendacion
                                                                          LEFT JOIN util
                                                                          ON util.recomendacion_id = recomendacion.id
@@ -177,105 +139,144 @@ class LugarController extends Controller{
                                                                          LEFT JOIN usuarios
                                                                          ON recomendacion.usuario_id = usuarios.id
                                                                          WHERE recomendacion.lugar_id = $idLugar
+                                                                         AND recomendacion.usuario_id = $idRecomendacionPedida
                                                                          AND recomendacion.estado_id != 3
-                                                                         $sacarRecomendacionPedida
-                                                                         GROUP BY recomendacion.id 
-                                                                         $orderBy
-                                                                         LIMIT $resultadosPorPagina
-                                                                         OFFSET $offset");
+                                                                         GROUP BY recomendacion.id
+                                                                         LIMIT 1");
+                    //Explotamos los tags, BOOM
+                    for($i = 0; $i < sizeOf($recomendacionPedidaResult); $i++){
+                        $recomendacionPedidaResult[$i]['tags'] = explode(',', $recomendacionPedidaResult[$i]['tags']); 
+                    }
 
-                $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
+                    $resultadosPorPagina++;
+            }else{
+                $usuarioSlug = false;
+            }
+            
+        }
+
+
+        //Definicion del orden para la siguiente consulta
+        if($_GET['orden'] == 'ultimas'){
+                $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
+        }else if($_GET['orden'] == 'mas-utiles'){
+                $orderBy = "ORDER BY utiles DESC";
+        }else if($_GET['orden'] == 'mejor-evaluadas'){
+                $orderBy = "ORDER BY recomendacion.estrellas desc, recomendacion.fecha_creacion DESC";
+        }
+
+        //Query para las recomendaciones a mostrar
+        $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
+            (select min(id) from util where util.usuario_id = $idUsuario and util.recomendacion_id = recomendacion.id) as apretoUtil
+                                                                 FROM recomendacion
+                                                                 LEFT JOIN util
+                                                                 ON util.recomendacion_id = recomendacion.id
+                                                                 LEFT JOIN tag_recomendacion
+                                                                 ON tag_recomendacion.recomendacion_id = recomendacion.id
+                                                                 LEFT JOIN tag
+                                                                 ON tag_recomendacion.tag_id = tag.id
+                                                                 LEFT JOIN usuarios
+                                                                 ON recomendacion.usuario_id = usuarios.id
+                                                                 WHERE recomendacion.lugar_id = $idLugar
+                                                                 AND recomendacion.estado_id != 3
+                                                                 $sacarRecomendacionPedida
+                                                                 GROUP BY recomendacion.id 
+                                                                 $orderBy
+                                                                 LIMIT $resultadosPorPagina
+                                                                 OFFSET $offset");
+
+        $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
+        
+        if($this->get('security.context')->isGranted('ROLE_USER')) {
+            $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId(), $this->get('security.context')->getToken()->getUser()->getId());
+            
+            // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
+            for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+                $accionesUsuario[$i]['puede'] = 1;
                 
-                if($this->get('security.context')->isGranted('ROLE_USER')) {
-                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId(), $this->get('security.context')->getToken()->getUser()->getId());
-                    
-                    // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
-                    for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
-                        $accionesUsuario[$i]['puede'] = 1;
-                        
-                        // Si el usuario ya estuvo, no puede desmarcar esta opción
-                        if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
-                            $accionesUsuario[$i]['puede'] = 0;
-                        else if($accionesUsuario[$i]['id'] == 5 && $accionesUsuario[$i]['hecho'] == 1)
-                            $accionesUsuario[$i]['puede'] = 0;
-                    }
-                    // Si el usuario ya estuvo o quiere volver, no puede querer ir
-                    if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
-                        $accionesUsuario[0]['puede'] = 0;
+                // Si el usuario ya estuvo, no puede desmarcar esta opción
+                if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
+                    $accionesUsuario[$i]['puede'] = 0;
+                else if($accionesUsuario[$i]['id'] == 5 && $accionesUsuario[$i]['hecho'] == 1)
+                    $accionesUsuario[$i]['puede'] = 0;
+            }
+            // Si el usuario ya estuvo o quiere volver, no puede querer ir
+            if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
+                $accionesUsuario[0]['puede'] = 0;
 
-                    }  
-                } 
-                else {
-                    $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
-                     for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
-                        $accionesUsuario[$i]['puede'] = 0;
-                    }
-                }
+            }  
+        } 
+        else {
+            $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
+             for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+                $accionesUsuario[$i]['puede'] = 0;
+            }
+        }
 
-                // Revisamos si el lugar tiene pedidos asociados
-                $reservas = $lr->getPedidosLugar($lugarResult[0], 1);
-                $pedidos = $lr->getPedidosLugar($lugarResult[0], 2);
+        // Revisamos si el lugar tiene pedidos asociados
+        $reservas = $lr->getPedidosLugar($lugarResult[0], 1);
+        $pedidos = $lr->getPedidosLugar($lugarResult[0], 2);
 
-                //Explotamos los tags, BOOM
-                for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
-                    $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
-                }
+        //Explotamos los tags, BOOM
+        for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
+            $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
+        }
 
-                $telefonos = array();
-                //Array con telefonos del lugar
-                if($lugarResult[0]->getTelefono1() != null || $lugarResult[0]->getTelefono1() != '') {
-                    $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono1());
-                }
-                if($lugarResult[0]->getTelefono2() != null || $lugarResult[0]->getTelefono2() != '') {
-                    $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono2());
-                }
-                if($lugarResult[0]->getTelefono3() != null || $lugarResult[0]->getTelefono3() != '') {
-                    $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono3());
-                }
+        $telefonos = array();
+        //Array con telefonos del lugar
+        if($lugarResult[0]->getTelefono1() != null || $lugarResult[0]->getTelefono1() != '') {
+            $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono1());
+        }
+        if($lugarResult[0]->getTelefono2() != null || $lugarResult[0]->getTelefono2() != '') {
+            $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono2());
+        }
+        if($lugarResult[0]->getTelefono3() != null || $lugarResult[0]->getTelefono3() != '') {
+            $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono3());
+        }
 
-                //Sacamos los HTTP
-                $lugarResult[0]->setSitioWeb($fn->stripHTTP($lugarResult[0]->getSitioWeb()));
-                $lugarResult[0]->setTwitter($fn->stripHTTP($lugarResult[0]->getTwitter()));
-                $lugarResult[0]->setFacebook($fn->stripHTTP($lugarResult[0]->getFacebook()));
+        //Sacamos los HTTP
+        $lugarResult[0]->setSitioWeb($fn->stripHTTP($lugarResult[0]->getSitioWeb()));
+        $lugarResult[0]->setTwitter($fn->stripHTTP($lugarResult[0]->getTwitter()));
+        $lugarResult[0]->setFacebook($fn->stripHTTP($lugarResult[0]->getFacebook()));
 
-                /*
-                *  Armado de Datos para pasar a Twig
-                */
-                $data = $lugarResult[0];
-                if($usuarioSlug != false){
-                    $data->recomendacionPedida = $recomendacionPedidaResult[0];
-                }
-                $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
-                //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
-                $data->telefonos = $telefonos;
-                //Imagen a mostrar
-                $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
-                $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';
-                $data->recomendaciones = $recomendacionesResult;
-                //Total de Pagina que debemos mostrar/generar
-                $data->totalPaginas = ($totalRecomendacionesResult >$resultadosPorPagina )?floor($totalRecomendacionesResult / $resultadosPorPagina):1;
-                $data->totalRecomendaciones = $totalRecomendacionesResult;
-                $data->yaRecomendo = $yaRecomendoResult;
-                $data->mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
-                //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
-                $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
-                $data->totalFotos = $totalFotosResult;
-                $data->recomendacionesPorPagina = $resultadosPorPagina;
-                $tp = $lr->getTagsPopulares($idLugar);
-                $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
-                $data->totalAcciones = $totalAcciones;
-                $data->accionesUsuario = $accionesUsuario;
-                $data->reservas = $reservas;
-                $data->pedidos = $pedidos;
+        /*
+        *  Armado de Datos para pasar a Twig
+        */
+        $data = $lugarResult[0];
+        if($usuarioSlug != false){
+            $data->recomendacionPedida = $recomendacionPedidaResult[0];
+        }
+        $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
+        //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
+        $data->telefonos = $telefonos;
+        //Imagen a mostrar
+        $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
+        $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';
+        $data->recomendaciones = $recomendacionesResult;
+        //Total de Pagina que debemos mostrar/generar
+        $data->totalPaginas = ($totalRecomendacionesResult >$resultadosPorPagina )?floor($totalRecomendacionesResult / $resultadosPorPagina):1;
+        $data->totalRecomendaciones = $totalRecomendacionesResult;
+        $data->yaRecomendo = $yaRecomendoResult;
+        $data->mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
+        //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
+        $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
+        $data->totalFotos = $totalFotosResult;
+        $data->recomendacionesPorPagina = $resultadosPorPagina;
+        $tp = $lr->getTagsPopulares($idLugar);
+        $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
+        $data->totalAcciones = $totalAcciones;
+        $data->accionesUsuario = $accionesUsuario;
+        $data->reservas = $reservas;
+        $data->pedidos = $pedidos;
 
-                $params = array(
-                    'slug' => $data->getSlug()
-                );
+        $params = array(
+            'slug' => $data->getSlug()
+        );
 
-                $paginacion = $fn->paginacion( $data->totalRecomendaciones, $resultadosPorPagina, '_lugar', $params, $router );
+        $paginacion = $fn->paginacion( $data->totalRecomendaciones, $resultadosPorPagina, '_lugar', $params, $router );
 
-                //Render ALL THE VIEWS
-                return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET, 'paginacion' => $paginacion));            
+        //Render ALL THE VIEWS
+        return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET, 'paginacion' => $paginacion));            
     }
     
     public function agregarAction(Request $request, $slug = null){
