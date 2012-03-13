@@ -1046,6 +1046,12 @@ class LugarController extends Controller{
                 $dimensiones['ancho'] = $anchoDefault;
                 $dimensiones['alto'] = ($anchoDefault * $alto) / $ancho; 
             }
+
+            //ES MUY GRANDEEEEE!!!
+            else if($alto > $altoDefault && $ancho > $anchoDefault){
+                $dimensiones['ancho'] = $anchoDefault;
+                $dimensiones['alto'] = ($anchoDefault * $alto) / $ancho; 
+            }
         }
         catch(\Exception $e) {
             

@@ -48,5 +48,9 @@
 			{% endif %}
 		</li>
 	</ul>
-
+	<script>
+		//Alto de las flechas
+		height = (($('a .siguiente').height()-10)/2)-41;
+		$('a .siguiente span, a .anterior span').css('top', height+'px');
+	</script>
 </div>	

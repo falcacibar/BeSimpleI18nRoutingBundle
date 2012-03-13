@@ -76,7 +76,7 @@ class UsuarioController extends Controller
         $data->filtro = $filtro;
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
-        if($actividad_total == false){
+        if($actividad_total == true){
             $totalActividad = $ar->getTotalActividad(null, $usuarioResult->getId(),($filtro != 'todo') ? $filtro : null);
             $data->totalPaginas = ($totalActividad > $ppag) ? ceil($totalActividad / $ppag) : 1;
 
@@ -87,6 +87,34 @@ class UsuarioController extends Controller
 
             $paginacion = $fn->paginacion($totalActividad, $ppag, 'actividadUsuario', $params, $router );
             $data->totalActividad = $totalActividad;
+        }else{
+            //MONKEY PATCHING, Sacamos los 3 visitados recientemente, por visitar, favoritos
+            $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\AccionUsuario u where u.usuario = ?1 and u.accion = ?2 ORDER BY u.fecha desc");
+
+            $q->setParameter(1, $usuarioResult->getId());
+            $q->setParameter(2, 3);
+            $q->setMaxResults(3);
+
+            $data->recientemente = $q->getResult();
+
+                        
+            //Por visitar
+            $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\AccionUsuario u where u.usuario = ?1 and u.accion = ?2 ORDER BY u.fecha desc");
+
+            $q->setParameter(1, $usuarioResult->getId());
+            $q->setParameter(2, 1);
+            $q->setMaxResults(3);
+
+            $data->porVisitar = $q->getResult();
+
+            //Favoritos
+            $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\AccionUsuario u where u.usuario = ?1 and u.accion = ?2 ORDER BY u.fecha desc");
+
+            $q->setParameter(1, $usuarioResult->getId());
+            $q->setParameter(2, 4);
+            $q->setMaxResults(3);
+
+            $data->recientes = $q->getResult();
         }
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(

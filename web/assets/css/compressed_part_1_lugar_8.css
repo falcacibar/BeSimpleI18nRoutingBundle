@@ -1830,9 +1830,10 @@
         .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior span {
           background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 0;
           height: 73px;
-          float: left;
-          margin: 120px 0 0 15px;
-          width: 41px; }
+          margin: 0 0 0 15px;
+          width: 41px;
+          top: 50%;
+          position: absolute; }
           .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior span:hover {
             background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 -73px; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente {
@@ -1845,8 +1846,10 @@
         .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente span {
           background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px 0;
           height: 73px;
-          float: right;
-          margin: 120px 15px 0 0;
+          width: 41px;
+          top: 50%;
+          position: absolute;
+          margin: 0 15px 0 0;
           width: 41px; }
           .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente span:hover {
             background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px -73px; }
