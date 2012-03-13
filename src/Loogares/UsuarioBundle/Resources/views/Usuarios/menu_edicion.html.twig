@@ -11,7 +11,7 @@
 		<a href="{{path('editarPasswordUsuario', { 'param': slug })}}"><li class="{{(usuario.edicion == 'password') ? 'selected' : ''}}">
 			{{'usuario.edicion.menu.password'|trans}}
 		</li></a>
-		<a href="{{path('editarConexionesUsuario', { 'param': slug })}}"><li class="{{(usuario.edicion == 'connect') ? 'selected' : ''}}">
+		<a href="{{path('editarConexionesUsuario', { 'param': slug })}}"><li class="{{(usuario.edicion == 'conexiones') ? 'selected' : ''}}">
 			{{'usuario.edicion.menu.connect'|trans}}
 		</li></a>
 		<a href="{{path('editarBorrarUsuario', { 'param': slug })}}"><li class="{{(usuario.edicion == 'borrar') ? 'selected' : ''}}">
