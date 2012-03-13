@@ -234,7 +234,7 @@ class SearchController extends Controller{
           $generateParams['slug'] = $slug;
           $generateParams['o'] = 'no';
           $url = $this->generateUrl('_buscar', $generateParams);
-          $this->get('session')->setFlash('buscar_flash','Creemos que estas buscando una SubCategoria!, asi que te enviamos a esta!.<br/>Si quieres intentar tu busqueda y que no adivinemos, haz click aqui: <a href="'.$url.'">AAAAA</a>');
+          $this->get('session')->setFlash('buscar_flash','Creemos que estas buscando una SubCategoria!, asi que te enviamos a esta!.<br/>Si quieres intentar tu busqueda y que no adivinemos, haz click aqui: <a href="'.$url.'">Click</a>');
         }
       }
     }
@@ -274,7 +274,7 @@ class SearchController extends Controller{
                         LEFT JOIN subcategoria_lugar
                         ON subcategoria_lugar.lugar_id = lugares.id
 
-                        LEFT JOIN subcategoria
+                        JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                         WHERE categorias.slug LIKE '%$termSlug%' 
@@ -301,7 +301,7 @@ class SearchController extends Controller{
                         LEFT JOIN subcategoria_lugar
                         ON subcategoria_lugar.lugar_id = lugares.id
 
-                        LEFT JOIN subcategoria
+                        JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                         WHERE lugares.slug like '%$termSlug%' 
@@ -328,7 +328,7 @@ class SearchController extends Controller{
                           LEFT JOIN subcategoria_lugar
                           ON subcategoria_lugar.lugar_id = lugares.id
 
-                          LEFT JOIN subcategoria
+                          JOIN subcategoria
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                           WHERE lugares.slug LIKE '%$value%' 
@@ -465,7 +465,7 @@ class SearchController extends Controller{
                         LEFT JOIN subcategoria_lugar
                         ON subcategoria_lugar.lugar_id = lugares.id
 
-                        LEFT JOIN subcategoria
+                        JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id
   
                         WHERE categorias.slug LIKE '%$termSlug%'
@@ -495,7 +495,7 @@ class SearchController extends Controller{
                         LEFT JOIN subcategoria_lugar
                         ON subcategoria_lugar.lugar_id = lugares.id
 
-                        LEFT JOIN subcategoria
+                        JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id  
                          
                         WHERE lugares.slug like '%$termSlug%' 
@@ -524,7 +524,7 @@ class SearchController extends Controller{
                             LEFT JOIN subcategoria_lugar
                             ON subcategoria_lugar.lugar_id = lugares.id
 
-                            LEFT JOIN subcategoria
+                            JOIN subcategoria
                             ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                             WHERE lugares.slug LIKE '%$value%' 
@@ -563,7 +563,7 @@ class SearchController extends Controller{
                                 LEFT JOIN subcategoria_lugar
                                 ON subcategoria_lugar.lugar_id = lugares.id
 
-                                LEFT JOIN subcategoria
+                                JOIN subcategoria
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                                 WHERE lugares.slug LIKE '%$termSlug%' 
@@ -591,7 +591,7 @@ class SearchController extends Controller{
                                   LEFT JOIN subcategoria_lugar
                                   ON subcategoria_lugar.lugar_id = lugares.id
 
-                                  LEFT JOIN subcategoria
+                                  JOIN subcategoria
                                   ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                                   WHERE lugares.slug LIKE '%$value%' 
@@ -619,7 +619,7 @@ class SearchController extends Controller{
                                 LEFT JOIN subcategoria_lugar
                                 ON subcategoria_lugar.lugar_id = lugares.id
 
-                                LEFT JOIN subcategoria
+                                JOIN subcategoria
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id  
 
                                 WHERE categorias.slug LIKE '%$termSlug%'
@@ -764,7 +764,7 @@ class SearchController extends Controller{
                       LEFT JOIN subcategoria_lugar
                       ON subcategoria_lugar.lugar_id = lugares.id
 
-                      LEFT JOIN subcategoria
+                      JOIN subcategoria
                       ON subcategoria_lugar.subcategoria_id = subcategoria.id   
           
                       LEFT JOIN caracteristica_lugar
@@ -926,7 +926,7 @@ class SearchController extends Controller{
                         LEFT JOIN subcategoria_lugar
                         ON subcategoria_lugar.lugar_id = lugares.id
 
-                        LEFT JOIN subcategoria
+                        JOIN subcategoria
                         ON subcategoria_lugar.subcategoria_id = subcategoria.id   
             
                         LEFT JOIN caracteristica_lugar
@@ -999,7 +999,7 @@ class SearchController extends Controller{
                             LEFT JOIN subcategoria_lugar
                             ON lugares.id = subcategoria_lugar.lugar_id
                            
-                            LEFT JOIN subcategoria
+                            JOIN subcategoria
                             ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                             WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
@@ -1025,7 +1025,7 @@ class SearchController extends Controller{
                            LEFT JOIN subcategoria_lugar
                            ON lugares.id = subcategoria_lugar.lugar_id
 
-                           LEFT JOIN subcategoria
+                           JOIN subcategoria
                            ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                            WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
@@ -1049,7 +1049,7 @@ class SearchController extends Controller{
                           LEFT JOIN subcategoria_lugar
                           ON lugares.id = subcategoria_lugar.lugar_id
 
-                          LEFT JOIN subcategoria
+                          JOIN subcategoria
                           ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                           WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
@@ -1111,10 +1111,10 @@ $a = null;
         ON categoria_lugar.categoria_id = categorias.id
         LEFT JOIN imagenes_lugar 
         ON imagenes_lugar.lugar_id = lugares.id 
-        AND imagenes_lugar.id in (select max(imagenes_lugar.id))
+        AND imagenes_lugar.id in (select max(imagenes_lugar.id) from imagenes_lugar where imagenes_lugar.lugar_id = lugares.id)
         LEFT JOIN recomendacion
         ON recomendacion.lugar_id = lugares.id
-        AND recomendacion.id in (select max(recomendacion.id))
+        AND recomendacion.id = (select max(recomendacion.id) from recomendacion where recomendacion.lugar_id = lugares.id)
         AND recomendacion.estado_id != 3
         LEFT JOIN usuarios 
         ON usuarios.id = recomendacion.usuario_id

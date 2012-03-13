@@ -25,5 +25,5 @@ assetic:
 swiftmailer:
     delivery_address:  developers@loogares.com
     transport: gmail
-    username: elpuclitico
-    password: sebavielmas
+    username: noreply@loogares.com
+    password: L0og4r3s
