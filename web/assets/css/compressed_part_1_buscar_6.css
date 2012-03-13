@@ -421,3 +421,48 @@
         .lugar_data ul .data_categoria a:hover, .lugar_data ul .data_sector a:hover {
           color: #0066cc !important;
           text-decoration: underline; }
+
+/* Cargador filtros */
+.overlay {
+  left: 0px;
+  height: 100%;
+  top: 0px;
+  position: absolute;
+  width: 960px; }
+  .overlay:after {
+    background: #f2f2f6;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    opacity: 0.5;
+    top: 0;
+    width: 100%;
+    z-index: 20; }
+  .overlay .loader {
+    color: #666666;
+    display: block;
+    font-size: 14px;
+    margin: 185px 470px 0;
+    text-align: center;
+    position: relative;
+    z-index: 22; }
+  .overlay .loader_txt {
+    color: #666666;
+    display: block;
+    font-size: 12px;
+    margin: 215px 0 0;
+    text-align: center;
+    position: relative;
+    z-index: 22; }
+
+/* Tooltip */
+.close_qtip {
+  background: url(../images/extras/cerrar_tooltip.png) no-repeat;
+  cursor: pointer;
+  display: block;
+  height: 20px;
+  right: 0;
+  position: absolute;
+  top: 3px;
+  width: 20px; }

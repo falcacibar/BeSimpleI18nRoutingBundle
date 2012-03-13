@@ -205,7 +205,7 @@ $(document).ready(function(){
 					width: 12,
 					color: '#f0f',
 					corner: true,
-					offset: 704
+					offset: 723
 				}
 			},
 			position: {
