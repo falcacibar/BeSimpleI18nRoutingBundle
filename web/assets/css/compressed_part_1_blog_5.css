@@ -1,42 +1,80 @@
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset para navegadores antiguos */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* Colores */
+/* Mixin */
+body {
+  background: url("../images/extras/fondo.gif") repeat-x white;
+  color: #444444;
+  font-family: Arial;
+  font-size: 13px; }
+
+/* Etiquetas Posts */
 .post {
-  width: 640px;
   color: #666666;
+  border-top: 5px solid #444444;
   line-height: 20px;
   float: left;
-  border-top: 5px solid #333333; }
-  .post p {
-    margin: 18px 0; }
-  .post h1 {
-    font-size: 24px;
-    line-height: 30px; }
+  width: 640px; }
   .post .post_contenido {
-    font-size: 14px;
-    padding: 20px;
-    border: 1px solid #eeeef3; }
-    .post .post_contenido .metadata {
-      font-size: 10px;
-      margin: 10px 0 20px;
-      color: #aaaaaa; }
-  .post .colaborador_post_lugar {
-    overflow: auto;
-    border-top: 1px solid #eeeeee;
-    padding-top: 20px; }
-    .post .colaborador_post_lugar .colaborador_foto_lugar {
-      float: left;
-      background: #333333;
-      width: 100px;
-      height: 100px; }
-    .post .colaborador_post_lugar .colaborador_texto_lugar {
-      padding-left: 120px; }
-      .post .colaborador_post_lugar .colaborador_texto_lugar h3 {
-        margin-bottom: 10px;
-        font-weight: bold; }
-  .post .condiciones, .post .detalles {
-    margin-top: 5px;
-    padding: 20px;
-    border: 1px solid #eeeef3; }
+    border: 1px solid #f2f2f6;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 20px; }
+    .post .post_contenido .metadata_post {
+      color: #999999;
+      font-size: 11px;
+      margin: 0 0 30px; }
+    .post .post_contenido .contenido_post {
+      white-space: pre-line; }
   .post .detalles {
-    font-size: 14px; }
+    background: url("../images/extras/borde_relieve_posts.png") 0 0 no-repeat;
+    border: 1px solid #f2f2f6;
+    font-size: 14px;
+    margin: 12px 0 0;
+    padding: 20px;
+    width: 600px; }
     .post .detalles .detalles_titulo {
       font-weight: bold;
       color: #7ec9ff;
@@ -71,6 +109,24 @@
     padding-left: 20px; }
     .post .condiciones ol li {
       margin-top: 10px; }
+  .post .colaborador_post_lugar {
+    overflow: auto;
+    border-top: 1px solid #eeeeee;
+    padding-top: 20px; }
+    .post .colaborador_post_lugar .colaborador_foto_lugar {
+      float: left;
+      background: #333333;
+      width: 100px;
+      height: 100px; }
+    .post .colaborador_post_lugar .colaborador_texto_lugar {
+      padding-left: 120px; }
+      .post .colaborador_post_lugar .colaborador_texto_lugar h3 {
+        margin-bottom: 10px;
+        font-weight: bold; }
+  .post .condiciones, .post .detalles {
+    margin-top: 5px;
+    padding: 20px;
+    border: 1px solid #eeeef3; }
 
 .sidebar h2 {
   font-size: 16px;
