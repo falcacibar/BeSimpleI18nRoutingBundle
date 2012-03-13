@@ -1727,10 +1727,19 @@ body {
           .post .detalles .borde_cajas .texto_detalles p .titulo_detalle, .post .condiciones .borde_cajas .texto_detalles p .titulo_detalle {
             color: #66ccff;
             font-weight: bold; }
+          .post .detalles .borde_cajas .texto_detalles p .titulo_ganadores, .post .condiciones .borde_cajas .texto_detalles p .titulo_ganadores {
+            color: #ff8a8a;
+            font-weight: bold; }
           .post .detalles .borde_cajas .texto_detalles p .finaliza_detalle, .post .condiciones .borde_cajas .texto_detalles p .finaliza_detalle {
             color: #999999;
             font-size: 13px;
             font-weight: bold; }
+          .post .detalles .borde_cajas .texto_detalles p a, .post .condiciones .borde_cajas .texto_detalles p a {
+            color: #0066cc;
+            text-decoration: none; }
+            .post .detalles .borde_cajas .texto_detalles p a:hover, .post .condiciones .borde_cajas .texto_detalles p a:hover {
+              color: #0066cc;
+              text-decoration: underline; }
       .post .detalles .borde_cajas .texto_condiciones, .post .condiciones .borde_cajas .texto_condiciones {
         color: #999999;
         float: left;

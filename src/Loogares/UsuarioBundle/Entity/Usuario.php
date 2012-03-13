@@ -932,4 +932,29 @@ class Usuario implements AdvancedUserInterface, \Serializable
     {
         return $this->sha1password;
     }
+    /**
+     * @var Loogares\LugarBundle\Entity\ReportarLugar
+     */
+    private $reportar_lugar;
+
+
+    /**
+     * Add reportar_lugar
+     *
+     * @param Loogares\LugarBundle\Entity\ReportarLugar $reportarLugar
+     */
+    public function addReportarLugar(\Loogares\LugarBundle\Entity\ReportarLugar $reportarLugar)
+    {
+        $this->reportar_lugar[] = $reportarLugar;
+    }
+
+    /**
+     * Get reportar_lugar
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getReportarLugar()
+    {
+        return $this->reportar_lugar;
+    }
 }

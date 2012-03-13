@@ -18,6 +18,9 @@ Loogares\UsuarioBundle\Entity\Usuario:
         recomendaciones:
             targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
             mappedBy: usuario
+        reportar_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\ReportarLugar
+            mappedBy: usuario
 
     id:
         id:

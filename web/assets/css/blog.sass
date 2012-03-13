@@ -274,11 +274,22 @@ body
 						font:
 							weight: bold
 
+					.titulo_ganadores
+						color: $rojo_claro
+						font:
+							weight: bold
+
 					.finaliza_detalle
 						color: $gris_999
 						font:
 							size: 13px
 							weight: bold
+				
+					a
+						@include link_azul
+						
+						&:hover
+							@include link_azul_hover
 
 			.texto_condiciones
 				color: $gris_999

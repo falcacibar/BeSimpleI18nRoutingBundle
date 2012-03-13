@@ -374,4 +374,29 @@ class Posts
     {
         return $this->tipo_post;
     }
+    /**
+     * @var smallint $publicado
+     */
+    private $publicado;
+
+
+    /**
+     * Set publicado
+     *
+     * @param smallint $publicado
+     */
+    public function setPublicado($publicado)
+    {
+        $this->publicado = $publicado;
+    }
+
+    /**
+     * Get publicado
+     *
+     * @return smallint 
+     */
+    public function getPublicado()
+    {
+        return $this->publicado;
+    }
 }

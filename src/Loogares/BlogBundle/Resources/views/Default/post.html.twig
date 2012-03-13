@@ -3,7 +3,11 @@
 {% block title %}{{parent()}} | {{post.titulo}}{% endblock %}
 
 {% block content %}
+{% if post.ganadores == '' %}
 <div class="post" style="border-top-color: #{{post.tipoPost.hex}}}">
+{% else %}
+<div class="post" style="border-top-color: #FF8A8A">
+{% endif %}
 	<div class="post_contenido">
 		<h1 class="titulo">{{post.titulo}}</h1>
 		<p class="metadata_post">Escrito por {{post.usuario.nombre}} el {{post.fecha | date('d-m-y')}}</p>
@@ -28,7 +32,11 @@
 			</div>
 
 			<div class="texto_detalles">
-				<p>{{post.detalles | raw }}</p>
+				{% if post.ganadores == '' %}
+					<p>{{post.detalles | raw }}</p>
+				{% else %}
+					<p>{{post.ganadores | raw }}</p>
+				{% endif %}
 			</div>
 		</div>
 	</div>
