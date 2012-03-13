@@ -286,7 +286,11 @@
 						<img src="{{('assets/images/usuarios/'~conectado.imagenFull) | apply_filter('tiny_usuario')}}" width="20" height="20" />
 					</a>
 					<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_nombre">
-						{{conectado.nombre}} {{conectado.apellido}}
+						{% if conectado.nombre == '' %}
+							{{conectado.slug}}
+						{% else %}
+							{{conectado.nombre}} {{conectado.apellido}}
+						{% endif %}
 					</a>
 					<!-- Comentado el número de recomendaciones del usuario...
 					<span class="conectado_recomendaciones">
