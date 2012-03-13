@@ -36,6 +36,25 @@ $(function(){
             }
         }
     });
+
+    $('.slider li').css('visibility', 'visible')
+
+    var slider = $('.slider').bxSlider({
+        auto: true,
+        controls: false,
+        onBeforeSlide: function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){
+            $('.active').removeClass('active');
+          $('.slide-change').eq(currentSlideNumber).addClass('active');
+        }
+    });
+
+    $('.slide-change').click(function(e){
+        e.preventDefault();
+        $this = $(this);
+        $('.active').removeClass('active');
+        slider.goToSlide($this.data('slide'));
+        $this.addClass('active');
+    });
 });	
 
 function estrellasRecomendacion(estrellas, $this){

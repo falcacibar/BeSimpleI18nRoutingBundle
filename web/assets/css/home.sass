@@ -643,14 +643,20 @@ $rojo: #F72121
                 display: none
 
     /* Notas y Colaboradores */
+
+
     .colaboradores
         border: 1px solid $gris_f6f
         float: left
         margin: 0 0 30px 0
         width: 298px
+        overflow: hidden
 
         .encabezado
             padding: 10px
+
+        .slider li
+            visibility: hidden
 
         img
             border-bottom: 1px solid $gris_f6f
@@ -701,13 +707,27 @@ $rojo: #F72121
 
                     &:hover
                         @include link_azul_hover
+
+    .pages
+        padding: 14px
+        text-align: center
+
+    .pages li
+        display: inline
+
+        .slide-change
+            width: 8px
+            height: 8px
+            display: inline-block
+            *zoom: 1
+            *display: inline
+            cursor: pointer
+            background: url('../images/extras/boton-colaboradores-inactivo.png') no-repeat center
         
-        .diapositivas
-            float: left
-            height: 20px
-            padding: 10px
-            width: 278px
-                
+        .active
+            background: url('../images/extras/boton-colaboradores-activo.png') no-repeat center
+
+
 .loogarenos_conectados
     border: 1px solid $gris_f6f
     float: right
