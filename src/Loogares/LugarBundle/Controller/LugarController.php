@@ -340,9 +340,6 @@ class LugarController extends Controller{
             ->getForm();
    
         if ($request->getMethod() == 'POST') {
-            foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);  
-            }
 
             $form->bindRequest($request);
 

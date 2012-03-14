@@ -1,42 +1,20 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
-        <meta name="robots" content="noindex,nofollow" />
-        <title>{% block title '' %}</title>
-        <link href="{{ asset('bundles/framework/css/exception_layout.css') }}" rel="stylesheet" type="text/css" media="all" />
-        <link href="{{ asset('bundles/framework/css/exception.css') }}" rel="stylesheet" type="text/css" media="all" />
-    </head>
-    <body>
-        <div id="content">
-            <div class="header clear_fix">
-                <div class="header_logo">
-                    <img src="{{ asset('bundles/framework/images/logo_symfony.gif') }}" alt="Symfony" />
-                </div>
+{% extends "::base.html.twig" %}
 
-                <div class="search">
-                  <form method="get" action="http://symfony.com/search">
-                    <div class="form_row">
+{% block title %}Loogares.com | Esta página no existe{% endblock %}
 
-                      <label for="search_id">
-                          <img src="{{ asset('bundles/framework/images/grey_magnifier.png') }}" alt="Search on Symfony website" />
-                      </label>
+{% block content %}
 
-                      <input name="q" id="search_id" type="search" placeholder="Search on Symfony website" />
+  <div class="pagina_error">
+    <h2>Se nos pasó esta página porque...</h2>
+    <h1>¡Nos fuimos de viaje a Alaska!</h1>
 
-                      <button type="submit">
-                        <span class="border_l">
-                          <span class="border_r">
-                            <span class="btn_bg">OK</span>
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                   </form>
-                </div>
-            </div>
+    <p><img src="{{ ('../../assets/images/extras/sex_machine.gif')}}" /></p><br/>
 
-            {% block body '' %}
-        </div>
-    </body>
-</html>
+    <p>Loogareño, encontraste una página que no existe, que se fue de viaje y seguramente no volverá...</p>
+
+    <p class="existen_mas">¡Pero existen muchas más!</p>
+
+    <p>Si quieres, puedes <a href="javascript:window.history.back();">Volver</a> a la página anterior, ir a la <a href="{{ path('root') }}">Página de Inicio</a> <br/>o intentar con una nueva búsqueda.</p>
+  </div>
+
+{% endblock %}

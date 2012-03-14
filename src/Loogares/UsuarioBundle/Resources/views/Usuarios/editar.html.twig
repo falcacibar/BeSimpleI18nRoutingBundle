@@ -17,15 +17,13 @@
 				<div class="imagen_error"></div>
 				<div class="txt_error">
 					{% if erroresLocalidad is defined %}
-						{% for error in erroresLocalidad %}
-					        <p>{{ error | trans}}</p>
-					    {% endfor %}
+					{% for error in erroresLocalidad %}
+				        <p>{{ error | trans}}</p>
+				    {% endfor %}
 				    {% endif %}
-				    {% if errors is defined %}
-						{% for error in errors %}
-					        <p>{{ error | trans}}</p>
-					    {% endfor %}
-				    {% endif %}
+					{% for error in errors %}
+				        <p>{{ error | trans}}</p>
+				    {% endfor %}
 			    </div>
 			</div>
 		{% endif %}	
