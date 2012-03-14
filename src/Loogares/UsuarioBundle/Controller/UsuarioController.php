@@ -32,7 +32,6 @@ class UsuarioController extends Controller
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
         $paginacion = false;
-        
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
