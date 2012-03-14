@@ -155,7 +155,7 @@ $(document).ready(function(){
 
                     $.ajax({
                       type: "GET",
-                      url: WEBROOT+'usuario/acciones_pendientes/1'
+                      url: WEBROOT+'../usuario/acciones_pendientes/1'
                     }).done(function( data ) {
                       $('.para_visitar').html(data);
                     });
@@ -596,7 +596,7 @@ function editarRecomendacion(lugar){
         $.ajax({
             type:'post',
             data: {'slug': lugar},
-            url: WEBROOT+'ajax/recomendacion',
+            url: WEBROOT+'../ajax/recomendacion',
             success: function(data){
                 $recomendacionBloque.children().each(function(i){
                     $(this).fadeOut(200, function(){

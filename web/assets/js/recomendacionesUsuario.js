@@ -5,7 +5,7 @@ $(document).ready(function(){
         $.ajax({
             type:'post',
             data: {'slug': $(this).data('lugar')},
-            url: WEBROOT+'ajax/recomendacion',
+            url: WEBROOT+'../ajax/recomendacion',
             success: function(data){
                 $recomendacionBloque.children().each(function(i){
                     $(this).fadeOut(200, function(){

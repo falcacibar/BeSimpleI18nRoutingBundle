@@ -16,9 +16,11 @@
 			<div class="mensaje_error">
 				<div class="imagen_error"></div>
 				<div class="txt_error">
+					{% if erroresLocalidad is defined %}
 					{% for error in erroresLocalidad %}
 				        <p>{{ error | trans}}</p>
 				    {% endfor %}
+				    {% endif %}
 					{% for error in errors %}
 				        <p>{{ error | trans}}</p>
 				    {% endfor %}

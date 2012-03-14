@@ -22,7 +22,7 @@ $(document).ready(function(){
     });
 
     $( "#form_calle" ).autocomplete({
-        source: "http://localhost"+WEBROOT+"ajax/recomendarCalle",
+        source: WEBROOT+"../ajax/recomendarCalle",
         minLength: 2
     });
 
@@ -303,7 +303,7 @@ $(document).ready(function(){
         e.preventDefault();
         if(!$('#form_calle').val().match('Ej') && !$('#form_numero').val().match('Ej')){
             $.ajax({
-                url: WEBROOT+'ajax/lugarYaExiste',
+                url: WEBROOT+'../ajax/lugarYaExiste',
                 type: 'post', 
                 dataType: 'json',
                 data: "calle="+$('#form_calle').val()+"&numero="+$('#form_numero').val()+"&id="+$('.id').val(),
