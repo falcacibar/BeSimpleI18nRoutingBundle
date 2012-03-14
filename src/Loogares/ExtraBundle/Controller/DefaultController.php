@@ -93,7 +93,7 @@ class DefaultController extends Controller
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         //Recomendacion Estrella
-        $estrellaResult = $rr->findOneById(15843);
+        $estrellaResult = $rr->findOneById(15789);
         $estrella['obj'] = $estrellaResult;
         $estrella['truncated'] = substr($estrellaResult->getTexto(), 0, 180);
 

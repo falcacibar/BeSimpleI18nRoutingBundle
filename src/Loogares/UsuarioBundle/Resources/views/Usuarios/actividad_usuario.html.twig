@@ -14,7 +14,16 @@
 	 			{% for reciente in usuario.recientemente %}
 					<li class="lugar_guardado_home">
 						<div class="imagen_lugar_guardado_usuario">
-							<a href="{{path('_lugar', {'slug' : reciente.lugar.slug})}}"><img src="" height="50" width="50" /></a>
+							<a href="{{path('_lugar', {'slug' : reciente.lugar.slug})}}">
+								{% if reciente.lugar.imagenesLugar[0].imagenFull is not defined %}
+									<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('medium_lugar') }}"  width="50" height="50" />
+								{% endif %}
+								{% for img in reciente.lugar.imagenesLugar %}		
+									{% if loop.last %}						
+										<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('medium_lugar') }}"  width="50" height="50" />
+									{% endif %}
+								{% endfor %}
+							</a>
 						</div>
 						<div class="textos_lugar_guardado_usuario">							
 							<strong><a class="nombre_lugar_guardado_home" href="{{path('_lugar', {'slug' : reciente.lugar.slug})}}">{{reciente.lugar.nombre}}</a></strong>
@@ -37,7 +46,16 @@
 	 			{% for visitar in usuario.porVisitar %}
 					<li class="lugar_guardado_home">							
 						<div class="imagen_lugar_guardado_usuario">
-							<a href="{{path('_lugar', {'slug' : visitar.lugar.slug})}}"><img src="" height="50" width="50" /></a>
+							<a href="{{path('_lugar', {'slug' : visitar.lugar.slug})}}">
+								{% if visitar.lugar.imagenesLugar[0].imagenFull is not defined %}
+									<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('medium_lugar') }}"  width="50" height="50" />
+								{% endif %}
+								{% for img in visitar.lugar.imagenesLugar %}		
+									{% if loop.last %}						
+										<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('medium_lugar') }}"  width="50" height="50" />
+									{% endif %}
+								{% endfor %}
+							</a>
 						</div>
 						<div class="textos_lugar_guardado_usuario">
 							<strong><a class="nombre_lugar_guardado_home" href="{{path('_lugar', {'slug' : visitar.lugar.slug})}}">{{visitar.lugar.nombre}}</a></strong>
@@ -60,7 +78,16 @@
 	 			{% for favorito in usuario.favoritos %}
 					<li class="lugar_guardado_home">							
 						<div class="imagen_lugar_guardado_usuario">
-							<a href="{{path('_lugar', {'slug' : favorito.lugar.slug})}}"><img src="" height="50" width="50" /></a>
+							<a href="{{path('_lugar', {'slug' : favorito.lugar.slug})}}">
+								{% if favorito.lugar.imagenesLugar[0].imagenFull is not defined %}
+									<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('medium_lugar') }}"  width="50" height="50" />
+								{% endif %}
+								{% for img in favorito.lugar.imagenesLugar %}		
+									{% if loop.last %}						
+										<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('medium_lugar') }}"  width="50" height="50" />
+									{% endif %}
+								{% endfor %}
+							</a>
 						</div>
 						<div class="textos_lugar_guardado_usuario">							
 							<strong><a class="nombre_lugar_guardado_home" href="{{path('_lugar', {'slug' : favorito.lugar.slug})}}">{{favorito.lugar.nombre}}</a></strong>
@@ -79,3 +106,12 @@
  		{% endif %}
 	{% endif %}
 </div>
+
+<script>
+	$(function(){
+		$('.estrellas_lugar').each(function(i){
+			var estrellas = $(this).attr('data-stars');
+			estrellasLugares(estrellas, $(this));
+		});
+	});	
+</script>

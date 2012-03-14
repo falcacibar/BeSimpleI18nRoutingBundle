@@ -131,7 +131,7 @@ usuario:
             cuenta: Cuenta
             foto: Foto de perfil
             password: Password
-            connect: Conectar cuenta
+            connect: Conectá
             borrar: Borrar cuenta
 
         cuenta:
@@ -178,11 +178,11 @@ usuario:
         conexiones:
             facebook:
                 no_conectado:
-                    texto: Actualmente no tienes Facebook asociado a tu cuenta
-                    texto_link: Conectar con Facebook
+                    texto: En este momento no tenés Facebook asociado a tu cuenta
+                    texto_link: Conectate con Facebook
                 conectado:
-                    texto: Actualmente tienes Facebook conectado con la cuenta de %nombre%, y correo %mail%
-                    texto_link: Desconectar de Facebook
+                    texto: Actualmente tenés Facebook conectado a la cuenta de %nombre%, y con el E-mail %mail%
+                    texto_link: Desconectate de Facebook
         borrar:
             password: Password *
             motivo: ¿Por qué te vas? *
