@@ -712,7 +712,7 @@ class UsuarioController extends Controller
         if($request->query->get('disconnect')) {
             // Desconectamos a usuario
             $usuario = $this->get('security.context')->getToken()->getUser();
-            $usuario->setFacebookUid(null);
+            $usuario->setFacebookUid(0);
             $em->flush();
         }
 
