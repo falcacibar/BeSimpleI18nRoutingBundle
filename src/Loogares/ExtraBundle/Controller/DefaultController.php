@@ -92,6 +92,11 @@ class DefaultController extends Controller
         $cr = $em->getRepository("LoogaresLugarBundle:Categoria");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
+        //Recomendacion Estrella
+        $estrellaResult = $rr->findOneById(15843);
+        $estrella['obj'] = $estrellaResult;
+        $estrella['truncated'] = substr($estrellaResult->getTexto(), 0, 180);
+
         // Cantidad de premios regalados (totales)
         $q = $em->createQuery("SELECT count(cu.id)
                                FROM Loogares\ExtraBundle\Entity\ConcursoUsuario cu
@@ -166,6 +171,7 @@ class DefaultController extends Controller
         $home['ultimosConectados'] = $ultimosConectados;
         $home['categorias'] = $categorias;
         $home['actividad'] = $actividad;
+        $home['estrella'] = $estrella;
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,     

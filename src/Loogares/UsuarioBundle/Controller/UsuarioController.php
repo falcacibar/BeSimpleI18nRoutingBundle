@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Imagine\Image\Box;
 use Imagine\Image;
+use Mailchimp\MCAPI;
 
 
 class UsuarioController extends Controller
@@ -460,8 +461,8 @@ class UsuarioController extends Controller
                 $em->flush();
 
                 /* Manejo de suscripción a Mailchimp */
-                /*$mc = $this->get('mail_chimp.client');
-                $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
+                $mc = $this->get('mail_chimp.client');
+                /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
                 echo "respuesta";
                 /*$mcId = 0;
 
