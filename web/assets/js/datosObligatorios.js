@@ -87,7 +87,7 @@ $(document).ready(function(){
 			$.ajax({
 				type: 'POST',
 				data: $('[name="forzar_datos_form"]').serialize(),
-				url: WEBROOT+"usuario/forzar_datos",
+				url: WEBROOT+"../usuario/forzar_datos",
 				success: function(data){
 					if(data == 'gud gud'){
 						window.location = window.location.href;
