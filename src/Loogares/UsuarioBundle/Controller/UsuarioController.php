@@ -709,6 +709,13 @@ class UsuarioController extends Controller
         if(!$loggeadoCorrecto)
             throw new AccessDeniedException('No puedes editar información de otro usuario');
 
+        if($request->query->get('disconnect')) {
+            // Desconectamos a usuario
+            $usuario = $this->get('security.context')->getToken()->getUser();
+            $usuario->setFacebookUid(null);
+            $em->flush();
+        }
+
 
         $fbdata = $this->get('my.facebook.user')->getFacebook()->api(array(
             'method' => 'fql.query',
