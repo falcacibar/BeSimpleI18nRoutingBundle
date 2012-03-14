@@ -12,7 +12,7 @@
 						<span class="fb_hidden_button">{{ facebook_login_button({'autologoutlink': false}) }}</span>
 					{% else %}
 						{{'usuario.edicion.conexiones.facebook.conectado.texto'|trans({'%nombre%' : fbdata.0.name, '%mail%' : fbdata.0.email})}}<br/>
-						<a href="{{path('editarConexionesUsuario', {'param' : (usuario.slug != '') ? usuario.slug : usuario.id })}}" class="facebook_disconnect">{{'usuario.edicion.conexiones.facebook.conectado.texto_link'|trans}}</a>
+						<a href="{{path('editarConexionesUsuario', {'param' : (usuario.slug != '') ? usuario.slug : usuario.id, 'disconnect' : 1 })}}" class="facebook_disconnect">{{'usuario.edicion.conexiones.facebook.conectado.texto_link'|trans}}</a>
 					{% endif %}
 				</span>
 			</li>
