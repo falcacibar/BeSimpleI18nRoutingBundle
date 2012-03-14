@@ -30,7 +30,7 @@
 							is_granted('ROLE_USER') and 
 					    	app.security.token.user.pais is empty
 						%}
-							<button class="siguiente_paso"></button>
+							<button class="siguiente_paso">Siguiente</button>
 						{% else %}
 							<input class="enviar_datos" type="submit" value="">
 						{% endif %}
@@ -97,7 +97,7 @@
 				    	(app.security.token.user.nombre is empty or 
 				    	 app.security.token.user.apellido is empty)
 					%}
-						<button class="anterior_paso"></button>
+						<button class="anterior_paso">Anterior</button>
 					{% endif %}
 				<input class="enviar_datos" type="submit" value="">
 			</li>
