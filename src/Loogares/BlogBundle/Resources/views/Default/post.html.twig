@@ -14,38 +14,47 @@
 		<p class="contenido_post">{{post.contenido | raw }}</p>
 	</div>
 
-	<div class="detalles">
-		<div class="borde_cajas">
-			<div class="imagen_detalles">
-				<img src="{{ ('assets/images/blog/'~post.imagenDetalle) | apply_filter('blog_detalle')}}" height="145" width="145" />
-				{% if post.tipoPost.slug == 'beneficio-exclusivo' %}
-					{% if post.lugar.facebook != '' %}
-						<a class="facebook_lugar" href="http://{{ post.lugar.facebook }}" target="_blank"></a>
-					{% endif %}
-					{% if post.lugar.twitter != '' %}
-						<a class="twitter_lugar" href="http://{{ post.lugar.twitter }}" target="_blank"></a>
-					{% endif %}
-					{% if post.lugar.sitioWeb != '' %}
-						<a href="http://{{post.lugar.sitioWeb}}" target="_blank">{{post.lugar.sitioWeb}}</a>
-					{% endif %}
-				{% endif %}
-			</div>
 
-			<div class="texto_detalles">
-				{% if post.ganadores == '' %}
-					<p>{{post.detalles | raw }}</p>
-				{% else %}
-					<p>{{post.ganadores | raw }}</p>
-				{% endif %}
+	{% if post.detalles == '' %}
+
+	{% else %}
+		<div class="detalles">
+			<div class="borde_cajas">
+				<div class="imagen_detalles">
+					<img src="{{ ('assets/images/blog/'~post.imagenDetalle) | apply_filter('blog_detalle')}}" height="145" width="145" />
+					{% if post.tipoPost.slug == 'beneficio-exclusivo' %}
+						{% if post.lugar.facebook != '' %}
+							<a class="facebook_lugar" href="http://{{ post.lugar.facebook }}" target="_blank"></a>
+						{% endif %}
+						{% if post.lugar.twitter != '' %}
+							<a class="twitter_lugar" href="http://{{ post.lugar.twitter }}" target="_blank"></a>
+						{% endif %}
+						{% if post.lugar.sitioWeb != '' %}
+							<a href="http://{{post.lugar.sitioWeb}}" target="_blank">{{post.lugar.sitioWeb}}</a>
+						{% endif %}
+					{% endif %}
+				</div>
+
+				<div class="texto_detalles">
+					{% if post.ganadores == '' %}
+						<p>{{post.detalles | raw }}</p>
+					{% else %}
+						<p>{{post.ganadores | raw }}</p>
+					{% endif %}
+				</div>
 			</div>
 		</div>
-	</div>
+	{% endif %}
 
-	<div class="condiciones">
-		<div class="borde_cajas">
-			<p class="texto_condiciones">{{post.condiciones | raw}}</p>
+	{% if post.condiciones == '' %}
+
+	{% else %}
+		<div class="condiciones">
+			<div class="borde_cajas">
+				<p class="texto_condiciones">{{post.condiciones | raw}}</p>
+			</div>
 		</div>
-	</div>
+	{% endif %}
 </div>
 
 <div class="sidebar">
