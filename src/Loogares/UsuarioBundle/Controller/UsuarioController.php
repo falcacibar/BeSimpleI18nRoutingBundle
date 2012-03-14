@@ -461,10 +461,9 @@ class UsuarioController extends Controller
                 $em->flush();
 
                 /* Manejo de suscripción a Mailchimp */
-                $mc = $this->get('mail_chimp.client');
-                /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
-                echo "respuesta";
-                /*$mcId = 0;
+                $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
+                $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
+                $mcId = 0;
 
                 if (!$mc->errorCode){
                     if(!empty($mcInfo['success'])){
@@ -473,16 +472,13 @@ class UsuarioController extends Controller
                         }
                     }
                 }
-                else {
-                    echo "Conexión falló!";
-                }
 
                 if($usuarioResult->getNewsletterActivo()) {
                    $merge_vars = array(
-                        'EMAIL' => utf8_encode($usuarioResult->getMail()),
-                        'FNAME' => utf8_encode($usuarioResult->getNombre()),
-                        'LNAME' => utf8_encode($usuarioResult->getApellido()),
-                        'USER' => utf8_encode($usuarioResult->getSlug()),
+                        'EMAIL' => $usuarioResult->getMail(),
+                        'FNAME' => $usuarioResult->getNombre(),
+                        'LNAME' => $usuarioResult->getApellido(),
+                        'USER' => $usuarioResult->getSlug(),
                         'IDUSER' => $usuarioResult->getId()
                     );
                     // Verificar suscripción Mailchimp
@@ -499,7 +495,7 @@ class UsuarioController extends Controller
                     // Borrar suscripción Mailchimp
                     if($mcId > 0)
                         $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );
-                }*/         
+                }      
                 
                 // Mensaje de éxito en la edición
                 $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.cuenta');
@@ -757,8 +753,19 @@ class UsuarioController extends Controller
             // Verificación de password actual
             if($request->request->get('password') == '')
                 $formErrors['password'] = "usuario.errors.editar.borrar.pass_obligatorio";
-            else if(md5($request->request->get('password')) != $usuarioResult->getPassword())
-                $formErrors['password'] = "usuario.errors.editar.borrar.pass_incorrecto";
+
+
+            else if($usuarioResult->getSha1password() == 0){
+                // Verificación de password actual
+                if(md5($request->request->get('password')) != $usuarioResult->getPassword()) {
+                    $formErrors['password'] = "usuario.errors.editar.borrar.pass_incorrecto";
+                }
+            }
+            else if($usuarioResult->getSha1password() == 1){
+                if(sha1($request->request->get('password')) != $usuarioResult->getPassword()) {
+                    $formErrors['password'] = "usuario.errors.editar.borrar.pass_incorrecto";    
+                }              
+            }
 
             if($request->request->get('motivo') == '')
                 $formErrors['motivo'] = "usuario.errors.editar.borrar.motivo";
@@ -772,9 +779,8 @@ class UsuarioController extends Controller
                 $em->flush();
 
                 // Borrar suscripción Mailchimp
-                $mc = $this->get('mail_chimp.client');
-                /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
-                echo "respuesta";
+                $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
+                $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
                 $mcId = 0;
 
                 if (!$mc->errorCode){
@@ -784,12 +790,8 @@ class UsuarioController extends Controller
                         }
                     }
                 }
-                else {
-                    echo "Conexión falló!";
-                }
                 if($mcId > 0)
-                    $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );
-                */         
+                    $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );      
 
                 // Enviamos correo a administrador con la razón del cierre de la cuenta
                 $mail = array();
@@ -798,14 +800,10 @@ class UsuarioController extends Controller
                 $mail['fechaRegistro'] = $usuarioResult->getFechaRegistro()->format('d-m-Y');
                 $mail['motivo'] = $request->request->get('motivo');
 
-                $message = \Swift_Message::newInstance()
-                            ->setSubject($mail['asunto'])
-                            ->setFrom('noreply@loogares.com')
-                            ->setTo('cuenta.usuarios@loogares.com');
+                $paths = array();
+                $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
-                $logo = $message->embed(\Swift_Image::fromPath('assets/images/extras/logo_mails.jpg'));
-                $mail['logo'] = $logo;
-                $message->setBody($this->renderView('LoogaresUsuarioBundle:Usuarios:mail_borrar_cuenta.html.twig', array('mail' => $mail)), 'text/html');
+                $message = $this->get('fn')->enviarMail($mail['asunto'], 'cuenta.usuarios@loogares.com', 'noreply@loogares.com', $mail, $paths, 'LoogaresUsuarioBundle:Mails:mail_borrar_cuenta.html.twig', $this->get('templating'));
                 $this->get('mailer')->send($message);
 
                 // Cerramos la sesión
@@ -959,15 +957,15 @@ class UsuarioController extends Controller
         $em->flush();
 
         // Se agrega usuario a lista de correos de Mailchimp
-        /*$mc = $this->get('mail_chimp.client');
+        $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
         $merge_vars = array(
-            'EMAIL' => utf8_encode($usuarioResult->getMail()),
-            'FNAME' => utf8_encode($usuarioResult->getNombre()),
-            'LNAME' => utf8_encode($usuarioResult->getApellido()),
-            'USER' => utf8_encode($usuarioResult->getSlug()),
+            'EMAIL' => $usuarioResult->getMail(),
+            'FNAME' => $usuarioResult->getNombre(),
+            'LNAME' => $usuarioResult->getApellido(),
+            'USER' => $usuarioResult->getSlug(),
             'IDUSER' => $usuarioResult->getId()
         );
-        $r = $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true);*/
+        $r = $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true);
 
 
         // Usuario inicia sesión automáticamente
