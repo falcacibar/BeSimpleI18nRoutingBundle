@@ -13,7 +13,7 @@
 							<a href="" class="facebook_connect">{{'usuario.edicion.conexiones.facebook.conectado.texto_link'|trans}}</a>
 							<span class="fb_hidden_button">{{ facebook_login_button({'autologoutlink': false}) }}</span>
 						{% else %}
-							Actualmente tienes Facebook conectado al correo {{fbdata.0.email}}
+							Actualmente tienes Facebook conectado a la cuenta de  {{fbdata.0.firstName}} {{fbdata.0.email}}
 						{% endif %}
 					</span>
 				</li>
