@@ -15,6 +15,10 @@ class LoogaresExtension extends \Twig_Extension {
         // Array que lista todos los espacios (en 4 niveles)
         $espacios = array(
             'static' => array(
+                'blog' => array(
+                    'top' => array(
+                        'medium' => 'home_top_medium_300x250')),
+
                 'home' => array(
                     'top' => array(
                         'medium' => 'home_top_medium_300x250'),

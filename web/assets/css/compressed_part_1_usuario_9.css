@@ -296,6 +296,14 @@
           border-bottom: 1px solid #cccccc;
           border-right: 5px solid #cccccc;
           padding: 15px 10px; }
+        .caja_contenidos_usuario .menu_edicion_usuario a li .icono_facebook {
+          background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0 -71px;
+          float: right;
+          height: 16px;
+          width: 17px; }
+        .caja_contenidos_usuario .menu_edicion_usuario a li .txt_conectar {
+          float: right;
+          margin: 2px 0 0 5px; }
     .caja_contenidos_usuario .menu_edicion_usuario .selected {
       background: white;
       border-bottom: 1px solid #f2f2f6;
@@ -317,6 +325,7 @@
     float: left;
     left: 160px;
     top: 0;
+    min-height: 350px;
     padding: 0 0 20px 20px;
     position: relative;
     width: 779px; }
@@ -523,6 +532,62 @@
         width: 99px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password ul .enviar_password_prefil:hover {
           background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
+    .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones {
+      display: block;
+      float: left;
+      margin: 40px 0 0;
+      width: 620px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul li {
+        float: left;
+        margin: 0 0 20px 0;
+        width: 620px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul li label {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 4px 20px 4px 0;
+          width: 210px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul li p {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          margin: 0px;
+          padding: 6px 10px;
+          width: 306px; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul li p a {
+            color: #0066cc !important;
+            text-decoration: none; }
+            .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul li p a:hover {
+              color: #0066cc !important;
+              text-decoration: underline; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul li p .facebook_connect {
+            background: url("../images/extras/caja_registro_facebook.png") no-repeat 17px 0px;
+            display: block;
+            height: 65px;
+            margin: 20px 68px;
+            padding: 40px 0;
+            text-align: center;
+            width: 170px; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul li p .facebook_disconnect {
+            background: url("../images/extras/caja_registro_facebook.png") no-repeat 17px 0px;
+            display: block;
+            height: 65px;
+            margin: 20px 68px;
+            padding: 40px 0;
+            text-align: center;
+            width: 170px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul li .errors {
+          margin: 5px 0 0 230px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul .enviar_password_prefil {
+        background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 0;
+        border: 0px;
+        cursor: pointer;
+        height: 30px;
+        margin: 0 0 0 230px;
+        width: 99px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul .enviar_password_prefil:hover {
+          background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
     .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta {
       display: block;
       float: left;
@@ -600,7 +665,8 @@
     .caja_contenidos_usuario .caja_actividad_usuario ul {
       float: left;
       font-size: 14px;
-      width: 755px; }
+      margin: 0 0 30px;
+      width: 780px; }
       .caja_contenidos_usuario .caja_actividad_usuario ul li {
         margin: 0 0 25px; }
         .caja_contenidos_usuario .caja_actividad_usuario ul li a {
@@ -997,3 +1063,58 @@
         .caja_contenidos_usuario .paginacion_perfil ul .pagina-actual a {
           color: white !important;
           text-decoration: none; }
+
+.listado_lugares_guardados_home {
+  border: 0px;
+  float: left;
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  width: 780px !important; }
+  .listado_lugares_guardados_home li {
+    border-bottom: 1px solid #f2f2f6;
+    display: block;
+    float: left;
+    height: 140px;
+    margin: 0 20px 30px 0 !important;
+    width: 240px; }
+    .listado_lugares_guardados_home li:hover {
+      border-bottom: 1px solid #cccccc; }
+    .listado_lugares_guardados_home li .imagen_lugar_guardado_usuario {
+      display: block;
+      float: left;
+      margin: 0 10px 20px 0;
+      width: 50px; }
+    .listado_lugares_guardados_home li .textos_lugar_guardado_usuario {
+      display: block;
+      float: left;
+      width: 180px; }
+      .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .nombre_lugar_guardado_home {
+        color: #444444 !important;
+        text-decoration: none;
+        display: block;
+        float: left;
+        font-size: 12px;
+        line-height: 16px;
+        margin: 0 0 10px 0;
+        width: 180px; }
+        .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .nombre_lugar_guardado_home:hover {
+          color: #444444 !important;
+          text-decoration: underline; }
+      .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .estrellas_lugar {
+        float: left;
+        margin: 0 0 10px 0; }
+      .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .direccion_lugar_guardado_home {
+        color: #666666;
+        display: block;
+        float: left;
+        font-size: 11px;
+        line-height: 15px;
+        margin: 5px 0 10px;
+        width: 180px; }
+      .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .categorias_lugar_guardado_home {
+        float: left;
+        font-size: 11px;
+        line-height: 15px;
+        margin: 0 0 10px 0;
+        width: 180px; }

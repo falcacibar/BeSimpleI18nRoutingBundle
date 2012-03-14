@@ -56,14 +56,6 @@
 				<p class="fecha_lugar_recomendacion">{{recomendacion.fechaCreacion|date('d/m/Y')}}</p>
 				<p class="estrella_lugar_recomendacion" data-stars="{{recomendacion.estrellas}}"></p>
 				<p class="texto_lugar_recomendacion">{{recomendacion.texto}}</p>
-				{% if recomendacion.tagRecomendacion|length > 0 %}
-					<p class="tags_lugar_recomendacion">
-						{{'usuario.recomendaciones.recomendacion.tags'|trans}}
-						{% for tagRec in recomendacion.tagRecomendacion%}
-							{{tagRec.tag.tag}}{% if loop.last != true %}, {% endif %}
-						{% endfor %}
-					</p>
-				{% endif %}
 
 				<div class="caja_opciones_lugar_recomendacion">
 					<div class="opciones_lugar_recomendacion">

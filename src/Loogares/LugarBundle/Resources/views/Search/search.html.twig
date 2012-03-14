@@ -23,7 +23,8 @@
 {% endblock %}
 
 {% block javascripts %}
-
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg" type="text/javascript"></script>      
+    <script src='{{asset('assets/js/googleMapBuscar.js')}}'></script>
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.pjax.js')}}"></script>
@@ -361,7 +362,11 @@
 				<div class="resultado-busqueda">
 					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.lugar_slug}}" data-url="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
 						<div class="imagen_gmaps">
-							<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+							{% if lugar.imagen_lugar == '' %}
+								<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('small_lugar')}}" />
+							{% else %}
+								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+							{% endif %}
 						</div>						
 						<ul>
 							<li class="nombre_lugar_gmaps">
@@ -392,7 +397,11 @@
 					<div class="datos-principales">
 						<ul>
 							<li class="info_lugar">
-								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+								{% if lugar.imagen_lugar == '' %}
+									<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('small_lugar')}}" />
+								{% else %}
+									<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+								{% endif %}
 								<div class="nombre_lugar">
 									<span class="indice_resultado">{{loop.index}}</span>
 									<strong><a href="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}">{{lugar.nombre_lugar }}</a></strong>

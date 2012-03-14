@@ -86,7 +86,7 @@ $(document).ready(function(){
 
     var send_util_mail = function(recomendacion){
         $.ajax({
-            url: WEBROOT+'ajax/util_mail',
+            url: WEBROOT+'../ajax/util_mail',
             data: {'recomendacion': recomendacion},
             type: 'post'
         });
@@ -95,7 +95,7 @@ $(document).ready(function(){
     var ejecutar_accion = function(dataObj, $this){
         var idLugar = $('#lugar-ficha').attr('data-id');
         $.ajax({
-            url: WEBROOT+'ajax/accion',
+            url: WEBROOT+'../ajax/accion',
             type: 'post',
             data: dataObj,
             dataType: 'json',
@@ -148,7 +148,7 @@ $(document).ready(function(){
                     // Se actualiza el menú del usuario
                     $.ajax({
                       type: "GET",
-                      url: WEBROOT+'usuario/acciones_pendientes/5'
+                      url: WEBROOT+'../usuario/acciones_pendientes/5'
                     }).done(function( data ) {
                       $('.por_recomendar').html(data);
                     });

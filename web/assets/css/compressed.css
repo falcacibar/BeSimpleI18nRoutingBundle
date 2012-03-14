@@ -1818,7 +1818,6 @@ body {
         float: left;
         font-size: 12px; }
         .post .detalles .borde_cajas .caja_colaborador .imagen_colaborador, .post .condiciones .borde_cajas .caja_colaborador .imagen_colaborador {
-          border: 1px solid #cccccc;
           float: left;
           width: 100px; }
         .post .detalles .borde_cajas .caja_colaborador .info_colaborador, .post .condiciones .borde_cajas .caja_colaborador .info_colaborador {
