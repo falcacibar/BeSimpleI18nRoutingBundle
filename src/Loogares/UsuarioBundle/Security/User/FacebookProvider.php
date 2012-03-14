@@ -19,12 +19,14 @@ class FacebookProvider implements UserProviderInterface
     protected $facebook;
     protected $userManager;
     protected $validator;
+    protected $container;
 
-    public function __construct(BaseFacebook $facebook, $em, $validator)
+    public function __construct(BaseFacebook $facebook, $em, $validator, $container)
     {
         $this->facebook = $facebook;
         $this->userManager = $em;
-        $this->validator = $validator;        
+        $this->validator = $validator;
+        $this->container = $container;
     }
 
     public function supportsClass($class)
@@ -53,7 +55,14 @@ class FacebookProvider implements UserProviderInterface
         }
 
         if (!empty($fbdata)) {
+            
             if (empty($user)) {
+
+                // Si el usuario está loggeado y no tiene UID asociado, conectamos cuentas
+
+
+                // Si el usuario no está loggeado, buscamos por mail y sino registramos
+
                 // Revisamos si un usuario con el mismo email está registrado (para quienes conectan estando registrados)
                 if (isset($fbdata['email'])) {
                     $user = $ur->findOneByMail($fbdata['email']);
@@ -107,9 +116,6 @@ class FacebookProvider implements UserProviderInterface
             
             $em->flush();
         }
-        else {
-
-        }
 
         if (empty($user)) {
             throw new UsernameNotFoundException('The user is not authenticated on facebook');
@@ -125,5 +131,9 @@ class FacebookProvider implements UserProviderInterface
         }
 
         return $this->loadUserByUsername($user->getFacebookUid());
+    }
+
+    public function getFacebook() {
+        return $this->facebook;
     }
 }

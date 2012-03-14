@@ -28,4 +28,4 @@ services:
     sha1_login_encoder:
         class: Loogares\ExtraBundle\Encoder\Encoder
         arguments:
-            em: "@doctrine.orm.default_entity_manager"  
+            em: "@doctrine.orm.default_entity_manager"
