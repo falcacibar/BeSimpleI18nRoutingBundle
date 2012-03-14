@@ -600,7 +600,8 @@
     .caja_contenidos_usuario .caja_actividad_usuario ul {
       float: left;
       font-size: 14px;
-      width: 755px; }
+      margin: 0 0 30px;
+      width: 780px; }
       .caja_contenidos_usuario .caja_actividad_usuario ul li {
         margin: 0 0 25px; }
         .caja_contenidos_usuario .caja_actividad_usuario ul li a {
@@ -997,3 +998,58 @@
         .caja_contenidos_usuario .paginacion_perfil ul .pagina-actual a {
           color: white !important;
           text-decoration: none; }
+
+.listado_lugares_guardados_home {
+  border: 0px;
+  float: left;
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  width: 780px !important; }
+  .listado_lugares_guardados_home li {
+    border-bottom: 1px solid #f2f2f6;
+    display: block;
+    float: left;
+    height: 140px;
+    margin: 0 20px 30px 0 !important;
+    width: 240px; }
+    .listado_lugares_guardados_home li:hover {
+      border-bottom: 1px solid #cccccc; }
+    .listado_lugares_guardados_home li .imagen_lugar_guardado_usuario {
+      display: block;
+      float: left;
+      margin: 0 10px 20px 0;
+      width: 50px; }
+    .listado_lugares_guardados_home li .textos_lugar_guardado_usuario {
+      display: block;
+      float: left;
+      width: 180px; }
+      .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .nombre_lugar_guardado_home {
+        color: #444444 !important;
+        text-decoration: none;
+        display: block;
+        float: left;
+        font-size: 12px;
+        line-height: 16px;
+        margin: 0 0 10px 0;
+        width: 180px; }
+        .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .nombre_lugar_guardado_home:hover {
+          color: #444444 !important;
+          text-decoration: underline; }
+      .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .estrellas_lugar {
+        float: left;
+        margin: 0 0 10px 0; }
+      .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .direccion_lugar_guardado_home {
+        color: #666666;
+        display: block;
+        float: left;
+        font-size: 11px;
+        line-height: 15px;
+        margin: 5px 0 10px;
+        width: 180px; }
+      .listado_lugares_guardados_home li .textos_lugar_guardado_usuario .categorias_lugar_guardado_home {
+        float: left;
+        font-size: 11px;
+        line-height: 15px;
+        margin: 0 0 10px 0;
+        width: 180px; }

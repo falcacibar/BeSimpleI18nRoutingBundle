@@ -828,7 +828,8 @@ $rojo: #F72121
             float: left
             font:
                 size: 14px
-            width: 755px
+            margin: 0 0 30px
+            width: 780px
 
             li
                 margin: 0 0 25px
@@ -1304,3 +1305,68 @@ $rojo: #F72121
 
                 a
                     @include link_blanco
+
+.listado_lugares_guardados_home
+    border: 0px
+    float: left
+    display: block
+    margin: 0px
+    padding: 0px
+    width: 780px !important
+
+    li
+        border-bottom: 1px solid $gris_f6f
+        display: block
+        float: left
+        height: 140px
+        margin: 0 20px 30px 0 !important
+        width: 240px
+
+        &:hover
+            border-bottom: 1px solid $gris_ccc
+
+        .imagen_lugar_guardado_usuario
+            display: block
+            float: left
+            margin: 0 10px 20px 0
+            width: 50px
+        
+        .textos_lugar_guardado_usuario
+            display: block
+            float: left
+            width: 180px
+
+            .nombre_lugar_guardado_home
+                @include link_gris_444
+                display: block
+                float: left
+                font:
+                    size: 12px
+                line-height: 16px
+                margin: 0 0 10px 0
+                width: 180px
+
+                &:hover
+                    @include link_gris_444_hover
+                
+            .estrellas_lugar
+                float: left
+                margin: 0 0 10px 0
+
+            .direccion_lugar_guardado_home
+                color: $gris_666
+                display: block
+                float: left
+                font:
+                    size: 11px
+                line-height: 15px
+                margin: 5px 0 10px
+                width: 180px
+
+            .categorias_lugar_guardado_home
+                float: left
+                font:
+                    size: 11px
+                line-height: 15px
+                margin: 0 0 10px 0
+                width: 180px
