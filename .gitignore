@@ -34,4 +34,6 @@ web/mails
 web/images
 
 #Paginas de error
-vendors/symfony/src/Symfony/Bundle/TwigBundle/Resources/views
+vendor/symfony/src/Symfony/Bundle/TwigBundle/Resources/views
+
+web/app_dev.php
