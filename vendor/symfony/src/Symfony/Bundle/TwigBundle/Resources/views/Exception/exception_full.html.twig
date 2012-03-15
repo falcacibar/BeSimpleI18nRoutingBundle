@@ -4,7 +4,6 @@
     {{ exception.message }} ({{ status_code }} {{ status_text }})
 {% endblock %}
 
-
 {% if is_granted('ROLE_ADMIN') %}
 {% block content %}
     {% include 'TwigBundle:Exception:exception.html.twig' %}
