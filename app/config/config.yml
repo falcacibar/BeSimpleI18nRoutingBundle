@@ -37,7 +37,7 @@ assetic:
         # closure:
         #     jar: %kernel.root_dir%/java/compiler.jar
         yui_css:
-             jar: %kernel.root_dir%/java/yuicompressor-2.4.7.jar
+             jar: %kernel.root_dir%/java/yuicompressor-2.4.7.ja
 
 # Doctrine Configuration
 doctrine:

@@ -4,10 +4,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}Administrador Loogares.com{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        {% stylesheets output='assets/css/compressed.css' filter='?yui_css,sass' 
-            'assets/css/*.sass' 
-        %}
-        {% endstylesheets %}
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
         <script src="{{asset('assets/js/jquery.fixheadertable.min.js')}}"></script>
         <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />
@@ -19,11 +15,9 @@
             });
         </script>
         <style>
-
                 .id{
                     width: 50px;
                 }
-
         </style>
     </head>
 <body style="background: none;">
