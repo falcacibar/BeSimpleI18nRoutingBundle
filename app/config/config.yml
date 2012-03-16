@@ -23,6 +23,7 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    cache:            false
     globals:
         googlemaps_apikey: %googlemaps_apikey%
         adsense_service: %adsense_service%

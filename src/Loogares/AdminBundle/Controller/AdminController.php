@@ -409,7 +409,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function accionLugarAction($ciudad, $cerrar = false, $borrar = false, $habilitar = false, Request $request){
+    public function accionLugarAction($ciudad, $id, $cerrar = false, $borrar = false, $habilitar = false, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");

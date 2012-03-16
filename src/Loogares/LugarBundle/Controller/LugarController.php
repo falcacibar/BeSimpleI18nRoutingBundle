@@ -275,6 +275,10 @@ class LugarController extends Controller{
 
         $paginacion = $fn->paginacion( $data->totalRecomendaciones, $resultadosPorPagina, '_lugar', $params, $router );
 
+        if($lugarResult[0]->getEstado()->getId() == 1){
+          $this->get('session')->setFlash('lugar_flash', 'Este lugar se encuentra en Revisión.');
+        }
+
         //Render ALL THE VIEWS
         return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET, 'paginacion' => $paginacion));            
     }
