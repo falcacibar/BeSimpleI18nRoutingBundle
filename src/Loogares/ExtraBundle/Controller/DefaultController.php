@@ -43,7 +43,7 @@ class DefaultController extends Controller
                                          LEFT JOIN tipo_categoria
                                          ON tipo_categoria.id = categorias.tipo_categoria_id
 
-                                         WHERE tipo_categoria.id = $id AND comuna.ciudad_id = $idCiudad
+                                         WHERE tipo_categoria.id = $id AND comuna.ciudad_id = $idCiudad AND lugares.estado_id != 3
 
                                          GROUP BY categorias.id
                                          ORDER BY tipo_categoria.id, categorias.nombre asc");
