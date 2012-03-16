@@ -827,11 +827,14 @@ class Usuario implements AdvancedUserInterface, \Serializable
         unset($this->file);
 
         // Eliminamos thumbnails
-        if(file_exists(__DIR__.'/../../../../web/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
-            unlink(__DIR__.'/../../../../web/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
+        if(file_exists(__DIR__.'/../../../../web/assets/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
+            unlink(__DIR__.'/../../../../web/assets/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
             
-        if(file_exists(__DIR__.'/../../../../web/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
-            unlink(__DIR__.'/../../../../web/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
+        if(file_exists(__DIR__.'/../../../../web/assets/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
+            unlink(__DIR__.'/../../../../web/assets/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
+
+        if(file_exists(__DIR__.'/../../../../web/assets/media/cache/tiny_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
+            unlink(__DIR__.'/../../../../web/assets/media/cache/tiny_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
     }
 
     /**
