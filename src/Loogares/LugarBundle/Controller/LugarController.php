@@ -354,12 +354,8 @@ class LugarController extends Controller{
                 if($esEdicionDeUsuario == true){
                   $lugarManipulado->setLugar($lugar);
                 }else if($rolAdmin == false){
-                  echo 'hi';
                   $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
                 }
-
-
-                die();
 
                 $comuna = $lr->getComunas($_POST['comuna']);
 
