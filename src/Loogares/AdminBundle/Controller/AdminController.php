@@ -10,27 +10,6 @@ use Loogares\LugarBundle\Entity\PedidoLugar;
 
 class AdminController extends Controller
 {
-    public function __construct(){
-        foreach($_POST as $key => $value){
-            if(!is_array($_POST[$key])){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
-            }else{
-                foreach($_POST[$key] as $inputkey => $input){
-                    $_POST[$key][$inputkey] = filter_var($_POST[$key][$inputkey], FILTER_SANITIZE_STRING);
-                }
-            }
-        }
-        foreach($_GET as $key => $value){
-            if(!is_array($_POST[$key])){
-                $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
-            }else{
-                foreach($_GET[$key] as $inputkey => $input){
-                    $_GET[$key][$inputkey] = filter_var($_GET[$key][$inputkey], FILTER_SANITIZE_STRING);
-                }
-            }
-        }
-    }
-
     public function indexAction(){
         return $this->render('LoogaresAdminBundle:Admin:index.html.twig');
     }
@@ -892,7 +871,8 @@ class AdminController extends Controller
             'precio' => 'precio',
             'utiles' => 'util',
             'usuario' => 'usuarioSlug',
-            'lugar' => 'lugarNombre'
+            'lugar' => 'lugarNombre',
+            'id' => 'r.id'
         );
 
         if(isset($_GET['buscar'])){
@@ -939,7 +919,7 @@ class AdminController extends Controller
         $recomendacionesResult = $this->getDoctrine()->getConnection()
         ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, LEFT(r.texto, 140) as texto, 
                     lugares.nombre as lugarNombre, lugares.slug as lugarSlug,
-                    usuarios.nombre as usuarioNombre, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
+                    usuarios.nombre as usuarioNombre, usuarios.sexo as usuarioSexo, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
                     count(util.id) as util,
                     (select estado.nombre from estado where r.estado_id = estado.id) as estado,
                     GROUP_CONCAT(DISTINCT tag.tag) as tags
@@ -1112,7 +1092,7 @@ class AdminController extends Controller
         $recomendacionResult = $this->getDoctrine()->getConnection()
         ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, r.texto as texto, 
                     lugares.nombre as lugarNombre, lugares.slug as lugarSlug, lugares.id as lugarId,
-                    usuarios.nombre as usuarioNombre, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
+                    usuarios.nombre as usuarioNombre, usuarios.sexo as usuarioSexo, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
                     count(util.id) as util,
                     (select estado.nombre from estado where r.estado_id = estado.id) as estado,
                     GROUP_CONCAT(DISTINCT tag.tag) as tags

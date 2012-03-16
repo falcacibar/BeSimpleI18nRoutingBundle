@@ -347,7 +347,27 @@ $rojo: #F72121
             width: 200px !important
 
         .lugar_usuario
-            width: 200px !important
+            width: 220px !important
+
+            .perfil_usuario
+                display: inline-block
+                height: 16px
+                width: 16px
+                
+                a
+                    display: inline-block
+                    height: 16px
+                    width: 16px
+                    margin-right: 2px
+                    position: relative
+                    margin-top: 2px
+
+                    &.usuario
+                        background: url('../images/administrador/usuario.png') no-repeat
+                    &.usuario_mujer
+                        background: url('../images/administrador/usuario_mujer.png') no-repeat
+                    &.usuario_hombre
+                        background: url('../images/administrador/usuario_hombre.png') no-repeat
         
         .lugar_categoria
             width: 200px !important
@@ -576,3 +596,6 @@ $rojo: #F72121
     text-align: center
     padding: 50px 0
     width: 960px
+
+.selected_row
+    background: #def !important

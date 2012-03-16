@@ -43,6 +43,13 @@
                     <th class="lugar_id">
                         <span>
                         <p class="titulos_tabla">Id</p>
+                        <p class="list-actions">
+                            <a class="{% if query.id is defined and query.id == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', query|merge({"id": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+
+                            <a class="{% if query.id is defined and query.id == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', query|merge({"id": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', query|merge({'id': null, 'ciudad': ciudad }))}}">✖</a>
+                        </p>
                         </span>
                     </th>
                     <th class="lugar_usuario">
@@ -156,9 +163,12 @@
                             <td class="lugar_usuario">
                                 <span>
                                     <strong>
+                                        <span class="perfil_usuario">
+                                            <a target="_blank" class="usuario{% if recomendacion.usuarioSexo == "m"%}_hombre{% else %}_mujer{%endif%}" href="{{ path('editarCuentaUsuario', {'param': recomendacion.usuarioSlug }) }}"></a>
+                                        </span>
                                         <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'pusuario': recomendacion.usuarioSlug, 'ciudad': ciudad }) }}">
                                             {% if recomendacion.usuarioNombre != '' %}
-                                            {{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}}
+                                                {{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}}
                                             {% else %}
                                                 {{recomendacion.usuarioSlug}}
                                             {% endif %}

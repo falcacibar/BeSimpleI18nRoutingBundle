@@ -524,6 +524,8 @@
     width: 948px; }
     .loogarenos_conectados .loogarenos_conectado_ahora li {
       float: left;
+      height: 35px;
+      line-height: 12px;
       margin: 10px 5px;
       width: 179px; }
       .loogarenos_conectados .loogarenos_conectado_ahora li .imagen_usuario {

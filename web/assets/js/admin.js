@@ -42,4 +42,13 @@ $(document).ready(function(){
         e.preventDefault();
         $('input[name="id[]"]').click().removeAttr('checked', 'checked');
     });
+
+    $('input[type=checkbox]').change(function(){
+        $this = $(this);
+        if($this.is(':checked')){
+            $this.parent().parent().addClass('selected_row');
+        }else{
+            $this.parent().parent().removeClass('selected_row');
+        }
+    });
 });

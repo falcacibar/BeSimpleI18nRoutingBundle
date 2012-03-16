@@ -22,7 +22,10 @@
 	<ul>
 		<li>
 			<label>Usuario</label>
-			{{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}}
+			                                        <span class="perfil_usuario">
+                                            <a target="_blank" class="usuario{% if recomendacion.usuarioSexo == "m"%}_hombre{% else %}_mujer{%endif%}" href="{{ path('editarCuentaUsuario', {'param': recomendacion.usuarioSlug }) }}"></a>
+                                        </span>
+			{{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}} {{recomendacion.usuarioSlug}}
 		</li>
 		<li>
 			<label>Lugar</label>

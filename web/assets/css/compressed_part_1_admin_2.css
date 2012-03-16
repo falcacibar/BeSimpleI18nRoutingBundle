@@ -207,7 +207,24 @@
     .listado_admin .table-data .lugar_nombre {
       width: 200px !important; }
     .listado_admin .table-data .lugar_usuario {
-      width: 200px !important; }
+      width: 220px !important; }
+      .listado_admin .table-data .lugar_usuario .perfil_usuario {
+        display: inline-block;
+        height: 16px;
+        width: 16px; }
+        .listado_admin .table-data .lugar_usuario .perfil_usuario a {
+          display: inline-block;
+          height: 16px;
+          width: 16px;
+          margin-right: 2px;
+          position: relative;
+          margin-top: 2px; }
+          .listado_admin .table-data .lugar_usuario .perfil_usuario a.usuario {
+            background: url("../images/administrador/usuario.png") no-repeat; }
+          .listado_admin .table-data .lugar_usuario .perfil_usuario a.usuario_mujer {
+            background: url("../images/administrador/usuario_mujer.png") no-repeat; }
+          .listado_admin .table-data .lugar_usuario .perfil_usuario a.usuario_hombre {
+            background: url("../images/administrador/usuario_hombre.png") no-repeat; }
     .listado_admin .table-data .lugar_categoria {
       width: 200px !important; }
     .listado_admin .table-data .lugar_subcategoria {
@@ -388,3 +405,6 @@
   text-align: center;
   padding: 50px 0;
   width: 960px; }
+
+.selected_row {
+  background: #ddeeff !important; }
