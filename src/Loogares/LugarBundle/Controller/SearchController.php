@@ -240,7 +240,6 @@ class SearchController extends Controller{
       }
     }
 
-
     $orderFilters = array(
       'recomendaciones' => 'lugares.total_recomendaciones desc',
       'alfabetico' => 'lugares.nombre asc',
@@ -423,7 +422,9 @@ class SearchController extends Controller{
                              AND lugares.estado_id != 3
                              $filterSector $filterComuna $filterCiudad)";
 
+
     }else{
+
       $fields .= ", (
                       select group_concat(distinct caracteristica.slug order by caracteristica.slug asc) as caracteristica_slug from caracteristica_lugar
                       left join caracteristica
@@ -935,6 +936,7 @@ class SearchController extends Controller{
                             $filterCaracteristica)";
 
     if($categoria){
+      
       $unionQuery = array();
       $unionQuery[] = "SELECT SQL_CALC_FOUND_ROWS $fields
                         FROM lugares

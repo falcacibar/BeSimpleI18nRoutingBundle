@@ -80,7 +80,8 @@
 		</a>
 		{% render "LoogaresExtraBundle:Default:menu" %}
 		<div class="buscador_box">
-			<form action="{{ path('_buscar', { 'slug': 'santiago-de-chile' }) }}">
+
+			<form action="{{ path('_buscar', { 'slug': app.session.get('ciudad').slug }) }}">
 				<div class="buscar">
 						<input class="buscador" name="q" type="text" placeholder="{{'general.header.ejemplos_buscador'|trans}}" />
 					<div class="caja_icono">

@@ -1,11 +1,12 @@
 {% extends 'TwigBundle::layout.html.twig' %}
 
-{% block titled %}
-    {{ exception.message }} ({{ status_code }} {{ status_text }})
-{% endblock %}
-
 {% if is_granted('ROLE_ADMIN') %}
-{% block content %}
-    {% include 'TwigBundle:Exception:exception.html.twig' %}
-{% endblock %}
+	{% block titled %}
+	    {{ exception.message }} ({{ status_code }} {{ status_text }})
+	{% endblock %}
+
+
+	{% block content %}
+	    {% include 'TwigBundle:Exception:exception.html.twig' %}
+	{% endblock %}
 {% endif %}

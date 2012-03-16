@@ -348,7 +348,11 @@ $(document).ready(function(){
 
     function actualizarCiudades(){
         var paisSeleccionado = $('.pais option:selected').text();
-
+            if(paisSeleccionado == 'Argentina'){
+                $('.codigo_area').text('+54');
+            }else{
+                $('.codigo_area').text('+56');
+            }
         $.each(optGroupCiudades, function(i){
             if(optGroupCiudades[i].match(paisSeleccionado)){
                 $('.ciudad optgroup').remove('optgroup');
