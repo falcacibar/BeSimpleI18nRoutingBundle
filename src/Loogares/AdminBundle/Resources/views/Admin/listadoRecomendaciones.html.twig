@@ -156,7 +156,13 @@
                             <td class="lugar_usuario">
                                 <span>
                                     <strong>
-                                        <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'pusuario': recomendacion.usuarioSlug, 'ciudad': ciudad }) }}">{{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}}</a>
+                                        <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'pusuario': recomendacion.usuarioSlug, 'ciudad': ciudad }) }}">
+                                            {% if recomendacion.usuarioNombre != '' %}
+                                            {{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}}
+                                            {% else %}
+                                                {{recomendacion.usuarioSlug}}
+                                            {% endif %}
+                                        </a>
                                     </strong>
                                 </span>
                             </td>
@@ -213,6 +219,7 @@
                                 </span>
                             </td>
                             <td class="lugar_acciones">
+                                <a target="_blank" href="{{ path('_recomendacion', {'slug': recomendacion.lugarSlug, 'usuarioSlug': recomendacion.usuarioSlug}) }}"><img src="{{asset('assets/images/administrador/ver.png')}}"/></a>
                                 <a target="_blank" href="{{ path('LoogaresAdminBundle_editarRecomendacion', {'ciudad': ciudad, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
                                 {% if recomendacion.estado == 'Eliminado' %}
                                     <a href="{{ path('LoogaresAdminBundle_habilitarRecomendacion', query|merge({'ciudad': ciudad, 'id':recomendacion.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
@@ -231,9 +238,9 @@
         <a href="#" class="seleccionar-todo">Seleccionar todo</a> | <a href="#" class="deseleccionar-todo">Deseleccionar todo</a> | 
         <select name="accion">
             <option>Acciones para la selección</option>
-            <option value="aprobar">Aprobar Lugares</option>
-            <option value="cerrar">Cerrar Lugares</option>
-            <option value="eliminar">Eliminar Lugares</option>
+            <option value="aprobar">Aprobar Recomendacion</option>
+            <option value="cerrar">Cerrar Recomendacion</option>
+            <option value="eliminar">Eliminar Recomendacion</option>
         </select>
         <input type="submit" value="Enviar datos"/>
     </div>

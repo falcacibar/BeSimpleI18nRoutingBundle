@@ -105,7 +105,7 @@ LoogaresAdminBundle_habilitarLugar:
 
 LoogaresAdminBundle_accionLugar:
     pattern:  /lugares/{ciudad}/revision/massive/
-    defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: false, habilitar: false, borrar: false}
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionLugar, cerrar: false, habilitar: false, borrar: false, id: false}
 
 LoogaresAdminBundle_fotosLugar:
     pattern:  /lugares/{ciudad}/{slug}/fotos

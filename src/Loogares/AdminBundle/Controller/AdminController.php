@@ -12,10 +12,22 @@ class AdminController extends Controller
 {
     public function __construct(){
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            if(!is_array($_POST[$key])){
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            }else{
+                foreach($_POST[$key] as $inputkey => $input){
+                    $_POST[$key][$inputkey] = filter_var($_POST[$key][$inputkey], FILTER_SANITIZE_STRING);
+                }
+            }
         }
         foreach($_GET as $key => $value){
-            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+            if(!is_array($_POST[$key])){
+                $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
+            }else{
+                foreach($_GET[$key] as $inputkey => $input){
+                    $_GET[$key][$inputkey] = filter_var($_GET[$key][$inputkey], FILTER_SANITIZE_STRING);
+                }
+            }
         }
     }
 
@@ -418,7 +430,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function accionLugarAction($id, $ciudad, $cerrar = false, $borrar = false, $habilitar = false, Request $request){
+    public function accionLugarAction($ciudad, $cerrar = false, $borrar = false, $habilitar = false, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
@@ -442,7 +454,7 @@ class AdminController extends Controller
             $itemsABorrar[] = $vars;
         }
 
-        foreach($itemsABorrar as $item){    
+        foreach($itemsABorrar as $item){  
             $lugar = $lr->find($item);
             $mail = array();
             $mail['lugar'] = $lugar;
@@ -888,7 +900,7 @@ class AdminController extends Controller
             if(preg_match('/[A-Za-z]+/', $buscar) == false){
                     $where .= " and r.id = '$buscar'";
             }else{
-                    $where .= " and lugarNombre like '%$buscar%'";
+                    $where .= " and lugares.nombre like '%$buscar%'";
             }
         }
 
