@@ -393,7 +393,7 @@ class LugarController extends Controller{
                     $lugaresConElMismoNombre = false;
                 }
 
-                $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'].$lugaresConElMismoNombre);
+                $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . $lugaresConElMismoNombre;
 
                 $lugarManipulado->setSlug($lugarSlug);
                 
