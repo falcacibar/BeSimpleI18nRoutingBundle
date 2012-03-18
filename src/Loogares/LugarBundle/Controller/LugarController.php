@@ -350,9 +350,10 @@ class LugarController extends Controller{
 
             if($form->isValid() && $camposExtraErrors == false){
                 $fn = $this->get('fn');
-                                echo $rolAdmin;
+
                 if($esEdicionDeUsuario == true){
                   $lugarManipulado->setLugar($lugar);
+                  $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
                 }else if($rolAdmin == false){
                   $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
                 }
@@ -369,14 +370,17 @@ class LugarController extends Controller{
                     $lugarManipulado->setPrecio($_POST['precio']);
                 }
 
-                $estado = $lr->getEstado(1);
-                $tipo_lugar = $lr->getTipoLugar('lugar');
+                if($rolAdmin == false){
+                  $estado = $lr->getEstado(1);
+                  $tipo_lugar = $lr->getTipoLugar('lugar');
+                  $lugarManipulado->setEstado($estado);
+                  $lugarManipulado->setTipoLugar($tipo_lugar[0]);
+                }
 
                 $lugarManipulado->setComuna($comuna[0]);               
 
 
-                $lugarManipulado->setEstado($estado);
-                $lugarManipulado->setTipoLugar($tipo_lugar[0]);
+
 
                 //Sacamos los HTTP
                 $lugarManipulado->setSitioWeb($fn->stripHTTP($lugarManipulado->getSitioWeb()));
