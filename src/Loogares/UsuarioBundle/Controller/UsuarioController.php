@@ -864,7 +864,15 @@ class UsuarioController extends Controller
 
                     // Slug como nombre-apellido-repetido
                     $fn = $this->get('fn');
-                    $slug = $fn->generarSlug($usuario->getNombre().'-'.$usuario->getApellido());
+                    $usuariosConElMismoSlug = $ur->findBySlug($usuario->getNombre().'-'.$usuario->getApellido());
+                    if(sizeOf($usuariosConElMismoSlug) > 0){
+                        $usuariosConElMismoSlug = "-".sizeOf($usuariosConElMismoSlug);
+                    }else{
+                        $usuariosConElMismoSlug = false;
+                    }
+                    
+                    $slug = $fn->generarSlug($usuario->getNombre().'-'.$usuario->getApellido().$usuariosConElMismoSlug);
+
                     $repetidos = $ur->getUsuarioSlugRepetido($slug);
                     if($repetidos > 0)
                         $slug = $slug.'-'.++$repetidos;                    
