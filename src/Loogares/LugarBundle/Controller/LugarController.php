@@ -388,10 +388,12 @@ class LugarController extends Controller{
                 $lugarManipulado->setFechaAgregado(new \DateTime());
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
-                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'].(sizeOf($lugaresConElMismoNombre)+1);
+                    $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre) + 1;
                 }else{
-                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'];
+                    $lugaresConElMismoNombre = false;
                 }
+
+                $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'].$lugaresConElMismoNombre);
 
                 $lugarManipulado->setSlug($lugarSlug);
                 
