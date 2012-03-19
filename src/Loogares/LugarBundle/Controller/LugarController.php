@@ -361,8 +361,6 @@ class LugarController extends Controller{
                   $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
                 }
                 
-                
-
                 $comuna = $lr->getComunas($_POST['comuna']);
 
                 $sector = $lr->getSectores($_POST['sector']);
@@ -397,14 +395,14 @@ class LugarController extends Controller{
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
                     $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre);
-                }else{
-                    $lugaresConElMismoNombre = false;
+                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . $lugaresConElMismoNombre;
+                    $lugarManipulado->setSlug($lugarSlug);
+                }else if(sizeOf($lugaresConElMismoNombre) == 0){
+                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'];
+                    $lugarManipulado->setSlug($lugarSlug);
                 }
 
 
-                $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . $lugaresConElMismoNombre;
-
-                $lugarManipulado->setSlug($lugarSlug);
                 
                 $em->persist($lugarManipulado);
 
@@ -586,17 +584,14 @@ class LugarController extends Controller{
                         $em->flush();
                     }
 
-
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                 }else{                    
                     if($esEdicionDeUsuario == true){
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.edicion_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
-                       
                         return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
                     }else{
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
-
-                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));    
+                        return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));    
                     }
                     
                     

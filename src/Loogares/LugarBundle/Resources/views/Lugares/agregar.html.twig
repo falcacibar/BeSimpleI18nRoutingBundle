@@ -271,7 +271,7 @@
                     {% if lugarRevisado.subcategoriaLugar[0] is defined %}
                         <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}}
                             {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
-                                {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[1].categoria.id %}
+                                {% if lugarRevisado.categoriaLugar[1].categoria.id is defined and subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[1].categoria.id %}
                                     {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
                                 {% endif %}
                             {% endfor %}
