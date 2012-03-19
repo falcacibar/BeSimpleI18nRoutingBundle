@@ -343,8 +343,8 @@
             </select>
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
-                    {% if lugar.sector.ciudad.pais.id != lugarRevisado.sector.ciudad.pais.id %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.sector.ciudad.pais.nombre}} </div>
+                    {% if lugar.comuna.ciudad.pais.id != lugarRevisado.comuna.ciudad.pais.id %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.comuna.ciudad.pais.nombre}} </div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -364,8 +364,8 @@
             </select>
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
-                    {% if lugar.sector.ciudad.id != lugarRevisado.sector.ciudad.id %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.sector.ciudad.nombre}} </div>
+                    {% if lugar.comuna.ciudad.id != lugarRevisado.comuna.ciudad.id %}
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.comuna.ciudad.nombre}} </div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -435,7 +435,7 @@
                 <optgroup label="{{ciudad.nombre}}">
                     {% for sector in data.sector %}
                         {% if ciudad.id == sector.ciudad.id %}
-                        <option value="{{sector.slug}}">{{sector.nombre}}</option>
+                            <option value="{{sector.slug}}">{{sector.nombre}}</option>
                         {% endif %}
                     {% endfor %}
                 </optgroup>
@@ -443,7 +443,7 @@
             </select>
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
-                    {% if lugar.sector.id != lugarRevisado.sector.id %}
+                    {% if lugarRevisado.sector.id is defined and lugar.sector.id != lugarRevisado.sector.id %}
                         <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}} {{lugarRevisado.sector.nombre}} </div>
                     {% endif %}
                 {% endfor %}

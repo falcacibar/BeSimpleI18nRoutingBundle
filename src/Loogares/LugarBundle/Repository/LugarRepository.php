@@ -17,9 +17,9 @@ class LugarRepository extends EntityRepository
         $em = $this->getEntityManager();
 
         if($slug){
-          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.slug = '$slug' $orderBy");
+          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.slug = '$slug' and u.estado != ?1 $orderBy");
         }else{
-          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u $orderBy");
+          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u  and u.estado != ?1 $orderBy");
         }
 
         if($limit){
@@ -33,7 +33,7 @@ class LugarRepository extends EntityRepository
         if($orderBy){
           //D:
         }
-
+        $q->setParameter(1, 3);
         $lugarResult = $q->getResult();
         return $lugarResult;
     }
