@@ -20,9 +20,12 @@ class DefaultController extends Controller
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
         $post = $pr->findOneBySlug($slug);
 
+        if($post->getLugar()){
         $post->getLugar()->setSitioWeb($fn->stripHTTP($post->getLugar()->getSitioWeb()));
         $post->getLugar()->setTwitter($fn->stripHTTP($post->getLugar()->getTwitter()));
-        $post->getLugar()->setFacebook($fn->stripHTTP($post->getLugar()->getFacebook()));
+        $post->getLugar()->setFacebook($fn->stripHTTP($post->getLugar()->getFacebook()));            
+        }
+
 
         if(gettype($post) == 'object'){
             $q = $em->createQuery('SELECT u FROM Loogares\BlogBundle\Entity\Posts u WHERE u.tipo_post = ?1 and u.lugar = ?2 and u.id != ?3');
