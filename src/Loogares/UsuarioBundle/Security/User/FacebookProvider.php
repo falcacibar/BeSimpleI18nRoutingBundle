@@ -93,12 +93,12 @@ class FacebookProvider implements UserProviderInterface
                     if(isset($fbdata['id'])) {
                         $fbimg = $this->facebook->api(array(
                             'method' => 'fql.query',
-                            'query' => "SELECT pic_square FROM user WHERE uid = ".$fbdata['id'],
+                            'query' => "SELECT pic_big FROM user WHERE uid = ".$fbdata['id'],
                             'callback' => ''
                         ));
                     }
                     
-                    $user->setImagenFull($fbimg[0]['pic_square']);
+                    $user->setImagenFull($fbimg[0]['pic_big']);
                     $user->setFechaRegistro(new \DateTime());
                     $user->setNewsletterActivo(1);
                     $hashConfirmacion = md5($user->getMail().time());
