@@ -291,6 +291,7 @@ class LugarController extends Controller{
         $lugaresRevisados = array();
         $camposExtraErrors = false;
         $esEdicionDeUsuario = false;
+        $nuevoLugar = false;
         $rolAdmin = $this->get('security.context')->isGranted('ROLE_ADMIN');
 
         if($slug && $rolAdmin == false){
@@ -302,6 +303,7 @@ class LugarController extends Controller{
             $lugarManipulado = $lr->findOneBySlug($slug);
             $lugaresRevisados = $lr->getLugaresPorRevisar($lugarManipulado->getId(), 1);
         }else{
+            $nuevoLugar = true;
             $lugarManipulado = new Lugar();
         }
        
@@ -353,10 +355,13 @@ class LugarController extends Controller{
 
                 if($esEdicionDeUsuario == true){
                   $lugarManipulado->setLugar($lugar);
-                  $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
-                }else if($rolAdmin == false){
+                }
+              
+                if($nuevoLugar == true || $esEdicionDeUsuario == true){
                   $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
                 }
+                
+                
 
                 $comuna = $lr->getComunas($_POST['comuna']);
 
@@ -372,15 +377,14 @@ class LugarController extends Controller{
 
                 if($rolAdmin == false){
                   $estado = $lr->getEstado(1);
-                  $tipo_lugar = $lr->getTipoLugar('lugar');
-                  $lugarManipulado->setEstado($estado);
-                  $lugarManipulado->setTipoLugar($tipo_lugar[0]);
+                }else{
+                  $estado = $lr->getEstado(2);
                 }
+                $lugarManipulado->setEstado($estado);
 
+                $tipo_lugar = $lr->getTipoLugar('lugar');
+                $lugarManipulado->setTipoLugar($tipo_lugar[0]);
                 $lugarManipulado->setComuna($comuna[0]);               
-
-
-
 
                 //Sacamos los HTTP
                 $lugarManipulado->setSitioWeb($fn->stripHTTP($lugarManipulado->getSitioWeb()));
@@ -392,10 +396,11 @@ class LugarController extends Controller{
                 $lugarManipulado->setFechaAgregado(new \DateTime());
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
-                    $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre) + 1;
+                    $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre);
                 }else{
                     $lugaresConElMismoNombre = false;
                 }
+
 
                 $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . $lugaresConElMismoNombre;
 

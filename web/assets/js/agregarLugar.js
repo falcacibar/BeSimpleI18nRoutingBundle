@@ -161,7 +161,6 @@ $(document).ready(function(){
         }
 
         $.each(subCategorias, function(i){
-            console.log(subCategorias[i])
             $this.parent().find('.subcategorias input[value="'+subCategorias[i]+'"]').parent().parent().stop(true, true).fadeIn().css('display', 'inline-block');
         });
 

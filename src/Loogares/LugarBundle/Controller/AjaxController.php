@@ -47,6 +47,7 @@ class AjaxController extends Controller
                    AND mapy BETWEEN $mapyDesde AND $mapyHasta
                    AND imagenes_lugar.estado_id != 3
                    AND lugares.estado_id != 3
+                   AND lugares.id != $idLugar
                    GROUP BY lugares.id
                    ORDER BY RAND()
                    LIMIT 20");
@@ -112,8 +113,10 @@ class AjaxController extends Controller
     }
 
     public function recomendarCalleAction(){
+      $fn = $this->get('fn');
 
       $d = filter_var($_GET['term'], FILTER_SANITIZE_STRING);  
+      $d = preg_replace('/^[Av]?[Av\.]?[Avda]?[Avda\.]?[Avenida]?[Avenida]?[Calle]?\s/', '', $d);
       $calles = '';
       $em = $this->getDoctrine()->getEntityManager();
       $q = $em->createQuery('SELECT DISTINCT u.calle FROM Loogares\LugarBundle\Entity\Lugar u where u.calle LIKE ?1');

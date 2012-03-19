@@ -159,13 +159,11 @@
 				<div class="resultados_filtros">
 					{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
 						<ul>
-					
 						{% for sector in results.totalPorSectores %}
 							{% if loop.index <= 5 %}
 							<li class="zonas"><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}}</a></li>	
 							{% endif %}							
 						{% endfor %}
-
 
 						{% if results.totalPorSectores is defined and results.totalPorSectores|length < 5 %}
 							{% for comuna in results.totalPorComunas %}
