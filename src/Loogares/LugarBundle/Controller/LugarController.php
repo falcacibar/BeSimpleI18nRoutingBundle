@@ -670,7 +670,7 @@ class LugarController extends Controller{
         }
 
         $data['tipoCategoria'] = $lr->getTipoCategorias();
-        $q = $em->createQuery("SELECT DISTINCT u.nombre from Loogares\LugarBundle\Entity\SubCategoria u");
+        $q = $em->createQuery("SELECT DISTINCT u.nombre from Loogares\LugarBundle\Entity\SubCategoria u ORDER BY u.nombre asc");
         $data['subCategorias'] = $q->getResult();
         $data['caracteristicas'] = $lr->getCaracteristicas();
         $data['ciudad'] = $lr->getCiudades();
