@@ -996,7 +996,6 @@ class SearchController extends Controller{
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id  
 
                                 WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
-                                AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                                 AND lugares.estado_id != 3
                                 $filterSector $filterComuna $filterPrecio $filterCiudad
                                 $filterCaracteristica)";
@@ -1035,7 +1034,6 @@ class SearchController extends Controller{
 
                             WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
                             AND lugares.estado_id != 3
-                            AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                             $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad)";
 
       $totalSectores[] = "(SELECT $sectoresFields
@@ -1062,7 +1060,6 @@ class SearchController extends Controller{
 
                            WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
                            AND lugares.estado_id != 3
-                           AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                            $filterPrecio $filterSubCat $filterCiudad
                            $filterCaracteristica)";
 
@@ -1087,10 +1084,10 @@ class SearchController extends Controller{
 
                           WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
                           AND lugares.estado_id != 3
-                          AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                           $filterPrecio $filterSubCat $filterCiudad
                           $filterCaracteristica)";
 }
+
 
     //Armamos y ejecutamos las queries
     if(is_array($unionQuery)){

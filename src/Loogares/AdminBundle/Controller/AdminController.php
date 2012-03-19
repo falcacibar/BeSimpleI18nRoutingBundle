@@ -206,7 +206,6 @@ class AdminController extends Controller
         $like = false;
         $where = "WHERE ciudad.id = $ciudadId";
 
-
         $filters = array(
             'pusuario' => 'usuarioMail',
             'pcategoria' => 'categorias',
@@ -370,6 +369,11 @@ class AdminController extends Controller
 
     public function listadoRevisionAction($ciudad){
         $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
+        $ciudad = $cr->findOneBySlug($ciudad);
+        $ciudadNombre = $ciudad->getNombre();
+        $ciudadId = $ciudad->getId();
+        $ciudadSlug = $ciudad->getSlug();
 
         $ih8doctrine = $this->getDoctrine()->getConnection()
         ->fetchAll("select distinct lugares.*, sector.nombre as sector, ciudad.nombre as ciudad, comuna.nombre as comuna, count(lugares.id) as revisiones
@@ -389,6 +393,7 @@ class AdminController extends Controller
                     on sector.ciudad_id = ciudad.id
 
                     where lugares.id = temp_lugares.lugar_id and temp_lugares.estado_id = 1
+                    and ciudad.id = $ciudadId
                     group by lugares.id");
 
         return $this->render('LoogaresAdminBundle:Admin:listadoRevision.html.twig',array(

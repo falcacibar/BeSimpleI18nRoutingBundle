@@ -203,7 +203,6 @@ class LugarController extends Controller{
             // Si el usuario ya estuvo o quiere volver, no puede querer ir
             if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
                 $accionesUsuario[0]['puede'] = 0;
-
             }  
         } 
         else {

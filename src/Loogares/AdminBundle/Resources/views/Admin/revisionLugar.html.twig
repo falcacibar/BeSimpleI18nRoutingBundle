@@ -29,9 +29,9 @@
                         </a>
                     </td>
                     <td>{{lugar.calle}} - {{lugar.numero}}</td>
-                    <td>{{lugar.sector.ciudad.nombre}}</td>
+                    <td>{{lugar.comuna.ciudad.nombre}}</td>
                     <td>{{lugar.comuna.nombre}}</td>
-                    <td>{{lugar.sector.nombre}}</td>
+                    <td>{{lugar.sector.nombre|default('')}}</td>
                 </tr>
             {% endfor %}
         </tbody>

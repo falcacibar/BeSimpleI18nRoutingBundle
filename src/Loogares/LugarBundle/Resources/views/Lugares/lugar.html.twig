@@ -526,7 +526,7 @@
         {% endfor %}
             
         <div class="paginacion_recomendacion">
-            <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{ lugar.recomendacion|length }}</strong>
+            <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{ lugar.totalRecomendaciones }}</strong>
             {% if paginacion.totalPaginas != 1 %}
                  | {{'paginacion.ir_a'|trans}}
                 <ul>

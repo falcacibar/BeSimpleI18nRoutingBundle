@@ -24,7 +24,7 @@
                     <td>{{lugar.comuna}}</td>
                     <td>{{lugar.sector}}</td>
                     <td>{{lugar.revisiones}}</td>
-                    <td><a href="{{ path('LoogaresAdminBundle_revisionLugar', {'ciudad': ciudad, 'slug': lugar.slug}) }}">Revisar</a></td>
+                    <td><a href="{{ path('LoogaresAdminBundle_revisionLugar', {'ciudad': ciudad.slug, 'slug': lugar.slug}) }}">Revisar</a></td>
                 </tr>
             {% endfor %}
         </tbody>

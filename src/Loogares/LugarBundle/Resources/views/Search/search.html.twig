@@ -157,7 +157,7 @@
 					{% endif %}					
 				</div>
 				<div class="resultados_filtros">
-					{% if (results.totalPorSectores[0] is defined or results.totalPorComunas[0] is defined) %}
+					{% if results.totalPorSectores is defined or results.totalPorComunas is defined %}
 						<ul>
 						{% for sector in results.totalPorSectores %}
 							{% if loop.index <= 5 %}
