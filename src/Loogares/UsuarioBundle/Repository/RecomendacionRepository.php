@@ -71,9 +71,11 @@ class RecomendacionRepository extends EntityRepository
                              FROM Loogares\UsuarioBundle\Entity\Recomendacion r
                              JOIN r.lugar l
                              JOIN l.comuna c
+                             JOIN r.usuario u
                              WHERE r.fecha_ultima_vez_destacada = CURRENT_DATE()
                              AND c.ciudad = ?1
-                             AND r.estado != 3");
+                             AND r.estado != 3
+                             AND u.imagen_full != 'default.gif'");
 
       $q->setParameter(1, $ciudad);
       $rec = $q->getOneOrNullResult();
