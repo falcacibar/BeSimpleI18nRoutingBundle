@@ -823,7 +823,12 @@ class Usuario implements AdvancedUserInterface, \Serializable
         if ($this->file  === null) {
             return;
         }
-        $this->file->move($this->getUploadRootDir(), $this->imagen_full);
+        try {
+            $this->file->move($this->getUploadRootDir(), $this->imagen_full);
+        }
+        catch(FileException $e) {
+            rename($this->file->getPathname(),$this->getAbsolutePath());
+        }
         unset($this->file);
 
         // Eliminamos thumbnails

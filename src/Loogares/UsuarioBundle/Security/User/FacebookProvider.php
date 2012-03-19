@@ -132,12 +132,12 @@ class FacebookProvider implements UserProviderInterface
                         if(getimagesize('assets/images/temp/'.$fn)) {
                             $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);                            
                             $user->file = $imagen;
-                            $user->setImagenFull(' ');
+                            $user->setImagenFull('default.gif');
                         }                        
                     }
                 }
 
-                $user->setFBData($fbdata);               
+                $user->setFBData($fbdata);           
             }
             
             $em->flush();
