@@ -60,15 +60,16 @@
     <script>
         $(document).ready(function(){
         {% if lugar.slug %}
+            $('.ciudad').find('option[value="{{lugar.comuna.ciudad.slug}}"]').attr('selected', 'selected').change();
+            $(".ciudad").trigger("liszt:updated");
+            $('.comuna').find('option[value="{{lugar.comuna.slug}}"]').attr('selected', 'selected').change();
+            $(".comuna").trigger("liszt:updated");
 
-            $('.comuna').find('option[value="{{lugar.comuna.slug}}"]').attr('selected', 'selected');
-            $(".comuna").trigger("liszt:updated")
-            $('.ciudad').find('option[value="{{lugar.comuna.ciudad.slug}}"]').attr('selected', 'selected');
-            $(".ciudad").trigger("liszt:updated")
             {% if lugar.sector %}
                 $('.sector').find('option[value="{{lugar.sector.slug}}"]').attr('selected', 'selected');
                 $(".sector").trigger("liszt:updated")
             {% endif %}
+
             onCargarMapaAgregar();
 
             {% if lugar.telefono2 %}
@@ -140,7 +141,7 @@
                                         var $comp = $('.horario-{{lugarRevisado.usuario.slug}}{{lugarRevisado.id}}');
                                         $comp.append("<p><strong>"+dias[{{horario.dia}}] + '</strong> | AM ' + "{{horario.aperturaAM}} - {{horario.cierreAM}}</p>");
                                         {% if horario.aperturaPM %}
-                                            $comp append("<p><strong>"+dias[{{horario.dia}}] + ' PM </strong> | ' + "{{horario.aperturaPM}} - {{horario.cierrePM}}</p>");
+                                            $comp.append("<p><strong>"+dias[{{horario.dia}}] + ' PM </strong> | ' + "{{horario.aperturaPM}} - {{horario.cierrePM}}</p>");
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
@@ -338,7 +339,7 @@
             <label>{{'lugar.agregar.pais'|trans}} <span class="obligatorio">*</span></label>
             <select class='pais required' title='' name='pais' id='pais'>
             {% for pais in data.pais %}
-                <option {% if lugaresRevisados is not defined and data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
+                <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
             {% endfor %}
             </select>
             {% if lugaresRevisados is defined %}
