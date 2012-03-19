@@ -390,7 +390,7 @@ class AdminController extends Controller
                     on lugares.sector_id = sector.id
 
                     left join ciudad
-                    on sector.ciudad_id = ciudad.id
+                    on comuna.ciudad_id = ciudad.id
 
                     where lugares.id = temp_lugares.lugar_id and temp_lugares.estado_id = 1
                     and ciudad.id = $ciudadId

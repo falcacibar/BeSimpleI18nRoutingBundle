@@ -158,6 +158,7 @@
 {% endblock %}
 
 {% block content %}
+
 <form name="agregar-lugar" action="{% if lugar.slug %}{{ path('_editar', {'slug': lugar.slug}) }}{% else %}{{ path('_agregar') }}{% endif %}" method="post" {{ form_enctype(form) }}>
 {{ form_widget(form._token) }}
 

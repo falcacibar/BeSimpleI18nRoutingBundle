@@ -677,7 +677,9 @@ class LugarController extends Controller{
         $data['pais'] = $lr->getPaises();
         $data['comuna'] = $lr->getComunas();
         $data['sector'] = $lr->getSectores();
-        $data['ciudadActual'] = $lr->getCiudadById('1');
+
+        $ciudad = $this->get('session')->get('ciudad');
+        $data['ciudadActual'] = $lr->getCiudadById($ciudad['id']);
          
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
