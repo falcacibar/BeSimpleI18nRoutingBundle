@@ -93,7 +93,7 @@ class FacebookProvider implements UserProviderInterface
                     if(isset($fbdata['id'])) {
                         $fbimg = $this->facebook->api(array(
                             'method' => 'fql.query',
-                            'query' => "SELECT pic_large FROM user WHERE uid = ".$fbdata['id'],
+                            'query' => "SELECT pic_square FROM user WHERE uid = ".$fbdata['id'],
                             'callback' => ''
                         ));
                     }
