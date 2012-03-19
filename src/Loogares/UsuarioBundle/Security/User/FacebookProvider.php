@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Loogares\UsuarioBundle\Entity\Usuario;
+use Loogares\UsuarioBundle\Controller\UsuarioController;
 use Loogares\ExtraBundle\Functions\LoogaresFunctions;
 use \BaseFacebook;
 use \FacebookApiException;
@@ -27,6 +28,8 @@ class FacebookProvider implements UserProviderInterface
         $this->userManager = $em;
         $this->validator = $validator;
         $this->container = $container;
+
+        //$this->container->get('security.context');
     }
 
     public function supportsClass($class)
@@ -86,10 +89,16 @@ class FacebookProvider implements UserProviderInterface
                     if($repetidos > 0)
                         $slug = $slug.'-'.++$repetidos;                    
                     $user->setSlug($slug);
-                    /*if (isset($fbdata['picture'])) {
-                        $user->setImagenFull($fbdata['picture']);
-                    }*/
-                    $user->setImagenFull("default.gif");
+
+                    if(isset($fbdata['id'])) {
+                        $fbimg = $this->facebook->api(array(
+                            'method' => 'fql.query',
+                            'query' => "SELECT pic_large FROM user WHERE uid = ".$fbdata['id'],
+                            'callback' => ''
+                        ));
+                    }
+                    
+                    $user->setImagenFull($fbimg[0]['pic_large']);
                     $user->setFechaRegistro(new \DateTime());
                     $user->setNewsletterActivo(1);
                     $hashConfirmacion = md5($user->getMail().time());
@@ -107,12 +116,7 @@ class FacebookProvider implements UserProviderInterface
                 }
 
                 $user->setFBData($fbdata);               
-            }           
-
-            /*if (count($this->validator->validate($user, 'Facebook'))) {
-                // TODO: the user was found obviously, but doesnt match our expectations, do something smart
-                throw new UsernameNotFoundException('The facebook user could not be stored');
-            }*/
+            }
             
             $em->flush();
         }
