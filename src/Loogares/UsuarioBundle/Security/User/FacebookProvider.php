@@ -98,7 +98,7 @@ class FacebookProvider implements UserProviderInterface
                         ));
                     }
                     
-                    $user->setImagenFull($fbimg[0]['pic_large']);
+                    $user->setImagenFull($fbimg[0][0]);
                     $user->setFechaRegistro(new \DateTime());
                     $user->setNewsletterActivo(1);
                     $hashConfirmacion = md5($user->getMail().time());
