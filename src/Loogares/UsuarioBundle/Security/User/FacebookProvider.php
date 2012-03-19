@@ -6,6 +6,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Loogares\UsuarioBundle\Entity\Usuario;
 use Loogares\UsuarioBundle\Controller\UsuarioController;
 use Loogares\ExtraBundle\Functions\LoogaresFunctions;
@@ -97,8 +98,8 @@ class FacebookProvider implements UserProviderInterface
                             'callback' => ''
                         ));
                     }
-                    
-                    $user->setImagenFull($fbimg[0]['pic_big']);
+                   
+                    $user->setImagenFull("default.gif");
                     $user->setFechaRegistro(new \DateTime());
                     $user->setNewsletterActivo(1);
                     $hashConfirmacion = md5($user->getMail().time());
@@ -113,12 +114,38 @@ class FacebookProvider implements UserProviderInterface
                                       ->findOneByNombre('ROLE_USER');
                     $user->setTipoUsuario($tipoUsuario);
                     $em->persist($user);
+                    $em->flush();
+
+                    // Imagen Facebook
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_POST, 0);
+                    curl_setopt($ch, CURLOPT_URL, $fbimg[0]['pic_big']);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+                    $result = curl_exec($ch);
+                    curl_close($ch);
+
+                    $u = explode('.',$fbimg[0]['pic_big']);
+                    $ext = array_pop($u);
+                    $fn = time().'.jpg';
+                    $imgName = '';
+                    if(file_put_contents('assets/images/temp/'.$fn, $result)) {
+                        
+                        if(getimagesize('assets/images/temp/'.$fn)) {
+                            $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);
+                            $user->file = $imagen;
+                        }                        
+                    }
                 }
 
                 $user->setFBData($fbdata);               
             }
             
             $em->flush();
+
+            if(isset($fn)) {
+                unlink('assets/images/temp/'.$fn);
+            }
         }
 
         if (empty($user)) {
