@@ -670,7 +670,7 @@ class LugarController extends Controller{
         }
 
         $data['tipoCategoria'] = $lr->getTipoCategorias();
-        $q = $em->createQuery("SELECT DISTINCT u.nombre from Loogares\LugarBundle\Entity\SubCategoria u");
+        $q = $em->createQuery("SELECT DISTINCT u.nombre from Loogares\LugarBundle\Entity\SubCategoria u ORDER BY u.nombre asc");
         $data['subCategorias'] = $q->getResult();
         $data['caracteristicas'] = $lr->getCaracteristicas();
         $data['ciudad'] = $lr->getCiudades();
@@ -1114,6 +1114,14 @@ class LugarController extends Controller{
         // Flag que determina si la recomendación es nueva o no
         $nueva = true;
 
+        //Revisamos si el usuario tiene ya una recomendacion en este lugar
+        $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u where u.usuario = ?1 and u.lugar = ?2");
+        $q->setParameter(1, $lugar->getId())
+          ->setParameter(2, $this->get('security.context')->getToken()->getUser()->getId());
+        $yaRecomendo = $q->getResult();
+        
+        
+
         if(isset($_POST['editando']) && $_POST['editando'] == 1){
             $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado = 2");
             $q->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId());
@@ -1129,6 +1137,7 @@ class LugarController extends Controller{
             $recomendacion = new Recomendacion();
         }
 
+if(sizeOf($yaRecomendo) == 0){
         if($request->getMethod() == 'POST'){
             $newTagRecomendacion = array();
             $tag = array();
@@ -1318,6 +1327,7 @@ class LugarController extends Controller{
                         $this->get('mailer')->send($message);
                     }
                 }
+}
                 //SET FLASH AND REDIRECTTT
                 $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
