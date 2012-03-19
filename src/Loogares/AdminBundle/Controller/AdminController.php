@@ -145,6 +145,15 @@ class AdminController extends Controller
                              WHERE c.ciudad = ?1");
         $q->setParameter(1, $idCiudad);
         $totalRecomendacionesResult = $q->getSingleScalarResult();
+
+        //Total recomendaciones aprobadas por $ciudad
+        $q = $em->createQuery("SELECT count(r)
+                             FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                             LEFT JOIN r.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1 and r.estado = 2");
+        $q->setParameter(1, $idCiudad);
+        $totalRecomendacionesAprobadasResult = $q->getSingleScalarResult();
     
         //Total recomendaciones reportadas por $ciudad
         $q = $em->createQuery("SELECT count(r)
@@ -185,6 +194,7 @@ class AdminController extends Controller
             'totalFotosPorRevisar' => $totalFotosPorRevisarResult,
             'totalFotosEliminadas' => $totalFotosEliminadasResult,
             'totalRecomendaciones' => $totalRecomendacionesResult,
+            'totalRecomendacionesAprobadas' => $totalRecomendacionesAprobadasResult,
             'totalRecomendacionesReportadas' => $totalRecomendacionesReportadasResult,
             'totalRecomendacionesEliminadas' => $totalRecomendacionesEliminadasResult,
             'totalPedidos' => $totalPedidosResult,

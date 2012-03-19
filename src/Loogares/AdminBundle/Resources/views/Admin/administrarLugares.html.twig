@@ -41,6 +41,9 @@
 			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad }) }}">Total</a> <span class="totales_azul">{{totalRecomendaciones}}</span>
 		</li>
 		<li>
+			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad }) }}">Aprobadas</a> <span class="totales">{{totalRecomendacionesAprobadas}}</span>
+		</li>
+		<li>
 			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad, 'pestado': 'Reportado', 'fecha_creacion': 'asc' }) }}">Reportadas</a> <span class="totales">{{totalRecomendacionesReportadas}}</span>
 		</li>
 		<li>
