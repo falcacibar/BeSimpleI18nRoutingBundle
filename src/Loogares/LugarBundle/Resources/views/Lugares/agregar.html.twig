@@ -338,7 +338,7 @@
             <label>{{'lugar.agregar.pais'|trans}} <span class="obligatorio">*</span></label>
             <select class='pais required' title='' name='pais' id='pais'>
             {% for pais in data.pais %}
-                <option {% if data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
+                <option {% if lugaresRevisados is not defined and data.ciudadActual.pais.id == pais.id %} selected="selected" {% endif %} value="{{pais.slug}}">{{pais.nombre}}</option>
             {% endfor %}
             </select>
             {% if lugaresRevisados is defined %}
@@ -356,7 +356,7 @@
                 <optgroup label="{{pais.nombre}}">
                     {% for ciudad in data.ciudad %}
                         {% if ciudad.pais.id == pais.id %}
-                        <option {% if data.ciudadActual.id == ciudad.id %} selected="selected" {% endif %} value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
+                        <option {% if lugaresRevisados is not defined and data.ciudadActual.id == ciudad.id %} selected="selected" {% endif %} value="{{ciudad.slug}}">{{ciudad.nombre}}</option>
                         {% endif %}
                     {% endfor %}
                 </optgroup>
