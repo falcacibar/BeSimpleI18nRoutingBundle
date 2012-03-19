@@ -169,7 +169,7 @@ class LoogaresFunctions
 	}
 
 	public function stripHTTP($ele){
-		return preg_replace('/^http:\/\//', '', $ele);
+		return preg_replace('/^http[s]?:\/\//', '', $ele);
 	}
 
 	public function generarHorario($horarioArray){

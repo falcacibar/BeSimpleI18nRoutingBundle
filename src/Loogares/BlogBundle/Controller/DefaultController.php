@@ -15,9 +15,14 @@ class DefaultController extends Controller
     public function postAction($slug){
     	$em = $this->getDoctrine()->getEntityManager();
         $anteriores = null;
+        $fn = $this->get('fn');
         
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
         $post = $pr->findOneBySlug($slug);
+
+        $post->getLugar()->setSitioWeb($fn->stripHTTP($post->getLugar()->getSitioWeb()));
+        $post->getLugar()->setTwitter($fn->stripHTTP($post->getLugar()->getTwitter()));
+        $post->getLugar()->setFacebook($fn->stripHTTP($post->getLugar()->getFacebook()));
 
         if(gettype($post) == 'object'){
             $q = $em->createQuery('SELECT u FROM Loogares\BlogBundle\Entity\Posts u WHERE u.tipo_post = ?1 and u.lugar = ?2 and u.id != ?3');
