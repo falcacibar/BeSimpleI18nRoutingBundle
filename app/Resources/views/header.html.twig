@@ -1,6 +1,6 @@
 <div class="barra_ciudad">
 	<div class="centrado_ciudad">
-		<a href="{{path('root')}}">
+		<a href="/{{app.session.get('ciudad').slug|default('')}}">
 			<div class="logo_ciudad">
 				<div class="borde_logo">			
 					<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />

@@ -23,8 +23,15 @@ class SearchController extends Controller{
   public function buscarAction(Request $request, $slug, $path, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
     $fn = $this->get('fn');
     $em = $this->getDoctrine()->getEntityManager();
-    $ciudad = $this->get('session')->get('ciudad');
-    $idCiudad = $ciudad['id'];
+    $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
+    $ciudad = $cr->findOneBySlug($slug);
+    $ciudadArray = array();
+    $ciudadArray['id'] = $ciudad->getId();
+    $ciudadArray['nombre'] = $ciudad->getNombre();
+    $ciudadArray['slug'] = $ciudad->getSlug();
+
+    $this->get('session')->set('ciudad',$ciudadArray);
+    $idCiudad = $ciudad->getId();
     $order = null;
     $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
 
