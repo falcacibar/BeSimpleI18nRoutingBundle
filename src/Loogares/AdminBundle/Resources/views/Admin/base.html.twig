@@ -29,6 +29,7 @@
         </div>
 
         <div class="contenido">
+            {% if ciudad is defined %}
             <div class="breadcrumbs">
                 <ul>
                     <li>Estas en:</li>
@@ -59,10 +60,10 @@
                         {% elseif type is defined and type == 'listado-fotos' %}
                             » <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'slug': 'todos', 'ciudad': ciudad.slug}) }}">Fotos (Totales)</a>
                         {% endif %}
-                        
                     </li>
                 </ul>
             </div>
+            {% endif %}
             {% block content %}
             {% endblock %}
         </div>

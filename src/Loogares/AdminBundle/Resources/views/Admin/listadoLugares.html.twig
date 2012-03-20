@@ -436,15 +436,15 @@
                                 <span>
                                 <a target="_blank" href="{{ path('_editar', {'slug':lugar.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
                                 {% if lugar.estado == 'Eliminado' %}
-                                    <a href="{{ path('LoogaresAdminBundle_habilitarLugar', query|merge({'pestado': query.pestado, 'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+                                    <a href="{{ path('LoogaresAdminBundle_habilitarLugar', query|merge({'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                                 {% else %}
-                                    <a href="{{ path('LoogaresAdminBundle_borrarLugar', query|merge({'pestado': query.pestado,'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+                                    <a href="{{ path('LoogaresAdminBundle_borrarLugar', query|merge({'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
                                 {% endif %}
 
                                 {% if lugar.estado == 'Cerrado' or lugar.estado == 'Por revisar' %}
-                                    <a href="{{ path('LoogaresAdminBundle_habilitarLugar', query|merge({'pestado': query.pestado,'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+                                    <a href="{{ path('LoogaresAdminBundle_habilitarLugar', query|merge({'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                                 {% else %}
-                                    <a href="{{ path('LoogaresAdminBundle_cerrarLugar', query|merge({'pestado': query.pestado,'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
+                                    <a href="{{ path('LoogaresAdminBundle_cerrarLugar', query|merge({'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
                                 {% endif %}
                                 </span>
                             </td>

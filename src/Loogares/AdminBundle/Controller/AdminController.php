@@ -11,6 +11,7 @@ use Loogares\LugarBundle\Entity\PedidoLugar;
 class AdminController extends Controller
 {
     public function indexAction(){
+        
         return $this->render('LoogaresAdminBundle:Admin:index.html.twig');
     }
 
