@@ -60,9 +60,17 @@
                 <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans }}</p>
             </div>
     {% endif %}
+    {% if app.session.hasFlash('cerrado_flash') %}
+            <div class="mensaje_cerrado">
+                <div class="imagen_cerrado"></div><p class="txt_exito">{{ app.session.flash('cerrado_flash') | trans }}</p>
+            </div>
+    {% endif %}
 
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
+            {% if app.session.hasFlash('cerrado_flash') %}
+                <div class="overlay"><div class="bar"></div></div>
+            {% endif %}
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
             <div class="favoritos_lugar{{(is_granted('ROLE_USER') == false) ? '' : ''}}">
                 {% if lugar.accionesUsuario.3.puede == 1 %}
@@ -266,9 +274,9 @@
                     </div>
                 {% endif %}
             </div>
-
         </div>
 
+{% if app.session.hasFlash('cerrado_flash') is not defined %}
         <div class="actividad_lugar">
             {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
             <a class="recomienda_lugar"></a>
@@ -384,6 +392,7 @@
                 </ul>
             </div>
         </div>
+{% endif %}
 
         {% if lugar.recomendacion|length != 0 %}
 
@@ -536,12 +545,13 @@
         </div>
 
         
-        {% else %}
+        {% elseif app.session.hasFlash('cerrado_flash') is not defined %}
             <div>
                 <h2 class="titulo_recomendaciones">{{'lugar.ficha.recomendaciones.titulo_0'|trans}} {{ lugar.nombre }}</h2>
             </div>
         {% endif %}
-        {% if is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
+
+        {% if is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null and app.session.hasFlash('cerrado_flash') is not defined%}
             {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
 
             <a class="fancybox" href="#recomendacion_popup"></a>

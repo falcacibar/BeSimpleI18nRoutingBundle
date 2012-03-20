@@ -57,7 +57,7 @@ class LugarController extends Controller{
         $qb = $em->createQueryBuilder();
         $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
         
-        $lugarResult = $lr->getLugares($slug);
+        $lugarResult[0] = $lr->findOneBySlug($slug);
 
         $visitas = $lugarResult[0]->getVisitas();
         $visitas++;
@@ -276,6 +276,8 @@ class LugarController extends Controller{
 
         if($lugarResult[0]->getEstado()->getId() == 1){
           $this->get('session')->setFlash('lugar_flash', 'Este lugar se encuentra en Revisión.');
+        }else if($lugarResult[0]->getEstado()->getId() == 3){ 
+          $this->get('session')->setFlash('cerrado_flash', 'Este lugar está cerrado. De reabrirse, quitaremos este mensaje. En caso contrario borraremos este lugar después de un tiempo.');
         }
 
         //Render ALL THE VIEWS

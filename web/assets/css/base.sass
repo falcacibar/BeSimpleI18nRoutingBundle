@@ -203,7 +203,7 @@ input[type=checkbox], input[type=radio]
 .mensaje_exito
     @include borde_redondeado_grande
     background: $amarillo
-    color: $gris_666
+    color: $amarillo
     display: block
     float: left
     line-height: 20px
@@ -219,6 +219,35 @@ input[type=checkbox], input[type=radio]
 
     .imagen_exito
         background: url('../images/extras/botones_sprite.png') 0px -129px
+        display: block
+        float: left
+        height: 20px
+        padding: 0 10px 0 0
+        width: 20px
+
+    .txt_exito
+        float: left
+        margin: 3px 0 0
+
+.mensaje_cerrado
+    @include borde_redondeado_grande
+    background: $gris_444
+    color: #fff
+    display: block
+    float: left
+    line-height: 20px
+    margin: 0 0 20px 0
+    padding: 10px
+    width: 940px
+
+    a
+        @include link_azul
+
+        &:hover
+            @include link_azul_hover
+
+    .imagen_cerrado
+        background: url('../images/extras/iconos_ficha_lugar.png') 0px -660px 
         display: block
         float: left
         height: 20px
@@ -839,7 +868,8 @@ textarea
             display: block
             float: left
             width: 640px
-        
+            position: relative
+
         .mensaje_registro
             @include titulo_grosero
             border: 1px solid $gris_ccc
@@ -1546,4 +1576,6 @@ small
 
 .fb_hidden_button
     display: none
+
+
     
