@@ -3,7 +3,7 @@
 {% block title %}Lugares | {{parent()}}{% endblock %}
 {% block content %}
 
-<h1 class="titulo_admin">Lugares | {{ ciudadNombre }}</h1>
+<h1 class="titulo_admin">Lugares | {{ ciudad.nombre }}</h1>
 
 <div class="filtro_admin">
     <div class="periodo">
@@ -11,7 +11,7 @@
         y el <input type="text" class="periodo_fecha" id="fecha-hasta-ph" value="">
     </div>
 
-    <form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad })}}" method="get">
+    <form class="filtrar-por-fecha" action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug })}}" method="get">
         <input type="hidden" name="fecha-desde" id="fecha-desde" value="">
         <input type="hidden" name="fecha-hasta" id="fecha-hasta" value="">
         <div class="buscar">
@@ -29,12 +29,12 @@
                 <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
             </select>
             <input type="submit" value="Filtrar"/>
-            <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad})}}">Quitar filtros</a>
+            <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug})}}">Quitar filtros</a>
         </div>
     </form>
 </div>
 
-<form action="{{ path('LoogaresAdminBundle_accionLugar', {'ciudad': ciudad}) }}" method="post">
+<form action="{{ path('LoogaresAdminBundle_accionLugar', {'ciudad': ciudad.slug}) }}" method="post">
     <div class="listado_admin">
         <div class="table-data">
             <table class="listado_lugares">
@@ -45,11 +45,11 @@
                         <span>
                         <p class="titulos_tabla">Id</p>
                         <p class="list-actions">
-                            <a class="{% if query.id is defined and query.id == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"id": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.id is defined and query.id == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"id": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.id is defined and query.id == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"id": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.id is defined and query.id == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"id": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'id': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'id': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -57,11 +57,11 @@
                         <span>
                         <p class="titulos_tabla">Nombre</p>
                         <p class="list-actions">
-                            <a class="{% if query.nombre is defined and query.nombre == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"nombre": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.nombre is defined and query.nombre == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"nombre": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.nombre is defined and query.nombre == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"nombre": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.nombre is defined and query.nombre == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"nombre": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'nombre': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'nombre': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -69,11 +69,11 @@
                         <span>
                         <p class="titulos_tabla">Usuario</p>
                         <p class="list-actions">
-                            <a class="{% if query.usuario is defined and query.usuario == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"usuario": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.usuario is defined and query.usuario == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"usuario": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.usuario is defined and query.usuario == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"usuario": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.usuario is defined and query.usuario == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"usuario": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'usuario': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'usuario': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -81,11 +81,11 @@
                         <span>
                         <p class="titulos_tabla">Categorías</p>
                         <p class="list-actions">
-                            <a class="{% if query.categoria is defined and query.categoria == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"categoria": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.categoria is defined and query.categoria == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"categoria": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.categoria is defined and query.categoria == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"categoria": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.categoria is defined and query.categoria == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"categoria": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'categoria': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'categoria': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -93,11 +93,11 @@
                         <span>
                         <p class="titulos_tabla">Subcategorías</p>
                         <p class="list-actions">
-                            <a class="{% if query.subcategoria is defined and query.subcategoria == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"subcategoria": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.subcategoria is defined and query.subcategoria == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"subcategoria": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.subcategoria is defined and query.subcategoria == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"subcategoria": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.subcategoria is defined and query.subcategoria == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"subcategoria": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'subcategoria': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'subcategoria': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -105,11 +105,11 @@
                         <span>
                         <p class="titulos_tabla">Dirección</p>
                         <p class="list-actions">
-                            <a class="{% if query.calle is defined and query.calle == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"calle": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.calle is defined and query.calle == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"calle": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.calle is defined and query.calle == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"calle": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.calle is defined and query.calle == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"calle": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'calle': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'calle': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -118,11 +118,11 @@
                         <p class="titulos_tabla">Detalle</p>
                         <p class="list-actions">
 
-                            <a class="{% if query.detalle is defined and query.detalle == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"detalle": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.detalle is defined and query.detalle == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"detalle": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.detalle is defined and query.detalle == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"detalle": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.detalle is defined and query.detalle == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"detalle": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'detalle': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'detalle': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -131,11 +131,11 @@
                         <p class="titulos_tabla">Comuna</p>
                         <p class="list-actions">
          
-                            <a class="{% if query.comuna is defined and query.comuna == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"comuna": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.comuna is defined and query.comuna == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"comuna": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.comuna is defined and query.comuna == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"comuna": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.comuna is defined and query.comuna == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"comuna": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'comuna': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'comuna': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -148,11 +148,11 @@
                             {% else %}
                                 {% set sector = 'asc' %}
                             {% endif %}
-                            <a class="{% if query.sector is defined and query.sector == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"sector": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.sector is defined and query.sector == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"sector": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.sector is defined and query.sector == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"sector": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.sector is defined and query.sector == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"sector": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'sector': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'sector': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -160,11 +160,11 @@
                         <span>
                         <p class="titulos_tabla">Recomendaciones</p>
                         <p class="list-actions">
-                            <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"recomendaciones": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"recomendaciones": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"recomendaciones": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.recomendaciones is defined and query.recomendaciones == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"recomendaciones": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'recomendaciones': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'recomendaciones': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -172,11 +172,11 @@
                         <span>
                         <p class="titulos_tabla">Estrellas</p>
                         <p class="list-actions">
-                            <a class="{% if query.estrellas is defined and query.estrellas == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"estrellas": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.estrellas is defined and query.estrellas == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"estrellas": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.estrellas is defined and query.estrellas == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"estrellas": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.estrellas is defined and query.estrellas == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"estrellas": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'estrellas': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'estrellas': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -184,11 +184,11 @@
                         <span>
                         <p class="titulos_tabla">Útiles</p>
                         <p class="list-actions">
-                            <a class="{% if query.utiles is defined and query.utiles == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"utiles": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.utiles is defined and query.utiles == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"utiles": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.utiles is defined and query.utiles == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"utiles": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.utiles is defined and query.utiles == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"utiles": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'utiles': false, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'utiles': false, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -196,11 +196,11 @@
                         <span>
                         <p class="titulos_tabla">Precio</p>
                         <p class="list-actions">
-                            <a class="{% if query.precio is defined and query.precio == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"precio": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.precio is defined and query.precio == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"precio": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.precio is defined and query.precio == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"precio": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.precio is defined and query.precio == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"precio": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'precio': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'precio': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -218,11 +218,11 @@
                         <span>
                         <p class="titulos_tabla">Imágenes</p>
                         <p class="list-actions">
-                            <a class="{% if query.imagenes is defined and query.imagenes == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"imagenes": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.imagenes is defined and query.imagenes == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"imagenes": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.imagenes is defined and query.imagenes == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"imagenes": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.imagenes is defined and query.imagenes == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"imagenes": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'imagenes': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'imagenes': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -237,11 +237,11 @@
                         <span>
                         <p class="titulos_tabla">Sitio Web</p>
                         <p class="list-actions">
-                            <a class="{% if query.www is defined and query.www == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"www": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.www is defined and query.www == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"www": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.www is defined and query.www == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"www": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.www is defined and query.www == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"www": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'www': false, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'www': false, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -249,11 +249,11 @@
                         <span>
                         <p class="titulos_tabla">Facebook</p>
                         <p class="list-actions">
-                            <a class="{% if query.facebook is defined and query.facebook == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"facebook": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.facebook is defined and query.facebook == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"facebook": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.facebook is defined and query.facebook == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"facebook": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.facebook is defined and query.facebook == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"facebook": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'facebook': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'facebook': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -261,11 +261,11 @@
                         <span>
                         <p class="titulos_tabla">Twitter</p>
                         <p class="list-actions">
-                            <a class="{% if query.twitter is defined and query.twitter == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"twitter": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.twitter is defined and query.twitter == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"twitter": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.twitter is defined and query.twitter == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"twitter": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.twitter is defined and query.twitter == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"twitter": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'twitter': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'twitter': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -273,11 +273,11 @@
                         <span>
                         <p class="titulos_tabla">E-mail</p>
                         <p class="list-actions">
-                            <a class="{% if query.mail is defined and query.mail == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"mail": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.mail is defined and query.mail == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"mail": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.mail is defined and query.mail == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"mail": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.mail is defined and query.mail == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"mail": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'mail': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'mail': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>           
@@ -290,11 +290,11 @@
                         <span>
                         <p class="titulos_tabla">Estado</p>
                         <p class="list-actions">
-                            <a class="{% if query.mail is defined and query.mail == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"estado": 'asc', 'ciudad': ciudad }))}}">⬆</a>
+                            <a class="{% if query.mail is defined and query.mail == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"estado": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.mail is defined and query.mail == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"estado": 'desc', 'ciudad': ciudad }))}}">⬇</a>
+                            <a class="{% if query.mail is defined and query.mail == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"estado": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'estado': null, 'ciudad': ciudad }))}}">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'estado': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>  
@@ -328,26 +328,26 @@
                             </td>
                             <td class="lugar_usuario">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pusuario': lugar.usuarioSlug, 'ciudad': ciudad}) }}">{{lugar.usuarioSlug}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pusuario': lugar.usuarioSlug, 'ciudad': ciudad.slug}) }}">{{lugar.usuarioSlug}}</a>
                                 </span>
                             </td>
                             <td class="lugar_categoria">
                                 <span>
                                 {% for categoria in lugar.categorias %}
-                                    <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pcategoria': categoria, 'ciudad': ciudad}) }}">{{categoria}}</a>{% if loop.last == false %}, {% endif %}
+                                    <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pcategoria': categoria, 'ciudad': ciudad.slug}) }}">{{categoria}}</a>{% if loop.last == false %}, {% endif %}
                                 {% endfor %}
                                 </span>
                             </td>
                             <td class="lugar_subcategoria">
                                 <span>
                                 {% for subcategoria in lugar.subcategorias %}
-                                    <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'psubcategoria': subcategoria, 'ciudad': ciudad}) }}">{{subcategoria}}{% if loop.last == false %}, {% endif %}
+                                    <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'psubcategoria': subcategoria, 'ciudad': ciudad.slug}) }}">{{subcategoria}}{% if loop.last == false %}, {% endif %}
                                 {% endfor %} 
                                 </span>
                             </td>
                             <td class="lugar_direccion">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pcalle': lugar.calle, 'ciudad': ciudad}) }}">{{lugar.calle}} - {{lugar.numero}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pcalle': lugar.calle, 'ciudad': ciudad.slug}) }}">{{lugar.calle}} - {{lugar.numero}}</a>
                                 </span>
                             </td>
                             <td class="lugar_detalle">
@@ -357,32 +357,32 @@
                             </td>
                             <td class="lugar_comuna">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pcomuna': lugar.comunaNombre, 'ciudad': ciudad}) }}">{{lugar.comunaNombre}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pcomuna': lugar.comunaNombre, 'ciudad': ciudad.slug}) }}">{{lugar.comunaNombre}}</a>
                                 </span>
                             </td>
                             <td class="lugar_sector">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'psector': lugar.sectorNombre, 'ciudad': ciudad}) }}">{{lugar.sectorNombre}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'psector': lugar.sectorNombre, 'ciudad': ciudad.slug}) }}">{{lugar.sectorNombre}}</a>
                                 </span>
                             </td>
                             <td class="lugar_recomendaciones">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'plugar': lugar.slug, 'ciudad': ciudad}) }}">{{lugar.recomendaciones | default(0)}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'plugar': lugar.slug, 'ciudad': ciudad.slug}) }}">{{lugar.recomendaciones | default(0)}}</a>
                                 </span>
                             </td>
                             <td class="lugar_estrellas">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pestrellas': lugar.estrellas, 'ciudad': ciudad}) }}">{{lugar.estrellas | default(0)}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pestrellas': lugar.estrellas, 'ciudad': ciudad.slug}) }}">{{lugar.estrellas | default(0)}}</a>
                                 </span>
                             </td>
                             <td class="lugar_utiles">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'putiles': lugar.utiles, 'ciudad': ciudad}) }}">{{lugar.utiles}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'putiles': lugar.utiles, 'ciudad': ciudad.slug}) }}">{{lugar.utiles}}</a>
                                 </span>
                             </td>
                             <td class="lugar_precio">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pprecio': lugar.precio, 'ciudad': ciudad}) }}">{{lugar.precio}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pprecio': lugar.precio, 'ciudad': ciudad.slug}) }}">{{lugar.precio}}</a>
                                 </span>
                             </td>
                             <td class="lugar_ranking">
@@ -390,33 +390,33 @@
                                 </span>
                             </td>
                             <td class="lugar_imagenes">
-                                <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': lugar.slug}) }}">{{lugar.imagenes}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad.slug, 'slug': lugar.slug}) }}">{{lugar.imagenes}}</a>
                             </td>
                             <td class="lugar_caracteristicas">
                                 <span>
                                 {% for caracteristica in lugar.caracteristicas %}
-                                    <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pcaracteristica': caracteristica, 'ciudad': ciudad}) }}">{{caracteristica}}</a>{% if loop.last == false %}, {% endif %}
+                                    <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pcaracteristica': caracteristica, 'ciudad': ciudad.slug}) }}">{{caracteristica}}</a>{% if loop.last == false %}, {% endif %}
                                 {% endfor %}
                                 </span>
                             </td>
                             <td class="lugar_sitio_web">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pwww': lugar.sitio_web, 'ciudad': ciudad}) }}">{{lugar.sitio_web}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pwww': lugar.sitio_web, 'ciudad': ciudad.slug}) }}">{{lugar.sitio_web}}</a>
                                 </span>
                             </td>
                             <td class="lugar_facebook">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pfacebook': lugar.facebook, 'ciudad': ciudad}) }}">{{lugar.facebook}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pfacebook': lugar.facebook, 'ciudad': ciudad.slug}) }}">{{lugar.facebook}}</a>
                                 </span>
                             </td>
                             <td class="lugar_twitter">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ptwitter': lugar.twitter, 'ciudad': ciudad}) }}">{{lugar.twitter}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ptwitter': lugar.twitter, 'ciudad': ciudad.slug}) }}">{{lugar.twitter}}</a>
                                 </span>
                             </td>
                             <td class="lugar_e_mail">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pmail': lugar.mail, 'ciudad': ciudad}) }}">{{lugar.mail}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pmail': lugar.mail, 'ciudad': ciudad.slug }) }}">{{lugar.mail}}</a>
                                 </span>
                             </td>
                             <td class="lugar_dueno">
@@ -425,7 +425,7 @@
                             </td>
                             <td class="lugar_estado">
                                 <span>
-                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pestado': lugar.estado, 'ciudad': ciudad}) }}">{{lugar.estado}}</a>
+                                <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pestado': lugar.estado, 'ciudad': ciudad.slug}) }}">{{lugar.estado}}</a>
                                 </span>
                             </td>
                             <td class="lugar_tipo">
@@ -436,15 +436,15 @@
                                 <span>
                                 <a target="_blank" href="{{ path('_editar', {'slug':lugar.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
                                 {% if lugar.estado == 'Eliminado' %}
-                                    <a href="{{ path('LoogaresAdminBundle_habilitarLugar', query|merge({'ciudad': ciudad, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+                                    <a href="{{ path('LoogaresAdminBundle_habilitarLugar', query|merge({'pestado': query.pestado, 'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                                 {% else %}
-                                    <a href="{{ path('LoogaresAdminBundle_borrarLugar', query|merge({'ciudad': ciudad, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+                                    <a href="{{ path('LoogaresAdminBundle_borrarLugar', query|merge({'pestado': query.pestado,'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
                                 {% endif %}
 
                                 {% if lugar.estado == 'Cerrado' or lugar.estado == 'Por revisar' %}
-                                    <a href="{{ path('LoogaresAdminBundle_habilitarLugar', query|merge({'ciudad': ciudad, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+                                    <a href="{{ path('LoogaresAdminBundle_habilitarLugar', query|merge({'pestado': query.pestado,'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                                 {% else %}
-                                    <a href="{{ path('LoogaresAdminBundle_cerrarLugar', query|merge({'ciudad': ciudad, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
+                                    <a href="{{ path('LoogaresAdminBundle_cerrarLugar', query|merge({'pestado': query.pestado,'ciudad': ciudad.slug, 'id':lugar.id})) }}"><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
                                 {% endif %}
                                 </span>
                             </td>
@@ -468,7 +468,7 @@
 </form>
 
 <div class="total_paginacion">
-    <form action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad })}}" method="get">
+    <form action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug })}}" method="get">
         <strong>
             {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
             <input class="ir_a_la_pagina" type="submit" value="Ir"/> o navegar...

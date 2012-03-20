@@ -3,6 +3,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}Administrador Loogares.com{% endblock %}</title>
+        {% stylesheets output='assets/css/compressed.css' filter='?yui_css,sass' 
+            'assets/css/*.sass' 
+        %}
+        {% endstylesheets %}
         {% block stylesheets %}{% endblock %}
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
         <script src="{{asset('assets/js/jquery.fixheadertable.min.js')}}"></script>
@@ -29,7 +33,42 @@
         </div>
 
         <div class="contenido">
-            {% block content %}{% endblock %}
+            <div class="breadcrumbs">
+                <ul>
+                    <li>Estas en:</li>
+                    <li><a href="{{ path('LoogaresAdminBundle_administrarLugares', {'ciudad': ciudad.slug}) }}">{{ciudad.nombre}}</a></li>
+                    <li>
+                        {% if query.pestado is defined and type is defined and type == 'listado-lugares' %}
+                            » <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'pestado': query.pestado, 'ciudad': ciudad.slug}) }}">Lugares ({{query.pestado}})</a>
+                        {% elseif type is defined and type == 'listado-lugares' %}
+                            » <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug}) }}">Lugares (Totales)</a>
+                        {% endif %}
+
+                        {% if type is defined and type == 'listado-lugares-revision' %}
+                            » <a href="{{ path('LoogaresAdminBundle_listadoRevision', {'ciudad': ciudad.slug}) }}">Lugares Editados (Por Revisar)</a>
+                        {% endif %}
+
+                        {% if type is defined and type == 'listado-pedidos' %}
+                            » <a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'slug':'todos', 'ciudad': ciudad.slug}) }}">Pedidos Online</a>
+                        {% endif %}
+
+                        {% if query.pestado is defined and type is defined and type == 'listado-recomendaciones' %}
+                            » <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'pestado': query.pestado, 'ciudad': ciudad.slug}) }}">Recomendaciones ({{query.pestado}})</a>
+                        {% elseif type is defined and type == 'listado-recomendaciones' %}
+                            » <a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad.slug}) }}">Recomendaciones (Totales)</a>
+                        {% endif %}
+
+                        {% if query.pestado is defined and type is defined and type == 'listado-fotos' %}
+                            » <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'slug': 'todos', 'pestado': query.pestado, 'ciudad': ciudad.slug}) }}">Fotos ({{query.pestado}})</a>
+                        {% elseif type is defined and type == 'listado-fotos' %}
+                            » <a href="{{ path('LoogaresAdminBundle_fotosLugar', {'slug': 'todos', 'ciudad': ciudad.slug}) }}">Fotos (Totales)</a>
+                        {% endif %}
+                        
+                    </li>
+                </ul>
+            </div>
+            {% block content %}
+            {% endblock %}
         </div>
 
         <div class="footer_admin">

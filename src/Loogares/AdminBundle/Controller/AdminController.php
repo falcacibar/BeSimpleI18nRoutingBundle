@@ -39,7 +39,8 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
 
         $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
-        $idCiudad = $cr->findOneBySlug($ciudad);
+        $ciudad = $cr->findOneBySlug($ciudad);
+        $idCiudad = $ciudad;
     
         //Total Lugares por $ciudad
         $q = $em->createQuery("SELECT count(u) 
@@ -217,12 +218,12 @@ class AdminController extends Controller
         $where = "WHERE ciudad.id = $ciudadId";
 
         $filters = array(
-            'pusuario' => 'usuarioMail',
+            'pusuario' => 'usuarios.slug',
             'pcategoria' => 'categorias',
             'psubcategoria' => 'subcategorias',
             'pcalle' => 'calle',
-            'pcomuna' => 'comunaNombre',
-            'psector' => 'sectorNombre',
+            'pcomuna' => 'comuna.nombre',
+            'psector' => 'sector.nombre',
             'pestrellas' => 'estrellas',
             'putiles' => 'utiles', 
             'pprecio' => 'precio',
@@ -239,13 +240,13 @@ class AdminController extends Controller
         $listadoFilters = array(
             'id' => 'lugares.id', 
             'nombre' => 'lugares.nombre',
-            'usuario' => 'usuarioMail',
+            'usuario' => 'usuarios.slug',
             'categoria' => 'categorias',
             'subcategoria' => 'subcategorias',
             'calle' => 'lugares.calle',
             'detalle' => 'lugares.detalle',
-            'comuna' => 'comunaNombre',
-            'sector' => 'sectorNombre',
+            'comuna' => 'comuna.nombre',
+            'sector' => 'sector.nombre',
             'estrellas' => 'lugares.estrellas',
             'utiles' => 'utiles',
             'precio' => 'lugares.precio',
@@ -372,8 +373,8 @@ class AdminController extends Controller
             'filters' => $filters,
             'query' => $_GET,
             'paginacion' => $paginacion,
-            'ciudad' => $ciudadSlug,
-            'ciudadNombre' => $ciudadNombre
+            'ciudad' => $ciudad,
+            'type' => 'listado-lugares'
         ));
     }
 
@@ -408,7 +409,8 @@ class AdminController extends Controller
 
         return $this->render('LoogaresAdminBundle:Admin:listadoRevision.html.twig',array(
             'lugares' => $ih8doctrine,
-            'ciudad' => $ciudad
+            'ciudad' => $ciudad,
+            'type' => 'listado-lugares-revision'
         ));        
     }
 
@@ -497,6 +499,7 @@ class AdminController extends Controller
         $args = array(
             'ciudad' => $ciudad
         );
+
         $args = array_merge($args, $_GET);
         unset($args['id']);
 
@@ -517,8 +520,8 @@ class AdminController extends Controller
             'pmail' => 'usuarios.mail',
             'psexo' => 'usuarios.sexo',
             'pfecha_nacimiento' => 'usuarios.fecha_nacimiento',
-            'pestado' => 'estadoNombre',
-            'ptipo_usuario' => 'tipoUsuarioNombre',
+            'pestado' => 'estado.nombre',
+            'ptipo_usuario' => 'tipo_usuario.nombre',
             'pwww' => 'usuarios.web',
             'ptwitter' => 'usuarios.twitter',
             'pfacebook' => 'usuarios.facebook'
@@ -532,8 +535,8 @@ class AdminController extends Controller
             'slug' => 'usuarios.slug',
             'sexo' => 'usuarios.sexo',
             'fecha_nacimiento' => 'usuarios.fecha_nacimiento',
-            'estado' => 'estadoNombre',
-            'tipo_usuario' => 'tipoUsuarioNombre',
+            'estado' => 'estado.nombre',
+            'tipo_usuario' => 'tipo_usuario.nombre',
             'imagenes' => 'imagenes',
             'recomendaciones' => 'recomendaciones',
             'lugares' => 'lugares',
@@ -678,6 +681,9 @@ class AdminController extends Controller
     public function fotosLugarAction($ciudad, $slug){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $ciudad = $cr->findOneBySlug($ciudad);
+        $idCiudad = $ciudad->getId();
 
         if($slug == 'todos'){
             $nombre = "Todos";
@@ -689,6 +695,8 @@ class AdminController extends Controller
             $nombre = $lugar->getNombre();
         }
         
+
+
         $order = null;
         $like = null;
         $offset = 0;
@@ -765,12 +773,17 @@ class AdminController extends Controller
                     (select estado.nombre from estado where il.estado_id = estado.id) as estado,
                     (select usuarios.slug from usuarios where usuarios.id = il.usuario_id) as usuario
 
+
                     from imagenes_lugar as il
 
                     left join lugares
                     on lugares.id = il.lugar_id
 
+                    left join comuna
+                    on lugares.comuna_id = comuna.id
+
                     $where
+                    AND comuna.ciudad_id = $idCiudad
                     GROUP BY il.id
                     $like
                     $order
@@ -781,7 +794,7 @@ class AdminController extends Controller
 
         $params = array(
             'slug'=> $slug,
-            'ciudad' => $ciudad
+            'ciudad' => $ciudad->getSlug()
         );
 
         $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_fotosLugar', $params, $this->get('router'));
@@ -792,7 +805,8 @@ class AdminController extends Controller
             'lugar' => $nombre,
             'slug' => $slug,
             'query' => $_GET,
-            'paginacion' => $paginacion
+            'paginacion' => $paginacion,
+            'type' => 'listado-fotos'
         ));
     }
 
@@ -872,8 +886,8 @@ class AdminController extends Controller
         $fn = $this->get('fn');
 
         $filters = array(
-            'pusuario' => 'usuarioSlug',
-            'plugar' => 'lugarSlug',
+            'pusuario' => 'usuarios.slug',
+            'plugar' => 'lugares.nombre',
             'pestrellas' => 'estrellas',
             'pprecio' => 'precio',
             'putil' => 'util',
@@ -885,8 +899,8 @@ class AdminController extends Controller
             'estrellas' => 'estrellas',
             'precio' => 'precio',
             'utiles' => 'util',
-            'usuario' => 'usuarioSlug',
-            'lugar' => 'lugarNombre',
+            'usuario' => 'usuarios.slug',
+            'lugar' => 'lugares.nombre',
             'id' => 'r.id'
         );
 
@@ -990,9 +1004,10 @@ class AdminController extends Controller
 
         return $this->render('LoogaresAdminBundle:Admin:listadoRecomendaciones.html.twig', array(
             'recomendaciones' => $recomendacionesResult,
-            'ciudad' => $ciudad,
+            'ciudad' => $idCiudad,
             'query' => $_GET,
-            'paginacion' => $paginacion
+            'paginacion' => $paginacion,
+            'type' => 'listado-recomendaciones'
         ));
     }
 
@@ -1222,7 +1237,8 @@ class AdminController extends Controller
             $nombre = $lugar->getNombre();
         }
 
-        $idCiudad = $cr->findOneBySlug($ciudad)->getId();
+        $ciudad = $cr->findOneBySlug($ciudad);
+        $idCiudad = $ciudad->getId();
         
         $order = null;
         $like = null;
@@ -1319,7 +1335,7 @@ class AdminController extends Controller
 
         $params = array(
             'slug'=> $slug,
-            'ciudad' => $ciudad,
+            'ciudad' => $ciudad->getSlug()
         );
             
         $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_pedidosLugar', $params, $this->get('router'));
@@ -1331,7 +1347,8 @@ class AdminController extends Controller
             'slug' => $slug,
             'query' => $_GET,
             'servicios' => $servicios,
-            'paginacion' => $paginacion
+            'paginacion' => $paginacion,
+            'type' => 'listado-pedidos'
         ));
     }
 

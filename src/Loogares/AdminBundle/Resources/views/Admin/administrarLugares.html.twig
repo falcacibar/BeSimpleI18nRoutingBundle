@@ -5,24 +5,25 @@
 
 	<h1 class="titulo_admin">Lugares</h1>
 
+
 	<ul class="submenu_admin">
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad}) }}">Total</a> <span class="totales_azul">{{totalLugares}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug}) }}">Total</a> <span class="totales_azul">{{totalLugares}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Por Revisar'}) }}">Agregados (por revisar)</a> <span class="totales">{{totalLugaresPorRevisar}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug, 'pestado': 'Por Revisar'}) }}">Agregados (por revisar)</a> <span class="totales">{{totalLugaresPorRevisar}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoRevision', {'ciudad': ciudad}) }}">Editados (por revisar)</a> <span class="totales">{{totalLugaresConRevision}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoRevision', {'ciudad': ciudad.slug}) }}">Editados (por revisar)</a> <span class="totales">{{totalLugaresConRevision}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Reportado'}) }}">Reportados</a> <span class="totales">{{totalLugaresReportados}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug, 'pestado': 'Reportado'}) }}">Reportados</a> <span class="totales">{{totalLugaresReportados}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Cerrado'}) }}">Cerrados</a> <span class="totales_rojo">{{totalLugaresCerrados}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug, 'pestado': 'Cerrado'}) }}">Cerrados</a> <span class="totales_rojo">{{totalLugaresCerrados}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad, 'pestado': 'Eliminado'}) }}">Eliminados</a> <span class="totales_rojo">{{totalLugaresEliminados}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug, 'pestado': 'Eliminado'}) }}">Eliminados</a> <span class="totales_rojo">{{totalLugaresEliminados}}</span>
 		</li>
 	</ul>
 
@@ -30,7 +31,7 @@
 
 	<ul class="submenu_admin">
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'ciudad': ciudad, 'slug': 'todos' }) }}">Pedidos Online</a> <span class="totales_azul">{{totalPedidos}}</span>
+			<a href="{{ path('LoogaresAdminBundle_pedidosLugar', {'ciudad': ciudad.slug, 'slug': 'todos' }) }}">Pedidos Online</a> <span class="totales_azul">{{totalPedidos}}</span>
 		</li>
 	</ul>
 
@@ -38,16 +39,16 @@
 
 	<ul class="submenu_admin">	
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad }) }}">Total</a> <span class="totales_azul">{{totalRecomendaciones}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad.slug }) }}">Total</a> <span class="totales_azul">{{totalRecomendaciones}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad }) }}">Aprobadas</a> <span class="totales">{{totalRecomendacionesAprobadas}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad.slug }) }}">Aprobadas</a> <span class="totales">{{totalRecomendacionesAprobadas}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad, 'pestado': 'Reportado', 'fecha_creacion': 'asc' }) }}">Reportadas</a> <span class="totales">{{totalRecomendacionesReportadas}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad.slug, 'pestado': 'Reportado', 'fecha_creacion': 'asc' }) }}">Reportadas</a> <span class="totales">{{totalRecomendacionesReportadas}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad, 'pestado': 'Eliminado', 'fecha_creacion': 'asc' }) }}">Eliminadas</a> <span class="totales_rojo">{{totalRecomendacionesEliminadas}}</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoRecomendaciones', {'ciudad': ciudad.slug, 'pestado': 'Eliminado', 'fecha_creacion': 'asc' }) }}">Eliminadas</a> <span class="totales_rojo">{{totalRecomendacionesEliminadas}}</span>
 		</li>
 	</ul>
 
@@ -55,16 +56,16 @@
 
 	<ul class="submenu_admin">
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos'}) }}">Total</a> <span class="totales_azul">{{totalFotos}}</span>
+			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad.slug, 'slug': 'todos'}) }}">Total</a> <span class="totales_azul">{{totalFotos}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'pestado': 'Por Revisar', 'fecha_creacion': 'desc'}) }}">Agregadas (por revisar)</a> <span class="totales">{{totalFotosPorRevisar}}</span>
+			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad.slug, 'slug': 'todos', 'pestado': 'Por Revisar', 'fecha_creacion': 'desc'}) }}">Agregadas (por revisar)</a> <span class="totales">{{totalFotosPorRevisar}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'pestado': 'Reportado', 'fecha_creacion': 'desc'}) }}">Reportadas</a> <span class="totales">{{totalFotosReportadas}}</span>
+			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad.slug, 'slug': 'todos', 'pestado': 'Reportado', 'fecha_creacion': 'desc'}) }}">Reportadas</a> <span class="totales">{{totalFotosReportadas}}</span>
 		</li>
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad, 'slug': 'todos', 'pestado': 'Eliminado', 'fecha_creacion': 'desc'}) }}">Eliminadas</a> <span class="totales_rojo">{{totalFotosEliminadas}}</span>
+			<a href="{{ path('LoogaresAdminBundle_fotosLugar', {'ciudad': ciudad.slug, 'slug': 'todos', 'pestado': 'Eliminado', 'fecha_creacion': 'desc'}) }}">Eliminadas</a> <span class="totales_rojo">{{totalFotosEliminadas}}</span>
 		</li>
 	</ul>
 
