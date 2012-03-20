@@ -6,7 +6,9 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Loogares\UsuarioBundle\Entity\Usuario;
+use Loogares\UsuarioBundle\Controller\UsuarioController;
 use Loogares\ExtraBundle\Functions\LoogaresFunctions;
 use \BaseFacebook;
 use \FacebookApiException;
@@ -27,6 +29,8 @@ class FacebookProvider implements UserProviderInterface
         $this->userManager = $em;
         $this->validator = $validator;
         $this->container = $container;
+
+        //$this->container->get('security.context');
     }
 
     public function supportsClass($class)
@@ -86,9 +90,15 @@ class FacebookProvider implements UserProviderInterface
                     if($repetidos > 0)
                         $slug = $slug.'-'.++$repetidos;                    
                     $user->setSlug($slug);
-                    /*if (isset($fbdata['picture'])) {
-                        $user->setImagenFull($fbdata['picture']);
-                    }*/
+
+                    if(isset($fbdata['id'])) {
+                        $fbimg = $this->facebook->api(array(
+                            'method' => 'fql.query',
+                            'query' => "SELECT pic_big FROM user WHERE uid = ".$fbdata['id'],
+                            'callback' => ''
+                        ));
+                    }
+                   
                     $user->setImagenFull("default.gif");
                     $user->setFechaRegistro(new \DateTime());
                     $user->setNewsletterActivo(1);
@@ -104,17 +114,38 @@ class FacebookProvider implements UserProviderInterface
                                       ->findOneByNombre('ROLE_USER');
                     $user->setTipoUsuario($tipoUsuario);
                     $em->persist($user);
+                    $em->flush();
+
+                    // Imagen Facebook
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_POST, 0);
+                    curl_setopt($ch, CURLOPT_URL, $fbimg[0]['pic_big']);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+                    $result = curl_exec($ch);
+                    curl_close($ch);
+
+                    $u = explode('.',$fbimg[0]['pic_big']);
+                    $ext = array_pop($u);
+                    $fn = time().'.jpg';
+                    if(file_put_contents('assets/images/temp/'.$fn, $result)) {                        
+                        if(getimagesize('assets/images/temp/'.$fn)) {
+                            $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);                            
+                            $user->file = $imagen;
+                            $user->setImagenFull('default.gif');
+                            $em->flush();
+                        }                        
+                    }
                 }
 
-                $user->setFBData($fbdata);               
-            }           
-
-            /*if (count($this->validator->validate($user, 'Facebook'))) {
-                // TODO: the user was found obviously, but doesnt match our expectations, do something smart
-                throw new UsernameNotFoundException('The facebook user could not be stored');
-            }*/
+                $user->setFBData($fbdata);           
+            }
             
             $em->flush();
+
+            if(isset($fn)) {
+                unlink('assets/images/temp/'.$fn);
+            }
         }
 
         if (empty($user)) {

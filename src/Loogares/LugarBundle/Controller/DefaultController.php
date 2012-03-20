@@ -13,9 +13,7 @@ use Loogares\LugarBundle\Entity\ReportarRecomendacion;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-
-
 class DefaultController extends Controller
 {
-    
+
 }
