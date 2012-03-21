@@ -931,6 +931,16 @@
     width: 150px; }
     .actividad_lugar .recomienda_lugar:hover {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -30px; }
+  .actividad_lugar .edita_recomendacion_lugar {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 0;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    margin: 10px 0;
+    width: 150px; }
+    .actividad_lugar .edita_recomendacion_lugar:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -30px; }
   .actividad_lugar .recomienda_despues_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -161px 0;
     display: block;
