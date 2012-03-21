@@ -87,3 +87,9 @@ extra:
             titulo: Querés que te invitemos a restaurantes, cafés, bares y más?
             bajada: Convertite en un Loogareño Estrella!
         obligatorio: Los campos con (*) son obligatorios
+
+static:
+    mail:
+        asunto:
+            contacto: Mensaje de Contacto de Loogares.com
+            publicidad: Mensaje de Publicidad de Loogares.com

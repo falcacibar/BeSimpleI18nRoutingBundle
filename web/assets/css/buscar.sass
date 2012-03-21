@@ -225,14 +225,38 @@ $rojo: #F72121
 			li.zonas
 				width: 195px
 
+				a
+					cursor: pointer
+
+					&:hover
+						text-decoration: underline
+
 			li.categoria
 				width: 210px
+
+				a
+					cursor: pointer
+
+					&:hover
+						text-decoration: underline
 
 			li.subcategoria
 				width: 230px
 
+				a
+					cursor: pointer
+
+					&:hover
+						text-decoration: underline
+
 			li.caracteristicas
 				width: 195px
+
+				a
+					cursor: pointer
+
+					&:hover
+						text-decoration: underline
 
 .filtros_precios
 
@@ -665,13 +689,6 @@ $rojo: #F72121
 	font-size: 12px
 	font-weight: 400
 
-	a
-		color: #666
-		text-decoration: none
-
-		&:visited
-			color: #666
-
 	p
 		color: #ccc
 		margin-bottom: 20px
@@ -686,6 +703,16 @@ $rojo: #F72121
 		width: 170px
 		margin: 0 0 15px
 		vertical-align: middle
+
+		a
+			color: #666
+			text-decoration: none
+
+			&:hover
+				text-decoration: underline !important
+
+			&:visited
+				color: #666
 
 		.totales
 			color: #ccc
