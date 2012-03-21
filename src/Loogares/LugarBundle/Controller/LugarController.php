@@ -1102,7 +1102,7 @@ class LugarController extends Controller{
         $em = $this->getDoctrine()->getEntityManager();
 
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+          $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
         }
         
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
@@ -1119,10 +1119,8 @@ class LugarController extends Controller{
         //Revisamos si el usuario tiene ya una recomendacion en este lugar
         $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u where u.usuario = ?1 and u.lugar = ?2");
         $q->setParameter(1, $lugar->getId())
-          ->setParameter(2, $this->get('security.context')->getToken()->getUser()->getId());
+          ->setParameter(2, $this->get('security.context')->getToken()->getUser());
         $yaRecomendo = $q->getResult();
-        
-        
 
         if(isset($_POST['editando']) && $_POST['editando'] == 1){
             $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado = 2");
@@ -1306,14 +1304,12 @@ if(sizeOf($yaRecomendo) == 0){
                 return new Response('',200);
             }else{
                 // Enviamos mail al usuario que recomendó justo antes del actual, si es el caso
-                
                     $recomendacionAnterior = $ultimaRecomendacion;
+                    $usuario = $recomendacion->getUsuario();
                     if($recomendacionAnterior != null) {
                         // Existe una recomendación justo anterior
-                        $usuario = $recomendacion->getUsuario();
                         $usuarioAnterior = $recomendacionAnterior->getUsuario();
                         $nombreUsuario = ($usuario->getNombre() == '' && $usuario->getApellido() == '') ? $usuario->getSlug() : $usuario->getNombre().' '.$usuario->getApellido();
-                    
                     if(!isset($_POST['editando'])){
                         $mail = array();
                         $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.despues_recomendacion.mail.asunto', array('%usuario%' => $nombreUsuario,'%lugar%' => $recomendacion->getLugar()->getNombre()));

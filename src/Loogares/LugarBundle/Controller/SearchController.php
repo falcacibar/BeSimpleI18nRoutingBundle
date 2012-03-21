@@ -124,7 +124,6 @@ class SearchController extends Controller{
         }
       }
     }else{
-      $order = (isset($_GET['orden']))?$_GET['orden']:NULL;
       $path_sector = $path;
       $path_comuna = $path;
       $path_subcategoria = $path;
