@@ -812,6 +812,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
             $fn = new LoogaresFunctions();
             $filename = $fn->generarSlug($this->nombre.'-'.$this->apellido.'-'.$this->id);
             $this->setImagenFull($filename.'.jpg');//.$this->file->guessExtension());
+            echo $this->imagen_full;
         }
     }
 
