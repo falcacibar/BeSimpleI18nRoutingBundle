@@ -543,13 +543,13 @@
         </div>
 
         
-        {% elseif app.session.hasFlash('cerrado_flash') is not defined %}
+        {% else %}
             <div>
                 <h2 class="titulo_recomendaciones">{{'lugar.ficha.recomendaciones.titulo_0'|trans}} {{ lugar.nombre }}</h2>
             </div>
         {% endif %}
 
-        {% if is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null and app.session.hasFlash('cerrado_flash') is not defined%}
+        {% if is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
             {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
 
             <a class="fancybox" href="#recomendacion_popup"></a>
