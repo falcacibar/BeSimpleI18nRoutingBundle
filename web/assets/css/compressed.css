@@ -1747,6 +1747,7 @@ body {
   .post .post_contenido {
     border: 1px solid #f2f2f6;
     font-size: 13px;
+    float: left;
     line-height: 20px;
     padding: 20px; }
     .post .post_contenido a {
@@ -1809,7 +1810,6 @@ body {
         width: 478px;
         white-space: pre-line; }
     .post .post_contenido .articulos_review_last {
-      border-bottom: 1px solid #cccccc;
       border-top: 1px solid #cccccc;
       float: left;
       margin: 0 0 20px 0;
