@@ -1299,8 +1299,13 @@ if(sizeOf($yaRecomendo) == 0){
                     $this->get('imagine.controller')->filter('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull(), "small_usuario");
                     $paths['usuario'] = 'assets/media/cache/small_usuario/assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull();
                 }
+
+                $mails = preg_split('/,/', $lugar->getMail());
+                foreach($mails as $key => $value){
+                  $mails[$key] = trim($value);
+                }
                  
-                $message = $this->get('fn')->enviarMail($mail['asunto'], $lugar->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_lugar.html.twig', $this->get('templating'));
+                $message = $this->get('fn')->enviarMail($mail['asunto'], $mails, 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_lugar.html.twig', $this->get('templating'));
                 $this->get('mailer')->send($message);
             }
 
