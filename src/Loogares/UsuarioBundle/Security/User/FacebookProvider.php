@@ -133,7 +133,7 @@ class FacebookProvider implements UserProviderInterface
                             $fn = new LoogaresFunctions();
                             $filename = $fn->generarSlug($user->getNombre().'-'.$user->getApellido().'-'.$user->getId());
                             $user->setImagenFull($filename.'.jpg');  
-                            file_put_contents('assets/images/usuarios/'.$filename, $result)  
+                            file_put_contents('assets/images/usuarios/'.$filename, $result);
                             $em->flush();
                             unlink('assets/images/temp/'.$fn);
                         }                        
