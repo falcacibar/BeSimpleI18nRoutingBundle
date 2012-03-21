@@ -436,7 +436,6 @@
       color: #0066cc;
       text-decoration: underline; }
 
-
 /* CSS Reset */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -1792,6 +1791,35 @@ body {
         margin: 0 20px 0 0;
         width: 100px; }
       .post .post_contenido .colaboradores_review p {
+        float: left;
+        width: 478px;
+        white-space: pre-line; }
+    .post .post_contenido .articulos_review {
+      border-top: 1px solid #cccccc;
+      float: left;
+      margin: 0 0 20px 0;
+      padding: 20px 0;
+      width: 600px; }
+      .post .post_contenido .articulos_review img {
+        float: left;
+        margin: 0 20px 0 0;
+        width: 100px; }
+      .post .post_contenido .articulos_review p {
+        float: left;
+        width: 478px;
+        white-space: pre-line; }
+    .post .post_contenido .articulos_review_last {
+      border-bottom: 1px solid #cccccc;
+      border-top: 1px solid #cccccc;
+      float: left;
+      margin: 0 0 20px 0;
+      padding: 20px 0;
+      width: 600px; }
+      .post .post_contenido .articulos_review_last img {
+        float: left;
+        margin: 0 20px 0 0;
+        width: 100px; }
+      .post .post_contenido .articulos_review_last p {
         float: left;
         width: 478px;
         white-space: pre-line; }

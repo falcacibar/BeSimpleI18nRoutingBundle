@@ -107,6 +107,35 @@ body {
         float: left;
         width: 478px;
         white-space: pre-line; }
+    .post .post_contenido .articulos_review {
+      border-top: 1px solid #cccccc;
+      float: left;
+      margin: 0 0 20px 0;
+      padding: 20px 0;
+      width: 600px; }
+      .post .post_contenido .articulos_review img {
+        float: left;
+        margin: 0 20px 0 0;
+        width: 100px; }
+      .post .post_contenido .articulos_review p {
+        float: left;
+        width: 478px;
+        white-space: pre-line; }
+    .post .post_contenido .articulos_review_last {
+      border-bottom: 1px solid #cccccc;
+      border-top: 1px solid #cccccc;
+      float: left;
+      margin: 0 0 20px 0;
+      padding: 20px 0;
+      width: 600px; }
+      .post .post_contenido .articulos_review_last img {
+        float: left;
+        margin: 0 20px 0 0;
+        width: 100px; }
+      .post .post_contenido .articulos_review_last p {
+        float: left;
+        width: 478px;
+        white-space: pre-line; }
   .post .detalles, .post .condiciones {
     background: url("../images/extras/borde_relieve_posts.png") 0 0 no-repeat;
     font-size: 14px;
