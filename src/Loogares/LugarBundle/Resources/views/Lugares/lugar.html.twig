@@ -276,7 +276,6 @@
             </div>
         </div>
 
-{% if app.session.hasFlash('cerrado_flash') is not defined %}
         <div class="actividad_lugar">
             {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
             <a class="recomienda_lugar"></a>
@@ -392,7 +391,6 @@
                 </ul>
             </div>
         </div>
-{% endif %}
 
         {% if lugar.recomendacion|length != 0 %}
 
