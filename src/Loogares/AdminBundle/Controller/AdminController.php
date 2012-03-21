@@ -542,7 +542,8 @@ class AdminController extends Controller
             'recomendaciones' => 'recomendaciones',
             'lugares' => 'lugares',
             'utiles' => 'utiles',
-            'fecha_registro' => 'usuarios.fecha_registro'
+            'fecha_registro' => 'usuarios.fecha_registro',
+            'comuna' => 'comuna.nombre'
         );
 
         if(isset($_GET['buscar'])){
@@ -593,7 +594,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $usuarios = $this->getDoctrine()->getConnection()
         ->fetchAll("select SQL_CALC_FOUND_ROWS usuarios.*, 
-                    (select count(distinct imagenes_lugar.id) from imagenes_lugar where usuarios.id = imagenes_lugar.usuario_id and imagenes_lugar.estado_id = 5) as imagenes,
+                    (select count(distinct imagenes_lugar.id) from imagenes_lugar where usuarios.id = imagenes_lugar.usuario_id and imagenes_lugar.estado_id != 5) as imagenes,
                     (select count(distinct lugares.id) from lugares where usuarios.id = lugares.usuario_id) as lugares,
                     (select count(distinct recomendacion.id) from recomendacion where usuarios.id = recomendacion.usuario_id) as recomendaciones,
                     (select count(distinct util.id) from util where usuarios.id = util.usuario_id) as utiles,
@@ -690,14 +691,13 @@ class AdminController extends Controller
             $nombre = "Todos";
             $where = null;
             $slug = 'todos';
+            $where = "where comuna.ciudad_id = " . $idCiudad;
         }else{
             $lugar = $lr->findOneBySlug($slug);
             $where = "where il.lugar_id = " . $lugar->getId();
             $nombre = $lugar->getNombre();
         }
         
-
-
         $order = null;
         $like = null;
         $offset = 0;
@@ -784,7 +784,6 @@ class AdminController extends Controller
                     on lugares.comuna_id = comuna.id
 
                     $where
-                    AND comuna.ciudad_id = $idCiudad
                     GROUP BY il.id
                     $like
                     $order
@@ -1076,8 +1075,10 @@ class AdminController extends Controller
     public function editarRecomendacionAction($id, $ciudad, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $fn = $this->get('fn');
+        $ciudad = $cr->findOneBySlug($ciudad);
 
         if($request->getMethod() == 'POST'){
             $recomendacion = $rr->findOneById($id);
@@ -1158,7 +1159,8 @@ class AdminController extends Controller
         return $this->render('LoogaresAdminBundle:Admin:editarRecomendacion.html.twig', array(
             'recomendacion' => $recomendacionResult[0],
             'mostrarPrecio' => $fn->mostrarPrecio($lugar),
-            'ciudad' => $ciudad
+            'ciudad' => $ciudad,
+            'type' => 'listado-recomendaciones'
         ));
     }
 
@@ -1167,6 +1169,9 @@ class AdminController extends Controller
         $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $imagen = $ilr->findOneById($id);
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $ciudad = $cr->findOneBySlug($ciudad);
+        $idCiudad = $ciudad->getId();
 
         if($request->getMethod() == 'POST'){
             $imagen->setTituloEnlace($_POST['titulo_enlace']);

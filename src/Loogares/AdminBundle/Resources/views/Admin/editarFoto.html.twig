@@ -11,14 +11,14 @@
             	$('#id').val(ui.item.value.match(/(\d+)/)[0])
             }
         });
-        console.log("http://localhost"+WEBROOT+"admin/ajax/sugerirLugar")
 </script>
 {% endblock %}
 {% block content %}
+<br/><br/><br/><br/><br/>
 Editando: {{foto.lugar.nombre}} - Foto: {{foto.id}}<br/>
 Estado: {{foto.estado.nombre}}<br/>
 
-<form action="{{ path('LoogaresAdminBundle_editarFoto', {'ciudad': ciudad, 'slug': slug, 'id': foto.id }) }}" method="post">
+<form action="{{ path('LoogaresAdminBundle_editarFoto', {'ciudad': ciudad.slug, 'slug': slug, 'id': foto.id }) }}" method="post">
 	<ul>
 		<li>
 			<label>Lugar</label>
@@ -44,11 +44,11 @@ Estado: {{foto.estado.nombre}}<br/>
 		</li>
 		<li>
 			{% if foto.estado.nombre == 'Aprobado' or foto.estado.nombre == 'Por Revisar' or foto.estado.nombre == 'Reportado' %}
-			    <a href="{{ path('LoogaresAdminBundle_borrarFoto', {'slug': slug, 'ciudad': ciudad, 'id': foto.id}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+			    <a href="{{ path('LoogaresAdminBundle_borrarFoto', {'slug': slug, 'ciudad':  ciudad.slug, 'id': foto.id}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
 			{% endif %}
 
 			{% if foto.estado.nombre == 'Eliminado' or foto.estado.nombre == 'Por Revisar' or foto.estado.nombre == 'Reportado'%}
-			    <a href="{{ path('LoogaresAdminBundle_aprobarFoto', {'slug': slug, 'ciudad': ciudad, 'id': foto.id }) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+			    <a href="{{ path('LoogaresAdminBundle_aprobarFoto', {'slug': slug, 'ciudad':  ciudad.slug, 'id': foto.id }) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
 			{% endif %}
 		</li>
 	</ul>

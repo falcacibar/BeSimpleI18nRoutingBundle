@@ -34,7 +34,11 @@
 	
 	<div class="actividad_usuario_izq">
 		<ul>
-			<li class="recomendaciones_usuario">{{usuario.totalRecomendaciones}} {% transchoice usuario.totalRecomendaciones%}usuario.datos.recomendaciones{% endtranschoice %}</li>
+			<li class="recomendaciones_usuario">
+				<a href="{{ path('recomendacionesUsuario', {'param': usuario.slug}) }}">
+					{{usuario.totalRecomendaciones}} {% transchoice usuario.totalRecomendaciones%}usuario.datos.recomendaciones{% endtranschoice %}
+				</a>
+			</li>
 			<li class="primeras_recomendaciones_usuario">{{usuario.totalPrimerasRecomendaciones}} {% transchoice usuario.totalPrimerasRecomendaciones%}usuario.datos.primeras_recomendaciones{% endtranschoice %}</li>
 			<li class="imagenes_usuario">{{usuario.totalImagenesLugar}} {% transchoice usuario.totalImagenesLugar%}usuario.datos.fotos_agregadas{% endtranschoice %}</li>
 			<li class="lugares_usuario">{{usuario.totalLugaresAgregados}} {% transchoice usuario.totalLugaresAgregados%}usuario.datos.lugares_agregados{% endtranschoice %}</li>
@@ -43,10 +47,26 @@
 
 	<div class="actividad_usuario_der">
 		<ul>
-			<li class="lugares_por_visitar_usuario"><span>{{usuario.totalAcciones[0]}}</span> {% transchoice usuario.totalAcciones[0]%}usuario.datos.por_visitar{% endtranschoice %}</li>
-			<li class="lugares_visitados_usuario">{{usuario.totalAcciones[2]}} {% transchoice usuario.totalAcciones[2]%}usuario.datos.visitados{% endtranschoice %}</li>
-			<li class="lugares_por_recomendar_usuario"><span>{{usuario.totalAcciones[4]}}</span> {% transchoice usuario.totalAcciones[4]%}usuario.datos.por_recomendar{% endtranschoice %}</li>
-			<li class="lugares_favoritos_usuario"><span>{{usuario.totalAcciones[3]}}</span> {% transchoice usuario.totalAcciones[3]%}usuario.datos.favoritos{% endtranschoice %}</li>
+			<li class="lugares_por_visitar_usuario">
+				<a href="{{path('lugaresUsuario', { 'param' : usuario.slug, 'accionLugar' : 'visitar' })}}">
+					<span>{{usuario.totalAcciones[0]}}</span> {% transchoice usuario.totalAcciones[0]%}usuario.datos.por_visitar{% endtranschoice %}
+				</a>
+			</li>
+			<li class="lugares_visitados_usuario">
+				<a href="{{path('lugaresUsuario', { 'param' : usuario.slug, 'accionLugar' : 'visitados' })}}">
+					{{usuario.totalAcciones[2]}} {% transchoice usuario.totalAcciones[2]%}usuario.datos.visitados{% endtranschoice %}
+				</a>
+			</li>
+			<li class="lugares_por_recomendar_usuario">
+				<a href="{{path('lugaresUsuario', { 'param' : usuario.slug, 'accionLugar' : 'recomendar' })}}">
+					<span>{{usuario.totalAcciones[4]}}</span> {% transchoice usuario.totalAcciones[4]%}usuario.datos.por_recomendar{% endtranschoice %}
+				</a>
+			</li>
+			<li class="lugares_favoritos_usuario">
+				<a href="{{path('lugaresUsuario', { 'param' : usuario.slug, 'accionLugar' : 'favoritos' })}}">
+					<span>{{usuario.totalAcciones[3]}}</span> {% transchoice usuario.totalAcciones[3]%}usuario.datos.favoritos{% endtranschoice %}
+				</a>
+			</li>
 		</ul>
 	</div>
 

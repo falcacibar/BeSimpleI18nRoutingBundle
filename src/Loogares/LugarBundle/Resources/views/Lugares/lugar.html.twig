@@ -94,6 +94,9 @@
             </div>           
             <div class="estrellas">
                 <div data-stars="{{lugar.estrellas}}" class="star-raty estrellas_lugar"></div>
+                <noscript>
+                    {{lugar.estrellas}} Estrellas
+                </noscript>
                 <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}</span>
             </div>
             <div class="multimedia_lugar">
@@ -474,6 +477,9 @@
                     </div>
                     <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
                     <div class="recomendacion-bloque">
+                        <noscript>
+                            {{recomendacion.estrellas}} Estrellas
+                        </noscript>
                         <div data-stars="{{recomendacion.estrellas}}" class="recomendacion-{{loop.index}}-raty estrellas_recomendacion"></div>
                         <p class="texto_recomendacion_usuario">{{ recomendacion.texto | raw}}</p>
                         {% if recomendacion.tags[0] %}

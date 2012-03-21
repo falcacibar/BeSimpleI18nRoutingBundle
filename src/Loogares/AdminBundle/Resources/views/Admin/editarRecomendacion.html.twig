@@ -16,15 +16,15 @@
 <script src="{{asset('assets/js/editarRecomendacion.js')}}"></script>
 {% endblock %}
 {% block content %}
-
+<br/><br/><br/><br/><br/>
 <p><a href="{{ path('_recomendacion', {'slug': recomendacion.lugarSlug, 'usuarioSlug': recomendacion.usuarioSlug}) }}">Ver Recomendacion en el Sitio</a></p>
-<form action="{{ path('LoogaresAdminBundle_editarRecomendacion', {'id': recomendacion.id, 'ciudad': ciudad}) }}" method="post">
+<form action="{{ path('LoogaresAdminBundle_editarRecomendacion', {'id': recomendacion.id, 'ciudad': ciudad.slug}) }}" method="post">
 	<ul>
 		<li>
 			<label>Usuario</label>
-			                                        <span class="perfil_usuario">
-                                            <a target="_blank" class="usuario{% if recomendacion.usuarioSexo == "m"%}_hombre{% else %}_mujer{%endif%}" href="{{ path('editarCuentaUsuario', {'param': recomendacion.usuarioSlug }) }}"></a>
-                                        </span>
+			<span class="perfil_usuario">
+                <a target="_blank" class="usuario{% if recomendacion.usuarioSexo == "m"%}_hombre{% else %}_mujer{%endif%}" href="{{ path('editarCuentaUsuario', {'param': recomendacion.usuarioSlug }) }}"></a>
+            </span>
 			{{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}} {{recomendacion.usuarioSlug}}
 		</li>
 		<li>
@@ -57,9 +57,9 @@
 		<li>
 			<label>Acciones</label>
             {% if recomendacion.estado == 'Eliminado' %}
-                <a href="{{ path('LoogaresAdminBundle_habilitarRecomendacion', {'ciudad': ciudad, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+                <a href="{{ path('LoogaresAdminBundle_habilitarRecomendacion', {'ciudad': ciudad.slug, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
             {% else %}
-                <a href="{{ path('LoogaresAdminBundle_borrarRecomendacion', {'ciudad': ciudad, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+                <a href="{{ path('LoogaresAdminBundle_borrarRecomendacion', {'ciudad': ciudad.slug, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
             {% endif %}
 		</li>
 	</ul>

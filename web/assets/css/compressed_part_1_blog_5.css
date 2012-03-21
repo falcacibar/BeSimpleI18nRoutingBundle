@@ -60,6 +60,7 @@ body {
   .post .post_contenido {
     border: 1px solid #f2f2f6;
     font-size: 13px;
+    float: left;
     line-height: 20px;
     padding: 20px; }
     .post .post_contenido a {
@@ -104,6 +105,34 @@ body {
         margin: 0 20px 0 0;
         width: 100px; }
       .post .post_contenido .colaboradores_review p {
+        float: left;
+        width: 478px;
+        white-space: pre-line; }
+    .post .post_contenido .articulos_review {
+      border-top: 1px solid #cccccc;
+      float: left;
+      margin: 0 0 20px 0;
+      padding: 20px 0;
+      width: 600px; }
+      .post .post_contenido .articulos_review img {
+        float: left;
+        margin: 0 20px 0 0;
+        width: 100px; }
+      .post .post_contenido .articulos_review p {
+        float: left;
+        width: 478px;
+        white-space: pre-line; }
+    .post .post_contenido .articulos_review_last {
+      border-top: 1px solid #cccccc;
+      float: left;
+      margin: 0 0 20px 0;
+      padding: 20px 0;
+      width: 600px; }
+      .post .post_contenido .articulos_review_last img {
+        float: left;
+        margin: 0 20px 0 0;
+        width: 100px; }
+      .post .post_contenido .articulos_review_last p {
         float: left;
         width: 478px;
         white-space: pre-line; }

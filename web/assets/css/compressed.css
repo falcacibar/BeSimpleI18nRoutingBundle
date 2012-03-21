@@ -436,6 +436,7 @@
       color: #0066cc;
       text-decoration: underline; }
 
+
 /* CSS Reset */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -5515,6 +5516,12 @@ body {
     font-size: 13px;
     margin: 20px 10px 0 0;
     width: 218px; }
+    .caja_usuario .actividad_usuario_izq a {
+      color: #444444 !important;
+      text-decoration: none; }
+      .caja_usuario .actividad_usuario_izq a:hover {
+        color: #444444 !important;
+        text-decoration: underline; }
     .caja_usuario .actividad_usuario_izq .recomendaciones_usuario {
       background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 0px;
       height: 16px;
@@ -5539,6 +5546,12 @@ body {
     float: left;
     margin: 20px 0 0 0;
     width: 218px; }
+    .caja_usuario .actividad_usuario_der a {
+      color: #444444 !important;
+      text-decoration: none; }
+      .caja_usuario .actividad_usuario_der a:hover {
+        color: #444444 !important;
+        text-decoration: underline; }
     .caja_usuario .actividad_usuario_der .lugares_por_visitar_usuario {
       background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -84px;
       height: 16px;
