@@ -227,7 +227,7 @@
 						{% endif %}
 					</div>
 				</div>
-
+				{% if mostrarPrecio == true %}
 				<div class="filtros_precios filtros">
 					<div class="filtros_header">
 						<span class="filtros_titulo">{{'lugar.buscar.precios'|trans}}</span>
@@ -270,7 +270,7 @@
 						</div>
 					</div>
 				</div>
-
+				{% endif %}
 				{% if results.totalPorCaracteristica[0] is defined %}
 					<div class="filtros_caracteristicas filtros">
 						<div class="filtros_header">
