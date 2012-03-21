@@ -59,8 +59,14 @@ class LugarController extends Controller{
         
         $lugarResult[0] = $lr->findOneBySlug($slug);
 
-        if(!$lugarResult[0]){
+        if(!$lugarResult[0] || $lugarResult[0]->getEstado()->getId() == 3){
           throw $this->createNotFoundException('');
+        }
+        
+        if($lugarResult[0]->getEstado()->getId() == 4){ 
+          $this->get('session')->setFlash('cerrado_flash', 'Este lugar está cerrado. De reabrirse, quitaremos este mensaje. En caso contrario borraremos este lugar después de un tiempo.');
+        }else if($lugarResult[0]->getEstado()->getId() == 1){
+          $this->get('session')->setFlash('lugar_flash', 'Este lugar se encuentra en Revisión.');
         }
 
         $visitas = $lugarResult[0]->getVisitas();
@@ -277,12 +283,6 @@ class LugarController extends Controller{
         );
 
         $paginacion = $fn->paginacion( $data->totalRecomendaciones, $resultadosPorPagina, '_lugar', $params, $router );
-
-        if($lugarResult[0]->getEstado()->getId() == 1){
-          $this->get('session')->setFlash('lugar_flash', 'Este lugar se encuentra en Revisión.');
-        }else if($lugarResult[0]->getEstado()->getId() == 3){ 
-          $this->get('session')->setFlash('cerrado_flash', 'Este lugar está cerrado. De reabrirse, quitaremos este mensaje. En caso contrario borraremos este lugar después de un tiempo.');
-        }
 
         //Render ALL THE VIEWS
         return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET, 'paginacion' => $paginacion));            

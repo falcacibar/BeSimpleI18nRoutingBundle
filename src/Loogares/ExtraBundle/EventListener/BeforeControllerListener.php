@@ -78,6 +78,10 @@ class BeforeControllerListener
                     $ciudadArray['nombre'] = $ciudad->getNombre();
                     $ciudadArray['slug'] = $ciudad->getSlug();
 
+                    $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
+                    $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
+                    $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
+
                     $controller->get('session')->set('ciudad',$ciudadArray);
                 }
                 

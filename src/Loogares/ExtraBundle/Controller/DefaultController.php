@@ -78,6 +78,10 @@ class DefaultController extends Controller
         $ciudadArray['nombre'] = $ciudad->getNombre();
         $ciudadArray['slug'] = $ciudad->getSlug();
 
+        $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
+        $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
+        $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
+
         $root = "root_".preg_replace('/-/', '_', $slug);
 
         $this->get('session')->set('ciudad',$ciudadArray);
@@ -87,6 +91,9 @@ class DefaultController extends Controller
     }
 
     public function homepageAction($slug) {
+        echo "<pre>";
+        print_r($this->get('session'));
+        echo "</pre>";
         $this->localeAction($slug);
         $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");

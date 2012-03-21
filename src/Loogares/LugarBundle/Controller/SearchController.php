@@ -23,12 +23,16 @@ class SearchController extends Controller{
   public function buscarAction(Request $request, $slug, $path, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
     $fn = $this->get('fn');
     $em = $this->getDoctrine()->getEntityManager();
+    $mostrarPrecio = null;
     $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
     $ciudad = $cr->findOneBySlug($slug);
     $ciudadArray = array();
     $ciudadArray['id'] = $ciudad->getId();
     $ciudadArray['nombre'] = $ciudad->getNombre();
     $ciudadArray['slug'] = $ciudad->getSlug();
+    $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
+    $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
+    $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
 
     $this->get('session')->set('ciudad',$ciudadArray);
     $idCiudad = $ciudad->getId();
@@ -581,7 +585,7 @@ class SearchController extends Controller{
                                 LEFT JOIN subcategoria_lugar
                                 ON subcategoria_lugar.lugar_id = lugares.id
 
-                                LEFT JOIN subcategoria
+                                JOIN subcategoria
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                                 WHERE lugares.slug LIKE '%$termSlug%' 
@@ -610,7 +614,7 @@ class SearchController extends Controller{
                                   LEFT JOIN subcategoria_lugar
                                   ON subcategoria_lugar.lugar_id = lugares.id
 
-                                  LEFT JOIN subcategoria
+                                  JOIN subcategoria
                                   ON subcategoria_lugar.subcategoria_id = subcategoria.id
 
                                   WHERE lugares.slug LIKE '%$value%' 
@@ -639,7 +643,7 @@ class SearchController extends Controller{
                                 LEFT JOIN subcategoria_lugar
                                 ON subcategoria_lugar.lugar_id = lugares.id
 
-                                LEFT JOIN subcategoria
+                                JOIN subcategoria
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id  
 
                                 WHERE categorias.slug LIKE '%$termSlug%'
@@ -667,7 +671,7 @@ class SearchController extends Controller{
                                 LEFT JOIN subcategoria_lugar
                                 ON subcategoria_lugar.lugar_id = lugares.id
 
-                                LEFT JOIN subcategoria
+                                JOIN subcategoria
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id  
 
                                 WHERE lugares.calle like '%$termSlug%' 
@@ -942,6 +946,12 @@ class SearchController extends Controller{
                             $filterCaracteristica)";
 
     if($categoria){
+      $tipo_categoria = $categoria_repo->findOneBySlug($termSlug)->getTipoCategoria();
+
+      if($tipo_categoria->getSlug() == 'donde-comer' || $tipo_categoria->getSlug() == 'donde-dormir' || $termSlug == 'night-clubs') {
+        $mostrarPrecio = true;
+      }
+
       $unionQuery = array();
       $unionQuery[] = "SELECT SQL_CALC_FOUND_ROWS $fields
                         FROM lugares
@@ -998,10 +1008,11 @@ class SearchController extends Controller{
                                 LEFT JOIN subcategoria_lugar
                                 ON subcategoria_lugar.lugar_id = lugares.id
 
-                                LEFT JOIN subcategoria
+                                JOIN subcategoria
                                 ON subcategoria_lugar.subcategoria_id = subcategoria.id  
 
                                 WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
+                                AND subcategoria.categoria_id = (select id from categorias where categorias.slug = '$termSlug')
                                 AND (lugares.estado_id = 1 or lugares.estado_id = 2)
                                 $filterSector $filterComuna $filterPrecio $filterCiudad
                                 $filterCaracteristica)";
@@ -1210,7 +1221,8 @@ class SearchController extends Controller{
       'ruta' => $path,
       'ruta_sector' => $path_sector,
       'ruta_comuna' => $path_comuna,
-      'ruta_subcategoria' => $path_subcategoria
+      'ruta_subcategoria' => $path_subcategoria,
+      'mostrarPrecio' => $mostrarPrecio
     ));
   }
 }

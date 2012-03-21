@@ -56,7 +56,7 @@
         
     </head>
 
-    <body>
+    <body class="{{ app.session.get('ciudad').pais.slug }}">
         {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
         
 		{% include '::header.html.twig' %}

@@ -109,9 +109,17 @@ $(document).ready(function() {
 });
 
 function getTipo(tipo){
-    if(tipo == 'dondeComer'){
-        return ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Más de $18.000'];
-    }else if(tipo == 'dondeDormir'){
-        return ['Mínimo', 'Barato', 'Medio', 'Alto', 'Máximo'];
+    if($('body').hasClass('chile')){
+      if(tipo == 'dondeComer'){
+          return ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Más de $18.000'];
+      }else if(tipo == 'dondeDormir'){
+          return ['Mínimo', 'Barato', 'Medio', 'Alto', 'Máximo'];
+      }
+    }else if($('body').hasClass('argentina')){
+      if(tipo == 'dondeComer'){
+          return ['Menos de $20', '$20 - $50', '$50 - $90', '$90 - $120', 'Más de $120'];
+      }else if(tipo == 'dondeDormir'){
+          return ['Mínimo', 'Barato', 'Medio', 'Alto', 'Máximo'];
+      }      
     }
 }
