@@ -46,7 +46,7 @@ $(function(){
             var dataObj = {'lugar': idLugar,'accion': 'recomendar_despues'};
         }
 		$.ajax({
-            url: WEBROOT+'ajax/accion',
+            url: WEBROOT+'../ajax/accion',
             type: 'post',
             data: dataObj,
             dataType: 'json',
