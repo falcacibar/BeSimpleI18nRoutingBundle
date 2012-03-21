@@ -59,6 +59,10 @@ class LugarController extends Controller{
         
         $lugarResult[0] = $lr->findOneBySlug($slug);
 
+        if(!$lugarResult[0]){
+          throw $this->createNotFoundException('');
+        }
+
         $visitas = $lugarResult[0]->getVisitas();
         $visitas++;
         $lugarResult[0]->setVisitas($visitas);
