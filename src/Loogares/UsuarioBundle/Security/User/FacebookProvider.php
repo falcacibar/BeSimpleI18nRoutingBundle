@@ -132,7 +132,7 @@ class FacebookProvider implements UserProviderInterface
                         if(getimagesize('assets/images/temp/'.$fn)) {
                             $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);                            
                             $user->file = $imagen;
-                            $user->setImagenFull('default.gif');
+                            $user->setImagenFull(' ');
                             $em->flush();
                         }                        
                     }
@@ -143,9 +143,9 @@ class FacebookProvider implements UserProviderInterface
             
             $em->flush();
 
-            if(isset($fn)) {
+            /*if(isset($fn)) {
                 unlink('assets/images/temp/'.$fn);
-            }
+            }*/
         }
 
         if (empty($user)) {
