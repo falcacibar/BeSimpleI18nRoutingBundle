@@ -63,7 +63,7 @@ input[type=checkbox], input[type=radio] {
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   background: #fff08c;
-  color: #fff08c;
+  color: #666666;
   display: block;
   float: left;
   line-height: 20px;
