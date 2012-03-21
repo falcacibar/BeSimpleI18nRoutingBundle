@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Loogares\UsuarioBundle\Entity\Usuario;
 use Loogares\UsuarioBundle\Controller\UsuarioController;
 use Loogares\ExtraBundle\Functions\LoogaresFunctions;
+use Mailchimp\MCAPI;
 use \BaseFacebook;
 use \FacebookApiException;
 
@@ -130,22 +131,32 @@ class FacebookProvider implements UserProviderInterface
                     $fn = time().'.jpg';
                     if(file_put_contents('assets/images/temp/'.$fn, $result)) {                        
                         if(getimagesize('assets/images/temp/'.$fn)) {
-                            $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);                            
-                            $user->file = $imagen;
-                            $user->setImagenFull('default.gif');
-                            $em->flush();
+                            $fln = new LoogaresFunctions();
+                            $filename = $fln->generarSlug($user->getNombre().'-'.$user->getApellido().'-'.$user->getId());
+                            $user->setImagenFull($filename.'.jpg');  
+                            if(file_put_contents('assets/images/usuarios/'.$filename.'.jpg', $result)) {
+                                $em->flush();
+                                unlink('assets/images/temp/'.$fn);
+                            }                            
                         }                        
                     }
+
+                    // Suscripción Mailchimp
+                    $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
+                    $merge_vars = array(
+                        'EMAIL' => $user->getMail(),
+                        'FNAME' => $user->getNombre(),
+                        'LNAME' => $user->getApellido(),
+                        'USER' => $user->getSlug(),
+                        'IDUSER' => $user->getId()
+                    );
+                    $r = $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $user->getMail(), $merge_vars, 'html', false, true, true);
                 }
 
                 $user->setFBData($fbdata);           
             }
             
             $em->flush();
-
-            if(isset($fn)) {
-                unlink('assets/images/temp/'.$fn);
-            }
         }
 
         if (empty($user)) {
