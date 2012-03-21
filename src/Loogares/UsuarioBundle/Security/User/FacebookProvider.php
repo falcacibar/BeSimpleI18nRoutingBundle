@@ -129,12 +129,12 @@ class FacebookProvider implements UserProviderInterface
                     $ext = array_pop($u);
                     $fn = time().'.jpg';
                     if(file_put_contents('assets/images/temp/'.$fn, $result)) {                        
-                        if(getimagesize('assets/images/temp/'.$fn)) {
+                        //if(getimagesize('assets/images/temp/'.$fn)) {
                             $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);                            
                             $user->file = $imagen;
                             $user->setImagenFull(' ');
                             $em->flush();
-                        }                        
+                        //}                        
                     }
                 }
 
