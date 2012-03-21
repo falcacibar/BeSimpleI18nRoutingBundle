@@ -635,15 +635,6 @@ $rojo: #F72121
         position: absolute
         width: 640px
 
-    .bar
-        width: 100%
-        height: 80px
-        display: block
-        position: absolute
-        top: 300px
-        background: $gris_444
-        z-index: 40200
-
     .qtip_favoritos
         display: none
 
@@ -1213,7 +1204,20 @@ $rojo: #F72121
     float: left
     height: 50px
     padding: 0 20px
+    position: relative
     width: 600px
+
+    .overlay
+        background: url('../images/extras/fondo_lock.png') repeat 0 0
+        left: 0px
+        height: 100%
+        top: 0px
+        position: absolute
+        width: 640px
+        
+        .lock
+            margin: 10px 308px
+            z-index: 50   
 
     .qtip_quiero_ir
         display: none
@@ -1240,7 +1244,7 @@ $rojo: #F72121
             background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 -30px
 
     .edita_recomendacion_lugar
-        background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 0
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 -60px
         display: block
         cursor: pointer
         float: left
@@ -1249,7 +1253,7 @@ $rojo: #F72121
         width: 150px      
         
         &:hover
-            background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 -30px
+            background: url('../images/extras/botones_ficha_lugar.png') no-repeat 0 -90px
 
     .recomienda_despues_lugar
         background: url('../images/extras/botones_ficha_lugar.png') no-repeat -161px 0
@@ -1387,14 +1391,31 @@ $rojo: #F72121
     display: block
     float: left
     height: 15px
+    position: relative
     width: 638px
+
+    .overlay
+        left: 0px
+        height: 100%
+        top: 0px
+        position: absolute
+        width: 640px
 
 .opciones_lugar
     border: 1px solid $gris_f6f
     display: block
     float: left
     margin: 10px 0 0
+    position: relative
     width: 638px
+
+    .overlay
+        left: 0px
+        height: 100%
+        top: 0px
+        position: absolute
+        opacity: 0.8
+        width: 640px
 
     ul.opciones_lugar_f6f
         display: block

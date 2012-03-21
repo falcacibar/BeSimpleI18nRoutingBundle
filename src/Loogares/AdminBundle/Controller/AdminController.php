@@ -525,7 +525,8 @@ class AdminController extends Controller
             'ptipo_usuario' => 'tipo_usuario.nombre',
             'pwww' => 'usuarios.web',
             'ptwitter' => 'usuarios.twitter',
-            'pfacebook' => 'usuarios.facebook'
+            'pfacebook' => 'usuarios.facebook',
+            'pcomuna' => 'comuna.nombre'
         );
 
         $listadoFilters = array(

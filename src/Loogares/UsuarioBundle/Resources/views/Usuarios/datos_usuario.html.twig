@@ -40,7 +40,11 @@
 				</a>
 			</li>
 			<li class="primeras_recomendaciones_usuario">{{usuario.totalPrimerasRecomendaciones}} {% transchoice usuario.totalPrimerasRecomendaciones%}usuario.datos.primeras_recomendaciones{% endtranschoice %}</li>
-			<li class="imagenes_usuario">{{usuario.totalImagenesLugar}} {% transchoice usuario.totalImagenesLugar%}usuario.datos.fotos_agregadas{% endtranschoice %}</li>
+			<li class="imagenes_usuario">
+				<a href="{{path('fotosLugaresUsuario', { 'param' : usuario.slug })}}">
+					{{usuario.totalImagenesLugar}} {% transchoice usuario.totalImagenesLugar%}usuario.datos.fotos_agregadas{% endtranschoice %}
+				</a>
+			</li>
 			<li class="lugares_usuario">{{usuario.totalLugaresAgregados}} {% transchoice usuario.totalLugaresAgregados%}usuario.datos.lugares_agregados{% endtranschoice %}</li>
 		</ul>
 	</div>

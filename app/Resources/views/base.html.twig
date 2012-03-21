@@ -56,8 +56,9 @@
         
     </head>
 
-    <body>
-        {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+    <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }}">
+    
+    {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
         
 		{% include '::header.html.twig' %}
 
