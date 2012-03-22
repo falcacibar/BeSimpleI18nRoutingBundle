@@ -55,28 +55,28 @@
 		<!-- Concursos del sitio -->
 		<div class="campanas_concursos">
 			<ul>
-				<a href="{{ path('post', {'slug': 'sorteamos-entradas-para-acuerdate-de-mi-lola-en-gam'}) }}">
+				<a href="{{ path('post', {'slug': 'sorteamos-sesiones-tratamiento-corporal-estetikine'}) }}">
 					<li>
-						<h2 class="titulo_concurso concursos">Sólo por hoy</h2>
-						<img src="http://www.loogares.com/assets/images/blog/gam-centro-cultural-gabriela-mistral/acuerdate_de_mi_lola_home.gif" width="204" height="115" / >
-						<p class="lugar_concurso">GAM</p>
-						<p class="sorteo_concurso">Gana invitaciones dobles para Acuérdate de mi... Lola</p>
-					</li>
-				</a>
-				<a href="{{ path('post', {'slug': 'esta-semana-sorteamos-4-gift-cards-validas-por-20-000-en-productos-y-accesorios-wados'}) }}">
-					<li class="central">
 						<h2 class="titulo_concurso concursos">Esta semana</h2>
-						<img src="http://www.loogares.com/assets/images/blog/beneficio-exclusivo/wados_home.jpg" width="204" height="115" / >
-						<p class="lugar_concurso">WADOS</p>
-						<p class="sorteo_concurso">Gana gift cards por $20.000 en productos y accesorios</p>
+						<img src="http://www.loogares.com/assets/images/blog/beneficio-exclusivo/estetikine_home.jpg" width="204" height="115" / >
+						<p class="lugar_concurso">EstetiKine</p>
+						<p class="sorteo_concurso">Sorteamos sesiones de tratamiento corporal</p>
 					</li>
 				</a>
-				<a href="{{ path('post', {'slug': 'el-teatro-municipal-de-santiago-comienza-una-nueva-edicion-de-conciertos-2012-y-por-eso-sorteamos-1-invitacion-doble-para-espana-en-el-corazon'}) }}">
+				<a href="{{ path('post', {'slug': 'sorteamos-entradas-dobles-para-brahms-y-el-romanticismo-aleman-en-el-municipal'}) }}">
+					<li class="central">
+						<h2 class="titulo_concurso ganadores">Concurso finalizado</h2>
+						<img src="http://www.loogares.com/assets/images/blog/miercoles-de-municipal/brahms_home.jpg" width="204" height="115" / >
+						<p class="lugar_concurso">Teatro Municipal</p>
+						<p class="sorteo_concurso">Gana entradas para Brahms y el Romanticismo Alemán</p>
+					</li>
+				</a>
+				<a href="{{ path('post', {'slug': 'sorteamos-entradas-dobles-para-glup-en-amanda'}) }}">
 					<li>
 						<h2 class="titulo_concurso ganadores">Ganadores</h2>
-						<img src="http://www.loogares.com/assets/images/blog/miercoles-de-municipal/espana_en_el_corazon_home.jpg" width="204" height="115" / >
-						<p class="lugar_concurso">Teatro Municipal</p>
-						<p class="sorteo_concurso">¡Ya tenemos a los ganadores!</p>
+						<img src="http://www.loogares.com/assets/images/blog/centro-cultural-amanda/glup_home.jpg" width="204" height="115" / >
+						<p class="lugar_concurso">Centro Cultural Amanda</p>
+						<p class="sorteo_concurso">Gana entradas para Glup!</p>
 					</li>
 				</a>
 			</ul>
@@ -84,7 +84,21 @@
 				
 		{# Valparaíso / Viña del Mar #}
 		{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
-		
+	
+		<!-- Concursos del sitio -->
+		<div class="campanas_concursos">
+			<ul>
+				<a href="{{ path('post', {'slug': 'sorteamos-entradas-secretos-de-estado-vina'}) }}">
+					<li>
+						<h2 class="titulo_concurso ganadores">Ganadores</h2>
+						<img src="http://www.loogares.com/assets/images/blog/lunes-de-pelicula/secretos_de_estado_home.jpg" width="204" height="115" / >
+						<p class="lugar_concurso">BF Distribution</p>
+						<p class="sorteo_concurso">¡Ya están los ganadores de este concurso!</p>
+					</li>
+				</a>
+			</ul>
+		</div>
+			
 		{# Buenos Aires #}	
 		{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
 			
@@ -153,27 +167,27 @@
 				<h5 class="titulo_home encabezado">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
 				<ul class="slider">
 					<li>
+						<img src="http://www.loogares.com/assets/images/blog/sanduich/bobs_home.jpg" height="158" width="148" />
+						<div class="detalles_nota">
+							<p class="nombre_colaborador">Sánduich</p>
+							<p class="titulo_nota">Doble Grill Bacon en Bob's</p>
+							<p class="texto_nota">Bob's me queda al lado de la oficina y como buen... <a href="{{ path('post', {'slug': 'recomendado-por-sanduich-doble-grill-bacon-en-bobs'}) }}">Ver más »</a></p>
+						</div>
+					</li>
+					<li>
+						<img src="http://www.loogares.com/assets/images/blog/el-dinamo/quinta_region_home.jpg" height="158" width="148" />
+						<div class="detalles_nota">
+							<p class="nombre_colaborador">El Dínamo</p>
+							<p class="titulo_nota">Los mejores bares de la Quinta Región</p>
+							<p class="texto_nota">Quienes visitan Valparaíso o Viña del Mar saben que... <a href="{{ path('post', {'slug': 'los-mejores-bares-de-la-quinta-region'}) }}">Ver más »</a></p>
+						</div>
+					</li>
+					<li>
 						<img src="http://www.loogares.com/assets/images/blog/sanduich/el_rey_del_lomito_home.jpg" height="158" width="148" />
 						<div class="detalles_nota">
 							<p class="nombre_colaborador">Sánduich</p>
 							<p class="titulo_nota">¡El verdadero Rey del Lomito!</p>
 							<p class="texto_nota">¡El Rey del Lomito es un lugar clásico de la vida! Tanto... <a href="{{ path('post', {'slug': 'recomendado-por-sanduich-el-verdadero-rey-del-lomito'}) }}">Ver más »</a></p>
-						</div>
-					</li>
-					<li>
-						<img src="http://www.loogares.com/assets/images/blog/sabor-platonico/vietnam_discovery_home.jpg" height="158" width="148" />
-						<div class="detalles_nota">
-							<p class="nombre_colaborador">Sabor Platónico</p>
-							<p class="titulo_nota">Autentica comida vietnamita en Vietnam Discovery</p>
-							<p class="texto_nota">Es difícil entender y aprender a saborear la... <a href="{{ path('post', {'slug': 'recomendado-por-sabor-platonico-autentica-comida-vietnamita-en-vietnam-discovery'}) }}">Ver más »</a></p>
-						</div>
-					</li>
-					<li>
-						<img src="http://www.loogares.com/assets/images/blog/sanduich/sandbig_home.jpg" height="158" width="148" />
-						<div class="detalles_nota">
-							<p class="nombre_colaborador">Sánduich</p>
-							<p class="titulo_nota">¡Manso ni que sándwich a domicilio con Sandbig!</p>
-							<p class="texto_nota">Luego de un agotador día de trabajo, queríamos... <a href="{{ path('post', {'slug': 'recomendado-por-sanduich-manso-ni-que-sandwich-a-domicilio-con-sandbig'}) }}">Ver más »</a></p>
 						</div>
 					</li>
 				</ul>
@@ -188,6 +202,26 @@
 			
 		{# Valparaíso / Viña del Mar #}
 		{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+			<div class="colaboradores">
+				<h5 class="titulo_home encabezado">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
+				<ul class="slider">
+					<li>
+						<img src="http://www.loogares.com/assets/images/blog/el-martutino/lugares_encantadores_home.jpg" height="158" width="148" />
+						<div class="detalles_nota">
+							<p class="nombre_colaborador">El Martutino</p>
+							<p class="titulo_nota">Lugares encantadores de Valparaíso</p>
+							<p class="texto_nota">Valparaíso, ciudad que encanta por su multiplicidad de colores... <a href="{{ path('post', {'slug': 'lugares-encantadores-de-valparaiso'}) }}">Ver más »</a></p>
+						</div>
+					</li>
+				</ul>
+				<div class="pages">
+					<ul>
+						<li><a class="slide-change active" data-slide="0"></a></li>
+						<li><a class="slide-change" data-slide="1"></a></li>
+						<li><a class="slide-change" data-slide="2"></a></li>
+					</ul>
+				</div>
+			</div>
 			
 		{# Buenos Aires #}
 		{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
