@@ -315,5 +315,5 @@ dueno:
             texto: ¿Cómo comprobar que sos dueño?
             lugar: Lugar
         flash:
-            existe: Este lugar ya fue reclamado por su dueño anteriormente. Lo sentimos.
+            existe: Este Lugar ya fue reclamado por su dueño anteriormente. Lo sentimos.
             nuevo: En menos de 48 horas sabrás nuestra propuesta. ¡Grandes cosas están por llegar!... y no es la pizza que pedimos hace 25 minutos.

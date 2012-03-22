@@ -5,7 +5,7 @@ lugar:
             agregar: ¡Ese es el espíritu, %nombre% %apellido%! Si seguís subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.
             borrar: Tu foto acaba de ser borrada. Agregá otra cuando quieras.
         compartir:
-            mail: ¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora exigiles una salida... ¡todo incluido!
+            mail: ¡Buenísimo! Acabas de compartir un Lugar con tus amigos. Ahora exigiles una salida... ¡todo incluido!
         recomendacion:
             agregar: ¡Sos el mejor, %nombre% %apellido%! Seguí recomendando y te convertirás en nuestro Loogareño favorito.
             agregar_revision: ¡Qué grande, %nombre% %apellido%! Si tuviéramos medallas te daríamos una. El lugar que agregaste quedará temporalmente en revisión.
