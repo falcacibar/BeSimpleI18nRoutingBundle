@@ -1,6 +1,6 @@
 {% extends 'TwigBundle::layout.html.twig' %}
 
-{% if is_granted('ROLE_ADMIN') %}
+
 	{% block titled %}
 	    {{ exception.message }} ({{ status_code }} {{ status_text }})
 	{% endblock %}
@@ -9,4 +9,3 @@
 	{% block contednt %}
 	    {% include 'TwigBundle:Exception:exception.html.twig' %}
 	{% endblock %}
-{% endif %}
