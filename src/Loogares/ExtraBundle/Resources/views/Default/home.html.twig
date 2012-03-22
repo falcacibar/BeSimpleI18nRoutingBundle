@@ -110,7 +110,7 @@
 			<ul>
 				{% for categoria in home.categorias %}
 				<li {% if loop.index == 3 %}class="ultima_categoria"{% endif %}>
-					<p class="titulo_categoria">{{categoria.nombre}} »</p>
+					<a class="titulo_categoria" href="#">{{categoria.nombre}} »</a>
 					{% if categoria.top_five.0.lugar.imagenesLugar[0].imagenFull is not defined %}
 						<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('medium_lugar') }}"  width="60" height="60" />
 					{% endif %}

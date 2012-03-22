@@ -92,7 +92,7 @@ input[type=checkbox], input[type=radio] {
   -o-border-radius: 8px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
-  background: #444444;
+  background: #666666;
   color: white;
   display: block;
   float: left;
@@ -107,7 +107,7 @@ input[type=checkbox], input[type=radio] {
       color: #0066cc;
       text-decoration: underline; }
   .mensaje_cerrado .imagen_cerrado {
-    background: url("../images/extras/iconos_ficha_lugar.png") 0px -660px;
+    background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0px -717px;
     display: block;
     float: left;
     height: 20px;
@@ -115,7 +115,7 @@ input[type=checkbox], input[type=radio] {
     width: 20px; }
   .mensaje_cerrado .txt_exito {
     float: left;
-    margin: 3px 0 0; }
+    margin: 1px 0 0; }
 
 .mensaje_error {
   border-radius: 8px;

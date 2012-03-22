@@ -530,7 +530,7 @@ input[type=checkbox], input[type=radio] {
   -o-border-radius: 8px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
-  background: #444444;
+  background: #666666;
   color: white;
   display: block;
   float: left;
@@ -545,7 +545,7 @@ input[type=checkbox], input[type=radio] {
       color: #0066cc;
       text-decoration: underline; }
   .mensaje_cerrado .imagen_cerrado {
-    background: url("../images/extras/iconos_ficha_lugar.png") 0px -660px;
+    background: url("../images/extras/iconos_ficha_lugar.png") no-repeat 0px -717px;
     display: block;
     float: left;
     height: 20px;
@@ -553,7 +553,7 @@ input[type=checkbox], input[type=radio] {
     width: 20px; }
   .mensaje_cerrado .txt_exito {
     float: left;
-    margin: 3px 0 0; }
+    margin: 1px 0 0; }
 
 .mensaje_error {
   border-radius: 8px;
@@ -2657,7 +2657,10 @@ body {
       width: 192px; }
       .contenido_home .lugares_recomendados li .titulo_categoria {
         color: #999999;
-        font-size: 13px; }
+        font-size: 13px;
+        float: left;
+        text-decoration: none;
+        width: 192px; }
       .contenido_home .lugares_recomendados li img {
         float: left;
         margin: 20px 0 0; }
@@ -3628,14 +3631,6 @@ body {
     top: 0px;
     position: absolute;
     width: 640px; }
-  .lugar_info .bar {
-    width: 100%;
-    height: 80px;
-    display: block;
-    position: absolute;
-    top: 300px;
-    background: #444444;
-    z-index: 40200; }
   .lugar_info .qtip_favoritos {
     display: none; }
   .lugar_info .favoritos_lugar {
@@ -4110,7 +4105,18 @@ body {
   float: left;
   height: 50px;
   padding: 0 20px;
+  position: relative;
   width: 600px; }
+  .actividad_lugar .overlay {
+    background: url("../images/extras/fondo_lock.png") repeat 0 0;
+    left: 0px;
+    height: 100%;
+    top: 0px;
+    position: absolute;
+    width: 640px; }
+    .actividad_lugar .overlay .lock {
+      margin: 10px 308px;
+      z-index: 50; }
   .actividad_lugar .qtip_quiero_ir {
     display: none; }
   .actividad_lugar .qtip_quiero_volver {
@@ -4129,6 +4135,16 @@ body {
     width: 150px; }
     .actividad_lugar .recomienda_lugar:hover {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -30px; }
+  .actividad_lugar .edita_recomendacion_lugar {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -60px;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    margin: 10px 0;
+    width: 150px; }
+    .actividad_lugar .edita_recomendacion_lugar:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -90px; }
   .actividad_lugar .recomienda_despues_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -161px 0;
     display: block;
@@ -4235,14 +4251,29 @@ body {
   display: block;
   float: left;
   height: 15px;
+  position: relative;
   width: 638px; }
+  .caja_inferior_ficha .overlay {
+    left: 0px;
+    height: 100%;
+    top: 0px;
+    position: absolute;
+    width: 640px; }
 
 .opciones_lugar {
   border: 1px solid #f2f2f6;
   display: block;
   float: left;
   margin: 10px 0 0;
+  position: relative;
   width: 638px; }
+  .opciones_lugar .overlay {
+    left: 0px;
+    height: 100%;
+    top: 0px;
+    position: absolute;
+    opacity: 0.8;
+    width: 640px; }
   .opciones_lugar ul.opciones_lugar_f6f {
     display: block;
     float: left;
@@ -5047,8 +5078,13 @@ body {
           width: 41px;
           top: 50%;
           position: absolute; }
-          .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior span:hover {
-            background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 -73px; }
+        .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior:hover span {
+          background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 -73px;
+          height: 73px;
+          margin: 0 0 0 15px;
+          width: 41px;
+          top: 50%;
+          position: absolute; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente {
         float: right;
         height: 100%;
@@ -5063,9 +5099,15 @@ body {
           top: 50%;
           position: absolute;
           margin: 0 15px 0 0;
-          width: 41px; }
-          .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente span:hover {
-            background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px -73px; }
+          width: 56px; }
+        .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente:hover span {
+          background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px -73px;
+          height: 73px;
+          width: 41px;
+          top: 50%;
+          position: absolute;
+          margin: 0 15px 0 0;
+          width: 56px; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_anterior {
         cursor: pointer; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_siguiente {
@@ -5475,20 +5517,20 @@ body {
         display: block;
         float: left;
         height: 16px;
-        margin: 12px 0 0;
+        margin: 12px 10px 0 0;
         width: 16px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .sexo_usuario_Mujer {
         background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -209px;
         display: block;
         float: left;
         height: 17px;
-        margin: 11px 0 0;
+        margin: 11px 10px 0 0;
         width: 16px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .edad_usuario {
         display: block;
         float: left;
         font-size: 14px;
-        margin: 13px 0 0 10px;
+        margin: 13px 0 0 0;
         width: 274px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .ciudad_pais_usuario {
         display: block;

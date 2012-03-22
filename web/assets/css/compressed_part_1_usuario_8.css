@@ -111,20 +111,20 @@
         display: block;
         float: left;
         height: 16px;
-        margin: 12px 0 0;
+        margin: 12px 10px 0 0;
         width: 16px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .sexo_usuario_Mujer {
         background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -209px;
         display: block;
         float: left;
         height: 17px;
-        margin: 11px 0 0;
+        margin: 11px 10px 0 0;
         width: 16px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .edad_usuario {
         display: block;
         float: left;
         font-size: 14px;
-        margin: 13px 0 0 10px;
+        margin: 13px 0 0 0;
         width: 274px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .ciudad_pais_usuario {
         display: block;

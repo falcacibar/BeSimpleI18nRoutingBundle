@@ -69,7 +69,7 @@
     <div class="contenido_central" id="lugar-info">
         <div class="lugar_info">
             {% if app.session.hasFlash('cerrado_flash') %}
-                <div class="overlay"><div class="bar"></div></div>
+                <div class="overlay"></div>
             {% endif %}
             <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
             <div class="favoritos_lugar{{(is_granted('ROLE_USER') == false) ? '' : ''}}">
@@ -280,10 +280,17 @@
         </div>
 
         <div class="actividad_lugar">
+        
+        {% if app.session.hasFlash('cerrado_flash') %}
+            <div class="overlay">
+                <img class="lock" src="{{ asset('assets/images/extras/lock.png') }}" height="31" width="23" />
+            </div>
+        {% endif %}
+
             {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
-            <a class="recomienda_lugar"></a>
+                <a class="recomienda_lugar"></a>
             {% else %}
-                Ya recomendo, imagen nueva
+                <a class="edita_recomendacion_lugar" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': app.security.token.user.slug }) }}"></a>
             {% endif %}
 
             {% if lugar.accionesUsuario.2.puede == 1 %}
@@ -348,9 +355,19 @@
             </div>
         </div>
 
-        <div class="caja_inferior_ficha"></div>
+        <div class="caja_inferior_ficha">
+            {% if app.session.hasFlash('cerrado_flash') %}
+                <div class="overlay">
+                </div>
+            {% endif %}
+        </div>
 
         <div class="opciones_lugar">
+            
+            {% if app.session.hasFlash('cerrado_flash') %}
+                <div class="overlay"></div>
+            {% endif %}
+
             <ul class="opciones_lugar_f6f">
                 {% if lugar.duenoId == 0 %}
                     <li>
