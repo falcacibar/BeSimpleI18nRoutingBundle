@@ -67,6 +67,7 @@ class DefaultController extends Controller
     }
 
     public function localeAction($slug) {
+        if($slug == ''){$slug = 'santiago-de-chile';}
         $em = $this->getDoctrine()->getEntityManager();        
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
         $ciudad = $cr->findOneBySlug($slug);

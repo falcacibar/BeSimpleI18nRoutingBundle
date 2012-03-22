@@ -85,3 +85,8 @@ accionesPendientes:
     pattern:  /acciones_pendientes/{accion}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:totalAccionesPendientes }
 
+
+listadoNotificaciones:
+    pattern:  /{param}/notificaciones
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:listadoNotificaciones }
+
