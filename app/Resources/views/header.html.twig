@@ -1,6 +1,6 @@
 <div class="barra_ciudad">
 	<div class="centrado_ciudad">
-		<a href="/{{app.session.get('ciudad').slug|default('')}}">
+		<a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">
 			<div class="logo_ciudad">
 				<div class="borde_logo">			
 					<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />
@@ -73,7 +73,7 @@
 
 <div class="menu">
 	<div class="centrado_menu">
-		<a href="{{path('root')}}">
+		<a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">
 			<div class="logo_ciudad_menu">
 				<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
 			</div>

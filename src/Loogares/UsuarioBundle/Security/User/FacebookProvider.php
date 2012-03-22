@@ -31,7 +31,9 @@ class FacebookProvider implements UserProviderInterface
         $this->validator = $validator;
         $this->container = $container;
 
-        //$this->container->get('security.context');
+        //echo "<pre>";
+        //print_r($container->getParameter('fos_facebook.logging'));
+        //echo "</pre>";
     }
 
     public function supportsClass($class)
