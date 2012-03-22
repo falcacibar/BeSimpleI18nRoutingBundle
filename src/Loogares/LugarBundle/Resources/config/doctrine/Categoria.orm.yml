@@ -26,5 +26,5 @@ Loogares\LugarBundle\Entity\Categoria:
                 - translatable
         mostrar_precio:
             type: smallint
-        tipo_categoria_id:
-            type: integer
+        mostrar_categoria:
+            type: smallint

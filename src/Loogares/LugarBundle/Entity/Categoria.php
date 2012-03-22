@@ -202,4 +202,29 @@ class Categoria implements Translatable
     {
         $this->locale = $locale;
     }
+    /**
+     * @var smallint $mostrar_categoria
+     */
+    private $mostrar_categoria;
+
+
+    /**
+     * Set mostrar_categoria
+     *
+     * @param smallint $mostrarCategoria
+     */
+    public function setMostrarCategoria($mostrarCategoria)
+    {
+        $this->mostrar_categoria = $mostrarCategoria;
+    }
+
+    /**
+     * Get mostrar_categoria
+     *
+     * @return smallint 
+     */
+    public function getMostrarCategoria()
+    {
+        return $this->mostrar_categoria;
+    }
 }

@@ -20,7 +20,8 @@ class DefaultController extends Controller
 
     	$em = $this->getDoctrine()->getEntityManager();
         $tlr = $em->getRepository("LoogaresLugarBundle:TipoCategoria");    
-        $tipoCategoria = $tlr->findAll();
+        $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\TipoCategoria u ORDER BY u.prioridad_web asc");
+        $tipoCategoria = $q->getResult();
         $ciudad = $this->get('session')->get('ciudad');
         $idCiudad = $ciudad['id'];
         $data = array();

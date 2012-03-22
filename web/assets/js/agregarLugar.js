@@ -23,7 +23,8 @@ $(document).ready(function(){
 
     $( "#form_calle" ).autocomplete({
         source: WEBROOT+"../ajax/recomendarCalle",
-        minLength: 2
+        minLength: 2,
+        delay: 0
     });
 
     $('.categoria, .sector, .comuna, select.pais, .ciudad').chosen();
