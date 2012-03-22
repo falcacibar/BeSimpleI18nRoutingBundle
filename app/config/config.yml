@@ -64,6 +64,7 @@ doctrine:
                     LoogaresUsuarioBundle: ~
                     LoogaresLugarBundle: ~
                     LoogaresBlogBundle: ~
+                    LoogaresMailBundle: ~
                     StofDoctrineExtensionsBundle: ~
                 dql:
                     string_functions:
@@ -120,13 +121,7 @@ jirafe_mail_chimp:
     api_key:    %mailchimp_apikey%
     connection: stub
 
-# Doctrine Extensions Configuration
-stof_doctrine_extensions:
-    default_locale: es_AR
-    translation_fallback: true
-    orm:
-        default:
-            translatable: true
+
 
 # FOS Facebook Configuration
 fos_facebook:

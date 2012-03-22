@@ -1,3 +1,7 @@
+LoogaresMailBundle:
+    resource: "@LoogaresMailBundle/Resources/config/routing.yml"
+    prefix:   /
+
 LoogaresBlogBundle:
     resource: "@LoogaresBlogBundle/Resources/config/routing.yml"
     prefix:   /

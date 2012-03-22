@@ -54,7 +54,7 @@ class LugarController extends Controller{
         $sacarRecomendacionPedida = false;
 
         $em = $this->getDoctrine()->getEntityManager();
-        $qb = $em->createQueryBuilder();
+        //$qb = $em->createQueryBuilder();
         $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
         
         $lugarResult[0] = $lr->findOneBySlug($slug);

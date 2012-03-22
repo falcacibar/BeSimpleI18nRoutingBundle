@@ -1,0 +1,16 @@
+Loogares\MailBundle\Entity\TipoNotificacion:
+    type: entity
+    table: tipo_notificacion
+    oneToMany:
+        notificaciones:
+            targetEntity: Loogares\MailBundle\Entity\Notificacion
+            mappedBy: tipo_notificacion
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        #nombre
+        nombre:
+            type: string
+            length: 50
