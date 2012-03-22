@@ -2657,7 +2657,10 @@ body {
       width: 192px; }
       .contenido_home .lugares_recomendados li .titulo_categoria {
         color: #999999;
-        font-size: 13px; }
+        font-size: 13px;
+        float: left;
+        text-decoration: none;
+        width: 192px; }
       .contenido_home .lugares_recomendados li img {
         float: left;
         margin: 20px 0 0; }
@@ -5075,8 +5078,13 @@ body {
           width: 41px;
           top: 50%;
           position: absolute; }
-          .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior span:hover {
-            background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 -73px; }
+        .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior:hover span {
+          background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 -73px;
+          height: 73px;
+          margin: 0 0 0 15px;
+          width: 41px;
+          top: 50%;
+          position: absolute; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente {
         float: right;
         height: 100%;
@@ -5091,9 +5099,15 @@ body {
           top: 50%;
           position: absolute;
           margin: 0 15px 0 0;
-          width: 41px; }
-          .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente span:hover {
-            background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px -73px; }
+          width: 56px; }
+        .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente:hover span {
+          background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px -73px;
+          height: 73px;
+          width: 41px;
+          top: 50%;
+          position: absolute;
+          margin: 0 15px 0 0;
+          width: 56px; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_anterior {
         cursor: pointer; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_siguiente {
@@ -5503,20 +5517,20 @@ body {
         display: block;
         float: left;
         height: 16px;
-        margin: 12px 0 0;
+        margin: 12px 10px 0 0;
         width: 16px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .sexo_usuario_Mujer {
         background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -209px;
         display: block;
         float: left;
         height: 17px;
-        margin: 11px 0 0;
+        margin: 11px 10px 0 0;
         width: 16px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .edad_usuario {
         display: block;
         float: left;
         font-size: 14px;
-        margin: 13px 0 0 10px;
+        margin: 13px 0 0 0;
         width: 274px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .ciudad_pais_usuario {
         display: block;

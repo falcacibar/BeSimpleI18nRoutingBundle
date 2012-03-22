@@ -128,7 +128,10 @@
       width: 192px; }
       .contenido_home .lugares_recomendados li .titulo_categoria {
         color: #999999;
-        font-size: 13px; }
+        font-size: 13px;
+        float: left;
+        text-decoration: none;
+        width: 192px; }
       .contenido_home .lugares_recomendados li img {
         float: left;
         margin: 20px 0 0; }

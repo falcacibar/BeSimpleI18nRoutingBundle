@@ -1877,8 +1877,13 @@
           width: 41px;
           top: 50%;
           position: absolute; }
-          .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior span:hover {
-            background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 -73px; }
+        .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .anterior:hover span {
+          background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat 0 -73px;
+          height: 73px;
+          margin: 0 0 0 15px;
+          width: 41px;
+          top: 50%;
+          position: absolute; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente {
         float: right;
         height: 100%;
@@ -1893,9 +1898,15 @@
           top: 50%;
           position: absolute;
           margin: 0 15px 0 0;
-          width: 41px; }
-          .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente span:hover {
-            background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px -73px; }
+          width: 56px; }
+        .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .siguiente:hover span {
+          background: url("../images/extras/siguiente_anterior_galeria.png") no-repeat -49px -73px;
+          height: 73px;
+          width: 41px;
+          top: 50%;
+          position: absolute;
+          margin: 0 15px 0 0;
+          width: 56px; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_anterior {
         cursor: pointer; }
       .galeria_de_fotos .foto_galeria .botones_anterior_siguiente .boton_siguiente {
