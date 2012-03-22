@@ -5451,6 +5451,12 @@ body {
           margin: 0 0 0 10px;
           padding: 8px;
           width: 350px; }
+        .datos_obligatorios .datos_obligatorios_lista li ul li div input {
+          margin: 0;
+          padding: 5px; }
+        .datos_obligatorios .datos_obligatorios_lista li ul li ul li {
+          padding: 10px;
+          width: 278px; }
       .datos_obligatorios .datos_obligatorios_lista li ul .container_ciudad, .datos_obligatorios .datos_obligatorios_lista li ul .container_comuna {
         display: none; }
   .datos_obligatorios .siguiente_paso {
@@ -5460,7 +5466,7 @@ body {
     font-size: 13px;
     font-weight: bold;
     height: 30px;
-    margin: 50px 0 0 10px;
+    margin: 50px 10px 0 10px;
     text-align: left;
     width: 80px; }
   .datos_obligatorios .anterior_paso {
@@ -5470,7 +5476,7 @@ body {
     font-size: 13px;
     font-weight: bold;
     height: 30px;
-    margin: 50px 0 0 150px;
+    margin: 50px 10px 0 150px;
     text-align: left;
     width: 80px; }
   .datos_obligatorios .enviar_datos {
@@ -5479,8 +5485,9 @@ body {
     cursor: pointer;
     font-size: 13px;
     font-weight: bold;
+    float: right;
     height: 30px;
-    margin: 50px 0 0 10px;
+    margin: 50px 114px 0 0;
     width: 99px !important; }
     .datos_obligatorios .enviar_datos:hover {
       background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
