@@ -1,0 +1,12 @@
+<ul>
+{% for tipoNotificacion in tipoNotificaciones %}
+	<li>
+		{{tipoNotificacion.nombre}}
+		{% if tipoNotificacion.notificaciones[0].usuario.id is defined %}
+			checked
+		{% else %}
+			not checked
+		{% endif %}
+	</li>
+{% endfor %}
+</ul>

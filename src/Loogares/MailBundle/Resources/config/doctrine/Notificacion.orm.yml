@@ -1,0 +1,27 @@
+Loogares\MailBundle\Entity\Notificacion:
+    type: entity
+    repositoryClass: Loogares\MailBundle\Repository\NotificacionRepository
+    table: notificaciones
+    manyToOne:
+        tipo_notificacion:
+            targetEntity: Loogares\MailBundle\Entity\TipoNotificacion
+            joinTable:
+                name: notificacion
+                joinColumns:
+                    tipo_notifiacion:
+                        referencedColumnName: id
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+            joinTable:
+                name: lugares
+                joinColumns:
+                    usuario:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        estado:
+            type: string
+            length: 50

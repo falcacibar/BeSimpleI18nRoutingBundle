@@ -1217,4 +1217,21 @@ class UsuarioController extends Controller
         }        
     }
 
+    public function listadoNotificacionesAction(){
+        $em = $this->getDoctrine()->getEntityManager();
+        $tnr = $em->getRepository('LoogaresMailBundle:TipoNotificacion');
+        $nr = $em->getRepository('LoogaresMailBundle:Notificacion');
+        $tipo_notificaciones = $tnr->findAll();
+        $notificaciones = $nr->findAll();
+
+        $tipo_notificaciones = $em->createQuery("SELECT u FROM Loogares\MailBundle\Entity\Notificacion u
+                                                 JOIN u.tipo_notificacion tp
+                                                 WHERE u.usuario = 3605")->getResult();
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:notificaciones_usuario.html.twig', array(
+            'tipoNotificaciones' => $tipo_notificaciones,
+            'notificaciones' => $notificaciones
+        ));
+    }
+
 }
