@@ -270,7 +270,7 @@ usuario:
         confirmar_usuario:
             incorrecto: Código de confirmación incorrecto
             anterioridad: Confirmación realizada con anterioridad
-            exito: ¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún lugar para recomendar?
+            exito: ¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún Lugar para recomendar?
         edicion:
             cuenta: ¡Tu perfil acaba de actualizarse con los nuevos cambios!
             foto: Cambiaste tu foto de perfil. ¡Nada de mal!

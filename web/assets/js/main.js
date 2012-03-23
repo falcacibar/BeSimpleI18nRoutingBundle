@@ -117,7 +117,7 @@ function getTipo(tipo){
       }
     }else if($('body').hasClass('argentina')){
       if(tipo == 'dondeComer'){
-          return ['Menos de $20', '$20 - $50', '$50 - $90', '$90 - $120', 'Más de $120'];
+          return ['Menos de $30', '$30 - $70', '$70 - $100', '$100 - $160', 'Más de $160'];
       }else if(tipo == 'dondeDormir'){
           return ['Mínimo', 'Barato', 'Medio', 'Alto', 'Máximo'];
       }      
