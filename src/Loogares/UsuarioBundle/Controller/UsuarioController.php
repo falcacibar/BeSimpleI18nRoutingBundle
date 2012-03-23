@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Imagine\Image\Box;
 use Imagine\Image;
 use Mailchimp\MCAPI;
-
+use Loogares\MailBundle\Entity\Notificacion;
 
 class UsuarioController extends Controller
 {    
@@ -1217,20 +1217,65 @@ class UsuarioController extends Controller
         }        
     }
 
-    public function listadoNotificacionesAction(){
+    public function listadoNotificacionesAction(Request $request, $param){
         $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
         $tnr = $em->getRepository('LoogaresMailBundle:TipoNotificacion');
         $nr = $em->getRepository('LoogaresMailBundle:Notificacion');
-        $tipo_notificaciones = $tnr->findAll();
-        $notificaciones = $nr->findAll();
 
-        $tipo_notificaciones = $em->createQuery("SELECT u FROM Loogares\MailBundle\Entity\Notificacion u
-                                                 JOIN u.tipo_notificacion tp
-                                                 WHERE u.usuario = 3605")->getResult();
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        $idUsuario = $usuarioResult->getId();
 
-        return $this->render('LoogaresUsuarioBundle:Usuarios:notificaciones_usuario.html.twig', array(
+
+
+        $tipo_notificaciones = $em->createQuery("SELECT u FROM Loogares\MailBundle\Entity\TipoNotificacion u
+                                                 LEFT JOIN u.notificaciones n
+                                                 WITH n.usuario = 3605")->getResult();
+
+        if ($request->getMethod() == 'POST') {
+            foreach($tipo_notificaciones as $key => $value){
+                $nombre = $value->getNombre();
+
+                $notificacion = $em->createQuery("SELECT u FROM Loogares\MailBundle\Entity\Notificacion u
+                                                  WHERE u.usuario = ?1 and u.tipo_notificacion = ?2");
+                $notificacion = $notificacion->setParameter(1, $idUsuario)
+                                             ->setParameter(2, $value->getId())->getOneOrNullResult();
+
+                if( in_array($nombre, $_POST['notificacion']) ){
+                    if($notificacion != null){
+                        $notificacion->setEstado(1);
+                    }else{
+                        $notificacion = new Notificacion();
+                        $notificacion->setEstado(1);
+                        $notificacion->setTipoNotificacion($value);
+                        $notificacion->setUsuario($usuarioResult);
+                        $em->persist($notificacion);
+                        echo 'new';
+                    }
+                }else{
+                    if($notificacion != null){
+                        $notificacion->setEstado(0);
+                    }
+                }
+            }
+            $em->flush();
+        }
+
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        else
+            $loggeadoCorrecto = false;
+
+        if(!$loggeadoCorrecto)
+            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+
+        $data = $ur->getDatosUsuario($usuarioResult, '');
+        $data->tipo = 'notificaciones';
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
             'tipoNotificaciones' => $tipo_notificaciones,
-            'notificaciones' => $notificaciones
+            'usuario' => $data
         ));
     }
 

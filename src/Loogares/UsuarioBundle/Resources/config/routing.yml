@@ -90,3 +90,7 @@ listadoNotificaciones:
     pattern:  /{param}/notificaciones
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:listadoNotificaciones }
 
+accionNotificaciones:
+    pattern: /{param}/notificaciones/guardar
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:listadoNotificaciones }
+

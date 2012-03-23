@@ -15,6 +15,9 @@
 			<a href="{{path('lugaresUsuario', { 'param': slug })}}"><li class="{{(usuario.tipo is defined and usuario.tipo == 'lugares') ? 'selected' : ''}} no-right-border">
 				{{'usuario.menu.lugares'|trans}}
 			</li></a>
+			<a href="{{path('listadoNotificaciones', { 'param': slug })}}"><li class="{{(usuario.tipo is defined and usuario.tipo == 'notificaciones') ? 'selected' : ''}} no-right-border">
+				notificaciones
+			</li></a>
 		{% endif %}		
 	</ul>
 </div>
