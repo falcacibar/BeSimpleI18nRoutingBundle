@@ -366,7 +366,7 @@ class LugarController extends Controller{
                   $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
                 }
                 
-                $comuna = $lr->getComunas($_POST['comuna']);
+                $comuna = $lr->getComunas($_POST['comuna'], $_POST['ciudad']);
 
                 $sector = $lr->getSectores($_POST['sector']);
 
@@ -396,7 +396,9 @@ class LugarController extends Controller{
 
                 $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugarManipulado->getNombre());
                 
-                $lugarManipulado->setFechaAgregado(new \DateTime());
+                if($nuevoLugar == true){
+                  $lugarManipulado->setFechaAgregado(new \DateTime());
+                }
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
                     $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre);

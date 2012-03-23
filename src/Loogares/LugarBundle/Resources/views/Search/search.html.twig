@@ -161,14 +161,14 @@
 						<ul>
 						{% for sector in results.totalPorSectores %}
 							{% if loop.index <= 5 %}
-							<li class="zonas"><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}}</a></li>	
+							<li class="zonas"><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}} (Sector)</a></li>	
 							{% endif %}							
 						{% endfor %}
 
-						{% if results.totalPorSectores is defined and results.totalPorSectores|length < 5 %}
+						{% if results.totalPorSectores is defined and results.totalPorSectores|length <= 5 %}
 							{% for comuna in results.totalPorComunas %}
-								{% if loop.index <= (5 - (results.totalPorSector|default(0)) |length ) %}
-								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}}</a></li>	
+								{% if loop.index <= (5 - (results.totalPorSectores|default(0)) |length ) %}
+								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} (Comuna)</a></li>	
 								{% endif %}							
 							{% endfor %}							
 						{% endif %}

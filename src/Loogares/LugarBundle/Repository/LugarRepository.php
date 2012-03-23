@@ -112,10 +112,13 @@ class LugarRepository extends EntityRepository
         return $ciudadesResult;
     }
 
-    public function getComunas($slug = null){
+    public function getComunas($comuna = null, $ciudad = null){
       $em = $this->getEntityManager();
-        if($slug){
-          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u where u.slug = '$slug' order by u.id asc"); 
+        if($comuna){
+          $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+          $ciudad = $cr->findOneBySlug($ciudad);
+          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u where u.slug = '$comuna' and u.ciudad = ?1 order by u.id asc"); 
+          $q->setParameter(1, $ciudad->getId());
         }else{
           $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u order by u.id asc");
         }

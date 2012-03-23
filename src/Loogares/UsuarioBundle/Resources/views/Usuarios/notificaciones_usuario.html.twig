@@ -4,7 +4,7 @@
 {% for data in notificaciones %}
 	<li>
 		{{data.tipoNotificacion.nombre}}
-		{% if data.notificacion.estado == 1 %}
+		{% if data.notificacion is defined and data.notificacion.estado == 1 %}
 			<input type="checkbox" name="notificacion[]" value="{{data.tipoNotificacion.nombre}}" checked="checked"/>
 		{% else %}
 			<input type="checkbox" name="notificacion[]" value="{{data.tipoNotificacion.nombre}}"/>

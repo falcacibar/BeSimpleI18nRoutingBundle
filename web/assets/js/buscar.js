@@ -77,12 +77,14 @@ $(document).ready(function(){
 		var precio = getTipo('dondeComer');
 		var	qTipPrecio = '<div class="qtip_precio">';
 
-		for(i=precio.length -1; i >= 0; i--){
+		for(i=precio.length - 1; i >= 0; i--){
 			qTipPrecio += "<p><span class='signo_precio'>";
 
-			for(j=precio.length;i<j;j--){qTipPrecio += "$";}
+			for(j=precio.length;i<j;j--){
+				qTipPrecio += "$";
+			}
 
-			qTipPrecio += "</span> = "+precio[i]+"</p>";	
+			qTipPrecio += "</span> = "+precio[(precio.length - 1)- i]+"</p>";	
 		}
 		qTipPrecio += "</div>";
 

@@ -1250,7 +1250,7 @@ class UsuarioController extends Controller
             //Si es un request POST (se hizo submit de la form)
             if ($request->getMethod() == 'POST') {
                 //Si el nombre del tipo de notificacion esta dentro del array de $_POST['notificacion'], quiere habilitarlo
-                if( in_array($nombre, $_POST['notificacion']) ){
+                if( isset($_POST['notificacion']) && in_array($nombre, $_POST['notificacion']) ){
                     //Si el objeto de notificacion que seleccionamos arriba, tiene algo, seteamos el estado a 1
                     if($notificacion != null){
                         $notificacion->setEstado(1);
@@ -1289,7 +1289,7 @@ class UsuarioController extends Controller
 
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
-        
+
         $data = $ur->getDatosUsuario($usuarioResult, '');
         $data->tipo = 'notificaciones';
         $data->loggeadoCorrecto = $loggeadoCorrecto;
