@@ -55,8 +55,16 @@
 		<!-- Concursos del sitio -->
 		<div class="campanas_concursos">
 			<ul>
-				<a href="{{ path('post', {'slug': 'sorteamos-sesiones-tratamiento-corporal-estetikine'}) }}">
+				<a href="{{ path('post', {'slug': 'sorteamos-entradas-para-la-obra-un-nino-en-gam'}) }}">
 					<li>
+						<h2 class="titulo_concurso concursos">Sólo por hoy</h2>
+						<img src="http://www.loogares.com/assets/images/blog/gam-centro-cultural-gabriela-mistral/un_nino_home.jpg" width="204" height="115" / >
+						<p class="lugar_concurso">GAM</p>
+						<p class="sorteo_concurso">Sorteamos dos entradas dobles para la obra Un Ni�o</p>
+					</li>
+				</a>
+				<a href="{{ path('post', {'slug': 'sorteamos-sesiones-tratamiento-corporal-estetikine'}) }}">
+					<li class="central">
 						<h2 class="titulo_concurso concursos">Esta semana</h2>
 						<img src="http://www.loogares.com/assets/images/blog/beneficio-exclusivo/estetikine_home.jpg" width="204" height="115" / >
 						<p class="lugar_concurso">EstetiKine</p>
@@ -64,19 +72,11 @@
 					</li>
 				</a>
 				<a href="{{ path('post', {'slug': 'sorteamos-entradas-dobles-para-brahms-y-el-romanticismo-aleman-en-el-municipal'}) }}">
-					<li class="central">
+					<li>
 						<h2 class="titulo_concurso ganadores">Ganadores</h2>
 						<img src="http://www.loogares.com/assets/images/blog/miercoles-de-municipal/brahms_home.jpg" width="204" height="115" / >
 						<p class="lugar_concurso">Teatro Municipal</p>
 						<p class="sorteo_concurso">Gana entradas para Brahms y el Romanticismo Alemán</p>
-					</li>
-				</a>
-				<a href="{{ path('post', {'slug': 'sorteamos-entradas-dobles-para-glup-en-amanda'}) }}">
-					<li>
-						<h2 class="titulo_concurso ganadores">Ganadores</h2>
-						<img src="http://www.loogares.com/assets/images/blog/centro-cultural-amanda/glup_home.jpg" width="204" height="115" / >
-						<p class="lugar_concurso">Centro Cultural Amanda</p>
-						<p class="sorteo_concurso">Gana entradas para Glup!</p>
 					</li>
 				</a>
 			</ul>
@@ -167,6 +167,14 @@
 				<h5 class="titulo_home encabezado">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
 				<ul class="slider">
 					<li>
+						<img src="http://www.loogares.com/assets/images/blog/sabor-platonico/habia_una_vez_home.jpg" height="158" width="148" />
+						<div class="detalles_nota">
+							<p class="nombre_colaborador">Sabor Platónico</p>
+							<p class="titulo_nota">Había una vez…</p>
+							<p class="texto_nota">A este lugar de Antonia López de Bello 323, Bellavista... <a href="{{ path('post', {'slug': 'sabor-platonico-recomienda-habia-una-vez'}) }}">Ver más »</a></p>
+						</div>
+					</li>
+					<li>
 						<img src="http://www.loogares.com/assets/images/blog/sanduich/bobs_home.jpg" height="158" width="148" />
 						<div class="detalles_nota">
 							<p class="nombre_colaborador">Sánduich</p>
@@ -180,14 +188,6 @@
 							<p class="nombre_colaborador">El Dínamo</p>
 							<p class="titulo_nota">Los mejores bares de la Quinta Región</p>
 							<p class="texto_nota">Quienes visitan Valparaíso o Viña del Mar saben que... <a href="{{ path('post', {'slug': 'los-mejores-bares-de-la-quinta-region'}) }}">Ver más »</a></p>
-						</div>
-					</li>
-					<li>
-						<img src="http://www.loogares.com/assets/images/blog/sanduich/el_rey_del_lomito_home.jpg" height="158" width="148" />
-						<div class="detalles_nota">
-							<p class="nombre_colaborador">Sánduich</p>
-							<p class="titulo_nota">¡El verdadero Rey del Lomito!</p>
-							<p class="texto_nota">¡El Rey del Lomito es un lugar clásico de la vida! Tanto... <a href="{{ path('post', {'slug': 'recomendado-por-sanduich-el-verdadero-rey-del-lomito'}) }}">Ver más »</a></p>
 						</div>
 					</li>
 				</ul>
@@ -205,6 +205,22 @@
 			<div class="colaboradores">
 				<h5 class="titulo_home encabezado">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
 				<ul class="slider">
+					<li>
+						<img src="http://www.loogares.com/assets/images/blog/restomagazine/big_ben_home.jpg" height="158" width="148" />
+						<div class="detalles_nota">
+							<p class="nombre_colaborador">Restomagazine</p>
+							<p class="titulo_nota">Big Ben: Tradición alemana a la nostalgia</p>
+							<p class="texto_nota">Como cualquier final, en el mundo de la gastronomía... <a href="{{ path('post', {'slug': 'recomendado-por-restomagazine-big-ben'}) }}">Ver más »</a></p>
+						</div>
+					</li>
+					<li>
+						<img src="http://www.loogares.com/assets/images/blog/oscar-aspillaga/bar_ritual_home.jpg" height="158" width="148" />
+						<div class="detalles_nota">
+							<p class="nombre_colaborador">Óscar Aspillaga</p>
+							<p class="titulo_nota">Bar Ritual: Un Pecado Capital en Domingo</p>
+							<p class="texto_nota">En Valpo las cosas son un poco lentas. Y los... <a href="{{ path('post', {'slug': 'recomendado-por-el-martutino-bar-ritual'}) }}">Ver más »</a></p>
+						</div>
+					</li>
 					<li>
 						<img src="http://www.loogares.com/assets/images/blog/el-martutino/lugares_encantadores_home.jpg" height="158" width="148" />
 						<div class="detalles_nota">
