@@ -376,6 +376,8 @@ class LugarController extends Controller{
 
                 if(isset($_POST['precio'])){
                     $lugarManipulado->setPrecio($_POST['precio']);
+                }else{
+                  $lugarManipulado->setPrecio(0);
                 }
 
                 if($rolAdmin == false){

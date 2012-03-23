@@ -22,6 +22,10 @@
     </script>
 {% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+{% endblock %}
+
 {% block javascripts %}
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg" type="text/javascript"></script>      
     <script src='{{asset('assets/js/googleMapBuscar.js')}}'></script>
@@ -32,7 +36,6 @@
 {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
 
     <!-- Mensajes de éxito -->
     {% if app.session.hasFlash('buscar_flash') %}
@@ -43,7 +46,7 @@
 
 	<div class="resultados_wrapper">
 {% if lugares[0] is defined %}		
-		<div class="resultados">
+		<div class="resultados" data-tipo="{{mostrarPrecio}}">
 			<h1 class="titulo_busqueda">
 				{% if categoria != null and noCategorias == true %}
 					{{categoria.nombre}}
@@ -227,7 +230,8 @@
 						{% endif %}
 					</div>
 				</div>
-				{% if mostrarPrecio == true %}
+
+				{% if mostrarPrecio != false %}
 				<div class="filtros_precios filtros">
 					<div class="filtros_header">
 						<span class="filtros_titulo">{{'lugar.buscar.precios'|trans}}</span>
