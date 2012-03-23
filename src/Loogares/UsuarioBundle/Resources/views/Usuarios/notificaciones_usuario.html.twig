@@ -1,13 +1,13 @@
 <div class="caja_lugares_usuario">
 <form action="{{ path('accionNotificaciones', {'param': app.security.token.user.slug}) }}" method="post">
 <ul>
-{% for tipoNotificacion in tipoNotificaciones %}
+{% for data in notificaciones %}
 	<li>
-		{{tipoNotificacion.nombre}} - {{tipoNotificacion.notificaciones[0].usuario.id|default('lol')}}
-		{% if tipoNotificacion.notificaciones[0].usuario is defined and tipoNotificacion.notificaciones[0].usuario.id == app.security.token.user.id and tipoNotificacion.notificaciones[0].estado == 1 %}
-			<input type="checkbox" name="notificacion[]" value="{{tipoNotificacion.nombre}}" checked="checked"/>
+		{{data.tipoNotificacion.nombre}}
+		{% if data.notificacion.estado == 1 %}
+			<input type="checkbox" name="notificacion[]" value="{{data.tipoNotificacion.nombre}}" checked="checked"/>
 		{% else %}
-			<input type="checkbox" name="notificacion[]" value="{{tipoNotificacion.nombre}}" />
+			<input type="checkbox" name="notificacion[]" value="{{data.tipoNotificacion.nombre}}"/>
 		{% endif %}
 	</li>
 {% endfor %}
