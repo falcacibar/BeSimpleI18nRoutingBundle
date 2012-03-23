@@ -91,6 +91,7 @@ class DefaultController extends Controller
     }
 
     public function homepageAction($slug){
+        $this->localeAction($slug);
         $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
