@@ -1,10 +1,12 @@
 actividad:
     pattern:  /actividad
     defaults: { _controller: LoogaresExtraBundle:Default:actividad }
-    
+
 locale:
     pattern:  /{slug}
     defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : santiago-de-chile }
+    requirements:
+        slug: santiago-de-chile|valparaiso-vina-del-mar|buenos-aires
 
 locale_santiago_de_chile:
     pattern:  /santiago-de-chile
