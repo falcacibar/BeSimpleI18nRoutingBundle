@@ -60,6 +60,8 @@
     <script>
         $(document).ready(function(){
         {% if lugar.slug %}
+            $('.pais').find('option[value="{{lugar.comuna.ciudad.pais.slug}}"]').attr('selected', 'selected').change();
+            $(".pais").trigger("liszt:updated");
             $('.ciudad').find('option[value="{{lugar.comuna.ciudad.slug}}"]').attr('selected', 'selected').change();
             $(".ciudad").trigger("liszt:updated");
             $('.comuna').find('option[value="{{lugar.comuna.slug}}"]').attr('selected', 'selected').change();
@@ -67,7 +69,7 @@
 
             {% if lugar.sector %}
                 $('.sector').find('option[value="{{lugar.sector.slug}}"]').attr('selected', 'selected');
-                $(".sector").trigger("liszt:updated")
+                $(".sector").trigger("liszt:updated");
             {% endif %}
 
             onCargarMapaAgregar();
