@@ -1,6 +1,6 @@
-locale:
-    pattern:  /{slug}
-    defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : santiago-de-chile }
+actividad:
+    pattern:  /actividad
+    defaults: { _controller: LoogaresExtraBundle:Default:actividad }
 
 locale_santiago_de_chile:
     pattern:  /santiago-de-chile
@@ -14,13 +14,15 @@ locale_buenos_aires:
     pattern:  /buenos-aires
     defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : buenos-aires }
 
-actividad:
-    pattern:  /actividad
-    defaults: { _controller: LoogaresExtraBundle:Default:actividad }
+locale:
+    pattern:  /{slug}
+    defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug: santiago-de-chile }
+    requirements:
+        slug: santiago-de-chile|valparaiso-vina-del-mar|buenos-aires
 
 static:
     pattern:  /{static}
-    defaults: { _controller: LoogaresExtraBundle:Default:Static}
+    defaults: { _controller: LoogaresExtraBundle:Default:Static }
 
 _contacto_mail:
     pattern:  /mail/enviar_contacto

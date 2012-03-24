@@ -22,6 +22,10 @@
     </script>
 {% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+{% endblock %}
+
 {% block javascripts %}
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAzlORVreqGpkqQqQvjPC0pBTqGAcz-UBEJ7apA_tMhekG0smvBRSy_IPIzC_OjDTx3IC5QK-ZXxFlmg" type="text/javascript"></script>      
     <script src='{{asset('assets/js/googleMapBuscar.js')}}'></script>
@@ -32,7 +36,6 @@
 {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
 
     <!-- Mensajes de éxito -->
     {% if app.session.hasFlash('buscar_flash') %}
@@ -43,7 +46,7 @@
 
 	<div class="resultados_wrapper">
 {% if lugares[0] is defined %}		
-		<div class="resultados">
+		<div class="resultados" data-tipo="{{mostrarPrecio}}">
 			<h1 class="titulo_busqueda">
 				{% if categoria != null and noCategorias == true %}
 					{{categoria.nombre}}
@@ -161,14 +164,14 @@
 						<ul>
 						{% for sector in results.totalPorSectores %}
 							{% if loop.index <= 5 %}
-							<li class="zonas"><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}}</a></li>	
+							<li class="zonas"><a href="{{ path(ruta_sector, query|merge({'slug': slug, 'comuna': null, 'sector': sector.slug, })) }}">{{sector.nombre}} (Sector)</a></li>	
 							{% endif %}							
 						{% endfor %}
 
-						{% if results.totalPorSectores is defined and results.totalPorSectores|length < 5 %}
+						{% if results.totalPorSectores is defined and results.totalPorSectores|length <= 5 %}
 							{% for comuna in results.totalPorComunas %}
-								{% if loop.index <= (5 - (results.totalPorSector|default(0)) |length ) %}
-								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}}</a></li>	
+								{% if loop.index <= (5 - (results.totalPorSectores|default(0)) |length ) %}
+								<li><a href="{{ path(ruta_comuna, query|merge({'slug': slug, 'sector': null, 'comuna': comuna.slug })) }}">{{comuna.nombre}} (Comuna)</a></li>	
 								{% endif %}							
 							{% endfor %}							
 						{% endif %}
@@ -227,7 +230,8 @@
 						{% endif %}
 					</div>
 				</div>
-				{% if mostrarPrecio == true %}
+
+				{% if mostrarPrecio != false %}
 				<div class="filtros_precios filtros">
 					<div class="filtros_header">
 						<span class="filtros_titulo">{{'lugar.buscar.precios'|trans}}</span>

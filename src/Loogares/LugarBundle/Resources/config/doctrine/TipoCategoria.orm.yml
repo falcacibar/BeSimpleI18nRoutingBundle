@@ -1,6 +1,10 @@
 Loogares\LugarBundle\Entity\TipoCategoria:
     type: entity
     table: tipo_categoria
+    oneToMany:
+        categorias:
+            targetEntity: Loogares\LugarBundle\Entity\Categoria
+            mappedBy: tipo_categoria
     gedmo:
         translation:
             locale: locale

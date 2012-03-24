@@ -56,7 +56,6 @@ class DefaultController extends Controller
     }
 
     public function ciudadAction() {
-
         $em = $this->getDoctrine()->getEntityManager();
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
 
@@ -67,7 +66,6 @@ class DefaultController extends Controller
     }
 
     public function localeAction($slug) {
-        if($slug == ''){$slug = 'santiago-de-chile';}
         $em = $this->getDoctrine()->getEntityManager();        
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
         $ciudad = $cr->findOneBySlug($slug);
@@ -92,7 +90,7 @@ class DefaultController extends Controller
         return new Response('ok');
     }
 
-    public function homepageAction($slug) {
+    public function homepageAction($slug){
         $this->localeAction($slug);
         $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");

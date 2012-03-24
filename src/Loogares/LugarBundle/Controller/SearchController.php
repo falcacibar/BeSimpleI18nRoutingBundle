@@ -949,7 +949,7 @@ class SearchController extends Controller{
       $tipo_categoria = $categoria_repo->findOneBySlug($termSlug)->getTipoCategoria();
 
       if($tipo_categoria->getSlug() == 'donde-comer' || $tipo_categoria->getSlug() == 'donde-dormir' || $termSlug == 'night-clubs') {
-        $mostrarPrecio = true;
+        $mostrarPrecio = $tipo_categoria->getSlug();
       }
 
       $unionQuery = array();

@@ -5,7 +5,8 @@
 	    {{ exception.message }} ({{ status_code }} {{ status_text }})
 	{% endblock %}
 
-
-	{% block contednt %}
+{% if app.getEnvironment == 'dev' %}
+	{% block content %}
 	    {% include 'TwigBundle:Exception:exception.html.twig' %}
 	{% endblock %}
+{% endfor %}

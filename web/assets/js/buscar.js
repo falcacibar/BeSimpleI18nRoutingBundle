@@ -74,15 +74,25 @@ $(document).ready(function(){
 			$(this).parent().prev('input').show().css('display', 'inline');
 		});
 
-		var precio = getTipo('dondeComer');
-		var	qTipPrecio = '<div class="qtip_precio">';
+		var tipo = $('.resultados').data('tipo'),
+			qTipPrecio = '<div class="qtip_precio">',
+			precio = [];
 
-		for(i=precio.length -1; i >= 0; i--){
+		if(tipo == 'donde-comer'){
+			precio = getTipo('dondeComer');
+		}else{
+			precio = getTipo('dondeDormir');
+		}
+		
+
+		for(i=precio.length - 1; i >= 0; i--){
 			qTipPrecio += "<p><span class='signo_precio'>";
 
-			for(j=precio.length;i<j;j--){qTipPrecio += "$";}
+			for(j=precio.length;i<j;j--){
+				qTipPrecio += "$";
+			}
 
-			qTipPrecio += "</span> = "+precio[i]+"</p>";	
+			qTipPrecio += "</span> = "+precio[(precio.length - 1)- i]+"</p>";	
 		}
 		qTipPrecio += "</div>";
 

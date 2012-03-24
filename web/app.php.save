@@ -1,11 +1,11 @@
 <?php
-if (in_array(@$_SERVER['REMOTE_ADDR'], array(
+if (!in_array(@$_SERVER['REMOTE_ADDR'], array(
     '127.0.0.1',
-    '1190.45.213.158',
+    '190.45.213.158',
     '::1',
 ))) {
     header('HTTP/1.0 403 Forbidden');
-    exit('Estamos teniendo problemas, volveremos en unos minutos!');
+    exit('Estamos teniendo problemas!, Volveremos en unos minutos!');
 }
 
 require_once __DIR__.'/../app/bootstrap.php.cache';
