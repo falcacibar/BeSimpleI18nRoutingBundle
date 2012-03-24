@@ -26,7 +26,7 @@ extra:
             elegida_por: Elegida por la comunidad de Loogareños
             tip: Corresponde a las recomendaciones más útiles según la evaluación de los Loogareños. A la vez, consideramos otros factores, como su contenido, la originalidad y que esté bien escrita. <br /><br /> Estas recomendaciones fijan la pauta para las demás en el sitio.
         modulo_ultimos_conectados:
-            titulo: Últimos Loogareños Conectados
+            titulo: Últimos Loogareños conectados
         actividad_reciente:
             titulo: Actividad reciente en
             agregar:
