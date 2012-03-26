@@ -137,7 +137,6 @@ _categoria_subcategoria:
     pattern: /{slug}/categoria/{categoria}/{subcategoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria_subcategoria }
 
-
 _categoria_sector:
     pattern: /{slug}/sector/{sector}/categoria/{categoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria }

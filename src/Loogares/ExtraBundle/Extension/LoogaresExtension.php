@@ -10,6 +10,23 @@ class LoogaresExtension extends \Twig_Extension {
         );
     }
 
+    public function getFilters() {
+        return array(
+            'xmlsitemap'  => new \Twig_Filter_Method($this, 'sitemap'),
+        );
+    }
+
+    public function sitemap($url, $priority='1.00', $freq=2) {
+        $f = array('always','hourly','daily','weekly','monthly','yearly','never');
+        $freq = $f[$freq];
+        return "
+            <url>
+              <loc>$url</loc>
+              <changefreq>$freq</changefreq>
+              <priority>$priority</priority>
+            </url>";
+    }
+
     public function espacioAd($type, $section, $position, $size) {
 
         // Array que lista todos los espacios (en 4 niveles)

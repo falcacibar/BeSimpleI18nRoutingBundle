@@ -1125,9 +1125,10 @@ class LugarController extends Controller{
         $nueva = true;
 
         //Revisamos si el usuario tiene ya una recomendacion en este lugar
-        $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u where u.usuario = ?1 and u.lugar = ?2");
-        $q->setParameter(1, $lugar->getId())
-          ->setParameter(2, $this->get('security.context')->getToken()->getUser());
+        $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u where u.usuario = ?1 and u.lugar = ?2 and u.estado = ?3");
+        $q->setParameter(2, $lugar->getId())
+          ->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId())
+          ->setParameter(3, 2);
         $yaRecomendo = $q->getResult();
 
         if(isset($_POST['editando']) && $_POST['editando'] == 1){
@@ -1339,6 +1340,7 @@ if(sizeOf($yaRecomendo) == 0){
                     }
                 }
 }
+
                 //SET FLASH AND REDIRECTTT
                 $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));

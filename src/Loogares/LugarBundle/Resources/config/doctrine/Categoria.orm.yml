@@ -11,6 +11,10 @@ Loogares\LugarBundle\Entity\Categoria:
         categoria_lugar:
             targetEntity: Loogares\LugarBundle\Entity\CategoriaLugar
             mappedBy: categoria
+        subcategorias:
+            targetEntity: Loogares\LugarBundle\Entity\SubCategoria
+            mappedBy: categoria
+
     id:
         id:
             type: integer

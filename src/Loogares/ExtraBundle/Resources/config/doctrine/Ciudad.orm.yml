@@ -10,6 +10,13 @@ Loogares\ExtraBundle\Entity\Ciudad:
                 joinColumns:
                     pais:
                         referencedColumnName: id
+    oneToMany:
+        comunas:
+            targetEntity: Loogares\ExtraBundle\Entity\Comuna
+            mappedBy: ciudad
+        sectores:
+            targetEntity: Loogares\ExtraBundle\Entity\Sector
+            mappedBy: ciudad
     id:
         id:
             type: integer
