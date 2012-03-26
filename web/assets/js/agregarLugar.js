@@ -321,7 +321,7 @@ $(document).ready(function(){
                 error: function(data) {console.log(data)}
             });
         }
-    onCargarMapaAgregar();
+        geocodeAddress();
     });
 
     /* Fncs */
