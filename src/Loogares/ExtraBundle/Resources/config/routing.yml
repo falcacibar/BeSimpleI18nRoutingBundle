@@ -2,6 +2,12 @@ actividad:
     pattern:  /actividad
     defaults: { _controller: LoogaresExtraBundle:Default:actividad }
 
+sitemap:
+    pattern:  /sitemap.{_format}
+    defaults: { _controller: LoogaresExtraBundle:Default:sitemap, _format: xml }
+    requirements:
+        _format:  xml
+
 locale_santiago_de_chile:
     pattern:  /santiago-de-chile
     defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : santiago-de-chile }

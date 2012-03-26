@@ -20,6 +20,10 @@ class DefaultController extends Controller
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
         $post = $pr->findOneBySlug($slug);
 
+        if(!$post) {
+            throw $this->createNotFoundException('');
+        }
+
         if($post->getLugar()){
         $post->getLugar()->setSitioWeb($fn->stripHTTP($post->getLugar()->getSitioWeb()));
         $post->getLugar()->setTwitter($fn->stripHTTP($post->getLugar()->getTwitter()));

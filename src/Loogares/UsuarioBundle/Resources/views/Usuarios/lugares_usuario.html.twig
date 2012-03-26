@@ -92,7 +92,7 @@
 						</div>
 
 						<div class="caja_opciones_lugar_guardado">
-							{% if usuario.accion != 3 %}
+							{% if usuario.accion != 3 and usuario.loggeadoCorrecto %}
 								<div class="opciones_lugar_guardado">
 									<a class="accion_borrar_usuario" href="">{{'usuario.lugares.lista.borrar'|trans}}</a>
 								</div>

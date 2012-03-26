@@ -19,4 +19,22 @@ class CiudadRepository extends EntityRepository
 
       return $ciudadesResult;
     }
+
+    public function getCategoriasPorCiudad($ciudad) {
+    	$em = $this->getEntityManager();
+    	$q = $em->createQuery("SELECT cc, c
+    						   FROM Loogares\ExtraBundle\Entity\CategoriaCiudad cc
+    						   JOIN cc.categoria c
+    						   WHERE cc.ciudad = ?1
+    						   ORDER BY c.nombre ASC");
+    	$q->setParameter(1, $ciudad);
+    	$cc = $q->getResult();
+
+    	$categorias = array();
+    	foreach($cc as $catCiudad) {
+    		$categorias[] = $catCiudad->getCategoria();
+    	}
+
+    	return $categorias;
+    }
 }

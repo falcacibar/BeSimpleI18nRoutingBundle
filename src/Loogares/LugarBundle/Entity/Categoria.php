@@ -53,6 +53,7 @@ class Categoria implements Translatable
     public function __construct()
     {
         $this->categoria_lugar = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->subcategorias = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -226,5 +227,30 @@ class Categoria implements Translatable
     public function getMostrarCategoria()
     {
         return $this->mostrar_categoria;
+    }
+    /**
+     * @var Loogares\LugarBundle\Entity\SubCategoria
+     */
+    private $subcategorias;
+
+
+    /**
+     * Add subcategorias
+     *
+     * @param Loogares\LugarBundle\Entity\SubCategoria $subcategorias
+     */
+    public function addSubCategoria(\Loogares\LugarBundle\Entity\SubCategoria $subcategorias)
+    {
+        $this->subcategorias[] = $subcategorias;
+    }
+
+    /**
+     * Get subcategorias
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getSubcategorias()
+    {
+        return $this->subcategorias;
     }
 }
