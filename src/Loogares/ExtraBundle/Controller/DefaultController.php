@@ -141,14 +141,15 @@ class DefaultController extends Controller
         // Recomendación del día
         $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
 
-        $preview = '';
+        $previewRecDia = '';
         if(strlen($recomendacionDelDia->getTexto()) > 160) {
-            $previewRecDia = substr($recomendacionDelDia->getTexto(),0,160).'...';
+            $previewRecDia = substr($recomendacionDelDia->getTexto(),0,159).'...';
         }
         else {
             $previewRecDia = $recomendacionDelDia->getTexto();
         }
 
+        $preview = '';
         // Actividad reciente por ciudad
         $actividad = $ar->getActividadReciente(5, $ciudad['id'], null, null, 0);
         foreach($actividad as $a) {

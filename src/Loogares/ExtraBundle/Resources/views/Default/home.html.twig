@@ -308,8 +308,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="recomendacion_preview">					
-					<span><a href="{{path('_lugar', {'slug' : home.recDia.lugar.slug})}}">{{home.recDia.lugar.nombre}}: </a>{{home.previewRecDia}}</span>
+				<div class="recomendacion_preview">			
+					<span><a href="{{path('_lugar', {'slug' : home.recDia.lugar.slug})}}">{{home.recDia.lugar.nombre}}: </a>{{home.previewRecDia | raw}}</span>
 					<a href="{{path('_recomendacion', {'slug' : home.recDia.lugar.slug, 'usuarioSlug' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="ver_mas">{{'extra.home.modulo_recomendacion_del_dia.ver_mas'|trans}}</a>
 					<br />
 					<span class="tips">{{'extra.home.modulo_recomendacion_del_dia.elegida_por'|trans}}</span> <span class="tips_icon"></span>
