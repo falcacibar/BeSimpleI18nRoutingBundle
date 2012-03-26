@@ -335,4 +335,24 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('static', array('static' => 'publicidad')));
     }
 
+    public function sitemapAction() {
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $ciudades = $cr->getCiudadesActivas();
+
+        foreach($ciudades as $c) {
+            $c->categorias = $cr->getCategoriasPorCiudad($c->getId());
+        }
+
+        $lugares = $this->getDoctrine()
+                        ->getConnection()->fetchAll("SELECT l.* FROM lugares l WHERE l.estado_id != 3");
+
+        return $this->render('LoogaresExtraBundle:Default:sitemap.xml.twig', array(
+            'ciudades' => $ciudades,
+            'lugares' => $lugares
+        ));
+    }
+
 }
