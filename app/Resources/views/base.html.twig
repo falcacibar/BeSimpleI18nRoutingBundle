@@ -17,7 +17,7 @@
             <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
             <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
         {% endif %}
-        <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev'%}_dev{% endif %}.php/"</script>
+        <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev' %}_dev{% endif %}.php/"</script>
         <script>
           function goLogIn(){
               window.location.href = "{{ path('login_check_facebook') }}";
@@ -63,12 +63,12 @@
 		{% include '::header.html.twig' %}
 
         <div class="contenedor">
-            {# Por si el usuario no tiene datos básicos #}
-            {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.comuna is empty)%}
+          {# Por si el usuario no tiene datos básicos #}
+          {% if ( is_granted('ROLE_USER')  ) and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.pais is empty) %}
 
-                <a href="{{path('forzarDatosUsuario', {'id' : app.security.token.user.id})}}" class="datos_usuario_fancybox"></a>
-                
-            {% endif %}
+              <a href="{{path('forzarDatosUsuario', {'id' : app.security.token.user.id})}}" class="datos_usuario_fancybox"></a>
+              
+          {% endif %}
 			
 			<div class="contenido">               
 				{% block content %}{% endblock %}
@@ -91,7 +91,7 @@
                     beforeClose: function(){return false;}
                 });
                 $('.datos_usuario_fancybox').click();
-                       
+            
             });
         </script>
 

@@ -294,6 +294,7 @@ $(document).ready(function(){
             $('body').animate({'scrollTop': 0}, 400);
             $('.mensaje_error').fadeIn();
         }else{
+            $('.guardar-datos').click(function(){return false;});
             $('.placeholder').val('');
             return true;
         }

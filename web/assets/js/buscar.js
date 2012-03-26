@@ -74,8 +74,16 @@ $(document).ready(function(){
 			$(this).parent().prev('input').show().css('display', 'inline');
 		});
 
-		var precio = getTipo('dondeComer');
-		var	qTipPrecio = '<div class="qtip_precio">';
+		var tipo = $('.resultados').data('tipo'),
+			qTipPrecio = '<div class="qtip_precio">',
+			precio = [];
+
+		if(tipo == 'donde-comer'){
+			precio = getTipo('dondeComer');
+		}else{
+			precio = getTipo('dondeDormir');
+		}
+		
 
 		for(i=precio.length - 1; i >= 0; i--){
 			qTipPrecio += "<p><span class='signo_precio'>";

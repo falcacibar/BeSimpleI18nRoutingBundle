@@ -123,4 +123,33 @@ class TipoCategoria implements Translatable
     {
         $this->locale = $locale;
     }
+    /**
+     * @var Loogares\LugarBundle\Entity\Categoria
+     */
+    private $categorias;
+
+    public function __construct()
+    {
+        $this->categorias = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add categorias
+     *
+     * @param Loogares\LugarBundle\Entity\Categoria $categorias
+     */
+    public function addCategoria(\Loogares\LugarBundle\Entity\Categoria $categorias)
+    {
+        $this->categorias[] = $categorias;
+    }
+
+    /**
+     * Get categorias
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getCategorias()
+    {
+        return $this->categorias;
+    }
 }

@@ -83,13 +83,13 @@
             {% endif %}
 
             {% for categoriaLugar in lugar.categoriaLugar %}
-
-                {% if lugar.precio != 0 or lugar.precio == '' %}
+                {% if categoriaLugar.categoria.tipoCategoria.slug == 'donde-comer' or categoriaLugar.categoria.tipoCategoria.slug == 'donde-dormir' or categoriaLugar.categoria.slug == 'night-clubs' %}
                     var stars = $('.precio-raty').attr('data-stars'),
                         categoria = "{{categoriaLugar.categoria.tipoCategoria.slug}}";
                     if(categoria == 'nightClubs'){
                         $('.precio-li').show();
                     }else if(categoria == 'dondeComer'){
+                        alert(categoria)
                         $('.precio-li').show();
                         precioAgregar(stars, 'dondeComer');
                     }else if(categoria == 'dondeDormir'){
