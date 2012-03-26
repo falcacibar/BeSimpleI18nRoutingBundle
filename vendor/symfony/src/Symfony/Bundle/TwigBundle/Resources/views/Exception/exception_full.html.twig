@@ -1,12 +1,10 @@
 {% extends 'TwigBundle::layout.html.twig' %}
-
-
 	{% block titled %}
 	    {{ exception.message }} ({{ status_code }} {{ status_text }})
 	{% endblock %}
 
-{% if app.getEnvironment == 'dev' %}
-	{% block content %}
+
+	{% block contednt %}
 	    {% include 'TwigBundle:Exception:exception.html.twig' %}
 	{% endblock %}
-{% endfor %}
+
