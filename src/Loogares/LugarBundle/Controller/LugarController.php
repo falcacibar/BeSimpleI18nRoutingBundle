@@ -798,13 +798,12 @@ class LugarController extends Controller{
 
                           $em->persist($actividad);
 
-                          $em->flush();
-
                           if(!isset($imagen->url))
                               $imgs[] = $newImagen;
 
                           $newImagen = null;
                         }
+                        $em->flush();
                     }
 
                     if(sizeof($imgs) == 0 && sizeof($imagenes) > 0) {
