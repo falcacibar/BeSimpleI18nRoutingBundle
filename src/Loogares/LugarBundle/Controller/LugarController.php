@@ -32,14 +32,20 @@ use Loogares\AdminBundle\Entity\TempSubcategoriaLugar;
 
 use Loogares\ExtraBundle\Entity\ActividadReciente;
 
-
-
-
 class LugarController extends Controller{
 
     public function lugarAction($slug, Request $request, $usuarioSlug = false){
         foreach($_GET as $key => $value){
             $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);  
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
+        
+        $lugarResult[0] = $lr->findOneBySlug($slug);
+
+        if(!$lugarResult[0] || $lugarResult[0]->getEstado()->getId() == 3){
+          throw $this->createNotFoundException('');
         }
         
         $fn = $this->get('fn');
@@ -52,16 +58,6 @@ class LugarController extends Controller{
         $precioPromedio = 0;
         $estrellasPromedio = 0;
         $sacarRecomendacionPedida = false;
-
-        $em = $this->getDoctrine()->getEntityManager();
-        //$qb = $em->createQueryBuilder();
-        $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
-        
-        $lugarResult[0] = $lr->findOneBySlug($slug);
-
-        if(!$lugarResult[0] || $lugarResult[0]->getEstado()->getId() == 3){
-          throw $this->createNotFoundException('');
-        }
         
         if($lugarResult[0]->getEstado()->getId() == 4){ 
           $this->get('session')->setFlash('cerrado_flash', 'Este lugar está cerrado. De reabrirse, quitaremos este mensaje. En caso contrario borraremos este lugar después de un tiempo.');
@@ -77,7 +73,6 @@ class LugarController extends Controller{
 
         $idLugar = $lugarResult[0]->getId();
         $idUsuario = ($this->get('security.context')->isGranted('ROLE_USER')) ? $this->get('security.context')->getToken()->getUser()->getId() : 0;
-        $codigoArea = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getCodigoArea();
 
         //Ultima foto del Lugar
         $q = $em->createQuery("SELECT u
@@ -93,30 +88,12 @@ class LugarController extends Controller{
         //Total Fotos Lugar
         $q = $em->createQuery("SELECT count(u.id)
                                FROM Loogares\LugarBundle\Entity\ImagenLugar u
-                               WHERE u.lugar = ?1
-                               AND u.estado != ?2");
+                               WHERE u.lugar = ?1 AND u.estado != ?2");
         $q->setParameter(1, $idLugar);
         $q->setParameter(2, 3);
         $totalFotosResult = $q->getSingleScalarResult();
 
-        //Query para sacar la primera recomendacion
-        $q = $em->createQuery("SELECT u 
-                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
-                               WHERE u.lugar = ?1 
-                               ORDER BY u.id ASC");
-        $q->setParameter(1, $idLugar)
-          ->setMaxResults(1);
-        $primeroRecomendarResult = $q->getResult();
-
-        //Query para sacar el Total de las recomendaciones
-        $q = $em->createQuery("SELECT count(u.id) 
-                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
-                               WHERE u.lugar = ?1 and u.estado != ?2");
-        $q->setParameter(1, $idLugar);
-        $q->setParameter(2, 3);
-        $totalRecomendacionesResult = $q->getSingleScalarResult();
-
-        //Query para sacar el Total de las recomendaciones
+        //Query para sacar si ya recomendo
         $q = $em->createQuery("SELECT u.id 
                                FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
                                WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado != ?3");
@@ -165,7 +142,6 @@ class LugarController extends Controller{
             
         }
 
-
         //Definicion del orden para la siguiente consulta
         if($_GET['orden'] == 'ultimas'){
                 $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
@@ -176,7 +152,7 @@ class LugarController extends Controller{
         }
 
         //Query para las recomendaciones a mostrar
-        $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
+        $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT SQL_CALC_FOUND_ROWS recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
             (select min(id) from util where util.usuario_id = $idUsuario and util.recomendacion_id = recomendacion.id) as apretoUtil
                                                                  FROM recomendacion
                                                                  LEFT JOIN util
@@ -195,8 +171,10 @@ class LugarController extends Controller{
                                                                  LIMIT $resultadosPorPagina
                                                                  OFFSET $offset");
 
+        $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
+
         $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
-        
+
         if($this->get('security.context')->isGranted('ROLE_USER')) {
             $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId(), $this->get('security.context')->getToken()->getUser()->getId());
             
@@ -231,18 +209,6 @@ class LugarController extends Controller{
             $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
         }
 
-        $telefonos = array();
-        //Array con telefonos del lugar
-        if($lugarResult[0]->getTelefono1() != null || $lugarResult[0]->getTelefono1() != '') {
-            $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono1());
-        }
-        if($lugarResult[0]->getTelefono2() != null || $lugarResult[0]->getTelefono2() != '') {
-            $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono2());
-        }
-        if($lugarResult[0]->getTelefono3() != null || $lugarResult[0]->getTelefono3() != '') {
-            $telefonos[] = str_replace($codigoArea, '', $lugarResult[0]->getTelefono3());
-        }
-
         //Sacamos los HTTP
         $lugarResult[0]->setSitioWeb($fn->stripHTTP($lugarResult[0]->getSitioWeb()));
         $lugarResult[0]->setTwitter($fn->stripHTTP($lugarResult[0]->getTwitter()));
@@ -252,26 +218,21 @@ class LugarController extends Controller{
         *  Armado de Datos para pasar a Twig
         */
         $data = $lugarResult[0];
+
         if($usuarioSlug != false){
             $data->recomendacionPedida = $recomendacionPedidaResult[0];
         }
+
         $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
-        //Armando los datos a pasar, solo pasamos un objeto con todo lo que necesitamos
-        $data->telefonos = $telefonos;
-        //Imagen a mostrar
         $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
-        $data->primero = (isset($primeroRecomendarResult[0]))?$primeroRecomendarResult[0]:'asd';
         $data->recomendaciones = $recomendacionesResult;
-        //Total de Pagina que debemos mostrar/generar
-        $data->totalPaginas = ($totalRecomendacionesResult >$resultadosPorPagina )?floor($totalRecomendacionesResult / $resultadosPorPagina):1;
-        $data->totalRecomendaciones = $totalRecomendacionesResult;
+        $data->totalPaginas = ($resultSetSize[0]['rows'] >$resultadosPorPagina )?floor($resultSetSize[0]['rows'] / $resultadosPorPagina):1;
+        $data->totalRecomendaciones = $resultSetSize[0]['rows'];
         $data->yaRecomendo = $yaRecomendoResult;
         $data->mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
-        //Offset de comentarios mostrados, "mostrando 1 a 10 de 20"
         $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
         $data->totalFotos = $totalFotosResult;
         $data->recomendacionesPorPagina = $resultadosPorPagina;
-        $tp = $lr->getTagsPopulares($idLugar);
         $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
         $data->totalAcciones = $totalAcciones;
         $data->accionesUsuario = $accionesUsuario;
@@ -569,7 +530,7 @@ class LugarController extends Controller{
 
                     curl_close($ch);
                 }
-        
+
                 if($rolAdmin == 1){
                     /**************************
 
@@ -1107,6 +1068,7 @@ class LugarController extends Controller{
 
     /* RECOMENDACIONES */
     public function recomendacionesAction($slug, Request $request, $curlSuperVar = false){
+        $yaRecomendo = array();
         $em = $this->getDoctrine()->getEntityManager();
 
         foreach($_POST as $key => $value){
@@ -1124,12 +1086,14 @@ class LugarController extends Controller{
         // Flag que determina si la recomendación es nueva o no
         $nueva = true;
 
-        //Revisamos si el usuario tiene ya una recomendacion en este lugar
-        $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u where u.usuario = ?1 and u.lugar = ?2 and u.estado = ?3");
-        $q->setParameter(2, $lugar->getId())
-          ->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId())
-          ->setParameter(3, 2);
-        $yaRecomendo = $q->getResult();
+        if(!isset($_POST['curlSuperVar'])){
+          //Revisamos si el usuario tiene ya una recomendacion en este lugar
+          $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u where u.usuario = ?1 and u.lugar = ?2 and u.estado = ?3");
+          $q->setParameter(2, $lugar->getId())
+            ->setParameter(1, $this->get('security.context')->getToken()->getUser()->getId())
+            ->setParameter(3, 2);
+          $yaRecomendo = $q->getResult();
+        }
 
         if(isset($_POST['editando']) && $_POST['editando'] == 1){
             $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado = 2");
@@ -1146,7 +1110,7 @@ class LugarController extends Controller{
             $recomendacion = new Recomendacion();
         }
 
-if(sizeOf($yaRecomendo) == 0 || $nueva == false){
+if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
         if($request->getMethod() == 'POST'){
             $newTagRecomendacion = array();
             $tag = array();

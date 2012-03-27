@@ -11,8 +11,7 @@ use Loogares\LugarBundle\Entity\TipoCategoria;
 class DefaultController extends Controller
 {
     
-    public function indexAction($name)
-    {
+    public function indexAction($name){
         return $this->render('LoogaresExtraBundle:Default:index.html.twig', array('name' => $name));
     }
 
