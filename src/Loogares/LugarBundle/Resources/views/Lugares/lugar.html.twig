@@ -53,7 +53,6 @@
 
 {% block content %}
 <div id="lugar-ficha" data-id="{{lugar.id}}">
-
     <!-- Mensajes de éxito -->
     {% if app.session.hasFlash('lugar_flash') %}
             <div class="mensaje_exito">
@@ -118,11 +117,15 @@
                 <div class="direccion_lugar" id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %}
                     <a href="{{ path('_categoria_comuna', {'slug': lugar.comuna.ciudad.slug, 'comuna': lugar.comuna.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.comuna.nombre}}</a>, <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.comuna.ciudad.nombre }}</a>
                 </div>
-                {% if lugar.telefonos %}
+                {% if lugar.telefono1 %}
                     <div class="telefono_lugar" id="lugar-telefono">
-                        {% for telefono in lugar.telefonos %}
-                            {{lugar.comuna.ciudad.pais.codigoArea}} {{telefono}}{% if loop.last == false %}, {% endif %}
-                        {% endfor %}
+                        {{lugar.comuna.ciudad.pais.codigoArea}} {{lugar.telefono1}}
+                        {% if lugar.telefono2 %}
+                        , {{lugar.comuna.ciudad.pais.codigoArea}} {{lugar.telefono2}}
+                        {% endif %}
+                        {% if lugar.telefono3 %}
+                        , {{lugar.comuna.ciudad.pais.codigoArea}} {{lugar.telefono3}}
+                        {% endif %}
                     </div>
                 {% endif %}
                 {% if lugar.sitioWeb %}
@@ -187,14 +190,16 @@
                             </div>
                             <div class="primero_usuario">
                                 <div class="primero_usuario_img">
-                                    <a href=""><img src="{{ asset('assets/images/usuarios/'~lugar.primero.usuario.imagenFull) }}" height="20" width="20" /></a>
+                                    <a href="">
+                                        <img src="{{ asset('assets/images/usuarios/'~lugar.recomendacion[0].usuario.imagenFull) }}" height="20" width="20" />
+                                    </a>
                                 </div>
                                 <div class="primero_usuario_nombre">
-                                    <a href="{{ path('showUsuario', {'param': lugar.primero.usuario.slug})}}">
-                                        {% if lugar.primero.usuario.nombre != '' and lugar.primero.usuario.apellido != '' %}
-                                            {{ lugar.primero.usuario.nombre }} {{ lugar.primero.usuario.apellido }}
+                                    <a href="{{ path('showUsuario', {'param': lugar.recomendacion[0].usuario.slug})}}">
+                                        {% if lugar.recomendacion[0].usuario.nombre != '' and lugar.recomendacion[0].usuario.apellido != '' %}
+                                            {{ lugar.recomendacion[0].usuario.nombre }} {{ lugar.recomendacion[0].usuario.apellido }}
                                         {% else %}
-                                            {{ lugar.primero.usuario.slug }}
+                                            {{ lugar.recomendacion[0].usuario.slug }}
                                         {% endif %}
                                     </a>
                                 </div>
@@ -412,7 +417,7 @@
             </div>
         </div>
 
-        {% if lugar.recomendacion|length != 0 %}
+        {% if lugar.totalRecomendaciones != 0 %}
 
         <div class="recomendacion_pedida_container">
         </div>
