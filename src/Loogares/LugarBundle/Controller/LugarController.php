@@ -1146,7 +1146,7 @@ class LugarController extends Controller{
             $recomendacion = new Recomendacion();
         }
 
-if(sizeOf($yaRecomendo) == 0){
+if(sizeOf($yaRecomendo) == 0 || $nueva == false){
         if($request->getMethod() == 'POST'){
             $newTagRecomendacion = array();
             $tag = array();
