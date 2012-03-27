@@ -17,7 +17,6 @@ class DefaultController extends Controller
     }
 
     public function menuAction(){
-
     	$em = $this->getDoctrine()->getEntityManager();
         $tlr = $em->getRepository("LoogaresLugarBundle:TipoCategoria");    
         $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\TipoCategoria u ORDER BY u.prioridad_web asc");
@@ -152,11 +151,11 @@ class DefaultController extends Controller
         $preview = '';
         // Actividad reciente por ciudad
         $actividad = $ar->getActividadReciente(5, $ciudad['id'], null, null, 0);
-        foreach($actividad as $a) {
-            $r = $em->getRepository($a->getEntidad());
-            $entidad = $r->find($a->getEntidadId());
+        for($i = 0; $i < sizeOf($actividad); $i++){
+            $r = $em->getRepository($actividad[$i]->getEntidad());
+            $entidad = $r->find($actividad[$i]->getEntidadId());
             
-            if($a->getEntidad() == 'Loogares\UsuarioBundle\Entity\Recomendacion') {
+            if($actividad[$i]->getEntidad() == 'Loogares\UsuarioBundle\Entity\Recomendacion') {
                 $preview = '';
                 if(strlen($entidad->getTexto()) > 160) {
                     $preview = substr($entidad->getTexto(),0,160).'...';
@@ -166,7 +165,7 @@ class DefaultController extends Controller
                 }
                 $entidad->preview = $preview;
             }
-            $a->ent = $entidad;
+            $actividad[$i]->ent = $entidad;
         }
 
         // Últimos conectados
