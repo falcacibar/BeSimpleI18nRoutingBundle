@@ -781,28 +781,30 @@ class LugarController extends Controller{
                         $newImagen->setFechaCreacion(new \DateTime());
 
                         // Agregamos evento a la actividad reciente del usuario
-                        $actividad = new ActividadReciente();
-                        $actividad->setEntidad('Loogares\LugarBundle\Entity\ImagenLugar');
-                        $actividad->setEntidadId($newImagen->getId());
-                        $actividad->setFecha($newImagen->getFechaCreacion());
-                        $actividad->setUsuario($newImagen->getUsuario());
-                        $actividad->setCiudad($lugar->getComuna()->getCiudad());
+                        if($this->get('security.context')->isGranted('ROLE_ADMIN') == false){
+                          $actividad = new ActividadReciente();
+                          $actividad->setEntidad('Loogares\LugarBundle\Entity\ImagenLugar');
+                          $actividad->setEntidadId($newImagen->getId());
+                          $actividad->setFecha($newImagen->getFechaCreacion());
+                          $actividad->setUsuario($newImagen->getUsuario());
+                          $actividad->setCiudad($lugar->getComuna()->getCiudad());
 
-                        $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
-                                            ->findOneByNombre('agregar');
-                        $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
-                                              ->findOneByNombre('Aprobado');
-                        $actividad->setTipoActividadReciente($tipoActividad);
-                        $actividad->setEstado($estadoActividad);
+                          $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                              ->findOneByNombre('agregar');
+                          $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
+                                                ->findOneByNombre('Aprobado');
+                          $actividad->setTipoActividadReciente($tipoActividad);
+                          $actividad->setEstado($estadoActividad);
 
-                        $em->persist($actividad);
+                          $em->persist($actividad);
 
-                        $em->flush();
+                          $em->flush();
 
-                        if(!isset($imagen->url))
-                            $imgs[] = $newImagen;
+                          if(!isset($imagen->url))
+                              $imgs[] = $newImagen;
 
-                        $newImagen = null;
+                          $newImagen = null;
+                        }
                     }
 
                     if(sizeof($imgs) == 0 && sizeof($imagenes) > 0) {
@@ -1188,30 +1190,32 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
             $em->flush();
             $lr->actualizarPromedios($lugar->getSlug());
 
-            // Agregamos a la actividad reciente            
-            $actividad = new ActividadReciente();
-            $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Recomendacion');
-            $actividad->setEntidadId($recomendacion->getId());
-            $actividad->setFecha($recomendacion->getFechaCreacion());
-            $actividad->setUsuario($recomendacion->getUsuario());
-            $actividad->setCiudad($lugar->getComuna()->getCiudad());            
-            $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
-                                  ->findOneByNombre('Aprobado');            
-            $actividad->setEstado($estadoActividad);
+            // Agregamos a la actividad reciente     
+            if($this->get('security.context')->isGranted('ROLE_ADMIN') == false){       
+              $actividad = new ActividadReciente();
+              $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Recomendacion');
+              $actividad->setEntidadId($recomendacion->getId());
+              $actividad->setFecha($recomendacion->getFechaCreacion());
+              $actividad->setUsuario($recomendacion->getUsuario());
+              $actividad->setCiudad($lugar->getComuna()->getCiudad());            
+              $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
+                                    ->findOneByNombre('Aprobado');            
+              $actividad->setEstado($estadoActividad);
 
-            if($nueva) {
-                $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
-                                    ->findOneByNombre('agregar');
-                $actividad->setTipoActividadReciente($tipoActividad);
-            }
-            else {
-                $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
-                                    ->findOneByNombre('editar');
-                $actividad->setTipoActividadReciente($tipoActividad);
-            }
+              if($nueva) {
+                  $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                      ->findOneByNombre('agregar');
+                  $actividad->setTipoActividadReciente($tipoActividad);
+              }
+              else {
+                  $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                      ->findOneByNombre('editar');
+                  $actividad->setTipoActividadReciente($tipoActividad);
+              }
 
-            $em->persist($actividad);
-            $em->flush();
+              $em->persist($actividad);
+              $em->flush();
+            }
 
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '' && !isset($_POST['editando'])) {
@@ -1309,8 +1313,6 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
                 $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
-
-            
         }
     }
 
@@ -1522,12 +1524,15 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
         }
 
         if($this->get('security.context')->getToken()->getUser() == $imagen->getUsuario()) {
-            throw $this->createNotFoundException('No puedes reportar una imagen agregada por ti.');   
+            $this->get('session')->setFlash('No puedes reportar una imagen agregada por ti.');
+            return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }
+
         else {
             $reportes = $lr->getReportesImagenesUsuarioLugar($imagen->getId(), $this->get('security.context')->getToken()->getUser(), 1);
             if(sizeof($reportes) > 0)
-                throw $this->createNotFoundException('Ya has reportado esta imagen anteriormente, y aún está en revisión. Una vez finalizado este proceso, podrás reportar la imagen nuevamente.');   
+              $this->get('session')->setFlash('error_flash', 'Ya has reportado esta imagen anteriormente, y aún está en revisión. <br/>Una vez finalizado este proceso, podrás reportar la imagen nuevamente.');
+              return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }
 
         $reporte = new ReportarImagen();
@@ -1611,12 +1616,14 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
         $recomendacion = $rr->getRecomendacionUsuarioLugar($usuario->getId(),$lugar->getId());
 
         if($this->get('security.context')->getToken()->getUser() == $recomendacion->getUsuario()) {
-            throw $this->createNotFoundException('No puedes reportar una recomendación hecha por ti.');   
-        }
-        else {
+          $this->get('session')->setFlash('error_flash', 'No puedes reportar una recomendación hecha por ti.');
+          return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+        }else{
             $reportes = $rr->getReportesRecomendacionUsuario($recomendacion->getId(), $this->get('security.context')->getToken()->getUser(), 1);
-            if(sizeof($reportes) > 0)
-                throw $this->createNotFoundException('Ya has reportado esta recomendación anteriormente, y aún está en revisión. Una vez finalizado este proceso, podrás reportar la recomendación nuevamente.');   
+            if(sizeof($reportes) > 0){
+              $this->get('session')->setFlash('error_flash', 'Ya has reportado esta recomendación anteriormente, y aún está en revisión. <br/>Una vez finalizado este proceso, podrás reportar la recomendación nuevamente.');
+              return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+            }
         }
 
         $reporte = new ReportarRecomendacion();
@@ -1633,7 +1640,6 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
             }
 
             if ($form->isValid()) {
-
                 $reporte->setRecomendacion($recomendacion);
                 $reporte->setUsuario($this->get('security.context')->getToken()->getUser());
                 $reporte->setFecha(new \Datetime());
@@ -1665,7 +1671,7 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
 
                  // Mensaje de éxito del reporte
                 $this->get('session')->setFlash('lugar_flash','reportes.flash');
-                    
+
                 // Redirección a ficha del lugar 
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
@@ -1676,6 +1682,7 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
             }         
 
         }
+
         return $this->render('LoogaresLugarBundle:Lugares:reporte.html.twig', array(
             'recomendacion' => $recomendacion,
             'form' => $form->createView(),
