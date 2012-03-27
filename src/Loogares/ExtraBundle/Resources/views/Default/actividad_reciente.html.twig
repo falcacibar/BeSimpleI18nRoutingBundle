@@ -33,7 +33,7 @@
 					{% if a.entidad == 'Loogares\\UsuarioBundle\\Entity\\Recomendacion'%}
 						<p><a href="{{path('showUsuario', {'param' : a.usuario.slug})}}">{{a.usuario.nombre}} {{a.usuario.apellido}}</a> {% trans with {'%open_tag%' : "<a href='"~path('_recomendacion', {'slug' : a.ent.lugar.slug, 'usuarioSlug' : a.usuario.slug})~"'>", '%close_tag%' : '</a>', '%estrellas%' : "<span class='estrellas_actividad' data-stars="~a.ent.estrellas~"></span>"}%}extra.home.actividad_reciente.editar.recomendacion{% endtrans %} <a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a></p>
 
-						<p class="rec_actividad_preview">{{a.ent.preview}}</p>
+						<p class="rec_actividad_preview">{{a.ent.preview | raw}}</p>
 					{% endif %}
 				{% endif %}
 			</div>
