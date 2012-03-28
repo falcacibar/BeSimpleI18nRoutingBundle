@@ -33,19 +33,26 @@ class TiempoRelativoRepository extends EntityRepository{
         	}else{
         		$relative = preg_replace('/{{x}}/', $diff, $this->findOneBySlug("hace-x-minutos")->getTexto());
         	}
-        }else if($diff < 3600*24*7){
+        }else if($diff < 3600*24){
+        	$diff = round($diff/3600);
+        	if($diff == 1){
+        		$relative = $this->findOneBySlug("hace-x-hora")->getTexto();
+        	}else{
+        		$relative = preg_replace('/{{x}}/', $diff, $this->findOneBySlug("hace-x-horas")->getTexto());
+        	}
+        }else if($diff < 3600*24*2){
         	$diff = round($diff/(3600*24));
-        	if($diff == 0){
-        		$relative = 'hoy';
-        	}else if($diff == 1){
-			$relative = 'ayer';
-		}else{
+        	$relative = preg_replace('/{{x}}/', $diff, $this->findOneBySlug("ayer")->getTexto());
+        }else if($diff < 3600*24*6){
+        	$diff = round($diff/3600*24);
+        	if($diff == 1){
+        		$relative = $this->findOneBySlug("hace-x-dia")->getTexto();
+        	}else{
         		$relative = preg_replace('/{{x}}/', $diff, $this->findOneBySlug("hace-x-dias")->getTexto());
         	}
         }else if ($diff < 3600*24*8){
         	$diff = round($diff/(3600*24*7));
-        	$relative = preg_replace('/{{x}}/', $diff, $this->findOneBySlug("hace-x-dia")->getTexto());
-        	$relative = "semana";
+        	$relative = preg_replace('/{{x}}/', $diff, $this->findOneBySlug("hace-x-semana")->getTexto());
 	}else{
         	$relative = date('l jS \of F Y h:i:s A', $time);
         }
