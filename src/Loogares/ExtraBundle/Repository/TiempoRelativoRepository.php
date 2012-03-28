@@ -15,7 +15,8 @@ class TiempoRelativoRepository extends EntityRepository{
         $em = $this->getEntityManager();
         $time = strtotime($time);
         $now = time();
-        $diff = $now - $time;
+        //+3600 GTM stuff
+        $diff = $now (+ 3600)- $time;
 
         if($diff < 10){
         	$relative = $this->findOneBySlug("justo-ahora")->getTexto();
@@ -54,7 +55,7 @@ class TiempoRelativoRepository extends EntityRepository{
         	$diff = round($diff/(3600*24*7));
         	$relative = preg_replace('/{{x}}/', $diff, $this->findOneBySlug("hace-x-semana")->getTexto());
 	}else{
-        	$relative = date('l jS \of F Y h:i:s A', $time);
+        	$relative = date('d/m/Y', $time);
         }
         return $relative;
     }
