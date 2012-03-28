@@ -35,12 +35,8 @@ class TiempoRelativoRepository extends EntityRepository{
         	}
         }else if($diff < 3600*24*7){
         	$diff = round($diff/(3600*24));
-        	if($diff < 2){
-        		if($diff < 12){
-        			$relative = "Ayer en la Mañana";
-        		}else{
-        			$relative = "Ayer en la Tarde";
-        		}
+        	if($diff == 0){
+        		$relative = 'hoy';
         	}else{
         		$relative = preg_replace('/{{x}}/', $diff, $this->findOneBySlug("hace-x-dias")->getTexto());
         	}
