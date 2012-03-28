@@ -240,7 +240,8 @@ class LugarRepository extends EntityRepository
       $q->setParameter(2, 3);
       $q->setMaxResults(1);
       //IF (im.fecha_modificacion IS NULL, im.fecha_creacion, im.fecha_modificacion)
-      return $q->getSingleResult();
+      $imagen = $q->getResult();
+      return $imagen;
     }
 
     public function getFotosVecinas($id, $lugar) {

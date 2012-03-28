@@ -96,6 +96,7 @@ class DefaultController extends Controller
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresLugarBundle:Categoria");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
 
         //Recomendacion Estrella
         $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\LoogarenoEstrella u ORDER BY u.id desc");
@@ -161,9 +162,10 @@ class DefaultController extends Controller
                 }
                 else {
                     $preview = $entidad->getTexto();
-                }
+                } 
                 $entidad->preview = $preview;
             }
+            $entidad->relativo = $trr->tiempoRelativo($entidad->getFechaCreacion()->format('Y-m-d H:i:s'));
             $actividad[$i]->ent = $entidad;
         }
 
@@ -191,10 +193,12 @@ class DefaultController extends Controller
         foreach($_GET as $key => $value){
             $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
         }
+
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
         $ciudad = $this->get('session')->get('ciudad');
 
         $filtro = (!$request->query->get('filtro')) ? 'todo' : $request->query->get('filtro');
@@ -220,6 +224,7 @@ class DefaultController extends Controller
                 }
                 $entidad->preview = $preview;
             }
+            $entidad->relativo = $trr->tiempoRelativo($entidad->getFechaCreacion()->format('Y-m-d H:i:s'));
             $a->ent = $entidad;
         }
 

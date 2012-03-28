@@ -1,0 +1,15 @@
+Loogares\ExtraBundle\Entity\TiempoRelativo:
+    type: entity
+    repositoryClass: Loogares\ExtraBundle\Repository\TiempoRelativoRepository
+    table: tiempo_relativo
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        slug:
+            type: string
+        texto:
+            type: string
+        locale:
+            type: string

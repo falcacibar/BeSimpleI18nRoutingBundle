@@ -933,6 +933,7 @@ class LugarController extends Controller{
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         $imagen = $ilr->find($id);
+        $lugar = $imagen->getLugar();
 
         if($imagen->getLugar()->getSlug() != $slug) {
             throw $this->createNotFoundException('La foto especificada no corresponde al lugar '.$imagen->getLugar()->getNombre());
@@ -964,7 +965,6 @@ class LugarController extends Controller{
                     
         // Redirección a galería de fotos del lugar
         return $this->redirect($this->generateUrl('_galeria', array('slug' => $slug))); 
-           
     }
 
     public function galeriaAction($slug) {
@@ -972,9 +972,17 @@ class LugarController extends Controller{
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
         $lugar = $lr->findOneBySlug($slug);
-        $id = $lr->getImagenLugarMasReciente($lugar)->getId();
+        $imagen = $lr->getImagenLugarMasReciente($lugar);
 
-        return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
+        if(!$imagen){
+          $this->get('session')->setFlash('error_flash', 'No existen imagenes para este Lugar.');
+          return $this->render($this->generateUrl('_lugar', array('slug' => $slug))); 
+        }else{
+          $id = $imagen->getId();
+          return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
+        }
+
+        
     }
 
     public function fotoGaleriaAction($slug, $id, $editar = false) {
@@ -1189,32 +1197,30 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
             $em->flush();
             $lr->actualizarPromedios($lugar->getSlug());
 
-            // Agregamos a la actividad reciente     
-            if($this->get('security.context')->isGranted('ROLE_ADMIN') == false){       
-              $actividad = new ActividadReciente();
-              $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Recomendacion');
-              $actividad->setEntidadId($recomendacion->getId());
-              $actividad->setFecha($recomendacion->getFechaCreacion());
-              $actividad->setUsuario($recomendacion->getUsuario());
-              $actividad->setCiudad($lugar->getComuna()->getCiudad());            
-              $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
-                                    ->findOneByNombre('Aprobado');            
-              $actividad->setEstado($estadoActividad);
+            //Agregamos a la actividad reciente     
+            $actividad = new ActividadReciente();
+            $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Recomendacion');
+            $actividad->setEntidadId($recomendacion->getId());
+            $actividad->setFecha($recomendacion->getFechaCreacion());
+            $actividad->setUsuario($recomendacion->getUsuario());
+            $actividad->setCiudad($lugar->getComuna()->getCiudad());            
+            $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
+                                  ->findOneByNombre('Aprobado');            
+            $actividad->setEstado($estadoActividad);
 
-              if($nueva) {
-                  $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
-                                      ->findOneByNombre('agregar');
-                  $actividad->setTipoActividadReciente($tipoActividad);
-              }
-              else {
-                  $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
-                                      ->findOneByNombre('editar');
-                  $actividad->setTipoActividadReciente($tipoActividad);
-              }
-
-              $em->persist($actividad);
-              $em->flush();
+            if($nueva){
+                $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                    ->findOneByNombre('agregar');
+                $actividad->setTipoActividadReciente($tipoActividad);
+            }else{
+                $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                    ->findOneByNombre('editar');
+                $actividad->setTipoActividadReciente($tipoActividad);
             }
+
+            $em->persist($actividad);
+            $em->flush();
+            
 
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '' && !isset($_POST['editando'])) {
@@ -1307,7 +1313,6 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
                     }
                 }
 }
-
                 //SET FLASH AND REDIRECTTT
                 $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));

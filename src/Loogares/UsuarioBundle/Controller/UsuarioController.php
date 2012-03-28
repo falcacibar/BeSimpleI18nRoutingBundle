@@ -31,6 +31,7 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
         $paginacion = false;
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -62,6 +63,7 @@ class UsuarioController extends Controller
         foreach($actividad as $a) {
             $r = $em->getRepository($a->getEntidad());
             $entidad = $r->find($a->getEntidadId());
+            $entidad->relativo = $trr->tiempoRelativo($entidad->getFechaCreacion()->format('Y-m-d H:i:s'));
             $a->ent = $entidad;
         }
         
