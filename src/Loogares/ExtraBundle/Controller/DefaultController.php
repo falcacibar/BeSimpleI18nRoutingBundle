@@ -165,7 +165,7 @@ class DefaultController extends Controller
                 } 
                 $entidad->preview = $preview;
             }
-            if($a->getEntidad() == 'Loogares\UsuarioBundle\Entity\Util'){
+            if($actividad[$i]->getEntidad() == 'Loogares\UsuarioBundle\Entity\Util'){
                 $entidad->relativo = $trr->tiempoRelativo($entidad->getFecha()->format('Y-m-d H:i:s'));
             }else{
                 $entidad->relativo = $trr->tiempoRelativo($entidad->getFechaCreacion()->format('Y-m-d H:i:s'));
