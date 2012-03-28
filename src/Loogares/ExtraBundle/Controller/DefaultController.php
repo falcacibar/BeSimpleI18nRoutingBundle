@@ -170,7 +170,6 @@ class DefaultController extends Controller
             }else{
                 $entidad->relativo = $trr->tiempoRelativo($entidad->getFechaCreacion()->format('Y-m-d H:i:s'));
             }
-            $a->ent = $entidad;
             $actividad[$i]->ent = $entidad;
         }
 
