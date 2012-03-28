@@ -165,7 +165,7 @@ class DefaultController extends Controller
                 } 
                 $entidad->preview = $preview;
             }
-            if($actividad[$i]->getEntidad() == 'Loogares\UsuarioBundle\Entity\Util'){
+            if($actividad[$i]->getEntidad() == 'Loogares\UsuarioBundle\Entity\Util' || $actividad[$i]->getEntidad() == 'Loogares\UsuarioBundle\Entity\Lugar'){
                 $entidad->relativo = $trr->tiempoRelativo($entidad->getFecha()->format('Y-m-d H:i:s'));
             }else{
                 $entidad->relativo = $trr->tiempoRelativo($entidad->getFechaCreacion()->format('Y-m-d H:i:s'));
@@ -228,9 +228,11 @@ class DefaultController extends Controller
                 }
                 $entidad->preview = $preview;
             }
-            if($a->getEntidad() == 'Loogares\UsuarioBundle\Entity\Util'){
+
+            if($a->getEntidad() == 'Loogares\UsuarioBundle\Entity\Util' || $a->getEntidad() == 'Loogares\UsuarioBundle\Entity\Lugar'){
                 $entidad->relativo = $trr->tiempoRelativo($entidad->getFecha()->format('Y-m-d H:i:s'));
             }else{
+
                 $entidad->relativo = $trr->tiempoRelativo($entidad->getFechaCreacion()->format('Y-m-d H:i:s'));
             }
             $a->ent = $entidad;
