@@ -489,14 +489,14 @@
         </div>
 {% else %} <!--Fin de Lugares-->
 <div class="no_resultado">
-	<h1 class="titulo_busqueda">¡Mala suerte!... No encontramos {{term}} en {{ciudad.nombre}}</h1>
+	<h1 class="titulo_busqueda">{{'lugar.buscar.mala_suerte'|trans}} {{term}} {{'lugar.buscar.en'|trans}} {{ciudad.nombre}}</h1>
 	<br/>
-	<p class="sub_titulo_busqueda">Prueba lo siguiente para mejorar tu búsqueda:</p>
+	<p class="sub_titulo_busqueda">{{'lugar.buscar.prueba'|trans}}</p>
 
 	<ul class="listado_no_resultados">
-		<li>Busca en otra zona. Ej. "Santiago", "Ñuñoa" o "Bellavista"</li>
-		<li>Revisa si está bien escrito, sin faltas de ortografía</li>
-		<li>Haz una búsqueda más general. Ej. "Cines" o "Bares"</li>
+		<li>{{'lugar.buscar.buscar_zona'|trans}}</li>
+		<li>{{'lugar.buscar.revisa'|trans}}</li>
+		<li>{{'lugar.buscar.buscar_general'|trans}}</li>
 	</ul>
 </div>
 {% endif %}
