@@ -71,7 +71,7 @@ class BeforeControllerListener
                     $ciudad = $cr->findOneBySlug('santiago-de-chile');
 
                     // Seteamos el locale correspondiente a la ciudad en la sesión
-                    //$controller->get('session')->setLocale($ciudad->getPais()->getLocale());
+                    $controller->get('session')->setLocale($ciudad->getPais()->getLocale());
 
                     $ciudadArray = array();
                     $ciudadArray['id'] = $ciudad->getId();

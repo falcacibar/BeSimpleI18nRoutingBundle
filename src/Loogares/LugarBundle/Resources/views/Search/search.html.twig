@@ -351,9 +351,9 @@
 
 			    <div class="resultados_por_pagina">
 			        <select class="seleccionar_resultados_por_pagina">
+			            <option value="10">10</option>
+			            <option value="20">20</option>
 			            <option value="30">30</option>
-			            <option value="45">45</option>
-			            <option value="60">60</option>
 			        </select>
 			        <p class="resultados_por_pagina_txt"><strong>{{ paginacion.mostrandoDe }}</strong> al <strong>{{ paginacion.mostrandoHasta }}</strong> de <strong>{{total}}</strong> - {{'general.terminos.resultados_pagina'|trans}}</p>
 			    </div>
@@ -369,8 +369,7 @@
 							{% else %}
 								<img src="{{ ('assets/images/lugares/'~lugar.imagenesLugar[lugar.imagenesLugar|length-1].imagenFull) | apply_filter('small_lugar')}}" />
 							{% endif %}
-						</div>
-										
+						</div>			
 						<ul>
 							<li class="nombre_lugar_gmaps">
 								<a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre }}</a>
@@ -381,11 +380,10 @@
 							<li class="recomendacion_gmaps">
 								{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}
 							</li>
-						
 						{% if lugar.sector.nombre is defined %}
 							<li class="data_sector">
 								<span><strong>{{'general.terminos.sector'|trans}}:</strong></span>
-								<a href="{{lugar.sector.slug}}">{{lugar.sector.nombre}}</a>
+								<a href="{{ path('_categoria_sector', {'sector': lugar.sector.slug, 'slug': slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.sector.nombre}}</a>
 							</li>
 						{% endif %}
 						{% if lugar.categoriaLugar is defined %}
@@ -414,14 +412,14 @@
 							<li class="info_categorias">
 								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}:</strong></span>
 								{% for categoriaLugar in lugar.categoriaLugar %}
-									{{categoriaLugar.categoria.nombre|raw}}{% if loop.last == null %}, {% endif %}
+									<a href="{{ path('_categoria', {'slug': slug, 'categoria': categoriaLugar.categoria.slug}) }}">{{categoriaLugar.categoria.nombre|raw}}</a> {% if loop.last == null %}, {% endif %}
 								{% endfor %}
 							</li>
 						{% endif %}
 						{% if lugar.sector.nombre is defined %}
 							<li class="info_sector">
 								<span><strong>{{'general.terminos.sector'|trans}}:</strong></span>
-								<a href="{{lugar.sector.slug}}">{{lugar.sector.nombre}}</a>
+								<a href="{{ path('_categoria_sector', {'sector': lugar.sector.slug, 'slug': slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.sector.nombre}}</a>
 							</li>
 						{% endif %}
 						{% if lugar.recomendacion[0] is defined %}
@@ -451,13 +449,13 @@
 								<em>{{lugar.totalRecomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}</em>
 							</li>
 							<li class="direccion_lugar">
-								{{lugar.calle}} {{lugar.numero}}, <a href="{{lugar.comuna.slug}}">{{lugar.comuna.nombre}}</a>
+								{{lugar.calle}} {{lugar.numero}}, <a href="{{ path('_categoria_comuna', {'comuna': lugar.comuna.slug, 'slug': slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.comuna.nombre}}</a>
 							</li>
-							{#{% if lugar.mostrarPrecio != null %}
+							{% if lugar.mostrarPrecio != null %}
 								<li class="precio_lugar">
 									<div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div>
 								</li>
-							{% endif %}#}
+							{% endif %}
 						</ul>
 					</div>
 				</div>
