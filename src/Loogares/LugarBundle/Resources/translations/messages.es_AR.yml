@@ -42,6 +42,12 @@ lugar:
         ver_todas: Ver Todas
         no_encontraste: ¿No encontraste el Lugar que buscabas?
         agregalo: ¡Entonces agregalo y sé el primero en recomendarlo!
+        mala_suerte: ¡Mala suerte!... No encontramos
+        en: en
+        prueba: Probá lo siguiente para mejorar tu búsqueda:
+        buscar_zona: Buscá en otra zona. Ej. "Buenos Aires", "Palermo" o "Puerto Madero"
+        revisa: Revisá si está bien escrito, sin faltas de ortografía
+        buscar_general: Escribí una búsqueda más general. Ej. "Cines" o "Boliches"
 
     ficha:
         pedidos:
