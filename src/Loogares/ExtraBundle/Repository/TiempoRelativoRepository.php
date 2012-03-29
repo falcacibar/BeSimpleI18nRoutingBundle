@@ -11,12 +11,12 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class TiempoRelativoRepository extends EntityRepository{
-	public function tiempoRelativo($time){
+        public function tiempoRelativo($time){
         $em = $this->getEntityManager();
         $time = strtotime($time);
         $now = time();
         //+3600 GTM stuff
-        $diff = $now (+ 3600)- $time;
+        $diff = $now + 3600- $time;
 
         if($diff < 10){
         	$relative = $this->findOneBySlug("justo-ahora")->getTexto();

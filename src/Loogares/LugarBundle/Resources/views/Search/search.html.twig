@@ -362,36 +362,37 @@
 	        <div class="listado_resultados">
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">
-					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.lugar_slug}}" data-url="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
+					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
 						<div class="imagen_gmaps">
-							{% if lugar.imagen_lugar == '' %}
+							{% if lugar.imagenesLugar[0] is not defined %}
 								<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('small_lugar')}}" />
 							{% else %}
-								<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+								<img src="{{ ('assets/images/lugares/'~lugar.imagenesLugar[lugar.imagenesLugar|length-1].imagenFull) | apply_filter('small_lugar')}}" />
 							{% endif %}
-						</div>						
+						</div>
+										
 						<ul>
 							<li class="nombre_lugar_gmaps">
-								<a href="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}">{{lugar.nombre_lugar }}</a>
+								<a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre }}</a>
 							</li>
 							<li class="estrellas_gmaps">
 								<div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div>
 							</li>
 							<li class="recomendacion_gmaps">
-								{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}
+								{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}
 							</li>
 						
-						{% if lugar.sector_nombre != '' %}
+						{% if lugar.sector.nombre is defined %}
 							<li class="data_sector">
 								<span><strong>{{'general.terminos.sector'|trans}}:</strong></span>
-								<a href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
+								<a href="{{lugar.sector.slug}}">{{lugar.sector.nombre}}</a>
 							</li>
 						{% endif %}
-						{% if lugar.categorias_nombre != '' %}
+						{% if lugar.categoriaLugar is defined %}
 							<li class="data_categoria">
-								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}:</strong></span>
-								{% for categoria in lugar.categorias_nombre %}
-									{{categoria|raw}} {% if loop.last == null %}, {% endif %}
+								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}:</strong></span>
+								{% for categoriaLugar in lugar.categoriaLugar %}
+									<a href="{{ path('_categoria', {'slug': slug, 'categoria': categoriaLugar.categoria.slug}) }}">{{categoriaLugar.categoria.nombre|raw}}</a> {% if loop.last == null %}, {% endif %}
 								{% endfor %}
 							</li>
 						{% endif %}
@@ -399,43 +400,43 @@
 					<div class="datos-principales">
 						<ul>
 							<li class="info_lugar">
-								{% if lugar.imagen_lugar == '' %}
+								{% if lugar.imagenesLugar[0] is not defined %}
 									<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('small_lugar')}}" />
 								{% else %}
-									<img src="{{ ('assets/images/lugares/'~lugar.imagen_lugar) | apply_filter('small_lugar')}}" />
+									<img src="{{ ('assets/images/lugares/'~lugar.imagenesLugar[lugar.imagenesLugar|length-1].imagenFull) | apply_filter('small_lugar')}}" />
 								{% endif %}
 								<div class="nombre_lugar">
 									<span class="indice_resultado">{{loop.index}}</span>
-									<strong><a href="{{ path('_lugar', {'slug': lugar.lugar_slug}) }}">{{lugar.nombre_lugar }}</a></strong>
+									<strong><a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre }}</a></strong>
 								</div>
 							</li>
-						{% if lugar.categorias_nombre != '' %}
+						{% if lugar.categoriaLugar is defined %}
 							<li class="info_categorias">
-								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categorias_nombre)}}:</strong></span>
-								{% for categoria in lugar.categorias_nombre %}
-									{{categoria|raw}}{% if loop.last == null %}, {% endif %}
+								<span><strong>{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}:</strong></span>
+								{% for categoriaLugar in lugar.categoriaLugar %}
+									{{categoriaLugar.categoria.nombre|raw}}{% if loop.last == null %}, {% endif %}
 								{% endfor %}
 							</li>
 						{% endif %}
-						{% if lugar.sector_nombre != '' %}
+						{% if lugar.sector.nombre is defined %}
 							<li class="info_sector">
 								<span><strong>{{'general.terminos.sector'|trans}}:</strong></span>
-								<a href="{{lugar.sector_slug}}">{{lugar.sector_nombre}}</a>
+								<a href="{{lugar.sector.slug}}">{{lugar.sector.nombre}}</a>
 							</li>
 						{% endif %}
-						{% if lugar.ultima_recomendacion != '' %}
+						{% if lugar.recomendacion[0] is defined %}
 							<li class="info_recomendacion">
-								<img src="{{ ('assets/images/usuarios/'~lugar.usuario_imagen) | apply_filter('tiny_usuario')}}" />
+								<img src="{{ ('assets/images/usuarios/'~lugar.usuario.imagenFull) | apply_filter('tiny_usuario')}}" />
 								<span>
 									<strong>
-										{{lugar.fecha_ultima_recomendacion|date('d/m/y') }} - 
-										{% if lugar.usuario_nombre != '' %}
-											<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_nombre}} {{lugar.usuario_apellido}}</a>
+										{{lugar.recomendacion[lugar.recomendacion|length-1].fechaCreacion|date('d/m/y') }} - 
+										{% if lugar.usuario.nombre != '' %}
+											<a href="{{ path('showUsuario', {'param': lugar.recomendacion[lugar.recomendacion|length-1].usuario.slug}) }}">{{lugar.recomendacion[lugar.recomendacion|length-1].usuario.nombre}} {{lugar.recomendacion[lugar.recomendacion|length-1].usuario.apellido}}</a>
 										{% else %}
-											<a href="{{ path('showUsuario', {'param': lugar.usuario_slug}) }}">{{lugar.usuario_slug}}</a>
+											<a href="{{ path('showUsuario', {'param': lugar.recomendacion[lugar.recomendacion|length-1].usuario.slug}) }}">{{lugar.recomendacion[0].usuario.apellido}}</a>
 										{% endif %}
 									</strong>
-									<p>{{lugar.ultima_recomendacion}}...</p>
+									<p>{{lugar.recomendacion[lugar.recomendacion|length-1].texto|slice(0, 160)}}...</p>
 								</span>
 							</li>
 						{% endif %}
@@ -447,16 +448,16 @@
 								<div data-stars="{{lugar.estrellas}}" class="resultado-busqueda-stars-raty"></div>
 							</li>
 							<li class="numero_de_recomendaciones">
-								<em>{{lugar.total_recomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.total_recomendaciones)}}</em>
+								<em>{{lugar.totalRecomendaciones | default(0)}} {{'lugar.buscar.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}</em>
 							</li>
 							<li class="direccion_lugar">
-								{{lugar.calle}} {{lugar.numero}}, <a href="{{lugar.comuna_slug}}">{{lugar.comuna_nombre}}</a>
+								{{lugar.calle}} {{lugar.numero}}, <a href="{{lugar.comuna.slug}}">{{lugar.comuna.nombre}}</a>
 							</li>
-							{% if lugar.mostrarPrecio != null %}
+							{#{% if lugar.mostrarPrecio != null %}
 								<li class="precio_lugar">
 									<div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div>
 								</li>
-							{% endif %}
+							{% endif %}#}
 						</ul>
 					</div>
 				</div>
