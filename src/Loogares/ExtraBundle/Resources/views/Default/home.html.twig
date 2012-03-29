@@ -173,7 +173,15 @@
 		{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
 			<div class="colaboradores">
 				<h5 class="titulo_home encabezado">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
-				<ul class="slider">
+				<ul class="slider">	
+					<li>
+						<img src="http://www.loogares.com/assets/images/blog/sanduich/mr_jack_home.jpg" height="158" width="148" />
+						<div class="detalles_nota">
+							<p class="nombre_colaborador">Sánduich</p>
+							<p class="titulo_nota">¡Sólo para valientes! Doble Wagyu de Mr. Jack</p>
+							<p class="texto_nota">El otro día después de la pega... <a href="{{ path('post', {'slug': 'recomendado-por-sanduich-doble-wagyu'}) }}">Ver más »</a></p>
+						</div>
+					</li>
 					<li>
 						<img src="http://www.loogares.com/assets/images/blog/el-dinamo/tenedores_libres_home.jpg" height="158" width="148" />
 						<div class="detalles_nota">
@@ -181,7 +189,8 @@
 							<p class="titulo_nota">Imperdibles tenedores libres del gran Santiago</p>
 							<p class="texto_nota">La comida, uno de los placeres más ricos... <a href="{{ path('post', {'slug': 'imperdibles-tenedores-de-santiago'}) }}">Ver más »</a></p>
 						</div>
-					</li>					<li>
+					</li>				
+					<li>
 						<img src="http://www.loogares.com/assets/images/blog/sabor-platonico/japon_ya_home.jpg" height="158" width="148" />
 						<div class="detalles_nota">
 							<p class="nombre_colaborador">Sabor Platónico</p>
@@ -189,15 +198,6 @@
 							<p class="texto_nota">Hace un tiempo hablamos de los miles de... <a href="{{ path('post', {'slug': 'sabor-platonico-recomienda-japon-ya'}) }}">Ver más »</a></p>
 						</div>
 					</li>
-					<li>
-						<img src="http://www.loogares.com/assets/images/blog/sanduich/bobs_home.jpg" height="158" width="148" />
-						<div class="detalles_nota">
-							<p class="nombre_colaborador">Sánduich</p>
-							<p class="titulo_nota">Doble Grill Bacon en Bob's</p>
-							<p class="texto_nota">Bob's me queda al lado de la oficina y como buen... <a href="{{ path('post', {'slug': 'recomendado-por-sanduich-doble-grill-bacon-en-bobs'}) }}">Ver más »</a></p>
-						</div>
-					</li>
-
 				</ul>
 				<div class="pages">
 					<ul>
