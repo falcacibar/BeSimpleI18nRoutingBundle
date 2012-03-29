@@ -66,9 +66,6 @@ doctrine:
                     LoogaresBlogBundle: ~
                     LoogaresMailBundle: ~
                     StofDoctrineExtensionsBundle: ~
-                dql:
-                    string_functions:
-                        RAND: Loogares\ExtraBundle\DQL\Rand
 
 
 # Swiftmailer Configuratn
@@ -120,8 +117,6 @@ avalanche_imagine:
 jirafe_mail_chimp:
     api_key:    %mailchimp_apikey%
     connection: stub
-
-
 
 # FOS Facebook Configuration
 fos_facebook:

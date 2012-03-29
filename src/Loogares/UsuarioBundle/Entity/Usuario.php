@@ -769,12 +769,12 @@ class Usuario implements AdvancedUserInterface, \Serializable
     */
     public function serialize()
     {
-       return serialize($this->mail);
+       return serialize($this->getId());
     }
     
     public function unserialize($data)
     {
-        $this->mail = unserialize($data);
+        $this->id = unserialize($data);
     }
 
     /**

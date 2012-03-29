@@ -45,7 +45,7 @@ class TiempoRelativoRepository extends EntityRepository{
         	$diff = round($diff/(3600*24));
         	$relative = preg_replace('/{{x}}/', $diff, $this->findOneBySlug("ayer")->getTexto());
         }else if($diff < 3600*24*6){
-        	$diff = round($diff/3600*24);
+        	$diff = round($diff/(3600*24));
         	if($diff == 1){
         		$relative = $this->findOneBySlug("hace-x-dia")->getTexto();
         	}else{

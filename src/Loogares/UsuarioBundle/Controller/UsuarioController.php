@@ -63,7 +63,7 @@ class UsuarioController extends Controller
         foreach($actividad as $a) {
             $r = $em->getRepository($a->getEntidad());
             $entidad = $r->find($a->getEntidadId());
-            $entidad->relativo = $trr->tiempoRelativo($entidad->getFechaCreacion()->format('Y-m-d H:i:s'));
+            $a->relativeTime = $trr->tiempoRelativo($a->getFecha()->format('Y-m-d H:i:s'));
             $a->ent = $entidad;
         }
         
