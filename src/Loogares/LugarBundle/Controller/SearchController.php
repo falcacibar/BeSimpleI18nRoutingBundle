@@ -1149,7 +1149,6 @@ class SearchController extends Controller{
                              LEFT JOIN l.recomendacion r WITH r.estado != 3
                              LEFT JOIN l.imagenes_lugar i WITH i.estado != 3
                              WHERE l.id = ?1
-                             
                              GROUP BY l.id ORDER BY r.id DESC");
 
         $q->setMaxResults(1);

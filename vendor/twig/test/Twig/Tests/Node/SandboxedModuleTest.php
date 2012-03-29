@@ -70,8 +70,6 @@ class __TwigTemplate_be925a7b06dda0dfdbd18a1509f7eb34 extends Twig_Template
     protected function doDisplay(array \$context, array \$blocks = array())
     {
         \$this->checkSecurity();
-        \$context = array_merge(\$this->env->getGlobals(), \$context);
-
         echo "foo";
     }
 
@@ -88,10 +86,6 @@ class __TwigTemplate_be925a7b06dda0dfdbd18a1509f7eb34 extends Twig_Template
         return "foo.twig";
     }
 
-    public function isTraitable()
-    {
-        return false;
-    }
 }
 EOF
         , $twig);
@@ -112,26 +106,14 @@ EOF
 /* foo.twig */
 class __TwigTemplate_be925a7b06dda0dfdbd18a1509f7eb34 extends Twig_Template
 {
-    protected \$parent;
-
-    public function getParent(array \$context)
+    protected function doGetParent(array \$context)
     {
-        \$parent = "layout.twig";
-        if (\$parent instanceof Twig_Template) {
-            \$name = \$parent->getTemplateName();
-            \$this->parent[\$name] = \$parent;
-            \$parent = \$name;
-        } elseif (!isset(\$this->parent[\$parent])) {
-            \$this->parent[\$parent] = \$this->env->loadTemplate(\$parent);
-        }
-
-        return \$this->parent[\$parent];
+        return "layout.twig";
     }
 
     protected function doDisplay(array \$context, array \$blocks = array())
     {
-        \$context = array_merge(\$this->env->getGlobals(), \$context);
-
+        \$this->checkSecurity();
         \$this->getParent(\$context)->display(\$context, array_merge(\$this->blocks, \$blocks));
     }
 
@@ -141,8 +123,6 @@ class __TwigTemplate_be925a7b06dda0dfdbd18a1509f7eb34 extends Twig_Template
             array('for'),
             array('cycle')
         );
-
-        \$this->parent->checkSecurity();
     }
 
     public function getTemplateName()
