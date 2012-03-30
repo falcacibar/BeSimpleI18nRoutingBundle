@@ -88,7 +88,26 @@ class DefaultController extends Controller
         return new Response('ok');
     }
 
-    public function homepageAction($slug){
+    public function homepageAction($slug = null){
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $xml = file_get_contents("http://api.hostip.info/?ip=".$ip);
+
+        $ciudadesHabilitadas = array(
+            'santiago-de-chile' => 'santiago-de-chile',
+            'buenos-aires' => 'buenos-aires',
+            'valparaiso-vina-del-mar' => 'valparaiso-vina-del-mar'
+        );
+
+        if(!in_array($slug, $ciudadesHabilitadas)){ 
+            if(preg_match('/CHILE/', $xml)){
+                return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
+            }else if(preg_match('/ARGENTINA/', $xml)){
+                return $this->redirect($this->generateUrl('locale', array('slug' => 'buenos-aires')));
+            }
+            return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
+        }
+
         $this->localeAction($slug);
         $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");

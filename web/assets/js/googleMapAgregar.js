@@ -15,8 +15,7 @@ function initializeMap(position){
 		mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    map = new google.maps.Map(document.getElementById("mapa"),
-        myOptions);
+    map = new google.maps.Map(document.getElementById("mapa"), myOptions);
     geocoder = new google.maps.Geocoder();
 
     var image = WEBROOT+"../assets/images/gmaps/puntodestacado.png";
@@ -48,9 +47,8 @@ function geocodeAddress(){
 		, numero = $('.numero').val()
 		, comuna = $('.comuna option:selected').text()
 		, ciudad = $('.ciudad option:selected').text()
-		, pais = $('.pais option:selected').text(),
-		address = '';
-		
+		, pais = $('.pais option:selected').text()
+		, address = '';
 
 	if(numero == '' || comuna == 'Elige una comuna' || pais == 'Elige un pais' || calle == '' || ciudad == 'Elige una comuna'){
 		alert("Debes indicar Comuna, Calle y N\u00b0 para poder cargar el mapa.");

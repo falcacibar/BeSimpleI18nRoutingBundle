@@ -364,7 +364,7 @@ class LugarController extends Controller{
                 }
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
-                    $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre);
+                    $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre) + 1;
                     $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . $lugaresConElMismoNombre;
                     $lugarManipulado->setSlug($lugarSlug);
                 }else if(sizeOf($lugaresConElMismoNombre) == 0){
