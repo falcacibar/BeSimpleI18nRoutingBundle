@@ -33,8 +33,10 @@ class SearchController extends Controller{
     $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
     $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
     $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
-
+    
+    $this->get('session')->setLocale($ciudad->getPais()->getLocale());
     $this->get('session')->set('ciudad',$ciudadArray);
+
     $idCiudad = $ciudad->getId();
     $order = null;
     $lr = $em->getRepository('LoogaresLugarBundle:Lugar');

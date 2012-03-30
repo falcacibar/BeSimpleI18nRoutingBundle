@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Loogares\LugarBundle\Entity\Lugar;
 use Loogares\LugarBundle\Entity\CategoriaLugar;
 use Loogares\LugarBundle\Entity\CaracteristicaLugar;
-use Loogares\LugarBundle\Entity\Horario;
+use Loogares\LoogaresLugarBundlee\Entity\Horario;
 use Loogares\LugarBundle\Entity\SubcategoriaLugar;
 use Loogares\LugarBundle\Entity\ImagenLugar;
 use Loogares\LugarBundle\Entity\ReportarLugar;
@@ -209,6 +209,10 @@ class LugarController extends Controller{
             $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
         }
 
+        $lugarResult[0]->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarResult[0]->getTelefono1());
+        $lugarResult[0]->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarResult[0]->getTelefono2());
+        $lugarResult[0]->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarResult[0]->getTelefono3());
+
         //Sacamos los HTTP
         $lugarResult[0]->setSitioWeb($fn->stripHTTP($lugarResult[0]->getSitioWeb()));
         $lugarResult[0]->setTwitter($fn->stripHTTP($lugarResult[0]->getTwitter()));
@@ -222,6 +226,8 @@ class LugarController extends Controller{
         if($usuarioSlug != false){
             $data->recomendacionPedida = $recomendacionPedidaResult[0];
         }
+
+
 
         $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
         $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';

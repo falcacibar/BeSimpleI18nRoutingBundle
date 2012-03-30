@@ -99,9 +99,15 @@ class DefaultController extends Controller
             'valparaiso-vina-del-mar' => 'valparaiso-vina-del-mar'
         );
 
+        $ciudadSession = $this->get('session')->get('ciudad');
+        
+        if($slug == null && is_array($ciudadSession)){
+            return $this->redirect($this->generateUrl('locale', array('slug' => $ciudadSession['slug'])));
+        }
+
         if(!in_array($slug, $ciudadesHabilitadas)){ 
-            if(preg_match('/CHILE/', $xml)){
-                return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
+            if(preg_match('/VALPARAISO/', $xml)){
+                return $this->redirect($this->generateUrl('locale', array('slug' => 'valparaiso-vina-del-mar')));
             }else if(preg_match('/ARGENTINA/', $xml)){
                 return $this->redirect($this->generateUrl('locale', array('slug' => 'buenos-aires')));
             }

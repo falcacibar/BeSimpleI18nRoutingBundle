@@ -124,14 +124,14 @@
                 <div class="direccion_lugar" id="lugar-direccion">{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %}
                     <a href="{{ path('_categoria_comuna', {'slug': lugar.comuna.ciudad.slug, 'comuna': lugar.comuna.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.comuna.nombre}}</a>, <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.comuna.ciudad.nombre }}</a>
                 </div>
-                {% if lugar.telefono1 %}
+                {% if lugar.tel1 != '' %}
                     <div class="telefono_lugar" id="lugar-telefono">
-                        {{lugar.comuna.ciudad.pais.codigoArea}} {{lugar.telefono1}}
-                        {% if lugar.telefono2 %}
-                        , {{lugar.comuna.ciudad.pais.codigoArea}} {{lugar.telefono2}}
+                        {{lugar.comuna.ciudad.pais.codigoArea}} {{lugar.tel1}}
+                        {% if lugar.tel2 != '' %}
+                        , {{lugar.comuna.ciudad.pais.codigoArea}} {{lugar.tel2}}
                         {% endif %}
-                        {% if lugar.telefono3 %}
-                        , {{lugar.comuna.ciudad.pais.codigoArea}} {{lugar.telefono3}}
+                        {% if lugar.tel3 != '' %}
+                        , {{lugar.comuna.ciudad.pais.codigoArea}} {{lugar.tel3}}
                         {% endif %}
                     </div>
                 {% endif %}
