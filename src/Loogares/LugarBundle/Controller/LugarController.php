@@ -674,6 +674,7 @@ class LugarController extends Controller{
         foreach($_GET as $key => $value){
             $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
         }
+
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $formErrors = array();
@@ -724,14 +725,14 @@ class LugarController extends Controller{
 
                         $u = explode('.',$url);
                         $ext = array_pop($u);
-                        $fn = time().'.jpg';//.$ext;
+                        $fn = time().rand(1, 10000).'.jpg';//.$ext;
                         //try {
                         if(file_put_contents('assets/images/temp/'.$fn, $result)) {
-                            
                             if(getimagesize('assets/images/temp/'.$fn)) {
                                 $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);
                                 $imagen->url = $url;
                                 $imagenes[] = $imagen;
+                                echo "fileputcontents";
                             }
                             else {
                                 $formErrors['no-imagen'] = "Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.";
@@ -750,6 +751,7 @@ class LugarController extends Controller{
                                            
                     }
                 }
+
                 if(sizeof($imagenes) == 0 && sizeOf($formErrors) == 0) {
                     $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
                 }
