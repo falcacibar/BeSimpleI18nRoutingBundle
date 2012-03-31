@@ -965,18 +965,6 @@ class UsuarioController extends Controller
         $usuarioResult->setEstado($estadoUsuario);
         $em->flush();
 
-        // Se agrega usuario a lista de correos de Mailchimp
-        $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
-        $merge_vars = array(
-            'EMAIL' => $usuarioResult->getMail(),
-            'FNAME' => $usuarioResult->getNombre(),
-            'LNAME' => $usuarioResult->getApellido(),
-            'USER' => $usuarioResult->getSlug(),
-            'IDUSER' => $usuarioResult->getId()
-        );
-        $r = $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true);
-
-
         // Usuario inicia sesión automáticamente
         $token = new UsernamePasswordToken($usuarioResult, $usuarioResult->getPassword(),'main', $usuarioResult->getRoles());
         $this->container->get('security.context')->setToken($token);
@@ -1201,6 +1189,68 @@ class UsuarioController extends Controller
                     $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
                     $ciudad = $cr->findOneBySlug($request->request->get('ciudad'));
                     $usuario->setCiudad($ciudad);
+
+                    // Array que se agrega a $merge_vars, en el caso de estar suscrito a newsletter
+                    if($ciudad->getId() == 1 || $ciudad->getId() == 2 || $ciudad->getId() == 6) {
+                        $groupings = array(
+                            array(
+                                'id' => 1,
+                                'groups' => $ciudad->getNombre()
+                            )
+                        );
+                    }
+                    else {
+                        $groupings = array(
+                            array(
+                                'id' => 1,
+                                'groups' => 'Otras Ciudades'
+                            )
+                        );
+                    }
+                }
+
+                if($usuario->getNewsletterActivo()) {
+                    $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
+                    $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuario->getMail() );
+                    $mcId = 0;
+
+                    if (!$mc->errorCode){
+                        if(!empty($mcInfo['success'])){
+                            if(isset($mcInfo['data'])){ // tiene que estar en la lista para considerarse "suscrito"??
+                                $mcId = $mcInfo['data'][0]['id'];
+                            }
+                        }
+                    }
+                    // Se agrega usuario a lista de correos de Mailchimp
+                    $merge_vars = array(
+                        'EMAIL' => $usuario->getMail(),
+                        'FNAME' => $usuario->getNombre(),
+                        'LNAME' => $usuario->getApellido(),
+                        'USER' => $usuario->getSlug(),
+                        'IDUSER' => $usuarioResult->getId()
+                    );
+
+                    if(isset($groupings)) {
+                        $merge_vars['GROUPINGS'] = $groupings;
+                    }
+                    else {
+                        $merge_vars['GROUPINGS'] = array(
+                            array(
+                                'id' => 1,
+                                'groups' => 'Santiago de Chile'
+                            )
+                        );
+                    }
+
+                     // Verificar suscripción Mailchimp
+                    if($mcId == 0) {
+                        // Nueva suscripción
+                        $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
+                    }
+                    else {
+                        // Usuario suscrito. Se actualizan datos
+                        $mc->listUpdateMember($this->container->getParameter('mailchimp_list_id'), $mcId, $merge_vars, 'html', true);
+                    }
                 }
 
                 $em->flush();

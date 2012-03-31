@@ -384,4 +384,70 @@ class DefaultController extends Controller
         ));
     }
 
+    /*public function mailchimpAction() {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+        echo "<pre>";
+        $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
+        $usuarios = $ur->getUsuariosNoEliminados();
+        $i = 0;
+
+        foreach($usuarios as $usuario) {
+            
+            if($usuario->getNewsletterActivo()) {
+                $i++;
+                // Se agrega usuario a lista de correos de Mailchimp
+                $merge_vars = array(
+                    'EMAIL' => $usuario->getMail(),
+                    'FNAME' => $usuario->getNombre(),
+                    'LNAME' => $usuario->getApellido(),
+                    'USER' => $usuario->getSlug(),
+                    'IDUSER' => $usuario->getId()
+                );
+                if($usuario->getCiudad() != null) {
+                    if($usuario->getCiudad()->getId() == 1 || $usuario->getCiudad()->getId() == 2 || $usuario->getCiudad()->getId() == 6) {
+                        // Usamos Santiago
+                        $merge_vars['GROUPINGS'] = array(
+                            array(
+                                'id' => 1,
+                                'groups' => $usuario->getCiudad()->getNombre()
+                            )
+                        );
+                    }
+                    else {
+                        // Usamos Otras Ciudades
+                        $merge_vars['GROUPINGS'] = array(
+                            array(
+                                'id' => 1,
+                                'groups' => "Otras Ciudades"
+                            )
+                        );
+                    }
+                }
+                else {
+                    // No tiene ciudad definida. Usamos Santiago
+                    $merge_vars['GROUPINGS'] = array(
+                        array(
+                            'id' => 1,
+                            'groups' => "Santiago de Chile"
+                        )
+                    );
+                }
+
+                print_r($merge_vars);
+
+                //$mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
+            }   
+
+            
+        }
+        echo $i;
+        
+        echo "</pre>";
+
+        return new Response('');
+    }*/
+
+
 }
