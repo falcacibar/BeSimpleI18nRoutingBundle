@@ -1227,7 +1227,7 @@ class UsuarioController extends Controller
                         'FNAME' => $usuario->getNombre(),
                         'LNAME' => $usuario->getApellido(),
                         'USER' => $usuario->getSlug(),
-                        'IDUSER' => $usuarioResult->getId()
+                        'IDUSER' => $usuario->getId()
                     );
 
                     if(isset($groupings)) {
