@@ -1147,20 +1147,36 @@ class SearchController extends Controller{
     $lugaresDoctrine = array();
     //Sacamos los otros datos de los 30 resultados que corresponden
     foreach($arr['lugares'] as $key => $lugar){
-      $q = $em->createQuery("SELECT l, max(r), max(i) from Loogares\LugarBundle\Entity\Lugar l
-                             LEFT JOIN l.recomendacion r WITH r.estado != 3
-                             LEFT JOIN l.imagenes_lugar i WITH i.estado != 3
-                             WHERE l.id = ?1
-                             GROUP BY l.id ORDER BY i.id DESC");
+      $q = $em->createQuery("SELECT l from Loogares\LugarBundle\Entity\Lugar l
+                             WHERE l.id = ?1");
 
-        $q->setMaxResults(1);
-        $q->setParameter(1, $lugar['id']);
-        $buffer = $q->getResult();
-        
-        $lugar = $buffer[0][0];
-        $lugar->mostrarPrecio = $fn->mostrarPrecio($lugar);
+      $q2 = $em->createQuery("SELECT r from Loogares\UsuarioBundle\Entity\Recomendacion r
+                              WHERE r.lugar = ?1 and r.estado != 3 ORDER BY r.id DESC");
 
-        $lugaresDoctrine[] = $lugar;
+      $q3 = $em->createQuery("SELECT i from Loogares\LugarBundle\Entity\ImagenLugar i
+                              WHERE i.lugar = ?1 and i.estado != 3 ORDER BY i.id DESC");
+
+      $q3->setMaxResults(1);
+      $q3->setParameter(1, $lugar['id']);
+
+      $q2->setMaxResults(1);
+      $q2->setParameter(1, $lugar['id']);
+
+      $q->setMaxResults(1);
+      $q->setParameter(1, $lugar['id']);
+
+      $buffer = $q->getOneOrNullResult();
+      $bufferRec = $q2->getOneOrNullResult();
+      $bufferImagenLugar = $q3->getOneOrNullResult();
+
+      $lugar = $buffer;
+      $recomendacion = $bufferRec;
+      $imagen = $bufferImagenLugar;
+
+      $lugar->ultimaRecomendacion = $recomendacion;
+      $lugar->ultimaImagen = $imagen;
+      $lugar->mostrarPrecio = $fn->mostrarPrecio($lugar);
+      $lugaresDoctrine[] = $lugar;
     }
 
     //Re-seteamos q
