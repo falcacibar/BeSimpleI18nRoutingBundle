@@ -12,8 +12,22 @@ class DefaultController extends Controller
         return $this->render('LoogaresBlogBundle:Default:index.html.twig' );
     }
 
-    public function postAction($slug){
+    public function postAction($ciudad, $slug){
     	$em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
+        
+        $ciudad = $cr->findOneBySlug($ciudad);
+        $ciudadArray = array();
+        $ciudadArray['id'] = $ciudad->getId();
+        $ciudadArray['nombre'] = $ciudad->getNombre();
+        $ciudadArray['slug'] = $ciudad->getSlug();
+        $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
+        $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
+        $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
+
+        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+        $this->get('session')->set('ciudad',$ciudadArray);
+
         $anteriores = null;
         $fn = $this->get('fn');
         

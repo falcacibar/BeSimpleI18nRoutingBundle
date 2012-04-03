@@ -3,7 +3,6 @@
 namespace Loogares\ExtraBundle\Functions;
 class LoogaresFunctions
 {
-
     public function mostrarPrecio($lugar){
         //Donde Dormir 6 | Donde Comer 3
         //Nightclub 31

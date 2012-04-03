@@ -299,15 +299,15 @@
                 {% endfor %}
             </select>
             {% if lugaresRevisados is defined %}
-                 {% if lugarRevisado.categoriaLugar[2] is defined %}
-                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
-                        {{lugarRevisado.categoriaLugar[2].categoria.nombre}}
+                 {% if lugarRevisado.categoriaLugar[1] is defined %}
+                    <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}}
+                        {{lugarRevisado.categoriaLugar[1].categoria.nombre}}
                     </div>
                 {% endif %}
             {% endif %}
             <span class="quitar_info"><a class="quitar" rel="categoria" href="">{{'lugar.agregar.quitar'|trans}}</a></span>
             <div class='subcategorias'>
-                <span class="subcategoria_titulo"{{'lugar.agregar.subcategorias'|trans}}</span>
+                <span class="subcategoria_titulo">{{'lugar.agregar.subcategorias'|trans}}</span>
                 <ul class="alinear_subcategorias">
                     {% for subCategoria in data.subCategorias %}
                         <li class="lista_subcategorias">
@@ -322,9 +322,9 @@
             {% if lugaresRevisados is defined %}
                 {% for lugarRevisado in lugaresRevisados %}
                     {% if lugarRevisado.subcategoriaLugar[0] is defined %}
-                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> sugirio
+                        <div class="comparacion comparacion-color{{loop.index}}"><strong>{{lugarRevisado.usuario.slug}}</strong> {{'lugar.editar.sugirio'|trans}}
                             {% for subCategoriaLugar in lugarRevisado.subcategoriaLugar %}
-                                {% if subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[0].categoria.id %}
+                                {% if lugarRevisado.categoriaLugar[2].categoria.id is defined and subCategoriaLugar.subcategoria.categoria.id == lugarRevisado.categoriaLugar[2].categoria.id %}
                                     {{ subCategoriaLugar.subcategoria.nombre}}{% if loop.index < 3 %}, {% endif %}
                                 {% endif %}
                             {% endfor %}

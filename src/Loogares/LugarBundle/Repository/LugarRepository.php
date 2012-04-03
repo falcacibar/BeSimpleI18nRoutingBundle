@@ -66,9 +66,9 @@ class LugarRepository extends EntityRepository
     public function getCategorias($slug = null){
         $em = $this->getEntityManager();
         if($slug){
-           $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u where u.slug = '$slug' order by u.nombre asc");  
+           $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u where u.slug = '$slug' and u.mostrar_cateogria = 1 order by u.nombre asc");  
         }else{
-          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u order by u.nombre asc"); 
+          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u where u.mostrar_cateogria = 1 order by u.nombre asc"); 
         }
        
         $categoriasResult = $q->getResult();
@@ -240,7 +240,8 @@ class LugarRepository extends EntityRepository
       $q->setParameter(2, 3);
       $q->setMaxResults(1);
       //IF (im.fecha_modificacion IS NULL, im.fecha_creacion, im.fecha_modificacion)
-      return $q->getSingleResult();
+      $imagen = $q->getResult();
+      return $imagen;
     }
 
     public function getFotosVecinas($id, $lugar) {

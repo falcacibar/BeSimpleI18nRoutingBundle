@@ -6,7 +6,7 @@
 				<img src="{{('assets/images/usuarios/'~a.usuario.imagenFull) | apply_filter('small_usuario')}}" width="50" height="50" />
 			</a>
 			<div class="contenido_actividad">
-				<span>{{a.fecha|date('d/m/Y')}}</span>
+				<span>{{a.relativeTime}}</span>
 				{% if a.tipoActividadReciente.nombre == 'agregar' %}
 					{% if a.entidad == 'Loogares\\LugarBundle\\Entity\\ImagenLugar'%}						
 						<p><a href="{{path('showUsuario', {'param' : a.usuario.slug})}}">{{a.usuario.nombre}} {{a.usuario.apellido}}</a> {% trans with {'%open_tag%' : "<a href='"~path('_fotoGaleria', {'slug' : a.ent.lugar.slug, 'id' : a.ent.id})~"'>", '%close_tag%' : '</a>'}%}extra.home.actividad_reciente.agregar.foto{% endtrans %} <a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a></p>

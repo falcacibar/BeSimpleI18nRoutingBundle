@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Loogares\LugarBundle\Entity\Lugar;
 use Loogares\LugarBundle\Entity\CategoriaLugar;
 use Loogares\LugarBundle\Entity\CaracteristicaLugar;
-use Loogares\LugarBundle\Entity\Horario;
+use Loogares\LoogaresLugarBundlee\Entity\Horario;
 use Loogares\LugarBundle\Entity\SubcategoriaLugar;
 use Loogares\LugarBundle\Entity\ImagenLugar;
 use Loogares\LugarBundle\Entity\ReportarLugar;
@@ -209,6 +209,10 @@ class LugarController extends Controller{
             $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
         }
 
+        $lugarResult[0]->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarResult[0]->getTelefono1());
+        $lugarResult[0]->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarResult[0]->getTelefono2());
+        $lugarResult[0]->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarResult[0]->getTelefono3());
+
         //Sacamos los HTTP
         $lugarResult[0]->setSitioWeb($fn->stripHTTP($lugarResult[0]->getSitioWeb()));
         $lugarResult[0]->setTwitter($fn->stripHTTP($lugarResult[0]->getTwitter()));
@@ -364,7 +368,7 @@ class LugarController extends Controller{
                 }
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
-                    $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre);
+                    $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre) + 1;
                     $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . $lugaresConElMismoNombre;
                     $lugarManipulado->setSlug($lugarSlug);
                 }else if(sizeOf($lugaresConElMismoNombre) == 0){
@@ -668,6 +672,7 @@ class LugarController extends Controller{
         foreach($_GET as $key => $value){
             $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
         }
+
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $formErrors = array();
@@ -718,14 +723,14 @@ class LugarController extends Controller{
 
                         $u = explode('.',$url);
                         $ext = array_pop($u);
-                        $fn = time().'.jpg';//.$ext;
+                        $fn = time().rand(1, 10000).'.jpg';//.$ext;
                         //try {
                         if(file_put_contents('assets/images/temp/'.$fn, $result)) {
-                            
                             if(getimagesize('assets/images/temp/'.$fn)) {
                                 $imagen = new UploadedFile('assets/images/temp/'.$fn, $fn);
                                 $imagen->url = $url;
                                 $imagenes[] = $imagen;
+                                echo "fileputcontents";
                             }
                             else {
                                 $formErrors['no-imagen'] = "Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.";
@@ -744,6 +749,7 @@ class LugarController extends Controller{
                                            
                     }
                 }
+
                 if(sizeof($imagenes) == 0 && sizeOf($formErrors) == 0) {
                     $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
                 }
@@ -933,6 +939,7 @@ class LugarController extends Controller{
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         $imagen = $ilr->find($id);
+        $lugar = $imagen->getLugar();
 
         if($imagen->getLugar()->getSlug() != $slug) {
             throw $this->createNotFoundException('La foto especificada no corresponde al lugar '.$imagen->getLugar()->getNombre());
@@ -964,7 +971,6 @@ class LugarController extends Controller{
                     
         // Redirección a galería de fotos del lugar
         return $this->redirect($this->generateUrl('_galeria', array('slug' => $slug))); 
-           
     }
 
     public function galeriaAction($slug) {
@@ -972,9 +978,15 @@ class LugarController extends Controller{
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
         $lugar = $lr->findOneBySlug($slug);
-        $id = $lr->getImagenLugarMasReciente($lugar)->getId();
+        $imagen = $lr->getImagenLugarMasReciente($lugar);
 
-        return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
+        if(!$imagen){
+          $this->get('session')->setFlash('error_flash', 'No existen imagenes para este Lugar.');
+          return $this->render($this->generateUrl('_lugar', array('slug' => $slug))); 
+        }else{
+          $id = $imagen[0]->getId();
+          return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
+        }
     }
 
     public function fotoGaleriaAction($slug, $id, $editar = false) {
@@ -1189,32 +1201,30 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
             $em->flush();
             $lr->actualizarPromedios($lugar->getSlug());
 
-            // Agregamos a la actividad reciente     
-            if($this->get('security.context')->isGranted('ROLE_ADMIN') == false){       
-              $actividad = new ActividadReciente();
-              $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Recomendacion');
-              $actividad->setEntidadId($recomendacion->getId());
-              $actividad->setFecha($recomendacion->getFechaCreacion());
-              $actividad->setUsuario($recomendacion->getUsuario());
-              $actividad->setCiudad($lugar->getComuna()->getCiudad());            
-              $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
-                                    ->findOneByNombre('Aprobado');            
-              $actividad->setEstado($estadoActividad);
+            //Agregamos a la actividad reciente     
+            $actividad = new ActividadReciente();
+            $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Recomendacion');
+            $actividad->setEntidadId($recomendacion->getId());
+            $actividad->setFecha($recomendacion->getFechaCreacion());
+            $actividad->setUsuario($recomendacion->getUsuario());
+            $actividad->setCiudad($lugar->getComuna()->getCiudad());            
+            $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
+                                  ->findOneByNombre('Aprobado');            
+            $actividad->setEstado($estadoActividad);
 
-              if($nueva) {
-                  $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
-                                      ->findOneByNombre('agregar');
-                  $actividad->setTipoActividadReciente($tipoActividad);
-              }
-              else {
-                  $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
-                                      ->findOneByNombre('editar');
-                  $actividad->setTipoActividadReciente($tipoActividad);
-              }
-
-              $em->persist($actividad);
-              $em->flush();
+            if($nueva){
+                $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                    ->findOneByNombre('agregar');
+                $actividad->setTipoActividadReciente($tipoActividad);
+            }else{
+                $tipoActividad = $em->getRepository('LoogaresExtraBundle:TipoActividadReciente')
+                                    ->findOneByNombre('editar');
+                $actividad->setTipoActividadReciente($tipoActividad);
             }
+
+            $em->persist($actividad);
+            $em->flush();
+            
 
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '' && !isset($_POST['editando'])) {
@@ -1307,7 +1317,6 @@ if(sizeOf($yaRecomendo) == 0 || $nueva == false || $curlSuperVar == 1){
                     }
                 }
 }
-
                 //SET FLASH AND REDIRECTTT
                 $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));

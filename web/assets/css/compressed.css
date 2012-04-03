@@ -1029,6 +1029,7 @@ textarea {
           width: 16px; }
         .menu .centrado_menu .buscador_box .buscar .icono_buscar {
           background: url("../images/extras/botones_sprite.png") -82px 0px;
+          border: 0px;
           float: left;
           height: 15px;
           width: 15px; }
@@ -3591,8 +3592,7 @@ body {
 .mapa {
   display: block;
   float: left;
-  height: 500px;
-  width: 338px; }
+}
   .mapa .mapa_ubicacion {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -1191px 0;
     color: #999999;

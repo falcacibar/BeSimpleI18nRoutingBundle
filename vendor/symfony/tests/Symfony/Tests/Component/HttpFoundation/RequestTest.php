@@ -525,6 +525,8 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             array('88.88.88.88', true, '127.0.0.1', null, '88.88.88.88'),
             array('::1', false, '::1', null, null),
             array('2620:0:1cfe:face:b00c::3', true, '::1', '2620:0:1cfe:face:b00c::3', null),
+            array('2620:0:1cfe:face:b00c::3', true, '::1', null, '2620:0:1cfe:face:b00c::3, ::1'),
+            array('88.88.88.88', true, '123.45.67.89', null, '88.88.88.88, 87.65.43.21, 127.0.0.1'),
         );
     }
 
@@ -716,7 +718,8 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     public function testGetPreferredLanguage()
     {
         $request = new Request();
-        $this->assertEquals('', $request->getPreferredLanguage());
+        $this->assertNull($request->getPreferredLanguage());
+        $this->assertNull($request->getPreferredLanguage(array()));
         $this->assertEquals('fr', $request->getPreferredLanguage(array('fr')));
         $this->assertEquals('fr', $request->getPreferredLanguage(array('fr', 'en')));
         $this->assertEquals('en', $request->getPreferredLanguage(array('en', 'fr')));
@@ -792,10 +795,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('html', $request->getRequestFormat());
 
         $request = new Request();
-        $this->assertEquals(null, $request->getRequestFormat(null));
+        $this->assertNull($request->getRequestFormat(null));
 
         $request = new Request();
-        $this->assertEquals(null, $request->setRequestFormat('foo'));
+        $request->setRequestFormat('foo');
         $this->assertEquals('foo', $request->getRequestFormat(null));
     }
 

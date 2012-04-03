@@ -42,6 +42,12 @@ lugar:
         ver_todas: Ver Todas
         no_encontraste: ¿No encontraste el Lugar que buscabas?
         agregalo: ¡Entonces agrégalo y sé el primero en recomendarlo!
+        mala_suerte: ¡Mala suerte!... No encontramos
+        en: en
+        prueba: Prueba lo siguiente para mejorar tu búsqueda:
+        buscar_zona: Busca en otra zona. Ej. "Santiago", "Ñuñoa" o "Bellavista"
+        revisa: Revisa si está bien escrito, sin faltas de ortografía
+        buscar_general: Haz una búsqueda más general. Ej. "Cines" o "Bares"
 
     ficha:
         pedidos:
@@ -187,7 +193,7 @@ lugar:
         tagsPopulares: Tags Populares
         precio: Precio
         placeholders:
-            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. \n\nSe creativo en tu recomendación. Escríbela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! \n\nA partir de hoy eres un crítico profesional…
+            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. \n\nSé creativo en tu recomendación. Escríbela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! \n\nA partir de hoy eres un crítico profesional…
             tags: Ej. bar, buena música, ondeo, hasta las 5 am
         meta:
             title: Recomendación de %usuario% en %lugar%

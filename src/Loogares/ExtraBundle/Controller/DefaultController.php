@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Loogares\LugarBundle\Entity\TipoCategoria;
+use Mailchimp\MCAPI;
 
 
 class DefaultController extends Controller
@@ -88,7 +89,32 @@ class DefaultController extends Controller
         return new Response('ok');
     }
 
-    public function homepageAction($slug){
+    public function homepageAction($slug = null){
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $xml = file_get_contents("http://api.hostip.info/?ip=".$ip);
+
+        $ciudadesHabilitadas = array(
+            'santiago-de-chile' => 'santiago-de-chile',
+            'buenos-aires' => 'buenos-aires',
+            'valparaiso-vina-del-mar' => 'valparaiso-vina-del-mar'
+        );
+
+        $ciudadSession = $this->get('session')->get('ciudad');
+        
+        if($slug == null && is_array($ciudadSession)){
+            return $this->redirect($this->generateUrl('locale', array('slug' => $ciudadSession['slug'])));
+        }
+
+        if(!in_array($slug, $ciudadesHabilitadas)){ 
+            if(preg_match('/VALPARAISO/', $xml)){
+                return $this->redirect($this->generateUrl('locale', array('slug' => 'valparaiso-vina-del-mar')));
+            }else if(preg_match('/ARGENTINA/', $xml)){
+                return $this->redirect($this->generateUrl('locale', array('slug' => 'buenos-aires')));
+            }
+            return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
+        }
+
         $this->localeAction($slug);
         $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
@@ -96,6 +122,7 @@ class DefaultController extends Controller
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresLugarBundle:Categoria");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
 
         //Recomendacion Estrella
         $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\LoogarenoEstrella u ORDER BY u.id desc");
@@ -161,9 +188,10 @@ class DefaultController extends Controller
                 }
                 else {
                     $preview = $entidad->getTexto();
-                }
+                } 
                 $entidad->preview = $preview;
             }
+            $actividad[$i]->relativeTime = $trr->tiempoRelativo($actividad[$i]->getFecha()->format('Y-m-d H:i:s'));
             $actividad[$i]->ent = $entidad;
         }
 
@@ -191,10 +219,12 @@ class DefaultController extends Controller
         foreach($_GET as $key => $value){
             $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
         }
+
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
         $ciudad = $this->get('session')->get('ciudad');
 
         $filtro = (!$request->query->get('filtro')) ? 'todo' : $request->query->get('filtro');
@@ -220,6 +250,7 @@ class DefaultController extends Controller
                 }
                 $entidad->preview = $preview;
             }
+            $a->relativeTime = $trr->tiempoRelativo($a->getFecha()->format('Y-m-d H:i:s'));
             $a->ent = $entidad;
         }
 
@@ -353,5 +384,70 @@ class DefaultController extends Controller
             'lugares' => $lugares
         ));
     }
+
+    /*public function mailchimpAction() {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+        echo "<pre>";
+        $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
+        $usuarios = $ur->getUsuariosActivos();
+        $i = 0;
+
+        foreach($usuarios as $usuario) {
+            if($usuario->getNewsletterActivo()) {
+                $i++;
+                // Se agrega usuario a lista de correos de Mailchimp
+                $merge_vars = array(
+                    'EMAIL' => $usuario->getMail(),
+                    'FNAME' => $usuario->getNombre(),
+                    'LNAME' => $usuario->getApellido(),
+                    'USER' => $usuario->getSlug(),
+                    'IDUSER' => $usuario->getId()
+                );
+                if($usuario->getCiudad() != null) {
+                    if($usuario->getCiudad()->getId() == 1 || $usuario->getCiudad()->getId() == 2 || $usuario->getCiudad()->getId() == 6) {
+                        // Usamos Santiago
+                        $merge_vars['GROUPINGS'] = array(
+                            array(
+                                'id' => 41,
+                                'groups' => $usuario->getCiudad()->getNombre()
+                            )
+                        );
+                    }
+                    else {
+                        // Usamos Otras Ciudades
+                        $merge_vars['GROUPINGS'] = array(
+                            array(
+                                'id' => 41,
+                                'groups' => "Otras Ciudades"
+                            )
+                        );
+                    }
+                }
+                else {
+                    // No tiene ciudad definida. Usamos Santiago
+                    $merge_vars['GROUPINGS'] = array(
+                        array(
+                            'id' => 41,
+                            'groups' => "Santiago de Chile"
+                        )
+                    );
+                }
+
+                print_r($merge_vars);
+
+                $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
+            }
+        }
+
+
+        echo $i;
+        
+        echo "</pre>";
+
+        return new Response('');
+    }*/
+
 
 }

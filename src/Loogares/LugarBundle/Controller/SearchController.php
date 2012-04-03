@@ -33,8 +33,10 @@ class SearchController extends Controller{
     $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
     $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
     $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
-
+    
+    $this->get('session')->setLocale($ciudad->getPais()->getLocale());
     $this->get('session')->set('ciudad',$ciudadArray);
+
     $idCiudad = $ciudad->getId();
     $order = null;
     $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
@@ -148,7 +150,7 @@ class SearchController extends Controller{
     $override = ((isset($_GET['o']))?$_GET['o']:NULL);
 
     $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-    $resultadosPorPagina = (!isset($_GET['resultados']))?30:$_GET['resultados'];
+    $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
     $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
 
     $term = $_GET['q'];
@@ -1142,43 +1144,39 @@ class SearchController extends Controller{
     }
 
     $a = null;
+    $lugaresDoctrine = array();
     //Sacamos los otros datos de los 30 resultados que corresponden
     foreach($arr['lugares'] as $key => $lugar){
-      $buffer = $this->getDoctrine()->getConnection()
-      ->fetchAll("SELECT ciudad.slug as ciudad_slug, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, imagenes_lugar.imagen_full as imagen_lugar, comuna.nombre as comuna_nombre, comuna.slug as comuna_slug, sector.nombre as sector_nombre, sector.slug as sector_slug, LEFT(recomendacion.texto, 95) as ultima_recomendacion, usuarios.slug as usuario_slug, usuarios.nombre as usuario_nombre, usuarios.apellido as usuario_apellido, usuarios.imagen_full as usuario_imagen
-        from lugares 
-        LEFT JOIN comuna
-        ON comuna.id = lugares.comuna_id
-        LEFT JOIN sector
-        ON sector.id = lugares.sector_id
-        LEFT JOIN ciudad
-        ON comuna.ciudad_id = ciudad.id
-        LEFT JOIN categoria_lugar
-        ON categoria_lugar.lugar_id = lugares.id
-        LEFT JOIN categorias
-        ON categoria_lugar.categoria_id = categorias.id
-        LEFT JOIN imagenes_lugar 
-        ON imagenes_lugar.lugar_id = lugares.id 
-        AND imagenes_lugar.id in (select max(imagenes_lugar.id) from imagenes_lugar where imagenes_lugar.lugar_id = lugares.id)
-        LEFT JOIN recomendacion
-        ON recomendacion.lugar_id = lugares.id
-        AND recomendacion.id = (select max(recomendacion.id) from recomendacion where recomendacion.lugar_id = lugares.id)
-        AND recomendacion.estado_id != 3
-        LEFT JOIN usuarios 
-        ON usuarios.id = recomendacion.usuario_id
-        WHERE lugares.id = ".$lugar['id']." group by lugares.id");
+      $q = $em->createQuery("SELECT l from Loogares\LugarBundle\Entity\Lugar l
+                             WHERE l.id = ?1");
 
-      $lugar = $lr->findOneById($lugar['id']);
-      $buffer[0]['mostrarPrecio'] = $fn->mostrarPrecio($lugar);
-      $arr['lugares'][$key] = array_merge($arr['lugares'][$key], $buffer[0]);
+      $q2 = $em->createQuery("SELECT r from Loogares\UsuarioBundle\Entity\Recomendacion r
+                              WHERE r.lugar = ?1 and r.estado != 3 ORDER BY r.id DESC");
 
-      $arr['lugares'][$key]['categorias_nombre'] = explode(',', $buffer[0]['categorias_nombre']);
-      $arr['lugares'][$key]['categorias_slug'] = explode(',', $buffer[0]['categorias_slug']);
+      $q3 = $em->createQuery("SELECT i from Loogares\LugarBundle\Entity\ImagenLugar i
+                              WHERE i.lugar = ?1 and i.estado != 3 ORDER BY i.id DESC");
 
-      foreach($arr['lugares'][$key]['categorias_nombre'] as $i => $value){
-        $catPath = $this->generateUrl('_categoria', array('categoria' => $arr['lugares'][$key]['categorias_slug'][$i], 'slug' => $arr['lugares'][$key]['ciudad_slug']));
-        $arr['lugares'][$key]['categorias_nombre'][$i] = "<a href='$catPath'>".$value."</a>";
-      }
+      $q3->setMaxResults(1);
+      $q3->setParameter(1, $lugar['id']);
+
+      $q2->setMaxResults(1);
+      $q2->setParameter(1, $lugar['id']);
+
+      $q->setMaxResults(1);
+      $q->setParameter(1, $lugar['id']);
+
+      $buffer = $q->getOneOrNullResult();
+      $bufferRec = $q2->getOneOrNullResult();
+      $bufferImagenLugar = $q3->getOneOrNullResult();
+
+      $lugar = $buffer;
+      $recomendacion = $bufferRec;
+      $imagen = $bufferImagenLugar;
+
+      $lugar->ultimaRecomendacion = $recomendacion;
+      $lugar->ultimaImagen = $imagen;
+      $lugar->mostrarPrecio = $fn->mostrarPrecio($lugar);
+      $lugaresDoctrine[] = $lugar;
     }
 
     //Re-seteamos q
@@ -1204,7 +1202,7 @@ class SearchController extends Controller{
     return $this->render('LoogaresLugarBundle:Search:search.html.twig', array(
       'term' => $term,
       'slug' => $slug,
-      'lugares' => $arr['lugares'],
+      'lugares' => $lugaresDoctrine,
       'total' => $resultSetSize[0]['rows'],
       'results' => $results,
       'categoria' => $categoriaResult,

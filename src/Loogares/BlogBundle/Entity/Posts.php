@@ -399,4 +399,254 @@ class Posts
     {
         return $this->publicado;
     }
+    /**
+     * @var string $titulo_home
+     */
+    private $titulo_home;
+
+    /**
+     * @var string $descripcion_home
+     */
+    private $descripcion_home;
+
+    /**
+     * @var string $imagen_home
+     */
+    private $imagen_home;
+
+    /**
+     * @var datetime $fecha_publicacion
+     */
+    private $fecha_publicacion;
+
+    /**
+     * @var datetime $feca_termino
+     */
+    private $feca_termino;
+
+    /**
+     * @var smallint $numero_premios
+     */
+    private $numero_premios;
+
+    /**
+     * @var string $titulo_alianza_estado
+     */
+    private $titulo_alianza_estado;
+
+    /**
+     * @var smallint $destacado_home
+     */
+    private $destacado_home;
+
+    /**
+     * @var Loogares\ExtraBundle\Entity\Ciudad
+     */
+    private $ciudad;
+
+
+    /**
+     * Set titulo_home
+     *
+     * @param string $tituloHome
+     */
+    public function setTituloHome($tituloHome)
+    {
+        $this->titulo_home = $tituloHome;
+    }
+
+    /**
+     * Get titulo_home
+     *
+     * @return string 
+     */
+    public function getTituloHome()
+    {
+        return $this->titulo_home;
+    }
+
+    /**
+     * Set descripcion_home
+     *
+     * @param string $descripcionHome
+     */
+    public function setDescripcionHome($descripcionHome)
+    {
+        $this->descripcion_home = $descripcionHome;
+    }
+
+    /**
+     * Get descripcion_home
+     *
+     * @return string 
+     */
+    public function getDescripcionHome()
+    {
+        return $this->descripcion_home;
+    }
+
+    /**
+     * Set imagen_home
+     *
+     * @param string $imagenHome
+     */
+    public function setImagenHome($imagenHome)
+    {
+        $this->imagen_home = $imagenHome;
+    }
+
+    /**
+     * Get imagen_home
+     *
+     * @return string 
+     */
+    public function getImagenHome()
+    {
+        return $this->imagen_home;
+    }
+
+    /**
+     * Set fecha_publicacion
+     *
+     * @param datetime $fechaPublicacion
+     */
+    public function setFechaPublicacion($fechaPublicacion)
+    {
+        $this->fecha_publicacion = $fechaPublicacion;
+    }
+
+    /**
+     * Get fecha_publicacion
+     *
+     * @return datetime 
+     */
+    public function getFechaPublicacion()
+    {
+        return $this->fecha_publicacion;
+    }
+
+    /**
+     * Set feca_termino
+     *
+     * @param datetime $fecaTermino
+     */
+    public function setFecaTermino($fecaTermino)
+    {
+        $this->feca_termino = $fecaTermino;
+    }
+
+    /**
+     * Get feca_termino
+     *
+     * @return datetime 
+     */
+    public function getFecaTermino()
+    {
+        return $this->feca_termino;
+    }
+
+    /**
+     * Set numero_premios
+     *
+     * @param smallint $numeroPremios
+     */
+    public function setNumeroPremios($numeroPremios)
+    {
+        $this->numero_premios = $numeroPremios;
+    }
+
+    /**
+     * Get numero_premios
+     *
+     * @return smallint 
+     */
+    public function getNumeroPremios()
+    {
+        return $this->numero_premios;
+    }
+
+    /**
+     * Set titulo_alianza_estado
+     *
+     * @param string $tituloAlianzaEstado
+     */
+    public function setTituloAlianzaEstado($tituloAlianzaEstado)
+    {
+        $this->titulo_alianza_estado = $tituloAlianzaEstado;
+    }
+
+    /**
+     * Get titulo_alianza_estado
+     *
+     * @return string 
+     */
+    public function getTituloAlianzaEstado()
+    {
+        return $this->titulo_alianza_estado;
+    }
+
+    /**
+     * Set destacado_home
+     *
+     * @param smallint $destacadoHome
+     */
+    public function setDestacadoHome($destacadoHome)
+    {
+        $this->destacado_home = $destacadoHome;
+    }
+
+    /**
+     * Get destacado_home
+     *
+     * @return smallint 
+     */
+    public function getDestacadoHome()
+    {
+        return $this->destacado_home;
+    }
+
+    /**
+     * Set ciudad
+     *
+     * @param Loogares\ExtraBundle\Entity\Ciudad $ciudad
+     */
+    public function setCiudad(\Loogares\ExtraBundle\Entity\Ciudad $ciudad)
+    {
+        $this->ciudad = $ciudad;
+    }
+
+    /**
+     * Get ciudad
+     *
+     * @return Loogares\ExtraBundle\Entity\Ciudad 
+     */
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
+    /**
+     * @var datetime $fecha_termino
+     */
+    private $fecha_termino;
+
+
+    /**
+     * Set fecha_termino
+     *
+     * @param datetime $fechaTermino
+     */
+    public function setFechaTermino($fechaTermino)
+    {
+        $this->fecha_termino = $fechaTermino;
+    }
+
+    /**
+     * Get fecha_termino
+     *
+     * @return datetime 
+     */
+    public function getFechaTermino()
+    {
+        return $this->fecha_termino;
+    }
 }
