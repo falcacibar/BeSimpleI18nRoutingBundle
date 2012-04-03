@@ -1148,8 +1148,8 @@ class SearchController extends Controller{
     //Sacamos los otros datos de los 30 resultados que corresponden
     foreach($arr['lugares'] as $key => $lugar){
       $q = $em->createQuery("SELECT l, max(r), max(i) from Loogares\LugarBundle\Entity\Lugar l
-                             LEFT JOIN l.recomendacion r WITH r.estado != 3
-                             LEFT JOIN l.imagenes_lugar i WITH i.estado != 3
+                             LEFT JOIN l.recomendacion r WITH r.estado_id != 3
+                             LEFT JOIN l.imagenes_lugar i WITH i.estado_id != 3
                              WHERE l.id = ?1
                              GROUP BY l.id ORDER BY r.id DESC");
 
