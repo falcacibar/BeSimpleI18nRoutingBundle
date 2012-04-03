@@ -984,7 +984,7 @@ class LugarController extends Controller{
           $this->get('session')->setFlash('error_flash', 'No existen imagenes para este Lugar.');
           return $this->render($this->generateUrl('_lugar', array('slug' => $slug))); 
         }else{
-          $id = $imagen->getId();
+          $id = $imagen[0]->getId();
           return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
         }
     }
