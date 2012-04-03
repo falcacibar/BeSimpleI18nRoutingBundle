@@ -35,3 +35,4 @@ web/images
 
 #Paginas de error
 vendor/symfony/src/Symfony/Bundle/TwigBundle/Resources/views/Exception/exception_full.html.twig
+vendor/symfony/src/Symfony/Bundle/TwigBundle/Resources/views/layout.html.twig
