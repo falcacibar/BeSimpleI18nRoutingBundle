@@ -55,7 +55,7 @@
 		<!-- Concursos del sitio -->
 		<div class="campanas_concursos">
 			<ul>
-				<a href="{{ path('post', {'slug': 'sorteamos-entradas-dobles-para-zonora-point-matanza-en-amanda'}) }}">
+				<a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'sorteamos-entradas-dobles-para-zonora-point-matanza-en-amanda'}) }}">
 					<li>
 						<h2 class="titulo_concurso concursos">Sólo por hoy</h2>
 						<img src="http://www.loogares.com/assets/images/blog/centro-cultural-amanda/matanza_home.jpg" width="204" height="115" / >
@@ -63,7 +63,7 @@
 						<p class="sorteo_concurso">Gana entradas para Zonora Point + Matanza + Nakeye</p>
 					</li>
 				</a>
-				<a href="{{ path('post', {'slug': 'sorteamos-tres-gift-cards-en-donde-el-guaton-nunoa'}) }}">
+				<a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'sorteamos-tres-gift-cards-en-donde-el-guaton-nunoa'}) }}">
 					<li class="central">
 						<h2 class="titulo_concurso concursos">Esta semana</h2>
 						<img src="http://www.loogares.com/assets/images/blog/beneficio-exclusivo/donde_el_guaton_home.jpg" width="204" height="115" / >
@@ -71,7 +71,7 @@
 						<p class="sorteo_concurso">Gana Gift Cards válidas por 1 Guatón + Bebida</p>
 					</li>
 				</a>
-				<a href="{{ path('post', {'slug': 'sorteamos-entradas-entradas-espejito-espejito'}) }}">
+				<a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'sorteamos-entradas-entradas-espejito-espejito'}) }}">
 					<li>
 						<h2 class="titulo_concurso ganadores">Ganadores</h2>
 						<img src="http://www.loogares.com/assets/images/blog/lunes-de-pelicula/espejito_espejito_home.jpg" width="204" height="115" / >
@@ -88,7 +88,7 @@
 		<!-- Concursos del sitio -->
 		<div class="campanas_concursos">
 			<ul>
-				<a href="{{ path('post', {'slug': 'sorteamos-dos-pizza-roll-en-dal-cuore'}) }}">
+				<a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'sorteamos-dos-pizza-roll-en-dal-cuore'}) }}">
 					<li>
 						<h2 class="titulo_concurso ganadores">Ganadores</h2>
 						<img src="http://www.loogares.com/assets/images/blog/beneficio-exclusivo/dal_cuore_home.jpg" width="204" height="115" / >
@@ -96,7 +96,7 @@
 						<p class="sorteo_concurso">Sorteamos Gift Cards por 2 Pizzas + 2 Cervezas</p>
 					</li>
 				</a>
-				<a href="{{ path('post', {'slug': 'sorteamos-entradas-secretos-de-estado-vina'}) }}">
+				<a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'sorteamos-entradas-secretos-de-estado-vina'}) }}">
 					<li class="central">
 						<h2 class="titulo_concurso ganadores">Ganadores</h2>
 						<img src="http://www.loogares.com/assets/images/blog/lunes-de-pelicula/secretos_de_estado_home.jpg" width="204" height="115" / >
@@ -111,7 +111,7 @@
 		{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
 		<div class="campanas_concursos">
 			<ul>
-				<a href="{{ path('post', {'slug': 'sorteamos-cuatro-cenas-en-meridiano-ciencuetayocho'}) }}">
+				<a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'sorteamos-cuatro-cenas-en-meridiano-ciencuetayocho'}) }}">
 					<li>
 						<h2 class="titulo_concurso concursos">Esta semana</h2>
 						<img src="http://www.loogares.com/assets/images/blog/beneficio-exclusivo/meridiano_58_home.jpg" width="204" height="115" / >
@@ -190,7 +190,7 @@
 						<div class="detalles_nota">
 							<p class="nombre_colaborador">Sánduich</p>
 							<p class="titulo_nota">¡Sólo para valientes! Doble Wagyu de Mr. Jack</p>
-							<p class="texto_nota">El otro día después de la pega... <a href="{{ path('post', {'slug': 'recomendado-por-sanduich-doble-wagyu'}) }}">Ver más »</a></p>
+							<p class="texto_nota">El otro día después de la pega... <a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'recomendado-por-sanduich-doble-wagyu'}) }}">Ver más »</a></p>
 						</div>
 					</li>
 					<li>
@@ -198,7 +198,7 @@
 						<div class="detalles_nota">
 							<p class="nombre_colaborador">El Dínamo</p>
 							<p class="titulo_nota">Imperdibles tenedores libres del gran Santiago</p>
-							<p class="texto_nota">La comida, uno de los placeres más ricos... <a href="{{ path('post', {'slug': 'imperdibles-tenedores-de-santiago'}) }}">Ver más »</a></p>
+							<p class="texto_nota">La comida, uno de los placeres más ricos... <a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'imperdibles-tenedores-de-santiago'}) }}">Ver más »</a></p>
 						</div>
 					</li>				
 					<li>
@@ -206,7 +206,7 @@
 						<div class="detalles_nota">
 							<p class="nombre_colaborador">Sabor Platónico</p>
 							<p class="titulo_nota">Expertos en sushi en Japón Ya</p>
-							<p class="texto_nota">Hace un tiempo hablamos de los miles de... <a href="{{ path('post', {'slug': 'sabor-platonico-recomienda-japon-ya'}) }}">Ver más »</a></p>
+							<p class="texto_nota">Hace un tiempo hablamos de los miles de... <a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'sabor-platonico-recomienda-japon-ya'}) }}">Ver más »</a></p>
 						</div>
 					</li>
 				</ul>
@@ -229,7 +229,7 @@
 						<div class="detalles_nota">
 							<p class="nombre_colaborador">Óscar Aspillaga</p>
 							<p class="titulo_nota">Tutto Bene, las apariencias engañan</p>
-							<p class="texto_nota">En Valparaíso hay varios locales donde... <a href="{{ path('post', {'slug': 'tutto-bene-las-apariencias-enganan'}) }}">Ver más »</a></p>
+							<p class="texto_nota">En Valparaíso hay varios locales donde... <a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'tutto-bene-las-apariencias-enganan'}) }}">Ver más »</a></p>
 						</div>
 					</li>
 					<li>
@@ -237,7 +237,7 @@
 						<div class="detalles_nota">
 							<p class="nombre_colaborador">Restomagazine</p>
 							<p class="titulo_nota">Kokoro, un secreto a voces</p>
-							<p class="texto_nota">Sushi, una lejana tradición culinaria nipona, que... <a href="{{ path('post', {'slug': 'kokoro-un-secreto-a-voces'}) }}">Ver más »</a></p>
+							<p class="texto_nota">Sushi, una lejana tradición culinaria nipona, que... <a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'kokoro-un-secreto-a-voces'}) }}">Ver más »</a></p>
 						</div>
 					</li>
 					<li>
@@ -245,7 +245,7 @@
 						<div class="detalles_nota">
 							<p class="nombre_colaborador">El Martutino</p>
 							<p class="titulo_nota">Lugares encantadores de Valparaíso</p>
-							<p class="texto_nota">Valparaíso, ciudad que encanta por su multiplicidad de colores... <a href="{{ path('post', {'slug': 'lugares-encantadores-de-valparaiso'}) }}">Ver más »</a></p>
+							<p class="texto_nota">Valparaíso, ciudad que encanta por su multiplicidad de colores... <a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'lugares-encantadores-de-valparaiso'}) }}">Ver más »</a></p>
 						</div>
 					</li>
 				</ul>
