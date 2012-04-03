@@ -1186,6 +1186,9 @@ class AdminController extends Controller
                 $imagen->setEsEnlace(0);
 
             if(isset($_POST['lugar_id']) && $_POST['lugar_id'] != ''){
+                $_POST['lugar_id'] = preg_replace('/\(/', '', $_POST['lugar_id']);
+                $_POST['lugar_id'] = preg_replace('/\)/', '', $_POST['lugar_id']);
+
                 $lugar = $lr->findOneById($_POST['lugar_id']);
                 $lugarAntiguo = $imagen->getLugar();
                 $imagen->setLugar($lugar);
@@ -1209,14 +1212,13 @@ class AdminController extends Controller
             $em->persist($imagen);
             $em->flush();
 
-            echo $slug;
-
-            return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarFoto', array(
+            return $this->render('LoogaresAdminBundle:Admin:editarFoto.html.twig', array(
                 'ciudad' => $ciudad,
                 'slug' => $slug,
-                'imagen' => $imagen,
+                'foto' => $imagen,
                 'id' => $id
-            )));
+            ));
+
         }
 
         return $this->render('LoogaresAdminBundle:Admin:editarFoto.html.twig', array(
