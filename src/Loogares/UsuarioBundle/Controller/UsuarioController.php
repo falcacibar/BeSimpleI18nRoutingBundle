@@ -1191,7 +1191,7 @@ class UsuarioController extends Controller
                     $usuario->setCiudad($ciudad);
 
                     // Array que se agrega a $merge_vars, en el caso de estar suscrito a newsletter
-                    if($ciudad->getId() == 1) {
+                    if($ciudad->getId() == 1 || $ciudad->getId() == 6) {
                         $groupings = array(
                             array(
                                 'id' => 41,
