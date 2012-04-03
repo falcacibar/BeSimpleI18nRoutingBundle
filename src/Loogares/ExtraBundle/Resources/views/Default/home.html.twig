@@ -355,9 +355,9 @@
 					</a>
 					<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_nombre">
 						{% if conectado.nombre == '' %}
-							{{conectado.slug}}
+							{{conectado.slug | raw}}
 						{% else %}
-							{{conectado.nombre}} {{conectado.apellido}}
+							{{conectado.nombre | raw}} {{conectado.apellido | raw}}
 						{% endif %}
 					</a>
 					<!-- Comentado el número de recomendaciones del usuario...
