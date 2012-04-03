@@ -1093,6 +1093,9 @@ class AdminController extends Controller
             }
 
             if(isset($_POST['lugar_id'])){
+                $_POST['lugar_id'] = preg_replace('/\(/', '', $_POST['lugar_id']);
+                $_POST['lugar_id'] = preg_replace('/\)/', '', $_POST['lugar_id']);
+                
                 $lugar = $lr->findOneById($_POST['lugar_id']);
                 $lugarAntiguo = $recomendacion->getLugar();
                 $recomendacion->setLugar($lugar);
