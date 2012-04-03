@@ -16,7 +16,7 @@ class TiempoRelativoRepository extends EntityRepository{
         $time = strtotime($time);
         $now = time();
         //+3600 GTM stuff
-        $diff = $now + 3600- $time;
+        $diff = $now - $time;
 
         if($diff < 10){
         	$relative = $this->findOneBySlug("justo-ahora")->getTexto();
