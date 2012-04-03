@@ -8,6 +8,14 @@ sitemap:
     requirements:
         _format:  xml
 
+generarHash:
+    pattern:  /generar_hash_usuarios
+    defaults: { _controller: LoogaresExtraBundle:Default:generarHash }
+
+generarHash2:
+    pattern:  /generar_hash_2_usuarios
+    defaults: { _controller: LoogaresExtraBundle:Default:generarHash2 }        
+
 locale:
     pattern:  /{slug}
     defaults: { _controller: LoogaresExtraBundle:Default:homepage }
