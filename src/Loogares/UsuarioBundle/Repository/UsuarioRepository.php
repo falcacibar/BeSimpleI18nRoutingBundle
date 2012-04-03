@@ -170,15 +170,15 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         return $q->getResult();
     }
 
-    public function getUsuariosNoEliminados() {
+    public function getUsuariosActivos() {
         $em = $this->getEntityManager();
 
         // Obtenemos los usuarios
         $q = $em->createQuery("SELECT u
                                FROM LoogaresUsuarioBundle:Usuario u
-                               WHERE u.estado != ?1
+                               WHERE u.estado = ?1
                                ORDER BY u.id");
-        $q->setParameter(1, 8);
+        $q->setParameter(1, 7);
         return $q->getResult();
     }
 

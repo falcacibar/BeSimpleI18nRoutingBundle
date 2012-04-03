@@ -1194,7 +1194,7 @@ class UsuarioController extends Controller
                     if($ciudad->getId() == 1 || $ciudad->getId() == 2 || $ciudad->getId() == 6) {
                         $groupings = array(
                             array(
-                                'id' => 1,
+                                'id' => 41,
                                 'groups' => $ciudad->getNombre()
                             )
                         );
@@ -1202,7 +1202,7 @@ class UsuarioController extends Controller
                     else {
                         $groupings = array(
                             array(
-                                'id' => 1,
+                                'id' => 41,
                                 'groups' => 'Otras Ciudades'
                             )
                         );
@@ -1236,8 +1236,8 @@ class UsuarioController extends Controller
                     else {
                         $merge_vars['GROUPINGS'] = array(
                             array(
-                                'id' => 1,
-                                'groups' => 'Santiago de Chile'
+                                'id' => 41,
+                                'groups' => 'Otras Ciudades'
                             )
                         );
                     }

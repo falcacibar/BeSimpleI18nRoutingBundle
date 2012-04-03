@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Loogares\LugarBundle\Entity\TipoCategoria;
+use Mailchimp\MCAPI;
 
 
 class DefaultController extends Controller
@@ -390,11 +391,10 @@ class DefaultController extends Controller
 
         echo "<pre>";
         $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
-        $usuarios = $ur->getUsuariosNoEliminados();
+        $usuarios = $ur->getUsuariosActivos();
         $i = 0;
 
         foreach($usuarios as $usuario) {
-            
             if($usuario->getNewsletterActivo()) {
                 $i++;
                 // Se agrega usuario a lista de correos de Mailchimp
@@ -410,7 +410,7 @@ class DefaultController extends Controller
                         // Usamos Santiago
                         $merge_vars['GROUPINGS'] = array(
                             array(
-                                'id' => 1,
+                                'id' => 41,
                                 'groups' => $usuario->getCiudad()->getNombre()
                             )
                         );
@@ -419,7 +419,7 @@ class DefaultController extends Controller
                         // Usamos Otras Ciudades
                         $merge_vars['GROUPINGS'] = array(
                             array(
-                                'id' => 1,
+                                'id' => 41,
                                 'groups' => "Otras Ciudades"
                             )
                         );
@@ -429,7 +429,7 @@ class DefaultController extends Controller
                     // No tiene ciudad definida. Usamos Santiago
                     $merge_vars['GROUPINGS'] = array(
                         array(
-                            'id' => 1,
+                            'id' => 41,
                             'groups' => "Santiago de Chile"
                         )
                     );
@@ -437,11 +437,11 @@ class DefaultController extends Controller
 
                 print_r($merge_vars);
 
-                //$mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
-            }   
-
-            
+                $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
+            }
         }
+
+
         echo $i;
         
         echo "</pre>";
