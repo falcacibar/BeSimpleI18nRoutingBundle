@@ -55,7 +55,7 @@
 		<!-- Concursos del sitio -->
 		<div class="campanas_concursos">
 			<ul>
-				<a href="{{ path('post', {'slug': 'sorteamos-entradas-dobles-para-zonora-point-matanza-en-amanda'}) }}">
+				<a href="{{ path('post', {'ciudad': app.session.get('ciudad').slug, 'slug': 'sorteamos-entradas-dobles-para-zonora-point-matanza-en-amanda'}) }}">
 					<li>
 						<h2 class="titulo_concurso concursos">Sólo por hoy</h2>
 						<img src="http://www.loogares.com/assets/images/blog/centro-cultural-amanda/matanza_home.jpg" width="204" height="115" / >
