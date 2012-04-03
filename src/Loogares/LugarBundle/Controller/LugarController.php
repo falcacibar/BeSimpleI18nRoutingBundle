@@ -227,8 +227,6 @@ class LugarController extends Controller{
             $data->recomendacionPedida = $recomendacionPedidaResult[0];
         }
 
-
-
         $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
         $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
         $data->recomendaciones = $recomendacionesResult;
@@ -989,8 +987,6 @@ class LugarController extends Controller{
           $id = $imagen->getId();
           return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
         }
-
-        
     }
 
     public function fotoGaleriaAction($slug, $id, $editar = false) {
