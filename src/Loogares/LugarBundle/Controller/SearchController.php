@@ -150,7 +150,7 @@ class SearchController extends Controller{
     $override = ((isset($_GET['o']))?$_GET['o']:NULL);
 
     $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-    $resultadosPorPagina = (!isset($_GET['resultados']))?30:$_GET['resultados'];
+    $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
     $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
 
     $term = $_GET['q'];
