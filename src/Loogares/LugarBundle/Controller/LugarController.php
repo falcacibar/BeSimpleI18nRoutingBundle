@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Loogares\LugarBundle\Entity\Lugar;
 use Loogares\LugarBundle\Entity\CategoriaLugar;
 use Loogares\LugarBundle\Entity\CaracteristicaLugar;
-use Loogares\LoogaresLugarBundlee\Entity\Horario;
+use Loogares\LugarBundle\Entity\Horario;
 use Loogares\LugarBundle\Entity\SubcategoriaLugar;
 use Loogares\LugarBundle\Entity\ImagenLugar;
 use Loogares\LugarBundle\Entity\ReportarLugar;
@@ -362,8 +362,8 @@ class LugarController extends Controller{
                 $lugarManipulado->setFacebook($fn->stripHTTP($lugarManipulado->getFacebook()));
 
                 $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugarManipulado->getNombre());
-                
-                if($nuevoLugar == true){
+                sudo chmod -R 777 app/cache
+                if($nuevoLugar == true || $esEdicionDeUsuario == true){
                   $lugarManipulado->setFechaAgregado(new \DateTime());
                 }
 
