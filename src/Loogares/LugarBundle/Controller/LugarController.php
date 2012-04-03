@@ -362,7 +362,7 @@ class LugarController extends Controller{
                 $lugarManipulado->setFacebook($fn->stripHTTP($lugarManipulado->getFacebook()));
 
                 $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugarManipulado->getNombre());
-                sudo chmod -R 777 app/cache
+
                 if($nuevoLugar == true || $esEdicionDeUsuario == true){
                   $lugarManipulado->setFechaAgregado(new \DateTime());
                 }
