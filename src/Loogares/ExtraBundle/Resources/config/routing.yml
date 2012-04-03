@@ -6,15 +6,7 @@ sitemap:
     pattern:  /sitemap.{_format}
     defaults: { _controller: LoogaresExtraBundle:Default:sitemap, _format: xml }
     requirements:
-        _format:  xml
-
-generarHash:
-    pattern:  /generar_hash_usuarios
-    defaults: { _controller: LoogaresExtraBundle:Default:generarHash }
-
-generarHash2:
-    pattern:  /generar_hash_2_usuarios
-    defaults: { _controller: LoogaresExtraBundle:Default:generarHash2 }        
+        _format:  xml     
 
 locale:
     pattern:  /{slug}
