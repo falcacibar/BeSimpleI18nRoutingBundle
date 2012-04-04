@@ -93,7 +93,7 @@ class DefaultController extends Controller
         $ip = $_SERVER['REMOTE_ADDR'];
 
         $xml = file_get_contents("http://api.hostip.info/?ip=".$ip);
-
+        
         $ciudadesHabilitadas = array(
             'santiago-de-chile' => 'santiago-de-chile',
             'buenos-aires' => 'buenos-aires',
@@ -116,6 +116,7 @@ class DefaultController extends Controller
         }
 
         $this->localeAction($slug);
+
         $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
@@ -316,6 +317,7 @@ class DefaultController extends Controller
         foreach($paginas as $key => $value){
             if($key == $static){
                 $path = $value;
+                break;
             }
         }
 
@@ -463,6 +465,5 @@ class DefaultController extends Controller
 
         return new Response('');
     }*/
-
 
 }

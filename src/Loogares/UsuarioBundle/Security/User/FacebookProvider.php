@@ -142,17 +142,6 @@ class FacebookProvider implements UserProviderInterface
                             }                            
                         }                        
                     }
-
-                    // Suscripción Mailchimp
-                    $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
-                    $merge_vars = array(
-                        'EMAIL' => $user->getMail(),
-                        'FNAME' => $user->getNombre(),
-                        'LNAME' => $user->getApellido(),
-                        'USER' => $user->getSlug(),
-                        'IDUSER' => $user->getId()
-                    );
-                    $r = $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $user->getMail(), $merge_vars, 'html', false, true, true);
                 }
 
                 $user->setFBData($fbdata);           
