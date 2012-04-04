@@ -54,8 +54,8 @@
 			<ul>
 				{% for campana in campanas %}
 					<a href="{{ path('post', {'ciudad': campana.ciudad.slug, 'slug': campana.slug}) }}">
-						<li>
-							<h2 class="titulo_concurso concursos">{{campana.blogEstadoConcurso.nombre}}</h2>
+						<li {% if loop.index == 1 %}class="central"{% endif %}>
+							<h2 class="titulo_concurso {{campana.blogEstadoConcurso.clase}}">{{campana.blogEstadoConcurso.nombre}}</h2>
 							<img src="http://www.loogares.com/assets/images/blog/{{campana.imagenHome}}" width="204" height="115" / >
 							<p class="lugar_concurso">{{campana.tituloHome}}</p>
 							<p class="sorteo_concurso">{{campana.descripcionHome}}</p>
