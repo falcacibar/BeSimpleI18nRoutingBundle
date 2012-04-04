@@ -122,22 +122,21 @@
 		</div>
 
 		<!-- Colaboradores -->
+		{% if sliderCampanas|length != 0 %}
 		<div class="colaboradores">
-			{% if sliderCampanas|length != 0 %}
 			<h5 class="titulo_home encabezado">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
 			<ul class="slider">	
 				{% for campana in sliderCampanas %}
 				<li>
 					<img src="http://www.loogares.com/assets/images/blog/{{campana.imagenHome}}" height="158" width="148" />
 					<div class="detalles_nota">
-						<p class="nombre_colaborador">{{campana.usuario.nombre}}</p>
+						<p class="nombre_colaborador">{{campana.blogTipoPost.nombre}}</p>
 						<p class="titulo_nota">{{campana.tituloHome}}</p>
 						<p class="texto_nota">{{campana.descripcionHome}}<a href="{{ path('post', {'ciudad': campana.ciudad.slug, 'slug': campana.slug}) }}">Ver más »</a></p>
 					</div>
 				</li>
 				{% endfor %}
 			</ul>
-			{% endif %}
 			<div class="pages">
 				<ul>
 					<li><a class="slide-change active" data-slide="0"></a></li>
@@ -146,7 +145,7 @@
 				</ul>
 			</div>
 		</div>
-			
+		{% endif %}
 
 		<!-- Loogareño Estrella -->
 		{# Santiago de Chile #}

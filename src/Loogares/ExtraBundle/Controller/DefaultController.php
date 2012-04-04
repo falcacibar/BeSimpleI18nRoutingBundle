@@ -100,6 +100,7 @@ class DefaultController extends Controller
             'valparaiso-vina-del-mar' => 'valparaiso-vina-del-mar'
         );
 
+        //Ciudad antigua
         $ciudadSession = $this->get('session')->get('ciudad');
         
         if($slug == null && is_array($ciudadSession)){
@@ -125,6 +126,9 @@ class DefaultController extends Controller
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
         $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+
+        //Ciudad Nueva
+        $ciudadSession = $this->get('session')->get('ciudad');
 
         //Campañas del home
         $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 

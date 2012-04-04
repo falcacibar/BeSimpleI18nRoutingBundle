@@ -649,4 +649,29 @@ class Posts
     {
         return $this->blog_estado_concurso;
     }
+    /**
+     * @var string $titulo_alianza
+     */
+    private $titulo_alianza;
+
+
+    /**
+     * Set titulo_alianza
+     *
+     * @param string $tituloAlianza
+     */
+    public function setTituloAlianza($tituloAlianza)
+    {
+        $this->titulo_alianza = $tituloAlianza;
+    }
+
+    /**
+     * Get titulo_alianza
+     *
+     * @return string 
+     */
+    public function getTituloAlianza()
+    {
+        return $this->titulo_alianza;
+    }
 }
