@@ -54,7 +54,7 @@
 			<ul>
 				{% for campana in campanas %}
 					<a href="{{ path('post', {'ciudad': campana.ciudad.slug, 'slug': campana.slug}) }}">
-						<li {% if loop.index == 1 %}class="central"{% endif %}>
+						<li {% if loop.index == 2 %}class="central"{% endif %}>
 							<h2 class="titulo_concurso {{campana.blogEstadoConcurso.clase}}">{{campana.blogEstadoConcurso.nombre}}</h2>
 							<img src="http://www.loogares.com/assets/images/blog/{{campana.imagenHome}}" width="204" height="115" / >
 							<p class="lugar_concurso">{{campana.tituloHome}}</p>
@@ -123,6 +123,7 @@
 
 		<!-- Colaboradores -->
 		<div class="colaboradores">
+			{% if sliderCampanas|length != 0 %}
 			<h5 class="titulo_home encabezado">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
 			<ul class="slider">	
 				{% for campana in sliderCampanas %}
@@ -136,6 +137,7 @@
 				</li>
 				{% endfor %}
 			</ul>
+			{% endif %}
 			<div class="pages">
 				<ul>
 					<li><a class="slide-change active" data-slide="0"></a></li>
