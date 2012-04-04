@@ -1,6 +1,6 @@
 Loogares\BlogBundle\Entity\Posts:
     type: entity
-    table: posts
+    table: blog_posts
     manyToOne:       
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
@@ -10,6 +10,8 @@ Loogares\BlogBundle\Entity\Posts:
             targetEntity: Loogares\ExtraBundle\Entity\Ciudad
         tipo_post:
             targetEntity: Loogares\BlogBundle\Entity\TipoPost
+        estado_concurso:
+            targetEntity: Loogares\BlogBundle\Entity\EstadoConcurso
     id:
         id:
             type: integer
@@ -37,6 +39,7 @@ Loogares\BlogBundle\Entity\Posts:
             type: date
         fecha_publicacion:
             type: datetime
+            nullable: true
         fecha_termino:
             type: datetime
             nullable: true
@@ -50,7 +53,5 @@ Loogares\BlogBundle\Entity\Posts:
             type: text
         publicado:
             type: smallint
-        titulo_alianza_estado:
-            type: string
         destacado_home:
             type: smallint

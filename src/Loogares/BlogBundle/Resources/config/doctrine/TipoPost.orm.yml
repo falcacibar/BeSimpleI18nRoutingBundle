@@ -1,6 +1,9 @@
 Loogares\BlogBundle\Entity\TipoPost:
     type: entity
-    table: tipo_post
+    table: blog_tipo_post
+    manyToOne:       
+        blog_tipo_categoria:
+            targetEntity: Loogares\BlogBundle\Entity\TipoCategoria
     id:
         id:
             type: integer

@@ -15,14 +15,39 @@ class Posts
     private $id;
 
     /**
-     * @var text $titulo
+     * @var string $titulo
      */
     private $titulo;
 
     /**
-     * @var text $slug
+     * @var string $slug
      */
     private $slug;
+
+    /**
+     * @var string $titulo_home
+     */
+    private $titulo_home;
+
+    /**
+     * @var string $descripcion_home
+     */
+    private $descripcion_home;
+
+    /**
+     * @var string $imagen
+     */
+    private $imagen;
+
+    /**
+     * @var string $imagen_detalle
+     */
+    private $imagen_detalle;
+
+    /**
+     * @var string $imagen_home
+     */
+    private $imagen_home;
 
     /**
      * @var text $contenido
@@ -30,7 +55,7 @@ class Posts
     private $contenido;
 
     /**
-     * @var text $preview
+     * @var string $preview
      */
     private $preview;
 
@@ -40,14 +65,44 @@ class Posts
     private $fecha;
 
     /**
-     * @var text $tipo
+     * @var datetime $fecha_publicacion
      */
-    private $tipo;
+    private $fecha_publicacion;
+
+    /**
+     * @var datetime $fecha_termino
+     */
+    private $fecha_termino;
+
+    /**
+     * @var text $condiciones
+     */
+    private $condiciones;
+
+    /**
+     * @var smallint $numero_premios
+     */
+    private $numero_premios;
 
     /**
      * @var text $ganadores
      */
     private $ganadores;
+
+    /**
+     * @var text $detalles
+     */
+    private $detalles;
+
+    /**
+     * @var smallint $publicado
+     */
+    private $publicado;
+
+    /**
+     * @var smallint $destacado_home
+     */
+    private $destacado_home;
 
     /**
      * @var Loogares\LugarBundle\Entity\Lugar
@@ -58,6 +113,21 @@ class Posts
      * @var Loogares\UsuarioBundle\Entity\Usuario
      */
     private $usuario;
+
+    /**
+     * @var Loogares\ExtraBundle\Entity\Ciudad
+     */
+    private $ciudad;
+
+    /**
+     * @var Loogares\BlogBundle\Entity\TipoPost
+     */
+    private $tipo_post;
+
+    /**
+     * @var Loogares\BlogBundle\Entity\EstadoConcurso
+     */
+    private $estado_concurso;
 
 
     /**
@@ -73,7 +143,7 @@ class Posts
     /**
      * Set titulo
      *
-     * @param text $titulo
+     * @param string $titulo
      */
     public function setTitulo($titulo)
     {
@@ -83,7 +153,7 @@ class Posts
     /**
      * Get titulo
      *
-     * @return text 
+     * @return string 
      */
     public function getTitulo()
     {
@@ -93,7 +163,7 @@ class Posts
     /**
      * Set slug
      *
-     * @param text $slug
+     * @param string $slug
      */
     public function setSlug($slug)
     {
@@ -103,347 +173,12 @@ class Posts
     /**
      * Get slug
      *
-     * @return text 
+     * @return string 
      */
     public function getSlug()
     {
         return $this->slug;
     }
-
-    /**
-     * Set contenido
-     *
-     * @param text $contenido
-     */
-    public function setContenido($contenido)
-    {
-        $this->contenido = $contenido;
-    }
-
-    /**
-     * Get contenido
-     *
-     * @return text 
-     */
-    public function getContenido()
-    {
-        return $this->contenido;
-    }
-
-    /**
-     * Set preview
-     *
-     * @param text $preview
-     */
-    public function setPreview($preview)
-    {
-        $this->preview = $preview;
-    }
-
-    /**
-     * Get preview
-     *
-     * @return text 
-     */
-    public function getPreview()
-    {
-        return $this->preview;
-    }
-
-    /**
-     * Set fecha
-     *
-     * @param date $fecha
-     */
-    public function setFecha($fecha)
-    {
-        $this->fecha = $fecha;
-    }
-
-    /**
-     * Get fecha
-     *
-     * @return date 
-     */
-    public function getFecha()
-    {
-        return $this->fecha;
-    }
-
-    /**
-     * Set tipo
-     *
-     * @param text $tipo
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-    }
-
-    /**
-     * Get tipo
-     *
-     * @return text 
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
-     * Set ganadores
-     *
-     * @param text $ganadores
-     */
-    public function setGanadores($ganadores)
-    {
-        $this->ganadores = $ganadores;
-    }
-
-    /**
-     * Get ganadores
-     *
-     * @return text 
-     */
-    public function getGanadores()
-    {
-        return $this->ganadores;
-    }
-
-    /**
-     * Set lugar
-     *
-     * @param Loogares\LugarBundle\Entity\Lugar $lugar
-     */
-    public function setLugar(\Loogares\LugarBundle\Entity\Lugar $lugar)
-    {
-        $this->lugar = $lugar;
-    }
-
-    /**
-     * Get lugar
-     *
-     * @return Loogares\LugarBundle\Entity\Lugar 
-     */
-    public function getLugar()
-    {
-        return $this->lugar;
-    }
-
-    /**
-     * Set usuario
-     *
-     * @param Loogares\UsuarioBundle\Entity\Usuario $usuario
-     */
-    public function setUsuario(\Loogares\UsuarioBundle\Entity\Usuario $usuario)
-    {
-        $this->usuario = $usuario;
-    }
-
-    /**
-     * Get usuario
-     *
-     * @return Loogares\UsuarioBundle\Entity\Usuario 
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
-    /**
-     * @var string $imagen
-     */
-    private $imagen;
-
-    /**
-     * @var text $condiciones
-     */
-    private $condiciones;
-
-
-    /**
-     * Set imagen
-     *
-     * @param string $imagen
-     */
-    public function setImagen($imagen)
-    {
-        $this->imagen = $imagen;
-    }
-
-    /**
-     * Get imagen
-     *
-     * @return string 
-     */
-    public function getImagen()
-    {
-        return $this->imagen;
-    }
-
-    /**
-     * Set condiciones
-     *
-     * @param text $condiciones
-     */
-    public function setCondiciones($condiciones)
-    {
-        $this->condiciones = $condiciones;
-    }
-
-    /**
-     * Get condiciones
-     *
-     * @return text 
-     */
-    public function getCondiciones()
-    {
-        return $this->condiciones;
-    }
-    /**
-     * @var text $detalles
-     */
-    private $detalles;
-
-
-    /**
-     * Set detalles
-     *
-     * @param text $detalles
-     */
-    public function setDetalles($detalles)
-    {
-        $this->detalles = $detalles;
-    }
-
-    /**
-     * Get detalles
-     *
-     * @return text 
-     */
-    public function getDetalles()
-    {
-        return $this->detalles;
-    }
-    /**
-     * @var string $imagen_detalle
-     */
-    private $imagen_detalle;
-
-
-    /**
-     * Set imagen_detalle
-     *
-     * @param string $imagenDetalle
-     */
-    public function setImagenDetalle($imagenDetalle)
-    {
-        $this->imagen_detalle = $imagenDetalle;
-    }
-
-    /**
-     * Get imagen_detalle
-     *
-     * @return string 
-     */
-    public function getImagenDetalle()
-    {
-        return $this->imagen_detalle;
-    }
-    /**
-     * @var Loogares\BlogBundle\Entity\TipoPost
-     */
-    private $tipo_post;
-
-
-    /**
-     * Set tipo_post
-     *
-     * @param Loogares\BlogBundle\Entity\TipoPost $tipoPost
-     */
-    public function setTipoPost(\Loogares\BlogBundle\Entity\TipoPost $tipoPost)
-    {
-        $this->tipo_post = $tipoPost;
-    }
-
-    /**
-     * Get tipo_post
-     *
-     * @return Loogares\BlogBundle\Entity\TipoPost 
-     */
-    public function getTipoPost()
-    {
-        return $this->tipo_post;
-    }
-    /**
-     * @var smallint $publicado
-     */
-    private $publicado;
-
-
-    /**
-     * Set publicado
-     *
-     * @param smallint $publicado
-     */
-    public function setPublicado($publicado)
-    {
-        $this->publicado = $publicado;
-    }
-
-    /**
-     * Get publicado
-     *
-     * @return smallint 
-     */
-    public function getPublicado()
-    {
-        return $this->publicado;
-    }
-    /**
-     * @var string $titulo_home
-     */
-    private $titulo_home;
-
-    /**
-     * @var string $descripcion_home
-     */
-    private $descripcion_home;
-
-    /**
-     * @var string $imagen_home
-     */
-    private $imagen_home;
-
-    /**
-     * @var datetime $fecha_publicacion
-     */
-    private $fecha_publicacion;
-
-    /**
-     * @var datetime $feca_termino
-     */
-    private $feca_termino;
-
-    /**
-     * @var smallint $numero_premios
-     */
-    private $numero_premios;
-
-    /**
-     * @var string $titulo_alianza_estado
-     */
-    private $titulo_alianza_estado;
-
-    /**
-     * @var smallint $destacado_home
-     */
-    private $destacado_home;
-
-    /**
-     * @var Loogares\ExtraBundle\Entity\Ciudad
-     */
-    private $ciudad;
-
 
     /**
      * Set titulo_home
@@ -486,6 +221,46 @@ class Posts
     }
 
     /**
+     * Set imagen
+     *
+     * @param string $imagen
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+    }
+
+    /**
+     * Get imagen
+     *
+     * @return string 
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set imagen_detalle
+     *
+     * @param string $imagenDetalle
+     */
+    public function setImagenDetalle($imagenDetalle)
+    {
+        $this->imagen_detalle = $imagenDetalle;
+    }
+
+    /**
+     * Get imagen_detalle
+     *
+     * @return string 
+     */
+    public function getImagenDetalle()
+    {
+        return $this->imagen_detalle;
+    }
+
+    /**
      * Set imagen_home
      *
      * @param string $imagenHome
@@ -503,6 +278,66 @@ class Posts
     public function getImagenHome()
     {
         return $this->imagen_home;
+    }
+
+    /**
+     * Set contenido
+     *
+     * @param text $contenido
+     */
+    public function setContenido($contenido)
+    {
+        $this->contenido = $contenido;
+    }
+
+    /**
+     * Get contenido
+     *
+     * @return text 
+     */
+    public function getContenido()
+    {
+        return $this->contenido;
+    }
+
+    /**
+     * Set preview
+     *
+     * @param string $preview
+     */
+    public function setPreview($preview)
+    {
+        $this->preview = $preview;
+    }
+
+    /**
+     * Get preview
+     *
+     * @return string 
+     */
+    public function getPreview()
+    {
+        return $this->preview;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param date $fecha
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return date 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
     }
 
     /**
@@ -526,23 +361,43 @@ class Posts
     }
 
     /**
-     * Set feca_termino
+     * Set fecha_termino
      *
-     * @param datetime $fecaTermino
+     * @param datetime $fechaTermino
      */
-    public function setFecaTermino($fecaTermino)
+    public function setFechaTermino($fechaTermino)
     {
-        $this->feca_termino = $fecaTermino;
+        $this->fecha_termino = $fechaTermino;
     }
 
     /**
-     * Get feca_termino
+     * Get fecha_termino
      *
      * @return datetime 
      */
-    public function getFecaTermino()
+    public function getFechaTermino()
     {
-        return $this->feca_termino;
+        return $this->fecha_termino;
+    }
+
+    /**
+     * Set condiciones
+     *
+     * @param text $condiciones
+     */
+    public function setCondiciones($condiciones)
+    {
+        $this->condiciones = $condiciones;
+    }
+
+    /**
+     * Get condiciones
+     *
+     * @return text 
+     */
+    public function getCondiciones()
+    {
+        return $this->condiciones;
     }
 
     /**
@@ -566,23 +421,63 @@ class Posts
     }
 
     /**
-     * Set titulo_alianza_estado
+     * Set ganadores
      *
-     * @param string $tituloAlianzaEstado
+     * @param text $ganadores
      */
-    public function setTituloAlianzaEstado($tituloAlianzaEstado)
+    public function setGanadores($ganadores)
     {
-        $this->titulo_alianza_estado = $tituloAlianzaEstado;
+        $this->ganadores = $ganadores;
     }
 
     /**
-     * Get titulo_alianza_estado
+     * Get ganadores
      *
-     * @return string 
+     * @return text 
      */
-    public function getTituloAlianzaEstado()
+    public function getGanadores()
     {
-        return $this->titulo_alianza_estado;
+        return $this->ganadores;
+    }
+
+    /**
+     * Set detalles
+     *
+     * @param text $detalles
+     */
+    public function setDetalles($detalles)
+    {
+        $this->detalles = $detalles;
+    }
+
+    /**
+     * Get detalles
+     *
+     * @return text 
+     */
+    public function getDetalles()
+    {
+        return $this->detalles;
+    }
+
+    /**
+     * Set publicado
+     *
+     * @param smallint $publicado
+     */
+    public function setPublicado($publicado)
+    {
+        $this->publicado = $publicado;
+    }
+
+    /**
+     * Get publicado
+     *
+     * @return smallint 
+     */
+    public function getPublicado()
+    {
+        return $this->publicado;
     }
 
     /**
@@ -606,6 +501,46 @@ class Posts
     }
 
     /**
+     * Set lugar
+     *
+     * @param Loogares\LugarBundle\Entity\Lugar $lugar
+     */
+    public function setLugar(\Loogares\LugarBundle\Entity\Lugar $lugar)
+    {
+        $this->lugar = $lugar;
+    }
+
+    /**
+     * Get lugar
+     *
+     * @return Loogares\LugarBundle\Entity\Lugar 
+     */
+    public function getLugar()
+    {
+        return $this->lugar;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param Loogares\UsuarioBundle\Entity\Usuario $usuario
+     */
+    public function setUsuario(\Loogares\UsuarioBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario = $usuario;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return Loogares\UsuarioBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
      * Set ciudad
      *
      * @param Loogares\ExtraBundle\Entity\Ciudad $ciudad
@@ -624,29 +559,44 @@ class Posts
     {
         return $this->ciudad;
     }
-    /**
-     * @var datetime $fecha_termino
-     */
-    private $fecha_termino;
-
 
     /**
-     * Set fecha_termino
+     * Set tipo_post
      *
-     * @param datetime $fechaTermino
+     * @param Loogares\BlogBundle\Entity\TipoPost $tipoPost
      */
-    public function setFechaTermino($fechaTermino)
+    public function setTipoPost(\Loogares\BlogBundle\Entity\TipoPost $tipoPost)
     {
-        $this->fecha_termino = $fechaTermino;
+        $this->tipo_post = $tipoPost;
     }
 
     /**
-     * Get fecha_termino
+     * Get tipo_post
      *
-     * @return datetime 
+     * @return Loogares\BlogBundle\Entity\TipoPost 
      */
-    public function getFechaTermino()
+    public function getTipoPost()
     {
-        return $this->fecha_termino;
+        return $this->tipo_post;
+    }
+
+    /**
+     * Set estado_concurso
+     *
+     * @param Loogares\BlogBundle\Entity\EstadoConcurso $estadoConcurso
+     */
+    public function setEstadoConcurso(\Loogares\BlogBundle\Entity\EstadoConcurso $estadoConcurso)
+    {
+        $this->estado_concurso = $estadoConcurso;
+    }
+
+    /**
+     * Get estado_concurso
+     *
+     * @return Loogares\BlogBundle\Entity\EstadoConcurso 
+     */
+    public function getEstadoConcurso()
+    {
+        return $this->estado_concurso;
     }
 }

@@ -1,0 +1,12 @@
+Loogares\BlogBundle\Entity\EstadoConcurso:
+    type: entity
+    table: blog_estado_concurso
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:      
+        nombre:
+            type: string
+        slug:
+            type: string

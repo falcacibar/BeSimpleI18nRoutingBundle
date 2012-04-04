@@ -123,6 +123,19 @@ class DefaultController extends Controller
         $cr = $em->getRepository("LoogaresLugarBundle:Categoria");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
         $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
+        $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+
+        //Campañas del home
+        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p WHERE p.ciudad = ?1 ORDER BY p.id DESC");
+        $q->setMaxResults(3);
+        $q->setParameter(1, $ciudadSession['id']);
+        $campanas = $q->getResult();
+
+        //Slider del home
+        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p WHERE p.ciudad = ?1 ORDER BY p.id DESC");
+        $q->setMaxResults(3);
+        $q->setParameter(1, $ciudadSession['id']);
+        $sliderCampanas = $q->getResult();
 
         //Recomendacion Estrella
         $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\LoogarenoEstrella u ORDER BY u.id desc");
@@ -212,6 +225,8 @@ class DefaultController extends Controller
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,     
+            'campanas' => $campanas,
+            'sliderCampanas' => $sliderCampanas
         ));
     }
 
