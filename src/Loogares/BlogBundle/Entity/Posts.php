@@ -599,4 +599,29 @@ class Posts
     {
         return $this->estado_concurso;
     }
+    /**
+     * @var Loogares\BlogBundle\Entity\TipoPost
+     */
+    private $blog_tipo_post;
+
+
+    /**
+     * Set blog_tipo_post
+     *
+     * @param Loogares\BlogBundle\Entity\TipoPost $blogTipoPost
+     */
+    public function setBlogTipoPost(\Loogares\BlogBundle\Entity\TipoPost $blogTipoPost)
+    {
+        $this->blog_tipo_post = $blogTipoPost;
+    }
+
+    /**
+     * Get blog_tipo_post
+     *
+     * @return Loogares\BlogBundle\Entity\TipoPost 
+     */
+    public function getBlogTipoPost()
+    {
+        return $this->blog_tipo_post;
+    }
 }

@@ -56,7 +56,8 @@ class LugarRepository extends EntityRepository
 
     public function getLugaresPorNombre($nombre = null){
         $em = $this->getEntityManager();
-        $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.nombre = '$nombre'");
+        $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.nombre = ?1");
+        $q->setParameter(1, $nombre);
         
         $lugarResult = $q->getResult();
 

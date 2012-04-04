@@ -1,3 +1,7 @@
+post_sin_ciudad:
+    pattern:  /blog/{slug}
+    defaults: { _controller: LoogaresBlogBundle:Default:post, ciudad: null }
+
 post:
     pattern:  /{ciudad}/blog/{slug}
     defaults: { _controller: LoogaresBlogBundle:Default:post, ciudad: null }

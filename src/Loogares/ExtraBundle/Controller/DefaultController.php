@@ -127,16 +127,25 @@ class DefaultController extends Controller
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
 
         //Campañas del home
-        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p WHERE p.ciudad = ?1 ORDER BY p.id DESC");
+        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
+                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) 
+                               ORDER BY p.id DESC");
         $q->setMaxResults(3);
         $q->setParameter(1, $ciudadSession['id']);
+        $q->setParameter(2, 1);
+        $q->setParameter(3, 3);
         $campanas = $q->getResult();
 
         //Slider del home
-        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p WHERE p.ciudad = ?1 ORDER BY p.id DESC");
+        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
+                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) 
+                               ORDER BY p.id DESC");
         $q->setMaxResults(3);
         $q->setParameter(1, $ciudadSession['id']);
+        $q->setParameter(2, 2);
+        $q->setParameter(3, 3);
         $sliderCampanas = $q->getResult();
+
 
         //Recomendacion Estrella
         $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\LoogarenoEstrella u ORDER BY u.id desc");
@@ -322,7 +331,7 @@ class DefaultController extends Controller
         }
 
         if($path == null){
-            return $this->render(':erroresHTTP:404.html.twig');   
+            return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
         }
 
         return $this->render('LoogaresExtraBundle:'.$path.':'.$static.'.html.twig', array(

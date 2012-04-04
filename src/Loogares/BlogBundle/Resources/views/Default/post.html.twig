@@ -18,7 +18,7 @@
 
 {% block content %}
 {% if post.ganadores == '' %}
-<div class="post" style="border-top-color: #{{post.tipoPost.hex}}">
+<div class="post" style="border-top-color: #{{post.blogTipoPost.hex}}">
 {% else %}
 <div class="post" style="border-top-color: #FF8A8A">
 {% endif %}
@@ -36,7 +36,7 @@
 			<div class="borde_cajas">
 				<div class="imagen_detalles">
 					<img src="{{ ('assets/images/blog/'~post.imagenDetalle) | apply_filter('blog_detalle')}}" height="145" width="145" />
-					{% if post.tipoPost.slug == 'beneficio-exclusivo' %}
+					{% if post.blogTipoPost.slug == 'beneficio-exclusivo' %}
 						{% if post.lugar.facebook != '' %}
 							<a class="facebook_lugar" href="http://{{ post.lugar.facebook }}" target="_blank"></a>
 						{% endif %}
@@ -84,8 +84,9 @@
 
     <div class="social_post"></div>
 
+
 	<div class="posts_anteriores">
-		<h2 class="subtitulo_posts">Anteriores {{post.tipoPost.nombre}}:</h2>
+		<h2 class="subtitulo_posts">Anteriores {{post.blogTipoPost.nombre}}:</h2>
 		<ul>
 		{% for anterior in anteriores %}
 			<li><a href="{{ path('post', {'slug': anterior.slug}) }}">- {{anterior.titulo}}</a></li>

@@ -4,11 +4,11 @@ Loogares\BlogBundle\Entity\Posts:
     manyToOne:       
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
-        usuario:
-            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
         ciudad:
             targetEntity: Loogares\ExtraBundle\Entity\Ciudad
-        tipo_post:
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+        blog_tipo_post:
             targetEntity: Loogares\BlogBundle\Entity\TipoPost
         estado_concurso:
             targetEntity: Loogares\BlogBundle\Entity\EstadoConcurso

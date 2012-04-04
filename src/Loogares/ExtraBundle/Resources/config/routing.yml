@@ -11,6 +11,8 @@ sitemap:
 locale:
     pattern:  /{slug}
     defaults: { _controller: LoogaresExtraBundle:Default:homepage }
+    requirements:
+        slug: santiago-de-chile|buenos-aires|valparaiso-vina-del-mar
 
 locale_santiago_de_chile:
     pattern:  /santiago-de-chile
