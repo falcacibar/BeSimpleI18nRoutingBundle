@@ -12,3 +12,5 @@ Loogares\BlogBundle\Entity\TipoPost:
             type: string
         hex:
             type: string
+        clase:
+            type: string

@@ -10,3 +10,5 @@ Loogares\BlogBundle\Entity\EstadoConcurso:
             type: string
         slug:
             type: string
+        clase:
+            type: string

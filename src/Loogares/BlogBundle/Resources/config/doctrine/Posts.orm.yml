@@ -10,7 +10,7 @@ Loogares\BlogBundle\Entity\Posts:
             targetEntity: Loogares\UsuarioBundle\Entity\Usuario
         blog_tipo_post:
             targetEntity: Loogares\BlogBundle\Entity\TipoPost
-        estado_concurso:
+        blog_estado_concurso:
             targetEntity: Loogares\BlogBundle\Entity\EstadoConcurso
     id:
         id:
