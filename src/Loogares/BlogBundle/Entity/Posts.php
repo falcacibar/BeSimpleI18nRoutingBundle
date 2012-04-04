@@ -624,4 +624,29 @@ class Posts
     {
         return $this->blog_tipo_post;
     }
+    /**
+     * @var Loogares\BlogBundle\Entity\EstadoConcurso
+     */
+    private $blog_estado_concurso;
+
+
+    /**
+     * Set blog_estado_concurso
+     *
+     * @param Loogares\BlogBundle\Entity\EstadoConcurso $blogEstadoConcurso
+     */
+    public function setBlogEstadoConcurso(\Loogares\BlogBundle\Entity\EstadoConcurso $blogEstadoConcurso)
+    {
+        $this->blog_estado_concurso = $blogEstadoConcurso;
+    }
+
+    /**
+     * Get blog_estado_concurso
+     *
+     * @return Loogares\BlogBundle\Entity\EstadoConcurso 
+     */
+    public function getBlogEstadoConcurso()
+    {
+        return $this->blog_estado_concurso;
+    }
 }
