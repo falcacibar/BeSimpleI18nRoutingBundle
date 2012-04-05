@@ -1284,6 +1284,14 @@ class UsuarioController extends Controller
         $nr = $em->getRepository('LoogaresMailBundle:Notificacion');
         $notificaciones = array();
 
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        else
+            $loggeadoCorrecto = false;
+
+        if(!$loggeadoCorrecto)
+            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         $idUsuario = $usuarioResult->getId();
 
@@ -1341,14 +1349,6 @@ class UsuarioController extends Controller
             //Pasamos todo a la db
             $em->flush();
         }
-
-        if($this->get('security.context')->isGranted('ROLE_USER'))
-            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
-        else
-            $loggeadoCorrecto = false;
-
-        if(!$loggeadoCorrecto)
-            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
 
         $data = $ur->getDatosUsuario($usuarioResult, '');
         $data->tipo = 'notificaciones';
