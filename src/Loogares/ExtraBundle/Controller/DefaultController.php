@@ -92,8 +92,8 @@ class DefaultController extends Controller
     public function homepageAction($slug = null){
         $ip = $_SERVER['REMOTE_ADDR'];
 
-        $xml = file_get_contents("http://api.hostip.info/?ip=".$ip);
-        
+        //$xml = file_get_contents("http://api.hostip.info/?ip=".$ip);
+        $xml = 'asd';
         $ciudadesHabilitadas = array(
             'santiago-de-chile' => 'santiago-de-chile',
             'buenos-aires' => 'buenos-aires',

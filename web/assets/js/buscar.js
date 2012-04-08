@@ -1,4 +1,4 @@
-console.log($(document).ready(function(){
+$(document).ready(function(){
 	var rebindEvents = function(){
 
 		if($('.resultados_wrapper').height() > 2000){
@@ -291,4 +291,4 @@ console.log($(document).ready(function(){
 		var rel = $(this).parent().attr('rel');
 		$('.'+rel+' .filtros_expandir').qtip('toggle', false);
 	});
-});)
+});
