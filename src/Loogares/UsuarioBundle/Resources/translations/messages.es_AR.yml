@@ -132,6 +132,7 @@ usuario:
             foto: Foto de perfil
             password: Password
             connect: Conectá
+            notificaciones: Notificaciones
             borrar: Borrar cuenta
 
         cuenta:

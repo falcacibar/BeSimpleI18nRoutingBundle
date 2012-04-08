@@ -14,6 +14,9 @@
 		<a href="{{path('editarConexionesUsuario', { 'param': slug })}}"><li class="{{(usuario.edicion == 'conexiones') ? 'selected' : ''}}">
 			<span class="txt_conectar">{{'usuario.edicion.menu.connect'|trans}}</span><span class="icono_facebook"></span>
 		</li></a>
+		<a href="{{path('editarNotificacionesUsuario', { 'param': slug })}}"><li class="{{(usuario.edicion == 'notificaciones') ? 'selected' : ''}}">
+			{{'usuario.edicion.menu.notificaciones'|trans}}
+		</li></a>
 		<a href="{{path('editarBorrarUsuario', { 'param': slug })}}"><li class="{{(usuario.edicion == 'borrar') ? 'selected' : ''}}">
 			{{'usuario.edicion.menu.borrar'|trans}}
 		</li></a>

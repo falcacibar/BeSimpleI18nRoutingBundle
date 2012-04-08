@@ -730,6 +730,156 @@ class UsuarioController extends Controller
         ));  
     }
 
+    public function editarNotificacionesAction(Request $request, $param){
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+        $tnr = $em->getRepository('LoogaresMailBundle:TipoNotificacion');
+        $nr = $em->getRepository('LoogaresMailBundle:Notificacion');
+        $notificaciones = array();
+        $newsletters = array();
+
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        $idUsuario = $usuarioResult->getId();
+
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        else
+            $loggeadoCorrecto = false;
+
+        if(!$loggeadoCorrecto)
+            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+
+        
+
+        //Sacamos los tipos de notificaciones de la db
+        $tipo_notificaciones = $em->createQuery("SELECT u FROM Loogares\MailBundle\Entity\TipoNotificacion u")->getResult();
+
+        //Iteramos por cada tipo de notificacion
+        foreach($tipo_notificaciones as $key => $value){
+            $nombre = $value->getNombre();
+
+            //Sacamos la notificacion que corresponde al usuario y al tipo de notificacion
+            $notificacion = $em->createQuery("SELECT u FROM Loogares\MailBundle\Entity\Notificacion u
+                                              WHERE u.usuario = ?1 and u.tipo_notificacion = ?2");
+
+            $notificacion = $notificacion->setParameter(1, $idUsuario)
+                                         ->setParameter(2, $value->getId())->getOneOrNullResult();
+
+            //Asignamos los resultados de las consultas a un array, cada array contiene:
+            //['tipoNotificacion'] = Objeto del tipo de notificacion por el cual iteramos
+            //['notificacion'] = Objeto de la notificacion relacionada con el usuario y el tipo, si es que existe
+            $notificaciones[]['tipoNotificacion'] = $value;
+            $notificaciones[sizeOf($notificaciones)-1]['notificacion'] = $notificacion;
+
+            //Si es un request POST (se hizo submit de la form)
+            if ($request->getMethod() == 'POST') {
+                //Si el nombre del tipo de notificacion esta dentro del array de $_POST['notificacion'], quiere habilitarlo
+                if( isset($_POST['notificacion']) && in_array($nombre, $_POST['notificacion']) ){
+                    //Si el objeto de notificacion que seleccionamos arriba, tiene algo, seteamos el estado a 1
+                    if($notificacion != null){
+                        $notificacion->setActiva(true);
+                    //Si no esta, es uno nuevo, asi que creamos el objeto con los datos y lo persistimos
+                    }else{
+                        $notificacion = new Notificacion();
+                        $notificacion->setActiva(true);
+                        $notificacion->setTipoNotificacion($value);
+                        $notificacion->setUsuario($usuarioResult);
+                        $em->persist($notificacion);
+                    }             
+
+                //Si el nombre del tipo de notificacion, no esta dentro del array de $_POST['notificacion'], quiere sacarlo.
+                }else{
+                    if($notificacion != null){
+                        //Si $notificacion devolvio algo, deshabilitamos ese estado
+                        $notificacion->setActiva(false);
+                    }else{
+                        //Como queremos que todos tengan una entrada por tipo, a medida que se agregen, creamos una entrada nueva
+                        //que viene deshabilitada
+                        $notificacion = new Notificacion();
+                        $notificacion->setActiva(false);
+                        $notificacion->setTipoNotificacion($value);
+                        $notificacion->setUsuario($usuarioResult);
+                        $em->persist($notificacion);                    
+                    }
+                }
+                $notificaciones[sizeOf($notificaciones)-1]['notificacion'] = $notificacion;
+
+                // Si el tipo de notificación es newsletter, agregamos a array correspondiente
+                if($value->getNewsletter()) {
+                    $newsletters[] = $notificacion;
+                }   
+            }
+            //Pasamos todo a la db
+            $em->flush();
+        }
+
+        // Si hay notificaciones de newsletter, actualizamos Mailchimp
+        if(sizeOf($newsletters) > 0) {
+            // Configuración básica de Mailchimp
+            $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
+            $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
+            $mcId = 0;
+
+            if (!$mc->errorCode){
+                if(!empty($mcInfo['success'])){
+                    if(isset($mcInfo['data'])){ // tiene que estar en la lista para considerarse "suscrito"??
+                        $mcId = $mcInfo['data'][0]['id'];
+                    }
+                }
+            }
+
+            // Primero revisamos si hay notificaciones activas
+            $activas = array();
+            foreach($newsletters as $nl) {
+                if($nl->getActiva())
+                    $activas[] = $nl->getTipoNotificacion()->getNombre();
+            }
+
+            if(sizeOf($activas) == 0) {
+                if($mcId > 0)
+                    $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );
+            }
+            else {
+                $merge_vars = array(
+                    'EMAIL' => $usuarioResult->getMail(),
+                    'FNAME' => $usuarioResult->getNombre(),
+                    'LNAME' => $usuarioResult->getApellido(),
+                    'USER' => $usuarioResult->getSlug(),
+                    'IDUSER' => $usuarioResult->getId()
+                );
+
+                // Vemos los newsletter que el usuario quiere activar
+                $groups = implode(',', $activas);
+                $merge_vars['GROUPINGS'] = array(
+                    array(
+                        'id' => 41,
+                        'groups' => $groups
+                    )
+                );
+
+                // Verificar suscripción Mailchimp
+                if($mcId == 0) {
+                    // Nueva suscripción
+                    $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true );
+                }
+                else {
+                    // Usuario suscrito. Se actualizan datos
+                    $mc->listUpdateMember($this->container->getParameter('mailchimp_list_id'), $mcId, $merge_vars, 'html', true);
+                }
+            }
+        }
+
+        $data = $ur->getDatosUsuario($usuarioResult);
+        $data->edicion = 'notificaciones';
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
+            'usuario' => $data,
+            'tipoNotificaciones' => $tipo_notificaciones,            
+            'notificaciones' => $notificaciones
+        ));
+    }
+
     public function editarBorrarAction(Request $request, $param) {
         foreach($_POST as $key => $value){
             $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
@@ -1277,88 +1427,6 @@ class UsuarioController extends Controller
         }        
     }
 
-    public function listadoNotificacionesAction(Request $request, $param){
-        $em = $this->getDoctrine()->getEntityManager();
-        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-        $tnr = $em->getRepository('LoogaresMailBundle:TipoNotificacion');
-        $nr = $em->getRepository('LoogaresMailBundle:Notificacion');
-        $notificaciones = array();
 
-        if($this->get('security.context')->isGranted('ROLE_USER'))
-            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
-        else
-            $loggeadoCorrecto = false;
-
-        if(!$loggeadoCorrecto)
-            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
-
-        $usuarioResult = $ur->findOneByIdOrSlug($param);
-        $idUsuario = $usuarioResult->getId();
-
-        //Sacamos los tipos de notificaciones de la db
-        $tipo_notificaciones = $em->createQuery("SELECT u FROM Loogares\MailBundle\Entity\TipoNotificacion u")->getResult();
-
-        //Iteramos por cada tipo de notificacion
-        foreach($tipo_notificaciones as $key => $value){
-            $nombre = $value->getNombre();
-
-            //Sacamos la notificacion que corresponde al usuario y al tipo de notificacion
-            $notificacion = $em->createQuery("SELECT u FROM Loogares\MailBundle\Entity\Notificacion u
-                                              WHERE u.usuario = ?1 and u.tipo_notificacion = ?2");
-
-            $notificacion = $notificacion->setParameter(1, $idUsuario)
-                                         ->setParameter(2, $value->getId())->getOneOrNullResult();
-
-            //Asignamos los resultados de las consultas a un array, cada array contiene:
-            //['tipoNotificacion'] = Objeto del tipo de notificacion por el cual iteramos
-            //['notificacion'] = Objeto de la notificacion relacionada con el usuario y el tipo, si es que existe
-            $notificaciones[]['tipoNotificacion'] = $value;
-            $notificaciones[sizeOf($notificaciones)-1]['notificacion'] = $notificacion;
-
-            //Si es un request POST (se hizo submit de la form)
-            if ($request->getMethod() == 'POST') {
-                //Si el nombre del tipo de notificacion esta dentro del array de $_POST['notificacion'], quiere habilitarlo
-                if( isset($_POST['notificacion']) && in_array($nombre, $_POST['notificacion']) ){
-                    //Si el objeto de notificacion que seleccionamos arriba, tiene algo, seteamos el estado a 1
-                    if($notificacion != null){
-                        $notificacion->setEstado(1);
-                    //Si no esta, es uno nuevo, asi que creamos el objeto con los datos y lo persistimos
-                    }else{
-                        $notificacion = new Notificacion();
-                        $notificacion->setEstado(1);
-                        $notificacion->setTipoNotificacion($value);
-                        $notificacion->setUsuario($usuarioResult);
-                        $em->persist($notificacion);
-                    }
-                //Si el nombre del tipo de notificacion, no esta dentro del array de $_POST['notificacion'], quiere sacarlo.
-                }else{
-                    if($notificacion != null){
-                        //Si $notificacion devolvio algo, deshabilitamos ese estado
-                        $notificacion->setEstado(0);
-                    }else{
-                        //Como queremos que todos tengan una entrada por tipo, a medida que se agregen, creamos una entrada nueva
-                        //que viene deshabilitada
-                        $notificacion = new Notificacion();
-                        $notificacion->setEstado(0);
-                        $notificacion->setTipoNotificacion($value);
-                        $notificacion->setUsuario($usuarioResult);
-                        $em->persist($notificacion);                    
-                    }
-                }
-            }
-            //Pasamos todo a la db
-            $em->flush();
-        }
-
-        $data = $ur->getDatosUsuario($usuarioResult, '');
-        $data->tipo = 'notificaciones';
-        $data->loggeadoCorrecto = $loggeadoCorrecto;
-
-        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
-            'tipoNotificaciones' => $tipo_notificaciones,
-            'usuario' => $data,
-            'notificaciones' => $notificaciones
-        ));
-    }
 
 }

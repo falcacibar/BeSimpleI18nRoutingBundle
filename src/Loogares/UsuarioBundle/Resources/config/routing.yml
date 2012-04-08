@@ -73,6 +73,10 @@ editarPasswordUsuario:
     pattern:  /{param}/editar/password
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarPassword }
 
+editarNotificacionesUsuario:
+    pattern:  /{param}/editar/notificaciones
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarNotificaciones }
+
 editarConexionesUsuario:
     pattern:  /{param}/editar/conectar
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarConexiones }
@@ -86,11 +90,4 @@ accionesPendientes:
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:totalAccionesPendientes }
 
 
-listadoNotificaciones:
-    pattern:  /{param}/notificaciones
-    defaults: { _controller: LoogaresUsuarioBundle:Usuario:listadoNotificaciones }
-
-accionNotificaciones:
-    pattern: /{param}/notificaciones/guardar
-    defaults: { _controller: LoogaresUsuarioBundle:Usuario:listadoNotificaciones }
 

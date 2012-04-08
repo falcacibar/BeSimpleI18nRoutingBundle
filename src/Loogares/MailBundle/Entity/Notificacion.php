@@ -15,14 +15,9 @@ class Notificacion
     private $id;
 
     /**
-     * @var string $nombre
+     * @var boolean $activa
      */
-    private $nombre;
-
-    /**
-     * @var string $slug
-     */
-    private $slug;
+    private $activa;
 
     /**
      * @var Loogares\MailBundle\Entity\TipoNotificacion
@@ -46,43 +41,23 @@ class Notificacion
     }
 
     /**
-     * Set nombre
+     * Set activa
      *
-     * @param string $nombre
+     * @param boolean $activa
      */
-    public function setNombre($nombre)
+    public function setActiva($activa)
     {
-        $this->nombre = $nombre;
+        $this->activa = $activa;
     }
 
     /**
-     * Get nombre
+     * Get activa
      *
-     * @return string 
+     * @return boolean 
      */
-    public function getNombre()
+    public function getActiva()
     {
-        return $this->nombre;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
+        return $this->activa;
     }
 
     /**
@@ -123,30 +98,5 @@ class Notificacion
     public function getUsuario()
     {
         return $this->usuario;
-    }
-    /**
-     * @var string $estado
-     */
-    private $estado;
-
-
-    /**
-     * Set estado
-     *
-     * @param string $estado
-     */
-    public function setEstado($estado)
-    {
-        $this->estado = $estado;
-    }
-
-    /**
-     * Get estado
-     *
-     * @return string 
-     */
-    public function getEstado()
-    {
-        return $this->estado;
     }
 }

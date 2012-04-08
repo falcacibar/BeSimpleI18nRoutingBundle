@@ -10,7 +10,7 @@ Loogares\MailBundle\Entity\TipoNotificacion:
             type: integer
             generator: { strategy: auto }
     fields:
-        #nombre
         nombre:
             type: string
-            length: 50
+        newsletter:
+            type: boolean
