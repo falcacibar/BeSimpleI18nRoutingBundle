@@ -54,7 +54,7 @@
 
         </script>        
         <script type="text/javascript">
-        window.fbAsyncInit = function() {
+        /*window.fbAsyncInit = function() {
           FB.init({
             "appId":"251885084895009"
            ,"xfbml":true
@@ -71,12 +71,13 @@
           e.src = document.location.protocol + "\/\/connect.facebook.net\/es_LA\/all.js";
           e.async = false;
           document.getElementsByTagName('head')[0].appendChild(e);
-        }());
+        }());*/
         </script>
     </head>
 
     <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }}">
-        
+      {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+
 		{% include '::header.html.twig' %}
 
         <div class="contenedor">
