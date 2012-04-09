@@ -6,7 +6,11 @@ sitemap:
     pattern:  /sitemap.{_format}
     defaults: { _controller: LoogaresExtraBundle:Default:sitemap, _format: xml }
     requirements:
-        _format:  xml     
+        _format:  xml 
+
+mailchimp_test:
+    pattern:  /mailchimp_test
+    defaults: { _controller: LoogaresExtraBundle:Default:mailchimp }
 
 locale:
     pattern:  /{slug}

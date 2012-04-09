@@ -714,12 +714,14 @@ class UsuarioController extends Controller
             $em->flush();
         }
 
-
-        $fbdata = $this->get('my.facebook.user')->getFacebook()->api(array(
-            'method' => 'fql.query',
-            'query' => "SELECT name,email FROM user WHERE uid = ".$this->get('security.context')->getToken()->getUser()->getFacebookUid(),
-            'callback' => ''
-        ));
+        $fbdata = null;
+        if($usuarioResult->getFacebookUid() != null) {
+           $fbdata = $this->get('my.facebook.user')->getFacebook()->api(array(
+                'method' => 'fql.query',
+                'query' => "SELECT name,email FROM user WHERE uid = ".$usuarioResult->getFacebookUid(),
+                'callback' => ''
+            )); 
+        }       
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'conexiones';
