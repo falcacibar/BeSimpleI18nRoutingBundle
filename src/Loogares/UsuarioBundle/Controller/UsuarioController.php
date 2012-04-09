@@ -457,43 +457,6 @@ class UsuarioController extends Controller
                 }
 
                 $em->flush();
-
-                /* Manejo de suscripción a Mailchimp */
-                $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
-                $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
-                $mcId = 0;
-
-                if (!$mc->errorCode){
-                    if(!empty($mcInfo['success'])){
-                        if(isset($mcInfo['data'])){ // tiene que estar en la lista para considerarse "suscrito"??
-                            $mcId = $mcInfo['data'][0]['id'];
-                        }
-                    }
-                }
-
-                if($usuarioResult->getNewsletterActivo()) {
-                   $merge_vars = array(
-                        'EMAIL' => $usuarioResult->getMail(),
-                        'FNAME' => $usuarioResult->getNombre(),
-                        'LNAME' => $usuarioResult->getApellido(),
-                        'USER' => $usuarioResult->getSlug(),
-                        'IDUSER' => $usuarioResult->getId()
-                    );
-                    // Verificar suscripción Mailchimp
-                    if($mcId == 0) {
-                        // Nueva suscripción
-                        $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true );
-                    }
-                    else {
-                        // Usuario suscrito. Se actualizan datos
-                        $mc->listUpdateMember($this->container->getParameter('mailchimp_list_id'), $mcId, $merge_vars, 'html', false);
-                    }
-                }
-                else {
-                    // Borrar suscripción Mailchimp
-                    if($mcId > 0)
-                        $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );
-                }      
                 
                 // Mensaje de éxito en la edición
                 $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.cuenta');
