@@ -485,7 +485,10 @@
         font-size: 14px;
         line-height: 18px;
         margin: 10px;
-        *margin: 10px 4px; }
+        *margin: 10px 4px;
+        text-decoration: none; }
+        .sidebar_home .colaboradores .detalles_nota .titulo_nota:hover {
+          text-decoration: underline; }
       .sidebar_home .colaboradores .detalles_nota .texto_nota {
         color: #999999;
         float: left;
