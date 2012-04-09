@@ -184,6 +184,8 @@ usuario:
                 conectado:
                     texto: Actualmente tienes Facebook conectado a la cuenta de %nombre%, y con el E-mail %mail%
                     texto_link: Desconéctate de Facebook
+        notificaciones:
+            recibir_newsletter: Recibir el newsletter de:
         borrar:
             password: Password *
             motivo: ¿Por qué te vas? *

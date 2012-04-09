@@ -615,6 +615,50 @@
         width: 99px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul .enviar_password_prefil:hover {
           background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
+    .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones {
+      display: block;
+      float: left;
+      margin: 40px 0 0;
+      width: 620px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul li {
+        float: left;
+        margin: 0 0 20px 0;
+        width: 620px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul li label {
+          color: #666666;
+          float: left;
+          font-size: 13px;
+          margin: 4px 20px 4px 0;
+          width: 210px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul li input {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          height: 15px;
+          margin: 4px 0px;
+          width: 15px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul li .tips {
+          color: #999999;
+          float: left;
+          font-size: 12px;
+          line-height: 24px;
+          margin: 0 0 0 100px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul .recibir_newsletter {
+        color: #666666;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 0 30px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul .submit {
+        float: left; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul .submit .enviar_notificaciones {
+          background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 0;
+          border: 0px;
+          cursor: pointer;
+          height: 30px;
+          margin: 10px 0 0 230px;
+          width: 99px; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul .submit .enviar_notificaciones:hover {
+            background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
     .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta {
       display: block;
       float: left;
