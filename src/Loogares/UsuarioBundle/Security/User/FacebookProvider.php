@@ -87,12 +87,12 @@ class FacebookProvider implements UserProviderInterface
                                           ->findOneByNombre('Activo');
                         $user->setEstado($estadoUsuario);
                         $user->setFBData($fbdata);
-                        if (isset($fbdata['first_name'])) {
-                            $this->setNombre($fbdata['first_name']);
+                        /*if (isset($fbdata['first_name'])) {
+                            $user->setNombre($fbdata['first_name']);
                         }
                         if (isset($fbdata['last_name'])) {
-                            $this->setApellido($fbdata['last_name']);
-                        }
+                            $user->setApellido($fbdata['last_name']);
+                        }*/
                         $fn = new LoogaresFunctions();
                         $slug = $fn->generarSlug($user->getNombre().'-'.$user->getApellido());
                         $repetidos = $ur->getUsuarioSlugRepetido($slug);
@@ -155,10 +155,10 @@ class FacebookProvider implements UserProviderInterface
 
                 if($user->getNombre() == '' || $user->getApellido() == '') {                    
                     if (isset($fbdata['first_name'])) {
-                        $this->setNombre($fbdata['first_name']);
+                        $user->setNombre($fbdata['first_name']);
                     }
                     if (isset($fbdata['last_name'])) {
-                        $this->setApellido($fbdata['last_name']);
+                        $user->setApellido($fbdata['last_name']);
                     }
                 }        
             }
