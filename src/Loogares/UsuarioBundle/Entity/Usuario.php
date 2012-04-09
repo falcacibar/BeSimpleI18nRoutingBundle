@@ -857,12 +857,6 @@ class Usuario implements AdvancedUserInterface, \Serializable
         if (isset($fbdata['id'])) {
             $this->setFacebookUid($fbdata['id']);
         }
-        if (isset($fbdata['first_name'])) {
-            $this->setNombre($fbdata['first_name']);
-        }
-        if (isset($fbdata['last_name'])) {
-            $this->setApellido($fbdata['last_name']);
-        }
     }
 
     /**

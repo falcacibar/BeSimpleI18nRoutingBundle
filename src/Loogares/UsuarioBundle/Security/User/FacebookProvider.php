@@ -145,7 +145,16 @@ class FacebookProvider implements UserProviderInterface
                     }
                 }
 
-                $user->setFBData($fbdata);           
+                $user->setFBData($fbdata);
+
+                if($user->getNombre() == '' || $user->getApellido() == '') {                    
+                    if (isset($fbdata['first_name'])) {
+                        $this->setNombre($fbdata['first_name']);
+                    }
+                    if (isset($fbdata['last_name'])) {
+                        $this->setApellido($fbdata['last_name']);
+                    }
+                }        
             }
             
             $em->flush();
