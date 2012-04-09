@@ -90,8 +90,6 @@ class DefaultController extends Controller
     }
 
     public function homepageAction($slug = null){
-        $ip = $_SERVER['REMOTE_ADDR'];
-
         //$xml = file_get_contents("http://api.hostip.info/?ip=".$ip);
         $xml = 'asd';
         $ciudadesHabilitadas = array(
@@ -99,7 +97,7 @@ class DefaultController extends Controller
             'buenos-aires' => 'buenos-aires',
             'valparaiso-vina-del-mar' => 'valparaiso-vina-del-mar'
         );
-
+        
         //Ciudad antigua
         $ciudadSession = $this->get('session')->get('ciudad');
         
