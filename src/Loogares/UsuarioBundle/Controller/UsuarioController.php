@@ -672,6 +672,9 @@ class UsuarioController extends Controller
             $usuario = $this->get('security.context')->getToken()->getUser();
             $usuario->setFacebookUid(0);
             $em->flush();
+
+            // Mensaje de éxito en la edición
+            $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.cuenta');
         }
 
         $fbdata = null;
@@ -681,7 +684,7 @@ class UsuarioController extends Controller
                 'query' => "SELECT name,email FROM user WHERE uid = ".$usuarioResult->getFacebookUid(),
                 'callback' => ''
             )); 
-        }       
+        }   
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'conexiones';
@@ -769,7 +772,10 @@ class UsuarioController extends Controller
                 // Si el tipo de notificación es newsletter, agregamos a array correspondiente
                 if($value->getNewsletter()) {
                     $newsletters[] = $notificacion;
-                }   
+                }
+
+                // Mensaje de éxito en la edición
+                $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.cuenta'); 
             }
             //Pasamos todo a la db
             $em->flush();
@@ -833,7 +839,7 @@ class UsuarioController extends Controller
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'notificaciones';
-        $data->loggeadoCorrecto = $loggeadoCorrecto;
+        $data->loggeadoCorrecto = $loggeadoCorrecto;        
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
