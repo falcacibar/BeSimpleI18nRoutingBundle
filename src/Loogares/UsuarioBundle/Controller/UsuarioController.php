@@ -370,9 +370,6 @@ class UsuarioController extends Controller
                      ->add('web', 'text')
                      ->add('facebook', 'text')
                      ->add('twitter', 'text')
-                     ->add('newsletter_activo', 'checkbox', array(
-                                'label' => $this->get('translator')->trans('usuario.edicion.cuenta.newsletter')
-                         ))
                      ->getForm();                     
 
         // Guardamos mail de usuario actual
