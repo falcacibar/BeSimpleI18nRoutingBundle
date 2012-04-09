@@ -1,12 +1,16 @@
 {% include 'LoogaresUsuarioBundle:Usuarios:menu_edicion.html.twig' %}
 
 <div class="caja_edicion_notificaciones">
+
 	<form action="{{ path('editarNotificacionesUsuario', {'param': app.security.token.user.slug}) }}" method="post">
 		<div class="form_edicion">		
-			<ul>
+			<ul class="editar-usuario">
+				<li class="recibir_newsletter">
+					{% trans %}usuario.edicion.notificaciones.recibir_newsletter{% endtrans %}
+				</li>
 			{% for data in notificaciones %}
 				<li>
-					{{(data.tipoNotificacion.newsletter) ? 'Newsletter ' : ''}}{{data.tipoNotificacion.nombre}}
+					<label>{{data.tipoNotificacion.nombre}}</label>
 					{% if data.notificacion.activa is defined and data.notificacion.activa == true %}
 						<input type="checkbox" name="notificacion[]" value="{{data.tipoNotificacion.nombre}}" checked="checked"/>
 					{% else %}
@@ -14,8 +18,10 @@
 					{% endif %}
 				</li>
 			{% endfor %}
+				<li class="submit">
+					<input class="enviar_notificaciones" type="submit" value="" />
+				</li>
 			</ul>
-			<input type="submit" value="Guardar"/>
 		</div>
 	</form>	
 </div>

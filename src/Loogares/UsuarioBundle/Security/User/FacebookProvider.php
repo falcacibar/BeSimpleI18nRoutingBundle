@@ -30,10 +30,6 @@ class FacebookProvider implements UserProviderInterface
         $this->userManager = $em;
         $this->validator = $validator;
         $this->container = $container;
-
-        //echo "<pre>";
-        //print_r($container->getParameter('fos_facebook.logging'));
-        //echo "</pre>";
     }
 
     public function supportsClass($class)
@@ -65,86 +61,106 @@ class FacebookProvider implements UserProviderInterface
             
             if (empty($user)) {
 
-                // Si el usuario está loggeado y no tiene UID asociado, conectamos cuentas
-
-
-                // Si el usuario no está loggeado, buscamos por mail y sino registramos
-
-                // Revisamos si un usuario con el mismo email está registrado (para quienes conectan estando registrados)
-                if (isset($fbdata['email'])) {
-                    $user = $ur->findOneByMail($fbdata['email']);
+                if($this->facebook->getSession()->has('_security_secured_area')) {
+                    // Si el usuario está loggeado y no tiene UID asociado, conectamos cuentas
+                    $sesion = $this->facebook->getSession()->get('_security_secured_area');
+                    $idUsuario = unserialize($sesion)->getUser()->getId();
+                    $user = $ur->find($idUsuario);
                 }
-                
-                // Si en este punto el usuario no existe, entonces debemos registrarlo
-                if (empty($user)) {
-                    //$user = new Usuario();
-                    $user = new Usuario();
+                else {
+                    // Si el usuario no está loggeado, buscamos por mail y sino registramos
 
+                    // Revisamos si un usuario con el mismo email está registrado (para quienes conectan estando registrados)
                     if (isset($fbdata['email'])) {
-                        $user->setMail($fbdata['email']);
+                        $user = $ur->findOneByMail($fbdata['email']);
                     }
-                    $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
-                                      ->findOneByNombre('Activo');
-                    $user->setEstado($estadoUsuario);
-                    $user->setFBData($fbdata);
-                    $fn = new LoogaresFunctions();
-                    $slug = $fn->generarSlug($user->getNombre().'-'.$user->getApellido());
-                    $repetidos = $ur->getUsuarioSlugRepetido($slug);
-                    if($repetidos > 0)
-                        $slug = $slug.'-'.++$repetidos;                    
-                    $user->setSlug($slug);
+                    
+                    // Si en este punto el usuario no existe, entonces debemos registrarlo
+                    if (empty($user)) {
+                        //$user = new Usuario();
+                        $user = new Usuario();
 
-                    if(isset($fbdata['id'])) {
-                        $fbimg = $this->facebook->api(array(
-                            'method' => 'fql.query',
-                            'query' => "SELECT pic_big FROM user WHERE uid = ".$fbdata['id'],
-                            'callback' => ''
-                        ));
-                    }
-                   
-                    $user->setImagenFull("default.gif");
-                    $user->setFechaRegistro(new \DateTime());
-                    $user->setNewsletterActivo(1);
-                    $hashConfirmacion = md5($user->getMail().time());
-                    $user->setHashConfirmacion($hashConfirmacion);
-                    $user->setSalt('');
+                        if (isset($fbdata['email'])) {
+                            $user->setMail($fbdata['email']);
+                        }
+                        $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
+                                          ->findOneByNombre('Activo');
+                        $user->setEstado($estadoUsuario);
+                        $user->setFBData($fbdata);
+                        if (isset($fbdata['first_name'])) {
+                            $user->setNombre($fbdata['first_name']);
+                        }
+                        if (isset($fbdata['last_name'])) {
+                            $user->setApellido($fbdata['last_name']);
+                        }
+                        $fn = new LoogaresFunctions();
+                        $slug = $fn->generarSlug($user->getNombre().'-'.$user->getApellido());
+                        $repetidos = $ur->getUsuarioSlugRepetido($slug);
+                        if($repetidos > 0)
+                            $slug = $slug.'-'.++$repetidos;                    
+                        $user->setSlug($slug);
 
-                    $user->setPassword(sha1(time().$user->getSlug().time()));
-                    $user->setSha1password(1);
+                        if(isset($fbdata['id'])) {
+                            $fbimg = $this->facebook->api(array(
+                                'method' => 'fql.query',
+                                'query' => "SELECT pic_big FROM user WHERE uid = ".$fbdata['id'],
+                                'callback' => ''
+                            ));
+                        }
+                       
+                        $user->setImagenFull("default.gif");
+                        $user->setFechaRegistro(new \DateTime());
+                        $user->setNewsletterActivo(1);
+                        $hashConfirmacion = md5($user->getMail().time());
+                        $user->setHashConfirmacion($hashConfirmacion);
+                        $user->setSalt('');
 
-                    // Seteamos tipo_usuario a ROLE_USER
-                    $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")
-                                      ->findOneByNombre('ROLE_USER');
-                    $user->setTipoUsuario($tipoUsuario);
-                    $em->persist($user);
-                    $em->flush();
+                        $user->setPassword(sha1(time().$user->getSlug().time()));
+                        $user->setSha1password(1);
 
-                    // Imagen Facebook
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_POST, 0);
-                    curl_setopt($ch, CURLOPT_URL, $fbimg[0]['pic_big']);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-                    $result = curl_exec($ch);
-                    curl_close($ch);
+                        // Seteamos tipo_usuario a ROLE_USER
+                        $tipoUsuario = $em->getRepository("LoogaresUsuarioBundle:TipoUsuario")
+                                          ->findOneByNombre('ROLE_USER');
+                        $user->setTipoUsuario($tipoUsuario);
+                        $em->persist($user);
+                        $em->flush();
 
-                    $u = explode('.',$fbimg[0]['pic_big']);
-                    $ext = array_pop($u);
-                    $fn = time().'.jpg';
-                    if(file_put_contents('assets/images/temp/'.$fn, $result)) {                        
-                        if(getimagesize('assets/images/temp/'.$fn)) {
-                            $fln = new LoogaresFunctions();
-                            $filename = $fln->generarSlug($user->getNombre().'-'.$user->getApellido().'-'.$user->getId());
-                            $user->setImagenFull($filename.'.jpg');  
-                            if(file_put_contents('assets/images/usuarios/'.$filename.'.jpg', $result)) {
-                                $em->flush();
-                                unlink('assets/images/temp/'.$fn);
-                            }                            
-                        }                        
+                        // Imagen Facebook
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_POST, 0);
+                        curl_setopt($ch, CURLOPT_URL, $fbimg[0]['pic_big']);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+                        $result = curl_exec($ch);
+                        curl_close($ch);
+
+                        $u = explode('.',$fbimg[0]['pic_big']);
+                        $ext = array_pop($u);
+                        $fn = time().'.jpg';
+                        if(file_put_contents('assets/images/temp/'.$fn, $result)) {                        
+                            if(getimagesize('assets/images/temp/'.$fn)) {
+                                $fln = new LoogaresFunctions();
+                                $filename = $fln->generarSlug($user->getNombre().'-'.$user->getApellido().'-'.$user->getId());
+                                $user->setImagenFull($filename.'.jpg');  
+                                if(file_put_contents('assets/images/usuarios/'.$filename.'.jpg', $result)) {
+                                    $em->flush();
+                                    unlink('assets/images/temp/'.$fn);
+                                }                            
+                            }                        
+                        }
                     }
                 }
 
-                $user->setFBData($fbdata);           
+                $user->setFBData($fbdata);
+
+                if($user->getNombre() == '' || $user->getApellido() == '') {                    
+                    if (isset($fbdata['first_name'])) {
+                        $user->setNombre($fbdata['first_name']);
+                    }
+                    if (isset($fbdata['last_name'])) {
+                        $user->setApellido($fbdata['last_name']);
+                    }
+                }        
             }
             
             $em->flush();

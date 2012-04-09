@@ -413,7 +413,7 @@ class DefaultController extends Controller
         ));
     }
 
-    /*public function mailchimpAction() {
+    public function mailchimpAction() {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
@@ -426,6 +426,18 @@ class DefaultController extends Controller
             if($usuario->getNewsletterActivo()) {
                 $i++;
                 // Se agrega usuario a lista de correos de Mailchimp
+
+                /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuario->getMail() );
+                $mcId = 0;
+
+                if (!$mc->errorCode){
+                    if(!empty($mcInfo['success'])){
+                        if(isset($mcInfo['data'])){ // tiene que estar en la lista para considerarse "suscrito"??
+                            $mcId = $mcInfo['data'][0]['id'];
+                        }
+                    }
+                }*/
+
                 $merge_vars = array(
                     'EMAIL' => $usuario->getMail(),
                     'FNAME' => $usuario->getNombre(),
@@ -434,14 +446,28 @@ class DefaultController extends Controller
                     'IDUSER' => $usuario->getId()
                 );
                 if($usuario->getCiudad() != null) {
-                    if($usuario->getCiudad()->getId() == 1 || $usuario->getCiudad()->getId() == 2 || $usuario->getCiudad()->getId() == 6) {
-                        // Usamos Santiago
+                    if($usuario->getCiudad()->getId() == 1 || $usuario->getCiudad()->getId() == 6) {
                         $merge_vars['GROUPINGS'] = array(
                             array(
                                 'id' => 41,
                                 'groups' => $usuario->getCiudad()->getNombre()
                             )
                         );
+                        if($usuario->getCiudad()->getId() == 1) {
+                            echo "INSERT INTO notificaciones(tipo_notificacion_id,usuario_id,activa) VALUES (1,".$usuario->getId().",1)<br>";
+                        }
+                        else {
+                            echo "INSERT INTO notificaciones(tipo_notificacion_id,usuario_id,activa) VALUES (3,".$usuario->getId().",1)<br>";
+                        }
+                    }
+                    else if($usuario->getCiudad()->getSlug() == 'valparaiso' || $usuario->getCiudad()->getSlug() == 'vina-del-mar' || $usuario->getCiudad()->getSlug() == 'concon') {
+                        $groupings = array(
+                            array(
+                                'id' => 41,
+                                'groups' => 'Valparaíso - Viña del Mar'
+                            )
+                        );
+                        echo "INSERT INTO notificaciones(tipo_notificacion_id,usuario_id,activa) VALUES (2,".$usuario->getId().",1)<br>";
                     }
                     else {
                         // Usamos Otras Ciudades
@@ -451,6 +477,7 @@ class DefaultController extends Controller
                                 'groups' => "Otras Ciudades"
                             )
                         );
+                        echo "INSERT INTO notificaciones(tipo_notificacion_id,usuario_id,activa) VALUES (4,".$usuario->getId().",1)<br>";
                     }
                 }
                 else {
@@ -461,11 +488,21 @@ class DefaultController extends Controller
                             'groups' => "Santiago de Chile"
                         )
                     );
+                    echo "INSERT INTO notificaciones(tipo_notificacion_id,usuario_id,activa) VALUES (1,".$usuario->getId().",1)<br>";
                 }
 
-                print_r($merge_vars);
+                //print_r($merge_vars);
 
-                $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
+                // Verificar suscripción Mailchimp
+                /*if($mcId == 0) {
+                    // Nueva suscripción
+                    $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
+                }
+                else {
+                    // Usuario suscrito. Se actualizan datos
+                    $mc->listUpdateMember($this->container->getParameter('mailchimp_list_id'), $mcId, $merge_vars, 'html', true);
+                }*/
+                //$mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
             }
         }
 
@@ -475,6 +512,6 @@ class DefaultController extends Controller
         echo "</pre>";
 
         return new Response('');
-    }*/
+    }
 
 }

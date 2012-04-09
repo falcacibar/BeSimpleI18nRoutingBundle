@@ -91,9 +91,9 @@
                
                     <!-- Qtip Recomendación del Día -->
                     <div class="qtip_favoritos">
-                        {{'lugar.ficha.qtip.favoritos_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        {{'lugar.ficha.qtip.favoritos_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('login')}}">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('registroUsuario')}}">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                 {% endif %}
                 <!-- <p class="conteo">{{lugar.totalAcciones.3.total}}</p> -->
@@ -320,9 +320,9 @@
                     <!-- Qtip Ya Estuve -->
                     {% if app.security.token.user.id is not defined %}
                     <div class="qtip_ya_estuve">
-                        {{'lugar.ficha.qtip.ya_estuve_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        {{'lugar.ficha.qtip.ya_estuve_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('login')}}">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('registroUsuario')}}">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                     {% endif %}
                 {% endif %}
@@ -335,9 +335,9 @@
                     <p class="quiero_volver_lugar tooltip_quiero_volver boton_desactivado" data-hecho="{{lugar.accionesUsuario.1.hecho}}"></p>
                     <!-- Qtip Quiero Volver -->
                     <div class="qtip_quiero_volver">
-                        {{'lugar.ficha.qtip.volver_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        {{'lugar.ficha.qtip.volver_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('login')}}">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('registroUsuario')}}">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                 {% endif %}
                 <p class="quiero_volver_valor conteo">{{lugar.totalAcciones.1.total}}</p>
@@ -350,9 +350,9 @@
                     <!-- Qtip Quiero Ir -->
                     {% if app.security.token.user.id is not defined %}
                     <div class="qtip_quiero_ir">
-                        {{'lugar.ficha.qtip.quiero_ir_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        {{'lugar.ficha.qtip.quiero_ir_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('login')}}">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
                         <br /><br />
-                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('registroUsuario')}}">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                     {% endif %}
                 {% endif %}                

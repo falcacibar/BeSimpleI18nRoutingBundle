@@ -370,9 +370,6 @@ class UsuarioController extends Controller
                      ->add('web', 'text')
                      ->add('facebook', 'text')
                      ->add('twitter', 'text')
-                     ->add('newsletter_activo', 'checkbox', array(
-                                'label' => $this->get('translator')->trans('usuario.edicion.cuenta.newsletter')
-                         ))
                      ->getForm();                     
 
         // Guardamos mail de usuario actual
@@ -460,43 +457,6 @@ class UsuarioController extends Controller
                 }
 
                 $em->flush();
-
-                /* Manejo de suscripción a Mailchimp */
-                $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
-                $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail() );
-                $mcId = 0;
-
-                if (!$mc->errorCode){
-                    if(!empty($mcInfo['success'])){
-                        if(isset($mcInfo['data'])){ // tiene que estar en la lista para considerarse "suscrito"??
-                            $mcId = $mcInfo['data'][0]['id'];
-                        }
-                    }
-                }
-
-                if($usuarioResult->getNewsletterActivo()) {
-                   $merge_vars = array(
-                        'EMAIL' => $usuarioResult->getMail(),
-                        'FNAME' => $usuarioResult->getNombre(),
-                        'LNAME' => $usuarioResult->getApellido(),
-                        'USER' => $usuarioResult->getSlug(),
-                        'IDUSER' => $usuarioResult->getId()
-                    );
-                    // Verificar suscripción Mailchimp
-                    if($mcId == 0) {
-                        // Nueva suscripción
-                        $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuarioResult->getMail(), $merge_vars, 'html', false, true, true );
-                    }
-                    else {
-                        // Usuario suscrito. Se actualizan datos
-                        $mc->listUpdateMember($this->container->getParameter('mailchimp_list_id'), $mcId, $merge_vars, 'html', false);
-                    }
-                }
-                else {
-                    // Borrar suscripción Mailchimp
-                    if($mcId > 0)
-                        $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );
-                }      
                 
                 // Mensaje de éxito en la edición
                 $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.cuenta');
@@ -714,12 +674,14 @@ class UsuarioController extends Controller
             $em->flush();
         }
 
-
-        $fbdata = $this->get('my.facebook.user')->getFacebook()->api(array(
-            'method' => 'fql.query',
-            'query' => "SELECT name,email FROM user WHERE uid = ".$this->get('security.context')->getToken()->getUser()->getFacebookUid(),
-            'callback' => ''
-        ));
+        $fbdata = null;
+        if($usuarioResult->getFacebookUid() != null) {
+           $fbdata = $this->get('my.facebook.user')->getFacebook()->api(array(
+                'method' => 'fql.query',
+                'query' => "SELECT name,email FROM user WHERE uid = ".$usuarioResult->getFacebookUid(),
+                'callback' => ''
+            )); 
+        }       
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'conexiones';
@@ -1295,6 +1257,7 @@ class UsuarioController extends Controller
         
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $tnr = $em->getRepository('LoogaresMailBundle:TipoNotificacion');
 
         $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u WHERE u.mostrar_lugar = 2 or u.mostrar_lugar = 3 order by u.nombre asc");
         $ciudades = $q->getResult();
@@ -1348,6 +1311,13 @@ class UsuarioController extends Controller
                                 'groups' => $ciudad->getNombre()
                             )
                         );
+
+                        if($ciudad->getId() == 1) {
+                            $tipoNotificacion = $tnr->find(1);
+                        }
+                        else {
+                            $tipoNotificacion = $tnr->find(3);
+                        }
                     }
                     else if($ciudad->getSlug() == 'valparaiso' || $ciudad->getSlug() == 'vina-del-mar' || $ciudad->getSlug() == 'concon') {
                         $groupings = array(
@@ -1356,6 +1326,7 @@ class UsuarioController extends Controller
                                 'groups' => 'Valparaíso - Viña del Mar'
                             )
                         );
+                        $tipoNotificacion = $tnr->find(2);
                     }
                     else {
                         $groupings = array(
@@ -1364,51 +1335,62 @@ class UsuarioController extends Controller
                                 'groups' => 'Otras Ciudades'
                             )
                         );
+                        $tipoNotificacion = $tnr->find(4);
                     }
                 }
 
-                if($usuario->getNewsletterActivo()) {
-                    $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
-                    $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuario->getMail() );
-                    $mcId = 0;
+                // Según ciudad especificada, agregamos a lista Mailchimp
 
-                    if (!$mc->errorCode){
-                        if(!empty($mcInfo['success'])){
-                            if(isset($mcInfo['data'])){ // tiene que estar en la lista para considerarse "suscrito"??
-                                $mcId = $mcInfo['data'][0]['id'];
-                            }
+                $mc = new MCAPI($this->container->getParameter('mailchimp_apikey'));
+                $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuario->getMail() );
+                $mcId = 0;
+
+                if (!$mc->errorCode){
+                    if(!empty($mcInfo['success'])){
+                        if(isset($mcInfo['data'])){ // tiene que estar en la lista para considerarse "suscrito"??
+                            $mcId = $mcInfo['data'][0]['id'];
                         }
                     }
-                    // Se agrega usuario a lista de correos de Mailchimp
-                    $merge_vars = array(
-                        'EMAIL' => $usuario->getMail(),
-                        'FNAME' => $usuario->getNombre(),
-                        'LNAME' => $usuario->getApellido(),
-                        'USER' => $usuario->getSlug(),
-                        'IDUSER' => $usuario->getId()
+                }
+                // Se agrega usuario a lista de correos de Mailchimp
+                $merge_vars = array(
+                    'EMAIL' => $usuario->getMail(),
+                    'FNAME' => $usuario->getNombre(),
+                    'LNAME' => $usuario->getApellido(),
+                    'USER' => $usuario->getSlug(),
+                    'IDUSER' => $usuario->getId()
+                );
+
+                if(isset($groupings)) {
+                    $merge_vars['GROUPINGS'] = $groupings;
+                }
+                else {
+                    $merge_vars['GROUPINGS'] = array(
+                        array(
+                            'id' => 41,
+                            'groups' => 'Otras Ciudades'
+                        )
                     );
+                    $tipoNotificacion = $tnr->find(4);
+                }
 
-                    if(isset($groupings)) {
-                        $merge_vars['GROUPINGS'] = $groupings;
-                    }
-                    else {
-                        $merge_vars['GROUPINGS'] = array(
-                            array(
-                                'id' => 41,
-                                'groups' => 'Otras Ciudades'
-                            )
-                        );
-                    }
+                // Verificar suscripción Mailchimp
+                if($mcId == 0) {
+                    // Nueva suscripción
+                    $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
+                }
+                else {
+                    // Usuario suscrito. Se actualizan datos
+                    $mc->listUpdateMember($this->container->getParameter('mailchimp_list_id'), $mcId, $merge_vars, 'html', true);
+                }
 
-                     // Verificar suscripción Mailchimp
-                    if($mcId == 0) {
-                        // Nueva suscripción
-                        $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
-                    }
-                    else {
-                        // Usuario suscrito. Se actualizan datos
-                        $mc->listUpdateMember($this->container->getParameter('mailchimp_list_id'), $mcId, $merge_vars, 'html', true);
-                    }
+                // Agregamos notificación
+                if(isset($tipoNotificacion)) {
+                    $notificacion = new Notificacion();
+                    $notificacion->setActiva(true);
+                    $notificacion->setTipoNotificacion($tipoNotificacion);
+                    $notificacion->setUsuario($usuario);
+                    $em->persist($notificacion);
                 }
 
                 $em->flush();
