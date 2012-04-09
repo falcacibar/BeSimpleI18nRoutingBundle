@@ -339,8 +339,10 @@
         padding: 10px;
         width: 298px; }
         .sidebar_home .recomendacion_estrella .informacion .imagen_recomendacion .imagen {
+          background: url("../images/extras/golden_frame.png") no-repeat 0 0;
           float: left;
           height: 72px;
+          padding: 4px 0 0 4px;
           width: 72px; }
         .sidebar_home .recomendacion_estrella .informacion .imagen_recomendacion .textos_usuario {
           float: left;

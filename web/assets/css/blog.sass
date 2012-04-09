@@ -310,6 +310,12 @@ body
 			float: left
 			padding: 20px
 
+			a
+				@include link_azul
+
+				&:hover
+					@include link_azul_hover
+
 			.imagen_detalles
 				float: left
 				margin: 0 20px 0 0
@@ -406,7 +412,7 @@ body
 
 				li
 					margin: 0 0 10px
-			
+		
 			.caja_colaborador
 				float: left
 				font:
