@@ -48,9 +48,10 @@ class LugarController extends Controller{
           throw $this->createNotFoundException('');
         }
 
-        /*$paises = array(
+        $paises = array(
             'cl' => 'chile',
             'ar' => 'argentina'
+            'www' => 'www'
         );
 
         $url = explode('.', $request->getHost());
@@ -61,7 +62,7 @@ class LugarController extends Controller{
             if($paisSlug != $paises[$url[0]]){
                 return $this->redirect("http://".array_search($paisSlug, $paises).".loogares.com".$_SERVER['REQUEST_URI'], 301);            
             }
-        }*/
+        }
 
         $fn = $this->get('fn');
         $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
