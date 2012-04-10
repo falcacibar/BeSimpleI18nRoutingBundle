@@ -50,7 +50,7 @@ class LugarController extends Controller{
 
         $paises = array(
             'cl' => 'chile',
-            'ar' => 'argentina'
+            'ar' => 'argentina',
             'www' => 'www'
         );
 
