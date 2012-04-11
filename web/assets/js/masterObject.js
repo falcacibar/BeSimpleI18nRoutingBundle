@@ -419,6 +419,12 @@ var categorias = {
        caracteristicas: ['Aire Acondicionado', 'Apto para Niños', 'Discapacitados', 'Estacionamiento Autos', 'Estacionamiento Bicis', 'Fumadores', 'Gay Friendly', 'No Fumadores', 'Redcompra', 'Tarjeta de Crédito', 'Wifi'],
        deshabilitar: ['bares-pubs', 'cafes-teterias', 'heladerias', 'restaurantes']
 	},
+  cabanas: {
+       camposEspeciales: [],
+       subCategorias: [],
+       caracteristicas: ['Aire Acondicionado', 'Apto para Niños', 'Discapacitados', 'Estacionamiento Autos', 'Estacionamiento Bicis', 'Fumadores', 'Gay Friendly', 'No Fumadores', 'Redcompra', 'Tarjeta de Crédito', 'Wifi'],
+       deshabilitar: ['bares-pubs', 'cafes-teterias', 'heladerias', 'restaurantes']
+  },
 	hostales: {
    	   camposEspeciales: [],
        subCategorias: [],

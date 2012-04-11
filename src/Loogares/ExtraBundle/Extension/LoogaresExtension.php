@@ -303,7 +303,10 @@ class LoogaresExtension extends \Twig_Extension {
                         'medium' => 'delivery_top_medium_300x250')),             
                 94 => array(
                     'top' => array(
-                        'medium' => 'karting_top_medium_300x250'))),
+                        'medium' => 'karting_top_medium_300x250')),
+                96 => array(
+                    'top' => array(
+                        'medium' => 'cabanas_top_medium_300x250'))),
         );
 
         return $espacios[$type][$section][$position][$size];
