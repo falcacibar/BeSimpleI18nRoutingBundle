@@ -552,7 +552,6 @@ class AdminController extends Controller
             }else{
                 $where = "WHERE usuarios.nombre LIKE '%$buscar%' or usuarios.apellido LIKE '%$buscar%' or usuarios.slug LIKE '%$buscar%'";
             }
-            
         }
 
         if(isset($_GET['fecha-desde']) && isset($_GET['fecha-hasta']) && isset($_GET['tipo-fecha'])){
@@ -1504,6 +1503,26 @@ class AdminController extends Controller
         unset($args['id']);
 
         return $this->redirect($this->generateUrl('LoogaresAdminBundle_pedidosLugar', $args));    
+    }
+
+    public function listadoBlogPostsAction($ciudad){
+        $em = $this->getDoctrine()->getEntityManager();
+                $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+         $ciudad = $cr->findOneBySlug($ciudad);
+
+        return $this->render('LoogaresAdminBundle:Admin:listadoBlogPosts.html.twig', array(
+            'ciudad' => $ciudad,
+            'query' => array()
+        ));
+    }
+
+    public function vistaBlogPostsAction($ciudad){
+        $em = $this->getDoctrine()->getEntityManager();
+                $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+         $ciudad = $cr->findOneBySlug($ciudad);
+        return $this->render('LoogaresAdminBundle:Admin:agregarBlogPosts.html.twig', array(
+            'ciudad' => $ciudad
+        ));
     }
 
     public function testMailAction() {

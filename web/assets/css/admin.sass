@@ -110,7 +110,7 @@ $rojo: #F72121
         font:
             size: 14px
         line-height: 22px
-        margin: 40px 0
+        margin: 0 0 40px 0
         width: 960px
 
         a
@@ -178,12 +178,28 @@ $rojo: #F72121
     margin: 3px 10px 0 0 
     width: 200px
 
+
+.breadcrumbs
+    float: left
+    margin: 30px 0
+
+    ul
+        li
+            display: inline
+            font-size: 12px
+
+        a
+            @include link_azul
+
+            &:hover
+                @include link_azul_hover
+
 .titulo_admin
     font:
         size: 24px
-    margin: 0 0 35px 0
-
-
+    float: left
+    margin: 0 0 30px 0
+    width: 960px
 
 .filtro_admin
     display: block
@@ -304,6 +320,12 @@ $rojo: #F72121
             width: 1850px
 
         .listado_pedidos
+            font:
+                size: 12px
+            text-align: left
+            width: 1400px
+
+        .listado_blog_posts
             font:
                 size: 12px
             text-align: left
@@ -468,6 +490,15 @@ $rojo: #F72121
 
         .recomendacion_tags
             width: 300px !important
+
+        .blog_posts_titulo
+            width: 300px !important
+
+        .blog_posts_premios
+            width: 120px !important
+
+        .blog_posts_fecha
+            width: 170px !important
         
         .titulos_tabla
             float: left
@@ -601,18 +632,58 @@ $rojo: #F72121
 .selected_row
     background: #def !important
 
-.breadcrumbs
-    position: absolute
-    top: 122px
-    left: 1px
+.agregar_blog_posts
+    float: left
+    font:
+        size: 14px
 
-    ul
-        li
-            display: inline
-            font-size: 12px
+    li
+        float: left
+        margin: 0 0 20px 0
+        width: 960px
 
         a
             @include link_azul
 
             &:hover
                 @include link_azul_hover
+
+        label
+            float: left
+            margin: 10px 10px 10px 0
+            width: 150px
+        
+        input, textarea
+            float: left
+            padding: 8px
+            width: 400px
+
+        select
+            float: left
+            margin: 8px 0
+            width: 416px
+                    
+        .agregar_nuevo
+            float: left
+            font:
+                size: 12px
+            margin: 12px 0 12px 20px
+
+        .subir_imagen
+            border: 0px
+            float: left
+            padding: 8px 0px
+
+.guardar_posts
+    background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1025px 0
+    border: 0px
+    cursor: pointer
+    float: left
+    height: 30px
+    margin: 20px 0 40px 160px
+    width: 166px      
+    
+    &:hover
+        background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1025px -30px
+        border: 0px
+

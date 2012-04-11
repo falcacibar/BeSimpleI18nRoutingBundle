@@ -108,12 +108,28 @@
         color: #999999; }
     .filtros_subcategorias .resultados_filtros ul li.zonas, .filtros_zonas .resultados_filtros ul li.zonas, .filtros_precios .resultados_filtros ul li.zonas, .filtros_caracteristicas .resultados_filtros ul li.zonas, .filtros_categorias .resultados_filtros ul li.zonas {
       width: 195px; }
+      .filtros_subcategorias .resultados_filtros ul li.zonas a, .filtros_zonas .resultados_filtros ul li.zonas a, .filtros_precios .resultados_filtros ul li.zonas a, .filtros_caracteristicas .resultados_filtros ul li.zonas a, .filtros_categorias .resultados_filtros ul li.zonas a {
+        cursor: pointer; }
+        .filtros_subcategorias .resultados_filtros ul li.zonas a:hover, .filtros_zonas .resultados_filtros ul li.zonas a:hover, .filtros_precios .resultados_filtros ul li.zonas a:hover, .filtros_caracteristicas .resultados_filtros ul li.zonas a:hover, .filtros_categorias .resultados_filtros ul li.zonas a:hover {
+          text-decoration: underline; }
     .filtros_subcategorias .resultados_filtros ul li.categoria, .filtros_zonas .resultados_filtros ul li.categoria, .filtros_precios .resultados_filtros ul li.categoria, .filtros_caracteristicas .resultados_filtros ul li.categoria, .filtros_categorias .resultados_filtros ul li.categoria {
       width: 210px; }
+      .filtros_subcategorias .resultados_filtros ul li.categoria a, .filtros_zonas .resultados_filtros ul li.categoria a, .filtros_precios .resultados_filtros ul li.categoria a, .filtros_caracteristicas .resultados_filtros ul li.categoria a, .filtros_categorias .resultados_filtros ul li.categoria a {
+        cursor: pointer; }
+        .filtros_subcategorias .resultados_filtros ul li.categoria a:hover, .filtros_zonas .resultados_filtros ul li.categoria a:hover, .filtros_precios .resultados_filtros ul li.categoria a:hover, .filtros_caracteristicas .resultados_filtros ul li.categoria a:hover, .filtros_categorias .resultados_filtros ul li.categoria a:hover {
+          text-decoration: underline; }
     .filtros_subcategorias .resultados_filtros ul li.subcategoria, .filtros_zonas .resultados_filtros ul li.subcategoria, .filtros_precios .resultados_filtros ul li.subcategoria, .filtros_caracteristicas .resultados_filtros ul li.subcategoria, .filtros_categorias .resultados_filtros ul li.subcategoria {
       width: 230px; }
+      .filtros_subcategorias .resultados_filtros ul li.subcategoria a, .filtros_zonas .resultados_filtros ul li.subcategoria a, .filtros_precios .resultados_filtros ul li.subcategoria a, .filtros_caracteristicas .resultados_filtros ul li.subcategoria a, .filtros_categorias .resultados_filtros ul li.subcategoria a {
+        cursor: pointer; }
+        .filtros_subcategorias .resultados_filtros ul li.subcategoria a:hover, .filtros_zonas .resultados_filtros ul li.subcategoria a:hover, .filtros_precios .resultados_filtros ul li.subcategoria a:hover, .filtros_caracteristicas .resultados_filtros ul li.subcategoria a:hover, .filtros_categorias .resultados_filtros ul li.subcategoria a:hover {
+          text-decoration: underline; }
     .filtros_subcategorias .resultados_filtros ul li.caracteristicas, .filtros_zonas .resultados_filtros ul li.caracteristicas, .filtros_precios .resultados_filtros ul li.caracteristicas, .filtros_caracteristicas .resultados_filtros ul li.caracteristicas, .filtros_categorias .resultados_filtros ul li.caracteristicas {
       width: 195px; }
+      .filtros_subcategorias .resultados_filtros ul li.caracteristicas a, .filtros_zonas .resultados_filtros ul li.caracteristicas a, .filtros_precios .resultados_filtros ul li.caracteristicas a, .filtros_caracteristicas .resultados_filtros ul li.caracteristicas a, .filtros_categorias .resultados_filtros ul li.caracteristicas a {
+        cursor: pointer; }
+        .filtros_subcategorias .resultados_filtros ul li.caracteristicas a:hover, .filtros_zonas .resultados_filtros ul li.caracteristicas a:hover, .filtros_precios .resultados_filtros ul li.caracteristicas a:hover, .filtros_caracteristicas .resultados_filtros ul li.caracteristicas a:hover, .filtros_categorias .resultados_filtros ul li.caracteristicas a:hover {
+          text-decoration: underline; }
 
 .filtros_precios .precio_container {
   display: inline-block;
@@ -475,11 +491,6 @@
   position: relative;
   font-size: 12px;
   font-weight: 400; }
-  .qtip_subcategorias a, .qtip_zonas a, .qtip_categorias a, .qtip_caracteristicas a {
-    color: #666666;
-    text-decoration: none; }
-    .qtip_subcategorias a:visited, .qtip_zonas a:visited, .qtip_categorias a:visited, .qtip_caracteristicas a:visited {
-      color: #666666; }
   .qtip_subcategorias p, .qtip_zonas p, .qtip_categorias p, .qtip_caracteristicas p {
     color: #cccccc;
     margin-bottom: 20px;
@@ -493,6 +504,13 @@
     width: 170px;
     margin: 0 0 15px;
     vertical-align: middle; }
+    .qtip_subcategorias li a, .qtip_zonas li a, .qtip_categorias li a, .qtip_caracteristicas li a {
+      color: #666666;
+      text-decoration: none; }
+      .qtip_subcategorias li a:hover, .qtip_zonas li a:hover, .qtip_categorias li a:hover, .qtip_caracteristicas li a:hover {
+        text-decoration: underline !important; }
+      .qtip_subcategorias li a:visited, .qtip_zonas li a:visited, .qtip_categorias li a:visited, .qtip_caracteristicas li a:visited {
+        color: #666666; }
     .qtip_subcategorias li .totales, .qtip_zonas li .totales, .qtip_categorias li .totales, .qtip_caracteristicas li .totales {
       color: #cccccc;
       font-style: italic; }

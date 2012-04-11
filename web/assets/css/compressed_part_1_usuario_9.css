@@ -45,6 +45,12 @@
           margin: 0 0 0 10px;
           padding: 8px;
           width: 350px; }
+        .datos_obligatorios .datos_obligatorios_lista li ul li div input {
+          margin: 0;
+          padding: 5px; }
+        .datos_obligatorios .datos_obligatorios_lista li ul li ul li {
+          padding: 10px;
+          width: 278px; }
       .datos_obligatorios .datos_obligatorios_lista li ul .container_ciudad, .datos_obligatorios .datos_obligatorios_lista li ul .container_comuna {
         display: none; }
   .datos_obligatorios .siguiente_paso {
@@ -54,7 +60,7 @@
     font-size: 13px;
     font-weight: bold;
     height: 30px;
-    margin: 50px 0 0 10px;
+    margin: 50px 10px 0 10px;
     text-align: left;
     width: 80px; }
   .datos_obligatorios .anterior_paso {
@@ -64,7 +70,7 @@
     font-size: 13px;
     font-weight: bold;
     height: 30px;
-    margin: 50px 0 0 150px;
+    margin: 50px 10px 0 150px;
     text-align: left;
     width: 80px; }
   .datos_obligatorios .enviar_datos {
@@ -73,8 +79,9 @@
     cursor: pointer;
     font-size: 13px;
     font-weight: bold;
+    float: right;
     height: 30px;
-    margin: 50px 0 0 10px;
+    margin: 50px 114px 0 0;
     width: 99px !important; }
     .datos_obligatorios .enviar_datos:hover {
       background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
@@ -111,20 +118,20 @@
         display: block;
         float: left;
         height: 16px;
-        margin: 12px 0 0;
+        margin: 12px 10px 0 0;
         width: 16px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .sexo_usuario_Mujer {
         background: url("../images/extras/iconos_perfil_usuario.png") no-repeat 0 -209px;
         display: block;
         float: left;
         height: 17px;
-        margin: 11px 0 0;
+        margin: 11px 10px 0 0;
         width: 16px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .edad_usuario {
         display: block;
         float: left;
         font-size: 14px;
-        margin: 13px 0 0 10px;
+        margin: 13px 0 0 0;
         width: 274px; }
       .caja_usuario .datos_usuario .datos_principales_usuario .ciudad_pais_usuario {
         display: block;
@@ -608,6 +615,50 @@
         width: 99px; }
         .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_conexiones ul .enviar_password_prefil:hover {
           background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
+    .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones {
+      display: block;
+      float: left;
+      margin: 40px 0 0;
+      width: 620px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul li {
+        float: left;
+        margin: 0 0 20px 0;
+        width: 620px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul li label {
+          color: #666666;
+          float: left;
+          font-size: 13px;
+          margin: 4px 20px 4px 0;
+          width: 210px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul li input {
+          color: #666666;
+          float: left;
+          font-size: 14px;
+          height: 15px;
+          margin: 4px 0px;
+          width: 15px; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul li .tips {
+          color: #999999;
+          float: left;
+          font-size: 12px;
+          line-height: 24px;
+          margin: 0 0 0 100px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul .recibir_newsletter {
+        color: #666666;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 0 30px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul .submit {
+        float: left; }
+        .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul .submit .enviar_notificaciones {
+          background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 0;
+          border: 0px;
+          cursor: pointer;
+          height: 30px;
+          margin: 10px 0 0 230px;
+          width: 99px; }
+          .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_notificaciones ul .submit .enviar_notificaciones:hover {
+            background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
     .caja_contenidos_usuario .contenidos_edicion_usuario .caja_borrar_cuenta {
       display: block;
       float: left;

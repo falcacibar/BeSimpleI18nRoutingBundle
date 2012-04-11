@@ -146,6 +146,12 @@ body {
       border: 1px solid #f2f2f6;
       float: left;
       padding: 20px; }
+      .post .detalles .borde_cajas a, .post .condiciones .borde_cajas a {
+        color: #0066cc;
+        text-decoration: none; }
+        .post .detalles .borde_cajas a:hover, .post .condiciones .borde_cajas a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
       .post .detalles .borde_cajas .imagen_detalles, .post .condiciones .borde_cajas .imagen_detalles {
         float: left;
         margin: 0 20px 0 0;
