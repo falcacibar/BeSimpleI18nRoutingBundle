@@ -8,10 +8,6 @@ sitemap:
     requirements:
         _format:  xml 
 
-mailchimp_test:
-    pattern:  /mailchimp_test
-    defaults: { _controller: LoogaresExtraBundle:Default:mailchimp }
-
 locale:
     pattern:  /{slug}
     defaults: { _controller: LoogaresExtraBundle:Default:homepage }

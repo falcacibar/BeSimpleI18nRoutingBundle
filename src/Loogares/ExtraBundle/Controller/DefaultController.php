@@ -92,6 +92,7 @@ class DefaultController extends Controller
     public function homepageAction($slug = null){
         //$xml = file_get_contents("http://api.hostip.info/?ip=".$ip);
         $xml = 'asd';
+        
         $ciudadesHabilitadas = array(
             'santiago-de-chile' => 'santiago-de-chile',
             'buenos-aires' => 'buenos-aires',
@@ -413,7 +414,7 @@ class DefaultController extends Controller
         ));
     }
 
-    public function mailchimpAction() {
+    /*public function mailchimpAction() {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
@@ -427,7 +428,7 @@ class DefaultController extends Controller
                 $i++;
                 // Se agrega usuario a lista de correos de Mailchimp
 
-                /*$mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuario->getMail() );
+                $mcInfo = $mc->listMemberInfo( $this->container->getParameter('mailchimp_list_id'), $usuario->getMail() );
                 $mcId = 0;
 
                 if (!$mc->errorCode){
@@ -436,7 +437,7 @@ class DefaultController extends Controller
                             $mcId = $mcInfo['data'][0]['id'];
                         }
                     }
-                }*/
+                }
 
                 $merge_vars = array(
                     'EMAIL' => $usuario->getMail(),
@@ -494,15 +495,14 @@ class DefaultController extends Controller
                 //print_r($merge_vars);
 
                 // Verificar suscripción Mailchimp
-                /*if($mcId == 0) {
+                if($mcId == 0) {
                     // Nueva suscripción
                     $mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
                 }
                 else {
                     // Usuario suscrito. Se actualizan datos
                     $mc->listUpdateMember($this->container->getParameter('mailchimp_list_id'), $mcId, $merge_vars, 'html', true);
-                }*/
-                //$mc->listSubscribe($this->container->getParameter('mailchimp_list_id'), $usuario->getMail(), $merge_vars, 'html', false, true, true );
+                }
             }
         }
 
@@ -512,6 +512,6 @@ class DefaultController extends Controller
         echo "</pre>";
 
         return new Response('');
-    }
+    }*/
 
 }

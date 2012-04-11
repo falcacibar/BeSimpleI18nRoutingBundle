@@ -50,11 +50,12 @@ class LugarController extends Controller{
 
         $paises = array(
             'cl' => 'chile',
-            'ar' => 'argentina'
+            'ar' => 'argentina',
+            'www' => 'www'
         );
 
         $url = explode('.', $request->getHost());
-        
+
         //Seteo para que funcione en localhost!
         if(isset($paises[$url[0]])){
             $paisSlug = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getSlug();
