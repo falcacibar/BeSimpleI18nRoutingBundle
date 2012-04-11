@@ -1,0 +1,137 @@
+{% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
+
+{% block title %}Agregar Post | {{parent()}}{% endblock %}
+
+{% block content %}
+	<h1 class="titulo_admin">Agregar Post</h1>
+
+	<form action="" method="post">
+		<ul class="agregar_blog_posts">
+			<li>
+				<label>Título</label>
+				<input id="" type="text" />
+			</li>
+
+			<li>
+				<label>URL slug</label>
+				<input id="" type="text" />
+			</li>
+
+			<li>
+				<label>Usuario</label>
+				<input id="" type="text" />
+			</li>
+
+			<li>
+				<label>Categoría</label>
+	            <select name="">
+	                <option value=''>Selecciona 1 categoría</option>
+	            </select>
+	            <a class="agregar_nuevo" href="">Agregar nueva categoría</a>
+			</li>
+
+			<li>
+				<label>Lugar relacionado</label>
+				<input id="" type="text" />
+			</li>
+
+			<li>
+				<label>Imagen post</label>
+				<input class="subir_imagen" id="" type="file" />
+			</li>
+
+			<li>
+				<label>Contenido</label>
+				<textarea rows="15" name=""></textarea>
+			</li>
+
+			<li>
+				<label>Imagen detalle</label>
+				<input class="subir_imagen" id="" type="file" />
+			</li>
+
+			<li>
+				<label>Detalle</label>
+				<textarea rows="15" name=""></textarea>
+			</li>
+
+			<li>
+				<label>Número de premios</label>
+				<input id="" type="text" />
+			</li>
+
+			<li>
+				<label>Ganadores</label>
+				<textarea rows="15" name=""></textarea>
+			</li>
+
+			<li>
+				<label>Condiciones</label>
+				<textarea rows="15" name=""></textarea>
+			</li>
+
+			<li>
+				<label>Estado</label>
+	            <select name="">
+	                <option value=''>Selecciona el estado</option>
+	            </select>
+			</li>
+
+			<li>
+				<label>Fecha publicación</label>
+				<input id="" type="text" />
+			</li>
+
+			<li>
+				<label>Destacado home</label>
+	            <select name="">
+	                <option value=''>Selecciona la posición</option>
+	            </select>
+			</li>
+
+			<li>
+				<label>Imagen home</label>
+				<input class="subir_imagen" id="" type="file" />
+			</li>
+
+			<li>
+				<label>Descripción</label>
+				<input id="" type="text" />
+			</li>
+
+			<li>
+				<label>Estado</label>
+	            <select name="">
+	                <option value=''>Selecciona el estado</option>
+	            </select>
+			</li>
+
+			<li>
+				<label>Fecha cierre</label>
+				<input id="" type="text" />
+			</li>
+		</ul>
+		<input class="guardar_posts" type="submit" value=""/>
+	</form>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function(){
+        	$( "#lugar" ).autocomplete({
+	            source: "http://localhost"+WEBROOT+"admin/ajax/sugerirLugar",
+	            minLength: 1,
+	            select: function(event, ui){
+	            	$('#lugar_id').val(ui.item.value.match(/(\d+)/)[0])
+	            }
+	        });
+        	$('.habilitar_promocion').live('click', function(){
+		        if($(this).is(':checked')){
+		            $(this).parent().find('.campos_promocion').fadeIn();
+		        }else{
+		            $(this).parent().find('.campos_promocion').fadeOut('fast');
+		        }
+		    });
+        });
+    </script>
+{% endblock %}

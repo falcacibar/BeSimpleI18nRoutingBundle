@@ -67,6 +67,19 @@ LoogaresAdminBundle_accionUsuario:
 
 #
 #
+#Rutas del Admin de Blog
+#
+#
+LoogaresAdminBundle_listadoBlogPosts:
+    pattern:  /posts/{ciudad}
+    defaults: { _controller: LoogaresAdminBundle:Admin:listadoBlogPosts }
+
+LoogaresAdminBundle_agregarBlogPosts:
+    pattern:  /posts/{ciudad}/agregar
+    defaults: { _controller: LoogaresAdminBundle:Admin:vistaBlogPosts }
+
+#
+#
 #Rutas del Administrador de Lugar
 #
 #

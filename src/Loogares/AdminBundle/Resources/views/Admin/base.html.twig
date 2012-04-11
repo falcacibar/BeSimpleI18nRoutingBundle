@@ -32,7 +32,7 @@
             {% if ciudad is defined %}
             <div class="breadcrumbs">
                 <ul>
-                    <li>Estas en:</li>
+                    <li>Estás en:</li>
                     <li><a href="{{ path('LoogaresAdminBundle_administrarLugares', {'ciudad': ciudad.slug}) }}">{{ciudad.nombre}}</a></li>
                     <li>
                         {% if query.pestado is defined and type is defined and type == 'listado-lugares' %}

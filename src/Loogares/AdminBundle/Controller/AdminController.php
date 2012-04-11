@@ -1508,6 +1508,26 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('LoogaresAdminBundle_pedidosLugar', $args));    
     }
 
+    public function listadoBlogPostsAction($ciudad){
+        $em = $this->getDoctrine()->getEntityManager();
+                $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+         $ciudad = $cr->findOneBySlug($ciudad);
+
+        return $this->render('LoogaresAdminBundle:Admin:listadoBlogPosts.html.twig', array(
+            'ciudad' => $ciudad,
+            'query' => array()
+        ));
+    }
+
+    public function vistaBlogPostsAction($ciudad){
+        $em = $this->getDoctrine()->getEntityManager();
+                $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+         $ciudad = $cr->findOneBySlug($ciudad);
+        return $this->render('LoogaresAdminBundle:Admin:agregarBlogPosts.html.twig', array(
+            'ciudad' => $ciudad
+        ));
+    }
+
     public function testMailAction() {
     //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_foto.html.twig');
     //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_lugar.html.twig');
