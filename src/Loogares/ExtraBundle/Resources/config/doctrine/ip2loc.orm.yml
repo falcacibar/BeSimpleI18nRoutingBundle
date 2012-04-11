@@ -1,0 +1,20 @@
+Loogares\ExtraBundle\Entity\ip2loc:
+    type: entity
+    table: ip2loc
+    id:
+        id:
+            type: integer
+            generator: { strategy: none }
+    fields:
+        ip_from:
+            type: string
+        ip_to:
+            type: string
+        range_from:
+            type: integer
+        range_to:
+            type: integer
+        country_code:
+            type: string
+        country:
+            type: string

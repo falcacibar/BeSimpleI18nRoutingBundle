@@ -5,7 +5,13 @@
 		</a>
 	</div>
 
-	<h1 class="nombre_usuario">{{usuario.nombre}} {{usuario.apellido}}</h1>
+	<h1 class="nombre_usuario">
+		{% if usuario.nombre == '' %}
+			{{usuario.nombre}} {{usuario.apellido}}</a>
+		{% else %}
+			{{usuario.slug}}
+		{% endif %}
+	</h1>
 	
 	<div class="datos_principales_usuario">
 		<p class="fecha_registro">{% trans %}usuario.datos.desde{% endtrans %} {{usuario.fechaRegistro|date('d/m/Y')}}</p>

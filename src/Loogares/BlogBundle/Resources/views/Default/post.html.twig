@@ -16,6 +16,11 @@
     </script>
 {% endblock %}
 
+{% block javascripts %}
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+{% endblock %}
+
 {% block content %}
 {% if post.ganadores == '' %}
 <div class="post" style="border-top-color: #{{post.blogTipoPost.hex}}">
@@ -36,7 +41,7 @@
 			<div class="borde_cajas">
 				<div class="imagen_detalles">
 					<img src="{{ ('assets/images/blog/'~post.imagenDetalle) | apply_filter('blog_detalle')}}" height="145" width="145" />
-					{% if post.blogTipoPost.slug == 'beneficio-exclusivo' %}
+					{% if post.lugar != null %}
 						{% if post.lugar.facebook != '' %}
 							<a class="facebook_lugar" href="http://{{ post.lugar.facebook }}" target="_blank"></a>
 						{% endif %}
@@ -82,14 +87,17 @@
         </script>
     </div>
 
-    <div class="social_post"></div>
+    <div class="social_post">
+    	<a name="fb_share">Compartir en Facebook</a> 
+    	<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-hashtags="loogares">Twittear</a>
+    </div>
 
 
 	<div class="posts_anteriores">
 		<h2 class="subtitulo_posts">Anteriores {{post.blogTipoPost.nombre}}:</h2>
 		<ul>
 		{% for anterior in anteriores %}
-			<li><a href="{{ path('post', {'slug': anterior.slug}) }}">- {{anterior.titulo}}</a></li>
+			<li><a href="{{ path('post', {'ciudad':ciudad.slug, 'slug': anterior.slug}) }}">- {{anterior.titulo}}</a></li>
 		{% endfor %}
 		</ul>
 	</div>

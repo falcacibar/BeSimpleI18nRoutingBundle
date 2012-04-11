@@ -89,7 +89,7 @@ class SearchController extends Controller{
                "(", ")", "?", "'", "¡",
                "¿", "[", "^", "`", "]",
                "+", "}", "{", "¨", "´",
-               ">", "<", ";", ",", ":"),
+               ">", "<", ";", ":"),
           '',
           $string
       );
@@ -457,7 +457,7 @@ class SearchController extends Controller{
       }
 
       if(isset($_GET['caracteristicas'])){
-        $caracteristicas = preg_split('/,/', $_GET['caracteristicas']);
+        $caracteristicas = explode(',', $_GET['caracteristicas']);
         sort($caracteristicas);
 
         $filterCaracteristica = "HAVING caracteristica_slug LIKE '";
@@ -684,7 +684,13 @@ class SearchController extends Controller{
       * Totales de Caracteristicas
       */
 
-      $caracteristicasFields = "distinct lugares.id as lid, caracteristica.id as sid, caracteristica.nombre, caracteristica.slug";
+      $caracteristicasFields = "distinct lugares.id as lid, caracteristica.id as sid, caracteristica.nombre, caracteristica.slug,
+                                (
+                            select group_concat(distinct caracteristica.slug order by caracteristica.slug asc) as caracteristica_slug from caracteristica_lugar
+                            left join caracteristica
+                            on caracteristica_lugar.caracteristica_id = caracteristica.id
+                            where caracteristica_lugar.lugar_id = lid
+                          ) as caracteristica_slug";
 
       $totalCaracteristicas[] = "(SELECT $caracteristicasFields
 
@@ -704,7 +710,8 @@ class SearchController extends Controller{
 
                                   WHERE lugares.slug LIKE '%$termSlug%'
                                   AND (lugares.estado_id = 1 or lugares.estado_id = 2)
-                                  $filterSector $filterComuna $filterPrecio $filterCiudad)";
+                                  $filterSector $filterComuna $filterPrecio $filterCiudad
+                                  $filterCaracteristica)";
 
       //Total de Categorias Generadas por la Categoria
       $totalCaracteristicas[] = "(SELECT $caracteristicasFields
@@ -731,7 +738,8 @@ class SearchController extends Controller{
 
                                   WHERE categorias.slug LIKE '%$termSlug%'
                                   AND (lugares.estado_id = 1 or lugares.estado_id = 2)
-                                  $filterSector $filterComuna $filterPrecio $filterCiudad)";
+                                  $filterSector $filterComuna $filterPrecio $filterCiudad
+                                  $filterCaracteristica)";
 
       foreach($termArray as $key => $value){
         $totalCaracteristicas[] = "(SELECT $caracteristicasFields
@@ -752,7 +760,8 @@ class SearchController extends Controller{
 
                                     WHERE lugares.slug LIKE '%$value%'
                                     AND (lugares.estado_id = 1 or lugares.estado_id = 2)
-                                    $filterSector $filterComuna $filterPrecio $filterCiudad)";
+                                    $filterSector $filterComuna $filterPrecio $filterCiudad
+                                    $filterCaracteristica)";
       }
 
         $totalCaracteristicas[] = "(SELECT $caracteristicasFields
@@ -773,7 +782,8 @@ class SearchController extends Controller{
 
                                     WHERE lugares.calle LIKE '%$term%'
                                     AND (lugares.estado_id = 1 or lugares.estado_id = 2)
-                                    $filterSector $filterComuna $filterPrecio $filterCiudad)";
+                                    $filterSector $filterComuna $filterPrecio $filterCiudad
+                                    $filterCaracteristica)";
     } 
 
     //Query por Calles
@@ -1053,7 +1063,8 @@ class SearchController extends Controller{
 
                             WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
                             AND (lugares.estado_id = 1 or lugares.estado_id = 2)
-                            $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad)";
+                            $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad
+                            $filterCaracteristica)";
 
       $totalSectores[] = "(SELECT $sectoresFields
 

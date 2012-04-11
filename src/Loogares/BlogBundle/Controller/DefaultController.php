@@ -63,6 +63,6 @@ class DefaultController extends Controller
             $anteriores = $q->getResult();
         }
 
-        return $this->render('LoogaresBlogBundle:Default:post.html.twig', array('post' => $post, 'anteriores' => $anteriores));
+        return $this->render('LoogaresBlogBundle:Default:post.html.twig', array('ciudad'=>$ciudad, 'post' => $post, 'anteriores' => $anteriores));
     }
 }

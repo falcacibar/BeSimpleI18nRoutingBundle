@@ -47,7 +47,6 @@ class AjaxController extends Controller
                    AND mapy BETWEEN $mapyDesde AND $mapyHasta
                    AND imagenes_lugar.estado_id != 3
                    AND lugares.estado_id != 3
-                   AND lugares.id != $idLugar
                    GROUP BY lugares.id
                    ORDER BY RAND()
                    LIMIT 20");

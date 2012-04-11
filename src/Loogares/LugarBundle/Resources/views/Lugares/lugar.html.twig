@@ -579,15 +579,20 @@
 
         
         {% else %}
-            <div>
-                <h2 class="titulo_recomendaciones">{{'lugar.ficha.recomendaciones.titulo_0'|trans}} {{ lugar.nombre }}</h2>
-            </div>
+            {% if app.session.hasFlash('cerrado_flash') == null  %}
+                <div>
+                    <h2 class="titulo_recomendaciones">{{'lugar.ficha.recomendaciones.titulo_0'|trans}} {{ lugar.nombre }}</h2>
+                </div>
+            {% endif %}
         {% endif %}
 
         {% if is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
-            {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
+            {% if app.session.hasFlash('cerrado_flash') == null  %}
+                {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
+            {% endif %}
+            
 
-            <a class="fancybox" href="#recomendacion_popup"></a>
+            <a class="fancybox" href="#recomendacon_popup"></a>
             <div style="display:none">{% include 'LoogaresLugarBundle:Ajax:recomendacion_popup.html.twig' %}</div>
             
         {% endif %}
@@ -613,7 +618,7 @@
             </div>
 
             <div id="otros-lugaresMapa">
-                <input type="hidden" id="idLugar" value="2375" />
+                <input type="hidden" id="idLugar" value="{{lugar.id}}" />
                 <input id="coordenadas0" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}">
                 <input id="coordenadasX" type="hidden" value="{{lugar.mapx}}">
                 <input id="coordenadasY" type="hidden" value="{{lugar.mapy}}">

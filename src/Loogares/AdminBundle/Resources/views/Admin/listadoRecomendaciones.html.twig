@@ -8,8 +8,8 @@
 
 <div class="filtro_admin">
     <div class="periodo">
-        Período entre el <input type="text" class="periodo_fecha" id="fecha-desde-ph" value="">
-        y el <input type="text" class="periodo_fecha" id="fecha-hasta-ph" value="">
+        Período entre el <input type="text" class="periodo_fecha" id="fecha-desde-ph" value="{% if query['fecha-desde'] is defined %}{{query['fecha-desde']}}{% endif %}">
+        y el <input type="text" class="periodo_fecha" id="fecha-hasta-ph" value="{% if query['fecha-hasta'] is defined %}{{query['fecha-hasta']}}{% endif %}">
     </div>
 
     <form class="filtrar-por-fecha" action="" method="get">

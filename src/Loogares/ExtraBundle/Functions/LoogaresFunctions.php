@@ -3,6 +3,18 @@
 namespace Loogares\ExtraBundle\Functions;
 class LoogaresFunctions
 {
+    function ip2int($ip)
+    {
+        //Localhost ipv6 mac fix
+        if($ip == '::1') { $ip = "31.201.0.176"; }
+        if ($ip == "") {
+            return null;
+        } else {
+            $ips = explode (".", "$ip");
+            return ($ips[3] + $ips[2] * 256 + $ips[1] * 256 * 256 + $ips[0] * 256 * 256 * 256);
+        }
+    }
+
     public function mostrarPrecio($lugar){
         //Donde Dormir 6 | Donde Comer 3
         //Nightclub 31

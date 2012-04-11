@@ -20,6 +20,11 @@ class TipoNotificacion
     private $nombre;
 
     /**
+     * @var boolean $newsletter
+     */
+    private $newsletter;
+
+    /**
      * @var Loogares\MailBundle\Entity\Notificacion
      */
     private $notificaciones;
@@ -57,6 +62,26 @@ class TipoNotificacion
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    /**
+     * Set newsletter
+     *
+     * @param boolean $newsletter
+     */
+    public function setNewsletter($newsletter)
+    {
+        $this->newsletter = $newsletter;
+    }
+
+    /**
+     * Get newsletter
+     *
+     * @return boolean 
+     */
+    public function getNewsletter()
+    {
+        return $this->newsletter;
     }
 
     /**

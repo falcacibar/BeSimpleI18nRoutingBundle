@@ -58,8 +58,6 @@ class UsuarioController extends Controller
         // Actividad reciente del usuario
         $actividad = $ar->getActividadReciente($ppag, null, $usuarioResult->getId(), ($filtro != 'todo') ? $filtro : null, $offset);
 
-        
-
         foreach($actividad as $a) {
             $r = $em->getRepository($a->getEntidad());
             $entidad = $r->find($a->getEntidadId());

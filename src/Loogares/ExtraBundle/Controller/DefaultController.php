@@ -90,9 +90,16 @@ class DefaultController extends Controller
     }
 
     public function homepageAction($slug = null){
-        //$xml = file_get_contents("http://api.hostip.info/?ip=".$ip);
-        $xml = 'asd';
-        
+        $em = $this->getDoctrine()->getEntityManager();
+        $fn = $this->get('fn');
+        $ip = $fn->ip2int($_SERVER['REMOTE_ADDR']);
+
+        //Comprobamos de donde es la IP
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ip2loc u WHERE u.range_to >= ?1"); 
+        $q->setParameter(1, $ip);
+        $q->setMaxResults(1);
+        $ipPais = $q->getOneOrNullResult();
+
         $ciudadesHabilitadas = array(
             'santiago-de-chile' => 'santiago-de-chile',
             'buenos-aires' => 'buenos-aires',
@@ -101,15 +108,9 @@ class DefaultController extends Controller
         
         //Ciudad antigua
         $ciudadSession = $this->get('session')->get('ciudad');
-        
-        if($slug == null && is_array($ciudadSession)){
-            return $this->redirect($this->generateUrl('locale', array('slug' => $ciudadSession['slug'])));
-        }
 
         if(!in_array($slug, $ciudadesHabilitadas)){ 
-            if(preg_match('/VALPARAISO/', $xml)){
-                return $this->redirect($this->generateUrl('locale', array('slug' => 'valparaiso-vina-del-mar')));
-            }else if(preg_match('/ARGENTINA/', $xml)){
+            if(preg_match('/Argentina|Peru/', $ipPais->getCountry())){
                 return $this->redirect($this->generateUrl('locale', array('slug' => 'buenos-aires')));
             }
             return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
@@ -117,7 +118,6 @@ class DefaultController extends Controller
 
         $this->localeAction($slug);
 
-        $em = $this->getDoctrine()->getEntityManager();
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");

@@ -280,9 +280,7 @@ class AdminController extends Controller
             $desde = explode('/', $desde);
             $desde = $desde[2] . "/" . $desde[1] . "/" . $desde[0];
 
-            if(!$where){
-                $where .= " and fecha_agregado between '$desde' and '$hasta'";
-            }
+            $where .= " and fecha_agregado between '$desde' and '$hasta'";
         }
 
         foreach($_GET as $column => $filter){

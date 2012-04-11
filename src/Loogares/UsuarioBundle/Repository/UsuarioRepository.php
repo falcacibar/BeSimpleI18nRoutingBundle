@@ -291,7 +291,14 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         //Cálculo de edad
         if($usuario->getFechaNacimiento() != null) {
             $birthday = $usuario->getFechaNacimiento()->format('d-m-Y');
-            if($birthday != '30-11--0001') {
+                list($year,$month,$day) = explode("-",$birthday);
+                $year_diff  = date("Y") - $year;
+                $month_diff = date("m") - $month;
+                $day_diff   = date("d") - $day;
+                if ($month_diff < 0) $year_diff--;
+                elseif (($month_diff==0) && ($day_diff < 0)) $year_diff--;
+
+            if($birthday != '30-11--0001' && $birthday != '1970-11-30') {
                 list($d,$m,$Y)    = explode("-",$birthday);
                 $edad = date("md") < $m.$d ? date("Y")-$Y-1 : date("Y")-$Y;
             }
@@ -301,7 +308,6 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         } else {
             $edad = null;
         }
-        
 
         //Nombre del sexo
         if($usuario->getSexo() != null) {
