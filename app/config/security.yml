@@ -46,7 +46,7 @@ security:
                 path:   /usuario/logout
                 target: /
             remember_me:
-                key: remember
+                key: _remember_me
                 lifetime: 1209600
                 path:     /
                 domain:   ~         

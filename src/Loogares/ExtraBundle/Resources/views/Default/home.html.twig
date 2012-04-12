@@ -72,14 +72,11 @@
 				{% for categoria in home.categorias %}
 				<li {% if loop.index == 3 %}class="ultima_categoria"{% endif %}>
 					<a class="titulo_categoria" href="{{ path('_categoria', {'slug': app.session.get('ciudad').slug, 'categoria': categoria.slug}) }}">{{categoria.nombre}} »</a>
-					{% if categoria.top_five.0.lugar.imagenesLugar[0].imagenFull is not defined %}
+					{% if categoria.top_five.0.lugar.imagenesActivasLugar[0].imagenFull is not defined %}
 						<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('medium_lugar') }}"  width="60" height="60" />
+					{% else %}
+						<img src="{{ ('assets/images/lugares/'~categoria.top_five.0.lugar.imagenesActivasLugar[categoria.top_five.0.lugar.imagenesActivasLugar|length-1].imagenFull) | apply_filter('medium_lugar') }}"  width="60" height="60" />
 					{% endif %}
-					{% for img in categoria.top_five.0.lugar.imagenesLugar %}		
-						{% if loop.last %}						
-							<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('medium_lugar') }}"  width="60" height="60" />
-						{% endif %}
-					{% endfor %}
 					<div class="listado_lugares_recomendados">
 						<ul>
 							{% for cl in categoria.top_five %}
