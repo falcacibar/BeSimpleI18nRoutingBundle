@@ -100,6 +100,11 @@ class Posts
     private $destacado_home;
 
     /**
+     * @var smallint $posicion_home
+     */
+    private $posicion_home;
+
+    /**
      * @var Loogares\LugarBundle\Entity\Lugar
      */
     private $lugar;
@@ -481,6 +486,26 @@ class Posts
     }
 
     /**
+     * Set posicion_home
+     *
+     * @param smallint $posicionHome
+     */
+    public function setPosicionHome($posicionHome)
+    {
+        $this->posicion_home = $posicionHome;
+    }
+
+    /**
+     * Get posicion_home
+     *
+     * @return smallint 
+     */
+    public function getPosicionHome()
+    {
+        return $this->posicion_home;
+    }
+
+    /**
      * Set lugar
      *
      * @param Loogares\LugarBundle\Entity\Lugar $lugar
@@ -598,30 +623,5 @@ class Posts
     public function getBlogEstado()
     {
         return $this->blog_estado;
-    }
-    /**
-     * @var smallint $posicion_home
-     */
-    private $posicion_home;
-
-
-    /**
-     * Set posicion_home
-     *
-     * @param smallint $posicionHome
-     */
-    public function setPosicionHome($posicionHome)
-    {
-        $this->posicion_home = $posicionHome;
-    }
-
-    /**
-     * Get posicion_home
-     *
-     * @return smallint 
-     */
-    public function getPosicionHome()
-    {
-        return $this->posicion_home;
     }
 }
