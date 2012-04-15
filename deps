@@ -60,10 +60,6 @@
     target=/bundles/Symfony/Bundle/AsseticBundle
     version=v1.0.1
 
-[FacebookSDK]
-    git=git://github.com/facebook/php-sdk.git
-    target=/facebook
-
 [Mailchimp]    
     git=git://github.com/switzer/mailchimp.git
     target = /mailchimp
