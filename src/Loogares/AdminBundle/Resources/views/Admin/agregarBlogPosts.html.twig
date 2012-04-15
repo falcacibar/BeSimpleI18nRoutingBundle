@@ -3,112 +3,135 @@
 {% block title %}Agregar Post | {{parent()}}{% endblock %}
 
 {% block content %}
+<style>.no-default{ display:none }</style>
 	<h1 class="titulo_admin">Agregar Post</h1>
 
 	<form action="" method="post">
 		<ul class="agregar_blog_posts">
 			<li>
 				<label>Título</label>
-				<input id="" type="text" />
+				<input name="titulo" id="" type="text" placeholder="Titulo del Post"/>
 			</li>
 
 			<li>
 				<label>URL slug</label>
-				<input id="" type="text" />
+				<input name="slug" id="" type="text" placeholder="URL para el Post (Solo el slug!)" />
 			</li>
 
 			<li>
 				<label>Usuario</label>
-				<input id="" type="text" />
+				<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario"/>
+				<input name="usuario_id" id="usuario_id" type="hidden" />
 			</li>
 
 			<li>
 				<label>Categoría</label>
-	            <select name="">
-	                <option value=''>Selecciona 1 categoría</option>
+	            <select name="categoria">
+	            	<option>Selecciona una Opción</option>
+	            	{% for categoria in categorias %}
+	            		 <option value='{{categoria.id}}'>{{categoria.nombre}}</option>
+	            	{% endfor %}
 	            </select>
 	            <a class="agregar_nuevo" href="">Agregar nueva categoría</a>
 			</li>
 
 			<li>
 				<label>Lugar relacionado</label>
-				<input id="" type="text" />
+				<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (Opcional)"/>
+				<input name="lugar_id" id="lugar_id" type="hidden" />
 			</li>
 
 			<li>
 				<label>Imagen post</label>
-				<input class="subir_imagen" id="" type="file" />
+				<input name="imagen_post" class="subir_imagen" id="" type="file" />
 			</li>
 
 			<li>
 				<label>Contenido</label>
-				<textarea rows="15" name=""></textarea>
+				<textarea name="contenido" rows="15" placeholder="Contenido Principal (HTML)"></textarea>
 			</li>
 
 			<li>
 				<label>Imagen detalle</label>
-				<input class="subir_imagen" id="" type="file" />
+				<input class="imagen_detalle" id="" type="file" />
 			</li>
 
 			<li>
 				<label>Detalle</label>
-				<textarea rows="15" name=""></textarea>
+				<textarea rows="15" name="detalle" placeholder="Detalle del Post (HTML)"></textarea>
 			</li>
 
 			<li>
 				<label>Número de premios</label>
-				<input id="" type="text" />
+				<input id="numero_premios" type="text" placeholder="Numero de Premios (Opcional)"/>
 			</li>
 
 			<li>
 				<label>Ganadores</label>
-				<textarea rows="15" name=""></textarea>
+				<textarea rows="15" name="ganadores" placeholder="Texto Ganadores (Opcional)"></textarea>
 			</li>
 
 			<li>
 				<label>Condiciones</label>
-				<textarea rows="15" name=""></textarea>
+				<textarea rows="15" name="condiciones" placeholder="Condiciones del Concurso (Opcional)"></textarea>
 			</li>
 
 			<li>
 				<label>Estado</label>
-	            <select name="">
-	                <option value=''>Selecciona el estado</option>
+	            <select name="estado">
+	            	{% for estado in estados %}
+	            		 <option value='{{estado.id}}'>{{estado.nombre}}</option>
+	            	{% endfor %}
 	            </select>
 			</li>
 
 			<li>
 				<label>Fecha publicación</label>
-				<input id="" type="text" />
+				<input id="fecha_publicacion" type="text" name="fecha_publicacion" placeholder="Fecha Para Publicacion (Agendado, Opcional)"/>
 			</li>
 
+			<h1>Home</h1>
 			<li>
 				<label>Destacado home</label>
-	            <select name="">
-	                <option value=''>Selecciona la posición</option>
+	            <select class="destacado_home" name="destacado_home">
+	                <option value='0'>No</option>
+	                <option value='1'>Solo en el Home</option>
+	                <option value='2'>Solo en el Slider</option>
+	                <option value='3'>En el Home y en el Slider</option>
 	            </select>
 			</li>
-
+			<li class="no-default">
+				<label>Posicion Home</label>
+	            <select class="posicion_home" name="posicion_home">
+	                <option value='0'>0</option>
+	                <option value='1'>1</option>
+	                <option value='2'>2</option>
+	                <option value='3'>3</option>
+	            </select>
+			</li>
 			<li>
 				<label>Imagen home</label>
-				<input class="subir_imagen" id="" type="file" />
+				<input name="imagen_home" class="subir_imagen" id="" type="file" />
 			</li>
 
 			<li>
 				<label>Descripción</label>
-				<input id="" type="text" />
+				<input name="descripcion" id="" type="text" placeholder="Descripción del Post"/>
 			</li>
 
 			<li>
-				<label>Estado</label>
-	            <select name="">
-	                <option value=''>Selecciona el estado</option>
+				<label>Estado Concurso</label>
+	            <select name="estado_concurso">
+	            	<option>Selecciona una Opción</option>
+	            	{% for estado_concurso in estados_concurso %}
+	            		 <option value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
+	            	{% endfor %}
 	            </select>
 			</li>
 
 			<li>
-				<label>Fecha cierre</label>
-				<input id="" type="text" />
+				<label>Fecha Cierre</label>
+				<input id="fecha_cierre" type="text" placeholder="Fecha de Cierre (Opcional)"/>
 			</li>
 		</ul>
 		<input class="guardar_posts" type="submit" value=""/>
@@ -119,19 +142,29 @@
     <script>
         $(function(){
         	$( "#lugar" ).autocomplete({
-	            source: "http://localhost"+WEBROOT+"admin/ajax/sugerirLugar",
+	            source: WEBROOT+"admin/ajax/sugerirLugar",
 	            minLength: 1,
 	            select: function(event, ui){
-	            	$('#lugar_id').val(ui.item.value.match(/(\d+)/)[0])
+	            	$('#lugar_id').val(ui.item.value.match(/(\d+)/)[0]);
 	            }
 	        });
-        	$('.habilitar_promocion').live('click', function(){
-		        if($(this).is(':checked')){
-		            $(this).parent().find('.campos_promocion').fadeIn();
-		        }else{
-		            $(this).parent().find('.campos_promocion').fadeOut('fast');
-		        }
-		    });
+
+        	$( "#usuario" ).autocomplete({
+	            source: WEBROOT+"admin/ajax/sugerirUsuario",
+	            minLength: 1,
+	            select: function(event, ui){
+	            	$('#usuario_id').val(ui.item.value.match(/(\d+)/)[0]);
+	            }
+	        });
+
+	        $('.destacado_home').change(function(){
+	        	console.log($(this).val())
+	        	if($(this).val() == 1 || $(this).val() == 3){
+	        		$('.posicion_home').parent().show();
+	        	}else{
+	        		$('.posicion_home').parent().hide();
+	        	}
+	        });
         });
     </script>
 {% endblock %}

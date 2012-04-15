@@ -31,6 +31,29 @@ class AdminAjaxController extends Controller{
       return new Response(json_encode($lugares));
     }
 
+    public function sugerirUsuarioAction(){
+      $em = $this->getDoctrine()->getEntityManager();
+      $d = $_GET['term'];
+      if(preg_match('/^\d+/', $d)){
+        $q = $em->createQuery('SELECT DISTINCT u.nombre, u.apellido, u.slug, u.id FROM Loogares\UsuarioBundle\Entity\Usuario u where u.id = ?1');
+        $q->setParameter(1, $d);
+      }else{
+        $q = $em->createQuery('SELECT DISTINCT u.nombre, u.apellido, u.slug, u.id FROM Loogares\UsuarioBundle\Entity\Usuario u where u.slug LIKE ?1');
+        $q->setParameter(1, "%".$d."%");
+      }
+                             
+      $usuarios = '';
+
+      $q->setMaxResults(7);
+      $usuariosResult = $q->getResult();
+
+      foreach($usuariosResult as $key => $value){
+        $usuarios[] = $value['nombre'] . " " . $value['apellido'] . " (".$value['id'].")" . " | " . $value['slug'];
+      }
+
+      return new Response(json_encode($usuarios));
+    }
+
     public function borrarPromocionAction($ciudad, $slug, $id) {
       $em = $this->getDoctrine()->getEntityManager();
       $plr = $em->getRepository("LoogaresLugarBundle:PedidoLugar");

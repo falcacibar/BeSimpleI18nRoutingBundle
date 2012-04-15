@@ -6,7 +6,7 @@
 	</div>
 
 	<h1 class="nombre_usuario">
-		{% if usuario.nombre == '' %}
+		{% if usuario.nombre != '' %}
 			{{usuario.nombre}} {{usuario.apellido}}</a>
 		{% else %}
 			{{usuario.slug}}

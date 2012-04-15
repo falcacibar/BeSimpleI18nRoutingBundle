@@ -1,0 +1,16 @@
+Loogares\BlogBundle\Entity\Categoria:
+    type: entity
+    table: blog_categoria
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:      
+        nombre:
+            type: string
+        slug:
+            type: string
+        hex:
+            type: string
+        clase:
+            type: string

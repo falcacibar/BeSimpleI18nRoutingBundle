@@ -18,7 +18,11 @@ $(document).ready(function(){
         dateFormat: 'dd-mm-yy',
     });
 
+    $( "#fecha-desde-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
+    $( "#fecha-desde-ph" ).datepicker( "option", "altField", '#fecha-desde' );
 
+    $( "#fecha-hasta-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
+    $( "#fecha-hasta-ph" ).datepicker( "option", "altField", '#fecha-hasta' );
 
     $('form').submit(function(){
         $(this).find('input, select').each(function(){

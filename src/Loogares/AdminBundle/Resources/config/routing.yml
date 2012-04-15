@@ -4,6 +4,9 @@ LoogaresAdminBundle_index:
 LoogaresAdminBundle_sugerirLugar:
     pattern:  /ajax/sugerirLugar
     defaults: { _controller: LoogaresAdminBundle:AdminAjax:sugerirLugar }
+LoogaresAdminBundle_sugerirUsuario:
+    pattern:  /ajax/sugerirUsuario
+    defaults: { _controller: LoogaresAdminBundle:AdminAjax:sugerirUsuario }
 
 #
 #
@@ -77,6 +80,22 @@ LoogaresAdminBundle_listadoBlogPosts:
 LoogaresAdminBundle_agregarBlogPosts:
     pattern:  /posts/{ciudad}/agregar
     defaults: { _controller: LoogaresAdminBundle:Admin:vistaBlogPosts }
+
+LoogaresAdminBundle_borrarPost:
+    pattern:  /posts/{ciudad}/borrar/{id}
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionPosts, borrador: false, habilitar: false, borrar: true }
+
+LoogaresAdminBundle_publicarPost:
+    pattern:  /posts/{ciudad}/activar/{id}
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionPosts, borrador: false, publicar: true, borrar: false }
+
+LoogaresAdminBundle_borradorPost:
+    pattern:  /posts/{ciudad}/borrador/{id}
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionPosts, borrador: true, publicar: false, borrar: false }
+
+LoogaresAdminBundle_accionPost:
+    pattern:  /posts/{ciudad}/massive
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionPosts, habilitar: false, borrar: false }
 
 #
 #

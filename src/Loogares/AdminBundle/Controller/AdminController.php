@@ -4,9 +4,13 @@ namespace Loogares\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\SecurityContext;
 
 use Loogares\LugarBundle\Entity\Promocion;
 use Loogares\LugarBundle\Entity\PedidoLugar;
+
+use Loogares\BlogBundle\Entity\Posts;
 
 class AdminController extends Controller
 {
@@ -184,6 +188,43 @@ class AdminController extends Controller
         $q->setParameter(1, $idCiudad);
         $totalPedidosResult = $q->getSingleScalarResult();
 
+        //Total posts por $ciudad
+        $q = $em->createQuery("SELECT count(p)
+                             FROM Loogares\BlogBundle\Entity\Posts p
+                             LEFT JOIN p.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1");
+        $q->setParameter(1, $idCiudad);
+        $totalPostsResult = $q->getSingleScalarResult();
+
+        //Total posts publicados por $ciudad
+        $q = $em->createQuery("SELECT count(p)
+                             FROM Loogares\BlogBundle\Entity\Posts p
+                             LEFT JOIN p.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1 and p.estado = 1");
+        $q->setParameter(1, $idCiudad);
+        $totalPostsPublicadosResult = $q->getSingleScalarResult();
+
+        //Total posts borradores por $ciudad
+        $q = $em->createQuery("SELECT count(p)
+                             FROM Loogares\BlogBundle\Entity\Posts p
+                             LEFT JOIN p.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1 and p.estado = 0");
+        $q->setParameter(1, $idCiudad);
+        $totalPostsBorradoresResult = $q->getSingleScalarResult();
+
+        //Total posts por $ciudad
+        $q = $em->createQuery("SELECT count(p)
+                             FROM Loogares\BlogBundle\Entity\Posts p
+                             LEFT JOIN p.lugar l
+                             LEFT JOIN l.comuna c
+                             WHERE c.ciudad = ?1 and p.estado = 3");
+        $q->setParameter(1, $idCiudad);
+        $totalPostsAgendadosResult = $q->getSingleScalarResult();
+
+
         return $this->render('LoogaresAdminBundle:Admin:administrarLugares.html.twig', array(
             'totalLugares' => $totalLugaresResult,
             'totalLugaresPorRevisar' => $totalLugaresPorRevisarResult,
@@ -200,6 +241,10 @@ class AdminController extends Controller
             'totalRecomendacionesReportadas' => $totalRecomendacionesReportadasResult,
             'totalRecomendacionesEliminadas' => $totalRecomendacionesEliminadasResult,
             'totalPedidos' => $totalPedidosResult,
+            'totalPosts' => $totalPostsResult,
+            'totalPostsPublicados' => $totalPostsPublicadosResult,
+            'totalPostsBorradores' => $totalPostsBorradoresResult,
+            'totalPostsAgendados' => $totalPostsAgendadosResult,
             'ciudad' => $ciudad
         ));
     }
@@ -373,7 +418,7 @@ class AdminController extends Controller
             'query' => $_GET,
             'paginacion' => $paginacion,
             'ciudad' => $ciudad,
-            'type' => 'listado-lugares'
+            'type' => 'listadoLugares-lugares'
         ));
     }
 
@@ -1507,21 +1552,211 @@ class AdminController extends Controller
 
     public function listadoBlogPostsAction($ciudad){
         $em = $this->getDoctrine()->getEntityManager();
-                $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
-         $ciudad = $cr->findOneBySlug($ciudad);
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $fn = $this->get('fn');
+        $ciudad = $cr->findOneBySlug($ciudad);
+        $idCiudad = $ciudad->getId();
+
+        $where = "WHERE p.ciudad_id = ".$idCiudad;
+        $like = null;
+        $order = null;
+        $offset = 0;
+        $fn = $this->get('fn');
+
+        $filters = array(
+            'pusuario' => 'usuarios.slug',
+            'plugar' => 'lugares.nombre',
+            'pestado' => 'estadoNombre'
+        );
+
+        $listadoFilters = array(
+
+        );
+
+        if(isset($_GET['buscar'])){
+            $buscar = $_GET['buscar'];
+            if(preg_match('/[A-Za-z]+/', $buscar) == false){
+                    $where .= " and p.id = '$buscar'";
+            }else{
+                    $where .= " and p.titulo like '%$buscar%'";
+            }
+        }
+
+
+        if(isset($_GET['fecha-desde']) && isset($_GET['fecha-hasta'])){
+            $hasta = preg_replace('/-/', '/',$_GET['fecha-hasta']);
+            $hasta = explode('/', $hasta);
+            $hasta = $hasta[2] . "/" . $hasta[1] . "/" . $hasta[0];
+
+            $desde = preg_replace('/-/', '/',$_GET['fecha-desde']);
+            $desde = explode('/', $desde);
+            $desde = $desde[2] . "/" . $desde[1] . "/" . $desde[0];
+            if($where != null){
+                $where .= " and fecha between '$desde' and '$hasta'";
+            }else{
+               $where .= "WHERE fecha between '$desde' and '$hasta'"; 
+            }
+        }
+
+        foreach($_GET as $column => $filter){
+            if(!$like && isset($filters[$column])){
+                $like = "HAVING ".$filters[$column]." LIKE '%$filter%'";
+            }
+             if($filter == 'asc' || $filter == 'desc'){
+                if(!$order){
+                    $order .= "ORDER BY ".$listadoFilters[$column]." $filter";
+                }else{
+                    $order .= ", $listadoFilters[$column] $filter";
+                }
+                $filters[$column] = ($filter == 'asc')?'desc':'asc';
+            }
+        }
+
+        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
+        $posts = $this->getDoctrine()->getConnection()
+        ->fetchAll("SELECT SQL_CALC_FOUND_ROWS p.*,
+                    usuarios.nombre as usuarioNombre,
+                    usuarios.apellido as usuarioApellido,
+                    usuarios.slug as usuarioSlug,
+                    estado.nombre as estadoNombre,
+                    blog_tipo_post.nombre as tipoPostNombre,
+                    blog_tipo_post.slug as tipoPostSlug
+                    FROM blog_posts AS p
+
+                    LEFT JOIN lugares
+                    ON lugares.id = p.lugar_id
+
+                    LEFT JOIN usuarios
+                    ON usuarios.id = p.usuario_id
+
+                    LEFT JOIN estado
+                    ON estado.id = p.estado_id
+
+                    LEFT JOIN blog_tipo_post
+                    ON blog_tipo_post.id = p.blog_tipo_post_id
+
+                    $where
+                    GROUP BY p.id
+                    $like
+                    $order
+                    LIMIT 30
+                    OFFSET $offset");
+
+        $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
+
+        $params = array(
+            'ciudad' => $ciudad->getSlug()
+        );
+            
+        $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_listadoBlogPosts', $params, $this->get('router'));
 
         return $this->render('LoogaresAdminBundle:Admin:listadoBlogPosts.html.twig', array(
             'ciudad' => $ciudad,
-            'query' => array()
+            'query' => $_GET,
+            'posts' => $posts,
+            'paginacion' => $paginacion
         ));
     }
 
-    public function vistaBlogPostsAction($ciudad){
+    public function accionPostsAction($ciudad, $id, $borrador = false, $publicar = false, $borrar = false, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
-                $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
-         $ciudad = $cr->findOneBySlug($ciudad);
-        return $this->render('LoogaresAdminBundle:Admin:agregarBlogPosts.html.twig', array(
+        $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $lr = $em->getRepository("LoogaresExtraBundle:Estado");
+
+        if($request->getMethod() == 'POST'){
+            $vars = $_POST['id'];
+            if($_POST['accion'] == 'publicar'){
+                $publicar = true;
+            }else if($_POST['accion'] == 'eliminar'){
+                $borrar = true;
+            }else if($_POST['accion'] == 'borrador'){
+                $borrador = true;
+            }
+        }else{
+            $vars = $id;
+        }
+
+        if(is_array($vars)){
+            $itemsABorrar = $vars;
+        }else{
+            $itemsABorrar[] = $vars;
+        }
+        
+        foreach($itemsABorrar as $item){    
+            $post = $pr->findOneById($item);
+
+            if($borrar == true){
+                $estado = $lr->findOneByNombre('Post Eliminado');
+            }else if($publicar == true){
+                $estado = $lr->findOneByNombre('Post Publicado');                               
+            }else if($borrador == true){
+                $estado = $lr->findOneByNombre('Post Borrador');  
+            }
+            $post->setEstado($estado);
+            $em->persist($post);
+        }
+
+        $em->flush();
+
+        $args = array(
             'ciudad' => $ciudad
+        );
+
+        $args = array_merge($args, $_GET);
+        unset($args['id']);
+        return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoBlogPosts', $args));
+    }
+
+    public function vistaBlogPostsAction($ciudad, Request $request){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $bcr = $em->getRepository("LoogaresBlogBundle:Categoria");
+        $ber = $em->getRepository("LoogaresBlogBundle:Estado");
+        $becr = $em->getRepository("LoogaresBlogBundle:EstadoConcurso");
+
+        $ciudad = $cr->findOneBySlug($ciudad);
+
+        if($request->getMethod() == 'POST'){
+            //Agregamos el Post, parsing time.
+            $post = new Posts();
+
+            preg_replace('/\(/', '', $request->get('lugar_id'));
+            preg_replace('/\)/', '', $request->get('lugar_id'));
+            $lugar = $lr->findOneById($request->get('lugar_id'));
+
+            preg_replace('/\(/', '', $request->get('usuario_id'));
+            preg_replace('/\)/', '', $request->get('usuario_id'));
+            $usuario = $ur->findOneById($request->get('usuario_id'));
+
+            $post->setTitulo($request->get('titulo')); 
+            $post->setSlug($request->get('slug'));
+            $post->setUsuario($usuario);
+            $post->setEstadoConcurso($becr->findOneBy($request->get('estado_concurso')));
+            $post->setBlogCategoria($bcr->findOneById($request->get('categoria')));
+            $post->setLugar($lugar);
+            $post->setImagen(null);
+            $post->setContenido($request->get('contenido'));
+            $post->setImagenDetalle(null);
+            $post->setDetalles($request->get('detalle'));
+            $post->setNumeroPremios($request->get('numero_premios'));
+            $post->setGanadores($request->get('ganadores'));
+            $post->setCondiciones($request->get('condiciones'));
+            $post->setBlogEstado($ber->findOneById($request->get('estado')));
+            $post->setFecha(new \DateTime());
+            $post->setFechaPublicacion(null);
+            $post->setFechaTermino(null);
+            $post->setDestacadoHome($request->get('destacado_home'));
+            $post->setPosicionHome($request->get('posicion_home'));
+        }
+
+        return $this->render('LoogaresAdminBundle:Admin:agregarBlogPosts.html.twig', array(
+            'ciudad' => $ciudad,
+            'estados' => $ber->findAll(),
+            'categorias' => $bcr->findAll(),
+            'estados_concurso' => $becr->findAll()
         ));
     }
 
@@ -1530,7 +1765,7 @@ class AdminController extends Controller
     //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_lugar.html.twig');
     //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_recomendacion.html.twig');
     //    return $this->render('LoogaresLugarBundle:Mails:test_mail_enviar.html.twig');
-        return $this->render('LoogaresLugarBundle:Mails:test_mail_lugar.html.twig');
+          return $this->render('LoogaresLugarBundle:Mails:test_mail_lugar.html.twig');
     //    return $this->render('LoogaresLugarBundle:Mails:test_mail_recomendar.html.twig');
     //    return $this->render('LoogaresLugarBundle:Mails:test_mail_reporte.html.twig');
     //    return $this->render('LoogaresUsuarioBundle:Mails:test_mail_olvidar_password.html.twig');

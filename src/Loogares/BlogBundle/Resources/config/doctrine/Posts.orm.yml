@@ -8,10 +8,12 @@ Loogares\BlogBundle\Entity\Posts:
             targetEntity: Loogares\ExtraBundle\Entity\Ciudad
         usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\Usuario
-        blog_tipo_post:
-            targetEntity: Loogares\BlogBundle\Entity\TipoPost
+        blog_categoria:
+            targetEntity: Loogares\BlogBundle\Entity\Categoria
         blog_estado_concurso:
             targetEntity: Loogares\BlogBundle\Entity\EstadoConcurso
+        blog_estado:
+            targetEntity: Loogares\BlogBundle\Entity\Estado
     id:
         id:
             type: integer
@@ -51,7 +53,7 @@ Loogares\BlogBundle\Entity\Posts:
             type: text
         detalles:
             type: text
-        publicado:
-            type: smallint
         destacado_home:
+            type: smallint
+        posicion_home:
             type: smallint

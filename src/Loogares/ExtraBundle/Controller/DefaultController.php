@@ -93,7 +93,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $fn = $this->get('fn');
         $ip = $fn->ip2int($_SERVER['REMOTE_ADDR']);
-
+        
         //Comprobamos de donde es la IP
         $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ip2loc u WHERE u.range_to >= ?1"); 
         $q->setParameter(1, $ip);

@@ -22,16 +22,16 @@
             Seleccionar 
             <select name="pestado">
                 <option value=''>Estado</option>
-                <option {% if query.pestado is defined and query.pestado == 'Publicado'%} selected="selected" {% endif %}value="Publicado">Publicados</option>
-                <option {% if query.pestado is defined and query.pestado == 'Borrador'%} selected="selected" {% endif %}value="Borrador">Borradores</option>
-                <option {% if query.pestado is defined and query.pestado == 'Eliminado'%} selected="selected" {% endif %}value="Eliminado">Eliminados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Post Publicado'%} selected="selected" {% endif %}value="Post Publicado">Publicados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Post Borrador'%} selected="selected" {% endif %}value="Post Borrador">Borradores</option>
+                <option {% if query.pestado is defined and query.pestado == 'Post Eliminado'%} selected="selected" {% endif %}value="Post Borrador">Eliminados</option>
+                <option {% if query.pestado is defined and query.pestado == 'Post Agendado'%} selected="selected" {% endif %}value="Post Agendado">Agendados</option>
             </select>
             <input type="submit" value="Filtrar"/>
             <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug})}}">Quitar filtros</a>
         </div>
 
         <a class="agregar_pedido" href="{{ path('LoogaresAdminBundle_agregarBlogPosts', {'ciudad': ciudad.slug }) }}">Agregar Post</a>
-
     </form>
 </div>
 
@@ -127,54 +127,62 @@
                 </thead>
 
                 <tbody>
-                    {#% for lugar in lugares %#}
+                    {% for post in posts %}
                         <tr>
                             <td class="lugar_checkbox">
-                                <input type="checkbox" name="id[]" value=""/>
+                                <input type="checkbox" name="id[]" value="{{post.id}}"/>
                             </td>
                             <td class="lugar_id">
-                                <span>
+                                <span>{{post.id}}
                                 </span>
                             </td>
                             <td class="blog_posts_titulo">
                                 <span>
-                                    <strong><a href=""></a></strong>
+                                    <strong><a href="">{{post.titulo}}</a></strong>
                                 </span>
                             </td>
                             <td class="lugar_usuario">
                                 <span>
-                                    <a href="">Filtrar por usuario</a>
+                                    <a href="">{{post.usuarioNombre}} {{post.usuarioApellido}}</a>
                                 </span>
                             </td>
                             <td class="lugar_categoria">
                                 <span>
-                                    <a href="">Filtrar por categoría</a>
+                                    <a href="">{{post.tipoPostNombre}}</a>
                                 </span>
                             </td>
                             <td class="blog_posts_premios">
                                 <span>
-                                    <a href="">Filtrar por número de premios</a>
+                                    <a href="">{{post.numero_premios}}</a>
                                 </span>
                             </td>
                             <td class="blog_posts_fecha">
-                                <span>
+                                <span>{{post.fecha|date('d-m-y')}}
                                 </span>
                             </td>
                             <td class="lugar_estado">
                                 <span>
-                                    <a href="">Filtrar por estado</a>
+                                    <a href="">{{post.estadoNombre}}</a>
                                 </span>
                             </td>
                             <td class="lugar_acciones">
                                 <span>
-                                <a target="_blank" href=""><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
-                                    <a href=""><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
-                                    <a href=""><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
-                                    <a href=""><img src="{{asset('assets/images/administrador/lock.png')}}"/></a>
+                                    <a target="_blank" href=""><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
+                                    {% if post.estadoNombre != 'Post Publicado' %}
+                                    <a href="{{ path('LoogaresAdminBundle_publicarPost', {'id': post.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+                                    {% endif %}
+
+                                    {% if post.estadoNombre != 'Post Eliminado' %}
+                                    <a href="{{ path('LoogaresAdminBundle_borrarPost', {'id': post.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+                                    {% endif %}
+
+                                    {% if post.estadoNombre != 'Post Borrador' %}
+                                    <a href="{{ path('LoogaresAdminBundle_borradorPost', {'id': post.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/borrador.png')}}"/></a>
+                                    {% endif %}
                                 </span>
                             </td>
                         </tr>
-                    {#% endfor %#}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -193,15 +201,15 @@
 </form>
 
 <div class="total_paginacion">
-    <form action="" method="get">
+    <form action="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug })}}" method="get">
         <strong>
-            </strong> al <strong></strong> de <strong></strong> | Ir a la página <input type="text" name="pagina"/>
+            {{paginacion.mostrandoDe}}</strong> al <strong>{{paginacion.mostrandoHasta}}</strong> de <strong>{{paginacion.total}}</strong> | Ir a la página <input type="text" name="pagina"/>
             <input class="ir_a_la_pagina" type="submit" value="Ir"/> o navegar...
     </form>
 </div>
 
 <ul class="paginacion">
-    
+    {{paginacion.paginacion | raw}}
 </ul>
 
 {% endblock %}

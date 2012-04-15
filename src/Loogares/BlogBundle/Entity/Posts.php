@@ -95,11 +95,6 @@ class Posts
     private $detalles;
 
     /**
-     * @var smallint $publicado
-     */
-    private $publicado;
-
-    /**
      * @var smallint $destacado_home
      */
     private $destacado_home;
@@ -110,24 +105,29 @@ class Posts
     private $lugar;
 
     /**
-     * @var Loogares\UsuarioBundle\Entity\Usuario
-     */
-    private $usuario;
-
-    /**
      * @var Loogares\ExtraBundle\Entity\Ciudad
      */
     private $ciudad;
 
     /**
-     * @var Loogares\BlogBundle\Entity\TipoPost
+     * @var Loogares\UsuarioBundle\Entity\Usuario
      */
-    private $tipo_post;
+    private $usuario;
+
+    /**
+     * @var Loogares\BlogBundle\Entity\Categoria
+     */
+    private $blog_categoria;
 
     /**
      * @var Loogares\BlogBundle\Entity\EstadoConcurso
      */
-    private $estado_concurso;
+    private $blog_estado_concurso;
+
+    /**
+     * @var Loogares\BlogBundle\Entity\Estado
+     */
+    private $blog_estado;
 
 
     /**
@@ -461,26 +461,6 @@ class Posts
     }
 
     /**
-     * Set publicado
-     *
-     * @param smallint $publicado
-     */
-    public function setPublicado($publicado)
-    {
-        $this->publicado = $publicado;
-    }
-
-    /**
-     * Get publicado
-     *
-     * @return smallint 
-     */
-    public function getPublicado()
-    {
-        return $this->publicado;
-    }
-
-    /**
      * Set destacado_home
      *
      * @param smallint $destacadoHome
@@ -521,26 +501,6 @@ class Posts
     }
 
     /**
-     * Set usuario
-     *
-     * @param Loogares\UsuarioBundle\Entity\Usuario $usuario
-     */
-    public function setUsuario(\Loogares\UsuarioBundle\Entity\Usuario $usuario)
-    {
-        $this->usuario = $usuario;
-    }
-
-    /**
-     * Get usuario
-     *
-     * @return Loogares\UsuarioBundle\Entity\Usuario 
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
-
-    /**
      * Set ciudad
      *
      * @param Loogares\ExtraBundle\Entity\Ciudad $ciudad
@@ -561,74 +521,44 @@ class Posts
     }
 
     /**
-     * Set tipo_post
+     * Set usuario
      *
-     * @param Loogares\BlogBundle\Entity\TipoPost $tipoPost
+     * @param Loogares\UsuarioBundle\Entity\Usuario $usuario
      */
-    public function setTipoPost(\Loogares\BlogBundle\Entity\TipoPost $tipoPost)
+    public function setUsuario(\Loogares\UsuarioBundle\Entity\Usuario $usuario)
     {
-        $this->tipo_post = $tipoPost;
+        $this->usuario = $usuario;
     }
 
     /**
-     * Get tipo_post
+     * Get usuario
      *
-     * @return Loogares\BlogBundle\Entity\TipoPost 
+     * @return Loogares\UsuarioBundle\Entity\Usuario 
      */
-    public function getTipoPost()
+    public function getUsuario()
     {
-        return $this->tipo_post;
+        return $this->usuario;
     }
 
     /**
-     * Set estado_concurso
+     * Set blog_categoria
      *
-     * @param Loogares\BlogBundle\Entity\EstadoConcurso $estadoConcurso
+     * @param Loogares\BlogBundle\Entity\Categoria $blogCategoria
      */
-    public function setEstadoConcurso(\Loogares\BlogBundle\Entity\EstadoConcurso $estadoConcurso)
+    public function setBlogCategoria(\Loogares\BlogBundle\Entity\Categoria $blogCategoria)
     {
-        $this->estado_concurso = $estadoConcurso;
+        $this->blog_categoria = $blogCategoria;
     }
 
     /**
-     * Get estado_concurso
+     * Get blog_categoria
      *
-     * @return Loogares\BlogBundle\Entity\EstadoConcurso 
+     * @return Loogares\BlogBundle\Entity\Categoria 
      */
-    public function getEstadoConcurso()
+    public function getBlogCategoria()
     {
-        return $this->estado_concurso;
+        return $this->blog_categoria;
     }
-    /**
-     * @var Loogares\BlogBundle\Entity\TipoPost
-     */
-    private $blog_tipo_post;
-
-
-    /**
-     * Set blog_tipo_post
-     *
-     * @param Loogares\BlogBundle\Entity\TipoPost $blogTipoPost
-     */
-    public function setBlogTipoPost(\Loogares\BlogBundle\Entity\TipoPost $blogTipoPost)
-    {
-        $this->blog_tipo_post = $blogTipoPost;
-    }
-
-    /**
-     * Get blog_tipo_post
-     *
-     * @return Loogares\BlogBundle\Entity\TipoPost 
-     */
-    public function getBlogTipoPost()
-    {
-        return $this->blog_tipo_post;
-    }
-    /**
-     * @var Loogares\BlogBundle\Entity\EstadoConcurso
-     */
-    private $blog_estado_concurso;
-
 
     /**
      * Set blog_estado_concurso
@@ -649,29 +579,49 @@ class Posts
     {
         return $this->blog_estado_concurso;
     }
-    /**
-     * @var string $titulo_alianza
-     */
-    private $titulo_alianza;
-
 
     /**
-     * Set titulo_alianza
+     * Set blog_estado
      *
-     * @param string $tituloAlianza
+     * @param Loogares\BlogBundle\Entity\Estado $blogEstado
      */
-    public function setTituloAlianza($tituloAlianza)
+    public function setBlogEstado(\Loogares\BlogBundle\Entity\Estado $blogEstado)
     {
-        $this->titulo_alianza = $tituloAlianza;
+        $this->blog_estado = $blogEstado;
     }
 
     /**
-     * Get titulo_alianza
+     * Get blog_estado
      *
-     * @return string 
+     * @return Loogares\BlogBundle\Entity\Estado 
      */
-    public function getTituloAlianza()
+    public function getBlogEstado()
     {
-        return $this->titulo_alianza;
+        return $this->blog_estado;
+    }
+    /**
+     * @var smallint $posicion_home
+     */
+    private $posicion_home;
+
+
+    /**
+     * Set posicion_home
+     *
+     * @param smallint $posicionHome
+     */
+    public function setPosicionHome($posicionHome)
+    {
+        $this->posicion_home = $posicionHome;
+    }
+
+    /**
+     * Get posicion_home
+     *
+     * @return smallint 
+     */
+    public function getPosicionHome()
+    {
+        return $this->posicion_home;
     }
 }

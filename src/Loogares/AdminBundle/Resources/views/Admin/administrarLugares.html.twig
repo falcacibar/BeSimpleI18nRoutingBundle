@@ -73,16 +73,16 @@
 
 	<ul class="submenu_admin">
 		<li>
-			<a href="{{ path('LoogaresAdminBundle_listadoBlogPosts', {'ciudad': ciudad.slug }) }}">Todos</a> <span class="totales_azul">Total posts ciudad</span>
+			<a href="{{ path('LoogaresAdminBundle_listadoBlogPosts', {'ciudad': ciudad.slug }) }}">Todos</a> <span class="totales_azul">{{totalPosts}}</span>
 		</li>
 		<li>
-			<a href="#">Publicados</a> <span class="totales">Total publicados</span>
+			<a href="#">Publicados</a> <span class="totales">{{totalPostsPublicados}}</span>
 		</li>
 		<li>
-			<a href="#">Borradores</a> <span class="totales">Total borradores</span>
+			<a href="#">Borradores</a> <span class="totales">{{totalPostsBorradores}}</span>
 		</li>
 		<li>
-			<a href="#">Agendados</a> <span class="totales_rojo">Total agendados</span>
+			<a href="#">Agendados</a> <span class="totales_rojo">{{totalPostsAgendados}}</span>
 		</li>
 		<li>
 			<a href="{{ path('LoogaresAdminBundle_agregarBlogPosts', {'ciudad': ciudad.slug }) }}">Agregar nuevo post</a>
