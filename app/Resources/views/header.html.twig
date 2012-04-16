@@ -1,0 +1,73 @@
+<div class="barra_ciudad">
+	<div class="centrado_ciudad">
+		<a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">
+			<div class="logo_ciudad">
+				<div class="borde_logo">			
+					<img src="{{ asset('assets/images/extras/logo.png') }}" width="100" height="65" />
+				</div>			
+			</div>
+		</a>
+		{% render "LoogaresExtraBundle:Default:ciudad" %}
+		<div class="redes_sociales">
+			{# Santiago de Chile #}
+			{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+
+				<a class="facebook_btn" href="http://www.facebook.com/Loogarescom" target="blank"></a>
+				<a class="twitter_btn" href="http://www.twitter.com/#!/Loogarescom" target="blank"></a>
+				<a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a>
+
+			{# Valparaíso / Viña del Mar #}
+			{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+
+				<a class="facebook_btn" href="http://www.facebook.com/Loogarescom.Valpo.Vina" target="blank"></a>
+				<a class="twitter_btn" href="https://twitter.com/#!/LgrsValpoVina" target="blank"></a>
+				<a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a>
+			
+			{# Buenos Aires #}	
+			{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+
+				<a class="facebook_btn" href="http://www.facebook.com/pages/Loogarescom-Buenos-Aires/248846681874532#" target="blank"></a>
+				<a class="twitter_btn" href="https://twitter.com/#!/LoogaresBA" target="blank"></a>
+				<a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a>
+				
+			{% endif %}
+		</div>
+		<div class="login">
+			{% if is_granted('ROLE_USER') %}
+				{% set slug = (app.security.token.user.slug != '') ? app.security.token.user.slug : app.security.token.user.id %}					
+				<ul>
+					<li>
+						<div class="usuario_login">
+							<img class="imagen_usuario_header" src="{{ ("assets/images/usuarios/"~app.security.token.user.imagenFull) | apply_filter('small_usuario') }}" width="25" height="25" />
+							<a class="nombre_usuario_header" href="{{path('showUsuario', { 'param': slug })}}">
+								{% if app.security.token.user.nombre == '' %}
+									{{app.security.token.user.slug}}
+								{% else %}
+									{{app.security.token.user.nombre}} {{app.security.token.user.apellido}}
+								{% endif %}
+							</a>
+							<div class="flecha_ciudad"></div>
+							<ul>
+								<a href="{{path('editarCuentaUsuario', { 'param': slug })}}"><li><div class="header_editar_datos_usuario"></div><span class="con_icono">{{'general.header.usuario.editar'|trans}}</span></li></a>
+								<a href="{{path('actividadUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.actividad'|trans}}</span></li></a>
+								<a href="{{path('recomendacionesUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.recomendaciones'|trans}}</span></li></a>
+								<a href="{{path('fotosLugaresUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.fotos'|trans}}</span></li></a>
+								<a href="{{path('lugaresUsuario', { 'param': slug })}}"><li><span>{{'general.header.usuario.lugares'|trans}}</span></li></a>
+								<a href="{{path('lugaresUsuario', { 'param': slug, 'accionLugar' : 'recomendar' })}}"><li><span class="subconjunto">{{'general.header.usuario.por_recomendar'|trans}}</span><span class="numero_notificacion por_recomendar">{% render "LoogaresUsuarioBundle:Usuario:totalAccionesPendientes" with {'accion' : 5} %}</span></li></a>
+								<a href="{{path('lugaresUsuario', { 'param': slug })}}"><li><span class="subconjunto">{{'general.header.usuario.para_visitar'|trans}}</span><span class="numero_notificacion para_visitar">{% render "LoogaresUsuarioBundle:Usuario:totalAccionesPendientes" with {'accion' : 1} %}</span></li></a>
+								<a href="{{path('logout')}}"><li><span>{{'general.header.usuario.logout'|trans}}</span></li></a>
+							</ul>
+						</div>
+					</li>
+				</ul>		
+			
+			{% else %}
+				<a class="usuario_login_entra" href="{{path('login')}}">{{'general.header.usuario.login'|trans}}</a>
+				<a class="usuario_login_registro" href="{{path('registroUsuario')}}">{{'general.header.usuario.registro'|trans}}</a>
+				<span class="fb_hidden_button">{{ facebook_login_button({'autologoutlink': false}) }}</span>
+				<a class="facebook_login" href="#"></a>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
