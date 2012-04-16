@@ -323,7 +323,8 @@ class DefaultController extends Controller
             'publicidad' => 'Static',
             'que_es_loogares' => 'Static',
             'terminos_de_uso' => 'Static',
-            'trabaja_con_nosotros' => 'Static'
+            'trabaja_con_nosotros' => 'Static',
+            'hi' => 'Static'
         );
 
         foreach($paginas as $key => $value){
