@@ -191,7 +191,7 @@ class DefaultController extends Controller
 
         // Recomendación del día
         $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
-
+        
         $previewRecDia = '';
         if(strlen($recomendacionDelDia->getTexto()) > 160) {
             $previewRecDia = substr($recomendacionDelDia->getTexto(),0,159).'...';
