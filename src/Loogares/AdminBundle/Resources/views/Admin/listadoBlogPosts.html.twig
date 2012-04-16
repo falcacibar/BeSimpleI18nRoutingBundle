@@ -148,7 +148,7 @@
                             </td>
                             <td class="lugar_categoria">
                                 <span>
-                                    <a href="">{{post.tipoPostNombre}}</a>
+                                    <a href="">{{post.categoriaNombre}}</a>
                                 </span>
                             </td>
                             <td class="blog_posts_premios">
@@ -162,21 +162,21 @@
                             </td>
                             <td class="lugar_estado">
                                 <span>
-                                    <a href="">{{post.estadoNombre}}</a>
+                                    <a href="">{{post.blogEstadoNombre}}</a>
                                 </span>
                             </td>
                             <td class="lugar_acciones">
                                 <span>
                                     <a target="_blank" href=""><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
-                                    {% if post.estadoNombre != 'Post Publicado' %}
+                                    {% if post.blogEstadoNombre != 'Post Publicado' %}
                                     <a href="{{ path('LoogaresAdminBundle_publicarPost', {'id': post.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                                     {% endif %}
 
-                                    {% if post.estadoNombre != 'Post Eliminado' %}
+                                    {% if post.blogEstadoNombre != 'Post Eliminado' %}
                                     <a href="{{ path('LoogaresAdminBundle_borrarPost', {'id': post.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
                                     {% endif %}
 
-                                    {% if post.estadoNombre != 'Post Borrador' %}
+                                    {% if post.blogEstadoNombre != 'Post Borrador' %}
                                     <a href="{{ path('LoogaresAdminBundle_borradorPost', {'id': post.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/borrador.png')}}"/></a>
                                     {% endif %}
                                 </span>

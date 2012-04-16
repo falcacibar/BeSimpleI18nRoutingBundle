@@ -3,6 +3,8 @@
 namespace Loogares\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
  * Loogares\BlogBundle\Entity\Posts
@@ -100,6 +102,11 @@ class Posts
     private $destacado_home;
 
     /**
+     * @var smallint $posicion_home
+     */
+    private $posicion_home;
+
+    /**
      * @var Loogares\LugarBundle\Entity\Lugar
      */
     private $lugar;
@@ -129,6 +136,20 @@ class Posts
      */
     private $blog_estado;
 
+    /**
+     * Propiedad virtual para referenciar primera imagen 
+     */
+    public $vimagen;
+
+    /**
+     * Propiedad virtual para referenciar segunda imagen 
+     */
+    public $vimagen_home;
+
+    /**
+     * Propiedad virtual para referenciar tercera imagen
+     */
+    public $vimagen_detalle;
 
     /**
      * Get id
@@ -481,6 +502,26 @@ class Posts
     }
 
     /**
+     * Set posicion_home
+     *
+     * @param smallint $posicionHome
+     */
+    public function setPosicionHome($posicionHome)
+    {
+        $this->posicion_home = $posicionHome;
+    }
+
+    /**
+     * Get posicion_home
+     *
+     * @return smallint 
+     */
+    public function getPosicionHome()
+    {
+        return $this->posicion_home;
+    }
+
+    /**
      * Set lugar
      *
      * @param Loogares\LugarBundle\Entity\Lugar $lugar
@@ -599,29 +640,67 @@ class Posts
     {
         return $this->blog_estado;
     }
-    /**
-     * @var smallint $posicion_home
-     */
-    private $posicion_home;
 
-
-    /**
-     * Set posicion_home
-     *
-     * @param smallint $posicionHome
-     */
-    public function setPosicionHome($posicionHome)
+        /**
+    * Funciones que permiten manejar de mejor forma la imagen de usuario
+    */
+    public function getAbsolutePath()
     {
-        $this->posicion_home = $posicionHome;
+        return null === $this->imagen ? null : $this->getUploadRootDir().'/'.$this->imagen;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->imagen ? null : $this->getUploadDir().'/'.$this->imagen;
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        return 'assets/images/blog';
     }
 
     /**
-     * Get posicion_home
-     *
-     * @return smallint 
+     * @ORM\preUpdate
      */
-    public function getPosicionHome()
+    public function preUpload()
     {
-        return $this->posicion_home;
+        if ($this->vimagen !== null) {
+            $fn = new LoogaresFunctions();
+            $filename = 'imagen.jpg';
+            $this->setImagen($filename.'.jpg');
+        }
+    }
+
+    /**
+     * @ORM\postUpdate
+     */
+    public function upload()
+    {
+        echo 'as';
+        if ($this->vimage  === null) {
+            return;
+        }
+        try {
+            $this->vimagen->move($this->getUploadRootDir(), $this->imagen);
+        }
+        catch(FileException $e) {
+            rename($this->vimagen->getPathname(),$this->getAbsolutePath());
+        }
+        unset($this->vimagen);
+    }
+
+    /**
+     * @ORM\postRemove
+     */
+    public function removeUpload()
+    {
+        if ($firstImg = $this->getAbsolutePath()) {
+            unlink($firstImg);
+        }
     }
 }

@@ -1,0 +1,16 @@
+Loogares\BlogBundle\Entity\Posts:
+    properties:
+        vimagen:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+        vimagen_home:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+        vimagen_detalle:
+            - Image:
+                maxSize: 5120k
+                mimeTypesMessage: Sólo JPG, GIF y PNG, máx. 5 MB.
