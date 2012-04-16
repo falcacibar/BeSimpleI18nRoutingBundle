@@ -6,7 +6,7 @@
 <style>.no-default{ display:none }</style>
 	<h1 class="titulo_admin">Agregar Post</h1>
 
-	<form action="" method="post">
+	<form action="" method="post" {{ form_enctype(form) }}>
 		<ul class="agregar_blog_posts">
 			<li>
 				<label>Título</label>
@@ -49,7 +49,7 @@
 
 			<li>
 				<label>Imagen post</label>
-				<input name="form[vimagen]" class="subir_imagen" id="" type="file" />
+				{{form_widget(form.vimagen, {'attr': {'class': 'subir_imagen'}} )}}
 			</li>
 
 			<li>
@@ -64,7 +64,7 @@
 
 			<li>
 				<label>Imagen detalle</label>
-				<input name="form[vimagen_detalle]" class="imagen_detalle" id="" type="file" />
+				{{form_widget(form.vimagen_detalle, {'attr': {'class': 'imagen_detalle'}} )}}
 			</li>
 
 			<li>
@@ -123,7 +123,7 @@
 			</li>
 			<li>
 				<label>Imagen home</label>
-				<input name="form[vimagen_home]" class="subir_imagen" id="" type="file" />
+				{{form_widget(form.vimagen_home, {'attr': {'class': 'subir_imagen'}} )}}
 			</li>
 
 			<li>
@@ -155,6 +155,7 @@
         		<input type="text" id="fecha-hasta-ph" value="" placeholder="Fecha de Cierre (Opcional)">
 			</li>
 		</ul>
+		{{form_rest(form)}}
 		<input type="hidden" name="ciudad" value="{{ciudad.slug}}"/>
 		<input class="guardar_posts" type="submit" value=""/>
 	</form>

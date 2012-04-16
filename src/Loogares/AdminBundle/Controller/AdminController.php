@@ -1727,15 +1727,13 @@ class AdminController extends Controller
 
         $form = $this->createFormBuilder($post)
              ->add('vimagen')
+             ->add('vimagen_home')
+             ->add('vimagen_detalle')
              ->getForm();
 
         if($request->getMethod() == 'POST'){
             //Agregamos el Post, parsing time.
             $form->bindRequest($request);
-
-            // Imágenes subidas desde archivo
-            if($post->vimagen != null)
-                $imagenes[] = $post->vimagen; 
 
             preg_replace('/\(/', '', $request->get('lugar_id'));
             preg_replace('/\)/', '', $request->get('lugar_id'));
@@ -1743,7 +1741,7 @@ class AdminController extends Controller
 
             preg_replace('/\(/', '', $request->get('usuario_id'));
             preg_replace('/\)/', '', $request->get('usuario_id'));
-            $usuario = $ur->findOneById(25);
+            $usuario = $ur->findOneById(1);
 
             $estadoConcurso = $becr->findOneById(preg_match('/Selecciona/', $request->get('estado_concurso'))?5:$request->get('estado_concurso'));
 
@@ -1774,35 +1772,40 @@ class AdminController extends Controller
                 $em->flush();
             }*/
 
-            $post->setCiudad($cr->findOneBySlug($request->get('ciudad')));
-            $post->setTitulo($request->get('titulo')); 
-            $post->setSlug($request->get('slug'));
-            $post->setUsuario($usuario);
-            $post->setBlogEstadoConcurso($estadoConcurso);
-            $post->setBlogCategoria($bcr->findOneById($request->get('categoria')));
-            $post->setLugar($lugar);
-            $post->setContenido($request->get('contenido'));
-            $post->setDetalles($request->get('detalle'));
-            $post->setNumeroPremios($request->get('numero_premios'));
-            $post->setGanadores($request->get('ganadores'));
-            $post->setCondiciones($request->get('condiciones'));
-            $post->setBlogEstado($ber->findOneById($request->get('estado')));
-            $post->setFecha(new \DateTime());
-            $post->setFechaPublicacion($fechaPublicacion);
-            $post->setFechaTermino($fechaTermino);
-            $post->setTituloHome($request->get('titulo_home'));
-            $post->setDescripcionHome($request->get('descripcion_home'));
-            $post->setDestacadoHome($request->get('destacado_home'));
-            $post->setPosicionHome($request->get('posicion_home'));
-            $post->setPreview($request->get('preview'));
+            if ($form->isValid()) {
+                $post->setCiudad($cr->findOneBySlug($request->get('ciudad')));
+                $post->setTitulo($request->get('titulo')); 
+                $post->setSlug($request->get('slug'));
+                $post->setUsuario($usuario);
+                $post->setBlogEstadoConcurso($estadoConcurso);
+                $post->setBlogCategoria($bcr->findOneById($request->get('categoria')));
+                $post->setLugar($lugar);
+                $post->setContenido($request->get('contenido'));
+                $post->setDetalles($request->get('detalle'));
+                $post->setNumeroPremios($request->get('numero_premios'));
+                $post->setGanadores($request->get('ganadores'));
+                $post->setCondiciones($request->get('condiciones'));
+                $post->setBlogEstado($ber->findOneById($request->get('estado')));
+                $post->setFecha(new \DateTime());
+                $post->setFechaPublicacion($fechaPublicacion);
+                $post->setFechaTermino($fechaTermino);
+                $post->setTituloHome($request->get('titulo_home'));
+                $post->setDescripcionHome($request->get('descripcion_home'));
+                $post->setDestacadoHome($request->get('destacado_home'));
+                $post->setPosicionHome($request->get('posicion_home'));
+                $post->setPreview($request->get('preview'));
 
-            $post->setImagen('test');
-            $post->setImagenHome('test');
-            $post->setImagenDetalle('test');
+                $post->setImagen('test');
+                $post->setImagenHome('test');
+                $post->setImagenDetalle('test');
 
-            $em->persist($post);
-            $em->flush();
-            die();
+                $em->persist($post);
+                $em->flush();
+
+                $post->setImagen('.jpg');
+                $em->flush();
+                die();
+            }            
         }
 
 

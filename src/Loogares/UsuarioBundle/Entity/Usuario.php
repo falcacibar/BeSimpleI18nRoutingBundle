@@ -820,22 +820,26 @@ class Usuario implements AdvancedUserInterface, \Serializable
      */
     public function upload()
     {
-        // the file property can be empty if the field is not required
-        if (null === $this->file) {
+        if ($this->file  === null) {
             return;
         }
+        try {
+            $this->file->move($this->getUploadRootDir(), $this->imagen_full);
+        }
+        catch(FileException $e) {
+            rename($this->file->getPathname(),$this->getAbsolutePath());
+        }
+        unset($this->file);
 
-        // we use the original file name here but you should
-        // sanitize it at least to avoid any security issues
+        // Eliminamos thumbnails
+        if(file_exists(__DIR__.'/../../../../web/assets/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
+            unlink(__DIR__.'/../../../../web/assets/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
+            
+        if(file_exists(__DIR__.'/../../../../web/assets/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
+            unlink(__DIR__.'/../../../../web/assets/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
 
-        // move takes the target directory and then the target filename to move to
-        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
-
-        // set the path property to the filename where you'ved saved the file
-        $this->path = $this->file->getClientOriginalName();
-
-        // clean up the file property as you won't need it anymore
-        $this->file = null;
+        if(file_exists(__DIR__.'/../../../../web/assets/media/cache/tiny_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
+            unlink(__DIR__.'/../../../../web/assets/media/cache/tiny_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
     }
 
     /**

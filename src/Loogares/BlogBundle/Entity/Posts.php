@@ -5,6 +5,8 @@ namespace Loogares\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Loogares\ExtraBundle\Functions\LoogaresFunctions;
+
 
 /**
  * Loogares\BlogBundle\Entity\Posts
@@ -654,6 +656,27 @@ class Posts
         return null === $this->imagen ? null : $this->getUploadDir().'/'.$this->imagen;
     }
 
+    public function getAbsolutePathDetalle()
+    {
+        return null === $this->imagen_detalle ? null : $this->getUploadRootDir().'/'.$this->imagen_detalle;
+    }
+
+    public function getWebPathDetalle()
+    {
+        return null === $this->imagen_detalle ? null : $this->getUploadDir().'/'.$this->imagen_detalle;
+    }
+
+    public function getAbsolutePathHome()
+    {
+        return null === $this->imagen_home ? null : $this->getUploadRootDir().'/'.$this->imagen_home;
+    }
+
+    public function getWebPathHome()
+    {
+        return null === $this->imagen_home ? null : $this->getUploadDir().'/'.$this->imagen_home;
+    }
+
+
     protected function getUploadRootDir()
     {
         return __DIR__.'/../../../../web/'.$this->getUploadDir();
@@ -671,8 +694,12 @@ class Posts
     {
         if ($this->vimagen !== null) {
             $fn = new LoogaresFunctions();
-            $filename = 'imagen.jpg';
+            $filename = 'imagen';
+            $filenameDetalle = 'imagen_detalle';
+            $filenameHome = 'imagen_home';
             $this->setImagen($filename.'.jpg');
+            $this->setImagenDetalle($filenameDetalle.'.jpg');
+            $this->setImagenHome($filenameHome.'.jpg');
         }
     }
 
@@ -681,8 +708,8 @@ class Posts
      */
     public function upload()
     {
-        echo 'as';
-        if ($this->vimage  === null) {
+        // Imagen
+        if ($this->vimagen  === null) {
             return;
         }
         try {
@@ -692,6 +719,29 @@ class Posts
             rename($this->vimagen->getPathname(),$this->getAbsolutePath());
         }
         unset($this->vimagen);
+
+        // Imagen Detalle
+        if ($this->vimagen_detalle  === null) {
+            return;
+        }
+        try {
+            $this->vimagen_detalle->move($this->getUploadRootDir(), $this->imagen_detalle);
+        }
+        catch(FileException $e) {
+            rename($this->vimagen_detalle->getPathname(),$this->getAbsolutePathDetalle());
+        }
+        unset($this->vimagen_detalle);
+
+        // Imagen Home
+        if ($this->vimagen_home !== null) {
+            try {
+                $this->vimagen_home->move($this->getUploadRootDir(), $this->imagen_home);
+            }
+            catch(FileException $e) {
+                rename($this->vimagen_home->getPathname(),$this->getAbsolutePathHome());
+            }
+            unset($this->vimagen_home);
+        }
     }
 
     /**
@@ -699,8 +749,14 @@ class Posts
      */
     public function removeUpload()
     {
-        if ($firstImg = $this->getAbsolutePath()) {
-            unlink($firstImg);
+        if ($vimagen = $this->getAbsolutePath()) {
+            unlink($vimagen);
+        }
+        if ($vimagen_detalle = $this->getAbsolutePathDetalle()) {
+            unlink($vimagen_detalle);
+        }
+        if ($vimagen_home = $this->getAbsolutePathHome()) {
+            unlink($vimagen_home);
         }
     }
 }
