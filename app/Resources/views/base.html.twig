@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:fb="http://www.facebook.com/2008/fbml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        {% block meta %}{% endblock %}
+        <title>{% block title %}Loogares.com{% endblock %}</title>
+        {#% stylesheets output='assets/css/compressed.css' filter='?yui_css,sass'      
+            'assets/css/*.sass' 
+        %}
+        {% endstylesheets %#}
+        {% block stylesheets %}{% endblock %}
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+        <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />
+        <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.pais is empty)%}
+            <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
+            <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
+        {% endif %}
+        <script>var WEBROOT = "{{app.request.basePath}}/app{% if app.getEnvironment == 'dev' %}_dev{% endif %}.php/"</script>
+        <script>
+          function goLogIn(){
+              window.location.href = "{{ path('login_check_facebook') }}";
+          }
+
+          function onFbInit() {
+
+              if (typeof(FB) != 'undefined' && FB != null ) {
+
+                  FB.Event.subscribe('auth.statusChange', function(response) {
+                      if (response.session || response.authResponse) {
+                          setTimeout(goLogIn, 500);
+                      } else {
+                          window.location.href = "{{ path('logout') }}";
+                      }
+                  });
+              }
+          }
+        </script>
+        {% block ads %}{% endblock %}   
+        <script type="text/javascript">
+          window.fbAsyncInit = function() {
+            FB.init({
+              "appId":"251885084895009"
+             ,"xfbml":true
+             ,"oauth":true
+             ,"status":false
+             ,"cookie":true
+             ,"logging":true
+             ,"channelUrl": WEBROOT+"../channel.php"
+            });
+          };
+
+          (function(d){
+             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement('script'); js.id = id; js.async = true;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             ref.parentNode.insertBefore(js, ref);
+           }(document));
+        </script>
+    </head>
+
+    <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }}">
+    {#{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }#}
+
+		{% include '::header.html.twig' %}
+
+        <div class="contenedor">
+          {# Por si el usuario no tiene datos básicos #}
+          {% if ( is_granted('ROLE_USER')  ) and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.pais is empty) %}
+
+              <a href="{{path('forzarDatosUsuario', {'id' : app.security.token.user.id})}}" class="datos_usuario_fancybox"></a>
+              
+          {% endif %}
+			
+			<div class="contenido">               
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+
+		{% include '::footer.html.twig' %}
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-5287070-1']);
+          _gaq.push(['_setDomainName', 'loogares.com']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+
+        <script src="{{asset('assets/js/lib.js')}}"></script>
+        <script src="{{asset('assets/js/main.js')}}"></script>
+        
+        {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.pais is empty)%}
+        <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
+        <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
+        <script>
+            $(function(){               
+                $('.datos_usuario_fancybox').fancybox({
+                    padding: 0,
+                    type: 'ajax',
+                    beforeClose: function(){return false;}
+                });
+                $('.datos_usuario_fancybox').click();
+            
+            });
+        </script>
+
+        
+        {% endif %}
+        {% if is_granted('ROLE_USER') == false %}
+        <script>
+            $(function(){
+                $('.facebook_login').click(function(e){
+                    e.preventDefault();
+                    $('.fb_hidden_button').find('.fb_button').click();
+                });
+            });
+        </script>
+        {% endif %}
+
+        {% block javascripts %}
+        {% endblock %}
+        <noscript>
+          <style>
+            .no-js{
+              position: fixed;
+              top: 0;
+              width: 100%;
+              left: 0px;
+              height: 30px;
+              z-index: 1000000;
+              text-align: center;
+              background: #AE0000;
+              padding: 5px
+            }
+
+            .no-js p{
+              width: 960px;
+              margin: 0 auto;
+              color: #fff;
+              font-weight: bold;
+            }
+
+            body, .menu{
+              margin-top: 40px;
+            }
+          </style>
+          <div class="no-js"><p>No tienes Javascript habilitado, por esto, no podremos entregarte la mejór experiencia de usuario y algunas características se encontraran deshabilitadas.</p><p>Habilita Javascript si quieres vivir Loogares como lo pensamos.</p></div>
+        </noscript>
+    </body>
+</html>

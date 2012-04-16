@@ -71,26 +71,3 @@
 	</div>
 </div>
 
-<div class="menu">
-	<div class="centrado_menu">
-		<a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">
-			<div class="logo_ciudad_menu">
-				<img src="{{ asset('assets/images/extras/logo_header.png') }}" width="50" height="34" />
-			</div>
-		</a>
-		{% render "LoogaresExtraBundle:Default:menu" %}
-		<div class="buscador_box">
-
-			<form action="{{ path('_buscar', { 'slug': app.session.get('ciudad').slug }) }}">
-				<div class="buscar">
-						<input class="buscador" name="q" type="text" placeholder="{{'general.header.ejemplos_buscador'|trans}}" />
-					<div class="caja_icono">
-						<input type="submit" class="icono_buscar" value="" />
-					</div>
-				</div>
-			</form>	
-		</div>
-	</div>
-	<div class="borde_detalle_menu">
-	</div>
-</div>
