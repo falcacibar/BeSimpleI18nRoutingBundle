@@ -1765,7 +1765,7 @@ class AdminController extends Controller
                 $nuevoEstadoConcurso->setClase($request->get('nuevo_estado_clase'));
                 $em->persist($nuevoConcurso);
                 $em->flush();
-                $estadoConcurso = $nuevoConcurso;
+                $estadoConcurso = $nuevoEstadoConcurso;
             }else{
                 $estadoConcurso = $becr->findOneById(preg_match('/Selecciona/', $request->get('estado_concurso'))?5:$request->get('estado_concurso'));
             }
