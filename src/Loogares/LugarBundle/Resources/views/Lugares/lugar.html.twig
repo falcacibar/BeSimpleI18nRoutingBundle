@@ -301,14 +301,14 @@
         {% endif %}
 
             {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
-                <a class="recomienda_lugar"></a>
+                <a class="recomienda_lugar_{{app.session.get('ciudad').slug}}"></a>
             {% else %}
                 <a class="edita_recomendacion_lugar" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': app.security.token.user.slug }) }}"></a>
             {% endif %}
 
             {% if lugar.accionesUsuario.2.puede == 1 %}
             <div class="qtip_estuve_alla"> 
-                    <a href="#" class="recomendar_ahora"></a>
+                    <a href="#" class="recomendar_ahora_{{app.session.get('ciudad').slug}}"></a>
                     <a href="#" class="recomendar_despues"></a>
             </div>
             {% endif %}

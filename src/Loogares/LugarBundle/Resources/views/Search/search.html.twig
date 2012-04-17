@@ -505,7 +505,7 @@
 				<p><strong>{{'lugar.buscar.no_encontraste'|trans}}</strong></p>
 				<p>{{'lugar.buscar.agregalo'|trans}}</p>
 			</div>
-			<a class="boton_agregar" href="{{ path('_agregar') }}"></a>
+			<a class="boton_agregar_{{app.session.get('ciudad').slug}}" href="{{ path('_agregar') }}"></a>
 		</div>
 
 	</div>
