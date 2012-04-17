@@ -39,6 +39,7 @@
         $(document).ready(function(){
             editarRecomendacion("{{lugar.slug}}")
             {% if lugar.recomendacionPedida is defined %}
+                $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200);
                 recomendacionPedida("{{lugar.recomendacionPedida.slug}}");
             {% endif %}
         })

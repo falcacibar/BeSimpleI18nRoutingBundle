@@ -1741,7 +1741,7 @@ class AdminController extends Controller
 
             preg_replace('/\(/', '', $request->get('usuario_id'));
             preg_replace('/\)/', '', $request->get('usuario_id'));
-            $usuario = $ur->findOneById(1);
+            $usuario = $ur->findOneById($request->get('usuario_id'));
 
             $estadoConcurso = $becr->findOneById(preg_match('/Selecciona/', $request->get('estado_concurso'))?5:$request->get('estado_concurso'));
 
@@ -1750,7 +1750,7 @@ class AdminController extends Controller
             }
 
             if($request->get('fecha_termino') != ''){
-                $fechaPublicacion = new \DateTime( $request->get('fecha_termino') );
+                $fechaTermino = new \DateTime( $request->get('fecha_termino') );
             }
 
             /*if($request->get('nuevo_estado') != ''){
@@ -1804,7 +1804,6 @@ class AdminController extends Controller
 
                 $post->setImagen('.jpg');
                 $em->flush();
-                die();
             }            
         }
 

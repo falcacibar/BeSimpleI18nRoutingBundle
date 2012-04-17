@@ -22,8 +22,14 @@
 {% endblock %}
 
 {% block content %}
+    {% if app.session.hasFlash('post_flash') %}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('post_flash') | trans }}</p>
+            </div>
+    {% endif %}
+
 {% if post.ganadores == '' %}
-<div class="post" style="border-top-color: #{{post.blogTipoPost.hex}}">
+<div class="post" style="border-top-color: #{{post.blogCategoria.hex}}">
 {% else %}
 <div class="post" style="border-top-color: #FF8A8A">
 {% endif %}
@@ -94,7 +100,7 @@
 
 
 	<div class="posts_anteriores">
-		<h2 class="subtitulo_posts">Anteriores {{post.blogTipoPost.nombre}}:</h2>
+		<h2 class="subtitulo_posts">Anteriores {{post.blogCategoria.nombre}}:</h2>
 		<ul>
 		{% for anterior in anteriores %}
 			<li><a href="{{ path('post', {'ciudad':ciudad.slug, 'slug': anterior.slug}) }}">- {{anterior.titulo}}</a></li>

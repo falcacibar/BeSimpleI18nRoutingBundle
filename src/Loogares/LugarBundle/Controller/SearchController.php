@@ -13,7 +13,7 @@ class SearchController extends Controller{
 
     $q = $cr->findOneBySlug($subcategoria);
 
-    return $this->redirect($this->generateUrl($path, array(
+    return $this->redirect($this->generateUrl('_categoria_subcategoria', array(
       'slug' => $slug,
       'categoria' => $q->getCategoria()->getSlug(),
       'subcategoria' => $subcategoria
