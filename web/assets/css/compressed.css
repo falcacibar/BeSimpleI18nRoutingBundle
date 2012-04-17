@@ -2432,14 +2432,22 @@ body {
     font-size: 13px !important;
     line-height: 22px !important;
     width: 330px; }
-  .agrega_lugar .boton_agregar {
+  .agrega_lugar .boton_agregar_santiago-de-chile, .agrega_lugar .boton_agregar_valparaiso-vina-del-mar {
     background: url("../images/extras/botones_busqueda.png") no-repeat -85px 0;
     float: left;
     height: 50px;
     margin: 0 0 0 10px;
     width: 254px; }
-    .agrega_lugar .boton_agregar:hover {
+    .agrega_lugar .boton_agregar_santiago-de-chile:hover, .agrega_lugar .boton_agregar_valparaiso-vina-del-mar:hover {
       background: url("../images/extras/botones_busqueda.png") no-repeat -85px -50px; }
+  .agrega_lugar .boton_agregar_buenos-aires {
+    background: url("../images/extras/botones_busqueda.png") no-repeat -85px -100px;
+    float: left;
+    height: 50px;
+    margin: 0 0 0 10px;
+    width: 254px; }
+    .agrega_lugar .boton_agregar_buenos-aires:hover {
+      background: url("../images/extras/botones_busqueda.png") no-repeat -85px -150px; }
 
 /* Caja Google Maps */
 .lugar_data {
@@ -4195,7 +4203,7 @@ body {
     display: none; }
   .actividad_lugar .flota_derecha {
     float: right; }
-  .actividad_lugar .recomienda_lugar {
+  .actividad_lugar .recomienda_lugar_santiago-de-chile, .actividad_lugar .recomienda_lugar_valparaiso-vina-del-mar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 0;
     display: block;
     cursor: pointer;
@@ -4203,8 +4211,18 @@ body {
     height: 30px;
     margin: 10px 0;
     width: 150px; }
-    .actividad_lugar .recomienda_lugar:hover {
+    .actividad_lugar .recomienda_lugar_santiago-de-chile:hover, .actividad_lugar .recomienda_lugar_valparaiso-vina-del-mar:hover {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -30px; }
+  .actividad_lugar .recomienda_lugar_buenos-aires {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -120px;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    margin: 10px 0;
+    width: 150px; }
+    .actividad_lugar .recomienda_lugar_buenos-aires:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -150px; }
   .actividad_lugar .edita_recomendacion_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -60px;
     display: block;
@@ -5985,15 +6003,24 @@ body {
           width: 99px; }
           .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul .submit .enviar_foto_prefil:hover {
             background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
-    .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil {
+    .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_santiago-de-chile, .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_valparaiso-vina-del-mar {
       background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px 0;
       border: 0px;
       cursor: pointer;
       height: 30px;
       margin: 10px 0 0 10px;
       width: 134px; }
-      .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil:hover {
+      .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_santiago-de-chile:hover, .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_valparaiso-vina-del-mar:hover {
         background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px -30px; }
+    .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_buenos-aires {
+      background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px -60px;
+      border: 0px;
+      cursor: pointer;
+      height: 30px;
+      margin: 10px 0 0 10px;
+      width: 134px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_buenos-aires:hover {
+        background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px -90px; }
     .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password {
       display: block;
       float: left;

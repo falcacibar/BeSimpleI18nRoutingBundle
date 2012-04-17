@@ -373,14 +373,22 @@
     font-size: 13px !important;
     line-height: 22px !important;
     width: 330px; }
-  .agrega_lugar .boton_agregar {
+  .agrega_lugar .boton_agregar_santiago-de-chile, .agrega_lugar .boton_agregar_valparaiso-vina-del-mar {
     background: url("../images/extras/botones_busqueda.png") no-repeat -85px 0;
     float: left;
     height: 50px;
     margin: 0 0 0 10px;
     width: 254px; }
-    .agrega_lugar .boton_agregar:hover {
+    .agrega_lugar .boton_agregar_santiago-de-chile:hover, .agrega_lugar .boton_agregar_valparaiso-vina-del-mar:hover {
       background: url("../images/extras/botones_busqueda.png") no-repeat -85px -50px; }
+  .agrega_lugar .boton_agregar_buenos-aires {
+    background: url("../images/extras/botones_busqueda.png") no-repeat -85px -100px;
+    float: left;
+    height: 50px;
+    margin: 0 0 0 10px;
+    width: 254px; }
+    .agrega_lugar .boton_agregar_buenos-aires:hover {
+      background: url("../images/extras/botones_busqueda.png") no-repeat -85px -150px; }
 
 /* Caja Google Maps */
 .lugar_data {

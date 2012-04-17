@@ -924,7 +924,7 @@
     display: none; }
   .actividad_lugar .flota_derecha {
     float: right; }
-  .actividad_lugar .recomienda_lugar {
+  .actividad_lugar .recomienda_lugar_santiago-de-chile, .actividad_lugar .recomienda_lugar_valparaiso-vina-del-mar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 0;
     display: block;
     cursor: pointer;
@@ -932,8 +932,18 @@
     height: 30px;
     margin: 10px 0;
     width: 150px; }
-    .actividad_lugar .recomienda_lugar:hover {
+    .actividad_lugar .recomienda_lugar_santiago-de-chile:hover, .actividad_lugar .recomienda_lugar_valparaiso-vina-del-mar:hover {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -30px; }
+  .actividad_lugar .recomienda_lugar_buenos-aires {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -120px;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    margin: 10px 0;
+    width: 150px; }
+    .actividad_lugar .recomienda_lugar_buenos-aires:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -150px; }
   .actividad_lugar .edita_recomendacion_lugar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -60px;
     display: block;
