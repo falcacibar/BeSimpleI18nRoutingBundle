@@ -694,9 +694,9 @@ class Posts
     {
         if ($this->vimagen !== null) {
             $fn = new LoogaresFunctions();
-            $filename = 'imagen';
-            $filenameDetalle = 'imagen_detalle';
-            $filenameHome = 'imagen_home';
+            $filename = $this->getSlug();
+            $filenameDetalle = $this->getSlug().'_detalle';
+            $filenameHome = $this->getSlug().'_home';
             $this->setImagen($filename.'.jpg');
             $this->setImagenDetalle($filenameDetalle.'.jpg');
             $this->setImagenHome($filenameHome.'.jpg');

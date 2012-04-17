@@ -1750,7 +1750,7 @@ class AdminController extends Controller
             }
 
             if($request->get('fecha_termino') != ''){
-                $fechaPublicacion = new \DateTime( $request->get('fecha_termino') );
+                $fechaTermino = new \DateTime( $request->get('fecha_termino') );
             }
 
             /*if($request->get('nuevo_estado') != ''){
@@ -1795,9 +1795,9 @@ class AdminController extends Controller
                 $post->setPosicionHome($request->get('posicion_home'));
                 $post->setPreview($request->get('preview'));
 
-                $post->setImagen('test');
-                $post->setImagenHome('test');
-                $post->setImagenDetalle('test');
+                $post->setImagen('');
+                $post->setImagenHome('');
+                $post->setImagenDetalle('');
 
                 $em->persist($post);
                 $em->flush();

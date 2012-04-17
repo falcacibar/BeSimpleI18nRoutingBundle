@@ -118,15 +118,31 @@ class LugarController extends Controller{
         $q->setParameter(3, 3);
         $yaRecomendoResult = $q->getResult();
 
-        if($usuarioSlug != false){
-            $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-            if(preg_match('/\w/', $usuarioSlug)){
-                $usuario = $ur->findOneBySlug($usuarioSlug);
-            }else{
-                $usuario = $ur->findOneById($usuarioSlug);
-            }
+        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+        $usuario = $ur->findOneById($usuarioSlug);
+        if(is_numeric($usuarioSlug) && $usuarioSlug != null){
+            return $this->redirect($this->generateUrl('_recomendacion', array('slug' => $slug, 'usuarioSlug' => $usuario->getSlug())));
+        }else{
 
-            if($usuario){ 
+        }
+
+        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+        if(is_numeric($usuarioSlug) && $usuarioSlug != null){
+            $usuario = $ur->findOneById($usuarioSlug);
+            return $this->redirect($this->generateUrl('_recomendacion', array('slug' => $slug, 'usuarioSlug' => $usuario->getSlug())));
+        }else{
+
+        }
+
+        if($usuarioSlug != false){
+            $usuario = $ur->findOneBySlug($usuarioSlug);
+
+            $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r where r.lugar = ?1 and r.usuario = ?2");
+            $q->setParameter(1, $lugarResult[0]->getId());
+            $q->setParameter(2, $usuario->getId());
+            $recomendacionResult = $q->getResult();
+
+            if($recomendacionResult){ 
                 $idRecomendacionPedida = $usuario->getId();
 
                 //Sacar la recomendacion del usuario slugeado
@@ -153,6 +169,7 @@ class LugarController extends Controller{
 
                     $resultadosPorPagina++;
             }else{
+                $this->get('session')->setFlash('error_flash', 'Este Usuario aun no ha recomendado este Lugar');
                 $usuarioSlug = false;
             }
             
@@ -239,7 +256,7 @@ class LugarController extends Controller{
         */
         $data = $lugarResult[0];
 
-        if($usuarioSlug != false){
+        if(isset($recomendacionPedidaResult[0])){
             $data->recomendacionPedida = $recomendacionPedidaResult[0];
         }
 

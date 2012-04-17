@@ -5,7 +5,7 @@ namespace Loogares\ExtraBundle\EventListener;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Bundle\TwigBundle\Controller\ExceptionController;
- 
+
 /**
  * This code gets executed everytime Kernel sends a event to a ApiBundle Controller
  * Here tokens are checked and if token is not ok, exception is thrown

@@ -10,10 +10,6 @@ $(document).ready(function(){
 
     fechasRecomendaciones.sort().reverse();
 
-    if(window.location.href.match(/\/recomendacion\//)){
-        $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200);
-    }
-
     $('.borra_recomendacion').click(function(e){
         if(confirm('¿Estás seguro de que quieres borrar tu recomendación?')){
            return true; 
