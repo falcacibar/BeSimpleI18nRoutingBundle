@@ -1763,7 +1763,7 @@ class AdminController extends Controller
                 $nuevoEstadoConcurso->setNombre($request->get('nuevo_estado'));
                 $nuevoEstadoConcurso->setSlug($fn->generarSlug($request->get('nuevo_estado')));
                 $nuevoEstadoConcurso->setClase($request->get('nuevo_estado_clase'));
-                $em->persist($nuevoConcurso);
+                $em->persist($nuevoEstadoConcurso);
                 $em->flush();
                 $estadoConcurso = $nuevoEstadoConcurso;
             }else{
