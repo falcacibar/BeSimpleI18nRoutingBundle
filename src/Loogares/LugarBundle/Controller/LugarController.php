@@ -394,23 +394,27 @@ class LugarController extends Controller{
                 $lugarManipulado->setTwitter($fn->stripHTTP($lugarManipulado->getTwitter()));
                 $lugarManipulado->setFacebook($fn->stripHTTP($lugarManipulado->getFacebook()));
 
-                $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugarManipulado->getNombre());
+                $q = $em->createQuery("SELECT l FROM Loogares\LugarBundle\Entity\Lugar l
+                                       JOIN l.comuna c
+                                       JOIN c.ciudad ci
+                                       WHERE l.nombre = ?1 AND ci.slug = ?2");
+                $q->setParameter(1, $lugarManipulado->getNombre());
+                $q->setParameter(2, $_POST['ciudad']);
+                $lugaresConElMismoNombre = $q->getResult();
 
                 if($nuevoLugar == true || $esEdicionDeUsuario == true){
                   $lugarManipulado->setFechaAgregado(new \DateTime());
                 }
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
-                    $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre) + 1;
-                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . $lugaresConElMismoNombre;
+                    $n = sizeOf($lugaresConElMismoNombre);
+                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . "-".$n;
                     $lugarManipulado->setSlug($lugarSlug);
                 }else if(sizeOf($lugaresConElMismoNombre) == 0){
                     $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'];
                     $lugarManipulado->setSlug($lugarSlug);
                 }
 
-
-                
                 $em->persist($lugarManipulado);
 
                 $lr->cleanUp($lugarManipulado->getId());

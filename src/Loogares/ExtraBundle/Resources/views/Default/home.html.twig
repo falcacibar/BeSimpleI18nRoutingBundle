@@ -56,7 +56,7 @@
 					<a href="{{ path('post', {'ciudad': campana.ciudad.slug, 'slug': campana.slug}) }}">
 						<li {% if loop.index == 2 %}class="central"{% endif %}>
 							<h2 class="titulo_concurso {{campana.blogEstadoConcurso.clase}}">{{campana.blogEstadoConcurso.nombre}}</h2>
-							<img src="http://www.loogares.com/assets/images/blog/{{campana.imagenHome}}" width="204" height="115" / >
+							<img src="http://www.loogares.com/assets/images/blog/{{campana.imagen}}" width="204" height="115" / >
 							<p class="lugar_concurso">{{campana.tituloHome}}</p>
 							<p class="sorteo_concurso">{{campana.descripcionHome}}</p>
 						</li>
@@ -126,7 +126,7 @@
 				{% for campana in sliderCampanas %}
 				<li>
 					<a href="{{ path('post', {'ciudad': campana.ciudad.slug, 'slug': campana.slug}) }}">
-						<img src="http://www.loogares.com/assets/images/blog/{{campana.imagenHome}}" height="158" width="148" />
+						<img src="http://www.loogares.com/assets/images/blog/{{campana.imagen}}" height="158" width="148" />
 					</a>
 					<div class="detalles_nota">
 						<p class="nombre_colaborador">{{campana.blogCategoria.nombre}}</p>

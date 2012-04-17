@@ -11,6 +11,8 @@ use Loogares\LugarBundle\Entity\Promocion;
 use Loogares\LugarBundle\Entity\PedidoLugar;
 
 use Loogares\BlogBundle\Entity\Posts;
+use Loogares\BlogBundle\Entity\Categoria;
+use Loogares\BlogBundle\Entity\EstadoConcurso;
 
 class AdminController extends Controller
 {
@@ -1720,6 +1722,7 @@ class AdminController extends Controller
         $imagenes = array();
         $fechaPublicacion = null;
         $fechaTermino = null;
+        $lugar = null;
 
         $ciudad = $cr->findOneBySlug($ciudad);
         
@@ -1735,15 +1738,17 @@ class AdminController extends Controller
             //Agregamos el Post, parsing time.
             $form->bindRequest($request);
 
-            preg_replace('/\(/', '', $request->get('lugar_id'));
-            preg_replace('/\)/', '', $request->get('lugar_id'));
-            $lugar = $lr->findOneById($request->get('lugar_id'));
+            if($request->get('lugar_id') != ''){
+                $lugar = preg_replace('/\(/', '', $request->get('lugar_id'));
+                $lugar = preg_replace('/\)/', '', $lugar);
+                $lugar = $lr->findOneById($lugar);
+                $post->setLugar($lugar);
+            }
 
-            preg_replace('/\(/', '', $request->get('usuario_id'));
-            preg_replace('/\)/', '', $request->get('usuario_id'));
-            $usuario = $ur->findOneById($request->get('usuario_id'));
-
-            $estadoConcurso = $becr->findOneById(preg_match('/Selecciona/', $request->get('estado_concurso'))?5:$request->get('estado_concurso'));
+            $usuario = preg_replace('/\(/', '', $request->get('usuario_id'));
+            $usuario = preg_replace('/\)/', '', $usuario);
+            $usuario = $ur->findOneById($usuario);
+            $post->setUsuario($usuario);
 
             if($request->get('fecha_publicacion') != ''){
                 $fechaPublicacion = new \DateTime( $request->get('fecha_publicacion') );
@@ -1753,33 +1758,37 @@ class AdminController extends Controller
                 $fechaTermino = new \DateTime( $request->get('fecha_termino') );
             }
 
-            /*if($request->get('nuevo_estado') != ''){
-                $nuevoEstadoConcurso = new BlogEstadoConcurso();
+            if($request->get('nuevo_estado') != ''){
+                $nuevoEstadoConcurso = new EstadoConcurso();
                 $nuevoEstadoConcurso->setNombre($request->get('nuevo_estado'));
                 $nuevoEstadoConcurso->setSlug($fn->generarSlug($request->get('nuevo_estado')));
                 $nuevoEstadoConcurso->setClase($request->get('nuevo_estado_clase'));
                 $em->persist($nuevoConcurso);
                 $em->flush();
+                $estadoConcurso = $nuevoConcurso;
+            }else{
+                $estadoConcurso = $becr->findOneById(preg_match('/Selecciona/', $request->get('estado_concurso'))?5:$request->get('estado_concurso'));
             }
 
             if($request->get('nueva_categoria') != ''){
-                $nuevaCategoria = new BlogCategoria();
+                $nuevaCategoria = new Categoria();
                 $nuevaCategoria->setNombre($request->get('nueva_categoria'));
                 $nuevaCategoria->setSlug($fn->generarSlug($request->get('nueva_categoria')));
                 $nuevaCategoria->setClase($request->get('nueva_categoria_clase'));
                 $nuevaCategoria->setHex($request->get('nueva_categoria_hex'));
                 $em->persist($nuevaCategoria);
                 $em->flush();
-            }*/
+                $categoria  = $nuevaCategoria;
+            }else{
+                $categoria = $bcr->findOneById($request->get('categoria'));
+            }
 
             if ($form->isValid()) {
                 $post->setCiudad($cr->findOneBySlug($request->get('ciudad')));
                 $post->setTitulo($request->get('titulo')); 
                 $post->setSlug($request->get('slug'));
-                $post->setUsuario($usuario);
                 $post->setBlogEstadoConcurso($estadoConcurso);
-                $post->setBlogCategoria($bcr->findOneById($request->get('categoria')));
-                $post->setLugar($lugar);
+                $post->setBlogCategoria($categoria);
                 $post->setContenido($request->get('contenido'));
                 $post->setDetalles($request->get('detalle'));
                 $post->setNumeroPremios($request->get('numero_premios'));
@@ -1806,8 +1815,6 @@ class AdminController extends Controller
                 $em->flush();
             }            
         }
-
-
 
         return $this->render('LoogaresAdminBundle:Admin:agregarBlogPosts.html.twig', array(
             'ciudad' => $ciudad,
