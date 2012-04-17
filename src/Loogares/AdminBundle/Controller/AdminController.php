@@ -1741,7 +1741,7 @@ class AdminController extends Controller
 
             preg_replace('/\(/', '', $request->get('usuario_id'));
             preg_replace('/\)/', '', $request->get('usuario_id'));
-            $usuario = $ur->findOneById(1);
+            $usuario = $ur->findOneById($request->get('usuario_id'));
 
             $estadoConcurso = $becr->findOneById(preg_match('/Selecciona/', $request->get('estado_concurso'))?5:$request->get('estado_concurso'));
 
@@ -1795,16 +1795,15 @@ class AdminController extends Controller
                 $post->setPosicionHome($request->get('posicion_home'));
                 $post->setPreview($request->get('preview'));
 
-                $post->setImagen('');
-                $post->setImagenHome('');
-                $post->setImagenDetalle('');
+                $post->setImagen('test');
+                $post->setImagenHome('test');
+                $post->setImagenDetalle('test');
 
                 $em->persist($post);
                 $em->flush();
 
                 $post->setImagen('.jpg');
                 $em->flush();
-                die();
             }            
         }
 

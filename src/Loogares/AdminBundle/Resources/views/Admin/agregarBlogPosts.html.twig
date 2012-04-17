@@ -21,7 +21,7 @@
 			<li>
 				<label>Usuario</label>
 				<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{app.security.token.user.nombre}} {{app.security.token.user.apellido}} ({{app.security.token.user.id}}) | {{app.security.token.user.slug}}"/>
-				<input name="usuario_id" id="usuario_id" type="hidden" value="(app.security.token.user.id)" />
+				<input name="usuario_id" id="usuario_id" type="hidden" value="({{app.security.token.user.id}})" />
 			</li>
 
 			<li>
@@ -133,7 +133,7 @@
 
 			<li>
 				<label>Descripción</label>
-				<input name="descripcion" id="" type="text" placeholder="Descripción del Post"/>
+				<input name="descripcion_home" id="" type="text" placeholder="Descripción del Post"/>
 			</li>
 
 			<li>
