@@ -11,6 +11,10 @@
         <meta property="og:description" content="" />
         <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     {% endif %}
+
+    <meta name="title" content="Loogares.com | {{ lugar.nombre }} | {{lugar.comuna.ciudad.nombre}}" />
+    <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “Texto de la última recomendación, {{lugar.recomendaciones[0].texto|slice(0,160)}}...”{% endif %}" />
+    <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}{{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{ lugar.nombre }}" />
 {% endblock %}
 
 {% block ads %}
