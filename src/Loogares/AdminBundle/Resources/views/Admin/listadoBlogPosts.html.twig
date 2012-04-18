@@ -46,40 +46,47 @@
                         <span>
                         <p class="titulos_tabla">Id</p>
                         <p class="list-actions">
-                            <a class="">⬆</a>
+                            <a class="{% if query.id is defined and query.id == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"id": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="">⬇</a>
+                            <a class="{% if query.id is defined and query.id == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"id": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({'id': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
                     <th class="blog_posts_titulo">
                         <span>
                         <p class="titulos_tabla">Titulo</p>
+                        <p class="list-actions">
+                            <a class="{% if query.titulo is defined and query.titulo == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"titulo": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
+
+                            <a class="{% if query.titulo is defined and query.titulo == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"titulo": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
+
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({'titulo': null, 'ciudad': ciudad.slug }))}}">✖</a>
+                        </p>
                         </span>
                     </th>
                     <th class="lugar_usuario">
                         <span>
                         <p class="titulos_tabla">Usuario</p>
                         <p class="list-actions">
-                            <a class="">⬆</a>
+                            <a class="{% if query.usuario is defined and query.usuario == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"usuario": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="">⬇</a>
+                            <a class="{% if query.usuario is defined and query.usuario == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"usuario": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({'usuario': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
                     <th class="lugar_categoria">
                         <span>
-                        <p class="titulos_tabla">Categoría</p>
+                        <p class="titulos_tabla">Categorías</p>
                         <p class="list-actions">
-                            <a class="">⬆</a>
+                            <a class="{% if query.categoria is defined and query.categoria == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"categoria": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="">⬇</a>
+                            <a class="{% if query.categoria is defined and query.categoria == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"categoria": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({'categoria': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -87,11 +94,11 @@
                         <span>
                         <p class="titulos_tabla">Nº premios</p>
                         <p class="list-actions">
-                            <a class="">⬆</a>
+                            <a class="{% if query.premios is defined and query.premios == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"premios": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="">⬇</a>
+                            <a class="{% if query.categoria is defined and query.premios == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"premios": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({'premios': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -99,11 +106,11 @@
                         <span>
                         <p class="titulos_tabla">Fecha publicación</p>
                         <p class="list-actions">
-                            <a class="">⬆</a>
+                            <a class="{% if query.fecha_publicacion is defined and query.fecha_publicacion == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"fecha_publicacion": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="">⬇</a>
+                            <a class="{% if query.categoria is defined and query.fecha_publicacion == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"fecha_publicacion": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({'fecha_publicacion': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>
@@ -111,11 +118,11 @@
                         <span>
                         <p class="titulos_tabla">Estado</p>
                         <p class="list-actions">
-                            <a class="">⬆</a>
+                            <a class="{% if query.estado is defined and query.estado == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"estado": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="">⬇</a>
+                            <a class="{% if query.estado is defined and query.estado == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"estado": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
-                            <a class="remove" href="">✖</a>
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({'estado': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
                         </span>
                     </th>

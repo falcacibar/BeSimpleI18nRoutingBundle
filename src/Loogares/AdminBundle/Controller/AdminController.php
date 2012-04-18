@@ -1593,7 +1593,13 @@ class AdminController extends Controller
         );
 
         $listadoFilters = array(
-
+            'id' => 'p.id',
+            'usuario' => 'usuarioSlug',
+            'titulo' => 'p.titulo',
+            'categoria' => 'categoriaNombre',
+            'premios' => 'p.numero_premios',
+            'fecha_publicacion' => 'p.fecha_publicacion',
+            'estado' => 'estadoNombre'
         );
 
         if(isset($_GET['buscar'])){
