@@ -6,7 +6,7 @@
     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
     {% for ciudad in ciudades %}
-        {% set subdominio = (ciudad.pais.slug == 'chile') ? 'cl.loogares.com' : 'ar.loogares.com' %}
+        {% set subdominio = (ciudad.pais.slug == 'chile') ? 'http://cl.loogares.com' : 'http://ar.loogares.com' %}
 
     	{{ (subdominio ~ path('locale', {'slug' : ciudad.slug})) | xmlsitemap('1.00',0) | raw}}
 
