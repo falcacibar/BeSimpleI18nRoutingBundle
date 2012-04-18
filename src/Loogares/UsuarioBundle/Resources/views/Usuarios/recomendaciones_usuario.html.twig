@@ -36,14 +36,11 @@
 	{% for recomendacion in usuario.recomendacionesTodas %}			
 		<div class="caja_recomendaciones_lugar_usuario">
 			<div class="imagen_recomendaciones_lugar_usuario">
-				{% if recomendacion.lugar.imagenesLugar[0] is not defined %}
+				{% if recomendacion.lugar.imagenesActivasLugar[0] is not defined %}
 					<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('small_lugar') }}"  width="50" height="50" />
+				{% else %}
+					<img src="{{ ('assets/images/lugares/'~recomendacion.lugar.imagenesActivasLugar[recomendacion.lugar.imagenesActivasLugar|length-1].imagenFull) | apply_filter('small_lugar') }}"  width="50" height="50" />
 				{% endif %}
-				{% for img in recomendacion.lugar.imagenesLugar %}		
-					{% if loop.last %}						
-						<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('small_lugar') }}"  width="50" height="50" />
-					{% endif %}
-				{% endfor %}
 			</div>
 			<div class="textos_recomendacion_lugar_usuario">
 				<strong><a class="nombre_lugar_recomendacion" href="{{path('_lugar', { 'slug': recomendacion.lugar.slug })}}">{{recomendacion.lugar.nombre}}</a></strong>
