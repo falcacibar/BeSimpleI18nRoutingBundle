@@ -12,3 +12,4 @@ Loogares\BlogBundle\Entity\EstadoConcurso:
             type: string
         clase:
             type: string
+            nullable: true

@@ -18,7 +18,6 @@ use Loogares\MailBundle\Entity\Notificacion;
 class UsuarioController extends Controller
 {    
     public function showAction($param) {
-        
         return $this->forward('LoogaresUsuarioBundle:Usuario:actividad', array('param' => $param));          
     }
 
@@ -26,6 +25,7 @@ class UsuarioController extends Controller
         foreach($_GET as $key => $value){
             $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
         }
+
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
@@ -33,7 +33,14 @@ class UsuarioController extends Controller
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
         $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
         $paginacion = false;
-        $usuarioResult = $ur->findOneByIdOrSlug($param);
+
+        if(is_numeric($param)){
+            $usuarioResult = $ur->findOneById($param);
+            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $usuarioResult->getSlug())));
+        }else{
+            $usuarioResult = $ur->findOneBySlug($param); 
+        }
+
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         }

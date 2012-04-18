@@ -11,6 +11,8 @@ use Loogares\LugarBundle\Entity\Promocion;
 use Loogares\LugarBundle\Entity\PedidoLugar;
 
 use Loogares\BlogBundle\Entity\Posts;
+use Loogares\BlogBundle\Entity\Categoria;
+use Loogares\BlogBundle\Entity\EstadoConcurso;
 
 class AdminController extends Controller
 {
@@ -202,7 +204,7 @@ class AdminController extends Controller
                              FROM Loogares\BlogBundle\Entity\Posts p
                              LEFT JOIN p.lugar l
                              LEFT JOIN l.comuna c
-                             WHERE c.ciudad = ?1 and p.estado = 1");
+                             WHERE c.ciudad = ?1 and p.blog_estado = 2");
         $q->setParameter(1, $idCiudad);
         $totalPostsPublicadosResult = $q->getSingleScalarResult();
 
@@ -211,7 +213,7 @@ class AdminController extends Controller
                              FROM Loogares\BlogBundle\Entity\Posts p
                              LEFT JOIN p.lugar l
                              LEFT JOIN l.comuna c
-                             WHERE c.ciudad = ?1 and p.estado = 0");
+                             WHERE c.ciudad = ?1 and p.blog_estado = 0");
         $q->setParameter(1, $idCiudad);
         $totalPostsBorradoresResult = $q->getSingleScalarResult();
 
@@ -220,7 +222,7 @@ class AdminController extends Controller
                              FROM Loogares\BlogBundle\Entity\Posts p
                              LEFT JOIN p.lugar l
                              LEFT JOIN l.comuna c
-                             WHERE c.ciudad = ?1 and p.estado = 3");
+                             WHERE c.ciudad = ?1 and p.blog_estado = 3");
         $q->setParameter(1, $idCiudad);
         $totalPostsAgendadosResult = $q->getSingleScalarResult();
 
@@ -1058,6 +1060,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         if($request->getMethod() == 'POST'){
             $vars = $_POST['id'];
@@ -1078,6 +1081,7 @@ class AdminController extends Controller
         
         foreach($itemsABorrar as $item){    
             $recomendacion = $rr->findOneById($item);
+
             $mail = array();
             $mail['recomendacion'] = $recomendacion;
             $mail['usuario'] = $recomendacion->getUsuario();
@@ -1101,9 +1105,25 @@ class AdminController extends Controller
 
             $recomendacion->setEstado($estado);
             $em->persist($recomendacion);
-        }
+            $em->flush();
 
-        $em->flush();
+            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u
+                                   WHERE u.lugar = ?1 AND u.estado != 3 ORDER BY u.id DESC");
+            $q->setParameter(1, $recomendacion->getId());
+            $ultimaRecomendacion = $q->getOneOrNullResult();
+
+            if($ultimaRecomendacion){
+              $fechaUltimaRecomendacion = $ultimaRecomendacion->getFechaCreacion();
+            }else{
+              $fechaUltimaRecomendacion = null;
+            }
+            
+            $lugar->setFechaUltimaRecomendacion($fechaUltimaRecomendacion);
+            $em->persist($lugar);
+            $em->flush();
+        }
+        $lr->actualzarPromedios($lugar->getSlug());
+       
 
         $args = array(
             'ciudad' => $ciudad
@@ -1160,6 +1180,8 @@ class AdminController extends Controller
 
             $em->persist($recomendacion);
             $em->flush();
+
+            $lr->actualzarPromedios($recomendacion->getLugar()->getSlug());
 
             return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarRecomendacion', array(
                 'ciudad' => $ciudad,
@@ -1566,7 +1588,8 @@ class AdminController extends Controller
         $filters = array(
             'pusuario' => 'usuarios.slug',
             'plugar' => 'lugares.nombre',
-            'pestado' => 'estadoNombre'
+            'pestado' => 'blogEstadoNombre',
+            'pcategoria' => 'categoriaSlug'
         );
 
         $listadoFilters = array(
@@ -1619,9 +1642,9 @@ class AdminController extends Controller
                     usuarios.nombre as usuarioNombre,
                     usuarios.apellido as usuarioApellido,
                     usuarios.slug as usuarioSlug,
-                    estado.nombre as estadoNombre,
-                    blog_tipo_post.nombre as tipoPostNombre,
-                    blog_tipo_post.slug as tipoPostSlug
+                    blog_estado.nombre as blogEstadoNombre,
+                    blog_categoria.nombre as categoriaNombre,
+                    blog_categoria.slug as categoriaSlug
                     FROM blog_posts AS p
 
                     LEFT JOIN lugares
@@ -1630,11 +1653,11 @@ class AdminController extends Controller
                     LEFT JOIN usuarios
                     ON usuarios.id = p.usuario_id
 
-                    LEFT JOIN estado
-                    ON estado.id = p.estado_id
+                    LEFT JOIN blog_estado
+                    ON blog_estado.id = p.blog_estado_id
 
-                    LEFT JOIN blog_tipo_post
-                    ON blog_tipo_post.id = p.blog_tipo_post_id
+                    LEFT JOIN blog_categoria
+                    ON blog_categoria.id = p.blog_categoria_id
 
                     $where
                     GROUP BY p.id
@@ -1662,7 +1685,7 @@ class AdminController extends Controller
     public function accionPostsAction($ciudad, $id, $borrador = false, $publicar = false, $borrar = false, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
-        $lr = $em->getRepository("LoogaresExtraBundle:Estado");
+        $ber = $em->getRepository("LoogaresBlogBundle:Estado");
 
         if($request->getMethod() == 'POST'){
             $vars = $_POST['id'];
@@ -1687,11 +1710,11 @@ class AdminController extends Controller
             $post = $pr->findOneById($item);
 
             if($borrar == true){
-                $estado = $lr->findOneByNombre('Post Eliminado');
+                $estado = $ber->findOneByNombre('Post Eliminado');
             }else if($publicar == true){
-                $estado = $lr->findOneByNombre('Post Publicado');                               
+                $estado = $ber->findOneByNombre('Post Publicado');                               
             }else if($borrador == true){
-                $estado = $lr->findOneByNombre('Post Borrador');  
+                $estado = $ber->findOneByNombre('Post Borrador');  
             }
             $post->setEstado($estado);
             $em->persist($post);
@@ -1708,7 +1731,7 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoBlogPosts', $args));
     }
 
-    public function vistaBlogPostsAction($ciudad, Request $request){
+    public function vistaBlogPostsAction($ciudad, Request $request, $post = null){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
@@ -1716,47 +1739,116 @@ class AdminController extends Controller
         $bcr = $em->getRepository("LoogaresBlogBundle:Categoria");
         $ber = $em->getRepository("LoogaresBlogBundle:Estado");
         $becr = $em->getRepository("LoogaresBlogBundle:EstadoConcurso");
+        $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $fn = $this->get('fn');
+        $imagenes = array();
+        $fechaPublicacion = null;
+        $fechaTermino = null;
+        $lugar = null;
 
         $ciudad = $cr->findOneBySlug($ciudad);
+        
+        if($post != null){ //Si slug tiene data, entonces el post existe, estamos editando, yada yada.
+            $post = $pr->findOneBySlug($post);
+        }else{
+            $post = new Posts();
+        }
+
+        $form = $this->createFormBuilder($post)
+             ->add('vimagen')
+             ->add('vimagen_home')
+             ->add('vimagen_detalle')
+             ->getForm();
 
         if($request->getMethod() == 'POST'){
             //Agregamos el Post, parsing time.
-            $post = new Posts();
+            $form->bindRequest($request);
 
-            preg_replace('/\(/', '', $request->get('lugar_id'));
-            preg_replace('/\)/', '', $request->get('lugar_id'));
-            $lugar = $lr->findOneById($request->get('lugar_id'));
+            if($request->get('lugar_id') != ''){
+                $lugar = preg_replace('/\(/', '', $request->get('lugar_id'));
+                $lugar = preg_replace('/\)/', '', $lugar);
+                $lugar = $lr->findOneById($lugar);
+                $post->setLugar($lugar);
+            }
 
-            preg_replace('/\(/', '', $request->get('usuario_id'));
-            preg_replace('/\)/', '', $request->get('usuario_id'));
-            $usuario = $ur->findOneById($request->get('usuario_id'));
-
-            $post->setTitulo($request->get('titulo')); 
-            $post->setSlug($request->get('slug'));
+            $usuario = preg_replace('/\(/', '', $request->get('usuario_id'));
+            $usuario = preg_replace('/\)/', '', $usuario);
+            $usuario = $ur->findOneById($usuario);
             $post->setUsuario($usuario);
-            $post->setEstadoConcurso($becr->findOneBy($request->get('estado_concurso')));
-            $post->setBlogCategoria($bcr->findOneById($request->get('categoria')));
-            $post->setLugar($lugar);
-            $post->setImagen(null);
-            $post->setContenido($request->get('contenido'));
-            $post->setImagenDetalle(null);
-            $post->setDetalles($request->get('detalle'));
-            $post->setNumeroPremios($request->get('numero_premios'));
-            $post->setGanadores($request->get('ganadores'));
-            $post->setCondiciones($request->get('condiciones'));
-            $post->setBlogEstado($ber->findOneById($request->get('estado')));
-            $post->setFecha(new \DateTime());
-            $post->setFechaPublicacion(null);
-            $post->setFechaTermino(null);
-            $post->setDestacadoHome($request->get('destacado_home'));
-            $post->setPosicionHome($request->get('posicion_home'));
+
+            if($request->get('fecha_publicacion') != ''){
+                $fechaPublicacion = new \DateTime( $request->get('fecha_publicacion') );
+            }
+
+            if($request->get('fecha_termino') != ''){
+                $fechaTermino = new \DateTime( $request->get('fecha_termino') );
+            }
+
+            if($request->get('nuevo_estado') != ''){
+                $nuevoEstadoConcurso = new EstadoConcurso();
+                $nuevoEstadoConcurso->setNombre($request->get('nuevo_estado'));
+                $nuevoEstadoConcurso->setSlug($fn->generarSlug($request->get('nuevo_estado')));
+                $nuevoEstadoConcurso->setClase($request->get('nuevo_estado_clase'));
+                $em->persist($nuevoEstadoConcurso);
+                $em->flush();
+                $estadoConcurso = $nuevoEstadoConcurso;
+            }else{
+                $estadoConcurso = $becr->findOneById(preg_match('/Selecciona/', $request->get('estado_concurso'))?5:$request->get('estado_concurso'));
+            }
+
+            if($request->get('nueva_categoria') != ''){
+                $nuevaCategoria = new Categoria();
+                $nuevaCategoria->setNombre($request->get('nueva_categoria'));
+                $nuevaCategoria->setSlug($fn->generarSlug($request->get('nueva_categoria')));
+                $nuevaCategoria->setClase($request->get('nueva_categoria_clase'));
+                $nuevaCategoria->setHex($request->get('nueva_categoria_hex'));
+                $em->persist($nuevaCategoria);
+                $em->flush();
+                $categoria  = $nuevaCategoria;
+            }else{
+                $categoria = $bcr->findOneById($request->get('categoria'));
+            }
+
+            if ($form->isValid()) {
+                $post->setCiudad($cr->findOneBySlug($request->get('ciudad')));
+                $post->setTitulo($request->get('titulo')); 
+                $post->setSlug($request->get('slug'));
+                $post->setBlogEstadoConcurso($estadoConcurso);
+                $post->setBlogCategoria($categoria);
+                $post->setContenido($request->get('contenido'));
+                $post->setDetalles($request->get('detalle'));
+                $post->setNumeroPremios($request->get('numero_premios'));
+                $post->setGanadores($request->get('ganadores'));
+                $post->setCondiciones($request->get('condiciones'));
+                $post->setBlogEstado($ber->findOneById($request->get('estado')));
+                $post->setFecha(new \DateTime());
+                $post->setFechaPublicacion($fechaPublicacion);
+                $post->setFechaTermino($fechaTermino);
+                $post->setTituloHome($request->get('titulo_home'));
+                $post->setDescripcionHome($request->get('descripcion_home'));
+                $post->setDestacadoHome($request->get('destacado_home'));
+                $post->setPosicionHome($request->get('posicion_home'));
+                $post->setPreview($request->get('preview'));
+
+                $post->setImagen('test');
+                $post->setImagenHome('test');
+                $post->setImagenDetalle('test');
+
+                $em->persist($post);
+                $em->flush();
+
+                $post->setImagen('.jpg');
+                $em->flush();
+            }            
         }
 
         return $this->render('LoogaresAdminBundle:Admin:agregarBlogPosts.html.twig', array(
             'ciudad' => $ciudad,
             'estados' => $ber->findAll(),
             'categorias' => $bcr->findAll(),
-            'estados_concurso' => $becr->findAll()
+            'estados_concurso' => $becr->findAll(),
+            'form' => $form->createView(),
+            'post' => $post
         ));
     }
 

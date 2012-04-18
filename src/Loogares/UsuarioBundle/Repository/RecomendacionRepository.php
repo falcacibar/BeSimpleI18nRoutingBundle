@@ -88,7 +88,8 @@ class RecomendacionRepository extends EntityRepository
                                  JOIN l.comuna c
                                  WHERE c.ciudad = ?1
                                  AND l.estado != ?2
-                                 AND DATE_SUB(CURRENT_DATE(), 90, 'DAY') >= r.fecha_ultima_vez_destacada
+                                 AND (DATE_SUB(CURRENT_DATE(), 90, 'DAY') >= r.fecha_ultima_vez_destacada
+                                 OR r.fecha_ultima_vez_destacada IS NULL)
                                  AND DATE_SUB(CURRENT_DATE(), 8, 'MONTH') <= r.fecha_creacion
                                  GROUP BY r.id
                                  ORDER BY util DESC, r.estrellas DESC, r.fecha_creacion DESC");
@@ -99,7 +100,6 @@ class RecomendacionRepository extends EntityRepository
 
           if($rec != null) {
               $rec = $rec[0];
-
               $rec->setFechaUltimaVezDestacada(new \DateTime());
               $em->flush();
           }

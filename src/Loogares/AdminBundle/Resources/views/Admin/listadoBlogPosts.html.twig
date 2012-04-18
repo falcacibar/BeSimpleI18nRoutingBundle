@@ -133,50 +133,52 @@
                                 <input type="checkbox" name="id[]" value="{{post.id}}"/>
                             </td>
                             <td class="lugar_id">
-                                <span>{{post.id}}
+                                <span>
+                                    {{post.id}}
                                 </span>
                             </td>
                             <td class="blog_posts_titulo">
                                 <span>
-                                    <strong><a href="">{{post.titulo}}</a></strong>
+                                    <strong><a target="_blank" href="{{ path('post', {'ciudad': ciudad.slug, 'slug': post.slug}) }}">{{post.titulo}}</a></strong>
                                 </span>
                             </td>
                             <td class="lugar_usuario">
                                 <span>
-                                    <a href="">{{post.usuarioNombre}} {{post.usuarioApellido}}</a>
+                                    <a href="{{ path('LoogaresAdminBundle_listadoBlogPosts', {'pusuario': post.usuarioSlug, 'ciudad': ciudad.slug}) }}">{{post.usuarioNombre}} {{post.usuarioApellido}}</a>
                                 </span>
                             </td>
                             <td class="lugar_categoria">
                                 <span>
-                                    <a href="">{{post.tipoPostNombre}}</a>
+                                    <a href="{{ path('LoogaresAdminBundle_listadoBlogPosts', {'pcategoria': post.categoriaSlug, 'ciudad': ciudad.slug}) }}">{{post.categoriaNombre}}</a>
                                 </span>
                             </td>
                             <td class="blog_posts_premios">
                                 <span>
-                                    <a href="">{{post.numero_premios}}</a>
+                                    {{post.numero_premios}}
                                 </span>
                             </td>
                             <td class="blog_posts_fecha">
-                                <span>{{post.fecha|date('d-m-y')}}
+                                <span>
+                                    {{post.fecha|date('d-m-y')}}
                                 </span>
                             </td>
                             <td class="lugar_estado">
                                 <span>
-                                    <a href="">{{post.estadoNombre}}</a>
+                                    <a href="{{ path('LoogaresAdminBundle_listadoBlogPosts', {'pestado': post.blogEstadoNombre, 'ciudad': ciudad.slug}) }}">{{post.blogEstadoNombre}}</a>
                                 </span>
                             </td>
                             <td class="lugar_acciones">
                                 <span>
-                                    <a target="_blank" href=""><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
-                                    {% if post.estadoNombre != 'Post Publicado' %}
+                                    <a target="_blank" href="{{ path('LoogaresAdminBundle_editarBlogPosts', {'ciudad': ciudad.slug, 'post': post.slug}) }}"><img src="{{asset('assets/images/administrador/edit.png')}}"/></a>
+                                    {% if post.blogEstadoNombre != 'Post Publicado' %}
                                     <a href="{{ path('LoogaresAdminBundle_publicarPost', {'id': post.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
                                     {% endif %}
 
-                                    {% if post.estadoNombre != 'Post Eliminado' %}
+                                    {% if post.blogEstadoNombre != 'Post Eliminado' %}
                                     <a href="{{ path('LoogaresAdminBundle_borrarPost', {'id': post.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
                                     {% endif %}
 
-                                    {% if post.estadoNombre != 'Post Borrador' %}
+                                    {% if post.blogEstadoNombre != 'Post Borrador' %}
                                     <a href="{{ path('LoogaresAdminBundle_borradorPost', {'id': post.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/borrador.png')}}"/></a>
                                     {% endif %}
                                 </span>

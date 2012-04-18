@@ -40,11 +40,27 @@ class DefaultController extends Controller
 
         $anteriores = null;
         $fn = $this->get('fn');
-        
-        $post = $pr->findOneBySlug($slug);
+
+        $q = $em->createQuery('SELECT u FROM Loogares\BlogBundle\Entity\Posts u 
+                              WHERE u.slug = ?1');
+        $q->setParameter(1, $slug);
+        $q->setMaxResults(1);
+        $post = $q->getOneOrNullResult();
 
         if(!$post) {
             throw $this->createNotFoundException('');
+        }
+
+        if($post->getBlogEstado()->getNombre() != 'Post Publicado' && !$this->get('security.context')->isGranted('ROLE_ADMIN')){
+            throw $this->createNotFoundException('');
+        }else if($post->getBlogEstado()->getNombre() == 'Post Borrador'){
+            $this->get('session')->setFlash('post_flash', 'Este es un Borradooooooooooooooooooooooooooooor');
+        }else if($post->getBlogEstado()->getNombre() == 'Post Eliminado'){
+            $this->get('session')->setFlash('post_flash', 'Este Post fue Borrado');
+        }else if($post->getBlogEstado()->getNombre() == 'Post Agendado'){
+            $date = $post->getFechaPublicacion();
+            $date = $date->format('d-m-y');
+            $this->get('session')->setFlash('post_flash', 'Post Agenado para: '.$date);
         }
 
         if($post->getLugar()){
@@ -56,8 +72,8 @@ class DefaultController extends Controller
 
         if(gettype($post) == 'object'){
             $q = $em->createQuery('SELECT u FROM Loogares\BlogBundle\Entity\Posts u 
-                                  WHERE u.blog_tipo_post = ?1 and u.ciudad = ?2 and u.id != ?3');
-            $q->setParameter(1, $post->getBlogTipoPost()->getId());
+                                  WHERE u.blog_categoria = ?1 and u.ciudad = ?2 and u.id != ?3');
+            $q->setParameter(1, $post->getBlogCategoria()->getId());
             $q->setParameter(2, $ciudad->getId());
             $q->setParameter(3, $post->getId());
             $anteriores = $q->getResult();

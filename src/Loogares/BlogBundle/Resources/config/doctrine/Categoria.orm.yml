@@ -12,5 +12,7 @@ Loogares\BlogBundle\Entity\Categoria:
             type: string
         hex:
             type: string
+            nullable: true
         clase:
             type: string
+            nullable: true 

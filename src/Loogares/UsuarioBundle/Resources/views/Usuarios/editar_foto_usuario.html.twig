@@ -39,7 +39,7 @@
 	<form action="{{ path('editarFotoUsuario', { 'param': usuario.id }) }}" method="post">
 		<div class="form-borrar-foto">
 			<input type="hidden" name="borrarFoto" value="borrarFoto">
-			<input class="borrar_foto_prefil" type="submit" value="" formnovalidate />
+			<input class="borrar_foto_prefil_{{app.session.get('ciudad').slug}}" type="submit" value="" formnovalidate />
 		</div>
 	</form>
 </div>

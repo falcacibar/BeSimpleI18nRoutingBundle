@@ -81,6 +81,10 @@ LoogaresAdminBundle_agregarBlogPosts:
     pattern:  /posts/{ciudad}/agregar
     defaults: { _controller: LoogaresAdminBundle:Admin:vistaBlogPosts }
 
+LoogaresAdminBundle_editarBlogPosts:
+    pattern:  /posts/{ciudad}/editar/{post}
+    defaults: { _controller: LoogaresAdminBundle:Admin:vistaBlogPosts, post: null }
+
 LoogaresAdminBundle_borrarPost:
     pattern:  /posts/{ciudad}/borrar/{id}
     defaults: { _controller: LoogaresAdminBundle:Admin:accionPosts, borrador: false, habilitar: false, borrar: true }

@@ -118,15 +118,31 @@ class LugarController extends Controller{
         $q->setParameter(3, 3);
         $yaRecomendoResult = $q->getResult();
 
-        if($usuarioSlug != false){
-            $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-            if(preg_match('/\w/', $usuarioSlug)){
-                $usuario = $ur->findOneBySlug($usuarioSlug);
-            }else{
-                $usuario = $ur->findOneById($usuarioSlug);
-            }
+        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+        $usuario = $ur->findOneById($usuarioSlug);
+        if(is_numeric($usuarioSlug) && $usuarioSlug != null){
+            return $this->redirect($this->generateUrl('_recomendacion', array('slug' => $slug, 'usuarioSlug' => $usuario->getSlug())));
+        }else{
 
-            if($usuario){ 
+        }
+
+        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+        if(is_numeric($usuarioSlug) && $usuarioSlug != null){
+            $usuario = $ur->findOneById($usuarioSlug);
+            return $this->redirect($this->generateUrl('_recomendacion', array('slug' => $slug, 'usuarioSlug' => $usuario->getSlug())));
+        }else{
+
+        }
+
+        if($usuarioSlug != false){
+            $usuario = $ur->findOneBySlug($usuarioSlug);
+
+            $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r where r.lugar = ?1 and r.usuario = ?2");
+            $q->setParameter(1, $lugarResult[0]->getId());
+            $q->setParameter(2, $usuario->getId());
+            $recomendacionResult = $q->getResult();
+
+            if($recomendacionResult){ 
                 $idRecomendacionPedida = $usuario->getId();
 
                 //Sacar la recomendacion del usuario slugeado
@@ -153,6 +169,7 @@ class LugarController extends Controller{
 
                     $resultadosPorPagina++;
             }else{
+                $this->get('session')->setFlash('error_flash', 'Este Usuario aun no ha recomendado este Lugar');
                 $usuarioSlug = false;
             }
             
@@ -239,7 +256,7 @@ class LugarController extends Controller{
         */
         $data = $lugarResult[0];
 
-        if($usuarioSlug != false){
+        if(isset($recomendacionPedidaResult[0])){
             $data->recomendacionPedida = $recomendacionPedidaResult[0];
         }
 
@@ -377,23 +394,27 @@ class LugarController extends Controller{
                 $lugarManipulado->setTwitter($fn->stripHTTP($lugarManipulado->getTwitter()));
                 $lugarManipulado->setFacebook($fn->stripHTTP($lugarManipulado->getFacebook()));
 
-                $lugaresConElMismoNombre = $lr->getLugaresPorNombre($lugarManipulado->getNombre());
+                $q = $em->createQuery("SELECT l FROM Loogares\LugarBundle\Entity\Lugar l
+                                       JOIN l.comuna c
+                                       JOIN c.ciudad ci
+                                       WHERE l.nombre = ?1 AND ci.slug = ?2");
+                $q->setParameter(1, $lugarManipulado->getNombre());
+                $q->setParameter(2, $_POST['ciudad']);
+                $lugaresConElMismoNombre = $q->getResult();
 
                 if($nuevoLugar == true || $esEdicionDeUsuario == true){
                   $lugarManipulado->setFechaAgregado(new \DateTime());
                 }
 
                 if(sizeOf($lugaresConElMismoNombre) != 0 && $slug == null){
-                    $lugaresConElMismoNombre = "-" . sizeOf($lugaresConElMismoNombre) + 1;
-                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . $lugaresConElMismoNombre;
+                    $n = sizeOf($lugaresConElMismoNombre);
+                    $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'] . "-".$n;
                     $lugarManipulado->setSlug($lugarSlug);
                 }else if(sizeOf($lugaresConElMismoNombre) == 0){
                     $lugarSlug = $fn->generarSlug($lugarManipulado->getNombre()) . "-" . $_POST['ciudad'];
                     $lugarManipulado->setSlug($lugarSlug);
                 }
 
-
-                
                 $em->persist($lugarManipulado);
 
                 $lr->cleanUp($lugarManipulado->getId());
@@ -1336,12 +1357,10 @@ class LugarController extends Controller{
                     $message = $this->get('fn')->enviarMail($mail['asunto'], $usuarioAnterior->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
                     $this->get('mailer')->send($message);
                 }
-            }
-                
-                
-                //SET FLASH AND REDIRECTTT
-                $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
-                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+            }   
+            //SET FLASH AND REDIRECTTT
+            $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
+            return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
         }
     }
@@ -1364,17 +1383,26 @@ class LugarController extends Controller{
             foreach($recomendacionResult as $recomendacion){
                 $recomendacion->setEstado($estado);
             }
+            $em->flush();
 
-            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 ORDER BY u.id desc");
+            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 and u.estado != 3 ORDER BY u.id desc");
             $q->setMaxResults(1);
             $q->setParameter(1, $lugar->getId());
-            $ultimaRecomendacion = $q->getResult();
+            $ultimaRecomendacion = $q->getOneOrNullResult();
 
-            $lugar->setFechaUltimaRecomendacion($ultimaRecomendacion[0]->getFechaCreacion());
+            if($ultimaRecomendacion){
+              $fechaUltimaRecomendacion = $ultimaRecomendacion->getFechaCreacion();
+            }else{
+              $fechaUltimaRecomendacion = null;
+            }
+
+            $lugar->setFechaUltimaRecomendacion($fechaUltimaRecomendacion);
+
+            $em->persist($lugar);
+            $em->flush();
 
             $ar->actualizarActividadReciente($recomendacionResult[0]->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
-
-            $em->flush();
+            $lr->actualizarPromedios($lugar->getSlug());
 
             $this->get('session')->setFlash('lugar_flash','Acabas de borrar tu recomendación, prueba escribiendo una nueva.');
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));

@@ -6,45 +6,47 @@
     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
     {% for ciudad in ciudades %}
-    	{{ url('locale', {'slug' : ciudad.slug}) | xmlsitemap('1.00',0) | raw}}
+        {% set subdominio = (ciudad.pais.slug == 'chile') ? 'http://cl.loogares.com' : 'http://ar.loogares.com' %}
+
+    	{{ (subdominio ~ path('locale', {'slug' : ciudad.slug})) | xmlsitemap('1.00',0) | raw}}
 
     	{# Categorías por ciudad #}
     	{% for categoria in ciudad.categorias %}
-    		{{ url('_categoria', {'slug' : ciudad.slug, 'categoria' : categoria.slug}) | xmlsitemap('0.80',2) | raw}}
+    		{{ (subdominio ~ path('_categoria', {'slug' : ciudad.slug, 'categoria' : categoria.slug})) | xmlsitemap('0.80',2) | raw}}
 
     		{# Subcategorías por ciudad #}
     		{% for subcategoria in categoria.subcategorias %}
-    			{{ url('_categoria_subcategoria', {'slug' : ciudad.slug, 'categoria' : categoria.slug, 'subcategoria' : subcategoria.slug}) | xmlsitemap('0.60',2) | raw}}
+    			{{ (subdominio ~ path('_categoria_subcategoria', {'slug' : ciudad.slug, 'categoria' : categoria.slug, 'subcategoria' : subcategoria.slug})) | xmlsitemap('0.60',2) | raw}}
     		{% endfor %}
 
     		{# Comunas por ciudad #}
 	    	{% for comuna in ciudad.comunas %}
-	    		{{ url('_categoria_comuna', {'slug' : ciudad.slug, 'comuna' : comuna.slug, 'categoria' : categoria.slug}) | xmlsitemap('0.60',2) | raw}}
+	    		{{ (subdominio ~ path('_categoria_comuna', {'slug' : ciudad.slug, 'comuna' : comuna.slug, 'categoria' : categoria.slug})) | xmlsitemap('0.60',2) | raw}}
 	    	{% endfor %}
 
 	    	{# Sectores por ciudad #}
 	    	{% for sector in ciudad.sectores %}
-	    		{{ url('_categoria_sector', {'slug' : ciudad.slug, 'sector' : sector.slug, 'categoria' : categoria.slug}) | xmlsitemap('0.60',2) | raw}}
+	    		{{ (subdominio ~ path('_categoria_sector', {'slug' : ciudad.slug, 'sector' : sector.slug, 'categoria' : categoria.slug})) | xmlsitemap('0.60',2) | raw}}
 	    	{% endfor %}
 
     	{% endfor %}
 
-    {% endfor %}
+        {% if ciudad.id != 2 %}
+            {% for lugar in lugares %}
+                {{ (subdominio ~ path('_lugar', {'slug' : lugar.slug})) | xmlsitemap('1.00',2) | raw }}
+            {% endfor %}
 
-    {% for lugar in lugares %}
-    	{{ url('_lugar', {'slug' : lugar.slug}) | xmlsitemap('1.00',2) | raw }}
-    {% endfor %}
-
-    {# Páginas estáticas #}
-    {{ url('static', {'static': 'que_es_loogares'}) | xmlsitemap('0.50',4) | raw }}
-    {{ url('static', {'static': 'contacto'}) | xmlsitemap('0.50',4) | raw }}
-    {{ url('static', {'static': 'prensa'}) | xmlsitemap('0.50',4) | raw }}
-    {{ url('static', {'static': 'terminos_de_uso'}) | xmlsitemap('0.50',4) | raw }}
-    {{ url('static', {'static': 'copyright'}) | xmlsitemap('0.50',4) | raw }}
-    {{ url('static', {'static': 'eres_el_dueno_de_un_lugar'}) | xmlsitemap('0.50',4) | raw }}
-    {{ url('static', {'static': 'trabaja_con_nosotros'}) | xmlsitemap('0.50',4) | raw }}
-    {{ url('static', {'static': 'publicidad'}) | xmlsitemap('0.50',4) | raw }}
-    {{ url('static', {'static': 'politicas_de_privacidad'}) | xmlsitemap('0.50',4) | raw }}
-    {{ url('static', {'static': 'codigos_de_conducta'}) | xmlsitemap('0.50',4) | raw }}
-
+            {# Páginas estáticas #}
+            {{ (subdominio ~ path('static', {'static': 'que_es_loogares'})) | xmlsitemap('0.50',4) | raw }}
+            {{ (subdominio ~ path('static', {'static': 'contacto'})) | xmlsitemap('0.50',4) | raw }}
+            {{ (subdominio ~ path('static', {'static': 'prensa'})) | xmlsitemap('0.50',4) | raw }}
+            {{ (subdominio ~ path('static', {'static': 'terminos_de_uso'})) | xmlsitemap('0.50',4) | raw }}
+            {{ (subdominio ~ path('static', {'static': 'copyright'})) | xmlsitemap('0.50',4) | raw }}
+            {{ (subdominio ~ path('static', {'static': 'eres_el_dueno_de_un_lugar'})) | xmlsitemap('0.50',4) | raw }}
+            {{ (subdominio ~ path('static', {'static': 'trabaja_con_nosotros'})) | xmlsitemap('0.50',4) | raw }}
+            {{ (subdominio ~ path('static', {'static': 'publicidad'})) | xmlsitemap('0.50',4) | raw }}
+            {{ (subdominio ~ path('static', {'static': 'politicas_de_privacidad'})) | xmlsitemap('0.50',4) | raw }}
+            {{ (subdominio ~ path('static', {'static': 'codigos_de_conducta'})) | xmlsitemap('0.50',4) | raw }}
+        {% endif %}        
+    {% endfor %}    
 </urlset>

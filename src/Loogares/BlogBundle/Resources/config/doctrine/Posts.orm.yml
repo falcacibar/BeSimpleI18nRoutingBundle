@@ -25,14 +25,17 @@ Loogares\BlogBundle\Entity\Posts:
             type: string
         titulo_home:
             type: string
+            nullable: true
         descripcion_home:
             type: string
+            nullable: true
         imagen:
             type: string
         imagen_detalle:
             type: string
         imagen_home:
             type: string
+            nullable: true
         contenido:
             type: text
         preview:
@@ -47,13 +50,22 @@ Loogares\BlogBundle\Entity\Posts:
             nullable: true
         condiciones:
             type: text
+            nullable: true
         numero_premios:
             type: smallint
+            nullable: true
         ganadores:
             type: text
+            nullable: true
         detalles:
             type: text
+            nullable: true
         destacado_home:
             type: smallint
         posicion_home:
             type: smallint
+
+    lifecycleCallbacks:
+        preUpdate: [ preUpload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]

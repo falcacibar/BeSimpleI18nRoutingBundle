@@ -11,7 +11,6 @@ use Mailchimp\MCAPI;
 
 class DefaultController extends Controller
 {
-    
     public function indexAction($name){
         return $this->render('LoogaresExtraBundle:Default:index.html.twig', array('name' => $name));
     }
@@ -131,13 +130,23 @@ class DefaultController extends Controller
 
         //Campañas del home
         $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
-                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) 
+                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) and p.blog_estado = 2 and p.posicion_home = ?4
                                ORDER BY p.id DESC");
-        $q->setMaxResults(3);
+        $q->setMaxResults(1);
         $q->setParameter(1, $ciudadSession['id']);
         $q->setParameter(2, 1);
         $q->setParameter(3, 3);
-        $campanas = $q->getResult();
+        $q->setParameter(4, 1);
+        $posicion1 = $q->getResult();
+
+        $q->setParameter(4, 2);
+        $posicion2 = $q->getResult();
+
+        $q->setParameter(4, 3);
+        $posicion3 = $q->getResult();
+
+        $campanas = array_merge($posicion1, $posicion2, $posicion3);
+
 
         //Slider del home
         $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
@@ -191,7 +200,7 @@ class DefaultController extends Controller
 
         // Recomendación del día
         $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
-
+        
         $previewRecDia = '';
         if(strlen($recomendacionDelDia->getTexto()) > 160) {
             $previewRecDia = substr($recomendacionDelDia->getTexto(),0,159).'...';

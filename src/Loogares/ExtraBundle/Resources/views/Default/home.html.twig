@@ -17,6 +17,12 @@
     </script>
 {% endblock %}
 
+{% block meta %}
+	<meta name="title" content="Loogares.com | Comparte y Vive la ciudad | {{app.session.get('ciudad').nombre}}" />
+	<meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de restaurantes, hoteles, museos... incluso cines y servicios." />
+	<meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos" />
+{% endblock %}
+
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
 {% endblock %}
@@ -56,7 +62,7 @@
 					<a href="{{ path('post', {'ciudad': campana.ciudad.slug, 'slug': campana.slug}) }}">
 						<li {% if loop.index == 2 %}class="central"{% endif %}>
 							<h2 class="titulo_concurso {{campana.blogEstadoConcurso.clase}}">{{campana.blogEstadoConcurso.nombre}}</h2>
-							<img src="http://www.loogares.com/assets/images/blog/{{campana.imagenHome}}" width="204" height="115" / >
+							<img src="http://www.loogares.com/assets/images/blog/{{campana.imagen}}" width="204" height="115" / >
 							<p class="lugar_concurso">{{campana.tituloHome}}</p>
 							<p class="sorteo_concurso">{{campana.descripcionHome}}</p>
 						</li>
@@ -126,7 +132,7 @@
 				{% for campana in sliderCampanas %}
 				<li>
 					<a href="{{ path('post', {'ciudad': campana.ciudad.slug, 'slug': campana.slug}) }}">
-						<img src="http://www.loogares.com/assets/images/blog/{{campana.imagenHome}}" height="158" width="148" />
+						<img src="http://www.loogares.com/assets/images/blog/{{campana.imagen}}" height="158" width="148" />
 					</a>
 					<div class="detalles_nota">
 						<p class="nombre_colaborador">{{campana.blogCategoria.nombre}}</p>
