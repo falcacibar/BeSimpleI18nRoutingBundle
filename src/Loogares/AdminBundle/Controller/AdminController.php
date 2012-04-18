@@ -1060,6 +1060,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         if($request->getMethod() == 'POST'){
             $vars = $_POST['id'];
@@ -1080,6 +1081,7 @@ class AdminController extends Controller
         
         foreach($itemsABorrar as $item){    
             $recomendacion = $rr->findOneById($item);
+
             $mail = array();
             $mail['recomendacion'] = $recomendacion;
             $mail['usuario'] = $recomendacion->getUsuario();
@@ -1103,9 +1105,25 @@ class AdminController extends Controller
 
             $recomendacion->setEstado($estado);
             $em->persist($recomendacion);
-        }
+            $em->flush();
 
-        $em->flush();
+            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u
+                                   WHERE u.lugar = ?1 AND u.estado != 3 ORDER BY u.id DESC");
+            $q->setParameter(1, $recomendacion->getId());
+            $ultimaRecomendacion = $q->getOneOrNullResult();
+
+            if($ultimaRecomendacion){
+              $fechaUltimaRecomendacion = $ultimaRecomendacion->getFechaCreacion();
+            }else{
+              $fechaUltimaRecomendacion = null;
+            }
+            
+            $lugar->setFechaUltimaRecomendacion($fechaUltimaRecomendacion);
+            $em->persist($lugar);
+            $em->flush();
+        }
+        $lr->actualzarPromedios($lugar->getSlug());
+       
 
         $args = array(
             'ciudad' => $ciudad
@@ -1162,6 +1180,8 @@ class AdminController extends Controller
 
             $em->persist($recomendacion);
             $em->flush();
+
+            $lr->actualzarPromedios($recomendacion->getLugar()->getSlug());
 
             return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarRecomendacion', array(
                 'ciudad' => $ciudad,
@@ -1568,11 +1588,18 @@ class AdminController extends Controller
         $filters = array(
             'pusuario' => 'usuarios.slug',
             'plugar' => 'lugares.nombre',
-            'pestado' => 'estadoNombre'
+            'pestado' => 'blogEstadoNombre',
+            'pcategoria' => 'categoriaSlug'
         );
 
         $listadoFilters = array(
-
+            'id' => 'p.id',
+            'usuario' => 'usuarioSlug',
+            'titulo' => 'p.titulo',
+            'categoria' => 'categoriaNombre',
+            'premios' => 'p.numero_premios',
+            'fecha_publicacion' => 'p.fecha_publicacion',
+            'estado' => 'estadoNombre'
         );
 
         if(isset($_GET['buscar'])){
@@ -1710,7 +1737,7 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoBlogPosts', $args));
     }
 
-    public function vistaBlogPostsAction($ciudad, Request $request){
+    public function vistaBlogPostsAction($ciudad, Request $request, $post = null){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
@@ -1718,6 +1745,7 @@ class AdminController extends Controller
         $bcr = $em->getRepository("LoogaresBlogBundle:Categoria");
         $ber = $em->getRepository("LoogaresBlogBundle:Estado");
         $becr = $em->getRepository("LoogaresBlogBundle:EstadoConcurso");
+        $pr = $em->getRepository("LoogaresBlogBundle:Posts");
         $fn = $this->get('fn');
         $imagenes = array();
         $fechaPublicacion = null;
@@ -1726,7 +1754,11 @@ class AdminController extends Controller
 
         $ciudad = $cr->findOneBySlug($ciudad);
         
-        $post = new Posts();
+        if($post != null){ //Si slug tiene data, entonces el post existe, estamos editando, yada yada.
+            $post = $pr->findOneBySlug($post);
+        }else{
+            $post = new Posts();
+        }
 
         $form = $this->createFormBuilder($post)
              ->add('vimagen')
@@ -1821,7 +1853,8 @@ class AdminController extends Controller
             'estados' => $ber->findAll(),
             'categorias' => $bcr->findAll(),
             'estados_concurso' => $becr->findAll(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'post' => $post
         ));
     }
 
