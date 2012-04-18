@@ -10,18 +10,23 @@
 		<ul class="agregar_blog_posts">
 			<li>
 				<label>Título</label>
-				<input class="titulo_post" name="titulo" id="" type="text" placeholder="Titulo del Post"/>
+				<input class="titulo_post" name="titulo" type="text" placeholder="Titulo del Post" value="{{post.titulo}}"/>
 			</li>
 
 			<li>
 				<label>URL slug</label>
-				<input class="slug_post" name="slug" id="" type="text" placeholder="URL para el Post (Solo el slug!)" />
+				<input class="slug_post" name="slug" id="" type="text" placeholder="URL para el Post (Solo el slug!)"  value="{{post.slug}}"/>
 			</li>
 
 			<li>
 				<label>Usuario</label>
-				<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{app.security.token.user.nombre}} {{app.security.token.user.apellido}} ({{app.security.token.user.id}}) | {{app.security.token.user.slug}}"/>
-				<input name="usuario_id" id="usuario_id" type="hidden" value="({{app.security.token.user.id}})" />
+				{% if post.usuario.id is not defined %}
+					<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{app.security.token.user.nombre}} {{app.security.token.user.apellido}} ({{app.security.token.user.id}}) | {{app.security.token.user.slug}}"/>
+					<input name="usuario_id" id="usuario_id" type="hidden" value="({{app.security.token.user.id}})" />
+				{% else %}
+					<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{post.usuario.nombre}} {{post.usuario.apellido}} ({{post.usuario.id}}) | {{post.usuario.slug}}"/>
+					<input name="usuario_id" id="usuario_id" type="hidden" value="({{post.usuario.id}})" />
+				{% endif %}
 			</li>
 
 			<li>
@@ -29,7 +34,7 @@
 	            <select name="categoria">
 	            	<option>Selecciona una Opción (o agrega una nueva)</option>
 	            	{% for categoria in categorias %}
-	            		 <option value='{{categoria.id}}'>{{categoria.nombre}}</option>
+	            		 <option {% if post.blogCategoria.id is defined and post.blogCategoria.id == categoria.id %}selected="selected"{% endif %} value='{{categoria.id}}'>{{categoria.nombre}}</option>
 	            	{% endfor %}
 	            </select>
 	            <a class="agregar_nuevo" href="">Agregar nueva categoría</a>
@@ -43,8 +48,13 @@
 			</li>
 			<li>
 				<label>Lugar relacionado</label>
-				<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (Opcional)"/>
-				<input name="lugar_id" id="lugar_id" type="hidden" />
+				{% if post.lugar.id is not defined %}
+					<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (Opcional)"/>
+					<input name="lugar_id" id="lugar_id" type="hidden" />
+				{% else %}
+					<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (Opcional)" value="{{post.lugar.nombre}} ({{post.lugar.id}}) | {{post.lugar.calle}} {{post.lugar.numero}} - {{post.lugar.comuna.nombre}}"/>
+					<input name="lugar_id" id="lugar_id" type="hidden" value="({{post.lugar.id}})" />
+				{% endif %}
 			</li>
 
 			<li>
@@ -54,12 +64,12 @@
 
 			<li>
 				<label>Contenido</label>
-				<textarea name="contenido" class="contenido_post" rows="15" placeholder="Contenido Principal (HTML)"></textarea>
+				<textarea name="contenido" class="contenido_post" rows="15" placeholder="Contenido Principal (HTML)">{{post.contenido}}</textarea>
 			</li>
 
 			<li>
 				<label>Preview</label>
-				<textarea rows="15" class="preview_post" name="preview" placeholder="Preview (HTML)"></textarea>
+				<textarea rows="15" class="preview_post" name="preview" placeholder="Preview (HTML)">{{post.preview}}</textarea>
 			</li>
 
 			<li>
@@ -74,56 +84,56 @@
 
 			<li>
 				<label>Número de premios</label>
-				<input name="numero_premios" type="text" placeholder="Numero de Premios (Opcional)"/>
+				<input name="numero_premios" type="text" placeholder="Numero de Premios (Opcional)" value="{{post.numeroPremios}}"/>
 			</li>
 
 			<li>
 				<label>Ganadores</label>
-				<textarea rows="15" name="ganadores" placeholder="Texto Ganadores (Opcional)"></textarea>
+				<textarea rows="15" name="ganadores" placeholder="Texto Ganadores (Opcional)" value="{{post.ganadores}}"></textarea>
 			</li>
 
 			<li>
 				<label>Condiciones</label>
-				<textarea rows="15" name="condiciones" placeholder="Condiciones del Concurso (Opcional)"></textarea>
+				<textarea rows="15" name="condiciones" placeholder="Condiciones del Concurso (Opcional)" value="{{post.condiciones}}"></textarea>
 			</li>
 
 			<li>
 				<label>Estado</label>
-	            <select name="estado">
-	            	{% for estado in estados %}
-	            		 <option value='{{estado.id}}'>{{estado.nombre}}</option>
-	            	{% endfor %}
+				<select name="estado">
+            		 <option {% if post.blogEstado.id is defined and post.blogEstado.id == 1 %}selected="selected"{% endif %} value="1">Post Borrador</option>
+            		 <option {% if post.blogEstado.id is defined and  post.blogEstado.id == 3 %}selected="selected"{% endif %} value="3">Post Agendado</option>
+            		 <option {% if post.blogEstado.id is defined and  post.blogEstado.id == 4 %}selected="selected"{% endif %} value="4">Post Eliminado</option>
 	            </select>
 			</li>
 
 			<li>
 				<label>Fecha publicación</label>
-				<input type="hidden" name="fecha_publicacion" id="fecha-desde" value="">
-        		<input type="text" id="fecha-desde-ph" value="" placeholder="Fecha de Publicacion (Agendado, Opcional)">
+				<input type="hidden" name="fecha_publicacion" id="fecha-desde" value="{% if post.fechaPublicado is defined %}{{post.fechaPublicado|date('Y-m-d')}}{%endif%}">
+        		<input type="text" id="fecha-desde-ph" value="" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicado is defined %}{{post.fechaPublicado|date('d-m-y')}}{%endif%}}}">
 			</li>
 
 			<h1>Home</h1>
 
 			<li>
 				<label>Titulo Home</label>
-				<input name="titulo_home" id="" type="text" placeholder="Titulo de Home en caso que no lleve Estado Concurso"/>
+				<input name="titulo_home" id="" type="text" placeholder="Titulo de Home en caso que no lleve Estado Concurso" value="{{post.tituloHome}}"/>
 			</li>
 			<li>
 				<label>Destacado home</label>
 	            <select class="destacado_home" name="destacado_home">
-	                <option value='0'>No</option>
-	                <option value='1'>Solo en el Home</option>
-	                <option value='2'>Solo en el Slider</option>
-	                <option value='3'>En el Home y en el Slider</option>
+	                <option {% if post.destacadoHome == 0 %}selected="selected"{% endif %} value='0'>No</option>
+	                <option {% if post.destacadoHome == 1 %}selected="selected"{% endif %} value='1'>Solo en el Home</option>
+	                <option {% if post.destacadoHome == 2 %}selected="selected"{% endif %} value='2'>Solo en el Slider</option>
+	                <option {% if post.destacadoHome == 3 %}selected="selected"{% endif %} value='3'>En el Home y en el Slider</option>
 	            </select>
 			</li>
 			<li class="no-default">
 				<label>Posicion Home</label>
 	            <select class="posicion_home" name="posicion_home">
-	                <option value='0'>0</option>
-	                <option value='1'>1</option>
-	                <option value='2'>2</option>
-	                <option value='3'>3</option>
+	                <option {% if post.posicionHome == 0 %}selected="selected"{% endif %} value='0'>0</option>
+	                <option {% if post.posicionHome == 1 %}selected="selected"{% endif %} value='1'>1</option>
+	                <option {% if post.posicionHome == 2 %}selected="selected"{% endif %} value='2'>2</option>
+	                <option {% if post.posicionHome == 3 %}selected="selected"{% endif %} value='3'>3</option>
 	            </select>
 			</li>
 			<li>
@@ -133,7 +143,7 @@
 
 			<li>
 				<label>Descripción</label>
-				<input name="descripcion_home" id="" type="text" placeholder="Descripción del Post"/>
+				<input name="descripcion_home" id="" type="text" placeholder="Descripción del Post" value="{{post.descripcionHome}}"/>
 			</li>
 
 			<li>
@@ -156,12 +166,12 @@
 
 			<li>
 				<label>Fecha Cierre</label>
-				<input type="hidden" name="fecha_termino" id="fecha-hasta" value="">
-        		<input type="text" id="fecha-hasta-ph" value="" placeholder="Fecha de Cierre (Opcional)">
+				<input type="hidden" name="fecha_termino" id="fecha-hasta" value="{{post.fechaTermino|date('Y-m-d')}}">
+        		<input type="text" id="fecha-hasta-ph" value="" placeholder="Fecha de Cierre (Opcional)" value="{{post.fechaTermino|date('d-m-y')}}">
 			</li>
 		</ul>
 		{{form_rest(form)}}
-		<input type="hidden" name="ciudad" value="{{ciudad.slug}}"/>
+		<input type="hidden" name="ciudad" value="{% if post.ciudad.id is defined%}{{post.ciudad.slug}}{% else %}{{ciudad.slug}}{% endif %}"/>
 		<input class="guardar_posts" type="submit" value=""/>
 	</form>
 {% endblock %}
