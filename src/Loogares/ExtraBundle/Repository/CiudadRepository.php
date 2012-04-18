@@ -14,7 +14,10 @@ class CiudadRepository extends EntityRepository
 {
 	public function getCiudadesActivas() {
       $em = $this->getEntityManager();
-      $q = $em->createQuery("SELECT c FROM Loogares\ExtraBundle\Entity\Ciudad c WHERE c.mostrar_lugar = 1 or c.mostrar_lugar = 3");
+      $q = $em->createQuery("SELECT c 
+                             FROM Loogares\ExtraBundle\Entity\Ciudad c 
+                             WHERE c.mostrar_lugar = 1 
+                             OR c.mostrar_lugar = 3");
       $ciudadesResult = $q->getResult();
 
       return $ciudadesResult;
