@@ -642,8 +642,6 @@ class Posts
     {
         return $this->blog_estado;
     }
-<<<<<<< HEAD
-=======
 
         /**
     * Funciones que permiten manejar de mejor forma la imagen de usuario
@@ -761,5 +759,4 @@ class Posts
             unlink($vimagen_home);
         }
     }
->>>>>>> b347ffe7236aa63830a6d3c1ffbc3d8e43fa5134
 }
