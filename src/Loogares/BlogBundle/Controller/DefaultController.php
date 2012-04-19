@@ -69,7 +69,6 @@ class DefaultController extends Controller
             $post->getLugar()->setFacebook($fn->stripHTTP($post->getLugar()->getFacebook()));            
         }
 
-
         if(gettype($post) == 'object'){
             $q = $em->createQuery('SELECT u FROM Loogares\BlogBundle\Entity\Posts u 
                                   WHERE u.blog_categoria = ?1 and u.ciudad = ?2 and u.id != ?3');

@@ -1122,9 +1122,8 @@ class AdminController extends Controller
             $em->persist($lugar);
             $em->flush();
         }
-        $lr->actualzarPromedios($lugar->getSlug());
-       
 
+        $lr->actualzarPromedios($lugar->getSlug());
         $args = array(
             'ciudad' => $ciudad
         );
@@ -1141,6 +1140,7 @@ class AdminController extends Controller
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $fn = $this->get('fn');
+        $lugarAntiguo = null;
         $ciudad = $cr->findOneBySlug($ciudad);
 
         if($request->getMethod() == 'POST'){
@@ -1181,12 +1181,27 @@ class AdminController extends Controller
             $em->persist($recomendacion);
             $em->flush();
 
-            $lr->actualzarPromedios($recomendacion->getLugar()->getSlug());
+            //Si hay un lugar antiguo, actualizamos los totales del lugar antiguo tambien y cambiamos la accion del usuario
+            if($lugarAntiguo != null){
+                $lr->actualizarPromedios($lugar->getSlug());
+                $lr->actualizarPromedios($lugarAntiguo->getSlug());
+                
+                //Actualizamos los promedios
+                $q = $em->createQuery("SELECT au FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                                   WHERE au.lugar = ?1 and au.usuario = ?2 and (au.accion = ?3)");
+                $q->setParameter(1, $lugarAntiguo->getId())
+                  ->setParameter(2, $recomendacion->getUsuario()->getId())
+                  ->setParameter(3, 3);
 
-            return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarRecomendacion', array(
-                'ciudad' => $ciudad,
-                'id' => $id
-            )));
+                $accionesUsuario = $q->getOneOrNullResult();
+
+                if($accionesUsuario != null){
+                    $accionesUsuario->setLugar($lugar);
+                    $em->persist($accionesUsuario);
+                }
+
+                $em->flush();
+            }
         }
 
         $recomendacionResult = $this->getDoctrine()->getConnection()
