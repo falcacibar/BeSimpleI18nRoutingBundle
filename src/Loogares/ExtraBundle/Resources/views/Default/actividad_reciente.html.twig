@@ -22,7 +22,12 @@
 							{% else %}
 								{% trans with {'%open_tag%' : "<a href='"~path('_fotoGaleria', {'slug' : a.ent.lugar.slug, 'id' : a.ent.id})~"'>", '%close_tag%' : '</a> '}%}extra.home.actividad_reciente.agregar.foto{% endtrans %}
 							{% endif %}
-							 <a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a>
+							
+							{% if a.ent.lugar.estado.id != 3 %}
+								<a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a>
+							{% else %}
+								{{a.ent.lugar.nombre}}
+							{% endif %}
 						</p>
 						</div>
 
@@ -47,7 +52,12 @@
 							{% else %}
 								{% trans with {'%open_tag%' : "<a href='"~path('_recomendacion', {'slug' : a.ent.lugar.slug, 'usuarioSlug' : a.usuario.slug})~"'>", '%close_tag%' : '</a> ', '%estrellas%' : "<span class='estrellas_actividad' data-stars="~a.ent.estrellas~"></span>"}%}extra.home.actividad_reciente.agregar.recomendacion{% endtrans %} 
 							{% endif %}
-							<a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a></p>
+
+							{% if a.ent.lugar.estado.id != 3 %}
+								<a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a>
+							{% else %}
+								{{a.ent.lugar.nombre}}
+							{% endif %}
 
 							{% if a.ent.estado.id != 3 %}
 								<p class="rec_actividad_preview">{{a.ent.preview | raw}}
@@ -68,11 +78,16 @@
 							{% else %}
 								{% trans with {'%open_tag%' : "<a href='"~path('_recomendacion', {'slug' : a.ent.recomendacion.lugar.slug, 'usuarioSlug' : a.ent.recomendacion.usuario.slug})~"'>", '%close_tag%' : '</a>', '%usuario%' : "<a href='"~path('showUsuario', {'param' : a.ent.recomendacion.usuario.slug})~"'>"~a.ent.recomendacion.usuario.nombre~' '~a.ent.recomendacion.usuario.apellido~"</a> "}%}extra.home.actividad_reciente.agregar.util{% endtrans %}
 							{% endif %}
-							<a href="{{path('_lugar', {'slug' : a.ent.recomendacion.lugar.slug})}}">{{a.ent.recomendacion.lugar.nombre}}</a>
+							{% if a.ent.recomendacion.lugar.estado.id != 3 %}
+								<a href="{{path('_lugar', {'slug' : a.ent.recomendacion.lugar.slug})}}">{{a.ent.recomendacion.lugar.nombre}}</a>
+							{% else %}
+								{{a.ent.recomendacion.lugar.nombre}}
+							{% endif %}
+							
 						</p>
 
 					{% elseif a.entidad == 'Loogares\\LugarBundle\\Entity\\Lugar'%}
-						<p><a href="{{path('showUsuario', {'param' : a.usuario.slug})}}">{{a.usuario.nombre}} {{a.usuario.apellido}}</a> {{'extra.home.actividad_reciente.agregar.lugar'|trans}}: <a href="{{path('_lugar', {'slug' : a.ent.slug})}}">{{a.ent.nombre}}</a></p>
+						<p><a href="{{path('showUsuario', {'param' : a.usuario.slug})}}">{{a.usuario.nombre}} {{a.usuario.apellido}}</a> {{'extra.home.actividad_reciente.agregar.lugar'|trans}}: {% if a.ent.estado.id != 3 %}<a href="{{path('_lugar', {'slug' : a.ent.slug})}}">{{a.ent.nombre}}</a>{% else %}{{a.ent.nombre}}{% endif %}</p>
 					{% endif %}
 
 				{% elseif a.tipoActividadReciente.nombre == 'editar' %}
@@ -90,7 +105,12 @@
 							{% else %}
 								{% trans with {'%open_tag%' : "<a href='"~path('_recomendacion', {'slug' : a.ent.lugar.slug, 'usuarioSlug' : a.usuario.slug})~"'>", '%close_tag%' : '</a>', '%estrellas%' : "<span class='estrellas_actividad' data-stars="~a.ent.estrellas~"></span>"}%}extra.home.actividad_reciente.editar.recomendacion{% endtrans %}
 							{% endif %}
-							<a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a>
+
+							{% if a.ent.lugar.estado.id != 3 %}
+								<a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a>
+							{% else %}
+								{{a.ent.lugar.nombre}}
+							{% endif %}
 						</p>
 						{% if a.ent.estado.id != 3 %}
 							<p class="rec_actividad_preview">{{a.ent.preview | raw}}</p>
