@@ -37,6 +37,7 @@
               }
           }
     </script>
+    {% block ads %}{% endblock %} 
     </head>
 
     <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }}">
