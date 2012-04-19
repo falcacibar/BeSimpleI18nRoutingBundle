@@ -1722,7 +1722,7 @@ class AdminController extends Controller
             }else if($borrador == true){
                 $estado = $ber->findOneByNombre('Post Borrador');  
             }
-            $post->setEstado($estado);
+            $post->setBlogEstado($estado);
             $em->persist($post);
         }
 
