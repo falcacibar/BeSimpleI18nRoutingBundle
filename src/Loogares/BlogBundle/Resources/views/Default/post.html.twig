@@ -16,6 +16,12 @@
     </script>
 {% endblock %}
 
+{% block meta %}
+	<meta name="title" content="Loogares.com | {{post.titulo}}" />
+	<meta name="description" content="“{{post.contenido|slice(0,160)}}”" />
+	<meta name="keywords" content="{{post.titulo}}, {{post.blogCategoria.nombre}}, Concursos, Eventos, Notas, Actividades, Premios, Entradas, Invitaciones, Loogares, {{ciudad.nombre}}" />
+{% endblock %}
+
 {% block javascripts %}
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>

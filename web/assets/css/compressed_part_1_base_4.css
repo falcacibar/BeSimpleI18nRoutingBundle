@@ -1035,6 +1035,8 @@ textarea {
         border-left: 1px solid #f2f2f6;
         cursor: pointer;
         float: right;
+        list-style-type: none;
+        margin: 0px;
         text-align: right;
         padding: 15px 15px 15px 10px;
         text-shadow: 1px 1px 1px white;

@@ -11,9 +11,9 @@ Loogares\ExtraBundle\Entity\ip2loc:
         ip_to:
             type: string
         range_from:
-            type: integer
+            type: bigint
         range_to:
-            type: integer
+            type: bigint
         country_code:
             type: string
         country:

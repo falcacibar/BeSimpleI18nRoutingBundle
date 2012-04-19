@@ -1357,12 +1357,10 @@ class LugarController extends Controller{
                     $message = $this->get('fn')->enviarMail($mail['asunto'], $usuarioAnterior->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
                     $this->get('mailer')->send($message);
                 }
-            }
-                
-                
-                //SET FLASH AND REDIRECTTT
-                $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
-                return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
+            }   
+            //SET FLASH AND REDIRECTTT
+            $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
+            return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
         }
     }
@@ -1385,17 +1383,26 @@ class LugarController extends Controller{
             foreach($recomendacionResult as $recomendacion){
                 $recomendacion->setEstado($estado);
             }
+            $em->flush();
 
-            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 ORDER BY u.id desc");
+            $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 and u.estado != 3 ORDER BY u.id desc");
             $q->setMaxResults(1);
             $q->setParameter(1, $lugar->getId());
-            $ultimaRecomendacion = $q->getResult();
+            $ultimaRecomendacion = $q->getOneOrNullResult();
 
-            $lugar->setFechaUltimaRecomendacion($ultimaRecomendacion[0]->getFechaCreacion());
+            if($ultimaRecomendacion){
+              $fechaUltimaRecomendacion = $ultimaRecomendacion->getFechaCreacion();
+            }else{
+              $fechaUltimaRecomendacion = null;
+            }
+
+            $lugar->setFechaUltimaRecomendacion($fechaUltimaRecomendacion);
+
+            $em->persist($lugar);
+            $em->flush();
 
             $ar->actualizarActividadReciente($recomendacionResult[0]->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
-
-            $em->flush();
+            $lr->actualizarPromedios($lugar->getSlug());
 
             $this->get('session')->setFlash('lugar_flash','Acabas de borrar tu recomendación, prueba escribiendo una nueva.');
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
