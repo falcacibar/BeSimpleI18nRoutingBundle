@@ -71,11 +71,11 @@
 					<li data-id="{{accion.lugar.id}}" data-accion="{{usuario.accion}}">
 						<div class="imagen_lugar_guardado_usuario">
 							<a href="{{path('_lugar', {'slug' : accion.lugar.slug})}}">
-								{% for img in accion.lugar.imagenesLugar %}		
-									{% if loop.last %}						
-										<img src="{{ ('assets/images/lugares/'~img.imagenFull) | apply_filter('small_lugar') }}" />
-									{% endif %}
-								{% endfor %}
+								{% if accion.lugar.imagenesActivasLugar[0].imagenFull is not defined %}
+									<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('small_lugar') }}"  width="50" height="50" />
+								{% else %}
+									<img src="{{ ('assets/images/lugares/'~accion.lugar.imagenesActivasLugar[accion.lugar.imagenesActivasLugar|length-1].imagenFull) | apply_filter('small_lugar') }}"  width="50" height="50" />
+								{% endif %}
 							</a>							
 						</div>
 
