@@ -12,11 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class AccionUsuarioRepository extends EntityRepository
 {
-    public function actualizarAcccionesUsuario($idLugar, $idUsuario){
+    public function actualizarAcccionesUsuario($idLugar, $idLugarNuevo, $idUsuario){
         //Actualizamos las Acciones
         $em = $this->getEntityManager();
         $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
-        $lugar = $lr->findOneById($idLugar);
+        $lugar = $lr->findOneById($idLugarNuevo);
 
         $q = $em->createQuery("SELECT au FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
                            WHERE au.lugar = ?1 and au.usuario = ?2 and (au.accion = ?3)");

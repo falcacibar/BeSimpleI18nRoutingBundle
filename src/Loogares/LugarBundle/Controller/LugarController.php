@@ -1386,8 +1386,6 @@ class LugarController extends Controller{
             }
             $em->flush();
 
-            $aur->borrarAccionesUsuario($lugar->getId(), $recomendacion->getUsuario()->getId());
-
             $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 and u.estado != 3 ORDER BY u.id desc");
             $q->setMaxResults(1);
             $q->setParameter(1, $lugar->getId());
@@ -1404,6 +1402,7 @@ class LugarController extends Controller{
             $em->persist($lugar);
             $em->flush();
 
+            $aur->borrarAccionesUsuario($lugar->getId(), $recomendacion->getUsuario()->getId());
             $ar->actualizarActividadReciente($recomendacionResult[0]->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
             $lr->actualizarPromedios($lugar->getSlug());
 

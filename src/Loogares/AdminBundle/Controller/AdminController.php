@@ -1061,6 +1061,7 @@ class AdminController extends Controller
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $arr = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $aur = $em->getRepository("LoogaresUsuarioBundle:AccionUsuario");
 
         if($request->getMethod() == 'POST'){
             $vars = $_POST['id'];
@@ -1089,10 +1090,21 @@ class AdminController extends Controller
                 $estado = $lr->getEstado(3);
                 $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.borrar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));                
                 $mail['tipo'] = "borrar";
+
+                $recomendacion->setEstado($estado);
+                $em->persist($recomendacion);
+                $em->flush();
+
+                $aur->borrarAccionesUsuario($recomendacion->getLugar()->getId(), $recomendacion->getUsuario()->getId());
+                $arr->actualizarActividadReciente($recomendacion->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
             }else if($habilitar == true){
                 $estado = $lr->getEstado(2); 
                 $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.aprobar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));                
-                $mail['tipo'] = "aprobar";                               
+                $mail['tipo'] = "aprobar";      
+
+                $recomendacion->setEstado($estado);
+                $em->persist($recomendacion);
+                $em->flush();             
             }
 
             $message = \Swift_Message::newInstance()
@@ -1103,11 +1115,6 @@ class AdminController extends Controller
             $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_recomendacion.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
             $this->get('mailer')->send($message);
 
-            $recomendacion->setEstado($estado);
-            $em->persist($recomendacion);
-            $em->flush();
-
-            //Limpiamos la recomendacion reciente
             $arr->actualizarActividadReciente($recomendacion->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
 
             //Cambiamos la fecha de la ultima recomendacion en el lugar
@@ -1144,6 +1151,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $arr = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $aur = $em->getRepository("LoogaresUsuarioBundle:AccionUsuario");
         
@@ -1193,7 +1201,36 @@ class AdminController extends Controller
             if($lugarAntiguo != null){
                 $lr->actualizarPromedios($lugar->getSlug());
                 $lr->actualizarPromedios($lugarAntiguo->getSlug());
-                $aur->actualizarAcccionesUsuario($lugarAntiguo->getId(), $recomendacion->getUsuario()->getId());
+                $aur->actualizarAcccionesUsuario($lugarAntiguo->getId(), $lugar->getId(), $recomendacion->getUsuario()->getId());
+                $arr->actualizarActividadReciente($recomendacion->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
+
+                $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 and u.estado != 3 ORDER BY u.id desc");
+                $q->setMaxResults(1);
+                $q->setParameter(1, $lugar->getId());
+                $ultimaRecomendacion = $q->getOneOrNullResult();
+
+                if($ultimaRecomendacion){
+                  $fechaUltimaRecomendacion = $ultimaRecomendacion->getFechaCreacion();
+                }else{
+                  $fechaUltimaRecomendacion = null;
+                }
+
+                $lugar->setFechaUltimaRecomendacion($fechaUltimaRecomendacion);
+
+                $q->setParameter(1, $lugarAntiguo->getId());
+                $ultimaRecomendacion = $q->getOneOrNullResult();
+
+                if($ultimaRecomendacion){
+                  $fechaUltimaRecomendacion = $ultimaRecomendacion->getFechaCreacion();
+                }else{
+                  $fechaUltimaRecomendacion = null;
+                }
+
+                $lugarAntiguo->setFechaUltimaRecomendacion($fechaUltimaRecomendacion);
+
+                $em->persist($lugar);
+                $em->persist($lugarAntiguo);
+                $em->flush();
             }
         }
 
