@@ -1382,7 +1382,7 @@ class LugarController extends Controller{
             $estado = $lr->getEstado(3);
 
             foreach($recomendacionResult as $recomendacion){
-                //$recomendacion->setEstado($estado);
+                $recomendacion->setEstado($estado);
             }
             $em->flush();
 
