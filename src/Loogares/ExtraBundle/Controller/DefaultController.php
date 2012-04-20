@@ -98,7 +98,6 @@ class DefaultController extends Controller
         $q->setParameter(1, $ip);
         $q->setMaxResults(1);
         $ipPais = $q->getOneOrNullResult();
-        $ipPais = null;
 
         $ciudadesHabilitadas = array(
             'santiago-de-chile' => 'santiago-de-chile',
