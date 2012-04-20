@@ -1,6 +1,7 @@
 Loogares\UsuarioBundle\Entity\AccionUsuario:
     type: entity
     table: acciones_usuario
+    repositoryClass: Loogares\UsuarioBundle\Repository\AccionUsuarioRepository
     manyToOne:
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar

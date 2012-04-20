@@ -1060,7 +1060,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
-        $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $arr = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
 
         if($request->getMethod() == 'POST'){
             $vars = $_POST['id'];
@@ -1107,9 +1107,14 @@ class AdminController extends Controller
             $em->persist($recomendacion);
             $em->flush();
 
+            //Limpiamos la recomendacion reciente
+            $arr->actualizarActividadReciente($recomendacion->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
+
+            //Cambiamos la fecha de la ultima recomendacion en el lugar
             $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u
                                    WHERE u.lugar = ?1 AND u.estado != 3 ORDER BY u.id DESC");
-            $q->setParameter(1, $recomendacion->getId());
+            $q->setParameter(1, $recomendacion->getLugar()->getId());
+            $q->setMaxResults(1);
             $ultimaRecomendacion = $q->getOneOrNullResult();
 
             if($ultimaRecomendacion){
@@ -1118,12 +1123,13 @@ class AdminController extends Controller
               $fechaUltimaRecomendacion = null;
             }
             
-            $lugar->setFechaUltimaRecomendacion($fechaUltimaRecomendacion);
-            $em->persist($lugar);
+            $recomendacion->getLugar()->setFechaUltimaRecomendacion($fechaUltimaRecomendacion);
+            $em->persist($recomendacion->getLugar());
             $em->flush();
         }
 
-        $lr->actualzarPromedios($lugar->getSlug());
+        $lr->actualizarPromedios($recomendacion->getLugar()->getSlug());
+
         $args = array(
             'ciudad' => $ciudad
         );
@@ -1139,6 +1145,8 @@ class AdminController extends Controller
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $aur = $em->getRepository("LoogaresUsuarioBundle:AccionUsuario");
+        
         $fn = $this->get('fn');
         $lugarAntiguo = null;
         $ciudad = $cr->findOneBySlug($ciudad);
@@ -1185,22 +1193,7 @@ class AdminController extends Controller
             if($lugarAntiguo != null){
                 $lr->actualizarPromedios($lugar->getSlug());
                 $lr->actualizarPromedios($lugarAntiguo->getSlug());
-                
-                //Actualizamos los promedios
-                $q = $em->createQuery("SELECT au FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
-                                   WHERE au.lugar = ?1 and au.usuario = ?2 and (au.accion = ?3)");
-                $q->setParameter(1, $lugarAntiguo->getId())
-                  ->setParameter(2, $recomendacion->getUsuario()->getId())
-                  ->setParameter(3, 3);
-
-                $accionesUsuario = $q->getOneOrNullResult();
-
-                if($accionesUsuario != null){
-                    $accionesUsuario->setLugar($lugar);
-                    $em->persist($accionesUsuario);
-                }
-
-                $em->flush();
+                $aur->actualizarAcccionesUsuario($lugarAntiguo->getId(), $recomendacion->getUsuario()->getId());
             }
         }
 
