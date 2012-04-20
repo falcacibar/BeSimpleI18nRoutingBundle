@@ -1369,6 +1369,7 @@ class LugarController extends Controller{
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
+        $aur = $em->getRepository("LoogaresUsuarioBundle:AccionUsuario");
 
         $lugar = $lr->findOneBySlug($slug);
 
@@ -1381,9 +1382,11 @@ class LugarController extends Controller{
             $estado = $lr->getEstado(3);
 
             foreach($recomendacionResult as $recomendacion){
-                $recomendacion->setEstado($estado);
+                //$recomendacion->setEstado($estado);
             }
             $em->flush();
+
+            $aur->borrarAccionesUsuario($lugar->getId(), $recomendacion->getUsuario()->getId());
 
             $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 and u.estado != 3 ORDER BY u.id desc");
             $q->setMaxResults(1);

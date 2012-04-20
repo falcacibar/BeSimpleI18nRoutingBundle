@@ -147,7 +147,6 @@ class DefaultController extends Controller
 
         $campanas = array_merge($posicion1, $posicion2, $posicion3);
 
-
         //Slider del home
         $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
                                WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) 
@@ -162,10 +161,7 @@ class DefaultController extends Controller
         //Recomendacion Estrella
         $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\LoogarenoEstrella u ORDER BY u.id desc");
         $q->setMaxResults(1);
-        $estrellaResult = $q->getResult();
-
-        $estrella['obj'] = $estrellaResult[0]->getRecomendacion();
-        $estrella['truncated'] = substr($estrellaResult[0]->getRecomendacion()->getTexto(), 0, 180);
+        $estrellaResult = $q->getSingleResult();
 
         // Cantidad de premios regalados (totales)
         $q = $em->createQuery("SELECT count(cu.id)
@@ -243,7 +239,7 @@ class DefaultController extends Controller
         $home['ultimosConectados'] = $ultimosConectados;
         $home['categorias'] = $categorias;
         $home['actividad'] = $actividad;
-        $home['estrella'] = $estrella;
+        $home['estrella'] = $estrellaResult->getRecomendacion();
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,     

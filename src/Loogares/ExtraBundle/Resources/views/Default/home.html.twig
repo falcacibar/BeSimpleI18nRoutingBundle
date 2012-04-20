@@ -159,20 +159,20 @@
 				<h6 class="titulo_estrella">{{'extra.home.modulo_loogareno_estrella.titulo'|trans}}</h6>
 				<div class="informacion">
 					<div class="imagen_recomendacion">
-						<a class="imagen" href="{{ path('showUsuario', {'param': home.estrella.obj.usuario.slug}) }}" class="link_usuario">
-							<img src="{{ ('assets/images/usuarios/'~home.estrella.obj.usuario.imagenFull) | apply_filter('medium_usuario') }}" height="64" width="64"/>
+						<a class="imagen" href="{{ path('showUsuario', {'param': home.estrella.usuario.slug}) }}" class="link_usuario">
+							<img src="{{ ('assets/images/usuarios/'~home.estrella.usuario.imagenFull) | apply_filter('medium_usuario') }}" height="64" width="64"/>
 						</a>
 						<div class="textos_usuario">
-							<a class="nombre_usuario" href="{{ path('showUsuario', {'param': home.estrella.obj.usuario.slug}) }}">
-								{{home.estrella.obj.usuario.nombre}} {{home.estrella.obj.usuario.apellido}} 
+							<a class="nombre_usuario" href="{{ path('showUsuario', {'param': home.estrella.usuario.slug}) }}">
+								{{home.estrella.usuario.nombre}} {{home.estrella.usuario.apellido}} 
 							</a>
-							<span class="invitada_lugar">{{'extra.home.modulo_loogareno_estrella.invitacion'|trans}} <a href="{{ path('_lugar', {'slug': home.estrella.obj.lugar.slug}) }}">{{ home.estrella.obj.lugar.nombre}}</a> {{'extra.home.modulo_loogareno_estrella.por'|trans}}</span>
+							<span class="invitada_lugar">{{'extra.home.modulo_loogareno_estrella.invitacion'|trans}} <a href="{{ path('_lugar', {'slug': home.estrella.lugar.slug}) }}">{{ home.estrella.lugar.nombre}}</a> {{'extra.home.modulo_loogareno_estrella.por'|trans}}</span>
 						</div>
 					</div>
 				</div>
 				<div class="recomendacion_preview">					
-					<span><a href="{{ path('_lugar', {'slug': home.estrella.obj.lugar.slug}) }}">{{ home.estrella.obj.lugar.nombre}}:</a> {{ home.estrella.truncated }}...</span>
-					<a href="{{ path('_lugar', {'slug': home.estrella.obj.lugar.slug}) }}/recomendacion/{{home.estrella.obj.usuario.slug}}" class="ver_mas">{{'extra.home.modulo_loogareno_estrella.ver_mas'|trans}}</a>
+					<span><a href="{{ path('_lugar', {'slug': home.estrella.lugar.slug}) }}">{{ home.estrella.lugar.nombre}}:</a> {{ home.estrella.texto | slice(0, 175) }}...</span>
+					<a href="{{ path('_lugar', {'slug': home.estrella.lugar.slug}) }}/recomendacion/{{home.estrella.usuario.slug}}" class="ver_mas">{{'extra.home.modulo_loogareno_estrella.ver_mas'|trans}}</a>
 					<br />
 					<span class="tips">{{'extra.home.modulo_loogareno_estrella.quieres_ser_invitado'|trans}} <a href="{{ path('static', {'static': 'loogareno_estrella'}) }}">{{'extra.home.modulo_loogareno_estrella.entra_aca'|trans}}</a></span>
 				</div>
