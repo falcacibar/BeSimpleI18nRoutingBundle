@@ -447,7 +447,7 @@
 											<a href="{{ path('showUsuario', {'param': lugar.ultimaRecomendacion.usuario.slug}) }}">{{lugar.ultimaRecomendacion.usuario.apellido}}</a>
 										{% endif %}
 									</strong>
-									<p>{{lugar.ultimaRecomendacion.texto|slice(0, 160)}}...</p>
+									<p>{{lugar.ultimaRecomendacion.texto|slice(0, 160)|raw}}...</p>
 								</span>
 							</li>
 						{% endif %}
