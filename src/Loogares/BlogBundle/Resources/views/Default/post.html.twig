@@ -17,8 +17,7 @@
 {% endblock %}
 
 {% block meta %}
-	<meta name="title" content="Loogares.com | {{post.titulo}}" />
-	<meta name="description" content="“{{post.contenido|slice(0,160)}}”" />
+	<meta name="description" content="“{{post.contenido | striptags | slice(0,160) }}...”" />
 	<meta name="keywords" content="{{post.titulo}}, {{post.blogCategoria.nombre}}, Concursos, Eventos, Notas, Actividades, Premios, Entradas, Invitaciones, Loogares, {{ciudad.nombre}}" />
 {% endblock %}
 

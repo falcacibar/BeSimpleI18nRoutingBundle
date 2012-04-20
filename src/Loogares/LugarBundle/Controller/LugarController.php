@@ -1232,13 +1232,14 @@ class LugarController extends Controller{
                 $quieroIr = $lr->getAccionUsuarioLugar($lugar, $recomendacion->getUsuario(), 'quiero_ir');
                 if(is_object($quieroIr)) {
                     $em->remove($quieroIr);
-                }    
-                // Verificamos estado de 'Por Recomendar'
-                $porRecomendar = $lr->getAccionUsuarioLugar($lugar, $recomendacion->getUsuario(), 'recomendar_despues');
-                if(is_object($porRecomendar)) {
-                    $em->remove($porRecomendar);
-                }        
+                }   
             }
+
+            // Verificamos estado de 'Por Recomendar'
+            $porRecomendar = $lr->getAccionUsuarioLugar($lugar, $recomendacion->getUsuario(), 'recomendar_despues');
+            if(is_object($porRecomendar)) {
+                $em->remove($porRecomendar);
+            }   
 
             $em->flush();
             $lr->actualizarPromedios($lugar->getSlug());

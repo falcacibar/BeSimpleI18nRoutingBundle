@@ -1225,6 +1225,7 @@ class UsuarioController extends Controller
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
         } else {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
         if($error != null && $error->getMessage() == 'Bad credentials')
             $formErrors['completo'] = 'usuario.errors.login.completo';
@@ -1235,7 +1236,7 @@ class UsuarioController extends Controller
         else if($error != null && $error->getMessage() == 'User account is disabled.')
             $formErrors['noActivo'] = 'usuario.errors.login.noActivo';
             
-        $session->set(SecurityContext::AUTHENTICATION_ERROR, null);
+        //$session->set(SecurityContext::AUTHENTICATION_ERROR, null);
         
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
