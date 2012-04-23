@@ -79,7 +79,7 @@
 
 			<li>
 				<label>Detalle</label>
-				<textarea rows="15" name="detalle" placeholder="Detalle del Post (HTML)"></textarea>
+				<textarea rows="15" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
 			</li>
 
 			<li>
@@ -89,27 +89,30 @@
 
 			<li>
 				<label>Ganadores</label>
-				<textarea rows="15" name="ganadores" placeholder="Texto Ganadores (Opcional)" value="{{post.ganadores}}"></textarea>
+				<textarea rows="15" name="ganadores" placeholder="Texto Ganadores (Opcional)">{{post.ganadores}}</textarea>
 			</li>
 
 			<li>
 				<label>Condiciones</label>
-				<textarea rows="15" name="condiciones" placeholder="Condiciones del Concurso (Opcional)" value="{{post.condiciones}}"></textarea>
+				<textarea rows="15" name="condiciones" placeholder="Condiciones del Concurso (Opcional)">{{post.condiciones}}</textarea>
 			</li>
 
 			<li>
 				<label>Estado</label>
 				<select name="estado">
-            		 <option {% if post.blogEstado.id is defined and post.blogEstado.id == 1 %}selected="selected"{% endif %} value="1">Post Borrador</option>
-            		 <option {% if post.blogEstado.id is defined and  post.blogEstado.id == 3 %}selected="selected"{% endif %} value="3">Post Agendado</option>
-            		 <option {% if post.blogEstado.id is defined and  post.blogEstado.id == 4 %}selected="selected"{% endif %} value="4">Post Eliminado</option>
+	        		<option {% if post.blogEstado.id is defined and post.blogEstado.id == 1 %}selected="selected"{% endif %} value="1">Post Borrador</option>
+	        		<option {% if post.blogEstado.id is defined and  post.blogEstado.id == 3 %}selected="selected"{% endif %} value="3">Post Agendado</option>
+	        		<option {% if post.blogEstado.id is defined and  post.blogEstado.id == 4 %}selected="selected"{% endif %} value="4">Post Eliminado</option>
+	        		{% if post.blogEstado.id is defined and post.blogEstado.id == 2 %}
+	        			<option selected="selected" value="2">Post Publicado</option>
+	        		{% endif %}
 	            </select>
 			</li>
 
 			<li>
 				<label>Fecha publicación</label>
-				<input type="hidden" name="fecha_publicacion" id="fecha-desde" value="{% if post.fechaPublicado is defined %}{{post.fechaPublicado|date('Y-m-d')}}{%endif%}">
-        		<input type="text" id="fecha-desde-ph" value="" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicado is defined %}{{post.fechaPublicado|date('d-m-y')}}{%endif%}}}">
+				<input type="hidden" name="fecha_publicacion" id="fecha-desde" value="{% if post.fechaPublicacion is defined %}{{post.fechaPublicacion|date('Y-m-d')}}{%endif%}">
+        		<input type="text" id="fecha-desde-ph" value="" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicacion is defined %}{{post.fechaPublicacion|date('d-m-y')}}{%endif%}}}">
 			</li>
 
 			<h1>Home</h1>

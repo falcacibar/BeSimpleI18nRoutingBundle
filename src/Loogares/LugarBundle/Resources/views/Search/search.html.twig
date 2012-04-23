@@ -2,19 +2,17 @@
 
 {% block title %}
 	{% if categoria != null and noCategorias == true %}
-		Categoria {{categoria.nombre}} | {{parent()}}
+		{{parent()}} | {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}}
 	{% else %}
-		{{'lugar.buscar.titulo'|trans({'%buscar%' : term})}} | {{parent()}}
+		{{parent()}} | Resultados de {{term}} en {{app.session.get('ciudad').nombre}}
 	{% endif %}
 {% endblock %}
 
 {% block meta %}
 	{% if categoria != null and noCategorias == true %}
-		<meta name="title" content="Loogares.com | {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}}" />
 		<meta name="description" content="{{total}} Lugares con recomendaciones de {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}}. En Loogares.com puedes ver recomendaciones acerca de {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}}." />
 		<meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, {{categoria.nombre}}{% if sector != null %}, {{sector.nombre}} {% elseif comuna != null %}, {{comuna.nombre}} {% endif %}" />
 	{% else %}
-		<meta name="title" content="Loogares.com | Resultado de {{term}} en {{app.session.get('ciudad').nombre}}" />
 		<meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de restaurantes, hoteles, museos... incluso cines y servicios." />
 		<meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos" />
 	{% endif %}	

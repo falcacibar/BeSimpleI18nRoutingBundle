@@ -1881,14 +1881,19 @@ class AdminController extends Controller
                 $post->setPosicionHome($request->get('posicion_home'));
                 $post->setPreview($request->get('preview'));
 
-                $post->setImagen('test');
-                $post->setImagenHome('test');
-                $post->setImagenDetalle('test');
+                if($post->vimagen !== null){
+                    $post->setImagen('test');
+                }
+
+                if($post->vimagen_detalle !== null){
+                    $post->setImagenHome('test');
+                }
+
+                if($post->vimagen_home !== null){
+                    $post->setImagenDetalle('test');
+                }
 
                 $em->persist($post);
-                $em->flush();
-
-                $post->setImagen('.jpg');
                 $em->flush();
             }            
         }

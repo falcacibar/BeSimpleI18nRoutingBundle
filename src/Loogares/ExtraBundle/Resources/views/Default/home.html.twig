@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{parent()}} | {{'extra.home.title'|trans}}{% endblock %}
+{% block title %}{{parent()}} | {{'extra.home.title'|trans}} | {{app.session.get('ciudad').nombre}}{% endblock %}
 
 {% block ads %}
     <script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
@@ -18,7 +18,6 @@
 {% endblock %}
 
 {% block meta %}
-	<meta name="title" content="Loogares.com | Comparte y Vive la ciudad | {{app.session.get('ciudad').nombre}}" />
 	<meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de restaurantes, hoteles, museos... incluso cines y servicios." />
 	<meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos" />
 {% endblock %}

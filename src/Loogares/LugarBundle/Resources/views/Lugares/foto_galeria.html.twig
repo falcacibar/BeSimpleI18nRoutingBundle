@@ -15,12 +15,11 @@
 {% endblock %}
 
 {% block meta %}
-    <meta name="title" content="Loogares.com | Galería de fotos de {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}}" />
     <meta name="description" content="Galería de fotos de {{lugar.nombre}}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}." />
     <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, galería, fotos, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}, {{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{lugar.nombre}}" />
 {% endblock %}
 
-{% block title %}{{'fotos.galeria.title'|trans}} {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
+{% block title %} {{parent()}} | {{'fotos.galeria.title'|trans}} {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}}{% endblock %}
 
 {% block content %}
     <!-- Mensajes de éxito -->

@@ -692,13 +692,21 @@ class Posts
      */
     public function preUpload()
     {
+
+        $fn = new LoogaresFunctions();
+
         if ($this->vimagen !== null) {
-            $fn = new LoogaresFunctions();
             $filename = $this->slug;
-            $filenameDetalle = $this->slug."_detalle";
-            $filenameHome = $this->slug."_home";
             $this->setImagen($filename.'.jpg');
+        }
+
+        if($this->vimagen_detalle !== null){
+            $filenameDetalle = $this->slug."_detalle";
             $this->setImagenDetalle($filenameDetalle.'.jpg');
+        }
+
+        if($this->vimagen_home !== null){
+            $filenameHome = $this->slug."_home";
             $this->setImagenHome($filenameHome.'.jpg');
         }
     }
@@ -709,28 +717,26 @@ class Posts
     public function upload()
     {
         // Imagen
-        if ($this->vimagen  === null) {
-            return;
+        if ($this->vimagen  !== null) {
+            try {
+                $this->vimagen->move($this->getUploadRootDir(), $this->imagen);
+            }
+            catch(FileException $e) {
+                rename($this->vimagen->getPathname(),$this->getAbsolutePath());
+            }
+            unset($this->vimagen);
         }
-        try {
-            $this->vimagen->move($this->getUploadRootDir(), $this->imagen);
-        }
-        catch(FileException $e) {
-            rename($this->vimagen->getPathname(),$this->getAbsolutePath());
-        }
-        unset($this->vimagen);
 
         // Imagen Detalle
-        if ($this->vimagen_detalle  === null) {
-            return;
+        if ($this->vimagen_detalle  !== null) {
+            try {
+                $this->vimagen_detalle->move($this->getUploadRootDir(), $this->imagen_detalle);
+            }
+            catch(FileException $e) {
+                rename($this->vimagen_detalle->getPathname(),$this->getAbsolutePathDetalle());
+            }
+            unset($this->vimagen_detalle);
         }
-        try {
-            $this->vimagen_detalle->move($this->getUploadRootDir(), $this->imagen_detalle);
-        }
-        catch(FileException $e) {
-            rename($this->vimagen_detalle->getPathname(),$this->getAbsolutePathDetalle());
-        }
-        unset($this->vimagen_detalle);
 
         // Imagen Home
         if ($this->vimagen_home !== null) {

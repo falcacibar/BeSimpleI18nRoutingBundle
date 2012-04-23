@@ -1,0 +1,12 @@
+Loogares\ExtraBundle\Entity\CaracteristicaCiudad:
+    type: entity
+    table: caracteristica_ciudad
+    manyToOne:
+        ciudad:
+            targetEntity: Loogares\ExtraBundle\Entity\Ciudad
+        caracteristica:
+            targetEntity: Loogares\LugarBundle\Entity\Caracteristica
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
