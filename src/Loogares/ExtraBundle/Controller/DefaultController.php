@@ -91,13 +91,8 @@ class DefaultController extends Controller
     public function homepageAction($slug = null){
         $em = $this->getDoctrine()->getEntityManager();
         $fn = $this->get('fn');
-        $ip = $fn->ip2int($_SERVER['REMOTE_ADDR']);
-        
-        //Comprobamos de donde es la IP
-        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ip2loc u WHERE u.range_to >= ?1"); 
-        $q->setParameter(1, $ip);
-        $q->setMaxResults(1);
-        $ipPais = $q->getOneOrNullResult();
+        //$ip = $fn->ip2int($_SERVER['REMOTE_ADDR']);
+        $ip = file_get_contents('http://ip.loogares.com?ip='.$_SERVER['REMOTE_ADDR']);
 
         $ciudadesHabilitadas = array(
             'santiago-de-chile' => 'santiago-de-chile',
@@ -109,7 +104,7 @@ class DefaultController extends Controller
         $ciudadSession = $this->get('session')->get('ciudad');
 
         if(!in_array($slug, $ciudadesHabilitadas)){ 
-            if(preg_match('/Argentina|Peru/', $ipPais->getCountry())){
+            if(preg_match('/Argentina|Peru/', $ip)){
                 return $this->redirect($this->generateUrl('locale', array('slug' => 'buenos-aires')));
             }
             return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));

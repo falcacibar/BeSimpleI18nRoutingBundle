@@ -3,8 +3,7 @@
 namespace Loogares\ExtraBundle\Functions;
 class LoogaresFunctions
 {
-    function ip2int($ip)
-    {
+    function ip2int($ip){
         //Localhost ipv6 mac fix
         if($ip == '::1') { $ip = "31.201.0.176"; }
         if ($ip == "") {
