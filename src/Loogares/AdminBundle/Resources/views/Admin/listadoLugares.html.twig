@@ -286,6 +286,18 @@
                         <p class="titulos_tabla">Dueño</p>
                         </span>
                     </th>
+                     <th class="lugar_estado">
+                        <span>
+                        <p class="titulos_tabla">Fecha</p>
+                        <p class="list-actions">
+                            <a class="{% if query.mail is defined and query.fecha_agregado == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"fecha_agregado": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
+
+                            <a class="{% if query.mail is defined and query.mail == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({"fecha_agregado": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
+
+                            <a class="remove" href="{{ path('LoogaresAdminBundle_listadoLugares', query|merge({'fecha_agregado': null, 'ciudad': ciudad.slug }))}}">✖</a>
+                        </p>
+                        </span>
+                    </th>                   
                     <th class="lugar_estado">
                         <span>
                         <p class="titulos_tabla">Estado</p>
@@ -421,6 +433,11 @@
                             </td>
                             <td class="lugar_dueno">
                                 <span>
+                                </span>
+                            </td>
+                            <td class="lugar_estado">
+                                <span>
+                                    {{lugar.fecha_agregado|date('d-m-y')}}
                                 </span>
                             </td>
                             <td class="lugar_estado">

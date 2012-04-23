@@ -13,6 +13,7 @@ use Loogares\LugarBundle\Entity\PedidoLugar;
 use Loogares\BlogBundle\Entity\Posts;
 use Loogares\BlogBundle\Entity\Categoria;
 use Loogares\BlogBundle\Entity\EstadoConcurso;
+use Loogares\UsuarioBundle\Entity\LoogarenoEstrella;
 
 class AdminController extends Controller
 {
@@ -213,7 +214,7 @@ class AdminController extends Controller
                              FROM Loogares\BlogBundle\Entity\Posts p
                              LEFT JOIN p.lugar l
                              LEFT JOIN l.comuna c
-                             WHERE c.ciudad = ?1 and p.blog_estado = 0");
+                             WHERE c.ciudad = ?1 and p.blog_estado = 1");
         $q->setParameter(1, $idCiudad);
         $totalPostsBorradoresResult = $q->getSingleScalarResult();
 
@@ -1056,12 +1057,19 @@ class AdminController extends Controller
         ));
     }
 
-    public function accionRecomendacionesAction($ciudad, $id, $habilitar = false, $borrar = false, Request $request){
+    public function accionRecomendacionesAction($ciudad, $id, $estrella = false, $habilitar = false, $borrar = false, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $arr = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
         $aur = $em->getRepository("LoogaresUsuarioBundle:AccionUsuario");
+
+        $args = array(
+            'ciudad' => $ciudad
+        );
+
+        $args = array_merge($args, $_GET);
+        unset($args['id']);
 
         if($request->getMethod() == 'POST'){
             $vars = $_POST['id'];
@@ -1078,6 +1086,18 @@ class AdminController extends Controller
             $itemsABorrar = $vars;
         }else{
             $itemsABorrar[] = $vars;
+        }
+
+        if($estrella == true){
+            $recomendacion = $rr->findOneById($itemsABorrar);
+            $recomendacionEstrella = new LoogarenoEstrella();
+            $recomendacionEstrella->setRecomendacion($recomendacion);
+            $recomendacionEstrella->setDetalle('');
+            $recomendacionEstrella->setFecha(new \DateTime());
+            $em->persist($recomendacionEstrella);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoRecomendaciones', $args));
         }
         
         foreach($itemsABorrar as $item){    
@@ -1136,13 +1156,6 @@ class AdminController extends Controller
         }
 
         $lr->actualizarPromedios($recomendacion->getLugar()->getSlug());
-
-        $args = array(
-            'ciudad' => $ciudad
-        );
-
-        $args = array_merge($args, $_GET);
-        unset($args['id']);
 
         return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoRecomendaciones', $args));
     }
@@ -1641,10 +1654,10 @@ class AdminController extends Controller
             'id' => 'p.id',
             'usuario' => 'usuarioSlug',
             'titulo' => 'p.titulo',
-            'categoria' => 'categoriaNombre',
+            'categoria' => 'categoria.nombre',
             'premios' => 'p.numero_premios',
             'fecha_publicacion' => 'p.fecha_publicacion',
-            'estado' => 'estadoNombre'
+            'estado' => 'estado.nombre'
         );
 
         if(isset($_GET['buscar'])){
@@ -1890,7 +1903,7 @@ class AdminController extends Controller
                 }
 
                 if($post->vimagen_home !== null){
-                    
+                    $post->setImagenDetalle($post->getSlug().'_home.jpg');
                 }
 
                 $em->persist($post);

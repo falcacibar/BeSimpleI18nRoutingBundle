@@ -236,6 +236,8 @@
                                 {% else %}
                                     <a href="{{ path('LoogaresAdminBundle_borrarRecomendacion', query|merge({'ciudad': ciudad.slug, 'id':recomendacion.id})) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
                                 {% endif %}
+                                <a target="_blank" href="{{ path('LoogaresAdminBundle_estrellaRecomendacion', {'id': recomendacion.id, 'ciudad': ciudad.slug}) }}"><img src="{{asset('assets/images/administrador/star.png')}}"/></a>
+
                             </td>
                         </tr>
                     {% endfor %}

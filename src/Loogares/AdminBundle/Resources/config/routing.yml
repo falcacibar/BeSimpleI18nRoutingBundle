@@ -19,11 +19,15 @@ LoogaresAdminBundle_listadoRecomendaciones:
 
 LoogaresAdminBundle_borrarRecomendacion:
     pattern: /lugares/{ciudad}/recomendaciones/borrar/{id}
-    defaults: {_controller: LoogaresAdminBundle:Admin:accionRecomendaciones, habilitar: false, borrar: true}
+    defaults: {_controller: LoogaresAdminBundle:Admin:accionRecomendaciones, habilitar: false, borrar: true, estrella: false}
 
 LoogaresAdminBundle_habilitarRecomendacion:
     pattern: /lugares/{ciudad}/recomendaciones/aprobar/{id}
-    defaults: {_controller: LoogaresAdminBundle:Admin:accionRecomendaciones, habilitar: true, borrar: false}
+    defaults: {_controller: LoogaresAdminBundle:Admin:accionRecomendaciones, habilitar: true, borrar: false, estrella: false}
+
+LoogaresAdminBundle_estrellaRecomendacion:
+    pattern: /lugares/{ciudad}/recomendaciones/estrella/{id}
+    defaults: {_controller: LoogaresAdminBundle:Admin:accionRecomendaciones, habilitar: false, borrar: false, estrella: true}
 
 LoogaresAdminBundle_editarRecomendacion:
     pattern: /lugares/{ciudad}/recomendaciones/editar/{id}
