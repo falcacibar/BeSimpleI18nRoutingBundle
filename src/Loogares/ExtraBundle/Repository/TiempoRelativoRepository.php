@@ -36,7 +36,6 @@ class TiempoRelativoRepository extends EntityRepository{
         	}
         }else if($diff < 3600*24){
         	$diff = round($diff/3600);
-                echo $diff;
         	if($diff == 1){
         		$relative = $this->findOneBySlug("hace-x-hora")->getTexto();
         	}else{
