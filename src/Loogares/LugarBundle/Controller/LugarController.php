@@ -378,11 +378,9 @@ class LugarController extends Controller{
                   $lugarManipulado->setPrecio(0);
                 }
 
-                if($rolAdmin == false){
-                  $estado = $lr->getEstado(1);
-                }else{
-                  $estado = $lr->getEstado(2);
-                }
+                
+                $estado = $lr->getEstado(1);
+                
                 $lugarManipulado->setEstado($estado);
 
                 $tipo_lugar = $lr->getTipoLugar('lugar');
@@ -572,7 +570,7 @@ class LugarController extends Controller{
                     curl_close($ch);
                 }
 
-                /*if($rolAdmin == 1){
+                if($rolAdmin == 1){
                     /**************************
 
 
@@ -588,7 +586,7 @@ class LugarController extends Controller{
 
                     *************************/
 
-                    /*foreach($lugaresRevisados as $key => $lugar){
+                    foreach($lugaresRevisados as $key => $lugar){
                         $estado = $lr->getEstado(9);
                         $lugar->setEstado($estado);
                         $em->persist($lugar);
@@ -596,7 +594,7 @@ class LugarController extends Controller{
                     }
 
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
-                }else{  */                  
+                }else{          
                     if($esEdicionDeUsuario == true){
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.edicion_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
                         return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
@@ -604,7 +602,7 @@ class LugarController extends Controller{
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
                         return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));    
                     }
-                //}
+                }
                 //Agregar, solo, nada maish.
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => ''));
             }
