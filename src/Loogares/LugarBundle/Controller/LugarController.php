@@ -68,7 +68,7 @@ class LugarController extends Controller{
         $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
         $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
         $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-        $resultadosPorPagina = (!isset($_GET['resultados']))?10:$_GET['resultados'];
+        $resultadosPorPagina = (!isset($_GET['resultados']))?20:$_GET['resultados'];
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
         $router = $this->get('router');
         $precioPromedio = 0;
@@ -572,7 +572,7 @@ class LugarController extends Controller{
                     curl_close($ch);
                 }
 
-                if($rolAdmin == 1){
+                /*if($rolAdmin == 1){
                     /**************************
 
 
@@ -588,7 +588,7 @@ class LugarController extends Controller{
 
                     *************************/
 
-                    foreach($lugaresRevisados as $key => $lugar){
+                    /*foreach($lugaresRevisados as $key => $lugar){
                         $estado = $lr->getEstado(9);
                         $lugar->setEstado($estado);
                         $em->persist($lugar);
@@ -596,7 +596,7 @@ class LugarController extends Controller{
                     }
 
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
-                }else{                    
+                }else{  */                  
                     if($esEdicionDeUsuario == true){
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.edicion_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
                         return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
@@ -604,9 +604,7 @@ class LugarController extends Controller{
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
                         return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));    
                     }
-                    
-                    
-                }
+                //}
                 //Agregar, solo, nada maish.
                 return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => ''));
             }
