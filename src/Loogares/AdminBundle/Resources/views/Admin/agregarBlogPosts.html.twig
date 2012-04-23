@@ -112,7 +112,7 @@
 			<li>
 				<label>Fecha publicación</label>
 				<input type="hidden" name="fecha_publicacion" id="fecha-desde" value="{% if post.fechaPublicacion is defined %}{{post.fechaPublicacion|date('Y-m-d')}}{%endif%}">
-        		<input type="text" id="fecha-desde-ph" value="" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicacion is defined %}{{post.fechaPublicacion|date('d-m-y')}}{%endif%}}}">
+        		<input type="text" id="fecha-desde-ph" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicacion is defined %}{{post.fechaPublicacion|date('d-m-y')}}{%endif%}">
 			</li>
 
 			<h1>Home</h1>
@@ -130,7 +130,7 @@
 	                <option {% if post.destacadoHome == 3 %}selected="selected"{% endif %} value='3'>En el Home y en el Slider</option>
 	            </select>
 			</li>
-			<li class="no-default">
+			<li {% if post.destacadoHome == 1 or post.destacadoHome == 0 or post.destacadoHome is not defined %}class="no-default"{% endif %}>
 				<label>Posicion Home</label>
 	            <select class="posicion_home" name="posicion_home">
 	                <option {% if post.posicionHome == 0 %}selected="selected"{% endif %} value='0'>0</option>
@@ -170,7 +170,7 @@
 			<li>
 				<label>Fecha Cierre</label>
 				<input type="hidden" name="fecha_termino" id="fecha-hasta" value="{{post.fechaTermino|date('Y-m-d')}}">
-        		<input type="text" id="fecha-hasta-ph" value="" placeholder="Fecha de Cierre (Opcional)" value="{{post.fechaTermino|date('d-m-y')}}">
+        		<input type="text" id="fecha-hasta-ph" placeholder="Fecha de Cierre (Opcional)" value="{{post.fechaTermino|date('d-m-y')}}">
 			</li>
 		</ul>
 		{{form_rest(form)}}

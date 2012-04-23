@@ -1882,15 +1882,15 @@ class AdminController extends Controller
                 $post->setPreview($request->get('preview'));
 
                 if($post->vimagen !== null){
-                    $post->setImagen('test');
+                    $post->setImagen($post->getSlug().'.jpg');
                 }
 
                 if($post->vimagen_detalle !== null){
-                    $post->setImagenHome('test');
+                    $post->setImagenDetalle($post->getSlug().'_detalle.jpg');
                 }
 
                 if($post->vimagen_home !== null){
-                    $post->setImagenDetalle('test');
+                    
                 }
 
                 $em->persist($post);
