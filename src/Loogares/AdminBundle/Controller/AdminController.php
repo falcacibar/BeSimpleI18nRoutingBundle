@@ -1654,10 +1654,10 @@ class AdminController extends Controller
             'id' => 'p.id',
             'usuario' => 'usuarioSlug',
             'titulo' => 'p.titulo',
-            'categoria' => 'categoria.nombre',
+            'categoria' => 'categoriaSlug',
             'premios' => 'p.numero_premios',
             'fecha_publicacion' => 'p.fecha_publicacion',
-            'estado' => 'estado.nombre'
+            'estado' => 'blogEstadoNombre'
         );
 
         if(isset($_GET['buscar'])){
@@ -1907,6 +1907,20 @@ class AdminController extends Controller
                 }
 
                 $em->persist($post);
+                $em->flush();
+
+                if($post->vimagen !== null){
+                    $post->setImagen($post->getSlug().'.jpg');
+                }
+
+                if($post->vimagen_detalle !== null){
+                    $post->setImagenDetalle($post->getSlug().'_detalle.jpg');
+                }
+
+                if($post->vimagen_home !== null){
+                    $post->setImagenDetalle($post->getSlug().'_home.jpg');
+                }
+
                 $em->flush();
             }            
         }
