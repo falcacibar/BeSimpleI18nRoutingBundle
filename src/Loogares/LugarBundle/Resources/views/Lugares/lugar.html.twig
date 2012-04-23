@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{ lugar.nombre }} | {{ lugar.comuna.ciudad.nombre }} | {{parent()}}{% endblock %}
+{% block title %}{{parent()}} | {{ lugar.nombre }} | {{lugar.comuna.ciudad.nombre}}{% endblock %}
 
 {% block meta %}
     {% if lugar.recomendacionPedida is not defined %}   
@@ -11,8 +11,7 @@
         <meta property="og:description" content="" />
         <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     {% endif %}
-
-    <meta name="title" content="Loogares.com | {{ lugar.nombre }} | {{lugar.comuna.ciudad.nombre}}" />
+    
     <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “{{lugar.recomendaciones[0].texto|slice(0,160)}}...”{% endif %}" />
     <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}{{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{ lugar.nombre }}" />
 {% endblock %}
@@ -305,7 +304,7 @@
         {% endif %}
 
             {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
-                <a class="recomienda_lugar_{{app.session.get('ciudad').slug}}"></a>
+                <a class="recomienda_lugar_{{app.session.get('ciudad').slug}} recomienda_lugar"></a>
             {% else %}
                 <a class="edita_recomendacion_lugar" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': app.security.token.user.slug }) }}"></a>
             {% endif %}
