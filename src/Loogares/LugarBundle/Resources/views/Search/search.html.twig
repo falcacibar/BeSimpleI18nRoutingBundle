@@ -142,7 +142,7 @@
 					<span class="close_qtip"></span>
 					<ul>
 					{% for caracteristica in results.totalPorCaracteristica %}
-						<li><input type="checkbox" value="{{caracteristica.slug}}" name="caracteristica[]"/><a href="{{ path(ruta, query|merge({'slug': slug, 'caracteristica': caracteristica.slug})) }}">{{caracteristica.nombre}} <span class="totales">({{ caracteristica.total }})</span></a></li>
+						<li><input type="checkbox" value="{{caracteristica.slug}}" name="caracteristica[]"/><a href="{{ path(ruta, query|merge({'slug': slug, 'caracteristicas': caracteristica.slug})) }}">{{caracteristica.nombre}} <span class="totales">({{ caracteristica.total }})</span></a></li>
 					{% endfor %}
 					</ul>
 					<a class="filtrar_caracteristicas"  href="" data-ohref="{{ path(ruta, query|merge({'slug': slug, 'caracteristicas': null })) }}"></a>

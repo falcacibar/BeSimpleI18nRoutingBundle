@@ -130,7 +130,7 @@
 	                <option {% if post.destacadoHome == 3 %}selected="selected"{% endif %} value='3'>En el Home y en el Slider</option>
 	            </select>
 			</li>
-			<li {% if post.destacadoHome == 1 or post.destacadoHome == 0 or post.destacadoHome is not defined %}class="no-default"{% endif %}>
+			<li {% if post.destacadoHome == 2 or post.destacadoHome == 0 or post.destacadoHome is not defined %}class="no-default"{% endif %}>
 				<label>Posicion Home</label>
 	            <select class="posicion_home" name="posicion_home">
 	                <option {% if post.posicionHome == 0 %}selected="selected"{% endif %} value='0'>0</option>
@@ -154,7 +154,7 @@
 	            <select name="estado_concurso">
 	            	<option>Selecciona una Opción (o agrega una nueva)</option>
 	            	{% for estado_concurso in estados_concurso %}
-	            		 <option value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
+	            		 <option {% if post.blogEstadoConcurso.id == estado_concurso.id %}selected="selected"{% endif %}value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
 	            	{% endfor %}
 	            </select>
 	            <a class="agregar_nuevo" href="">Agregar nuevo estado</a>

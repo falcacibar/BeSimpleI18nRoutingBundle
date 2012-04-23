@@ -1654,10 +1654,10 @@ class AdminController extends Controller
             'id' => 'p.id',
             'usuario' => 'usuarioSlug',
             'titulo' => 'p.titulo',
-            'categoria' => 'categoria.nombre',
+            'categoria' => 'categoriaSlug',
             'premios' => 'p.numero_premios',
             'fecha_publicacion' => 'p.fecha_publicacion',
-            'estado' => 'estado.nombre'
+            'estado' => 'blogEstadoNombre'
         );
 
         if(isset($_GET['buscar'])){

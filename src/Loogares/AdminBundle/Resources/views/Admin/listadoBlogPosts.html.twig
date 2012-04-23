@@ -96,7 +96,7 @@
                         <p class="list-actions">
                             <a class="{% if query.premios is defined and query.premios == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"premios": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.categoria is defined and query.premios == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"premios": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
+                            <a class="{% if query.premios is defined and query.premios == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"premios": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
                             <a class="remove" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({'premios': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
@@ -108,7 +108,7 @@
                         <p class="list-actions">
                             <a class="{% if query.fecha_publicacion is defined and query.fecha_publicacion == 'asc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"fecha_publicacion": 'asc', 'ciudad': ciudad.slug }))}}">⬆</a>
 
-                            <a class="{% if query.categoria is defined and query.fecha_publicacion == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"fecha_publicacion": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
+                            <a class="{% if query.fecha_publicacion is defined and query.fecha_publicacion == 'desc' %}active-sort {% endif %}" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({"fecha_publicacion": 'desc', 'ciudad': ciudad.slug }))}}">⬇</a>
 
                             <a class="remove" href="{{ path('LoogaresAdminBundle_listadoBlogPosts', query|merge({'fecha_publicacion': null, 'ciudad': ciudad.slug }))}}">✖</a>
                         </p>
@@ -161,7 +161,7 @@
                             </td>
                             <td class="blog_posts_premios">
                                 <span>
-                                    {{post.numero_premios}}
+                                    {{post.numero_premios|default(0)}}
                                 </span>
                             </td>
                             <td class="blog_posts_fecha">
