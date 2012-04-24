@@ -266,8 +266,8 @@ $(document).ready(function(){
 	if(oldBrowser == false){
 		$('.filtros a, .qtip_filtros a').click(function(e){e.preventDefault();}).pjax({
 			url: $(this).attr('href'),
-			container: '.resultados',
-			fragment: '.resultados',
+			container: '.listado_resultados',
+			fragment: '.listado_resultados',
 			timeout: 20000,
 			beforeSend: function(){
 				$('.filtros_expandir').qtip('toggle', false)
@@ -279,7 +279,7 @@ $(document).ready(function(){
 				$('.overlay').fadeOut(0, function(){
 					$(this).remove(); 
 				});
-				$('.resultados').html(data).fadeIn(300, function(){
+				$('.listado_resultados').html(data).fadeIn(300, function(){
 					$('.qtip').remove();
 					rebindEvents();
 					$.getScript(WEBROOT+'../assets/js/googleMapBuscar.js');
