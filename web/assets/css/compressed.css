@@ -98,6 +98,12 @@
   margin: 0 0 30px 0;
   width: 960px; }
 
+.titulo_admin_chico {
+  font-size: 20px;
+  float: left;
+  margin: 0 0 30px 0;
+  width: 960px; }
+
 .filtro_admin {
   display: block;
   float: left;
@@ -438,6 +444,12 @@
 .agregar_blog_posts {
   float: left;
   font-size: 14px; }
+  .agregar_blog_posts .fondo_seccion_especial {
+    background: #fafafc;
+    border: 1px solid #f2f2f6;
+    float: left;
+    padding: 20px;
+    width: 918px; }
   .agregar_blog_posts li {
     float: left;
     margin: 0 0 20px 0;
