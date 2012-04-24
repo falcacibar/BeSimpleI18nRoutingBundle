@@ -2,7 +2,7 @@
 
 {% block title %}
 	{% if categoria != null and noCategorias == true %}
-		{{parent()}} | {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}} {% if query.pagina != 1 %}| Página {{query.pagina}} {% endif %}
+		{{parent()}} | {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}} {% if query.pagina is defined and query.pagina != 1 %}| Página {{query.pagina}} {% endif %}
 	{% else %}
 		{{parent()}} | Resultados de {{term}} en {{app.session.get('ciudad').nombre}}
 	{% endif %}
