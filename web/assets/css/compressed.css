@@ -185,6 +185,10 @@
       font-size: 12px;
       text-align: left;
       width: 4000px; }
+    .listado_admin .table-data .listado_lugares_ediciones {
+      font-size: 12px;
+      text-align: left;
+      width: 960px; }
     .listado_admin .table-data .listado_usuarios {
       font-size: 12px;
       text-align: left;
@@ -1823,7 +1827,8 @@ body {
     font-size: 13px;
     float: left;
     line-height: 20px;
-    padding: 20px; }
+    padding: 20px;
+    width: 600px; }
     .post .post_contenido a {
       color: #0066cc;
       text-decoration: none; }

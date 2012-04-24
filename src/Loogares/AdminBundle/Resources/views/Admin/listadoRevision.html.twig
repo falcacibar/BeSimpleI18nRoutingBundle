@@ -4,30 +4,61 @@
 
 {% block content %}
 
-<div class="table-data">
-    <table>
-        <thead>
-            <th>Nombre</th>
-            <th>Direccion</th>
-            <th>Ciudad</th>
-            <th>Comuna</th>
-            <th>Sector</th>
-            <th>Revisiones Pendientes</th>
-            <th>Revisar</th>
-        </thead>
-        <tbody>
-            {% for lugar in lugares %}
-                <tr>
-                    <td><a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></td>
-                    <td>{{lugar.calle}} - {{lugar.numero}}</td>
-                    <td>{{lugar.ciudad}}</td>
-                    <td>{{lugar.comuna}}</td>
-                    <td>{{lugar.sector}}</td>
-                    <td>{{lugar.revisiones}}</td>
-                    <td><a href="{{ path('LoogaresAdminBundle_revisionLugar', {'ciudad': ciudad.slug, 'slug': lugar.slug}) }}">Revisar</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<h1 class="titulo_admin">Lugares Editados (por revisar) | {{ ciudad.nombre }}</h1>
+
+<div class="listado_admin">
+    <div class="table-data">
+        <table class="listado_lugares_ediciones">
+            <thead>
+                <th class="lugar_nombre">
+                    <span>
+                        <p class="titulos_tabla">Nombre</p>
+                    </span>
+                </th>
+                <th class="lugar_direccion">
+                    <span>
+                        <p class="titulos_tabla">Direccion</p>
+                    </span>
+                </th>
+                <th class="lugar_comuna">
+                    <span>
+                        <p class="titulos_tabla">Comuna</p>
+                    </span>
+                </th>
+                <th class="lugar_comuna">
+                    <span>
+                        <p class="titulos_tabla">Revisiones pendientes</p>
+                    </span>
+                </th>
+                <th class="lugar_nombre">
+                    <span>
+                        <p class="titulos_tabla">Revisar</p>
+                    </span>
+                </th>
+            </thead>
+            <tbody>
+                {% for lugar in lugares %}
+                    <tr>
+                        <td class="lugar_nombre">
+                            <span><a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></span>
+                        </td>
+                        <td class="lugar_direccion">
+                            <span>{{lugar.calle}} {{lugar.numero}}</span>
+                        </td>
+                        <td class="lugar_comuna">
+                            <span>{{lugar.comuna}}</span>
+                        </td>
+                        <td class="lugar_comuna">
+                            <span>{{lugar.revisiones}}</span>
+                        </td>
+                        <td class="lugar_nombre">
+                            <span><a href="{{ path('LoogaresAdminBundle_revisionLugar', {'ciudad': ciudad.slug, 'slug': lugar.slug}) }}">Revisar</a></span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
+
 {% endblock %}
