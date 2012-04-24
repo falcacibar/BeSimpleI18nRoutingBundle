@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{parent()}} | {{ lugar.nombre }} | {{lugar.comuna.ciudad.nombre}}{% endblock %}
+{% block title %}{{parent()}} | {{ lugar.nombre }} | {{lugar.calle}} - {{lugar.numero}} | {{lugar.comuna.ciudad.nombre}}{% endblock %}
 
 {% block meta %}
     {% if lugar.recomendacionPedida is not defined %}   
