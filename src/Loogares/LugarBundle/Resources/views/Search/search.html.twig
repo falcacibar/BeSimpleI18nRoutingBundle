@@ -477,24 +477,8 @@
 			</div>
 			
 		</div>
-					
-		<div class="sidebar_busqueda">
-	        <div class="mapa_sidebar">
-	            <div id="mapa_buscar" style="height: 300px; width: 300px;">
-	            </div>
-	        </div>
-	        <div class="banner_300x250">
-				<script type='text/javascript'>
-	        	    {% if categoria.slug is defined %}
-	            		GA_googleFillSlot("{{ad('categoria',categoria.id,'top','medium')}}_{{app.session.get('ciudad').slug}}");
-    				{% else %}
-	            		GA_googleFillSlot("{{ad('static','search','top','medium')}}_{{app.session.get('ciudad').slug}}");
-    				{% endif %}
-	        	</script>
-	        </div>
-	    </div>
-		
 
+	
  <div class="paginacion_listado_lugares">
             <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{total}}</strong>
             {% if paginacion.totalPaginas != 1 %}
@@ -527,5 +511,20 @@
 		</div>
 
 	</div>
-
+					
+	<div class="sidebar_busqueda">
+        <div class="mapa_sidebar">
+            <div id="mapa_buscar" style="height: 300px; width: 300px;">
+            </div>
+        </div>
+        <div class="banner_300x250">
+			<script type='text/javascript'>
+        	    {% if categoria.slug is defined %}
+            		GA_googleFillSlot("{{ad('categoria',categoria.id,'top','medium')}}_{{app.session.get('ciudad').slug}}");
+				{% else %}
+            		GA_googleFillSlot("{{ad('static','search','top','medium')}}_{{app.session.get('ciudad').slug}}");
+				{% endif %}
+        	</script>
+        </div>
+    </div>
 {% endblock %}
