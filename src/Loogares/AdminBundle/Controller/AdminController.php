@@ -463,6 +463,8 @@ class AdminController extends Controller
     public function revisionLugaresAction($slug, $ciudad){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $ciudad = $cr->findOneBySlug($ciudad); 
 
         $lugar = $lr->findOneBySlug($slug);
         $tempLugares = $lr->getLugaresPorRevisar($lugar->getId(), 1);
@@ -1490,6 +1492,8 @@ class AdminController extends Controller
         $spr = $em->getRepository("LoogaresLugarBundle:ServicioPedido");
         $tpr = $em->getRepository("LoogaresLugarBundle:TipoPedido");
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $ciudad = $cr->findOneBySlug($ciudad); 
         $servicios = $spr->findAll();
         $tipos = $tpr->findAll();
 
