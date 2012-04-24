@@ -1238,7 +1238,7 @@ textarea {
   text-align: center; }
   .pagina_error p {
     font-size: 14px;
-    line-heigh: 22px; }
+    line-heigh: 22px !important; }
   .pagina_error a {
     color: #0066cc;
     text-decoration: none; }
