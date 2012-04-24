@@ -154,7 +154,7 @@
 	            <select name="estado_concurso">
 	            	<option>Selecciona una Opción (o agrega una nueva)</option>
 	            	{% for estado_concurso in estados_concurso %}
-	            		 <option {% if post.blogEstadoConcurso.id == estado_concurso.id %}selected="selected"{% endif %}value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
+	            		 <option {% if post.blogEstadoConcurso.id is defined and post.blogEstadoConcurso.id == estado_concurso.id %}selected="selected"{% endif %}value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
 	            	{% endfor %}
 	            </select>
 	            <a class="agregar_nuevo" href="">Agregar nuevo estado</a>
