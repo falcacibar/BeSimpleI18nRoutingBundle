@@ -196,7 +196,7 @@ class AdminController extends Controller
                              FROM Loogares\BlogBundle\Entity\Posts p
                              LEFT JOIN p.lugar l
                              LEFT JOIN l.comuna c
-                             WHERE c.ciudad = ?1");
+                             WHERE p.ciudad = ?1");
         $q->setParameter(1, $idCiudad);
         $totalPostsResult = $q->getSingleScalarResult();
 
@@ -205,7 +205,7 @@ class AdminController extends Controller
                              FROM Loogares\BlogBundle\Entity\Posts p
                              LEFT JOIN p.lugar l
                              LEFT JOIN l.comuna c
-                             WHERE c.ciudad = ?1 and p.blog_estado = 2");
+                             WHERE p.ciudad = ?1 and p.blog_estado = 2");
         $q->setParameter(1, $idCiudad);
         $totalPostsPublicadosResult = $q->getSingleScalarResult();
 
@@ -214,7 +214,7 @@ class AdminController extends Controller
                              FROM Loogares\BlogBundle\Entity\Posts p
                              LEFT JOIN p.lugar l
                              LEFT JOIN l.comuna c
-                             WHERE c.ciudad = ?1 and p.blog_estado = 1");
+                             WHERE p.ciudad = ?1 and p.blog_estado = 1");
         $q->setParameter(1, $idCiudad);
         $totalPostsBorradoresResult = $q->getSingleScalarResult();
 
@@ -223,10 +223,9 @@ class AdminController extends Controller
                              FROM Loogares\BlogBundle\Entity\Posts p
                              LEFT JOIN p.lugar l
                              LEFT JOIN l.comuna c
-                             WHERE c.ciudad = ?1 and p.blog_estado = 3");
+                             WHERE p.ciudad = ?1 and p.blog_estado = 3");
         $q->setParameter(1, $idCiudad);
         $totalPostsAgendadosResult = $q->getSingleScalarResult();
-
 
         return $this->render('LoogaresAdminBundle:Admin:administrarLugares.html.twig', array(
             'totalLugares' => $totalLugaresResult,
