@@ -1,15 +1,3 @@
-.pagina_error {
-  text-align: center; }
-  .pagina_error h2 {
-    font-size: 16px;
-    font-weight: bold; }
-  .pagina_error h1 {
-    font-size: 24px;
-    font-weight: bold; }
-  .pagina_error .existen_mas {
-    font-weight: bold;
-    margin-bottom: 16px; }
-
 /* Colores */
 /* Mixin */
 /* CSS Administrador */
@@ -1728,6 +1716,19 @@ textarea {
           .footer .contenido_footer .redes_listado li a:hover {
             color: #999999;
             text-decoration: underline; }
+
+/* Página de error */
+.pagina_error {
+  text-align: center; }
+  .pagina_error p {
+    font-size: 14px;
+    line-heigh: 22px; }
+  .pagina_error a {
+    color: #0066cc;
+    text-decoration: none; }
+    .pagina_error a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
 
 /* AGREGADO POR EL SUR */
 select {
@@ -6340,7 +6341,8 @@ body {
         font-size: 14px;
         line-height: 22px;
         margin: 20px 0 0;
-        width: 581px; }
+        width: 581px;
+        white-space: pre-line; }
       .caja_contenidos_usuario .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .tags_lugar_recomendacion {
         display: block;
         float: left;
