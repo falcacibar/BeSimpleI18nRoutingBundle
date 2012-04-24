@@ -4,7 +4,7 @@ $(document).ready(function(){
 		if($('.resultados_wrapper').height() > 2000){
 			var $sidebar   = $(".sidebar_busqueda"),
 			    $window    = $(window),
-			    topPadding = 60,
+			    topPadding = 80,
 				sideBarOffset     = $sidebar.offset(),
 				compensation = ($('.mensaje_exito').length > 0)?69:0;
 	    	
