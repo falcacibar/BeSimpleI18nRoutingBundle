@@ -2,7 +2,7 @@
 
 {% block title %}
 	{% if categoria != null and noCategorias == true %}
-		{{parent()}} | {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}}
+		{{parent()}} | {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}} {% if query.pagina != 1 %}| Página {{query.pagina}} {% endif %}
 	{% else %}
 		{{parent()}} | Resultados de {{term}} en {{app.session.get('ciudad').nombre}}
 	{% endif %}
@@ -494,7 +494,7 @@
 
 		</div>
 
-        <div class="paginacion_slistado_lugares">
+ <div class="paginacion_listado_lugares">
             <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{total}}</strong>
             {% if paginacion.totalPaginas != 1 %}
                  | {{'paginacion.ir_a'|trans}}
