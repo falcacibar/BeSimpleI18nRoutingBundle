@@ -91,7 +91,7 @@ LoogaresAdminBundle_editarBlogPosts:
 
 LoogaresAdminBundle_borrarPost:
     pattern:  /posts/{ciudad}/borrar/{id}
-    defaults: { _controller: LoogaresAdminBundle:Admin:accionPosts, borrador: false, habilitar: false, borrar: true }
+    defaults: { _controller: LoogaresAdminBundle:Admin:accionPosts, borrador: false, publicar: false, borrar: true }
 
 LoogaresAdminBundle_publicarPost:
     pattern:  /posts/{ciudad}/activar/{id}
