@@ -1035,6 +1035,8 @@ textarea {
         border-left: 1px solid #f2f2f6;
         cursor: pointer;
         float: right;
+        list-style-type: none;
+        margin: 0px;
         text-align: right;
         padding: 15px 15px 15px 10px;
         text-shadow: 1px 1px 1px white;
@@ -1230,6 +1232,19 @@ textarea {
           .footer .contenido_footer .redes_listado li a:hover {
             color: #999999;
             text-decoration: underline; }
+
+/* Página de error */
+.pagina_error {
+  text-align: center; }
+  .pagina_error p {
+    font-size: 14px;
+    line-heigh: 22px; }
+  .pagina_error a {
+    color: #0066cc;
+    text-decoration: none; }
+    .pagina_error a:hover {
+      color: #0066cc;
+      text-decoration: underline; }
 
 /* AGREGADO POR EL SUR */
 select {

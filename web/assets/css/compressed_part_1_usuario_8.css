@@ -509,15 +509,24 @@
           width: 99px; }
           .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_fotos ul .submit .enviar_foto_prefil:hover {
             background: url("../images/extras/botones_perfil_usuario.png") no-repeat 0 -30px; }
-    .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil {
+    .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_santiago-de-chile, .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_valparaiso-vina-del-mar {
       background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px 0;
       border: 0px;
       cursor: pointer;
       height: 30px;
       margin: 10px 0 0 10px;
       width: 134px; }
-      .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil:hover {
+      .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_santiago-de-chile:hover, .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_valparaiso-vina-del-mar:hover {
         background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px -30px; }
+    .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_buenos-aires {
+      background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px -60px;
+      border: 0px;
+      cursor: pointer;
+      height: 30px;
+      margin: 10px 0 0 10px;
+      width: 134px; }
+      .caja_contenidos_usuario .contenidos_edicion_usuario .borrar_foto_prefil_buenos-aires:hover {
+        background: url("../images/extras/botones_perfil_usuario.png") no-repeat -99px -90px; }
     .caja_contenidos_usuario .contenidos_edicion_usuario .caja_edicion_password {
       display: block;
       float: left;
@@ -835,7 +844,8 @@
         font-size: 14px;
         line-height: 22px;
         margin: 20px 0 0;
-        width: 581px; }
+        width: 581px;
+        white-space: pre-line; }
       .caja_contenidos_usuario .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .tags_lugar_recomendacion {
         display: block;
         float: left;

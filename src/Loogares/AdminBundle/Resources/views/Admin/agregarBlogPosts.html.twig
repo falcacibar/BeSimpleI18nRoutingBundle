@@ -115,63 +115,70 @@
         		<input type="text" id="fecha-desde-ph" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicacion %}{{post.fechaPublicacion|date('d-m-y')}}{% endif %}">
 			</li>
 
-			<h1>Home</h1>
+			<div class="fondo_seccion_especial">
 
-			<li>
-				<label>Titulo Home</label>
-				<input name="titulo_home" id="" type="text" placeholder="Titulo de Home en caso que no lleve Estado Concurso" value="{{post.tituloHome}}"/>
-			</li>
-			<li>
-				<label>Destacado home</label>
-	            <select class="destacado_home" name="destacado_home">
-	                <option {% if post.destacadoHome == 0 %}selected="selected"{% endif %} value='0'>No</option>
-	                <option {% if post.destacadoHome == 1 %}selected="selected"{% endif %} value='1'>Solo en el Home</option>
-	                <option {% if post.destacadoHome == 2 %}selected="selected"{% endif %} value='2'>Solo en el Slider</option>
-	                <option {% if post.destacadoHome == 3 %}selected="selected"{% endif %} value='3'>En el Home y en el Slider</option>
-	            </select>
-			</li>
-			<li {% if post.destacadoHome == 2 or post.destacadoHome == 0 or post.destacadoHome is not defined %}class="no-default"{% endif %}>
-				<label>Posicion Home</label>
-	            <select class="posicion_home" name="posicion_home">
-	                <option {% if post.posicionHome == 0 %}selected="selected"{% endif %} value='0'>0</option>
-	                <option {% if post.posicionHome == 1 %}selected="selected"{% endif %} value='1'>1</option>
-	                <option {% if post.posicionHome == 2 %}selected="selected"{% endif %} value='2'>2</option>
-	                <option {% if post.posicionHome == 3 %}selected="selected"{% endif %} value='3'>3</option>
-	            </select>
-			</li>
-			<li>
-				<label>Imagen home</label>
-				{{form_widget(form.vimagen_home, {'attr': {'class': 'subir_imagen'}} )}}
-			</li>
+				<h2 class="titulo_admin_chico">Home</h2>
 
-			<li>
-				<label>Descripción</label>
-				<input name="descripcion_home" id="" type="text" placeholder="Descripción del Post" value="{{post.descripcionHome}}"/>
-			</li>
+				<li>
+					<label>Destacado home</label>
+		            <select class="destacado_home" name="destacado_home">
+		                <option {% if post.destacadoHome == 0 %}selected="selected"{% endif %} value='0'>No</option>
+		                <option {% if post.destacadoHome == 1 %}selected="selected"{% endif %} value='1'>Solo en el Home</option>
+		                <option {% if post.destacadoHome == 2 %}selected="selected"{% endif %} value='2'>Solo en el Slider</option>
+		                <option {% if post.destacadoHome == 3 %}selected="selected"{% endif %} value='3'>En el Home y en el Slider</option>
+		            </select>
+				</li>
+				<li {% if post.destacadoHome == 2 or post.destacadoHome == 0 or post.destacadoHome is not defined %}class="no-default"{% endif %}>
+					<label>Posicion Home</label>
+		            <select class="posicion_home" name="posicion_home">
+		                <option {% if post.posicionHome == 0 %}selected="selected"{% endif %} value='0'>0</option>
+		                <option {% if post.posicionHome == 1 %}selected="selected"{% endif %} value='1'>1</option>
+		                <option {% if post.posicionHome == 2 %}selected="selected"{% endif %} value='2'>2</option>
+		                <option {% if post.posicionHome == 3 %}selected="selected"{% endif %} value='3'>3</option>
+		            </select>
+				</li>
 
-			<li>
-				<label>Estado Concurso</label>
-	            <select name="estado_concurso">
-	            	<option>Selecciona una Opción (o agrega una nueva)</option>
-	            	{% for estado_concurso in estados_concurso %}
-	            		 <option {% if post.blogEstadoConcurso.id == estado_concurso.id %}selected="selected"{% endif %}value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
-	            	{% endfor %}
-	            </select>
-	            <a class="agregar_nuevo" href="">Agregar nuevo estado</a>
-			</li>
+				<li>
+					<label>Titulo Home</label>
+					<input name="titulo_home" id="" type="text" placeholder="Titulo de Home en caso que no lleve Estado Concurso" value="{{post.tituloHome}}"/>
+				</li>
 
-			<li class="no-default">
-				<label>Nuevo Estado</label>
-				<input type="text" name="nuevo_estado" class="nuevo_estado" placeholder="Nombre del estado">
-				<input type="text" name="nuevo_estado" class="nuevo_estado_clase" placeholder="Clase del estado">
-				<a class="quitar_nuevo">Quitar</a>
-			</li>
+				<li>
+					<label>Imagen home</label>
+					{{form_widget(form.vimagen_home, {'attr': {'class': 'subir_imagen'}} )}}
+				</li>
 
-			<li>
-				<label>Fecha Cierre</label>
-				<input type="hidden" name="fecha_termino" id="fecha-hasta" value="{% if post.fechaTermino %}{{post.fechaTermino|date('Y-m-d')}}{% endif %}">
-        		<input type="text" id="fecha-hasta-ph" placeholder="Fecha de Cierre (Opcional)" value="{% if post.fechaTermino %}{{post.fechaTermino|date('d-m-y')}}{% endif %}">
-			</li>
+				<li>
+					<label>Descripción</label>
+					<input name="descripcion_home" id="" type="text" placeholder="Descripción del Post" value="{{post.descripcionHome}}"/>
+				</li>
+
+				<li>
+					<label>Estado Concurso</label>
+		            <select name="estado_concurso">
+		            	<option>Selecciona una Opción (o agrega una nueva)</option>
+		            	{% for estado_concurso in estados_concurso %}
+		            		 <option {% if post.blogEstadoConcurso.id is defined and post.blogEstadoConcurso.id == estado_concurso.id %}selected="selected"{% endif %}value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
+		            	{% endfor %}
+		            </select>
+		            <a class="agregar_nuevo" href="">Agregar nuevo estado</a>
+				</li>
+
+				<li class="no-default">
+					<label>Nuevo Estado</label>
+					<input type="text" name="nuevo_estado" class="nuevo_estado" placeholder="Nombre del estado">
+					<input type="text" name="nuevo_estado" class="nuevo_estado_clase" placeholder="Clase del estado">
+					<a class="quitar_nuevo">Quitar</a>
+				</li>
+
+				<li>
+					<label>Fecha Cierre</label>
+					<input type="hidden" name="fecha_termino" id="fecha-hasta" value="{% if post.fechaTermino %}{{post.fechaTermino|date('Y-m-d')}}{% endif %}">
+	        		<input type="text" id="fecha-hasta-ph" placeholder="Fecha de Cierre (Opcional)" value="{% if post.fechaTermino %}{{post.fechaTermino|date('d-m-y')}}{% endif %}">
+				</li>
+
+			</div>
+
 		</ul>
 		{{form_rest(form)}}
 		<input type="hidden" name="ciudad" value="{% if post.ciudad.id is defined%}{{post.ciudad.slug}}{% else %}{{ciudad.slug}}{% endif %}"/>

@@ -844,7 +844,8 @@
         font-size: 14px;
         line-height: 22px;
         margin: 20px 0 0;
-        width: 581px; }
+        width: 581px;
+        white-space: pre-line; }
       .caja_contenidos_usuario .caja_recomendaciones_usuario .caja_recomendaciones_lugar_usuario .tags_lugar_recomendacion {
         display: block;
         float: left;
