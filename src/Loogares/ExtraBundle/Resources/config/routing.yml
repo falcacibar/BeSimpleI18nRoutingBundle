@@ -24,11 +24,7 @@ locale_valparaiso_vina_del_mar:
 
 locale_buenos_aires:
     pattern:  /buenos-aires
-    defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : buenos-aires }
-
-update_por_recomendar:
-    pattern:  /update_por_recomendar
-    defaults: { _controller: LoogaresExtraBundle:Default:updatePorRecomendarUsuario }    
+    defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : buenos-aires }    
 
 static:
     pattern:  /{static}

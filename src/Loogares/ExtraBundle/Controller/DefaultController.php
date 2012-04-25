@@ -521,34 +521,4 @@ class DefaultController extends Controller
 
         return new Response('');
     }*/
-
-    public function updatePorRecomendarUsuarioAction() {
-        $em = $this->getDoctrine()->getEntityManager();
-        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
-        $aur = $em->getRepository("LoogaresUsuarioBundle:AccionUsuario");
-
-        $acciones = $aur->getTipoAcciones(5);
-
-        $output = '';
-
-        $i = 0;
-        foreach($acciones as $au) {
-            $rec = $rr->getRecomendacionUsuarioLugar($au->getUsuario(), $au->getLugar());
-
-            if($rec != null) {
-                $output .= $au->getUsuario()->getSlug().' recomendó en '.$au->getLugar()->getNombre().'<br>';
-                $i++;
-
-                // Borramos accion por recomendar
-                $em->remove($au);
-            }
-            else {
-                //$output .= $au->getUsuario()->getSlug().' NO recomendó en '.$au->getLugar()->getNombre().'<br>';
-            }
-        }
-        $em->flush();
-
-        return new Response($output.$i);
-    }
-
 }
