@@ -26,6 +26,10 @@ locale_buenos_aires:
     pattern:  /buenos-aires
     defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : buenos-aires }
 
+update_por_recomendar:
+    pattern:  /update_por_recomendar
+    defaults: { _controller: LoogaresExtraBundle:Default:updatePorRecomendarUsuario }    
+
 static:
     pattern:  /{static}
     defaults: { _controller: LoogaresExtraBundle:Default:Static }

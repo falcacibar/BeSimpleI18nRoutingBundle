@@ -66,4 +66,13 @@ class AccionUsuarioRepository extends EntityRepository
 			$em->remove($accionesUsuario);
         }
     }
+
+    public function getTipoAcciones($accion) {
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT au
+                               FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                               WHERE au.accion = ?1");
+        $q->setParameter(1, $accion);
+        return $q->getResult();
+    }
 }
