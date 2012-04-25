@@ -1,18 +1,322 @@
+# Locale 'en' UsuarioBundle
+validacion_usuario:
+    titulo: To improve your experience on Loogares.com, we need you to give us some information
+    texto: We have detected you don't have some information online. We are making an effort to know more about you and give a better service. Please give us some information:
+    nombre: First name
+    apellido: Last name
+    pais: Country
+    ciudad: City
+    comuna: Neighborhood
+
 usuario:
     login:
-        titulo: Enter Loogares.com!
+        titulo: Log in to Loogares.com and start writing reviews
         form:
-            mail: E-mail:
-            password: Password:
+            mail: E-mail address
+            password: Password
             olvidar_password: Forgot your password?
-            recordar_sesion: Remember me
+            recordar_sesion: Keep me logged in
             submit: Log in
         registro:
-            titulo: You are not part of Loogares.com yet?
-            texto: Loogares.com is the easiest and funniest way to look for, share and recommend all those unbelievable places that people are talking about.
-            boton: Register!	    
+            titulo: Not a member of Loogares.com? Sign up!
+            texto: Loogares.com is a fun and easy way to search, share, and review those places, awesome and awful, in your city and beyond.
+            o: or
+            mail: sign up with your E-mail address
+            boton: Sign up!
+
+    registro:
+        mensaje: Write reviews of places you know in your city and weekly win invitations to restaurants, movies theaters, concerts, parties and much more.
+        title: Sign up for Loogares.com!
+        titulo: Or sign up using your E-mail address in Loogares.com!
+        form:
+            nombre: First name
+            apellido: Last name
+            mail: E-mail address
+            password: Password
+            confirmar_password: Confirm password
+            placeholders:
+                nombre: Ej. James
+                apellido: Ej. Bond
+                mail: Ej. jamesbond007@company.com
+            tip:
+                password: Password must be at least 6 characters
+                terminos: By clicking <stron>sign up</strong>, you agree being over 14 years old and to the Loogares.com %open_a%Terms of service%close_a%
+            submit: Sign up
+
+        facebook:
+            titulo: Make signing up faster using your Facebook Account!
+            texto: Click below and sign up in one step with your Facebook Account
+        login:
+            titulo: Already a Loogares.com member? Enter now!
+        confirmar:
+            titulo_pag: Confirm sign up
+            titulo: You are seconds away from being a new Loogareño!
+            texto: We just send you an E-mail. Please click the link in it to complete your registration. Check your spam just in case.<br />See you around!
+            link: Go to %open_a%Homepage%close_a%
+            mail:
+                titulo: Congratulations %nombre% %apellido%!
+                texto: You are about to become a new Loogareño, click the button to activate your account.
+                texto_bajada: Are you ready for what's next? You won't regret it!
+                texto_plano: You are about to become a Loogareño. To confirm your account, enter the next link in your browser:
+                asunto: Confirm your account in Loogares.com
+    perfil:
+        titulo_pag: Profile for 
+    datos:
+        edad: year|years
+        recomendaciones: review|reviews
+        primeras_recomendaciones: first review|first reviews
+        lugares_agregados: place added|places added
+        fotos_agregadas: photo added|photos added
+        por_visitar: place to visit|places to visit
+        visitados: place visited|places visited
+        por_recomendar: place to review|places to review
+        favoritos: favorite place|favorite places
+        desde: Loogareño since:
+        editar: Edit your profile
+
+    menu:
+        actividad: Activity
+        recomendaciones: Reviews
+        fotos: Photos
+        lugares: List of places
+
+    actividad:
+        titulo: Activity|Activity of
+        filtrar: Filter by:
+
+    recomendaciones:
+        titulo: Review|Reviews
+        orden:
+            texto: Sort by:
+            mejores: Highest rating
+            ultimas: Recently reviewed
+            alfabetico: Name
+        recomendacion:
+            categorias: Categories:
+            tags: Tags:
+        lista:
+            editar: Edit your review
+            borrar: Remove review
+    fotos:
+        titulo: Photo|Photos
+        orden:
+            texto: Sort by:
+            ultimas: Recent photos
+            alfabetico: Name
+        lista:
+            editar: Edit photo
+            borrar: Remove photo
+
+    lugares:
+        titulo:
+            1: Places to visit
+            2: Places to go back
+            3: Places visited
+            4: Favorites
+            5: Places to review
+        orden:
+            texto: Sort by:
+            visitados: Visited
+            favoritos: Favorites
+            por_visitar: To visit
+            por_volver: To go back
+            por_recomendar: To review
+        lista:
+            borrar: Remove
+
+    edicion:
+        titulo_pag: Edit your profile
+        titulo: Edit your profile
+        menu:
+            cuenta: Account
+            foto: Profile picture
+            password: Password
+            connect: Connect
+            notificaciones: Notifications
+            borrar: Delete account
+
+        cuenta:
+            nombre: First name *
+            tipo: User type
+            apellido: Last name *
+            mail: E-mail address *
+            slug: Own URL
+            url_propia: http://www.loogares.com/
+            nacimiento:
+                label: Date of birth
+                day: Day
+                month: Month
+                year: Year
+            pais: Country
+            pais_agregar: Select your country of residence
+            ciudad: City
+            ciudad_agregar: Select your city of residence
+            comuna: Neighborhood
+            comuna_agregar: Select your neighborhood of residence
+            mostrar_edad: Show age
+            sexo:
+                label: Gender
+                hombre: Male
+                mujer: Female
+                ninguno: I do not wish to specify
+            web: Website
+            newsletter: Receive E-mail notifications
+            submit: Save
+        foto:
+            subir: Upload photo
+            tip:
+                maximo: 5 MB maximum
+                formato: Only JPG, GIF y PNG
+                ajuste: The image will be adjusted to 100x100 px if it is a different size
+            mypictr: » Create a profile picture with Mypictr
+            submit: Save
+            borrar: Remove your photo
+        password:
+            actual: Actual password *
+            nuevo: New password *
+            confirmar: Confirm password *
+            submit: Save
+        conexiones:
+            facebook:
+                no_conectado:
+                    texto: You don't have Facebook associated to your account
+                    texto_link: Connect with Facebook
+                conectado:
+                    texto: You have Facebook connected to the account of %nombre%, with your E-mail address %mail%
+                    texto_link: Disconnect Facebook
+        notificaciones:
+            recibir_newsletter: Receive newsletter from:
+        borrar:
+            password: Password *
+            motivo: Why are you leaving? *
+            detalle: Tell us your reasons for abandoning us in this time of dire need.
+            submit: Delete account
+            mail:
+                nombre: Name
+                mail: E-mail address
+                fecha_registro: Date of registration
+                motivo: Reason
+                asunto: User deleted
+    olvidar:
+        titulo_pag: Forgot your password?
+        titulo: Forgot your password? How could you!
+        subtitulo: Type the E-mail address associated with your account in Loogares.com and we will send you an E-mail about how to reset your password. Just so you know, raisins strengthen your memory!
+        form:
+            e_mail: E-mail address
+            mail: You must type your E-mail address
+
+        flash:
+            usuario_no_existe: That E-mail address doesn't correspond to an actual user.
+        mail:
+            asunto: Your new password in Loogares.com
+            titulo: Hi %usuario%,
+            primero: click %open_tag%here%close_tag% to reset the password to your account in Loogares.com
+            segundo: Remember to get those raisins!
+        mensaje:
+            titulo_pag: Change your password
+            titulo: Silly rabbit, trix are for kids!
+            subtitulo: We just send you an E-mail with the new password for your account in Loogares.com.<br />Check your E-mail account.
+            inicio: Go to %open_tag%homepage%close_tag%
+    regenerar:
+        titulo_pag: Set your new password
+        titulo: Change your password 
+        form:
+            usuario: User
+            password_nuevo: New password
+            errors:
+                nuevo: You must set your new password
+                confirmar: Confirm your new password
+        flash:
+            hash_incorrecto: The user with that hash doesn't exist
+
     errors:
-        completo: All fields must be filled
-        password: E-mail and Password fields don't match. Correct them, please.
-        emptyPassword: Password field required. Fill it, please.
-        noActivo: User account is disabled.
+        login:
+            completo: You must fill in both fields to log in
+            password: E-mail address and password don't match. Please try again.
+            emptyPassword: You must fill in the password field. Please try again.
+            noActivo: This aacount has not been activated.
+        validacion:
+            nombre:
+                blanco: First name field can't be empty.
+                tipo: Your first name must be text only.
+            apellido:
+                blanco: Last name field can't be empty.
+                tipo: Your last name must be text only. 
+            mail:
+                unico: That E-mail address is already registered. Please try again.
+                blanco: E-mail address can't be empty.
+                invalido: Invalid E-mail address.
+            password:
+                blanco: Password can't be empty.
+                minimo: Password must be 6 character minimum.
+            confirmar_password: Passwords don't match. Please try again.
+            slug:
+                unico: Your URL is repeated. Please try again.
+                blanco: URL field can't be empty.
+                tipo: URL must be text only. 
+            comuna:
+                blanco: Neighborhood can't be empty.
+            imagen:
+                tipo: Only JPG, GIF y PNG, maximum 5 MB.
+
+        editar:
+            foto:
+                blanco: No tienes seleccionado ningún archivo. Por favor, elige uno.
+            password:
+                actual: Password actual incorrecto
+                confirmar: Debes escribir el mismo password nuevo
+            borrar:
+                pass_obligatorio: El campo password es obligatorio. Por favor, complétalo.
+                pass_incorrecto: Los passwords no coinciden. Por favor, corrígelos.
+                motivo: Queremos saber por qué te vas. Por favor, completa el campo.
+    flash:
+        confirmar_usuario:
+            incorrecto: Código de confirmación incorrecto
+            anterioridad: Confirmación realizada con anterioridad
+            exito: ¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún Lugar para recomendar?
+        edicion:
+            cuenta: ¡Tu perfil acaba de actualizarse con los nuevos cambios!
+            foto: Cambiaste tu foto de perfil. ¡Nada de mal!
+            password: ¡Ahora tienes un nuevo password! No lo olvides, lo necesitarás para entrar al sitio.
+            borrar_cuenta: Tu cuenta acaba de ser borrada. Fue bonito mientras duró.
+
+    mail:
+        usuario: te escribió desde %open_tag%%mail%%close_tag%
+        equipo: Enviado por el equipo de %open_tag%Loogares.com%close_tag%
+        contacto: Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a %open_a%contacto@loogares.com%close_a%
+        contacto_plano: Si quieres contactarnos escríbenos a contacto@loogares.com
+        firma: 2012. Loogares.com
+
+dueno:
+    errors:
+        validacion:
+            nombre:
+                blanco: El campo Nombre no puede ser vacío.
+            apellido:
+                blanco: El campo Apellido no puede ser vacío.
+            mail:
+                blanco: El campo E-mail no puede ser vacío.
+            telefono:
+                blanco: El campo Teléfono no puede ser vacío.
+            texto:
+                blanco: Desde propocionar una forma de comprobar que eres el dueño.
+    reclamar:
+        titulo: ¿Eres el dueño de %lugar%?
+        subtitulo: Si lo eres... ¡entonces tenemos una propuesta que hacerte! Envíanos el formulario con tus datos y en menos de 48 horas te contactaremos para contarte de qué se trata.
+        form:
+            nombre: Nombre *
+            apellido: Apellido *
+            mail: E-mail *
+            telefono: Teléfono *
+            texto: ¿Cómo comprobar que eres el dueño? *
+
+        mail:
+            asunto: Reporte: Dueño de
+            nombre: Nombre
+            mail: E-mail
+            telefono: Teléfono
+            texto: ¿Cómo comprobar que eres dueño?
+            lugar: Lugar
+        flash:
+            existe: Este lugar ya fue reclamado por su dueño anteriormente. Lo sentimos.
+            nuevo: En menos de 48 horas sabrás nuestra propuesta. ¡Grandes cosas están por llegar!... y no es la pizza que pedimos hace 25 minutos.
