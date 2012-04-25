@@ -1,0 +1,7 @@
+parameters:
+#    loogares_phone_phone.example.class: Loogares\Phone\PhoneBundle\Example
+
+services:
+#    loogares_phone_phone.example:
+#        class: %loogares_phone_phone.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

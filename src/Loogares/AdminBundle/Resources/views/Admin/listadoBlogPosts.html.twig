@@ -28,7 +28,7 @@
                 <option {% if query.pestado is defined and query.pestado == 'Post Agendado'%} selected="selected" {% endif %}value="Post Agendado">Agendados</option>
             </select>
             <input type="submit" value="Filtrar"/>
-            <a href="{{ path('LoogaresAdminBundle_listadoLugares', {'ciudad': ciudad.slug})}}">Quitar filtros</a>
+            <a href="{{ path('LoogaresAdminBundle_listadoBlogPosts', {'ciudad': ciudad.slug})}}">Quitar filtros</a>
         </div>
 
         <a class="agregar_pedido" href="{{ path('LoogaresAdminBundle_agregarBlogPosts', {'ciudad': ciudad.slug }) }}">Agregar Post</a>
