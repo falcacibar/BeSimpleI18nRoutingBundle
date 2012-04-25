@@ -415,6 +415,8 @@ class DefaultController extends Controller
         ));
     }
 
+
+    // Esto está acá como backup, por si alguna vez se necesita de nuevo (no es basura)
     /*public function mailchimpAction() {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
@@ -514,5 +516,9 @@ class DefaultController extends Controller
 
         return new Response('');
     }*/
+
+    public function updateRecomendacionesUsuario() {
+        
+    }
 
 }

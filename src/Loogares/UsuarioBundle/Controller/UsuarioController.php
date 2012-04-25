@@ -1235,8 +1235,6 @@ class UsuarioController extends Controller
             $formErrors['emptyPassword'] = 'usuario.errors.login.emptyPassword';
         else if($error != null && $error->getMessage() == 'User account is disabled.')
             $formErrors['noActivo'] = 'usuario.errors.login.noActivo';
-            
-        //$session->set(SecurityContext::AUTHENTICATION_ERROR, null);
         
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
