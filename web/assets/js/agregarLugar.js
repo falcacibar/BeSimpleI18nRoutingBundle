@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var precioFlag = null, label = '';
     var $sidebar   = $(".gmaps"),
     $window    = $(window),
     offset     = $sidebar.offset(),
@@ -93,30 +94,6 @@ $(document).ready(function(){
 
         $('.categoria').find('option').removeAttr('disabled');
 
-        //Habilitamos el precio de ser necesario
-        var stars = $('.precio-raty').attr('data-stars');
-        if(categoria == 'nightClubs'){
-            $('.precio-li').show();
-            $('.recomienda-precio-li').show();
-        }else if($(this).find('option:selected').parent().attr('label').camelCase() == 'dóndeComer'){
-            $('.precio-li').show();
-            $('.recomienda-precio-li').show();
-            precioAgregar(stars, 'dondeComer')
-        }else if($(this).find('option:selected').parent().attr('label').camelCase() == 'dóndeDormir'){
-            $('.precio-li').show();
-            $('.recomienda-precio-li').show();
-            precioAgregar(stars, 'dondeDormir');
-        }else{
-            $('.precio-li').hide();
-            $('.precio-raty').html('');
-            $('[name=precio]').val('');
-
-            $('.recomendacion-precio-raty').html('');
-            $('[name=recomienda-precio]').val('');
-            $('.recomienda-precio-li').hide();
-        }
-        
-
         //Deshabilitar en los demas dropdown
         $('.categoria').not($this).each(function(){
             //Deshabilitamos en el resto de los dropdowns el valor que seleccionamos recien
@@ -133,6 +110,22 @@ $(document).ready(function(){
         $('.categoria').each(function(){
             var thisCat = $(this).val().camelCase(),
                 caracteristicas = categorias[thisCat].caracteristicas;
+
+            //Si el precio es Null (osea, step 1, iniciamos el ciclo), entonces es igual a False
+            if(precioFlag == null) precioFlag = false;
+
+            if( $(this).find('option:selected').parent().attr('label') != undefined ){
+                label = $(this).find('option:selected').parent().attr('label').camelCase();
+
+                //Si la categoria o label necesita precio, seteamos true
+                if(categoria == 'nightClubs'){
+                    precioFlag = true;
+                }else if(label == 'dóndeComer'){
+                    precioFlag = true;
+                }else if(label == 'dóndeDormir'){
+                    precioFlag = true;
+                }
+            }
 
             if(caracteristicas != ''){
                 $('.caracteristicas').parent().fadeIn().css('display', 'block');
@@ -153,6 +146,31 @@ $(document).ready(function(){
                 //Subcategorias
             }//end anterior
         });// end each
+
+        //Mostramos el precio si lo necesitamos
+        if(precioFlag == true){
+            var stars = $('.precio-raty').attr('data-stars');
+            if(label == 'dóndeComer'){
+                $('.precio-li').show();
+                $('.recomienda-precio-li').show();
+                precioAgregar(stars, 'dondeComer')
+            }else if(label == 'dóndeDormir'){
+                $('.precio-li').show();
+                $('.recomienda-precio-li').show();
+                precioAgregar(stars, 'dondeDormir');
+            }
+        }else{
+            $('.precio-li').hide();
+            $('.precio-raty').html('');
+            $('[name=precio]').val('');
+
+            $('.recomendacion-precio-raty').html('');
+            $('[name=recomienda-precio]').val('');
+            $('.recomienda-precio-li').hide();
+        }
+
+        //Volvemos a setear precio como null
+        precioFlag = null;
 
         $this.parent().find('.subcategorias').fadeOut().find('input:checked').click();
         $this.parent().find('.subcategorias li').fadeOut();
@@ -270,13 +288,7 @@ $(document).ready(function(){
         });
 
         //Worst Conditional Ever
-        if(
-            ( $('.mapx').val() == '' || $('.mapy').val() == '' ) 
-            && 
-            ( $('.calle').val() != $('.calle').attr('placeholder') && $('.numero').val() != $('.numero').attr('placeholder'))
-            && 
-            $('.comuna').val() != 'elige')
-            {
+        if(validMap == false){
             errores += "<p>¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</p>";
             $('.mapa_info').before('<small class="errors">¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</small>');
         }
