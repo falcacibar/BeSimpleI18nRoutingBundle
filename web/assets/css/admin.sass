@@ -99,6 +99,12 @@ $rojo: #F72121
         text-align: center
         width: 100px
 
+a
+    @include link_azul
+
+    &:hover
+        @include link_azul_hover
+
 .contenedor_admin
     margin: 0 auto
     width: 960px
@@ -673,7 +679,7 @@ $rojo: #F72121
             margin: 10px 10px 10px 0
             width: 150px
         
-        input, textarea
+        input, textarea, span
             float: left
             padding: 8px
             width: 400px
@@ -682,7 +688,7 @@ $rojo: #F72121
             float: left
             margin: 8px 0
             width: 416px
-                    
+
         .agregar_nuevo
             float: left
             font:
@@ -693,6 +699,27 @@ $rojo: #F72121
             border: 0px
             float: left
             padding: 8px 0px
+
+        .nombre_apellido
+            float: left
+            padding: 8px
+            width: auto
+
+        .nombre_usuario
+            color: $gris_ccc
+            float: left
+            font:
+                style: italic
+            padding: 8px 8px 8px 0                
+            width: auto
+
+        .tip
+            color: $gris_999
+            float: left
+            font:
+                size: 12px
+            padding: 8px 8px 8px 160px                
+            width: 400px
 
 .guardar_posts
     background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1025px 0
