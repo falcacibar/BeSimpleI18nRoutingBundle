@@ -1,0 +1,74 @@
+# Locale 'en' General
+general:
+    header:
+        usuario:
+            login: Log in
+            registro: Sign up
+            editar: Edit your profile
+            actividad: Activity
+            recomendaciones: Reviews
+            fotos: Photos
+            lugares: Places
+            por_recomendar: Places to review
+            para_visitar: Places to visit
+            logout: Log out
+        blog: Blog
+        ejemplos_buscador: Hot-dogs, Lastarria, bars, La Moneda
+
+    footer:
+        participa:
+            titulo: Participate
+            registro: Sign up
+            agregar: Add and review a Place
+        alianzas:
+            titulo: Sponsors
+        loogares:
+            titulo: Loogares.com
+        paises:
+            titulo: Change country:
+            chile: Chile
+            argentina: Argentina
+        idioma:
+            titulo: Change language:
+            espanol: Spanish
+            ingles: English
+        redes:
+            tweet: Tweet
+            twittear: I fell in love with Loogares.com! It's the best place to know the city...
+        firma: © 2010~2012 Loogares.com
+
+    terminos:
+        ordenar_por: Sort by
+        mas_relevantes: Most relevant|Most relevant
+        mejor_evaluadas: Highest rated|Highest rated
+        mejores_evaluaciones: Best valued
+        mas_recomendados: Most reviewed|Most reviewed
+        mas_utiles: Most useful|Most useful
+        ultima_recomendacion: Recently reviewed|Recently reviewed
+        alfabetico: Name
+        categorias: Category|Categories
+        mejor_recomendaciones: Best review|Best reviews
+        resultados_pagina: Results per page
+        recomendacion: Review|Reviews
+        sector: Neighborhood
+        resultados: Results for
+
+paginacion:
+    al: to
+    de: of
+    ir_a: Go to page
+
+olvidar:
+    titulo_pag: Forgot your password?
+    titulo: Forgot your password? How could you!
+    subtitulo: Type the E-mail address associated with your account in Loogares.com and we will send you an E-mail about how to reset your password. Just so you know, raisins strengthen your memory!
+    form:
+        mail: You must type your E-mail
+
+    flash:
+        usuario_no_existe: That E-mail doesn't correspond to an actual user.
+    mail:
+        asunto: Your new password in Loogares.com
+        titulo: Hi %usuario%,
+        primero: click %open_tag%here%close_tag% to reset the password to your account in Loogares.com
+        segundo: Remember to get those raisins!

@@ -1,0 +1,95 @@
+# Locale 'en' ExtraBundle
+extra:
+    home:
+        title: Comparte y Vive la ciudad
+        saludo_bienvenida: Loogares.com es la guía de lugares de ocio en tu ciudad donde escribiendo recomendaciones ganarás invitaciones a restaurantes, entradas al cine, fiestas, conciertos y más.
+        actividad_loogares:
+            actualmente: Actualmente en nuestra comunidad van escritas
+            recomendaciones: Review|Reviews
+            y: and 
+            premios: Price|Prices
+            participa: given. Review now!
+        modulo_ultimas_recomendaciones:
+            titulo: Recent places reviewed in categories:
+        modulo_notas_colaboraciones:
+            titulo: Notes and collaborations
+        modulo_loogareno_estrella:
+            titulo: Loogareño Estrella of the week
+            invitacion: Loogareño invited to
+            por: by the Loogares.com team.
+            ver_mas: More »
+            quieres_ser_invitado: Want to be invited for next week?
+            entra_aca: Click here
+        modulo_recomendacion_del_dia:
+            titulo: Review of the day
+            ver_mas: More »
+            elegida_por: Voted by fellow Loogareños
+            tip: Determined by the most useful reviews according to user's ratings. Other factors also were taken into consideration such us content, originality, and clarity. These reviews set the standard for the rest of the reviews on Loogares.com
+        modulo_ultimos_conectados:
+            titulo: Recent Loogareños online
+        actividad_reciente:
+            titulo: Recent activity in
+            agregar:
+                foto: added a new %open_tag%photo%close_tag% for
+                recomendacion: %open_tag%reviewed%close_tag% with %estrellas%
+                util: finds useful %usuario% %open_tag%review %close_tag% for
+                lugar: added a new place
+            editar:
+                recomendacion: edited his %open_tag%review%close_tag% with %estrellas% for
+            filtro:
+                todo: See all
+                recomendaciones: Reviews
+                lugares: Places added
+                fotos: Photos added
+                utiles: Reviews rated
+            ver_mas: See more activity
+
+    modulo_pedidos_online:
+        titulo: Restaurants with online discounts
+        ver_mas: See all discounts »
+        dias: Days
+
+    estaticas:
+        codigos_de_conducta:
+            titulo: Content guidelines
+        contacto:
+            titulo: Contact
+            formulario:
+                nombre: Name
+                e_mail: E-mail address
+                asunto: Subject
+                info: What would you like to know?
+        copyright:
+            titulo: Copyright
+        eres_el_dueno_de_un_lugar:
+            titulo: Own a business?
+        politicas_de_privacidad:
+            titulo: Privacy policy
+        prensa:
+            titulo: Press
+        publicidad:
+            titulo: Advertise
+            formulario:
+                nombre: Name
+                e_mail: E-mail address
+                empresa: Company
+                sitio_web: Website
+                telefono: Phone number
+                info: What would you like to know?
+        que_es_loogarescom:
+            titulo: What is Loogares.com?
+        terminos_de_uso:
+            titulo: Terms of use
+        trabaja_con_nosotros:
+            titulo: Work with us
+        loogareno_estrella:
+            title: Loogareño Estrella
+            titulo: Want to go to restaurants, coffee, bars and more?
+            bajada: Become a Loogareño Estrella!
+        obligatorio: The fields with (*) are required
+
+static:
+    mail:
+        asunto:
+            contacto: Contact message from Loogares.com
+            publicidad: Publicity message from Loogares.com
