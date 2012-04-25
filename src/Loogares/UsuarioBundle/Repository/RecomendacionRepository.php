@@ -25,7 +25,12 @@ class RecomendacionRepository extends EntityRepository
         $q->setParameter(2, $lugar);
         $q->setParameter(3, 3);
 
-        return $q->getSingleResult();
+        try {
+          return $q->getSingleResult();
+        }
+        catch (\Exception $e) {
+          return null;
+        }        
   }
 
   public function getUltimaRecomendacion($lugar) {
