@@ -1,0 +1,5 @@
+LoogaresPhonePhoneBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: LoogaresPhoneBundle:Default:index, _format: json}
+    requirements:
+        _format:  json

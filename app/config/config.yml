@@ -64,6 +64,7 @@ doctrine:
                     LoogaresAdminBundle: ~
                     LoogaresExtraBundle: ~
                     LoogaresUsuarioBundle: ~
+                    LoogaresPhoneBundle: ~
                     LoogaresLugarBundle: ~
                     LoogaresBlogBundle: ~
                     LoogaresMailBundle: ~
