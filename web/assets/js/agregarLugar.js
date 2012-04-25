@@ -120,6 +120,7 @@ $(document).ready(function(){
                 //Si la categoria o label necesita precio, seteamos true
                 if(categoria == 'nightClubs'){
                     precioFlag = true;
+                    label = 'nightClubs';
                 }else if(label == 'dóndeComer'){
                     precioFlag = true;
                 }else if(label == 'dóndeDormir'){
@@ -158,6 +159,10 @@ $(document).ready(function(){
                 $('.precio-li').show();
                 $('.recomienda-precio-li').show();
                 precioAgregar(stars, 'dondeDormir');
+            }else if(label == 'nightClubs'){
+                $('.precio-li').show();
+                $('.recomienda-precio-li').show();
+                precioAgregar(stars, 'nightClubs');                
             }
         }else{
             $('.precio-li').hide();
@@ -288,7 +293,7 @@ $(document).ready(function(){
         });
 
         if($('input[name="precio"]').val() == '' && $('.precio').is(':visible')){
-            errores += "<p>Debés agregar el precio!</p>";
+            errores += "<p>¡Debes agregar el precio!</p>";
             $('input[name="precio"]').after('<small class="errors">Seleccione un precio.</small>'); 
         }
 
