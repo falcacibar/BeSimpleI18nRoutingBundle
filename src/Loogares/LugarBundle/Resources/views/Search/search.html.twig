@@ -62,29 +62,29 @@
 	
 		<div class="resultados" data-tipo="{{mostrarPrecio}}">
 			<h1 class="titulo_busqueda">
-				{% if categoria != null and noCategorias == true %}
-					{{categoria.nombre}}
-	                 {% if sector != null %}
-	                 	{{'lugar.buscar.en'|trans}} {{sector.nombre}}
-	                 {% elseif comuna != null %}
-	                 	{{'lugar.buscar.en'|trans}} {{comuna.nombre}}
-	                 {% endif %}
-					{{'lugar.buscar.en'|trans}} {{ciudad.nombre}}
-				{% else %}
-				{{'lugar.buscar.resultado_busqueda'|trans}} {{term}} 
-					 {% if subcategoria != null %}
-	                 	{{'lugar.buscar.en'|trans}} {{subcategoria.nombre}}
-	                 {% elseif categoria != null %}
-	                 	{{'lugar.buscar.en'|trans}} {{categoria.nombre}}
-	                 {% endif %}
+				{%- if categoria != null and noCategorias == true -%}
+					{{categoria.nombre-}}
+	                {% if sector != null %}
+	                 	{{-' '-}}{{'lugar.buscar.en'|trans}} {{sector.nombre-}}
+	                {% elseif comuna != null %}
+	                 	{{-' '-}}{{'lugar.buscar.en'|trans}} {{comuna.nombre-}}
+	                {% endif %}
+					{{-' '-}}{{'lugar.buscar.en'|trans}} {{ciudad.nombre-}}
+				{%- else -%}
+					{{'lugar.buscar.resultado_busqueda'|trans}} {{term-}} 
+					{%- if subcategoria != null %}
+	                 	{{-' '-}}{{'lugar.buscar.en'|trans}} {{subcategoria.nombre}}
+	                {%- elseif categoria != null %}
+	                 	{{-' '-}}{{'lugar.buscar.en'|trans}} {{categoria.nombre}}
+	                {%- endif %}
 
-	                 {% if sector != null %}
-	                 	{{'lugar.buscar.en'|trans}} {{sector.nombre}}
-	                 {% elseif comuna != null %}
-	                 	{{'lugar.buscar.en'|trans}} {{comuna.nombre}}
-	                 {% endif %}
-				{{'lugar.buscar.en'|trans}} {{ciudad.nombre}}
-				{% endif %}	
+	                {%- if sector != null %}
+	                 	{{-' '-}}{{'lugar.buscar.en'|trans}} {{sector.nombre-}}
+	                {%- elseif comuna != null %}
+	                 	{{-' '-}}{{'lugar.buscar.en'|trans}} {{comuna.nombre-}}
+	                {%- endif %}
+					{{-' '-}}{{'lugar.buscar.en'|trans}} {{ciudad.nombre-}}
+				{%- endif -%}
 			</h1>
 			
 			<p class="breadcrumb">
