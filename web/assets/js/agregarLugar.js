@@ -287,9 +287,9 @@ $(document).ready(function(){
             }
         });
 
-        if($('.precio').val() == '' && $('.precio').is(':visible')){
+        if($('input[name="precio"]').val() == '' && $('input[name="precio"]').is(':visible')){
             errores += "<p>Debés agregar el precio!</p>";
-            $('.precio').after('<small class="errors">Seleccione un precio.</small>'); 
+            $('input[name="precio"]').after('<small class="errors">Seleccione un precio.</small>'); 
         }
 
         if(validMap == false){

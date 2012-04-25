@@ -380,12 +380,11 @@ class LugarController extends Controller{
 
                 if($rolAdmin == false){
                     $estado = $lr->getEstado(1);
-                }else{
-                  if(empty($lugaresRevisados)){
+                    $lugarManipulado->setEstado($estado);
+                }else if($nuevoLugar == true){
                     $estado = $lr->getEstado(2);
-                  }
+                    $lugarManipulado->setEstado($estado);
                 }
-                $lugarManipulado->setEstado($estado);
                 
                 $tipo_lugar = $lr->getTipoLugar('lugar');
                 $lugarManipulado->setTipoLugar($tipo_lugar[0]);
