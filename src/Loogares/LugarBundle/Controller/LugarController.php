@@ -379,7 +379,9 @@ class LugarController extends Controller{
                 }
 
                 if($rolAdmin == false){
-                  $estado = $lr->getEstado(1);
+                  if(empty($lugaresRevisados)){
+                    $estado = $lr->getEstado(1);
+                  }
                 }else{
                   $estado = $lr->getEstado(2);
                 }
@@ -592,7 +594,7 @@ class LugarController extends Controller{
 
                     foreach($lugaresRevisados as $key => $lugar){
                         $estado = $lr->getEstado(9);
-                        //$lugar->setEstado($estado);
+                        $lugar->setEstado($estado);
                         $em->persist($lugar);
                         $em->flush();
                     }

@@ -287,7 +287,11 @@ $(document).ready(function(){
             }
         });
 
-        //Worst Conditional Ever
+        if($('.precio').val() == '' && $('.precio').is(':visible')){
+            errores += "<p>Debés agregar el precio!</p>";
+            $('.precio').after('<small class="errors">Seleccione un precio.</small>'); 
+        }
+
         if(validMap == false){
             errores += "<p>¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</p>";
             $('.mapa_info').before('<small class="errors">¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</small>');
