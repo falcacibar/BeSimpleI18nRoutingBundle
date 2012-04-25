@@ -373,15 +373,17 @@ class LugarController extends Controller{
                 }
 
                 if(isset($_POST['precio'])){
+                    $lugarManipulado->setPrecioInicial($_POST['precio']);
                     $lugarManipulado->setPrecio($_POST['precio']);
                 }else{
-                  $lugarManipulado->setPrecio(0);
+                    $lugarManipulado->setPrecioInicial(0);
+                    $lugarManipulado->setPrecio(0);
                 }
 
                 if($rolAdmin == false){
                     $estado = $lr->getEstado(1);
                     $lugarManipulado->setEstado($estado);
-                }else if($nuevoLugar == true){
+                }else if($nuevoLugar == true && $rolAdmin == true){
                     $estado = $lr->getEstado(2);
                     $lugarManipulado->setEstado($estado);
                 }
