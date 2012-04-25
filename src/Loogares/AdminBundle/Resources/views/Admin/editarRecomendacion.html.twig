@@ -12,58 +12,70 @@
             }
         });
 </script>
+
 <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 <script src="{{asset('assets/js/editarRecomendacion.js')}}"></script>
+
 {% endblock %}
 {% block content %}
-<br/><br/><br/><br/><br/>
-<p><a href="{{ path('_recomendacion', {'slug': recomendacion.lugarSlug, 'usuarioSlug': recomendacion.usuarioSlug}) }}">Ver Recomendacion en el Sitio</a></p>
-<form action="{{ path('LoogaresAdminBundle_editarRecomendacion', {'id': recomendacion.id, 'ciudad': ciudad.slug}) }}" method="post">
-	<ul>
-		<li>
-			<label>Usuario</label>
-			<span class="perfil_usuario">
-                <a target="_blank" class="usuario{% if recomendacion.usuarioSexo == "m"%}_hombre{% else %}_mujer{%endif%}" href="{{ path('editarCuentaUsuario', {'param': recomendacion.usuarioSlug }) }}"></a>
-            </span>
-			{{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}} {{recomendacion.usuarioSlug}}
-		</li>
-		<li>
-			<label>Lugar</label>
-			{{recomendacion.lugarNombre}}
-		</li>
-		<li>
-			<label>Fecha de Creacion</label>
-			{{recomendacion.fecha_creacion|date('d/m/Y')}}
-		</li>
-		<li>
-			<label>Mover a: </label>
-			<input id="mover" type="text">
-			<input type="hidden" name="lugar_id" id="id" />
-		</li>
-		<li>
-			<label>Texto</label>
-			<textarea name="texto">{{recomendacion.texto}}</textarea>
-		</li>
-		<li>
-			<label>Estrellas</label>
-			<div data-stars="{{recomendacion.estrellas}}" class="star-raty"></div>
-		</li>
-		{% if mostrarPrecio != false %}
-		<li>
-			<label>Precio</label>
-			<div data-stars="{{recomendacion.precio}}" class="precio-raty"></div>
-		</li>
-		{% endif %}
-		<li>
-			<label>Acciones</label>
-            {% if recomendacion.estado == 'Eliminado' %}
-                <a href="{{ path('LoogaresAdminBundle_habilitarRecomendacion', {'ciudad': ciudad.slug, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
-            {% else %}
-                <a href="{{ path('LoogaresAdminBundle_borrarRecomendacion', {'ciudad': ciudad.slug, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
-            {% endif %}
-		</li>
-	</ul>
-	<input type="submit" value="Guardar"/>
-</form>
+
+	<h1 class="titulo_admin">Editar Recomendación | <a href="{{ path('_recomendacion', {'slug': recomendacion.lugarSlug, 'usuarioSlug': recomendacion.usuarioSlug}) }}">Ver en el sitio</a></h1>
+
+	<form action="{{ path('LoogaresAdminBundle_editarRecomendacion', {'id': recomendacion.id, 'ciudad': ciudad.slug}) }}" method="post">
+		<ul class="agregar_blog_posts">
+			<li>
+				<label>Usuario</label>
+				<span class="nombre_apellido">
+	                {{recomendacion.usuarioNombre}} {{recomendacion.usuarioApellido}} |
+	            </span> 
+	            <span class="nombre_usuario">
+	            	{{recomendacion.usuarioSlug}}
+	            </span>
+			</li>
+			<li>
+				<label>Lugar</label>
+				<span>
+					{{recomendacion.lugarNombre}}
+				</span>
+			</li>
+			<li>
+				<label>Fecha de creacion</label>
+				<span>
+					{{recomendacion.fecha_creacion|date('d/m/Y')}}
+				</span>
+			</li>
+			<li>
+				<label>Mover a</label>
+				<input id="mover" type="text">
+				<input type="hidden" name="lugar_id" id="id" />
+			</li>
+			<li>
+				<label>Recomendación</label>
+				<textarea name="texto" rows="20">{{recomendacion.texto}}</textarea>
+			</li>
+			<li>
+				<label>Estrellas</label>
+				<span data-stars="{{recomendacion.estrellas}}" class="star-raty"></span>
+			</li>
+			{% if mostrarPrecio != false %}
+			<li>
+				<label>Precio</label>
+				<span data-stars="{{recomendacion.precio}}" class="precio-raty"></span>
+			</li>
+			{% endif %}
+			<li>
+				<label>Acciones</label>
+				<span>
+	            {% if recomendacion.estado == 'Eliminado' %}
+	                <a href="{{ path('LoogaresAdminBundle_habilitarRecomendacion', {'ciudad': ciudad.slug, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/tick.png')}}"/></a>
+	            {% else %}
+	                <a href="{{ path('LoogaresAdminBundle_borrarRecomendacion', {'ciudad': ciudad.slug, 'id':recomendacion.id}) }}"><img src="{{asset('assets/images/administrador/cross.png')}}"/></a>
+	            {% endif %}
+	            </span>
+			</li>
+		</ul>
+		<input class="guardar_posts" type="submit" value=""/>
+	</form>
+
 {% endblock %}
 

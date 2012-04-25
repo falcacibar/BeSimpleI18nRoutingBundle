@@ -5,7 +5,7 @@
 {% block content %}
 	<h1>Agregar Pedido</h1>
 
-	<form action="{{ path('LoogaresAdminBundle_agregarPedido', {'ciudad': ciudad, 'slug': slug }) }}" method="post">
+	<form action="{{ path('LoogaresAdminBundle_agregarPedido', {'ciudad': ciudad.slug, 'slug': slug }) }}" method="post">
 		<ul>
 			<li>
 				<label>Lugar</label>

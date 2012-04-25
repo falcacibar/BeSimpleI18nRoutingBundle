@@ -98,6 +98,12 @@
   margin: 0 0 30px 0;
   width: 960px; }
 
+.titulo_admin_chico {
+  font-size: 20px;
+  float: left;
+  margin: 0 0 30px 0;
+  width: 960px; }
+
 .filtro_admin {
   display: block;
   float: left;
@@ -179,6 +185,10 @@
       font-size: 12px;
       text-align: left;
       width: 4000px; }
+    .listado_admin .table-data .listado_lugares_ediciones {
+      font-size: 12px;
+      text-align: left;
+      width: 960px; }
     .listado_admin .table-data .listado_usuarios {
       font-size: 12px;
       text-align: left;
@@ -438,6 +448,12 @@
 .agregar_blog_posts {
   float: left;
   font-size: 14px; }
+  .agregar_blog_posts .fondo_seccion_especial {
+    background: #fafafc;
+    border: 1px solid #f2f2f6;
+    float: left;
+    padding: 20px;
+    width: 918px; }
   .agregar_blog_posts li {
     float: left;
     margin: 0 0 20px 0;
