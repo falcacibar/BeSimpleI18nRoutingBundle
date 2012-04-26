@@ -4,9 +4,7 @@
 
 {% block content %}
 
-{% for lugar in lugares %}
-    <h1 class="titulo_admin">{{lugar.nombre}} | <a href="{{ path('_editar', {'slug': lugares[0].lugar.slug}) }}">Revisar ahora</a></h1>
-{% endfor %}
+    <h1 class="titulo_admin">Ediciones | <a href="{{ path('_editar', {'slug': lugares[0].lugar.slug}) }}">Revisar ahora</a></h1>
 
 <div class="listado_admin">
     <div class="table-data">
