@@ -1,24 +1,26 @@
-{% if pedido is defined and pedido.promocion != null %} 
-	<strong>Promoción</strong>
-	<a href="{{ path('LoogaresAdminBundle_borrarPromocion', {'slug': slug, 'ciudad': ciudad, 'id' : pedido.id}) }}" class="quitar_promocion">Quitar promoción</a>
-	<ul class="campos_promocion">		
-{% else %}
-	<strong>¿Agregar promoción?</strong>
-	<input type="checkbox" class="habilitar_promocion" name="habilitar_promocion" />
-	{# AGREGAR CLASE AL ul QUE TENGA display:none #}
-	<ul class="campos_promocion" style="display:none">
-{% endif %}
+		{% if pedido is defined and pedido.promocion != null %} 
+			<strong>Promoción</strong>
+			<a href="{{ path('LoogaresAdminBundle_borrarPromocion', {'slug': slug, 'ciudad': ciudad, 'id' : pedido.id}) }}" class="quitar_promocion">Quitar promoción</a>
+			<ul class="campos_promocion">		
+		{% else %}
+			<strong>¿Agregar promoción?</strong>
+			<input type="checkbox" class="habilitar_promocion" name="habilitar_promocion" />
+			{# AGREGAR CLASE AL ul QUE TENGA display:none #}
+			<ul class="campos_promocion" style="display:none">
+		{% endif %}
 
-	<li>
-		<label for="titulo">Título</label>
-		<textarea name="titulo" rows="2">{{(pedido is defined and pedido.promocion != null) ? pedido.promocion.titulo : ''}}</textarea>
-	</li>
-	<li>
-		<label for="dias">Días</label>
-		<input type="text" name="dias" value="{{(pedido is defined and pedido.promocion != null) ? pedido.promocion.dias : ''}}" />
-	</li>
-	<li>
-		<label for="descripcion">Descripción</label>
-		<textarea name="descripcion" rows="4">{{(pedido is defined and pedido.promocion != null) ? pedido.promocion.descripcion : ''}}</textarea>
-	</li>
+	<div class="promocion fondo_seccion_especial" style="margin: 20px 0 0 0;">	
+		<li>
+			<label for="titulo">Título</label>
+			<textarea name="titulo" rows="1">{{(pedido is defined and pedido.promocion != null) ? pedido.promocion.titulo : ''}}</textarea>
+		</li>
+		<li>
+			<label for="dias">Días</label>
+			<input type="text" name="dias" value="{{(pedido is defined and pedido.promocion != null) ? pedido.promocion.dias : ''}}" />
+		</li>
+		<li>
+			<label for="descripcion">Descripción</label>
+			<textarea name="descripcion" rows="6">{{(pedido is defined and pedido.promocion != null) ? pedido.promocion.descripcion : ''}}</textarea>
+		</li>
+	</div>
 </ul>

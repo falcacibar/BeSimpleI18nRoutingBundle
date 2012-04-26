@@ -2081,8 +2081,17 @@ body {
   margin: 0 0 20px;
   width: 300px; }
 .sidebar .social_post {
+  float: left;
   margin: 0 0 20px;
   width: 300px; }
+  .sidebar .social_post .subtitulo_posts {
+    color: #666666;
+    margin: 0 0 20px;
+    font-size: 14px;
+    font-weight: bold; }
+  .sidebar .social_post .fb_social, .sidebar .social_post .tw_social {
+    float: left;
+    margin: 0px 10px 0 0; }
 .sidebar .posts_anteriores {
   color: #666666;
   margin: 0 0 20px;
@@ -3326,7 +3335,7 @@ body {
 /* Mixin */
 .qtip_estuve_alla {
   display: none; }
-  .qtip_estuve_alla .recomendar_ahora {
+  .qtip_estuve_alla .recomendar_ahora_santiago-de-chile, .qtip_estuve_alla .recomendar_ahora_valparaiso-vina-del-mar {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 0;
     display: block;
     cursor: pointer;
@@ -3334,8 +3343,18 @@ body {
     height: 30px;
     margin: 0 40px 10px;
     width: 150px; }
-    .qtip_estuve_alla .recomendar_ahora:hover {
+    .qtip_estuve_alla .recomendar_ahora_santiago-de-chile:hover, .qtip_estuve_alla .recomendar_ahora_valparaiso-vina-del-mar:hover {
       background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -30px; }
+  .qtip_estuve_alla .recomendar_ahora_buenos-aires {
+    background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -120px;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    margin: 0 40px 10px;
+    width: 150px; }
+    .qtip_estuve_alla .recomendar_ahora_buenos-aires:hover {
+      background: url("../images/extras/botones_ficha_lugar.png") no-repeat 0 -150px; }
   .qtip_estuve_alla .recomendar_despues {
     background: url("../images/extras/botones_ficha_lugar.png") no-repeat -1463px 0;
     display: block;

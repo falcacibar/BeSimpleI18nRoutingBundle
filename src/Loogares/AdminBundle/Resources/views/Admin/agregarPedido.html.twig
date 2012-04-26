@@ -3,10 +3,11 @@
 {% block title %}Pedidos | {{parent()}}{% endblock %}
 
 {% block content %}
-	<h1>Agregar Pedido</h1>
+	
+	<h1 class="titulo_admin">Agregar pedido online</h1>
 
 	<form action="{{ path('LoogaresAdminBundle_agregarPedido', {'ciudad': ciudad.slug, 'slug': slug }) }}" method="post">
-		<ul>
+		<ul class="agregar_blog_posts">
 			<li>
 				<label>Lugar</label>
 				<input id="lugar" type="text" />
@@ -14,7 +15,7 @@
 			</li>
 
 			<li>
-				<label for="tipo">Tipo Pedido</label>
+				<label for="tipo">Tipo pedido</label>
 				<select name="tipo">
 					{% for tipo in tipos %}
 						<option value="{{tipo.id}}">{{tipo.nombre}}</option>
@@ -38,15 +39,13 @@
 
 			<li>
 				<label for="referral">Referral (ruta relativa)</label>
-				<textarea rows="2" name="referral"></textarea>
+				<textarea rows="1" name="referral"></textarea>
 			</li>
 
 			{# Promoción #}
-			<div class="promocion">	
-				{% include 'LoogaresAdminBundle:Admin:promocion.html.twig' %}
-			</div>
+			{% include 'LoogaresAdminBundle:Admin:promocion.html.twig' %}
 		</ul>
-		<input type="submit" value="Guardar"/>
+		<input class="guardar_posts" type="submit" value=""/>
 	</form>
 {% endblock %}
 
