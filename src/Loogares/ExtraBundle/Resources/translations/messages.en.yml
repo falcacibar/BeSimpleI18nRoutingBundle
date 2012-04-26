@@ -1,10 +1,10 @@
 # Locale 'en' ExtraBundle
 extra:
     home:
-        title: Comparte y Vive la ciudad
-        saludo_bienvenida: Loogares.com es la guía de lugares de ocio en tu ciudad donde escribiendo recomendaciones ganarás invitaciones a restaurantes, entradas al cine, fiestas, conciertos y más.
+        title: Share and Live the city
+        saludo_bienvenida: Loogares.com is an online city guide, where writing reviews you can win invitations to restaurants, movie tickets, parties, concerts and much more.
         actividad_loogares:
-            actualmente: Actualmente en nuestra comunidad van escritas
+            actualmente: Actually in our community, there are
             recomendaciones: Review|Reviews
             y: and 
             premios: Price|Prices
@@ -24,7 +24,7 @@ extra:
             titulo: Review of the day
             ver_mas: More »
             elegida_por: Voted by fellow Loogareños
-            tip: Determined by the most useful reviews according to user's ratings. Other factors also were taken into consideration such us content, originality, and clarity. These reviews set the standard for the rest of the reviews on Loogares.com
+            tip: Determined by the most useful reviews according to user's ratings. Other factors also were taken into consideration such as content, originality, and clarity. These reviews set the standard for the rest of the reviews on Loogares.com
         modulo_ultimos_conectados:
             titulo: Recent Loogareños online
         actividad_reciente:
