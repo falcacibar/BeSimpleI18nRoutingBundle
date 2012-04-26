@@ -72,11 +72,11 @@ Loogares\LugarBundle\Entity\Lugar:
         #nombre
         nombre:
             type: string
-            length: 50
+            length: 100
         #slug
         slug:
             type: string
-            length: 100
+            length: 150
         #direccion
         calle:
             type: string
