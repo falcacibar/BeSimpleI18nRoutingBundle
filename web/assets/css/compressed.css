@@ -2091,7 +2091,7 @@ body {
     font-weight: bold; }
   .sidebar .social_post .fb_social, .sidebar .social_post .tw_social {
     float: left;
-    margin: 0px 10px 0 0; }
+    margin: 0px 10px 10px 0; }
 .sidebar .posts_anteriores {
   color: #666666;
   margin: 0 0 20px;
