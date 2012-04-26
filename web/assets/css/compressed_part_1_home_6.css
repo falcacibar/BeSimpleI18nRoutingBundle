@@ -244,7 +244,7 @@
         height: 18px;
         margin: 5px 0 0;
         width: 18px; }
-      .contenido_home .actividad_reciente .encabezado_actividad h3 {
+      .contenido_home .actividad_reciente .encabezado_actividad h4 {
         float: left;
         margin: 0 0 0 10px;
         width: 492px; }
@@ -567,7 +567,7 @@
       height: 18px;
       margin: 5px 0 0;
       width: 18px; }
-    .actividad_extendida .encabezado_actividad h1, .actividad_extendida .encabezado_actividad h3 {
+    .actividad_extendida .encabezado_actividad h1 {
       float: left;
       margin: 0 0 0 10px;
       width: 412px; }
