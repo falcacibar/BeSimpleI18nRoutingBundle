@@ -14,12 +14,19 @@
     </script>
 {% endblock %}
 
+{% block title %}{{'fotos.galeria.title'|trans}} {{lugar.nombre}} - Foto {{imagen.id}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}{% endblock %}
+
 {% block meta %}
     <meta name="description" content="Galería de fotos de {{lugar.nombre}}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}." />
-    <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, galería, fotos, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}, {{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{lugar.nombre}}" />
-{% endblock %}
 
-{% block title %} {{parent()}} | {{'fotos.galeria.title'|trans}} {{lugar.nombre}} | {{lugar.comuna.ciudad.nombre}}{% endblock %}
+    <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, galería, fotos, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}, {{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{lugar.nombre}}" />
+
+	<!-- Metadata para FB -->
+	<meta property="og:title" content="{{'fotos.galeria.title'|trans}} {{lugar.nombre}} - Foto {{imagen.id}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
+
+	<meta property="og:description" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, galería, fotos, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}, {{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{lugar.nombre}}" />
+
+{% endblock %}
 
 {% block content %}
     <!-- Mensajes de éxito -->
