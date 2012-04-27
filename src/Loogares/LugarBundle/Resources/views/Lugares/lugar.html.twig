@@ -88,7 +88,7 @@
             {% if app.session.hasFlash('cerrado_flash') %}
                 <div class="overlay"></div>
             {% endif %}
-            <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
+            <h1><a class="titulo_lugar" href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
             <div class="favoritos_lugar{{(is_granted('ROLE_USER') == false) ? '' : ''}}">
                 {% if lugar.accionesUsuario.3.puede == 1 %}
                     <a class="favoritos_lugar_icono tooltip boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
@@ -132,7 +132,7 @@
             </div>
 
             <div class="datos_principales_lugar">
-                <div class="direccion_lugar" id="lugar-direccion"><h2>{{ lugar.calle }}{{ lugar.numero }},{%- if lugar.detalle -%}{{-' '-}}{{lugar.detalle}},{%- endif -%}
+                <div class="direccion_lugar" id="lugar-direccion"><h2>{{ lugar.calle }} {{ lugar.numero }},{%- if lugar.detalle -%}{{-' '-}}{{lugar.detalle}},{%- endif -%}
                     {{-' '-}}<a href="{{ path('_categoria_comuna', {'slug': lugar.comuna.ciudad.slug, 'comuna': lugar.comuna.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.comuna.nombre}}</a>, <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.comuna.ciudad.nombre }}</a></h2>
                 </div>
                 {% if lugar.tel1 != '' %}

@@ -2,7 +2,7 @@
 
 {% block title %}
 	{%- if categoria != null and noCategorias == true -%}
-		{{categoria.nombre}} {%- if sector != null -%}en {{sector.nombre}} {%- elseif comuna != null -%}en {{comuna.nombre}} {%- endif -%}{{-' '-}}en {{app.session.get('ciudad').nombre}} {%- if query.pagina is defined and query.pagina != 1 -%}{{-' '-}}| Página {{query.pagina}} {%- endif -%}{{-' '-}}| {{parent()}}
+		{{categoria.nombre}} {%- if sector != null -%}{{-' '-}} en {{sector.nombre}} {%- elseif comuna != null -%}{{-' '-}} en {{comuna.nombre}} {%- endif -%}{{-' '-}}{{-' '-}} en {{app.session.get('ciudad').nombre}} {%- if query.pagina is defined and query.pagina != 1 -%}{{-' '-}}| Página {{query.pagina}} {%- endif -%}{{-' '-}}| {{parent()}}
 	{%- else -%}
 		Resultados de {{term}} en {{app.session.get('ciudad').nombre}}{{-' '-}}| {{parent()}}
 	{%- endif -%}
@@ -10,24 +10,24 @@
 
 {% block meta %}
 	{%- if categoria != null and noCategorias == true -%}
-		<meta name="description" content="{{total}} Lugares con recomendaciones de {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}}. En Loogares.com puedes ver recomendaciones acerca de los mejores {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}}." />
+		<meta name="description" content="{{total}} Lugares con recomendaciones de {{categoria.nombre}} {%- if sector != null -%}{{-' '-}} en {{sector.nombre}} {%- elseif comuna != null -%}{{-' '-}} en {{comuna.nombre}} {%- endif -%}{{-' '-}} en {{app.session.get('ciudad').nombre}}. En Loogares.com puedes ver recomendaciones acerca de los mejores {{categoria.nombre}} {%- if sector != null -%}{{-' '-}} en {{sector.nombre}} {%- elseif comuna != null -%}{{-' '-}} en {{comuna.nombre}} {%- endif -%}{{-' '-}} en {{app.session.get('ciudad').nombre}}." />
 		
 		<meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, {{categoria.nombre}}{% if sector != null %}, {{sector.nombre}} {% elseif comuna != null %}, {{comuna.nombre}} {% endif %}" />
 
 		<!-- Metadata para FB -->
-		<meta property="og:title" content="{{categoria.nombre}} {%- if sector != null -%}en {{sector.nombre}} {%- elseif comuna != null -%}en {{comuna.nombre}} {%- endif -%}{{-' '-}}en {{app.session.get('ciudad').nombre}} {%- if query.pagina is defined and query.pagina != 1 -%}{{-' '-}}| Página {{query.pagina}} {%- endif -%}{{-' '-}}| Loogares.com" />
+		<meta property="og:title" content="{{categoria.nombre}} {%- if sector != null -%}{{-' '-}} en {{sector.nombre}} {%- elseif comuna != null -%}{{-' '-}} en {{comuna.nombre}} {%- endif -%}{{-' '-}}{{-' '-}} en {{app.session.get('ciudad').nombre}} {%- if query.pagina is defined and query.pagina != 1 -%}{{-' '-}}| Página {{query.pagina}} {%- endif -%}{{-' '-}}| Loogares.com" />
 
-		<meta property="og:description" content="{{total}} Lugares con recomendaciones de {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}}. En Loogares.com puedes ver recomendaciones acerca de los mejores {{categoria.nombre}} {% if sector != null %}en {{sector.nombre}} {% elseif comuna != null %}en {{comuna.nombre}} {% endif %}en {{app.session.get('ciudad').nombre}}." />
+		<meta property="og:description" content="{{total}} Lugares con recomendaciones de {{categoria.nombre}} {%- if sector != null -%}{{-' '-}} en {{sector.nombre}} {%- elseif comuna != null -%}{{-' '-}} en {{comuna.nombre}} {%- endif -%}{{-' '-}} en {{app.session.get('ciudad').nombre}}. En Loogares.com puedes ver recomendaciones acerca de los mejores {{categoria.nombre}} {%- if sector != null -%}{{-' '-}} en {{sector.nombre}} {%- elseif comuna != null -%}{{-' '-}} en {{comuna.nombre}} {%- endif -%}{{-' '-}} en {{app.session.get('ciudad').nombre}}." />
 
 	{%- else -%}
-		<meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios." />
+		<meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás lugares relacionados a {{term}}, además de recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios." />
 		
-		<meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos" />
+		<meta name="keywords" content="Loogares, recomendaciones, {{term}}, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos" />
 
 		<!-- Metadata para FB -->
 		<meta property="og:title" content="Resultados de {{term}} en {{app.session.get('ciudad').nombre}}{{-' '-}}| Loogares.com" />
 
-		<meta property="og:description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios." />
+		<meta property="og:description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás lugares relacionados a {{term}}, además de recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios." />
 
 	{%- endif -%}	
 {% endblock %}
