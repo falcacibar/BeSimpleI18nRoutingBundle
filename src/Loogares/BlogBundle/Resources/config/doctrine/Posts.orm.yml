@@ -66,6 +66,6 @@ Loogares\BlogBundle\Entity\Posts:
             type: smallint
 
     lifecycleCallbacks:
-        preUpdate: [ preUpload ]
-        postUpdate: [ upload ]
+        prePersist: [ preUpload ]
+        postPersist: [ upload ]
         postRemove: [ removeUpload ]
