@@ -390,15 +390,7 @@
 	        <div class="listado_resultados">
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">
-					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
-						<div class="imagen_gmaps">
-							{% if lugar.imagenesActivasLugar[0] is not defined %}
-								<img src="{{ ('assets/images/lugares/default.gif') | apply_filter('small_lugar')}}" />
-							{% else %}
-								<img src="{{ ('assets/images/lugares/'~lugar.imagenesActivasLugar[lugar.imagenesActivasLugar|length-1].imagenFull) | apply_filter('small_lugar')}}" />
-							{% endif %}
-
-						</div>			
+					
 						<ul>
 							<li class="nombre_lugar_gmaps">
 								<a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre }}</a>

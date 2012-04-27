@@ -1,5 +1,17 @@
-LoogaresPhonePhoneBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: LoogaresPhoneBundle:Default:index, _format: json}
+LoogaresPhonePhoneBundle_categorias:
+    pattern:  /api/categorias
+    defaults: { _controller: LoogaresPhoneBundle:Default:listadoCategorias, _format: json}
+    requirements:
+        _format:  json
+
+LoogaresPhonePhoneBundle_categoria:
+    pattern:  /api/categoria/{categoria}
+    defaults: { _controller: LoogaresPhoneBundle:Default:lugaresPorCategoria, _format: json}
+    requirements:
+        _format:  json
+
+LoogaresPhonePhoneBundle_categoriaNull:
+    pattern:  /api/categoria/
+    defaults: { _controller: LoogaresPhoneBundle:Default:lugaresPorCategoria, _format: json, categoria: null}
     requirements:
         _format:  json
