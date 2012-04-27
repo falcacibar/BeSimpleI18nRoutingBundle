@@ -2,24 +2,25 @@
 
 {% block title %}
     {%- if lugar.recomendacionPedida is not defined -%}
-        {{ lugar.nombre }} - {{lugar.calle}}| {{lugar.comuna.ciudad.nombre}} | {{parent()}}
+        {{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}
     {%- else -%}
-        {{'lugar.recomendacion.meta.title'|trans({'%usuario%' : lugar.recomendacionPedida.nombre~' '~lugar.recomendacionPedida.apellido, '%lugar%' : lugar.nombre~' - '~lugar.calle~'| '~lugar.comuna.ciudad.nombre})}} | {{parent()}}
+        {{'lugar.recomendacion.meta.title'|trans({'%usuario%' : lugar.recomendacionPedida.nombre~' '~lugar.recomendacionPedida.apellido, '%lugar%' : lugar.nombre~' - '~lugar.calle~' | '~lugar.comuna.ciudad.nombre})}} | {{parent()}}
     {%- endif -%}
 {% endblock %}
 
 {% block meta %}
     {% if lugar.recomendacionPedida is not defined %}   
-        <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}}| {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
-        <meta property="og:description" content="{{ lugar.calle }}{{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
+        <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
+        <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
         <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     {% else %}
-        <meta property="og:title" content="{{'lugar.recomendacion.meta.title'|trans({'%usuario%' : lugar.recomendacionPedida.nombre~' '~lugar.recomendacionPedida.apellido, '%lugar%' : lugar.nombre~' - '~lugar.calle~'| '~lugar.comuna.ciudad.nombre})}} | Loogares.com" />
+        <meta property="og:title" content="{{'lugar.recomendacion.meta.title'|trans({'%usuario%' : lugar.recomendacionPedida.nombre~' '~lugar.recomendacionPedida.apellido, '%lugar%' : lugar.nombre~' - '~lugar.calle~' | '~lugar.comuna.ciudad.nombre})}} | Loogares.com" />
         <meta property="og:description" content="" />
-        <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
+        <meta property="og:image" content="{{ ('assets/images/usuarios/'~lugar.recomendacionPedida.imagen_full) | apply_filter('medium_lugar')}}" />
     {% endif %}
     
     <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “{{lugar.recomendaciones[0].texto|slice(0,160)}}...”{% endif %}" />
+
     <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}{{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{ lugar.nombre }}" />
 {% endblock %}
 
@@ -88,7 +89,7 @@
             {% if app.session.hasFlash('cerrado_flash') %}
                 <div class="overlay"></div>
             {% endif %}
-            <h1 class="titulo_lugar">{{ lugar.nombre }}</h1>
+            <h1><a class="titulo_lugar" href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
             <div class="favoritos_lugar{{(is_granted('ROLE_USER') == false) ? '' : ''}}">
                 {% if lugar.accionesUsuario.3.puede == 1 %}
                     <a class="favoritos_lugar_icono tooltip boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
@@ -132,7 +133,7 @@
             </div>
 
             <div class="datos_principales_lugar">
-                <div class="direccion_lugar" id="lugar-direccion"><h2>{{ lugar.calle }}{{ lugar.numero }},{%- if lugar.detalle -%}{{-' '-}}{{lugar.detalle}},{%- endif -%}
+                <div class="direccion_lugar" id="lugar-direccion"><h2>{{ lugar.calle }} {{ lugar.numero }},{%- if lugar.detalle -%}{{-' '-}}{{lugar.detalle}},{%- endif -%}
                     {{-' '-}}<a href="{{ path('_categoria_comuna', {'slug': lugar.comuna.ciudad.slug, 'comuna': lugar.comuna.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.comuna.nombre}}</a>, <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.comuna.ciudad.nombre }}</a></h2>
                 </div>
                 {% if lugar.tel1 != '' %}
