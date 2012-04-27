@@ -1,6 +1,21 @@
 {% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
 
-{% block title %}{% trans %}usuario.login.titulo{% endtrans %}{% endblock %}
+{% block title %}{% trans %}usuario.login.titulo{% endtrans %} | {{parent()}}{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Entra a Loogares.com y empieza a escribir recomendaciones de lugares en {{app.session.get('ciudad').nombre}}. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios." />
+    
+    <meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos" />
+
+    <!-- Metadata para FB -->
+    <meta property="og:title" content="{% trans %}usuario.login.titulo{% endtrans %} | Loogares.com" />
+
+    <meta property="og:description" content="Entra a Loogares.com y empieza a escribir recomendaciones de lugares en {{app.session.get('ciudad').nombre}}. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios." />
+
+    <meta property="og:image" content="http://www.loogares.com/assets/images/extras/logo.png" />
+
+{% endblock %}
+
 {% block content %}
 
     <div class="separacion_del_header">

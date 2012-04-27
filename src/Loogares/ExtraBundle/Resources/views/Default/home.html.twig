@@ -18,12 +18,17 @@
 {% endblock %}
 
 {% block meta %}
-	<meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de restaurantes, hoteles, museos... incluso cines y servicios." />
+	<meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios." />
+	
 	<meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos" />
 
+	<!-- Metadata para FB -->
 	<meta property="og:title" content="Loogares.com | {{'extra.home.title'|trans}} | {{app.session.get('ciudad').nombre}}" />
 
-	<meta property="og:description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de restaurantes, hoteles, museos... incluso cines y servicios." />
+	<meta property="og:description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios." />
+
+	<meta property="og:image" content="http://www.loogares.com/assets/images/extras/logo.png" />
+
 {% endblock %}
 
 {% block stylesheets %}
@@ -64,9 +69,9 @@
 				{% for campana in campanas %}
 					<a href="{{ path('post', {'ciudad': campana.ciudad.slug, 'slug': campana.slug}) }}">
 						<li {% if loop.index == 2 %}class="central"{% endif %}>
-							<h2 class="titulo_concurso {{campana.blogEstadoConcurso.clase}}">{{campana.blogEstadoConcurso.nombre}}</h2>
+							<p class="titulo_concurso {{campana.blogEstadoConcurso.clase}}">{{campana.blogEstadoConcurso.nombre}}</p>
 							<img src="http://www.loogares.com/assets/images/blog/{{campana.imagenHome}}" width="204" height="115" / >
-							<p class="lugar_concurso">{{campana.tituloHome}}</p>
+							<h2 class="lugar_concurso">{{campana.tituloHome}}</h2>
 							<p class="sorteo_concurso">{{campana.descripcionHome}}</p>
 						</li>
 					</a>
@@ -106,7 +111,7 @@
 		<div class="actividad_reciente">
 			<div class="encabezado_actividad">
 				<span class="actividad_icono"></span>
-				<h3 class="titulo_home">{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}}</h3>
+				<h4 class="titulo_home">{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}}</h4>
 				<a class="ver_mas_actividad" href="{{path('actividad')}}">{{'extra.home.actividad_reciente.ver_mas'|trans}} »</a>
 			</div>
 

@@ -521,9 +521,4 @@ class DefaultController extends Controller
 
         return new Response('');
     }*/
-
-    public function updateRecomendacionesUsuario() {
-        
-    }
-
 }

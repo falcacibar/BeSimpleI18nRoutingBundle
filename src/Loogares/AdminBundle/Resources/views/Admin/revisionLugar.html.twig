@@ -4,37 +4,53 @@
 
 {% block content %}
 
-<a href="{{ path('_editar', {'slug': lugares[0].lugar.slug}) }}">Revisar</a>
-<div class="table-data">
-    <table>
-        <thead>
-            <th>Nombre</th>
-            <th>Usuario</th>
-            <th>Direccion</th>
-            <th>Ciudad</th>
-            <th>Comuna</th>
-            <th>Sector</th>
-        </thead>
-        <tbody>
-            {% for lugar in lugares %}
-                <tr>
-                    <td><a href="{{ path('_editar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></td>
-                    <td>
-                        <a href="">
-                            {% if lugar.usuario.nombre is defined %}
-                                {{lugar.usuario.nombre}} {{lugar.usuario.apellido}}
-                            {% else %}
-                                {{lugar.usuario.slug}}
-                            {% endif %}
-                        </a>
-                    </td>
-                    <td>{{lugar.calle}} - {{lugar.numero}}</td>
-                    <td>{{lugar.comuna.ciudad.nombre}}</td>
-                    <td>{{lugar.comuna.nombre}}</td>
-                    <td>{{lugar.sector.nombre|default('')}}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h1 class="titulo_admin">Ediciones | <a href="{{ path('_editar', {'slug': lugares[0].lugar.slug}) }}">Revisar ahora</a></h1>
+
+<div class="listado_admin">
+    <div class="table-data">
+        <table class="listado_lugares_ediciones">
+            <thead>
+                <th class="lugar_nombre">
+                    <span>
+                        <p class="titulos_tabla">Nombre</p>
+                    </span>
+                </th>
+                <th class="lugar_direccion">
+                    <span>
+                        <p class="titulos_tabla">Direccion</p>
+                    </span>
+                </th>
+                <th class="lugar_usuario">
+                    <span>
+                        <p class="titulos_tabla">Usuario</p>
+                    </span>
+                </th>
+            </thead>
+            <tbody>
+                {% for lugar in lugares %}
+                    <tr>
+                        <td class="lugar_nombre">
+                            <span><a href="{{ path('_lugar', {'slug': lugar.slug}) }}">{{lugar.nombre}}</a></span>
+                        </td>
+                        <td class="lugar_direccion">
+                            <span>{{lugar.calle}} {{lugar.numero}}</span>
+                        </td>
+                        <td class="lugar_usuario">
+                            <span>
+                                <a href="">
+                                {% if lugar.usuario.nombre is defined %}
+                                    {{lugar.usuario.nombre}} {{lugar.usuario.apellido}}
+                                {% else %}
+                                    {{lugar.usuario.slug}}
+                                {% endif %}
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
+
 {% endblock %}

@@ -19,13 +19,13 @@ lugar:
             calle: Locate place's street
             numero: Locate place's address
         fotos:
-            no_imagen: Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.
-            valida: No tienes seleccionado ningún archivo. Por favor, elige uno.
-            titulo_pag: Agrega una Foto
+            no_imagen: There was an error trying to upload one or more of your photos. Please try again.
+            valida: You haven't selected a photo to upload. Please choose one.
+            titulo_pag: Add photo
         enviar:
-            nombre: Es obligatorio que ingreses tu nombre 
-            mail: Es obligatorio que ingreses tu E-mail
-            mails: Es necesario que ingreses al menos un E-mail
+            nombre: You must type your name
+            mail: You must type your E-mail address
+            mails: You must type at least one E-mail address
 
     buscar:
         titulo: Resultados para: %buscar%

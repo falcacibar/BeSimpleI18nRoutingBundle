@@ -183,10 +183,14 @@ a.chzn-single.chzn-error {
 .titulo_lugar {
   font-size: 24px;
   line-height: 35px;
+  color: #444444;
   display: block;
   float: left;
   margin: 0 0 15px 0;
   width: 578px; }
+  .titulo_lugar:hover {
+    color: #444444;
+    text-decoration: none; }
 
 .titulo_recomendaciones {
   font-size: 20px;

@@ -33,6 +33,7 @@ Loogares\BlogBundle\Entity\Posts:
             type: string
         imagen_detalle:
             type: string
+            nullable: true
         imagen_home:
             type: string
             nullable: true
@@ -66,6 +67,6 @@ Loogares\BlogBundle\Entity\Posts:
             type: smallint
 
     lifecycleCallbacks:
-        preUpdate: [ preUpload ]
-        postUpdate: [ upload ]
+        prePersist: [ preUpload ]
+        postPersist: [ upload ]
         postRemove: [ removeUpload ]

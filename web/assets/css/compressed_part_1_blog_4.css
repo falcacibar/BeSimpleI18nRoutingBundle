@@ -293,8 +293,17 @@ body {
   margin: 0 0 20px;
   width: 300px; }
 .sidebar .social_post {
+  float: left;
   margin: 0 0 20px;
   width: 300px; }
+  .sidebar .social_post .subtitulo_posts {
+    color: #666666;
+    margin: 0 0 20px;
+    font-size: 14px;
+    font-weight: bold; }
+  .sidebar .social_post .fb_social, .sidebar .social_post .tw_social {
+    float: left;
+    margin: 0px 10px 10px 0; }
 .sidebar .posts_anteriores {
   color: #666666;
   margin: 0 0 20px;
