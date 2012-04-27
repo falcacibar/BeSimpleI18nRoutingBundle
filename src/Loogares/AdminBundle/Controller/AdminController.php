@@ -1905,10 +1905,6 @@ class AdminController extends Controller
                     $post->setImagenDetalle($post->getSlug().'_detalle.jpg');
                 }
 
-                if($post->vimagen_home !== null){
-                    $post->setImagenDetalle($post->getSlug().'_home.jpg');
-                }
-
                 $em->persist($post);
                 $em->flush();
             }            

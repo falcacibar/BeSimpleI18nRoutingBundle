@@ -685,14 +685,13 @@ class Posts
     protected function getUploadDir()
     {
         return 'assets/images/blog';
-    }
+    }    
 
     /**
-     * @ORM\preUpdate
+     * @ORM\prePersist
      */
     public function preUpload()
     {
-
         $fn = new LoogaresFunctions();
 
         if ($this->vimagen !== null) {
@@ -712,7 +711,7 @@ class Posts
     }
 
     /**
-     * @ORM\postUpdate
+     * @ORM\postPersist
      */
     public function upload()
     {
