@@ -119,60 +119,57 @@ class LugarController extends Controller{
         $yaRecomendoResult = $q->getResult();
 
         $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-        $usuario = $ur->findOneById($usuarioSlug);
+        $rr = $em->getRepository('LoogaresUsuarioBundle:Recomendacion');
         if(is_numeric($usuarioSlug) && $usuarioSlug != null){
-            return $this->redirect($this->generateUrl('_recomendacion', array('slug' => $slug, 'usuarioSlug' => $usuario->getSlug())));
-        }else{
-
-        }
-
-        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-        if(is_numeric($usuarioSlug) && $usuarioSlug != null){
-            $usuario = $ur->findOneById($usuarioSlug);
-            return $this->redirect($this->generateUrl('_recomendacion', array('slug' => $slug, 'usuarioSlug' => $usuario->getSlug())));
-        }else{
-
-        }
-
-        if($usuarioSlug != false){
+            $recomendacion = $rr->findOneById($usuarioSlug);
+            if($recomendacion == null){
+                $this->get('session')->setFlash('error_flash', 'Esta recomendación no existe!');
+                return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
+            }else{
+                return $this->redirect($this->generateUrl('_recomendacion', array('slug' => $slug, 'usuarioSlug' => $recomendacion->getUsuario()->getSlug())));
+            }
+        }else if($usuarioSlug != null){
             $usuario = $ur->findOneBySlug($usuarioSlug);
+            if($usuario == null){
+                $this->get('session')->setFlash('error_flash', 'Este Usuario no existe');
+                return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
+            }else{
+                $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r where r.lugar = ?1 and r.usuario = ?2");
+                $q->setParameter(1, $lugarResult[0]->getId());
+                $q->setParameter(2, $usuario->getId());
+                $recomendacionResult = $q->getResult();
 
-            $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r where r.lugar = ?1 and r.usuario = ?2");
-            $q->setParameter(1, $lugarResult[0]->getId());
-            $q->setParameter(2, $usuario->getId());
-            $recomendacionResult = $q->getResult();
-
-            if($recomendacionResult){ 
-                $idRecomendacionPedida = $usuario->getId();
-
-                //Sacar la recomendacion del usuario slugeado
-                $recomendacionPedidaResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
-                    (select min(id) from util where util.usuario_id = $idRecomendacionPedida and util.recomendacion_id = recomendacion.id) as apretoUtil
-                                                                         FROM recomendacion
-                                                                         LEFT JOIN util
-                                                                         ON util.recomendacion_id = recomendacion.id
-                                                                         LEFT JOIN tag_recomendacion
-                                                                         ON tag_recomendacion.recomendacion_id = recomendacion.id
-                                                                         LEFT JOIN tag
-                                                                         ON tag_recomendacion.tag_id = tag.id
-                                                                         LEFT JOIN usuarios
-                                                                         ON recomendacion.usuario_id = usuarios.id
-                                                                         WHERE recomendacion.lugar_id = $idLugar
-                                                                         AND recomendacion.usuario_id = $idRecomendacionPedida
-                                                                         AND recomendacion.estado_id != 3
-                                                                         GROUP BY recomendacion.id
-                                                                         LIMIT 1");
+                if(isset($recomendacionResult) && $recomendacionResult != null){ 
+                    $idRecomendacionPedida = $usuario->getId();
+                    
+                    //Sacar la recomendacion del usuario slugeado
+                    $recomendacionPedidaResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
+                        (select min(id) from util where util.usuario_id = $idRecomendacionPedida and util.recomendacion_id = recomendacion.id) as apretoUtil
+                                                                             FROM recomendacion
+                                                                             LEFT JOIN util
+                                                                             ON util.recomendacion_id = recomendacion.id
+                                                                             LEFT JOIN tag_recomendacion
+                                                                             ON tag_recomendacion.recomendacion_id = recomendacion.id
+                                                                             LEFT JOIN tag
+                                                                             ON tag_recomendacion.tag_id = tag.id
+                                                                             LEFT JOIN usuarios
+                                                                             ON recomendacion.usuario_id = usuarios.id
+                                                                             WHERE recomendacion.lugar_id = $idLugar
+                                                                             AND recomendacion.usuario_id = $idRecomendacionPedida
+                                                                             AND recomendacion.estado_id != 3
+                                                                             GROUP BY recomendacion.id
+                                                                             LIMIT 1");
                     //Explotamos los tags, BOOM
                     for($i = 0; $i < sizeOf($recomendacionPedidaResult); $i++){
                         $recomendacionPedidaResult[$i]['tags'] = explode(',', $recomendacionPedidaResult[$i]['tags']); 
                     }
 
                     $resultadosPorPagina++;
-            }else{
-                $this->get('session')->setFlash('error_flash', 'Este Usuario aun no ha recomendado este Lugar');
-                $usuarioSlug = false;
+                }else{
+                    $this->get('session')->setFlash('error_flash', 'Este Usuario aún no ha recomendado este lugar.');
+                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));                    
+                }
             }
-            
         }
 
         //Definicion del orden para la siguiente consulta
