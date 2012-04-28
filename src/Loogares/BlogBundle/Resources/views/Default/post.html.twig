@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{{parent()}} | {{post.titulo}}{% endblock %}
+{% block title %}{{post.titulo}} | {{parent()}}{% endblock %}
 
 {% block ads %}
     <script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
@@ -19,6 +19,11 @@
 {% block meta %}
 	<meta name="description" content="“{{post.contenido | striptags | slice(0,160) }}...”" />
 	<meta name="keywords" content="{{post.titulo}}, {{post.blogCategoria.nombre}}, Concursos, Eventos, Notas, Actividades, Premios, Entradas, Invitaciones, Loogares, {{ciudad.nombre}}" />
+
+	<!-- Metadata para FB -->
+	<meta property="og:title" content="{{post.titulo}} | Loogares.com" />
+
+	<meta property="og:description" content="“{{post.contenido | striptags | slice(0,160) }}...”" />
 {% endblock %}
 
 {% block javascripts %}
