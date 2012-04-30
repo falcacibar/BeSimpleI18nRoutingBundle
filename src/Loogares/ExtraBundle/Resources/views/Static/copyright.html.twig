@@ -1,6 +1,15 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{parent()}} | {{'extra.estaticas.copyright.titulo'|trans}}{% endblock %}
+{% block title %}{{'extra.estaticas.copyright.titulo'|trans}} | {{parent()}}{% endblock %}
+
+{% block meta %}
+	<meta name="description" content="" />
+
+	<!-- Metadata para FB -->
+	<meta property="og:title" content="{{'extra.estaticas.copyright.titulo'|trans}} | Loogares.com" />
+
+	<meta property="og:description" content="" />
+{% endblock %}
 
 {% block content %}
 

@@ -1,6 +1,15 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{parent()}} | {{'extra.estaticas.politicas_de_privacidad.titulo'|trans}}{% endblock %}
+{% block title %}{{'extra.estaticas.politicas_de_privacidad.titulo'|trans}} | {{parent()}}{% endblock %}
+
+{% block meta %}
+	<meta name="description" content="" />
+
+	<!-- Metadata para FB -->
+	<meta property="og:title" content="{{'extra.estaticas.politicas_de_privacidad.titulo'|trans}} | Loogares.com" />
+
+	<meta property="og:description" content="" />
+{% endblock %}
 
 {% block content %}
 

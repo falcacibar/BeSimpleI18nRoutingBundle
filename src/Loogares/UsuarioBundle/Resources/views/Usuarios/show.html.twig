@@ -1,6 +1,16 @@
 {% extends 'LoogaresUsuarioBundle::layout.html.twig' %}
 
 {% block title %}{{'usuario.perfil.titulo_pag'|trans}} {{usuario.nombre}} {{usuario.apellido}} | {{parent()}}{% endblock %}
+
+{% block meta %}
+	<meta name="description" content="{{'usuario.perfil.titulo_pag'|trans}} {{usuario.nombre}} {{usuario.apellido}} en Loogares.com" />
+
+	<!-- Metadata para FB -->
+	<meta property="og:title" content="{{'usuario.perfil.titulo_pag'|trans}} {{usuario.nombre}} {{usuario.apellido}} | Loogares.com" />
+
+	<meta property="og:description" content="{{'usuario.perfil.titulo_pag'|trans}} {{usuario.nombre}} {{usuario.apellido}} en Loogares.com" />
+{% endblock %}
+
 {% block content %}
 	<div class="caja_usuario">
 		
@@ -22,9 +32,11 @@
 
 	</div>
 {% endblock %}
+
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
 {% endblock %}
+
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
