@@ -69,4 +69,6 @@ Loogares\BlogBundle\Entity\Posts:
     lifecycleCallbacks:
         prePersist: [ preUpload ]
         postPersist: [ upload ]
+        preUpdate: [ preUploadUpdate ]
+        postUpdate: [ uploadUpdate ]
         postRemove: [ removeUpload ]

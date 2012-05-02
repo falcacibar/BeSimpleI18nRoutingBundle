@@ -764,4 +764,20 @@ class Posts
             unlink($vimagen_home);
         }
     }
+
+    /**
+     * @ORM\preUpdate
+     */
+    public function preUploadUpdate()
+    {
+        $this->preUpload();
+    }
+
+    /**
+     * @ORM\postUpdate
+     */
+    public function uploadUpdate()
+    {
+        $this->upload();
+    }
 }
