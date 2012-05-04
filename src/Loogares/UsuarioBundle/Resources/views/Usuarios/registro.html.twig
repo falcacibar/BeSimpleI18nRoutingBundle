@@ -3,14 +3,14 @@
 {% block title %}{% trans %}usuario.registro.title{% endtrans %} | {{parent()}}{% endblock %}
 
 {% block meta %}
-    <meta name="description" content="Regístrate en Loogares.com y empieza a escribir recomendaciones de lugares que conoces en {{app.session.get('ciudad').nombre}} y semanalmente gana invitaciones a restaurantes, entradas al cine, a conciertos, fiestas y más." />
+    <meta name="description" content="{{ 'metadata.registro.descripcion' | trans({'%ciudad%' : app.session.get('ciudad').nombre}) }}" />
     
-    <meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos" />
+    <meta name="keywords" content="{{ 'metadata.registro.keywords' | trans({'%ciudad%' : app.session.get('ciudad').nombre}) }}" />
 
     <!-- Metadata para FB -->
     <meta property="og:title" content="{% trans %}usuario.registro.title{% endtrans %} | Loogares.com" />
 
-    <meta property="og:description" content="Regístrate en Loogares.com y empieza a escribir recomendaciones de lugares que conoces en {{app.session.get('ciudad').nombre}} y semanalmente gana invitaciones a restaurantes, entradas al cine, a conciertos, fiestas y más." />
+    <meta property="og:description" content="{{ 'metadata.registro.descripcion' | trans({'%ciudad%' : app.session.get('ciudad').nombre}) }}" />
 
     <meta property="og:image" content="http://www.loogares.com/assets/images/extras/logo.png" />
 

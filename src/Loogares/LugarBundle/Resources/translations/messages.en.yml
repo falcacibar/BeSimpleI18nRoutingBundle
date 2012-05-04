@@ -28,70 +28,70 @@ lugar:
             mails: You must type at least one E-mail address
 
     buscar:
-        titulo: Resultados para: %buscar%
-        total_recomendaciones: recomendación|recomendaciones
-        resultado_busqueda: Resultados de
-        en: en
-        sectores: Sectores
-        comunas: Comunas
-        zonas: Zonas
-        categorias: Categorías
-        subcategorias: Subcategorías
-        precios: Precios
-        caracteristicas: Características
-        ver_todas: Ver Todas
-        no_encontraste: ¿No encontraste el Lugar que buscabas?
-        agregalo: ¡Entonces agrégalo y sé el primero en recomendarlo!
-        mala_suerte: ¡Mala suerte!... No encontramos
-        en: en
-        prueba: Prueba lo siguiente para mejorar tu búsqueda:
-        buscar_zona: Busca en otra zona. Ej. "Santiago", "Ñuñoa" o "Bellavista"
-        revisa: Revisa si está bien escrito, sin faltas de ortografía
-        buscar_general: Haz una búsqueda más general. Ej. "Cines" o "Bares"
+        titulo: Results for: %buscar%
+        total_recomendaciones: review|reviews
+        resultado_busqueda: Results for
+        en: in
+        sectores: Neighborhood
+        comunas: Neighborhood
+        zonas: Neighborhood
+        categorias: Categories
+        subcategorias: Subcategories
+        precios: Prices
+        caracteristicas: Features
+        ver_todas: More
+        no_encontraste: Couldn't find what you were looking for?
+        agregalo: Add it and be the first to write a review!
+        mala_suerte: Sorry! We couldn't find
+        en: in
+        prueba: Try the following:
+        buscar_zona: Search in other neighborhoods. E.g. "Santiago" o "Bellavista"
+        revisa: Check for spelling mistakes and typos
+        buscar_general: Broaden your search. E.g. "Bars" o "Restaurants"
 
     ficha:
         pedidos:
-            cerrar: Cerrar
-            elige: Elige el servicio que quieres usar:
+            cerrar: Close
+            elige: Choose the platform you want to use:
         otros:
-            titulo: Otros Lugares en el área
+            titulo: More places nearby
         qtip:
-            favoritos: Agregar a Favoritos
-            favoritos_logeado: Si quieres agregar este lugar como Favorito, debes estar
-            ya_estuve_logeado: Si quieres marcar este lugar como que ya estuviste, debes estar
-            volver_logeado: Si quieres marcar este lugar para volver, debes estar
-            quiero_ir_logeado: Si quieres marcar este lugar para ir después, debes estar
-            logeado: logeado
-            registro: Aún no eres usuario, regístrate
-            aqui: aquí
-        total_recomendaciones: recomendación|recomendaciones
+            favoritos: Add to favorites
+            favoritos_logeado: If you want to add this place as a Favorite, you must be
+            ya_estuve_logeado: If you want to add this place as if you already went, you must be
+            volver_logeado: If you want to add this place as if you want to go back, you must be
+            quiero_ir_logeado: If you want to add this place as if you want to go later, you must be
+            logeado: loged in
+            registro: Not yet a member of Loogares.com? Register
+            aqui: here
+        total_recomendaciones: review|reviews
         multimedia:
-            galeria: Ver galería (%total% foto)|Ver galería (%total% fotos)
-            agregar_foto: » Agrega una foto
-            video: Ver video
+            galeria: Show album (%total% photo)|Show album (%total% photos)
+            agregar_foto: » Add photos
+            video: Watch video
         datos:
-            precio: Precio:
-            primero: Primero en recomendar            
-            horario: Horario:
-            sector: Sector:
-            subcategorias: Subcategorías
-            profesional: Profesional
-            agnoConstruccion: Año de construcción
-            materiales: Materiales
+            precio: Price:
+            primero: First to review            
+            horario: Hours:
+            sector: Neighborhood:
+            subcategorias: Subcategories
+            profesional: Professional
+            agnoConstruccion: Year
+            materiales: Materials
         opciones:
-            owner: ¿Eres dueño de este Lugar?
-            owner_reclamado: Reclamado por su dueño
-            editar: Edita los datos
-            cerro: ¿Este Lugar cerró? Avísanos
-            enviar: Enviar
-            imprimir: Imprimir
+            owner: Are you the owner of this place?
+            owner_reclamado: Claimed by the owner
+            editar: Edit
+            cerro: Is this place out of business? Let us know
+            enviar: Send
+            imprimir: Print
             twittear: Twitter
             facebook: Facebook
             e_mail: E-mail
         recomendaciones:
-            titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
-            titulo_0: 0 Recomendaciones en
-            enviar: Compartir
+            titulo: Review for %lugar%|Reviews for %lugar%
+            titulo_0: 0 Reviews for
+            enviar: Share
             permalink: Link a esta recomendación
             editar: Edita tu recomendación
             borrar: Borra tu recomendación
