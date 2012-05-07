@@ -47,10 +47,11 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
-    public function lugaresPorCategoriaAction($categoria = null){
+    public function lugaresPorCategoriaAction($categoria = 'todas', $offset = 1){
+        if($categoria == 'todas'){ $categoria = null; }
         $em = $this->getDoctrine()->getEntityManager();
+        $offset--; 
         $cr = $em->getRepository("LoogaresLugarBundle:Categoria");
-        $offset = 0;
         $data = array();
 
         if($categoria == null){
@@ -64,22 +65,23 @@ class DefaultController extends Controller
                                    JOIN cl.lugar l WHERE cl.categoria = ?1 GROUP BY l.id ORDER BY ranking DESC");
             $q->setParameter(1, $categoria);
         }
-        $q->setMaxResults(20);
-        $q->setFirstResult($offset);
+        $q->setMaxResults(1844674407370955161);
         $categoriaLugar = $q->getResult();
 
-        for($i=0;$i<20;$i++){
+        for($i=$offset*20;$i<$offset*20+20;$i++){
             $data[]['nombre'] = $categoriaLugar[$i][0]->getLugar()->getNombre();
             $data[sizeOf($data)-1]['slug'] = $categoriaLugar[$i][0]->getLugar()->getSlug();
             $data[sizeOf($data)-1]['estrellas'] = $categoriaLugar[$i][0]->getLugar()->getEstrellas();
             $data[sizeOf($data)-1]['calle'] = $categoriaLugar[$i][0]->getLugar()->getCalle();
+            $data[sizeOf($data)-1]['mapx'] = $categoriaLugar[$i][0]->getLugar()->getMapx();
+            $data[sizeOf($data)-1]['mapy'] = $categoriaLugar[$i][0]->getLugar()->getMapy();
             $data[sizeOf($data)-1]['numero'] = $categoriaLugar[$i][0]->getLugar()->getNumero();
             $imagenes = $categoriaLugar[$i][0]->getLugar()->getImagenesActivasLugar();
             $data[sizeOf($data)-1]['imagen'] = $imagenes[sizeOf($imagenes)-1]->getImagenFull();
             $data[sizeOf($data)-1]['totalRecomendaciones'] = $categoriaLugar[$i][0]->getLugar()->getTotalRecomendaciones();
-        }   
+        }
 
-        $json = json_encode($data);
+        $json = json_encode(array('lugares'=>$data, 'total' => sizeOf($categoriaLugar)));
 
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));  
     }
