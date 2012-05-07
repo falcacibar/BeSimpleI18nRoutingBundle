@@ -5,13 +5,7 @@ LoogaresPhonePhoneBundle_categorias:
         _format:  json
 
 LoogaresPhonePhoneBundle_categoria:
-    pattern:  /api/categoria/{categoria}
-    defaults: { _controller: LoogaresPhoneBundle:Default:lugaresPorCategoria, _format: json}
-    requirements:
-        _format:  json
-
-LoogaresPhonePhoneBundle_categoriaNull:
-    pattern:  /api/categoria/
-    defaults: { _controller: LoogaresPhoneBundle:Default:lugaresPorCategoria, _format: json, categoria: null}
+    pattern:  /api/categoria/{categoria}/{offset}
+    defaults: { _controller: LoogaresPhoneBundle:Default:lugaresPorCategoria, _format: json, categoria: todas, offset: 1}
     requirements:
         _format:  json
