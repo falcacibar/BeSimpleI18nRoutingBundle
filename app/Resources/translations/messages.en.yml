@@ -13,7 +13,7 @@ general:
             para_visitar: Places to visit
             logout: Log out
         blog: Blog
-        ejemplos_buscador: Hot-dogs, Lastarria, bars, La Moneda
+        ejemplos_buscador: Hot-dogs, Lastarria, pubs, La Moneda
 
     footer:
         participa:
@@ -75,14 +75,14 @@ olvidar:
 
 metadata:
     home:
-        descripcion: Loogares.com es la guía de lugares de ocio y turismo en %ciudad%, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios.
-        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
+        descripcion: Loogares.com is an online city guide, about entertainment and tourism in %ciudad%, based on the reviews of its users. You will find reviews about the best restaurants, hotels, museums... even cinemas and services.
+        keywords: Loogares, reviews, %ciudad%, places, guide, city, tourism, restaurants, museums, hotels, cinema, services, motels, pubs, neighborhood, contests, prices, invitations, notes, events
     login:
-        descripcion: Entra a Loogares.com y empieza a escribir recomendaciones de lugares en %ciudad%. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios.
-        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
+        descripcion: Login to Loogares.com and start writing reviews of places in %ciudad%. You will find reviews about the best restaurants, hotels, museums... even cinemas and services.
+        keywords: Loogares, reviews, %ciudad%, places, guide, city, tourism, restaurants, museums, hotels, cinema, services, motels, pubs, neighborhood, contests, prices, invitations, notes, events
     olvidaste:
-        descripcion: Olvidaste tu password en Loogares.com. Completa los datos que pedimos y nos pondremos en contacto contigo. Pronto podrás volver a escribir recomendaciones de lugares en %ciudad%.
-        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
+        descripcion: You forgot your Loogares.com password. Fill in the form and we will get in touch. Soon you will be able to write reviews of places in %ciudad%.
+        keywords: Loogares, reviews, %ciudad%, places, guide, city, tourism, restaurants, museums, hotels, cinema, services, motels, pubs, neighborhood, contests, prices, invitations, notes, events
     registro:
-        descripcion: Regístrate en Loogares.com y empieza a escribir recomendaciones de lugares que conoces en %ciudad% y semanalmente gana invitaciones a restaurantes, entradas al cine, a conciertos, fiestas y más.
-        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
+        descripcion: Sign in on Loogares.com and start writing reviews of places you know in %ciudad% and weekly win invitations to restaurants, cinema tickets, parties and more.
+        keywords: Loogares, reviews, %ciudad%, places, guide, city, tourism, restaurants, museums, hotels, cinema, services, motels, pubs, neighborhood, contests, prices, invitations, notes, events

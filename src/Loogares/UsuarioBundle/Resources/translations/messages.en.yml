@@ -234,7 +234,7 @@ usuario:
             completo: You must fill in both fields to log in
             password: E-mail address and password don't match. Please try again.
             emptyPassword: You must fill in the password field. Please try again.
-            noActivo: This aacount has not been activated.
+            noActivo: This account has not been activated.
         validacion:
             nombre:
                 blanco: First name field can't be empty.
@@ -261,14 +261,14 @@ usuario:
 
         editar:
             foto:
-                blanco: No tienes seleccionado ningún archivo. Por favor, elige uno.
+                blanco: You haven't selected any file. Please choose one.
             password:
-                actual: Password actual incorrecto
-                confirmar: Debes escribir el mismo password nuevo
+                actual: Your actual password is not correct
+                confirmar: You should write the same new password
             borrar:
-                pass_obligatorio: El campo password es obligatorio. Por favor, complétalo.
-                pass_incorrecto: Los passwords no coinciden. Por favor, corrígelos.
-                motivo: Queremos saber por qué te vas. Por favor, completa el campo.
+                pass_obligatorio: The field is required. Please type your password.
+                pass_incorrecto: Passwords don't match.
+                motivo: Tell us your reasons for abandoning us in this time of dire need.
     flash:
         confirmar_usuario:
             incorrecto: Código de confirmación incorrecto
@@ -291,32 +291,32 @@ dueno:
     errors:
         validacion:
             nombre:
-                blanco: El campo Nombre no puede ser vacío.
+                blanco: First name field can't be empty.
             apellido:
-                blanco: El campo Apellido no puede ser vacío.
+                blanco: Last name field can't be empty.
             mail:
-                blanco: El campo E-mail no puede ser vacío.
+                blanco: E-mail address field can't be empty.
             telefono:
-                blanco: El campo Teléfono no puede ser vacío.
+                blanco: Phone number field can't be empty.
             texto:
-                blanco: Desde propocionar una forma de comprobar que eres el dueño.
+                blanco: You must send us some information to verify you are the owner.
     reclamar:
-        titulo: ¿Eres el dueño de %lugar%?
-        subtitulo: Si lo eres... ¡entonces tenemos una propuesta que hacerte! Envíanos el formulario con tus datos y en menos de 48 horas te contactaremos para contarte de qué se trata.
+        titulo: Are you the owner of %lugar%?
+        subtitulo: If you are, we have an interesting proposal for you and your business! Click on the link below and send us your information. In less than 48 hours we will contact you with further details.
         form:
-            nombre: Nombre *
-            apellido: Apellido *
-            mail: E-mail *
-            telefono: Teléfono *
-            texto: ¿Cómo comprobar que eres el dueño? *
+            nombre: First name *
+            apellido: Last name *
+            mail: E-mail address *
+            telefono: Phone number *
+            texto: How to verify you are the owner? *
 
         mail:
-            asunto: Reporte: Dueño de
-            nombre: Nombre
-            mail: E-mail
-            telefono: Teléfono
-            texto: ¿Cómo comprobar que eres dueño?
-            lugar: Lugar
+            asunto: Report: Owner of
+            nombre: Name
+            mail: E-mail address
+            telefono: Phone number
+            texto: How to verify you are the owner?
+            lugar: Place
         flash:
-            existe: Este lugar ya fue reclamado por su dueño anteriormente. Lo sentimos.
-            nuevo: En menos de 48 horas sabrás nuestra propuesta. ¡Grandes cosas están por llegar!... y no es la pizza que pedimos hace 25 minutos.
+            existe: This place has already been reached by it's owner. We are sorry. If something is wrong, please contact us.
+            nuevo: In less than 48 hours you will hear from us. Great things are yet to come!... And it's not the pizza we ordered a few minutes ago.
