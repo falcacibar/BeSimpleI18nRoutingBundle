@@ -271,20 +271,20 @@ usuario:
                 motivo: Tell us your reasons for abandoning us in this time of dire need.
     flash:
         confirmar_usuario:
-            incorrecto: Código de confirmación incorrecto
-            anterioridad: Confirmación realizada con anterioridad
-            exito: ¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún Lugar para recomendar?
+            incorrecto: Incorrect confirmation code
+            anterioridad: Confirmation was already made
+            exito: Welcome! You have successfully confirmed you account. Want to review a place?
         edicion:
-            cuenta: ¡Tu perfil acaba de actualizarse con los nuevos cambios!
-            foto: Cambiaste tu foto de perfil. ¡Nada de mal!
-            password: ¡Ahora tienes un nuevo password! No lo olvides, lo necesitarás para entrar al sitio.
-            borrar_cuenta: Tu cuenta acaba de ser borrada. Fue bonito mientras duró.
+            cuenta: Your profile just got better with your new changes!
+            foto: Your profile picture has been changed. You look great!
+            password: You have a new password! Don't forget it, you will need it to enter the site.
+            borrar_cuenta: Your account has just been cancelled. It was good while it lasted!
 
     mail:
-        usuario: te escribió desde %open_tag%%mail%%close_tag%
-        equipo: Enviado por el equipo de %open_tag%Loogares.com%close_tag%
-        contacto: Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a %open_a%contacto@loogares.com%close_a%
-        contacto_plano: Si quieres contactarnos escríbenos a contacto@loogares.com
+        usuario: wrote to you from %open_tag%%mail%%close_tag%
+        equipo: Send by the %open_tag%Loogares.com%close_tag% team
+        contacto: Do not reply to this message. If you wish to contact us, E-mail us at %open_a%contacto@loogares.com%close_a%
+        contacto_plano: If you wish to contact us, E-mail us at contacto@loogares.com
         firma: 2012. Loogares.com
 
 dueno:
