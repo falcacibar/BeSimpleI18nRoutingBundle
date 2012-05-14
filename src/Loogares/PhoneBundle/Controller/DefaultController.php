@@ -47,42 +47,153 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
-    public function lugaresPorCategoriaAction($categoria = 'todas', $offset = 1){
+    public function lugaresPorCategoriaAction($categoria = 'todas', $offset = 1, $latitude = null, $longitude = null){
         if($categoria == 'todas'){ $categoria = null; }
+
         $em = $this->getDoctrine()->getEntityManager();
-        $offset--; 
+        $offset--; $offset = $offset*20;
         $cr = $em->getRepository("LoogaresLugarBundle:Categoria");
         $data = array();
 
+        if($latitude != null && $longitude != null){
+            $geoloc = ",( 6371 * acos( cos( radians($latitude) ) * cos( radians( l.mapx ) ) * cos( radians( l.mapy ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( l.mapx ) ) ) ) AS distance";
+            $geolocCondition = "HAVING distance < 1";
+            $orderBy = "ORDER BY distance DESC";
+        }else{
+            $geoloc = null;
+            $geolocCondition = null;
+            $orderBy = "ORDER BY ranking DESC";
+        }
+        
         if($categoria == null){
-            $q = $em->createQuery("SELECT cl, (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) as ranking 
-                                   FROM Loogares\LugarBundle\Entity\CategoriaLugar cl
-                                   JOIN cl.lugar l GROUP BY l.id ORDER BY ranking DESC");
+            $lugares = $this->getDoctrine()->getConnection()
+        ->fetchAll(
+            "SELECT SQL_CALC_FOUND_ROWS l.nombre, l.slug, l.estrellas, l.calle, l.mapx, l.mapy, l.numero,
+             (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) AS ranking,
+             (SELECT max(il.id) FROM imagenes_lugar AS il WHERE il.lugar_id = l.id AND il.estado_id = 2) as imagen_full,
+             (SELECT count(r.id) FROM recomendacion AS r WHERE r.lugar_id = l.id AND r.estado_id != 3) as total_recomendaciones
+             $geoloc
+             FROM  categoria_lugar cl
+
+             JOIN lugares l
+             ON l.id = cl.lugar_id
+
+             JOIN comuna c
+             ON c.id = l.comuna_id 
+
+             WHERE l.estado_id != 3 AND c.ciudad_id = 1
+             GROUP BY l.id
+             $geolocCondition
+             $orderBy
+             LIMIT 20 OFFSET $offset");
         }else{
             $categoria = $cr->findBySlug($categoria);
-            $q = $em->createQuery("SELECT cl, (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) as ranking 
-                                   FROM Loogares\LugarBundle\Entity\CategoriaLugar cl 
-                                   JOIN cl.lugar l WHERE cl.categoria = ?1 GROUP BY l.id ORDER BY ranking DESC");
-            $q->setParameter(1, $categoria);
-        }
-        $q->setMaxResults(1844674407370955161);
-        $categoriaLugar = $q->getResult();
+            $categoriaId = $categoria[0]->getId();
+            $lugares = $this->getDoctrine()->getConnection()->fetchAll(
+            "SELECT SQL_CALC_FOUND_ROWS l.nombre, l.slug, l.estrellas, l.calle, l.mapx, l.mapy, l.numero,
+             (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) AS ranking,
+             (SELECT max(il.id) FROM imagenes_lugar AS il WHERE il.lugar_id = l.id AND il.estado_id = 2) as imagen_full,
+             (SELECT count(r.id) FROM recomendacion AS r WHERE r.lugar_id = l.id AND r.estado_id != 3) as total_recomendaciones
+             $geoloc
+             FROM  categoria_lugar cl
 
-        for($i=$offset*20;$i<$offset*20+20;$i++){
-            $data[]['nombre'] = $categoriaLugar[$i][0]->getLugar()->getNombre();
-            $data[sizeOf($data)-1]['slug'] = $categoriaLugar[$i][0]->getLugar()->getSlug();
-            $data[sizeOf($data)-1]['estrellas'] = $categoriaLugar[$i][0]->getLugar()->getEstrellas();
-            $data[sizeOf($data)-1]['calle'] = $categoriaLugar[$i][0]->getLugar()->getCalle();
-            $data[sizeOf($data)-1]['mapx'] = $categoriaLugar[$i][0]->getLugar()->getMapx();
-            $data[sizeOf($data)-1]['mapy'] = $categoriaLugar[$i][0]->getLugar()->getMapy();
-            $data[sizeOf($data)-1]['numero'] = $categoriaLugar[$i][0]->getLugar()->getNumero();
-            $imagenes = $categoriaLugar[$i][0]->getLugar()->getImagenesActivasLugar();
-            $data[sizeOf($data)-1]['imagen'] = $imagenes[sizeOf($imagenes)-1]->getImagenFull();
-            $data[sizeOf($data)-1]['totalRecomendaciones'] = $categoriaLugar[$i][0]->getLugar()->getTotalRecomendaciones();
+             JOIN lugares l
+             ON l.id = cl.lugar_id
+
+             JOIN comuna c
+             ON c.id = l.comuna_id 
+
+             WHERE l.estado_id != 3 AND c.ciudad_id = 1
+             AND cl.categoria_id = $categoriaId
+             
+             GROUP BY l.id
+             $geolocCondition
+             $orderBy
+             LIMIT 20 OFFSET $offset");
         }
 
-        $json = json_encode(array('lugares'=>$data, 'total' => sizeOf($categoriaLugar)));
+        $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
+
+        for($i=sizeOf($lugares)-1;$i>=0;$i--){
+            $data[]['nombre'] = $lugares[$i]['nombre'];
+            $data[sizeOf($data)-1]['slug'] = $lugares[$i]['slug'];
+            $data[sizeOf($data)-1]['estrellas'] = $lugares[$i]['estrellas'];
+            $data[sizeOf($data)-1]['calle'] = $lugares[$i]['calle'];
+            $data[sizeOf($data)-1]['mapx'] = $lugares[$i]['mapx'];
+            $data[sizeOf($data)-1]['mapy'] = $lugares[$i]['mapy'];
+            $data[sizeOf($data)-1]['numero'] = $lugares[$i]['numero'];
+
+            $imagenes = $lugares[$i]['imagen_full'];
+
+            if($lugares[$i]['imagen_full'] != '' && file_exists('assets/images/lugares/'.$lugares[$i]['imagen_full'])){
+                if(!file_exists('assets/media/cache/tiny_lugar/assets/images/lugares/'.$lugares[$i]['imagen_full'])){
+                    $this->get('imagine.controller')->filter('assets/images/lugares/'.$lugares[$i]['imagen_full'], "tiny_lugar");
+                }
+                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/tiny_lugar/assets/images/lugares/'.$lugares[$i]['imagen_full'];
+            }else{
+                if(!file_exists('assets/media/cache/tiny_lugar/assets/images/lugares/default.gif')){
+                    $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "tiny_lugar");
+                }
+                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/tiny_lugar/assets/images/lugares/default.gif';
+            }
+
+            $data[sizeOf($data)-1]['totalRecomendaciones'] = $lugares[$i]['total_recomendaciones'];
+        }
+
+        $json = json_encode(array('lugares'=>$data, 'total' => $resultSetSize[0]['rows']));
 
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));  
+    }
+
+    public function lugarAction($slug){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+        ($lugar->getComuna()->getCiudad()->getPais()->getCodigoArea() != '')?$codigo = $lugar->getComuna()->getCiudad()->getPais()->getCodigoArea().' ':null;
+        $recomendaciones = $lugar->getRecomendacionesActivas();
+
+        for($i=0;$i<sizeOf($recomendaciones);$i++){
+            $usuario = $recomendaciones[$i]->getUsuario();
+            $nombre = $usuario->getNombre() . " " . $usuario->getApellido();
+            if($nombre == ' '){
+                $data['recomendaciones'][$i]['usuario'] = $usuario->getSlug();
+            }else{
+                $data['recomendaciones'][$i]['usuario'] = $nombre;
+            }
+            $data['recomendaciones'][$i]['estrellas'] = $recomendaciones[$i]->getEstrellas();
+            $data['recomendaciones'][$i]['fechaCreacion'] = $recomendaciones[$i]->getFechaCreacion()->format('y-m-d');
+            $data['recomendaciones'][$i]['texto'] = $recomendaciones[$i]->getTexto();
+        }
+
+        $data['nombre'] = $lugar->getNombre();
+        $data['slug'] = $lugar->getSlug();
+        $data['mapx'] = $lugar->getMapx();
+        $data['mapy'] = $lugar->getMapy();
+        $data['direccion'] = $lugar->getCalle() . " - " . $lugar->getNumero();
+        $data['telefonos'] = array();
+        if($lugar->getTelefono1() != '') $data['telefonos'][] = $codigo . $lugar->getTelefono1();
+        if($lugar->getTelefono2() != '') $data['telefonos'][] = $codigo . $lugar->getTelefono2();
+        if($lugar->getTelefono3() != '') $data['telefonos'][] = $codigo . $lugar->getTelefono3();
+        $data['estrellas'] = $lugar->getEstrellas();
+        $data['categoriaPrincipal'] = $lugar->getCategoriaPrincipal()->getNombre();
+        $data['totalRecomendaciones'] = sizeOf($recomendaciones);
+
+        $imagenes = $lugar->getImagenesActivasLugar();
+        if(sizeOf($imagenes) != 0 && file_exists('assets/images/lugares/'.$imagenes[sizeOf($imagenes)-1]->getImagenFull())){
+            if(!file_exists('assets/media/cache/medium_lugar/assets/images/lugares/'.$imagenes[sizeOf($imagenes)-1]->getImagenFull())){
+                $this->get('imagine.controller')->filter('assets/images/lugares/'.$imagenes[sizeOf($imagenes)-1]->getImagenFull(), "medium_lugar");
+            }
+            $data['imagen130'] = 'assets/media/cache/medium_lugar/assets/images/lugares/'.$imagenes[sizeOf($imagenes)-1]->getImagenFull();
+        }else{
+            if(!file_exists('assets/media/cache/medium_lugar/assets/images/lugares/default.gif')){
+                $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "medium_lugar");
+            }
+            $data['imagen130'] = 'assets/media/cache/medium_lugar/assets/images/lugares/default.gif';
+        }
+
+        $json = json_encode($data);
+
+        return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 }

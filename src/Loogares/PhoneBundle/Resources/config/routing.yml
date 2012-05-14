@@ -1,11 +1,17 @@
-LoogaresPhonePhoneBundle_categorias:
+LoogaresPhoneBundle_categorias:
     pattern:  /api/categorias
     defaults: { _controller: LoogaresPhoneBundle:Default:listadoCategorias, _format: json}
     requirements:
         _format:  json
 
-LoogaresPhonePhoneBundle_categoria:
-    pattern:  /api/categoria/{categoria}/{offset}
-    defaults: { _controller: LoogaresPhoneBundle:Default:lugaresPorCategoria, _format: json, categoria: todas, offset: 1}
+LoogaresPhoneBundle_categoria:
+    pattern:  /api/categoria/{categoria}/{offset}/{latitude}/{longitude}
+    defaults: { _controller: LoogaresPhoneBundle:Default:lugaresPorCategoria, _format: json, categoria: todas, offset: 1, latitude: null, longitude: null}
     requirements:
         _format:  json
+
+LoogaresPhoneBundle_lugar:
+    pattern: /api/lugar/{slug}
+    defaults: { _controller: LoogaresPhoneBundle:Default:lugar, _format: json }
+    requirements:
+        _format: json

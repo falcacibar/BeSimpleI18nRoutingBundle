@@ -1,10 +1,10 @@
 {% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
 
-{% block title %}Agregar Post | {{parent()}}{% endblock %}
+{% block title %}{% if post.slug == '' %}Agregar Post{% else %}Editar Post | {{post.slug}}{% endif %}{{parent()}}{% endblock %}
 
 {% block content %}
 <style>.no-default{ display:none }</style>
-	<h1 class="titulo_admin">Agregar Post</h1>
+	<h1 class="titulo_admin">{% if post.slug == '' %}Agregar Post{% else %}Editar Post | <a target="_blank" href="{{ path('post', {'ciudad': ciudad.slug, 'slug': post.slug}) }}">{{post.slug}}</a>{% endif %}</h1>
 
 	<form action="" method="post" {{ form_enctype(form) }}>
 		<ul class="agregar_blog_posts">
@@ -64,12 +64,12 @@
 
 			<li>
 				<label>Contenido</label>
-				<textarea name="contenido" class="contenido_post" rows="15" placeholder="Contenido Principal (HTML)">{{post.contenido}}</textarea>
+				<textarea name="contenido" class="contenido_post" rows="30" placeholder="Contenido Principal (HTML)">{{post.contenido}}</textarea>
 			</li>
 
 			<li>
 				<label>Preview</label>
-				<textarea rows="15" class="preview_post" name="preview" placeholder="Preview (HTML)">{{post.preview}}</textarea>
+				<textarea rows="30" class="preview_post" name="preview" placeholder="Preview (HTML)">{{post.preview}}</textarea>
 			</li>
 
 			<li>
@@ -79,7 +79,7 @@
 
 			<li>
 				<label>Detalle</label>
-				<textarea rows="15" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
+				<textarea rows="30" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
 			</li>
 
 			<li>
@@ -89,12 +89,12 @@
 
 			<li>
 				<label>Ganadores</label>
-				<textarea rows="15" name="ganadores" placeholder="Texto Ganadores (Opcional)">{{post.ganadores}}</textarea>
+				<textarea rows="30" name="ganadores" placeholder="Texto Ganadores (Opcional)">{{post.ganadores}}</textarea>
 			</li>
 
 			<li>
 				<label>Condiciones</label>
-				<textarea rows="15" name="condiciones" placeholder="Condiciones del Concurso (Opcional)">{{post.condiciones}}</textarea>
+				<textarea rows="30" name="condiciones" placeholder="Condiciones del Concurso (Opcional)">{{post.condiciones}}</textarea>
 			</li>
 
 			<li>
@@ -187,6 +187,21 @@
 {% endblock %}
 
 {% block javascript %}
+	<script type="text/javascript" src="{{asset('assets/js/tiny_mce/tiny_mce.js')}}"></script>
+
+	<script type="text/javascript">
+	tinyMCE.init({
+	        mode : "textareas",
+	        theme : "advanced",
+	        content_css : WEBROOT+"../assets/css/editor_post.css",
+			force_br_newlines : false,
+			force_p_newlines : true,    
+			convert_newlines_to_brs : false,
+			apply_source_formatting : true,
+			cleanup: false,
+			removeformat_selector: 'true'
+	});
+	</script>
     <script>
     	var defaultDiacriticsRemovalMap = [
 		    {'base':'A', 'letters':/[\u0041\u24B6\uFF21\u00C0\u00C1\u00C2\u1EA6\u1EA4\u1EAA\u1EA8\u00C3\u0100\u0102\u1EB0\u1EAE\u1EB4\u1EB2\u0226\u01E0\u00C4\u01DE\u1EA2\u00C5\u01FA\u01CD\u0200\u0202\u1EA0\u1EAC\u1EB6\u1E00\u0104\u023A\u2C6F]/g},

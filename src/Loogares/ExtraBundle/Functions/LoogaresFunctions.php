@@ -191,24 +191,24 @@ class LoogaresFunctions
 
         if(empty($horarioArray[0]) && empty($horarioArray[1]) && empty($horarioArray[2]) && empty($horarioArray[3]) && empty($horarioArray[4]) && empty($horarioArray[5]) && empty($horarioArray[6])){ return null; }
         for($i=0;$i<7;$i++){
+            $hh[$i] = array(
+                'Id_Dia' => $i,
+                'Aper_M_L' => '',
+                'Cierre_M_L' => '',
+                'Aper_T_L' => '',
+                'Cierre_T_L' => ''
+            );
+        }
+
+        for($i=sizeOf($horarioArray)-1;$i>=0;$i--){
             $temp = $horarioArray[$i];
-            if(!empty($temp)){
-                $hh[$i] = array(
-                    'Id_Dia' => $i,
+                $hh[$temp->getDia()] = array(
+                    'Id_Dia' => $temp->getDia(),
                     'Aper_M_L' => $temp->getAperturaAM(),
                     'Cierre_M_L' => $temp->getCierreAM(),
                     'Aper_T_L' => $temp->getAperturaPM(),
                     'Cierre_T_L' => $temp->getCierrePM()
-                );
-            } else {
-                $hh[$i] = array(
-                    'Id_Dia' => $i,
-                    'Aper_M_L' => '',
-                    'Cierre_M_L' => '',
-                    'Aper_T_L' => '',
-                    'Cierre_T_L' => ''
-                );
-            }
+                );   
         }
 
         if(count($hh)){
@@ -216,6 +216,7 @@ class LoogaresFunctions
             $final = $hh[0];
             $dia++;
             while($dia<7){
+                echo $dia;
                 if( $hh[$dia]['Aper_M_L'] != $inicial['Aper_M_L'] || $hh[$dia]['Cierre_M_L'] != $inicial['Cierre_M_L'] ||
                     $hh[$dia]['Aper_T_L'] != $inicial['Aper_T_L'] || $hh[$dia]['Cierre_T_L'] != $inicial['Cierre_T_L']) {
                     $out = $dias[$inicial['Id_Dia']];
@@ -256,7 +257,6 @@ class LoogaresFunctions
         }
 
         return $horario;
-
     }
 
     public function enviarMail($subject, $to, $from, $mail, $paths, $template, $templating) {

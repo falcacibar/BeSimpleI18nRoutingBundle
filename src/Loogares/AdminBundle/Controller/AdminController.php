@@ -1897,12 +1897,13 @@ class AdminController extends Controller
                 $post->setPosicionHome($request->get('posicion_home'));
                 $post->setPreview($request->get('preview'));
 
-                if($post->vimagen !== null){
-                    $post->setImagen($post->getSlug().'.jpg');
-                }
-
                 $em->persist($post);
                 $em->flush();
+
+                return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarBlogPosts', array(
+                    'ciudad' => $ciudad->getSlug(),
+                    'post' => $post->getSlug()
+                )));
             }            
         }
 
