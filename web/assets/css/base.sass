@@ -1443,7 +1443,7 @@ textarea
             text-align: right
             width: 340px
 
-        .ano_loogares
+        .copyright
             border-top: 1px solid $blanco
             color: $gris_999
             float: left
@@ -1452,6 +1452,21 @@ textarea
             text-align: center
             padding: 25px 0
             width: 960px
+
+            .softlayer
+                height: 10px
+                background: url("../images/extras/softlayer.png") no-repeat 0px 0px
+                float: right
+                display: block
+                width: 87px
+
+                &:hover
+                    background: url("../images/extras/softlayer.png") no-repeat 0px -10px
+
+                a
+                    height: 10px
+                    display: block
+                    width: 87px
         
         p.footer_title
             background: url("../images/extras/flecha_footer.png") no-repeat 0px 3px
@@ -1566,6 +1581,7 @@ textarea
 
                     &:hover
                         @include link_gris_999_hover
+
 
 /* Página de error */
 

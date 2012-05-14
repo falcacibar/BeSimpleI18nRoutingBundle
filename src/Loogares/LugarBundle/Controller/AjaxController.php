@@ -11,14 +11,13 @@ use Loogares\UsuarioBundle\Entity\AccionUsuario;
 use Loogares\ExtraBundle\Entity\ActividadReciente;
 
 
-class AjaxController extends Controller
-{
+class AjaxController extends Controller{
     public function otrosLugaresEnElAreaAction(){
 
         foreach($_GET as $key => $value){
           $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);  
         }
-
+        
         list($mapxDesde, $mapyDesde) = explode(',',$_GET['southWest']);
         list($mapxHasta, $mapyHasta) = explode(',',$_GET['northEast']);
         $idLugar = $_GET['idLugar'];

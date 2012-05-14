@@ -831,7 +831,27 @@ class Lugar
             }
         }
         return $imagenes;
+    }
 
+    public function getCategoriaPrincipal()
+    {
+        foreach($this->categoria_lugar as $categoria_lugar) {
+            if($categoria_lugar->getPrincipal() == 1) {
+               $categoria = $categoria_lugar->getCategoria();
+            }
+        }
+        return $categoria;
+    }
+
+    public function getRecomendacionesActivas()
+    {
+        $recomendaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        foreach($this->recomendacion as $recomendacion) {
+            if($recomendacion->getEstado()->getId() != 3){
+                $recomendaciones[] = $recomendacion;
+            }
+        }
+        return $recomendaciones;
     }
 
     /**

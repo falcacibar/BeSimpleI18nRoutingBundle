@@ -87,20 +87,20 @@ lugar:
             imprimir: Print
             twittear: Twitter
             facebook: Facebook
-            e_mail: E-mail
+            e_mail: E-mail address
         recomendaciones:
             titulo: Review for %lugar%|Reviews for %lugar%
             titulo_0: 0 Reviews for
             enviar: Share
-            permalink: Link a esta recomendación
-            editar: Edita tu recomendación
-            borrar: Borra tu recomendación
-            reportar: Reporta esta recomendación
+            permalink: Link to this review
+            editar: Edit review
+            borrar: Delete review
+            reportar: Flag this review
         tags: Tags:
         recomienda:
-            titulo: Recomienda
-        aun_no_eres_parte: ¿Aún no eres parte de Loogares.com?
-        registrate: Para recomendarle este lugar a otros Loogareños, tienes que registrarte antes.
+            titulo: Review
+        aun_no_eres_parte: Not a member of Loogares.com?
+        registrate: To review this place, you must be loged in.
 
     agregar:
         titulo: Add a place
@@ -184,134 +184,134 @@ lugar:
 
     recomendacion:
         opcional:
-            tip: ¿Deseas agregar una Recomendación?
-        titulo: Recomendación
-        maximo: Máx.
-        llevas: Llevas
-        evaluacion: Evaluación
+            tip: You wish to write a review?
+        titulo: Review
+        maximo: Max.
+        llevas: You've written
+        evaluacion: Rating
         tags: Tags
-        tagsPopulares: Tags Populares
-        precio: Precio
+        tagsPopulares: Popular tags
+        precio: Price
         placeholders:
-            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. \n\nSé creativo en tu recomendación. Escríbela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! \n\nA partir de hoy eres un crítico profesional…
-            tags: Ej. bar, buena música, ondeo, hasta las 5 am
+            textarea: This space is yours! Take some time to share your experience through a useful and honest review. \n\nBe creative in your review. Write it as a song, in a funny way, or as a highly emotive poem. We want remarkable reviews! \n\nAs of today you are a professional critic.
+            tags: E.g. bar, chill ambience, late hours
         meta:
-            title: Recomendación de %usuario% en %lugar%
-        error_estrellas: Este campo es obligatorio. Por favor, complétalo.
-        error_precio: Este campo es obligatorio. Por favor, complétalo.
-        error_recomendacion: Debes escribir al menos 255 caracteres para poder publicar tu recomendación.
+            title: Review of %usuario% in %lugar%
+        error_estrellas: Required field. Please fill it in.
+        error_precio: Required field. Please fill it in.
+        error_recomendacion: You must write at least 255 letters to publish your review.
 
     notificaciones:
         nueva_recomendacion:
             mail:
-                asunto: ¡Acaban de escribir sobre %lugar% en Loogares.com!
-                titulo: ¡Hola!
-                subtitulo: Te contamos que una persona acaba de escribir una recomendación sobre %lugar% en %loogares%. ¡Léela a continuación!
-                leer_mas: Leer más »
-                subsubtitulo: ¿Quieres que más gente conozca %lugar% en Loogares.com?
-                primero: Loogares.com es una guía online de recomendaciones de lugares de ocio y turismo en la ciudad, donde miles de nuestros usuarios "Loogareños" diariamente comparten sus experiencias escribiendo recomendaciones de lugares que conocen.
-                segundo: Ellos seguramente tienen mucho que contar acerca de tu negocio, por eso te proponemos una interesante alianza comercial para que nuestros Loogareños escriban más recomendaciones en %lugar% y seas más visible en Loogares.com. Te invitamos a que hagas click sobre el botón y en menos de 48 horas te enviaremos nuestra propuesta.
-                propuesta: ¡Quiero recibir la propuesta!
+                asunto: Somebody just wrote a review about %lugar% in Loogares.com!
+                titulo: Hi there!
+                subtitulo: We are writting to tell you that somebody just wrote a review about %lugar% in %loogares%. Read it right here!
+                leer_mas: Read more »
+                subsubtitulo: You want people to know about %lugar% in Loogares.com?
+                primero: Loogares.com is an online city guide about places of entertainment and tourism, based on reviews of our "Loogareños", where every day they shared their experiences writing reviews of places they know.
+                segundo: They have a lot to tell about your business, because of that we propose and interesting aliance for our Loogareños to write more and better reviews about %lugar% and to keep your business visible in Loogares.com. We invite you to make click on the button and in less than 48 hours we will send our proposal.
+                propuesta: I want to receive the proposal!
         util_recomendacion:
             mail:
-                asunto: %usuario% encuentra útil tu recomendación en %lugar%
-                primero: ¡Eres muy bacán! %usuario% encuentra útil tu %open_rec%recomendación%close_rec% en %lugar%
-                segundo: ¡Haz click %open_tag%acá%close_tag% para verla!
+                asunto: %usuario% finds useful your review in %lugar%
+                primero: You're really cool! %usuario% finds useful your %open_rec%review%close_rec% of %lugar%
+                segundo: Click %open_tag%here%close_tag% to read it!
         despues_recomendacion:
             mail:
-                asunto: %usuario% escribió una recomendación en %lugar% después de ti
-                primero: %usuario% acaba de escribir una recomendación en %lugar% justo después de la tuya.
-                segundo: ¡Haz click %open_tag%acá%close_tag% para leerla!
+                asunto: %usuario% wrote a review in %lugar% right after you
+                primero: %usuario% just wrote a review in %lugar% just after yours.
+                segundo: Click %open_tag%here%close_tag% to read it!
 
 fotos:
     agregar:
-        title: Agregar foto a
-        titulo: Agrega una foto en
-        subtitulo: Puedes agregar una o más fotos a la galería de fotos de %lugar% en sólo 2 pasos:
-        primer_paso: Cargar fotos desde tu computador /
-        primer_paso_tips: Máximo 5 MB, sólo JPG, GIF y PNG
-        segundo_paso: 2. Ya cargaste %imagenes% foto. Ahora puedes agregarle links o una descripción.|2. Ya cargaste %imagenes% fotos. Ahora puedes agregar links o descripción a cada una.
-        computador: Subir foto
-        url: Cargar fotos desde un sitio web
-        url_label: Dirección (URL)
-        agregar_foto: Agregar otra foto (Máx.
-        agregar_url: Agregar otra URL (Máx.             
-        quitar: Quitar
-        descripcion: Descripción o dirección URL para linkear a la imagen a su sitio original.
-        submit: Enviar
+        title: Add photo to
+        titulo: Add photo to
+        subtitulo: Add one or more photos to %lugar% in only 2 steps:
+        primer_paso: Upload photo /
+        primer_paso_tips: Max. 5 MB, just JPG, GIF y PNG
+        segundo_paso: 2. You have uploaded %imagenes% photo(s). Now you can add links or a description to each photo.
+        computador: Upload photo
+        url: Embed a photo from a website
+        url_label: URL
+        agregar_foto: Add another photo (Max.
+        agregar_url: Add another URL (Max.             
+        quitar: Remove
+        descripcion: Description or URL to link image to original site.
+        submit: Send
     editar:
-        titulo_pag: Editar foto en
-        titulo: Edita tu foto en
-        cancelar: Cancelar
+        titulo_pag: Edit photo in
+        titulo: Edit your photo in
+        cancelar: Cancel
     galeria:
-        title: Galería de fotos de
-        titulo: Galería de fotos de
-        autor: Agregada por
-        editar: Edita tu foto
-        borrar: Borra tu foto
-        reportar: Reporta esta foto
-        anterior: Anterior
-        siguiente: Siguiente
+        title: Photo album of
+        titulo: Photo album of
+        autor: Uploaded by
+        editar: Edit
+        borrar: Remove
+        reportar: Flag
+        anterior: Previous
+        siguiente: Next
 
 compartir:
     lugar:
         mail:
-            title: Enviar %lugar% a tus amigos
-            titulo: Cuéntale a tus amigos sobre
-            asunto: quiere que veas un Lugar en Loogares.com
-            saludo: ¡Hola %destinatario%!
-            subtitulo: quiere contarte sobre un Lugar que te puede gustar:
-            texto: Lo que te dice: 
-        placeholder: ¡Este lugar es increíble!           
+            title: Send %lugar% to your friends
+            titulo: Tell your friends about
+            asunto: wants you to see a place in Loogares.com
+            saludo: Hi %destinatario%!
+            subtitulo: would like to tell you about a place you might like:
+            texto: He/She says: 
+        placeholder: This place is incredible!           
     recomendacion:
         mail:
-            title: Enviar recomendación en %lugar% a tus amigos
-            titulo: Cuéntale a tus amigos sobre la %open_tag%recomendación%close_tag% de %usuario% en
-            asunto: quiere mostrarte una recomendación en Loogares.com
-            subtitulo: quiere contarte sobre una recomendación de un Lugar que te puede gustar:
-            bajada: Haz clic %open_tag%acá%close_tag% para ver la recomendación de
-        placeholder: ¡Esta recomendación está increíble! 
+            title: Send review of %lugar% to your friends
+            titulo: Tell your friends about the %open_tag%review%close_tag% of %usuario% in
+            asunto: wants you to read a review in Loogares.com
+            subtitulo: would like to tell you about a review of a place you might like:
+            bajada: Click %open_tag%here%close_tag% to read the review of
+        placeholder: This review is amazing! 
     form:
-        nombre: Tu Nombre *
-        mail: Tu E-mail *
-        mails_amigos: E-mails de tus amigos *
-        cuerpo: ¿Y qué les vas a contar?
+        nombre: Your name *
+        mail: Your E-mail address *
+        mails_amigos: Send to *
+        cuerpo: What will you tell them?
         tips:
-            comas: Para enviar a más de una dirección de E-mail, sepáralas por una coma (,)
-            obligatorio: Los campos con (*) son obligatorios
+            comas: To send to more than one friend, separate addresses with comas (,)
+            obligatorio: (*) Are required fields
 
 reportes:
-    titulo: "{0} Reportar %lugar%|{1} Reportar la recomendación de %usuario% en %lugar%|]1,Inf] Reportar la foto de %usuario% en %lugar%"
+    titulo: "{0} Flag %lugar%|{1} Flag review of %usuario% in %lugar%|]1,Inf] Flag photo of %usuario% in %lugar%"
     lugar:
-        title: Reportar %lugar%
-        subtitulo: ¿Este lugar ya no existe? ¿O está repetido? Recuerda que puedes editar los datos de los lugares que tengan errores en su información. Para cualquier otro problema no dudes en avisarnos.
+        title: Flag %lugar%
+        subtitulo: Does this place no longer exist? Does it already have a profile with us? Remember you can always edit out-dated information. For any other problem, do not hesitate to contact us.
     imagen:
-        title: Reportar foto en %lugar%
-        subtitulo: ¿Algo malo con esta foto? Si tiene contenido ofensivo, con derechos reservados o crees que no cumple con los Términos de uso de Loogares.com no dudes en avisarnos.
+        title: Flag photo of %lugar%
+        subtitulo: Is something wrong with this photo? If it contains offensive material, copyright violations, or you believe that it does not follow the terms of use of Loogares.com do not hesitate to contact us.
     recomendacion:
-        title: Reportar recomendación en %lugar%
-        subtitulo: ¿Algo malo con esta recomendación? Si tiene contenido ofensivo, con derechos reservados o crees que no cumple con los Términos de uso de Loogares.com no dudes en avisarnos.
-    label: Escríbenos el porqué de tu reporte *
+        title: Flag review in %lugar%
+        subtitulo: Is something wrong with this review? If it contains offensive material, copyright violations, or you believe that it does not follow the terms of use of Loogares.com do not hesitate to contact us.
+    label: Write the reason for your flagging *
     tip:
-        gracias: Te agradecemos tu ayuda
-        obligatorio: Los campos con (*) son obligatorios
+        gracias: Thank you for your collaboration
+        obligatorio: (*) Are required fields.
 
-    flash: Gracias por avisarnos. Lo revisaremos lo antes posible.
+    flash: Thanks for letting us know. We will check our information as soon as possible
 
     mail:
         lugar:
-            asunto: Reportar lugar:  
-            titulo: Lugar
+            asunto: Flag place:  
+            titulo: Place
         imagen:
-            asunto: Reporte: Foto de
-            titulo: Imagen
+            asunto: Flag: Photo of
+            titulo: Photo
         recomendacion:
-            asunto: Reporte: Recomendación de
-            titulo: Recomendación
-        usuario: Usuario
-        observacion: Observación
-        nombre: Nombre
-        e_mail: E-mail
-        telefono: Teléfono
-        comprobar_dueno: ¿Cómo comprobar que eres dueño?
-        nombre_lugar: Lugar
+            asunto: Flag: Review of
+            titulo: Review
+        usuario: User
+        observacion: Observation
+        nombre: Name
+        e_mail: E-mail address
+        telefono: Phone number
+        comprobar_dueno: Verification keyword
+        nombre_lugar: Place

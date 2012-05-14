@@ -63,7 +63,6 @@ $(document).ready(
                 LatLong = coordVal.split(',');
                 point = new GLatLng(LatLong[0], LatLong[1]);
                 //Center the map on this point (si es el luger predilecto)
-                //-----------------------------
                 var letteredIcon = new GIcon(baseIcon);
                 letteredIcon.image = url + "../assets/images/gmaps/puntodestacado.png";
                 markerOptions = {icon: letteredIcon, draggable: false};
