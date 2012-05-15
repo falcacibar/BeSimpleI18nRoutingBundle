@@ -36,15 +36,34 @@
                   });
               }
           }
+
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '251885084895009', // App ID
+              channelUrl : '//www.loogares.com/channel.php', // Channel File
+              status     : true, // check login status
+              cookie     : true, // enable cookies to allow the server to access the session
+              xfbml      : true  // parse XFBML
+            });
+
+            // Additional initialization code here
+          };
+
+          // Load the SDK Asynchronously
+          (function(d){
+             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement('script'); js.id = id; js.async = true;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             ref.parentNode.insertBefore(js, ref);
+           }(document));
     </script>
     {% block ads %}{% endblock %} 
     </head>
 
     <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }}">
-    {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
-
 		{% include '::header.html.twig' %}
-
+        <div id="fb-root"></div>
         <div class="contenedor">
           {# Por si el usuario no tiene datos básicos #}
           {% if ( is_granted('ROLE_USER')  ) and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.pais is empty) %}
@@ -97,7 +116,7 @@
             $(function(){
                 $('.facebook_login').click(function(e){
                     e.preventDefault();
-                    $('.fb_hidden_button').find('.fb_button').click();
+                    $('.fb_hidden_button').children().click();
                 });
             });
         </script>

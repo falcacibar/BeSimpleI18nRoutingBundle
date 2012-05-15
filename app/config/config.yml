@@ -129,5 +129,5 @@ fos_facebook:
     app_id: %facebook_appid%
     secret: %facebook_appsecret%
     cookie: true
-    permissions: [email, user_birthday, user_location, user_photos]
+    permissions: [email,user_about_me,user_location,user_photos]
     culture: es_LA
