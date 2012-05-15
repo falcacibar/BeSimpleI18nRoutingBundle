@@ -36,35 +36,14 @@
                   });
               }
           }
-
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '251885084895009', // App ID
-      channelUrl : 'www.loogares.com/channel.php', // Channel File
-      status     : true, // check login status
-      cookie     : true, // enable cookies to allow the server to access the session
-      xfbml      : true  // parse XFBML
-    });
-
-    // Additional initialization code here
-  };
-
-  // Load the SDK Asynchronously
-  (function(d){
-     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement('script'); js.id = id; js.async = true;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     ref.parentNode.insertBefore(js, ref);
-   }(document));
-</script>
     </script>
     {% block ads %}{% endblock %} 
     </head>
-    <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }}">
-    <div id="fb-root"></div>
 
-		{% include '::header.html.twig' %}
+    <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }}">
+    {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+
+    {% include '::header.html.twig' %}
 
         <div class="contenedor">
           {# Por si el usuario no tiene datos básicos #}
@@ -73,13 +52,13 @@
               <a href="{{path('forzarDatosUsuario', {'id' : app.security.token.user.id})}}" class="datos_usuario_fancybox"></a>
               
           {% endif %}
-			
-			<div class="contenido">               
-				{% block content %}{% endblock %}
-			</div>
-		</div>
+      
+      <div class="contenido">               
+        {% block content %}{% endblock %}
+      </div>
+    </div>
 
-		{% include '::footer.html.twig' %}
+    {% include '::footer.html.twig' %}
         <script type="text/javascript">
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-5287070-1']);
@@ -115,10 +94,12 @@
         {% endif %}
         {% if is_granted('ROLE_USER') == false %}
         <script>
-          $('.facebook_login').click(function(e){
-            e.preventDefault();
-            FB.login(function(response){}, {scope: 'email,user_about_me,user_location,user_photos'});
-          });
+            $(function(){
+                $('.facebook_login').click(function(e){
+                    e.preventDefault();
+                    $('.fb_hidden_button').find('.fb_button').click();
+                });
+            });
         </script>
         {% endif %}
 
