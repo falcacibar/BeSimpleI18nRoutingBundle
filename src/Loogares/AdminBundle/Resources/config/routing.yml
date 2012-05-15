@@ -1,6 +1,12 @@
 LoogaresAdminBundle_index:
     pattern:  /
     defaults: { _controller: LoogaresAdminBundle:Admin:index }
+LoogaresAdminBundle_uploader:
+    pattern:  /uploader
+    defaults: { _controller: LoogaresAdminBundle:Admin:uploader }
+LoogaresAdminBundle_uploadify:
+    pattern:  /upload
+    defaults: { _controller: LoogaresAdminBundle:Admin:upload }
 LoogaresAdminBundle_sugerirLugar:
     pattern:  /ajax/sugerirLugar
     defaults: { _controller: LoogaresAdminBundle:AdminAjax:sugerirLugar }

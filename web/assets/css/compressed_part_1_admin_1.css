@@ -452,61 +452,237 @@ a {
 .selected_row {
   background: #ddeeff !important; }
 
-.agregar_blog_posts {
+.agregar_elementos_principales_blog_posts {
   float: left;
-  font-size: 14px; }
-  .agregar_blog_posts .fondo_seccion_especial {
-    background: #fafafc;
+  font-size: 14px;
+  margin: 0 0 40px 0;
+  width: 960px; }
+  .agregar_elementos_principales_blog_posts .titulo_post_box {
+    float: left;
+    margin: 0 0 5px;
+    width: 960px; }
+    .agregar_elementos_principales_blog_posts .titulo_post_box input {
+      float: left;
+      padding: 8px;
+      width: 940px; }
+  .agregar_elementos_principales_blog_posts .url_post {
+    float: left;
+    width: 960px; }
+    .agregar_elementos_principales_blog_posts .url_post label {
+      color: #cccccc;
+      float: left;
+      margin: 10px 0;
+      width: 240px; }
+    .agregar_elementos_principales_blog_posts .url_post input {
+      float: left;
+      padding: 8px;
+      width: 700px; }
+
+.agregar_contenidos_blog_posts {
+  float: left;
+  margin: 0 20px 0 0;
+  width: 640px; }
+  .agregar_contenidos_blog_posts .agregar_blog_posts_contenido {
     border: 1px solid #f2f2f6;
     float: left;
-    padding: 20px;
-    width: 918px; }
-  .agregar_blog_posts li {
+    font-size: 14px;
+    padding: 19px;
+    width: 600px; }
+    .agregar_contenidos_blog_posts .agregar_blog_posts_contenido .usuario_post {
+      float: left;
+      width: 600px; }
+      .agregar_contenidos_blog_posts .agregar_blog_posts_contenido .usuario_post label {
+        float: left;
+        margin: 10px 10px 10px 0;
+        width: 120px; }
+      .agregar_contenidos_blog_posts .agregar_blog_posts_contenido .usuario_post input {
+        float: left;
+        padding: 8px;
+        width: 450px; }
+    .agregar_contenidos_blog_posts .agregar_blog_posts_contenido .contenidos_texto {
+      float: left;
+      width: 600px; }
+      .agregar_contenidos_blog_posts .agregar_blog_posts_contenido .contenidos_texto label {
+        float: left;
+        margin: 0 0 10px;
+        width: 600px; }
+      .agregar_contenidos_blog_posts .agregar_blog_posts_contenido .contenidos_texto textarea {
+        width: 580px; }
+    .agregar_contenidos_blog_posts .agregar_blog_posts_contenido li {
+      float: left;
+      margin: 0 0 20px 0;
+      width: 960px; }
+  .agregar_contenidos_blog_posts .agregar_blog_posts_detalle, .agregar_contenidos_blog_posts .agregar_blog_posts_condiciones {
+    background: url("../images/extras/borde_relieve_posts.png") 0 0 no-repeat;
+    float: left;
+    font-size: 14px;
+    padding: 12px 0 0;
+    width: 640px; }
+  .agregar_contenidos_blog_posts .caja_interior {
+    border: 1px solid #f2f2f6;
+    float: left;
+    padding: 19px;
+    width: 600px; }
+    .agregar_contenidos_blog_posts .caja_interior .contenidos_texto {
+      float: left;
+      width: 600px; }
+      .agregar_contenidos_blog_posts .caja_interior .contenidos_texto label {
+        float: left;
+        margin: 0 0 10px;
+        width: 600px; }
+      .agregar_contenidos_blog_posts .caja_interior .contenidos_texto textarea {
+        width: 580px; }
+    .agregar_contenidos_blog_posts .caja_interior li {
+      float: left;
+      margin: 0 0 20px 0;
+      width: 960px; }
+      .agregar_contenidos_blog_posts .caja_interior li a {
+        color: #0066cc;
+        text-decoration: none; }
+        .agregar_contenidos_blog_posts .caja_interior li a:hover {
+          color: #0066cc;
+          text-decoration: underline; }
+      .agregar_contenidos_blog_posts .caja_interior li label {
+        float: left;
+        margin: 10px 10px 10px 0;
+        width: 150px; }
+      .agregar_contenidos_blog_posts .caja_interior li input {
+        float: left;
+        padding: 8px;
+        width: 400px; }
+      .agregar_contenidos_blog_posts .caja_interior li textarea {
+        float: left;
+        padding: 8px;
+        width: 700px; }
+      .agregar_contenidos_blog_posts .caja_interior li select {
+        float: left;
+        margin: 8px 0;
+        width: 416px; }
+      .agregar_contenidos_blog_posts .caja_interior li .agregar_nuevo {
+        float: left;
+        font-size: 12px;
+        margin: 12px 0 12px 20px; }
+      .agregar_contenidos_blog_posts .caja_interior li .subir_imagen {
+        border: 0px;
+        float: left;
+        padding: 8px 0px; }
+      .agregar_contenidos_blog_posts .caja_interior li .nombre_apellido {
+        float: left;
+        padding: 8px;
+        width: auto; }
+      .agregar_contenidos_blog_posts .caja_interior li .nombre_usuario {
+        color: #cccccc;
+        float: left;
+        font-style: italic;
+        padding: 8px 8px 8px 0;
+        width: auto; }
+      .agregar_contenidos_blog_posts .caja_interior li .tip {
+        color: #999999;
+        float: left;
+        font-size: 12px;
+        padding: 8px 8px 8px 160px;
+        width: 400px; }
+
+.agregar_contenidos_sidebar_blog_posts {
+  border: 1px solid #f2f2f6;
+  float: left;
+  font-size: 14px;
+  padding: 30px 10px 0px;
+  width: 278px; }
+  .agregar_contenidos_sidebar_blog_posts .imagen_post {
+    float: left;
+    margin: 0 0 30px 0;
+    width: 278px; }
+    .agregar_contenidos_sidebar_blog_posts .imagen_post label {
+      float: left;
+      margin: 0 0 10px 0;
+      width: 278px; }
+    .agregar_contenidos_sidebar_blog_posts .imagen_post .subir_imagen {
+      border: 0px;
+      float: left;
+      padding: 8px 0px;
+      width: 278px; }
+  .agregar_contenidos_sidebar_blog_posts .categoria_post {
+    float: left;
+    margin: 0 0 30px 0;
+    width: 278px; }
+    .agregar_contenidos_sidebar_blog_posts .categoria_post label {
+      float: left;
+      margin: 0 0 10px 0;
+      width: 278px; }
+    .agregar_contenidos_sidebar_blog_posts .categoria_post select {
+      float: left;
+      margin: 0 0 20px;
+      width: 278px; }
+    .agregar_contenidos_sidebar_blog_posts .categoria_post .agregar_nuevo {
+      float: left;
+      font-size: 12px; }
+  .agregar_contenidos_sidebar_blog_posts .subir_imagenes {
+    float: left;
+    margin: 0 0 30px 0;
+    width: 278px; }
+  .agregar_contenidos_sidebar_blog_posts .estado_post {
+    float: left;
+    margin: 0 0 30px 0;
+    width: 278px; }
+    .agregar_contenidos_sidebar_blog_posts .estado_post label {
+      float: left;
+      margin: 0 0 10px 0;
+      width: 278px; }
+    .agregar_contenidos_sidebar_blog_posts .estado_post select {
+      float: left;
+      margin: 0 0 20px;
+      width: 278px; }
+  .agregar_contenidos_sidebar_blog_posts .fecha_publicacion {
+    float: left;
+    margin: 0 0 30px 0;
+    width: 278px; }
+    .agregar_contenidos_sidebar_blog_posts .fecha_publicacion label {
+      float: left;
+      margin: 0 0 10px 0;
+      width: 278px; }
+    .agregar_contenidos_sidebar_blog_posts .fecha_publicacion input {
+      float: left;
+      padding: 8px;
+      width: 260px; }
+
+.destacado_home {
+  background: #fafafc;
+  border: 1px solid #f2f2f6;
+  float: left;
+  margin: 40px 0 0;
+  padding: 20px;
+  width: 918px; }
+  .destacado_home li {
     float: left;
     margin: 0 0 20px 0;
     width: 960px; }
-    .agregar_blog_posts li a {
+    .destacado_home li a {
       color: #0066cc;
       text-decoration: none; }
-      .agregar_blog_posts li a:hover {
+      .destacado_home li a:hover {
         color: #0066cc;
         text-decoration: underline; }
-    .agregar_blog_posts li label {
+    .destacado_home li label {
       float: left;
       margin: 10px 10px 10px 0;
       width: 150px; }
-    .agregar_blog_posts li input, .agregar_blog_posts li textarea, .agregar_blog_posts li span {
+    .destacado_home li input {
       float: left;
       padding: 8px;
       width: 400px; }
-    .agregar_blog_posts li select {
+    .destacado_home li select {
       float: left;
       margin: 8px 0;
       width: 416px; }
-    .agregar_blog_posts li .agregar_nuevo {
+    .destacado_home li .agregar_nuevo {
       float: left;
       font-size: 12px;
       margin: 12px 0 12px 20px; }
-    .agregar_blog_posts li .subir_imagen {
+    .destacado_home li .subir_imagen {
       border: 0px;
       float: left;
       padding: 8px 0px; }
-    .agregar_blog_posts li .nombre_apellido {
-      float: left;
-      padding: 8px;
-      width: auto; }
-    .agregar_blog_posts li .nombre_usuario {
-      color: #cccccc;
-      float: left;
-      font-style: italic;
-      padding: 8px 8px 8px 0;
-      width: auto; }
-    .agregar_blog_posts li .tip {
-      color: #999999;
-      float: left;
-      font-size: 12px;
-      padding: 8px 8px 8px 160px;
-      width: 400px; }
 
 .guardar_posts {
   background: url("../images/extras/botones_ficha_lugar.png") no-repeat -1025px 0;

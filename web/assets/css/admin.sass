@@ -651,17 +651,257 @@ a
 .selected_row
     background: #def !important
 
-.agregar_blog_posts
+.agregar_elementos_principales_blog_posts
     float: left
     font:
         size: 14px
+    margin: 0 0 40px 0
+    width: 960px
 
-    .fondo_seccion_especial
-        background: $gris_faf
+    .titulo_post_box
+        float: left
+        margin: 0 0 5px
+        width: 960px
+
+        input
+            float: left
+            padding: 8px
+            width: 940px
+
+    .url_post
+        float: left
+        width: 960px
+
+        label
+            color: $gris_ccc
+            float: left
+            margin: 10px 0
+            width: 240px
+
+        input
+            float: left
+            padding: 8px
+            width: 700px
+
+.agregar_contenidos_blog_posts
+    float: left
+    margin: 0 20px 0 0
+    width: 640px
+    
+    .agregar_blog_posts_contenido
         border: 1px solid $gris_f6f
         float: left
-        padding: 20px
-        width: 918px
+        font:
+            size: 14px
+        padding: 19px
+        width: 600px
+
+        .usuario_post
+            float: left
+            width: 600px
+
+            label
+                float: left
+                margin: 10px 10px 10px 0
+                width: 120px
+
+            input
+                float: left
+                padding: 8px
+                width: 450px
+
+        .contenidos_texto
+            float: left
+            width: 600px
+
+            label
+                float: left
+                margin: 0 0 10px
+                width: 600px
+            
+            textarea
+                width: 580px
+
+        li
+            float: left
+            margin: 0 0 20px 0
+            width: 960px
+
+    .agregar_blog_posts_detalle, .agregar_blog_posts_condiciones
+        background: url("../images/extras/borde_relieve_posts.png") 0 0 no-repeat
+        float: left
+        font:
+            size: 14px
+        padding: 12px 0 0
+        width: 640px
+
+    .caja_interior
+        border: 1px solid $gris_f6f
+        float: left
+        padding: 19px
+        width: 600px
+
+        .contenidos_texto
+            float: left
+            width: 600px
+
+            label
+                float: left
+                margin: 0 0 10px
+                width: 600px
+            
+            textarea
+                width: 580px
+
+        li
+            float: left
+            margin: 0 0 20px 0
+            width: 960px
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+            label
+                float: left
+                margin: 10px 10px 10px 0
+                width: 150px
+            
+            input
+                float: left
+                padding: 8px
+                width: 400px
+
+            textarea
+                float: left
+                padding: 8px
+                width: 700px
+
+            select
+                float: left
+                margin: 8px 0
+                width: 416px
+
+            .agregar_nuevo
+                float: left
+                font:
+                    size: 12px
+                margin: 12px 0 12px 20px
+
+            .subir_imagen
+                border: 0px
+                float: left
+                padding: 8px 0px
+
+            .nombre_apellido
+                float: left
+                padding: 8px
+                width: auto
+
+            .nombre_usuario
+                color: $gris_ccc
+                float: left
+                font:
+                    style: italic
+                padding: 8px 8px 8px 0                
+                width: auto
+
+            .tip
+                color: $gris_999
+                float: left
+                font:
+                    size: 12px
+                padding: 8px 8px 8px 160px                
+                width: 400px
+
+.agregar_contenidos_sidebar_blog_posts
+    border: 1px solid $gris_f6f
+    float: left
+    font:
+        size: 14px
+    padding: 30px 10px 0px
+    width: 278px
+
+    .imagen_post
+        float: left
+        margin: 0 0 30px 0
+        width: 278px
+
+        label
+            float: left
+            margin: 0 0 10px 0
+            width: 278px
+
+        .subir_imagen
+            border: 0px
+            float: left
+            padding: 8px 0px
+            width: 278px
+
+    .categoria_post
+        float: left
+        margin: 0 0 30px 0
+        width: 278px
+
+        label
+            float: left
+            margin: 0 0 10px 0
+            width: 278px
+
+        select
+            float: left
+            margin: 0 0 20px
+            width: 278px        
+
+        .agregar_nuevo
+            float: left
+            font:
+                size: 12px
+
+    .subir_imagenes
+        float: left
+        margin: 0 0 30px 0
+        width: 278px
+
+    .estado_post
+        float: left
+        margin: 0 0 30px 0
+        width: 278px
+
+        label
+            float: left
+            margin: 0 0 10px 0
+            width: 278px
+
+        select
+            float: left
+            margin: 0 0 20px
+            width: 278px        
+        
+    .fecha_publicacion
+        float: left
+        margin: 0 0 30px 0
+        width: 278px
+
+        label
+            float: left
+            margin: 0 0 10px 0
+            width: 278px
+
+        input
+            float: left
+            padding: 8px
+            width: 260px
+
+.destacado_home
+    background: $gris_faf
+    border: 1px solid $gris_f6f
+    float: left
+    margin: 40px 0 0
+    padding: 20px
+    width: 918px
 
     li
         float: left
@@ -684,11 +924,6 @@ a
             padding: 8px
             width: 400px
 
-        textarea
-            float: left
-            padding: 8px
-            width: 700px
-
         select
             float: left
             margin: 8px 0
@@ -704,27 +939,6 @@ a
             border: 0px
             float: left
             padding: 8px 0px
-
-        .nombre_apellido
-            float: left
-            padding: 8px
-            width: auto
-
-        .nombre_usuario
-            color: $gris_ccc
-            float: left
-            font:
-                style: italic
-            padding: 8px 8px 8px 0                
-            width: auto
-
-        .tip
-            color: $gris_999
-            float: left
-            font:
-                size: 12px
-            padding: 8px 8px 8px 160px                
-            width: 400px
 
 .guardar_posts
     background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1025px 0
