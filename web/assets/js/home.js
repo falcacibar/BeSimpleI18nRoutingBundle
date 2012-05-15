@@ -10,7 +10,7 @@ $(function(){
 
     $('.boton_fb').parent().click(function(e){
         e.preventDefault();
-        FB.login(function(response){}, {scope: 'email,user_about_me,user_location,user_photos'});
+        $('.fb_hidden_button').find('.fb_button').click();
     });
 
     $('.tips_icon').qtip({
