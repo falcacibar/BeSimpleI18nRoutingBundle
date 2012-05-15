@@ -3,14 +3,14 @@ body {
   color: #666666;
   line-height: 20px;
   float: left;
-  width: 580px; }
+  width: 600px; }
   body .post_contenido {
     border: 1px solid #f2f2f6;
     font-size: 13px;
     float: left;
     line-height: 20px;
     padding: 20px;
-    width: 580px; }
+    width: 600px; }
     body .post_contenido a {
       color: #0066cc;
       text-decoration: none; }

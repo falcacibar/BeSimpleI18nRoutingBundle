@@ -523,65 +523,70 @@ a {
     float: left;
     padding: 19px;
     width: 600px; }
-    .agregar_contenidos_blog_posts .caja_interior .contenidos_texto {
+    .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle {
+      display: none;
       float: left;
+      margin: 30px 0 0;
       width: 600px; }
-      .agregar_contenidos_blog_posts .caja_interior .contenidos_texto label {
+      .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones .contenidos_texto, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle .contenidos_texto {
         float: left;
-        margin: 0 0 10px;
         width: 600px; }
-      .agregar_contenidos_blog_posts .caja_interior .contenidos_texto textarea {
-        width: 580px; }
-    .agregar_contenidos_blog_posts .caja_interior li {
-      float: left;
-      margin: 0 0 20px 0;
-      width: 960px; }
-      .agregar_contenidos_blog_posts .caja_interior li a {
-        color: #0066cc;
-        text-decoration: none; }
-        .agregar_contenidos_blog_posts .caja_interior li a:hover {
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones .contenidos_texto label, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle .contenidos_texto label {
+          float: left;
+          margin: 0 0 10px;
+          width: 600px; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones .contenidos_texto textarea, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle .contenidos_texto textarea {
+          width: 600px; }
+      .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li {
+        float: left;
+        margin: 0 0 20px 0;
+        width: 960px; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li a, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li a {
           color: #0066cc;
-          text-decoration: underline; }
-      .agregar_contenidos_blog_posts .caja_interior li label {
-        float: left;
-        margin: 10px 10px 10px 0;
-        width: 150px; }
-      .agregar_contenidos_blog_posts .caja_interior li input {
-        float: left;
-        padding: 8px;
-        width: 400px; }
-      .agregar_contenidos_blog_posts .caja_interior li textarea {
-        float: left;
-        padding: 8px;
-        width: 700px; }
-      .agregar_contenidos_blog_posts .caja_interior li select {
-        float: left;
-        margin: 8px 0;
-        width: 416px; }
-      .agregar_contenidos_blog_posts .caja_interior li .agregar_nuevo {
-        float: left;
-        font-size: 12px;
-        margin: 12px 0 12px 20px; }
-      .agregar_contenidos_blog_posts .caja_interior li .subir_imagen {
-        border: 0px;
-        float: left;
-        padding: 8px 0px; }
-      .agregar_contenidos_blog_posts .caja_interior li .nombre_apellido {
-        float: left;
-        padding: 8px;
-        width: auto; }
-      .agregar_contenidos_blog_posts .caja_interior li .nombre_usuario {
-        color: #cccccc;
-        float: left;
-        font-style: italic;
-        padding: 8px 8px 8px 0;
-        width: auto; }
-      .agregar_contenidos_blog_posts .caja_interior li .tip {
-        color: #999999;
-        float: left;
-        font-size: 12px;
-        padding: 8px 8px 8px 160px;
-        width: 400px; }
+          text-decoration: none; }
+          .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li a:hover, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li a:hover {
+            color: #0066cc;
+            text-decoration: underline; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li label, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li label {
+          float: left;
+          margin: 10px 10px 10px 0;
+          width: 150px; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li input, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li input {
+          float: left;
+          padding: 8px;
+          width: 400px; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li textarea, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li textarea {
+          float: left;
+          padding: 8px;
+          width: 700px; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li select, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li select {
+          float: left;
+          margin: 8px 0;
+          width: 416px; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li .agregar_nuevo, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li .agregar_nuevo {
+          float: left;
+          font-size: 12px;
+          margin: 12px 0 12px 20px; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li .subir_imagen, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li .subir_imagen {
+          border: 0px;
+          float: left;
+          padding: 8px 0px; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li .nombre_apellido, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li .nombre_apellido {
+          float: left;
+          padding: 8px;
+          width: auto; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li .nombre_usuario, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li .nombre_usuario {
+          color: #cccccc;
+          float: left;
+          font-style: italic;
+          padding: 8px 8px 8px 0;
+          width: auto; }
+        .agregar_contenidos_blog_posts .caja_interior .concurso_condiciones li .tip, .agregar_contenidos_blog_posts .caja_interior .concurso_detalle li .tip {
+          color: #999999;
+          float: left;
+          font-size: 12px;
+          padding: 8px 8px 8px 160px;
+          width: 400px; }
 
 .agregar_contenidos_sidebar_blog_posts {
   border: 1px solid #f2f2f6;

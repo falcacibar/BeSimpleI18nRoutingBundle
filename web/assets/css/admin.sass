@@ -741,80 +741,86 @@ a
         padding: 19px
         width: 600px
 
-        .contenidos_texto
+        .concurso_condiciones, .concurso_detalle
+            display: none
             float: left
+            margin: 30px 0 0
             width: 600px
 
-            label
+            .contenidos_texto
                 float: left
-                margin: 0 0 10px
                 width: 600px
-            
-            textarea
-                width: 580px
 
-        li
-            float: left
-            margin: 0 0 20px 0
-            width: 960px
+                label
+                    float: left
+                    margin: 0 0 10px
+                    width: 600px
+                
+                textarea
+                    width: 600px
 
-            a
-                @include link_azul
-
-                &:hover
-                    @include link_azul_hover
-
-            label
+            li
                 float: left
-                margin: 10px 10px 10px 0
-                width: 150px
-            
-            input
-                float: left
-                padding: 8px
-                width: 400px
+                margin: 0 0 20px 0
+                width: 960px
 
-            textarea
-                float: left
-                padding: 8px
-                width: 700px
+                a
+                    @include link_azul
 
-            select
-                float: left
-                margin: 8px 0
-                width: 416px
+                    &:hover
+                        @include link_azul_hover
 
-            .agregar_nuevo
-                float: left
-                font:
-                    size: 12px
-                margin: 12px 0 12px 20px
+                label
+                    float: left
+                    margin: 10px 10px 10px 0
+                    width: 150px
+                
+                input
+                    float: left
+                    padding: 8px
+                    width: 400px
 
-            .subir_imagen
-                border: 0px
-                float: left
-                padding: 8px 0px
+                textarea
+                    float: left
+                    padding: 8px
+                    width: 700px
 
-            .nombre_apellido
-                float: left
-                padding: 8px
-                width: auto
+                select
+                    float: left
+                    margin: 8px 0
+                    width: 416px
 
-            .nombre_usuario
-                color: $gris_ccc
-                float: left
-                font:
-                    style: italic
-                padding: 8px 8px 8px 0                
-                width: auto
+                .agregar_nuevo
+                    float: left
+                    font:
+                        size: 12px
+                    margin: 12px 0 12px 20px
 
-            .tip
-                color: $gris_999
-                float: left
-                font:
-                    size: 12px
-                padding: 8px 8px 8px 160px                
-                width: 400px
+                .subir_imagen
+                    border: 0px
+                    float: left
+                    padding: 8px 0px
+
+                .nombre_apellido
+                    float: left
+                    padding: 8px
+                    width: auto
+
+                .nombre_usuario
+                    color: $gris_ccc
+                    float: left
+                    font:
+                        style: italic
+                    padding: 8px 8px 8px 0                
+                    width: auto
+
+                .tip
+                    color: $gris_999
+                    float: left
+                    font:
+                        size: 12px
+                    padding: 8px 8px 8px 160px                
+                    width: 400px
 
 .agregar_contenidos_sidebar_blog_posts
     border: 1px solid $gris_f6f

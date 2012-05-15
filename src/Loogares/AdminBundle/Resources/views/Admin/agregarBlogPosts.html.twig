@@ -46,53 +46,64 @@
 				</li>
 			
 			</ul>
-			<ul class="agregar_blog_posts_detalle">
-			
+
+			<ul class="agregar_blog_posts_detalle">			
+
 				<div class="caja_interior">
 
-					<li>
-						<label>Imagen detalle</label>
-						{{form_widget(form.vimagen_detalle, {'attr': {'class': 'imagen_detalle subir_imagen'}} )}}
-					</li>
+					<a href="" class="toggle-detalle">Abrir detalles concursos</a>
 
-					<li class="usuario_post">
-						<label>Lugar relacionado</label>
-						{% if post.lugar.id is not defined %}
-							<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (opcional)"/>
-							<input name="lugar_id" id="lugar_id" type="hidden" />
-						{% else %}
-							<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (opcional)" value="{{post.lugar.nombre}} ({{post.lugar.id}}) | {{post.lugar.calle}} {{post.lugar.numero}} - {{post.lugar.comuna.nombre}}"/>
-							<input name="lugar_id" id="lugar_id" type="hidden" value="({{post.lugar.id}})" />
-						{% endif %}
-					</li>
+					<div class="concurso_detalle">
+						<li>
+							<label>Imagen detalle</label>
+							{{form_widget(form.vimagen_detalle, {'attr': {'class': 'imagen_detalle subir_imagen'}} )}}
+						</li>
 
-					<li class="contenidos_texto">
-						<label>Detalle del concurso (se reemplaza con los ganadores si están publicados)</label>
-						<textarea rows="30" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
-					</li>
+						<li class="usuario_post">
+							<label>Lugar relacionado</label>
+							{% if post.lugar.id is not defined %}
+								<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (opcional)"/>
+								<input name="lugar_id" id="lugar_id" type="hidden" />
+							{% else %}
+								<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (opcional)" value="{{post.lugar.nombre}} ({{post.lugar.id}}) | {{post.lugar.calle}} {{post.lugar.numero}} - {{post.lugar.comuna.nombre}}"/>
+								<input name="lugar_id" id="lugar_id" type="hidden" value="({{post.lugar.id}})" />
+							{% endif %}
+						</li>
 
-					<li class="usuario_post">
-						<label>Nº de premios</label>
-						<input name="numero_premios" type="text" placeholder="Número de premios a sortear (opcional)" value="{{post.numeroPremios}}"/>
-					</li>
+						<li class="contenidos_texto">
+							<label>Detalle del concurso (se reemplaza con los ganadores si están publicados)</label>
+							<textarea rows="30" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
+						</li>
 
-					<li class="contenidos_texto">
-						<label>Ganadores del concurso</label>
-						<textarea rows="30" name="ganadores" placeholder="Texto Ganadores (opcional)">{{post.ganadores}}</textarea>
-					</li>
+						<li class="usuario_post">
+							<label>Nº de premios</label>
+							<input name="numero_premios" type="text" placeholder="Número de premios a sortear (opcional)" value="{{post.numeroPremios}}"/>
+						</li>
+
+						<li class="contenidos_texto">
+							<label>Ganadores del concurso</label>
+							<textarea rows="30" name="ganadores" placeholder="Texto Ganadores (opcional)">{{post.ganadores}}</textarea>
+						</li>
+					</div>
 				
 				</div>
 
 			</ul>
+
 			<ul class="agregar_blog_posts_condiciones">
 
 				<div class="caja_interior">
-						
-					<li class="contenidos_texto">
-						<label>Condiciones del concurso</label>
-						<textarea rows="30" name="condiciones" placeholder="Condiciones del Concurso (opcional)">{{post.condiciones}}</textarea>
-					</li>
-				
+	
+					<a href="" class="toggle-condiciones">Abrir condiciones concursos</a>
+
+					<div class="concurso_condiciones">
+												
+						<li class="contenidos_texto">
+							<label>Condiciones del concurso</label>
+							<textarea rows="30" name="condiciones" placeholder="Condiciones del Concurso (opcional)">{{post.condiciones}}</textarea>
+						</li>
+					</div>
+
 				</div>
 
 			</ul>
@@ -223,8 +234,7 @@
 		<input type="hidden" name="ciudad" value="{% if post.ciudad.id is defined%}{{post.ciudad.slug}}{% else %}{{ciudad.slug}}{% endif %}"/>
 		<input class="guardar_posts" type="submit" value=""/>
 	</form>
-	<a href="" class="toggle-detalle">Toggle Detalle</a>
-	<a href="" class="toggle-condiciones">Toggle Condiciones</a>
+
 {% endblock %}
 
 {% block javascript %}
@@ -347,7 +357,7 @@
         		e.preventDefault();
         		var name = $(this).attr('class').split('-').reverse()[0];
         			
-        		$('.agregar_blog_posts_'+name).toggle();
+        		$('.concurso_'+name).toggle();
         	});
 
         	$( "#lugar" ).autocomplete({
