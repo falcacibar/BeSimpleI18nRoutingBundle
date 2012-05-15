@@ -15,10 +15,11 @@ use Loogares\BlogBundle\Entity\Categoria;
 use Loogares\BlogBundle\Entity\EstadoConcurso;
 use Loogares\UsuarioBundle\Entity\LoogarenoEstrella;
 
+use Loogares\AdminBundle\Classes\qqFileUploader;
+
 class AdminController extends Controller
 {
     public function indexAction(){
-        
         return $this->render('LoogaresAdminBundle:Admin:index.html.twig');
     }
 
@@ -1915,6 +1916,22 @@ class AdminController extends Controller
             'form' => $form->createView(),
             'post' => $post
         ));
+    }
+
+    public function uploaderAction(){     
+        return $this->render('LoogaresAdminBundle:Admin:uploader.html.twig', array());
+    }
+
+    public function uploadAction(){
+        // list of valid extensions, ex. array("jpeg", "xml", "bmp")
+        $allowedExtensions = array();
+        // max file size in bytes
+        $sizeLimit = 10 * 1024 * 1024;
+
+        $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+        $result = $uploader->handleUpload(__DIR__.'/../../../../web/assets/images/blog/uploads/');
+
+        return new Response(json_encode($result));
     }
 
     public function testMailAction() {

@@ -3,8 +3,7 @@
 {% block title %}{% if post.slug == '' %}Agregar Post{% else %}Editar Post | {{post.slug}}{% endif %}{{parent()}}{% endblock %}
 
 {% block content %}
-<style>.no-default{ display:none } .toggle-upload{ color: #06C !important; cursor: pointer; } #uploader{ display: none }</style>
-<style type="text/css">@import url({{asset('assets/js/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css')}});</style>
+<style>.no-default{ display:none } .toggle-upload{ color: #06C !important; cursor: pointer; }</style>
 
 	<h1 class="titulo_admin">{% if post.slug == '' %}Agregar nuevo post{% else %}Editar post | <a target="_blank" href="{{ path('post', {'ciudad': ciudad.slug, 'slug': post.slug}) }}">{{post.titulo}}</a>{% endif %}</h1>
 
@@ -16,7 +15,7 @@
 			</li>
 
 			<li class="url_post">
-				<label>http://www.loogares.com/ciudad/blog/</label>
+				<label>http://www.loogares.com/{{ciudad.slug}}/blog/</label>
 				<input class="slug_post" name="slug" id="" type="text" placeholder="escribe-la-url-para-el-post (evita números, tildes y caracteres especiales)"  value="{{post.slug}}"/>
 			</li>
 
@@ -224,59 +223,13 @@
 		<input type="hidden" name="ciudad" value="{% if post.ciudad.id is defined%}{{post.ciudad.slug}}{% else %}{{ciudad.slug}}{% endif %}"/>
 		<input class="guardar_posts" type="submit" value=""/>
 	</form>
+	<a href="" class="toggle-detalle">Toggle Detalle</a>
+	<a href="" class="toggle-condiciones">Toggle Condiciones</a>
 {% endblock %}
 
 {% block javascript %}
 	<script type="text/javascript" src="{{asset('assets/js/tiny_mce/tiny_mce.js')}}"></script>
-	<script type="text/javascript" src="{{asset('assets/js/plupload/js/plupload.full.js')}}"></script>
-	<script type="text/javascript" src="{{asset('assets/js/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js')}}"></script>
 
-	<script type="text/javascript">
-	// Convert divs to queue widgets when the DOM is ready
-	$(function() {
-		$("#uploader").pluploadQueue({
-			// General settings
-			runtimes : 'gears,flash,silverlight,browserplus,html5',
-			url : 'upload.php',
-			max_file_size : '10mb',
-			chunk_size : '1mb',
-			unique_names : true,
-
-			// Specify what files to browse for
-			filters : [
-				{title : "Image files", extensions : "jpg,gif,png"},
-				{title : "Zip files", extensions : "zip"}
-			],
-
-			// Flash settings
-			flash_swf_url : WEBROOT+'../assets/js/plupload/js/plupload.flash.swf',
-
-			// Silverlight settings
-			silverlight_xap_url :  WEBROOT+'../assets/js/plupload/js/plupload.silverlight.xap'
-		});
-
-		// Client side form validation
-		$('form').submit(function(e) {
-	        var uploader = $('#uploader').pluploadQueue();
-
-	        // Files in queue upload them first
-	        if (uploader.files.length > 0) {
-	            // When all files are uploaded submit form
-	            uploader.bind('StateChanged', function() {
-	                if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
-	                    $('form')[0].submit();
-	                }
-	            });
-	                
-	            uploader.start();
-	        } else {
-	            alert('You must queue at least one file.');
-	        }
-
-	        return false;
-	    });
-	});
-	</script>
 	<script type="text/javascript">
 	tinyMCE.init({
 	        mode : "textareas",
@@ -390,8 +343,11 @@
 		}
 
         $(function(){
-        	$('.toggle-upload').click(function(){
-        		$('#uploader').toggle();
+        	$('.toggle-detalle, .toggle-condiciones').click(function(e){
+        		e.preventDefault();
+        		var name = $(this).attr('class').split('-').reverse()[0];
+        			
+        		$('.agregar_blog_posts_'+name).toggle();
         	});
 
         	$( "#lugar" ).autocomplete({

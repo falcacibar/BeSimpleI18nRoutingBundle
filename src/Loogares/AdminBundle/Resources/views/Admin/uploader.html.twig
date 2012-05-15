@@ -1,0 +1,33 @@
+{% extends "LoogaresAdminBundle:Admin:base.html.twig" %}
+
+{% block content %}
+<style type="text/css">@import url({{asset('assets/css/fileuploader.css')}});</style>
+<style>
+	.qq-textbox input{
+		padding: 5px;
+		width: 600px;
+	}
+</style>
+<div id="file_upload"></div>
+{% endblock %}
+
+{% block javascript %}
+	<script type="text/javascript" src="{{asset('assets/js/fileuploader.js')}}"></script>
+	<script>
+		var uploader = new qq.FileUploader({
+		    // pass the dom node (ex. $(selector)[0] for jQuery users)
+		    element: document.getElementById('file_upload'),
+		    // path to server-side upload script
+		    action: WEBROOT+'admin/upload',
+		    debug: true,
+			onComplete: function(id, fileName, responseJSON){
+				var $file = $('.qq-upload-list').children('li:eq('+id+')'),
+					url = 'http://'+window.location.hostname+WEBROOT+'../assets/images/blog/uploads/'+fileName;
+				
+				$file.children('span.qq-upload-file').wrap('<a target="_blank" href="'+url+'">');
+				$file.append('<span class="qq-textbox"><input type="text" value="'+url+'"/></span>');
+			
+			},
+		});
+	</script>
+{% endblock %}
