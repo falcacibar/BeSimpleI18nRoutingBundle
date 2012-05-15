@@ -5,8 +5,40 @@
 <style>
 	.qq-textbox input{
 		padding: 5px;
-		width: 600px;
+		width: 300px;
 	}
+
+	.qq-upload-list{
+		padding-left: 0;
+		margin-left: 0;
+		list-style: none;
+	}
+
+		.qq-upload-list > li{
+			line-height: 116px;
+			height: 116px;
+			background: #f33;
+			position: relative;
+			margin-bottom: 5px;
+		}
+
+			.qq-file-info{
+				padding-left: 116px;
+			}
+
+				.copiar-url{
+					margin-left: 5px;
+				}
+
+			.qq-thumb{
+				background-image: url('../../assets/media/cache/thumb_uploader/assets/images/blog/uploads/default.gif');
+				height: 96px;
+				width: 96px;
+				display: inline-block;
+				margin-top: 10px;
+				margin-left: 10px;
+				position: absolute;
+			}
 </style>
 <div id="file_upload"></div>
 {% endblock %}
@@ -15,18 +47,27 @@
 	<script type="text/javascript" src="{{asset('assets/js/fileuploader.js')}}"></script>
 	<script>
 		var uploader = new qq.FileUploader({
-		    // pass the dom node (ex. $(selector)[0] for jQuery users)
 		    element: document.getElementById('file_upload'),
-		    // path to server-side upload script
 		    action: WEBROOT+'admin/upload',
 		    debug: true,
 			onComplete: function(id, fileName, responseJSON){
-				var $file = $('.qq-upload-list').children('li:eq('+id+')'),
-					url = 'http://'+window.location.hostname+WEBROOT+'../assets/images/blog/uploads/'+fileName;
-				
-				$file.children('span.qq-upload-file').wrap('<a target="_blank" href="'+url+'">');
-				$file.append('<span class="qq-textbox"><input type="text" value="'+url+'"/></span>');
-			
+				if(responseJSON.success){
+					var $file = $('.qq-upload-list').children('li:eq('+id+')'),
+						url = 'http://'+window.location.hostname+WEBROOT+'../assets/images/blog/uploads/'+fileName;
+					var a = document.createElement('a');
+					a.href = url;
+					console.log(a);
+
+
+					$file.find('span.qq-upload-file').wrap('<a target="_blank" href="'+url+'">');
+					$file.find('.qq-file-info').append('<span class="qq-textbox"><input type="text" value="'+url+'"/><a id="copiar-url" class="copiar-url" href="">Copiar Direccion</a></span>');
+					$file.children('.qq-thumb').css('background-image', 'url("../../../'+responseJSON.thumb+'")');
+
+					$('.copiar-url').click(function(e){
+						e.preventDefault();
+						prompt('Apreta Ctrl+C o Cmd+C para copiar', url);
+					});
+				}
 			},
 		});
 	</script>
