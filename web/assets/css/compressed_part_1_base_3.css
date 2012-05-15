@@ -1138,7 +1138,7 @@ textarea {
       *padding: 26px 0 25px;
       text-align: right;
       width: 340px; }
-    .footer .contenido_footer .ano_loogares {
+    .footer .contenido_footer .copyright {
       border-top: 1px solid white;
       color: #999999;
       float: left;
@@ -1146,6 +1146,18 @@ textarea {
       text-align: center;
       padding: 25px 0;
       width: 960px; }
+      .footer .contenido_footer .copyright .softlayer {
+        height: 10px;
+        background: url("../images/extras/softlayer.png") no-repeat 0px 0px;
+        float: right;
+        display: block;
+        width: 87px; }
+        .footer .contenido_footer .copyright .softlayer:hover {
+          background: url("../images/extras/softlayer.png") no-repeat 0px -10px; }
+        .footer .contenido_footer .copyright .softlayer a {
+          height: 10px;
+          display: block;
+          width: 87px; }
     .footer .contenido_footer p.footer_title {
       background: url("../images/extras/flecha_footer.png") no-repeat 0px 3px;
       font-size: 14px;

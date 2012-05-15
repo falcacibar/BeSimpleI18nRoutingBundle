@@ -6,38 +6,108 @@
 <style>.no-default{ display:none } .toggle-upload{ color: #06C !important; cursor: pointer; } #uploader{ display: none }</style>
 <style type="text/css">@import url({{asset('assets/js/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css')}});</style>
 
-	<h1 class="titulo_admin">{% if post.slug == '' %}Agregar Post{% else %}Editar Post | <a target="_blank" href="{{ path('post', {'ciudad': ciudad.slug, 'slug': post.slug}) }}">{{post.slug}}</a>{% endif %}</h1>
+	<h1 class="titulo_admin">{% if post.slug == '' %}Agregar nuevo post{% else %}Editar post | <a target="_blank" href="{{ path('post', {'ciudad': ciudad.slug, 'slug': post.slug}) }}">{{post.titulo}}</a>{% endif %}</h1>
 
 	<form action="" method="post" {{ form_enctype(form) }}>
-		<ul class="agregar_blog_posts">
-			<li>
-				<div class="uploader-wrapper">
-					<span class="toggle-upload">Subir Imágenes</span>
-					<div id="uploader"></div>
+		<ul class="agregar_elementos_principales_blog_posts">
+
+			<li class="titulo_post_box">
+				<input class="titulo_post" name="titulo" type="text" placeholder="Escribe el Título de la nota aquí" value="{{post.titulo}}"/>
+			</li>
+
+			<li class="url_post">
+				<label>http://www.loogares.com/ciudad/blog/</label>
+				<input class="slug_post" name="slug" id="" type="text" placeholder="escribe-la-url-para-el-post (evita números, tildes y caracteres especiales)"  value="{{post.slug}}"/>
+			</li>
+
+		</ul>
+
+		<div class="agregar_contenidos_blog_posts">		
+			<ul class="agregar_blog_posts_contenido">
+
+				<li class="usuario_post">
+					<label>Usuario</label>
+					{% if post.usuario.id is not defined %}
+						<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{app.security.token.user.nombre}} {{app.security.token.user.apellido}} ({{app.security.token.user.id}}) | {{app.security.token.user.slug}}"/>
+						<input name="usuario_id" id="usuario_id" type="hidden" value="({{app.security.token.user.id}})" />
+					{% else %}
+						<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{post.usuario.nombre}} {{post.usuario.apellido}} ({{post.usuario.id}}) | {{post.usuario.slug}}"/>
+						<input name="usuario_id" id="usuario_id" type="hidden" value="({{post.usuario.id}})" />
+					{% endif %}
+				</li>
+
+				<li class="contenidos_texto">
+					<label>Contenido del post</label>
+					<textarea name="contenido" class="contenido_post" rows="30" placeholder="Contenido Principal (HTML)">{{post.contenido}}</textarea>
+				</li>
+
+				<li class="contenidos_texto">
+					<label>Extracto breve del contenido (para previsualizar post)</label>
+					<textarea rows="30" class="preview_post" name="preview" placeholder="Preview (HTML)">{{post.preview}}</textarea>
+				</li>
+			
+			</ul>
+			<ul class="agregar_blog_posts_detalle">
+			
+				<div class="caja_interior">
+
+					<li>
+						<label>Imagen detalle</label>
+						{{form_widget(form.vimagen_detalle, {'attr': {'class': 'imagen_detalle subir_imagen'}} )}}
+					</li>
+
+					<li class="usuario_post">
+						<label>Lugar relacionado</label>
+						{% if post.lugar.id is not defined %}
+							<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (opcional)"/>
+							<input name="lugar_id" id="lugar_id" type="hidden" />
+						{% else %}
+							<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (opcional)" value="{{post.lugar.nombre}} ({{post.lugar.id}}) | {{post.lugar.calle}} {{post.lugar.numero}} - {{post.lugar.comuna.nombre}}"/>
+							<input name="lugar_id" id="lugar_id" type="hidden" value="({{post.lugar.id}})" />
+						{% endif %}
+					</li>
+
+					<li class="contenidos_texto">
+						<label>Detalle del concurso (se reemplaza con los ganadores si están publicados)</label>
+						<textarea rows="30" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
+					</li>
+
+					<li class="usuario_post">
+						<label>Nº de premios</label>
+						<input name="numero_premios" type="text" placeholder="Número de premios a sortear (opcional)" value="{{post.numeroPremios}}"/>
+					</li>
+
+					<li class="contenidos_texto">
+						<label>Ganadores del concurso</label>
+						<textarea rows="30" name="ganadores" placeholder="Texto Ganadores (opcional)">{{post.ganadores}}</textarea>
+					</li>
+				
 				</div>
-			</li>
-			<li>
-				<label>Título</label>
-				<input class="titulo_post" name="titulo" type="text" placeholder="Titulo del Post" value="{{post.titulo}}"/>
+
+			</ul>
+			<ul class="agregar_blog_posts_condiciones">
+
+				<div class="caja_interior">
+						
+					<li class="contenidos_texto">
+						<label>Condiciones del concurso</label>
+						<textarea rows="30" name="condiciones" placeholder="Condiciones del Concurso (opcional)">{{post.condiciones}}</textarea>
+					</li>
+				
+				</div>
+
+			</ul>
+		
+		</div>
+
+		<ul class="agregar_contenidos_sidebar_blog_posts">
+
+			<li class="imagen_post">
+				<label>Imagen post</label>
+				{{form_widget(form.vimagen, {'attr': {'class': 'subir_imagen'}} )}}
 			</li>
 
-			<li>
-				<label>URL slug</label>
-				<input class="slug_post" name="slug" id="" type="text" placeholder="URL para el Post (Solo el slug!)"  value="{{post.slug}}"/>
-			</li>
-
-			<li>
-				<label>Usuario</label>
-				{% if post.usuario.id is not defined %}
-					<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{app.security.token.user.nombre}} {{app.security.token.user.apellido}} ({{app.security.token.user.id}}) | {{app.security.token.user.slug}}"/>
-					<input name="usuario_id" id="usuario_id" type="hidden" value="({{app.security.token.user.id}})" />
-				{% else %}
-					<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{post.usuario.nombre}} {{post.usuario.apellido}} ({{post.usuario.id}}) | {{post.usuario.slug}}"/>
-					<input name="usuario_id" id="usuario_id" type="hidden" value="({{post.usuario.id}})" />
-				{% endif %}
-			</li>
-
-			<li>
+			<li class="categoria_post">
 				<label>Categoría</label>
 	            <select name="categoria">
 	            	<option>Selecciona una Opción (o agrega una nueva)</option>
@@ -47,6 +117,7 @@
 	            </select>
 	            <a class="agregar_nuevo" href="">Agregar nueva categoría</a>
 			</li>
+
 			<li class="no-default">
 				<label>Nueva Categoría</label>
 				<input type="text" name="nueva_categoria" class="nueva_categoria" placeholder="Nombre de la categoría">
@@ -54,58 +125,15 @@
 				<input type="text" name="nueva_categoria_hex" class="nueva_categoria_clase" placeholder="#hexcode">
 				<a class="quitar_nuevo">Quitar</a>
 			</li>
-			<li>
-				<label>Lugar relacionado</label>
-				{% if post.lugar.id is not defined %}
-					<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (Opcional)"/>
-					<input name="lugar_id" id="lugar_id" type="hidden" />
-				{% else %}
-					<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (Opcional)" value="{{post.lugar.nombre}} ({{post.lugar.id}}) | {{post.lugar.calle}} {{post.lugar.numero}} - {{post.lugar.comuna.nombre}}"/>
-					<input name="lugar_id" id="lugar_id" type="hidden" value="({{post.lugar.id}})" />
-				{% endif %}
+
+			<li class="subir_imagenes">
+				<div class="uploader-wrapper">
+					<span class="toggle-upload">Subir imágenes</span>
+					<div id="uploader"></div>
+				</div>
 			</li>
 
-			<li>
-				<label>Imagen post</label>
-				{{form_widget(form.vimagen, {'attr': {'class': 'subir_imagen'}} )}}
-			</li>
-
-			<li>
-				<label>Contenido</label>
-				<textarea name="contenido" class="contenido_post" rows="30" placeholder="Contenido Principal (HTML)">{{post.contenido}}</textarea>
-			</li>
-
-			<li>
-				<label>Preview</label>
-				<textarea rows="30" class="preview_post" name="preview" placeholder="Preview (HTML)">{{post.preview}}</textarea>
-			</li>
-
-			<li>
-				<label>Imagen detalle</label>
-				{{form_widget(form.vimagen_detalle, {'attr': {'class': 'imagen_detalle subir_imagen'}} )}}
-			</li>
-
-			<li>
-				<label>Detalle</label>
-				<textarea rows="30" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
-			</li>
-
-			<li>
-				<label>Número de premios</label>
-				<input name="numero_premios" type="text" placeholder="Numero de Premios (Opcional)" value="{{post.numeroPremios}}"/>
-			</li>
-
-			<li>
-				<label>Ganadores</label>
-				<textarea rows="30" name="ganadores" placeholder="Texto Ganadores (Opcional)">{{post.ganadores}}</textarea>
-			</li>
-
-			<li>
-				<label>Condiciones</label>
-				<textarea rows="30" name="condiciones" placeholder="Condiciones del Concurso (Opcional)">{{post.condiciones}}</textarea>
-			</li>
-
-			<li>
+			<li class="estado_post">
 				<label>Estado</label>
 				<select name="estado">
 	        		<option {% if post.blogEstado.id is defined and post.blogEstado.id == 1 %}selected="selected"{% endif %} value="1">Post Borrador</option>
@@ -117,15 +145,19 @@
 	            </select>
 			</li>
 
-			<li>
+			<li class="fecha_publicacion">
 				<label>Fecha publicación</label>
 				<input type="hidden" name="fecha_publicacion" id="fecha-desde" value="{% if post.fechaPublicacion %}{{post.fechaPublicacion|date('Y-m-d')}}{%endif%}">
         		<input type="text" id="fecha-desde-ph" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicacion %}{{post.fechaPublicacion|date('d-m-y')}}{% endif %}">
 			</li>
+					
+		</ul>
 
-			<div class="fondo_seccion_especial">
+		<div class="destacado_home">
 
-				<h2 class="titulo_admin_chico">Home</h2>
+			<h2 class="titulo_admin_chico">Home</h2>
+
+			<ul>
 
 				<li>
 					<label>Destacado home</label>
@@ -184,10 +216,10 @@
 					<input type="hidden" name="fecha_termino" id="fecha-hasta" value="{% if post.fechaTermino %}{{post.fechaTermino|date('Y-m-d')}}{% endif %}">
 	        		<input type="text" id="fecha-hasta-ph" placeholder="Fecha de Cierre (Opcional)" value="{% if post.fechaTermino %}{{post.fechaTermino|date('d-m-y')}}{% endif %}">
 				</li>
+			</ul>
 
-			</div>
+		</div>	
 
-		</ul>
 		{{form_rest(form)}}
 		<input type="hidden" name="ciudad" value="{% if post.ciudad.id is defined%}{{post.ciudad.slug}}{% else %}{{ciudad.slug}}{% endif %}"/>
 		<input class="guardar_posts" type="submit" value=""/>
