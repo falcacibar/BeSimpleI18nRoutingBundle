@@ -25,9 +25,9 @@
 			<ul class="agregar_blog_posts_contenido">
 
 				<li class="usuario_post">
-					<label>Usuario</label>
+					<label>Escrito por</label>
 					{% if post.usuario.id is not defined %}
-						<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{app.security.token.user.nombre}} {{app.security.token.user.apellido}} ({{app.security.token.user.id}}) | {{app.security.token.user.slug}}"/>
+						<input name="usuario" id="usuario" type="text" placeholder="Escribe el nombre o el ID del usuario" value="{{app.security.token.user.nombre}} {{app.security.token.user.apellido}} ({{app.security.token.user.id}}) | {{app.security.token.user.slug}}"/>
 						<input name="usuario_id" id="usuario_id" type="hidden" value="({{app.security.token.user.id}})" />
 					{% else %}
 						<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{post.usuario.nombre}} {{post.usuario.apellido}} ({{post.usuario.id}}) | {{post.usuario.slug}}"/>
@@ -51,7 +51,7 @@
 
 				<div class="caja_interior">
 
-					<a href="" class="toggle-detalle">Abrir detalles concursos</a>
+					<a href="" class="toggle-detalle">Desplegar detalles concursos</a>
 
 					<div class="concurso_detalle">
 						<li>
@@ -59,29 +59,29 @@
 							{{form_widget(form.vimagen_detalle, {'attr': {'class': 'imagen_detalle subir_imagen'}} )}}
 						</li>
 
-						<li class="usuario_post">
+						<li class="lugar_post">
 							<label>Lugar relacionado</label>
 							{% if post.lugar.id is not defined %}
-								<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (opcional)"/>
+								<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Concurso (opcional)"/>
 								<input name="lugar_id" id="lugar_id" type="hidden" />
 							{% else %}
-								<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Post (opcional)" value="{{post.lugar.nombre}} ({{post.lugar.id}}) | {{post.lugar.calle}} {{post.lugar.numero}} - {{post.lugar.comuna.nombre}}"/>
+								<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Concurso (opcional)" value="{{post.lugar.nombre}} ({{post.lugar.id}}) | {{post.lugar.calle}} {{post.lugar.numero}} - {{post.lugar.comuna.nombre}}"/>
 								<input name="lugar_id" id="lugar_id" type="hidden" value="({{post.lugar.id}})" />
 							{% endif %}
 						</li>
 
 						<li class="contenidos_texto">
-							<label>Detalle del concurso (se reemplaza con los ganadores si están publicados)</label>
+							<label>Detalle del concurso (es reemplazado con los ganadores cuando están publicados)</label>
 							<textarea rows="30" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
 						</li>
 
-						<li class="usuario_post">
-							<label>Nº de premios</label>
+						<li class="premio_post">
+							<label>Número de premios</label>
 							<input name="numero_premios" type="text" placeholder="Número de premios a sortear (opcional)" value="{{post.numeroPremios}}"/>
 						</li>
 
 						<li class="contenidos_texto">
-							<label>Ganadores del concurso</label>
+							<label>Ganadores del concurso (reemplaza el detalle del concurso)</label>
 							<textarea rows="30" name="ganadores" placeholder="Texto Ganadores (opcional)">{{post.ganadores}}</textarea>
 						</li>
 					</div>
@@ -94,7 +94,7 @@
 
 				<div class="caja_interior">
 	
-					<a href="" class="toggle-condiciones">Abrir condiciones concursos</a>
+					<a href="" class="toggle-condiciones">Desplegar condiciones concursos</a>
 
 					<div class="concurso_condiciones">
 												
@@ -118,29 +118,22 @@
 			</li>
 
 			<li class="categoria_post">
-				<label>Categoría</label>
+				<label>Selecciona una categoría</label>
 	            <select name="categoria">
-	            	<option>Selecciona una Opción (o agrega una nueva)</option>
+	            	<option>Selecciona una categoría</option>
 	            	{% for categoria in categorias %}
 	            		 <option {% if post.blogCategoria.id is defined and post.blogCategoria.id == categoria.id %}selected="selected"{% endif %} value='{{categoria.id}}'>{{categoria.nombre}}</option>
 	            	{% endfor %}
 	            </select>
-	            <a class="agregar_nuevo" href="">Agregar nueva categoría</a>
+	            <a class="agregar_nuevo" href="">Agregar una categoría nueva</a>
 			</li>
 
 			<li class="no-default">
-				<label>Nueva Categoría</label>
+				<label>Agrega una categoría</label>
 				<input type="text" name="nueva_categoria" class="nueva_categoria" placeholder="Nombre de la categoría">
 				<input type="text" name="nueva_categoria_clase" class="nueva_categoria_clase" placeholder="Nombre de la clase">
 				<input type="text" name="nueva_categoria_hex" class="nueva_categoria_clase" placeholder="#hexcode">
 				<a class="quitar_nuevo">Quitar</a>
-			</li>
-
-			<li class="subir_imagenes">
-				<div class="uploader-wrapper">
-					<span class="toggle-upload">Subir imágenes</span>
-					<div id="uploader"></div>
-				</div>
 			</li>
 
 			<li class="estado_post">
@@ -160,6 +153,9 @@
 				<input type="hidden" name="fecha_publicacion" id="fecha-desde" value="{% if post.fechaPublicacion %}{{post.fechaPublicacion|date('Y-m-d')}}{%endif%}">
         		<input type="text" id="fecha-desde-ph" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicacion %}{{post.fechaPublicacion|date('d-m-y')}}{% endif %}">
 			</li>
+
+			<input type="hidden" name="ciudad" value="{% if post.ciudad.id is defined%}{{post.ciudad.slug}}{% else %}{{ciudad.slug}}{% endif %}"/>
+			<input class="guardar_posts" type="submit" value=""/>
 					
 		</ul>
 
@@ -231,8 +227,6 @@
 		</div>	
 
 		{{form_rest(form)}}
-		<input type="hidden" name="ciudad" value="{% if post.ciudad.id is defined%}{{post.ciudad.slug}}{% else %}{{ciudad.slug}}{% endif %}"/>
-		<input class="guardar_posts" type="submit" value=""/>
 	</form>
 
 {% endblock %}

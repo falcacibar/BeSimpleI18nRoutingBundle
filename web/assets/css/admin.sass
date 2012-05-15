@@ -665,6 +665,8 @@ a
 
         input
             float: left
+            font:
+                size: 12px
             padding: 8px
             width: 940px
 
@@ -675,13 +677,23 @@ a
         label
             color: $gris_ccc
             float: left
-            margin: 10px 0
-            width: 240px
+            font:
+                size: 12px
+            margin: 11px 0 0 10px
 
         input
+            background: #FFFFEE
+            border: 1px solid #FFFFEE
             float: left
-            padding: 8px
-            width: 700px
+            margin: 0 0 0 5px
+            padding: 8px 5px
+            width: 500px
+
+            &:hover
+                border: 1px solid #FFFF00
+
+            &:focus
+                border: 1px solid #FFFF99
 
 .agregar_contenidos_blog_posts
     float: left
@@ -701,21 +713,38 @@ a
             width: 600px
 
             label
+                color: $gris_ccc
                 float: left
+                font:
+                    size: 12px
                 margin: 10px 10px 10px 0
-                width: 120px
+                width: 60px
 
             input
+                background: #FFFFEE
+                border: 1px solid #FFFFEE
                 float: left
+                font:
+                    size: 12px
+                margin: 0px
                 padding: 8px
-                width: 450px
+                width: 510px
+
+                &:hover
+                    border: 1px solid #FFFF00
+
+                &:focus
+                    border: 1px solid #FFFF99
 
         .contenidos_texto
             float: left
             width: 600px
 
             label
+                color: $gris_666
                 float: left
+                font:
+                    weight: bold
                 margin: 0 0 10px
                 width: 600px
             
@@ -747,12 +776,43 @@ a
             margin: 30px 0 0
             width: 600px
 
+            .lugar_post, .premio_post
+                float: left
+                width: 600px
+
+                label
+                    color: $gris_666
+                    float: left
+                    font:
+                        weight: bold
+                    margin: 10px 10px 10px 0
+                    width: 150px
+
+                input
+                    background: #FFFFEE
+                    border: 1px solid #FFFFEE
+                    float: left
+                    font:
+                        size: 13px
+                    margin: 0px
+                    padding: 8px
+                    width: 420px
+
+                    &:hover
+                        border: 1px solid #FFFF00
+
+                    &:focus
+                        border: 1px solid #FFFF99
+                        
             .contenidos_texto
                 float: left
                 width: 600px
 
                 label
+                    color: $gris_666
                     float: left
+                    font:
+                        weight: bold
                     margin: 0 0 10px
                     width: 600px
                 
@@ -771,8 +831,11 @@ a
                         @include link_azul_hover
 
                 label
+                    color: $gris_666
                     float: left
-                    margin: 10px 10px 10px 0
+                    font:
+                        weight: bold
+                    margin: 4px 10px 10px 0
                     width: 150px
                 
                 input
@@ -799,7 +862,7 @@ a
                 .subir_imagen
                     border: 0px
                     float: left
-                    padding: 8px 0px
+                    padding: 0px
 
                 .nombre_apellido
                     float: left
@@ -823,83 +886,114 @@ a
                     width: 400px
 
 .agregar_contenidos_sidebar_blog_posts
-    border: 1px solid $gris_f6f
     float: left
     font:
         size: 14px
-    padding: 30px 10px 0px
-    width: 278px
+    width: 300px
 
     .imagen_post
+        background: $gris_faf
         float: left
+        height: 250px
         margin: 0 0 30px 0
-        width: 278px
+        padding: 15px
+        width: 270px
 
         label
+            color: $gris_666
             float: left
-            margin: 0 0 10px 0
-            width: 278px
+            font:
+                weight: bold
+            margin: 0 0 100px 0
+            width: 270px
 
         .subir_imagen
             border: 0px
             float: left
-            padding: 8px 0px
-            width: 278px
+            width: 270px
 
     .categoria_post
         float: left
         margin: 0 0 30px 0
-        width: 278px
+        width: 300px
 
         label
+            color: $gris_666
             float: left
+            font:
+                weight: bold
             margin: 0 0 10px 0
-            width: 278px
+            width: 300px
 
         select
             float: left
             margin: 0 0 20px
-            width: 278px        
+            width: 300px        
 
         .agregar_nuevo
             float: left
             font:
                 size: 12px
 
-    .subir_imagenes
+    .no-default
         float: left
         margin: 0 0 30px 0
-        width: 278px
+        width: 300px
+
+        label
+            color: $gris_666
+            float: left
+            font:
+                weight: bold
+            margin: 0 0 10px 0
+            width: 300px
+
+        input
+            float: left
+            margin: 0 0 10px
+            padding: 8px
+            width: 284px
+
+        .quitar_nuevo
+            float: left
+            font:
+                size: 12px
 
     .estado_post
         float: left
         margin: 0 0 30px 0
-        width: 278px
+        width: 300px
 
         label
+            color: $gris_666
             float: left
+            font:
+                weight: bold
             margin: 0 0 10px 0
-            width: 278px
+            width: 300px
 
         select
             float: left
             margin: 0 0 20px
-            width: 278px        
+            width: 300px        
         
     .fecha_publicacion
         float: left
         margin: 0 0 30px 0
-        width: 278px
+        width: 300px
 
         label
+            color: $gris_666
             float: left
+            font:
+                weight: bold
             margin: 0 0 10px 0
-            width: 278px
+            width: 300px
 
         input
             float: left
             padding: 8px
-            width: 260px
+            width: 284px
 
 .destacado_home
     background: $gris_faf
@@ -921,7 +1015,10 @@ a
                 @include link_azul_hover
 
         label
+            color: $gris_666
             float: left
+            font:
+                weight: bold
             margin: 10px 10px 10px 0
             width: 150px
         
@@ -952,7 +1049,7 @@ a
     cursor: pointer
     float: left
     height: 30px
-    margin: 20px 0 40px 160px
+    margin: 0 0 0 134px 
     width: 166px      
     
     &:hover
