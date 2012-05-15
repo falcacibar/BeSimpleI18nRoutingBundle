@@ -3,7 +3,7 @@
 {% block title %}{{parent()}} | {{'extra.home.title'|trans}}{% endblock %}
 
 {% block content %}
-
+	{% if is_granted('ROLE_ADMIN') %}{% include 'exceptions/exception_full.html.twig' %}{% endif %}
 	<div class="pagina_error">
 		<h2 class="titulo_busqueda">Se nos pasó esta página porque...</h2>
 		<h1 class="titulo_gigante">¡Nos fuimos de viaje a Alaska!</h1>

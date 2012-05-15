@@ -1,7 +1,7 @@
 <?php
 $host = '127.0.0.1';
 try {
-  $DBH = new PDO("mysql:host=$host;dbname=loogares_new;",'root', 'root'); 
+  $DBH = new PDO("mysql:host=$host;dbname=loogares_symfony;",'symfony', 'L0og4r3s'); 
   $DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );  
 }  
 catch(PDOException $e) {  

@@ -149,7 +149,7 @@ class DefaultController extends Controller
 
         //Slider del home
         $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
-                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) 
+                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) and p.blog_estado = 2 
                                ORDER BY p.id DESC");
         $q->setMaxResults(3);
         $q->setParameter(1, $ciudadSession['id']);

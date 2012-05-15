@@ -1,5 +1,7 @@
 User-agent: *
+Disallow: /pedidos
 Disallow: /admin/
 Disallow: /usuario/
+Disallow: /channel.php
 Allow: /
 
