@@ -115,7 +115,10 @@
         {% endif %}
         {% if is_granted('ROLE_USER') == false %}
         <script>
-
+          $('.facebook_login').click(function(e){
+            e.preventDefault();
+            FB.login(function(response){}, {scope: 'email,user_about_me,user_location,user_photos'});
+          });
         </script>
         {% endif %}
 
