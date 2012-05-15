@@ -216,7 +216,6 @@ class LoogaresFunctions
             $final = $hh[0];
             $dia++;
             while($dia<7){
-                echo $dia;
                 if( $hh[$dia]['Aper_M_L'] != $inicial['Aper_M_L'] || $hh[$dia]['Cierre_M_L'] != $inicial['Cierre_M_L'] ||
                     $hh[$dia]['Aper_T_L'] != $inicial['Aper_T_L'] || $hh[$dia]['Cierre_T_L'] != $inicial['Cierre_T_L']) {
                     $out = $dias[$inicial['Id_Dia']];

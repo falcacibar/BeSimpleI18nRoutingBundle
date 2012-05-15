@@ -65,7 +65,7 @@
 				<a class="usuario_login_entra" href="{{path('login')}}">{{'general.header.usuario.login'|trans}}</a>
 				<a class="usuario_login_registro" href="{{path('registroUsuario')}}">{{'general.header.usuario.registro'|trans}}</a>
 				<span class="fb_hidden_button">{{ facebook_login_button({'autologoutlink': false}) }}</span>
-				<a class="facebook_login" href="#"></a>
+				<a class="facebook_login" href="javascript:FBLogin();"></a>
 			{% endif %}
 		</div>
 	</div>
