@@ -54,10 +54,11 @@
 				if(responseJSON.success){
 					var $file = $('.qq-upload-list').children('li:eq('+id+')'),
 						url = 'http://'+window.location.hostname+WEBROOT+'../assets/images/blog/uploads/'+fileName;
+						urlCache = 'http://'+window.location.hostname+WEBROOT+'../assets/media/cache/thumb_uploader/assets/images/blog/uploads/'+fileName;
 
 					$file.find('span.qq-upload-file').wrap('<a target="_blank" href="'+url+'">');
 					$file.find('.qq-file-info').append('<span class="qq-textbox"><input type="text" value="'+url+'"/><a id="copiar-url" class="copiar-url" href="">Copiar Direccion</a></span>');
-					$file.children('.qq-thumb').css('background-image', 'url("'+url+'")');
+					$file.children('.qq-thumb').css('background-image', 'url("'+urlCache+'")');
 
 					$('.copiar-url').click(function(e){
 						e.preventDefault();
