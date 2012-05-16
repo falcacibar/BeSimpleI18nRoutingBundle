@@ -167,7 +167,7 @@
 
 				<li>
 					<label>Destacado home</label>
-		            <select class="destacado_home" name="destacado_home">
+		            <select class="destacado_home_dd" name="destacado_home">
 		                <option {% if post.destacadoHome == 0 %}selected="selected"{% endif %} value='0'>No</option>
 		                <option {% if post.destacadoHome == 1 %}selected="selected"{% endif %} value='1'>Solo en el Home</option>
 		                <option {% if post.destacadoHome == 2 %}selected="selected"{% endif %} value='2'>Solo en el Slider</option>
@@ -370,9 +370,10 @@
 	            }
 	        });
 
-	        $('.destacado_home').change(function(){
-	        	console.log($(this).val())
-	        	if($(this).val() == 1 || $(this).val() == 3){
+	        $('.destacado_home_dd').change(function(){
+	        	$this = $(this);
+	        	console.log($this.val())
+	        	if($this.val() == 1 || $this.val() == 3){
 	        		$('.posicion_home').parent().show();
 	        	}else{
 	        		$('.posicion_home').parent().hide();
@@ -389,14 +390,6 @@
 	        		slug = removeDiacritics(slug);
 	        		$this.val(slug);
         		}
-	        });
-
-	        $('.preview_post').focus(function(){
-	       		$this = $(this);
-	       		if($this.val() == ''){
-	       			var contenido = $('.contenido_post').val().split('\n');
-	       			$this.val(contenido[0]);
-	       		}
 	        });
 
 	        $('.agregar_nuevo').click(function(e){
