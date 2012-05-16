@@ -154,6 +154,10 @@
         		<input type="text" id="fecha-desde-ph" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicacion %}{{post.fechaPublicacion|date('d-m-y')}}{% endif %}">
 			</li>
 
+			<li>
+				<a href="{{path('LoogaresAdminBundle_uploader')}}">Uploader</a>
+			</li>
+
 			<input type="hidden" name="ciudad" value="{% if post.ciudad.id is defined%}{{post.ciudad.slug}}{% else %}{{ciudad.slug}}{% endif %}"/>
 			<input class="guardar_posts" type="submit" value=""/>
 					
@@ -224,7 +228,20 @@
 				</li>
 			</ul>
 
+			
+
 		</div>	
+
+		
+
+		<div class="destacado_home">
+			<input type="checkbox" name="agregar_concurso" id="agregar_concurso" /><label>Agregar concurso</label>
+			<ul class="concurso">
+				<li>
+					<h2 class="titulo_admin_chico">Concurso</h2>
+				</li>
+			</ul>
+		</div>
 
 		{{form_rest(form)}}
 	</form>
@@ -352,6 +369,10 @@
         		var name = $(this).attr('class').split('-').reverse()[0];
         			
         		$('.concurso_'+name).toggle();
+        	});
+
+        	$('#agregar_concurso').change(function(){
+        		$('.concurso').toggle();
         	});
 
         	$( "#lugar" ).autocomplete({

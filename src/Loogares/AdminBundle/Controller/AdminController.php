@@ -1818,6 +1818,9 @@ class AdminController extends Controller
         
         if($post != null){ //Si slug tiene data, entonces el post existe, estamos editando, yada yada.
             $post = $pr->findOneBySlug($post);
+
+            // Si existe concurso asociado, tomamos información
+            
         }else{
             $post = new Posts();
         }
@@ -1900,6 +1903,11 @@ class AdminController extends Controller
 
                 $em->persist($post);
                 $em->flush();
+
+                // Vemos si existe concurso asociado
+                if($request->request->get('agregar_concurso')) {
+
+                }
 
                 return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarBlogPosts', array(
                     'ciudad' => $ciudad->getSlug(),
