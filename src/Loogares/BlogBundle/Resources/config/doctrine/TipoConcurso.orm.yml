@@ -1,0 +1,12 @@
+Loogares\BlogBundle\Entity\TipoConcurso:
+    type: entity
+    table: tipo_concurso
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        nombre:
+            type: string
+        slug:
+            type: string

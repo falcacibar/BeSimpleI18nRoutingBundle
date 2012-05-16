@@ -1,9 +1,9 @@
-Loogares\ExtraBundle\Entity\ConcursoUsuario:
+Loogares\BlogBundle\Entity\ConcursoUsuario:
     type: entity
     table: concursos_usuario
     manyToOne:       
         concurso:
-            targetEntity: Loogares\ExtraBundle\Entity\Concurso
+            targetEntity: Loogares\BlogBundle\Entity\Concurso
         usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\Usuario
     id:

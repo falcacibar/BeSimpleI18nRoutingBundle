@@ -45,7 +45,7 @@
 				<h1><strong>{{'extra.home.saludo_bienvenida'|trans}}</strong></h1>
 
 				<!-- Premios y recomendaciones, comentado por ahora -->
-				<!-- <p>{{'extra.home.actividad_loogares.actualmente'|trans}} <span class="texto_destacado">{{home.totalRecomendaciones_format}} {{'extra.home.actividad_loogares.recomendaciones'|transchoice(home.totalRecomendaciones)}}</span> {{'extra.home.actividad_loogares.y'|trans}} <span class="texto_destacado">{{home.totalPremios_format}} {{'extra.home.actividad_loogares.premios'|transchoice(home.totalPremios)}}</span> {{'extra.home.actividad_loogares.participa'|trans}}</p> -->
+				<!-- <p>{{'extra.home.actividad_loogares.actualmente'|trans}} <span class="texto_destacado">{{home.totalRecomendaciones_format}} {{'extra.home.actividad_loogares.recomendaciones'|transchoice(home.totalRecomendaciones)}}</span> {{'extra.home.actividad_loogares.y'|trans}} <span class="texto_destacado">{{'home.totalPremios_format'}} {{'extra.home.actividad_loogares.premios'}}</span> {{'extra.home.actividad_loogares.participa'|trans}}</p> -->
 			</div>
 
 			<div class="flecha">
@@ -241,32 +241,34 @@
 	</div>
 
 	<!-- Últimos Loogareños conectados -->
-	<div class="loogarenos_conectados">
-		<h6 class="titulo_home encabezado">{{'extra.home.modulo_ultimos_conectados.titulo'|trans}}</h6>
-		{% if home.ultimosConectados|length > 0%}
-			<ul class="loogarenos_conectado_ahora">
-			{% for conectado in home.ultimosConectados %}
-				<li>
-					<a class="imagen_usuario" href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_img">
-						<img src="{{('assets/images/usuarios/'~conectado.imagenFull) | apply_filter('tiny_usuario')}}" width="20" height="20" />
-					</a>
-					<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_nombre">
-						{% if conectado.nombre == '' %}
-							{{conectado.slug}}
-						{% else %}
-							{{conectado.nombre}} {{conectado.apellido}}
-						{% endif %}
-					</a>
-					<!-- Comentado el número de recomendaciones del usuario...
-					<span class="conectado_recomendaciones">
-						{{conectado.recomendaciones|length}} {{'general.terminos.recomendacion' | transchoice(conectado.recomendaciones|length) | lower }}
-					</span>
-					-->
-				</li>
-			{% endfor %}
-			</ul>
-		{% endif %}
-	</div>
+	{% if home.ultimosConectados|length > 0 %}
+		<div class="loogarenos_conectados">
+			<h6 class="titulo_home encabezado">{{'extra.home.modulo_ultimos_conectados.titulo'|trans}}</h6>
+			{% if home.ultimosConectados|length > 0%}
+				<ul class="loogarenos_conectado_ahora">
+				{% for conectado in home.ultimosConectados %}
+					<li>
+						<a class="imagen_usuario" href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_img">
+							<img src="{{('assets/images/usuarios/'~conectado.imagenFull) | apply_filter('tiny_usuario')}}" width="20" height="20" />
+						</a>
+						<a class="nombre_usuario" href="{{path('showUsuario', {'param' : (conectado.slug is not empty) ? conectado.slug : conectado.id})}}" class="conectado_nombre">
+							{% if conectado.nombre == '' %}
+								{{conectado.slug}}
+							{% else %}
+								{{conectado.nombre}} {{conectado.apellido}}
+							{% endif %}
+						</a>
+						<!-- Comentado el número de recomendaciones del usuario...
+						<span class="conectado_recomendaciones">
+							{{conectado.recomendaciones|length}} {{'general.terminos.recomendacion' | transchoice(conectado.recomendaciones|length) | lower }}
+						</span>
+						-->
+					</li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+	{% endif %}
 
 {% endblock %}
 

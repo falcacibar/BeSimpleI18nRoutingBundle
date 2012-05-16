@@ -60,7 +60,7 @@ class DefaultController extends Controller
         }else if($post->getBlogEstado()->getNombre() == 'Post Agendado'){
             $date = $post->getFechaPublicacion();
             $date = $date->format('d-m-y');
-            $this->get('session')->setFlash('post_flash', 'Post Agenado para: '.$date);
+            $this->get('session')->setFlash('post_flash', 'Post Agendado para: '.$date);
         }
 
         if($post->getLugar()){

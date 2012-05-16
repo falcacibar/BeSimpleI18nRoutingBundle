@@ -779,5 +779,12 @@ class Posts
     public function uploadUpdate()
     {
         $this->upload();
+
+        // Eliminamos thumbnails
+        if(file_exists(__DIR__.'/../../../../web/assets/media/cache/blog/'.$this->getUploadDir().'/'.$this->imagen))
+            unlink(__DIR__.'/../../../../web/assets/media/cache/blog/'.$this->getUploadDir().'/'.$this->imagen);
+            
+        if(file_exists(__DIR__.'/../../../../web/assets/media/cache/blog_detalle/'.$this->getUploadDir().'/'.$this->imagen_detalle))
+            unlink(__DIR__.'/../../../../web/assets/media/cache/blog_detalle/'.$this->getUploadDir().'/'.$this->imagen_detalle);
     }
 }

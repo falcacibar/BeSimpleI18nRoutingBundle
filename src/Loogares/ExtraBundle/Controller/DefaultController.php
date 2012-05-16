@@ -163,14 +163,6 @@ class DefaultController extends Controller
         $q->setMaxResults(1);
         $estrellaResult = $q->getSingleResult();
 
-        // Cantidad de premios regalados (totales)
-        $q = $em->createQuery("SELECT count(cu.id)
-                               FROM Loogares\ExtraBundle\Entity\ConcursoUsuario cu
-                               JOIN cu.usuario u
-                               WHERE u.estado != ?1");
-        $q->setParameter(1, 3);
-        $totalPremios = $q->getSingleScalarResult();
-
         // Cantidad de recomendaciones escritas
         $totalRecomendaciones = $rr->getTotalRecomendaciones();
 
@@ -230,8 +222,6 @@ class DefaultController extends Controller
         $ultimosConectados = $ur->getUltimosConectados(0.02);
 
         $home = array();
-        $home['totalPremios'] = $totalPremios;        
-        $home['totalPremios_format'] = number_format( $totalPremios , 0 , '' , '.' );
         $home['totalRecomendaciones'] = $totalRecomendaciones;
         $home['totalRecomendaciones_format'] = number_format( $totalRecomendaciones , 0 , '' , '.' );
         $home['recDia'] = $recomendacionDelDia;

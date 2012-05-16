@@ -1316,7 +1316,9 @@ class LugarController extends Controller{
                     $paths['estrella_vacia'] =  'assets/images/extras/estrella_vacia_recomendacion.png';
 
                 if(!file_exists('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull())){
-                    $this->get('imagine.controller')->filter('assets/images/usuarios/default.gif', "small_usuario");
+                    if(!file_exists('assets/images/usuarios/default.gif')) {
+                        $this->get('imagine.controller')->filter('assets/images/usuarios/default.gif', "small_usuario");
+                    }                  
                     $paths['usuario'] = 'assets/images/usuarios/default.gif';
                 }else{
                     $this->get('imagine.controller')->filter('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull(), "small_usuario");

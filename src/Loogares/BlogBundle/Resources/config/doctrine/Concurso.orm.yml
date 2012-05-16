@@ -1,0 +1,30 @@
+Loogares\BlogBundle\Entity\Concurso:
+    type: entity
+    table: concursos
+    manyToOne:
+        post:
+            targetEntity: Loogares\BlogBundle\Entity\Posts
+        estado_concurso:
+            targetEntity: Loogares\BlogBundle\Entity\EstadoConcurso
+        tipo_concurso:
+            targetEntity: Loogares\BlogBundle\Entity\TipoConcurso
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        titulo:
+            type: string
+        descripcion:
+            type: string
+            nullable: true
+        imagen:
+            type: string
+            nullable: true
+        numeros_premios:
+            type: integer
+            nullable: true
+        fecha_inicio:
+            type: datetime
+        fecha_termino:
+            type: datetime
