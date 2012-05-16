@@ -11,15 +11,14 @@
 				</ul>
 			</div>
 			<div class="alianzas">
-				{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
 				<p class="footer_title">{{'general.footer.alianzas.titulo'|trans}}</p>
+				{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
 				<a class="alianzas_img" href="http://www.municipal.cl/" target="blank"><img src="{{asset('assets/images/extras/teatro_municipal.png')}}" height="50" width="80"/></a>
 				<a class="alianzas_img" href="http://www.gam.cl/" target="blank"><img src="{{asset('assets/images/extras/gam.png')}}" height="50" width="70"/></a>
 				<a class="alianzas_img" href="http://www.teuc.cl/" target="blank"><img src="{{asset('assets/images/extras/teatro_uc.png')}}" height="50" width="110"/></a>
 				<a class="alianzas_img" href="http://www.amanda.cl/" target="blank"><img src="{{asset('assets/images/extras/amanda.png')}}" height="50" width="60"/></a>
 				<a class="alianzas_img_last" href="http://www.bfdistribution.cl/" target="blank"><img src="{{asset('assets/images/extras/bf_distribution.png')}}" height="50" width="50"/></a>
 				{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar'%}
-				<p class="footer_title">{{'general.footer.alianzas.titulo'|trans}}</p>
 				<a class="alianzas_img" href="http://www.elmartutino.cl/" target="blank"><img src="{{asset('assets/images/extras/el_martutino.png')}}" height="50" width="80"/></a>
 				<a class="alianzas_img" href="http://www.cinearte.cl/" target="blank"><img src="{{asset('assets/images/extras/cine_arte.png')}}" height="50" width="100"/></a>
 				<a class="alianzas_img_last" href="http://www.bfdistribution.cl/" target="blank"><img src="{{asset('assets/images/extras/bf_distribution.png')}}" height="50" width="50"/></a>

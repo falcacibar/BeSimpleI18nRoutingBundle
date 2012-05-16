@@ -56,7 +56,7 @@
 		<div class="detalles">
 			<div class="borde_cajas">
 				<div class="imagen_detalles">
-					<img src="{{ ('assets/images/blog/'~post.imagenDetalle) | apply_filter('blog_detalle')}}" height="145" width="145" />
+					<img class="blog_detalle" src="{{ ('assets/images/blog/'~post.imagenDetalle) | apply_filter('blog_detalle')}}" height="145" width="145" />
 					{% if post.lugar != null %}
 						{% if post.lugar.facebook != '' %}
 							<a class="facebook_lugar" href="http://{{ post.lugar.facebook }}" target="_blank"></a>
