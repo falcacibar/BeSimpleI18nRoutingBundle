@@ -1882,8 +1882,8 @@ class AdminController extends Controller
 
             if ($form->isValid()) {
                 $post->setCiudad($cr->findOneBySlug($request->get('ciudad')));
-                $post->setTitulo($request->get('titulo')); 
-                $post->setSlug($request->get('slug'));
+                $post->setTitulo(trim($request->get('titulo'))); 
+                $post->setSlug(trim($request->get('slug')));
                 $post->setBlogEstadoConcurso($estadoConcurso);
                 $post->setBlogCategoria($categoria);
                 $post->setContenido($request->get('contenido'));
