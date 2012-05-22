@@ -133,7 +133,7 @@ class DefaultController extends Controller
             }else{
                 if(!file_exists('assets/media/cache/tiny_lugar/assets/images/lugares/default.gif')){
                     $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "tiny_lugar");
-                }
+                }d
                 $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/tiny_lugar/assets/images/lugares/default.gif';
             }
 
