@@ -97,7 +97,7 @@
             $(function(){
                 $('.facebook_login').click(function(e){
                     e.preventDefault();
-                    $('.fb_hidden_button').find('.fb_button').click();
+                    FB.login(function(response){}, {scope: 'email,user_about_me,user_location,user_photos'});
                 });
             });
         </script>
