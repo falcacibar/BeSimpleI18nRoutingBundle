@@ -85,7 +85,7 @@ jms_security_extra:
 
 # Avalanche Imagine Configuration
 avalanche_imagine:
-    web_root:     %kernel.root_dir%/../../web
+    web_root:     %kernel.root_dir%/../web
     cache_prefix: assets/media/cache
     driver:       gd
     filters:
