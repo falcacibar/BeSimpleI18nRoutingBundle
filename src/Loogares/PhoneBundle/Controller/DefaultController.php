@@ -132,15 +132,15 @@ class DefaultController extends Controller
             $imagenes = $lugares[$i]['imagen_full'];
 
             if($lugares[$i]['imagen_full'] != '' && file_exists('assets/images/lugares/'.$lugares[$i]['imagen_full'])){
-                if(!file_exists('assets/media/cache/tiny_lugar/assets/images/lugares/'.$lugares[$i]['imagen_full'])){
-                    $this->get('imagine.controller')->filter('assets/images/lugares/'.$lugares[$i]['imagen_full'], "tiny_lugar");
+                if(!file_exists('assets/media/cache/medium_lugar/assets/images/lugares/'.$lugares[$i]['imagen_full'])){
+                    $this->get('imagine.controller')->filter('assets/images/lugares/'.$lugares[$i]['imagen_full'], "medium_lugar");
                 }
-                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/tiny_lugar/assets/images/lugares/'.$lugares[$i]['imagen_full'];
+                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/medium_lugar/assets/images/lugares/'.$lugares[$i]['imagen_full'];
             }else{
-                if(!file_exists('assets/media/cache/tiny_lugar/assets/images/lugares/default.gif')){
-                    $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "tiny_lugar");
+                if(!file_exists('assets/media/cache/medium_lugar/assets/images/lugares/default.gif')){
+                    $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "medium_lugar");
                 }
-                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/tiny_lugar/assets/images/lugares/default.gif';
+                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/medium_lugar/assets/images/lugares/default.gif';
             }
 
             $data[sizeOf($data)-1]['totalRecomendaciones'] = $lugares[$i]['total_recomendaciones'];
