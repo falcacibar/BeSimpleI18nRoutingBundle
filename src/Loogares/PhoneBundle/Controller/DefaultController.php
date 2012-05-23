@@ -70,7 +70,7 @@ class DefaultController extends Controller
         ->fetchAll(
             "SELECT SQL_CALC_FOUND_ROWS l.nombre, l.slug, l.estrellas, l.calle, l.mapx, l.mapy, l.numero,
              (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) AS ranking,
-             (SELECT max(il.id) FROM imagenes_lugar AS il WHERE il.lugar_id = l.id AND il.estado_id = 2) as imagen_full,
+             (SELECT max(il.imagen_full) FROM imagenes_lugar AS il WHERE il.lugar_id = l.id AND il.estado_id = 2) as imagen_full,
              (SELECT count(r.id) FROM recomendacion AS r WHERE r.lugar_id = l.id AND r.estado_id != 3) as total_recomendaciones
              $geoloc
              FROM  categoria_lugar cl
@@ -92,7 +92,7 @@ class DefaultController extends Controller
             $lugares = $this->getDoctrine()->getConnection()->fetchAll(
             "SELECT SQL_CALC_FOUND_ROWS l.nombre, l.slug, l.estrellas, l.calle, l.mapx, l.mapy, l.numero,
              (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) AS ranking,
-             (SELECT max(il.id) FROM imagenes_lugar AS il WHERE il.lugar_id = l.id AND il.estado_id = 2) as imagen_full,
+             (SELECT max(il.imagen_full) FROM imagenes_lugar AS il WHERE il.lugar_id = l.id AND il.estado_id = 2) as imagen_full,
              (SELECT count(r.id) FROM recomendacion AS r WHERE r.lugar_id = l.id AND r.estado_id != 3) as total_recomendaciones
              $geoloc
              FROM  categoria_lugar cl
@@ -125,7 +125,7 @@ class DefaultController extends Controller
 
             $imagenes = $lugares[$i]['imagen_full'];
 
-            if($lugares[$i]['imagen_full'] != '' && file_exists('assets/images/lugares/'.$lugares[$i]['imagen_full'])){
+            if($lugares[$i]['imagen_full'] != '' && file_exists(__DIR__.'/../../../../web/assets/images/lugares/'.$lugares[$i]['imagen_full'])){
                 if(!file_exists('assets/media/cache/tiny_lugar/assets/images/lugares/'.$lugares[$i]['imagen_full'])){
                     $this->get('imagine.controller')->filter('assets/images/lugares/'.$lugares[$i]['imagen_full'], "tiny_lugar");
                 }
