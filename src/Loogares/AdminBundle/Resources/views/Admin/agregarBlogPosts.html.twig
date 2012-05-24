@@ -401,15 +401,15 @@
 	        	}
 	        });
 
-	        $('.slug_post').focus(function(e){
-	        	$this = $(this);
-        		var titulo = $('.titulo_post').val(),
+	        $('.titulo_post').blur(function(e){
+	        	$slug = $('.slug_post');
+        		var titulo = $(this).val(),
         			slug;
 
-        		if($this.val() == ''){	
+        		if($slug.val() == ''){	
 	        		slug = titulo.replace(/\s/g, '-').replace(/([^\w|^\d|^\-]+)/ig, '').toLowerCase();
 	        		slug = removeDiacritics(slug);
-	        		$this.val(slug);
+	        		$slug.val(slug);
         		}
 	        });
 

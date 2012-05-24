@@ -670,12 +670,10 @@ class LugarController extends Controller{
             $errors = array_merge($formErrors, $camposExtraErrors);
         }
 
-        if($rolAdmin == true){
+        if($rolAdmin != true){
             $data['categorias'] = $lr->getCategorias();
         }else{
-            $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u
-                                   WHERE u.slug != ?1");
-            $q->setParameter(1, "atractivos-turisticos");
+            $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u ORDER BY u.nombre ASC");
             $data['categorias'] = $q->getResult();
         }
 
