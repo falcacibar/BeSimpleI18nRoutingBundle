@@ -149,7 +149,7 @@ class DefaultController extends Controller
             $data[sizeOf($data)-1]['totalRecomendaciones'] = $lugares[$i]['total_recomendaciones'];
         }
 
-        $json = json_encode(array('lugares'=>$data, 'total' => $resultSetSize[0]['rows']));
+        $json = json_encode(array_reverse(array('lugares'=>$data, 'total' => $resultSetSize[0]['rows'])));
 
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));  
     }
