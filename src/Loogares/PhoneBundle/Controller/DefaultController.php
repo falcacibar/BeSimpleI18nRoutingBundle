@@ -138,6 +138,7 @@ class DefaultController extends Controller
             $data[sizeOf($data)-1]['mapx'] = $lugares[$i]['mapx'];
             $data[sizeOf($data)-1]['mapy'] = $lugares[$i]['mapy'];
             $data[sizeOf($data)-1]['numero'] = $lugares[$i]['numero'];
+            $data[sizeOf($data)-1]['tipoCategoria'] = $lugares[$i]['tipo_categoria'];
 
             $imagenes = $lugares[$i]['imagen_full'];
 
