@@ -70,7 +70,7 @@ class DefaultController extends Controller
         ->fetchAll(
             "SELECT SQL_CALC_FOUND_ROWS l.nombre, l.slug, l.estrellas, l.calle, l.mapx, l.mapy, l.numero,
              (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) AS ranking, il.imagen_full as imagen_full,
-             cat.tipo_categoria_id as tipo_categoria,
+             (SELECT cat.tipo_categoria_id FROM categorias AS cat WHERE cat.id = cl.categoria_id and cl.lugar_id = l.id) as tipo_categoria,
              (SELECT count(r.id) FROM recomendacion AS r WHERE r.lugar_id = l.id AND r.estado_id != 3) as total_recomendaciones
              $geoloc
              FROM  categoria_lugar cl
@@ -81,10 +81,6 @@ class DefaultController extends Controller
 	         LEFT JOIN imagenes_lugar il
              ON il.lugar_id = l.id
              AND il.id = (SELECT max(il.id) FROM imagenes_lugar AS il WHERE il.lugar_id = l.id AND il.estado_id = 2)
-
-             LEFT JOIN categorias cat
-             ON cl.categoria_id = cat.id
-             AND cl.principal = 1
 
              JOIN comuna c
              ON c.id = l.comuna_id 
@@ -100,7 +96,7 @@ class DefaultController extends Controller
             $lugares = $this->getDoctrine()->getConnection()->fetchAll(
             "SELECT SQL_CALC_FOUND_ROWS l.nombre, l.slug, l.estrellas, l.calle, l.mapx, l.mapy, l.numero,
              (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) AS ranking, il.imagen_full as imagen_full,
-             cat.tipo_categoria_id as tipo_categoria,
+             (SELECT cat.tipo_categoria_id FROM categorias AS cat WHERE cat.id = cl.categoria_id and cl.lugar_id = l.id) as tipo_categoria,
              (SELECT count(r.id) FROM recomendacion AS r WHERE r.lugar_id = l.id AND r.estado_id != 3) as total_recomendaciones
              $geoloc
              FROM  categoria_lugar cl
@@ -111,10 +107,6 @@ class DefaultController extends Controller
              LEFT JOIN imagenes_lugar il
              ON il.lugar_id = l.id
              AND il.id = (SELECT max(il.id) FROM imagenes_lugar AS il WHERE il.lugar_id = l.id AND il.estado_id = 2) 
-
-             LEFT JOIN categorias cat
-             ON cl.categoria_id = cat.id
-             AND cl.principal = 1
  
              JOIN comuna c
              ON c.id = l.comuna_id 
