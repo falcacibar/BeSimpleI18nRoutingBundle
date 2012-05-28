@@ -156,7 +156,7 @@ class DefaultController extends Controller
             $data[sizeOf($data)-1]['totalRecomendaciones'] = $lugares[$i]['total_recomendaciones'];
         }
 
-        array_reverse($data);
+        $data = array_reverse($data);
         $json = json_encode(array_reverse(array('lugares'=>$data, 'total' => $resultSetSize[0]['rows'])));
 
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));  
@@ -212,5 +212,27 @@ class DefaultController extends Controller
         $json = json_encode($data);
 
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
+    }
+
+    public function quickSearchAction($term){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $data = array();
+
+//             (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) AS ranking, il.imagen_full as imagen_full,
+
+
+        $q = $em->createQuery("SELECT l, (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) as ranking FROM Loogares\LugarBundle\Entity\Lugar l WHERE l.nombre LIKE ?1 ORDER BY ranking DESC");
+        $q->setParameter(1, "%$term%");
+        $q->setMaxResults(5);
+        $results = $q->getResult(); 
+
+        for($i=0;$i<sizeOf($results);$i++){
+            $data[]['title'] = $results[$i][0]->getNombre();
+        }
+
+        $json = json_encode($data);
+
+        return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));       
     }
 }

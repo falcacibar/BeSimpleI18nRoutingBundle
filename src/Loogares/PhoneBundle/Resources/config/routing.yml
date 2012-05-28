@@ -15,3 +15,9 @@ LoogaresPhoneBundle_lugar:
     defaults: { _controller: LoogaresPhoneBundle:Default:lugar, _format: json }
     requirements:
         _format: json
+
+LoogaresPhoneBundle_quickSearch:
+    pattern: /api/qs/{term}
+    defaults: { _controller: LoogaresPhoneBundle:Default:quickSearch, _format: json }
+    requirements:
+        _format: json
