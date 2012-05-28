@@ -1,6 +1,6 @@
-Loogares\BlogBundle\Entity\ConcursoUsuario:
+Loogares\BlogBundle\Entity\Participante:
     type: entity
-    table: concursos_usuario
+    table: participantes
     manyToOne:       
         concurso:
             targetEntity: Loogares\BlogBundle\Entity\Concurso
@@ -10,6 +10,3 @@ Loogares\BlogBundle\Entity\ConcursoUsuario:
         id:
             type: integer
             generator: { strategy: auto }
-    fields:      
-        ganador:
-            type: boolean

@@ -996,6 +996,7 @@ a
             width: 284px
 
 .destacado_home
+    display: none
     background: $gris_faf
     border: 1px solid $gris_f6f
     float: left
@@ -1043,8 +1044,54 @@ a
             float: left
             padding: 8px 0px
 
-.concurso
+.datos_concurso
     display: none
+    background: $gris_faf
+    border: 1px solid $gris_f6f
+    float: left
+    margin: 40px 0 0
+    padding: 20px
+    width: 918px
+
+    li
+        float: left
+        margin: 0 0 20px 0
+        width: 960px
+
+        a
+            @include link_azul
+
+            &:hover
+                @include link_azul_hover
+
+        label
+            color: $gris_666
+            float: left
+            font:
+                weight: bold
+            margin: 10px 10px 10px 0
+            width: 150px
+        
+        input
+            float: left
+            padding: 8px
+            width: 400px
+
+        select
+            float: left
+            margin: 8px 0
+            width: 416px
+
+        .agregar_nuevo
+            float: left
+            font:
+                size: 12px
+            margin: 12px 0 12px 20px
+
+        .subir_imagen
+            border: 0px
+            float: left
+            padding: 8px 0px
 
 .guardar_posts
     background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1025px 0

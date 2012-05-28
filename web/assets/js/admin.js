@@ -1,14 +1,19 @@
 $(document).ready(function(){
     $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
-    var dates = $( "#fecha-desde-ph, #fecha-hasta-ph" ).datepicker({
+    var dates = $( "#fecha-desde-ph, #fecha-hasta-ph, #fecha-desde-c-ph" ).datepicker({
         defaultDate: "+1w",
         changeMonth: true,
         changeYear: true,
         yearRange: '2009:c',
         numberOfMonths: 1,
         onSelect: function( selectedDate ) {
-            var option = this.id == "fecha-desde-ph" ? "minDate" : "maxDate",
-                instance = $( this ).data( "datepicker" ),
+            if(this.id == 'fecha-desde-c-ph'){
+                var option = 'minDate';
+            }else if(this.id == 'fecha-hasta-ph'){
+                var option = 'maxDate';
+            }
+
+            var instance = $( this ).data( "datepicker" ),
                 date = $.datepicker.parseDate(
                     instance.settings.dateFormat ||
                     $.datepicker._defaults.dateFormat,
@@ -20,6 +25,9 @@ $(document).ready(function(){
 
     $( "#fecha-desde-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
     $( "#fecha-desde-ph" ).datepicker( "option", "altField", '#fecha-desde' );
+
+    $( "#fecha-desde-c-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
+    $( "#fecha-desde-c-ph" ).datepicker( "option", "altField", '#fecha-desde-c' );
 
     $( "#fecha-hasta-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
     $( "#fecha-hasta-ph" ).datepicker( "option", "altField", '#fecha-hasta' );

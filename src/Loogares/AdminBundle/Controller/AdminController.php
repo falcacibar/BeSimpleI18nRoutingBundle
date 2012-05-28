@@ -6,13 +6,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Loogares\LugarBundle\Entity\Promocion;
 use Loogares\LugarBundle\Entity\PedidoLugar;
 
 use Loogares\BlogBundle\Entity\Posts;
 use Loogares\BlogBundle\Entity\Categoria;
+use Loogares\BlogBundle\Entity\Concurso;
 use Loogares\BlogBundle\Entity\EstadoConcurso;
+use Loogares\BlogBundle\Entity\TipoConcurso;
 use Loogares\UsuarioBundle\Entity\LoogarenoEstrella;
 
 use Loogares\AdminBundle\Classes\qqFileUploader;
@@ -1806,8 +1809,10 @@ class AdminController extends Controller
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $bcr = $em->getRepository("LoogaresBlogBundle:Categoria");
         $ber = $em->getRepository("LoogaresBlogBundle:Estado");
-        $becr = $em->getRepository("LoogaresBlogBundle:EstadoConcurso");
+        $ecr = $em->getRepository("LoogaresBlogBundle:EstadoConcurso");
+        $tcr = $em->getRepository("LoogaresBlogBundle:TipoConcurso");
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $cor = $em->getRepository("LoogaresBlogBundle:Concurso");
         $fn = $this->get('fn');
         $imagenes = array();
         $fechaPublicacion = null;
@@ -1815,12 +1820,13 @@ class AdminController extends Controller
         $lugar = null;
 
         $ciudad = $cr->findOneBySlug($ciudad);
-        
+        $concurso = null;
+
         if($post != null){ //Si slug tiene data, entonces el post existe, estamos editando, yada yada.
             $post = $pr->findOneBySlug($post);
 
-            // Si existe concurso asociado, tomamos información
-            
+            // Si existe concurso asociado, obtenemos información
+            $concurso = $cor->getConcursoPost($post->getId());
         }else{
             $post = new Posts();
         }
@@ -1849,23 +1855,7 @@ class AdminController extends Controller
 
             if($request->get('fecha_publicacion') != ''){
                 $fechaPublicacion = new \DateTime( $request->get('fecha_publicacion') );
-            }
-
-            if($request->get('fecha_termino') != ''){
-                $fechaTermino = new \DateTime( $request->get('fecha_termino') );
-            }
-
-            if($request->get('nuevo_estado') != ''){
-                $nuevoEstadoConcurso = new EstadoConcurso();
-                $nuevoEstadoConcurso->setNombre($request->get('nuevo_estado'));
-                $nuevoEstadoConcurso->setSlug($fn->generarSlug($request->get('nuevo_estado')));
-                $nuevoEstadoConcurso->setClase($request->get('nuevo_estado_clase'));
-                $em->persist($nuevoEstadoConcurso);
-                $em->flush();
-                $estadoConcurso = $nuevoEstadoConcurso;
-            }else{
-                $estadoConcurso = $becr->findOneById(preg_match('/Selecciona/', $request->get('estado_concurso'))?5:$request->get('estado_concurso'));
-            }
+            }                   
 
             if($request->get('nueva_categoria') != ''){
                 $nuevaCategoria = new Categoria();
@@ -1880,33 +1870,83 @@ class AdminController extends Controller
                 $categoria = $bcr->findOneById($request->get('categoria'));
             }
 
-            if ($form->isValid()) {
+            if ($form->isValid()) {               
+
                 $post->setCiudad($cr->findOneBySlug($request->get('ciudad')));
                 $post->setTitulo(trim($request->get('titulo'))); 
-                $post->setSlug(trim($request->get('slug')));
-                $post->setBlogEstadoConcurso($estadoConcurso);
+                $post->setSlug(trim($request->get('slug')));                
                 $post->setBlogCategoria($categoria);
                 $post->setContenido($request->get('contenido'));
                 $post->setDetalles($request->get('detalle'));
-                $post->setNumeroPremios($request->get('numero_premios'));
                 $post->setGanadores($request->get('ganadores'));
                 $post->setCondiciones($request->get('condiciones'));
                 $post->setBlogEstado($ber->findOneById($request->get('estado')));
                 $post->setFecha(new \DateTime());
-                $post->setFechaPublicacion($fechaPublicacion);
-                $post->setFechaTermino($fechaTermino);
+                $post->setFechaPublicacion($fechaPublicacion);                
                 $post->setTituloHome($request->get('titulo_home'));
                 $post->setDescripcionHome($request->get('descripcion_home'));
                 $post->setDestacadoHome($request->get('destacado_home'));
-                $post->setPosicionHome($request->get('posicion_home'));
+                $post->setPosicionHome(0);
                 $post->setPreview($request->get('preview'));
 
                 $em->persist($post);
                 $em->flush();
 
                 // Vemos si existe concurso asociado
-                if($request->request->get('agregar_concurso')) {
+                if($post->getBlogCategoria()->getBlogTipoPost()->getSlug() == 'concurso') {
+                    if($concurso  == null) {
+                        $concurso = new Concurso();
+                        $nuevoConcurso = true;
+                    }
 
+                    if($request->request->get('nuevo_tipo_concurso') != ''){
+                        $nuevoTipoConcurso = new TipoConcurso();
+                        $nuevoTipoConcurso->setNombre($request->request->get('nuevo_tipo_concurso'));
+                        $nuevoTipoConcurso->setSlug($fn->generarSlug($request->request->get('nuevo_tipo_concurso')));
+                        $em->persist($nuevoTipoConcurso);
+                        $em->flush();
+                        $tipoConcurso = $nuevoTipoConcurso;
+                    }else{
+                        $tipoConcurso = $tcr->find(preg_match('/Selecciona/', $request->request->get('tipo_concurso'))?1:$request->get('tipo_concurso'));
+                    }
+
+                    // Se setean todas los campos del concurso, sean nuevos o actualizados                    
+                    if($request->request->get('nuevo_estado') != ''){
+                        $nuevoEstadoConcurso = new EstadoConcurso();
+                        $nuevoEstadoConcurso->setNombre($request->request->get('nuevo_estado'));
+                        $nuevoEstadoConcurso->setSlug($fn->generarSlug($request->request->get('nuevo_estado')));
+                        $nuevoEstadoConcurso->setClase($request->request->get('nuevo_estado_clase'));
+                        $em->persist($nuevoEstadoConcurso);
+                        $em->flush();
+                        $estadoConcurso = $nuevoEstadoConcurso;
+                    }else{
+                        $estadoConcurso = $ecr->findOneById(preg_match('/Selecciona/', $request->request->get('estado_concurso'))?5:$request->get('estado_concurso'));
+                    }
+
+                    if($request->request->get('fecha_inicio') != ''){
+                        $fechaInicio = new \DateTime( $request->request->get('fecha_inicio') );
+                    }  
+                    if($request->request->get('fecha_termino') != ''){
+                        $fechaTermino = new \DateTime( $request->request->get('fecha_termino') );
+                    }
+
+                    $concurso->setPost($post);
+                    $concurso->setTipoConcurso($tipoConcurso);
+                    $concurso->setEstadoConcurso($estadoConcurso);
+                    $concurso->setTitulo($request->request->get('titulo_concurso'));
+                    $concurso->setDescripcion($request->request->get('descripcion_concurso'));
+                    $concurso->setNumeroPremios($request->request->get('numero_premios'));
+                    $concurso->setFechaInicio($fechaInicio);
+                    $concurso->setFechaTermino($fechaTermino);
+                    $concurso->setFacebookInicio($request->request->get('facebook_inicio'));
+                    $concurso->setFacebookFinal($request->request->get('facebook_final'));
+                    $concurso->setTwitterInicio($request->request->get('twitter_inicio'));
+                    $concurso->setTwitterFinal($request->request->get('twitter_final'));
+
+                    if(isset($nuevoConcurso) && $nuevoConcurso) {
+                        $em->persist($concurso);
+                    }
+                    $em->flush();
                 }
 
                 return $this->redirect($this->generateUrl('LoogaresAdminBundle_editarBlogPosts', array(
@@ -1920,7 +1960,9 @@ class AdminController extends Controller
             'ciudad' => $ciudad,
             'estados' => $ber->findAll(),
             'categorias' => $bcr->findAll(),
-            'estados_concurso' => $becr->findAll(),
+            'concurso' => $concurso,
+            'estados_concurso' => $ecr->findAll(),
+            'tipos_concurso' => $tcr->findAll(),
             'form' => $form->createView(),
             'post' => $post
         ));

@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{post.titulo}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div class="titulo">
+		<h3>{{post.titulo}}</h3>
+		<div class="concurso_boton">
+			<a>¡Haz click acá y participa!</a>
+		</div>
+	</div>
+
+	<div class="participantes">
+		<div class="tiempo_restante">
+			Quedan x para participar
+		</div>
+
+		<div class="usuarios">
+			{% for participante in concurso.participantes %}
+				{{ participante.slug }}
+			{% endfor %}
+			<span>{{concurso.participantes|length}} {{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}</span>
+		</div>
+	</div>
+
+	<div class="social">
+
+	</div>
+
+{% endblock %}

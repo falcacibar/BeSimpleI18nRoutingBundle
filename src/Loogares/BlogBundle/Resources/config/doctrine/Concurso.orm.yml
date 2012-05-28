@@ -1,5 +1,6 @@
 Loogares\BlogBundle\Entity\Concurso:
     type: entity
+    repositoryClass: Loogares\BlogBundle\Repository\ConcursoRepository
     table: concursos
     manyToOne:
         post:
@@ -8,6 +9,11 @@ Loogares\BlogBundle\Entity\Concurso:
             targetEntity: Loogares\BlogBundle\Entity\EstadoConcurso
         tipo_concurso:
             targetEntity: Loogares\BlogBundle\Entity\TipoConcurso
+
+    oneToMany:
+        participantes:
+            targetEntity: Loogares\BlogBundle\Entity\Participante
+            mappedBy: concurso
     id:
         id:
             type: integer
@@ -18,13 +24,22 @@ Loogares\BlogBundle\Entity\Concurso:
         descripcion:
             type: string
             nullable: true
-        imagen:
-            type: string
-            nullable: true
-        numeros_premios:
+        numero_premios:
             type: integer
             nullable: true
         fecha_inicio:
             type: datetime
         fecha_termino:
             type: datetime
+        twitter_inicio:
+            type: integer
+            nullable: true
+        twitter_final:
+            type: integer
+            nullable: true
+        facebook_inicio:
+            type: integer
+            nullable: true
+        facebook_final:
+            type: integer
+            nullable: true

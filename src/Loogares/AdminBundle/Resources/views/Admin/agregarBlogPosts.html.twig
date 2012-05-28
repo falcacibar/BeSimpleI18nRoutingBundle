@@ -51,7 +51,7 @@
 
 				<div class="caja_interior">
 
-					<a href="" class="toggle-detalle">Desplegar detalles concursos</a>
+					<a href="" class="toggle-detalle">Desplegar detalles</a>
 
 					<div class="concurso_detalle">
 						<li>
@@ -71,14 +71,9 @@
 						</li>
 
 						<li class="contenidos_texto">
-							<label>Detalle del concurso (es reemplazado con los ganadores cuando están publicados)</label>
+							<label>Detalle del post (es reemplazado con los ganadores cuando están publicados)</label>
 							<textarea rows="30" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
-						</li>
-
-						<li class="premio_post">
-							<label>Número de premios</label>
-							<input name="numero_premios" type="text" placeholder="Número de premios a sortear (opcional)" value="{{post.numeroPremios}}"/>
-						</li>
+						</li>						
 
 						<li class="contenidos_texto">
 							<label>Ganadores del concurso (reemplaza el detalle del concurso)</label>
@@ -94,12 +89,12 @@
 
 				<div class="caja_interior">
 	
-					<a href="" class="toggle-condiciones">Desplegar condiciones concursos</a>
+					<a href="" class="toggle-condiciones">Desplegar condiciones</a>
 
 					<div class="concurso_condiciones">
 												
 						<li class="contenidos_texto">
-							<label>Condiciones del concurso</label>
+							<label>Condiciones del concurso (si corresponde)</label>
 							<textarea rows="30" name="condiciones" placeholder="Condiciones del Concurso (opcional)">{{post.condiciones}}</textarea>
 						</li>
 					</div>
@@ -122,7 +117,7 @@
 	            <select name="categoria">
 	            	<option>Selecciona una categoría</option>
 	            	{% for categoria in categorias %}
-	            		 <option {% if post.blogCategoria.id is defined and post.blogCategoria.id == categoria.id %}selected="selected"{% endif %} value='{{categoria.id}}'>{{categoria.nombre}}</option>
+	            		 <option {% if post.blogCategoria.id is defined and post.blogCategoria.id == categoria.id %}selected="selected"{% endif %} value='{{categoria.id}}' data-tipo="{{categoria.blogTipoPost.id}}">{{categoria.nombre}}</option>
 	            	{% endfor %}
 	            </select>
 	            <a class="agregar_nuevo" href="">Agregar una categoría nueva</a>
@@ -170,21 +165,10 @@
 			<ul>
 
 				<li>
-					<label>Destacado home</label>
+					<label>Destacado Home</label>
 		            <select class="destacado_home_dd" name="destacado_home">
 		                <option {% if post.destacadoHome == 0 %}selected="selected"{% endif %} value='0'>No</option>
-		                <option {% if post.destacadoHome == 1 %}selected="selected"{% endif %} value='1'>Solo en el Home</option>
-		                <option {% if post.destacadoHome == 2 %}selected="selected"{% endif %} value='2'>Solo en el Slider</option>
-		                <option {% if post.destacadoHome == 3 %}selected="selected"{% endif %} value='3'>En el Home y en el Slider</option>
-		            </select>
-				</li>
-				<li {% if post.destacadoHome == 2 or post.destacadoHome == 0 or post.destacadoHome is not defined %}class="no-default"{% endif %}>
-					<label>Posicion Home</label>
-		            <select class="posicion_home" name="posicion_home">
-		                <option {% if post.posicionHome == 0 %}selected="selected"{% endif %} value='0'>0</option>
-		                <option {% if post.posicionHome == 1 %}selected="selected"{% endif %} value='1'>1</option>
-		                <option {% if post.posicionHome == 2 %}selected="selected"{% endif %} value='2'>2</option>
-		                <option {% if post.posicionHome == 3 %}selected="selected"{% endif %} value='3'>3</option>
+		                <option {% if post.destacadoHome == 1 %}selected="selected"{% endif %} value='1'>Sí</option>
 		            </select>
 				</li>
 
@@ -202,13 +186,48 @@
 					<label>Descripción</label>
 					<input name="descripcion_home" id="" type="text" placeholder="Descripción del Post" value="{{post.descripcionHome}}"/>
 				</li>
+			</ul>
+		</div>		
+
+		<div class="datos_concurso">
+			<ul class="concurso">
+				<li>
+					<h2 class="titulo_admin_chico">Concurso</h2>
+				</li>		
+
+				<li>
+					<label>Titulo</label>
+					<input name="titulo_concurso" type="text" placeholder="Titulo de Concurso" value="{{(concurso != null) ? concurso.titulo : ''}}"/>
+				</li>
+
+				<li>
+					<label>Descripción</label>
+					<input name="descripcion_concurso" type="text" placeholder="Descripción del Concurso" value="{{(concurso != null) ? concurso.descripcion : ''}}"/>
+				</li>
+
+				<li>
+					<label>Tipo de Concurso</label>
+		            <select name="tipo_concurso">
+		            	<option>Selecciona una Opción (o agrega una nueva)</option>
+		            	{% for tipo_concurso in tipos_concurso %}
+		            		 <option {% if concurso.tipoConcurso.id is defined and concurso.tipoConcurso.id == tipo_concurso.id %}selected="selected"{% endif %}value='{{tipo_concurso.id}}'>{{tipo_concurso.nombre}}</option>
+		            	{% endfor %}
+		            </select>
+		            <a class="agregar_nuevo_tipo" href="">Agregar nuevo tipo de concurso</a>
+				</li>
+
+				<li class="no-default">
+					<label>Nuevo Tipo de Concurso</label>
+					<input type="text" name="nuevo_tipo_concurso" class="nuevo_tipo_concurso" placeholder="Nombre del tipo de Concurso">
+					<a class="quitar_nuevo_tipo">Quitar</a>
+				</li>
 
 				<li>
 					<label>Estado Concurso</label>
 		            <select name="estado_concurso">
 		            	<option>Selecciona una Opción (o agrega una nueva)</option>
 		            	{% for estado_concurso in estados_concurso %}
-		            		 <option {% if post.blogEstadoConcurso.id is defined and post.blogEstadoConcurso.id == estado_concurso.id %}selected="selected"{% endif %}value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
+		            		 <option {% if concurso.estadoConcurso.id is defined and concurso.estadoConcurso.id == estado_concurso.id %}selected="selected"{% endif %}value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
 		            	{% endfor %}
 		            </select>
 		            <a class="agregar_nuevo" href="">Agregar nuevo estado</a>
@@ -221,24 +240,41 @@
 					<a class="quitar_nuevo">Quitar</a>
 				</li>
 
+				<li class="premio_post">
+					<label>Número de premios</label>
+					<input name="numero_premios" type="text" placeholder="Número de premios a sortear (opcional)" value="{{(concurso != null) ? concurso.numeroPremios : ''}}"/>
+				</li>
+
+				<li>
+					<label>Fecha Inicio</label>
+					<input type="hidden" name="fecha_inicio" id="fecha-desde-c" value="{% if concurso != null and concurso.fechaInicio %}{{concurso.fechaInicio|date('Y-m-d')}}{% endif %}">
+	        		<input type="text" id="fecha-desde-c-ph" placeholder="Fecha de Inicio" value="{% if concurso != null and concurso.fechaInicio %}{{concurso.fechaInicio|date('d-m-y')}}{% endif %}">
+				</li>
+
 				<li>
 					<label>Fecha Cierre</label>
-					<input type="hidden" name="fecha_termino" id="fecha-hasta" value="{% if post.fechaTermino %}{{post.fechaTermino|date('Y-m-d')}}{% endif %}">
-	        		<input type="text" id="fecha-hasta-ph" placeholder="Fecha de Cierre (Opcional)" value="{% if post.fechaTermino %}{{post.fechaTermino|date('d-m-y')}}{% endif %}">
+					<input type="hidden" name="fecha_termino" id="fecha-hasta" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('Y-m-d')}}{% endif %}">
+	        		<input type="text" id="fecha-hasta-ph" placeholder="Fecha de Cierre" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('d-m-y')}}{% endif %}">
 				</li>
-			</ul>
 
-			
-
-		</div>	
-
-		
-
-		<div class="destacado_home">
-			<input type="checkbox" name="agregar_concurso" id="agregar_concurso" /><label>Agregar concurso</label>
-			<ul class="concurso">
 				<li>
-					<h2 class="titulo_admin_chico">Concurso</h2>
+					<label>Fans Facebook Inicio</label>
+					<input name="facebook_inicio" type="text" placeholder="Fans al inicio del concurso" value="{{(concurso != null) ? concurso.facebookInicio : ''}}"/>
+				</li>
+
+				<li>
+					<label>Fans Facebook Cierre</label>
+					<input name="facebook_cierre" type="text" placeholder="Fans al cierre del concurso" value="{{(concurso != null) ? concurso.facebookFinal : ''}}"/>
+				</li>
+
+				<li>
+					<label>Followers Twitter Inicio</label>
+					<input name="twitter_inicio" type="text" placeholder="Seguidores al inicio del concurso" value="{{(concurso != null) ? concurso.twitterInicio : ''}}"/>
+				</li>
+
+				<li>
+					<label>Followers Twitter Final</label>
+					<input name="twitter_final" type="text" placeholder="Seguidores al cierre del concurso" value="{{(concurso != null) ? concurso.twitterFinal : ''}}"/>
 				</li>
 			</ul>
 		</div>
@@ -363,6 +399,18 @@
 		    return str;
 		}
 
+		function desplegarTipoPost($this) {
+			var tipo_post = $this.find('option:selected').data('tipo');
+
+    		if(tipo_post == '1') {
+    			$('.datos_concurso').show();
+    			$('.destacado_home').hide();
+    		} else if(tipo_post == '2') {
+    			$('.datos_concurso').hide();
+    			$('.destacado_home').show();
+    		}
+		}
+
         $(function(){
         	$('.toggle-detalle, .toggle-condiciones').click(function(e){
         		e.preventDefault();
@@ -371,9 +419,11 @@
         		$('.concurso_'+name).toggle();
         	});
 
-        	$('#agregar_concurso').change(function(){
-        		$('.concurso').toggle();
-        	});
+        	desplegarTipoPost($('.categoria_post select'));
+
+        	$('.categoria_post select').change(function(){
+        		desplegarTipoPost($(this));
+        	});        	
 
         	$( "#lugar" ).autocomplete({
 	            source: WEBROOT+"admin/ajax/sugerirLugar",
@@ -391,34 +441,25 @@
 	            }
 	        });
 
-	        $('.destacado_home_dd').change(function(){
-	        	$this = $(this);
-	        	console.log($this.val())
-	        	if($this.val() == 1 || $this.val() == 3){
-	        		$('.posicion_home').parent().show();
-	        	}else{
-	        		$('.posicion_home').parent().hide();
-	        	}
-	        });
-
-	        $('.slug_post').focus(function(e){
-	        	$this = $(this);
-        		var titulo = $('.titulo_post').val(),
+	        $('.titulo_post').blur(function(){
+	        	$slug = $('.slug_post');
+        		var titulo = $(this).val(),
         			slug;
 
-        		if($this.val() == ''){	
+        		if($slug.val() == ''){	
 	        		slug = titulo.replace(/\s/g, '-').replace(/([^\w|^\d|^\-]+)/ig, '').toLowerCase();
 	        		slug = removeDiacritics(slug);
-	        		$this.val(slug);
+	        		console.log(slug);
+	        		$slug.val(slug);
         		}
 	        });
 
-	        $('.agregar_nuevo').click(function(e){
+	        $('.agregar_nuevo, .agregar_nuevo_tipo').click(function(e){
 	        	e.preventDefault();
 	        	$(this).parent().next().show();
 	        });
 
-	        $('.quitar_nuevo').click(function(e){
+	        $('.quitar_nuevo, .quitar_nuevo_tipo').click(function(e){
 	        	e.preventDefault();
 	        	$(this).parent().hide();
 	        	$(this).parent().find('[type=text]').val('');

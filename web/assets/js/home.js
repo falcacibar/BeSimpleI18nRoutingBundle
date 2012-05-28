@@ -55,7 +55,40 @@ $(function(){
         slider.goToSlide($this.data('slide'));
         $this.addClass('active');
     });
+
+    $('.concursos li').css('visibility', 'visible')
+
+    var concursoSlider = $('.concursos').bxSlider({
+        auto: true,
+        controls: false,
+        onBeforeSlide: function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){
+            var oldActivo =  $('.activo');
+            $('.activo').removeClass('activo');
+            oldActivo.next().eq(currentSlideNumber).addClass('activo');
+        }
+    });
+
+    $('.prev_concurso').click(function(e){
+        e.preventDefault();
+        var slide = $('.activo').data('slide');
+        cambiarSlideConcurso(concursoSlider, slide - 1);
+    });
+
+    $('.next_concurso').click(function(e){
+        e.preventDefault();
+        var slide = $('.activo').data('slide');
+        cambiarSlideConcurso(concursoSlider, slide + 1);
+    });
+
+
 });	
+
+function cambiarSlideConcurso(slider, numero) {
+    var oldActivo =  $('.activo');
+    oldActivo.removeClass('activo');
+    slider.goToSlide(numero);
+    oldActivo.next().addClass('activo');
+}
 
 function estrellasRecomendacion(estrellas, $this){
     $this.raty({

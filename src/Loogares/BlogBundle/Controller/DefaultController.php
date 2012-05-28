@@ -16,6 +16,7 @@ class DefaultController extends Controller
     	$em = $this->getDoctrine()->getEntityManager();
         $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
 
         //Si no hay ciudad, entraron directo, redireccionamos
         if($ciudad == null){
@@ -51,6 +52,14 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('');
         }
 
+        if($post->getBlogCategoria()->getBlogTipoPost()->getSlug() == 'concurso') {
+            $concurso = $conr->getConcursoPost($post->getId());
+            return $this->render('LoogaresBlogBundle:Default:post_concurso.html.twig', array(
+                'post' => $post,
+                'concurso' => $concurso
+            ));
+        }
+
         if($post->getBlogEstado()->getNombre() != 'Post Publicado' && !$this->get('security.context')->isGranted('ROLE_ADMIN')){
             throw $this->createNotFoundException('');
         }else if($post->getBlogEstado()->getNombre() == 'Post Borrador'){
@@ -79,5 +88,9 @@ class DefaultController extends Controller
         }
 
         return $this->render('LoogaresBlogBundle:Default:post.html.twig', array('ciudad'=>$ciudad, 'post' => $post, 'anteriores' => $anteriores));
+    }
+
+    public function concursosAction() {
+
     }
 }

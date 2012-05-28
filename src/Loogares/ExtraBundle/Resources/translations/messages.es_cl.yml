@@ -49,6 +49,11 @@ extra:
         ver_mas: Ver todos los descuentos »
         dias: Días
 
+    modulo_concursos:
+        titulo: Participa y gana en los sorteos de hoy:
+        ver_todos: Ver todos los sorteos de hoy
+        participantes: Loogareño participando|Loogareños participando
+
     estaticas:
         codigos_de_conducta:
             titulo: Códigos de conducta

@@ -129,23 +129,14 @@ class DefaultController extends Controller
         $ciudadSession = $this->get('session')->get('ciudad');
 
         //Campañas del home
-        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
-                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) and p.blog_estado = 2 and p.posicion_home = ?4
-                               ORDER BY p.id DESC");
-        $q->setMaxResults(1);
+        $q = $em->createQuery("SELECT c FROM Loogares\BlogBundle\Entity\Concurso c
+                               JOIN c.post p
+                               WHERE p.ciudad = ?1
+                               AND c.estado_concurso != ?2
+                               ORDER BY c.id DESC");
         $q->setParameter(1, $ciudadSession['id']);
-        $q->setParameter(2, 1);
-        $q->setParameter(3, 3);
-        $q->setParameter(4, 1);
-        $posicion1 = $q->getResult();
-
-        $q->setParameter(4, 2);
-        $posicion2 = $q->getResult();
-
-        $q->setParameter(4, 3);
-        $posicion3 = $q->getResult();
-
-        $campanas = array_merge($posicion1, $posicion2, $posicion3);
+        $q->setParameter(2, 3);
+        $concursos = $q->getResult();
 
         //Slider del home
         $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
@@ -230,10 +221,10 @@ class DefaultController extends Controller
         $home['categorias'] = $categorias;
         $home['actividad'] = $actividad;
         $home['estrella'] = $estrellaResult->getRecomendacion();
+        $home['concursos'] = $concursos;
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
-            'home' => $home,     
-            'campanas' => $campanas,
+            'home' => $home,
             'sliderCampanas' => $sliderCampanas
         ));
     }

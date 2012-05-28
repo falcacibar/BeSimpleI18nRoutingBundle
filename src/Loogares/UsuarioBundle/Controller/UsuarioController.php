@@ -977,10 +977,10 @@ class UsuarioController extends Controller
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
-            if ($form->isValid()) {   
+            if ($form->isValid()) {
             
                 // Verificación de confirmación de password
-                if($request->request->get('confirmarPassword') != $usuario->getPassword()) {
+                if($request->request->get('confirmar_password') != $usuario->getPassword()) {
                     $formErrors['confirmar'] = "usuario.errors.validacion.confirmar_password";        
                 }
                                 

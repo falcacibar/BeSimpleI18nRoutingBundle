@@ -1,6 +1,9 @@
 Loogares\BlogBundle\Entity\Categoria:
     type: entity
     table: blog_categoria
+    manyToOne:       
+        blog_tipo_post:
+            targetEntity: Loogares\BlogBundle\Entity\TipoPost
     id:
         id:
             type: integer
@@ -15,4 +18,4 @@ Loogares\BlogBundle\Entity\Categoria:
             nullable: true
         clase:
             type: string
-            nullable: true 
+            nullable: true

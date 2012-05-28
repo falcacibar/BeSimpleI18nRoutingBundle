@@ -65,18 +65,39 @@
 
 		<!-- Concursos del sitio -->
 		<div class="campanas_concursos">
-			<ul>
-				{% for campana in campanas %}
-					<a href="{{ path('post', {'ciudad': campana.ciudad.slug, 'slug': campana.slug}) }}">
+			<h3>{{'extra.modulo_concursos.titulo'|trans}}</h3>
+			<a href="">{{'extra.modulo_concursos.ver_todos'|trans}} »</a>
+			{% set slide = 0 %}
+			<ul class="concursos">
+				{% set cuatro = 0 %}				
+				{% for concurso in home.concursos %}
+					{% if loop.index == 1 or (loop.index > 4 and (loop.index - 1) % 4 == 0)  %}
+						{% set cuatro = 0 %}
+						<li class="{{(slide == 0) ? 'activo' : ''}}" data-slide="{{slide}}">
+							<ul>
+					{% endif %}
+					<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 						<li {% if loop.index == 2 %}class="central"{% endif %}>
-							<p class="titulo_concurso {{campana.blogEstadoConcurso.clase}}">{{campana.blogEstadoConcurso.nombre}}</p>
-							<img src="http://www.loogares.com/assets/images/blog/{{campana.imagenHome}}" width="204" height="115" / >
-							<h2 class="lugar_concurso">{{campana.tituloHome}}</h2>
-							<p class="sorteo_concurso">{{campana.descripcionHome}}</p>
+							<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
+							<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
+							<p class="sorteo_concurso">{{concurso.descripcion}}</p>
+							<p class="cantidad_participantes">{{concurso.participantes|length}} {{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}</p>
 						</li>
 					</a>
+
+					{% set cuatro = cuatro + 1 %}
+					{% if cuatro == 4 %}
+							</ul>
+						</li>
+						{% set slide = slide + 1 %}				
+					{% endif %}						
+					
 				{% endfor %}
 			</ul>
+			<div class="concursos_selector" data-total="{{slide}}">
+				<a class="prev_concurso"><<</a>
+				<a class="next_concurso">>></a>
+			</div>
 		</div>		
 
 		<!-- Últimos Lugares recomendados -->

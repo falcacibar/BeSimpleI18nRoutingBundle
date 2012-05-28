@@ -1,0 +1,15 @@
+Loogares\BlogBundle\Entity\Ganador:
+    type: entity
+    table: ganadores
+    oneToOne:       
+        participante:
+            targetEntity: Loogares\BlogBundle\Entity\Participante
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        codigo:
+            type: string
+        canjeado:
+            type: boolean
