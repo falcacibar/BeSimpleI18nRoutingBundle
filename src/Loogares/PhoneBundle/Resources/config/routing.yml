@@ -21,3 +21,9 @@ LoogaresPhoneBundle_quickSearch:
     defaults: { _controller: LoogaresPhoneBundle:Default:quickSearch, _format: json }
     requirements:
         _format: json
+
+LoogaresPhoneBundle_search:
+    pattern: /api/s/{slug}
+    defaults: { _controller: LoogaresPhoneBundle:Default:search, _format: json }
+    requirements:
+        _format: json
