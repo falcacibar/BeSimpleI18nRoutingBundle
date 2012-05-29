@@ -60,11 +60,11 @@ class DefaultController extends Controller
         if($latitude != null && $longitude != null){
             $geoloc = ",( 6371 * acos( cos( radians($latitude) ) * cos( radians( l.mapx ) ) * cos( radians( l.mapy ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( l.mapx ) ) ) ) AS distance";
             $geolocCondition = "HAVING distance < 1";
-            $orderBy = "ORDER BY distance DESC";
+            $orderBy = "ORDER BY distance ASC";
         }else{
             $geoloc = null;
             $geolocCondition = null;
-            $orderBy = "ORDER BY ranking DESC";
+            $orderBy = "ORDER BY ranking ASC";
         }
         
         if($categoria == null){
@@ -138,7 +138,16 @@ class DefaultController extends Controller
             $data[sizeOf($data)-1]['mapx'] = $lugares[$i]['mapx'];
             $data[sizeOf($data)-1]['mapy'] = $lugares[$i]['mapy'];
             $data[sizeOf($data)-1]['numero'] = $lugares[$i]['numero'];
+            
+            if($lugares[$i]['distance'] < 1){
+                $data[sizeOf($data)-1]['distance'] = round($lugares[$i]['distance'] * 1000);
+            }else{
+                $data[sizeOf($data)-1]['distance'] = round($lugares[$i]['distance']);
+            }
+
             $data[sizeOf($data)-1]['categoria'] = $lugares[$i]['categoria'];
+
+            $data[sizeOf($data)-1]['ranking'] = $lugares[$i]['ranking'];
             $data[sizeOf($data)-1]['tipoCategoria'] = $lugares[$i]['tipo_categoria'];
 
             $imagenes = $lugares[$i]['imagen_full'];
