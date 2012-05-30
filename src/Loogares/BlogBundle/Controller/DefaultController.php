@@ -54,6 +54,15 @@ class DefaultController extends Controller
 
         if($post->getBlogCategoria()->getBlogTipoPost()->getSlug() == 'concurso') {
             $concurso = $conr->getConcursoPost($post->getId());
+            $telefonos = array();
+            if($post->getLugar()->getTelefono1() != '')
+                $telefonos[] = $post->getLugar()->getTelefono1();
+            if($post->getLugar()->getTelefono2() != '')
+                $telefonos[] = $post->getLugar()->getTelefono2();
+            if($post->getLugar()->getTelefono3() != '')
+                $telefonos[] = $post->getLugar()->getTelefono3();
+
+            $post->getLugar()->telefonos = $telefonos;
             return $this->render('LoogaresBlogBundle:Default:post_concurso.html.twig', array(
                 'post' => $post,
                 'concurso' => $concurso
