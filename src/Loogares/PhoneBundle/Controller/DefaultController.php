@@ -174,7 +174,7 @@ class DefaultController extends Controller
                     $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full']);
 
                     $image->paste($originalImage, new \Imagine\Image\Point(10, 8));
-                    $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full'].'.png');
+                    $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full']);
                 }
                 $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full'];
             }else{
@@ -188,7 +188,7 @@ class DefaultController extends Controller
                     
                     $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
 
-                    $image->paste($oi, new \Imagine\Image\Point(10, 8));
+                    $image->paste($originalImage, new \Imagine\Image\Point(10, 8));
                     $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
                 }
                 $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif';
