@@ -27,3 +27,9 @@ LoogaresPhoneBundle_search:
     defaults: { _controller: LoogaresPhoneBundle:Default:search, _format: json }
     requirements:
         _format: json
+
+LoogaresPhoneBundle_reverseGeo:
+    pattern: /api/reverseGeo/{lat}/{long}
+    defaults: { _controller: LoogaresPhoneBundle:Default:reverseGeo, _format: json }
+    requirements:
+        _format: json

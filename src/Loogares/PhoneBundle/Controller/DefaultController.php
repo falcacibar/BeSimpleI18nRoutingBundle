@@ -49,6 +49,14 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
+    public function reverseGeoAction($lat, $long){
+        $url = "http://api.geonames.org/extendedFindNearby?lat=$lat&lng=$long&username=loogares";
+        $xml = file_get_contents($url);
+        $sxml = simplexml_load_string($xml);
+        $json = json_encode($sxml);
+        return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
+    }
+
     public function lugaresPorCategoriaAction($categoria = 'todas', $offset = 1, $latitude = null, $longitude = null){
         if($categoria == 'todas'){ $categoria = null; }
 
