@@ -171,7 +171,7 @@ class DefaultController extends Controller
                     $color = new \Imagine\Image\Color('fff', 100);
                     $image = $imagine->create($size, $color);
                     
-                    $originalImage = $imagine->open($data[sizeOf($data)-1]['imagen36']);
+                    $originalImage = $imagine->open($lugares[$i]['imagen_full']);
 
                     $image->paste($oi, new \Imagine\Image\Point(10, 8));
                     $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full'].'.png');
