@@ -123,6 +123,7 @@ avalanche_imagine:
             type:    thumbnail
             options: { size: [118, 118], mode: outbound }
 
+
 # MailChimp Configuration
 jirafe_mail_chimp:
     api_key:    %mailchimp_apikey%

@@ -54,6 +54,8 @@ class DefaultController extends Controller
         $xml = file_get_contents($url);
         $sxml = simplexml_load_string($xml);
         $json = json_encode($sxml);
+        https://maps.google.cl/maps?q=Buenos+Aires,+Argentina&hl=es&ie=UTF8&sll=-35.675147,-78.222656&sspn=36.799024,56.865234&oq=buenos+aires&hnear=Buenos+Aires,+Ciudad+Aut%C3%B3noma+de+Buenos+Aires,+Argentina&t=m&z=11
+        http://api.geonames.org/extendedFindNearby?lat=-35.675147&lng=-78.222656&username=loogares&lang=es
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
@@ -67,7 +69,7 @@ class DefaultController extends Controller
 
         if($latitude != null && $longitude != null){
             $geoloc = ",( 6371 * acos( cos( radians($latitude) ) * cos( radians( l.mapx ) ) * cos( radians( l.mapy ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( l.mapx ) ) ) ) AS distance";
-            $geolocCondition = "HAVING distance < 1";
+            $geolocCondition = "HAVING distance < 10";
             $orderBy = "ORDER BY distance ASC";
         }else{
             $geoloc = null;
@@ -102,7 +104,7 @@ class DefaultController extends Controller
              GROUP BY l.id
              $geolocCondition
              $orderBy
-             LIMIT 20 OFFSET $offset");
+             LIMIT 120 OFFSET $offset");
         }else{
             $categoria = $cr->findBySlug($categoria);
             $categoriaId = $categoria[0]->getId();
@@ -133,7 +135,7 @@ class DefaultController extends Controller
              GROUP BY l.id
              $geolocCondition
              $orderBy
-             LIMIT 20 OFFSET $offset");
+             LIMIT 120 OFFSET $offset");
         }
 
         $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
@@ -147,9 +149,9 @@ class DefaultController extends Controller
             $data[sizeOf($data)-1]['mapy'] = $lugares[$i]['mapy'];
             $data[sizeOf($data)-1]['numero'] = $lugares[$i]['numero'];
             
-            if($lugares[$i]['distance'] < 1){
+            if(isset($lugares[$i]['distance']) && $lugares[$i]['distance'] < 1){
                 $data[sizeOf($data)-1]['distance'] = round($lugares[$i]['distance'] * 1000);
-            }else{
+            }else if(isset($lugares[$i]['distance'])){
                 $data[sizeOf($data)-1]['distance'] = round($lugares[$i]['distance']);
             }
 
@@ -161,20 +163,39 @@ class DefaultController extends Controller
             $imagenes = $lugares[$i]['imagen_full'];
 
             if($lugares[$i]['imagen_full'] != '' && file_exists('assets/images/lugares/'.$lugares[$i]['imagen_full'])){
-                if(!file_exists('assets/media/cache/medium_lugar/assets/images/lugares/'.$lugares[$i]['imagen_full'])){
-                    $this->get('imagine.controller')->filter('assets/images/lugares/'.$lugares[$i]['imagen_full'], "medium_lugar");
+                if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full'])){
+                    $this->get('imagine.controller')->filter('assets/images/lugares/'.$lugares[$i]['imagen_full'], "phone_thumbnail");
+
+                    $imagine = new \Imagine\Gd\Imagine();
+                    $size  = new \Imagine\Image\Box(140, 140);
+                    $color = new \Imagine\Image\Color('fff', 100);
+                    $image = $imagine->create($size, $color);
+                    
+                    $originalImage = $imagine->open($data[sizeOf($data)-1]['imagen36']);
+
+                    $image->paste($oi, new \Imagine\Image\Point(10, 8));
+                    $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full'].'.png');
                 }
-                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/medium_lugar/assets/images/lugares/'.$lugares[$i]['imagen_full'];
+                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full'];
             }else{
-                if(!file_exists('assets/media/cache/medium_lugar/assets/images/lugares/default.gif')){
-                    $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "medium_lugar");
+                if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif')){
+                    $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "phone_thumbnail");
+
+                    $imagine = new \Imagine\Gd\Imagine();
+                    $size  = new \Imagine\Image\Box(140, 140);
+                    $color = new \Imagine\Image\Color('fff', 100);
+                    $image = $imagine->create($size, $color);
+                    
+                    $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
+
+                    $image->paste($oi, new \Imagine\Image\Point(10, 8));
+                    $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
                 }
-                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/medium_lugar/assets/images/lugares/default.gif';
+                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif';
             }
 
             $data[sizeOf($data)-1]['totalRecomendaciones'] = $lugares[$i]['total_recomendaciones'];
         }
-
         $data = array_reverse($data);
 
         $json = json_encode(array_reverse(array('lugares'=>$data, 'total' => $resultSetSize[0]['rows'])));
@@ -230,7 +251,6 @@ class DefaultController extends Controller
         }
 
         $json = json_encode($data);
-
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
