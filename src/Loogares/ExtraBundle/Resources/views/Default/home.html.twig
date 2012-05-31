@@ -60,49 +60,57 @@
 		</div>
 	{% endif %}
 
-	<!-- Contenido central -->
-	<div class="contenido_home">
+	<!-- Concursos del sitio -->
+	<div class="campanas_concursos">
+		<div class="concursos_titulo">
+			<div class="titulo">
+				<img src="" height="20" width="20" />
+				<h3 class="titulo_home">{{'extra.modulo_concursos.titulo'|trans}}</h3>
+			</div>
 
-		<!-- Concursos del sitio -->
-		<div class="campanas_concursos">
-			<h3>{{'extra.modulo_concursos.titulo'|trans}}</h3>
-			<a href="">{{'extra.modulo_concursos.ver_todos'|trans}} »</a>
-			{% set slide = 0 %}
+			<a href=""></a>
+		</div>
+		
+		<div class="concursos_slide">
+
+			<div class="concursos_selector">
+				<a class="prev_concurso"></a>
+			</div>
+
 			<ul class="concursos">
-				{% set cuatro = 0 %}				
 				{% for concurso in home.concursos %}
-					{% if loop.index == 1 or (loop.index > 4 and (loop.index - 1) % 4 == 0)  %}
-						{% set cuatro = 0 %}
-						<li class="{{(slide == 0) ? 'activo' : ''}}" data-slide="{{slide}}">
-							<ul>
-					{% endif %}
 					<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
-						<li {% if loop.index == 2 %}class="central"{% endif %}>
+						<li>
 							<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
 							<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
 							<p class="sorteo_concurso">{{concurso.descripcion}}</p>
-							<p class="cantidad_participantes">{{concurso.participantes|length}} {{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}</p>
+							<div class="cantidad_participantes_izq">
+							</div>							
+							<div class="cantidad_participantes">
+								<span class="numero_participantes">{{concurso.participantes|length}}</span>
+								{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}
+							</div>
+							<div class="cantidad_participantes_der">
+							</div>							
 						</li>
 					</a>
-
-					{% set cuatro = cuatro + 1 %}
-					{% if cuatro == 4 %}
-							</ul>
-						</li>
-						{% set slide = slide + 1 %}				
-					{% endif %}						
-					
 				{% endfor %}
 			</ul>
-			<div class="concursos_selector" data-total="{{slide}}">
-				<a class="prev_concurso"><<</a>
-				<a class="next_concurso">>></a>
+
+			<div class="concursos_selector">
+				<a class="next_concurso"></a>
 			</div>
-		</div>		
+		</div>
+	</div>		
+	
+	<!-- Contenido central -->
+	<div class="contenido_home">
 
 		<!-- Últimos Lugares recomendados -->
 		<div class="lugares_recomendados">
-			<h3 class="titulo_home titulo_recomendados">{{'extra.home.modulo_ultimas_recomendaciones.titulo'|trans}}</h3>
+			<div class="encabezados_titulos">
+				<h3 class="titulo_home titulo_recomendados">{{'extra.home.modulo_ultimas_recomendaciones.titulo'|trans}}</h3>
+			</div>
 			<ul>
 				{% for categoria in home.categorias %}
 				<li {% if loop.index == 3 %}class="ultima_categoria"{% endif %}>
@@ -130,7 +138,7 @@
 		{% render 'LoogaresLugarBundle:Lugar:moduloDescuentos' with {'ciudad' : app.session.get('ciudad').id, 'pagina' : 'home'}%}
 
 		<div class="actividad_reciente">
-			<div class="encabezado_actividad">
+			<div class="encabezado_actividad encabezados_titulos">
 				<span class="actividad_icono"></span>
 				<h4 class="titulo_home">{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}}</h4>
 				<a class="ver_mas_actividad" href="{{path('actividad')}}">{{'extra.home.actividad_reciente.ver_mas'|trans}} »</a>
@@ -156,7 +164,9 @@
 		<!-- Colaboradores -->
 		{% if sliderCampanas|length != 0 %}
 		<div class="colaboradores">
-			<h5 class="titulo_home encabezado">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
+			<div class="encabezados_titulos">
+				<h5 class="titulo_home_notas">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
+			</div>
 			<ul class="slider">	
 				{% for campana in sliderCampanas %}
 				<li>

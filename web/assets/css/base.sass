@@ -150,26 +150,35 @@ $rojo: #F72121
     font:
         size: 29px
     line-height: 40px
+    text-shadow: 1px 1px 1px $blanco
 
 @mixin titulo_grande
     font:
         size: 24px
     line-height: 35px
+    text-shadow: 1px 1px 1px $blanco
 
 @mixin titulo_medio
     font:
         size: 20px
     line-height: 30px
+    text-shadow: 1px 1px 1px $blanco
 
 @mixin titulo_chico
+    color: $gris_666
     font:
         size: 18px
+        weight: bold
     line-height: 28px
+    text-shadow: 1px 1px 1px $blanco
 
 @mixin titulo_muy_chico
+    color: $gris_666
     font:
         size: 16px
+        weight: bold
     line-height: 26px
+    text-shadow: 1px 1px 1px $blanco
 
 @mixin textos_13
     font:
@@ -297,6 +306,12 @@ a.chzn-single.chzn-error
 
 /* Títulos */
 
+.encabezados_titulos
+    background: url('../images/extras/titulos_pattern_2.gif') $blanco repeat-x 0 0
+    float: left
+    height: 50px
+    width: 100%
+
 .titulo
     @include titulo_medio
     margin: 0 0 30px 0
@@ -310,7 +325,12 @@ a.chzn-single.chzn-error
     margin: 0 0 10px 0
 
 .titulo_home
-    @include titulo_chico
+    @include titulo_muy_chico
+    margin: 2px 0 0
+
+.titulo_home_notas
+    @include titulo_muy_chico
+    margin: 12px 10px 0
 
 .titulo_gigante
     @include titulo_grosero
