@@ -1,3 +1,10 @@
+participar:
+    pattern: /ajax/participar
+    defaults: { _controller: LoogaresBlogBundle:Default:participar }
+actualizar_participantes:
+    pattern: /ajax/actualizar_participantes
+    defaults: { _controller: LoogaresBlogBundle:Default:actualizarParticipantes }
+
 post_sin_ciudad:
     pattern:  /blog/{slug}
     defaults: { _controller: LoogaresBlogBundle:Default:post, ciudad: null }
@@ -5,6 +12,14 @@ post_sin_ciudad:
 post:
     pattern:  /{ciudad}/blog/{slug}
     defaults: { _controller: LoogaresBlogBundle:Default:post, ciudad: null }
+
+concurso_registro:
+    pattern:  /{ciudad}/blog/{slug}/concurso/registro
+    defaults: { _controller: LoogaresBlogBundle:Default:registroPopUp, ciudad: null }
+
+concurso_compartir:
+    pattern:  /{ciudad}/blog/{slug}/concurso/compartir
+    defaults: { _controller: LoogaresBlogBundle:Default:compartirPopUp, ciudad: null }
 
 blog:
     pattern:  /{ciudad}/blog

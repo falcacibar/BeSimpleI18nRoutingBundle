@@ -3,6 +3,9 @@
 namespace Loogares\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Loogares\BlogBundle\Entity\Participante;
 
 
 class DefaultController extends Controller
@@ -62,6 +65,13 @@ class DefaultController extends Controller
             if($post->getLugar()->getTelefono3() != '')
                 $telefonos[] = $post->getLugar()->getTelefono3();
 
+            // Vemos si usuario está o no participando
+            $participa = false;
+            if($this->get('security.context')->isGranted('ROLE_USER')) {
+                $participa = $conr->isUsuarioParticipando($this->get('security.context')->getToken()->getUser(), $concurso);
+            }
+            $concurso->participa = $participa;
+
             $post->getLugar()->telefonos = $telefonos;
             return $this->render('LoogaresBlogBundle:Default:post_concurso.html.twig', array(
                 'post' => $post,
@@ -99,7 +109,50 @@ class DefaultController extends Controller
         return $this->render('LoogaresBlogBundle:Default:post.html.twig', array('ciudad'=>$ciudad, 'post' => $post, 'anteriores' => $anteriores));
     }
 
-    public function concursosAction() {
-
+    public function registroPopUpAction($ciudad = null, $slug) {
+        $popup = "registro";
+        return $this->render('LoogaresBlogBundle:Default:popup.html.twig', array(
+            'popup' => $popup
+        ));
     }
+
+    public function compartirPopUpAction($ciudad = null, $slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
+
+        $popup = "compartir";
+        return $this->render('LoogaresBlogBundle:Default:popup.html.twig', array(
+            'popup' => $popup
+        ));
+    }
+
+    public function participarAction(Request $request) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
+
+        $concurso = $cr->find($request->request->get('concurso'));
+        $usuario = $this->get('security.context')->getToken()->getUser();
+
+        $participante = new Participante();
+        $participante->setConcurso($concurso);
+        $participante->setUsuario($usuario);
+
+        $em->persist($participante);
+        $em->flush();
+
+        return new Response(json_encode(array('status' => 'ok')));
+    }
+
+    public function actualizarParticipantesAction(Request $request) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
+
+        $concurso = $cr->find($request->request->get('concurso'));
+
+        return $this->render('LoogaresBlogBundle:Default:participantes.html.twig', array(
+            'concurso' => $concurso
+        ));
+    }
+
 }

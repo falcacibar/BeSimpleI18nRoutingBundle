@@ -23,4 +23,23 @@ class ConcursoRepository extends EntityRepository
         
         return $q->getOneOrNullResult();  
     }
+
+    public function isUsuarioParticipando($usuario, $concurso) {
+    	$em = $this->getEntityManager();
+
+        //Query para obtener el total de recomendaciones del usuario        
+        $q = $em->createQuery("SELECT p
+                               FROM Loogares\BlogBundle\Entity\Participante p
+                               WHERE p.usuario = ?1
+                               AND p.concurso = ?2");
+        $q->setParameter(1, $usuario);
+        $q->setParameter(2, $concurso);
+        
+        $participa = $q->getOneOrNullResult();
+
+        if($participa == null) {
+        	return false;
+        }
+        return true;
+    }
 }

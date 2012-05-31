@@ -7,8 +7,17 @@
 		<div class="columna_izq">
 			<div class="titulo caja">
 				<h3>{{post.titulo}}</h3>
-				<div class="concurso_boton">
-					<a>¡Haz click acá y participa!</a>
+				<div class="concurso_boton" data-id="{{concurso.id}}">
+					{% if "now"|date('Y-m-d') > concurso.fechaTermino|date('Y-m-d') %}
+						<p>Sorteo cerrado</p>
+					{% else %}
+						{% if concurso.participa ==  true %}
+							<p>¡Participando!</p>
+						{% else %}		
+								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}				
+								<a {% if is_granted('ROLE_USER')%}class="boton_participar" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% else %}class="boton_registro" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}>¡Haz click acá y participa!</a>
+						{% endif %}    
+					{% endif %}
 				</div>
 			</div>
 
@@ -16,13 +25,7 @@
 				<div class="tiempo_restante">
 					Quedan x para participar
 				</div>
-
-				<div class="usuarios">
-					{% for participante in concurso.participantes %}
-						{{ participante.slug }}
-					{% endfor %}
-					<span>{{concurso.participantes|length}} {{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}</span>
-				</div>
+				{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}				
 			</div>
 
 			<div class="social caja">
@@ -66,4 +69,9 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>  
+	<script src='{{asset('assets/js/concurso.js')}}'></script>
 {% endblock %}

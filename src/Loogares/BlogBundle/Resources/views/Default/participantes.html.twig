@@ -1,0 +1,17 @@
+<div class="usuarios">
+	{% set doce = 0 %}
+	{% for participante in concurso.participantes %}
+		{% if loop.index == 1 or (loop.index > 12 and (loop.index - 1) % 12 == 0)  %}
+			{% set tres = 0 %}
+			<ul class="listado_participantes">
+		{% endif %}
+		
+		<li><a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}"><img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('small_usuario') }}" width="25" height="25" /></a></li>
+
+		{% set doce = doce + 1 %}
+		{% if doce == 12 %}
+			</ul>				
+		{% endif %}
+	{% endfor %}
+	<span>{{concurso.participantes|length}} {{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}</span>
+</div>
