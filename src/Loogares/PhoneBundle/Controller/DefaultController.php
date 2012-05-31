@@ -160,8 +160,6 @@ class DefaultController extends Controller
             $data[sizeOf($data)-1]['ranking'] = $lugares[$i]['ranking'];
             $data[sizeOf($data)-1]['tipoCategoria'] = $lugares[$i]['tipo_categoria'];
 
-            
-            //$imagenes = $lugares[$i]['imagen_full'];
             $imagenes = explode('.', $lugares[$i]['imagen_full']);
             $imagine = new \Imagine\Gd\Imagine();
             $image = $imagine->open('assets/images/extras/bg_img@2x.png');
@@ -170,22 +168,22 @@ class DefaultController extends Controller
                 if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png')){
                     $this->get('imagine.controller')->filter('assets/images/lugares/'.$lugares[$i]['imagen_full'], "phone_thumbnail");
                     
-                    $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full']);
-                    $image->paste($originalImage, new \Imagine\Image\Point(10, 8));
+                    /*$originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full']);
+                    $image->paste($originalImage, new \Imagine\Image\Point(10, 8));*/
                     
-                    $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png');
-                    unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full']);
+                    //$image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png');
+                    //unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full']);
                 }
                 $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full'];
             }else{
                 if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif')){
                     $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "phone_thumbnail");
 
-                    $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png');
+                    /*$originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png');
                     $image->paste($originalImage, new \Imagine\Image\Point(10, 8));
 
                     $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png');
-                    unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
+                    unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');*/
                 }
                 $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif';
             }
