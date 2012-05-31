@@ -173,7 +173,7 @@ class DefaultController extends Controller
                     $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full']);
                     $image->paste($originalImage, new \Imagine\Image\Point(10, 8));
                     
-                    $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$name[0].'.png');
+                    $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png');
                     unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full']);
                 }
                 $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full'];
