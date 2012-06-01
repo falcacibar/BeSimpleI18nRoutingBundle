@@ -1,4 +1,4 @@
-<div class="usuarios">
+<div class="concurso_participantes">
 	{% set doce = 0 %}
 	{% for participante in concurso.participantes %}
 		{% if loop.index == 1 or (loop.index > 12 and (loop.index - 1) % 12 == 0)  %}

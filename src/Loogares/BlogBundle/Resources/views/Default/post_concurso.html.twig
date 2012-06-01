@@ -21,14 +21,12 @@
 				</div>
 			</div>
 
-			<div class="participantes caja">
-				<div class="tiempo_restante">
-					Quedan x para participar
-				</div>
-				{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}				
+			<div class="tiempo_restante">
+				Quedan x para participar
 			</div>
+			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}				
 
-			<div class="social caja">
+			<div class="redes_sociales_concurso">
 				<p>Comparte este concurso con tus amigos</p>
 				<ul class="redes_listado">
 				<li>
@@ -41,7 +39,7 @@
 			</ul>
 			</div>
 
-			<div class="lugar caja">
+			<div class="datos_lugar_concurso">
 				<h4>Sobre {{post.lugar.nombre}}</h4>
 				<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
 				<p>{{post.lugar.telefonos|join(' ,')}}</p>
@@ -55,15 +53,18 @@
 		</div>
 
 		<div class="columna_der">
+
 			<img class="imagen_concurso" src="{{asset('assets/images/blog/'~post.imagen)}}" width="530" height="300"/>
-			<div class="contenido caja">
+		
+			<div class="contenido_concurso">
 				{{post.contenido | raw}}
 			</div>
-			<div class="detalle caja">
+
+			<div class="detalle_condiciones_concurso">
 				Detalles del premio:<br />
 				{{post.detalles | raw}}
-			</div>
-			<div class="condiciones caja">
+				<br />
+				<br />
 				Condiciones: <br />
 				{{post.condiciones | raw}}
 			</div>
