@@ -22,7 +22,7 @@
 			</div>
 
 			<div class="tiempo_restante">
-				Quedan x para participar
+				Quedan <span class="tiempo_azul">tiempo restante</span> para participar
 			</div>
 			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}				
 
@@ -40,15 +40,16 @@
 			</div>
 
 			<div class="datos_lugar_concurso">
-				<h4>Sobre {{post.lugar.nombre}}</h4>
+				<h4 class="sobre_lugar">Sobre {{post.lugar.nombre}}</h4>
 				<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
 				<p>{{post.lugar.telefonos|join(' ,')}}</p>
 				{% if post.lugar.facebook != ''%}
-					<a href="http://{{post.lugar.facebook}}" target="blank">Facebook</a>
+					<a class="facebook_lugar" href="http://{{post.lugar.facebook}}" target="blank"></a>
 				{% endif %}
 				{% if post.lugar.twitter != ''%}
-					<a href="http://{{post.lugar.twitter}}" target="blank">Twitter</a>
+					<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
 				{% endif %}
+				<p class="link_ficha_lugar">Visita su ficha en Loogares.com <a href="" target="_blank">acá</a></p>
 			</div>
 		</div>
 

@@ -50,8 +50,10 @@ $amarillo: #FFF08C
 
 $azul: #0066CC
 $azul_oscuro: #B2E5FF
+$azul_tiempo: #66CCFF
 $azul_medio: #0099FF
 $azul_claro: #66CCFF
+$azul_participantes: #D2F2FF
 
 $blanco: #FFF
 
@@ -588,14 +590,20 @@ body
 					width: 259px
 
 		.tiempo_restante
-			background: $gris_666
+			background: $gris_666 url('../images/concursos/flecha_tiempo.png') no-repeat 0 0
 			border-bottom: 3px solid $gris_ccc
 			color: $blanco
 			float: left
+			font:
+				size: 11px
+				weight: bold
 			margin: 10px 20px 0
-			padding: 20px 10px
+			padding: 30px 10px 20px
 			text-align: center
 			width: 370px
+
+			.tiempo_azul
+				color: $azul_tiempo
 
 		.concurso_participantes
 			background: $gris_faf
@@ -604,21 +612,82 @@ body
 			margin: 0 20px
 			padding: 20px 10px
 			text-align: center
-			width: 370px			
+			width: 370px
+
+			.listado_participantes
+				float: left
+				width: 370px
+
+				li
+					float: left
+					height: 20px
+					margin: 5px
+					width: 20px
+
+					a
+						height: 20px
+						width: 20px
+
+			.participantes
+				float: left
+				margin: 10px 0 0
+				width: 370px
+
+				.cantidad_participantes_izq
+					background: url('../images/extras/borde_izq_participantes.png') no-repeat 0 0
+					float: left
+					height: 26px
+					margin: 0 0 0 100px
+					width: 6px
+
+				.cantidad_participantes_der
+					background: url('../images/extras/borde_der_participantes.png') no-repeat 0 0
+					float: left
+					height: 26px
+					margin: 0 100px 0 0
+					width: 6px
+
+				.cantidad_participantes
+					background: $azul_participantes
+					color: $gris_666
+					font:
+						size: 11px
+					float: left
+					height: 12px
+					padding: 7px 5px
+					text-align: center
+
+					.numero_participantes
+						background: $gris_666
+						border-radius: 8px
+						-o-border-radius: 8px
+						-moz-border-radius: 8px
+						-webkit-border-radius: 8px
+						color: $blanco
+						padding: 3px 6px
 
 		.redes_sociales_concurso
 			background: $gris_faf
 			border-bottom: 1px solid $gris_ccc
 			border-top: 1px solid $gris_ccc
+			color: $gris_999
 			float: left
+			font:
+				size: 12px
 			margin: 10px 20px
 			padding: 20px 10px
 			text-align: center
 			width: 370px
 
-			ul
+			.redes_listado
+				float: left
+				height: 20px
+				margin: 15px 70px 0
+				width: 230px
+
 				li
 					display: inline
+					float: left
 
 		.datos_lugar_concurso
 			background: $gris_faf
@@ -632,6 +701,32 @@ body
 			padding: 20px 10px
 			text-align: left
 			width: 370px
+
+			.sobre_lugar
+				font:
+					size: 14px
+					weight: bold
+				margin: 0 0 20px
+
+			.facebook_lugar
+				background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
+				display: inline-block
+				float: left
+				height: 16px
+				margin: 10px 0
+				width: 16px
+
+			.twitter_lugar
+				background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
+				display: inline-block
+				float: left
+				height: 16px
+				margin: 10px 0 10px 10px
+				width: 16px
+
+			.link_ficha_lugar
+				float: left
+				width: 370px
 
 	.columna_der
 		float: left
@@ -649,7 +744,7 @@ body
 			float: left
 			font: 
 				size: 13px
-			line-height: 20px
+			line-height: 22px
 			padding: 30px 20px
 			width: 488px
 
@@ -661,7 +756,7 @@ body
 			float: left
 			font:
 				size: 12px
-			line-height: 18px
+			line-height: 20px
 			padding: 30px 20px
 			width: 488px
 

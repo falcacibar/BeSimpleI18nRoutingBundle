@@ -81,17 +81,22 @@
 				{% for concurso in home.concursos %}
 					<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 						<li>
-							<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
-							<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
-							<p class="sorteo_concurso">{{concurso.descripcion}}</p>
-							<div class="cantidad_participantes_izq">
-							</div>							
-							<div class="cantidad_participantes">
-								<span class="numero_participantes">{{concurso.participantes|length}}</span>
-								{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}
+							<div class="roll_over_concurso">
+								<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
+								<p class="sorteo_concurso">{{concurso.descripcion}}</p>
+							</div>	
+							<div class="contenido_concurso">					
+								<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
+								<div class="lugar_concurso"></div>
+								<div class="cantidad_participantes_izq">
+								</div>							
+								<div class="cantidad_participantes">
+									<span class="numero_participantes">{{concurso.participantes|length}}</span>
+									{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}
+								</div>
+								<div class="cantidad_participantes_der">
+								</div>
 							</div>
-							<div class="cantidad_participantes_der">
-							</div>							
 						</li>
 					</a>
 				{% endfor %}
