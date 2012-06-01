@@ -539,6 +539,7 @@ body
 						@include link_gris_666_hover
 
 .post_concurso
+	color: $gris_666
 	float: left
 	width: 960px
 
@@ -565,6 +566,26 @@ body
 				float: left
 				text-align: center
 				width: 430px
+
+				.boton_participar
+					background: url('../images/concursos/boton_participar.png') no-repeat 0 0
+					float: left
+					height: 69px
+					margin: 42px 85px
+					width: 259px
+
+					&:hover
+						background: url('../images/concursos/boton_participar.png') no-repeat 0 -69px
+
+					&:active
+						background: url('../images/concursos/boton_participar.png') no-repeat 0 -138px
+
+				.boton_participando
+					background: url('../images/concursos/boton_participar.png') no-repeat 0 -207px
+					float: left
+					height: 69px
+					margin: 42px 85px
+					width: 259px
 
 		.tiempo_restante
 			background: $gris_666
@@ -604,6 +625,9 @@ body
 			border-bottom: 1px solid $gris_ccc
 			border-top: 1px solid $gris_ccc
 			float: left
+			font:
+				size: 12px
+			line-height: 18px
 			margin: 0px 20px
 			padding: 20px 10px
 			text-align: left
@@ -623,6 +647,9 @@ body
 			border-left: 1px solid $gris_ccc
 			border-right: 1px solid $gris_ccc
 			float: left
+			font: 
+				size: 13px
+			line-height: 20px
 			padding: 30px 20px
 			width: 488px
 
@@ -632,6 +659,9 @@ body
 			border-left: 1px solid $gris_ccc
 			border-right: 1px solid $gris_ccc
 			float: left
+			font:
+				size: 12px
+			line-height: 18px
 			padding: 30px 20px
 			width: 488px
 

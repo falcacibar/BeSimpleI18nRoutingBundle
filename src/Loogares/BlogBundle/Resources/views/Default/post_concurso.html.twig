@@ -9,13 +9,13 @@
 				<h1 class="titulo_concurso">{{post.titulo}}</h1>
 				<div class="concurso_boton" data-id="{{concurso.id}}">
 					{% if "now"|date('Y-m-d') > concurso.fechaTermino|date('Y-m-d') %}
-						<p>Sorteo cerrado</p>
+						<div class="boton_participar"></div>
 					{% else %}
 						{% if concurso.participa ==  true %}
-							<p>¡Participando!</p>
+							<div class="boton_participando"></div>
 						{% else %}		
 								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}				
-								<a {% if is_granted('ROLE_USER')%}class="boton_participar" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% else %}class="boton_registro" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}>¡Haz click acá y participa!</a>
+								<a {% if is_granted('ROLE_USER')%}class="boton_participar" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% else %}class="boton_registro" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
 						{% endif %}    
 					{% endif %}
 				</div>
