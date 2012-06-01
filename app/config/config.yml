@@ -122,6 +122,9 @@ avalanche_imagine:
         phone_thumbnail:
             type:    thumbnail
             options: { size: [118, 118], mode: outbound }
+        phone_ficha_thumbnail:
+            type:    thumbnail
+            options: { size: [118, 118], mode: outbound }
 
 
 # MailChimp Configuration
