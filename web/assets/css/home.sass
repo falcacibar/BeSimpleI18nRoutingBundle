@@ -12,7 +12,8 @@ $azul_participantes: #D2F2FF
 $blanco: #FFF
 
 $gris_faf: #FAFAFC
-$gris_f6f: #F2F2F6
+/* $gris_f6f, anterior #F2F2F6 */
+$gris_f6f: #E5E5E5
 $gris_ccc: #CCC
 $gris_999: #999
 $gris_666: #666
@@ -230,7 +231,7 @@ $rojo: #F72121
                     border-top: 6px solid $gris_666
                     float: left
                     height: 245px
-                    margin: 0 15px 0 0
+                    margin: 0 10px 0 0
                     width: 206px !important
 
                     &:hover
@@ -306,7 +307,6 @@ $rojo: #F72121
 
     /* Lugares recientemente recomendados */
     .lugares_recomendados
-        border: 1px solid $gris_f6f
         color: $gris_666
         float: left
         margin: 0 0 30px
@@ -317,55 +317,62 @@ $rojo: #F72121
             padding: 10px
             width: 618px
 
-        li
-            border-right: 1px solid $gris_f6f
+        .caja_lugares_recomendados
+            border: 1px solid $gris_f6f
             float: left
-            height: 169px
-            padding: 20px 10px 10px
-            width: 192px
+            width: 636px
+            
 
-            .titulo_categoria
-                color: $gris_999
-                font:
-                    size: 13px
+            li
+                border-right: 1px solid $gris_f6f
                 float: left
-                text-decoration: none
+                height: 169px
+                padding: 20px 10px 10px
                 width: 192px
 
-            img
-                float: left
-                margin: 20px 0 0
+                .titulo_categoria
+                    color: $gris_999
+                    font:
+                        size: 13px
+                    float: left
+                    text-decoration: none
+                    width: 192px
 
-            .listado_lugares_recomendados
-                color: $gris_666
-                float: left
-                font:
-                    size: 12px
-                margin: 20px 0 0 10px
-                width: 122px
+                img
+                    float: left
+                    margin: 20px 0 0
 
-                li
-                    border: none
-                    height: auto
-                    line-height: 14px
-                    margin: 0 0 8px
-                    padding: 0
+                .listado_lugares_recomendados
+                    color: $gris_666
+                    float: left
+                    font:
+                        size: 12px
+                    margin: 20px 0 0 10px
                     width: 122px
 
-                    .numeracion
-                        float: left
-                        width: 15px
+                    li
+                        border: none
+                        height: auto
+                        line-height: 14px
+                        margin: 0 0 8px
+                        padding: 0
+                        width: 122px
 
-                    .ultimo_lugar_recomendado
-                        @include link_azul
-                        float: left
-                        width: 107px
-                                            
-                        &:hover
-                            @include link_azul_hover
+                        .numeracion
+                            float: left
+                            width: 15px
 
-        .ultima_categoria
-            border: none
+                        .ultimo_lugar_recomendado
+                            @include link_azul
+                            float: left
+                            width: 107px
+                                                
+                            &:hover
+                                @include link_azul_hover
+
+            .ultima_categoria
+                border: none
+                padding: 20px 9px 10px
     
     /* Promociones en Pedidos Online */
     .caja_promociones
@@ -560,24 +567,28 @@ $rojo: #F72121
 
     /* Recomendación Estrella */
     .recomendacion_estrella
-        border: 1px solid $gris_f6f
         float: left
         margin: 0 0 30px 0
         width: 298px
 
         .titulo_estrella
+            color: $gris_666
             background: url('../images/extras/botones_sprite.png') no-repeat 0 -239px
             font:
                 size: 16px
+                weight: bold
             height: 26px
             line-height: 28px
             margin: 10px
             padding: 0 0 0 20px
+            text-shadow: 1px 1px 1px $blanco
 
         .informacion
+            border-left: 1px solid $gris_f6f
+            border-right: 1px solid $gris_f6f
             border-top: 1px solid $gris_f6f
             float: left
-            width: 298px
+            width: 296px
 
             .imagen_recomendacion
                 float: left
@@ -619,13 +630,16 @@ $rojo: #F72121
                             @include link_azul_hover
                 
         .recomendacion_preview
+            border-bottom: 1px solid $gris_f6f
+            border-left: 1px solid $gris_f6f
+            border-right: 1px solid $gris_f6f
             color: $gris_999
             float: left
             font:
                 size: 12px
             line-height: 18px
             padding: 0px 10px 10px
-            width: 278px
+            width: 276px
 
             a
                 @include link_azul
@@ -642,7 +656,6 @@ $rojo: #F72121
                 
     /* Recomendación del Día */
     .recomendacion_dia
-        border: 1px solid $gris_f6f
         float: left
         margin: 0 0 30px 0
         width: 298px
@@ -651,9 +664,11 @@ $rojo: #F72121
             padding: 10px
 
         .informacion
+            border-left: 1px solid $gris_f6f
+            border-right: 1px solid $gris_f6f
             border-top: 1px solid $gris_f6f
             float: left
-            width: 298px
+            width: 296px
 
             .imagen_estrellas_recomendacion
                 float: left
@@ -687,13 +702,16 @@ $rojo: #F72121
                     margin: 0 0 10px 0
                 
         .recomendacion_preview
+            border-bottom: 1px solid $gris_f6f
+            border-left: 1px solid $gris_f6f
+            border-right: 1px solid $gris_f6f
             color: $gris_999
             float: left
             font:
                 size: 12px
             line-height: 18px
             padding: 0px 10px 10px
-            width: 278px
+            width: 276px
 
             a
                 @include link_azul
@@ -818,7 +836,6 @@ $rojo: #F72121
 
 
 .loogarenos_conectados
-    border: 1px solid $gris_f6f
     float: right
     margin: 30px 0
     width: 958px
@@ -827,10 +844,10 @@ $rojo: #F72121
         padding: 10px
      
     .loogarenos_conectado_ahora
-        border-top: 1px solid $gris_f6f
+        border: 1px solid $gris_f6f
         float: left
         padding: 10px 5px
-        width: 948px
+        width: 946px
                 
         li
             float: left

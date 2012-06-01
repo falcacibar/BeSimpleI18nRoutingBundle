@@ -111,7 +111,7 @@
 			<div class="encabezados_titulos">
 				<h3 class="titulo_home titulo_recomendados">{{'extra.home.modulo_ultimas_recomendaciones.titulo'|trans}}</h3>
 			</div>
-			<ul>
+			<ul class="caja_lugares_recomendados">
 				{% for categoria in home.categorias %}
 				<li {% if loop.index == 3 %}class="ultima_categoria"{% endif %}>
 					<a class="titulo_categoria" href="{{ path('_categoria', {'slug': app.session.get('ciudad').slug, 'categoria': categoria.slug}) }}">{{categoria.nombre}} »</a>
@@ -195,7 +195,9 @@
 		{# Santiago de Chile #}
 		{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
 			<div class="recomendacion_estrella">
-				<h6 class="titulo_estrella">{{'extra.home.modulo_loogareno_estrella.titulo'|trans}}</h6>
+				<div class="encabezados_titulos">
+					<h6 class="titulo_estrella">{{'extra.home.modulo_loogareno_estrella.titulo'|trans}}</h6>
+				</div>
 				<div class="informacion">
 					<div class="imagen_recomendacion">
 						<a class="imagen" href="{{ path('showUsuario', {'param': home.estrella.usuario.slug}) }}" class="link_usuario">
@@ -228,7 +230,9 @@
 		<!-- Recomendación del Día -->
 		{% if home.recDia != null %}
 			<div class="recomendacion_dia">
-				<h6 class="titulo_home encabezado">{{'extra.home.modulo_recomendacion_del_dia.titulo'|trans}}</h6>
+				<div class="encabezados_titulos">
+					<h6 class="titulo_home encabezado">{{'extra.home.modulo_recomendacion_del_dia.titulo'|trans}}</h6>
+				</div>
 				<div class="informacion">
 					<div class="imagen_estrellas_recomendacion">
 						<a class="imagen" href="{{path('showUsuario', {'param' : (home.recDia.usuario.slug is not empty) ? home.recDia.usuario.slug : home.recDia.usuario.id})}}" class="link_usuario">
@@ -274,7 +278,9 @@
 	<!-- Últimos Loogareños conectados -->
 	{% if home.ultimosConectados|length > 0 %}
 		<div class="loogarenos_conectados">
-			<h6 class="titulo_home encabezado">{{'extra.home.modulo_ultimos_conectados.titulo'|trans}}</h6>
+			<div class="encabezados_titulos">
+				<h6 class="titulo_home encabezado">{{'extra.home.modulo_ultimos_conectados.titulo'|trans}}</h6>
+			</div>
 			{% if home.ultimosConectados|length > 0%}
 				<ul class="loogarenos_conectado_ahora">
 				{% for conectado in home.ultimosConectados %}
