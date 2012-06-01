@@ -5,8 +5,8 @@
 {% block content %}
 	<div class="post_concurso">
 		<div class="columna_izq">
-			<div class="titulo caja">
-				<h3>{{post.titulo}}</h3>
+			<div class="titulo_caja">
+				<h1 class="titulo_concurso">{{post.titulo}}</h1>
 				<div class="concurso_boton" data-id="{{concurso.id}}">
 					{% if "now"|date('Y-m-d') > concurso.fechaTermino|date('Y-m-d') %}
 						<p>Sorteo cerrado</p>
@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="columna_der">
-			<img src="{{asset('assets/images/blog/'~post.imagen)}}" width="480" height="250px"/>
+			<img class="imagen_concurso" src="{{asset('assets/images/blog/'~post.imagen)}}" width="530" height="300"/>
 			<div class="contenido caja">
 				{{post.contenido | raw}}
 			</div>

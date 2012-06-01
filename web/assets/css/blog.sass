@@ -49,6 +49,7 @@ table
 $amarillo: #FFF08C
 
 $azul: #0066CC
+$azul_oscuro: #B2E5FF
 $azul_medio: #0099FF
 $azul_claro: #66CCFF
 
@@ -538,18 +539,32 @@ body
 						@include link_gris_666_hover
 
 .post_concurso
+	float: left
+	width: 960px
+
 	.columna_izq
 		float: left
-		width: 50%		
+		width: 430px		
 
-		.titulo
-			h3
-				border-bottom: 1px solid #444
-				margin-bottom: 5px
+		.titulo_caja
+
+			.titulo_concurso
+				background: $gris_666
+				border-bottom: 5px solid $azul_oscuro
+				color: $blanco
+				font:
+					size: 25px
+				height: 100px
+				line-height: 32px
+				padding: 20px
+				width: 390px
 
 			.concurso_boton
-				margin: 50px 80px
+				background: url('../images/concursos/fondo_boton_concurso.png') no-repeat 0 0
+				height: 163px
+				float: left
 				text-align: center
+				width: 430px
 
 		.participantes
 			text-align: center
@@ -563,7 +578,12 @@ body
 
 	.columna_der
 		float: left
-		width: 50%
+		width: 530px
+
+		.imagen_concurso
+			float: left
+			height: 300px
+			width: 530px
 
 	.caja
 		border: 1px solid $gris_666
