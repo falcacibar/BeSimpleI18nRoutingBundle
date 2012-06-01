@@ -42,7 +42,10 @@
 			<div class="datos_lugar_concurso">
 				<h4 class="sobre_lugar">Sobre {{post.lugar.nombre}}</h4>
 				<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
-				<p>{{post.lugar.telefonos|join(' ,')}}</p>
+				<p>{{post.lugar.telefonos|join(', ')}}</p>
+				{% if post.lugar.sitioWeb != ''%}
+					<a class="sitio_web_lugar" href="http://{{post.lugar.sitioWeb}}" target="blank">{{post.lugar.sitioWeb}}</a>
+				{% endif %}
 				{% if post.lugar.facebook != ''%}
 					<a class="facebook_lugar" href="http://{{post.lugar.facebook}}" target="blank"></a>
 				{% endif %}
@@ -62,15 +65,18 @@
 			</div>
 
 			<div class="detalle_condiciones_concurso">
-				Detalles del premio:<br />
+				<strong>Detalles del premio:</strong><br />
 				{{post.detalles | raw}}
 				<br />
-				<br />
-				Condiciones: <br />
+				<strong>Condiciones:</strong><br />
 				{{post.condiciones | raw}}
 			</div>
 		</div>
 	</div>
+
+	<!-- Concursos del sitio -->
+	{# include "LoogaresExtraBundle:Default:concursos_activos.html.twig"#}				
+
 {% endblock %}
 
 {% block javascripts %}
