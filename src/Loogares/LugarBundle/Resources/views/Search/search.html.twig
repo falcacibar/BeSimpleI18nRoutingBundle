@@ -388,6 +388,26 @@
 	        </div>
 
 	        <div class="listado_resultados">
+
+	        	<div class="campanas_concursos">
+					<div class="concursos_titulo">
+						<div class="titulo">
+							<img src="" height="20" width="20" />
+							<h3 class="titulo_concursos_search">{{'extra.modulo_concursos.titulo'|trans}}</h3>
+						</div>
+
+						<a href=""></a>
+					</div>
+					<div class="concursos_slide">
+						<div class="especio_aviso_1">
+						</div>
+						<div class="especio_aviso_2">
+						</div>
+						<div class="especio_aviso_3">
+						</div>
+					</div>
+	        	</div>
+	        	
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">
 					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
