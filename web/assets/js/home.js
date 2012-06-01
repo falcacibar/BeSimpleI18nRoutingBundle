@@ -44,7 +44,7 @@ $(function(){
         controls: false,
         onBeforeSlide: function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){
             $('.active').removeClass('active');
-          $('.slide-change').eq(currentSlideNumber).addClass('active');
+            $('.slide-change').eq(currentSlideNumber).addClass('active');
         }
     });
 
@@ -59,36 +59,21 @@ $(function(){
     $('.concursos li').css('visibility', 'visible')
 
     var concursoSlider = $('.concursos').bxSlider({
-        auto: true,
-        controls: false,
-        onBeforeSlide: function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){
-            var oldActivo =  $('.activo');
-            $('.activo').removeClass('activo');
-            oldActivo.next().eq(currentSlideNumber).addClass('activo');
-        }
+        displaySlideQty: $('.concursos li').length,
+        moveSlideQty: 1,
+        controls: false
     });
 
-    $('.prev_concurso').click(function(e){
-        e.preventDefault();
-        var slide = $('.activo').data('slide');
-        cambiarSlideConcurso(concursoSlider, slide - 1);
+    $('.prev_concurso').click(function(){
+        concursoSlider.goToPreviousSlide();
+        return false;
     });
 
-    $('.next_concurso').click(function(e){
-        e.preventDefault();
-        var slide = $('.activo').data('slide');
-        cambiarSlideConcurso(concursoSlider, slide + 1);
+    $('.next_concurso').click(function(){
+        concursoSlider.goToNextSlide();
+        return false;
     });
-
-
 });	
-
-function cambiarSlideConcurso(slider, numero) {
-    var oldActivo =  $('.activo');
-    oldActivo.removeClass('activo');
-    slider.goToSlide(numero);
-    oldActivo.next().addClass('activo');
-}
 
 function estrellasRecomendacion(estrellas, $this){
     $this.raty({
