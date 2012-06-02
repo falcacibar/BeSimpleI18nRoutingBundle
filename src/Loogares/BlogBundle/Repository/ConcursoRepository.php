@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class ConcursoRepository extends EntityRepository
 {
-	public function getConcursoPost($post) {
+	  public function getConcursoPost($post) {
         $em = $this->getEntityManager();
 
         //Query para obtener el total de recomendaciones del usuario        
@@ -22,6 +22,31 @@ class ConcursoRepository extends EntityRepository
         $q->setParameter(1, $post);
         
         return $q->getOneOrNullResult();  
+    }
+
+    public function getConcursosVigentes($ciudad) {
+        $em = $this->getEntityManager();
+
+        $q = $em->createQuery("SELECT c, p
+                               FROM Loogares\BlogBundle\Entity\Concurso c
+                               JOIN c.post p
+                               WHERE p.ciudad = ?1
+                               AND c.estado_concurso != ?2
+                               ORDER BY c.id DESC");
+        $q->setParameter(1, $ciudad);
+        $q->setParameter(2, 3);
+        return $q->getResult();
+    }
+
+    public function getGanadoresConcurso($concurso) {
+        $em = $this->getEntityManager();
+
+        $q = $em->createQuery("SELECT g, pt
+                               FROM Loogares\BlogBundle\Entity\Ganador g
+                               JOIN g.participante pt
+                               WHERE pt.concurso = ?1");
+        $q->setParameter(1, $concurso);
+        return $q->getResult();
     }
 
     public function isUsuarioParticipando($usuario, $concurso) {

@@ -8,13 +8,37 @@
 {% elseif popup == 'compartir' %}
 	<div class="popup_compartir">
 		<p>¡Ya estás participando!</p>
+		<p>Ahora solamente tienes que esperar al día que cierre el concurso para ver si ganaste...</p>
+		<p>Cuéntale a tus amigos sobre este concurso para que ellos también participen:</p>
+		<ul>
+	 		<li class="fb_share" style="margin: 0 0 5px; display: none">
+                <a style="color: white; text-decoration: none;" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
+            </li>
+            <li>
+                <a class="fb_button">Facebook</a>
+            </li>
+            <li class="twitter_share" style="margin: 0 0 5px;">                    
+                {% set data_url = url('_lugar', {'slug' : post.lugar.slug}) %}
+                {% set data_text = post.lugar.nombre~", "~post.lugar.comuna.ciudad.nombre~" | Loogares.com" %}
+                {% set data_via = "Loogarescom" %}
+                <a style="color: white; text-decoration: none;" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">
+                	Twittear
+                </a>
+            </li>
+            <a class="volver">No, gracias</a>
+		</ul>
 	</div>
 {% endif %}
 
+<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function(){
 	    $('.volver').click(function(){
 	        $.fancybox.close()
+	    });
+
+	    $('.fb_button').click(function(){
+	    	$('.fb_share a').click();
 	    });
 
 	    $('.registro_facebook_btn').click(function(){

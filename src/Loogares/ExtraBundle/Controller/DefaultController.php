@@ -124,19 +124,13 @@ class DefaultController extends Controller
         $ar = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
         $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
 
         //Ciudad Nueva
         $ciudadSession = $this->get('session')->get('ciudad');
 
-        //Campañas del home
-        $q = $em->createQuery("SELECT c FROM Loogares\BlogBundle\Entity\Concurso c
-                               JOIN c.post p
-                               WHERE p.ciudad = ?1
-                               AND c.estado_concurso != ?2
-                               ORDER BY c.id DESC");
-        $q->setParameter(1, $ciudadSession['id']);
-        $q->setParameter(2, 3);
-        $concursos = $q->getResult();
+        //Concursos vigentes
+        $concursos = $conr->getConcursosVigentes($ciudadSession['id']);
 
         //Slider del home
         $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
@@ -221,10 +215,10 @@ class DefaultController extends Controller
         $home['categorias'] = $categorias;
         $home['actividad'] = $actividad;
         $home['estrella'] = $estrellaResult->getRecomendacion();
-        $home['concursos'] = $concursos;
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,
+            'concursos' => $concursos,
             'sliderCampanas' => $sliderCampanas
         ));
     }

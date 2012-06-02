@@ -65,6 +65,13 @@ class DefaultController extends Controller
             if($post->getLugar()->getTelefono3() != '')
                 $telefonos[] = $post->getLugar()->getTelefono3();
 
+            // Concursos vigentes
+            $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
+
+            // Obtenemos ganadores si existen
+            $ganadores = $conr->getGanadoresConcurso($concurso);
+            $concurso->ganadores = $ganadores;
+
             // Vemos si usuario está o no participando
             $participa = false;
             if($this->get('security.context')->isGranted('ROLE_USER')) {
@@ -75,7 +82,8 @@ class DefaultController extends Controller
             $post->getLugar()->telefonos = $telefonos;
             return $this->render('LoogaresBlogBundle:Default:post_concurso.html.twig', array(
                 'post' => $post,
-                'concurso' => $concurso
+                'concurso' => $concurso,
+                'concursos' => $concursos
             ));
         }
 
@@ -119,11 +127,13 @@ class DefaultController extends Controller
     public function compartirPopUpAction($ciudad = null, $slug) {
         $em = $this->getDoctrine()->getEntityManager();
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
-        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
+
+        $post = $pr->findOneBySlug($slug);
 
         $popup = "compartir";
         return $this->render('LoogaresBlogBundle:Default:popup.html.twig', array(
-            'popup' => $popup
+            'popup' => $popup,
+            'post' => $post
         ));
     }
 

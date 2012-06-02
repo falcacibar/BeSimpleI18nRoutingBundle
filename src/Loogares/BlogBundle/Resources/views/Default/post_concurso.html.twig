@@ -2,6 +2,13 @@
 
 {% block title %}{{post.titulo}} | {{parent()}}{% endblock %}
 
+
+{% block meta %}
+	<meta property="og:title" content="{{ post.titulo }} | {{post.lugar.comuna.ciudad.nombre}} | Loogares.com" />
+	<meta property="og:description" content="{{post.preview | striptags}}" />
+	<meta property="og:image" content="{{ asset('assets/images/blog/'~post.imagen) }}" />
+{% endblock %}
+
 {% block content %}
 	<div class="post_concurso">
 		<div class="columna_izq">
@@ -9,22 +16,37 @@
 				<h1 class="titulo_concurso">{{post.titulo}}</h1>
 				<div class="concurso_boton" data-id="{{concurso.id}}">
 					{% if "now"|date('Y-m-d') > concurso.fechaTermino|date('Y-m-d') %}
-						<div class="boton_participar"></div>
+						<div class="boton_cerrado"></div>
 					{% else %}
 						{% if concurso.participa ==  true %}
 							<div class="boton_participando"></div>
-						{% else %}		
+						{% else %}	
 								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}				
 								<a {% if is_granted('ROLE_USER')%}class="boton_participar" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% else %}class="boton_registro" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
-						{% endif %}    
+						{% endif %}
 					{% endif %}
 				</div>
 			</div>
 
 			<div class="tiempo_restante">
-				Quedan <span class="tiempo_azul">tiempo restante</span> para participar
+				Quedan <span class="tiempo_azul"></span> para participar
 			</div>
-			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}				
+			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
+			{% if concurso.ganadores | length > 0 %}
+				<div class="ganadores">
+					<h4>¡Ganadores!</h4>
+					<ul>
+						{% for ganador in concurso.ganadores %}
+							<li>
+								<a href="{{path('showUsuario', {'param' : ganador.participante.usuario.slug})}}">
+									<img src="{{ ('assets/images/usuarios/'~ganador.participante.usuario.imagenFull) | apply_filter('small_usuario') }}" width="20" height="20" />
+									{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}	
 
 			<div class="redes_sociales_concurso">
 				<p>Comparte este concurso con tus amigos</p>
@@ -52,7 +74,7 @@
 				{% if post.lugar.twitter != ''%}
 					<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
 				{% endif %}
-				<p class="link_ficha_lugar">Visita su ficha en Loogares.com <a href="" target="_blank">acá</a></p>
+				<p class="link_ficha_lugar">Visita su ficha en Loogares.com <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">acá</a></p>
 			</div>
 		</div>
 
@@ -75,11 +97,17 @@
 	</div>
 
 	<!-- Concursos del sitio -->
-	{# include "LoogaresExtraBundle:Default:concursos_activos.html.twig"#}				
+	{% include "LoogaresExtraBundle:Default:concursos_activos.html.twig" %}				
 
 {% endblock %}
 
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>  
-	<script src='{{asset('assets/js/concurso.js')}}'></script>
+	<script src='{{asset('assets/js/jquery.countdown.min.js')}}'></script>	
+	<script src='{{asset('assets/js/concurso.js')}}'></script>	
+	<script>
+		$(function(){
+			$('.tiempo_azul').countdown({until: new Date({{concurso.fechaTermino|date('Y')}}, {{concurso.fechaTermino|date('m')}} - 1, {{concurso.fechaTermino|date('d')}}), layout: '{d<}{dn} días, {d>}{h<}{hn} horas, {h>}{m<}{mn} minutos y {m>}{s<}{sn} segundos{s>}'});
+		});
+	</script>
 {% endblock %}
