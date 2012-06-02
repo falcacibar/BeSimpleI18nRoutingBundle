@@ -14,10 +14,10 @@
 			<a class="prev_concurso"></a>
 		</div>
 		<ul class="concursos">
-			{% for concurso in home.concursos %}
+			{% for concurso in concursos %}
 				<li>
 					<div class="concurso_top_border"></div>
-					<a href="lollol">
+					<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 						<div class="roll_over_concurso">
 							<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
 							<p class="sorteo_concurso">{{concurso.descripcion}}</p>

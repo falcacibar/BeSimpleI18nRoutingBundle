@@ -23,14 +23,14 @@ $(function(){
             dataType: 'json',
             success: function(data){
                 if(data.status == 'ok') {
-                    $('.boton_participar').replaceWith("<p>¡Participando!</p>");
+                    $('.boton_participar').replaceWith("<div class='boton_participando'></div>");
                     // Actualizamos los participantes
                     $.ajax({
                         url: WEBROOT+'../ajax/actualizar_participantes',
                         type: 'post',
                         data: dataObj,
                         success: function(data){
-                            $('.usuarios').html($(data).fadeIn('fast'));
+                            $('.concurso_participantes').html($(data).fadeIn('fast'));
                         }
                     });
                 }
