@@ -44,11 +44,15 @@ class LoogaresExtension extends \Twig_Extension {
 
                 'search' => array(
                     'top' => array(
-                        'medium' => 'search_top_medium_300x250')),
+                        'medium' => 'search_top_medium_300x250'),
+                    'concursos' => array(
+                        'medium' => 'concursos_activos_search_185x132')),
                 
                 'ficha' => array(
                     'top' => array(
-                        'medium' => 'ficha_top_medium_300x250')),
+                        'medium' => 'ficha_top_medium_300x250'),
+                    'concursos' => array(
+                        'medium' => 'concursos_activos_ficha_198x136')),
                 
                 'galeria' => array(
                     'top' => array(
