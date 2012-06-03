@@ -31,6 +31,9 @@
         GS_googleEnableAllServices();
     </script>
     <script type='text/javascript'>
+        GA_googleFillSlot("{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
+    </script>
+    <script type='text/javascript'>
         GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
     </script>
     <script type='text/javascript'>
@@ -447,19 +450,28 @@
             </div>
             <div class="concursos_slide">
                 <div class="espacio_aviso_ficha_1">
-                    <script type='text/javascript'>
+                    <!-- Banners Concursos del sitio -->
+                    {% include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"%}
+                   
+                    <!-- <script type='text/javascript'>
                         GA_googleFillSlot("{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
-                    </script>
+                    </script> --> 
                 </div>
                 <div class="espacio_aviso_ficha_2">
-                    <script type='text/javascript'>
+                    <!-- Banners Concursos del sitio -->
+                    {% include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"%}
+                   
+                    <!-- <script type='text/javascript'>
                         GA_googleFillSlot("{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
-                    </script>
+                    </script> --> 
                 </div>
                 <div class="espacio_aviso_ficha_3">
-                    <script type='text/javascript'>
+                    <!-- Banners Concursos del sitio -->
+                    {% include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"%}
+                   
+                    <!-- <script type='text/javascript'>
                         GA_googleFillSlot("{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
-                    </script>
+                    </script> --> 
                 </div>
             </div>
         </div>

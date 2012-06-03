@@ -1397,7 +1397,7 @@ textarea
     margin: 0 0 30px 0
     width: 300px
 
-/* Avisos Concursos vigentes */
+/* Avisos Concursos vigentes Búsqueda */
 .espacio_aviso_busqueda_1, .espacio_aviso_busqueda_2, .espacio_aviso_busqueda_3
     background: $gris_f6f
     border-bottom: 1px solid $gris_ccc
@@ -1430,16 +1430,74 @@ textarea
         position: relative
         top: -107px
 
+        img
+            float: left
+            height: 107px
+            width: 185px
+
         .lugar_concurso
+            float: left
             font:
                 size: 12px
                 weight: bold
-            padding: 7px 0 6px
+            padding: 8px 0 7px
             position: relative
             text:
                 align: center
                 shadow: 1px 1px 1px $blanco
             top: -2px
+            width: 185px
+
+/* Avisos Concursos vigentes Ficha */
+.espacio_aviso_ficha_1, .espacio_aviso_ficha_2, .espacio_aviso_ficha_3
+    background: $gris_f6f
+    border-bottom: 1px solid $gris_ccc
+
+    .roll_over_concurso
+        height: 111px
+        pointer: cursor
+        position: relative
+        top: 0
+        width: 198px
+        z-index: 1
+
+        &:hover
+            background: url('../images/home/rollover_concursos.png') no-repeat -5px -28px
+            color: $blanco !important
+            text:
+                shadow: 0px 0px 0px $blanco
+                
+        .sorteo_concurso
+            font:
+                size: 13px
+            line-height: 18px
+            padding: 10px
+            position: relative
+            text:
+                align: center
+            top: 55px
+
+    .contenido_concurso
+        position: relative
+        top: -111px
+
+        img
+            float: left
+            height: 111px
+            width: 198px
+
+        .lugar_concurso
+            float: left
+            font:
+                size: 12px
+                weight: bold
+            padding: 8px 0 7px
+            position: relative
+            text:
+                align: center
+                shadow: 1px 1px 1px $blanco
+            top: -2px
+            width: 198px
 
 /* Footer */
         
