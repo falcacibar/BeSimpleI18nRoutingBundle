@@ -771,12 +771,69 @@ body
 			padding: 30px 20px
 			width: 488px
 
-.registro_facebook_btn
-	background: url('../images/extras/botones_registro_usuario.png') no-repeat 0 -31px
-	cursor: pointer
-	height: 50px
-	margin: 20px 42px 60px
-	width: 350px
-    
-	&:hover
-		background: url('../images/extras/botones_registro_usuario.png') no-repeat 0 -81px      
+/* Pop Up */
+.popup_registro, .popup_compartir
+	color: $gris_666
+	float: left
+	font:
+		size: 18px
+		weight: bold
+	height: 220px !important
+	text-align: center
+	width: 650px !important
+
+.popup_compartir
+	height: 300px !important
+
+	.registro_facebook_btn_popup
+		background: url('../images/extras/botones_registro_usuario.png') no-repeat 0 -31px
+		cursor: pointer
+		height: 50px
+		margin: 30px 150px 10px
+		width: 350px
+
+		&:hover
+			background: url('../images/extras/botones_registro_usuario.png') no-repeat 0 -81px  
+	
+	.compartir_por_redes_texto
+		font:
+			size: 17px
+			weight: normal
+		margin: 20px 10px
+
+	.compartir_por_redes
+		font:
+			size: 14px
+			weight: normal
+		margin: 10px 10px 30px
+
+	ul
+		float: left
+		margin: 0 17px
+		width: 616px
+
+		li
+			float: left
+			margin: 0 5px !important
+			width: 298px
+				
+			.compartir_por_facebook
+				background: url('../images/concursos/compartir_por_redes.png') no-repeat 0 0
+				height: 75px
+				float: left
+				width: 298px  
+				
+			.compartir_por_twitter
+				background: url('../images/concursos/compartir_por_redes.png') no-repeat 0 -75px
+				height: 75px
+				float: left
+				width: 298px  
+
+	.volver
+		color: $gris_ccc
+		float: left
+		font:
+			size: 11px
+			weight: normal
+		margin: 30px 0 20px
+		width: 650px

@@ -51,6 +51,8 @@ class LoogaresExtension extends \Twig_Extension {
                 'ficha' => array(
                     'top' => array(
                         'medium' => 'ficha_top_medium_300x250'),
+                    'bottom' => array(
+                        'medium' => 'ficha_bottom_medium_300x250'),
                     'concursos' => array(
                         'medium' => 'concursos_activos_ficha_198x136')),
                 

@@ -161,7 +161,7 @@ $rojo: #F72121
 @mixin titulo_medio
     font:
         size: 20px
-    line-height: 30px
+    line-height: 20px
     text-shadow: 1px 1px 1px $blanco
 
 @mixin titulo_chico
@@ -364,12 +364,17 @@ a.chzn-single.chzn-error
     margin: 20px 10px 10px
     width: 278px
 
+.titulo_popup
+    @include titulo_medio
+    margin: 20px 10px 0
+
 .titulo_otros_lugares
     @include titulo_medio
     display: block
     float: left
-    margin: 20px 10px 10px
-    width: 278px
+    height: 20px
+    padding: 15px 10px
+    width: 280px
 
 .titulo_accion_usuario
     @include titulo_medio

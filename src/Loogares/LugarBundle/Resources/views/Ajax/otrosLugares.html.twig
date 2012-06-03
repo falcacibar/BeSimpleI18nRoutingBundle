@@ -1,5 +1,5 @@
 <div id="otros-lugares">
-    {% if lugares|length > 0 %}<h4 class="titulo_otros_lugares">{{'lugar.ficha.otros.titulo'|trans}}</h4>{% endif %}
+    {% if lugares|length > 0 %}<h4 class="titulo_otros_lugares encabezados_titulos">{{'lugar.ficha.otros.titulo'|trans}}</h4>{% endif %}
     {% for lugar in lugares %}
         {% set i = loop.index %}
         <div class="mapa_info">
