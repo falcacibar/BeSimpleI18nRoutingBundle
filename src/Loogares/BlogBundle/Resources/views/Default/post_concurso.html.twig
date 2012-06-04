@@ -15,7 +15,7 @@
 			<div class="titulo_caja">
 				<h1 class="titulo_concurso">{{post.titulo}}</h1>
 				<div class="concurso_boton" data-id="{{concurso.id}}">
-					{% if "now"|date('Y-m-d') > concurso.fechaTermino|date('Y-m-d') %}
+					{% if "now"|date('U') > concurso.fechaTermino|date('U') %}
 						<div class="boton_cerrado"></div>
 					{% else %}
 						{% if concurso.participa ==  true %}
@@ -97,17 +97,21 @@
 	</div>
 
 	<!-- Concursos del sitio -->
-	{% include "LoogaresExtraBundle:Default:concursos_activos.html.twig" %}				
-
+	{% if concursos | length > 0 %}
+		{% include "LoogaresExtraBundle:Default:concursos_activos.html.twig" %}
+	{% endif %}
 {% endblock %}
 
 {% block javascripts %}
+	<script src="{{asset('assets/js/jquery.bxSlider.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>  
 	<script src='{{asset('assets/js/jquery.countdown.min.js')}}'></script>	
-	<script src='{{asset('assets/js/concurso.js')}}'></script>	
+	<script src='{{asset('assets/js/concurso.js')}}'></script>
 	<script>
 		$(function(){
-			$('.tiempo_azul').countdown({until: new Date({{concurso.fechaTermino|date('Y')}}, {{concurso.fechaTermino|date('m')}} - 1, {{concurso.fechaTermino|date('d')}}), layout: '{d<}{dn} días, {d>}{h<}{hn} horas, {h>}{m<}{mn} minutos y {m>}{s<}{sn} segundos{s>}'});
-		});
+			$('.tiempo_azul').countdown({until: new Date({{concurso.fechaTermino|date('U')}}*1000), layout: '{d<}{dn} días, {d>}{h<}{hn} horas, {h>}{m<}{mn} minutos y {m>}{s<}{sn} segundos{s>}'});
+
+			var interval = setInterval("checkEstadoConcurso(Math.round((new Date()).getTime() / 1000), {{concurso.fechaTermino|date('U')}});",1000);
+		});		
 	</script>
 {% endblock %}

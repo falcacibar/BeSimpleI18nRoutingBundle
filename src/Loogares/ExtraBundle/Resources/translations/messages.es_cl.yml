@@ -51,6 +51,7 @@ extra:
 
     modulo_concursos:
         titulo: Participa y gana en los sorteos de hoy:
+        titulo_post: Otros concursos el día de hoy
         ver_todos: Ver todos los sorteos de hoy
         participantes: Loogareño participando|Loogareños participando
 

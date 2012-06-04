@@ -40,4 +40,40 @@ $(function(){
             }
         });
     });
+
+    $('.concursos li').css('visibility', 'visible')
+
+    var concursoSlider = $('.concursos').bxSlider({
+        displaySlideQty: $('.concursos li').length,
+        moveSlideQty: 1,
+        controls: false
+    });
+
+    $('.prev_concurso').click(function(){
+        concursoSlider.goToPreviousSlide();
+        return false;
+    });
+
+    $('.next_concurso').click(function(){
+        concursoSlider.goToNextSlide();
+        return false;
+    });    
 })
+
+function checkEstadoConcurso(actual, termino) {
+    var cerrado = $('.boton_cerrado'),
+        participar = $('.boton_participar'),
+        registro = $('.boton_registro'),
+        participando = $('.boton_participando');
+    if(cerrado.length == 0 && actual > termino) {          
+        if(participar.length > 0) {
+            participar.replaceWith("<div class='boton_cerrado'></div>");
+        }
+        else if(registro.length > 0) {
+            registro.replaceWith("<div class='boton_cerrado'></div>");
+        }
+        else {
+            participando.replaceWith("<div class='boton_cerrado'></div>");
+        }
+    }
+}

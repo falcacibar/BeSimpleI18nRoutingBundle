@@ -61,7 +61,9 @@
 	{% endif %}
 
 	<!-- Concursos del sitio -->
-	{% include "LoogaresExtraBundle:Default:concursos_activos.html.twig"%}				
+	{% if concursos | length > 0 %}
+		{% include "LoogaresExtraBundle:Default:concursos_activos.html.twig"%}
+	{% endif %}
 	
 	<!-- Contenido central -->
 	<div class="contenido_home">
