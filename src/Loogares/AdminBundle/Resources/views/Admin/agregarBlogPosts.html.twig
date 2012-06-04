@@ -242,7 +242,7 @@
 
 				<li class="premio_post">
 					<label>Número de premios</label>
-					<input name="numero_premios" type="text" placeholder="Número de premios a sortear (opcional)" value="{{(concurso != null) ? concurso.numeroPremios : ''}}"/>
+					<input class="numero_premios" name="numero_premios" type="text" placeholder="Número de premios a sortear (opcional)" value="{{(concurso != null) ? concurso.numeroPremios : ''}}"/>
 				</li>
 
 				<li>
@@ -277,6 +277,42 @@
 					<input name="twitter_final" type="text" placeholder="Seguidores al cierre del concurso" value="{{(concurso != null) ? concurso.twitterFinal : ''}}"/>
 				</li>
 			</ul>
+
+			{% if concurso != null and concurso.participantes | length > 0 %}
+				<ul>
+					<li>
+						<h2 class="titulo_admin_chico">Participantes</h2>
+					</li>
+					<li>
+						<table style="width:400px">
+							<thead style="width:400px">
+								<th></th>
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>¿Ganador?</th>
+							</thead>
+							<tbody style="width:400px">
+								{% for participante in concurso.participantes %}
+									<tr>
+										<td>
+											<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">
+												<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('small_usuario') }}" width="20" height="20" />
+											</a>
+										</td>
+										<td>{{participante.usuario.id}}</td>
+										<td>
+											<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">{{participante.usuario.nombre}} {{participante.usuario.apellido}}</a>
+										</td>
+										<td>
+											<input type="checkbox" class="ganadores_checkbox" name="ganador" {% if participante.ganador != null %}checked="checked"{% endif %} />
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</li>
+				</ul>
+			{% endif %}
 		</div>
 
 		{{form_rest(form)}}
@@ -463,7 +499,22 @@
 	        	e.preventDefault();
 	        	$(this).parent().hide();
 	        	$(this).parent().find('[type=text]').val('');
-	        })
+	        });
+
+		    $('.ganadores_checkbox').change(function(e){
+		        $table = $(this).closest('table');
+		        if($table.find(':checked').length >= $('.numero_premios').val()){
+		            $table.find(':not(:checked)').attr('disabled', 'disabled');
+		        }else if($table.find(':checked').length < $('.numero_premios').val()){
+		            $table.find(':not(:checked)').removeAttr('disabled', 'disabled');
+		        }
+		    });
+
+		    if($('.ganadores_checkbox').filter(':checked').length >= $('.numero_premios').val()){
+		    	$('.ganadores_checkbox').filter(':not(:checked)').attr('disabled', 'disabled');
+		    }
+
+
         });
     </script>
 {% endblock %}

@@ -79,6 +79,17 @@ class ConcursoRepository extends EntityRepository
         return $q->getResult();
     }
 
+    public function getParticipantesGanadoresConcurso($concurso) {
+        $em = $this->getEntityManager();
+
+        $q = $em->createQuery("SELECT p
+                               FROM Loogares\BlogBundle\Entity\Participante p
+                               LEFT JOIN Loogares\BlogBundle\Entity\Ganador g
+                               WHERE p.concurso = ?1");
+        $q->setParameter(1, $concurso);
+        return $q->getResult();
+    }
+
     public function isUsuarioParticipando($usuario, $concurso) {
     	$em = $this->getEntityManager();
 

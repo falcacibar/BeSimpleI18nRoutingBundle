@@ -465,8 +465,11 @@ class DefaultController extends Controller
         // Concursos vigentes
         $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
 
+        $meses = array('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
+
         return $this->render('LoogaresExtraBundle:Mails:mail_concursos.html.twig', array(
-            'concursos' => $concursos
+            'concursos' => $concursos,
+            'meses' => $meses
         ));
     }
 

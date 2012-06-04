@@ -6,7 +6,7 @@
             </tr>
             <tr>
                 <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; width: 610px;">
-                    <p style="font-size: 12px; font-weight: bold; text-align: right; margin: 20px 20px 0px 20px">{{"now"|date('d-m-Y')}}</p>
+                    <p style="font-size: 12px; font-weight: bold; text-align: right; margin: 20px 20px 0px 20px">{{"now"|date('j')}} de {{meses["now"|date('n') - 1]}} de {{"now"|date('Y')}}</p>
                     <p style="font-size: 12px; text-align: right; margin: 5px 20px 0px 20px"><a href="{{url('concursos', {'ciudad' : app.session.get('ciudad').slug})}}" style="color: #0066CC; text-decoration: none;">Ver todos los sorteos de hoy »</a></p>
                     <p style="font-size: 20px; font-weight: bold; text-align: center; margin: 20px 20px 0px 20px;">Recorre {{app.session.get('ciudad').nombre}}, participando en los sorteos de hoy</p>
                     <p style="font-size: 16px; text-align: center; margin: 10px 20px 0px 20px;">¡Entra ahora y participa rápidamente, es muy probable que ganes!</p>
@@ -27,18 +27,28 @@
                 <td style="color: #999; font-size: 11px; padding: 20px; text-align: center;">
                     <br />
                     <p style="font-size: 13px; color: #999; margin: 0px;">Si quieres saber sobre más concursos y lo que está pasando en Loogares.com, síguenos en:</p>
+                    {% if app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+                        {% set fb_text = 'facebook.com/Loogarescom.Valpo.Vina' %}
+                        {% set tw_text = 'LgrsValpoVina' %}
+                    {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+                        {% set fb_text = 'facebook.com/LoogaresBA' %}
+                        {% set tw_text = 'LoogaresBA' %}
+                    {% else %}
+                        {% set fb_text = 'facebook.com/Loogarescom' %}
+                        {% set tw_text = 'Loogarescom' %}
+                    {% endif %}
                     <div style="float: left; width: 610px; margin: 15px 0px 20px 0px; height: 25px;">
                         <div style="float: left; padding: 0px 0px 0px 100px;">
-                            <a href="http://www.facebook.com/LoogaresBA" alt="Facebook de Loogares.com - Buenos Aires" title="Facebook de Loogares.com - Buenos Aires"><img src="{{ asset('assets/images/mails/facebook.png') }}" width="24" height="24" /></a>
+                            <a href="http://www.{{fb_text}}" alt="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}" title="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}"><img src="{{ asset('assets/images/mails/facebook.png') }}" width="24" height="24" /></a>
                         </div>
                         <div style="float: left; padding: 4px 40px 0px 10px;">
-                            <a style="font: 14px/20px Arial; color: #666666; text-decoration: none;" href="http://www.facebook.com/LoogaresBA" alt="Facebook de Loogares.com - Buenos Aires" title="Facebook de Loogares.com - Buenos Aires">facebook.com/loogaresba</a>
+                            <a style="font: 14px/20px Arial; color: #666666; text-decoration: none;" href="http://www.{{fb_text}}" alt="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}" title="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}">{{fb_text}}</a>
                         </div>
                         <div style="float:left;">
-                            <a href="https://twitter.com/#!/loogaresba" alt="@LoogaresBA - Loogares.com" title="@LoogaresBA - Loogares.com"><img width="24" height="24" src="{{ asset('assets/images/mails/twitter.png') }}"></a>
+                            <a href="https://twitter.com/#!/{{tw_text}}" alt="@{{tw_text}} - Loogares.com" title="@{{tw_text}} - Loogares.com"><img width="24" height="24" src="{{ asset('assets/images/mails/twitter.png') }}"></a>
                         </div>
                         <div style=" float: left; padding: 4px 0px 0px 10px;">
-                            <a style="font: 14px/20px Arial; color: #666666; text-decoration: none;" href="https://twitter.com/#!/loogaresba" alt="@LoogaresBA - Loogares.com" title="@LoogaresBA - Loogares.com">@LoogaresBA</a>
+                            <a style="font: 14px/20px Arial; color: #666666; text-decoration: none;" href="https://twitter.com/#!/{{tw_text}}" alt="@{{tw_text}} - Loogares.com" title="@{{tw_text}} - Loogares.com">@{{tw_text}}</a>
                         </div>
                     </div>
                     <p style="margin: 0px; line-height: 18px;">Este mail te llego porque estás suscrito al Newsletter semanal de Loogares.com.

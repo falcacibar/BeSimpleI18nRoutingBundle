@@ -6,6 +6,10 @@ Loogares\BlogBundle\Entity\Participante:
             targetEntity: Loogares\BlogBundle\Entity\Concurso
         usuario:
             targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+    oneToOne:
+        ganador:
+            targetEntity: Loogares\BlogBundle\Entity\Ganador
+            mappedBy: participante
     id:
         id:
             type: integer
