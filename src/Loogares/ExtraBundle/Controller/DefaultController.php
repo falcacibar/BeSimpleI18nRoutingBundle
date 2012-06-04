@@ -395,6 +395,56 @@ class DefaultController extends Controller
         ));
     }
 
+    public function concursosAction(Request $request, $ciudad) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
+        $fn = $this->get('fn');
+        $router = $this->get('router');
+
+        $ciudad = $cr->findOneBySlugActivo($ciudad);
+        if($ciudad == null) {
+            // Redireccionar a home de Santiago de Chile
+            return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
+        }
+        $ciudadArray = array();
+        $ciudadArray['id'] = $ciudad->getId();
+        $ciudadArray['nombre'] = $ciudad->getNombre();
+        $ciudadArray['slug'] = $ciudad->getSlug();
+        $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
+        $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
+        $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
+
+        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+        $this->get('session')->set('ciudad',$ciudadArray);
+
+        $pagina = (!$request->query->get('pagina')) ? 1 : $request->query->get('pagina');
+        $ppag = 12;
+        $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
+
+
+        // Concursos vigentes
+        $vigentes = $conr->getConcursosVigentes($ciudadArray['id']);
+
+        // Concursos cerrados
+        $cerrados = $conr->getConcursosCerrados($ciudadArray['id'], $ppag, $offset);
+
+        $totalCerrados = $conr->getTotalConcursosCerrados($ciudadArray['id']);
+
+        $params = array(
+            'ciudad' => $ciudadArray['slug'],
+        );
+
+        $paginacion = $fn->paginacion($totalCerrados, $ppag, 'concursos', $params, $router );
+
+        return $this->render('LoogaresExtraBundle:Default:concursos.html.twig', array(
+            'vigentes' => $vigentes,
+            'cerrados' => $cerrados,
+            'totalCerrados' => $totalCerrados,
+            'paginacion' => $paginacion
+        ));
+    }
+
 
     // Esto está acá como backup, por si alguna vez se necesita de nuevo (no es basura)
     /*public function mailchimpAction() {

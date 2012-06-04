@@ -5,7 +5,7 @@
 			<h3 class="titulo_home">{{(post is defined) ? 'extra.modulo_concursos.titulo_post'|trans : 'extra.modulo_concursos.titulo'|trans}}</h3>
 		</div>
 
-		<a href=""></a>
+		<a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}"></a>
 	</div>
 	
 	<div class="concursos_slide">

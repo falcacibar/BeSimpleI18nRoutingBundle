@@ -2,7 +2,7 @@
 	{% set doce = 0 %}
 	{% for participante in concurso.participantes %}
 		{% if loop.index == 1 or (loop.index > 12 and (loop.index - 1) % 12 == 0)  %}
-			{% set tres = 0 %}
+			{% set doce = 0 %}
 			<ul class="listado_participantes">
 		{% endif %}
 				<li>

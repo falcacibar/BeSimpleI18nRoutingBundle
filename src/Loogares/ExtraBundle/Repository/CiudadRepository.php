@@ -23,7 +23,7 @@ class CiudadRepository extends EntityRepository
       return $ciudadesResult;
     }
 
-    public function getCategoriasPorCiudad($ciudad) {
+  public function getCategoriasPorCiudad($ciudad) {
     	$em = $this->getEntityManager();
     	$q = $em->createQuery("SELECT cc, c
     						   FROM Loogares\ExtraBundle\Entity\CategoriaCiudad cc
@@ -39,5 +39,16 @@ class CiudadRepository extends EntityRepository
     	}
 
     	return $categorias;
-    }
+  }
+
+  public function findOneBySlugActivo($slug) {
+      $em = $this->getEntityManager();
+      $q = $em->createQuery("SELECT c 
+                             FROM Loogares\ExtraBundle\Entity\Ciudad c 
+                             WHERE c.slug = ?1
+                             AND (c.mostrar_lugar = 1 
+                             OR c.mostrar_lugar = 3)");
+      $q->setParameter(1, $slug);
+      return $q->getOneOrNullResult();
+  }
 }

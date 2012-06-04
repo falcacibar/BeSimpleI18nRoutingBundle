@@ -1,0 +1,85 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Concursos en {{app.session.get('ciudad').nombre}} | {{parent()}}{% endblock %}
+
+{% block content %}
+	<div class="concursos_vigentes">
+		{% set cuatro = 0 %}
+		{% for concurso in vigentes %}
+			{% if loop.index == 1 or (loop.index > 4 and (loop.index - 1) % 4 == 0)  %}
+				{% set cuatro = 0 %}
+				<ul>
+			{% endif %}
+			<li>
+				<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
+					<div class="roll_over_concurso">
+						<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
+						<p class="sorteo_concurso">{{concurso.descripcion}}</p>
+					</div>	
+				</a>
+				<div class="contenido_concurso">					
+					<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
+					<div class="lugar_concurso"></div>
+					<div class="cantidad_participantes_izq">
+					</div>							
+					<div class="cantidad_participantes">
+						<span class="numero_participantes">{{concurso.participantes|length}}</span>
+						{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}
+					</div>
+					<div class="cantidad_participantes_der">
+					</div>
+				</div>
+			</li>
+			{% set cuatro = cuatro + 1 %}
+			{% if cuatro == 4 %}
+				</ul>				
+			{% endif %}
+		{% endfor %}
+	</div>
+
+	<div class="concursos_cerrados">
+		{% set cuatro = 0 %}
+		{% for concurso in cerrados %}
+			{% if loop.index == 1 or (loop.index > 4 and (loop.index - 1) % 4 == 0)  %}
+				{% set cuatro = 0 %}
+				<ul>
+			{% endif %}
+			<li>
+				<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
+					<div class="roll_over_concurso">
+						<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
+						<p class="sorteo_concurso">{{concurso.descripcion}}</p>
+					</div>	
+				</a>
+				<div class="contenido_concurso">					
+					<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
+					<div class="lugar_concurso"></div>
+					<div class="cantidad_participantes_izq">
+					</div>							
+					<div class="cantidad_participantes">
+						<span class="numero_participantes">{{concurso.participantes|length}}</span>
+						{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}
+					</div>
+					<div class="cantidad_participantes_der">
+					</div>
+				</div>
+			</li>
+			{% set cuatro = cuatro + 1 %}
+			{% if cuatro == 4 %}
+				</ul>				
+			{% endif %}
+		{% endfor %}
+
+		{% if paginacion.totalPaginas > 1 %}
+		<div class="paginacion_actividad">
+	    	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{totalCerrados}}</strong>
+	        {% if paginacion.totalPaginas != 1 %}
+	             | {{'paginacion.ir_a'|trans}}
+	            <ul>
+	                {{ paginacion.paginacion | raw }}
+	            </ul>
+	        {% endif %}
+	    </div>
+		{% endif %}
+	</div>
+{% endblock %}

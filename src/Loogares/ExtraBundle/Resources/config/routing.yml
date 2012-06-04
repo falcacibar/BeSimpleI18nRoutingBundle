@@ -6,7 +6,7 @@ sitemap:
     pattern:  /sitemap.{_format}
     defaults: { _controller: LoogaresExtraBundle:Default:sitemap, _format: xml }
     requirements:
-        _format:  xml 
+        _format:  xml
 
 locale:
     pattern:  /{slug}
@@ -24,7 +24,11 @@ locale_valparaiso_vina_del_mar:
 
 locale_buenos_aires:
     pattern:  /buenos-aires
-    defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : buenos-aires }    
+    defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : buenos-aires }
+
+concursos:
+    pattern:  /{ciudad}/concursos
+    defaults: { _controller: LoogaresExtraBundle:Default:concursos }
 
 static:
     pattern:  /{static}
