@@ -39,7 +39,7 @@
         GS_googleEnableAllServices();
     </script>
 	<script type='text/javascript'>
-    	GA_googleFillSlot("{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
+    	GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
 	</script>
     <script type='text/javascript'>
     	{% if categoria.slug is defined %}
