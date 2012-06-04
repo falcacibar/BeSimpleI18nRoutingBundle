@@ -41,3 +41,7 @@ _contacto_mail:
 _publicidad_mail:
     pattern:  /mail/enviar_publicidad
     defaults: { _controller: LoogaresExtraBundle:Default:PublicidadMail}
+
+concursos_mail:
+    pattern:  /{ciudad}/concursos/mail
+    defaults: { _controller: LoogaresExtraBundle:Default:mailConcursos }

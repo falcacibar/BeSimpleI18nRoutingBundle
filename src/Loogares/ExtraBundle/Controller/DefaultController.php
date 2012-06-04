@@ -445,6 +445,31 @@ class DefaultController extends Controller
         ));
     }
 
+    public function mailConcursosAction($ciudad) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
+
+        $ciudad = $cr->findOneBySlugActivo($ciudad);
+        $ciudadArray = array();
+        $ciudadArray['id'] = $ciudad->getId();
+        $ciudadArray['nombre'] = $ciudad->getNombre();
+        $ciudadArray['slug'] = $ciudad->getSlug();
+        $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
+        $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
+        $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
+
+        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+        $this->get('session')->set('ciudad',$ciudadArray);
+
+        // Concursos vigentes
+        $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
+
+        return $this->render('LoogaresExtraBundle:Mails:mail_concursos.html.twig', array(
+            'concursos' => $concursos
+        ));
+    }
+
 
     // Esto está acá como backup, por si alguna vez se necesita de nuevo (no es basura)
     /*public function mailchimpAction() {

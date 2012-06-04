@@ -1995,16 +1995,8 @@ class AdminController extends Controller
     }
 
     public function testMailAction() {
-    //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_foto.html.twig');
-    //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_lugar.html.twig');
-    //    return $this->render('LoogaresAdminBundle:Mails:test_mail_accion_recomendacion.html.twig');
-    //    return $this->render('LoogaresLugarBundle:Mails:test_mail_enviar.html.twig');
-          return $this->render('LoogaresLugarBundle:Mails:test_mail_lugar.html.twig');
-    //    return $this->render('LoogaresLugarBundle:Mails:test_mail_recomendar.html.twig');
-    //    return $this->render('LoogaresLugarBundle:Mails:test_mail_reporte.html.twig');
-    //    return $this->render('LoogaresUsuarioBundle:Mails:test_mail_olvidar_password.html.twig');
-    //    return $this->render('LoogaresUsuarioBundle:Usuarios:test_mail_borrar_cuenta.html.twig');
-    //    return $this->render('LoogaresUsuarioBundle:Usuarios:test_mail_registro.html.twig');
+
+        return $this->render('LoogaresExtraBundle:Mails:mail_concursos.html.twig');
     }
 
 }
