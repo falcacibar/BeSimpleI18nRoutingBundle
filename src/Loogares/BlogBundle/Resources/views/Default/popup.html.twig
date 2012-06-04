@@ -3,7 +3,7 @@
 		<p class="titulo_popup">¡Estás a un segundo de participar, regístrate ahora!</p>
 		<div class="registro_facebook_btn_popup"></div>
 		<span>o <a href="{{path('registroUsuario')}}">regístrate con tu E-mail</a></span>
-		<span class="volver">Volver</span>
+        <a href="" class="volver">Volver</a>
 	</div>
 {% elseif popup == 'compartir' %}
 	<div class="popup_compartir">
@@ -15,7 +15,7 @@
                 <a class="compartir_por_facebook" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
             </li>
             <li>
-                <a class="compartir_por_facebook"></a>
+                <a class="compartir_por_facebook" href=""></a>
             </li>
             <li class="twitter_share" style="margin: 0 0 5px;">                    
                 {% set data_url = url('_lugar', {'slug' : post.lugar.slug}) %}
@@ -24,7 +24,7 @@
                 <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
             </li>
 		</ul>
-        <a class="volver">No, gracias</a>
+        <a href="" class="volver">No, gracias</a>
 	</div>
 {% endif %}
 

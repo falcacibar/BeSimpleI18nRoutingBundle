@@ -34,17 +34,19 @@
 			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
 			{% if concurso.ganadores | length > 0 %}
 				<div class="ganadores">
-					<h4>¡Ganadores!</h4>
+					<h4 class="titulo_ganadores">¡Ganadores!</h4>
+					<p class="texto_ganadores">Los afortunados Loogareños que participaron del concurso y resultaron ganadores son:</p>
 					<ul>
 						{% for ganador in concurso.ganadores %}
 							<li>
 								<a href="{{path('showUsuario', {'param' : ganador.participante.usuario.slug})}}">
 									<img src="{{ ('assets/images/usuarios/'~ganador.participante.usuario.imagenFull) | apply_filter('small_usuario') }}" width="20" height="20" />
-									{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}
+									<span class="nombre_ganador">{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</span>
 								</a>
 							</li>
 						{% endfor %}
 					</ul>
+					<p class="texto_ganadores">Los contactaremos vía E-mail. ¡Felicitaciones! ¡Gracias a todos los que participaron y sigan escribiendo recomendaciones para los próximos concursos!</p>
 				</div>
 			{% endif %}	
 
