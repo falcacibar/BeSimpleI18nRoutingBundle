@@ -46,7 +46,11 @@ class LoogaresExtension extends \Twig_Extension {
                     'top' => array(
                         'medium' => 'search_top_medium_300x250'),
                     'concursos' => array(
-                        'medium' => 'concursos_activos_search_185x132')),
+                        'medium' => 'concursos_activos_search_185x132'),
+                    'concursos_medio' => array(
+                        'medium' => 'concursos_activos_search_medio_185x132'),
+                    'concursos_final' => array(
+                        'medium' => 'concursos_activos_search_final_185x132')),
                 
                 'ficha' => array(
                     'top' => array(
@@ -54,7 +58,11 @@ class LoogaresExtension extends \Twig_Extension {
                     'bottom' => array(
                         'medium' => 'ficha_bottom_medium_300x250'),
                     'concursos' => array(
-                        'medium' => 'concursos_activos_ficha_198x136')),
+                        'medium' => 'concursos_activos_ficha_198x136'),
+                    'concursos_medio' => array(
+                        'medium' => 'concursos_activos_ficha_medio_198x136'),
+                    'concursos_final' => array(
+                        'medium' => 'concursos_activos_ficha_final_198x136')),
                 
                 'galeria' => array(
                     'top' => array(

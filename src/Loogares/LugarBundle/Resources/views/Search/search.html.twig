@@ -41,6 +41,12 @@
 	<script type='text/javascript'>
     	GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
 	</script>
+	<script type='text/javascript'>
+    	GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','concursos_medio','medium')}}_{{app.session.get('ciudad').slug}}");
+	</script>
+	<script type='text/javascript'>
+    	GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','concursos_final','medium')}}_{{app.session.get('ciudad').slug}}");
+	</script>
     <script type='text/javascript'>
     	{% if categoria.slug is defined %}
         	GA_googleAddSlot("{{adsense_service}}", "{{ad('categoria', categoria.id,'top','medium')}}_{{app.session.get('ciudad').slug}}");
@@ -415,7 +421,7 @@
 							{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
 
 							<script type='text/javascript'>
-				            	GA_googleFillSlot("{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
+				            	GA_googleFillSlot("{{ad('static','search','concursos_medio','medium')}}_{{app.session.get('ciudad').slug}}");
 				        	</script>
  						</div>
 						<div class="espacio_aviso_busqueda_3">
@@ -423,7 +429,7 @@
 							{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
 
 							<script type='text/javascript'>
-				            	GA_googleFillSlot("{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
+				            	GA_googleFillSlot("{{ad('static','search','concursos_final','medium')}}_{{app.session.get('ciudad').slug}}");
 				        	</script>
 						</div>
 					</div>
