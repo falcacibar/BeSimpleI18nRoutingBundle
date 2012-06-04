@@ -247,14 +247,14 @@
 
 				<li>
 					<label>Fecha Inicio</label>
-					<input type="hidden" name="fecha_inicio" id="fecha-desde-c" value="{% if concurso != null and concurso.fechaInicio %}{{concurso.fechaInicio|date('Y-m-d')}}{% endif %}">
-	        		<input type="text" id="fecha-desde-c-ph" placeholder="Fecha de Inicio" value="{% if concurso != null and concurso.fechaInicio %}{{concurso.fechaInicio|date('d-m-y')}}{% endif %}">
+					<input type="hidden" id="fecha-desde-c" value="{% if concurso != null and concurso.fechaInicio %}{{concurso.fechaInicio|date('Y-m-d H:i')}}{% endif %}">
+	        		<input type="text" name="fecha_inicio" id="fecha-desde-c-ph" placeholder="Fecha de Inicio" value="{% if concurso != null and concurso.fechaInicio %}{{concurso.fechaInicio|date('d-m-y H:i')}}{% endif %}">
 				</li>
 
 				<li>
 					<label>Fecha Cierre</label>
-					<input type="hidden" name="fecha_termino" id="fecha-hasta" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('Y-m-d')}}{% endif %}">
-	        		<input type="text" id="fecha-hasta-ph" placeholder="Fecha de Cierre" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('d-m-y')}}{% endif %}">
+					<input type="hidden" id="fecha-hasta-c" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('Y-m-d H:i')}}{% endif %}">
+	        		<input type="text" name="fecha_termino" id="fecha-hasta-c-ph" placeholder="Fecha de Cierre" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('d-m-y H:i')}}{% endif %}">
 				</li>
 
 				<li>
