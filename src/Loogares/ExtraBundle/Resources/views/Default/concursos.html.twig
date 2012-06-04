@@ -58,7 +58,7 @@
 	<div class="concursos_titulo">
 		<div class="titulo">
 			<img src="" height="20" width="20" />
-			<h3 class="titulo_home">{{(post is defined) ? 'extra.modulo_concursos.titulo_post'|trans : 'extra.modulo_concursos.titulo'|trans}}</h3>
+			<h3 class="titulo_home">Sorteos pasados:</h3>
 		</div>
 	</div>
 
@@ -77,8 +77,8 @@
 					</div>	
 				</a>
 				<div class="contenido_concurso">
-					<div class="caja_contenidos_concurso">							
-						<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
+					<div class="caja_contenidos_concurso">
+						<img class="imagen_cerrado" src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
 						<div class="lugar_concurso"></div>
 						<div class="participantes_concurso">
 							<div class="cantidad_participantes_izq">
