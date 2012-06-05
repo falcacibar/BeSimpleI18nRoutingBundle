@@ -1,0 +1,67 @@
+<div class="caja_fotos_usuario">
+	<h2 class="titulo_accion_usuario">Gift Cards activadas</h2>
+
+	<ul>
+		{% for cupon in usuario.cupones %}
+			{% set post = cupon.participante.concurso.post %}
+			<li>
+				<div class="cupon">
+					<div>
+						<img src="{{asset('assets/images/blog/'~post.imagen)}}" width="125" height="125"/>
+						<h4>{{cupon.participante.concurso.titulo}}</h4>
+						<h4>{{cupon.participante.usuario.nombre}} {{cupon.participante.usuario.apellido}}</h4>
+						<h4>Código Gift Card: {{cupon.codigo}}</h4>
+
+					</div>
+					<div>
+						<div class="detalle">
+							<strong>Detalle del premio:</strong><br />
+							<p>{{post.detalles | raw}}</p>
+						</div>
+						<div class="condiciones">
+							<strong>Condiciones:</strong><br />
+							<p>{{post.condiciones | raw}}</p>
+						</div>
+					</div>
+					<div class="datos_lugar_concurso">
+						<h4 class="sobre_lugar">Sobre {{post.lugar.nombre}}</h4>
+						<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
+						{% if post.lugar.telefono2 == '' or post.lugar.telefono2 == null %}
+							{% set telefonos = [post.lugar.telefono1] %}
+						{% elseif post.lugar.telefono3 == '' or post.lugar.telefono3 == null %}
+							{% set telefonos = [post.lugar.telefono1, post.lugar.telefono2] %}
+						{% else %}
+							{% set telefonos = [post.lugar.telefono1, post.lugar.telefono2, post.lugar.telefono3] %}
+						{% endif %}
+						<p>{{telefonos|join(', ')}}</p>
+						{% if post.lugar.sitioWeb != ''%}
+							<a class="sitio_web_lugar" href="http://{{post.lugar.sitioWeb}}" target="blank">{{post.lugar.sitioWeb}}</a>
+						{% endif %}
+						{% if post.lugar.facebook != ''%}
+							<a class="facebook_lugar" href="http://{{post.lugar.facebook}}" target="blank"></a>
+						{% endif %}
+						{% if post.lugar.twitter != ''%}
+							<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
+						{% endif %}
+						<p class="link_ficha_lugar">Visita su ficha en Loogares.com <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">acá</a></p>
+					</div>
+				</div>
+				<div>
+					<a href="">Imprimir cupón</a>
+				</div>
+			</li>
+		{% endfor %}
+	</ul>
+
+	{% if paginacion.totalPaginas > 1 %}
+		<div class="paginacion_perfil">
+        	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{usuario.totalCupones}}</strong>
+            {% if paginacion.totalPaginas != 1 %}
+                 | {{'paginacion.ir_a'|trans}}
+                <ul>
+                    {{ paginacion.paginacion | raw }}
+                </ul>
+            {% endif %}
+        </div>
+	{% endif %}
+</div>

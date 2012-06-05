@@ -14,7 +14,10 @@
 			</li></a>
 			<a href="{{path('lugaresUsuario', { 'param': slug })}}"><li class="{{(usuario.tipo is defined and usuario.tipo == 'lugares') ? 'selected' : ''}} no-right-border">
 				{{'usuario.menu.lugares'|trans}}
-			</li></a>			
+			</li></a>
+			<a href="{{path('cuponesUsuario', { 'param': slug })}}"><li class="{{(usuario.tipo is defined and usuario.tipo == 'cupones') ? 'selected' : ''}} no-right-border">
+				{{'usuario.menu.cupones'|trans}}
+			</li></a>
 		{% endif %}			
 	</ul>
 </div>

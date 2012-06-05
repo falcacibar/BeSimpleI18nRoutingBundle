@@ -321,6 +321,52 @@ class UsuarioController extends Controller
         ));  
     }
 
+    public function cuponesAction($param) {
+        foreach($_GET as $key => $value){
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+        }
+        $fn = $this->get('fn');
+        $router = $this->get('router');
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        if(!$usuarioResult) {
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
+        }
+
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        else
+            $loggeadoCorrecto = false;
+
+        if(!$loggeadoCorrecto)
+            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+
+        $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
+        $ppag = 5;
+        $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
+
+        $cupones = $ur->getCuponesVigentesUsuario($usuarioResult, $ppag, $offset);
+        $totalCupones = $ur->getTotalCuponesVigentesUsuario($usuarioResult);
+        $data = $ur->getDatosUsuario($usuarioResult);
+        $data->tipo = 'cupones';
+        $data->cupones = $cupones;
+        $data->totalCupones = $totalCupones;
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
+
+        $params = array(
+            'param' => $data->getSlug()
+        );
+            
+        $paginacion = $fn->paginacion($totalCupones, $ppag, 'cuponesUsuario', $params, $router );
+
+        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
+            'usuario' => $data,
+            'paginacion' => $paginacion
+        ));
+    }
+
     public function editarAction($param) {
         return $this->forward('LoogaresUsuarioBundle:Usuario:editarCuenta', array('param' => $param));
     }

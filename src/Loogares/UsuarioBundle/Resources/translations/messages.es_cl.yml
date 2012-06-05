@@ -79,6 +79,7 @@ usuario:
         recomendaciones: Recomendaciones
         fotos: Fotos
         lugares: Listas de lugares
+        cupones: Gift cards
 
     actividad:
         titulo: Actividad|Actividad de

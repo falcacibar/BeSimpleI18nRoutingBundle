@@ -57,6 +57,10 @@ lugaresUsuario:
     pattern:  /{param}/lugares/{accionLugar}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:lugares, accionLugar: visitar }
 
+cuponesUsuario:
+    pattern:  /{param}/cupones
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:cupones }
+
 editarUsuario:
     pattern:  /{param}/editar
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editar }

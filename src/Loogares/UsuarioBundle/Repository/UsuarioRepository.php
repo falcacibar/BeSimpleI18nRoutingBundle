@@ -267,6 +267,34 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
 
         return $q->getResult();
     }
+
+    public function getCuponesVigentesUsuario($usuario, $results, $offset) {
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT g, p, c
+                               FROM Loogares\BlogBundle\Entity\Ganador g
+                               JOIN g.participante p
+                               JOIN p.concurso c
+                               WHERE p.usuario = ?1
+                               AND g.canjeado = false
+                               ORDER BY c.fecha_termino DESC");
+        $q->setMaxResults($results);
+        $q->setFirstResult($offset);
+        $q->setParameter(1, $usuario);
+
+        return $q->getResult();
+    }
+
+    public function getTotalCuponesVigentesUsuario($usuario) {
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT COUNT(g)
+                               FROM Loogares\BlogBundle\Entity\Ganador g
+                               JOIN g.participante p
+                               WHERE p.usuario = ?1
+                               AND g.canjeado = false");
+        $q->setParameter(1, $usuario);
+
+        return $q->getSingleScalarResult();
+    }
     
     public function getDatosUsuario($usuario) {
         
