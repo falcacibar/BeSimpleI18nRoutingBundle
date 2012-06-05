@@ -1585,15 +1585,16 @@ class LugarController extends Controller{
         }
 
         if($this->get('security.context')->getToken()->getUser() == $imagen->getUsuario()) {
-            $this->get('session')->setFlash('No puedes reportar una imagen agregada por ti.');
+            $this->get('session')->setFlash('lugar_flash','No puedes reportar una imagen agregada por ti.');            
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }
-
         else {
+            
             $reportes = $lr->getReportesImagenesUsuarioLugar($imagen->getId(), $this->get('security.context')->getToken()->getUser(), 1);
-            if(sizeof($reportes) > 0)
-              $this->get('session')->setFlash('error_flash', 'Ya has reportado esta imagen anteriormente, y aún está en revisión. <br/>Una vez finalizado este proceso, podrás reportar la imagen nuevamente.');
-              return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
+            if(sizeof($reportes) > 0) {
+                $this->get('session')->setFlash('error_flash', 'Ya has reportado esta imagen anteriormente, y aún está en revisión. <br/>Una vez finalizado este proceso, podrás reportar la imagen nuevamente.');
+                return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
+            }              
         }
 
         $reporte = new ReportarImagen();
@@ -1984,5 +1985,11 @@ class LugarController extends Controller{
         return $this->render($template, array(
             'promociones' => $promocionesRandom,
         ));        
+    }
+
+    public function reporteLocalAction($id) {
+        return $this->render('LoogaresLugarBundle:Lugares:reporte_local.html.twig', array(
+            
+        )); 
     }
 }

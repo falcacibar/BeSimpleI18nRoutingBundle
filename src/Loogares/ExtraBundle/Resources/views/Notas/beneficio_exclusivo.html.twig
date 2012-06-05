@@ -3,12 +3,29 @@
 {% block title %}{{parent()}} | Beneficio Exclusivo{% endblock %}
 
 {% block content %}
-
+	{% if app.session.hasFlash('beneficio_flash') %}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('beneficio_flash')}}</p>
+            </div>
+    {% endif %}
 	<div class="estaticas">
 
 		<div class="contenido">
 			<h1 class="titulo">Beneficio Exclusivo</h1>
-			
+			<h2>Promociona tu negocio entre la gente de tu ciudad</h2>
+
+			<form action="{{path('_beneficio_exclusivo_mail')}}" method="POST">
+				<ul>
+					<li>
+						<label>Nombre del local</label>
+						<input type="text" name="nombre" />
+					</li>
+					<li>
+						<label></label>
+						<input type="submit" value="Enviar" />
+					</li>
+				</ul>
+			</form>
 		</div>
 
 		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}

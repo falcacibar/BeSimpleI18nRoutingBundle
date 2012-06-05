@@ -1994,9 +1994,12 @@ class AdminController extends Controller
         return new Response(json_encode($result));
     }
 
-    public function testMailAction() {
+    public function testMailAction($tipo) {
+        if($tipo == '1') {
+            return $this->render('LoogaresAdminBundle:Mails:test_mail_ganador.html.twig');
+        }        
 
-        return $this->render('LoogaresExtraBundle:Mails:mail_concursos.html.twig');
+        return $this->render('LoogaresAdminBundle:Mails:test_mail_canje.html.twig');
     }
 
 }

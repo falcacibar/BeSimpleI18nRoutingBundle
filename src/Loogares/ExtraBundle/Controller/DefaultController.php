@@ -304,7 +304,8 @@ class DefaultController extends Controller
             'que_es_loogares' => 'Static',
             'terminos_de_uso' => 'Static',
             'trabaja_con_nosotros' => 'Static',
-            'hi' => 'Static'
+            'hi' => 'Static',
+            'concursos_local' => 'Static'
         );
 
         foreach($paginas as $key => $value){
@@ -373,6 +374,24 @@ class DefaultController extends Controller
             
         // Redirección a galería de fotos
         return $this->redirect($this->generateUrl('static', array('static' => 'publicidad')));
+    }
+
+    public function beneficioExclusivoMailAction(Request $request) {
+        // Almacenamos información en un array
+        $datos = array();
+        $datos['nombre'] = $request->request->get('nombre');
+
+        // Enviar mail con información provista por el local
+        $mail = array();
+        $mail['datos'] = $datos;
+        $mail['asunto'] = "Algún asunto que debe ser traducido";
+
+         // Mensaje de éxito del reporte
+        $this->get('session')->setFlash('beneficio_flash','¡Gracias por enviarnos la información! Te contactaremos a la brevedad.');
+            
+        // Redirección a galería de fotos
+        return $this->redirect($this->generateUrl('static', array('static' => 'beneficio_exclusivo')));
+
     }
 
     public function sitemapAction() {

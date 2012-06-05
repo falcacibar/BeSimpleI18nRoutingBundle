@@ -163,8 +163,8 @@ LoogaresAdminBundle_pedidosLugar:
 
 
 _test_mail:
-    pattern:  /test/mail
-    defaults: { _controller: LoogaresAdminBundle:Admin:testMail }
+    pattern:  /test/mail/{tipo}
+    defaults: { _controller: LoogaresAdminBundle:Admin:testMail, tipo: 1 }
 
 
 #

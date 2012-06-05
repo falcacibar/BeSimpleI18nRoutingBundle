@@ -105,6 +105,9 @@ _reclamarLugar:
 _enviarLugar:
     pattern: /lugar/{slug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarLugar }
+_reporteLocal:
+    pattern: /lugar/{slug}/reportes/{id}
+    defaults: { _controller: LoogaresLugarBundle:Lugar:reporteLocal }
 _enviarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarRecomendacion }
