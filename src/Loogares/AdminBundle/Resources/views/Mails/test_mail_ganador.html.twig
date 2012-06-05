@@ -1,6 +1,41 @@
 <body>
     <div style="font-family: Arial; font-size: 14px;">
-        <h3>¡Felicitaciones Alberto Marcías!</h3>
-        <p>Gracias a tu participación en Loogares.com resultaste ganador de 'premio concurso'</p>
+        <table align="center" cellpadding="0" cellspacing="0" width="650" style="width:650px">
+            <tr>
+                <td width="650"><center><img style="margin: 0 0 10px;" src="{{ asset('assets/images/mails/logo_mails.png') }}" width="180" height="128" /></center></td>
+            </tr>
+            <tr>
+                <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; padding: 30px 20px; width: 610px;">
+                    <strong>¡Felicitaciones {{'admin.notificaciones.saludo'|trans({'%nombre%' : 'mail.usuario.nombre', '%apellido%' : 'mail.usuario.apellido'})}}!</strong>
+                    <br />
+                    <br />
+                    Gracias a tu participación en Loogares.com resultaste ganador de <strong>PREMIO CONCURSO</strong> en <strong><a href="" style="color: #0066CC; text-decoration: none;">NOMBRE LUGAR</a></strong>. Este premio es único, válido para ser utilizado una sola vez y su fecha de expiración es el <strong>DD de Mes del AAAA</strong>.
+                    <br />
+                    <br />
+                    <strong>A continuación va el cupón y detalladas sus condiciones de uso:</strong>
+                    <br />
+                    <br />
+                    Una vez que hayas cobrado tu premio, <strong>te sugerimos escribir una recomendación en la ficha de NOMBRE LUGAR</strong> para que ellos tengan feedback de tu experiencia y así poder mejorar su servicio.
+                    <br />
+                    <br />
+                    ¡Disfruta tu premio, Loogareño!
+                    <br />
+                    <br />
+                    Muchos saludos
+                </td>
+            </tr>
+
+            <tr>
+                <td style="color: #CCC; font-size: 11px; padding: 20px">
+                    <br />
+                    {% trans with {'%open_tag%': '<b><a href="http://www.loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
+                    <br />
+                    {% trans with {'%open_a%': '<a href="mailto:contacto@loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
+                    <br />
+                    <br />
+                    <span style="display: block; text-align: center;">&copy; {{'usuario.mail.firma'|trans}}</span>
+                </td>
+            </tr>
+        </table>
     </div>
 </body>
