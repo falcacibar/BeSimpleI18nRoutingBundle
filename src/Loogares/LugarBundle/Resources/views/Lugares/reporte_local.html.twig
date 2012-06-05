@@ -1,10 +1,76 @@
-{% extends "::base.html.twig" %}
+{% extends "::base_reporte.html.twig" %}
 
-{% block title %}Reporte Bar The Clinic | {{parent()}}{% endblock %}
+{% block title %}Reporte NOMBRE LOCAL | {{parent()}}{% endblock %}
 
 {% block content %}
 
+	<img class="logo_reporte" src="{{ asset('assets/images/reporte/logo_reporte.png') }}" height="86" width="120" />
+
 	<div class="reporte_local">
-		<h1 class="titulo">Métricas campaña Beneficios Exclusivos Bar The Clinic</h1> - <a href="">Ir a la nota</a>
+		<div class="datos_reporte">
+			<h1 class="titulo_reporte">Métricas campaña Beneficios Exclusivos NOMBRE LOCAL</h1> <span class="titulo_reporte">- <a href="">Ir a la nota</a></span><br />
+
+			<div class="datos">
+				<p><strong>Fecha de inicio y término:</strong></p>
+				<p>dd/mm/aaaa - dd/mm/aaaa</p><br />
+
+				<p><strong>Beneficio Exclusivo:</strong></p>
+				<p>Descripción</p><br />
+
+				<p><strong>Condiciones:</strong></p>
+				<p>Condiciones........</p>
+			</div>
+		</div>
+
+		<div class="participantes_reporte">
+			<ul class="listado_participantes">
+				<li>
+					<a href="">
+						<img src="" width="20" height="20" />
+					</a>
+				</li>
+			</ul>				
+
+			<div class="participantes">
+				<div class="cantidad_participantes_izq">
+				</div>							
+				<div class="cantidad_participantes">
+					<span class="numero_participantes">10</span>
+					Loogareños participando
+				</div>
+				<div class="cantidad_participantes_der">
+				</div>	
+			</div>
+		</div>
+
+		<div class="metricas_reporte">
+			<p><span class="azul">#</span> - Vistas totales página de inicio y páginas interiores</p>
+			<p><span class="azul">#</span> - Vistas totales <a href="">nota</a></p>
+			<p><span class="azul">#</span> - Vistas totales <a href="">ficha informativa</a></p><br />
+			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/recomendaciones.png') }}" height="15px" width="17px" /> Recomendaciones en ficha informativa</p>
+			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/facebook.png') }}" height="16px" width="16px" /> Aumento de fans en Facebook</p>
+			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/twitter.png') }}" height="16px" width="16px" /> Aumento de fans en Twitter</p>
+		</div>
+
+		<div class="ganadores_reporte">
+			<p><strong>Ganadores</strong></p><br />
+			<p>A continuación se detallan los ganadores de la campaña.<br />
+			Una vez que un Loogareño ha asistido al local, marcar el checkbox y hacer click en <strong>Gift Card canjeada</strong>.</p><br />
+
+			<ul>
+				<li>
+					<input type="checkbox" />
+					<a href="">
+						<img class="imagen_ganador" src="" width="20" height="20" />
+						<span>NOMBRE USUARIO</span>
+					</a>
+					<span> - Código Gift Card: <strong>código</strong></span>
+				</li>
+			</ul>
+			
+			<input class="boton_canjeada" type="submit" value="" />
+
+		</div>
 	</div>
+
 {% endblock %}
