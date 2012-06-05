@@ -425,7 +425,18 @@ $rojo: #F72121
                     border-bottom: 1px solid $gris_ccc
                     border-left: 5px solid $gris_ccc
                     padding: 15px 10px
-                    
+
+                .icono_menu_usuario
+                    float: left
+                    margin: 0 5px 0 0
+                    position: relative
+                    top: -2px
+                
+                .texto_con_icono
+                    float: left
+                    position: relative
+                    top: 2px
+
         .selected
             background: $blanco
             border-bottom: 1px solid $gris_f6f
@@ -1445,7 +1456,118 @@ $rojo: #F72121
 
                                 &:hover
                                     @include link_gris_666_hover
-                                                             
+
+    .caja_cupones_usuario
+        float: left
+        left: 160px
+        top: 0
+        padding: 20px 20px 0
+        position: relative
+        width: 759px
+
+        .imagen_gift_card
+            float: left
+            margin: 0 10px 0 0
+            position: relative
+            top: -2px
+
+        ul
+            color: $gris_666
+            float: left
+            list-style: none
+            width: 780px
+
+            li
+                float: left
+                margin: 20px 0 0
+
+                a
+                    @include link_azul
+
+                    &:hover
+                        @include link_azul_hover
+
+                .cupon
+                    background: $gris_faf
+                    float: left
+                    padding: 20px
+
+                    .bloque_premio
+                        border-bottom: 1px solid $gris_f6f
+                        float: left
+                        padding: 0 0 20px 0
+                        width: 740px
+
+                        .imagen_cupon
+                            float: left
+                            margin: 0 20px 0 0
+
+                        .texto_cupon
+                            float: left
+                            font:
+                                size: 17px
+                                weight: bold
+                            line-height: 33px
+                            width: 540px
+
+                    .bloque_detalles
+                        border-bottom: 1px solid $gris_f6f
+                        float: left
+                        font:
+                            size: 12px
+                        line-height: 22px
+                        padding: 20px 0
+                        width: 740px
+
+                    .bloque_datos
+                        float: left
+                        font:
+                            size: 12px
+                        line-height: 22px
+                        padding: 20px 0 0
+                        width: 740px
+
+                        .titulo_datos_cupon
+                            font:
+                                size: 14px
+                                weight: bold
+
+                        .sitio_web_lugar
+                            display: block
+
+                        .facebook_lugar
+                            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
+                            display: inline-block
+                            float: left
+                            height: 16px
+                            margin: 10px 0
+                            width: 16px
+
+                        .twitter_lugar
+                            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
+                            display: inline-block
+                            float: left
+                            height: 16px
+                            margin: 10px 0 10px 10px
+                            width: 16px
+
+                        .visita_ficha_lugar
+                            float: left
+                            width: 740px
+
+                .imprimir_cupon
+                    border-bottom: 1px solid $gris_f6f
+                    float: left
+                    padding: 30px 0px
+                    text-align: right
+                    width: 780px
+
+                    a
+                        color: $gris_666 !important
+                        font:
+                            size: 13px
+                            weight: bold
+                                                          
     .paginacion_perfil
         border-bottom: 1px solid $gris_f6f
         border-top: 1px solid $gris_f6f
