@@ -104,7 +104,7 @@ class DefaultController extends Controller
              GROUP BY l.id
              $geolocCondition
              $orderBy
-             LIMIT 120 OFFSET $offset");
+             LIMIT 50 OFFSET $offset");
         }else{
             $categoria = $cr->findBySlug($categoria);
             $categoriaId = $categoria[0]->getId();
@@ -135,7 +135,7 @@ class DefaultController extends Controller
              GROUP BY l.id
              $geolocCondition
              $orderBy
-             LIMIT 120 OFFSET $offset");
+             LIMIT 50 OFFSET $offset");
         }
 
         $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
@@ -200,6 +200,7 @@ class DefaultController extends Controller
     public function lugarAction($slug){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $fn = $this->get('fn');
 
         $lugar = $lr->findOneBySlug($slug);
         ($lugar->getComuna()->getCiudad()->getPais()->getCodigoArea() != '')?$codigo = $lugar->getComuna()->getCiudad()->getPais()->getCodigoArea().' ':null;
@@ -230,6 +231,14 @@ class DefaultController extends Controller
         if($lugar->getTelefono2() != '') $data['telefonos'][] = $codigo . $lugar->getTelefono2();
         if($lugar->getTelefono3() != '') $data['telefonos'][] = $codigo . $lugar->getTelefono3();
         $data['estrellas'] = $lugar->getEstrellas();
+        $horario = $fn->generarHorario($lugar->getHorario());
+        $data['horario'] = '';
+
+        if($horario){
+            foreach($horario as $hora){
+                $data['horario'] = $data['horario'] . $hora . '\n';
+            }
+        }
 
         $categorias = $lugar->getCategoriaLugar();
         foreach($categorias as $categoria){
@@ -246,9 +255,11 @@ class DefaultController extends Controller
         $data['totalRecomendaciones'] = sizeOf($recomendaciones);
 
         $imagenesActivas = $lugar->getImagenesActivasLugar();
-        $ultimaImagen = $imagenesActivas[sizeOf($imagenesActivas) - 1]->getImagenFull();
         
-        $ultimaImagen = explode('.', $ultimaImagen);
+        if(sizeOf($imagenesActivas) > 0){
+            $ultimaImagen = $imagenesActivas[sizeOf($imagenesActivas) - 1]->getImagenFull();
+            $ultimaImagen = explode('.', $ultimaImagen);
+        }
 
         $imagine = new \Imagine\Gd\Imagine();      
         $bgImage = $imagine->open('assets/images/phone/bg_img_ficha@2x.png');
@@ -386,7 +397,7 @@ public function searchAction(Request $request, $slug, $subcategoria = null, $cat
     $override = ((isset($_GET['o']))?$_GET['o']:NULL);
 
     $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-    $resultadosPorPagina = (!isset($_GET['resultados']))?20:$_GET['resultados'];
+    $resultadosPorPagina = (!isset($_GET['resultados']))?50:$_GET['resultados'];
     $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
 
     $term = $_GET['q'];
