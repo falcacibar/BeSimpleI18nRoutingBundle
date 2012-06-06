@@ -278,6 +278,9 @@
 				</li>
 			</ul>
 
+			{% if post.slug == '' %}
+
+			{% else %}
 			<div>
 				<input type="checkbox" class="desplegar_ads" /> Desplegar código HTML Ad Manager
 				<div style="border:1px solid #ccc;padding:10px;margin-bottom:20px;display:none">
@@ -292,6 +295,7 @@
 						</a>'}}
 				</div>
 			</div>
+			{% endif %}
 
 			{% if concurso != null and concurso.participantes | length > 0 %}
 				<ul>
