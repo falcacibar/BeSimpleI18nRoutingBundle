@@ -1208,6 +1208,10 @@ class SearchController extends Controller{
       unset($_GET['q']);
     }
 
+    $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
+    //Concursos vigentes
+    $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
+
     $paginacion = $fn->paginacion( $resultSetSize[0]['rows'], $resultadosPorPagina, $path, $params, $this->get('router') );
 
     return $this->render('LoogaresLugarBundle:Search:search.html.twig', array(
@@ -1231,7 +1235,8 @@ class SearchController extends Controller{
       'ruta_sector' => $path_sector,
       'ruta_comuna' => $path_comuna,
       'ruta_subcategoria' => $path_subcategoria,
-      'mostrarPrecio' => $mostrarPrecio
+      'mostrarPrecio' => $mostrarPrecio,
+      'concursos' => $concursos
     ));
   }
 }

@@ -397,42 +397,44 @@
 	        </div>
 
 	        <div class="listado_resultados">
+	        	{% if concursos | length > 0 %}
+		        	<div class="campanas_concursos">
+						<div class="concursos_titulo">
+							<div class="titulo">
+								<h3 class="icono_concursos titulo_concursos_search">{{'extra.modulo_concursos.titulo'|trans}}</h3>
+							</div>
 
-	        	<div class="campanas_concursos">
-					<div class="concursos_titulo">
-						<div class="titulo">
-							<h3 class="icono_concursos titulo_concursos_search">{{'extra.modulo_concursos.titulo'|trans}}</h3>
+							<a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}"></a>
 						</div>
 
-						<a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}"></a>
-					</div>
-					<div class="concursos_slide">
-						<div class="espacio_aviso_busqueda_1">
-							<!-- Banners Concursos del sitio -->
-							{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
+						<div class="concursos_slide">
+							<div class="espacio_aviso_busqueda_1">
+								<!-- Banners Concursos del sitio -->
+								{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
 
-							<script type='text/javascript'>
-				            	GA_googleFillSlot("{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
-				        	</script>
- 						</div>
-						<div class="espacio_aviso_busqueda_2">
-							<!-- Banners Concursos del sitio -->
-							{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
+								<script type='text/javascript'>
+					            	GA_googleFillSlot("{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
+					        	</script>
+	 						</div>
+							<div class="espacio_aviso_busqueda_2">
+								<!-- Banners Concursos del sitio -->
+								{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
 
-							<script type='text/javascript'>
-				            	GA_googleFillSlot("{{ad('static','search','concursos_medio','medium')}}_{{app.session.get('ciudad').slug}}");
-				        	</script>
- 						</div>
-						<div class="espacio_aviso_busqueda_3">
-							<!-- Banners Concursos del sitio -->
-							{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
+								<script type='text/javascript'>
+					            	GA_googleFillSlot("{{ad('static','search','concursos_medio','medium')}}_{{app.session.get('ciudad').slug}}");
+					        	</script>
+	 						</div>
+							<div class="espacio_aviso_busqueda_3">
+								<!-- Banners Concursos del sitio -->
+								{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
 
-							<script type='text/javascript'>
-				            	GA_googleFillSlot("{{ad('static','search','concursos_final','medium')}}_{{app.session.get('ciudad').slug}}");
-				        	</script>
+								<script type='text/javascript'>
+					            	GA_googleFillSlot("{{ad('static','search','concursos_final','medium')}}_{{app.session.get('ciudad').slug}}");
+					        	</script>
+							</div>
 						</div>
-					</div>
-	        	</div>
+		        	</div>
+	        	{% endif %}
 	        	
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">

@@ -248,6 +248,10 @@ class LugarController extends Controller{
         $lugarResult[0]->setTwitter($fn->stripHTTP($lugarResult[0]->getTwitter()));
         $lugarResult[0]->setFacebook($fn->stripHTTP($lugarResult[0]->getFacebook()));
 
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
+        //Concursos vigentes
+        $concursos = $conr->getConcursosVigentes($lugarResult[0]->getComuna()->getCiudad()->getId());
+
         /*
         *  Armado de Datos para pasar a Twig
         */
@@ -272,6 +276,7 @@ class LugarController extends Controller{
         $data->accionesUsuario = $accionesUsuario;
         $data->reservas = $reservas;
         $data->pedidos = $pedidos;
+        $data->concursos = $concursos;
 
         $params = array(
             'slug' => $data->getSlug()

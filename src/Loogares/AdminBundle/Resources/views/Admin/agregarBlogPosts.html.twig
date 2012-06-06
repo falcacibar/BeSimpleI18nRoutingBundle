@@ -278,6 +278,21 @@
 				</li>
 			</ul>
 
+			<div>
+				<input type="checkbox" class="desplegar_ads" /> Desplegar código HTML Ad Manager
+				<div style="border:1px solid #ccc;padding:10px;margin-bottom:20px;display:none">
+						{{'<a href="'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
+							<div class="roll_over_concurso">
+								<p class="sorteo_concurso">{{concurso.titulo}}</p>
+							</div>	
+							<div class="contenido_concurso">					
+								<img src="'~asset('assets/images/blog/'~post.imagen)~'" width="177" height="100"/ >
+								<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
+							</div>
+						</a>'}}
+				</div>
+			</div>
+
 			{% if concurso != null and concurso.participantes | length > 0 %}
 				<ul>
 					<li>
@@ -556,6 +571,10 @@
 		    	else {
 		    		return false;
 		    	}					
+		    });
+
+		     $('.desplegar_ads').change(function(e){
+		       	$(this).next().toggle();
 		    });
 
 
