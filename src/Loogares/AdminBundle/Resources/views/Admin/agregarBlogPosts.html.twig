@@ -5,7 +5,7 @@
 {% block content %}
 <style>.no-default{ display:none } .toggle-upload{ color: #06C !important; cursor: pointer; }</style>
 
-	<h1 class="titulo_admin">{% if post.slug == '' %}Agregar nuevo post{% else %}Editar post | <a target="_blank" href="{{ path('post', {'ciudad': ciudad.slug, 'slug': post.slug}) }}">{{post.titulo}}</a>{% endif %}</h1>
+	<h1 class="titulo_admin">{% if post.slug == '' %}Agregar nuevo post{% else %}Editar post | <a target="_blank" href="{{ path('post', {'ciudad': ciudad.slug, 'slug': post.slug}) }}">Ver la nota en el sitio</a>{% endif %}</h1>
 
 	<form action="" method="post" {{ form_enctype(form) }}>
 		<ul class="agregar_elementos_principales_blog_posts">
@@ -19,19 +19,30 @@
 				<input class="slug_post" name="slug" id="" type="text" placeholder="escribe-la-url-para-el-post (evita números, tildes y caracteres especiales)"  value="{{post.slug}}"/>
 			</li>
 
+			<li class="usuario_post">
+				<label>Escrito por</label>
+				{% if post.usuario.id is not defined %}
+					<input name="usuario" id="usuario" type="text" placeholder="Escribe el nombre o el ID del usuario" value="{{app.security.token.user.nombre}} {{app.security.token.user.apellido}} ({{app.security.token.user.id}}) | {{app.security.token.user.slug}}"/>
+					<input name="usuario_id" id="usuario_id" type="hidden" value="({{app.security.token.user.id}})" />
+				{% else %}
+					<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{post.usuario.nombre}} {{post.usuario.apellido}} ({{post.usuario.id}}) | {{post.usuario.slug}}"/>
+					<input name="usuario_id" id="usuario_id" type="hidden" value="({{post.usuario.id}})" />
+				{% endif %}
+			</li>
+
 		</ul>
 
 		<div class="agregar_contenidos_blog_posts">		
 			<ul class="agregar_blog_posts_contenido">
 
-				<li class="usuario_post">
-					<label>Escrito por</label>
-					{% if post.usuario.id is not defined %}
-						<input name="usuario" id="usuario" type="text" placeholder="Escribe el nombre o el ID del usuario" value="{{app.security.token.user.nombre}} {{app.security.token.user.apellido}} ({{app.security.token.user.id}}) | {{app.security.token.user.slug}}"/>
-						<input name="usuario_id" id="usuario_id" type="hidden" value="({{app.security.token.user.id}})" />
+				<li class="lugar_post">
+					<label>Lugar relacionado</label>
+					{% if post.lugar.id is not defined %}
+						<input id="lugar" type="text" placeholder="Escribe el nombre del lugar o su ID (opcional)"/>
+						<input name="lugar_id" id="lugar_id" type="hidden" />
 					{% else %}
-						<input name="usuario" id="usuario" type="text" placeholder="Nombre o ID del Usuario" value="{{post.usuario.nombre}} {{post.usuario.apellido}} ({{post.usuario.id}}) | {{post.usuario.slug}}"/>
-						<input name="usuario_id" id="usuario_id" type="hidden" value="({{post.usuario.id}})" />
+						<input id="lugar" type="text" placeholder="Escribe el nombre del lugar o su ID (opcional)" value="{{post.lugar.nombre}} ({{post.lugar.id}}) | {{post.lugar.calle}} {{post.lugar.numero}} - {{post.lugar.comuna.nombre}}"/>
+						<input name="lugar_id" id="lugar_id" type="hidden" value="({{post.lugar.id}})" />
 					{% endif %}
 				</li>
 
@@ -41,7 +52,7 @@
 				</li>
 
 				<li class="contenidos_texto">
-					<label>Extracto breve del contenido (para previsualizar post)</label>
+					<label>Texto para el newsletter</label>
 					<textarea rows="30" class="preview_post" name="preview" placeholder="Preview (HTML)">{{post.preview}}</textarea>
 				</li>
 			
@@ -54,31 +65,23 @@
 					<a href="" class="toggle-detalle">Desplegar detalles</a>
 
 					<div class="concurso_detalle">
+						<!--
 						<li>
 							<label>Imagen detalle</label>
 							{{form_widget(form.vimagen_detalle, {'attr': {'class': 'imagen_detalle subir_imagen'}} )}}
 						</li>
-
-						<li class="lugar_post">
-							<label>Lugar relacionado</label>
-							{% if post.lugar.id is not defined %}
-								<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Concurso (opcional)"/>
-								<input name="lugar_id" id="lugar_id" type="hidden" />
-							{% else %}
-								<input id="lugar" type="text" placeholder="Lugar al que esta relacionado el Concurso (opcional)" value="{{post.lugar.nombre}} ({{post.lugar.id}}) | {{post.lugar.calle}} {{post.lugar.numero}} - {{post.lugar.comuna.nombre}}"/>
-								<input name="lugar_id" id="lugar_id" type="hidden" value="({{post.lugar.id}})" />
-							{% endif %}
-						</li>
-
+						-->
 						<li class="contenidos_texto">
-							<label>Detalle del post (es reemplazado con los ganadores cuando están publicados)</label>
+							<label>Detalle del premio / post</label>
 							<textarea rows="30" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
 						</li>						
 
+						<!--
 						<li class="contenidos_texto">
 							<label>Ganadores del concurso (reemplaza el detalle del concurso)</label>
 							<textarea rows="30" name="ganadores" placeholder="Texto Ganadores (opcional)">{{post.ganadores}}</textarea>
 						</li>
+						-->
 					</div>
 				
 				</div>
@@ -94,7 +97,7 @@
 					<div class="concurso_condiciones">
 												
 						<li class="contenidos_texto">
-							<label>Condiciones del concurso (si corresponde)</label>
+							<label>Condiciones del concurso</label>
 							<textarea rows="30" name="condiciones" placeholder="Condiciones del Concurso (opcional)">{{post.condiciones}}</textarea>
 						</li>
 					</div>
@@ -146,7 +149,7 @@
 			<li class="fecha_publicacion">
 				<label>Fecha publicación</label>
 				<input type="hidden" name="fecha_publicacion" id="fecha-desde" value="{% if post.fechaPublicacion %}{{post.fechaPublicacion|date('Y-m-d')}}{%endif%}">
-        		<input type="text" id="fecha-desde-ph" placeholder="Fecha de Publicacion (Agendado, Opcional)" value="{% if post.fechaPublicacion %}{{post.fechaPublicacion|date('d-m-y')}}{% endif %}">
+        		<input type="text" id="fecha-desde-ph" placeholder="Fecha de Publicacion" value="{% if post.fechaPublicacion %}{{post.fechaPublicacion|date('d-m-y')}}{% endif %}">
 			</li>
 
 			<li>
@@ -196,13 +199,13 @@
 				</li>		
 
 				<li>
-					<label>Titulo</label>
-					<input name="titulo_concurso" type="text" placeholder="Titulo de Concurso" value="{{(concurso != null) ? concurso.titulo : ''}}"/>
+					<label>Nombre local / Título</label>
+					<input name="titulo_concurso" type="text" placeholder="Ej. Teatro Municipal" value="{{(concurso != null) ? concurso.titulo : ''}}"/>
 				</li>
 
 				<li>
-					<label>Descripción</label>
-					<input name="descripcion_concurso" type="text" placeholder="Descripción del Concurso" value="{{(concurso != null) ? concurso.descripcion : ''}}"/>
+					<label>Descripción concurso</label>
+					<input name="descripcion_concurso" type="text" placeholder="Ej. Sorteamos 5 Gift Cards de $25.000 para 2 personas" value="{{(concurso != null) ? concurso.descripcion : ''}}"/>
 				</li>
 
 				<li>
@@ -213,13 +216,13 @@
 		            		 <option {% if concurso.tipoConcurso.id is defined and concurso.tipoConcurso.id == tipo_concurso.id %}selected="selected"{% endif %}value='{{tipo_concurso.id}}'>{{tipo_concurso.nombre}}</option>
 		            	{% endfor %}
 		            </select>
-		            <a class="agregar_nuevo_tipo" href="">Agregar nuevo tipo de concurso</a>
+		            <a class="agregar_nuevo" href="">Agregar un nuevo tipo de concurso</a>
 				</li>
 
 				<li class="no-default">
-					<label>Nuevo Tipo de Concurso</label>
-					<input type="text" name="nuevo_tipo_concurso" class="nuevo_tipo_concurso" placeholder="Nombre del tipo de Concurso">
-					<a class="quitar_nuevo_tipo">Quitar</a>
+					<label></label>
+					<input type="text" name="nuevo_tipo_concurso" class="nuevo_tipo_concurso" placeholder="Agrega el nuevo tipo de Concurso">
+					<a class="quitar_nuevo agregar_nuevo">Quitar</a>
 				</li>
 
 				<li>
@@ -242,107 +245,142 @@
 
 				<li class="premio_post">
 					<label>Número de premios</label>
-					<input class="numero_premios" name="numero_premios" type="text" placeholder="Número de premios a sortear (opcional)" value="{{(concurso != null) ? concurso.numeroPremios : ''}}"/>
+					<input class="numero_premios" name="numero_premios" type="text" placeholder="Ej. 5" value="{{(concurso != null) ? concurso.numeroPremios : ''}}"/>
 				</li>
 
 				<li>
-					<label>Fecha Inicio</label>
+					<label>Fecha y hora de inicio</label>
 					<input type="hidden" id="fecha-desde-c" value="{% if concurso != null and concurso.fechaInicio %}{{concurso.fechaInicio|date('Y-m-d H:i')}}{% endif %}">
-	        		<input type="text" name="fecha_inicio" id="fecha-desde-c-ph" placeholder="Fecha de Inicio" value="{% if concurso != null and concurso.fechaInicio %}{{concurso.fechaInicio|date('d-m-y H:i')}}{% endif %}">
+	        		<input type="text" name="fecha_inicio" id="fecha-desde-c-ph" placeholder="Ej. 25-12-2010 00:00" value="{% if concurso != null and concurso.fechaInicio %}{{concurso.fechaInicio|date('d-m-y H:i')}}{% endif %}">
 				</li>
 
 				<li>
-					<label>Fecha Cierre</label>
+					<label>Fecha y hora de cierre</label>
 					<input type="hidden" id="fecha-hasta-c" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('Y-m-d H:i')}}{% endif %}">
-	        		<input type="text" name="fecha_termino" id="fecha-hasta-c-ph" placeholder="Fecha de Cierre" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('d-m-y H:i')}}{% endif %}">
+	        		<input type="text" name="fecha_termino" id="fecha-hasta-c-ph" placeholder="Ej. 26-12-2010 12:00" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('d-m-y H:i')}}{% endif %}">
+				</li>
+
+				{% if post.slug == '' %}
+
+				{% else %}
+				<li class="caja_ad_manager">
+					<input type="checkbox" class="desplegar_ads ad_manager" />
+					<span class="titulo_ad_manager">Código HTML para avisos de Ad Manager</span>
+					<div class="codigo_ad_manager" style="display: none">
+							{{'<a href="'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
+								<div class="roll_over_concurso">
+									<p class="sorteo_concurso">{{concurso.titulo}}</p>
+								</div>	
+								<div class="contenido_concurso">					
+									<img src="'~asset('assets/images/blog/'~post.imagen)~'" width="177" height="100"/ >
+									<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
+								</div>
+							</a>'}}
+					</div>
+				</li>
+				{% endif %}
+
+			</ul>
+		</div>
+
+		<div class="datos_concurso">
+			<ul class="concurso">
+
+				<li>
+					<h2 class="titulo_admin_chico">Datos para el reporte 
+					{% if post.lugar.id is not defined %}
+					{% else %}
+						de {{post.lugar.nombre}}
+					{% endif %}
+					</h2>
+				</li>		
+
+				<li>
+					<label>Nº de Me Gusta en Facebook</label>
+					<input name="facebook_inicio" type="text" placeholder="Nº de 'Me gusta' al inicio del concurso" value="{{(concurso != null) ? concurso.facebookInicio : ''}}"/>
 				</li>
 
 				<li>
-					<label>Fans Facebook Inicio</label>
-					<input name="facebook_inicio" type="text" placeholder="Fans al inicio del concurso" value="{{(concurso != null) ? concurso.facebookInicio : ''}}"/>
+					<label>Nº de Me Gusta en Facebook</label>
+					<input name="facebook_cierre" type="text" placeholder="Nº de 'Me gusta' al cierre del concurso" value="{{(concurso != null) ? concurso.facebookFinal : ''}}"/>
 				</li>
 
 				<li>
-					<label>Fans Facebook Cierre</label>
-					<input name="facebook_cierre" type="text" placeholder="Fans al cierre del concurso" value="{{(concurso != null) ? concurso.facebookFinal : ''}}"/>
+					<label>Followers en Twitter</label>
+					<input name="twitter_inicio" type="text" placeholder="Followers al inicio del concurso" value="{{(concurso != null) ? concurso.twitterInicio : ''}}"/>
 				</li>
 
 				<li>
-					<label>Followers Twitter Inicio</label>
-					<input name="twitter_inicio" type="text" placeholder="Seguidores al inicio del concurso" value="{{(concurso != null) ? concurso.twitterInicio : ''}}"/>
+					<label>Followers en Twitter</label>
+					<input name="twitter_final" type="text" placeholder="Followers al cierre del concurso" value="{{(concurso != null) ? concurso.twitterFinal : ''}}"/>
+				</li>
+
+				<li><strong>Nº Visitas</strong></li>
+
+				<li>
+					<label>Página de inicio e interiores</label>
+					<input name="" type="text" placeholder="Nº visitas home, búsquedas, categorías" value=""/>
 				</li>
 
 				<li>
-					<label>Followers Twitter Final</label>
-					<input name="twitter_final" type="text" placeholder="Seguidores al cierre del concurso" value="{{(concurso != null) ? concurso.twitterFinal : ''}}"/>
+					<label>Página nota concurso</label>
+					<input name="" type="text" placeholder="Nº visitas nota concurso" value=""/>
+				</li>
+
+				<li>
+					<label>Página ficha local</label>
+					<input name="" type="text" placeholder="Nº visitas ficha local" value=""/>
 				</li>
 			</ul>
-
-			{% if post.slug == '' %}
-
-			{% else %}
-			<div>
-				<input type="checkbox" class="desplegar_ads" /> Desplegar código HTML Ad Manager
-				<div style="border:1px solid #ccc;padding:10px;margin-bottom:20px;display:none">
-						{{'<a href="'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
-							<div class="roll_over_concurso">
-								<p class="sorteo_concurso">{{concurso.titulo}}</p>
-							</div>	
-							<div class="contenido_concurso">					
-								<img src="'~asset('assets/images/blog/'~post.imagen)~'" width="177" height="100"/ >
-								<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
-							</div>
-						</a>'}}
-				</div>
-			</div>
-			{% endif %}
-
-			{% if concurso != null and concurso.participantes | length > 0 %}
-				<ul>
-					<li>
-						<h2 class="titulo_admin_chico">Participantes</h2>
-					</li>
-					<li>
-						<a class="asignar-ganadores">Asignar ganadores</a>
-						<table style="width:500px">
-							<thead style="width:500px">
-								<th></th>
-								<th>Id</th>
-								<th>Nombre</th>
-								<th>¿Ganador?</th>
-								<th>Código cupón</th>
-								<th>Canjeado</th>
-							</thead>
-							<tbody>
-								{% for participante in concurso.participantes %}
-									<tr>
-										<td>
-											<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">
-												<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('small_usuario') }}" width="20" height="20" />
-											</a>
-										</td>
-										<td>{{participante.usuario.id}}</td>
-										<td>
-											<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">{{participante.usuario.nombre}} {{participante.usuario.apellido}}</a>
-										</td>
-										<td>
-											<input type="checkbox" class="ganadores_checkbox" data-participante="{{participante.id}}"{% if participante.ganador != null %}checked="checked"{% endif %} />
-										</td>
-										{% if participante.ganador != null %} 
-											<td>{{participante.ganador.codigo}}</td>
-											<td>{{(participante.ganador.canjeado) ? 'Sí' : 'No'}}</td>
-										{% else %}
-											<td>--</td>
-											<td>--</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</li>
-				</ul>
-			{% endif %}
 		</div>
+
+		{% if concurso != null and concurso.participantes | length > 0 %}
+		<div class="datos_concurso">
+			<ul class="concurso">
+				<li>
+					<h2 class="titulo_admin_chico">Participantes</h2>
+					<span class="numero_de_ganadores">** Asignar un máximo de {{(concurso != null) ? concurso.numeroPremios : ''}} ganadores</span>
+				</li>
+				<li class="participantes_ganadores">
+					<a class="asignar-ganadores">Asignar ganadores</a>
+					<table style="width: 735px;">
+						<thead style="text-align: left; padding: 0 0 20px 0; font-size: 14px; float: left">
+							<th style="width: 70px;">Id</th>
+							<th style="width: 345px;">Nombre usuario</th>
+							<th style="width: 100px;">Ganadores</th>
+							<th style="width: 120px;">Código cupones</th>
+							<th style="width: 100px;">Canjeado</th>
+						</thead>
+						<tbody>
+							{% for participante in concurso.participantes %}
+								<tr style="padding: 0 0 15px 0; height: 20px; float: left; width: 735px;">
+									<td style="width: 50px; text-align: right; padding: 0 20px 0 0; font-size: 12px;">{{participante.usuario.id}}</td>
+									<td style="width: 20px; padding: 0 5px 0 0;">
+										<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">
+											<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('small_usuario') }}" width="20" height="20" />
+										</a>
+									</td>
+									<td style="width: 300px; padding: 0 20px 0 0">
+										<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">{{participante.usuario.nombre}} {{participante.usuario.apellido}}</a>
+									</td>
+									<td style="width: 80px;padding: 0 20px 0 0;">
+										<input style="width: 20px; margin: 0 30px;" type="checkbox" class="ganadores_checkbox" data-participante="{{participante.id}}"{% if participante.ganador != null %}checked="checked"{% endif %} />
+									</td>
+									{% if participante.ganador != null %} 
+										<td style="width: 100px;padding: 0 20px 0 0;text-align: right;">{{participante.ganador.codigo}}</td>
+										<td style="width: 100px; text-align: center;">{{(participante.ganador.canjeado) ? 'Sí' : 'No'}}</td>
+									{% else %}
+										<td style="width: 100px;padding: 0 20px 0 0;text-align: right;">- - -</td>
+										<td style="width: 100px; text-align: center;">- - -</td>
+									{% endif %}
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</li>
+			</ul>
+		</div>
+		{% endif %}
 
 		{{form_rest(form)}}
 	</form>
@@ -578,7 +616,7 @@
 		    });
 
 		     $('.desplegar_ads').change(function(e){
-		       	$(this).next().toggle();
+		       	$(this).next().next().toggle();
 		    });
 
 

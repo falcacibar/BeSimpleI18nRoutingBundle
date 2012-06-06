@@ -666,12 +666,13 @@ a
         input
             float: left
             font:
-                size: 12px
-            padding: 8px
-            width: 940px
+                size: 20px
+            padding: 10px
+            width: 936px
 
     .url_post
         float: left
+        margin: 0 0 10px
         width: 960px
 
         label
@@ -695,6 +696,34 @@ a
             &:focus
                 border: 1px solid #FFFF99
 
+    .usuario_post
+        float: left
+        width: 960px
+
+        label
+            color: $gris_ccc
+            float: left
+            font:
+                size: 12px
+            margin: 10px
+            width: 60px
+
+        input
+            background: #FFFFEE
+            border: 1px solid #FFFFEE
+            float: left
+            font:
+                size: 12px
+            margin: 0px
+            padding: 8px
+            width: 510px
+
+            &:hover
+                border: 1px solid #FFFF00
+
+            &:focus
+                border: 1px solid #FFFF99
+
 .agregar_contenidos_blog_posts
     float: left
     margin: 0 20px 0 0
@@ -708,27 +737,27 @@ a
         padding: 19px
         width: 600px
 
-        .usuario_post
+        .lugar_post, .premio_post
             float: left
             width: 600px
 
             label
-                color: $gris_ccc
+                color: $gris_666
                 float: left
                 font:
-                    size: 12px
+                    weight: bold
                 margin: 10px 10px 10px 0
-                width: 60px
+                width: 150px
 
             input
                 background: #FFFFEE
                 border: 1px solid #FFFFEE
                 float: left
                 font:
-                    size: 12px
+                    size: 13px
                 margin: 0px
                 padding: 8px
-                width: 510px
+                width: 420px
 
                 &:hover
                     border: 1px solid #FFFF00
@@ -776,7 +805,7 @@ a
             margin: 30px 0 0
             width: 600px
 
-            .lugar_post, .premio_post
+            .premio_post
                 float: left
                 width: 600px
 
@@ -1092,6 +1121,41 @@ a
             border: 0px
             float: left
             padding: 8px 0px
+        
+        .numero_de_ganadores
+            float: left
+            position: relative
+            top: -22px
+
+    .caja_ad_manager
+        margin: 20px 0 0 0
+
+        .ad_manager
+            float: left
+            margin: 0 5px 0 0
+            position: relative
+            top: 2px
+            width: 20px
+        
+        .titulo_ad_manager
+            float: left
+            font:
+                size: 15px
+                weight: bold
+            width: 600px
+
+        .codigo_ad_manager
+            background: $blanco
+            border: 1px solid $gris_ccc
+            float: left
+            margin: 20px 0
+            padding: 10px
+            width: 555px
+
+    .participantes_ganadores
+        float: left
+        margin: 0 0 20px 0
+        width: 919px
 
 .guardar_posts
     background: url('../images/extras/botones_ficha_lugar.png') no-repeat -1025px 0

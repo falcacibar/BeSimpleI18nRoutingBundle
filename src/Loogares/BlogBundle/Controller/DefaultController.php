@@ -55,6 +55,18 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('');
         }
 
+        if($post->getBlogEstado()->getNombre() != 'Post Publicado' && !$this->get('security.context')->isGranted('ROLE_ADMIN')){
+            throw $this->createNotFoundException('');
+        }else if($post->getBlogEstado()->getNombre() == 'Post Borrador'){
+            $this->get('session')->setFlash('post_flash', 'Este es un Borradooooooooooooooooooooooooooooor');
+        }else if($post->getBlogEstado()->getNombre() == 'Post Eliminado'){
+            $this->get('session')->setFlash('post_flash', 'Este Post fue Borrado');
+        }else if($post->getBlogEstado()->getNombre() == 'Post Agendado'){
+            $date = $post->getFechaPublicacion();
+            $date = $date->format('d-m-y');
+            $this->get('session')->setFlash('post_flash', 'Post Agendado para: '.$date);
+        }
+
         if($post->getBlogCategoria()->getBlogTipoPost()->getSlug() == 'concurso') {
             $concurso = $conr->getConcursoPost($post->getId());
             $telefonos = array();
@@ -85,18 +97,6 @@ class DefaultController extends Controller
                 'concurso' => $concurso,
                 'concursos' => $concursos
             ));
-        }
-
-        if($post->getBlogEstado()->getNombre() != 'Post Publicado' && !$this->get('security.context')->isGranted('ROLE_ADMIN')){
-            throw $this->createNotFoundException('');
-        }else if($post->getBlogEstado()->getNombre() == 'Post Borrador'){
-            $this->get('session')->setFlash('post_flash', 'Este es un Borradooooooooooooooooooooooooooooor');
-        }else if($post->getBlogEstado()->getNombre() == 'Post Eliminado'){
-            $this->get('session')->setFlash('post_flash', 'Este Post fue Borrado');
-        }else if($post->getBlogEstado()->getNombre() == 'Post Agendado'){
-            $date = $post->getFechaPublicacion();
-            $date = $date->format('d-m-y');
-            $this->get('session')->setFlash('post_flash', 'Post Agendado para: '.$date);
         }
 
         if($post->getLugar()){
