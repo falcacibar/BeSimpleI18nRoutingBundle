@@ -54,6 +54,9 @@ extra:
         titulo_post: Otros concursos el día de hoy
         ver_todos: Ver todos los sorteos de hoy
         participantes: Loogareño participando|Loogareños participando
+        ganadores:
+            mail:
+                asunto: ¡Felicitaciones! Acabas de ganar un %premio% en Loogares.com    
 
     estaticas:
         codigos_de_conducta:

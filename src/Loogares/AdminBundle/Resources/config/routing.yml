@@ -111,6 +111,10 @@ LoogaresAdminBundle_accionPost:
     pattern:  /posts/{ciudad}/massive
     defaults: { _controller: LoogaresAdminBundle:Admin:accionPosts, habilitar: false, borrar: false }
 
+LoogaresAdminBundle_asignarGanadores:
+    pattern:  /ajax/asignar_ganadores
+    defaults: { _controller: LoogaresAdminBundle:AdminAjax:asignarGanadores }
+
 #
 #
 #Rutas del Administrador de Lugar

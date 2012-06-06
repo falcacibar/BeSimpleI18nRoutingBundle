@@ -5,6 +5,8 @@ namespace Loogares\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Loogares\BlogBundle\Entity\Ganador;
+
 
 
 class AdminAjaxController extends Controller{
@@ -74,5 +76,39 @@ class AdminAjaxController extends Controller{
           'slug' => $slug,
           'ciudad' => $ciudad
       ));
+    }
+
+    public function asignarGanadoresAction(Request $request) {
+      $em = $this->getDoctrine()->getEntityManager();
+      $pr = $em->getRepository("LoogaresBlogBundle:Participante");
+      foreach($request->request->get('ganadores') as $g) {
+        $ganador = new Ganador();
+        $participante = $pr->find($g);
+        $ganador->setParticipante($participante);
+        $ganador->setCodigo(md5($participante->getConcurso()->getId().$participante->getUsuario()->getId()));
+        $ganador->setCanjeado(false);
+
+        $em->persist($ganador);
+        $em->flush();
+
+        // Se envía mail al ganador informando el premio
+        $mail = array();
+        $mail['asunto'] = $this->get('translator')->trans('extra.modulo_concursos.ganadores.mail.asunto', array('%premio%' => '5 entradas a algo'));
+        $mail['usuario'] = $participante->getUsuario();
+        $mail['ganador'] = $ganador;
+        $mail['concurso'] = $participante->getConcurso();
+        $paths = array();
+
+        if(!file_exists('assets/media/cache/medium_concurso/assets/images/blog/'.$participante->getConcurso()->getPost()->getImagen())) {                   
+            $this->get('imagine.controller')->filter('assets/images/blog/'.$participante->getConcurso()->getPost()->getImagen(), "medium_concurso");            
+        }  
+        $paths['concurso'] = 'assets/media/cache/medium_concurso/assets/images/blog/'.$participante->getConcurso()->getPost()->getImagen();      
+        $paths['logo'] = 'assets/images/mails/logo_mails.png';
+
+        $message = $this->get('fn')->enviarMail($mail['asunto'], $participante->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresAdminBundle:Mails:mail_ganador.html.twig', $this->get('templating'));
+        $this->get('mailer')->send($message);
+      }
+
+      return new Response(json_encode(array('status' => 'ok')));
     }
 }

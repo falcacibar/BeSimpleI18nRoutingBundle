@@ -284,14 +284,17 @@
 						<h2 class="titulo_admin_chico">Participantes</h2>
 					</li>
 					<li>
-						<table style="width:400px">
-							<thead style="width:400px">
+						<a class="asignar-ganadores">Asignar ganadores</a>
+						<table style="width:500px">
+							<thead style="width:500px">
 								<th></th>
 								<th>Id</th>
 								<th>Nombre</th>
 								<th>¿Ganador?</th>
+								<th>Código cupón</th>
+								<th>Canjeado</th>
 							</thead>
-							<tbody style="width:400px">
+							<tbody>
 								{% for participante in concurso.participantes %}
 									<tr>
 										<td>
@@ -304,8 +307,15 @@
 											<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">{{participante.usuario.nombre}} {{participante.usuario.apellido}}</a>
 										</td>
 										<td>
-											<input type="checkbox" class="ganadores_checkbox" name="ganador" {% if participante.ganador != null %}checked="checked"{% endif %} />
+											<input type="checkbox" class="ganadores_checkbox" data-participante="{{participante.id}}"{% if participante.ganador != null %}checked="checked"{% endif %} />
 										</td>
+										{% if participante.ganador != null %} 
+											<td>{{participante.ganador.codigo}}</td>
+											<td>{{(participante.ganador.canjeado) ? 'Sí' : 'No'}}</td>
+										{% else %}
+											<td>--</td>
+											<td>--</td>
+										{% endif %}
 									</tr>
 								{% endfor %}
 							</tbody>
@@ -513,6 +523,40 @@
 		    if($('.ganadores_checkbox').filter(':checked').length >= $('.numero_premios').val()){
 		    	$('.ganadores_checkbox').filter(':not(:checked)').attr('disabled', 'disabled');
 		    }
+
+		    if($('.ganadores_checkbox').filter(':checked').length > 0) {
+		    	$('.asignar-ganadores').hide();
+		    	$('.ganadores_checkbox').attr('disabled', 'disabled');
+		    }
+
+		    $('.asignar-ganadores').click(function(){
+		    	if(confirm('¿Estás seguro de los ganadores? Sólo se pueden asignar una sola vez')) {
+		    		var ganadores = new Array();
+		    		$('.ganadores_checkbox').filter(':checked').each(function(){
+		    			ganadores.push($(this).attr('data-participante'));
+		    		});
+		    		if(ganadores.length > 0) {
+		    			$.ajax({
+				            url: WEBROOT+'../admin/ajax/asignar_ganadores',
+				            type: 'post',
+				            data: {'ganadores' : ganadores},
+				            dataType: 'json',
+				            success: function(data){
+				            	if(data.status == 'ok') {
+				            		$('.asignar-ganadores').replaceWith("<div>¡Ganadores asignados!</div>")
+			    					$('.ganadores_checkbox').attr('disabled', 'disabled');
+				            	}
+				            }
+	        			});
+		    		}
+		    		else {
+		    			alert('No elegiste a ningún participante. Intenta de nuevo');
+		    		}	    		
+		    	}
+		    	else {
+		    		return false;
+		    	}					
+		    });
 
 
         });

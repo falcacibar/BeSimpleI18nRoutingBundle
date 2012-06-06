@@ -119,6 +119,9 @@ avalanche_imagine:
         thumb_uploader:
             type:    thumbnail
             options: { size: [96, 96], mode: outbound }
+        medium_concurso:
+            type:    thumbnail
+            options: { size: [177, 100], mode: outbound }
 
 # MailChimp Configuration
 jirafe_mail_chimp:

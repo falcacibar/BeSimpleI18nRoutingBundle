@@ -1,7 +1,7 @@
 # Locale 'es_cl' Administrador
 admin:
     notificaciones:
-        saludo: %nombre% %apellido%,
+        saludo: %nombre% %apellido%
         lugar:            
             aprobar:
                 asunto: ha sido agregado a Loogares.com
