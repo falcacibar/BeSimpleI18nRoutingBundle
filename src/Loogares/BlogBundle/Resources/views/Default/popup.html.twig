@@ -11,11 +11,8 @@
 		<p class="compartir_por_redes_texto">Ahora solamente tienes que esperar al día que cierre el concurso para ver si ganaste...</p>
 		<p class="compartir_por_redes">Cuéntale a tus amigos sobre este concurso para que ellos también participen:</p>
 		<ul>
-	 		<li class="fb_share" style="margin: 0 0 5px; display: none">
+	 		<li class="fb_share" style="margin: 0 0 5px;">
                 <a class="compartir_por_facebook" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
-            </li>
-            <li>
-                <a class="compartir_por_facebook" href=""></a>
             </li>
             <li class="twitter_share" style="margin: 0 0 5px;">                    
                 {% set data_url = url('_lugar', {'slug' : post.lugar.slug}) %}
