@@ -68,11 +68,11 @@ class DefaultController extends Controller
         if($latitude != null && $longitude != null){
             $geoloc = ",( 6371 * acos( cos( radians($latitude) ) * cos( radians( l.mapx ) ) * cos( radians( l.mapy ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( l.mapx ) ) ) ) AS distance";
             $geolocCondition = "HAVING distance < 10";
-            $orderBy = "ORDER BY ranking desc";
+            $orderBy = "ORDER BY distance asc";
         }else{
             $geoloc = null;
             $geolocCondition = null;
-            $orderBy = "ORDER BY ranking desc";
+            $orderBy = "ORDER BY distance asc";
         }
         
         if($categoria == null){
