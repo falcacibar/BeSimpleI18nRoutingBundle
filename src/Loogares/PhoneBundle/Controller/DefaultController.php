@@ -18,6 +18,10 @@ class DefaultController extends Controller
         $ciudad = $this->get('session')->get('ciudad');
         $idCiudad = $ciudad['id'];
         
+        $data[]['tipo'] = 'Todas';
+        $data[sizeOf($data)-1]['categorias'][0]['categoria_nombre'] = 'Todas';
+        $data[sizeOf($data)-1]['categorias'][0]['categoria_slug'] = 'todas';
+        
         foreach($tipoCategoria as $key => $value){
             $id = $value->getId();
             $buff = $this->getDoctrine()
