@@ -132,6 +132,7 @@ class DefaultController extends Controller
         //Concursos vigentes
         $concursos = $conr->getConcursosVigentes($ciudadSession['id']);
 
+
         //Slider del home
         $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
                                WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) and p.blog_estado = 2 

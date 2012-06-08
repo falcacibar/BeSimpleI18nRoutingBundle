@@ -10,6 +10,7 @@ $(function(){
         hideOnContentClick : false,
         padding: 0,
         type: 'ajax',
+        modal: true,
         showCloseButton: false
     });
 
@@ -30,7 +31,8 @@ $(function(){
                         type: 'post',
                         data: dataObj,
                         success: function(data){
-                            $('.concurso_participantes').html($(data).fadeIn('fast'));
+                            var concursos_html = $(data).html();
+                            $('.concurso_participantes').html(concursos_html);
                         }
                     });
                 }

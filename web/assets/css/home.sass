@@ -198,8 +198,10 @@ $rojo: #F72121
         padding: 10px
         width: 940px
 
-        .concursos_selector
+        .concursos_selector_prev
             float: left
+            height: 250px
+            width: 26px
             
             .prev_concurso
                 background: url('../images/home/concursos_anterior.gif') no-repeat 0 0
@@ -211,6 +213,11 @@ $rojo: #F72121
 
                 &:hover
                     background: url('../images/home/concursos_anterior_hover.gif') no-repeat 0 0
+
+        .concursos_selector_next
+            float: right
+            height: 250px
+            width: 26px
 
             .next_concurso
                 background: url('../images/home/concursos_siguiente.gif') no-repeat 0 0
@@ -226,125 +233,126 @@ $rojo: #F72121
         .bx-wrapper
             float: left
             margin: 0 10px
-            width: 868px !important
                 
             .bx-window
-                width: 868px !important
 
     li
-        background: url('../images/extras/borde_relieve_concursos.gif') no-repeat 0px 240px $blanco
-        border-top: 6px solid $gris_666
-        float: left
-        height: 245px
-        margin: 0 11px 0 0
-        width: 206px !important
-        position: relative
-
-        a
+        width: 217px !important
+        
+        .contenedor_idiota
+            background: url('../images/extras/borde_relieve_concursos.gif') no-repeat 0px 240px $blanco
+            border-top: 6px solid $gris_666
             float: left
             height: 245px
-            text:
-                decoration: none
-            width: 206px
-
-        .roll_over_concurso
-            color: $gris_666
-            height: 245px
-            left: 0
+            margin: 0 11px 0 0
+            width: 206px !important
             position: relative
-            cursor: pointer
-            text:
-                shadow: 1px 1px 1px $blanco
-            top: 0
-            width: 206px
-            z-index: 2
 
-            &:hover
-                background: url('../images/home/rollover_concursos.png') no-repeat 0px 0px
-                color: $blanco !important
+            a
+                float: left
+                height: 245px
                 text:
-                    shadow: 0px 0px 0px $blanco
+                    decoration: none
+                width: 206px
 
-            .lugar_concurso
-                font:
-                    size: 12px
-                    weight: bold
-                padding: 8px
+            .roll_over_concurso
+                color: $gris_666
+                height: 245px
+                left: 0
                 position: relative
+                cursor: pointer
                 text:
-                    align: center
-                top: 118px
+                    shadow: 1px 1px 1px $blanco
+                top: 0
+                width: 206px
+                z-index: 2
 
-            .sorteo_concurso
-                font:
-                    size: 13px
-                line-height: 18px
-                padding: 10px
-                position: relative
-                text:
-                    align: center
-                top: 123px
-
-        .contenido_concurso
-            height: 483px
-            position: relative
-            top: -245px
-
-            .caja_contenidos_concurso
-                border: 1px solid $gris_ccc
-                height: 238px
-                position: relative
-                top: 245px
-
-                img
-                    position: relative
-                    top: -245px
+                &:hover
+                    background: url('../images/home/rollover_concursos.png') no-repeat 0px 0px
+                    color: $blanco !important
+                    text:
+                        shadow: 0px 0px 0px $blanco
 
                 .lugar_concurso
-                    background: $gris_f6f
-                    border-bottom: 1px solid $gris_ccc
-                    height: 30px
-                    margin: 0 0 55px
-                    top: -247px
+                    font:
+                        size: 12px
+                        weight: bold
+                    padding: 8px
                     position: relative
-                    width: 204px
+                    text:
+                        align: center
+                    top: 118px
 
-                .participantes_concurso
-                    float: left
-                    margin: 0 18px
+                .sorteo_concurso
+                    font:
+                        size: 13px
+                    line-height: 18px
+                    padding: 10px
                     position: relative
-                    top: -245px
-                    
-                    .cantidad_participantes_izq
-                        background: url('../images/extras/borde_izq_participantes.png') no-repeat 0 0
-                        float: left
-                        height: 26px
-                        width: 6px
+                    text:
+                        align: center
+                    top: 123px
 
-                    .cantidad_participantes_der
-                        background: url('../images/extras/borde_der_participantes.png') no-repeat 0 0
-                        float: left
-                        height: 26px
-                        width: 6px
+            .contenido_concurso
+                height: 483px
+                position: relative
+                top: -245px
 
-                    .cantidad_participantes
-                        background: $azul_participantes
-                        color: $gris_666
-                        font:
-                            size: 11px
-                        float: left
-                        height: 12px
-                        padding: 7px 5px
-                        text-align: center
+                .caja_contenidos_concurso
+                    border: 1px solid $gris_ccc
+                    height: 238px
+                    position: relative
+                    top: 245px
 
-                        .numero_participantes
-                            background: $gris_666
-                            border-radius: 8px
-                            -o-border-radius: 8px
-                            -moz-border-radius: 8px
-                            -webkit-border-radius: 8px
-                            color: $blanco
-                            padding: 3px 6px
+                    img
+                        position: relative
+                        top: -245px
+
+                    .lugar_concurso
+                        background: $gris_f6f
+                        border-bottom: 1px solid $gris_ccc
+                        height: 30px
+                        margin: 0 0 55px
+                        top: -247px
+                        position: relative
+                        width: 204px
+
+                    .participantes_concurso
+                        float: left
+                        margin: 0 18px
+                        position: relative
+                        top: -245px
+                        
+                        .cantidad_participantes_izq
+                            background: url('../images/extras/borde_izq_participantes.png') no-repeat 0 0
+                            float: left
+                            height: 26px
+                            width: 6px
+
+                        .cantidad_participantes_der
+                            background: url('../images/extras/borde_der_participantes.png') no-repeat 0 0
+                            float: left
+                            height: 26px
+                            width: 6px
+
+                        .cantidad_participantes
+                            background: $azul_participantes
+                            color: $gris_666
+                            font:
+                                size: 11px
+                            float: left
+                            height: 12px
+                            padding: 7px 5px
+                            text-align: center
+
+                            .numero_participantes
+                                background: $gris_666
+                                border-radius: 8px
+                                -o-border-radius: 8px
+                                -moz-border-radius: 8px
+                                -webkit-border-radius: 8px
+                                color: $blanco
+                                padding: 3px 6px
 
 .contenido_home
     float: left

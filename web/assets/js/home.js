@@ -56,13 +56,16 @@ $(function(){
         $this.addClass('active');
     });
 
-    $('.concursos li').css('visibility', 'visible')
+    $('.concursos li').css('visibility', 'visible');
+
+
 
     var concursoSlider = $('.concursos').bxSlider({
         displaySlideQty: $('.concursos li').length,
         moveSlideQty: 1,
         controls: false
     });
+
 
     $('.prev_concurso').click(function(){
         concursoSlider.goToPreviousSlide();

@@ -28,8 +28,9 @@
 <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function(){
-	    $('.volver').click(function(){
-	        $.fancybox.close()
+	    $('.volver').click(function(e){
+	    	e.preventDefault();
+	        $.fancybox.close( true );
 	    });
 
 	    $('.fb_button').click(function(){
@@ -39,5 +40,9 @@
 	    $('.registro_facebook_btn').click(function(){
 	    	$('.fb_hidden_button').find('.fb_button').click();
 	    });
+
+	    $('.compartir_por_twitter, .compartir_por_facebook').click(function(){
+	    	$.fancybox.close( true );
+	    })
 	})
 </script>

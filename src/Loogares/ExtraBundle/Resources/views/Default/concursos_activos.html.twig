@@ -9,30 +9,38 @@
 	
 	<div class="concursos_slide">
 
-		<div class="concursos_selector">
-			<a class="prev_concurso"></a>
-		</div>
+		{% if concursos|length > 4 %}
+			<div class="concursos_selector_prev">
+				<a class="prev_concurso"></a>
+			</div>
+		{% else %}
+			<div class="concursos_selector_prev">
+			</div>
+		{% endif %}
+
 		<ul class="concursos">
 			{% for concurso in concursos %}
 				<li>
-					<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
-						<div class="roll_over_concurso">
-							<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
-							<p class="sorteo_concurso">{{concurso.descripcion}}</p>
-						</div>	
-					</a>
-					<div class="contenido_concurso">	
-						<div class="caja_contenidos_concurso">								
-							<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
-							<div class="lugar_concurso"></div>
-							<div class="participantes_concurso">
-								<div class="cantidad_participantes_izq">
-								</div>							
-								<div class="cantidad_participantes">
-									<span class="numero_participantes">{{concurso.participantes|length}}</span>
-									{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}
-								</div>
-								<div class="cantidad_participantes_der">
+					<div class="contenedor_idiota">
+						<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
+							<div class="roll_over_concurso">
+								<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
+								<p class="sorteo_concurso">{{concurso.descripcion}}</p>
+							</div>	
+						</a>
+						<div class="contenido_concurso">	
+							<div class="caja_contenidos_concurso">								
+								<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
+								<div class="lugar_concurso"></div>
+								<div class="participantes_concurso">
+									<div class="cantidad_participantes_izq">
+									</div>							
+									<div class="cantidad_participantes">
+										<span class="numero_participantes">{{concurso.participantes|length}}</span>
+										{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes|length)}}
+									</div>
+									<div class="cantidad_participantes_der">
+									</div>
 								</div>
 							</div>
 						</div>
@@ -41,8 +49,13 @@
 			{% endfor %}
 		</ul>
 
-		<div class="concursos_selector">
-			<a class="next_concurso"></a>
-		</div>
+		{% if concursos|length > 4 %}
+			<div class="concursos_selector_next">
+				<a class="next_concurso"></a>
+			</div>
+		{% else %}
+			<div class="concursos_selector_next">
+			</div>
+		{% endif %}
 	</div>
 </div>		
