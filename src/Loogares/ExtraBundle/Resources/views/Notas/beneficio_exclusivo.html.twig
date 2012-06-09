@@ -92,25 +92,28 @@
 					<ul>
 						<li>
 							<span>Lugar</span>
-							<input type="text" placeholder="Nombre del Lugar"/>
+							<input class="input_largo" type="text" placeholder="" />
 						</li>
 						<li>
 							<span>Nombre</span>
-							<input type="text" placeholder="Nombre del dueño"/>
-							<span>Apellido</span>
-							<input type="text" placeholder="Apellido del dueño"/>
+							<input class="input_corto" type="text" placeholder="" />
+							<span class="span_corto">Apellido</span>
+							<input class="input_corto" type="text" placeholder="" />
 						</li>
 						<li>
 							<span>E-mail</span>
-							<input type="text" placeholder="E-mail del dueño"/>
+							<input class="input_largo" type="text" placeholder="" />
 						</li>
 						<li>
 							<span>Teléfono</span>
-							<input type="text" placeholder="Teléfono del contacto"/>
+							<input class="input_largo" type="text" placeholder="" />
 						</li>
 						<li>
 							<span>Comprúebanos que eres dueño</span>
-							<input type="textarea" placeholder="Algo con lo que podamos verificar que eres el dueño"/>
+							<textarea class="input_area" rows="10"></textarea>
+						</li>
+						<li>
+							<input class="boton_enviar_local" type="submit" value="" />
 						</li>
 					</ul>
 				</form>
@@ -125,8 +128,12 @@
 					<li>- Visita física de potenciales clientes a tu negocio.</li>
 					<li>- Ofrecer Gift Cards de descuento entre los usuarios que participaron de tu campaña, para medir su efectividad y tener la posibilidad de <strong>recuperar tu inversión</strong>.</li>
 				</ul>
-				<p><strong>¡Envíanos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!</strong></p>
+				<p class="envianos">¡Envíanos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!</p>
+				<img class="flecha_boton" src="{{ asset('assets/images/concursos/flecha_boton.png') }}" height="33px" width="105px" />
 			</div>
+
+			<img class="carita_feliz" src="{{ asset('assets/images/concursos/carita_feliz.png') }}" height="20px" width="20px" />
+
 		</div>
 
     </div>

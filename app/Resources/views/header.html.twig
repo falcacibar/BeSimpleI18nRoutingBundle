@@ -1,5 +1,6 @@
 <div class="barra_ciudad">
 	<div class="centrado_ciudad">
+		<!-- Logo Loogares.com -->
 		<a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">
 			<div class="logo_ciudad">
 				<div class="borde_logo">			
@@ -7,31 +8,44 @@
 				</div>			
 			</div>
 		</a>
+		
+		<!-- Si no estoy con sesión de usuario, mostramos el aviso de promoción para locales -->
+		{% if is_granted('ROLE_USER') %}
+			{% set slug = (app.security.token.user.slug != '') ? app.security.token.user.slug : app.security.token.user.id %}			
+		{% else %}
+			<div class="promociona_negocio">
+				<a href="#">Promociona tu negocio</a>
+			</div>
+		{% endif %}
 		{% render "LoogaresExtraBundle:Default:ciudad" %}
+
+		<!-- Caja de redes sociales -->
 		<div class="redes_sociales">
 			{# Santiago de Chile #}
 			{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
 
 				<a class="facebook_btn" href="http://www.facebook.com/Loogarescom" target="blank"></a>
 				<a class="twitter_btn" href="http://www.twitter.com/#!/Loogarescom" target="blank"></a>
-				<a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a>
+				<!-- <a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a> -->
 
 			{# Valparaíso / Viña del Mar #}
 			{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
 
 				<a class="facebook_btn" href="http://www.facebook.com/Loogarescom.Valpo.Vina" target="blank"></a>
 				<a class="twitter_btn" href="https://twitter.com/#!/LgrsValpoVina" target="blank"></a>
-				<a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a>
+				<!-- <a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a> -->
 			
 			{# Buenos Aires #}	
 			{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
 
 				<a class="facebook_btn" href="http://www.facebook.com/pages/Loogarescom-Buenos-Aires/248846681874532#" target="blank"></a>
 				<a class="twitter_btn" href="https://twitter.com/#!/LoogaresBA" target="blank"></a>
-				<a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a>
+				<!-- <a class="blog" href="http://www.loogares.com/blog">{{'general.header.blog'|trans}}</a> -->
 				
 			{% endif %}
 		</div>
+
+		<!-- Opciones de login y registro de usuario -->
 		<div class="login">
 			{% if is_granted('ROLE_USER') %}
 				{% set slug = (app.security.token.user.slug != '') ? app.security.token.user.slug : app.security.token.user.id %}					
@@ -60,7 +74,6 @@
 						</div>
 					</li>
 				</ul>		
-			
 			{% else %}
 				<a class="usuario_login_entra" href="{{path('login')}}">{{'general.header.usuario.login'|trans}}</a>
 				<a class="usuario_login_registro" href="{{path('registroUsuario')}}">{{'general.header.usuario.registro'|trans}}</a>

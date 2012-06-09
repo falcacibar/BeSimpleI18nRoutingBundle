@@ -636,15 +636,14 @@ textarea
                 margin: 4px 0 0 20px\9
                                 
         .redes_sociales
-            background: $gris_ccc
             float: right
             font:
                 size: 12px
             height: 20px
             margin: 0 1px 0 0
             padding: 4px 9px 1px
-            padding: 4px 7px 1px\9
-            width: 70px
+            padding: 4px 7px 1px 9px
+            width: 40px
             
             a
                 color: $gris_444
@@ -677,6 +676,22 @@ textarea
                 float: left
                 display: block
                 margin: 3px 0 0 5px
+
+        .promociona_negocio
+            background: $azul_claro
+            color: $blanco
+            float: right
+            font:
+                size: 11px
+            height: 19px
+            margin: 0 1px 0 0
+            padding: 6px 10px 0px
+
+            a
+                @include link_blanco
+
+                &:hover
+                    @include link_blanco_hover
 
 .menu
     background: url('../images/extras/fondo_header.png') 0 0 repeat-x
