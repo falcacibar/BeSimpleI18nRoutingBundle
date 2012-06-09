@@ -1,35 +1,157 @@
-{% extends "::base.html.twig" %}
+{% extends "::base_locales.html.twig" %}
 
 {% block title %}{{parent()}} | Beneficio Exclusivo{% endblock %}
 
 {% block content %}
+
+<div class="contenedor contenedor_reporte">
+
+	<div class="contenido">               
+
+		<img class="logo_reporte" src="{{ asset('assets/images/reporte/logo_reporte.png') }}" height="86" width="120" />
+
+		<div class="que_es">
+			<div class="promociona_tu_negocio">
+				<span class="titulo_promociona">Promociona tu negocio entre la gente de tu ciudad</span>
+				<span class="texto_promociona">¿Tienes un restaurante o una tienda? Destácalo entre cientos de usuarios 
+		fanáticos de lugares en la ciudad y aumenta las posibilidades de tener nuevos clientes
+		ofreciendo un Beneficio Exclusivo en Loogares.com.</span>
+			</div>
+			<div class="promociona_tu_negocio_boton">
+				<span class="titulo_promociona_boton">¡Promociona y destaca tu negocio ahora!</span>
+				<a class="boton_promociona" href=""></a>
+			</div>
+			<div class="llega_a_clientes">
+				<img class="imagen_que_es" src="" height="120px" width="120" />
+				<span class="titulos_que_es">Llega a potenciales clientes</span>
+				<span class="texto_que_es">Sortea un premio jugoso para que cientos de loogareños participen, conozcan lo que ofreces y queden registrados en un listado de gente que sigue tu negocio en Loogares.com.</span>
+			</div>
+			<div class="destaca_sobre_tu_competencia">
+				<img class="imagen_que_es" src="" height="120px" width="120" />
+				<span class="titulos_que_es">Destácate por sobre tu competencia</span>
+				<span class="texto_que_es">Aparece en nuestra página de inicio, páginas interiores y redes sociales. Podrás ganar recomendaciones y superar a tu competencia en nuestros rankings.</span>
+			</div>
+			<div class="lleva_gente">
+				<img class="imagen_que_es" src="" height="120px" width="120" />
+				<span class="titulos_que_es">Lleva gente a tu negocio</span>
+				<span class="texto_que_es">Al final de la campaña tendrás un listado de gente que sigue tu negocio. Ofréceles Gift Cards de descuento para que vayan, consuman y logres recuperar tu inversión.</span>
+			</div>
+		</div>
+
+    </div>
+
+</div>
+
+<div class="contenedor contenedor_reporte fondo_total_celeste">
+
+	<div class="contenido">               
+
+		<div class="lo_que_dicen">
+			<p class="titulo_lo_que_dicen">Lo que están diciendo de nuestras campañas de Beneficios Exclusivos</p>
+			<div class="columna_izquierda">
+				<p>Tenemos muy buenas recomendaciones, lo que ha nos ha permitido destacar dentro del sitio, las campañas que hemos hecho han resultado como esperábamos, nos interesa que los beneficiados lo pasen muy bien y entiendan de que se trata la propuesta de Santapizza. Hemos seguido la lógica del boca a boca, que para nosotros es la que mejor funciona.<br /><br />
+				Esperamos seguir participando de Loogares.com, hay mucho potencial aún por explorar. Nos interesa mucho el valor que tiene su comunidad, para nosotros ese ha sido un gran beneficio, es el tipo de público inquieto por vivir la ciudad el que nos interesa.</p>
+				<div class="autor">
+					<p><strong>Pablo Serrano</strong></p>
+					<p>Encargado de Diseño y Marketing, Santapizza</p>
+					<a href="">Visita la ficha de Santapizza</a>
+				</div>
+				<div class="logo_local">
+					<img src="{{ asset('assets/images/concursos/logo_santa_pizza.png') }}" height="75px" width="140px" />
+				</div>
+			</div>
+			<div class="columna_derecha">
+				<p>Fue una gran ayuda para nosotros, se empezó hablar de nuestro nuevo proyecto dentro de las redes sociales, a correr la voz, y empezamos a tener muy buenas recomendaciones y recepción de la gente. A la vez regalamos a los seguidores de Loogares.com unos hot dogs.<br /><br />
+				Los ganadores se fueron con una gran sonrisa después de haber vivido la experiencia de Hogs y por supuesto con ganas de volver.</p>
+				<div class="autor">
+					<p><strong>Alejandra Katz</strong></p>
+					<p>Jefa de Marketing, Producción y Comunicación Hogs</p>
+					<a href="">Visita la ficha de Hogs</a>
+				</div>
+				<div class="logo_local">
+					<img src="{{ asset('assets/images/concursos/logo_hogs.png') }}" height="75px" width="140px" />
+				</div>
+			</div>
+			<img class="imagen_garantia" src="{{ asset('assets/images/concursos/garantia.png') }}" height="124px" width="123px" />
+		</div>
+
+    </div>
+
+</div>
+
+<div class="contenedor contenedor_reporte">
+
+	<div class="contenido">               
+
+		<div class="buena_onda_form">
+			<p class="titulo_buena_onda">Somos los buena onda en difusión online de negocios en la ciudad</p>
+			<p class="bajada_buena_onda">Ofrecemos un precio muy conveniente y full compromiso con tu campaña<br /><br />
+			¿Qué esperas?</p>
+			<div class="columna_izquierda">
+				<form>
+					<ul>
+						<li>
+							<span>Lugar</span>
+							<input type="text" placeholder="Nombre del Lugar"/>
+						</li>
+						<li>
+							<span>Nombre</span>
+							<input type="text" placeholder="Nombre del dueño"/>
+							<span>Apellido</span>
+							<input type="text" placeholder="Apellido del dueño"/>
+						</li>
+						<li>
+							<span>E-mail</span>
+							<input type="text" placeholder="E-mail del dueño"/>
+						</li>
+						<li>
+							<span>Teléfono</span>
+							<input type="text" placeholder="Teléfono del contacto"/>
+						</li>
+						<li>
+							<span>Comprúebanos que eres dueño</span>
+							<input type="textarea" placeholder="Algo con lo que podamos verificar que eres el dueño"/>
+						</li>
+					</ul>
+				</form>
+			</div>
+			<div class="columna_derecha">
+				<p><strong>Promociona tu negocio sorteando premios a través de una campaña de Beneficios Exclusivos desde 1 semana hasta 1 mes y obtendrás:</strong></p><br />
+				<ul>
+					<li>- Difusión en nuestras páginas más importantes, incluyendo la página de inicio.</li>
+					<li>- Difusión en nuestro Facebook, Twitter y Newsletter.</li>
+					<li>- Participación activa de nuestros usuarios y listado completo de participantes.</li>
+					<li>- Métricas de la efectividad de tu campaña en visitas y participación.</li>
+					<li>- Visita física de potenciales clientes a tu negocio.</li>
+					<li>- Ofrecer Gift Cards de descuento entre los usuarios que participaron de tu campaña, para medir su efectividad y tener la posibilidad de <strong>recuperar tu inversión</strong>.</li>
+				</ul>
+				<p><strong>¡Envíanos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!</strong></p>
+			</div>
+		</div>
+
+    </div>
+
+</div>
+
+	<!--
 	{% if app.session.hasFlash('beneficio_flash') %}
             <div class="mensaje_exito">
                 <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('beneficio_flash')}}</p>
             </div>
     {% endif %}
-	<div class="estaticas">
 
-		<div class="contenido">
-			<h1 class="titulo">Beneficio Exclusivo</h1>
-			<h2>Promociona tu negocio entre la gente de tu ciudad</h2>
-
-			<form action="{{path('_beneficio_exclusivo_mail')}}" method="POST">
-				<ul>
-					<li>
-						<label>Nombre del local</label>
-						<input type="text" name="nombre" />
-					</li>
-					<li>
-						<label></label>
-						<input type="submit" value="Enviar" />
-					</li>
-				</ul>
-			</form>
-		</div>
-
-		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
-
-	</div>
+	<form action="{{path('_beneficio_exclusivo_mail')}}" method="POST">
+		<ul>
+			<li>
+				<label>Nombre del local</label>
+				<input type="text" name="nombre" />
+			</li>
+			<li>
+				<label></label>
+				<input type="submit" value="Enviar" />
+			</li>
+		</ul>
+	</form>
+	-->
 
 {% endblock %}

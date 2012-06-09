@@ -105,7 +105,6 @@ $(document).ready(function() {
       });
     }
 
-
 });
 
 function getTipo(tipo){
