@@ -1,7 +1,7 @@
 <div class="campanas_concursos_home">
 	<div class="concursos_titulo">
 		<div class="titulo">
-			<h3 class="icono_concursos titulo_home">{{(post is defined) ? 'extra.modulo_concursos.titulo_post'|trans : 'extra.modulo_concursos.titulo'|trans}}</h3>
+			<h2 class="icono_concursos titulo_home">{{(post is defined) ? 'extra.modulo_concursos.titulo_post'|trans : 'extra.modulo_concursos.titulo'|trans}}</h2>
 		</div>
 
 		<a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}"></a>
@@ -24,7 +24,7 @@
 					<div class="contenedor_idiota">
 						<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 							<div class="roll_over_concurso">
-								<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
+								<p class="lugar_concurso">{{concurso.titulo}}</p>
 								<p class="sorteo_concurso">{{concurso.descripcion}}</p>
 							</div>	
 						</a>

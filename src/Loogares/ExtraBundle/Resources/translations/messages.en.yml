@@ -49,6 +49,12 @@ extra:
         ver_mas: See all discounts »
         dias: Days
 
+    modulo_concursos:
+        titulo: Participate and win in today's contest:
+        titulo_post: Other contest today
+        ver_todos: See all contest today
+        participantes: Loogareño participating|Loogareños participating
+
     estaticas:
         codigos_de_conducta:
             titulo: Content guidelines

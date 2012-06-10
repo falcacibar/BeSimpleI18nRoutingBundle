@@ -1,5 +1,5 @@
 <div class="header_reporte">
-	<p class="volver_loogares"><a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">Volver a Loogares.com »</a></p>
-	<p class="usuario_reporte">Bienvenido NOMBRE DUEÑO | <a href="">Salir</a></p>
+	<p class="volver_loogares"><a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">{{'general.header_locales.volver'|trans}}</a></p>
+	<p class="usuario_reporte">{{'general.header_locales.bienvenido'|trans}} NOMBRE DUEÑO | <a href="">{{'general.header_locales.salir'|trans}}</a></p>
 </div>
 <div class="contenido_reporte">

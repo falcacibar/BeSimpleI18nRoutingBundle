@@ -14,6 +14,15 @@ general:
             logout: Salir
         blog: Blog
         ejemplos_buscador: Completos, Lastarria, bares, La Moneda
+        promociona: Promociona tu negocio
+
+    header_locales:
+        volver: Volver a Loogares.com »
+        que_es: ¿Qué es?
+        clientes: Clientes
+        promocionar: Promocionar mi negocio
+        bienvenido: Bienvenido
+        salir: Salir
 
     footer:
         participa:
