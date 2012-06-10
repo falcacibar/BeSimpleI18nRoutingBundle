@@ -8,7 +8,7 @@
 
 	<div class="concursos_titulo">
 		<div class="titulo">
-			<h3 class="icono_concursos titulo_home">{{(post is defined) ? 'extra.modulo_concursos.titulo_post'|trans : 'extra.modulo_concursos.titulo'|trans}}</h3>
+			<h1 class="icono_concursos titulo_home">{{(post is defined) ? 'extra.modulo_concursos.titulo_post'|trans : 'extra.modulo_concursos.titulo'|trans}}</h1>
 		</div>
 	</div>
 
@@ -22,7 +22,7 @@
 			<li>
 				<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 					<div class="roll_over_concurso">
-						<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
+						<h3 class="lugar_concurso">{{concurso.titulo}}</h3>
 						<p class="sorteo_concurso">{{concurso.descripcion}}</p>
 					</div>	
 				</a>
@@ -56,7 +56,7 @@
 
 	<div class="concursos_titulo">
 		<div class="titulo">
-			<h3 class="icono_concursos titulo_home">Sorteos pasados:</h3>
+			<h2 class="icono_concursos titulo_home">{{'extra.modulo_concursos.titulo_pasados'|trans}}</h2>
 		</div>
 	</div>
 
@@ -70,7 +70,7 @@
 			<li>
 				<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 					<div class="roll_over_concurso">
-						<h2 class="lugar_concurso">{{concurso.titulo}}</h2>
+						<h4 class="lugar_concurso">{{concurso.titulo}}</h4>
 						<p class="sorteo_concurso">{{concurso.descripcion}}</p>
 					</div>	
 				</a>
