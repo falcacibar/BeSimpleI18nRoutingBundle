@@ -125,6 +125,11 @@ usuario:
         lista:
             borrar: Borrar
 
+    gift_card:
+        titulo: Gift Cards activadas
+        codigo: Código Gift Card:
+        imprimir: Imprimir cupón
+
     edicion:
         titulo_pag: Edita tus datos
         titulo: Edita los datos de tu perfil
