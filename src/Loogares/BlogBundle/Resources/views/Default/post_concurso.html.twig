@@ -24,17 +24,17 @@
 					{% else %}
 						{% if concurso.tipoConcurso.slug == 'click'%}
 							{% if concurso.participa ==  true %}
-								<div class="boton_participando_click"></div>
+								<div class="boton_participando boton_participando_click"></div>
 							{% else %}	
 								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}				
-								<a {% if is_granted('ROLE_USER')%}class="boton_participar boton_participar_click" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% else %}class="boton_registro boton_participar_click" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
+								<a {% if is_granted('ROLE_USER')%}class="boton_participar boton_participar_click" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}"{% else %}class="boton_registro boton_participar_click" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
 							{% endif %}
 						{% elseif concurso.tipoConcurso.slug == 'recomendacion' %}
 							{% if concurso.participa ==  true %}
-								<div class="boton_participando_recomendar"></div>
+								<div class="boton_participando boton_participando_recomendar"></div>
 							{% else %}	
 								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}				
-								<a {% if is_granted('ROLE_USER')%}class="boton_participar boton_participar_recomendar" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% else %}class="boton_registro boton_participar_recomendar" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
+								<a {% if is_granted('ROLE_USER')%}class="boton_participar boton_participar_recomendar" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'recomendacion'})}}"{% else %}class="boton_registro boton_participar_recomendar" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
 							{% endif %}
 						{% endif %}
 					{% endif %}
@@ -66,14 +66,14 @@
 			<div class="redes_sociales_concurso">
 				<h6>{{'blog.comparte'|trans}}</h6>
 				<ul class="redes_listado">
-				<li>
-					<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="{{post.titulo}} {{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-lang="es" data-hashtags="Loogarescom">{{'general.footer.redes.tweet'|trans}}</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-				</li>
-				<li>
-					<div class="fb-like" data-href="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false" data-font="arial"></div>
-				</li>
-			</ul>
+					<li>
+						<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="{{post.titulo}} {{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-lang="es" data-hashtags="Loogarescom">{{'general.footer.redes.tweet'|trans}}</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+					</li>
+					<li>
+						<div class="fb-like" data-href="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false" data-font="arial"></div>
+					</li>
+				</ul>
 			</div>
 
 			<div class="datos_lugar_concurso">

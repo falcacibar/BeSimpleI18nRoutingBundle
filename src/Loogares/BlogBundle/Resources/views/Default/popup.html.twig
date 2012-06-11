@@ -5,7 +5,7 @@
 		<span>{{'blog.popup.registro.o'|trans}} <a href="{{path('registroUsuario')}}">{{'blog.popup.registro.registro'|trans}}</a></span>
         <a href="" class="volver">{{'blog.popup.registro.volver'|trans}}</a>
 	</div>
-{% elseif popup == 'compartir' %}
+{% elseif popup == 'compartir' and tipo == 'click' %}
 	<div class="popup_compartir">
 		<p class="titulo_popup">{{'blog.popup.participando.titulo'|trans}}</p>
 		<p class="compartir_por_redes_texto">{{'blog.popup.participando.texto_1'|trans}}</p>
@@ -20,6 +20,23 @@
                 {% set data_via = "Loogarescom" %}
                 <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
             </li>
+		</ul>
+        <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>
+	</div>
+{% elseif popup == 'compartir' and tipo == 'recomendacion' %}
+	<div class="popup_compartir">
+		<p class="titulo_popup">{{'blog.popup.participando_alianza.titulo'|trans}}</p>
+		<p>{{'blog.popup.participando_alianza.bajada'|trans}}</p>
+		<p>{{'blog.popup.participando_alianza.texto_1'|trans}} <a href="{{url('locale', {'slug' : post.ciudad.slug})}}">{{'blog.popup.participando_alianza.texto_link'|trans}}</a> {{'blog.popup.participando_alianza.texto_2'|trans}}</p>
+		<p>{{'blog.popup.participando_alianza.cuentale'|trans}}</p>
+		<ul>
+			<li>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="{{post.titulo}} {{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-lang="es" data-hashtags="Loogarescom">{{'general.footer.redes.tweet'|trans}}</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			</li>
+			<li>
+				<div class="fb-like" data-href="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false" data-font="arial"></div>
+			</li>
 		</ul>
         <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>
 	</div>

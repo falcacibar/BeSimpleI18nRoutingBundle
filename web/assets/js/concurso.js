@@ -24,7 +24,12 @@ $(function(){
             dataType: 'json',
             success: function(data){
                 if(data.status == 'ok') {
-                    $('.boton_participar').replaceWith("<div class='boton_participando'></div>");
+                    if($this.hasClass('boton_participar_click')) {
+                        $this.replaceWith("<div class='boton_participando boton_participando_click'></div>");
+                    }
+                    else if($this.hasClass('boton_participar_recomendar')) {
+                        $this.replaceWith("<div class='boton_participando boton_participando_recomendar'></div>");
+                    }                    
                     // Actualizamos los participantes
                     $.ajax({
                         url: WEBROOT+'../ajax/actualizar_participantes',
