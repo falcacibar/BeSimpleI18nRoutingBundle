@@ -247,15 +247,15 @@
 						<input type="checkbox" class="desplegar_ads ad_manager" />
 						<span class="titulo_ad_manager">Código HTML para avisos de Ad Manager</span>
 						<div class="codigo_ad_manager" style="display: none">
-								{{'<a href="'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
+								{{-'<a href="'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
 									<div class="roll_over_concurso">
-										<p class="sorteo_concurso">{{concurso.titulo}}</p>
+										<p class="sorteo_concurso">'~concurso.titulo~'</p>
 									</div>	
 									<div class="contenido_concurso">					
 										<img src="'~asset('assets/images/blog/'~post.imagen)~'" />
 										<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
 									</div>
-								</a>'}}
+								</a>'-}}
 						</div>
 					</li>
 				{% endif %}
