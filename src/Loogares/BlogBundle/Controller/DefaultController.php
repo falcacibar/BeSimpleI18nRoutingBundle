@@ -124,7 +124,7 @@ class DefaultController extends Controller
         ));
     }
 
-    public function compartirPopUpAction($ciudad = null, $slug) {
+    public function compartirPopUpAction($ciudad = null, $slug, $tipo) {
         $em = $this->getDoctrine()->getEntityManager();
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
 
@@ -133,7 +133,8 @@ class DefaultController extends Controller
         $popup = "compartir";
         return $this->render('LoogaresBlogBundle:Default:popup.html.twig', array(
             'popup' => $popup,
-            'post' => $post
+            'post' => $post,
+            'tipo' => $tipo
         ));
     }
 

@@ -1816,7 +1816,6 @@ class AdminController extends Controller
         $fn = $this->get('fn');
         $imagenes = array();
         $fechaPublicacion = null;
-        $fechaTermino = null;
         $lugar = null;
 
         $ciudad = $cr->findOneBySlug($ciudad);
@@ -1910,19 +1909,10 @@ class AdminController extends Controller
                         $tipoConcurso = $tcr->find(preg_match('/Selecciona/', $request->request->get('tipo_concurso'))?1:$request->get('tipo_concurso'));
                     }
 
-                    // Se setean todas los campos del concurso, sean nuevos o actualizados                    
-                    if($request->request->get('nuevo_estado') != ''){
-                        $nuevoEstadoConcurso = new EstadoConcurso();
-                        $nuevoEstadoConcurso->setNombre($request->request->get('nuevo_estado'));
-                        $nuevoEstadoConcurso->setSlug($fn->generarSlug($request->request->get('nuevo_estado')));
-                        $nuevoEstadoConcurso->setClase($request->request->get('nuevo_estado_clase'));
-                        $em->persist($nuevoEstadoConcurso);
-                        $em->flush();
-                        $estadoConcurso = $nuevoEstadoConcurso;
-                    }else{
-                        $estadoConcurso = $ecr->findOneById(preg_match('/Selecciona/', $request->request->get('estado_concurso'))?5:$request->get('estado_concurso'));
-                    }
+                    $estadoConcurso = $ecr->findOneBySlug('sin-estado');
 
+                    $fechaInicio = null;
+                    $fechaTermino = null;
                     if($request->request->get('fecha_inicio') != ''){
                         $fechaInicio = new \DateTime( $request->request->get('fecha_inicio') );
                     }  

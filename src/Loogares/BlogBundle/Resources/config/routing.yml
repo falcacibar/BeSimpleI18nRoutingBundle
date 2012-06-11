@@ -18,7 +18,7 @@ concurso_registro:
     defaults: { _controller: LoogaresBlogBundle:Default:registroPopUp, ciudad: null }
 
 concurso_compartir:
-    pattern:  /{ciudad}/blog/{slug}/concurso/compartir
+    pattern:  /{ciudad}/blog/{slug}/concurso/compartir/{tipo}
     defaults: { _controller: LoogaresBlogBundle:Default:compartirPopUp, ciudad: null }
 
 blog:

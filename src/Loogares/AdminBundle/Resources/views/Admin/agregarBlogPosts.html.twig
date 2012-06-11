@@ -225,24 +225,6 @@
 					<a class="quitar_nuevo agregar_nuevo">Quitar</a>
 				</li>
 
-				<li>
-					<label>Estado Concurso</label>
-		            <select name="estado_concurso">
-		            	<option>Selecciona una Opción (o agrega una nueva)</option>
-		            	{% for estado_concurso in estados_concurso %}
-		            		 <option {% if concurso.estadoConcurso.id is defined and concurso.estadoConcurso.id == estado_concurso.id %}selected="selected"{% endif %}value='{{estado_concurso.id}}'>{{estado_concurso.nombre}}</option>
-		            	{% endfor %}
-		            </select>
-		            <a class="agregar_nuevo" href="">Agregar nuevo estado</a>
-				</li>
-
-				<li class="no-default">
-					<label>Nuevo Estado</label>
-					<input type="text" name="nuevo_estado" class="nuevo_estado" placeholder="Nombre del estado">
-					<input type="text" name="nuevo_estado" class="nuevo_estado_clase" placeholder="Clase del estado">
-					<a class="quitar_nuevo">Quitar</a>
-				</li>
-
 				<li class="premio_post">
 					<label>Número de premios</label>
 					<input class="numero_premios" name="numero_premios" type="text" placeholder="Ej. 5" value="{{(concurso != null) ? concurso.numeroPremios : ''}}"/>
@@ -260,24 +242,22 @@
 	        		<input type="text" name="fecha_termino" id="fecha-hasta-c-ph" placeholder="Ej. 26-12-2010 12:00" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('d-m-y H:i')}}{% endif %}">
 				</li>
 
-				{% if post.slug == '' %}
-
-				{% else %}
-				<li class="caja_ad_manager">
-					<input type="checkbox" class="desplegar_ads ad_manager" />
-					<span class="titulo_ad_manager">Código HTML para avisos de Ad Manager</span>
-					<div class="codigo_ad_manager" style="display: none">
-							{{'<a href="'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
-								<div class="roll_over_concurso">
-									<p class="sorteo_concurso">{{concurso.titulo}}</p>
-								</div>	
-								<div class="contenido_concurso">					
-									<img src="'~asset('assets/images/blog/'~post.imagen)~'" />
-									<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
-								</div>
-							</a>'}}
-					</div>
-				</li>
+				{% if post.lugar != null %}
+					<li class="caja_ad_manager">
+						<input type="checkbox" class="desplegar_ads ad_manager" />
+						<span class="titulo_ad_manager">Código HTML para avisos de Ad Manager</span>
+						<div class="codigo_ad_manager" style="display: none">
+								{{'<a href="'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
+									<div class="roll_over_concurso">
+										<p class="sorteo_concurso">{{concurso.titulo}}</p>
+									</div>	
+									<div class="contenido_concurso">					
+										<img src="'~asset('assets/images/blog/'~post.imagen)~'" />
+										<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
+									</div>
+								</a>'}}
+						</div>
+					</li>
 				{% endif %}
 
 			</ul>
@@ -557,12 +537,12 @@
         		}
 	        });
 
-	        $('.agregar_nuevo, .agregar_nuevo_tipo').click(function(e){
+	        $('.agregar_nuevo').click(function(e){
 	        	e.preventDefault();
 	        	$(this).parent().next().show();
 	        });
 
-	        $('.quitar_nuevo, .quitar_nuevo_tipo').click(function(e){
+	        $('.quitar_nuevo').click(function(e){
 	        	e.preventDefault();
 	        	$(this).parent().hide();
 	        	$(this).parent().find('[type=text]').val('');

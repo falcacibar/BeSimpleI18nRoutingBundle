@@ -92,8 +92,7 @@ class ConcursoRepository extends EntityRepository
     }
 
     public function isUsuarioParticipando($usuario, $concurso) {
-    	$em = $this->getEntityManager();
-
+    	  $em = $this->getEntityManager();
         //Query para obtener el total de recomendaciones del usuario        
         $q = $em->createQuery("SELECT p
                                FROM Loogares\BlogBundle\Entity\Participante p
