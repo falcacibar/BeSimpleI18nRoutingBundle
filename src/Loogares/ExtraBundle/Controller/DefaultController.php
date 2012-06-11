@@ -380,19 +380,26 @@ class DefaultController extends Controller
     public function beneficioExclusivoMailAction(Request $request) {
         // Almacenamos información en un array
         $datos = array();
+        $datos['lugar'] = $request->request->get('lugar');
         $datos['nombre'] = $request->request->get('nombre');
+        $datos['apellido'] = $request->request->get('apellido');
+        $datos['mail'] = $request->request->get('mail');
+        $datos['telefono'] = $request->request->get('telefono');
+        $datos['comprobar'] = preg_split('/\n/', $request->request->get('comprobar'));
 
         // Enviar mail con información provista por el local
         $mail = array();
         $mail['datos'] = $datos;
-        $mail['asunto'] = "Algún asunto que debe ser traducido";
+        $mail['asunto'] = "Beneficio Exclusivo - Datos de Contacto";
 
-         // Mensaje de éxito del reporte
-        $this->get('session')->setFlash('beneficio_flash','¡Gracias por enviarnos la información! Te contactaremos a la brevedad.');
+        $paths = array(); 
+        $paths['logo'] = 'assets/images/mails/logo_mails.png';
+
+        $message = $this->get('fn')->enviarMail($mail['asunto'], 'developers@loogares.com', $datos['mail'], $mail, $paths, 'LoogaresExtraBundle:Mails:mail_beneficios_exclusivos.html.twig', $this->get('templating'));
+        $this->get('mailer')->send($message);
             
         // Redirección a galería de fotos
         return $this->redirect($this->generateUrl('static', array('static' => 'beneficio_exclusivo')));
-
     }
 
     public function sitemapAction() {
