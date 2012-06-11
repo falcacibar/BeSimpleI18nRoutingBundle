@@ -43,3 +43,18 @@ Loogares\BlogBundle\Entity\Concurso:
         facebook_final:
             type: integer
             nullable: true
+        visitas_home:
+            type: integer
+            nullable: true
+        visitas_busquedas:
+            type: integer
+            nullable: true
+        visitas_categorias:
+            type: integer
+            nullable: true
+        visitas_post:
+            type: integer
+            nullable: true
+        visitas_ficha:
+            type: integer
+            nullable: true

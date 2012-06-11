@@ -1886,7 +1886,7 @@ class AdminController extends Controller
                 $post->setDescripcionHome($request->get('descripcion_home'));
                 $post->setDestacadoHome($request->get('destacado_home'));
                 $post->setPosicionHome(0);
-                $post->setPreview($request->get('preview'));
+                $post->setPreview($request->request->get('preview'));
 
                 $em->persist($post);
                 $em->flush();
@@ -1932,6 +1932,12 @@ class AdminController extends Controller
                     $concurso->setFacebookFinal($request->request->get('facebook_final'));
                     $concurso->setTwitterInicio($request->request->get('twitter_inicio'));
                     $concurso->setTwitterFinal($request->request->get('twitter_final'));
+                    $concurso->setVisitasHome($request->request->get('visitas_home'));
+                    $concurso->setVisitasBusquedas($request->request->get('visitas_busquedas'));
+                    $concurso->setVisitasCategorias($request->request->get('visitas_categorias'));
+                    $concurso->setVisitasPost($request->request->get('visitas_post'));
+                    $concurso->setVisitasFicha($request->request->get('visitas_ficha'));
+                    
 
                     if(isset($nuevoConcurso) && $nuevoConcurso) {
                         $em->persist($concurso);
