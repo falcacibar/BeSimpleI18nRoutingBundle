@@ -91,6 +91,10 @@
 				{% endif %}
 				<p class="link_ficha_lugar">{{'blog.visita_ficha'|trans}} <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{'blog.visita_ficha_aca'|trans}}</a></p>
 			</div>
+
+			{% if concurso.tipoConcurso.slug == 'recomendacion' %}
+				<div>Caja con info de cómo participar</div>
+			{% endif %}
 		</div>
 
 		<div class="columna_der">
