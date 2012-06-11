@@ -55,6 +55,16 @@ extra:
         titulo_pasados: Sorteos pasados:
         ver_todos: Ver todos los sorteos de hoy
         participantes: Loogareño participando|Loogareños participando
+        newsletter:
+            de: de
+            sorteos_hoy: Ver todos los sorteos de hoy »
+            recorre: Recorré
+            participando: participando en los sorteos de hoy
+            entra_ahora: ¡Entrá ahora y participá rápidamente, es muy probable que ganes!
+            siguenos: Si querés saber sobre más concursos y lo que está pasando en Loogares.com, seguínos en:
+            suscrito: Este mail te llegó porque estás suscrito al Newsletter semanal de Loogares.com.
+            cancelar_suscripcion: Para cancelar la suscripción haz click
+            cancelar_suscripcion_aqui: aquí
 
     estaticas:
         codigos_de_conducta:

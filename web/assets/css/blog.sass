@@ -828,7 +828,7 @@ body
 			width: 488px
 
 /* Pop Up */
-.popup_registro, .popup_compartir
+.popup_registro, .popup_compartir, .popup_compartir_recomendacion
 	background: $blanco
 	border: 1px solid $gris_999
 	border-radius: 4px
@@ -843,6 +843,39 @@ body
 	height: 220px !important
 	text-align: center
 	width: 648px
+
+	.bajada_popup
+		font:
+			size: 20px
+			weight: bold
+		float: left
+		line-height: 20px
+		text-shadow: 1px 1px 1px $blanco
+		margin: 10px 10px 0
+		width: 628px
+	
+	.participacion_click_recomendacion
+		float: left
+		height: 91px
+		margin: 30px 263px
+		width: 123px
+	
+	.texto_recomendacion
+		font:
+			size: 15px
+			weight: bold
+		float: left
+		line-height: 25px
+		margin: 0 10px 20px
+		width: 628px
+
+	.comparte_con_amigos
+		font:
+			size: 13px
+			weight: normal
+		float: left
+		margin: 0 10px 20px
+		width: 628px
 
 	.registro_facebook_btn_popup
 		background: url('../images/extras/botones_registro_usuario.png') no-repeat 0 -31px
@@ -867,6 +900,9 @@ body
 		margin: 10px 10px 30px
 
 	ul
+		font:
+			size: 12px
+			weight: normal
 		float: left
 		margin: 0 16px
 		width: 616px
@@ -902,3 +938,6 @@ body
 
 .popup_compartir
 	height: 300px !important
+
+.popup_compartir_recomendacion
+	height: 430px !important

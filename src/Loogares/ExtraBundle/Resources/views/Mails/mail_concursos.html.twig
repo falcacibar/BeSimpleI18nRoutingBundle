@@ -6,20 +6,24 @@
             </tr>
             <tr>
                 <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; width: 610px;">
-                    <p style="font-size: 12px; font-weight: bold; text-align: right; margin: 20px 20px 0px 20px">{{"now"|date('j')}} de {{meses["now"|date('n') - 1]}} de {{"now"|date('Y')}}</p>
-                    <p style="font-size: 12px; text-align: right; margin: 5px 20px 0px 20px"><a href="{{url('concursos', {'ciudad' : app.session.get('ciudad').slug})}}" style="color: #0066CC; text-decoration: none;">Ver todos los sorteos de hoy »</a></p>
-                    <p style="font-size: 20px; font-weight: bold; text-align: center; margin: 20px 20px 0px 20px;">Recorre {{app.session.get('ciudad').nombre}}, participando en los sorteos de hoy</p>
-                    <p style="font-size: 16px; text-align: center; margin: 10px 20px 0px 20px;">¡Entra ahora y participa rápidamente, es muy probable que ganes!</p>
+                    <p style="font-size: 12px; font-weight: bold; text-align: right; margin: 20px 20px 0px 20px">{{"now"|date('j')}} {{'extra.modulo_concursos.newsletter.de'|trans}} {{meses["now"|date('n') - 1]}} {{'extra.modulo_concursos.newsletter.de'|trans}} {{"now"|date('Y')}}</p>
+                    <p style="font-size: 12px; text-align: right; margin: 5px 20px 0px 20px"><a href="{{url('concursos', {'ciudad' : app.session.get('ciudad').slug})}}" style="color: #0066CC; text-decoration: none;">{{'extra.modulo_concursos.newsletter.sorteos_hoy'|trans}}</a></p>
+                    <p style="font-size: 20px; font-weight: bold; text-align: center; margin: 20px 20px 0px 20px;">{{'extra.modulo_concursos.newsletter.recorre'|trans}} {{app.session.get('ciudad').nombre}}, {{'extra.modulo_concursos.newsletter.participando'|trans}}</p>
+                    <p style="font-size: 16px; text-align: center; margin: 10px 20px 0px 20px;">{{'extra.modulo_concursos.newsletter.entra_ahora'|trans}}</p>
 
                     <ul style="margin: 30px 0px; padding: 0px; list-style-type: none;">
                         {% set i = 1 %}
                         {% for concurso in concursos %}
-                            <li style="padding: 40px 20px; float: left;{% if i is odd %} background-color:#CCC{% else %} background:#AAA{% endif %}">
-                                <img style="float: left; width: 204px;" src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" height="115px" width="204px" />
-                                <p style="float: left; width: 389px; margin: 0px 0px 0px 15px; color: #999; font-size: 12px;"><a href="{{url('_lugar', {'slug' : concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none; font-weight: bold;">{{concurso.post.lugar.nombre}}</a> - {{concurso.post.lugar.comuna.nombre}}</p>
-                                <p style="float: left; width: 389px; margin: 5px 0px 0px 15px; font-size: 17px; font-weight: bold; color: #666;">{{concurso.titulo}}</p>
-                                <p style="float: left; width: 389px; margin: 30px 0px 0px 15px; color: #666; font-size: 12px;">{{concurso.post.preview | raw }}</p>
-                                <p style="float: left; width: 389px; margin: 0px 0px 0px 15px"><a href="{{ url('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}"><img src="{{ asset('assets/images/mails/boton_mail.png') }}" height="40px" width="150px" /></a></p>
+                            <li style="padding: 40px 20px; float: left;{% if i is odd %} background-color:#FAFAFC{% else %} background:#FFF{% endif %}">
+                                <div style="float: left; width: 204px">
+                                    <img style="float: left; width: 204px;" src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" height="115px" width="204px" />
+                                </div>
+                                <div style="float: left; width: 404px">
+                                    <p style="float: left; width: 389px; margin: 0px 0px 0px 15px; color: #999; font-size: 12px;"><a href="{{url('_lugar', {'slug' : concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none; font-weight: bold;">{{concurso.post.lugar.nombre}}</a> - {{concurso.post.lugar.comuna.nombre}}</p>
+                                    <p style="float: left; width: 389px; margin: 5px 0px 0px 15px; font-size: 17px; font-weight: bold; color: #666;">{{concurso.titulo}}</p>
+                                    <div style="float: left; width: 389px; margin: 10px 0px 0px 15px; color: #666; font-size: 12px;">{{concurso.post.preview | raw }}</div>
+                                    <p style="float: left; width: 389px; margin: 0px 0px 0px 15px"><a href="{{ url('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}"><img src="{{ asset('assets/images/mails/boton_mail.png') }}" height="40px" width="150px" /></a></p>
+                                </div>
                             </li>
                             {% set i = i + 1 %}
                         {% endfor %}
@@ -28,7 +32,7 @@
             <tr>
                 <td style="color: #999; font-size: 11px; padding: 20px; text-align: center;">
                     <br />
-                    <p style="font-size: 13px; color: #999; margin: 0px;">Si quieres saber sobre más concursos y lo que está pasando en Loogares.com, síguenos en:</p>
+                    <p style="font-size: 13px; color: #999; margin: 0px;">{{'extra.modulo_concursos.newsletter.siguenos'|trans}}</p>
                     {% if app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
                         {% set fb_text = 'facebook.com/Loogarescom.Valpo.Vina' %}
                         {% set tw_text = 'LgrsValpoVina' %}
@@ -53,9 +57,9 @@
                             <a style="font: 14px/20px Arial; color: #666666; text-decoration: none;" href="https://twitter.com/#!/{{tw_text}}" alt="@{{tw_text}} - Loogares.com" title="@{{tw_text}} - Loogares.com">@{{tw_text}}</a>
                         </div>
                     </div>
-                    <p style="margin: 0px; line-height: 18px;">Este mail te llego porque estás suscrito al Newsletter semanal de Loogares.com.
+                    <p style="margin: 0px; line-height: 18px;">{{'extra.modulo_concursos.newsletter.suscrito'|trans}}
                     <br />
-                    Para cancelar la suscripción haz click <a href="*|UNSUB|*" style="color: #0066CC; text-decoration: none;">aquí</a>.
+                    {{'extra.modulo_concursos.newsletter.cancelar_suscripcion'|trans}} <a href="*|UNSUB|*" style="color: #0066CC; text-decoration: none;">{{'extra.modulo_concursos.newsletter.cancelar_suscripcion_link'|trans}}</a>.
                     <br />
                     {% trans with {'%open_a%': '<a href="mailto:contacto@loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
                     <br />

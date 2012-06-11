@@ -24,11 +24,12 @@
         <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>
 	</div>
 {% elseif popup == 'compartir' and tipo == 'recomendacion' %}
-	<div class="popup_compartir">
+	<div class="popup_compartir_recomendacion">
 		<p class="titulo_popup">{{'blog.popup.participando_alianza.titulo'|trans}}</p>
-		<p>{{'blog.popup.participando_alianza.bajada'|trans}}</p>
-		<p>{{'blog.popup.participando_alianza.texto_1'|trans}} <a href="{{url('locale', {'slug' : post.ciudad.slug})}}">{{'blog.popup.participando_alianza.texto_link'|trans}}</a> {{'blog.popup.participando_alianza.texto_2'|trans}}</p>
-		<p>{{'blog.popup.participando_alianza.cuentale'|trans}}</p>
+		<p class="bajada_popup">{{'blog.popup.participando_alianza.bajada'|trans}}</p>
+		<img class="participacion_click_recomendacion" src="{{ asset('assets/images/concursos/participacion_click_recomendacion.gif') }}" height="91px" width="123px" />
+		<p class="texto_recomendacion">{{'blog.popup.participando_alianza.texto_1'|trans}} <a href="{{url('locale', {'slug' : post.ciudad.slug})}}">{{'blog.popup.participando_alianza.texto_link'|trans}}</a> {{'blog.popup.participando_alianza.texto_2'|trans}}</p>
+		<p class="comparte_con_amigos">{{'blog.popup.participando_alianza.cuentale'|trans}}</p>
 		<ul>
 			<li>
 				<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="{{post.titulo}} {{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-lang="es" data-hashtags="Loogarescom">{{'general.footer.redes.tweet'|trans}}</a>
