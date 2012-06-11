@@ -93,7 +93,13 @@
 			</div>
 
 			{% if concurso.tipoConcurso.slug == 'recomendacion' %}
-				<div>Caja con info de cómo participar</div>
+				<div class="como_participar">
+					<strong>{{'blog.como_concursar.titulo'|trans}}</strong><br /><br />
+					{{'blog.como_concursar.p1'|trans}}<br /><br />
+					<strong>{{'blog.como_concursar.p2'|trans}}</strong><br /><br />
+					{{'blog.como_concursar.p3'|trans}}<br /><br />
+					{{'blog.como_concursar.p4'|trans}}
+				</div>
 			{% endif %}
 		</div>
 

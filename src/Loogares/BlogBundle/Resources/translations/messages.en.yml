@@ -12,6 +12,12 @@ blog:
     visita_ficha_aca: here
     detalle: Details about the price:
     condiciones: Conditions:
+    como_concursar:
+        titulo: How to participate?
+        p1: - We'll reward to the Loogareños that write the best reviews during today, about any place of the city of the contest and that you really asist.
+        p2: The more you write, more chances you get
+        p3: - The Loogareños with profile picture get more chances to win.
+        p4: - The reviews that are not based in real facts, personal experiences, or have relation with the place reviewed, will not be part of the contest.
 
     popup:
         registro:

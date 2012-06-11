@@ -12,6 +12,12 @@ blog:
     visita_ficha_aca: acá
     detalle: Detalles del premio:
     condiciones: Condiciones:
+    como_concursar:
+        titulo: ¿Cómo participar?
+        p1: - Premiaremos a los Loogareños que escriban las mejores recomendaciones durante el día de hoy, sobre cualquier lugar de la ciudad a la que está enmarcado este concurso y al cual efectivamente haya ido.
+        p2: Mientras más recomendaciones hagan, más posibilidades tienen de ganar
+        p3: - Los Loogareños con foto de perfil tienen más posibilidades de ganar.
+        p4: - No entrarán en el sorteo aquellas recomendaciones que no estén basadas en hechos reales, experiencias personales del autor, o que tengan relación con el lugar que se está recomendando.
 
     popup:
         registro:
