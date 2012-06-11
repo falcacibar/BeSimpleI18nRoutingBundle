@@ -1,6 +1,6 @@
 Loogares\BlogBundle\Entity\Participante:
     type: entity
-    table: participantes
+    table: concursos_usuario
     manyToOne:       
         concurso:
             targetEntity: Loogares\BlogBundle\Entity\Concurso
