@@ -1,6 +1,6 @@
 {% extends "::base_reporte.html.twig" %}
 
-{% block title %}{{'reporte_local.title'|trans}} NOMBRE LOCAL | {{parent()}}{% endblock %}
+{% block title %}{{'reporte_local.title'|trans}} {{concurso.post.lugar.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
 
@@ -8,35 +8,46 @@
 
 	<div class="reporte_local">
 		<div class="datos_reporte">
-			<h1 class="titulo_reporte">{{'reporte_local.titulo'|trans}} NOMBRE LOCAL</h1> <span class="titulo_reporte">- <a href="">{{'reporte_local.link_nota'|trans}}</a></span><br />
+			<h1 class="titulo_reporte">{{'reporte_local.titulo'|trans}} {{concurso.post.lugar.nombre}}</h1> <span class="titulo_reporte">- <a href="{{path('post', {'ciudad' : concurso.post.ciudad.slug, 'slug' : concurso.post.slug})}}">{{'reporte_local.link_nota'|trans}}</a></span><br />
 
 			<div class="datos">
 				<p><strong>{{'reporte_local.titulo_fecha'|trans}}</strong></p>
-				<p>dd/mm/aaaa - dd/mm/aaaa</p><br />
+				<p>{{concurso.fechaInicio | date('d/m/Y')}} - {{concurso.fechaTermino | date('d/m/Y')}}</p><br />
 
 				<p><strong>{{'reporte_local.titulo_be'|trans}}</strong></p>
-				<p>Descripción</p><br />
+				<p>{{concurso.descripcion}}</p><br />
 
 				<p><strong>{{'reporte_local.titulo_condiciones'|trans}}</strong></p>
-				<p>Condiciones........</p>
+				<p>{{concurso.post.condiciones | raw}}</p>
 			</div>
 		</div>
 
 		<div class="participantes_reporte">
-			<ul class="listado_participantes">
-				<li>
-					<a href="">
-						<img src="" width="20" height="20" />
-					</a>
-				</li>
-			</ul>				
+			{% if concurso.participantes | length > 0 %}
+				{% set doce = 0 %}
+				{% for participante in concurso.participantes %}
+					{% if loop.index == 1 or (loop.index > 12 and (loop.index - 1) % 12 == 0)  %}
+						{% set doce = 0 %}
+						<ul class="listado_participantes">
+					{% endif %}
+					<li>
+						<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">
+							<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('small_usuario') }}" width="20" height="20" />
+						</a>
+					</li>
+					{% set doce = doce + 1 %}
+					{% if doce == 12 %}
+						</ul>				
+					{% endif %}
+				{% endfor %}
+			{% endif %}				
 
 			<div class="participantes">
 				<div class="cantidad_participantes_izq">
 				</div>							
 				<div class="cantidad_participantes">
-					<span class="numero_participantes">10</span>
-					{{'extra.modulo_concursos.participantes'|trans}}
+					<span class="numero_participantes">{{concurso.participantes | length}}</span>
+					{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes | length)}}
 				</div>
 				<div class="cantidad_participantes_der">
 				</div>	
@@ -44,33 +55,34 @@
 		</div>
 
 		<div class="metricas_reporte">
-			<p><span class="azul">#</span> - {{'reporte_local.visitas_home'|trans}}</p>
-			<p><span class="azul">#</span> - {{'reporte_local.visitas_totales'|trans}} <a href="">{{'reporte_local.nota'|trans}}</a></p>
-			<p><span class="azul">#</span> - {{'reporte_local.visitas_totales'|trans}} <a href="">{{'reporte_local.ficha'|trans}}</a></p><br />
-			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/recomendaciones.png') }}" height="15px" width="17px" /> {{'reporte_local.recomendaciones'|trans}}</p>
-			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/facebook.png') }}" height="16px" width="16px" /> {{'reporte_local.facebook'|trans}}</p>
-			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/twitter.png') }}" height="16px" width="16px" /> {{'reporte_local.twitter'|trans}}</p>
+			<p><span class="azul">{{concurso.visitasHome + concurso.visitasBusquedas + concurso.visitasCategorias}}</span> - {{'reporte_local.visitas_home'|trans}}</p>
+			<p><span class="azul">{{concurso.visitasPost + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="">{{'reporte_local.nota'|trans}}</a></p>
+			<p><span class="azul">{{concurso.visitasFicha + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="">{{'reporte_local.ficha'|trans}}</a></p><br />
+			<p><span class="azul">{{concurso.post.lugar.totalRecomendaciones}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/recomendaciones.png') }}" height="15px" width="17px" /> {{'reporte_local.recomendaciones'|trans}}</p>
+			<p><span class="azul">{{concurso.facebookFinal - concurso.facebookInicio}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/facebook.png') }}" height="16px" width="16px" /> {{'reporte_local.facebook'|trans}}</p>
+			<p><span class="azul">{{concurso.twitterFinal - concurso.twitterInicio}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/twitter.png') }}" height="16px" width="16px" /> {{'reporte_local.twitter'|trans}}</p>
 		</div>
 
-		<div class="ganadores_reporte">
-			<p><strong>{{'reporte_local.ganadores'|trans}}</strong></p><br />
-			<p>{{'reporte_local.ganadores_detalle'|trans}}<br />
-			{{'reporte_local.ganadores_tip'|trans}} <strong>{{'reporte_local.ganadores_canjeada'|trans}}</strong>.</p><br />
+		{% if concurso.ganadores | length > 0 %}
+			<div class="ganadores_reporte">
+				<p><strong>{{'reporte_local.ganadores'|trans}}</strong></p><br />
+				<p>{{'reporte_local.ganadores_detalle'|trans}}<br />
+				{{'reporte_local.ganadores_tip'|trans}} <strong>{{'reporte_local.ganadores_canjeada'|trans}}</strong>.</p><br />
 
-			<ul>
-				<li>
-					<input type="checkbox" />
-					<a href="">
-						<img class="imagen_ganador" src="" width="20" height="20" />
-						<span>NOMBRE USUARIO</span>
-					</a>
-					<span> - {{'usuario.gift_card.codigo'|trans}} <strong>código</strong></span>
-				</li>
-			</ul>
-			
-			<input class="boton_canjeada" type="submit" value="" />
-
-		</div>
+				<ul>
+					<li>
+						<input type="checkbox" />
+						<a href="">
+							<img class="imagen_ganador" src="" width="20" height="20" />
+							<span>NOMBRE USUARIO</span>
+						</a>
+						<span> - {{'usuario.gift_card.codigo'|trans}} <strong>código</strong></span>
+					</li>
+				</ul>
+				
+				<input class="boton_canjeada" type="submit" value="" />
+			</div>
+		{% endif %}
 	</div>
 
 {% endblock %}

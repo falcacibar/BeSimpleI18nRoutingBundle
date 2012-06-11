@@ -2015,6 +2015,10 @@ class LugarController extends Controller{
                     // Está todo bien, redireccionamos a reporte correspondiente
                     $concurso = $cr->find($id);
 
+                    // Obtenemos ganadores si existen
+                    $ganadores = $cr->getGanadoresConcurso($concurso);
+                    $concurso->ganadores = $ganadores;
+
                     return $this->render('LoogaresLugarBundle:Lugares:reporte_local.html.twig', array(
                         'concurso' => $concurso,
                         'dueno' => $dueno
