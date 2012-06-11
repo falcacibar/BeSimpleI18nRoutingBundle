@@ -11,4 +11,24 @@ blog:
     visita_ficha: Get more info
     visita_ficha_aca: here
     detalle: Details about the price:
-    condiciones: Conditions: 
+    condiciones: Conditions:
+
+    popup:
+        registro:
+            titulo: You are seconds away to participate, register now!
+            o: or
+            registro: register with your E-mail
+            volver: Back
+        participando:
+            titulo: You are already participating!
+            texto_1: Now you only have to wait to the day the contest ends to see if you won...
+            texto_2: Tell your friends about this contest for them to participate:
+            cerrar: No, thanks
+        participando_alianza:
+            titulo: You are already participating!
+            bajada: Now you just have to write reviews
+            texto_1: Enter
+            texto_link: here
+            texto_2: to search a place you know and write a review. Remember, while cooler and best reviews you write, more possibilities you have to win.
+            cuentale: Tell your friends about this contest for them to participate:
+            cerrar: No, thanks

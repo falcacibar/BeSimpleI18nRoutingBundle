@@ -11,4 +11,24 @@ blog:
     visita_ficha: Visitá su ficha en Loogares.com
     visita_ficha_aca: acá
     detalle: Detalles del premio:
-    condiciones: Condiciones: 
+    condiciones: Condiciones:
+
+    popup:
+        registro:
+            titulo: ¡Estás a un segundo de participar, registrate ahora!
+            o: o
+            registro: registrate con tu E-mail
+            volver: Volver
+        participando:
+            titulo: ¡Ya estás participando!
+            texto_1: Ahora solamente tenés que esperar al día que cierre el concurso para ver si ganaste...
+            texto_2: Contale a tus amigos sobre este concurso para que ellos también participen:
+            cerrar: No, gracias
+        participando_alianza:
+            titulo: ¡Estás anotado para participar!
+            bajada: Ahora solamente te falta escribir recomendaciones
+            texto_1: Entrá
+            texto_link: acá
+            texto_2: para buscar algún lugar que conozcas y escribirle una recomendación. Recordá que mientras más y mejores recomendaciones escribas, más posibilidades tenés de ganar.
+            cuentale: Contale a tus amigos sobre este concurso para que ellos también participen:
+            cerrar: No, gracias

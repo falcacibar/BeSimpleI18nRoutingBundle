@@ -1,15 +1,15 @@
 {% if popup == 'registro' %}
 	<div class="popup_registro">
-		<p class="titulo_popup">¡Estás a un segundo de participar, regístrate ahora!</p>
+		<p class="titulo_popup">{{'blog.popup.registro.titulo'|trans}}</p>
 		<div class="registro_facebook_btn_popup"></div>
-		<span>o <a href="{{path('registroUsuario')}}">regístrate con tu E-mail</a></span>
-        <a href="" class="volver">Volver</a>
+		<span>{{'blog.popup.registro.o'|trans}} <a href="{{path('registroUsuario')}}">{{'blog.popup.registro.registro'|trans}}</a></span>
+        <a href="" class="volver">{{'blog.popup.registro.volver'|trans}}</a>
 	</div>
 {% elseif popup == 'compartir' %}
 	<div class="popup_compartir">
-		<p class="titulo_popup">¡Ya estás participando!</p>
-		<p class="compartir_por_redes_texto">Ahora solamente tienes que esperar al día que cierre el concurso para ver si ganaste...</p>
-		<p class="compartir_por_redes">Cuéntale a tus amigos sobre este concurso para que ellos también participen:</p>
+		<p class="titulo_popup">{{'blog.popup.participando.titulo'|trans}}</p>
+		<p class="compartir_por_redes_texto">{{'blog.popup.participando.texto_1'|trans}}</p>
+		<p class="compartir_por_redes">{{'blog.popup.participando.texto_2'|trans}}</p>
 		<ul>
 	 		<li class="fb_share" style="margin: 0 0 5px;">
                 <a class="compartir_por_facebook" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
@@ -21,7 +21,7 @@
                 <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
             </li>
 		</ul>
-        <a href="" class="volver">No, gracias</a>
+        <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>
 	</div>
 {% endif %}
 
