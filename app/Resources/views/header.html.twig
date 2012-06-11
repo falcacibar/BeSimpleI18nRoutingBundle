@@ -14,7 +14,7 @@
 			{% set slug = (app.security.token.user.slug != '') ? app.security.token.user.slug : app.security.token.user.id %}			
 		{% else %}
 			<div class="promociona_negocio">
-				<a href="#">{{'general.header.promociona'|trans}}</a>
+				<a href="{{path('static', {'static' : 'beneficio_exclusivo'})}}">{{'general.header.promociona'|trans}}</a>
 			</div>
 		{% endif %}
 		{% render "LoogaresExtraBundle:Default:ciudad" %}

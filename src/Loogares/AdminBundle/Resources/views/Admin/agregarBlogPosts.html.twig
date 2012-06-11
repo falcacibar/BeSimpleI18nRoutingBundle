@@ -247,15 +247,15 @@
 						<input type="checkbox" class="desplegar_ads ad_manager" />
 						<span class="titulo_ad_manager">Código HTML para avisos de Ad Manager</span>
 						<div class="codigo_ad_manager" style="display: none">
-								{{'<a href="'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
+								{{-'<a href="'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
 									<div class="roll_over_concurso">
-										<p class="sorteo_concurso">{{concurso.titulo}}</p>
+										<p class="sorteo_concurso">'~concurso.titulo~'</p>
 									</div>	
 									<div class="contenido_concurso">					
 										<img src="'~asset('assets/images/blog/'~post.imagen)~'" />
 										<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
 									</div>
-								</a>'}}
+								</a>'-}}
 						</div>
 					</li>
 				{% endif %}
@@ -298,18 +298,28 @@
 				<li><strong>Nº Visitas</strong></li>
 
 				<li>
-					<label>Página de inicio e interiores</label>
-					<input name="" type="text" placeholder="Nº visitas home, búsquedas, categorías" value=""/>
+					<label>Página de inicio</label>
+					<input name="visitas_home" type="text" placeholder="Nº visitas home" value="{{(concurso != null) ? concurso.visitasHome : ''}}"/>
+				</li>
+
+				<li>
+					<label>Página de búsquedas</label>
+					<input name="visitas_busquedas" type="text" placeholder="Nº visitas búsquedas" value="{{(concurso != null) ? concurso.visitasBusquedas : ''}}"/>
+				</li>
+
+				<li>
+					<label>Página de categorías</label>
+					<input name="visitas_categorias" type="text" placeholder="Nº visitas categorías" value="{{(concurso != null) ? concurso.visitasCategorias : ''}}"/>
 				</li>
 
 				<li>
 					<label>Página nota concurso</label>
-					<input name="" type="text" placeholder="Nº visitas nota concurso" value=""/>
+					<input name="visitas_post" type="text" placeholder="Nº visitas nota concurso" value="{{(concurso != null) ? concurso.visitasPost : ''}}"/>
 				</li>
 
 				<li>
 					<label>Página ficha local</label>
-					<input name="" type="text" placeholder="Nº visitas ficha local" value=""/>
+					<input name="visitas_ficha" type="text" placeholder="Nº visitas ficha local" value="{{(concurso != null) ? concurso.visitasFicha : ''}}"/>
 				</li>
 			</ul>
 		</div>

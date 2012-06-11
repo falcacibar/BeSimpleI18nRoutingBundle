@@ -81,84 +81,64 @@
 
 <div class="contenedor contenedor_reporte">
 
-	<div class="contenido">               
-
-		<div class="buena_onda_form">
-			<p class="titulo_buena_onda">Somos los buena onda en difusión online de negocios en la ciudad</p>
-			<p class="bajada_buena_onda">Ofrecemos un precio muy conveniente y full compromiso con tu campaña<br /><br />
-			¿Qué esperas?</p>
-			<div class="columna_izquierda">
-				<form>
+	<div class="contenido">           
+		<form action="{{path('_beneficio_exclusivo_mail')}}" method="POST">
+			<div class="buena_onda_form">
+				<p class="titulo_buena_onda">Somos los buena onda en difusión online de negocios en la ciudad</p>
+				<p class="bajada_buena_onda">Ofrecemos un precio muy conveniente y full compromiso con tu campaña<br /><br />
+				¿Qué esperas?</p>
+				<div class="columna_izquierda">
+					<form>
+						<ul>
+							<li>
+								<span>Lugar</span>
+								<input name="lugar" class="input_largo" type="text" placeholder="" />
+							</li>
+							<li>
+								<span>Nombre</span>
+								<input name="nombre" class="input_corto" type="text" placeholder="" />
+								<span class="span_corto">Apellido</span>
+								<input name="apellido" class="input_corto" type="text" placeholder="" />
+							</li>
+							<li>
+								<span>E-mail</span>
+								<input name="mail" class="input_largo" type="text" placeholder="" />
+							</li>
+							<li>
+								<span>Teléfono</span>
+								<input name="telefono" class="input_largo" type="text" placeholder="" />
+							</li>
+							<li>
+								<span>Comprúebanos que eres dueño</span>
+								<textarea name="comprobar" class="input_area" rows="10"></textarea>
+							</li>
+							<li>
+								<input class="boton_enviar_local" type="submit" value="" />
+							</li>
+						</ul>
+					</form>
+				</div>
+				<div class="columna_derecha">
+					<p><strong>Promociona tu negocio sorteando premios a través de una campaña de Beneficios Exclusivos desde 1 semana hasta 1 mes y obtendrás:</strong></p><br />
 					<ul>
-						<li>
-							<span>Lugar</span>
-							<input class="input_largo" type="text" placeholder="" />
-						</li>
-						<li>
-							<span>Nombre</span>
-							<input class="input_corto" type="text" placeholder="" />
-							<span class="span_corto">Apellido</span>
-							<input class="input_corto" type="text" placeholder="" />
-						</li>
-						<li>
-							<span>E-mail</span>
-							<input class="input_largo" type="text" placeholder="" />
-						</li>
-						<li>
-							<span>Teléfono</span>
-							<input class="input_largo" type="text" placeholder="" />
-						</li>
-						<li>
-							<span>Comprúebanos que eres dueño</span>
-							<textarea class="input_area" rows="10"></textarea>
-						</li>
-						<li>
-							<input class="boton_enviar_local" type="submit" value="" />
-						</li>
+						<li>- Difusión en nuestras páginas más importantes, incluyendo la página de inicio.</li>
+						<li>- Difusión en nuestro Facebook, Twitter y Newsletter.</li>
+						<li>- Participación activa de nuestros usuarios y listado completo de participantes.</li>
+						<li>- Métricas de la efectividad de tu campaña en visitas y participación.</li>
+						<li>- Visita física de potenciales clientes a tu negocio.</li>
+						<li>- Ofrecer Gift Cards de descuento entre los usuarios que participaron de tu campaña, para medir su efectividad y tener la posibilidad de <strong>recuperar tu inversión</strong>.</li>
 					</ul>
-				</form>
-			</div>
-			<div class="columna_derecha">
-				<p><strong>Promociona tu negocio sorteando premios a través de una campaña de Beneficios Exclusivos desde 1 semana hasta 1 mes y obtendrás:</strong></p><br />
-				<ul>
-					<li>- Difusión en nuestras páginas más importantes, incluyendo la página de inicio.</li>
-					<li>- Difusión en nuestro Facebook, Twitter y Newsletter.</li>
-					<li>- Participación activa de nuestros usuarios y listado completo de participantes.</li>
-					<li>- Métricas de la efectividad de tu campaña en visitas y participación.</li>
-					<li>- Visita física de potenciales clientes a tu negocio.</li>
-					<li>- Ofrecer Gift Cards de descuento entre los usuarios que participaron de tu campaña, para medir su efectividad y tener la posibilidad de <strong>recuperar tu inversión</strong>.</li>
-				</ul>
-				<p class="envianos">¡Envíanos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!</p>
-				<img class="flecha_boton" src="{{ asset('assets/images/concursos/flecha_boton.png') }}" height="33px" width="105px" />
-			</div>
+					<p class="envianos">¡Envíanos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!</p>
+					<img class="flecha_boton" src="{{ asset('assets/images/concursos/flecha_boton.png') }}" height="33px" width="105px" />
+				</div>
 
-			<img class="carita_feliz" src="{{ asset('assets/images/concursos/carita_feliz.png') }}" height="20px" width="20px" />
+				<img class="carita_feliz" src="{{ asset('assets/images/concursos/carita_feliz.png') }}" height="20px" width="20px" />
 
-		</div>
+			</div>
+		</form>
 
     </div>
 
 </div>
-
-	<!--
-	{% if app.session.hasFlash('beneficio_flash') %}
-            <div class="mensaje_exito">
-                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('beneficio_flash')}}</p>
-            </div>
-    {% endif %}
-
-	<form action="{{path('_beneficio_exclusivo_mail')}}" method="POST">
-		<ul>
-			<li>
-				<label>Nombre del local</label>
-				<input type="text" name="nombre" />
-			</li>
-			<li>
-				<label></label>
-				<input type="submit" value="Enviar" />
-			</li>
-		</ul>
-	</form>
-	-->
 
 {% endblock %}
