@@ -29,16 +29,20 @@
 		<p class="bajada_popup">{{'blog.popup.participando_alianza.bajada'|trans}}</p>
 		<img class="participacion_click_recomendacion" src="{{ asset('assets/images/concursos/participacion_click_recomendacion.gif') }}" height="91px" width="123px" />
 		<p class="texto_recomendacion">{{'blog.popup.participando_alianza.texto_1'|trans}} <a href="{{url('locale', {'slug' : post.ciudad.slug})}}">{{'blog.popup.participando_alianza.texto_link'|trans}}</a> {{'blog.popup.participando_alianza.texto_2'|trans}}</p>
+		{#
 		<p class="comparte_con_amigos">{{'blog.popup.participando_alianza.cuentale'|trans}}</p>
+		
 		<ul>
-			<li>
-				<div class="fb-like" data-href="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false" data-font="arial"></div>
-			</li>
-			<li>
-				<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="{{post.titulo}} {{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-lang="es" data-hashtags="Loogarescom">{{'general.footer.redes.tweet'|trans}}</a>
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-			</li>			
-		</ul>
+	 		<li class="fb_share" style="margin: 0 0 5px;">
+                <a class="compartir_por_facebook" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
+            </li>
+            <li class="twitter_share" style="margin: 0 0 5px;">                    
+                {% set data_url = url('_lugar', {'slug' : post.lugar.slug}) %}
+                {% set data_text = post.titulo~' '~data_url~' #Loogares.com' %}
+                {% set data_via = "Loogarescom" %}
+                <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
+            </li>
+		</ul>#}
         <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>
 	</div>
 {% endif %}

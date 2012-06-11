@@ -395,7 +395,7 @@ class DefaultController extends Controller
         $paths = array(); 
         $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
-        $message = $this->get('fn')->enviarMail($mail['asunto'], 'developers@loogares.com', $datos['mail'], $mail, $paths, 'LoogaresExtraBundle:Mails:mail_beneficios_exclusivos.html.twig', $this->get('templating'));
+        $message = $this->get('fn')->enviarMail($mail['asunto'], 'ventas@loogares.com', $datos['mail'], $mail, $paths, 'LoogaresExtraBundle:Mails:mail_beneficios_exclusivos.html.twig', $this->get('templating'));
         $this->get('mailer')->send($message);
             
         // Redirección a galería de fotos
