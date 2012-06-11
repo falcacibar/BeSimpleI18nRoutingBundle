@@ -53,6 +53,23 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
+    public function listadoCaracteristicasAction(){
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository("LoogaresLugarBundle:Caracteristica");
+
+        $q = $em->createQuery('SELECT c FROM Loogares\LugarBundle\Entity\Caracteristica c ORDER BY c.nombre ASC');
+        $caracteristicas = $q->getResult();
+
+        foreach($caracteristicas as $caracteristica){
+            $data[]['nombre'] = $caracteristica->getNombre();
+            $data[sizeOf($data)-1]['slug'] = $caracteristica->getSlug();
+        }
+
+        $json = json_encode($data);
+
+        return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
+    }
+
     public function reverseGeoAction($lat, $long){
         $url = "http://api.geonames.org/extendedFindNearby?lat=$lat&lng=$long&username=loogares";
         $xml = file_get_contents($url);
@@ -61,7 +78,7 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
-    public function lugaresPorCategoriaAction($categoria = 'todas', $offset = 1, $latitude = null, $longitude = null){
+    public function lugaresPorCategoriaAction($categoria = 'todas', $offset = 1, $latitude = null, $longitude = null, $orden){
         if($categoria == 'todas'){ $categoria = null; }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -78,6 +95,14 @@ class DefaultController extends Controller
             $geolocCondition = null;
             $orderBy = "ORDER BY distance asc";
         }
+
+        $orderFilters = array(
+          'recomendaciones' => 'ranking desc',
+          'ultimas_recomendaciones' => 'ultima_recomendacion desc',
+          'mas_recomendados' => 'total_recomendaciones desc'
+        );
+
+        $orderBy = "ORDER BY " . $orderFilters[$orden];
         
         if($categoria == null){
             $lugares = $this->getDoctrine()->getConnection()

@@ -4,8 +4,14 @@ LoogaresPhoneBundle_categorias:
     requirements:
         _format:  json
 
+LoogaresPhoneBundle_caracteristicas:
+    pattern:  /api/caracteristicas
+    defaults: { _controller: LoogaresPhoneBundle:Default:listadoCaracteristicas, _format: json}
+    requirements:
+        _format:  json
+
 LoogaresPhoneBundle_categoria:
-    pattern:  /api/categoria/{ciudad}/{categoria}/{offset}/{latitude}/{longitude}
+    pattern:  /api/categoria/{ciudad}/{categoria}/{offset}/{latitude}/{longitude}/{orden}
     defaults: { _controller: LoogaresPhoneBundle:Default:lugaresPorCategoria, _format: json, categoria: todas, offset: 1, latitude: null, longitude: null}
     requirements:
         _format:  json
