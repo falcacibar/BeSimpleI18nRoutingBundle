@@ -315,3 +315,22 @@ reportes:
         telefono: Phone number
         comprobar_dueno: Verification keyword
         nombre_lugar: Place
+
+reporte_local:
+    title: Report
+    titulo: Beneficios Exclusivos campaign metrics
+    link_nota: Go to the note
+    titulo_fecha: Begining and ending date:
+    titulo_be: Beneficio Exclusivo:
+    titulo_condiciones: Conditions:
+    visitas_home: Total visits home page and interiors
+    visitas_totales: Total visits
+    nota: note
+    ficha: informative page
+    recomendaciones: Reviews of the place
+    facebook: Increase of Facebook fans
+    twitter: Increase of Twitter fans
+    ganadores: Winners
+    ganadores_detalle: Details of the Loogareños that won the campaign.
+    ganadores_tip: Once a Loogareño gets to the place, mark the checkbox and click in
+    ganadores_canjeada: Gift Card canjeada

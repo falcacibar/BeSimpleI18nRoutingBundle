@@ -315,3 +315,22 @@ reportes:
         telefono: Teléfono
         comprobar_dueno: ¿Cómo comprobar que sos dueño?
         nombre_lugar: Lugar
+
+reporte_local:
+    title: Reporte
+    titulo: Métricas campaña Beneficios Exclusivos
+    link_nota: Ir a la nota
+    titulo_fecha: Fecha de inicio y término:
+    titulo_be: Beneficio Exclusivo:
+    titulo_condiciones: Condiciones:
+    visitas_home: Vistas totales página de inicio y páginas interiores
+    visitas_totales: Vistas totales
+    nota: nota
+    ficha: ficha informativa
+    recomendaciones: Recomendaciones en ficha informativa
+    facebook: Aumento de fans en Facebook
+    twitter: Aumento de fans en Twitter
+    ganadores: Ganadores
+    ganadores_detalle: A continuación se detallan los ganadores de la campaña.
+    ganadores_tip: Una vez que un Loogareño ha asistido al local, marcar el checkbox y hacer click en
+    ganadores_canjeada: Gift Card canjeada

@@ -1,6 +1,6 @@
 {% extends "::base_reporte.html.twig" %}
 
-{% block title %}Reporte NOMBRE LOCAL | {{parent()}}{% endblock %}
+{% block title %}{{'reporte_local.title'|trans}} NOMBRE LOCAL | {{parent()}}{% endblock %}
 
 {% block content %}
 
@@ -8,16 +8,16 @@
 
 	<div class="reporte_local">
 		<div class="datos_reporte">
-			<h1 class="titulo_reporte">Métricas campaña Beneficios Exclusivos NOMBRE LOCAL</h1> <span class="titulo_reporte">- <a href="">Ir a la nota</a></span><br />
+			<h1 class="titulo_reporte">{{'reporte_local.titulo'|trans}} NOMBRE LOCAL</h1> <span class="titulo_reporte">- <a href="">{{'reporte_local.link_nota'|trans}}</a></span><br />
 
 			<div class="datos">
-				<p><strong>Fecha de inicio y término:</strong></p>
+				<p><strong>{{'reporte_local.titulo_fecha'|trans}}</strong></p>
 				<p>dd/mm/aaaa - dd/mm/aaaa</p><br />
 
-				<p><strong>Beneficio Exclusivo:</strong></p>
+				<p><strong>{{'reporte_local.titulo_be'|trans}}</strong></p>
 				<p>Descripción</p><br />
 
-				<p><strong>Condiciones:</strong></p>
+				<p><strong>{{'reporte_local.titulo_condiciones'|trans}}</strong></p>
 				<p>Condiciones........</p>
 			</div>
 		</div>
@@ -36,7 +36,7 @@
 				</div>							
 				<div class="cantidad_participantes">
 					<span class="numero_participantes">10</span>
-					Loogareños participando
+					{{'extra.modulo_concursos.participantes'|trans}}
 				</div>
 				<div class="cantidad_participantes_der">
 				</div>	
@@ -44,18 +44,18 @@
 		</div>
 
 		<div class="metricas_reporte">
-			<p><span class="azul">#</span> - Vistas totales página de inicio y páginas interiores</p>
-			<p><span class="azul">#</span> - Vistas totales <a href="">nota</a></p>
-			<p><span class="azul">#</span> - Vistas totales <a href="">ficha informativa</a></p><br />
-			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/recomendaciones.png') }}" height="15px" width="17px" /> Recomendaciones en ficha informativa</p>
-			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/facebook.png') }}" height="16px" width="16px" /> Aumento de fans en Facebook</p>
-			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/twitter.png') }}" height="16px" width="16px" /> Aumento de fans en Twitter</p>
+			<p><span class="azul">#</span> - {{'reporte_local.visitas_home'|trans}}</p>
+			<p><span class="azul">#</span> - {{'reporte_local.visitas_totales'|trans}} <a href="">{{'reporte_local.nota'|trans}}</a></p>
+			<p><span class="azul">#</span> - {{'reporte_local.visitas_totales'|trans}} <a href="">{{'reporte_local.ficha'|trans}}</a></p><br />
+			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/recomendaciones.png') }}" height="15px" width="17px" /> {{'reporte_local.recomendaciones'|trans}}</p>
+			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/facebook.png') }}" height="16px" width="16px" /> {{'reporte_local.facebook'|trans}}</p>
+			<p><span class="azul">#</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/twitter.png') }}" height="16px" width="16px" /> {{'reporte_local.twitter'|trans}}</p>
 		</div>
 
 		<div class="ganadores_reporte">
-			<p><strong>Ganadores</strong></p><br />
-			<p>A continuación se detallan los ganadores de la campaña.<br />
-			Una vez que un Loogareño ha asistido al local, marcar el checkbox y hacer click en <strong>Gift Card canjeada</strong>.</p><br />
+			<p><strong>{{'reporte_local.ganadores'|trans}}</strong></p><br />
+			<p>{{'reporte_local.ganadores_detalle'|trans}}<br />
+			{{'reporte_local.ganadores_tip'|trans}} <strong>{{'reporte_local.ganadores_canjeada'|trans}}</strong>.</p><br />
 
 			<ul>
 				<li>
@@ -64,7 +64,7 @@
 						<img class="imagen_ganador" src="" width="20" height="20" />
 						<span>NOMBRE USUARIO</span>
 					</a>
-					<span> - Código Gift Card: <strong>código</strong></span>
+					<span> - {{'usuario.gift_card.codigo'|trans}} <strong>código</strong></span>
 				</li>
 			</ul>
 			
