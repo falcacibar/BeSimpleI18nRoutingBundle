@@ -534,7 +534,8 @@
 	            }
 	        });
 
-	        $('.titulo_post').blur(function(){
+
+	        $('.titulo_post').blur(function(e){
 	        	$slug = $('.slug_post');
         		var titulo = $(this).val(),
         			slug;
@@ -542,7 +543,6 @@
         		if($slug.val() == ''){	
 	        		slug = titulo.replace(/\s/g, '-').replace(/([^\w|^\d|^\-]+)/ig, '').toLowerCase();
 	        		slug = removeDiacritics(slug);
-	        		console.log(slug);
 	        		$slug.val(slug);
         		}
 	        });
