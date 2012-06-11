@@ -100,3 +100,48 @@ static:
         asunto:
             contacto: Contact message from Loogares.com
             publicidad: Publicity message from Loogares.com
+
+ventas:
+    beneficio_exclusivo:
+        title: Promociona tu negocio con nuestro sistema de Beneficio Exclusivo
+        titulo: Promociona tu negocio entre la gente de tu ciudad
+        bajada: ¿Tienes un restaurante o una tienda? Destácalo entre cientos de usuarios fanáticos de lugares en la ciudad y aumenta las posibilidades de tener nuevos clientes ofreciendo un Beneficio Exclusivo en Loogares.com.
+        promociona: ¡Promociona y destaca tu negocio ahora!
+        potenciales_clientes: Llega a potenciales clientes
+        potenciales_clientes_texto: Sortea un premio jugoso para que cientos de loogareños participen, conozcan lo que ofreces y queden registrados en un listado de gente que sigue tu negocio en Loogares.com.
+        destacate_sobre_competencia: Destácate por sobre tu competencia
+        destacate_sobre_competencia_texto: Aparece en nuestra página de inicio, páginas interiores y redes sociales. Podrás ganar recomendaciones y superar a tu competencia en nuestros rankings.
+        lleva_gente: Lleva gente a tu negocio
+        lleva_gente_texto: Al final de la campaña tendrás un listado de gente que sigue tu negocio. Ofréceles Gift Cards de descuento para que vayan, consuman y logres recuperar tu inversión.
+        lo_que_dicen: Lo que están diciendo de nuestras campañas de Beneficios Exclusivos
+        santapizza:
+            p1: Tenemos muy buenas recomendaciones, lo que ha nos ha permitido destacar dentro del sitio, las campañas que hemos hecho han resultado como esperábamos, nos interesa que los beneficiados lo pasen muy bien y entiendan de que se trata la propuesta de Santapizza. Hemos seguido la lógica del boca a boca, que para nosotros es la que mejor funciona.
+            p2: Esperamos seguir participando de Loogares.com, hay mucho potencial aún por explorar. Nos interesa mucho el valor que tiene su comunidad, para nosotros ese ha sido un gran beneficio, es el tipo de público inquieto por vivir la ciudad el que nos interesa.
+            autor: Pablo Serrano
+            cargo: Encargado de Diseño y Marketing, Santapizza
+            link: Visita la ficha de Santapizza
+        hogs:
+            p1: Fue una gran ayuda para nosotros, se empezó hablar de nuestro nuevo proyecto dentro de las redes sociales, a correr la voz, y empezamos a tener muy buenas recomendaciones y recepción de la gente. A la vez regalamos a los seguidores de Loogares.com unos hot dogs.
+            p2: Los ganadores se fueron con una gran sonrisa después de haber vivido la experiencia de Hogs y por supuesto con ganas de volver.
+            autor: Alejandra Katz
+            cargo: Jefa de Marketing, Producción y Comunicación Hogs
+            link: Visita la ficha de Hogs
+        buena_onda: Somos los buena onda en difusión online de negocios en la ciudad
+        precio_conveniente: Ofrecemos un precio muy conveniente y full compromiso con tu campaña
+        que_esperas: ¿Qué esperas?
+        form:
+            lugar: Lugar
+            nombre: Nombre
+            apellido: Apellido
+            mail: E-mail
+            telefono: Teléfono
+            comprobante: Comprúebanos que eres dueño
+        explicacion: 
+            encabezado: Promociona tu negocio sorteando premios a través de una campaña de Beneficios Exclusivos desde 1 semana hasta 1 mes y obtendrás:
+            li1: - Difusión en nuestras páginas más importantes, incluyendo la página de inicio.
+            li2: - Difusión en nuestro Facebook, Twitter y Newsletter.
+            li3: - Participación activa de nuestros usuarios y listado completo de participantes.
+            li4: - Métricas de la efectividad de tu campaña en visitas y participación.
+            li5: - Visita física de potenciales clientes a tu negocio.
+            li6: - Ofrecer Gift Cards de descuento entre los usuarios que participaron de tu campaña, para medir su efectividad y tener la posibilidad de <strong>recuperar tu inversión</strong>.
+            final: ¡Envíanos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!
