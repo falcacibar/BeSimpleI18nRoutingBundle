@@ -124,6 +124,11 @@ usuario:
         lista:
             borrar: Remove
 
+    gift_card:
+        titulo: Active Gift Cards
+        codigo: Gift Card code:
+        imprimir: Print cupon
+
     edicion:
         titulo_pag: Edit your profile
         titulo: Edit your profile

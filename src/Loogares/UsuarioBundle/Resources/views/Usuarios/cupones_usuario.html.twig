@@ -1,6 +1,6 @@
 <div class="caja_cupones_usuario">
 	<img class="imagen_gift_card" src="{{asset('assets/images/concursos/gift_cards_titulo.png')}}" height="22" width="18" />
-	<h2 class="titulo_accion_usuario">Gift Cards activadas</h2>
+	<h2 class="titulo_accion_usuario">{{'usuario.gift_card.titulo'|trans}}</h2>
 
 	<ul>
 		{% for cupon in usuario.cupones %}
@@ -14,18 +14,18 @@
 							<br />
 							{{cupon.participante.usuario.nombre}} {{cupon.participante.usuario.apellido}}
 							<br />
-							Código Gift Card: {{cupon.codigo}}
+							{{'usuario.gift_card.codigo'|trans}} {{cupon.codigo}}
 						</p>
 					</div>
 					<div class="bloque_detalles">
-						<strong>Detalle del premio:</strong><br />
+						<strong>{{'blog.detalle'|trans}}</strong><br />
 						<p>{{post.detalles | raw}}</p>
 						<br />
-						<strong>Condiciones:</strong><br />
+						<strong>{{'blog.condiciones'|trans}}</strong><br />
 						<p>{{post.condiciones | raw}}</p>
 					</div>
 					<div class="bloque_datos">
-						<p class="titulo_datos_cupon">Sobre {{post.lugar.nombre}}</p>
+						<p class="titulo_datos_cupon">{{'blog.sobre'|trans}} {{post.lugar.nombre}}</p>
 						<br />
 						<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
 						{% if post.lugar.telefono2 == '' or post.lugar.telefono2 == null %}
@@ -45,11 +45,11 @@
 						{% if post.lugar.twitter != ''%}
 							<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
 						{% endif %}
-						<p class="visita_ficha_lugar">Visita su ficha en Loogares.com <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">acá</a></p>
+						<p class="visita_ficha_lugar">{{'blog.visita_ficha'|trans}} <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{'blog.visita_ficha_aca'|trans}}</a></p>
 					</div>
 				</div>
 				<div class="imprimir_cupon">
-					<a href="">Imprimir cupón</a>
+					<a href="">{{'usuario.gift_card.imprimir'|trans}}</a>
 				</div>
 			</li>
 		{% endfor %}
