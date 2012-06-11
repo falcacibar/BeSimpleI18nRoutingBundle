@@ -9,13 +9,14 @@
                     <strong>{{mail.asunto}}</strong>
                     <br />
                     <br />
-                    <strong>{{mail.contacto.nombre}}</strong> - {{mail.contacto.mail}}
+                    <strong>{{mail.datos.lugar}}</strong>
                     <br />
-                    <strong>{{mail.contacto.empresa}}</strong> - <a href="{{mail.contacto.www}}">{{mail.contacto.www}}</a>
                     <br />
-                    <strong>Telefono</strong>: {{mail.contacto.tel}}
+                    <strong>{{mail.datos.nombre}} {{mail.datos.apellido}}</strong> - {{mail.datos.mail}}
                     <br />
-                    {% for parrafo in mail.contacto.mensaje %}
+                    <strong>Telefono</strong>: {{mail.datos.telefono}}
+                    <br />
+                    {% for parrafo in mail.datos.comprobar %}
                         <p>{{parrafo}}</p>
                     {% endfor %}
             </tr>
