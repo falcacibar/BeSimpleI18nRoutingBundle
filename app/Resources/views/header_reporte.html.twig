@@ -1,5 +1,7 @@
 <div class="header_reporte">
 	<p class="volver_loogares"><a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">{{'general.header_locales.volver'|trans}}</a></p>
-	<p class="usuario_reporte">{{'general.header_locales.bienvenido'|trans}} NOMBRE DUEÑO | <a href="">{{'general.header_locales.salir'|trans}}</a></p>
+	{% if dueno is defined %}
+	<p class="usuario_reporte">{{'general.header_locales.bienvenido'|trans}} {{dueno.nombre}} {{dueno.apellido}}</p>
+	{% endif %}
 </div>
 <div class="contenido_reporte">

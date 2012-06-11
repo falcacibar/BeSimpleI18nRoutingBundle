@@ -19,9 +19,13 @@ Loogares\UsuarioBundle\Entity\Dueno:
             type: string
         mail:
             type: string
+        password:
+            type: string
+            nullable: true
         telefono:
             type: string
         texto:
             type: text
         fecha:
             type: datetime
+        

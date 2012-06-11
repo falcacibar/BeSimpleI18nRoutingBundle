@@ -1992,9 +1992,44 @@ class LugarController extends Controller{
         ));        
     }
 
-    public function reporteLocalAction($id) {
-        return $this->render('LoogaresLugarBundle:Lugares:reporte_local.html.twig', array(
-            
+    public function reporteLocalAction(Request $request, $slug, $id) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
+        $dr = $em->getRepository("LoogaresUsuarioBundle:Dueno");
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $formErrors = array();
+
+        $lugar = $lr->findOneBySlug($slug);
+        $dueno = $dr->findOneByLugar($lugar->getId());
+
+        if($request->getMethod() == 'POST') {
+            if(!$request->request->get('reporte')) {
+                if($request->request->get('password') == '') {
+                    $formErrors['blanco'] = "Debes especificar un password";
+                }
+                else if(sha1($request->request->get('password')) != $dueno->getPassword()) {
+                    $formErrors['password'] = "El password no es válido";
+                }
+
+                if(sizeOf($formErrors) == 0) {
+                    // Está todo bien, redireccionamos a reporte correspondiente
+                    $concurso = $cr->find($id);
+
+                    return $this->render('LoogaresLugarBundle:Lugares:reporte_local.html.twig', array(
+                        'concurso' => $concurso,
+                        'dueno' => $dueno
+                    )); 
+                }
+            }
+            else {
+
+            }   
+        }     
+
+        return $this->render('LoogaresLugarBundle:Lugares:reporte_autenticacion.html.twig', array(
+            'lugar' => $lugar,
+            'id' => $id,
+            'errors' => $formErrors
         )); 
     }
 }
