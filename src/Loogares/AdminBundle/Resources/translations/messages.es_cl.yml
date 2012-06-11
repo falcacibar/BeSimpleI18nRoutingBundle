@@ -47,3 +47,31 @@ admin:
                 primero: Te escribimos para notificar que la recomendación que agregaste al lugar %lugar% ha sido eliminada.
                 segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que tu recomendación infringe los %open_tag%Términos de uso%close_tag%.
             despedida: ¡Esperamos que sigas recomendando lugares y contando tu experiencia a la comunidad!
+
+        ganadores:
+            felicitaciones: ¡Felicitaciones
+            gracias_a: Gracias a tu participación en Loogares.com resultaste ganador de
+            en: en
+            premio_unico: Este premio es único, válido para ser utilizado una sola vez y su fecha de expiración es el
+            cupon: A continuación va el cupón y detalladas sus condiciones de uso:
+            codigo: Código cupón:
+            detalle: Detalle del premio:
+            condiciones: Condiciones:
+            sobre: Sobre
+            visita: Visita su ficha en Loogares.com
+            visita_link: acá
+            perfil: Tu cupón queda guardado en tu perfil de usuario mientras esté vigente, entra
+            perfil_link: acá
+            perfil_verlo: para verlo.
+            sugerencia_recomendacion: Una vez que hayas cobrado tu premio, <strong>te sugerimos escribir una recomendación en la ficha de</strong>
+            sugerencia_feedback: para que ellos tengan feedback de tu experiencia y así poder mejorar su servicio.
+            disfruta: ¡Disfruta tu premio, Loogareño!
+            saludos: Muchos saludos
+
+        canje:
+            supimos: Supimos que canjeaste tu premio en
+            ahora: Ahora <strong>te sugerimos escribir una recomendación en la ficha de</strong>
+            feedback: para que ellos tengan feedback de tu experiencia y así poder mejorar su servicio.
+            entra: Entra
+            ficha: para ir a su ficha.
+            interesado: Si estás interesado en los concursos de hoy y seguir participando, entra
