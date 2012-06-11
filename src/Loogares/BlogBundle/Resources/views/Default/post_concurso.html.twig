@@ -4,6 +4,10 @@
 
 
 {% block meta %}
+	<meta name="description" content="{{post.preview | striptags}}" />
+	<meta name="keywords" content="{{post.titulo}}, Concursos, Eventos, Notas, Actividades, Premios, Entradas, Invitaciones, Loogares, {{post.lugar.comuna.ciudad.nombre}}" />
+
+	<!-- Metadata para FB -->
 	<meta property="og:title" content="{{ post.titulo }} | {{post.lugar.comuna.ciudad.nombre}} | Loogares.com" />
 	<meta property="og:description" content="{{post.preview | striptags}}" />
 	<meta property="og:image" content="{{ asset('assets/images/blog/'~post.imagen) }}" />
@@ -29,13 +33,13 @@
 			</div>
 
 			<div class="tiempo_restante">
-				Quedan <span class="tiempo_azul"></span> para participar
+				{{'blog.quedan'|trans}} <span class="tiempo_azul"></span> {{'blog.para_participar'|trans}}
 			</div>
 			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
 			{% if concurso.ganadores | length > 0 %}
 				<div class="ganadores">
-					<h4 class="titulo_ganadores">¡Ganadores!</h4>
-					<p class="texto_ganadores">Los afortunados Loogareños que participaron del concurso y resultaron ganadores son:</p>
+					<h6 class="titulo_ganadores">{{'blog.ganadores.titulo'|trans}}</h6>
+					<p class="texto_ganadores">{{'blog.ganadores.primer_texto'|trans}}</p>
 					<ul>
 						{% for ganador in concurso.ganadores %}
 							<li>
@@ -46,12 +50,12 @@
 							</li>
 						{% endfor %}
 					</ul>
-					<p class="texto_ganadores">Los contactaremos vía E-mail. ¡Felicitaciones! ¡Gracias a todos los que participaron y sigan escribiendo recomendaciones para los próximos concursos!</p>
+					<p class="texto_ganadores">{{'blog.ganadores.segundo_texto'|trans}}</p>
 				</div>
 			{% endif %}	
 
 			<div class="redes_sociales_concurso">
-				<p>Comparte este concurso con tus amigos</p>
+				<h6>{{'blog.comparte'|trans}}</h6>
 				<ul class="redes_listado">
 				<li>
 					<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="{{post.titulo}} {{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-lang="es" data-hashtags="Loogarescom">{{'general.footer.redes.tweet'|trans}}</a>
@@ -64,7 +68,7 @@
 			</div>
 
 			<div class="datos_lugar_concurso">
-				<h4 class="sobre_lugar">Sobre {{post.lugar.nombre}}</h4>
+				<h3 class="sobre_lugar">{{'blog.sobre'|trans}} {{post.lugar.nombre}}</h3>
 				<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
 				<p>{{post.lugar.telefonos|join(', ')}}</p>
 				{% if post.lugar.sitioWeb != ''%}
@@ -76,7 +80,7 @@
 				{% if post.lugar.twitter != ''%}
 					<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
 				{% endif %}
-				<p class="link_ficha_lugar">Visita su ficha en Loogares.com <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">acá</a></p>
+				<p class="link_ficha_lugar">{{'blog.visita_ficha'|trans}} <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{'blog.visita_ficha_aca'|trans}}</a></p>
 			</div>
 		</div>
 
@@ -89,10 +93,10 @@
 			</div>
 
 			<div class="detalle_condiciones_concurso">
-				<strong>Detalles del premio:</strong><br />
+				<h4><strong>{{'blog.detalle'|trans}}</strong></h4>
 				{{post.detalles | raw}}
 				<br />
-				<strong>Condiciones:</strong><br />
+				<h5><strong>{{'blog.condiciones'|trans}}</strong></h5>
 				{{post.condiciones | raw}}
 			</div>
 		</div>
