@@ -1,5 +1,6 @@
 # Locale 'en' BlogBundle
 blog:
+    como_funciona: How it works?
     quedan: There are
     para_participar: left to participate
     ganadores:

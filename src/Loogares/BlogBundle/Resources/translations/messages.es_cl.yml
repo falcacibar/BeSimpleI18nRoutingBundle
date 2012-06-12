@@ -1,5 +1,6 @@
 # Locale 'es_cl' BlogBundle
 blog:
+    como_funciona: ¿Cómo funciona?
     quedan: Quedan
     para_participar: para participar
     ganadores:
