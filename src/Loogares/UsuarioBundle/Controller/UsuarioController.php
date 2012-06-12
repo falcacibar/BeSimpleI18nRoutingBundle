@@ -1001,8 +1001,6 @@ class UsuarioController extends Controller
             $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
         }
 
-        print_r($_POST);
-
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
