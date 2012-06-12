@@ -2,7 +2,7 @@
     <div style="font-family: Arial; font-size: 14px;">
         <table align="center" cellpadding="0" cellspacing="0" width="650" style="width:650px">
             <tr>
-                <td width="650"><center><img style="margin: 0 0 10px;" src="{{ asset('assets/images/mails/logo_mails.png') }}" width="180" height="128" /></center></td>
+                <td width="650"><center><img style="margin: 0 0 10px;" src="http://www.loogares.com/assets/images/mails/logo_mails.png" width="180" height="128" /></center></td>
             </tr>
             <tr>
                 <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; width: 610px;">
@@ -16,13 +16,13 @@
                         {% for concurso in concursos %}
                             <li style="padding: 40px 20px; float: left;{% if i is odd %} background-color:#FAFAFC{% else %} background:#FFF{% endif %}">
                                 <div style="float: left; width: 204px">
-                                    <img style="float: left; width: 204px;" src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" height="115px" width="204px" />
+                                    <img style="float: left; width: 204px;" src="http://www.loogares.com/assets/images/blog/'~concurso.post.imagen" height="115px" width="204px" />
                                 </div>
                                 <div style="float: left; width: 404px">
                                     <p style="float: left; width: 389px; margin: 0px 0px 0px 15px; color: #999; font-size: 12px;"><a href="{{url('_lugar', {'slug' : concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none; font-weight: bold;">{{concurso.post.lugar.nombre}}</a> - {{concurso.post.lugar.comuna.nombre}}</p>
                                     <p style="float: left; width: 389px; margin: 5px 0px 0px 15px; font-size: 17px; font-weight: bold; color: #666;">{{concurso.descripcion}}</p>
                                     <div style="float: left; width: 389px; margin: 10px 0px 0px 15px; color: #666; font-size: 12px;">{{concurso.post.preview | raw }}</div>
-                                    <p style="float: left; width: 389px; margin: 0px 0px 0px 15px"><a href="{{ url('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}"><img src="{{ asset('assets/images/mails/boton_mail.png') }}" height="40px" width="150px" /></a></p>
+                                    <p style="float: left; width: 389px; margin: 0px 0px 0px 15px"><a href="{{ url('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}"><img src="http://www.loogares.com/assets/images/mails/boton_mail.png" height="40px" width="150px" /></a></p>
                                 </div>
                             </li>
                             {% set i = i + 1 %}
@@ -45,13 +45,13 @@
                     {% endif %}
                     <div style="float: left; width: 610px; margin: 15px 0px 20px 0px; height: 25px;">
                         <div style="float: left; padding: 0px 0px 0px 100px;">
-                            <a href="http://www.{{fb_text}}" alt="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}" title="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}"><img src="{{ asset('assets/images/mails/facebook.png') }}" width="24" height="24" /></a>
+                            <a href="http://www.{{fb_text}}" alt="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}" title="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}"><img src="http://www.loogares.com/assets/images/mails/facebook.png" width="24" height="24" /></a>
                         </div>
                         <div style="float: left; padding: 4px 40px 0px 10px;">
                             <a style="font: 14px/20px Arial; color: #666666; text-decoration: none;" href="http://www.{{fb_text}}" alt="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}" title="Facebook de Loogares.com - {{app.session.get('ciudad').nombre}}">{{fb_text}}</a>
                         </div>
                         <div style="float:left;">
-                            <a href="https://twitter.com/#!/{{tw_text}}" alt="@{{tw_text}} - Loogares.com" title="@{{tw_text}} - Loogares.com"><img width="24" height="24" src="{{ asset('assets/images/mails/twitter.png') }}"></a>
+                            <a href="https://twitter.com/#!/{{tw_text}}" alt="@{{tw_text}} - Loogares.com" title="@{{tw_text}} - Loogares.com"><img width="24" height="24" src="http://www.loogares.com/assets/images/mails/twitter.png"></a>
                         </div>
                         <div style=" float: left; padding: 4px 0px 0px 10px;">
                             <a style="font: 14px/20px Arial; color: #666666; text-decoration: none;" href="https://twitter.com/#!/{{tw_text}}" alt="@{{tw_text}} - Loogares.com" title="@{{tw_text}} - Loogares.com">@{{tw_text}}</a>
@@ -59,7 +59,7 @@
                     </div>
                     <p style="margin: 0px; line-height: 18px;">{{'extra.modulo_concursos.newsletter.suscrito'|trans}}
                     <br />
-                    {{'extra.modulo_concursos.newsletter.cancelar_suscripcion'|trans}} <a href="*|UNSUB|*" style="color: #0066CC; text-decoration: none;">{{'extra.modulo_concursos.newsletter.cancelar_suscripcion_link'|trans}}</a>.
+                    {{'extra.modulo_concursos.newsletter.cancelar_suscripcion'|trans}} <a href="*|UNSUB|*" style="color: #0066CC; text-decoration: none;">{{'extra.modulo_concursos.newsletter.cancelar_suscripcion_aqui'|trans}}</a>.
                     <br />
                     {% trans with {'%open_a%': '<a href="mailto:contacto@loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
                     <br />
