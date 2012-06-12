@@ -55,6 +55,8 @@ extra:
         titulo_pasados: Sorteos pasados:
         ver_todos: Ver todos los sorteos de hoy
         participantes: Loogareño participando|Loogareños participando
+        publicar: ¿Quieres publicar un Beneficio Exclusivo con nosotros? Haz click
+        publicar_link: aquí
         newsletter:
             de: de
             sorteos_hoy: Ver todos los sorteos de hoy »
@@ -106,6 +108,9 @@ extra:
             title: Loogareño Estrella
             titulo: ¿Quieres que te invitemos a restaurantes, cafés, bares y más?
             bajada: ¡Conviértete en un Loogareño Estrella!
+        nuevos_concursos:
+            titulo: Nuevo sistema de concursos y Beneficios Exclusivos
+            boton: Nuevo sistema concursos y BE
         obligatorio: Los campos con (*) son obligatorios
 
 static:

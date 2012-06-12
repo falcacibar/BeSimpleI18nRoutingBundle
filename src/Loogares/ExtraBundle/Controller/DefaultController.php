@@ -299,6 +299,7 @@ class DefaultController extends Controller
             'copyright' => 'Static',
             'eres_el_dueno_de_un_lugar' => 'Static',
             'loogareno_estrella' => 'Static',
+            'nuevo_sistema_concursos_y_be' => 'Static',
             'politicas_de_privacidad' => 'Static',
             'prensa' => 'Static',
             'publicidad' => 'Static',

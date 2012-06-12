@@ -1,0 +1,59 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{'extra.estaticas.nuevos_concursos.titulo'|trans}} | {{parent()}}{% endblock %}
+
+{% block meta %}
+	<meta name="description" content="" />
+
+	<!-- Metadata para FB -->
+	<meta property="og:title" content="{{'extra.estaticas.nuevos_concursos.titulo'|trans}} | Loogares.com" />
+
+	<meta property="og:description" content="" />
+{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo">{{'extra.estaticas.nuevos_concursos.titulo'|trans}}</h1>
+
+			<p><img style="margin: 0 241px" src="{{asset ('assets/images/concursos/nuevos_concursos.png') }}" /></p><br />
+
+			<p>El  nuevo sistema de participación de <a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}">nuestros concursos</a> y Beneficios Exclusivos ahora es mucho más fácil y rápido que antes. Simplemente debes estar <a href="{{path('registroUsuario')}}">registrado</a> en Loogares.com, ingresar con tu usuario y hacer click sobre el botón del concurso. ¡Con esto ya estarás participando!</p><br />
+
+			<p>Dentro del sistema existen dos modalidades de participación:</p><br />
+
+			<p><strong>- Participación mediante botón:</strong></p><br />
+
+			<p><img style="margin: 0 180px" src="{{asset ('assets/images/concursos/boton_participar_click_preview.png') }}" /></p><br />
+
+			<p>Todos los concursos de Beneficios Exclusivos son mediante esta modalidad. Para participar solamente tienes que estar ingresado con tu usuario de Loogares.com y hacer click sobre el botón verde.</p><br />
+
+			<p>Al término del tiempo que dure el Beneficio Exclusivo se elegirá a los ganadores entre todos aquellos usuarios que hicieron click sobre el botón.</p><br />
+
+			<p><strong>- Participación mediante botón + recomendaciones escritas:</strong></p><br />
+
+			<p><img style="margin: 0 180px" src="{{asset ('assets/images/concursos/boton_participar_recomendar_preview.png') }}" /></p><br />
+
+			<p>Este sistema de participación está basado en nuestro anterior sistema, mediante escribir recomendaciones de lugares.</p><br />
+
+			<p>Todos los concursos de un día, como por ej. Amanda, Municipal, etc. son a través de esta modalidad.</p><br />
+
+			<p>Para participar solamente tienes que estar ingresado con tu usuario de Loogares.com y hacer click sobre el botón naranjo para quedar marcado como participante del concurso. Luego tienes que buscar lugares y escribirles recomendaciones basadas en tus experiencias.</p><br />
+
+			<p>Recordamos que mientras más y mejores recomendaciones escribas, más posibilidades tienes de ganar.</strong></p><br />
+
+			<p>Los ganadores de esta modalidad serán elegidos entre todos aquellos usuarios que hicieron click sobre el botón naranjo, se marcaron como participantes y escribieron recomendaciones.</p><br />
+
+			<p><strong>Si tiene dudas adicionales, feedback del sistema escríbenos a <a href="mailto:redessociales@loogares.com">redessociales[at]]loogares.com</a> o a nuestro Twitter de Santiago (<a href="http://www.twitter.com/loogarescom" target="_blank">@loogarescom</a>).</strong></p><br />
+
+			<p><strong>¡<a href="">Entra acá</a> para visitar nuestra página de concursos y empezar a participar ya!</strong></p><br />
+			
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}

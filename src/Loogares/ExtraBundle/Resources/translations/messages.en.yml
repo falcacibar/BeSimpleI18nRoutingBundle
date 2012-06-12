@@ -55,6 +55,8 @@ extra:
         titulo_pasados: Past contest:
         ver_todos: See all contest today
         participantes: Loogareño participating|Loogareños participating
+        publicar: Do you want to publish an Exclusive Benefit with us? Click
+        publicar_link: here
         newsletter:
             de: de
             sorteos_hoy: Ver todos los sorteos de hoy »
@@ -103,6 +105,9 @@ extra:
             title: Loogareño Estrella
             titulo: Want to go to restaurants, coffee, bars and more?
             bajada: Become a Loogareño Estrella!
+        nuevos_concursos:
+            titulo: New system of contest and Beneficios Exclusivos
+            boton: New system of contest and BE
         obligatorio: The fields with (*) are required
 
 static:
