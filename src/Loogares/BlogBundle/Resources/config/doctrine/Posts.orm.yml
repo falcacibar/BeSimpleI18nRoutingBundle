@@ -41,7 +41,7 @@ Loogares\BlogBundle\Entity\Posts:
         contenido:
             type: text
         preview:
-            type: string
+            type: text
         fecha:
             type: date
         fecha_publicacion:

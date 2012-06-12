@@ -3,6 +3,10 @@
 		<p class="titulo_popup">{{'blog.popup.registro.titulo'|trans}}</p>
 		<div class="registro_facebook_btn_popup"></div>
 		<span>{{'blog.popup.registro.o'|trans}} <a href="{{path('registroUsuario')}}">{{'blog.popup.registro.registro'|trans}}</a></span>
+		<div>
+			<p>¿Ya estás registrado?</p>
+			<p>¡<a href="{{path('login')}}">Entra acá</a> y estarás participando!</p>
+		</div>
         <a href="" class="volver">{{'blog.popup.registro.volver'|trans}}</a>
 	</div>
 {% elseif popup == 'compartir' and tipo == 'click' %}
@@ -59,7 +63,7 @@
 	    	$('.fb_share a').click();
 	    });
 
-	    $('.registro_facebook_btn').click(function(){
+	    $('.registro_facebook_btn_popup').click(function(){
 	    	$('.fb_hidden_button').find('.fb_button').click();
 	    });
 
