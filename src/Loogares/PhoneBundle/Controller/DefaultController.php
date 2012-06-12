@@ -70,6 +70,28 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
+    public function listadoSubcategoriasAction($categoria){
+        $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository("LoogaresLugarBundle:Categoria");
+
+        $categoria = $cr->findOneBySlug($categoria);
+
+        $q = $em->createQuery("SELECT s FROM Loogares\LugarBundle\Entity\SubCategoria s WHERE s.categoria = ?1");
+        $q->setParameter(1, $categoria->getId());
+
+        $subcategorias = $q->getResult();
+
+        $data = array();
+        foreach($subcategorias as $subcategoria){
+            $data[]['nombre'] = $subcategoria->getNombre();
+            $data[sizeOf($data)-1]['slug'] = $subcategoria->getSlug();
+        }
+
+        $json = json_encode($data);
+
+        return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
+    }
+
     public function reverseGeoAction($lat, $long){
         $url = "http://api.geonames.org/extendedFindNearby?lat=$lat&lng=$long&username=loogares";
         $xml = file_get_contents($url);

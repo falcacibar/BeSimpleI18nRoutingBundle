@@ -16,6 +16,12 @@ LoogaresPhoneBundle_categoria:
     requirements:
         _format:  json
 
+LoogaresPhoneBundle_subcategoria:
+    pattern:  /api/subcategoria/{categoria}
+    defaults: { _controller: LoogaresPhoneBundle:Default:listadoSubcategorias, _format: json }
+    requirements:
+        _format:  json
+
 LoogaresPhoneBundle_lugar:
     pattern: /api/lugar/{slug}
     defaults: { _controller: LoogaresPhoneBundle:Default:lugar, _format: json }
