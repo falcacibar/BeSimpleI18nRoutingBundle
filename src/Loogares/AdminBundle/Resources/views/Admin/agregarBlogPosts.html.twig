@@ -242,7 +242,7 @@
 	        		<input type="text" name="fecha_termino" id="fecha-hasta-c-ph" placeholder="Ej. 26-12-2010 12:00" value="{% if concurso != null and concurso.fechaTermino %}{{concurso.fechaTermino|date('d-m-y H:i')}}{% endif %}">
 				</li>
 
-				{% if post.lugar != null %}
+				{% if concurso != null and post.lugar != null %}
 					<li class="caja_ad_manager">
 						<input type="checkbox" class="desplegar_ads ad_manager" />
 						<span class="titulo_ad_manager">Código HTML para avisos de Ad Manager</span>
