@@ -8,7 +8,7 @@
 	<meta name="keywords" content="{{post.titulo}}, Concursos, Eventos, Notas, Actividades, Premios, Entradas, Invitaciones, Loogares, {{post.lugar.comuna.ciudad.nombre}}" />
 
 	<!-- Metadata para FB -->
-	<meta property="og:title" content="{{ post.titulo }} | {{post.lugar.comuna.ciudad.nombre}} | Loogares.com" />
+	<meta property="og:title" content="En #Loogarescom {{concurso.descripcion}} en {{post.lugar.nombre}}. Yo ya estoy participando »" />
 	<meta property="og:description" content="{{post.preview | striptags}}" />
 	<meta property="og:image" content="{{ asset('assets/images/blog/'~post.imagen) }}" />
 {% endblock %}
@@ -67,7 +67,7 @@
 				<h6>{{'blog.comparte'|trans}}</h6>
 				<ul class="redes_listado">
 					<li>
-						<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="{{post.titulo}} {{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-lang="es" data-hashtags="Loogarescom">{{'general.footer.redes.tweet'|trans}}</a>
+						<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="En #Loogarescom {{concurso.descripcion}} en {{post.lugar.nombre}}. Yo ya estoy participando »" data-lang="es">{{'general.footer.redes.tweet'|trans}}</a>
 						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 					</li>
 					<li>

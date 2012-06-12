@@ -21,8 +21,8 @@
                 <a class="compartir_por_facebook" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
             </li>
             <li class="twitter_share" style="margin: 0 0 5px;">                    
-                {% set data_url = url('_lugar', {'slug' : post.lugar.slug}) %}
-                {% set data_text = post.titulo~' '~data_url~' #Loogares.com' %}
+                {% set data_url = url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) %}
+                {% set data_text = 'En #Loogarescom '~concurso.descripcion~' en '~post.lugar.nombre~'. Yo ya estoy participando »' %}
                 {% set data_via = "Loogarescom" %}
                 <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
             </li>

@@ -127,12 +127,15 @@ class DefaultController extends Controller
     public function compartirPopUpAction($ciudad = null, $slug, $tipo) {
         $em = $this->getDoctrine()->getEntityManager();
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
 
         $post = $pr->findOneBySlug($slug);
+        $concurso = $conr->getConcursoPost($post->getId());
 
         $popup = "compartir";
         return $this->render('LoogaresBlogBundle:Default:popup.html.twig', array(
             'popup' => $popup,
+            'concurso' => $concurso,
             'post' => $post,
             'tipo' => $tipo
         ));
