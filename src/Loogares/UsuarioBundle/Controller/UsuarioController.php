@@ -1001,6 +1001,8 @@ class UsuarioController extends Controller
             $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
         }
 
+        print_r($_POST);
+
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
@@ -1026,8 +1028,8 @@ class UsuarioController extends Controller
             if ($form->isValid()) {
             
                 // Verificación de confirmación de password
-                if($request->request->get('confirmar_password') != $usuario->getPassword()) {
-                    $formErrors['confirmar'] = "usuario.errors.validacion.confirmar_password";        
+                if($request->request->get('confirmarPassword') != $usuario->getPassword()) {
+                    $formErrors['confirmar'] = "usuario.errors.validacion.confirmar_password";
                 }
                                 
                 else {
