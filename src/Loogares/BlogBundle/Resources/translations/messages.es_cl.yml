@@ -25,6 +25,10 @@ blog:
             o: o
             registro: regístrate con tu E-mail
             volver: Volver
+            registrado: ¿Ya estás registrado?
+            apertura: ¡
+            entra: Entra acá
+            y_estaras: y estarás participando!
         participando:
             titulo: ¡Ya estás participando!
             texto_1: Ahora solamente tienes que esperar al día que cierre el concurso para ver si ganaste...

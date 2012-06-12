@@ -25,6 +25,10 @@ blog:
             o: or
             registro: register with your E-mail
             volver: Back
+            registrado: Already registered?
+            apertura: 
+            entra: Login here
+            y_estaras: and you will be participating!
         participando:
             titulo: You are already participating!
             texto_1: Now you only have to wait to the day the contest ends to see if you won...

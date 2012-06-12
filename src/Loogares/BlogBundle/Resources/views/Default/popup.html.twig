@@ -1,11 +1,13 @@
 {% if popup == 'registro' %}
 	<div class="popup_registro">
-		<p class="titulo_popup">{{'blog.popup.registro.titulo'|trans}}</p>
-		<div class="registro_facebook_btn_popup"></div>
-		<span>{{'blog.popup.registro.o'|trans}} <a href="{{path('registroUsuario')}}">{{'blog.popup.registro.registro'|trans}}</a></span>
-		<div>
-			<p>¿Ya estás registrado?</p>
-			<p>¡<a href="{{path('login')}}">Entra acá</a> y estarás participando!</p>
+		<div class="lado_izq">
+			<p class="titulo_registro">{{'blog.popup.registro.titulo'|trans}}</p>
+			<div class="registro_facebook_btn_popup"></div>
+			<span>{{'blog.popup.registro.o'|trans}} <a href="{{path('registroUsuario')}}">{{'blog.popup.registro.registro'|trans}}</a></span>
+		</div>
+		<div class="lado_der">
+			<p class="titulo_registro">{{'blog.popup.registro.registrado'|trans}}<br />
+			{{'blog.popup.registro.apertura'|trans}}<a href="{{path('login')}}">{{'blog.popup.registro.entra'|trans}}</a> {{'blog.popup.registro.y_estaras'|trans}}</p>
 		</div>
         <a href="" class="volver">{{'blog.popup.registro.volver'|trans}}</a>
 	</div>
