@@ -415,14 +415,11 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));       
     }
 
-public function searchAction(Request $request, $slug = null, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
+public function searchAction(Request $request, $orden, $latitude = null, $longitude = null, $slug = null, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
     $fn = $this->get('fn');
     $em = $this->getDoctrine()->getEntityManager();
     $mostrarPrecio = null;
     $offset = 0;
-
-    $latitude = null;
-    $longitude = null;
 
     $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
     $ciudad = $cr->findOneBySlug($slug);
@@ -430,11 +427,9 @@ public function searchAction(Request $request, $slug = null, $subcategoria = nul
     if($latitude != null && $longitude != null){
         $geoloc = ",( 6371 * acos( cos( radians($latitude) ) * cos( radians( lugares.mapx ) ) * cos( radians( lugares.mapy ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( lugares.mapx ) ) ) ) AS distance";
         $geolocCondition = "HAVING distance < 10";
-        $orderBy = "ORDER BY distance asc";
     }else{
         $geoloc = null;
         $geolocCondition = null;
-        $orderBy = "ORDER BY distance asc";
     }
 
     $orderFilters = array(
@@ -446,12 +441,7 @@ public function searchAction(Request $request, $slug = null, $subcategoria = nul
       'distance' => 'distance asc'
     );
 
-    if(isset($_GET['orden'])){
-      if(isset($orderFilters[$_GET['orden']])){
-        $order = "ORDER BY " . $orderFilters[$_GET['orden']];
-      }
-    }
-    $order = "ORDER BY lugares.total_recomendaciones desc";
+    $order = "ORDER BY " . $orderFilters[$orden];
 
     $idCiudad = $ciudad->getId();
     $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
@@ -702,6 +692,7 @@ public function searchAction(Request $request, $slug = null, $subcategoria = nul
                         
                         GROUP BY lugares.id
                         $filterCaracteristica
+                        $geolocCondition
                         $order LIMIT 3000)";
 
       //Buscamos por Slug
@@ -732,6 +723,7 @@ public function searchAction(Request $request, $slug = null, $subcategoria = nul
 
                         GROUP BY lugares.id  
                         $filterCaracteristica
+                        $geolocCondition
                         $order LIMIT 3000)";
     }
 
@@ -816,8 +808,8 @@ public function searchAction(Request $request, $slug = null, $subcategoria = nul
       $data[sizeOf($data)-1]['slug'] = $lugar->getSlug();
       $data[sizeOf($data)-1]['estrellas'] = $recomendacion['promedioEstrellas'];
       $data[sizeOf($data)-1]['calle'] = $lugar->getCalle();
-      $data[sizeOf($data)-1]['mapx'] = $lugar->getMapy();
-      $data[sizeOf($data)-1]['mapy'] = $lugar->getMapx();
+      $data[sizeOf($data)-1]['mapx'] = $lugar->getMapx();
+      $data[sizeOf($data)-1]['mapy'] = $lugar->getMapy();
       $data[sizeOf($data)-1]['numero'] = $lugar->getNumero();
 
       $categoria =  $lugar->getCategoriaLugar();
