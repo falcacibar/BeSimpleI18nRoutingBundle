@@ -1977,12 +1977,6 @@ class AdminController extends Controller
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
         $result = $uploader->handleUpload(__DIR__.'/../../../../web/assets/images/blog/uploads/');
 
-        if(!file_exists(__DIR__.'/../../../../web/assets/media/cache/thumb_uploader/assets/images/blog/uploads/default.gif'))
-            $this->get('imagine.controller')->filter('assets/images/blog/uploads/default.gif', "thumb_uploader");
-
-        if(file_exists(__DIR__.'/../../../../web/assets/media/cache/thumb_uploader/assets/images/blog/uploads/'.$result['fileName']))
-            unlink(__DIR__.'/../../../../web/assets/media/cache/thumb_uploader/assets/images/blog/uploads/'.$result['fileName']);
-        else
             $this->get('imagine.controller')->filter('assets/images/blog/uploads/'.$result['fileName'], "thumb_uploader");
             
         $result['thumb'] = 'web/assets/media/cache/thumb_uploader/assets/images/blog/uploads/'.$result['fileName'];
