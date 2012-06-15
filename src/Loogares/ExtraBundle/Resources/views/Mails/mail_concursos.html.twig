@@ -18,17 +18,17 @@
                         {% for concurso in concursos %}
                             <li style="padding: 40px 20px; float: left; margin: 0px;{% if i is odd %} background-color:#FAFAFC{% else %} background:#FFF{% endif %}">
                                 <div style="float: left; width: 204px">
-                                    {% if app.session.get('ciudad').slug == 'buenos-aires' %}
-                                        <img src="http://www.loogares.com/assets/images/mails/boton_mail_buenosaires.png" height="40px" width="150px" />                                    
-                                    {% else %}
-                                        <img src="http://www.loogares.com/assets/images/mails/boton_mail.png" height="40px" width="150px" />                                    
-                                    {% endif %}
+                                    <img style="float: left; width: 204px;" src="http://www.loogares.com/assets/images/blog/{{concurso.post.imagen}}" height="115px" width="204px" />
                                 </div>
                                 <div style="float: left; width: 404px">
                                     <p style="float: left; width: 389px; margin: 0px 0px 0px 15px; color: #999; font-size: 12px;"><a href="{{url('_lugar', {'slug' : concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none; font-weight: bold;">{{concurso.post.lugar.nombre}}</a> - {{concurso.post.lugar.comuna.nombre}}</p>
                                     <p style="float: left; width: 389px; margin: 5px 0px 0px 15px; font-size: 17px; font-weight: bold; color: #666;">{{concurso.descripcion}}</p>
                                     <div style="float: left; width: 389px; margin: 10px 0px 0px 15px; color: #666; font-size: 12px;">{{concurso.post.preview | raw }}</div>
-                                    <p style="float: left; width: 389px; margin: 0px 0px 0px 15px"><a href="{{ url('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}"><img src="http://www.loogares.com/assets/images/mails/boton_mail.png" height="40px" width="150px" /></a></p>
+                                    {% if app.session.get('ciudad').slug == 'buenos-aires' %}
+                                        <p style="float: left; width: 389px; margin: 0px 0px 0px 15px"><a href="{{ url('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}"><img src="http://www.loogares.com/assets/images/mails/boton_mail_buenosaires.png" height="40px" width="150px" /></a></p>
+                                    {% else %}
+                                        <p style="float: left; width: 389px; margin: 0px 0px 0px 15px"><a href="{{ url('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}"><img src="http://www.loogares.com/assets/images/mails/boton_mail.png" height="40px" width="150px" /></a></p>
+                                    {% endif %}
                                 </div>
                             </li>
                             {% set i = i + 1 %}
