@@ -70,6 +70,30 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
+    public function zonasAction(){
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $q = $em->createQuery("SELECT s from Loogares\ExtraBundle\Entity\Sector s");
+        $sectoresResult = $q->getResult();
+
+        $q = $em->createQuery("SELECT c from Loogares\ExtraBundle\Entity\Comuna c");
+        $comunasResult = $q->getResult();
+
+        foreach($sectoresResult as $sectorResult){
+            $data['sectores'][]['nombre'] = $sectorResult->getNombre();
+            $data['sectores'][sizeOf($data['sectores'])-1]['slug'] = $sectorResult->getSlug();
+        }
+
+        foreach($comunasResult as $comunaResult){
+            $data['comunas'][]['nombre'] = $comunaResult->getNombre();
+            $data['comunas'][sizeOf($data['comunas'])-1]['slug'] = $comunaResult->getSlug();
+        }
+
+        $json = json_encode($data);
+
+        return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));  
+    }
+
     public function listadoSubcategoriasAction($categoria){
         $em = $this->getDoctrine()->getEntityManager();
         $cr = $em->getRepository("LoogaresLugarBundle:Categoria");

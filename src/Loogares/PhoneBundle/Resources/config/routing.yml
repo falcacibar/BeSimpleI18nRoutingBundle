@@ -19,6 +19,12 @@ LoogaresPhoneBundle_subcategoria:
     requirements:
         _format:  json
 
+LoogaresPhoneBundle_zonas:
+    pattern:  /api/zonas
+    defaults: { _controller: LoogaresPhoneBundle:Default:zonas, _format: json }
+    requirements:
+        _format:  json
+
 #
 # BUSQUEDA & QUICK SEARCH
 #
