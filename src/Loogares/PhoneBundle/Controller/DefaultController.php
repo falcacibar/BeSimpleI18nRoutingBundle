@@ -853,22 +853,29 @@ public function searchAction(Request $request, $orden, $latitude = null, $longit
       if(isset($ultimaImagenActiva) && file_exists('assets/images/lugares/'.$ultimaImagenActiva)){
         if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png')){
             $this->get('imagine.controller')->filter('assets/images/lugares/'.$ultimaImagenActiva, "phone_thumbnail");
+            $ultimaImagenActiva = $fn->generarThumbnailTelefono($ultimaImagenActiva, 'phone_thumbnail');
+            /*$originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$ultimaImagenActiva);
 
-            $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$ultimaImagenActiva);
-            $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
-
-            $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png');
-            unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$ultimaImagenActiva);
+            try{
+                $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
+                $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png');
+                unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$ultimaImagenActiva);
+            }catch(\Imagine\Exception\Exception $e){
+                //Do nothing, se pasa a default solo.
+            }*/
         }
         $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/'.$ultimaImagenActiva;
       }else{
         if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png')){
-            $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "phone_thumbnail");
+            $this->get('imagine.controller')->filter('assets/images/lugares/default.png', "phone_thumbnail");
 
-            $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
-            $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
+            // $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
 
-            unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
+            // $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
+
+            // $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png');
+            // unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
+            $fn->generarThumbnailTelefono('default.png', 'phone_thumbnail');
         }
         $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/default.png';
       }
