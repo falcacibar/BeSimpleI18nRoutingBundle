@@ -67,6 +67,9 @@ extra:
             suscrito: Este mail te llegó porque estás suscrito al Newsletter semanal de Loogares.com.
             cancelar_suscripcion: Para cancelar la suscripción hacé click
             cancelar_suscripcion_aqui: aquí
+        ganadores:
+            mail:
+                asunto: ¡Felicitaciones! Acabás de ganar en uno de los concurso de Loogares.com    
 
     estaticas:
         codigos_de_conducta:

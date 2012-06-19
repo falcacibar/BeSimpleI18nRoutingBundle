@@ -93,7 +93,7 @@ class AdminAjaxController extends Controller{
 
         // Se envía mail al ganador informando el premio
         $mail = array();
-        $mail['asunto'] = $this->get('translator')->trans('extra.modulo_concursos.ganadores.mail.asunto', array('%premio%' => '5 entradas a algo'));
+        $mail['asunto'] = $this->get('translator')->trans('extra.modulo_concursos.ganadores.mail.asunto');
         $mail['usuario'] = $participante->getUsuario();
         $mail['ganador'] = $ganador;
         $mail['concurso'] = $participante->getConcurso();

@@ -69,7 +69,7 @@ extra:
             cancelar_suscripcion_aqui: aquí
         ganadores:
             mail:
-                asunto: ¡Felicitaciones! Acabas de ganar un %premio% en Loogares.com    
+                asunto: ¡Felicitaciones! Acabas de ganar en uno de los concurso de Loogares.com    
 
     estaticas:
         codigos_de_conducta:
