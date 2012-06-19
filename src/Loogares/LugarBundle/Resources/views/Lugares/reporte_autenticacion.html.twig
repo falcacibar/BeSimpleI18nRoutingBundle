@@ -3,25 +3,38 @@
 {% block title %}Ingresar a reporte de {{lugar.nombre}} | {{parent()}}{% endblock %}
 
 {% block content %}
-	{% if errors | length > 0 %}
-		<div class="errores">
-			{% for error in errors%}
-				<p>{{error}}</p>
-			{% endfor %}
-		</div>
-	{% endif %}
-	<form action="{{path('_reporteLocal', {'slug' : lugar.slug, 'id' : id })}}" method="POST">
-		<ul>
-			<li>
-				<label>Password</label>
-				<input type="password" name="password" placeholder="Password del local" />
-			</li>
-			<li>
-				<label></label>
-				<input type="submit" value="Ingresar" />
-			</li>
-		</ul>
-	</form>
 	
+	<img class="logo_reporte" src="{{ asset('assets/images/reporte/logo_reporte.png') }}" height="52" width="161" />
+
+	<div class="acceso_reporte">
+
+		<p class="titulo">Bienvenido al servicio de reporte de campañas.<br />
+		<span class="bajada">Ingresa tu contraseña y accede a ver las métricas de la campaña.</span></p>
+
+		{% if errors | length > 0 %}
+        <div class="mensaje_error">
+            <div class="imagen_error"></div>
+            <div class="txt_error">
+				{% for error in errors%}
+					<p>{{error}}</p>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+
+		<form action="{{path('_reporteLocal', {'slug' : lugar.slug, 'id' : id })}}" method="POST">
+			<ul>
+				<li>
+					<label>Contraseña</label>
+					<input type="password" name="password" placeholder="Escribe la contraseña de acceso" />
+				</li>
+				<li>
+					<label></label>
+					<input class="boton_entrar" type="submit" value="" />
+				</li>
+			</ul>
+		</form>
+
+	</div>
 
 {% endblock %}
