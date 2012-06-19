@@ -10,7 +10,7 @@
 	                    <strong>¡Felicitaciones {{'admin.notificaciones.saludo'|trans({'%nombre%' : mail.usuario.nombre, '%apellido%' : mail.usuario.apellido})}}!</strong>
 	                    <br />
 	                    <br />
-	                    Gracias a tu participación en Loogares.com resultaste ganador de <strong>PREMIO CONCURSO</strong> en <strong><a href="{{url('_lugar', {'slug' : mail.concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none;">{{mail.concurso.post.lugar.nombre}}</a></strong>. Este premio es único, válido para ser utilizado una sola vez y su fecha de expiración es el <strong>DD de Mes del AAAA</strong>.
+	                    Gracias a tu participación en Loogares.com resultaste ganador del concurso de <strong><a href="{{url('_lugar', {'slug' : mail.concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none;">{{mail.concurso.post.lugar.nombre}}</a></strong>. Este premio es único, válido para ser utilizado una sola vez.
 	                    <br />
 	                    <br />
 	                    <strong>A continuación va el cupón y detalladas sus condiciones de uso:</strong>
@@ -20,7 +20,7 @@
 	               	<div style="background: #FAFAFC; float: left; border-top: 1px solid #CCC;">
 	                    <img src="{{ assets.concurso }}" height="100px" width="177px" style="float: left; padding: 20px 20px 20px 0; margin: 0 0 0 20px; border-bottom: 1px solid #E5E5E5;"/>
 	                    <div style="float: left; border-bottom: 1px solid #E5E5E5; height: 100px; padding: 20px 0px; font-size: 17px; font-weight: bold; line-height: 33px; width: 411px; margin: 0 20px 0 0;">
-	                    	PREMIO CONCURSO
+	                    	GANADOR CONCURSO
 	                    	<br />
 	                    	{{mail.usuario.nombre}} {{mail.usuario.apellido}}
 	                    	<br />
@@ -57,7 +57,7 @@
 		               		<br />
 		               		<a href="http://{{mail.concurso.post.lugar.sitioWeb}}" style="color: #0066CC; text-decoration: none;">Sitio web</a>
 		               		<br />
-		               		<a href="http://{{mail.concurso.post.lugar.facebook}}" style="color: #0066CC; text-decoration: none; margin: 0 10px 0 0;"><img src="" height="16" width="16" /></a> <a href="http://{{mail.concurso.post.lugar.twitter}}" style="color: #0066CC; text-decoration: none;"><img src="" height="16" width="16" /></a>
+		               		<a href="http://{{mail.concurso.post.lugar.facebook}}" style="color: #0066CC; text-decoration: none; margin: 0 10px 0 0;"><img src="http://www.loogares.com/assets/images/mails/facebook.png" height="16" width="16" /></a> <a href="http://{{mail.concurso.post.lugar.twitter}}" style="color: #0066CC; text-decoration: none;"><img src="http://www.loogares.com/assets/images/mails/twitter.png" height="16" width="16" /></a>
 		               		<br />
 		               		Visita su ficha en Loogares.com <a href="{{url('_lugar', {'slug' : mail.concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none;">acá</a>
 		               	</div>

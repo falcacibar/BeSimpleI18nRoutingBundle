@@ -50,9 +50,9 @@ admin:
 
         ganadores:
             felicitaciones: ¡Felicitaciones
-            gracias_a: Gracias a tu participación en Loogares.com resultaste ganador de
+            gracias_a: Gracias a tu participación en Loogares.com resultaste ganador del concurso de
             en: en
-            premio_unico: Este premio es único, válido para ser utilizado una sola vez y su fecha de expiración es el
+            premio_unico: Este premio es único, válido para ser utilizado una sola vez.
             cupon: A continuación va el cupón y detalladas sus condiciones de uso:
             codigo: Código cupón:
             detalle: Detalle del premio:
