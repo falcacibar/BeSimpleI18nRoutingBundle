@@ -11,6 +11,7 @@ catch(PDOException $e) {
 
 $hoy = new Datetime();
 $hoy = $hoy->format('Y-m-d');
+$ayer = date("Y-m-d", strtotime("yesterday"));
 
 $STH = $DBH->query("select * from blog_posts where fecha_publicacion = '$hoy 00:00:00'");
 $STH->setFetchMode(PDO::FETCH_ASSOC);
@@ -21,11 +22,11 @@ while($row = $STH->fetch()){
     $DBH->exec($sql);
 }
 
-$STH = $DBH->query("select * from blog_posts where fecha_termino = '$hoy 00:00:00'");
+$STH = $DBH->query("select * from concursos where fecha_termino >= '$ayer 00:00:01' and fecha_termino <= '$hoy 00:00:00'");
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 while($row = $STH->fetch()){
 	$id = $row['id'];
-    $sql = "UPDATE blog_posts SET blog_estado_concurso_id = 3, destacado_home = 0 WHERE blog_posts.id = $id";
+    $sql = "UPDATE concursos SET estado_concurso_id = 3 WHERE concursos.id = $id";
     $DBH->exec($sql);
 }
 

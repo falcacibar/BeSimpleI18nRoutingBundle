@@ -91,6 +91,7 @@ class BeforeControllerListener
                     $usuario->setFechaUltimaActividad(new \DateTime());
                     $em->flush();
                 }
+                echo date("Y-m-d", strtotime("yesterday"));
             }                 
         //}       
         
