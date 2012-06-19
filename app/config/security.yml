@@ -35,6 +35,7 @@ security:
                 username_parameter: _mail
                 default_target_path: /usuario
                 provider: main
+                success_handler: auth_success_handler
             fos_facebook:
                 app_url: "http://new.loogares.com"
                 server_url: "http://new.loogares.com"
@@ -42,6 +43,7 @@ security:
                 login_path: /usuario
                 default_target_path: /usuario
                 provider: facebook
+                success_handler: auth_success_handler
             logout:
                 path:   /usuario/logout
                 target: /
@@ -49,7 +51,7 @@ security:
                 key: _remember_me
                 lifetime: 1209600
                 path:     /
-                domain:   ~         
+                domain:   ~       
     access_control:
         - { path: /agregar, roles: ROLE_USER }
         - { path: /editar, roles: ROLE_USER }

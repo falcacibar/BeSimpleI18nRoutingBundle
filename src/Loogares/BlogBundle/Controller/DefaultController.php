@@ -89,9 +89,20 @@ class DefaultController extends Controller
             if($this->get('security.context')->isGranted('ROLE_USER')) {
                 $participa = $conr->isUsuarioParticipando($this->get('security.context')->getToken()->getUser(), $concurso);
             }
+
             $concurso->participa = $participa;
 
             $post->getLugar()->telefonos = $telefonos;
+
+            // Se limpian variables de session de concurso si es que existen
+            if($this->get('session')->get('concurso')) {
+                $this->get('session')->remove('concurso');
+            }
+                
+            if($this->get('session')->get('post_slug')) {
+                $this->get('session')->remove('post_slug');
+            }           
+
             return $this->render('LoogaresBlogBundle:Default:post_concurso.html.twig', array(
                 'post' => $post,
                 'concurso' => $concurso,
@@ -118,6 +129,17 @@ class DefaultController extends Controller
     }
 
     public function registroPopUpAction($ciudad = null, $slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
+
+        $post = $pr->findOneBySlug($slug);
+        $concurso = $conr->getConcursoPost($post->getId());
+
+        // Seteamos variables de session para concursar automáticamente luego de loggear
+        $this->get('session')->set('concurso', $concurso->getId());
+        $this->get('session')->set('post_slug', $slug);
+
         $popup = "registro";
         return $this->render('LoogaresBlogBundle:Default:popup.html.twig', array(
             'popup' => $popup
