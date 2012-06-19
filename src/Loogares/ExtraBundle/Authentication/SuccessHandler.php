@@ -32,7 +32,6 @@ class SuccessHandler implements AuthenticationSuccessHandlerInterface
     {
     	// Caso en que el usuario participa en un concurso
     	$session = $request->getSession();
-
     	if($session->get('concurso')) {
     		$user = $token->getUser();
     		$conr = $this->em->getRepository("LoogaresBlogBundle:Concurso");
@@ -53,11 +52,19 @@ class SuccessHandler implements AuthenticationSuccessHandlerInterface
 	        // Eliminamos las variables de concurso de session
 	        $session->remove('concurso');
 	        $session->remove('post_slug');
-	        echo $request->headers->get('referer');
-	        return new RedirectResponse($this->router->generate('post', array('ciudad' => $ciudad['slug'], 'slug' => $slug)));	
+
+	        $url = $this->router->generate('post', array('ciudad' => $ciudad['slug'], 'slug' => $slug));	
+    	}
+    	else {
+    		if ($targetPath = $session->get('_security.target_path')) {
+                $url = $targetPath;
+            }
+            else {
+            	$url = $request->headers->get('referer');
+            }
     	}
 
-    	return new RedirectResponse($request->headers->get('referer'));
+    	return new RedirectResponse($url);
     }
 
 }
