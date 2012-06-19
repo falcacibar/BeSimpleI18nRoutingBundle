@@ -29,3 +29,9 @@ services:
         class: Loogares\ExtraBundle\Encoder\Encoder
         arguments:
             em: "@doctrine.orm.default_entity_manager"
+
+    auth_success_handler:
+        class: Loogares\ExtraBundle\Authentication\SuccessHandler
+        arguments:
+            router: "@router"
+            em: "@doctrine.orm.default_entity_manager"

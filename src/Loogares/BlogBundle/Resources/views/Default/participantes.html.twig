@@ -7,7 +7,7 @@
 		{% endif %}
 				<li>
 					<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}" alt="{{participante.usuario.nombre}} {{participante.usuario.apellido}}" title="{{participante.usuario.nombre}} {{participante.usuario.apellido}}">
-						<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('small_usuario') }}" width="20" height="20" />
+						<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
 					</a>
 				</li>
 		{% set doce = doce + 1 %}

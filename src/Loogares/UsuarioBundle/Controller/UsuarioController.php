@@ -1290,7 +1290,7 @@ class UsuarioController extends Controller
     }
 
     public function loginCheckAction() {
-        echo $this->getRequest()->request->get('_password');
+        //echo $this->getRequest()->request->get('_password');
     }
 
     public function loginCheckFacebookAction() {
