@@ -32,7 +32,7 @@
 					{% endif %}
 					<li>
 						<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">
-							<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('small_usuario') }}" width="20" height="20" />
+							<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
 						</a>
 					</li>
 					{% set doce = doce + 1 %}
@@ -56,8 +56,8 @@
 
 		<div class="metricas_reporte">
 			<p><span class="azul">{{concurso.visitasHome + concurso.visitasBusquedas + concurso.visitasCategorias}}</span> - {{'reporte_local.visitas_home'|trans}}</p>
-			<p><span class="azul">{{concurso.visitasPost + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="">{{'reporte_local.nota'|trans}}</a></p>
-			<p><span class="azul">{{concurso.visitasFicha + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="">{{'reporte_local.ficha'|trans}}</a></p><br />
+			<p><span class="azul">{{concurso.visitasPost + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="{{path('post', {'ciudad' : concurso.post.ciudad.slug, 'slug' : concurso.post.slug})}}">{{'reporte_local.nota'|trans}}</a></p>
+			<p><span class="azul">{{concurso.visitasFicha + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="{{path('_lugar', {'slug' : concurso.post.lugar.slug})}}">{{'reporte_local.ficha'|trans}}</a></p><br />
 			<p><span class="azul">{{concurso.post.lugar.totalRecomendaciones}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/recomendaciones.png') }}" height="15px" width="17px" /> {{'reporte_local.recomendaciones'|trans}}</p>
 			<p><span class="azul">{{concurso.facebookFinal - concurso.facebookInicio}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/facebook.png') }}" height="16px" width="16px" /> {{'reporte_local.facebook'|trans}}</p>
 			<p><span class="azul">{{concurso.twitterFinal - concurso.twitterInicio}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/twitter.png') }}" height="16px" width="16px" /> {{'reporte_local.twitter'|trans}}</p>
@@ -70,19 +70,31 @@
 				{{'reporte_local.ganadores_tip'|trans}} <strong>{{'reporte_local.ganadores_canjeada'|trans}}</strong>.</p><br />
 
 				<ul>
-					<li>
-						<input type="checkbox" />
-						<a href="">
-							<img class="imagen_ganador" src="" width="20" height="20" />
-							<span>NOMBRE USUARIO</span>
-						</a>
-						<span> - {{'usuario.gift_card.codigo'|trans}} <strong>código</strong></span>
-					</li>
+					{% for ganador in concurso.ganadores %}
+						<li>
+							<input type="checkbox" />
+							<a href="{{path('showUsuario', {'param' : ganador.participante.usuario.slug})}}">
+								<img class="imagen_ganador" src="{{ ('assets/images/usuarios/'~ganador.participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
+								<span>{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</span>
+							</a>
+							<span> - {{'usuario.gift_card.codigo'|trans}} <strong>{{ganador.codigo}}</strong></span>
+						</li>
+					{% endfor %}
 				</ul>
 				
-				<input class="boton_canjeada" type="submit" value="" />
+				<a class="boton_canjeada"></a>
 			</div>
 		{% endif %}
 	</div>
 
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+		$(function(){
+			$('.boton_canjeada').click(function(){
+				console.log('hgey');
+			});
+		});
+	</script>	
 {% endblock %}
