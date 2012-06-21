@@ -6,7 +6,7 @@ $(function(){
         showCloseButton: false
     });
 
-    $('.boton_participar').fancybox({
+    $('.boton_participar, .popup_compartir').fancybox({
         hideOnContentClick : false,
         padding: 0,
         type: 'ajax',

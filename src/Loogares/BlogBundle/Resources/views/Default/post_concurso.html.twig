@@ -26,6 +26,7 @@
 						{% if concurso.tipoConcurso.slug == 'click'%}
 							{% if concurso.participa ==  true %}
 								<div class="boton_participando boton_participando_click"></div>
+								<a href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}" class="popup_compartir" style="display:none"/>
 								<a href="{{ path('static', {'static': 'nuevo_sistema_concursos_y_be'}) }}" class="como_funciona">{{'blog.como_funciona'|trans}}</a>
 							{% else %}	
 								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}				
@@ -35,6 +36,7 @@
 						{% elseif concurso.tipoConcurso.slug == 'recomendacion' %}
 							{% if concurso.participa ==  true %}
 								<div class="boton_participando boton_participando_recomendar"></div>
+								<a href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}" class="popup_compartir" style="display:none"/>
 								<a href="{{ path('static', {'static': 'nuevo_sistema_concursos_y_be'}) }}" class="como_funciona">{{'blog.como_funciona'|trans}}</a>
 							{% else %}	
 								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}				
@@ -49,7 +51,7 @@
 			<div class="tiempo_restante">
 				{{'blog.quedan'|trans}} <span class="tiempo_azul"></span> {{'blog.para_participar'|trans}}
 			</div>
-			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
+			{#% include "LoogaresBlogBundle:Default:participantes.html.twig"%#}
 			{% if concurso.ganadores | length > 0 %}
 				<div class="ganadores">
 					<h6 class="titulo_ganadores">{{'blog.ganadores.titulo'|trans}}</h6>
@@ -142,6 +144,10 @@
 			$('.tiempo_azul').countdown({until: new Date({{concurso.fechaTermino|date('U')}}*1000), layout: '{d<}{dn} días, {d>}{h<}{hn} horas, {h>}{m<}{mn} minutos y {m>}{s<}{sn} segundos{s>}'});
 
 			var interval = setInterval("checkEstadoConcurso(Math.round((new Date()).getTime() / 1000), {{concurso.fechaTermino|date('U')}});",1000);
+
+			{% if app.session.get('popup_compartir') %}
+				$('.popup_compartir').click();
+			{% endif %}			
 		});		
 	</script>
 {% endblock %}

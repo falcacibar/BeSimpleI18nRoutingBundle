@@ -53,6 +53,9 @@ class SuccessHandler implements AuthenticationSuccessHandlerInterface
 	        $session->remove('concurso');
 	        $session->remove('post_slug');
 
+            // Utilizamos una variable de sesión temporal para mostrar el popup de compartir en redes sociales
+            $session->set('popup_compartir', '1');
+
 	        $url = $this->router->generate('post', array('ciudad' => $ciudad['slug'], 'slug' => $slug));	
     	}
     	else {

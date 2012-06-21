@@ -154,6 +154,11 @@ class DefaultController extends Controller
         $post = $pr->findOneBySlug($slug);
         $concurso = $conr->getConcursoPost($post->getId());
 
+
+        if($this->getRequest()->getSession()->get('popup_compartir')) {
+            $this->getRequest()->getSession()->remove('popup_compartir');
+        }
+
         $popup = "compartir";
         return $this->render('LoogaresBlogBundle:Default:popup.html.twig', array(
             'popup' => $popup,
