@@ -38,13 +38,13 @@ class SuccessHandler implements AuthenticationSuccessHandlerInterface
 	        $concurso = $conr->find($session->get('concurso'));
 
 	        // Sólo agregamos al usuario si no estaba participando anteriormente
-	        if(!$conr->isUsuarioParticipando($user, $concurso)) {
+	        /*if(!$conr->isUsuarioParticipando($user, $concurso)) {
 	        	$participante = new Participante();
 		        $participante->setUsuario($user);
 		        $participante->setConcurso($concurso);
 		        $this->em->persist($participante);
 		        $this->em->flush();
-	        }	        
+	        }*/	        
 
 	        $slug = $session->get('post_slug');
 	        $ciudad = $session->get('ciudad');

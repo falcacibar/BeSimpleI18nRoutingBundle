@@ -26,11 +26,14 @@
 						{% if concurso.tipoConcurso.slug == 'click'%}
 							{% if concurso.participa ==  true %}
 								<div class="boton_participando boton_participando_click"></div>
+
 								<a href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}" class="popup_compartir" style="display:none"/>
+
 								<a href="{{ path('static', {'static': 'nuevo_sistema_concursos_y_be'}) }}" class="como_funciona">{{'blog.como_funciona'|trans}}</a>
 							{% else %}	
+							
 								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}	
-								<a onclick="pageTracker._trackPageview('/participacion_campana')" {% if is_granted('ROLE_USER')%}class="boton_participar boton_participar_click" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}"{% else %}class="boton_registro boton_participar_click" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
+								<a onclick="_gaq.push(['_trackPageview', '/participacion_campana'])" {% if is_granted('ROLE_USER')%}class="boton_participar boton_participar_click" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}"{% else %}class="boton_registro boton_participar_click" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
 								<a href="{{ path('static', {'static': 'nuevo_sistema_concursos_y_be'}) }}" class="como_funciona">{{'blog.como_funciona'|trans}}</a>
 							{% endif %}
 						{% elseif concurso.tipoConcurso.slug == 'recomendacion' %}
@@ -146,7 +149,7 @@
 			var interval = setInterval("checkEstadoConcurso(Math.round((new Date()).getTime() / 1000), {{concurso.fechaTermino|date('U')}});",1000);
 
 			{% if app.session.get('popup_compartir') %}
-				$('.popup_compartir').click();
+				$('.boton_participar').click();
 			{% endif %}			
 		});		
 	</script>
