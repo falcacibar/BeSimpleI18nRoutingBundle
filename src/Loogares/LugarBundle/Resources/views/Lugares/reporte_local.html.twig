@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="participantes_reporte">
-			{#% if concurso.participantes | length > 0 %}
+			{% if concurso.participantes | length > 0 %}
 				{% set doce = 0 %}
 				{% for participante in concurso.participantes %}
 					{% if loop.index == 1 or (loop.index > 19 and (loop.index - 1) % 19 == 0)  %}
@@ -40,7 +40,7 @@
 						</ul>				
 					{% endif %}
 				{% endfor %}
-			{% endif %#}				
+			{% endif %}				
 
 			<div class="participantes">
 				<div class="cantidad_participantes_izq">
