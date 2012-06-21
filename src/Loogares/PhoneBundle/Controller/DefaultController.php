@@ -57,7 +57,12 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $cr = $em->getRepository("LoogaresLugarBundle:Caracteristica");
 
-        $q = $em->createQuery('SELECT c FROM Loogares\LugarBundle\Entity\Caracteristica c ORDER BY c.nombre ASC');
+        $q = $em->createQuery('SELECT c FROM Loogares\LugarBundle\Entity\Caracteristica c 
+                               WHERE c.slug != ?1 AND c.slug != ?2 AND c.slug != ?3
+                               ORDER BY c.nombre ASC');
+        $q->setParameter(1, 'descuentos-en-pedido-online');
+        $q->setParameter(2, 'reserva-online');
+        $q->setParameter(3, 'pedido-online');
         $caracteristicas = $q->getResult();
 
         foreach($caracteristicas as $caracteristica){
@@ -325,7 +330,13 @@ class DefaultController extends Controller
         if(isset($data['recomendaciones'])) $data['recomendaciones'] = array_reverse($data['recomendaciones']);
 
         $data['caracteristicas'] = array();
-        $totalCaracteristicas = $cr->findAll();
+        $q = $em->createQuery('SELECT c FROM Loogares\LugarBundle\Entity\Caracteristica c 
+                               WHERE c.slug != ?1 AND c.slug != ?2 AND c.slug != ?3
+                               ORDER BY c.nombre ASC');
+        $q->setParameter(1, 'descuentos-en-pedido-online');
+        $q->setParameter(2, 'reserva-online');
+        $q->setParameter(3, 'pedido-online');
+        $totalCaracteristicas = $q->getResult();
         $caracteristicas = $lugar->getCaracteristicaLugar();
 
         foreach($totalCaracteristicas as $totalCaracteristica){
@@ -347,13 +358,14 @@ class DefaultController extends Controller
         $data['slug'] = $lugar->getSlug();
         $data['mapx'] = $lugar->getMapx();
         $data['mapy'] = $lugar->getMapy();
-        $data['localidad'] = $lugar->getComuna()->getNombre() . ', ' . $lugar->getComuna()->getCiudad()->getNombre();
-        $data['direccion'] = $lugar->getCalle() . " - " . $lugar->getNumero();
+        $data['localidad'] = $lugar->getComuna()->getNombre();
+        $data['direccion'] = $lugar->getCalle() . " " . $lugar->getNumero();
         $data['telefonos'] = array();
         if($lugar->getTelefono1() != '') $data['telefonos'][] = $codigo . $lugar->getTelefono1();
         if($lugar->getTelefono2() != '') $data['telefonos'][] = $codigo . $lugar->getTelefono2();
         if($lugar->getTelefono3() != '') $data['telefonos'][] = $codigo . $lugar->getTelefono3();
         $data['estrellas'] = $lugar->getEstrellas();
+        $data['precio'] = $lugar->getPrecio();
         $data['facebook'] = $lugar->getFacebook();
         $data['twitter'] = $lugar->getTwitter();
         $data['web'] = $lugar->getSitioWeb();
@@ -404,9 +416,9 @@ class DefaultController extends Controller
             $data['imagen130'] = 'assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/'.$ultimaImagen[0].'.png';
         }else{
             if(!file_exists('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/default.png')){
-                $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "phone_ficha_thumbnail");
+                $this->get('imagine.controller')->filter('assets/images/lugares/default.png', "phone_ficha_thumbnail");
 
-                $originalImage = $imagine->open('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/default.gif');
+                $originalImage = $imagine->open('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/default.png');
                 $bgImage->paste($originalImage, new \Imagine\Image\Point(16, 10));
                 
                 $bgImage->save('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/default.png');
@@ -439,11 +451,11 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));       
     }
 
-public function searchAction(Request $request, $orden, $latitude = null, $longitude = null, $slug = null, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
+public function searchAction(Request $request, $offset, $orden, $latitude = null, $longitude = null, $slug = null, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
     $fn = $this->get('fn');
     $em = $this->getDoctrine()->getEntityManager();
     $mostrarPrecio = null;
-    $offset = 0;
+    $offset = $offset*20;
 
     $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
     $ciudad = $cr->findOneBySlug($slug);
@@ -457,7 +469,6 @@ public function searchAction(Request $request, $orden, $latitude = null, $longit
     }
 
     $orderFilters = array(
-      'recomendaciones' => 'lugares.total_recomendaciones desc',
       'alfabetico' => 'lugares.nombre asc',
       'recomendaciones' => 'ranking desc',
       'ultimas_recomendaciones' => 'ultima_recomendacion desc',
@@ -531,7 +542,7 @@ public function searchAction(Request $request, $orden, $latitude = null, $longit
     $categoria_repo = $em->getRepository('LoogaresLugarBundle:Categoria');
     $subcat_repo = $em->getRepository('LoogaresLugarBundle:SubCategoria');
 
-    $resultadosPorPagina = 50;
+    $resultadosPorPagina = 20;
 
     if($categoria){
         $term  = ($categoria == 'todas')?null:$categoria;

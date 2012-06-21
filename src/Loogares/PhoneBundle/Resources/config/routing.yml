@@ -35,7 +35,7 @@ LoogaresPhoneBundle_quickSearch:
         _format: json
 
 LoogaresPhoneBundle_search:
-    pattern: /api/s/{slug}
+    pattern: /api/s/{slug}/{orden}/{offset}/{latitude}/{longitude}
     defaults: { _controller: LoogaresPhoneBundle:Default:search, _format: json }
     requirements:
         _format: json
@@ -55,6 +55,8 @@ LoogaresPhoneBundle_scategoria:
     defaults: { _controller: LoogaresPhoneBundle:Default:search, _format: json, offset: 1, latitude: null, longitude: null, categoria: null}
     requirements:
         _format:  json
+
+
 
 
 #
