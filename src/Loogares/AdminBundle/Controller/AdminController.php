@@ -1934,7 +1934,7 @@ class AdminController extends Controller
                     $concurso->setTwitterFinal($request->request->get('twitter_final'));
                     $concurso->setVisitasHome($request->request->get('visitas_home'));
                     $concurso->setVisitasBusquedas($request->request->get('visitas_busquedas'));
-                    $concurso->setVisitasCategorias($request->request->get('visitas_categorias'));
+                    $concurso->setVisitasOtrosLocales($request->request->get('visitas_otros_locales'));
                     $concurso->setVisitasPost($request->request->get('visitas_post'));
                     $concurso->setVisitasFicha($request->request->get('visitas_ficha'));
                     

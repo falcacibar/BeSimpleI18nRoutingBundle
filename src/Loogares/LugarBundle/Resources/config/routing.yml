@@ -54,6 +54,10 @@ _utilMail:
     pattern: /ajax/util_mail
     defaults: { _controller: LoogaresLugarBundle:Ajax:utilMail }
 
+_cuponesCanjeados:
+    pattern: /ajax/cupones_canjeados
+    defaults: { _controller: LoogaresLugarBundle:Ajax:cuponesCanjeados }
+
 _galeria:
     pattern: /lugar/{slug}/galeria
     defaults: { _controller: LoogaresLugarBundle:Lugar:galeria }

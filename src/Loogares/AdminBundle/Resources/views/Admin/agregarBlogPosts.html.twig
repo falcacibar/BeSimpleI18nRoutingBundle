@@ -308,8 +308,8 @@
 				</li>
 
 				<li>
-					<label>Página de categorías</label>
-					<input name="visitas_categorias" type="text" placeholder="Nº visitas categorías" value="{{(concurso != null) ? concurso.visitasCategorias : ''}}"/>
+					<label>Página de otros locales</label>
+					<input name="visitas_otros_locales" type="text" placeholder="Nº visitas fichas otros locales" value="{{(concurso != null) ? concurso.visitasOtrosLocales : ''}}"/>
 				</li>
 
 				<li>
@@ -337,6 +337,7 @@
 						<thead style="text-align: left; padding: 0 0 20px 0; font-size: 14px; float: left">
 							<th style="width: 70px;">Id</th>
 							<th style="width: 345px;">Nombre usuario</th>
+							<th style="width: 200px;">Comuna / Ciudad</th>
 							<th style="width: 100px;">Ganadores</th>
 							<th style="width: 120px;">Código cupones</th>
 							<th style="width: 100px;">Canjeado</th>
@@ -352,6 +353,9 @@
 									</td>
 									<td style="width: 300px; padding: 0 20px 0 0">
 										<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">{{participante.usuario.nombre}} {{participante.usuario.apellido}}</a>
+									</td>
+									<td style="width: 200px; padding: 0 20px 0 0;text-align:center">
+										{% if participante.usuario.ciudad != null and participante.usuario.comuna != null %}{{participante.usuario.comuna.nombre}} / {{participante.usuario.ciudad.nombre}}{% elseif participante.usuario.comuna != null %}{{participante.usuario.comuna.nombre}}{% elseif participante.usuario.ciudad != null %}{{participante.usuario.ciudad.nombre}}{% endif %}
 									</td>
 									<td style="width: 80px;padding: 0 20px 0 0;">
 										<input style="width: 20px; margin: 0 30px;" type="checkbox" class="ganadores_checkbox" data-participante="{{participante.id}}"{% if participante.ganador != null %}checked="checked"{% endif %} />

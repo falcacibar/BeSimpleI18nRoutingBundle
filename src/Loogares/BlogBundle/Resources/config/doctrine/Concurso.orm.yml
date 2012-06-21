@@ -49,7 +49,7 @@ Loogares\BlogBundle\Entity\Concurso:
         visitas_busquedas:
             type: integer
             nullable: true
-        visitas_categorias:
+        visitas_otros_locales:
             type: integer
             nullable: true
         visitas_post:

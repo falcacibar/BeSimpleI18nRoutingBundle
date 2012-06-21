@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="participantes_reporte">
-			{% if concurso.participantes | length > 0 %}
+			{#% if concurso.participantes | length > 0 %}
 				{% set doce = 0 %}
 				{% for participante in concurso.participantes %}
 					{% if loop.index == 1 or (loop.index > 19 and (loop.index - 1) % 19 == 0)  %}
@@ -40,7 +40,7 @@
 						</ul>				
 					{% endif %}
 				{% endfor %}
-			{% endif %}				
+			{% endif %#}				
 
 			<div class="participantes">
 				<div class="cantidad_participantes_izq">
@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="metricas_reporte">
-			<p><span class="azul">{{concurso.visitasHome + concurso.visitasBusquedas + concurso.visitasCategorias}}</span> - {{'reporte_local.visitas_home'|trans}}</p>
+			<p><span class="azul">{{concurso.visitasHome + concurso.visitasBusquedas + concurso.visitasOtrosLocales}}</span> - {{'reporte_local.visitas_home'|trans}}</p>
 			<p><span class="azul">{{concurso.visitasPost + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="{{path('post', {'ciudad' : concurso.post.ciudad.slug, 'slug' : concurso.post.slug})}}">{{'reporte_local.nota'|trans}}</a></p>
 			<p><span class="azul">{{concurso.visitasFicha + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="{{path('_lugar', {'slug' : concurso.post.lugar.slug})}}">{{'reporte_local.ficha'|trans}}</a></p><br />
 			<p><span class="azul">{{concurso.post.lugar.totalRecomendaciones}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/recomendaciones.png') }}" height="15px" width="17px" /> {{'reporte_local.recomendaciones'|trans}}</p>
@@ -72,7 +72,7 @@
 				<ul>
 					{% for ganador in concurso.ganadores %}
 						<li>
-							<input type="checkbox" />
+							<input type="checkbox" class="canjes_checkbox" data-ganador="{{ganador.id}}" {% if ganador.canjeado%}disabled="disabled" checked="checked"{% endif %}/>
 							<a href="{{path('showUsuario', {'param' : ganador.participante.usuario.slug})}}">
 								<img class="imagen_ganador" src="{{ ('assets/images/usuarios/'~ganador.participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
 								<span>{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</span>
@@ -93,7 +93,33 @@
 	<script type="text/javascript">
 		$(function(){
 			$('.boton_canjeada').click(function(){
-				console.log('hgey');
+				if(confirm('¿Estás seguro de marcar los cupones como canjeados? Sólo se pueden asignar una sola vez')) {
+					var canjesCheckbox = $('.canjes_checkbox').filter(':checked').filter(':not(:disabled)');
+					if(canjesCheckbox.length > 0) {
+						var canjes = new Array();
+						canjesCheckbox.each(function(){
+							canjes.push($(this).attr('data-ganador'));
+						});
+
+						$.ajax({
+				            url: WEBROOT+'../ajax/cupones_canjeados',
+				            type: 'post',
+				            data: {'canjes' : canjes},
+				            dataType: 'json',
+				            success: function(data){
+				            	if(data.status == 'ok') {
+				            		canjesCheckbox.attr('disabled', 'disabled');
+				            	}
+				            }
+	        			});
+					}
+					else{
+						alert('No has seleccionado cupones para marcarlos como canjeados');
+					}
+				}
+				else {
+		    		return false;
+		    	}	
 			});
 		});
 	</script>	
