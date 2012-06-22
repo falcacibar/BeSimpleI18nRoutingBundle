@@ -14,9 +14,11 @@ class LoogaresFunctions
         }catch(\Imagine\Exception\Exception $e){
             $filename = 'default.png';
         }
-        $image->save("assets/media/cache/$filter/assets/images/lugares/$filename");
+        $new = explode('.',$filename);
+        $new = $new[0].'.png';
+        $image->save("assets/media/cache/$filter/assets/images/lugares/$new");
         
-        return $filename;
+        return $new;
     }
 
     function ip2int($ip){
