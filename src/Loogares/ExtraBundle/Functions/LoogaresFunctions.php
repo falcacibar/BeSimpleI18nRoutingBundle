@@ -12,7 +12,7 @@ class LoogaresFunctions
         try{
             $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
         }catch(\Imagine\Exception\Exception $e){
-            $filename = 'default.png';
+            $this->generarThumbnailTelefono('default.png', $filter);
         }
         $image->save("assets/media/cache/$filter/assets/images/lugares/$filename");
         
