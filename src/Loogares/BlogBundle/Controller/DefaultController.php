@@ -151,7 +151,7 @@ class DefaultController extends Controller
 
         $twitterLocal = $post->getLugar()->getTwitter();
         if($twitterLocal != null || $twitterLocal != '') {
-            $twitterArray = explode("/", $twitterLocal)
+            $twitterArray = explode("/", $twitterLocal);
             $twitterLocal = $twitterArray[sizeOf($twitterArray) - 1];
             $post->twitterLocal = " @".$twitterLocal;
         }
