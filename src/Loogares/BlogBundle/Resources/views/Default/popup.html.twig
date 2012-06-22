@@ -22,15 +22,17 @@
             </li>
             <li class="twitter_share" style="margin: 0 0 5px;">
             	{% if app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
-                    {% set twitter = 'LgrsValpoVina' %}
+                    {% set twitter = '@LgrsValpoVina' %}
                 {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
-                    {% set twitter = 'LoogaresBA' %}
+                    {% set twitter = '@LoogaresBA' %}
                 {% else %}
-                    {% set twitter = 'Loogarescom' %}
+                    {% set twitter = '@Loogarescom' %}
                 {% endif %}
 
+                {% set twitter_local = post.lugar.twitter != null or post.lugar.twitter is not empty) ? ' @twitter_local' : ''%}
+
                 {% set data_url = url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) %}
-                {% set data_text = 'Estoy participando por '~post.titulo~' en @'~twitter~(post.lugar.twitter != null or post.lugar.twitter is not empty) ? ' @twitter_local' : '' %}
+                {% set data_text = 'Estoy participando por '~post.titulo~' en '~twitter~twitter_local %}
                 <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
             </li>
 		</ul>
