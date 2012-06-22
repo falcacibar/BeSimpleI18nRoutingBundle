@@ -300,7 +300,7 @@ class DefaultController extends Controller
             $ultimaImagen = explode('.', $imagen);
 
             $imagine = new \Imagine\Gd\Imagine();      
-            $bgImage = $imagine->create(new \Imagine\Image\Box(140, 140), new \Imagine\Image\Color('000', 100));
+            $bgImage = $imagine->create(new \Imagine\Image\Box(140, 140), new \Imagine\Image\Color('f00', 0));
 
             if(file_exists('assets/images/lugares/usuarios'.$imagen)){
                 if(!file_exists('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$ultimaImagen[0].'.png')){
