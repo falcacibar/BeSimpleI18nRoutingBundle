@@ -127,7 +127,7 @@ avalanche_imagine:
             options: { size: [222, 222], mode: outbound }
         phone_recomendaciones_thumbnail:
             type: thumbnail
-            options: { size: [88, 88], mode: outbound }
+            options: { size: [124, 124], mode: outbound }
 
 
 # MailChimp Configuration

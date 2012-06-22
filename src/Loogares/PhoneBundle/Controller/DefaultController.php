@@ -240,7 +240,7 @@ class DefaultController extends Controller
 
             $imagenes = explode('.', $lugares[$i]['imagen_full']);
             $imagine = new \Imagine\Gd\Imagine();
-            $image = $imagine->create(new \Imagine\Image\Box(136, 136), new \Imagine\Image\Color('000', 100));
+            $image = $imagine->create(new \Imagine\Image\Box(10036, 136), new \Imagine\Image\Color('000', 100));
 
             if($lugares[$i]['imagen_full'] != '' && file_exists('assets/images/lugares/'.$lugares[$i]['imagen_full'])){
                 if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png')){
@@ -252,18 +252,17 @@ class DefaultController extends Controller
                     $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png');
                     unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$lugares[$i]['imagen_full']);
                 }
-                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png';
+                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/usuarios/'.$imagenes[0].'.png';
             }else{
-                if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png')){
-                    $this->get('imagine.controller')->filter('assets/images/lugares/default.gif', "phone_thumbnail");
+                if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/usuarios/default.png')){
+                    $this->get('imagine.controller')->filter('assets/images/usuarios/default.png', "phone_thumbnail");
 
-                    $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
+                    $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/usuarios/default.gif');
                     $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
 
-                    $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png');
-                    unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
+                    $image->save('assets/media/cache/phone_thumbnail/assets/images/usuarios/default.png');
                 }
-                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/default.png';
+                $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/usuarios/default.png';
             }
 
             $data[sizeOf($data)-1]['totalRecomendaciones'] = $lugares[$i]['total_recomendaciones'];
@@ -301,14 +300,14 @@ class DefaultController extends Controller
             $ultimaImagen = explode('.', $imagen);
 
             $imagine = new \Imagine\Gd\Imagine();      
-            $bgImage = $imagine->create(new \Imagine\Image\Box(108, 108), new \Imagine\Image\Color('000', 100));
+            $bgImage = $imagine->create(new \Imagine\Image\Box(140, 140), new \Imagine\Image\Color('000', 100));
 
             if(file_exists('assets/images/lugares/usuarios'.$imagen)){
                 if(!file_exists('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$ultimaImagen[0].'.png')){
                     $this->get('imagine.controller')->filter('assets/images/usuarios/'.$imagen, "phone_recomendaciones_thumbnail");
 
                     $originalImage = $imagine->open('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$imagen);
-                    $bgImage->paste($originalImage, new \Imagine\Image\Point(14, 6));
+                    $bgImage->paste($originalImage, new \Imagine\Image\Point(10, 6));
                     
                     $bgImage->save('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$ultimaImagen[0].'.png');
                     unlink('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$imagen);
@@ -316,13 +315,12 @@ class DefaultController extends Controller
                 $data['recomendaciones'][$i]['imagen'] = 'assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$ultimaImagen[0].'.png';
             }else{
                  if(!file_exists('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.png')){
-                    $this->get('imagine.controller')->filter('assets/images/usuarios/default.gif', "phone_recomendaciones_thumbnail");
+                    $this->get('imagine.controller')->filter('assets/images/usuarios/default.png', "phone_recomendaciones_thumbnail");
 
-                    $originalImage = $imagine->open('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.gif');
-                    $bgImage->paste($originalImage, new \Imagine\Image\Point(14, 6));
+                    $originalImage = $imagine->open('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.png');
+                    $bgImage->paste($originalImage, new \Imagine\Image\Point(10, 6));
                     
                     $bgImage->save('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.png');
-                    unlink('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.gif');
                 }
                 $data['recomendaciones'][$i]['imagen'] = 'assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.png';               
             }
