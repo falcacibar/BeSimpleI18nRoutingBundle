@@ -1,7 +1,7 @@
 	{% if actividad_total is defined and actividad_total == true %}
 		<p class="filtrar_actividad_por">{{'usuario.actividad.filtrar'|trans}}</p>
 		<div class="filtrar_select">
-			<form action="{{path('actividadUsuario', {'param' : usuario.slug})}}" method="get">
+			<form action="{{path('actividadUsuario_total', {'param' : usuario.slug})}}" method="get">
 				<select name="filtro">
 					<option value="todo" {% if usuario.filtro == 'todo'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.todo'|trans}}</option>
 					<option value="recomendaciones" {% if usuario.filtro == 'recomendaciones'%}selected="selected"{% endif %}>{{'extra.home.actividad_reciente.filtro.recomendaciones'|trans}}</option>
@@ -17,7 +17,7 @@
 		<li {% if loop.last %}class="last_one"{% endif %}>		
 			<p>	
 			{% if a.tipoActividadReciente.nombre == 'agregar' %}
-				{% if a.entidad == 'Loogares\\LugarBundle\\Entity\\ImagenLugar'%}						
+				{% if a.entidad == 'Loogares\\LugarBundle\\Entity\\ImagenLugar'%}				
 					<a href="{{path('showUsuario', {'param' : a.usuario.slug})}}">{{a.usuario.nombre}} {{a.usuario.apellido}}</a> {% trans with {'%open_tag%' : "<a href='"~path('_fotoGaleria', {'slug' : a.ent.lugar.slug, 'id' : a.ent.id})~"'>", '%close_tag%' : '</a>'}%}extra.home.actividad_reciente.agregar.foto{% endtrans %} <a href="{{path('_lugar', {'slug' : a.ent.lugar.slug})}}">{{a.ent.lugar.nombre}}</a>
 
 				{% elseif a.entidad == 'Loogares\\UsuarioBundle\\Entity\\Recomendacion'%}

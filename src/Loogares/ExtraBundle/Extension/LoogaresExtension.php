@@ -13,6 +13,7 @@ class LoogaresExtension extends \Twig_Extension {
     public function getFilters() {
         return array(
             'xmlsitemap'  => new \Twig_Filter_Method($this, 'sitemap'),
+            'explode' => new \Twig_Filter_Method($this, 'explode'),
         );
     }
 
@@ -324,6 +325,10 @@ class LoogaresExtension extends \Twig_Extension {
         );
 
         return $espacios[$type][$section][$position][$size];
+    }
+
+    public function explode($string, $delimiter) {
+        return explode($delimiter, $string);
     }
 
     public function getName()

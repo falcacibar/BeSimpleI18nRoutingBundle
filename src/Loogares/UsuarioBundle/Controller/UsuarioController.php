@@ -65,13 +65,17 @@ class UsuarioController extends Controller
         // Actividad reciente del usuario
         $actividad = $ar->getActividadReciente($ppag, null, $usuarioResult->getId(), ($filtro != 'todo') ? $filtro : null, $offset);
 
-        foreach($actividad as $a) {
+        $variable = null;
+        foreach($actividad as $key => $a) {
             $r = $em->getRepository($a->getEntidad());
             $entidad = $r->find($a->getEntidadId());
-            $a->relativeTime = $trr->tiempoRelativo($a->getFecha()->format('Y-m-d H:i:s'));
-            $a->ent = $entidad;
+            if($entidad){
+                $a->relativeTime = $trr->tiempoRelativo($a->getFecha()->format('Y-m-d H:i:s'));
+                $a->ent = $entidad;
+            }else{
+                unset($actividad[$key]);
+            }
         }
-        
         
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = 'actividad';
@@ -103,7 +107,6 @@ class UsuarioController extends Controller
             $q->setMaxResults(3);
 
             $data->recientemente = $q->getResult();
-
                         
             //Por visitar
             $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\AccionUsuario u where u.usuario = ?1 and u.accion = ?2 ORDER BY u.fecha desc");
@@ -123,7 +126,6 @@ class UsuarioController extends Controller
 
             $data->favoritos = $q->getResult();
         }
-
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
             'usuario' => $data,
             'paginacion' => $paginacion,
