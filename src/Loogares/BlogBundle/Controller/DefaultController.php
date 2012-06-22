@@ -149,6 +149,16 @@ class DefaultController extends Controller
         $post = $pr->findOneBySlug($slug);
         $concurso = $conr->getConcursoPost($post->getId());
 
+        $twitterLocal = $post->getLugar()->getTwitter();
+        if($twitterLocal != null || $twitterLocal != '') {
+            $twitterArray = explode("/", $twitterLocal)
+            $twitterLocal = $twitterArray[sizeOf($twitterArray) - 1];
+            $post->twitterLocal = " @".$twitterLocal;
+        }
+        else {
+            $post->twitterLocal = '';
+        }
+
 
         if($this->getRequest()->getSession()->get('popup_compartir')) {
             $this->getRequest()->getSession()->remove('popup_compartir');

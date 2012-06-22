@@ -29,10 +29,8 @@
                     {% set twitter = '@Loogarescom' %}
                 {% endif %}
 
-                {% set twitter_local = (post.lugar.twitter != null or post.lugar.twitter is not empty) ? ' @twitter_local' : ''%}
-
                 {% set data_url = url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) %}
-                {% set data_text = 'Estoy participando por '~post.titulo~' en '~twitter~twitter_local %}
+                {% set data_text = 'Estoy participando por '~post.titulo~' en '~twitter~post.twitterLocal %}
                 <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
             </li>
 		</ul>
