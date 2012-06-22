@@ -7,13 +7,13 @@ class LoogaresFunctions
     function generarThumbnailTelefono($filename, $filter){
         $imagine = new \Imagine\Gd\Imagine();      
         $image = $imagine->create(new \Imagine\Image\Box(136, 136), new \Imagine\Image\Color('000', 100));
-
+        $filename = explode('.', $filename);
+        $filename = $filename[0] .'.png';
         $originalImage = $imagine->open("assets/media/cache/$filter/assets/images/lugares/$filename");
         try{
             $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
         }catch(\Imagine\Exception\Exception $e){
-            $this->generarThumbnailTelefono('default.png', $filter);
-            break;
+            $filename = 'default.png';
         }
         $image->save("assets/media/cache/$filter/assets/images/lugares/$filename");
         
