@@ -14,8 +14,7 @@ class LoogaresFunctions
         }catch(\Imagine\Exception\Exception $e){
             $filename = 'default.png';
         }
-        $newFile = explode('.', $filename);
-        $image->save("assets/media/cache/$filter/assets/images/lugares/$newFile.png");
+        $image->save("assets/media/cache/$filter/assets/images/lugares/$filename");
         
         return $filename;
     }
