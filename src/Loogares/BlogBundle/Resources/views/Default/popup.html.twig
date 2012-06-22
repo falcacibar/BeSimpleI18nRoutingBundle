@@ -29,7 +29,7 @@
                     {% set twitter = '@Loogarescom' %}
                 {% endif %}
 
-                {% set twitter_local = post.lugar.twitter != null or post.lugar.twitter is not empty) ? ' @twitter_local' : ''%}
+                {% set twitter_local = (post.lugar.twitter != null or post.lugar.twitter is not empty) ? ' @twitter_local' : ''%}
 
                 {% set data_url = url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) %}
                 {% set data_text = 'Estoy participando por '~post.titulo~' en '~twitter~twitter_local %}
