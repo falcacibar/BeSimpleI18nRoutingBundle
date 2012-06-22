@@ -872,7 +872,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
                 $ultimaImagenActiva = 'default.png';
             }
         }
-        $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/'.$ultimaImagenActiva;
+        $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagen[0].'.png';
       }else{
         if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png')){
             $this->get('imagine.controller')->filter('assets/images/lugares/default.png', "phone_thumbnail");
