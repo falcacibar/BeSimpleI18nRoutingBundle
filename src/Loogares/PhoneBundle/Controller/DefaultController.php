@@ -877,7 +877,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
         if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png')){
             $this->get('imagine.controller')->filter('assets/images/lugares/default.png', "phone_thumbnail");
 
-            $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
+            $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png');
 
             $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
 
