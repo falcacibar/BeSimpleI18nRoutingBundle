@@ -131,7 +131,11 @@
             </div>
             <div class="multimedia_lugar">
                 <div class="foto_lugar" id="lugar-foto">
+                    {% if lugar.totalFotos == 0 %}
+                        <img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/>
+                    {% else %}
                     <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}"><img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
+                    {% endif %}
                 </div>
                 {% if lugar.totalFotos > 0 %}
                 <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.galeria'|transchoice(lugar.totalFotos,{'%total%': lugar.totalFotos}) }}</a><br />

@@ -20,11 +20,18 @@
 	 		<li class="fb_share" style="margin: 0 0 5px;">
                 <a class="compartir_por_facebook" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
             </li>
-            <li class="twitter_share" style="margin: 0 0 5px;">                    
+            <li class="twitter_share" style="margin: 0 0 5px;">
+            	{% if app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+                    {% set twitter = 'LgrsValpoVina' %}
+                {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+                    {% set twitter = 'LoogaresBA' %}
+                {% else %}
+                    {% set twitter = 'Loogarescom' %}
+                {% endif %}
+
                 {% set data_url = url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) %}
-                {% set data_text = 'En #Loogarescom '~concurso.descripcion~' en '~post.lugar.nombre~'. Yo ya estoy participando »' %}
-                {% set data_via = "Loogarescom" %}
-                <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
+                {% set data_text = 'Estoy participando por '~post.titulo~' en '~twitter~(post.lugar.twitter != null or post.lugar.twitter is not empty) ? ' '~post.lugar.twitter : '' %}
+                <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
             </li>
 		</ul>
         <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>

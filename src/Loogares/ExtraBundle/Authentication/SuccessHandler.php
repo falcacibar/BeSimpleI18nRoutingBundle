@@ -32,31 +32,17 @@ class SuccessHandler implements AuthenticationSuccessHandlerInterface
     {
     	// Caso en que el usuario participa en un concurso
     	$session = $request->getSession();
-    	if($session->get('concurso')) {
-    		$user = $token->getUser();
-    		$conr = $this->em->getRepository("LoogaresBlogBundle:Concurso");
-	        $concurso = $conr->find($session->get('concurso'));
-
-	        // Sólo agregamos al usuario si no estaba participando anteriormente
-	        /*if(!$conr->isUsuarioParticipando($user, $concurso)) {
-	        	$participante = new Participante();
-		        $participante->setUsuario($user);
-		        $participante->setConcurso($concurso);
-		        $this->em->persist($participante);
-		        $this->em->flush();
-	        }*/	        
-
+    	if($session->get('post_slug')) {
 	        $slug = $session->get('post_slug');
 	        $ciudad = $session->get('ciudad');
 
-	        // Eliminamos las variables de concurso de session
-	        $session->remove('concurso');
+	        // Eliminamos la variable de post de session
 	        $session->remove('post_slug');
 
             // Utilizamos una variable de sesión temporal para mostrar el popup de compartir en redes sociales
             $session->set('popup_compartir', '1');
 
-	        $url = $this->router->generate('post', array('ciudad' => $ciudad['slug'], 'slug' => $slug));	
+	        $url = $this->router->generate('post', array('ciudad' => $ciudad['slug'], 'slug' => $slug));
     	}
     	else {
     		if ($targetPath = $session->get('_security.target_path')) {

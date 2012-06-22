@@ -262,7 +262,7 @@ class LugarController extends Controller{
         }
 
         $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
-        $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'Sin-Foto-Lugar.gif';
+        $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
         $data->recomendaciones = $recomendacionesResult;
         $data->totalPaginas = ($resultSetSize[0]['rows'] >$resultadosPorPagina )?floor($resultSetSize[0]['rows'] / $resultadosPorPagina):1;
         $data->totalRecomendaciones = $resultSetSize[0]['rows'];
@@ -1020,7 +1020,7 @@ class LugarController extends Controller{
 
         if(!$imagen){
           $this->get('session')->setFlash('error_flash', 'No existen imagenes para este Lugar.');
-          return $this->render($this->generateUrl('_lugar', array('slug' => $slug))); 
+          return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug))); 
         }else{
           $id = $imagen[0]->getId();
           return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));

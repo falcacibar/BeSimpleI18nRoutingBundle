@@ -77,7 +77,14 @@
 				<h6>{{'blog.comparte'|trans}}</h6>
 				<ul class="redes_listado">
 					<li>
-						<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="En #Loogarescom {{concurso.descripcion}} en {{post.lugar.nombre}}. Yo ya estoy participando »" data-lang="es">{{'general.footer.redes.tweet'|trans}}</a>
+						{% if app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+	                        {% set twitter = 'LgrsValpoVina' %}
+	                    {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+	                        {% set twitter = 'LoogaresBA' %}
+	                    {% else %}
+	                        {% set twitter = 'Loogarescom' %}
+	                    {% endif %}
+						<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('post', {'ciudad': post.ciudad.slug, 'slug': post.slug}) }}" data-text="Estoy participando por {{post.titulo}} en {{twitter}}{% if post.lugar.twitter != null or post.lugar.twitter is not empty %} post.lugar.twitter{% endif %}" data-lang="es">{{'general.footer.redes.tweet'|trans}}</a>
 						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 					</li>
 					<li>

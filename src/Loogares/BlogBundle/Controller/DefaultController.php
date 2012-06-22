@@ -94,11 +94,7 @@ class DefaultController extends Controller
 
             $post->getLugar()->telefonos = $telefonos;
 
-            // Se limpian variables de session de concurso si es que existen
-            if($this->get('session')->get('concurso')) {
-                $this->get('session')->remove('concurso');
-            }
-                
+            // Se limpian variables de session de concurso si es que existen                
             if($this->get('session')->get('post_slug')) {
                 $this->get('session')->remove('post_slug');
             }           
@@ -137,7 +133,6 @@ class DefaultController extends Controller
         $concurso = $conr->getConcursoPost($post->getId());
 
         // Seteamos variables de session para concursar automáticamente luego de loggear
-        $this->get('session')->set('concurso', $concurso->getId());
         $this->get('session')->set('post_slug', $slug);
 
         $popup = "registro";
