@@ -94,6 +94,16 @@ class DefaultController extends Controller
 
             $post->getLugar()->telefonos = $telefonos;
 
+            $twitterLocal = $post->getLugar()->getTwitter();
+            if($twitterLocal != null || $twitterLocal != '') {
+                $twitterArray = explode("/", $twitterLocal);
+                $twitterLocal = $twitterArray[sizeOf($twitterArray) - 1];
+                $post->twitterLocal = " @".$twitterLocal;
+            }
+            else {
+                $post->twitterLocal = '';
+            }
+
             // Se limpian variables de session de concurso si es que existen                
             if($this->get('session')->get('post_slug')) {
                 $this->get('session')->remove('post_slug');
