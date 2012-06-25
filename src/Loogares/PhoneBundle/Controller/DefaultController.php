@@ -25,7 +25,7 @@ class DefaultController extends Controller
         foreach($tipoCategoria as $key => $value){
             $id = $value->getId();
             $buff = $this->getDoctrine()
-            ->getConnection()->fetchAll("SELECT count(categorias.id) as total, categorias.nombre as categoria_nombre, categorias.slug as categoria_slug, tipo_categoria.nombre
+            ->getConnection()->fetchAll("SELECT count(categorias.id) as total, categorias.nombre as categoria_nombre, categorias.slug as categoria_slug
                                          FROM lugares
 
                                          JOIN comuna
@@ -44,7 +44,21 @@ class DefaultController extends Controller
 
                                          GROUP BY categorias.id
                                          ORDER BY tipo_categoria.id, categorias.nombre asc");
+
             $data[]['tipo'] = $value->getNombre();
+            $data[sizeOf($data)-1]['mostrarPrecio'] = false; 
+
+            if($value->getSlug() == 'donde-comer' || $value->getSlug() == 'donde-dormir'){
+                $data[sizeOf($data)-1]['mostrarPrecio'] = $value->getSlug();
+            }
+            
+            if($value->getSlug() == 'como-entretenerse'){
+                foreach($buff as $k => $comoEntretenerse){
+                    if($comoEntretenerse['categoria_slug'] == 'night-clubs'){
+                        $buff[$k]['mostrarPrecio'] = 'night-clubs';
+                    }
+                }
+            }
             $data[sizeOf($data)-1]['categorias'] = $buff;
         }
 
@@ -75,13 +89,17 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
-    public function zonasAction(){
+    public function zonasAction($ciudad){
         $em = $this->getDoctrine()->getEntityManager();
+        $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
+        $ciudad = $cr->findOneBySlug($ciudad);
 
-        $q = $em->createQuery("SELECT s from Loogares\ExtraBundle\Entity\Sector s");
+        $q = $em->createQuery("SELECT s from Loogares\ExtraBundle\Entity\Sector s WHERE s.ciudad = ?1 ORDER BY s.nombre ASC");
+        $q->setParameter(1, $ciudad);
         $sectoresResult = $q->getResult();
 
-        $q = $em->createQuery("SELECT c from Loogares\ExtraBundle\Entity\Comuna c");
+        $q = $em->createQuery("SELECT c from Loogares\ExtraBundle\Entity\Comuna c WHERE c.ciudad = ?1 ORDER BY c.nombre ASC");
+        $q->setParameter(1, $ciudad);
         $comunasResult = $q->getResult();
 
         foreach($sectoresResult as $sectorResult){
@@ -449,14 +467,25 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));       
     }
 
-public function searchAction(Request $request, $offset, $orden, $latitude = null, $longitude = null, $slug = null, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
+public function searchAction(Request $request, $offset, $orden, $latitude = null, $longitude = null, $slug = null, $subcategoria = null, $categoria = null, $tipoZona = null, $zona = null){
     $fn = $this->get('fn');
     $em = $this->getDoctrine()->getEntityManager();
     $mostrarPrecio = null;
     $offset = $offset*20;
+    if($tipoZona == 'todas'){$tipoZona = null; $zona = null;}
+    if($zona == 'todas'){$zona = null; $tipoZona = null;}
 
     $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
     $ciudad = $cr->findOneBySlug($slug);
+
+    /*if($tipoZona == 'comuna' || $tipoZona == 'sector'){
+        $q = $em->createQuery("SELECT x FROM Loogares\ExtraBundle\Entity\\" . ucwords($tipoZona) . " x WHERE x.ciudad = ?1 AND x.slug = ?2");
+        $q->setParameter(1, $ciudad);
+        $q->setParameter(2, $zona);
+        $zona = $q->getResult();
+        ${'id'.ucwords($tipoZona)} = 'lol';
+        echo $idSector;
+    }*/
 
     if($latitude != null && $longitude != null){
         $geoloc = ",( 6371 * acos( cos( radians($latitude) ) * cos( radians( lugares.mapx ) ) * cos( radians( lugares.mapy ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( lugares.mapx ) ) ) ) AS distance";
@@ -555,6 +584,12 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
     $termArray = preg_split('/\s/', $term);
 
     $fields = "STRAIGHT_JOIN lugares.mapx, lugares.mapy, lugares.id, (lugares.estrellas*6 + lugares.utiles + lugares.total_recomendaciones*2+lugares.visitas*0) as ranking, ( select max(recomendacion.fecha_creacion) from recomendacion where recomendacion.lugar_id = lugares.id and recomendacion.estado_id != 3 ) as ultima_recomendacion ".$geoloc;   
+    $fields .= ", (
+                  select group_concat(distinct caracteristica.slug order by caracteristica.slug asc) as caracteristica_slug from caracteristica_lugar
+                  left join caracteristica
+                  on caracteristica_lugar.caracteristica_id = caracteristica.id
+                  where caracteristica_lugar.lugar_id = lugares.id
+                ) as caracteristica_slug";
 
     $noCategorias = false;
     $filterCat = false;
@@ -568,14 +603,6 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
 
     if(isset($_GET['categoria']) || isset($_GET['subcategoria'])){
       $noCategorias = true;
-    }
-
-    if(isset($_GET['comuna'])){
-      $filterComuna .= ' AND comuna.slug = "' . $_GET['comuna'] . '"';      
-    }
-
-    if(isset($_GET['sector'])){
-      $filterSector .= ' AND sector.slug = "' . $_GET['sector'] . '"';      
     }
 
     $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u WHERE u.slug = '$termSlug'");
@@ -609,156 +636,100 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
       }
     }
 
-    if($noCategorias == false){
-      //Buscamos por Categorias
-      $unionQuery[] = "(SELECT $fields 
-                        FROM lugares
-
-                        JOIN comuna
-                        ON lugares.comuna_id = comuna.id
-
-                        LEFT JOIN sector
-                        ON lugares.sector_id = sector.id
-
-                        LEFT JOIN categoria_lugar
-                        ON categoria_lugar.lugar_id = lugares.id
-
-                        JOIN categorias
-                        ON categoria_lugar.categoria_id = categorias.id
-
-                        LEFT JOIN subcategoria_lugar
-                        ON subcategoria_lugar.lugar_id = lugares.id
-
-                        LEFT JOIN subcategoria
-                        ON subcategoria_lugar.subcategoria_id = subcategoria.id
-
-                        WHERE categorias.slug LIKE '%$termSlug%' 
-                        $filterSector $filterComuna $filterCiudad
-                        AND (lugares.estado_id = 1 or lugares.estado_id = 2)
-
-                        GROUP BY lugares.id $order LIMIT 3000)";
-
-      //Buscamos por Slug
-      $unionQuery[] = "(SELECT $fields 
-                        FROM lugares 
-
-                        JOIN comuna
-                        ON lugares.comuna_id = comuna.id
-
-                        LEFT JOIN sector
-                        ON lugares.sector_id = sector.id
-
-                        LEFT JOIN categoria_lugar
-                        ON categoria_lugar.lugar_id = lugares.id
-
-                        JOIN categorias
-                        ON categoria_lugar.categoria_id = categorias.id
-
-                        LEFT JOIN subcategoria_lugar
-                        ON subcategoria_lugar.lugar_id = lugares.id
-
-                        LEFT JOIN subcategoria
-                        ON subcategoria_lugar.subcategoria_id = subcategoria.id
-
-                        WHERE lugares.slug like '%$termSlug%' 
-                        $filterSector $filterComuna  $filterCiudad
-                        AND (lugares.estado_id = 1 or lugares.estado_id = 2)
-
-                        GROUP BY lugares.id $order LIMIT 3000)";
-    }else{
-      $fields .= ", (
-                      select group_concat(distinct caracteristica.slug order by caracteristica.slug asc) as caracteristica_slug from caracteristica_lugar
-                      left join caracteristica
-                      on caracteristica_lugar.caracteristica_id = caracteristica.id
-                      where caracteristica_lugar.lugar_id = lugares.id
-                    ) as caracteristica_slug";
-
-      if(isset($_GET['categoria'])){
-        $filterCat = ' AND categorias.slug = "' . $_GET['categoria'] . '"';      
-      }
-
-      if(isset($_GET['subcategoria'])){
+    if(isset($_GET['subcategoria'])){
         $filterSubCat = ' AND subcategoria.slug = "' . $_GET['subcategoria'] . '"';      
-      }
+    }
 
-      if(isset($_GET['precio'])){
+    if(isset($_GET['categoria'])){
+        $filterCat = ' AND categorias.slug = "' . $_GET['categoria'] . '"';      
+    }
+
+
+    if($zona && $tipoZona){
+      ${'filter'.ucwords($tipoZona)} .= " AND $tipoZona.slug = '$zona'" ;  
+    }
+
+    if(isset($_GET['precio'])){
         $filterPrecio = ' AND lugares.precio = "' . $_GET['precio'] . '"';      
-      }
+    }
 
-      if(isset($_GET['caracteristicas'])){
+    if(isset($_GET['caracteristicas'])){
         $caracteristicas = explode(',', $_GET['caracteristicas']);
         sort($caracteristicas);
-
-        $filterCaracteristica = "HAVING caracteristica_slug LIKE '";
+        if($latitude == null && $longitude == null){ 
+            $filterCaracteristica = "HAVING caracteristica_slug LIKE '";
+        }else{
+            $filterCaracteristica = " AND caracteristica_slug LIKE '";
+        }
+        
         foreach($caracteristicas as $caracteristica){
           $filterCaracteristica .= "%$caracteristica%";
         }
         $filterCaracteristica .= "'";
-      }
-
-      //Buscamos por Categorias
-      $unionQuery[] = "(SELECT $fields 
-                        FROM lugares
-
-                        JOIN comuna
-                        ON lugares.comuna_id = comuna.id
-
-                        LEFT JOIN sector
-                        ON lugares.sector_id = sector.id
-
-                        LEFT JOIN categoria_lugar
-                        ON categoria_lugar.lugar_id = lugares.id
-
-                        JOIN categorias
-                        ON categoria_lugar.categoria_id = categorias.id
-
-                        LEFT JOIN subcategoria_lugar
-                        ON subcategoria_lugar.lugar_id = lugares.id
-
-                        LEFT JOIN subcategoria
-                        ON subcategoria_lugar.subcategoria_id = subcategoria.id
-  
-                        WHERE categorias.slug LIKE '%$termSlug%'
-                        AND categorias.slug = '".$_GET['categoria']."'
-                        AND (lugares.estado_id = 1 or lugares.estado_id = 2)
-                        $filterSector $filterComuna $filterSubCat $filterPrecio $filterCiudad
-                        
-                        GROUP BY lugares.id
-                        $filterCaracteristica
-                        $geolocCondition
-                        $order LIMIT 3000)";
-
-      //Buscamos por Slug
-      $unionQuery[] = "(SELECT $fields 
-                        FROM lugares
-
-                        JOIN comuna
-                        ON lugares.comuna_id = comuna.id
-
-                        LEFT JOIN sector
-                        ON lugares.sector_id = sector.id
-
-                        LEFT JOIN categoria_lugar
-                        ON categoria_lugar.lugar_id = lugares.id
-
-                        JOIN categorias
-                        ON categoria_lugar.categoria_id = categorias.id
-
-                        LEFT JOIN subcategoria_lugar
-                        ON subcategoria_lugar.lugar_id = lugares.id
-
-                        LEFT JOIN subcategoria
-                        ON subcategoria_lugar.subcategoria_id = subcategoria.id  
-                         
-                        WHERE lugares.slug like '%$termSlug%' 
-                        AND (lugares.estado_id = 1 or lugares.estado_id = 2)
-                        $filterComuna $filterSector $filterCat $filterSubCat $filterPrecio  $filterCiudad
-
-                        GROUP BY lugares.id  
-                        $filterCaracteristica
-                        $geolocCondition
-                        $order LIMIT 3000)";
     }
+
+    //Buscamos por Categorias
+    $unionQuery[] = "(SELECT SQL_CALC_FOUND_ROWS $fields 
+                    FROM lugares
+
+                    JOIN comuna
+                    ON lugares.comuna_id = comuna.id
+
+                    LEFT JOIN sector
+                    ON lugares.sector_id = sector.id
+
+                    LEFT JOIN categoria_lugar
+                    ON categoria_lugar.lugar_id = lugares.id
+
+                    JOIN categorias
+                    ON categoria_lugar.categoria_id = categorias.id
+
+                    LEFT JOIN subcategoria_lugar
+                    ON subcategoria_lugar.lugar_id = lugares.id
+
+                    LEFT JOIN subcategoria
+                    ON subcategoria_lugar.subcategoria_id = subcategoria.id
+
+                    WHERE categorias.slug LIKE '%$termSlug%'
+                    $filterCat
+                    AND (lugares.estado_id = 1 or lugares.estado_id = 2)
+                    $filterSector $filterComuna $filterSubCat $filterPrecio $filterCiudad
+                    
+                    GROUP BY lugares.id
+                    $filterCaracteristica
+                    $geolocCondition
+                    $order LIMIT 3000)";
+
+    //Buscamos por Slug
+    $unionQuery[] = "(SELECT $fields 
+                    FROM lugares
+
+                    JOIN comuna
+                    ON lugares.comuna_id = comuna.id
+
+                    LEFT JOIN sector
+                    ON lugares.sector_id = sector.id
+
+                    LEFT JOIN categoria_lugar
+                    ON categoria_lugar.lugar_id = lugares.id
+
+                    JOIN categorias
+                    ON categoria_lugar.categoria_id = categorias.id
+
+                    LEFT JOIN subcategoria_lugar
+                    ON subcategoria_lugar.lugar_id = lugares.id
+
+                    LEFT JOIN subcategoria
+                    ON subcategoria_lugar.subcategoria_id = subcategoria.id  
+                     
+                    WHERE lugares.slug like '%$termSlug%' 
+                    AND (lugares.estado_id = 1 or lugares.estado_id = 2)
+                    $filterComuna $filterSector $filterCat $filterSubCat $filterPrecio  $filterCiudad
+
+                    GROUP BY lugares.id  
+                    $geolocCondition
+                    $filterCaracteristica
+                    $order LIMIT 3000)";
 
     if($categoria){
       $tipo_categoria = $categoria_repo->findOneBySlug($termSlug)->getTipoCategoria();
@@ -768,7 +739,8 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
       }
 
       $unionQuery = array();
-      $unionQuery[] = "SELECT $fields
+
+      $unionQuery[] = "(SELECT SQL_CALC_FOUND_ROWS $fields
                         FROM lugares
                         
                         JOIN comuna
@@ -800,15 +772,15 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
 
                         $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad
                         GROUP BY lugares.id
-                        $filterCaracteristica
                         $geolocCondition
-                        $order";
+                        $filterCaracteristica
+                        $order LIMIT 3000)";
     }
 
     //Armamos y ejecutamos las queries
     if(is_array($unionQuery)){
       $unionQuery = join(" UNION ", $unionQuery);
-      $unionQuery .= " LIMIT $resultadosPorPagina OFFSET $offset";  
+      $unionQuery .= " $order LIMIT $resultadosPorPagina OFFSET $offset";  
       $arr['lugares'] = $this->getDoctrine()->getConnection()->fetchAll($unionQuery);
       $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");   
     }
@@ -832,6 +804,8 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
       $buffer = $q->getOneOrNullResult();
       $bufferRec = $q2->getSingleScalarResult();
 
+      $distance = $lugar['distance'];
+      
       $lugar = $buffer;
       $recomendacion = $bufferRec;
 
@@ -844,6 +818,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
       $data[sizeOf($data)-1]['mapx'] = $lugar->getMapx();
       $data[sizeOf($data)-1]['mapy'] = $lugar->getMapy();
       $data[sizeOf($data)-1]['numero'] = $lugar->getNumero();
+      $data[sizeOf($data)-1]['distance'] = $distance;
 
       $categoria =  $lugar->getCategoriaLugar();
       $data[sizeOf($data)-1]['categoria'] = $categoria[0]->getCategoria()->getNombre();
@@ -892,7 +867,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
       $data[sizeOf($data)-1]['totalRecomendaciones'] = $recomendacion['totalRecomendaciones'];
     }
 
-        $json = json_encode(array_reverse(array('lugares'=>$data, 'total' => $resultSetSize[0]['rows'])));
+        $json = json_encode(array_reverse(array('lugares'=>$data, 'total' => $resultSetSize[0]['rows'], 'mostrarPrecio' => $mostrarPrecio)));
             return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
   }
 }
