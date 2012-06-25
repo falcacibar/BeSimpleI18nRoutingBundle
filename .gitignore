@@ -17,6 +17,7 @@ src/Loogares/UsuarioBundle/Entity/*
 src/Loogares/ExtraBundle/Entity/*
 src/Loogares/AdminBundle/Entity/*
 src/Loogares/BlogBundle/Entity/*
+!src/Loogares/BlogBundle/Entity/Concurso.php
 src/Loogares/MailBundle/Entity/*
 
 #Imagenes

@@ -107,7 +107,7 @@ class DefaultController extends Controller
             // Se limpian variables de session de concurso si es que existen                
             if($this->get('session')->get('post_slug')) {
                 $this->get('session')->remove('post_slug');
-            }           
+            }      
 
             return $this->render('LoogaresBlogBundle:Default:post_concurso.html.twig', array(
                 'post' => $post,
@@ -190,12 +190,23 @@ class DefaultController extends Controller
         $concurso = $cr->find($request->request->get('concurso'));
         $usuario = $this->get('security.context')->getToken()->getUser();
 
-        $participante = new Participante();
-        $participante->setConcurso($concurso);
-        $participante->setUsuario($usuario);
+        // Sólo si el usuario no estaba participando antes, se ingresa como nuevo participante
+        if(!$cr->isUsuarioParticipando($usuario, $concurso)) {
+            $participante = new Participante();
+            $participante->setConcurso($concurso);
+            $participante->setUsuario($usuario);
 
-        $em->persist($participante);
-        $em->flush();
+            // Dejamos como pendiente o no dependiendo del tipo de concurso
+            if($concurso->getTipoConcurso()->getSlug() == 'click') {
+                $participante->setPendiente(false);
+            }
+            else if($concurso->getTipoConcurso()->getSlug() == 'recomendacion') {
+                $participante->setPendiente(true);
+            }
+
+            $em->persist($participante);
+            $em->flush();
+        }       
 
         return new Response(json_encode(array('status' => 'ok')));
     }

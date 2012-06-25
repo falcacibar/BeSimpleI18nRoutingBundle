@@ -252,7 +252,7 @@
 										<p class="sorteo_concurso">'~concurso.titulo~'</p>
 									</div>	
 									<div class="contenido_concurso">					
-										<img src="http://www.loogares.com/assets/images/blog/"~post.imagen" />
+										<img src="http://www.loogares.com/assets/images/blog/'~post.imagen~'" />
 										<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
 									</div>
 								</a>'-}}
@@ -343,7 +343,7 @@
 							<th style="width: 100px;">Canjeado</th>
 						</thead>
 						<tbody>
-							{% for participante in concurso.participantes %}
+							{% for participante in concurso.participantesActivos %}
 								<tr style="padding: 0 0 15px 0; height: 20px; float: left; width: 735px;">
 									<td style="width: 50px; text-align: right; padding: 0 20px 0 0; font-size: 12px;">{{participante.usuario.id}}</td>
 									<td style="width: 20px; padding: 0 5px 0 0;">

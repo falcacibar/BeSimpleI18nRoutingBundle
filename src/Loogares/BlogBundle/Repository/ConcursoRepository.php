@@ -108,4 +108,20 @@ class ConcursoRepository extends EntityRepository
         }
         return true;
     }
+
+    public function getConcursosPendientesUsuario($usuario, $ciudad) {
+        $em = $this->getEntityManager();   
+        $q = $em->createQuery("SELECT p
+                               FROM Loogares\BlogBundle\Entity\Participante p
+                               JOIN p.concurso c
+                               JOIN c.post pt
+                               WHERE p.usuario = ?1
+                               AND p.pendiente = true
+                               AND c.estado_concurso != 3
+                               AND pt.ciudad = ?2");
+        $q->setParameter(1, $usuario);
+        $q->setParameter(2, $ciudad);
+
+        return $q->getResult();
+    }
 }

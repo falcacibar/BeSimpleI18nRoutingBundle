@@ -23,9 +23,9 @@
 		</div>
 
 		<div class="participantes_reporte">
-			{% if concurso.participantes | length > 0 %}
+			{% if concurso.participantesActivos | length > 0 %}
 				{% set doce = 0 %}
-				{% for participante in concurso.participantes %}
+				{% for participante in concurso.participantesActivos %}
 					{% if loop.index == 1 or (loop.index > 19 and (loop.index - 1) % 19 == 0)  %}
 						{% set doce = 0 %}
 						<ul class="listado_participantes">
@@ -46,8 +46,8 @@
 				<div class="cantidad_participantes_izq">
 				</div>							
 				<div class="cantidad_participantes">
-					<span class="numero_participantes">{{concurso.participantes | length}}</span>
-					{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantes | length)}}
+					<span class="numero_participantes">{{concurso.participantesActivos | length}}</span>
+					{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantesActivos | length)}}
 				</div>
 				<div class="cantidad_participantes_der">
 				</div>	
