@@ -312,7 +312,7 @@ class DefaultController extends Controller
                 $data['recomendaciones'][$i]['usuario'] = $nombre;
             }
             $data['recomendaciones'][$i]['estrellas'] = $recomendaciones[$i]->getEstrellas();
-            $data['recomendaciones'][$i]['fechaCreacion'] = $recomendaciones[$i]->getFechaCreacion()->format('y-m-d');
+            $data['recomendaciones'][$i]['fechaCreacion'] = $recomendaciones[$i]->getFechaCreacion()->format('d-m-y');
             $data['recomendaciones'][$i]['texto'] = $recomendaciones[$i]->getTexto();
             $imagen = $recomendaciones[$i]->getUsuario()->getImagenFull();
             $ultimaImagen = explode('.', $imagen);
@@ -385,7 +385,7 @@ class DefaultController extends Controller
         $data['facebook'] = $lugar->getFacebook();
         $data['twitter'] = $lugar->getTwitter();
         $data['web'] = $lugar->getSitioWeb();
-        $data['mostrarPrecio'] = $fn->mostrarPrecio($lugar);
+
         $horario = $fn->generarHorario($lugar->getHorario());
         $data['horario'] = '';
 
@@ -396,6 +396,8 @@ class DefaultController extends Controller
         }
 
         $categorias = $lugar->getCategoriaLugar();
+        $tipoCategoria = $categorias[0]->getCategoria()->getTipoCategoria()->getSlug();
+
         foreach($categorias as $categoria){
             $data['categorias'][] = $categoria->getCategoria()->getNombre();
         }
@@ -407,6 +409,12 @@ class DefaultController extends Controller
         }
         if(isset($data['subcategorias'])) $data['subcategorias'] = implode(', ', $data['subcategorias']);
 
+        if($tipoCategoria == 'donde-comer' || $tipoCategoria == 'donde-dormir'){
+            $data['mostrarPrecio'] = $tipoCategoria;
+        }else if(($tipoCategoria == 'como-entretenerse' && $categoria[0]->getCategoria()->getSlug() == 'night-clubs')){
+            $data['mostrarPrecio'] == 'night-clubs';
+        }
+            
         $data['totalRecomendaciones'] = sizeOf($recomendaciones);
 
         $imagenesActivas = $lugar->getImagenesActivasLugar();
@@ -447,18 +455,26 @@ class DefaultController extends Controller
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
     }
 
-    public function quickSearchAction($term){
+    public function quickSearchAction($term, $slug){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
+        $ciudad = $cr->findOneBySlug($slug);
+
         $data = array();
 
-        $q = $em->createQuery("SELECT l, (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) as ranking FROM Loogares\LugarBundle\Entity\Lugar l WHERE l.nombre LIKE ?1 ORDER BY ranking DESC");
+        $q = $em->createQuery("SELECT l, (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) as ranking FROM Loogares\LugarBundle\Entity\Lugar l 
+                               LEFT JOIN l.comuna c
+                               WHERE l.nombre LIKE ?1 AND c.ciudad = ?2
+                               ORDER BY ranking DESC");
         $q->setParameter(1, "%$term%");
+        $q->setParameter(2, $ciudad->getId());
         $q->setMaxResults(5);
         $results = $q->getResult(); 
 
         for($i=0;$i<sizeOf($results);$i++){
-            $data[]['title'] = $results[$i][0]->getNombre();
+            $data[]['name'] = $results[$i][0]->getNombre();
+            $data[sizeOf($data)-1]['title'] = $results[$i][0]->getNombre();
             $data[sizeOf($data)-1]['slug'] = $results[$i][0]->getSlug();
         }
 
@@ -864,7 +880,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
         $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/default.png';
       }
 
-      $data[sizeOf($data)-1]['totalRecomendaciones'] = $recomendacion['totalRecomendaciones'];
+      $data[sizeOf($data)-1]['totalRecomendaciones'] = $lugar->getTotalRecomendaciones();
     }
 
         $json = json_encode(array_reverse(array('lugares'=>$data, 'total' => $resultSetSize[0]['rows'], 'mostrarPrecio' => $mostrarPrecio)));
