@@ -19,7 +19,7 @@ class DefaultController extends Controller
         $idCiudad = $ciudad['id'];
         
         $data[]['tipo'] = 'Todas';
-        $data[sizeOf($data)-1]['categorias'][0]['categoria_nombre'] = 'Todas';
+        $data[sizeOf($data)-1]['categorias'][0]['categoria_nombre'] = 'Lugares';
         $data[sizeOf($data)-1]['categorias'][0]['categoria_slug'] = 'todas';
         
         foreach($tipoCategoria as $key => $value){
@@ -296,6 +296,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresLugarBundle:Caracteristica");
+        $ultimaImagen = null;
 
         $fn = $this->get('fn');
 
@@ -315,33 +316,9 @@ class DefaultController extends Controller
             $data['recomendaciones'][$i]['fechaCreacion'] = $recomendaciones[$i]->getFechaCreacion()->format('d-m-y');
             $data['recomendaciones'][$i]['texto'] = $recomendaciones[$i]->getTexto();
             $imagen = $recomendaciones[$i]->getUsuario()->getImagenFull();
-            $ultimaImagen = explode('.', $imagen);
+            $ultimaImagenRecomendacion = explode('.', $imagen);
 
-            $imagine = new \Imagine\Gd\Imagine();      
-            $bgImage = $imagine->create(new \Imagine\Image\Box(140, 140), new \Imagine\Image\Color('000', 100));
-
-            if(file_exists('assets/images/lugares/usuarios'.$imagen)){
-                if(!file_exists('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$ultimaImagen[0].'.png')){
-                    $this->get('imagine.controller')->filter('assets/images/usuarios/'.$imagen, "phone_recomendaciones_thumbnail");
-
-                    $originalImage = $imagine->open('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$imagen);
-                    $bgImage->paste($originalImage, new \Imagine\Image\Point(10, 6));
-                    
-                    $bgImage->save('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$ultimaImagen[0].'.png');
-                    unlink('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$imagen);
-                }
-                $data['recomendaciones'][$i]['imagen'] = 'assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/'.$ultimaImagen[0].'.png';
-            }else{
-                 if(!file_exists('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.png')){
-                    $this->get('imagine.controller')->filter('assets/images/usuarios/default.png', "phone_recomendaciones_thumbnail");
-
-                    $originalImage = $imagine->open('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.png');
-                    $bgImage->paste($originalImage, new \Imagine\Image\Point(10, 6));
-                    
-                    $bgImage->save('assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.png');
-                }
-                $data['recomendaciones'][$i]['imagen'] = 'assets/media/cache/phone_recomendaciones_thumbnail/assets/images/usuarios/default.png';               
-            }
+            $data[$i]['imagen'] = $fn->generarThumbnailTelefono($ultimaImagenRecomendacion, 'phone_recomendacion_thumbnail');
         }
         if(isset($data['recomendaciones'])) $data['recomendaciones'] = array_reverse($data['recomendaciones']);
 
@@ -400,6 +377,13 @@ class DefaultController extends Controller
 
         foreach($categorias as $categoria){
             $data['categorias'][] = $categoria->getCategoria()->getNombre();
+            $tipoCategoria = $categoria->getCategoria()->getTipoCategoria()->getSlug();
+
+            if($tipoCategoria == 'donde-comer' || $tipoCategoria == 'donde-dormir'){
+                $data['mostrarPrecio'] = $tipoCategoria;
+            }else if(($tipoCategoria == 'como-entretenerse' && $categoria->getCategoria()->getSlug() == 'night-clubs')){
+                $data['mostrarPrecio'] == 'night-clubs';
+            }
         }
         $data['categorias'] = implode(', ', $data['categorias']);
 
@@ -421,35 +405,12 @@ class DefaultController extends Controller
         
         if(sizeOf($imagenesActivas) > 0){
             $ultimaImagen = $imagenesActivas[sizeOf($imagenesActivas) - 1]->getImagenFull();
-            $ultimaImagen = explode('.', $ultimaImagen);
         }
 
         $imagine = new \Imagine\Gd\Imagine();      
         $bgImage = $imagine->create(new \Imagine\Image\Box(248, 248), new \Imagine\Image\Color('000', 100));
 
-        if(sizeOf($imagenesActivas) != 0 && file_exists('assets/images/lugares/'.$imagenesActivas[sizeOf($imagenesActivas)-1]->getImagenFull())){
-            if(!file_exists('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/'.$ultimaImagen[0].'.png')){
-                $this->get('imagine.controller')->filter('assets/images/lugares/'.$imagenesActivas[sizeOf($imagenesActivas)-1]->getImagenFull(), "phone_ficha_thumbnail");
-
-                $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenesActivas[sizeOf($imagenesActivas)-1]->getImagenFull());
-                $bgImage->paste($originalImage, new \Imagine\Image\Point(16, 10));
-                
-                $bgImage->save('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/'.$ultimaImagen[0].'.png');
-                unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenesActivas[sizeOf($imagenesActivas)-1]->getImagenFull());
-            }
-            $data['imagen130'] = 'assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/'.$ultimaImagen[0].'.png';
-        }else{
-            if(!file_exists('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/default.png')){
-                $this->get('imagine.controller')->filter('assets/images/lugares/default.png', "phone_ficha_thumbnail");
-
-                $originalImage = $imagine->open('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/default.png');
-                $bgImage->paste($originalImage, new \Imagine\Image\Point(16, 10));
-                
-                $bgImage->save('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/default.png');
-                unlink('assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/default.gif');
-            }
-            $data['imagen130'] = 'assets/media/cache/phone_ficha_thumbnail/assets/images/lugares/default.png';
-        }
+        $data['imagen130'] = $fn->generarThumbnailTelefono($ultimaImagen, 'phone_ficha_thumbnail');
 
         $json = json_encode($data);
         return $this->render('LoogaresPhoneBundle:Default:json.html.twig', array('json' => $json));
@@ -505,7 +466,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
 
     if($latitude != null && $longitude != null){
         $geoloc = ",( 6371 * acos( cos( radians($latitude) ) * cos( radians( lugares.mapx ) ) * cos( radians( lugares.mapy ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( lugares.mapx ) ) ) ) AS distance";
-        $geolocCondition = "HAVING distance < 10";
+        $geolocCondition = "HAVING distance < 100";
     }else{
         $geoloc = null;
         $geolocCondition = null;
@@ -805,6 +766,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
 
     //Sacamos los otros datos de los 30 resultados que corresponden
     foreach($arr['lugares'] as $key => $lugar){
+      $ultimaImagenActiva = null;
       $q = $em->createQuery("SELECT l from Loogares\LugarBundle\Entity\Lugar l
                              WHERE l.id = ?1");
 
@@ -841,44 +803,14 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
       $data[sizeOf($data)-1]['tipoCategoria'] = $categoria[0]->getCategoria()->getTipoCategoria()->getNombre();
 
       $imagenesActivas = $lugar->getImagenesActivasLugar();
+
       if(sizeOf($imagenesActivas) > 0){
         $ultimaImagenActiva = $imagenesActivas[sizeOf($imagenesActivas)-1]->getImagenFull();
-         $imagenes = explode('.', $ultimaImagenActiva);
+        $imagenes = explode('.', $ultimaImagenActiva);
      }
-     
 
-      $imagine = new \Imagine\Gd\Imagine();      
-      $image = $imagine->create(new \Imagine\Image\Box(136, 136), new \Imagine\Image\Color('000', 100));
 
-      if(isset($ultimaImagenActiva) && file_exists('assets/images/lugares/'.$ultimaImagenActiva)){
-        if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png')){
-            $this->get('imagine.controller')->filter('assets/images/lugares/'.$ultimaImagenActiva, "phone_thumbnail");
-            $ultimaImagenActiva = $fn->generarThumbnailTelefono($ultimaImagenActiva, 'phone_thumbnail');
-            /*$originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$ultimaImagenActiva);
-
-            try{
-                $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
-                $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$imagenes[0].'.png');
-                unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/'.$ultimaImagenActiva);
-            }catch(\Imagine\Exception\Exception $e){
-                //Do nothing, se pasa a default solo.
-            }*/
-        }
-        $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/'.$ultimaImagenActiva;
-      }else{
-        if(!file_exists('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png')){
-            $this->get('imagine.controller')->filter('assets/images/lugares/default.png', "phone_thumbnail");
-
-            // $originalImage = $imagine->open('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
-
-            // $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
-
-            // $image->save('assets/media/cache/phone_thumbnail/assets/images/lugares/default.png');
-            // unlink('assets/media/cache/phone_thumbnail/assets/images/lugares/default.gif');
-            $fn->generarThumbnailTelefono('default.png', 'phone_thumbnail');
-        }
-        $data[sizeOf($data)-1]['imagen36'] = 'assets/media/cache/phone_thumbnail/assets/images/lugares/default.png';
-      }
+      $data[sizeOf($data)-1]['imagen36'] = $fn->generarThumbnailTelefono($ultimaImagenActiva, 'phone_lista_thumbnail');
 
       $data[sizeOf($data)-1]['totalRecomendaciones'] = $lugar->getTotalRecomendaciones();
     }

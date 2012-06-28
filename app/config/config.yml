@@ -121,7 +121,7 @@ avalanche_imagine:
             options: { size: [96, 96], mode: outbound }
         phone_thumbnail:
             type:    thumbnail
-            options: { size: [112, 112], mode: outbound }
+            options: { size: [12, 112], mode: outbound }
         phone_ficha_thumbnail:
             type:    thumbnail
             options: { size: [222, 222], mode: outbound }

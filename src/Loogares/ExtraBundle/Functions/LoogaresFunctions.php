@@ -1,24 +1,97 @@
 <?php
 
 namespace Loogares\ExtraBundle\Functions;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Config\Loader\FileLoader;
+
 class LoogaresFunctions
 {
     //Funcion para generar la imagen default del Lugar
     function generarThumbnailTelefono($filename, $filter){
-        $imagine = new \Imagine\Gd\Imagine();      
-        $image = $imagine->create(new \Imagine\Image\Box(136, 136), new \Imagine\Image\Color('000', 100));
+        if(!file_exists("assets/images/lugares/$filename") || !$filename) $filename = 'default.png';
 
-        $originalImage = $imagine->open("assets/media/cache/$filter/assets/images/lugares/$filename");
-        try{
-            $image->paste($originalImage, new \Imagine\Image\Point(16, 8));
-        }catch(\Imagine\Exception\Exception $e){
-            $filename = 'default.png';
-        }
+        $imagine = new \Imagine\Gd\Imagine();
+
         $new = explode('.',$filename);
         $new = $new[0].'.png';
-        $image->save("assets/media/cache/$filter/assets/images/lugares/$new");
-        
-        return $new;
+
+        $assetsPath = "assets/images";
+        $cachePath = "assets/media/cache";
+        $filterPath = "$cachePath/$filter/$assetsPath";
+        $cachedFile = $filterPath . "/$new";
+
+        //Parsing filter data
+        $filterSettings = array(
+            'phone_lista_thumbnail' => array(
+                'width' => 112,
+                'height' => 112,
+                'offsetx' => 16,
+                'offsety' => 8,
+                'thumbWidth' => 136,
+                'thumbHeight' => 136
+            ),
+            'phone_ficha_thumbnail' => array(
+                'width' => 222,
+                'height' => 222,
+                'offsetx' => 16,
+                'offsety' => 10,
+                'thumbWidth' => 248,
+                'thumbHeight' => 248
+            ),
+            'phone_recomendacion_thumbnail' => array(
+                'width' => 104,
+                'height' => 104,
+                'offsetx' => 10,
+                'offsety' => 6,
+                'thumbWidth' => 120,
+                'thumbHeight' => 120
+            )
+        );
+
+        //Creamos las carpetas si no estan
+        if(!is_dir($filterPath)) mkdir($filterPath, 0777, true);
+
+        if(!file_exists($cachedFile)){
+            $filterSize = new \Imagine\Image\Box($filterSettings[$filter]['width'], $filterSettings[$filter]['height']);
+
+            $fill = $imagine->create($filterSize, new \Imagine\Image\Color('fff', 0));
+            $fillCenter = new \Imagine\Image\Point\Center(new \Imagine\Image\Box($filterSettings[$filter]['width'], $filterSettings[$filter]['height']));
+            
+            $offset = new \Imagine\Image\Point($filterSettings[$filter]['offsetx'], $filterSettings[$filter]['offsety']);
+
+            //Creamos la caja principal, tiene el tamaño total que debe tener el thumbnail
+            $thumbnail = $imagine->create(new \Imagine\Image\Box($filterSettings[$filter]['thumbWidth'], $filterSettings[$filter]['thumbHeight']), new \Imagine\Image\Color('000', 100));
+
+            //Abrrimos la imagen a manipular, y la achicamos
+            $preview = $imagine->open("assets/images/lugares/$filename")->thumbnail($filterSize);
+
+            //Sacamos las dimensiones de la imagen original achicada
+            list($previewCenterX, $previewCenterY) = explode('x', $preview->getSize());
+
+            //Revisamos los largos y anchos y ajustamos los centros correspondientes
+            if($previewCenterX > $previewCenterY){
+                $centerX = $filterSettings[$filter]['offsetx'];
+                $centerY = $fillCenter->getY() - ($previewCenterY/2) + $filterSettings[$filter]['offsety'];
+            }else if($previewCenterY > $previewCenterX){
+                $centerX = $fillCenter->getY() - ($previewCenterX/2) + $filterSettings[$filter]['offsetx'];
+                $centerY = $filterSettings[$filter]['offsety'];
+            }else if($previewCenterY < 222 && $previewCenterX < 222){
+                $centerX = $fillCenter->getY() - ($previewCenterX/2) + $filterSettings[$filter]['offsetx'];
+                $centerY = $fillCenter->getY() - ($previewCenterY/2) + $filterSettings[$filter]['offsety'];
+            }else{
+                $centerX = $filterSettings[$filter]['offsetx'];
+                $centerY = $filterSettings[$filter]['offsety'];
+            }
+
+            $centerOffset = new \Imagine\Image\Point($centerX, $centerY);
+
+            $thumbnail->paste($fill, $offset)
+                      ->paste($preview, $centerOffset)
+                      ->save($cachedFile);
+
+            /*catch(\Imagine\Exception\Exception $e)*/
+        }
+        return $cachedFile;
     }
 
     function ip2int($ip){
