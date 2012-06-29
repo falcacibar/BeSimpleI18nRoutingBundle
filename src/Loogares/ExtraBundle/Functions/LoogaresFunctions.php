@@ -67,7 +67,11 @@ class LoogaresFunctions
 
 
             //Abrrimos la imagen a manipular, y la achicamos
-            $preview = $imagine->open("assets/images/lugares/$filename");
+            try{
+                $preview = $imagine->open("assets/images/lugares/$filename");
+            }catch(\Exception $e){
+                return 'default.png';
+            }
 
             //Sacamos las dimensiones de la imagen original achicada
             $size = explode('x', $preview->getSize());
@@ -99,7 +103,11 @@ class LoogaresFunctions
                 $lol = $preview->thumbnail(new \Imagine\Image\Box($newWidth, $newHeight))
                         ->crop(new \Imagine\Image\Point($pointx, $pointy), new \Imagine\Image\Box($width, $height));
             }catch(\Exception $e){
-                return 'default.png';           
+                $preview = $imagine->open("assets/images/lugares/default.png");
+                if(!file_exists("$filterPath/default.png")){
+                    $lol = $preview->thumbnail(new \Imagine\Image\Box($newWidth, $newHeight))
+                            ->crop(new \Imagine\Image\Point($pointx, $pointy), new \Imagine\Image\Box($width, $height));
+                }               
             }
             
             $thumbnail->paste($lol, $offset)
