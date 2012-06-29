@@ -103,11 +103,7 @@ class LoogaresFunctions
                 $lol = $preview->thumbnail(new \Imagine\Image\Box($newWidth, $newHeight))
                         ->crop(new \Imagine\Image\Point($pointx, $pointy), new \Imagine\Image\Box($width, $height));
             }catch(\Exception $e){
-                $preview = $imagine->open("assets/images/lugares/default.png");
-                if(!file_exists("$filterPath/default.png")){
-                    $lol = $preview->thumbnail(new \Imagine\Image\Box($newWidth, $newHeight))
-                            ->crop(new \Imagine\Image\Point($pointx, $pointy), new \Imagine\Image\Box($width, $height));
-                }               
+                return 'default.png';
             }
             
             $thumbnail->paste($lol, $offset)
