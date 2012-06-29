@@ -52,43 +52,54 @@ class LoogaresFunctions
         if(!is_dir($filterPath)) mkdir($filterPath, 0777, true);
 
         if(!file_exists($cachedFile)){
-            $filterSize = new \Imagine\Image\Box($filterSettings[$filter]['width'], $filterSettings[$filter]['height']);
+            $offsetx = $filterSettings[$filter]['offsetx'];
+            $offsety = $filterSettings[$filter]['offsety'];
+            $offset = new \Imagine\Image\Point($offsetx, $offsety);
 
-            $fill = $imagine->create($filterSize, new \Imagine\Image\Color('fff', 0));
-            $fillCenter = new \Imagine\Image\Point\Center(new \Imagine\Image\Box($filterSettings[$filter]['width'], $filterSettings[$filter]['height']));
-            
-            $offset = new \Imagine\Image\Point($filterSettings[$filter]['offsetx'], $filterSettings[$filter]['offsety']);
+            $width = $filterSettings[$filter]['width'];
+            $height = $filterSettings[$filter]['height'];
+            $filterSize = new \Imagine\Image\Box($width, $height);
 
             //Creamos la caja principal, tiene el tamaño total que debe tener el thumbnail
-            $thumbnail = $imagine->create(new \Imagine\Image\Box($filterSettings[$filter]['thumbWidth'], $filterSettings[$filter]['thumbHeight']), new \Imagine\Image\Color('000', 100));
+            $thumbWidth = $filterSettings[$filter]['thumbWidth'];
+            $thumbHeight = $filterSettings[$filter]['thumbHeight'];
+            $thumbnail = $imagine->create(new \Imagine\Image\Box($thumbWidth, $thumbHeight), new \Imagine\Image\Color('000', 100));
+
 
             //Abrrimos la imagen a manipular, y la achicamos
-            $preview = $imagine->open("assets/images/lugares/$filename")->thumbnail($filterSize);
+            $preview = $imagine->open("assets/images/lugares/$filename");
 
             //Sacamos las dimensiones de la imagen original achicada
-            list($previewCenterX, $previewCenterY) = explode('x', $preview->getSize());
+            $size = explode('x', $preview->getSize());
+            $previewWidth = (int)$size[0];
+            $previewHeight = (int)$size[1];
 
-            //Revisamos los largos y anchos y ajustamos los centros correspondientes
-            if($previewCenterX > $previewCenterY){
-                $centerX = $filterSettings[$filter]['offsetx'];
-                $centerY = $fillCenter->getY() - ($previewCenterY/2) + $filterSettings[$filter]['offsety'];
-            }else if($previewCenterY > $previewCenterX){
-                $centerX = $fillCenter->getY() - ($previewCenterX/2) + $filterSettings[$filter]['offsetx'];
-                $centerY = $filterSettings[$filter]['offsety'];
-            }else if($previewCenterY < 222 && $previewCenterX < 222){
-                $centerX = $fillCenter->getY() - ($previewCenterX/2) + $filterSettings[$filter]['offsetx'];
-                $centerY = $fillCenter->getY() - ($previewCenterY/2) + $filterSettings[$filter]['offsety'];
+            //Caso 1, Matener Height -> Largo es mayor al Alto.
+            if($previewWidth > $previewHeight){
+                $newWidth = (($width+20) * $previewWidth)/$previewHeight;
+                $newHeight = $height+20;
+
+                $pointx = 10;
+                $pointy = 10;
+            }else if($previewHeight > $previewWidth){
+                $newWidth = $width;
+                $newHeight = (($height) * $previewHeight)/$previewWidth;
+
+                $pointx = 0;
+                $pointy = 0;
             }else{
-                $centerX = $filterSettings[$filter]['offsetx'];
-                $centerY = $filterSettings[$filter]['offsety'];
+                $newWidth = $width;
+                $newHeight = $height;
+
+                $pointx = 0;
+                $pointy = 0;
             }
 
-            $centerOffset = new \Imagine\Image\Point($centerX, $centerY);
-
-            $thumbnail->paste($fill, $offset)
-                      ->paste($preview, $centerOffset)
+            $lol = $preview->thumbnail(new \Imagine\Image\Box($newWidth, $newHeight))
+                           ->crop(new \Imagine\Image\Point($pointx, $pointy), new \Imagine\Image\Box($width, $height));
+            
+            $thumbnail->paste($lol, $offset)
                       ->save($cachedFile);
-
             /*catch(\Imagine\Exception\Exception $e)*/
         }
         return $cachedFile;
