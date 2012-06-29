@@ -318,7 +318,7 @@ class DefaultController extends Controller
             $imagen = $recomendaciones[$i]->getUsuario()->getImagenFull();
             $ultimaImagenRecomendacion = explode('.', $imagen);
 
-            $data[$i]['imagen'] = $fn->generarThumbnailTelefono($ultimaImagenRecomendacion, 'phone_recomendacion_thumbnail');
+            $data['recomendaciones'][$i]['imagen'] = $fn->generarThumbnailTelefono($ultimaImagenRecomendacion, 'phone_recomendacion_thumbnail');
         }
         if(isset($data['recomendaciones'])) $data['recomendaciones'] = array_reverse($data['recomendaciones']);
 

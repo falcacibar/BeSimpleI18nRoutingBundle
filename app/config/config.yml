@@ -119,7 +119,7 @@ avalanche_imagine:
         thumb_uploader:
             type:    thumbnail
             options: { size: [96, 96], mode: outbound }
-        phone_thumbnail:
+        phone_lista_thumbnail:
             type:    thumbnail
             options: { size: [12, 112], mode: outbound }
         phone_ficha_thumbnail:

@@ -95,8 +95,12 @@ class LoogaresFunctions
                 $pointy = 0;
             }
 
-            $lol = $preview->thumbnail(new \Imagine\Image\Box($newWidth, $newHeight))
-                           ->crop(new \Imagine\Image\Point($pointx, $pointy), new \Imagine\Image\Box($width, $height));
+            try{
+                $lol = $preview->thumbnail(new \Imagine\Image\Box($newWidth, $newHeight))
+                        ->crop(new \Imagine\Image\Point($pointx, $pointy), new \Imagine\Image\Box($width, $height));
+            }catch(\Exception $e){
+                return 'default.png';           
+            }
             
             $thumbnail->paste($lol, $offset)
                       ->save($cachedFile);
