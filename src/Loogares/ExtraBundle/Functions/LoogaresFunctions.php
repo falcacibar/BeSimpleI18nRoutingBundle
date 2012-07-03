@@ -86,8 +86,8 @@ class LoogaresFunctions
                 $pointx = 10;
                 $pointy = 10;
             }else if($previewHeight > $previewWidth){
-                $newWidth = $width;
-                $newHeight = (($height) * $previewHeight)/$previewWidth;
+                $newWidth = $width+10;
+                $newHeight = (($height+10) * $previewHeight)/$previewWidth;
 
                 $pointx = 0;
                 $pointy = 0;

@@ -464,7 +464,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
         echo $idSector;
     }*/
 
-    if($latitude != null && $longitude != null){
+    if($latitude != 0 && $longitude != 0){
         $geoloc = ",( 6371 * acos( cos( radians($latitude) ) * cos( radians( lugares.mapx ) ) * cos( radians( lugares.mapy ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( lugares.mapx ) ) ) ) AS distance";
         $geolocCondition = "HAVING distance < 100";
     }else{
@@ -782,8 +782,12 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
       $buffer = $q->getOneOrNullResult();
       $bufferRec = $q2->getSingleScalarResult();
 
-      $distance = $lugar['distance'];
-      
+      if(isset($lugar['distance'])){
+        $distance = $lugar['distance'];
+      }else{
+        $distance = null;
+      }
+
       $lugar = $buffer;
       $recomendacion = $bufferRec;
 
