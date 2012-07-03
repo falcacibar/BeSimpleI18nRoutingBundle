@@ -393,9 +393,15 @@ class DefaultController extends Controller
         }
         if(isset($data['subcategorias'])) $data['subcategorias'] = implode(', ', $data['subcategorias']);
 
+        if(is_array($categoria)){
+            $categoriaARevisar = $categoria[0];
+        }else{
+            $categoriaARevisar = $categoria;
+        }
+
         if($tipoCategoria == 'donde-comer' || $tipoCategoria == 'donde-dormir'){
             $data['mostrarPrecio'] = $tipoCategoria;
-        }else if(($tipoCategoria == 'como-entretenerse' && $categoria[0]->getCategoria()->getSlug() == 'night-clubs')){
+        }else if(($tipoCategoria == 'como-entretenerse' && $categoriaARevisar->getCategoria()->getSlug() == 'night-clubs')){
             $data['mostrarPrecio'] == 'night-clubs';
         }
             
