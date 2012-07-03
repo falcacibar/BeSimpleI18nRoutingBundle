@@ -19,7 +19,7 @@ class DefaultController extends Controller
         $idCiudad = $ciudad['id'];
         
         $data[]['tipo'] = 'Todas';
-        $data[sizeOf($data)-1]['categorias'][0]['categoria_nombre'] = 'Lugares';
+        $data[sizeOf($data)-1]['categorias'][0]['categoria_nombre'] = 'Todos los Tipos de Lugares';
         $data[sizeOf($data)-1]['categorias'][0]['categoria_slug'] = 'todas';
         
         foreach($tipoCategoria as $key => $value){
@@ -315,8 +315,7 @@ class DefaultController extends Controller
             $data['recomendaciones'][$i]['estrellas'] = $recomendaciones[$i]->getEstrellas();
             $data['recomendaciones'][$i]['fechaCreacion'] = $recomendaciones[$i]->getFechaCreacion()->format('d-m-y');
             $data['recomendaciones'][$i]['texto'] = $recomendaciones[$i]->getTexto();
-            $imagen = $recomendaciones[$i]->getUsuario()->getImagenFull();
-            $ultimaImagenRecomendacion = explode('.', $imagen);
+            $ultimaImagenRecomendacion = $recomendaciones[$i]->getUsuario()->getImagenFull();
 
             $data['recomendaciones'][$i]['imagen'] = $fn->generarThumbnailTelefono($ultimaImagenRecomendacion, 'phone_recomendacion_thumbnail');
         }

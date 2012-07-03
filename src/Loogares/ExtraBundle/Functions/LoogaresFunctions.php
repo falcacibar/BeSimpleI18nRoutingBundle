@@ -8,18 +8,6 @@ class LoogaresFunctions
 {
     //Funcion para generar la imagen default del Lugar
     function generarThumbnailTelefono($filename, $filter){
-        if(!file_exists("assets/images/lugares/$filename") || !$filename) $filename = 'default.png';
-
-        $imagine = new \Imagine\Gd\Imagine();
-
-        $new = explode('.',$filename);
-        $new = $new[0].'.png';
-
-        $assetsPath = "assets/images";
-        $cachePath = "assets/media/cache";
-        $filterPath = "$cachePath/$filter/$assetsPath";
-        $cachedFile = $filterPath . "/$new";
-
         //Parsing filter data
         $filterSettings = array(
             'phone_lista_thumbnail' => array(
@@ -28,7 +16,8 @@ class LoogaresFunctions
                 'offsetx' => 16,
                 'offsety' => 8,
                 'thumbWidth' => 136,
-                'thumbHeight' => 136
+                'thumbHeight' => 136,
+                'tipo' => 'lugares'
             ),
             'phone_ficha_thumbnail' => array(
                 'width' => 222,
@@ -36,7 +25,8 @@ class LoogaresFunctions
                 'offsetx' => 16,
                 'offsety' => 10,
                 'thumbWidth' => 248,
-                'thumbHeight' => 248
+                'thumbHeight' => 248,
+                'tipo' => 'lugares'
             ),
             'phone_recomendacion_thumbnail' => array(
                 'width' => 104,
@@ -44,9 +34,23 @@ class LoogaresFunctions
                 'offsetx' => 10,
                 'offsety' => 6,
                 'thumbWidth' => 120,
-                'thumbHeight' => 120
+                'thumbHeight' => 120,
+                'tipo' => 'usuarios'
             )
         );
+
+        $new = explode('.',$filename);
+        $new = $new[0].'.png';
+        
+        $tipo = $filterSettings[$filter]['tipo'];
+        if(!file_exists("assets/images/$tipo/$filename") || !$filename) $filename = 'default.png';
+
+        $imagine = new \Imagine\Gd\Imagine();
+
+        $assetsPath = "assets/images";
+        $cachePath = "assets/media/cache";
+        $filterPath = "$cachePath/$filter/$assetsPath";
+        $cachedFile = $filterPath . "/$new";
 
         //Creamos las carpetas si no estan
         if(!is_dir($filterPath)) mkdir($filterPath, 0777, true);
@@ -68,7 +72,7 @@ class LoogaresFunctions
 
             //Abrrimos la imagen a manipular, y la achicamos
             try{
-                $preview = $imagine->open("assets/images/lugares/$filename");
+                $preview = $imagine->open("assets/images/$tipo/$filename");
             }catch(\Exception $e){
                 return 'default.png';
             }
