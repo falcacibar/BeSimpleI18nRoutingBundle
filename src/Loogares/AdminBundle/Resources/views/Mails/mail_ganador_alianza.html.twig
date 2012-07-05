@@ -1,0 +1,77 @@
+<body>
+    <div style="font-family: Arial; font-size: 14px;">
+        <table align="center" cellpadding="0" cellspacing="0" width="650" style="width:650px">
+            <tr>
+                <td width="650"><center><img style="margin: 0 0 10px;" src="{{ assets.logo }}" width="180" height="128" /></center></td>
+            </tr>
+            <tr>
+                <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; padding: 30px 0; width: 650px;">
+                    <div style="padding: 0 20px">
+	                    <strong>¡Felicitaciones {{'admin.notificaciones.saludo'|trans({'%nombre%' : mail.usuario.nombre, '%apellido%' : mail.usuario.apellido})}}!</strong>
+	                    <br />
+	                    <br />
+	                    Gracias a tu participación en Loogares.com resultaste ganador del sorteo de <strong><a href="{{url('post', {'ciudad' : mail.concurso.post.ciudad.slug, 'slug' : mail.concurso.post.slug})}}" style="color: #0066CC; text-decoration: none;">{{mail.concurso.post.titulo}}</a></strong>.
+	                    <br />
+	                    <br />
+	                    {% if mail.concurso.post.ciudad.slug == 'buenos-aires' %}
+	                    	{% set mail_contacto = 'clara.siancha@loogares.com' %}
+	                    	{% set nombre_contacto = 'Clara Siancha' %}
+	                    {% elseif mail.concurso.post.ciudad.slug == 'valparaiso-vina-del-mar' %}
+	                    	{% set mail_contacto = 'romina.diaz@loogares.com' %}
+	                    	{% set nombre_contacto = 'Romina Díaz' %}
+	                    {% else %}
+	                    	{% set mail_contacto = 'fernando.cruces@loogares.com' %}
+	                    	{% set nombre_contacto = 'Fernando Cruces' %}
+	                    {% endif %}
+	                    Para hacer efectivo tu premio <strong>debes enviar un E-mail a {{nombre_contacto}} &lt;<a href="mailto:{{mail_contacto}}">{{mail_contacto}}</a>&gt; antes de la fecha especificada</strong> dentro del siguiente detalle:
+	                    <br />
+	                    <br />
+	               	</div>
+	               	<div style="background: #FAFAFC; float: left; border-top: 1px solid #CCC;">
+	                    <img src="{{ assets.concurso }}" height="100px" width="177px" style="float: left; padding: 20px 20px 20px 0; margin: 0 0 0 20px; border-bottom: 1px solid #E5E5E5;"/>
+	                    <div style="float: left; border-bottom: 1px solid #E5E5E5; height: 100px; padding: 20px 0px; font-size: 17px; font-weight: bold; line-height: 33px; width: 411px; margin: 0 20px 0 0;">
+	                    	{{mail.concurso.post.titulo}}
+	                    	<br />
+	                    	{{mail.usuario.nombre}} {{mail.usuario.apellido}}
+	                    </div>
+	               	</div>
+	               	<div style="background: #FAFAFC; float: left; padding: 20px; width: 608px; font-size: 12px; line-height: 20px;">
+	               		<div style="float: left; padding: 0 0 20px 0; width: 610px; border-bottom: 1px solid #E5E5E5;">
+		               		<strong>Detalle del premio:</strong>
+		               		<br />
+		               		{{mail.concurso.post.detalles | raw}}
+		               		<br />
+		               		<br />
+		               		<strong>Condiciones:</strong>
+		               		<br />
+		               		{{mail.concurso.post.condiciones | raw}}
+		               	</div>
+	               	</div>
+	               
+	               	<div style="padding: 0 20px; float: left;">
+	                    <br />
+	                    Una vez que hayas cobrado tu premio, <strong>te sugerimos escribir una recomendación</strong> para que seguir aportando con información valiosa para todos nuestros usuario.
+	                    <br />
+	                    <br />
+	                    ¡Disfruta tu premio, Loogareño!
+	                    <br />
+	                    <br />
+	                    Muchos saludos
+	                </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="color: #CCC; font-size: 11px; padding: 20px">
+                    <br />
+                    {% trans with {'%open_tag%': '<b><a href="http://www.loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_tag%' : '</a></b>'}%}usuario.mail.equipo{% endtrans %}<br />
+                    <br />
+                    {% trans with {'%open_a%': '<a href="mailto:contacto@loogares.com" style="color: #0066CC; text-decoration: none;">', '%close_a%' : '</a>'}%}usuario.mail.contacto{% endtrans %}
+                    <br />
+                    <br />
+                    <span style="display: block; text-align: center;">&copy; {{'usuario.mail.firma'|trans}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>

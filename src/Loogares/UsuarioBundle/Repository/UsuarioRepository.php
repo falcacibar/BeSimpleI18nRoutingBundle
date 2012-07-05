@@ -276,6 +276,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
                                JOIN p.concurso c
                                WHERE p.usuario = ?1
                                AND g.canjeado = false
+                               AND c.tipo_concurso = 2
                                ORDER BY c.fecha_termino DESC");
         $q->setMaxResults($results);
         $q->setFirstResult($offset);

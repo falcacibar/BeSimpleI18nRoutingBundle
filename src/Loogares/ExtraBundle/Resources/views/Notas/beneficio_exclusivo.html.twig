@@ -9,7 +9,11 @@
 	<div class="contenido">               
 
 		<img class="logo_reporte" src="{{ asset('assets/images/reporte/logo_reporte.png') }}" height="52" width="161" />
-
+		{% if app.session.hasFlash('beneficios_flash') %}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('beneficios_flash') | trans }}</p>
+            </div>
+	    {% endif %}
 		<a name="promociona_tu_negocio"></a>
 		<div class="que_es">
 			<div class="promociona_tu_negocio">

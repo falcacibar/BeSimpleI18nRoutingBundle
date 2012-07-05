@@ -3,56 +3,60 @@
 	<h2 class="titulo_accion_usuario">{{'usuario.gift_card.titulo'|trans}}</h2>
 
 	<ul>
-		{% for cupon in usuario.cupones %}
-			{% set post = cupon.participante.concurso.post %}
-			<li>
-				<div class="cupon">
-					<div class="bloque_premio">
-						<img class="imagen_cupon" src="{{asset('assets/images/blog/'~post.imagen)}}" height="100" width="177" />
-						<p class="texto_cupon">
-							{{cupon.participante.concurso.titulo}}
+		{% if usuario.cupones | length > 0 %}
+			{% for cupon in usuario.cupones %}
+				{% set post = cupon.participante.concurso.post %}
+				<li>
+					<div class="cupon">
+						<div class="bloque_premio">
+							<img class="imagen_cupon" src="{{asset('assets/images/blog/'~post.imagen)}}" height="100" width="177" />
+							<p class="texto_cupon">
+								{{cupon.participante.concurso.titulo}}
+								<br />
+								{{cupon.participante.usuario.nombre}} {{cupon.participante.usuario.apellido}}
+								<br />
+								{{'usuario.gift_card.codigo'|trans}} {{cupon.codigo}}
+							</p>
+						</div>
+						<div class="bloque_detalles">
+							<strong>{{'blog.detalle'|trans}}</strong><br />
+							<p>{{post.detalles | raw}}</p>
 							<br />
-							{{cupon.participante.usuario.nombre}} {{cupon.participante.usuario.apellido}}
+							<strong>{{'blog.condiciones'|trans}}</strong><br />
+							<p>{{post.condiciones | raw}}</p>
+						</div>
+						<div class="bloque_datos">
+							<p class="titulo_datos_cupon">{{'blog.sobre'|trans}} {{post.lugar.nombre}}</p>
 							<br />
-							{{'usuario.gift_card.codigo'|trans}} {{cupon.codigo}}
-						</p>
+							<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
+							{% if post.lugar.telefono2 == '' or post.lugar.telefono2 == null %}
+								{% set telefonos = [post.lugar.telefono1] %}
+							{% elseif post.lugar.telefono3 == '' or post.lugar.telefono3 == null %}
+								{% set telefonos = [post.lugar.telefono1, post.lugar.telefono2] %}
+							{% else %}
+								{% set telefonos = [post.lugar.telefono1, post.lugar.telefono2, post.lugar.telefono3] %}
+							{% endif %}
+							{{telefonos|join(', ')}}
+							{% if post.lugar.sitioWeb != ''%}
+								<a class="sitio_web_lugar" href="http://{{post.lugar.sitioWeb}}" target="blank">{{post.lugar.sitioWeb}}</a>
+							{% endif %}
+							{% if post.lugar.facebook != ''%}
+								<a class="facebook_lugar" href="http://{{post.lugar.facebook}}" target="blank"></a>
+							{% endif %}
+							{% if post.lugar.twitter != ''%}
+								<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
+							{% endif %}
+							<p class="visita_ficha_lugar">{{'blog.visita_ficha'|trans}} <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{'blog.visita_ficha_aca'|trans}}</a></p>
+						</div>
 					</div>
-					<div class="bloque_detalles">
-						<strong>{{'blog.detalle'|trans}}</strong><br />
-						<p>{{post.detalles | raw}}</p>
-						<br />
-						<strong>{{'blog.condiciones'|trans}}</strong><br />
-						<p>{{post.condiciones | raw}}</p>
+					<div class="imprimir_cupon">
+						<a href="">{{'usuario.gift_card.imprimir'|trans}}</a>
 					</div>
-					<div class="bloque_datos">
-						<p class="titulo_datos_cupon">{{'blog.sobre'|trans}} {{post.lugar.nombre}}</p>
-						<br />
-						<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
-						{% if post.lugar.telefono2 == '' or post.lugar.telefono2 == null %}
-							{% set telefonos = [post.lugar.telefono1] %}
-						{% elseif post.lugar.telefono3 == '' or post.lugar.telefono3 == null %}
-							{% set telefonos = [post.lugar.telefono1, post.lugar.telefono2] %}
-						{% else %}
-							{% set telefonos = [post.lugar.telefono1, post.lugar.telefono2, post.lugar.telefono3] %}
-						{% endif %}
-						{{telefonos|join(', ')}}
-						{% if post.lugar.sitioWeb != ''%}
-							<a class="sitio_web_lugar" href="http://{{post.lugar.sitioWeb}}" target="blank">{{post.lugar.sitioWeb}}</a>
-						{% endif %}
-						{% if post.lugar.facebook != ''%}
-							<a class="facebook_lugar" href="http://{{post.lugar.facebook}}" target="blank"></a>
-						{% endif %}
-						{% if post.lugar.twitter != ''%}
-							<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
-						{% endif %}
-						<p class="visita_ficha_lugar">{{'blog.visita_ficha'|trans}} <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{'blog.visita_ficha_aca'|trans}}</a></p>
-					</div>
-				</div>
-				<div class="imprimir_cupon">
-					<a href="">{{'usuario.gift_card.imprimir'|trans}}</a>
-				</div>
-			</li>
-		{% endfor %}
+				</li>
+			{% endfor %}
+		{% else %}
+			<li>{{'usuario.gift_card.sin_cupones'|trans}}</li>
+		{% endif %}
 	</ul>
 
 	{% if paginacion.totalPaginas > 1 %}

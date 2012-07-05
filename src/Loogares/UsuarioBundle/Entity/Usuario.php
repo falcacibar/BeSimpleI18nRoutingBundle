@@ -139,6 +139,11 @@ class Usuario implements AdvancedUserInterface, \Serializable
     private $salt;
 
     /**
+     * @var string $sha1password
+     */
+    private $sha1password;
+
+    /**
      * @var Loogares\UsuarioBundle\Entity\TipoUsuario
      */
     private $tipo_usuario;
@@ -157,6 +162,16 @@ class Usuario implements AdvancedUserInterface, \Serializable
      * @var Loogares\UsuarioBundle\Entity\Recomendacion
      */
     private $recomendaciones;
+
+    /**
+     * @var Loogares\ExtraBundle\Entity\Pais
+     */
+    private $pais;
+
+    /**
+     * @var Loogares\ExtraBundle\Entity\Ciudad
+     */
+    private $ciudad;
 
 
     public function __construct()
@@ -711,6 +726,102 @@ class Usuario implements AdvancedUserInterface, \Serializable
         return $this->recomendaciones;
     }
 
+
+    public function getRecomendacionesActivas() {
+        $activas = new \Doctrine\Common\Collections\ArrayCollection();
+        foreach($this->recomendaciones as $recomendacion) {
+            if($recomendacion->getEstado()->getId() != 3) {
+                $activas[] = $recomendacion;
+            }
+        }
+        return $activas;
+    }
+
+    /**
+     * Set pais
+     *
+     * @param Loogares\ExtraBundle\Entity\Pais $pais
+     */
+    public function setPais(\Loogares\ExtraBundle\Entity\Pais $pais)
+    {
+        $this->pais = $pais;
+    }
+
+    /**
+     * Get pais
+     *
+     * @return Loogares\ExtraBundle\Entity\Pais 
+     */
+    public function getPais()
+    {
+        return $this->pais;
+    }
+
+    /**
+     * Set ciudad
+     *
+     * @param Loogares\ExtraBundle\Entity\Ciudad $ciudad
+     */
+    public function setCiudad(\Loogares\ExtraBundle\Entity\Ciudad $ciudad)
+    {
+        $this->ciudad = $ciudad;
+    }
+
+    /**
+     * Get ciudad
+     *
+     * @return Loogares\ExtraBundle\Entity\Ciudad 
+     */
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
+
+     /**
+     * Set sha1password
+     *
+     * @param string $sha1password
+     */
+    public function setSha1password($sha1password)
+    {
+        $this->sha1password = $sha1password;
+    }
+
+    /**
+     * Get sha1password
+     *
+     * @return string 
+     */
+    public function getSha1password()
+    {
+        return $this->sha1password;
+    }
+    /**
+     * @var Loogares\LugarBundle\Entity\ReportarLugar
+     */
+    private $reportar_lugar;
+
+
+    /**
+     * Add reportar_lugar
+     *
+     * @param Loogares\LugarBundle\Entity\ReportarLugar $reportarLugar
+     */
+    public function addReportarLugar(\Loogares\LugarBundle\Entity\ReportarLugar $reportarLugar)
+    {
+        $this->reportar_lugar[] = $reportarLugar;
+    }
+
+    /**
+     * Get reportar_lugar
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getReportarLugar()
+    {
+        return $this->reportar_lugar;
+    }
+
     /**
     * Implementación de AdvancedUserInterface interface
     */
@@ -857,106 +968,5 @@ class Usuario implements AdvancedUserInterface, \Serializable
         if (isset($fbdata['id'])) {
             $this->setFacebookUid($fbdata['id']);
         }
-    }
-
-    /**
-     * @var Loogares\ExtraBundle\Entity\Pais
-     */
-    private $pais;
-
-    /**
-     * @var Loogares\ExtraBundle\Entity\Ciudad
-     */
-    private $ciudad;
-
-
-    /**
-     * Set pais
-     *
-     * @param Loogares\ExtraBundle\Entity\Pais $pais
-     */
-    public function setPais(\Loogares\ExtraBundle\Entity\Pais $pais)
-    {
-        $this->pais = $pais;
-    }
-
-    /**
-     * Get pais
-     *
-     * @return Loogares\ExtraBundle\Entity\Pais 
-     */
-    public function getPais()
-    {
-        return $this->pais;
-    }
-
-    /**
-     * Set ciudad
-     *
-     * @param Loogares\ExtraBundle\Entity\Ciudad $ciudad
-     */
-    public function setCiudad(\Loogares\ExtraBundle\Entity\Ciudad $ciudad)
-    {
-        $this->ciudad = $ciudad;
-    }
-
-    /**
-     * Get ciudad
-     *
-     * @return Loogares\ExtraBundle\Entity\Ciudad 
-     */
-    public function getCiudad()
-    {
-        return $this->ciudad;
-    }
-    /**
-     * @var string $sha1password
-     */
-    private $sha1password;
-
-
-    /**
-     * Set sha1password
-     *
-     * @param string $sha1password
-     */
-    public function setSha1password($sha1password)
-    {
-        $this->sha1password = $sha1password;
-    }
-
-    /**
-     * Get sha1password
-     *
-     * @return string 
-     */
-    public function getSha1password()
-    {
-        return $this->sha1password;
-    }
-    /**
-     * @var Loogares\LugarBundle\Entity\ReportarLugar
-     */
-    private $reportar_lugar;
-
-
-    /**
-     * Add reportar_lugar
-     *
-     * @param Loogares\LugarBundle\Entity\ReportarLugar $reportarLugar
-     */
-    public function addReportarLugar(\Loogares\LugarBundle\Entity\ReportarLugar $reportarLugar)
-    {
-        $this->reportar_lugar[] = $reportarLugar;
-    }
-
-    /**
-     * Get reportar_lugar
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getReportarLugar()
-    {
-        return $this->reportar_lugar;
     }
 }
