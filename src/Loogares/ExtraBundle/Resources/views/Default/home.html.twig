@@ -157,7 +157,7 @@
 
 		<!-- Loogareño Estrella -->
 		{# Santiago de Chile #}
-		{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+		{# if app.session.get('ciudad').slug == 'santiago-de-chile' %}
 			<div class="recomendacion_estrella">
 				<div class="encabezados_titulos">
 					<h6 class="titulo_estrella">{{'extra.home.modulo_loogareno_estrella.titulo'|trans}}</h6>
@@ -184,12 +184,12 @@
 			</div>
 
 		{# Valparaíso / Viña del Mar #}
-		{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+		{# elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' #}
 
 		{# Buenos Aires #}
-		{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+		{# elseif app.session.get('ciudad').slug == 'buenos-aires' #}
 
-		{% endif %}
+		{# endif #}
 
 		<!-- Recomendación del Día -->
 		{% if home.recDia != null %}
