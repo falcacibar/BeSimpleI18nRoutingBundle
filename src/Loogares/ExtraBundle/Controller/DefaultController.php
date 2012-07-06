@@ -398,8 +398,10 @@ class DefaultController extends Controller
 
         $message = $this->get('fn')->enviarMail($mail['asunto'], 'ventas@loogares.com', $datos['mail'], $mail, $paths, 'LoogaresExtraBundle:Mails:mail_beneficios_exclusivos.html.twig', $this->get('templating'));
         $this->get('mailer')->send($message);
+
+        $this->get('session')->setFlash('beneficios_flash','ventas.beneficio_exclusivo.flash.exito');
             
-        // Redirección a galería de fotos
+        // Redirección a página de beneficios
         return $this->redirect($this->generateUrl('static', array('static' => 'beneficio_exclusivo')));
     }
 

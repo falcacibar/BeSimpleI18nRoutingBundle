@@ -14,3 +14,7 @@ Loogares\BlogBundle\Entity\Participante:
         id:
             type: integer
             generator: { strategy: auto }
+
+    fields:
+        pendiente:
+            type: boolean

@@ -1268,6 +1268,14 @@ class LugarController extends Controller{
 
             $em->persist($actividad);
             $em->flush();
+
+            // Revisamos si el usuario tenía concursos pendientes al momento de recomendar
+            $conr = $em->getRepository('LoogaresBlogBundle:Concurso');
+            $concursosPendientes = $conr->getConcursosPendientesUsuario($this->get('security.context')->getToken()->getUser(), $lugar->getComuna()->getCiudad());
+            foreach($concursosPendientes as $concurso) {
+                $concurso->setPendiente(false);
+            }
+            $em->flush();
             
 
             // Se envía mail al lugar

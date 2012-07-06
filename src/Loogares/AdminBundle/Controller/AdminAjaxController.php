@@ -82,10 +82,11 @@ class AdminAjaxController extends Controller{
       $em = $this->getDoctrine()->getEntityManager();
       $pr = $em->getRepository("LoogaresBlogBundle:Participante");
       foreach($request->request->get('ganadores') as $g) {
+        $codigo = $this->get('fn')->genRandomString(8);
         $ganador = new Ganador();
         $participante = $pr->find($g);
         $ganador->setParticipante($participante);
-        $ganador->setCodigo(md5($participante->getConcurso()->getId().$participante->getUsuario()->getId()));
+        $ganador->setCodigo($codigo);
         $ganador->setCanjeado(false);
 
         $em->persist($ganador);
@@ -93,7 +94,6 @@ class AdminAjaxController extends Controller{
 
         // Se envía mail al ganador informando el premio
         $mail = array();
-        $mail['asunto'] = $this->get('translator')->trans('extra.modulo_concursos.ganadores.mail.asunto');
         $mail['usuario'] = $participante->getUsuario();
         $mail['ganador'] = $ganador;
         $mail['concurso'] = $participante->getConcurso();
@@ -105,8 +105,17 @@ class AdminAjaxController extends Controller{
         $paths['concurso'] = 'assets/media/cache/medium_concurso/assets/images/blog/'.$participante->getConcurso()->getPost()->getImagen();      
         $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
-        $message = $this->get('fn')->enviarMail($mail['asunto'], $participante->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresAdminBundle:Mails:mail_ganador.html.twig', $this->get('templating'));
-        $this->get('mailer')->send($message);
+        if($participante->getConcurso()->getTipoConcurso()->getSlug() == 'click') {
+          $mail['asunto'] = $this->get('translator')->trans('extra.modulo_concursos.ganadores.mail.asunto');
+          $message = $this->get('fn')->enviarMail($mail['asunto'], $participante->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresAdminBundle:Mails:mail_ganador.html.twig', $this->get('templating'));
+          
+        }
+        else if($participante->getConcurso()->getTipoConcurso()->getSlug() == 'recomendacion') {
+          $mail['asunto'] = $this->get('translator')->trans('extra.modulo_concursos.ganadores.mail_alianza.asunto', array('%premio%' => $participante->getConcurso()->getPost()->getTitulo()));
+          $message = $this->get('fn')->enviarMail($mail['asunto'], $participante->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresAdminBundle:Mails:mail_ganador_alianza.html.twig', $this->get('templating'));
+        }
+        $this->get('mailer')->send($message);       
+        
       }
 
       return new Response(json_encode(array('status' => 'ok')));

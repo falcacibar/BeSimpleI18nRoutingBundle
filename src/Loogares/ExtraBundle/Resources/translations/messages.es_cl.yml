@@ -70,6 +70,8 @@ extra:
         ganadores:
             mail:
                 asunto: ¡Felicitaciones! Acabas de ganar en uno de los concurso de Loogares.com
+            mail_alianza:
+                asunto: ¡Felicitaciones! Acabas de ganar un %premio% en Loogares.com
         canjes:
             mail:
                 asunto: Recomienda %nombre%
@@ -166,3 +168,5 @@ ventas:
             li5: - Visita física de potenciales clientes a tu negocio.
             li6: - Ofrecer Gift Cards de descuento entre los usuarios que participaron de tu campaña, para medir su efectividad y tener la posibilidad de <strong>recuperar tu inversión</strong>.
             final: ¡Envíanos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!
+        flash:
+            exito: ¡Hemos recibido tus datos! Te contactaremos en menos de 24 hrs. con nuestra propuesta. 
