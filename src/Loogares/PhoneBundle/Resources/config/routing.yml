@@ -1,17 +1,79 @@
+#
+# LISTADOS DE NAVEGACION
+#
 LoogaresPhoneBundle_categorias:
     pattern:  /api/categorias
     defaults: { _controller: LoogaresPhoneBundle:Default:listadoCategorias, _format: json}
     requirements:
         _format:  json
 
-LoogaresPhoneBundle_categoria:
-    pattern:  /api/categoria/{categoria}/{offset}/{latitude}/{longitude}
-    defaults: { _controller: LoogaresPhoneBundle:Default:lugaresPorCategoria, _format: json, categoria: todas, offset: 1, latitude: null, longitude: null}
+LoogaresPhoneBundle_caracteristicas:
+    pattern:  /api/caracteristicas
+    defaults: { _controller: LoogaresPhoneBundle:Default:listadoCaracteristicas, _format: json}
     requirements:
         _format:  json
 
+LoogaresPhoneBundle_subcategoria:
+    pattern:  /api/subcategoria/{categoria}
+    defaults: { _controller: LoogaresPhoneBundle:Default:listadoSubcategorias, _format: json }
+    requirements:
+        _format:  json
+
+LoogaresPhoneBundle_zonas:
+    pattern:  /api/zonas/{ciudad}
+    defaults: { _controller: LoogaresPhoneBundle:Default:zonas, _format: json }
+    requirements:
+        _format:  json
+
+#
+# BUSQUEDA & QUICK SEARCH
+#
+LoogaresPhoneBundle_quickSearch:
+    pattern: /api/qs/{slug}/{term}
+    defaults: { _controller: LoogaresPhoneBundle:Default:quickSearch, _format: json }
+    requirements:
+        _format: json
+
+LoogaresPhoneBundle_search:
+    pattern: /api/s/{slug}/{tipoZona}/{zona}/{orden}/{offset}/{latitude}/{longitude}
+    defaults: { _controller: LoogaresPhoneBundle:Default:search, _format: json }
+    requirements:
+        _format: json
+
+
+#
+# LISTADO LUGARES
+#
+LoogaresPhoneBundle_categoria:
+    pattern:  /api/categoria/{slug}/{tipoZona}/{zona}/{categoria}/{orden}/{offset}/{latitude}/{longitude}
+    defaults: { _controller: LoogaresPhoneBundle:Default:search, _format: json, categoria: todas, offset: 1, latitude: null, longitude: null}
+    requirements:
+        _format:  json
+
+LoogaresPhoneBundle_scategoria:
+    pattern:  /api/subcategoria/{slug}/{tipoZona}/{zona}/{subcategoria}/{orden}/{offset}/{latitude}/{longitude}
+    defaults: { _controller: LoogaresPhoneBundle:Default:search, _format: json, offset: 1, latitude: null, longitude: null, categoria: null}
+    requirements:
+        _format:  json
+
+
+
+
+#
+# FICHA LUGAR
+#
 LoogaresPhoneBundle_lugar:
     pattern: /api/lugar/{slug}
     defaults: { _controller: LoogaresPhoneBundle:Default:lugar, _format: json }
+    requirements:
+        _format: json
+
+
+#
+# REVERSE GEO
+#
+LoogaresPhoneBundle_reverseGeo:
+    pattern: /api/reverseGeo/{lat}/{long}
+    defaults: { _controller: LoogaresPhoneBundle:Default:reverseGeo, _format: json }
     requirements:
         _format: json
