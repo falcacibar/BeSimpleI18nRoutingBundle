@@ -17,7 +17,7 @@ class DefaultController extends Controller
 
     public function menuAction(){
     	$em = $this->getDoctrine()->getEntityManager();
-        $tlr = $em->getRepository("LoogaresLugarBundle:TipoCategoria");    
+        $tlr = $em->getRepository("LoogaresLugarBundle:TipoCategoria");
         $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\TipoCategoria u ORDER BY u.prioridad_web asc");
         $tipoCategoria = $q->getResult();
         $ciudad = $this->get('session')->get('ciudad');
@@ -64,7 +64,7 @@ class DefaultController extends Controller
     }
 
     public function localeAction($slug) {
-        $em = $this->getDoctrine()->getEntityManager();        
+        $em = $this->getDoctrine()->getEntityManager();
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
         $ciudad = $cr->findOneBySlug($slug);
 
@@ -84,7 +84,7 @@ class DefaultController extends Controller
 
         $this->get('session')->set('ciudad',$ciudadArray);
 
-        // Redirección a vista de login 
+        // Redirección a vista de login
         return new Response('ok');
     }
 
@@ -92,9 +92,9 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $fn = $this->get('fn');
         $ip = $fn->ip2int($_SERVER['REMOTE_ADDR']);
-        
+
         //Comprobamos de donde es la IP
-        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ip2loc u WHERE u.range_to >= ?1"); 
+        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ip2loc u WHERE u.range_to >= ?1");
         $q->setParameter(1, $ip);
         $q->setMaxResults(1);
         $ipPais = $q->getOneOrNullResult();
@@ -104,11 +104,11 @@ class DefaultController extends Controller
             'buenos-aires' => 'buenos-aires',
             'valparaiso-vina-del-mar' => 'valparaiso-vina-del-mar'
         );
-        
+
         //Ciudad antigua
         $ciudadSession = $this->get('session')->get('ciudad');
 
-        if(!in_array($slug, $ciudadesHabilitadas)){ 
+        if(!in_array($slug, $ciudadesHabilitadas)){
             if(preg_match('/Argentina|Peru/', $ipPais->getCountry())){
                 return $this->redirect($this->generateUrl('locale', array('slug' => 'buenos-aires')));
             }
@@ -134,8 +134,8 @@ class DefaultController extends Controller
 
 
         //Slider del home
-        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p 
-                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) and p.blog_estado = 2 
+        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p
+                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) and p.blog_estado = 2
                                ORDER BY p.id DESC");
         $q->setMaxResults(3);
         $q->setParameter(1, $ciudadSession['id']);
@@ -174,7 +174,7 @@ class DefaultController extends Controller
 
         // Recomendación del día
         $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
-        
+
         $previewRecDia = '';
         if(strlen($recomendacionDelDia->getTexto()) > 160) {
             $previewRecDia = substr($recomendacionDelDia->getTexto(),0,159).'...';
@@ -189,7 +189,7 @@ class DefaultController extends Controller
         for($i = 0; $i < sizeOf($actividad); $i++){
             $r = $em->getRepository($actividad[$i]->getEntidad());
             $entidad = $r->find($actividad[$i]->getEntidadId());
-            
+
             if($actividad[$i]->getEntidad() == 'Loogares\UsuarioBundle\Entity\Recomendacion') {
                 $preview = '';
                 if(strlen($entidad->getTexto()) > 160) {
@@ -197,7 +197,7 @@ class DefaultController extends Controller
                 }
                 else {
                     $preview = $entidad->getTexto();
-                } 
+                }
                 $entidad->preview = $preview;
             }
             $actividad[$i]->relativeTime = $trr->tiempoRelativo($actividad[$i]->getFecha()->format('Y-m-d H:i:s'));
@@ -226,7 +226,7 @@ class DefaultController extends Controller
 
     public function actividadAction(Request $request) {
         foreach($_GET as $key => $value){
-            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
         }
 
         $fn = $this->get('fn');
@@ -333,7 +333,7 @@ class DefaultController extends Controller
         $contacto['mensaje'] = preg_split('/\n/', $_POST['mensaje']);
         // Se envía mail a administradores notificando reporte
         $mail = array();
-        $mail['asunto'] = $_POST['asunto']; 
+        $mail['asunto'] = $_POST['asunto'];
         $mail['contacto'] = $contacto;
         $mail['tipo'] = "imagen";
         $message = \Swift_Message::newInstance()
@@ -346,7 +346,7 @@ class DefaultController extends Controller
 
          // Mensaje de éxito del reporte
         $this->get('session')->setFlash('contacto_flash','¡Gracias por el contacto! En menos de 48 horas tendrás nuestra respuesta... y si no, que nos parta un rayo.');
-            
+
         // Redirección a galería de fotos
         return $this->redirect($this->generateUrl('static', array('static' => 'contacto')));
     }
@@ -360,7 +360,7 @@ class DefaultController extends Controller
         $contacto['mensaje'] = preg_split('/\n/', $_POST['mensaje']);
         // Se envía mail a administradores notificando reporte
         $mail = array();
-        $mail['asunto'] = 'Publicidad'; 
+        $mail['asunto'] = 'Publicidad';
         $mail['contacto'] = $contacto;
         $mail['tipo'] = "imagen";
         $message = \Swift_Message::newInstance()
@@ -373,7 +373,7 @@ class DefaultController extends Controller
 
          // Mensaje de éxito del reporte
         $this->get('session')->setFlash('publicidad_flash','¡Gracias por el contacto! En menos de 48 horas tendrás nuestra respuesta... y si no, que nos parta un rayo.');
-            
+
         // Redirección a galería de fotos
         return $this->redirect($this->generateUrl('static', array('static' => 'publicidad')));
     }
@@ -393,14 +393,14 @@ class DefaultController extends Controller
         $mail['datos'] = $datos;
         $mail['asunto'] = "Beneficio Exclusivo - Datos de Contacto";
 
-        $paths = array(); 
+        $paths = array();
         $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
         $message = $this->get('fn')->enviarMail($mail['asunto'], 'ventas@loogares.com', $datos['mail'], $mail, $paths, 'LoogaresExtraBundle:Mails:mail_beneficios_exclusivos.html.twig', $this->get('templating'));
         $this->get('mailer')->send($message);
 
         $this->get('session')->setFlash('beneficios_flash','ventas.beneficio_exclusivo.flash.exito');
-            
+
         // Redirección a página de beneficios
         return $this->redirect($this->generateUrl('static', array('static' => 'beneficio_exclusivo')));
     }
@@ -599,7 +599,7 @@ class DefaultController extends Controller
 
 
         echo $i;
-        
+
         echo "</pre>";
 
         return new Response('');

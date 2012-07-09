@@ -1,0 +1,30 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    Buscar loogares en {{app.session.get('ciudad').nombre}} | {{parent()}}
+{% endblock %}
+
+{% block meta %}
+{% endblock %}
+
+{% block ads %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <div class="buscador_box">
+        <form action="{{ path('_buscar', { 'slug': app.session.get('ciudad').slug }) }}">
+            <div class="buscar">
+                    <input class="buscador" name="q" type="text" placeholder="{{'general.header.ejemplos_buscador'|trans}}" />
+                <div class="caja_icono">
+                    <input type="submit" class="icono_buscar" value="" />
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

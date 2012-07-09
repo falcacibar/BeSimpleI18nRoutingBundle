@@ -11,7 +11,7 @@ _lugar:
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
 
 _editar:
-    pattern: /lugar/editar/{slug}
+    pattern: /lugar/{slug}/editar
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
 _otrosLugaresEnElArea:
@@ -131,7 +131,6 @@ _buscar:
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _buscar }
 
 
-
 _categoria_subcategoria_sector:
     pattern: /{slug}/sector/{sector}/categoria/{categoria}/{subcategoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria_subcategoria }
@@ -152,15 +151,17 @@ _categoria_comuna:
     pattern: /{slug}/comuna/{comuna}/categoria/{categoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria }
 
+_categoria_sola:
+    pattern: /{slug}/categoria
+    defaults: { _controller: LoogaresLugarBundle:Search:categoria, path: _categoria }
+
 _categoria:
     pattern: /{slug}/categoria/{categoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria }
 
-
-_subcategoria:  
+_subcategoria:
     pattern: /{slug}/subcategoria/{subcategoria}
     defaults: { _controller: LoogaresLugarBundle:Search:subcategoria, path: _subcategoria }
-
 
 _comuna:
     pattern: /{slug}/comuna/{term}
