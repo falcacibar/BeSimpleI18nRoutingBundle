@@ -40,7 +40,7 @@ class DefaultController extends Controller
                                          LEFT JOIN tipo_categoria
                                          ON tipo_categoria.id = categorias.tipo_categoria_id
 
-                                         WHERE tipo_categoria.id = $id AND comuna.ciudad_id = $idCiudad AND lugares.estado_id != 3
+                                         WHERE tipo_categoria.id = $id AND comuna.ciudad_id = $idCiudad AND lugares.estado_id = 2
 
                                          GROUP BY categorias.id
                                          ORDER BY tipo_categoria.id, categorias.nombre asc");
@@ -674,7 +674,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
 
                     WHERE categorias.slug LIKE '%$termSlug%'
                     $filterCat
-                    AND (lugares.estado_id = 1 or lugares.estado_id = 2)
+                    AND (lugares.estado_id = 2)
                     $filterSector $filterComuna $filterSubCat $filterPrecio $filterCiudad
                     
                     GROUP BY lugares.id
@@ -705,7 +705,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
                     ON subcategoria_lugar.subcategoria_id = subcategoria.id  
                      
                     WHERE lugares.slug like '%$termSlug%' 
-                    AND (lugares.estado_id = 1 or lugares.estado_id = 2)
+                    AND (lugares.estado_id = 2)
                     $filterComuna $filterSector $filterCat $filterSubCat $filterPrecio  $filterCiudad
 
                     GROUP BY lugares.id  
@@ -750,7 +750,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
                         ON caracteristica.id = caracteristica_lugar.caracteristica_id
                         
                         WHERE categorias.id = (select id from categorias where categorias.slug = '$termSlug')
-                        AND (lugares.estado_id = 1 or lugares.estado_id = 2)
+                        AND (lugares.estado_id = 2)
 
                         $filterSubCat $filterSector $filterComuna $filterPrecio $filterCiudad
                         GROUP BY lugares.id
@@ -800,7 +800,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
 
       $data[]['nombre'] = $lugar->getNombre();
       $data[sizeOf($data)-1]['slug'] = $lugar->getSlug();
-      $data[sizeOf($data)-1]['estrellas'] = $recomendacion['promedioEstrellas'];
+      $data[sizeOf($data)-1]['estrellas'] = $lugar->getTotalEstrellas();
       $data[sizeOf($data)-1]['calle'] = $lugar->getCalle();
       $data[sizeOf($data)-1]['mapx'] = $lugar->getMapx();
       $data[sizeOf($data)-1]['mapy'] = $lugar->getMapy();
