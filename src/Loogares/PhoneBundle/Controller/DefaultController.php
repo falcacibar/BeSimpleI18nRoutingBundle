@@ -17,10 +17,7 @@ class DefaultController extends Controller
         $tipoCategoria = $q->getResult();
         $ciudad = $this->get('session')->get('ciudad');
         $idCiudad = $ciudad['id'];
-        
-        $data[]['tipo'] = 'Todas';
-        $data[sizeOf($data)-1]['categorias'][0]['categoria_nombre'] = 'Todos los Tipos de Lugares';
-        $data[sizeOf($data)-1]['categorias'][0]['categoria_slug'] = 'todas';
+    
         
         foreach($tipoCategoria as $key => $value){
             $id = $value->getId();
@@ -800,7 +797,7 @@ public function searchAction(Request $request, $offset, $orden, $latitude = null
 
       $data[]['nombre'] = $lugar->getNombre();
       $data[sizeOf($data)-1]['slug'] = $lugar->getSlug();
-      $data[sizeOf($data)-1]['estrellas'] = $lugar->getTotalEstrellas();
+      $data[sizeOf($data)-1]['estrellas'] = $lugar->getEstrellas();
       $data[sizeOf($data)-1]['calle'] = $lugar->getCalle();
       $data[sizeOf($data)-1]['mapx'] = $lugar->getMapx();
       $data[sizeOf($data)-1]['mapy'] = $lugar->getMapy();
