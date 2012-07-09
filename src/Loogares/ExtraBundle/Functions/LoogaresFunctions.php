@@ -1,8 +1,122 @@
 <?php
 
 namespace Loogares\ExtraBundle\Functions;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Config\Loader\FileLoader;
+
 class LoogaresFunctions
 {
+    //Funcion para generar la imagen default del Lugar
+    function generarThumbnailTelefono($filename, $filter){
+        //Parsing filter data
+        $filterSettings = array(
+            'phone_lista_thumbnail' => array(
+                'width' => 112,
+                'height' => 112,
+                'offsetx' => 16,
+                'offsety' => 8,
+                'thumbWidth' => 136,
+                'thumbHeight' => 136,
+                'tipo' => 'lugares'
+            ),
+            'phone_ficha_thumbnail' => array(
+                'width' => 222,
+                'height' => 222,
+                'offsetx' => 16,
+                'offsety' => 10,
+                'thumbWidth' => 248,
+                'thumbHeight' => 248,
+                'tipo' => 'lugares'
+            ),
+            'phone_recomendacion_thumbnail' => array(
+                'width' => 104,
+                'height' => 104,
+                'offsetx' => 10,
+                'offsety' => 6,
+                'thumbWidth' => 120,
+                'thumbHeight' => 120,
+                'tipo' => 'usuarios'
+            )
+        );
+
+        $new = explode('.',$filename);
+        $new = $new[0].'.png';
+        
+        $tipo = $filterSettings[$filter]['tipo'];
+        if(!file_exists("assets/images/$tipo/$filename") || !$filename) $filename = 'default.png';
+
+        $imagine = new \Imagine\Gd\Imagine();
+
+        $assetsPath = "assets/images";
+        $cachePath = "assets/media/cache";
+        $filterPath = "$cachePath/$filter/$assetsPath";
+        $cachedFile = $filterPath . "/$new";
+
+        //Creamos las carpetas si no estan
+        if(!is_dir($filterPath)) mkdir($filterPath, 0777, true);
+
+        if(!file_exists($cachedFile)){
+            $offsetx = $filterSettings[$filter]['offsetx'];
+            $offsety = $filterSettings[$filter]['offsety'];
+            $offset = new \Imagine\Image\Point($offsetx, $offsety);
+
+            $width = $filterSettings[$filter]['width'];
+            $height = $filterSettings[$filter]['height'];
+            $filterSize = new \Imagine\Image\Box($width, $height);
+
+            //Creamos la caja principal, tiene el tamaño total que debe tener el thumbnail
+            $thumbWidth = $filterSettings[$filter]['thumbWidth'];
+            $thumbHeight = $filterSettings[$filter]['thumbHeight'];
+            $thumbnail = $imagine->create(new \Imagine\Image\Box($thumbWidth, $thumbHeight), new \Imagine\Image\Color('000', 100));
+
+
+            //Abrrimos la imagen a manipular, y la achicamos
+            try{
+                $preview = $imagine->open("assets/images/$tipo/$filename");
+            }catch(\Exception $e){
+                return 'default.png';
+            }
+
+            //Sacamos las dimensiones de la imagen original achicada
+            $size = explode('x', $preview->getSize());
+            $previewWidth = (int)$size[0];
+            $previewHeight = (int)$size[1];
+
+            //Caso 1, Matener Height -> Largo es mayor al Alto.
+            if($previewWidth > $previewHeight){
+                $newWidth = (($width+20) * $previewWidth)/$previewHeight;
+                $newHeight = $height+20;
+
+                $pointx = 10;
+                $pointy = 10;
+            }else if($previewHeight > $previewWidth){
+                $newWidth = $width+10;
+                $newHeight = (($height+10) * $previewHeight)/$previewWidth;
+
+                $pointx = 0;
+                $pointy = 0;
+            }else{
+                $newWidth = $width;
+                $newHeight = $height;
+
+                $pointx = 0;
+                $pointy = 0;
+            }
+
+            try{
+                $lol = $preview->thumbnail(new \Imagine\Image\Box($newWidth, $newHeight))
+                        ->crop(new \Imagine\Image\Point($pointx, $pointy), new \Imagine\Image\Box($width, $height));
+            }catch(\Exception $e){
+                return 'default.png';
+            }
+            
+            $thumbnail->paste($lol, $offset)
+                      ->save($cachedFile);
+            /*catch(\Imagine\Exception\Exception $e)*/
+        }
+        return $cachedFile;
+    }
+
     function ip2int($ip){
         //Localhost ipv6 mac fix
         if($ip == '::1') { $ip = "31.201.0.176"; }

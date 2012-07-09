@@ -23,6 +23,21 @@ $rojo_claro: #FF8A8A
 $rojo_medio: #FF5353
 $rojo: #F72121
 
+/* Mixin */
+@mixin borde_redondeado_grande
+    border-radius: 8px
+    -o-border-radius: 8px
+    -moz-border-radius: 8px
+    -webkit-border-radius: 8px
+
+@mixin link_azul
+    color: $azul
+    text-decoration: none
+
+@mixin link_azul_hover
+    color: $azul
+    text-decoration: underline
+
 .header_reporte
     background: $gris_faf
     border-bottom: 1px solid $gris_f6f
@@ -61,6 +76,35 @@ $rojo: #F72121
             margin: 0 400px
             top: 10px
             z-index: 20
+
+        .mensaje_exito
+            @include borde_redondeado_grande
+            background: $amarillo
+            color: $gris_666
+            display: block
+            float: left
+            line-height: 20px
+            margin: 30px 0 20px
+            padding: 10px
+            width: 940px
+
+            a
+                @include link_azul
+
+                &:hover
+                    @include link_azul_hover
+
+            .imagen_exito
+                background: url('../images/extras/botones_sprite.png') 0px -129px
+                display: block
+                float: left
+                height: 20px
+                padding: 0 10px 0 0
+                width: 20px
+
+            .txt_exito
+                float: left
+                margin: 3px 0 0
 
         .acceso_reporte
             color: $gris_666

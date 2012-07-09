@@ -67,13 +67,8 @@ class LugarController extends Controller{
         $fn = $this->get('fn');
         $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
         $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
-        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-        $resultadosPorPagina = (!isset($_GET['resultados']))?20:$_GET['resultados'];
-        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
-        $router = $this->get('router');
         $precioPromedio = 0;
         $estrellasPromedio = 0;
-        $sacarRecomendacionPedida = false;
         
         if($lugarResult[0]->getEstado()->getId() == 4){ 
           $this->get('session')->setFlash('cerrado_flash', 'Este lugar está cerrado. De reabrirse, quitaremos este mensaje. En caso contrario borraremos este lugar después de un tiempo.');
@@ -118,60 +113,6 @@ class LugarController extends Controller{
         $q->setParameter(3, 3);
         $yaRecomendoResult = $q->getResult();
 
-        $ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
-        $rr = $em->getRepository('LoogaresUsuarioBundle:Recomendacion');
-        if(is_numeric($usuarioSlug) && $usuarioSlug != null){
-            $recomendacion = $rr->findOneById($usuarioSlug);
-            if($recomendacion == null){
-                $this->get('session')->setFlash('error_flash', 'Esta recomendación no existe!');
-                return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
-            }else{
-                return $this->redirect($this->generateUrl('_recomendacion', array('slug' => $slug, 'usuarioSlug' => $recomendacion->getUsuario()->getSlug())));
-            }
-        }else if($usuarioSlug != null){
-            $usuario = $ur->findOneBySlug($usuarioSlug);
-            if($usuario == null){
-                $this->get('session')->setFlash('error_flash', 'Este Usuario no existe');
-                return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
-            }else{
-                $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r where r.lugar = ?1 and r.usuario = ?2");
-                $q->setParameter(1, $lugarResult[0]->getId());
-                $q->setParameter(2, $usuario->getId());
-                $recomendacionResult = $q->getResult();
-
-                if(isset($recomendacionResult) && $recomendacionResult != null){ 
-                    $idRecomendacionPedida = $usuario->getId();
-                    
-                    //Sacar la recomendacion del usuario slugeado
-                    $recomendacionPedidaResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
-                        (select min(id) from util where util.usuario_id = $idRecomendacionPedida and util.recomendacion_id = recomendacion.id) as apretoUtil
-                                                                             FROM recomendacion
-                                                                             LEFT JOIN util
-                                                                             ON util.recomendacion_id = recomendacion.id
-                                                                             LEFT JOIN tag_recomendacion
-                                                                             ON tag_recomendacion.recomendacion_id = recomendacion.id
-                                                                             LEFT JOIN tag
-                                                                             ON tag_recomendacion.tag_id = tag.id
-                                                                             LEFT JOIN usuarios
-                                                                             ON recomendacion.usuario_id = usuarios.id
-                                                                             WHERE recomendacion.lugar_id = $idLugar
-                                                                             AND recomendacion.usuario_id = $idRecomendacionPedida
-                                                                             AND recomendacion.estado_id != 3
-                                                                             GROUP BY recomendacion.id
-                                                                             LIMIT 1");
-                    //Explotamos los tags, BOOM
-                    for($i = 0; $i < sizeOf($recomendacionPedidaResult); $i++){
-                        $recomendacionPedidaResult[$i]['tags'] = explode(',', $recomendacionPedidaResult[$i]['tags']); 
-                    }
-
-                    $resultadosPorPagina++;
-                }else{
-                    $this->get('session')->setFlash('error_flash', 'Este Usuario aún no ha recomendado este lugar.');
-                    return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));                    
-                }
-            }
-        }
-
         //Definicion del orden para la siguiente consulta
         if($_GET['orden'] == 'ultimas'){
                 $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
@@ -180,28 +121,6 @@ class LugarController extends Controller{
         }else if($_GET['orden'] == 'mejor-evaluadas'){
                 $orderBy = "ORDER BY recomendacion.estrellas desc, recomendacion.fecha_creacion DESC";
         }
-
-        //Query para las recomendaciones a mostrar
-        $recomendacionesResult = $this->getDoctrine()->getConnection()->fetchAll("SELECT SQL_CALC_FOUND_ROWS recomendacion.*, group_concat(DISTINCT tag.tag) as tags, count(DISTINCT util.id) AS utiles, usuarios.slug, usuarios.imagen_full, usuarios.nombre, usuarios.apellido, usuarios.id as userId,
-            (select min(id) from util where util.usuario_id = $idUsuario and util.recomendacion_id = recomendacion.id) as apretoUtil
-                                                                 FROM recomendacion
-                                                                 LEFT JOIN util
-                                                                 ON util.recomendacion_id = recomendacion.id
-                                                                 LEFT JOIN tag_recomendacion
-                                                                 ON tag_recomendacion.recomendacion_id = recomendacion.id
-                                                                 LEFT JOIN tag
-                                                                 ON tag_recomendacion.tag_id = tag.id
-                                                                 LEFT JOIN usuarios
-                                                                 ON recomendacion.usuario_id = usuarios.id
-                                                                 WHERE recomendacion.lugar_id = $idLugar
-                                                                 AND recomendacion.estado_id != 3
-                                                                 $sacarRecomendacionPedida
-                                                                 GROUP BY recomendacion.id 
-                                                                 $orderBy
-                                                                 LIMIT $resultadosPorPagina
-                                                                 OFFSET $offset");
-
-        $resultSetSize  = $this->getDoctrine()->getConnection()->fetchAll("SELECT FOUND_ROWS() as rows;");
 
         $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
 
@@ -234,11 +153,6 @@ class LugarController extends Controller{
         $reservas = $lr->getPedidosLugar($lugarResult[0], 1);
         $pedidos = $lr->getPedidosLugar($lugarResult[0], 2);
 
-        //Explotamos los tags, BOOM
-        for($i = 0; $i < sizeOf($recomendacionesResult); $i++){
-            $recomendacionesResult[$i]['tags'] = explode(',', $recomendacionesResult[$i]['tags']);
-        }
-
         $lugarResult[0]->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarResult[0]->getTelefono1());
         $lugarResult[0]->tel2 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarResult[0]->getTelefono2());
         $lugarResult[0]->tel3 = preg_replace('/^\+[0-9]{2}\s/', '', $lugarResult[0]->getTelefono3());
@@ -263,14 +177,10 @@ class LugarController extends Controller{
 
         $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
         $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
-        $data->recomendaciones = $recomendacionesResult;
-        $data->totalPaginas = ($resultSetSize[0]['rows'] >$resultadosPorPagina )?floor($resultSetSize[0]['rows'] / $resultadosPorPagina):1;
-        $data->totalRecomendaciones = $resultSetSize[0]['rows'];
         $data->yaRecomendo = $yaRecomendoResult;
         $data->mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
         $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
         $data->totalFotos = $totalFotosResult;
-        $data->recomendacionesPorPagina = $resultadosPorPagina;
         $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
         $data->totalAcciones = $totalAcciones;
         $data->accionesUsuario = $accionesUsuario;
@@ -278,14 +188,8 @@ class LugarController extends Controller{
         $data->pedidos = $pedidos;
         $data->concursos = $concursos;
 
-        $params = array(
-            'slug' => $data->getSlug()
-        );
-
-        $paginacion = $fn->paginacion( $data->totalRecomendaciones, $resultadosPorPagina, '_lugar', $params, $router );
-
         //Render ALL THE VIEWS
-        return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data, 'query' => $_GET, 'paginacion' => $paginacion));            
+        return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));            
     }
     
     public function agregarAction(Request $request, $slug = null){
