@@ -1273,9 +1273,19 @@ class LugarController extends Controller{
                     $message = $this->get('fn')->enviarMail($mail['asunto'], $usuarioAnterior->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
                     $this->get('mailer')->send($message);
                 }
-            }   
+            }
+            $flash = $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido()));
+            if (sizeOf($concursosPendientes) == 1) {
+                $post = $concursosPendientes[0]->getConcurso()->getPost();
+                $path = $this->get('router')->generate('post', array('ciudad' => $post->getCiudad()->getSlug(), 'slug' => $post->getSlug()));
+                $flash .= "<br>".$this->get('translator')->trans('lugar.flash.recomendacion.concurso_singular', array('%link%' => '<a href="'. $path .'">'.$post->getTitulo().'</a>'));
+            }
+            else if (sizeOf($concursosPendientes) > 1) {
+                $flash .= "<br>".$this->get('translator')->trans('lugar.flash.recomendacion.concurso_plural');
+            }
+
             //SET FLASH AND REDIRECTTT
-            $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
+            $this->get('session')->setFlash('lugar_flash', $flash);
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
         }
