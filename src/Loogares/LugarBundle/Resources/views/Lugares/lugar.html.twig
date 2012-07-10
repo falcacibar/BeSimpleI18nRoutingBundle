@@ -50,12 +50,12 @@
     
     <script>
         $(document).ready(function(){
-            editarRecomendacion("{{lugar.slug}}")
-            {% if lugar.recomendacionPedida is defined %}
+            editarRecomendacion("{{lugar.slug}}");
+            {% if lugar.usuarioSlug != null %}
                 $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200);
-                recomendacionPedida("{{lugar.recomendacionPedida.slug}}");
+                recomendacionPedida("{{lugar.usuarioSlug}}");
             {% endif %}
-        })
+        });
     </script>
     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 {% endblock %}
@@ -480,7 +480,7 @@
             </div>
         {% endif %}
 
-        {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug}%}
+        {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug}%}
 
     <div class="sidebar">
         <div class="mapa_sidebar" id="mapa-sidebar">

@@ -144,8 +144,6 @@
             </ul>
         {% endif %}
     </div>
-
-
 {%- else -%}
     {% if app.session.hasFlash('cerrado_flash') == null  %}
         <div>
@@ -153,3 +151,26 @@
         </div>
     {% endif %}
 {%- endif -%}
+
+{% if is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
+{% if app.session.hasFlash('cerrado_flash') == null  %}
+    {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
+{% endif %}
+
+
+<a class="fancybox" href="#recomendacon_popup"></a>
+<div style="display:none">{% include 'LoogaresLugarBundle:Ajax:recomendacion_popup.html.twig' %}</div>
+
+{% endif %}
+{% if is_granted('ROLE_USER') == false %}
+<div class="caja_registro_recomendacion">
+    <div class="texto">
+        <p><strong>{{'lugar.ficha.aun_no_eres_parte'|trans}}</strong></p><br />
+        <p>{{'lugar.ficha.registrate'|trans}}</p>
+    </div>
+    <div class="botones_registro">
+        <a class="registro_loogares" href="{{path('registroUsuario')}}"></a>
+        <a class="registro_facebook" href="#"></a>
+    </div>
+</div>
+{% endif %}
