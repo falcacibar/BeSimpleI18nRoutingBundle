@@ -1808,6 +1808,7 @@ class AdminController extends Controller
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $bcr = $em->getRepository("LoogaresBlogBundle:Categoria");
+        $tpr = $em->getRepository("LoogaresBlogBundle:TipoPost");
         $ber = $em->getRepository("LoogaresBlogBundle:Estado");
         $ecr = $em->getRepository("LoogaresBlogBundle:EstadoConcurso");
         $tcr = $em->getRepository("LoogaresBlogBundle:TipoConcurso");
@@ -1833,7 +1834,6 @@ class AdminController extends Controller
         $form = $this->createFormBuilder($post)
              ->add('vimagen')
              ->add('vimagen_home')
-             ->add('vimagen_detalle')
              ->getForm();
 
         if($request->getMethod() == 'POST'){
@@ -1858,10 +1858,13 @@ class AdminController extends Controller
 
             if($request->get('nueva_categoria') != ''){
                 $nuevaCategoria = new Categoria();
+                $tipoPost = $tpr->find($request->request->get('categoria_tipo_post'));
                 $nuevaCategoria->setNombre($request->get('nueva_categoria'));
                 $nuevaCategoria->setSlug($fn->generarSlug($request->get('nueva_categoria')));
                 $nuevaCategoria->setClase($request->get('nueva_categoria_clase'));
                 $nuevaCategoria->setHex($request->get('nueva_categoria_hex'));
+                $nuevaCategoria->setHex($request->get('nueva_categoria_hex'));
+                $nuevaCategoria->setBlogTipoPost($tipoPost);
                 $em->persist($nuevaCategoria);
                 $em->flush();
                 $categoria  = $nuevaCategoria;
@@ -1909,7 +1912,10 @@ class AdminController extends Controller
                         $tipoConcurso = $tcr->find(preg_match('/Selecciona/', $request->request->get('tipo_concurso'))?1:$request->get('tipo_concurso'));
                     }
 
-                    $estadoConcurso = $ecr->findOneBySlug('sin-estado');
+                    if(isset($nuevoConcurso) && $nuevoConcurso) {
+                        $estadoConcurso = $ecr->findOneBySlug('sin-estado');
+                        $concurso->setEstadoConcurso($estadoConcurso);
+                    }
 
                     $fechaInicio = null;
                     $fechaTermino = null;
@@ -1921,8 +1927,7 @@ class AdminController extends Controller
                     }
 
                     $concurso->setPost($post);
-                    $concurso->setTipoConcurso($tipoConcurso);
-                    $concurso->setEstadoConcurso($estadoConcurso);
+                    $concurso->setTipoConcurso($tipoConcurso);                    
                     $concurso->setTitulo($request->request->get('titulo_concurso'));
                     $concurso->setDescripcion($request->request->get('descripcion_concurso'));
                     $concurso->setNumeroPremios($request->request->get('numero_premios'));
@@ -1956,6 +1961,7 @@ class AdminController extends Controller
             'ciudad' => $ciudad,
             'estados' => $ber->findAll(),
             'categorias' => $bcr->findAll(),
+            'tipos_post' => $tpr->findAll(),
             'concurso' => $concurso,
             'estados_concurso' => $ecr->findAll(),
             'tipos_concurso' => $tcr->findAll(),
