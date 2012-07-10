@@ -36,12 +36,12 @@ class LugarController extends Controller{
 
     public function lugarAction($slug, Request $request, $usuarioSlug = false){
         foreach($_GET as $key => $value){
-            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);  
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
-        
+
         $lugarResult[0] = $lr->findOneBySlug($slug);
 
         if(!$lugarResult[0] || $lugarResult[0]->getEstado()->getId() == 3){
@@ -60,7 +60,7 @@ class LugarController extends Controller{
         if(isset($paises[$url[0]])){
             $paisSlug = $lugarResult[0]->getComuna()->getCiudad()->getPais()->getSlug();
             if($paisSlug != $paises[$url[0]]){
-                return $this->redirect("http://".array_search($paisSlug, $paises).".loogares.com".$_SERVER['REQUEST_URI'], 301);            
+                return $this->redirect("http://".array_search($paisSlug, $paises).".loogares.com".$_SERVER['REQUEST_URI'], 301);
             }
         }
 
@@ -69,8 +69,8 @@ class LugarController extends Controller{
         $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
         $precioPromedio = 0;
         $estrellasPromedio = 0;
-        
-        if($lugarResult[0]->getEstado()->getId() == 4){ 
+
+        if($lugarResult[0]->getEstado()->getId() == 4){
           $this->get('session')->setFlash('cerrado_flash', 'Este lugar está cerrado. De reabrirse, quitaremos este mensaje. En caso contrario borraremos este lugar después de un tiempo.');
         }else if($lugarResult[0]->getEstado()->getId() == 1){
           $this->get('session')->setFlash('lugar_flash', 'Este lugar se encuentra en Revisión.');
@@ -105,12 +105,13 @@ class LugarController extends Controller{
         $totalFotosResult = $q->getSingleScalarResult();
 
         //Query para sacar si ya recomendo
-        $q = $em->createQuery("SELECT u.id 
-                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+        $q = $em->createQuery("SELECT u.id
+                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u
                                WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado != ?3");
-        $q->setParameter(1, $idUsuario);                      
+        $q->setParameter(1, $idUsuario);
         $q->setParameter(2, $idLugar);
         $q->setParameter(3, 3);
+
         $yaRecomendoResult = $q->getResult();
 
         //Definicion del orden para la siguiente consulta
@@ -122,15 +123,26 @@ class LugarController extends Controller{
                 $orderBy = "ORDER BY recomendacion.estrellas desc, recomendacion.fecha_creacion DESC";
         }
 
+        $q = $em->createQuery(" SELECT     r
+                                FROM       Loogares\UsuarioBundle\Entity\Recomendacion r
+                                WHERE      r.lugar = ?1 AND r.estado != ?2")
+                ->setParameters(array(
+                      1      => $idLugar
+                    , 2      => 3
+                ));
+
+        $recomendaciones = $q->getResult();
+        unset($q);
+
         $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
 
         if($this->get('security.context')->isGranted('ROLE_USER')) {
             $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId(), $this->get('security.context')->getToken()->getUser()->getId());
-            
+
             // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
-            for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+            for($i = 0; $i < sizeof($accionesUsuario); $i++) {
                 $accionesUsuario[$i]['puede'] = 1;
-                
+
                 // Si el usuario ya estuvo, no puede desmarcar esta opción
                 if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
                     $accionesUsuario[$i]['puede'] = 0;
@@ -140,11 +152,11 @@ class LugarController extends Controller{
             // Si el usuario ya estuvo o quiere volver, no puede querer ir
             if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
                 $accionesUsuario[0]['puede'] = 0;
-            }  
-        } 
+            }
+        }
         else {
             $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
-             for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+             for($i = 0; $i < sizeof($accionesUsuario); $i++) {
                 $accionesUsuario[$i]['puede'] = 0;
             }
         }
@@ -175,23 +187,24 @@ class LugarController extends Controller{
             $data->recomendacionPedida = $recomendacionPedidaResult[0];
         }
 
-        $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
-        $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
-        $data->yaRecomendo = $yaRecomendoResult;
-        $data->mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
-        $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
-        $data->totalFotos = $totalFotosResult;
-        $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
-        $data->totalAcciones = $totalAcciones;
-        $data->accionesUsuario = $accionesUsuario;
-        $data->reservas = $reservas;
-        $data->pedidos = $pedidos;
-        $data->concursos = $concursos;
+        $data->horarios         = $fn->generarHorario($lugarResult[0]->getHorario());
+        $data->imagen_full      = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
+        $data->yaRecomendo      = $yaRecomendoResult;
+        $data->mostrarPrecio    = $fn->mostrarPrecio($lugarResult[0]);
+        $data->totalFotos       = $totalFotosResult;
+        $data->tagsPopulares    = $lr->getTagsPopulares($idLugar);
+        $data->totalAcciones    = $totalAcciones;
+        $data->accionesUsuario  = $accionesUsuario;
+        $data->reservas         = $reservas;
+        $data->pedidos          = $pedidos;
+        $data->concursos        = $concursos;
+        $data->recomendaciones  = &$recomendaciones;
+        $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1) ? (10 + 1) : 1;
 
         //Render ALL THE VIEWS
-        return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));            
+       return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
     }
-    
+
     public function agregarAction(Request $request, $slug = null){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
@@ -215,7 +228,7 @@ class LugarController extends Controller{
             $nuevoLugar = true;
             $lugarManipulado = new Lugar();
         }
-       
+
         if($slug && $rolAdmin == false){ //Proceso de parseo de datos de lugar existente, SOLO LECTURA/OUTPUT
             //Sacar +56 de los telefonos
             $lugar->tel1 = preg_replace('/^\+[0-9]{2}\s/', '', $lugar->getTelefono1());
@@ -254,7 +267,7 @@ class LugarController extends Controller{
             ->add('materiales', 'text')
             ->add('_token', 'csrf')
             ->getForm();
-   
+
         if ($request->getMethod() == 'POST') {
 
             $form->bindRequest($request);
@@ -265,11 +278,11 @@ class LugarController extends Controller{
                 if($esEdicionDeUsuario == true){
                   $lugarManipulado->setLugar($lugar);
                 }
-              
+
                 if($nuevoLugar == true || $esEdicionDeUsuario == true){
                   $lugarManipulado->setUsuario($this->get('security.context')->getToken()->getUser());
                 }
-                
+
                 $comuna = $lr->getComunas($_POST['comuna'], $_POST['ciudad']);
 
                 $sector = $lr->getSectores($_POST['sector']);
@@ -293,10 +306,10 @@ class LugarController extends Controller{
                     $estado = $lr->getEstado(2);
                     $lugarManipulado->setEstado($estado);
                 }
-                
+
                 $tipo_lugar = $lr->getTipoLugar('lugar');
                 $lugarManipulado->setTipoLugar($tipo_lugar[0]);
-                $lugarManipulado->setComuna($comuna[0]);               
+                $lugarManipulado->setComuna($comuna[0]);
 
                 //Sacamos los HTTP
                 $lugarManipulado->setSitioWeb($fn->stripHTTP($lugarManipulado->getSitioWeb()));
@@ -355,7 +368,7 @@ class LugarController extends Controller{
                         if($slug != null && $rolAdmin == false){
                             $caracteristicaLugar[] = new TempCaracteristicaLugar();
                         }else{
-                            $caracteristicaLugar[] = new CaracteristicaLugar();  
+                            $caracteristicaLugar[] = new CaracteristicaLugar();
                         }
                         $size = sizeOf($caracteristicaLugar) - 1;
                         $caracteristica = $lr->getCaracteristicaPorNombre($postCaracteristica);
@@ -388,9 +401,9 @@ class LugarController extends Controller{
 
                 foreach($dias as $key => $value){
                     if($slug != null && $rolAdmin == false){
-                        $horario[] = new TempHorario();    
+                        $horario[] = new TempHorario();
                     }else{
-                        $horario[] = new Horario(); 
+                        $horario[] = new Horario();
                     }
                     $size = sizeOf($horario) - 1;
                     if(isset($_POST['horario-'.$value])){
@@ -450,7 +463,7 @@ class LugarController extends Controller{
                     }else{
                         $estrellas = '';
                     }
-             
+
                     //set POST variables
                     $fields_string = '';
                     $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_recomienda', array('slug' => $lugarManipulado->getSlug()));
@@ -487,7 +500,7 @@ class LugarController extends Controller{
 
                     (       )(  ___  )\__   __/( \      (  ____ \
                     | () () || (   ) |   ) (   | (      | (    \/
-                    | || || || (___) |   | |   | |      | (_____ 
+                    | || || || (___) |   | |   | |      | (_____
                     | |(_)| ||  ___  |   | |   | |      (_____  )
                     | |   | || (   ) |   | |   | |            ) |
                     | )   ( || )   ( |___) (___| (____/\/\____) |
@@ -505,13 +518,13 @@ class LugarController extends Controller{
                     }
 
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
-                }else{          
+                }else{
                     if($esEdicionDeUsuario == true){
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.edicion_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
                         return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
                     }else{
                         $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar_revision', array('%nombre%' => $this->get('security.context')->getToken()->getUser()->getNombre(), '%apellido%' => $this->get('security.context')->getToken()->getUser()->getApellido())));
-                        return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));    
+                        return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugarManipulado->getSlug())));
                     }
                 }
                 //Agregar, solo, nada maish.
@@ -521,51 +534,51 @@ class LugarController extends Controller{
 
         $data['horarios'] = '<option value="cerrado">Cerrado</option>
                             <option value="06:00">06:00</option>
-                            <option value="06:30">06:30</option>    
+                            <option value="06:30">06:30</option>
                             <option value="07:00">07:00</option>
                             <option value="07:30">07:30</option>
                             <option value="08:00">08:00</option>
-                            <option value="08:30">08:30</option>    
+                            <option value="08:30">08:30</option>
                             <option value="09:00">09:00</option>
-                            <option value="09:30">09:30</option>    
+                            <option value="09:30">09:30</option>
                             <option value="10:00">10:00</option>
-                            <option value="10:30">10:30</option>    
+                            <option value="10:30">10:30</option>
                             <option value="11:00">11:00</option>
-                            <option value="11:30">11:30</option>    
+                            <option value="11:30">11:30</option>
                             <option value="12:00">12:00</option>
-                            <option value="12:30">12:30</option>    
+                            <option value="12:30">12:30</option>
                             <option value="13:00">13:00</option>
-                            <option value="13:30">13:30</option>    
+                            <option value="13:30">13:30</option>
                             <option value="14:00">14:00</option>
-                            <option value="14:30">14:30</option>    
+                            <option value="14:30">14:30</option>
                             <option value="15:00">15:00</option>
-                            <option value="15:30">15:30</option>    
+                            <option value="15:30">15:30</option>
                             <option value="16:00">16:00</option>
-                            <option value="16:30">16:30</option>    
+                            <option value="16:30">16:30</option>
                             <option value="17:00">17:00</option>
-                            <option value="17:30">17:30</option>    
+                            <option value="17:30">17:30</option>
                             <option value="18:00">18:00</option>
-                            <option value="18:30">18:30</option>    
+                            <option value="18:30">18:30</option>
                             <option value="19:00">19:00</option>
-                            <option value="19:30">19:30</option>    
+                            <option value="19:30">19:30</option>
                             <option value="20:00">20:00</option>
-                            <option value="20:30">20:30</option>    
+                            <option value="20:30">20:30</option>
                             <option value="21:00">21:00</option>
-                            <option value="21:30">21:30</option>    
+                            <option value="21:30">21:30</option>
                             <option value="22:00">22:00</option>
-                            <option value="22:30">22:30</option>    
+                            <option value="22:30">22:30</option>
                             <option value="23:00">23:00</option>
-                            <option value="23:30">23:30</option>    
+                            <option value="23:30">23:30</option>
                             <option value="00:00">00:00</option>
-                            <option value="00:30">00:30</option>    
+                            <option value="00:30">00:30</option>
                             <option value="01:00">01:00</option>
-                            <option value="01:30">01:30</option>    
+                            <option value="01:30">01:30</option>
                             <option value="02:00">02:00</option>
-                            <option value="02:30">02:30</option>    
+                            <option value="02:30">02:30</option>
                             <option value="03:00">03:00</option>
-                            <option value="03:30">03:30</option>    
+                            <option value="03:30">03:30</option>
                             <option value="04:00">04:00</option>
-                            <option value="04:30">04:30</option>    
+                            <option value="04:30">04:30</option>
                             <option value="05:00">05:00</option>
                             <option value="05:30">05:30</option>';
 
@@ -597,7 +610,7 @@ class LugarController extends Controller{
 
         $ciudad = $this->get('session')->get('ciudad');
         $data['ciudadActual'] = $lr->getCiudadById($ciudad['id']);
-         
+
         return $this->render('LoogaresLugarBundle:Lugares:agregar.html.twig', array(
             'data' => $data,
             'lugar' => (isset($lugar))?$lugar:$lugarManipulado,
@@ -609,10 +622,10 @@ class LugarController extends Controller{
 
     public function agregarFotoAction(Request $request, $slug) {
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
         foreach($_GET as $key => $value){
-            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -632,12 +645,12 @@ class LugarController extends Controller{
                          ->add('secondImg')
                          ->add('thirdImg')
                          ->getForm();
-            
+
             // Si el request es POST, se procesan nuevas fotos
-            if ($request->getMethod() == 'POST') { 
+            if ($request->getMethod() == 'POST') {
 
                 $form->bindRequest($request);
-                
+
                 $imagenes = array();
 
                 // Imágenes subidas desde archivo
@@ -648,13 +661,13 @@ class LugarController extends Controller{
                     $imagenes[] = $imgLugar->secondImg;
 
                 if($imgLugar->thirdImg != null)
-                    $imagenes[] = $imgLugar->thirdImg;               
+                    $imagenes[] = $imgLugar->thirdImg;
 
                 $urls = $request->request->get('urls');
 
                 // Imágenes subidas desde URL. Se guardan en carpeta assets/images/temp de forma temporal
                 foreach($urls as $url) {
-                    if($url != '') {                        
+                    if($url != '') {
                         $ch = curl_init();
                         curl_setopt($ch, CURLOPT_POST, 0);
                         curl_setopt($ch, CURLOPT_URL, $url);
@@ -683,20 +696,20 @@ class LugarController extends Controller{
                             $formErrors['no-imagen'] = "Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.";
                             unlink('assets/images/temp/'.$fn);
                         }
-                        /*} 
+                        /*}
                         catch(\ErrorException $e) {
                             $formErrors['val'] = "No vale como imagen!";
                             echo "hola";
                         } */
-                                           
+
                     }
                 }
 
                 if(sizeof($imagenes) == 0 && sizeOf($formErrors) == 0) {
-                    $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";        
+                    $formErrors['valida'] = "No tienes seleccionado ningún archivo. Por favor, elige uno.";
                 }
 
-                if ($form->isValid() && sizeof($formErrors) == 0) {                
+                if ($form->isValid() && sizeof($formErrors) == 0) {
 
                     //Array que nos permitirá obtener las imágenes en el siguiente paso
                     $imgs = array();
@@ -722,9 +735,9 @@ class LugarController extends Controller{
                             $newImagen->setTituloEnlace($imagen->url);
                             $newImagen->setEsEnlace(1);
                         }
-                        
+
                         $em->persist($newImagen);
-                        $em->flush(); 
+                        $em->flush();
 
                         $newImagen->setFechaCreacion(new \DateTime());
 
@@ -760,12 +773,12 @@ class LugarController extends Controller{
                         return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
                     }
 
-                    // Generación de vista para agregar descripción a foto 
+                    // Generación de vista para agregar descripción a foto
                     return $this->render('LoogaresLugarBundle:Lugares:agregar_info_foto.html.twig', array(
                         'lugar' => $lugar,
                         'imagenes' => $imgs,
                     ));
-                }            
+                }
             }
 
             //Errores
@@ -785,7 +798,7 @@ class LugarController extends Controller{
             $ilr = $em->getRepository("LoogaresLugarBundle:ImagenLugar");
 
             // Si el request es POST, se procesan descripciones de fotos
-            if ($request->getMethod() == 'POST') { 
+            if ($request->getMethod() == 'POST') {
 
                 $infoImgs = $request->request->get('imagenes');
 
@@ -805,7 +818,7 @@ class LugarController extends Controller{
                     $em->flush();
                 }
             }
-            
+
             $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.foto.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }
@@ -824,17 +837,17 @@ class LugarController extends Controller{
 
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser() == $imagen->getUsuario();
         if(!$loggeadoCorrecto)
-            throw new AccessDeniedException('No puedes editar una foto agregada por otro usuario'); 
-        
+            throw new AccessDeniedException('No puedes editar una foto agregada por otro usuario');
+
         $form = $this->createFormBuilder($imagen)
                          ->add('titulo_enlace', 'text')
                          ->getForm();
         // Si el request es POST, se procesa la edición de la foto
-        if ($request->getMethod() == 'POST') { 
+        if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
             foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
             }
 
             if ($form->isValid()) {
@@ -847,7 +860,7 @@ class LugarController extends Controller{
                 else
                     $imagen->setEsEnlace(0);
                 $em->flush();
-                    
+
                 $tipo = 'descripcion';
                 return $this->redirect($this->generateUrl('_fotoGaleria', array('id' => $id, 'slug' => $slug)));
                 return $this->render('LoogaresLugarBundle:Lugares:editar_foto.html.twig', array(
@@ -903,16 +916,16 @@ class LugarController extends Controller{
         if($request->query->get('redirect') == 'usuario') {
             // Mensaje de éxito de la eliminación
             $this->get('session')->setFlash('usuario_flash','lugar.flash.foto.borrar');
-                        
+
             // Redirección a vista de fotos del usuario
             return $this->redirect($this->generateUrl('fotosLugaresUsuario', array('param' => $ur->getIdOrSlug($imagen->getUsuario()))));
         }
-                   
+
         // Mensaje de éxito de la eliminación
         $this->get('session')->setFlash('imagen_flash','lugar.flash.foto.borrar');
-                    
+
         // Redirección a galería de fotos del lugar
-        return $this->redirect($this->generateUrl('_galeria', array('slug' => $slug))); 
+        return $this->redirect($this->generateUrl('_galeria', array('slug' => $slug)));
     }
 
     public function galeriaAction($slug) {
@@ -924,7 +937,7 @@ class LugarController extends Controller{
 
         if(!$imagen){
           $this->get('session')->setFlash('error_flash', 'No existen imagenes para este Lugar.');
-          return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug))); 
+          return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }else{
           $id = $imagen[0]->getId();
           return $this->forward('LoogaresLugarBundle:Lugar:fotoGaleria', array('slug' => $slug, 'id' => $id));
@@ -944,7 +957,7 @@ class LugarController extends Controller{
             throw $this->createNotFoundException('La foto especificada no corresponde al lugar '.$lugar->getNombre());
         }
 
-        $imagen->loggeadoCorrecto = $this->get('security.context')->getToken()->getUser() == $imagen->getUsuario();        
+        $imagen->loggeadoCorrecto = $this->get('security.context')->getToken()->getUser() == $imagen->getUsuario();
 
         // Array con output de dimensiones de imagen
         $dimensiones = array();
@@ -957,7 +970,7 @@ class LugarController extends Controller{
             $anchoDefault = 600;
             $altoDefault = 500;
             $ancho = $sizeArray[0];
-            $alto = $sizeArray[1];        
+            $alto = $sizeArray[1];
 
             // Primer caso: sólo ancho mayor que default
             if($ancho > $anchoDefault && $alto <= $altoDefault) {
@@ -980,17 +993,17 @@ class LugarController extends Controller{
             // Cuarto caso: alto mayor que default, pero ancho mayor que default y alto
             else if($alto > $altoDefault && $ancho > $anchoDefault && $ancho > $alto) {
                 $dimensiones['ancho'] = $anchoDefault;
-                $dimensiones['alto'] = ($anchoDefault * $alto) / $ancho; 
+                $dimensiones['alto'] = ($anchoDefault * $alto) / $ancho;
             }
 
             //ES MUY GRANDEEEEE!!!
             else if($alto > $altoDefault && $ancho > $anchoDefault){
                 $dimensiones['ancho'] = $anchoDefault;
-                $dimensiones['alto'] = ($anchoDefault * $alto) / $ancho; 
+                $dimensiones['alto'] = ($anchoDefault * $alto) / $ancho;
             }
         }
         catch(\Exception $e) {
-            
+
         }
 
         $reportar = 1;
@@ -1008,7 +1021,7 @@ class LugarController extends Controller{
                 'dimensiones' => $dimensiones,
                 'reportar' => $reportar,
             ));
-        } 
+        }
 
         return $this->render('LoogaresLugarBundle:Lugares:foto_galeria.html.twig', array(
             'lugar' => $lugar,
@@ -1017,7 +1030,7 @@ class LugarController extends Controller{
             'dimensiones' => $dimensiones,
             'reportar' => $reportar,
             'editar' => $editar,
-            'edicion' => ($this->getRequest()->query->get('edicion')) ? true : false, 
+            'edicion' => ($this->getRequest()->query->get('edicion')) ? true : false,
         ));
     }
 
@@ -1027,9 +1040,9 @@ class LugarController extends Controller{
         $em = $this->getDoctrine()->getEntityManager();
 
         foreach($_POST as $key => $value){
-          $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+          $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
-        
+
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $tr = $em->getRepository("LoogaresUsuarioBundle:Tag");
         $trr = $em->getRepository("LoogaresUsuarioBundle:TagRecomendacion");
@@ -1085,7 +1098,7 @@ class LugarController extends Controller{
             }else{
                 $recomendacion->setUsuario($this->get('security.context')->getToken()->getUser());
             }
-            
+
             $recomendacion->setFechaCreacion(new \DateTime());
             $recomendacion->setFechaUltimaModificacion(new \DateTime());
             $lugar->setFechaUltimaRecomendacion($recomendacion->getFechaCreacion());
@@ -1119,7 +1132,7 @@ class LugarController extends Controller{
 
                     $em->persist($newTagRecomendacion[sizeOf($newTagRecomendacion)-1]);
                 }
-            }            
+            }
 
             // Se marca la acción 'Ya estuve' del usuario en el lugar
             $ar = $em->getRepository("LoogaresUsuarioBundle:Accion");
@@ -1137,27 +1150,27 @@ class LugarController extends Controller{
                 $quieroIr = $lr->getAccionUsuarioLugar($lugar, $recomendacion->getUsuario(), 'quiero_ir');
                 if(is_object($quieroIr)) {
                     $em->remove($quieroIr);
-                }   
+                }
             }
 
             // Verificamos estado de 'Por Recomendar'
             $porRecomendar = $lr->getAccionUsuarioLugar($lugar, $recomendacion->getUsuario(), 'recomendar_despues');
             if(is_object($porRecomendar)) {
                 $em->remove($porRecomendar);
-            }   
+            }
 
             $em->flush();
             $lr->actualizarPromedios($lugar->getSlug());
 
-            //Agregamos a la actividad reciente     
+            //Agregamos a la actividad reciente
             $actividad = new ActividadReciente();
             $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Recomendacion');
             $actividad->setEntidadId($recomendacion->getId());
             $actividad->setFecha($recomendacion->getFechaCreacion());
             $actividad->setUsuario($recomendacion->getUsuario());
-            $actividad->setCiudad($lugar->getComuna()->getCiudad());            
+            $actividad->setCiudad($lugar->getComuna()->getCiudad());
             $estadoActividad = $em->getRepository("LoogaresExtraBundle:Estado")
-                                  ->findOneByNombre('Aprobado');            
+                                  ->findOneByNombre('Aprobado');
             $actividad->setEstado($estadoActividad);
 
             if($nueva){
@@ -1180,7 +1193,7 @@ class LugarController extends Controller{
                 $concurso->setPendiente(false);
             }
             $em->flush();
-            
+
 
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '' && !isset($_POST['editando'])) {
@@ -1202,14 +1215,14 @@ class LugarController extends Controller{
 
                 // Cálculo de las estrellas de la recomendación
                 $estrellas = array();
-                
+
                 $numEstrellas = $recomendacion->getEstrellas() * 2;
                 $estrellas['llenas'] = (int)($numEstrellas/2);
                 $estrellas['medias'] = 0;
                 if($numEstrellas%2 != 0)
                     $estrellas['medias'] = 1;
 
-                $estrellas['vacias'] = 5 - $estrellas['llenas'] - $estrellas['medias'];        
+                $estrellas['vacias'] = 5 - $estrellas['llenas'] - $estrellas['medias'];
 
                 $mail = array();
                 $mail['asunto'] = $this->get('translator')->trans('lugar.notificaciones.nueva_recomendacion.mail.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));
@@ -1233,7 +1246,7 @@ class LugarController extends Controller{
                 if(!file_exists('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull())){
                     if(!file_exists('assets/images/usuarios/default.gif')) {
                         $this->get('imagine.controller')->filter('assets/images/usuarios/default.gif', "small_usuario");
-                    }                  
+                    }
                     $paths['usuario'] = 'assets/images/usuarios/default.gif';
                 }else{
                     $this->get('imagine.controller')->filter('assets/images/usuarios/'.$recomendacion->getUsuario()->getImagenFull(), "small_usuario");
@@ -1244,7 +1257,7 @@ class LugarController extends Controller{
                 foreach($mails as $key => $value){
                   $mails[$key] = trim($value);
                 }
-                 
+
                 $message = $this->get('fn')->enviarMail($mail['asunto'], $mails, 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_lugar.html.twig', $this->get('templating'));
                 $this->get('mailer')->send($message);
             }
@@ -1273,7 +1286,7 @@ class LugarController extends Controller{
                     $message = $this->get('fn')->enviarMail($mail['asunto'], $usuarioAnterior->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_recomendar.html.twig', $this->get('templating'));
                     $this->get('mailer')->send($message);
                 }
-            }   
+            }
             //SET FLASH AND REDIRECTTT
             $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
@@ -1340,7 +1353,7 @@ class LugarController extends Controller{
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
             foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
             }
 
             if(!$this->get('security.context')->isGranted('ROLE_USER')) {
@@ -1370,7 +1383,7 @@ class LugarController extends Controller{
                     $e = trim($e);
 
                     // Verificar si es un e-mail correcto
-                    $mail = array();                    
+                    $mail = array();
                     $mail['asunto'] = $usuario['nombre'].' '.$this->get('translator')->trans('compartir.lugar.mail.asunto');
                     $mail['lugar'] = $lugar;
                     $mail['usuario'] = $usuario;
@@ -1383,12 +1396,12 @@ class LugarController extends Controller{
                             ->setTo($e);
                     $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                     $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_enviar.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                    $this->get('mailer')->send($message);  
+                    $this->get('mailer')->send($message);
                 }
 
                 // Mensaje de éxito en el envío
                 $this->get('session')->setFlash('lugar_flash','lugar.flash.compartir.mail');
-                    
+
                 // Redirección a vista de ficha del lugar
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
@@ -1422,7 +1435,7 @@ class LugarController extends Controller{
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
             foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
             }
 
             if(!$this->get('security.context')->isGranted('ROLE_USER')) {
@@ -1452,7 +1465,7 @@ class LugarController extends Controller{
                     $e = trim($e);
 
                     // Verificar si es un e-mail correcto
-                    $mail = array();                    
+                    $mail = array();
                     $mail['asunto'] = $usuario['nombre'].' '.$this->get('translator')->trans('compartir.recomendacion.mail.asunto');
                     $mail['recomendacion'] = $recomendacion;
                     $mail['lugar'] = $recomendacion->getLugar();
@@ -1466,12 +1479,12 @@ class LugarController extends Controller{
                             ->setTo($e);
                     $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                     $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_enviar.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                    $this->get('mailer')->send($message);  
+                    $this->get('mailer')->send($message);
                 }
 
                 // Mensaje de éxito en el envío
                 $this->get('session')->setFlash('lugar_flash','recomendacion.flash.compartir.mail');
-                    
+
                 // Redirección a vista de ficha del lugar
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
@@ -1500,16 +1513,16 @@ class LugarController extends Controller{
         }
 
         if($this->get('security.context')->getToken()->getUser() == $imagen->getUsuario()) {
-            $this->get('session')->setFlash('lugar_flash','No puedes reportar una imagen agregada por ti.');            
+            $this->get('session')->setFlash('lugar_flash','No puedes reportar una imagen agregada por ti.');
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
         }
         else {
-            
+
             $reportes = $lr->getReportesImagenesUsuarioLugar($imagen->getId(), $this->get('security.context')->getToken()->getUser(), 1);
             if(sizeof($reportes) > 0) {
                 $this->get('session')->setFlash('error_flash', 'Ya has reportado esta imagen anteriormente, y aún está en revisión. <br/>Una vez finalizado este proceso, podrás reportar la imagen nuevamente.');
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $slug)));
-            }              
+            }
         }
 
         $reporte = new ReportarImagen();
@@ -1518,11 +1531,11 @@ class LugarController extends Controller{
                          ->add('reporte', 'textarea')
                          ->getForm();
 
-        if ($request->getMethod() == 'POST') { 
+        if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
             foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
             }
 
             if ($form->isValid()) {
@@ -1554,11 +1567,11 @@ class LugarController extends Controller{
                         ->setTo('reportar@loogares.com');
                 $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                $this->get('mailer')->send($message);               
+                $this->get('mailer')->send($message);
 
                  // Mensaje de éxito del reporte
                 $this->get('session')->setFlash('imagen_flash','reportes.flash');
-                    
+
                 // Redirección a galería de fotos
                 return $this->redirect($this->generateUrl('_galeria', array('slug' => $imagen->getLugar()->getSlug())));
             }
@@ -1566,7 +1579,7 @@ class LugarController extends Controller{
                 foreach($this->get('validator')->validate( $form ) as $formError){
                     $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
                 }
-            }         
+            }
 
         }
         return $this->render('LoogaresLugarBundle:Lugares:reporte.html.twig', array(
@@ -1609,11 +1622,11 @@ class LugarController extends Controller{
                          ->add('reporte', 'textarea')
                          ->getForm();
 
-        if ($request->getMethod() == 'POST') { 
+        if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
             foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
             }
 
             if ($form->isValid()) {
@@ -1644,19 +1657,19 @@ class LugarController extends Controller{
                         ->setTo('reportar@loogares.com');
                 $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                $this->get('mailer')->send($message);               
+                $this->get('mailer')->send($message);
 
                  // Mensaje de éxito del reporte
                 $this->get('session')->setFlash('lugar_flash','reportes.flash');
 
-                // Redirección a ficha del lugar 
+                // Redirección a ficha del lugar
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
             else {
                 foreach($this->get('validator')->validate( $form ) as $formError){
                     $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
                 }
-            }         
+            }
 
         }
 
@@ -1673,9 +1686,9 @@ class LugarController extends Controller{
         $formErrors = array();
 
         $lugar = $lr->findOneBySlug($slug);
-        
+
         $reportes = $lr->getReportesUsuarioLugar($lugar->getId(), $this->get('security.context')->getToken()->getUser(), 1);
-       
+
         if(sizeof($reportes) > 0){
             $this->get('session')->setFlash('lugar_flash','Nos has notificado anteriormente que este lugar cerró. Aún estamos corroborando datos al respecto.');
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
@@ -1686,11 +1699,11 @@ class LugarController extends Controller{
                              ->add('reporte', 'textarea')
                              ->getForm();
 
-            if ($request->getMethod() == 'POST') { 
+            if ($request->getMethod() == 'POST') {
                 $form->bindRequest($request);
 
                 foreach($_POST as $key => $value){
-                    $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+                    $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
                 }
 
                 if ($form->isValid()) {
@@ -1710,7 +1723,7 @@ class LugarController extends Controller{
                                         ->findOneByNombre('Reportado');
                     $lugar->setEstado($estadoLugar);
                     $em->flush();
-                    
+
                     // Se envía mail a administradores notificando reporte
                     $mail = array();
                     $mail['asunto'] = $this->get('translator')->trans('reportes.mail.lugar.asunto').' '.$lugar->getNombre();
@@ -1722,19 +1735,19 @@ class LugarController extends Controller{
                             ->setTo('reportar@loogares.com');
                     $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                     $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                    $this->get('mailer')->send($message);               
+                    $this->get('mailer')->send($message);
 
                      // Mensaje de éxito del reporte
                     $this->get('session')->setFlash('lugar_flash','reportes.flash');
-                        
-                    // Redirección a ficha del lugar 
+
+                    // Redirección a ficha del lugar
                     return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
                 }
                 else {
                     foreach($this->get('validator')->validate( $form ) as $formError){
                         $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
                     }
-                }         
+                }
 
             }
         }
@@ -1754,11 +1767,11 @@ class LugarController extends Controller{
 
         if($lugar == null)
             throw $this->createNotFoundException('El lugar con slug '.$slug. ' no existe.');
-        
-        // Si lugar ya tiene dueño, se redirecciona a ficha    
+
+        // Si lugar ya tiene dueño, se redirecciona a ficha
         if($lugar->getDuenoId() > 0) {
             foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
             }
             // Request proviene desde E-mail del dueño
             if($request->query->get('mail')) {
@@ -1780,13 +1793,13 @@ class LugarController extends Controller{
                     $this->get('mailer')->send($message);
 
                     $this->get('session')->setFlash('lugar_flash','dueno.reclamar.flash.nuevo');
-                }                
+                }
             }
             // Request proviene desde la URL (a mano)
             else {
-                $this->get('session')->setFlash('lugar_flash','dueno.reclamar.flash.existe');   
-            }            
-                    
+                $this->get('session')->setFlash('lugar_flash','dueno.reclamar.flash.existe');
+            }
+
             // Redirección a vista de ficha del lugar
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
         }
@@ -1803,7 +1816,7 @@ class LugarController extends Controller{
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
             foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
             }
 
             $form->bindRequest($request);
@@ -1821,7 +1834,7 @@ class LugarController extends Controller{
 
                 $em->persist($owner);
                 $em->flush();
-                
+
                 // Se envía mail a administradores informando del asunto
                 $mail = array();
                 $mail['asunto'] = $this->get('translator')->trans('dueno.reclamar.mail.asunto').' '.$lugar->getNombre();
@@ -1833,11 +1846,11 @@ class LugarController extends Controller{
                         ->setTo('duenos.local@loogares.com');
                 $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresLugarBundle:Mails:mail_reporte.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                $this->get('mailer')->send($message); 
+                $this->get('mailer')->send($message);
 
                 // Mensaje de éxito en el envío
-                $this->get('session')->setFlash('lugar_flash','dueno.reclamar.flash.nuevo');   
-                    
+                $this->get('session')->setFlash('lugar_flash','dueno.reclamar.flash.nuevo');
+
                 // Redirección a vista de ficha del lugar
                 return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
@@ -1864,7 +1877,7 @@ class LugarController extends Controller{
         $tipoPedido = 1;
         if($tipo == 'pedidos')
             $tipoPedido = 2;
-            
+
         $pedidos = $lr->getPedidosLugar($lugar, $tipoPedido);
 
         return $this->render('LoogaresLugarBundle:Ajax:pedidos_popup.html.twig', array(
@@ -1899,7 +1912,7 @@ class LugarController extends Controller{
         }
         return $this->render($template, array(
             'promociones' => $promocionesRandom,
-        ));        
+        ));
     }
 
     public function reporteLocalAction(Request $request, $slug, $id) {
@@ -1932,18 +1945,18 @@ class LugarController extends Controller{
                     return $this->render('LoogaresLugarBundle:Lugares:reporte_local.html.twig', array(
                         'concurso' => $concurso,
                         'dueno' => $dueno
-                    )); 
+                    ));
                 }
             }
             else {
 
-            }   
-        }     
+            }
+        }
 
         return $this->render('LoogaresLugarBundle:Lugares:reporte_autenticacion.html.twig', array(
             'lugar' => $lugar,
             'id' => $id,
             'errors' => $formErrors
-        )); 
+        ));
     }
 }

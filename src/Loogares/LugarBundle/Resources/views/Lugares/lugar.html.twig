@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block meta %}
-    {% if lugar.recomendacionPedida is not defined %}   
+    {% if lugar.recomendacionPedida is not defined %}
         <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
         <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
         <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
@@ -18,7 +18,7 @@
         <meta property="og:description" content="" />
         <meta property="og:image" content="{{ ('assets/images/usuarios/'~lugar.recomendacionPedida.imagen_full) | apply_filter('medium_lugar')}}" />
     {% endif %}
-    
+
     <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “{{lugar.recomendaciones[0].texto|slice(0,160)}}...”{% endif %}" />
 
     <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}{{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{ lugar.nombre }}" />
@@ -51,13 +51,13 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=AIzaSyATOJuTIR8SfADJZrSGHtbEt-EPRrqZDjc" type="text/javascript"></script>      
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=AIzaSyATOJuTIR8SfADJZrSGHtbEt-EPRrqZDjc" type="text/javascript"></script>
     <script src='{{asset('assets/js/googleMapFicha.js')}}'></script>
-    <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>   
-    <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>  
-    <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>   
+    <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
-    
+
     <script>
         $(document).ready(function(){
             editarRecomendacion("{{lugar.slug}}")
@@ -70,7 +70,7 @@
     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 {% endblock %}
 
-{% block stylesheets %}    
+{% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen">
 {% endblock %}
@@ -112,7 +112,7 @@
                     </div>
                 {% else %}
                     <p class="favoritos_lugar_icono tooltip boton_desactivado" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
-               
+
                     <!-- Qtip Recomendación del Día -->
                     <div class="qtip_favoritos">
                         {{'lugar.ficha.qtip.favoritos_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('login')}}">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
@@ -121,7 +121,7 @@
                     </div>
                 {% endif %}
                 <!-- <p class="conteo">{{lugar.totalAcciones.3.total}}</p> -->
-            </div>           
+            </div>
             <div class="estrellas">
                 <div data-stars="{{lugar.estrellas}}" class="star-raty estrellas_lugar"></div>
                 <noscript>
@@ -178,9 +178,9 @@
                     {% endif %}
                 </div>
                 {% endif %}
-                
+
                 {% if lugar.mostrarPrecio != null %}
-                    <div class="precio_lugar" id="precio">                      
+                    <div class="precio_lugar" id="precio">
                         <p style="float: left;">{{'lugar.ficha.datos.precio'|trans}}</p><div data-precio="{{lugar.precio}}" data-tipo="{{lugar.mostrarPrecio}}" class="precio-raty precio_global"></div>
                         <div class="precio-detalle"></div>
                     </div>
@@ -212,7 +212,7 @@
                                 <a class="reserva_online_lugar pedido_fancybox" href="{{path('_pedidosLugar', {'slug' : lugar.slug, 'tipo' : 'reservas'})}}" alt="Reserva Online"></a>
                             {% endif %}
                         {% endif %}
-                    </div>                    
+                    </div>
                 {% endif %}
             </div>
 
@@ -249,7 +249,7 @@
                             {{tagsPopulares.nombre}}{% if loop.last == false %}, {% endif %}
                         {% endfor %}
                     </div>
-                    {% endif %}    
+                    {% endif %}
                 </div>
 
                 <div class="categoria_lugar">
@@ -320,7 +320,7 @@
         </div>
 
         <div class="actividad_lugar">
-        
+
         {% if app.session.hasFlash('cerrado_flash') %}
             <div class="overlay">
                 <img class="lock" src="{{ asset('assets/images/extras/lock.png') }}" height="31" width="23" />
@@ -334,7 +334,7 @@
             {% endif %}
 
             {% if lugar.accionesUsuario.2.puede == 1 %}
-            <div class="qtip_estuve_alla"> 
+            <div class="qtip_estuve_alla">
                     <a href="#" class="recomendar_ahora_{{app.session.get('ciudad').slug}} recomienda_lugar"></a>
                     <a href="#" class="recomendar_despues"></a>
             </div>
@@ -355,7 +355,7 @@
                     {% endif %}
                 {% endif %}
                 <p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
-            </div> 
+            </div>
             <div class="tooltip_quiero_volver quiero_volver_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.1.puede == 1 %}
                     <a class="quiero_volver_lugar tooltip_quiero_volver boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}"></a>
@@ -369,7 +369,7 @@
                     </div>
                 {% endif %}
                 <p class="quiero_volver_valor conteo">{{lugar.totalAcciones.1.total}}</p>
-            </div>            
+            </div>
             <div class="quiero_ir_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
                 {% if lugar.accionesUsuario.0.puede == 1 %}
                     <a class="quiero_ir_lugar tooltip_quiero_ir boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></a>
@@ -383,7 +383,7 @@
                         {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('registroUsuario')}}">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
                     </div>
                     {% endif %}
-                {% endif %}                
+                {% endif %}
                 <p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
             </div>
             <div>
@@ -403,7 +403,7 @@
         </div>
 
         <div class="opciones_lugar">
-            
+
             {% if app.session.hasFlash('cerrado_flash') %}
                 <div class="overlay"></div>
             {% endif %}
@@ -426,7 +426,7 @@
                 <li><a class="cerro_lugar" href="{{path('_reportarLugar', {'slug' : lugar.slug})}}">{{'lugar.ficha.opciones.cerro'|trans}}</a></li>
                 <li><a class="compartir tooltip_compartir" rel="compartir_lugar" href="#compartir">{{'lugar.ficha.opciones.enviar'|trans}}</a></li>
                 <li><a class="imprimir_lugar" href="javascript:window.print()">{{'lugar.ficha.opciones.imprimir'|trans}}</a></li>
-                
+
             </ul>
             <div class="compartir_lugar">
                 <ul style="text-align: left;">
@@ -439,7 +439,7 @@
                     <li class="fb_share" style="margin: 0 0 5px;">
                         <a style="color: white; text-decoration: none;" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
                     </li>
-                    <li class="twitter_share" style="margin: 0 0 5px;">                       
+                    <li class="twitter_share" style="margin: 0 0 5px;">
                         {% set data_url = url('_lugar', {'slug' : lugar.slug}) %}
                         {% set data_text = lugar.nombre~", "~lugar.comuna.ciudad.nombre~" | Loogares.com" %}
                         {% set data_via = "Loogarescom" %}
@@ -465,7 +465,7 @@
                     <div class="espacio_aviso_ficha_1">
                         <!-- Banners Concursos del sitio -->
                         {# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
-                       
+
                         <script type='text/javascript'>
                             GA_googleFillSlot("{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
                         </script>
@@ -473,7 +473,7 @@
                     <div class="espacio_aviso_ficha_2">
                         <!-- Banners Concursos del sitio -->
                         {# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
-                       
+
                         <script type='text/javascript'>
                             GA_googleFillSlot("{{ad('static','ficha','concursos_medio','medium')}}_{{app.session.get('ciudad').slug}}");
                         </script>
@@ -481,7 +481,7 @@
                     <div class="espacio_aviso_ficha_3">
                         <!-- Banners Concursos del sitio -->
                         {# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
-                       
+
                         <script type='text/javascript'>
                             GA_googleFillSlot("{{ad('static','ficha','concursos_final','medium')}}_{{app.session.get('ciudad').slug}}");
                         </script>
@@ -500,35 +500,6 @@
             {{'lugar.ficha.recomendaciones.titulo'|transchoice(lugar.totalRecomendaciones,{'%lugar%' : lugar.nombre})}}
         </h3>
 
-        <ul class="ordenar_por_recomendaciones">
-            <li>
-                <strong>{{'general.terminos.ordenar_por'|trans}}:</strong>
-            </li>
-            <li>
-                {% if query.orden == 'mejor-evaluadas' %}
-                    <strong>{{'general.terminos.mejores_evaluaciones'|trans}}</strong>
-                {% else %}
-                    <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejores_evaluaciones'|trans}}</a>
-                {% endif %}
-            </li>
-            <li>|</li>
-            <li>
-                {% if query.orden == 'ultimas' %}
-                    <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
-                {% else %}
-                    <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</a>
-                {% endif %}
-            </li>
-            <li>|</li>
-            <li>
-                {% if query.orden == 'mas-utiles' %}
-                    <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
-                {% else %}
-                    <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
-                {% endif %}
-            </li>
-        </ul>
-
         <div class="resultados_por_pagina">
             <select class="seleccionar_resultados_por_pagina">
                 <option value="20">20</option>
@@ -540,7 +511,7 @@
 
 
         {% for recomendacion in lugar.recomendaciones %}
-            <div class="recomendacion" data-id="{{recomendacion.id}}" data-slug="{{recomendacion.slug}}">
+            <div class="recomendacion" data-id="{{recomendacion.id}}" data-slug="{{recomendacion.usuario.slug}}">
                 <div class="foto_recomendacion">
                     <a href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
                         <img src="{{ ('assets/images/usuarios/'~recomendacion.imagen_full) | apply_filter('small_usuario')}}" height="60" width="60" />
@@ -579,7 +550,7 @@
                         <p class="texto_recomendacion_usuario">{{ recomendacion.texto | raw}}</p>
                         {% if recomendacion.tags[0] %}
                             <p class="tags_recomendacion">
-                                {{'lugar.ficha.tags'|trans}} 
+                                {{'lugar.ficha.tags'|trans}}
                                 {% for tag in recomendacion.tags %}
                                     {{ tag }}{% if loop.last == false %}, {% endif %}
                                 {% endfor %}
@@ -592,7 +563,7 @@
                                 <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
                             {% else %}
                                 <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
-                            {% endif %}   
+                            {% endif %}
                             <li>
                                 <a class="compartir tooltip_compartir_recomendacion" rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>
                             </li>
@@ -617,7 +588,7 @@
                                         {{'lugar.ficha.opciones.facebook'|trans}}
                                     </a>
                                 </li>
-                                <li class="twitter_share_recomendacion" style="margin: 0 0 5px;">                                    
+                                <li class="twitter_share_recomendacion" style="margin: 0 0 5px;">
                                     {% set data_url = url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId}) %}
                                     {% set data_text = "Recomendación de "~recomendacion.nombre~" "~recomendacion.apellido~" en "~lugar.nombre~", "~lugar.comuna.ciudad.nombre %}
                                     {% set data_via = "Loogarescom" %}
@@ -632,7 +603,8 @@
                 </div>
             </div>
         {% endfor %}
-            
+
+<!--
         <div class="paginacion_recomendacion">
             <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{ lugar.totalRecomendaciones }}</strong>
             {% if paginacion.totalPaginas != 1 %}
@@ -642,8 +614,8 @@
                 </ul>
             {% endif %}
         </div>
+-->
 
-        
         {% else %}
             {% if app.session.hasFlash('cerrado_flash') == null  %}
                 <div>
@@ -656,11 +628,11 @@
             {% if app.session.hasFlash('cerrado_flash') == null  %}
                 {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
             {% endif %}
-            
+
 
             <a class="fancybox" href="#recomendacon_popup"></a>
             <div style="display:none">{% include 'LoogaresLugarBundle:Ajax:recomendacion_popup.html.twig' %}</div>
-            
+
         {% endif %}
         {% if is_granted('ROLE_USER') == false %}
             <div class="caja_registro_recomendacion">
@@ -679,7 +651,7 @@
 
     <div class="sidebar">
         <div class="mapa_sidebar" id="mapa-sidebar">
-            
+
             <div id="mapaOtros" style="height: 300px; width: 300px;">
             </div>
 
@@ -718,7 +690,7 @@
         </div>
 
     </div>
-    
+
 </div>
 
 {% endblock %}
