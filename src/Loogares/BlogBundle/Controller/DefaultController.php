@@ -71,11 +71,11 @@ class DefaultController extends Controller
             $concurso = $conr->getConcursoPost($post->getId());
             $telefonos = array();
             if($post->getLugar()->getTelefono1() != '')
-                $telefonos[] = $post->getLugar()->getTelefono1();
+                $telefonos[] = $post->getCiudad()->getPais()->getCodigoArea().' '.$post->getLugar()->getTelefono1();
             if($post->getLugar()->getTelefono2() != '')
-                $telefonos[] = $post->getLugar()->getTelefono2();
+                $telefonos[] = $post->getCiudad()->getPais()->getCodigoArea().' '.$post->getLugar()->getTelefono2();
             if($post->getLugar()->getTelefono3() != '')
-                $telefonos[] = $post->getLugar()->getTelefono3();
+                $telefonos[] = $post->getCiudad()->getPais()->getCodigoArea().' '.$post->getLugar()->getTelefono3();
 
             // Concursos vigentes
             $concursos = $conr->getConcursosVigentes($ciudadArray['id']);

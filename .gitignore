@@ -24,6 +24,9 @@ src/Loogares/MailBundle/Entity/*
 web/assets/images/*
 web/assets/media/cache/*
 web/media/cache/*
+web/assets/images
+web/assets/media/cache
+web/assets/media
 
 #Logs
 app/logs/*

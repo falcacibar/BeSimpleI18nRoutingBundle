@@ -22,7 +22,7 @@
 			</div>
 			<div class="promociona_tu_negocio_boton">
 				<span class="titulo_promociona_boton">{{'ventas.beneficio_exclusivo.promociona'|trans}}</span>
-				<a class="boton_promociona" href="#somos_los_buena_onda"></a>
+				<a class="boton_promociona_{{app.session.get('ciudad').slug}}" href="#somos_los_buena_onda"></a>
 			</div>
 			<div class="llega_a_clientes">
 				<img class="imagen_que_es" src="{{ asset('assets/images/concursos/sortea_un_premio.png') }}" height="210px" width="253px" />
