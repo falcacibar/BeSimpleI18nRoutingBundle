@@ -1372,8 +1372,6 @@ class LugarController extends Controller{
                     $this->get('mailer')->send($message);
                 }
             }
-<<<<<<< HEAD
-=======
             $flash = $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido()));
             if (sizeOf($concursosPendientes) == 1) {
                 $post = $concursosPendientes[0]->getConcurso()->getPost();
@@ -1384,7 +1382,6 @@ class LugarController extends Controller{
                 $flash .= "<br>".$this->get('translator')->trans('lugar.flash.recomendacion.concurso_plural');
             }
 
->>>>>>> 14029bc0ed1f531785204c61bc2daeabc5a061cc
             //SET FLASH AND REDIRECTTT
             $this->get('session')->setFlash('lugar_flash', $flash);
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
