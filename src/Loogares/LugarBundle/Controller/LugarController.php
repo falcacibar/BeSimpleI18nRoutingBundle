@@ -257,7 +257,7 @@ class LugarController extends Controller{
         $q->setParameter(1, $lugar);
         $q->setParameter(2, 3);
         $q->setMaxResults(20);
-        $q->setFirstResult($offset*20);
+        $q->setFirstResult($offset);
 
         $recomendaciones = $q->getResult();
         
