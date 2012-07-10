@@ -69,7 +69,7 @@
     <!-- Mensajes de éxito -->
     {% if app.session.hasFlash('lugar_flash') %}
             <div class="mensaje_exito">
-                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans }}</p>
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans | raw }}</p>
             </div>
     {% endif %}
 
