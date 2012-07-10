@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Loogares\LugarBundle\Entity\TipoCategoria;
+use Loogares\BlogBundle\Entity\Concurso;
 use Mailchimp\MCAPI;
 
 
@@ -133,16 +134,8 @@ class DefaultController extends Controller
         $concursos = $conr->getConcursosVigentes($ciudadSession['id']);
 
 
-        //Slider del home
-        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p
-                               WHERE p.ciudad = ?1 AND (p.destacado_home = ?2 OR p.destacado_home = ?3) and p.blog_estado = 2
-                               ORDER BY p.id DESC");
-        $q->setMaxResults(3);
-        $q->setParameter(1, $ciudadSession['id']);
-        $q->setParameter(2, 2);
-        $q->setParameter(3, 3);
-        $sliderCampanas = $q->getResult();
-
+        //Slider del home        
+        $sliderCampanas = $pr->getPostsDestacados($ciudadSession['id'], 3);
 
         //Recomendacion Estrella
         $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\LoogarenoEstrella u ORDER BY u.id desc");
@@ -503,6 +496,54 @@ class DefaultController extends Controller
         ));
     }
 
+    public function actualizarPostsAction() {
+        $em = $this->getDoctrine()->getEntityManager();
+        $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $ecr = $em->getRepository("LoogaresBlogBundle:EstadoConcurso");
+        $tcr = $em->getRepository("LoogaresBlogBundle:TipoConcurso");
+
+        // Actualizamos notas con destacado_home = 2
+        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p
+                               WHERE p.destacado_home = ?1");
+        $q->setParameter(1, 2);
+        $posts = $q->getResult();
+
+        foreach($posts as $post) {
+            $post->setDestacadoHome(1);
+        }
+        $em->flush();
+
+        $q = $em->createQuery("SELECT p FROM Loogares\BlogBundle\Entity\Posts p
+                               WHERE p.ganadores IS NOT NULL AND p.ganadores != '' ");
+        $posts = $q->getResult();
+
+        foreach($posts as $post) {
+            // Creamos concursos para cada post antiguo
+            $fechaInicio = $post->getFechaPublicacion();
+            if($fechaInicio ==  null) {
+                $fechaInicio = new \DateTime('10/10/2010');
+            }
+            $fechaTermino = $post->getFechaTermino();
+            if($fechaTermino == null) {
+                $fechaTermino = new \DateTime('10/10/2010');
+            }
+            $estadoConcurso = $ecr->find(3);
+            $tipoConcurso = $tcr->find(1);
+            $concurso = new Concurso();
+            $concurso->setPost($post);
+            $concurso->setEstadoConcurso($estadoConcurso);
+            $concurso->setTipoConcurso($tipoConcurso);
+            $concurso->setTitulo($post->getTitulo());
+            $concurso->setDescripcion($post->getTitulo());
+            $concurso->setFechaInicio($fechaInicio);
+            $concurso->setFechaTermino($fechaTermino);
+            $concurso->setNumeroPremios($post->getNumeroPremios());
+            $em->persist($concurso);
+        }
+        $em->flush();
+
+        return new Response(sizeOf($posts));
+    }
 
     // Esto está acá como backup, por si alguna vez se necesita de nuevo (no es basura)
     /*public function mailchimpAction() {
