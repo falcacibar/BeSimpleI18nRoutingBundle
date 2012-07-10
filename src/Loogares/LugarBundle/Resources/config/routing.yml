@@ -90,9 +90,7 @@ _borrarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/borrar
     defaults: { _controller: LoogaresLugarBundle:Lugar:accionRecomendacion, borrar: true}
 
-_listado_recomendacion:
-    pattern: /lugar/{slug}/recomendacion
-    defaults: { _controller: LoogaresLugarBundle:Lugar:listadoRecomendaciones, usuario: null }
+
 _recomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }

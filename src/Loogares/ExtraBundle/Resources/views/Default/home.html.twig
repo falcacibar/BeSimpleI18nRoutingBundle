@@ -53,7 +53,7 @@
 
 			<div class="registro">
 	            <a href="#">
-	                <div class="boton_fb"></div>
+	                <div class="boton_fb_{{app.session.get('ciudad').slug}}"></div>
 	            </a>
 	            <p class="registro_mail">{% trans %}usuario.login.registro.o{% endtrans %} <a href="{{path('registroUsuario')}}">{% trans %}usuario.login.registro.mail{% endtrans %}</a></p>
 			</div>

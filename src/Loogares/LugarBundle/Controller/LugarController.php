@@ -112,26 +112,6 @@ class LugarController extends Controller{
 
         $yaRecomendoResult = $q->getResult();
 
-        //Definicion del orden para la siguiente consulta
-        if($_GET['orden'] == 'ultimas'){
-                $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
-        }else if($_GET['orden'] == 'mas-utiles'){
-                $orderBy = "ORDER BY utiles DESC";
-        }else if($_GET['orden'] == 'mejor-evaluadas'){
-                $orderBy = "ORDER BY recomendacion.estrellas desc, recomendacion.fecha_creacion DESC";
-        }
-
-        $q = $em->createQuery(" SELECT     r
-                                FROM       Loogares\UsuarioBundle\Entity\Recomendacion r
-                                WHERE      r.lugar = ?1 AND r.estado != ?2")
-                ->setParameters(array(
-                      1      => $idLugar
-                    , 2      => 3
-                ));
-
-        $recomendaciones = $q->getResult();
-        unset($q);
-
         $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
 
         if($this->get('security.context')->isGranted('ROLE_USER')) {
@@ -185,21 +165,6 @@ class LugarController extends Controller{
             $data->recomendacionPedida = $recomendacionPedidaResult[0];
         }
 
-/*
-        $data->horarios         = $fn->generarHorario($lugarResult[0]->getHorario());
-        $data->imagen_full      = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
-        $data->yaRecomendo      = $yaRecomendoResult;
-        $data->mostrarPrecio    = $fn->mostrarPrecio($lugarResult[0]);
-        $data->totalFotos       = $totalFotosResult;
-        $data->tagsPopulares    = $lr->getTagsPopulares($idLugar);
-        $data->totalAcciones    = $totalAcciones;
-        $data->accionesUsuario  = $accionesUsuario;
-        $data->reservas         = $reservas;
-        $data->pedidos          = $pedidos;
-        $data->concursos        = $concursos;
-        $data->recomendaciones  = &$recomendaciones;
-        $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1) ? (10 + 1) : 1;
-*/
         $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
         $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
         $data->yaRecomendo = $yaRecomendoResult;
@@ -211,12 +176,13 @@ class LugarController extends Controller{
         $data->reservas = $reservas;
         $data->pedidos = $pedidos;
         $data->concursos = $concursos;
+        $data->usuarioSlug = $usuarioSlug;
 
         //Render ALL THE VIEWS
        return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
     }
 
-    public function listadoRecomendacionesAction($slug, $usuario = null){
+    public function listadoRecomendacionesAction($slug, $usuarioSlug = null){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
@@ -232,8 +198,9 @@ class LugarController extends Controller{
         $resultadosPorPagina = (!isset($_GET['resultados']))?20:$_GET['resultados'];
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
         $params = array('slug' => $lugar->getSlug());
-        $path = '_listado_recomendacion';
+        $path = '_lugar';
         $fn = $this->get('fn');
+        $recomendacionPedida = null;
 
         if($_GET['orden'] == 'ultimas'){
                 $orderBy = "ORDER BY r.fecha_creacion DESC";
@@ -251,6 +218,38 @@ class LugarController extends Controller{
         $q->setParameter(1, $lugar);
         $q->setParameter(2, 3);
         $totalRecomendaciones = $q->getSingleScalarResult();
+
+        if($usuarioSlug){
+            //Recomendacion pedida
+            $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");           
+            $usuario = $ur->findOneByIdOrSlug($usuarioSlug); 
+
+            $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                                   WHERE r.lugar = ?1
+                                   AND r.usuario = ?2
+                                   AND r.estado != ?3");
+            $q->setParameter(1, $lugar);
+            $q->setParameter(2, $usuario);
+            $q->setParameter(3, 3);
+            $q->setMaxResults(1);
+            $recomendacionPedida = $q->getSingleResult();
+
+            $q = $em->createQuery("SELECT count(u) FROM Loogares\UsuarioBundle\Entity\Util u
+                                   WHERE u.recomendacion = ?1");
+            $q->setParameter(1, $recomendacionPedida->getId());
+            $q->setMaxResults(1);
+            $recomendacionPedida->apretoUtil = $q->getSingleScalarResult();
+
+            $q = $em->createQuery("SELECT t from Loogares\UsuarioBundle\Entity\Tag t
+                                   JOIN t.tag_recomendacion tr
+                                   WHERE tr.recomendacion = ?1");
+            $q->setParameter(1, $recomendacionPedida->getId());
+            $tags = $q->getResult();
+
+            $tagsBuffer = array();
+            foreach($tags as $tag){ $tagsBuffer[] = $tag->getTag(); }
+            $recomendacionPedida->tags = join(', ', $tagsBuffer );
+        }
 
         $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r
                                WHERE r.lugar = ?1
@@ -286,7 +285,8 @@ class LugarController extends Controller{
             'lugar' => $lugar, 
             'recomendaciones' => $recomendaciones,
             'query' => $_GET,
-            'paginacion' => $paginacion
+            'paginacion' => $paginacion,
+            'recomendacionPedida' => $recomendacionPedida
         ));            
     }
     
