@@ -1,0 +1,33 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    Categorías en {{app.session.get('ciudad').nombre}} | {{parent()}}
+{% endblock %}
+
+{% block meta %}
+{% endblock %}
+
+{% block ads %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <h1 class="titulo_busqueda">Categorías Loogares.com</h1>
+    <p class="breadcrumb">{{app.session.get('ciudad').nombre}}</p>
+
+    {% for rama in arbol_categorias %}
+    <div>
+        <div>{{ rama.tipo.nombre }}</div>
+        <ul>
+        {% for categoria in rama.categorias %}
+            <li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+{% endblock %}
