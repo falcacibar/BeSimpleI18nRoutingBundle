@@ -111,15 +111,6 @@ class LugarController extends Controller{
         $q->setParameter(3, 3);
         $yaRecomendoResult = $q->getResult();
 
-        //Definicion del orden para la siguiente consulta
-        if($_GET['orden'] == 'ultimas'){
-                $orderBy = "ORDER BY recomendacion.fecha_creacion DESC";
-        }else if($_GET['orden'] == 'mas-utiles'){
-                $orderBy = "ORDER BY utiles DESC";
-        }else if($_GET['orden'] == 'mejor-evaluadas'){
-                $orderBy = "ORDER BY recomendacion.estrellas desc, recomendacion.fecha_creacion DESC";
-        }
-
         $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
 
         if($this->get('security.context')->isGranted('ROLE_USER')) {
@@ -177,7 +168,6 @@ class LugarController extends Controller{
         $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
         $data->yaRecomendo = $yaRecomendoResult;
         $data->mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
-        $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1)?(10 + 1):1;
         $data->totalFotos = $totalFotosResult;
         $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
         $data->totalAcciones = $totalAcciones;
@@ -190,7 +180,7 @@ class LugarController extends Controller{
         return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));            
     }
 
-    public function listadoRecomendacionesAction($slug, $usuario){
+    public function listadoRecomendacionesAction($slug, $usuario = null){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
