@@ -58,52 +58,28 @@
 			
 			</ul>
 
-			<ul class="agregar_blog_posts_detalle">			
-
+			<ul class="agregar_blog_posts_detalle">
 				<div class="caja_interior">
-
 					<a href="" class="toggle-detalle">Desplegar detalles</a>
-
 					<div class="concurso_detalle">
-						<!--
-						<li>
-							<label>Imagen detalle</label>
-							{{form_widget(form.vimagen_detalle, {'attr': {'class': 'imagen_detalle subir_imagen'}} )}}
-						</li>
-						-->
 						<li class="contenidos_texto">
 							<label>Detalle del premio / post</label>
 							<textarea rows="30" name="detalle" placeholder="Detalle del Post (HTML)">{{post.detalles}}</textarea>
-						</li>						
-
-						<!--
-						<li class="contenidos_texto">
-							<label>Ganadores del concurso (reemplaza el detalle del concurso)</label>
-							<textarea rows="30" name="ganadores" placeholder="Texto Ganadores (opcional)">{{post.ganadores}}</textarea>
 						</li>
-						-->
-					</div>
-				
+					</div>				
 				</div>
-
 			</ul>
 
 			<ul class="agregar_blog_posts_condiciones">
-
-				<div class="caja_interior">
-	
+				<div class="caja_interior">	
 					<a href="" class="toggle-condiciones">Desplegar condiciones</a>
-
-					<div class="concurso_condiciones">
-												
+					<div class="concurso_condiciones">												
 						<li class="contenidos_texto">
 							<label>Condiciones del concurso</label>
 							<textarea rows="30" name="condiciones" placeholder="Condiciones del Concurso (opcional)">{{post.condiciones}}</textarea>
 						</li>
 					</div>
-
 				</div>
-
 			</ul>
 		
 		</div>
@@ -131,6 +107,12 @@
 				<input type="text" name="nueva_categoria" class="nueva_categoria" placeholder="Nombre de la categoría">
 				<input type="text" name="nueva_categoria_clase" class="nueva_categoria_clase" placeholder="Nombre de la clase">
 				<input type="text" name="nueva_categoria_hex" class="nueva_categoria_clase" placeholder="#hexcode">
+				<strong>Tipo de post asociado a la categoría</strong>
+				<select name="categoria_tipo_post">
+					{% for tipo in tipos_post %}
+						<option value="{{tipo.id}}">{{tipo.nombre}}</option>
+					{% endfor %}
+				</select>
 				<a class="quitar_nuevo">Quitar</a>
 			</li>
 
@@ -545,7 +527,7 @@
         			slug;
 
         		if($slug.val() == ''){	
-	        		slug = titulo.replace(/\s/g, '-').replace(/([^\w|^\d|^\-]+)/ig, '').toLowerCase();
+	        		slug = titulo.replace(/\s/g, '-').toLowerCase();
 	        		slug = removeDiacritics(slug);
 	        		$slug.val(slug);
         		}
