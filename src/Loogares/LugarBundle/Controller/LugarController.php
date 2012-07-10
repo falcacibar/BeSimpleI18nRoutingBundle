@@ -191,6 +191,48 @@ class LugarController extends Controller{
         //Render ALL THE VIEWS
         return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));            
     }
+
+    public function listadoRecomendacionesAction($slug, $usuario){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+
+        if(!$lugar){
+            //return 404
+        }
+
+        $offset = 0;
+        $resultadosPorPagina = 20;
+        $params = array('slug' => $lugar->getSlug());
+        $path = '_listado_recomendacion';
+        $fn = $this->get('fn');
+
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+
+        $q = $em->createQuery("SELECT count(r) FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.lugar = ?1
+                               AND r.estado != ?2");
+        $q->setParameter(1, $lugar);
+        $q->setParameter(2, 3);
+        $totalRecomendaciones = $q->getSingleScalarResult();
+
+        $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.lugar = ?1
+                               AND r.estado != ?2");
+        $q->setParameter(1, $lugar);
+        $q->setParameter(2, 3);
+        $q->setMaxResults(20);
+        $q->setFirstResult($offset*20);
+        
+        $recomendaciones = $q->getResult();
+
+        $paginacion = $fn->paginacion($totalRecomendaciones, $resultadosPorPagina, $path, $params, $this->get('router') );
+
+        $data['recomendaciones'] = $recomendaciones;
+
+        return $this->render('LoogaresLugarBundle:Lugares:listado_recomendaciones.html.twig', array('data' => $data));            
+    }
     
     public function agregarAction(Request $request, $slug = null){
         $em = $this->getDoctrine()->getEntityManager();
