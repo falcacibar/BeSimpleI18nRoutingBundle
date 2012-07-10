@@ -51,3 +51,6 @@ Loogares\UsuarioBundle\Entity\Recomendacion:
         fecha_ultima_vez_destacada:
             type: date
             nullable: true
+        utiles:
+            type: integer
+            nullable: true

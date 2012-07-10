@@ -65,8 +65,6 @@ class LugarController extends Controller{
         }
 
         $fn = $this->get('fn');
-        $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
-        $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
         $precioPromedio = 0;
         $estrellasPromedio = 0;
         
@@ -202,11 +200,22 @@ class LugarController extends Controller{
             //return 404
         }
 
-        $offset = 0;
-        $resultadosPorPagina = 20;
+        $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
+        $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
+        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $resultadosPorPagina = (!isset($_GET['resultados']))?20:$_GET['resultados'];
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
         $params = array('slug' => $lugar->getSlug());
         $path = '_listado_recomendacion';
         $fn = $this->get('fn');
+
+        if($_GET['orden'] == 'ultimas'){
+                $orderBy = "ORDER BY r.fecha_creacion DESC";
+        }else if($_GET['orden'] == 'mas-utiles'){
+                $orderBy = "ORDER BY r.utiles DESC";
+        }else if($_GET['orden'] == 'mejor-evaluadas'){
+                $orderBy = "ORDER BY r.estrellas desc, r.fecha_creacion DESC";
+        }
 
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
 
@@ -219,19 +228,40 @@ class LugarController extends Controller{
 
         $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r
                                WHERE r.lugar = ?1
-                               AND r.estado != ?2");
+                               AND r.estado != ?2 $orderBy");
         $q->setParameter(1, $lugar);
         $q->setParameter(2, 3);
         $q->setMaxResults(20);
         $q->setFirstResult($offset*20);
-        
+
         $recomendaciones = $q->getResult();
+        
+        foreach($recomendaciones as $key => $recomendacion){
+            $q = $em->createQuery("SELECT count(u) FROM Loogares\UsuarioBundle\Entity\Util u
+                                   WHERE u.recomendacion = ?1");
+            $q->setParameter(1, $recomendacion->getId());
+            $q->setMaxResults(1);
+            $recomendaciones[$key]->apretoUtil = $q->getSingleScalarResult();
+
+            $q = $em->createQuery("SELECT t from Loogares\UsuarioBundle\Entity\Tag t
+                                   JOIN t.tag_recomendacion tr
+                                   WHERE tr.recomendacion = ?1");
+            $q->setParameter(1, $recomendacion->getId());
+            $tags = $q->getResult();
+
+            $tagsBuffer = array();
+            foreach($tags as $tag){ $tagsBuffer[] = $tag->getTag(); }
+            $recomendaciones[$key]->tags = join(', ', $tagsBuffer );
+        }
 
         $paginacion = $fn->paginacion($totalRecomendaciones, $resultadosPorPagina, $path, $params, $this->get('router') );
 
-        $data['recomendaciones'] = $recomendaciones;
-
-        return $this->render('LoogaresLugarBundle:Lugares:listado_recomendaciones.html.twig', array('data' => $data));            
+        return $this->render('LoogaresLugarBundle:Lugares:listado_recomendaciones.html.twig', array(
+            'lugar' => $lugar, 
+            'recomendaciones' => $recomendaciones,
+            'query' => $_GET,
+            'paginacion' => $paginacion
+        ));            
     }
     
     public function agregarAction(Request $request, $slug = null){

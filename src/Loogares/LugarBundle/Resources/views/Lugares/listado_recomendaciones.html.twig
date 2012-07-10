@@ -1,209 +1,155 @@
-{% for recomendacion in data.recomendaciones %}
-	{{recomendacion.usuario.id}}</br>
-{% endfor %}
+{%- if lugar.totalRecomendaciones != 0 -%}
+	<div class="recomendacion_pedida_container">
+	</div>
 
-{% if lugar.totalRecomendaciones != 0 %}
+	<h3 class="titulo_recomendaciones">
+	    {{ lugar.totalRecomendaciones }}
+	    {{'lugar.ficha.recomendaciones.titulo'|transchoice(lugar.totalRecomendaciones,{'%lugar%' : lugar.nombre})}}
+	</h3>
 
-        <div class="recomendacion_pedida_container">
-        </div>
+	<ul class="ordenar_por_recomendaciones">
+	    <li>
+	        <strong>{{'general.terminos.ordenar_por'|trans}}:</strong>
+	    </li>
+	    <li>
+	        {% if query.orden == 'mejor-evaluadas' %}
+	            <strong>{{'general.terminos.mejores_evaluaciones'|trans}}</strong>
+	        {% else %}
+	            <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejores_evaluaciones'|trans}}</a>
+	        {% endif %}
+	    </li>
+	    <li>|</li>
+	    <li>
+	        {% if query.orden == 'ultimas' %}
+	            <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
+	        {% else %}
+	            <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</a>
+	        {% endif %}
+	    </li>
+	    <li>|</li>
+	    <li>
+	        {% if query.orden == 'mas-utiles' %}
+	            <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
+	        {% else %}
+	            <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+	        {% endif %}
+	    </li>
+	</ul>
+	<div class="resultados_por_pagina">
+	    <select class="seleccionar_resultados_por_pagina">
+	        <option value="20">20</option>
+	        <option value="40">40</option>
+	        <option value="50">50</option>
+	    </select>
+	    <p class="resultados_por_pagina_txt">{{'general.terminos.resultados_pagina'|trans}}</p>
+	</div>
 
-        <h3 class="titulo_recomendaciones">
-            {{ lugar.totalRecomendaciones }}
-            {{'lugar.ficha.recomendaciones.titulo'|transchoice(lugar.totalRecomendaciones,{'%lugar%' : lugar.nombre})}}
-        </h3>
+	{% for recomendacion in recomendaciones %}
+	    <div class="recomendacion" data-id="{{recomendacion.id}}" data-slug="{{recomendacion.usuario.slug}}">
+	        <div class="foto_recomendacion">
+	            <a href="{{ path('showUsuario', {'param': recomendacion.usuario.slug})}}">
+	                <img src="{{ ('assets/images/usuarios/'~recomendacion.usuario.imagenFull) | apply_filter('small_usuario')}}" height="60" width="60" />
+	            </a>
+	        </div>
+	        <div class="texto_recomendacion">
+	            <p class="nombre_recomendacion">
+	                <strong>
+	                    <a href="{{ path('showUsuario', {'param': recomendacion.usuario.slug})}}">
+	                        {% if recomendacion.usuario.nombre != '' and recomendacion.usuario.apellido != '' %}
+	                            {{ recomendacion.usuario.nombre }} {{ recomendacion.usuario.apellido }}
+	                        {% else %}
+	                            {{ recomendacion.usuario.slug }}
+	                        {% endif %}
+	                    </a>
+	                </strong>
+	            </p>
+	            <div class="util_recomendacion">
+	                <p class="conteo conteo_util">{{ recomendacion.util|length }}</p>
+	                {%if is_granted('ROLE_USER') and app.security.token.user.id != recomendacion.usuario.id %}
+	                    {% if recomendacion.apretoUtil == 0 %}
+	                        <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util boton_accion"></a>
+	                    {% else %}
+	                        <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_desactivado boton_util boton_accion"></a>
+	                    {% endif %}
+	                {% else %}
+	                    <p class="boton_desactivado boton_util"></p>
+	                {% endif %}
+	            </div>
+	            <p class="fecha_recomendacion">{{ recomendacion.fechaCreacion | date("d/m/Y") }}</p>
+	            <div class="recomendacion-bloque">
+	                <noscript>
+	                    {{recomendacion.estrellas}} Estrellas
+	                </noscript>
+	                <div data-stars="{{recomendacion.estrellas}}" class="recomendacion-{{loop.index}}-raty estrellas_recomendacion"></div>
+	                <p class="texto_recomendacion_usuario">{{ recomendacion.texto | raw}}</p>
+	                {% if recomendacion.tagRecomendacion | length > 0 %}
+	                    <p class="tags_recomendacion">
+	                        {{'lugar.ficha.tags'|trans}} 
+	                        {{recomendacion.tags}}
+	                    </p>
+	                {% endif %}
+	             </div>
+	            <div class="caja_opciones_recomendacion">
+	                <ul class="opciones_recomendacion">
+	                    {% if recomendacion.usuario.slug != false %}
+	                        <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.usuario.slug }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
+	                    {% else %}
+	                        <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.usuario.id }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
+	                    {% endif %}   
+	                    <li>
+	                        <a class="compartir tooltip_compartir_recomendacion" rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>
+	                    </li>
+	                    {% if is_granted('ROLE_USER') and app.security.token.user.id == recomendacion.usuario.id %}
+	                        <li><a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a></li>
+	                        <li><a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a></li>
+	                    {% else %}
+	                        <li><a class="reporta_recomendacion" href="{{path('_reportarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.usuario.slug != false) ? recomendacion.usuario.slug : recomendacion.usuario.id})}}">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a></li>
+	                    {% endif %}
+	                </ul>
 
-        <ul class="ordenar_por_recomendaciones">
-            <li>
-                <strong>{{'general.terminos.ordenar_por'|trans}}:</strong>
-            </li>
-            <li>
-                {% if query.orden == 'mejor-evaluadas' %}
-                    <strong>{{'general.terminos.mejores_evaluaciones'|trans}}</strong>
-                {% else %}
-                    <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejores_evaluaciones'|trans}}</a>
-                {% endif %}
-            </li>
-            <li>|</li>
-            <li>
-                {% if query.orden == 'ultimas' %}
-                    <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
-                {% else %}
-                    <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</a>
-                {% endif %}
-            </li>
-            <li>|</li>
-            <li>
-                {% if query.orden == 'mas-utiles' %}
-                    <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
-                {% else %}
-                    <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
-                {% endif %}
-            </li>
-        </ul>
-
-        <div class="resultados_por_pagina">
-            <select class="seleccionar_resultados_por_pagina">
-                <option value="20">20</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-            </select>
-            <p class="resultados_por_pagina_txt">{{'general.terminos.resultados_pagina'|trans}}</p>
-        </div>
-
-
-        {% for recomendacion in lugar.recomendaciones %}
-            <div class="recomendacion" data-id="{{recomendacion.id}}" data-slug="{{recomendacion.slug}}">
-                <div class="foto_recomendacion">
-                    <a href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
-                        <img src="{{ ('assets/images/usuarios/'~recomendacion.imagen_full) | apply_filter('small_usuario')}}" height="60" width="60" />
-                    </a>
-                </div>
-                <div class="texto_recomendacion">
-                    <p class="nombre_recomendacion">
-                        <strong>
-                            <a href="{{ path('showUsuario', {'param': recomendacion.slug})}}">
-                                {% if recomendacion.nombre != '' and recomendacion.apellido != '' %}
-                                    {{ recomendacion.nombre }} {{ recomendacion.apellido }}
-                                {% else %}
-                                    {{ recomendacion.slug }}
-                                {% endif %}
-                            </a>
-                        </strong>
-                    </p>
-                    <div class="util_recomendacion">
-                        <p class="conteo conteo_util">{{ recomendacion.utiles }}</p>
-                        {% if is_granted('ROLE_USER') and app.security.token.user.id != recomendacion.userId %}
-                            {% if recomendacion.apretoUtil == 0 %}
-                                <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util boton_accion"></a>
-                            {% else %}
-                                <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_desactivado boton_util boton_accion"></a>
-                            {% endif %}
-                        {% else %}
-                            <p class="boton_desactivado boton_util"></p>
-                        {% endif %}
-                    </div>
-                    <p class="fecha_recomendacion">{{ recomendacion.fecha_creacion | date("d/m/Y") }}</p>
-                    <div class="recomendacion-bloque">
-                        <noscript>
-                            {{recomendacion.estrellas}} Estrellas
-                        </noscript>
-                        <div data-stars="{{recomendacion.estrellas}}" class="recomendacion-{{loop.index}}-raty estrellas_recomendacion"></div>
-                        <p class="texto_recomendacion_usuario">{{ recomendacion.texto | raw}}</p>
-                        {% if recomendacion.tags[0] %}
-                            <p class="tags_recomendacion">
-                                {{'lugar.ficha.tags'|trans}} 
-                                {% for tag in recomendacion.tags %}
-                                    {{ tag }}{% if loop.last == false %}, {% endif %}
-                                {% endfor %}
-                            </p>
-                        {% endif %}
-                     </div>
-                    <div class="caja_opciones_recomendacion">
-                        <ul class="opciones_recomendacion">
-                            {% if recomendacion.slug != false %}
-                                <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.slug }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
-                            {% else %}
-                                <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.userId }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
-                            {% endif %}   
-                            <li>
-                                <a class="compartir tooltip_compartir_recomendacion" rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>
-                            </li>
-                            {% if is_granted('ROLE_USER') and app.security.token.user.id == recomendacion.userId %}
-                                <li><a class="edita_recomendacion" href="#">{{'lugar.ficha.recomendaciones.editar'|trans}}</a></li>
-                                <li><a class="borra_recomendacion" href="{{ path('_borrarRecomendacion',{"slug": lugar.slug}) }}">{{'lugar.ficha.recomendaciones.borrar'|trans}}</a></li>
-                            {% else %}
-                                <li><a class="reporta_recomendacion" href="{{path('_reportarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">{{'lugar.ficha.recomendaciones.reportar'|trans}}</a></li>
-                            {% endif %}
-                        </ul>
-
-                        <div class="compartir_recomendacion">
-                            <ul style="text-align: left;">
-                                <li style="color: white; text-decoration: none;" class="mail_share" style="margin: 0 0 5px;">
-                                    <a style="color: white; text-decoration: none;" href="{{path('_enviarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">
-                                        <span style="background: url('{{ asset('assets/images/extras/iconos_ficha_lugar.png') }}') no-repeat 0 -567px; height: 10px; float: left; padding: 0 0 0 13px; margin: 2px 4px 0 3px;"></span>
-                                        {{'lugar.ficha.opciones.e_mail'|trans}}
-                                    </a>
-                                </li>
-                                <li class="fb_share_recomendacion" style="margin: 0 0 5px;">
-                                    <a style="color: white; text-decoration: none;" name="fb_share" type="icon_link" style="color:#444" share_url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId})}}">
-                                        {{'lugar.ficha.opciones.facebook'|trans}}
-                                    </a>
-                                </li>
-                                <li class="twitter_share_recomendacion" style="margin: 0 0 5px;">                                    
-                                    {% set data_url = url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.slug != false) ? recomendacion.slug : recomendacion.userId}) %}
-                                    {% set data_text = "Recomendación de "~recomendacion.nombre~" "~recomendacion.apellido~" en "~lugar.nombre~", "~lugar.comuna.ciudad.nombre %}
-                                    {% set data_via = "Loogarescom" %}
-                                    <a style="color: white; text-decoration: none;" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">
-                                        <span style="background: url('{{ asset('assets/images/extras/iconos_ficha_lugar.png') }}') no-repeat 0 -684px; height: 14px; float: left; padding: 0 0 0 13px; margin: 1px 6px 0 0; width: 1px"></span>
-                                        {{'lugar.ficha.opciones.twittear'|trans}}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-            
-        <div class="paginacion_recomendacion">
-            <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{ lugar.totalRecomendaciones }}</strong>
-            {% if paginacion.totalPaginas != 1 %}
-                 | {{'paginacion.ir_a'|trans}}
-                <ul>
-                    {{ paginacion.paginacion | raw }}
-                </ul>
-            {% endif %}
-        </div>
-
-        
-        {% else %}
-            {% if app.session.hasFlash('cerrado_flash') == null  %}
-                <div>
-                    <h3 class="titulo_recomendaciones">{{'lugar.ficha.recomendaciones.titulo_0'|trans}} {{ lugar.nombre }}</h3>
-                </div>
-            {% endif %}
+	                <div class="compartir_recomendacion">
+	                    <ul style="text-align: left;">
+	                        <li style="color: white; text-decoration: none;" class="mail_share" style="margin: 0 0 5px;">
+	                            <a style="color: white; text-decoration: none;" href="{{path('_enviarRecomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.usuario.slug != false) ? recomendacion.usuario.slug : recomendacion.usuario.id})}}">
+	                                <span style="background: url('{{ asset('assets/images/extras/iconos_ficha_lugar.png') }}') no-repeat 0 -567px; height: 10px; float: left; padding: 0 0 0 13px; margin: 2px 4px 0 3px;"></span>
+	                                {{'lugar.ficha.opciones.e_mail'|trans}}
+	                            </a>
+	                        </li>
+	                        <li class="fb_share_recomendacion" style="margin: 0 0 5px;">
+	                            <a style="color: white; text-decoration: none;" name="fb_share" type="icon_link" style="color:#444" share_url="{{url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.usuario.slug != false) ? recomendacion.usuario.slug : recomendacion.usuario.id})}}">
+	                                {{'lugar.ficha.opciones.facebook'|trans}}
+	                            </a>
+	                        </li>
+	                        <li class="twitter_share_recomendacion" style="margin: 0 0 5px;">                                    
+	                            {% set data_url = url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.usuario.slug != false) ? recomendacion.usuario.slug : recomendacion.usuario.id}) %}
+	                            {% set data_text = "Recomendación de "~recomendacion.usuario.nombre~" "~recomendacion.usuario.apellido~" en "~lugar.nombre~", "~lugar.comuna.ciudad.nombre %}
+	                            {% set data_via = "Loogarescom" %}
+	                            <a style="color: white; text-decoration: none;" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank">
+	                                <span style="background: url('{{ asset('assets/images/extras/iconos_ficha_lugar.png') }}') no-repeat 0 -684px; height: 14px; float: left; padding: 0 0 0 13px; margin: 1px 6px 0 0; width: 1px"></span>
+	                                {{'lugar.ficha.opciones.twittear'|trans}}
+	                            </a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	{% endfor %}
+    <div class="paginacion_recomendacion">
+        <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{ lugar.totalRecomendaciones }}</strong>
+        {% if paginacion.totalPaginas != 1 %}
+             | {{'paginacion.ir_a'|trans}}
+            <ul>
+                {{ paginacion.paginacion | raw }}
+            </ul>
         {% endif %}
-
-        {% if is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
-            {% if app.session.hasFlash('cerrado_flash') == null  %}
-                {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
-            {% endif %}
-            
-
-            <a class="fancybox" href="#recomendacon_popup"></a>
-            <div style="display:none">{% include 'LoogaresLugarBundle:Ajax:recomendacion_popup.html.twig' %}</div>
-            
-        {% endif %}
-        {% if is_granted('ROLE_USER') == false %}
-            <div class="caja_registro_recomendacion">
-                <div class="texto">
-                    <p><strong>{{'lugar.ficha.aun_no_eres_parte'|trans}}</strong></p><br />
-                    <p>{{'lugar.ficha.registrate'|trans}}</p>
-                </div>
-                <div class="botones_registro">
-                    <a class="registro_loogares" href="{{path('registroUsuario')}}"></a>
-                    <a class="registro_facebook" href="#"></a>
-                </div>
-            </div>
-        {% endif %}
-
     </div>
 
 
-
-    {%- if lugar.recomendacionPedida is not defined -%}
-        {{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}
-    {%- else -%}
-        {{'lugar.recomendacion.meta.title'|trans({'%usuario%' : lugar.recomendacionPedida.nombre~' '~lugar.recomendacionPedida.apellido, '%lugar%' : lugar.nombre~' - '~lugar.calle~' | '~lugar.comuna.ciudad.nombre})}} | {{parent()}}
-    {%- endif -%}
-
-
-        {% if lugar.recomendacionPedida is not defined %}   
-        <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
-        <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
-        <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
-    {% else %}
-        <meta property="og:title" content="{{'lugar.recomendacion.meta.title'|trans({'%usuario%' : lugar.recomendacionPedida.nombre~' '~lugar.recomendacionPedida.apellido, '%lugar%' : lugar.nombre~' - '~lugar.calle~' | '~lugar.comuna.ciudad.nombre})}} | Loogares.com" />
-        <meta property="og:description" content="" />
-        <meta property="og:image" content="{{ ('assets/images/usuarios/'~lugar.recomendacionPedida.imagen_full) | apply_filter('medium_lugar')}}" />
+{%- else -%}
+    {% if app.session.hasFlash('cerrado_flash') == null  %}
+        <div>
+            <h3 class="titulo_recomendaciones">{{'lugar.ficha.recomendaciones.titulo_0'|trans}} {{ lugar.nombre }}</h3>
+        </div>
     {% endif %}
+{%- endif -%}
