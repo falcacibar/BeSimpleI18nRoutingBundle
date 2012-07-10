@@ -208,7 +208,7 @@
             <div class="datos_secundarios_lugar">
                 <div class="tags_primero_lugar">
                     <div class="primero_en_recomendar_lugar">
-                        {% if lugar.recomendacion %}
+                        {% if lugar.recomendacion[0] is defined %}
                             <div class="primero_titulo">
                                 {{'lugar.ficha.datos.primero'|trans}}
                             </div>
