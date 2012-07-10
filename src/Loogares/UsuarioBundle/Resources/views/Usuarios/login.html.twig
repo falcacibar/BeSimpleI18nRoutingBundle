@@ -48,7 +48,7 @@
         <div class="columna_derecha_registro">
             <h2 class="titulo">{% trans %}usuario.login.registro.titulo{% endtrans %}</h2>
             <a href="#">
-                <div class="boton_registro"></div>
+                <div class="boton_registro_{{app.session.get('ciudad').slug}}"></div>
             </a>
             <p class="registro_mail">{% trans %}usuario.login.registro.o{% endtrans %} <a href="{{path('registroUsuario')}}">{% trans %}usuario.login.registro.mail{% endtrans %}</a></p>
             <p class="texto_registro">{% trans %}usuario.login.registro.texto{% endtrans %}</p>
