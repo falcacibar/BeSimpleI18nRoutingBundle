@@ -4,19 +4,8 @@ Loogares\UsuarioBundle\Entity\TagRecomendacion:
     manyToOne:
         recomendacion:
             targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
-            joinTable:
-                name: tag_recomendacion
-                joinColumns:
-                    recomendacion:
-                        referencedColumnName: id
-            inveserdBy: recomendacion
         tag:
             targetEntity: Loogares\UsuarioBundle\Entity\Tag
-            joinTable:
-                name: tag_recomendacion
-                joinColumns:
-                    tag:
-                        referencedColumnName: id
     id:
         id:
             type: integer

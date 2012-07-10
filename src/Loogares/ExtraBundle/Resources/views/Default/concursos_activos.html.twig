@@ -21,7 +21,7 @@
 
 		<ul class="concursos">
 			{% for concurso in concursos %}
-				<li>
+				<li{% if concurso.fechaInicio|date('d-M-y') == "now"|date('d-M-y') %} class="nuevo"{% endif %}>
 					<div class="contenedor_idiota">
 						<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 							<div class="roll_over_concurso">

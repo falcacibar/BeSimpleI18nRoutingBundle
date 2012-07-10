@@ -12,6 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class RecomendacionRepository extends EntityRepository
 {
+  public function getRecomendacionesActivas($lugar){
+    $em = $this->getEntityManager();
+
+    $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                           WHERE r.lugar = ?1
+                           AND r.estado != ?2");
+    $q->setParameter(1, $lugar);
+    $q->setParameter(2, 3);
+    
+    return $q->getResult();
+  }
+
 	public function getRecomendacionUsuarioLugar($usuario, $lugar) {
         $em = $this->getEntityManager();
 

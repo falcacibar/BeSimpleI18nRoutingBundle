@@ -65,8 +65,6 @@ class LugarController extends Controller{
         }
 
         $fn = $this->get('fn');
-        $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
-        $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
         $precioPromedio = 0;
         $estrellasPromedio = 0;
 
@@ -187,6 +185,7 @@ class LugarController extends Controller{
             $data->recomendacionPedida = $recomendacionPedidaResult[0];
         }
 
+/*
         $data->horarios         = $fn->generarHorario($lugarResult[0]->getHorario());
         $data->imagen_full      = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
         $data->yaRecomendo      = $yaRecomendoResult;
@@ -200,11 +199,97 @@ class LugarController extends Controller{
         $data->concursos        = $concursos;
         $data->recomendaciones  = &$recomendaciones;
         $data->mostrandoComentariosDe = $_GET['pagina'] * ($_GET['pagina'] != 1) ? (10 + 1) : 1;
+*/
+        $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
+        $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
+        $data->yaRecomendo = $yaRecomendoResult;
+        $data->mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
+        $data->totalFotos = $totalFotosResult;
+        $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
+        $data->totalAcciones = $totalAcciones;
+        $data->accionesUsuario = $accionesUsuario;
+        $data->reservas = $reservas;
+        $data->pedidos = $pedidos;
+        $data->concursos = $concursos;
 
         //Render ALL THE VIEWS
        return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
     }
 
+    public function listadoRecomendacionesAction($slug, $usuario = null){
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        $lugar = $lr->findOneBySlug($slug);
+
+        if(!$lugar){
+            //return 404
+        }
+
+        $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
+        $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
+        $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $resultadosPorPagina = (!isset($_GET['resultados']))?20:$_GET['resultados'];
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
+        $params = array('slug' => $lugar->getSlug());
+        $path = '_listado_recomendacion';
+        $fn = $this->get('fn');
+
+        if($_GET['orden'] == 'ultimas'){
+                $orderBy = "ORDER BY r.fecha_creacion DESC";
+        }else if($_GET['orden'] == 'mas-utiles'){
+                $orderBy = "ORDER BY r.utiles DESC";
+        }else if($_GET['orden'] == 'mejor-evaluadas'){
+                $orderBy = "ORDER BY r.estrellas desc, r.fecha_creacion DESC";
+        }
+
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+
+        $q = $em->createQuery("SELECT count(r) FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.lugar = ?1
+                               AND r.estado != ?2");
+        $q->setParameter(1, $lugar);
+        $q->setParameter(2, 3);
+        $totalRecomendaciones = $q->getSingleScalarResult();
+
+        $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.lugar = ?1
+                               AND r.estado != ?2 $orderBy");
+        $q->setParameter(1, $lugar);
+        $q->setParameter(2, 3);
+        $q->setMaxResults(20);
+        $q->setFirstResult($offset*20);
+
+        $recomendaciones = $q->getResult();
+        
+        foreach($recomendaciones as $key => $recomendacion){
+            $q = $em->createQuery("SELECT count(u) FROM Loogares\UsuarioBundle\Entity\Util u
+                                   WHERE u.recomendacion = ?1");
+            $q->setParameter(1, $recomendacion->getId());
+            $q->setMaxResults(1);
+            $recomendaciones[$key]->apretoUtil = $q->getSingleScalarResult();
+
+            $q = $em->createQuery("SELECT t from Loogares\UsuarioBundle\Entity\Tag t
+                                   JOIN t.tag_recomendacion tr
+                                   WHERE tr.recomendacion = ?1");
+            $q->setParameter(1, $recomendacion->getId());
+            $tags = $q->getResult();
+
+            $tagsBuffer = array();
+            foreach($tags as $tag){ $tagsBuffer[] = $tag->getTag(); }
+            $recomendaciones[$key]->tags = join(', ', $tagsBuffer );
+        }
+
+        $paginacion = $fn->paginacion($totalRecomendaciones, $resultadosPorPagina, $path, $params, $this->get('router') );
+
+        return $this->render('LoogaresLugarBundle:Lugares:listado_recomendaciones.html.twig', array(
+            'lugar' => $lugar, 
+            'recomendaciones' => $recomendaciones,
+            'query' => $_GET,
+            'paginacion' => $paginacion
+        ));            
+    }
+    
     public function agregarAction(Request $request, $slug = null){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
@@ -1287,8 +1372,21 @@ class LugarController extends Controller{
                     $this->get('mailer')->send($message);
                 }
             }
+<<<<<<< HEAD
+=======
+            $flash = $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido()));
+            if (sizeOf($concursosPendientes) == 1) {
+                $post = $concursosPendientes[0]->getConcurso()->getPost();
+                $path = $this->get('router')->generate('post', array('ciudad' => $post->getCiudad()->getSlug(), 'slug' => $post->getSlug()));
+                $flash .= "<br>".$this->get('translator')->trans('lugar.flash.recomendacion.concurso_singular', array('%link%' => '<a href="'. $path .'">'.$post->getTitulo().'</a>'));
+            }
+            else if (sizeOf($concursosPendientes) > 1) {
+                $flash .= "<br>".$this->get('translator')->trans('lugar.flash.recomendacion.concurso_plural');
+            }
+
+>>>>>>> 14029bc0ed1f531785204c61bc2daeabc5a061cc
             //SET FLASH AND REDIRECTTT
-            $this->get('session')->setFlash('lugar_flash', $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido())));
+            $this->get('session')->setFlash('lugar_flash', $flash);
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
         }
