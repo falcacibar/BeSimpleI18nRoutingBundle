@@ -80,6 +80,9 @@ class DefaultController extends Controller
             // Concursos vigentes
             $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
 
+            // Sort Random concursos vigentes
+            shuffle($concursos);
+
             // Obtenemos ganadores si existen
             $ganadores = $conr->getGanadoresConcurso($concurso);
             $concurso->ganadores = $ganadores;
