@@ -20,6 +20,9 @@
 				<ul>
 			{% endif %}
 			<li>
+				{% if concurso.fechaInicio|date('d-M-y') == "now"|date('d-M-y') %} 
+					<div class="nuevo"></div>
+				{% endif %}
 				<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 					<div class="roll_over_concurso">
 						<h3 class="lugar_concurso">{{concurso.titulo}}</h3>

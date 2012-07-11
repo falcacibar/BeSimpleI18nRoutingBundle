@@ -69,7 +69,7 @@
     <!-- Mensajes de éxito -->
     {% if app.session.hasFlash('lugar_flash') %}
             <div class="mensaje_exito">
-                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans }}</p>
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans | raw }}</p>
             </div>
     {% endif %}
 
@@ -208,7 +208,7 @@
             <div class="datos_secundarios_lugar">
                 <div class="tags_primero_lugar">
                     <div class="primero_en_recomendar_lugar">
-                        {% if lugar.recomendacion %}
+                        {% if lugar.recomendacion[0] is defined %}
                             <div class="primero_titulo">
                                 {{'lugar.ficha.datos.primero'|trans}}
                             </div>
@@ -452,25 +452,16 @@
                 </div>
                 <div class="concursos_slide">
                     <div class="espacio_aviso_ficha_1">
-                        <!-- Banners Concursos del sitio -->
-                        {# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
-
                         <script type='text/javascript'>
                             GA_googleFillSlot("{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
                         </script>
                     </div>
                     <div class="espacio_aviso_ficha_2">
-                        <!-- Banners Concursos del sitio -->
-                        {# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
-
                         <script type='text/javascript'>
                             GA_googleFillSlot("{{ad('static','ficha','concursos_medio','medium')}}_{{app.session.get('ciudad').slug}}");
                         </script>
                     </div>
                     <div class="espacio_aviso_ficha_3">
-                        <!-- Banners Concursos del sitio -->
-                        {# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
-
                         <script type='text/javascript'>
                             GA_googleFillSlot("{{ad('static','ficha','concursos_final','medium')}}_{{app.session.get('ciudad').slug}}");
                         </script>
@@ -479,7 +470,9 @@
             </div>
         {% endif %}
 
-    {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug}%}
+    {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug }%}
+
+    </div>
 
     <div class="sidebar">
         <div class="mapa_sidebar" id="mapa-sidebar">
