@@ -1,5 +1,6 @@
 Loogares\BlogBundle\Entity\Posts:
     type: entity
+    repositoryClass: Loogares\BlogBundle\Repository\PostRepository
     table: blog_posts
     manyToOne:       
         lugar:
