@@ -83,7 +83,7 @@
 				<a class="usuario_login_entra" href="{{path('login')}}">{{'general.header.usuario.login'|trans}}</a>
 				<a class="usuario_login_registro" href="{{path('registroUsuario')}}">{{'general.header.usuario.registro'|trans}}</a>
 				<span class="fb_hidden_button"><span class="fb_button" href="" onclick="FB.login(function(response){}, {scope: 'email,user_about_me,user_location,user_photos'});">Facebook</span></span>
-				<a class="facebook_login_{{app.session.get('ciudad').slug}}" href="#"></a>
+				<a class="facebook_login facebook_login_{{app.session.get('ciudad').slug}}" href="#"></a>
 			{% endif %}
 		</div>
 	</div>

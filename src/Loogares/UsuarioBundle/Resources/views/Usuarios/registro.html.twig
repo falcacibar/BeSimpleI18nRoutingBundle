@@ -38,7 +38,7 @@
 		<div class="columna_izquierda_registro">
 			<h1 class="titulo">{% trans %}usuario.registro.facebook.titulo{% endtrans %}</h1>
 			<div class="registro_facebook_img"></div>
-			<div class="registro_facebook_btn_{{app.session.get('ciudad').slug}}"></div>
+			<div class="registro_facebook_btn registro_facebook_btn_{{app.session.get('ciudad').slug}}"></div>
 			
 			<h3 class="titulo">{% trans %}usuario.registro.login.titulo{% endtrans %}</h3>
 			{% include 'LoogaresUsuarioBundle:Usuarios:login_form.html.twig' %}
