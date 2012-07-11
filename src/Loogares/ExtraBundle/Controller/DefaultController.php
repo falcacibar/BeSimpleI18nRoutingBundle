@@ -496,7 +496,7 @@ class DefaultController extends Controller
         ));
     }
 
-    public function actualizarPostsAction() {
+    /*public function actualizarPostsAction() {
         $em = $this->getDoctrine()->getEntityManager();
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
         $ecr = $em->getRepository("LoogaresBlogBundle:EstadoConcurso");
@@ -543,7 +543,7 @@ class DefaultController extends Controller
         $em->flush();
 
         return new Response(sizeOf($posts));
-    }
+    }*/
 
     // Esto está acá como backup, por si alguna vez se necesita de nuevo (no es basura)
     /*public function mailchimpAction() {

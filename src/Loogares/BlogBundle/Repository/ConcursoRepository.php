@@ -33,7 +33,7 @@ class ConcursoRepository extends EntityRepository
                                WHERE p.ciudad = ?1
                                AND c.estado_concurso != ?2
                                AND p.blog_estado = 2
-                               ORDER BY c.fecha_termino DESC");
+                               ORDER BY c.fecha_inicio DESC");
         $q->setParameter(1, $ciudad);
         $q->setParameter(2, 3);
         return $q->getResult();
