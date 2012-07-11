@@ -73,8 +73,8 @@
 			<li>
 				<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 					<div class="roll_over_concurso">
-						<h4 class="lugar_concurso">{{concurso.titulo}}</h4>
-						<p class="sorteo_concurso">{{concurso.descripcion}}</p>
+						<h4 class="lugar_concurso">{{concurso.titulo | slice(0,25)}}</h4>
+						<p class="sorteo_concurso">{{concurso.descripcion | slice(0,50)}}</p>
 					</div>	
 				</a>
 				<div class="contenido_concurso">
