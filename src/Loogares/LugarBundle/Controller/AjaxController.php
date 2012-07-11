@@ -204,6 +204,9 @@ class AjaxController extends Controller{
           $util->setRecomendacion($recomendacion);
           $util->setFecha(new \DateTime());
 
+          //Actualizamos el contador de utiles de la recomendación
+          $recomendacion->setUtiles($recomendacion->getUtiles() + 1);
+
           $em->persist($util);
           $em->flush();
 

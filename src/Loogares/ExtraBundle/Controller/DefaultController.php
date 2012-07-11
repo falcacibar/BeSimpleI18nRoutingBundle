@@ -133,6 +133,8 @@ class DefaultController extends Controller
         //Concursos vigentes
         $concursos = $conr->getConcursosVigentes($ciudadSession['id']);
 
+        // Sort Random de concursos
+        shuffle($concursos);
 
         //Slider del home        
         $sliderCampanas = $pr->getPostsDestacados($ciudadSession['id'], 3);
@@ -448,6 +450,9 @@ class DefaultController extends Controller
 
         // Concursos vigentes
         $vigentes = $conr->getConcursosVigentes($ciudadArray['id']);
+
+        // Sort Random concursos vigentes
+        shuffle($vigentes);
 
         // Concursos cerrados
         $cerrados = $conr->getConcursosCerrados($ciudadArray['id'], $ppag, $offset);
