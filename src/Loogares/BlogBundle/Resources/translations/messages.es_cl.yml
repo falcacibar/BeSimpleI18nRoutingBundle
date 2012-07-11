@@ -36,10 +36,8 @@ blog:
             texto_2: Cuéntale a tus amigos sobre este concurso para que ellos también participen:
             cerrar: No, gracias
         participando_alianza:
-            titulo: ¡Estás anotado para participar!
-            bajada: Ahora solamente te falta escribir recomendaciones
-            texto_1: Entra
-            texto_link: acá
-            texto_2: para buscar algún lugar que conozcas y escribirle una recomendación. Recuerda que mientras más y mejores recomendaciones escribas, más posibilidades tienes de ganar.
+            titulo: ¡Ahora escribe una recomendación!
+            bajada: Empieza haciendo click acá
+            texto_1: Recuerda que mientras más y mejores recomendaciones escribas, más posibilidades tienes de ganar.
             cuentale: Cuéntale a tus amigos sobre este concurso para que ellos también participen:
             cerrar: No, gracias

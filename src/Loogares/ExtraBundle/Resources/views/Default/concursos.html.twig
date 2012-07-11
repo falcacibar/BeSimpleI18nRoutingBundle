@@ -99,19 +99,19 @@
 				</ul>				
 			{% endif %}
 		{% endfor %}
-
-		{% if paginacion.totalPaginas > 1 %}
-		<div class="paginacion_actividad">
-	    	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{totalCerrados}}</strong>
-	        {% if paginacion.totalPaginas != 1 %}
-	             | {{'paginacion.ir_a'|trans}}
-	            <ul>
-	                {{ paginacion.paginacion | raw }}
-	            </ul>
-	        {% endif %}
-	    </div>
-		{% endif %}
 	</div>
+
+	{% if paginacion.totalPaginas > 1 %}
+	<div class="paginacion_concurso">
+    	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{totalCerrados}}</strong>
+        {% if paginacion.totalPaginas != 1 %}
+             | {{'paginacion.ir_a'|trans}}
+            <ul class="numeros_paginacion">
+                {{ paginacion.paginacion | raw }}
+            </ul>
+        {% endif %}
+    </div>
+	{% endif %}
 
 </div>
 {% endblock %}
