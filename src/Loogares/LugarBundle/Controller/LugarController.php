@@ -177,7 +177,7 @@ class LugarController extends Controller{
         $data->pedidos = $pedidos;
         $data->concursos = $concursos;
         $data->usuarioSlug = $usuarioSlug;
-
+        
         //Render ALL THE VIEWS
        return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
     }

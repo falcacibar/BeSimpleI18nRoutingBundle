@@ -2,7 +2,7 @@
 # LISTADOS DE NAVEGACION
 #
 LoogaresPhoneBundle_categorias:
-    pattern:  /api/categorias
+    pattern:  /api/{ciudad}/categorias
     defaults: { _controller: LoogaresPhoneBundle:Default:listadoCategorias, _format: json}
     requirements:
         _format:  json

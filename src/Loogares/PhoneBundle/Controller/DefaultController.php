@@ -10,13 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     
-    public function listadoCategoriasAction(){
+    public function listadoCategoriasAction($ciudad){
         $em = $this->getDoctrine()->getEntityManager();
-        $tlr = $em->getRepository("LoogaresLugarBundle:TipoCategoria");    
+        $tlr = $em->getRepository("LoogaresLugarBundle:TipoCategoria");   
+        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");    
         $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\TipoCategoria u ORDER BY u.prioridad_web asc");
         $tipoCategoria = $q->getResult();
-        $ciudad = $this->get('session')->get('ciudad');
-        $idCiudad = $ciudad['id'];
+        $ciudad = $cr->findOneBySlug($ciudad);
+        $idCiudad = $ciudad->getId();
     
         
         foreach($tipoCategoria as $key => $value){
@@ -428,7 +429,7 @@ class DefaultController extends Controller
 
         $q = $em->createQuery("SELECT l, (l.estrellas*6 + l.utiles + l.total_recomendaciones*2) as ranking FROM Loogares\LugarBundle\Entity\Lugar l 
                                LEFT JOIN l.comuna c
-                               WHERE l.nombre LIKE ?1 AND c.ciudad = ?2
+                               WHERE l.nombre LIKE ?1 AND c.ciudad = ?2 AND l.estado = 1
                                ORDER BY ranking DESC");
         $q->setParameter(1, "%$term%");
         $q->setParameter(2, $ciudad->getId());
