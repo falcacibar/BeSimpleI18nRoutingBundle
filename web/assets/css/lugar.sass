@@ -1582,23 +1582,26 @@ $rojo: #F72121
         float: left
         height: 136px
         padding: 12px 10px
+
         width: 620px
 
-        .espacio_aviso_ficha_1
+        .espacio_aviso_ficha_1, .espacio_aviso_ficha_2, .espacio_aviso_ficha_3
             float: left
             height: 136px
+            position: relative
             width: 198px
+
+            .nuevo
+                background: url('../images/concursos/nuevo.png')
+                height: 72px
+                left: -8px
+                top: -7px
+                position: absolute
+                width: 76px
+                z-index: 406
 
         .espacio_aviso_ficha_2
-            float: left
-            height: 136px
             margin: 0 12px
-            width: 198px
-
-        .espacio_aviso_ficha_3
-            float: left
-            height: 136px
-            width: 198px 
                 
 /* Pedidos Online Lightbox Popup */
 .popup

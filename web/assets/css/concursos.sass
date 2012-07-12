@@ -23,6 +23,23 @@ $rojo_claro: #FF8A8A
 $rojo_medio: #FF5353
 $rojo: #F72121
 
+/* Mixin */
+@mixin link_blanco
+    color: $blanco !important
+    text-decoration: none
+
+@mixin link_blanco_hover
+    color: $blanco !important
+    text-decoration: underline
+
+@mixin link_gris_666
+    color: $gris_666 !important
+    text-decoration: none
+
+@mixin link_gris_666_hover
+    color: $gris_666 !important
+    text-decoration: underline 
+
 /* Página Concursos */
 
 .caja_concursos_vigentes, .caja_concursos_cerrados
@@ -75,6 +92,15 @@ $rojo: #F72121
         width: 206px !important
         position: relative
 
+        .nuevo
+            background: url('../images/concursos/nuevo.png')
+            height: 72px
+            left: -8px
+            top: -13px
+            position: absolute
+            width: 76px
+            z-index: 406
+
         a
             float: left
             height: 245px
@@ -95,7 +121,7 @@ $rojo: #F72121
             z-index: 2
 
             &:hover
-                background: url('../images/home/rollover_concursos.png') no-repeat 0px 0px
+                background: url('../images/home/rollover_concursos_pagina.png') no-repeat 0px 0px
                 color: $blanco !important
                 text:
                     shadow: 0px 0px 0px $blanco
@@ -190,6 +216,49 @@ $rojo: #F72121
                             -webkit-border-radius: 8px
                             color: $blanco
                             padding: 3px 6px
+
+    .paginacion_concurso
+        border-bottom: 1px solid $gris_f6f
+        border-top: 1px solid $gris_f6f
+        color: $gris_666
+        display: block
+        float: left
+        font:
+            size: 12px
+        margin: 20px 0 0
+        padding: 20px 0
+        width: 960px
+
+        p
+            float: left
+            display: block
+            margin: 2px 0 0
+
+        ul
+            float: left
+            margin: 0 0 0 10px
+
+            li
+                border: 1px solid $gris_ccc
+                float: left
+                height: 5px
+                margin: 0 0 0 2px
+                padding: 2px 5px 8px
+                width: 10px !important
+
+                a
+                    @include link_gris_666
+
+            .pagina-actual
+                background: $azul
+                border: 1px solid $azul
+                float: left
+                height: 5px
+                margin: 0 0 0 2px
+                padding: 2px 5px 8px
+
+                a
+                    @include link_blanco
 
 /* Página especial */
 .que_es

@@ -20,6 +20,9 @@
 				<ul>
 			{% endif %}
 			<li>
+				{% if concurso.fechaInicio|date('d-M-y') == "now"|date('d-M-y') %} 
+					<div class="nuevo"></div>
+				{% endif %}
 				<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 					<div class="roll_over_concurso">
 						<h3 class="lugar_concurso">{{concurso.titulo}}</h3>
@@ -70,8 +73,8 @@
 			<li>
 				<a href="{{ path('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}">
 					<div class="roll_over_concurso">
-						<h4 class="lugar_concurso">{{concurso.titulo}}</h4>
-						<p class="sorteo_concurso">{{concurso.descripcion}}</p>
+						<h4 class="lugar_concurso">{{concurso.titulo | slice(0,25)}}</h4>
+						<p class="sorteo_concurso">{{concurso.descripcion | slice(0,50)}}</p>
 					</div>	
 				</a>
 				<div class="contenido_concurso">
@@ -96,19 +99,19 @@
 				</ul>				
 			{% endif %}
 		{% endfor %}
-
-		{% if paginacion.totalPaginas > 1 %}
-		<div class="paginacion_actividad">
-	    	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{totalCerrados}}</strong>
-	        {% if paginacion.totalPaginas != 1 %}
-	             | {{'paginacion.ir_a'|trans}}
-	            <ul>
-	                {{ paginacion.paginacion | raw }}
-	            </ul>
-	        {% endif %}
-	    </div>
-		{% endif %}
 	</div>
+
+	{% if paginacion.totalPaginas > 1 %}
+	<div class="paginacion_concurso">
+    	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{totalCerrados}}</strong>
+        {% if paginacion.totalPaginas != 1 %}
+             | {{'paginacion.ir_a'|trans}}
+            <ul class="numeros_paginacion">
+                {{ paginacion.paginacion | raw }}
+            </ul>
+        {% endif %}
+    </div>
+	{% endif %}
 
 </div>
 {% endblock %}

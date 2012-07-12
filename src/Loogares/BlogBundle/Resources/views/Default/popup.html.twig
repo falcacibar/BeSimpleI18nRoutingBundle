@@ -38,13 +38,11 @@
 	</div>
 {% elseif popup == 'compartir' and tipo == 'recomendacion' %}
 	<div class="popup_compartir_recomendacion">
-		<p class="titulo_popup">{{'blog.popup.participando_alianza.titulo'|trans}}</p>
-		<p class="bajada_popup">{{'blog.popup.participando_alianza.bajada'|trans}}</p>
 		<img class="participacion_click_recomendacion" src="{{ asset('assets/images/concursos/participacion_click_recomendacion.gif') }}" height="91px" width="123px" />
-		<p class="texto_recomendacion">{{'blog.popup.participando_alianza.texto_1'|trans}} <a href="{{url('locale', {'slug' : post.ciudad.slug})}}">{{'blog.popup.participando_alianza.texto_link'|trans}}</a> {{'blog.popup.participando_alianza.texto_2'|trans}}</p>
-		{#
+		<p class="titulo_popup">{{'blog.popup.participando_alianza.titulo'|trans}}</p>
+		<p class="bajada_popup"><a href="{{url('locale', {'slug' : post.ciudad.slug})}}">{{'blog.popup.participando_alianza.bajada'|trans}}</a></p>
+		<p class="texto_recomendacion">{{'blog.popup.participando_alianza.texto_1'|trans}}</p>
 		<p class="comparte_con_amigos">{{'blog.popup.participando_alianza.cuentale'|trans}}</p>
-		
 		<ul>
 	 		<li class="fb_share" style="margin: 0 0 5px;">
                 <a class="compartir_por_facebook" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
@@ -55,7 +53,7 @@
                 {% set data_via = "Loogarescom" %}
                 <a class="compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&via={{data_via|url_encode()}}&text={{data_text|url_encode()}}" target="_blank"></a>
             </li>
-		</ul>#}
+		</ul>
         <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>
 	</div>
 {% endif %}

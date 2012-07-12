@@ -53,7 +53,7 @@
 
 			<div class="registro">
 	            <a href="#">
-	                <div class="boton_fb_{{app.session.get('ciudad').slug}}"></div>
+	                <div class="boton_fb boton_fb_{{app.session.get('ciudad').slug}}"></div>
 	            </a>
 	            <p class="registro_mail">{% trans %}usuario.login.registro.o{% endtrans %} <a href="{{path('registroUsuario')}}">{% trans %}usuario.login.registro.mail{% endtrans %}</a></p>
 			</div>
@@ -126,7 +126,7 @@
 		</div>
 
 		<!-- Colaboradores -->
-		{% if sliderCampanas|length != 0 %}
+		{#% if sliderCampanas|length != 0 %}
 		<div class="colaboradores">
 			<div class="encabezados_titulos">
 				<h5 class="titulo_home_notas">{{'extra.home.modulo_notas_colaboraciones.titulo'|trans}}</h5>
@@ -153,7 +153,7 @@
 				</ul>
 			</div>
 		</div>
-		{% endif %}
+		{% endif %#}
 
 		<!-- Loogareño Estrella -->
 		{# Santiago de Chile #}

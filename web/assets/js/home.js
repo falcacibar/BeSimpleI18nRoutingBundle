@@ -63,7 +63,8 @@ $(function(){
     var concursoSlider = $('.concursos').bxSlider({
         displaySlideQty: $('.concursos li').length,
         moveSlideQty: 1,
-        controls: false
+        controls: false,
+        auto: true
     });
 
 
