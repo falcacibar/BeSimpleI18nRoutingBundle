@@ -17,14 +17,24 @@
 {% endblock %}
 
 {% block content %}
-    <div class="buscador_box">
+
+    <div class="pagina_buscador_box">
+        <div class="que_buscar">
+            ¿Qué estás buscando?
+        </div>
         <form action="{{ path('_buscar', { 'slug': app.session.get('ciudad').slug }) }}">
             <div class="buscar">
-                    <input class="buscador" name="q" type="text" placeholder="{{'general.header.ejemplos_buscador'|trans}}" />
+                <input class="buscador" name="q" type="text" placeholder="{{'general.header.ejemplos_buscador'|trans}}" />
                 <div class="caja_icono">
                     <input type="submit" class="icono_buscar" value="" />
                 </div>
             </div>
         </form>
     </div>
+
+    <!-- Concursos del sitio -->
+    {# if concursos | length > 0 %}
+        {% include "LoogaresExtraBundle:Default:concursos_activos.html.twig" %}
+    {% endif #}
+
 {% endblock %}
