@@ -64,7 +64,7 @@ class SearchController extends Controller{
 
   public function buscarAction(Request $request, $slug, $path, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
 
-    if(empty($slug) && (!isset($_GET['q']) || empty($_GET['q']))) {
+    if(empty($categoria) && (!isset($_GET['q']) || empty($_GET['q']))) {
         return $this->render('LoogaresLugarBundle:Search:buscador.html.twig');
     }
 

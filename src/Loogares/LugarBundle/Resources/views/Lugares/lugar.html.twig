@@ -470,7 +470,7 @@
             </div>
         {% endif %}
 
-    {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug }%}
+    {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug , 'enLugar' : true}%}
 
     <div class="sidebar">
         <div class="mapa_sidebar" id="mapa-sidebar">

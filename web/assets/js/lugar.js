@@ -1,8 +1,8 @@
 $(document).ready(function(){
     var compartirTimeout,
         fechasRecomendaciones = [];
-        
-    $('.fecha_recomendacion').each(function(){ 
+
+    $('.fecha_recomendacion').each(function(){
         var date = $(this).text().split('/'),
             dateObj = Date.parse(date[2] + "-" + date[1] + "-" + date[0]);
         fechasRecomendaciones.push( dateObj );
@@ -12,7 +12,7 @@ $(document).ready(function(){
 
     $('.borra_recomendacion').click(function(e){
         if(confirm('¿Estás seguro de que quieres borrar tu recomendación?')){
-           return true; 
+           return true;
         }else{
             return false;
         };
@@ -29,7 +29,7 @@ $(document).ready(function(){
             estrellasPorRecomendacion('pedida', stars);
         }
     });
-        
+
     $('.cancelar-recomienda').live('click', function(){
         $('[name="recomienda"]').fadeOut(function(){
             $(this).closest('.recomendacion').find('.recomendacion-bloque').children().show();
@@ -47,14 +47,14 @@ $(document).ready(function(){
             window.history.pushState({}, "", $(this).attr('href'));
             $estaRecomendacion.hide();
         }
-        
+
         nombre = $estaRecomendacion.find('.nombre_recomendacion > strong > a').text();
 
         if($('.recomendacion_pedida').length > 0){
             if(oldBrowser == false){
                 $pedida = $('.recomendacion_pedida').hide();
             }
-            
+
             fechaPedida = $pedida.find('.fecha_recomendacion').text().split('/');
             fechaPedidaObj = Date.parse(fechaPedida[2] + "-" + fechaPedida[1] + "-" + fechaPedida[0]);
 
@@ -72,8 +72,8 @@ $(document).ready(function(){
                 $pedida.remove();
             }
         }
-        
-        $('body').animate({'scrollTop': $('.editar_lugar').offset().top}, 200);
+
+        $('body').animate({'scrollTop': $('.recomendacion_pedida_container').offset().top}, 200);
 
         $estaRecomendacion.addClass('recomendacion_pedida');
         $('.recomendacion_pedida_container').append($estaRecomendacion.fadeIn(800));
@@ -101,7 +101,7 @@ $(document).ready(function(){
                 if($this.hasClass('boton_util')){
                     if($this.hasClass('boton_activado')){
                         $this.prev('.conteo').text(conteo+1);
-                        $this.removeClass('boton_activado').addClass('boton_clickeado'); 
+                        $this.removeClass('boton_activado').addClass('boton_clickeado');
 
                         // Request para enviar mail a usuario de recomendación solo si es un util
                         send_util_mail(dataObj.recomendacion);
@@ -113,13 +113,13 @@ $(document).ready(function(){
                 }
                 else {
                     if($this.hasClass('boton_activado')) {
-                        $this.removeClass('boton_activado').addClass('boton_clickeado');                    
+                        $this.removeClass('boton_activado').addClass('boton_clickeado');
                     }
                     else if($this.hasClass('boton_clickeado')) {
                         $this.removeClass('boton_clickeado').addClass('boton_activado');
                     }
 
-                    $('.quiero_ir_valor').text(data.totalAcciones[0].total)                       
+                    $('.quiero_ir_valor').text(data.totalAcciones[0].total)
                     $('.quiero_volver_valor').text(data.totalAcciones[1].total)
                     $('.estuve_alla_valor').text(data.totalAcciones[2].total)
                     $('.favoritos_valor').text(data.totalAcciones[3].total)
@@ -135,10 +135,10 @@ $(document).ready(function(){
                         $('.quiero_ir_lugar').replaceWith("<p class='quiero_ir_lugar boton_desactivado' data-hecho=''></p>");
                     }
                     if(data.accionesUsuario[2].puede == 0) {
-                        $('.estuve_alla_lugar').replaceWith("<p class='estuve_alla_lugar boton_desactivado' data-hecho=''></p>");                        
+                        $('.estuve_alla_lugar').replaceWith("<p class='estuve_alla_lugar boton_desactivado' data-hecho=''></p>");
                     }
                     if(data.accionesUsuario[4].puede == 0) {
-                        $('.recomendar_despues_lugar').replaceWith("<p class='recomendar_despues_lugar boton_desactivado' data-hecho=''></p>");                        
+                        $('.recomendar_despues_lugar').replaceWith("<p class='recomendar_despues_lugar boton_desactivado' data-hecho=''></p>");
                     }
 
                     // Se actualiza el menú del usuario
@@ -172,12 +172,12 @@ $(document).ready(function(){
         }else if($this.hasClass('quiero_volver_lugar')){
             dataObj = {'lugar': idLugar,'accion': 'quiero_volver'};
         }else if($this.hasClass('estuve_alla_lugar')){
-            dataObj = {'lugar': idLugar,'accion': 'estuve_alla'};    
+            dataObj = {'lugar': idLugar,'accion': 'estuve_alla'};
         }else if($this.hasClass('favoritos_lugar_icono')){
             dataObj = {'lugar': idLugar,'accion': 'favoritos'};
         }else if($this.hasClass('recomendar_despues_lugar')){
             dataObj = {'lugar': idLugar,'accion': 'recomendar_despues'};
-        }             
+        }
 
         ejecutar_accion(dataObj, $this);
     });
@@ -194,13 +194,13 @@ $(document).ready(function(){
             $.fancybox.hideActivity;
         }
     });
-    
+
     $('.recomendar_ahora').click(function(e){
         e.preventDefault();
         if($('.recomienda_lugar_caja h3').offset().top != null)
             $('body').animate({'scrollTop': $('.recomienda_lugar_caja h3').offset().top - 20}, 200);
     });
-    
+
     $('.recomendar_despues').click(function(e){
         e.preventDefault();
         var $this = $(this);
@@ -213,7 +213,7 @@ $(document).ready(function(){
             $('.tooltip_quiero_volver').qtip('toggle',false)
         }
     });
-    
+
     $('.recomienda_lugar').click(function(e){
         e.preventDefault();
         if($('.recomienda_lugar_caja h3').offset() != null)
@@ -259,7 +259,7 @@ $(document).ready(function(){
                     }
                 },
                 position: {
-                    my: 'top center', 
+                    my: 'top center',
                     at: 'bottom left',
                     adjust: {
                         x: 9,
@@ -292,7 +292,7 @@ $(document).ready(function(){
             }
         },
         position: {
-            my: 'top center', 
+            my: 'top center',
             at: 'bottom left',
             adjust: {
                 x: 9,
@@ -325,7 +325,7 @@ $(document).ready(function(){
             }
         },
         position: {
-            my: 'top center', 
+            my: 'top center',
             at: 'bottom left',
             adjust: {
                 x: 59,
@@ -357,7 +357,7 @@ $(document).ready(function(){
             }
         },
         position: {
-            my: 'top center', 
+            my: 'top center',
             at: 'bottom left',
             adjust: {
                 x: 9,
@@ -389,7 +389,7 @@ $(document).ready(function(){
             }
         },
         position: {
-            my: 'top center', 
+            my: 'top center',
             at: 'bottom left',
             adjust: {
                 x: 9,
@@ -421,7 +421,7 @@ $(document).ready(function(){
             }
         },
         position: {
-            my: 'top center', 
+            my: 'top center',
             at: 'bottom left',
             adjust: {
                 x: 45,
@@ -453,7 +453,7 @@ $(document).ready(function(){
             }
         },
         position: {
-            my: 'top center', 
+            my: 'top center',
             at: 'bottom left',
             adjust: {
                 x: 55,
@@ -485,7 +485,7 @@ $(document).ready(function(){
             }
         },
         position: {
-            my: 'top center', 
+            my: 'top center',
             at: 'bottom left',
             adjust: {
                 x: 55,
@@ -517,7 +517,7 @@ $(document).ready(function(){
             }
         },
         position: {
-            my: 'top center', 
+            my: 'top center',
             at: 'bottom left',
             adjust: {
                 x: 5,
@@ -557,7 +557,7 @@ $(document).ready(function(){
         $('.precio-detalle').append(tipo_lugar[precio_lugar-1]);
     }
 });
-            
+
 function estrellasPorRecomendacion(id, estrellas){
     $('.recomendacion-'+id+'-raty').raty({
         width: 140,
@@ -587,7 +587,7 @@ function estrellasOtrosLugares(id, estrellas){
 
 function editarRecomendacion(lugar){
     $('.edita_recomendacion').click(function(e){
-        e.preventDefault(); 
+        e.preventDefault();
         $recomendacionBloque = $(this).closest('.recomendacion').find('.recomendacion-bloque');
         $.ajax({
             type:'post',
@@ -604,9 +604,9 @@ function editarRecomendacion(lugar){
                                 .append("<a href='#' class='link_azul cancelar-recomienda'>Cancelar</a>");
                         }
                     })
-                });  
+                });
             }
-        }); 
+        });
     });
 }
 
