@@ -133,9 +133,11 @@ class DefaultController extends Controller
         //Concursos vigentes
         $concursos = $conr->getConcursosVigentes($ciudadSession['id']);
 
+        // Sort Random de concursos
+        shuffle($concursos);
 
         //Slider del home        
-        $sliderCampanas = $pr->getPostsDestacados($ciudadSession['id'], 3);
+        //$sliderCampanas = $pr->getPostsDestacados($ciudadSession['id'], 3);
 
         //Recomendacion Estrella
         $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\LoogarenoEstrella u ORDER BY u.id desc");
@@ -212,8 +214,7 @@ class DefaultController extends Controller
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,
-            'concursos' => $concursos,
-            'sliderCampanas' => $sliderCampanas
+            'concursos' => $concursos
         ));
     }
 
@@ -449,6 +450,9 @@ class DefaultController extends Controller
         // Concursos vigentes
         $vigentes = $conr->getConcursosVigentes($ciudadArray['id']);
 
+        // Sort Random concursos vigentes
+        shuffle($vigentes);
+
         // Concursos cerrados
         $cerrados = $conr->getConcursosCerrados($ciudadArray['id'], $ppag, $offset);
 
@@ -496,7 +500,7 @@ class DefaultController extends Controller
         ));
     }
 
-    public function actualizarPostsAction() {
+    /*public function actualizarPostsAction() {
         $em = $this->getDoctrine()->getEntityManager();
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
         $ecr = $em->getRepository("LoogaresBlogBundle:EstadoConcurso");
@@ -543,7 +547,7 @@ class DefaultController extends Controller
         $em->flush();
 
         return new Response(sizeOf($posts));
-    }
+    }*/
 
     // Esto está acá como backup, por si alguna vez se necesita de nuevo (no es basura)
     /*public function mailchimpAction() {

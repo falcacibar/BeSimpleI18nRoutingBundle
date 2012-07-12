@@ -121,7 +121,10 @@ avalanche_imagine:
             options: { size: [96, 96], mode: outbound }
         medium_concurso:
             type:    thumbnail
-            options: { size: [177, 100], mode: outbound }
+            options: { size: [204, 115], mode: outbound }
+        small_concurso:
+            type:    thumbnail
+            options: { size: [198, 111], mode: outbound }
         phone_lista_thumbnail:
             type:    thumbnail
             options: { size: [12, 112], mode: outbound }
