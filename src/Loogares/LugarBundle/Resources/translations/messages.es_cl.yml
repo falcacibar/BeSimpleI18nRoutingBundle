@@ -72,7 +72,7 @@ lugar:
             aqui: aquí
         total_recomendaciones: recomendación|recomendaciones
         multimedia:
-            galeria: Ver galería (%total% foto)|Ver galería (%total% fotos)
+            galeria: Ver galería %br%(%total% foto)|Ver galería %br%(%total% fotos)
             agregar_foto: » Agrega una foto
             video: Ver video
         datos:

@@ -70,7 +70,7 @@ lugar:
             aqui: here
         total_recomendaciones: review|reviews
         multimedia:
-            galeria: Show album (%total% photo)|Show album (%total% photos)
+            galeria: Show album %br%(%total% photo)|Show album %br%(%total% photos)
             agregar_foto: » Add photos
             video: Watch video
         datos:

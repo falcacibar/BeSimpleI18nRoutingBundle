@@ -715,18 +715,66 @@ $rojo: #F72121
             border: 1px solid $gris_ccc
             display: block
             float: left
-            margin: 0 0 20px 0
+            margin: 0 0 10px 0
             padding: 7px
 
-            a
+            .ver_galeria
                 display: block
                 float: left
                 height: 130px
                 width: 130px
 
-        .video_lugar
+                .ver_galeria_over
+                    float: left
+                    cursor: pointer
+                    height: 130px
+                    position: relative
+                    top: 0
+                    width: 130px
+                    z-index: 1
+
+                    &:hover
+                        background: url('../images/extras/ver_galeria.png') no-repeat 0 0
+                        color: $blanco !important
+                        text:
+                            shadow: 0px 0px 0px $blanco
+
+                    .numero_de_fotos
+                        height: 50px
+                        float: left
+                        opacity: 0
+                        padding: 80px 0 0
+                        position: relative
+                        text:
+                            align: center
+                        top: 0
+                        width: 130px
+
+                        &:hover
+                            opacity: 1
+
+                .imagen_lugar
+                    position: relative
+                    top: -130px
+
+                    img
+                        float: left
+                        height: 130px
+                        width: 130px
+
+        .agregar_foto
+            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -782px
             float: left
-            margin: 10px 0 0 0
+            padding: 0 0 5px 20px
+            width: 130px
+
+            &:hover
+                background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -782px
+
+        .video_lugar
+            border-top: 1px solid $gris_f6f
+            float: left
+            padding: 5px 0 0 0
             width: 146px
 
             .ver_video_lugar
@@ -1662,7 +1710,20 @@ $rojo: #F72121
         float: left
         height: 300px
         margin: 0 0 20px 0
+        position: relative
         width: 300px
+
+        .boton_mapa_grande
+            background: url('../images/extras/ver_mapa_grande.png') no-repeat 0 0
+            float: left
+            height: 25px
+            left: 20px
+            position: absolute
+            top: 255px
+            width: 260px
+
+            &:hover
+                background: url('../images/extras/ver_mapa_grande.png') no-repeat 0 -25px                  
 
     /* Restaurantes con descuentos en Pedidos Online */
     .caja_promociones
