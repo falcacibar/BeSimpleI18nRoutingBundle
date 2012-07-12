@@ -137,7 +137,7 @@ class DefaultController extends Controller
         shuffle($concursos);
 
         //Slider del home        
-        $sliderCampanas = $pr->getPostsDestacados($ciudadSession['id'], 3);
+        //$sliderCampanas = $pr->getPostsDestacados($ciudadSession['id'], 3);
 
         //Recomendacion Estrella
         $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\LoogarenoEstrella u ORDER BY u.id desc");
@@ -214,8 +214,7 @@ class DefaultController extends Controller
 
         return $this->render('LoogaresExtraBundle:Default:home.html.twig', array(
             'home' => $home,
-            'concursos' => $concursos,
-            'sliderCampanas' => $sliderCampanas
+            'concursos' => $concursos
         ));
     }
 
