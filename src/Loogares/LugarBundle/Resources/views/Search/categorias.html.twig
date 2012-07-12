@@ -17,17 +17,22 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="titulo_busqueda">Categorías Loogares.com</h1>
-    <p class="breadcrumb">{{app.session.get('ciudad').nombre}}</p>
 
-    {% for rama in arbol_categorias %}
-    <div>
-        <div>{{ rama.tipo.nombre }}</div>
-        <ul>
-        {% for categoria in rama.categorias %}
-            <li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+    <div class="resultados_wrapper">
+
+        <h1 class="titulo_busqueda icono_todos">Todas las categorías en {{app.session.get('ciudad').nombre}}</h1>
+
+        {% for rama in arbol_categorias %}
+        <div class="tipo_de_lugar">
+            <div class="categorias categoria_{{ rama.tipo.slug }}">{{ rama.tipo.nombre }}</div>
+            <ul>
+            {% for categoria in rama.categorias %}
+                <li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+            {% endfor %}
+            </ul>
+        </div>
         {% endfor %}
-        </ul>
+
     </div>
-    {% endfor %}
+
 {% endblock %}
