@@ -29,6 +29,9 @@ lugar:
             mail: Es obligatorio que ingreses tu E-mail
             mails: Es necesario que ingreses al menos un E-mail
 
+    categoria:
+        titulo_pagina: Todas las categorías en
+
     buscar:
         titulo: Resultados para: %buscar%
         total_recomendaciones: recomendación|recomendaciones
@@ -50,6 +53,7 @@ lugar:
         buscar_zona: Busca en otra zona. Ej. "Santiago", "Ñuñoa" o "Bellavista"
         revisa: Revisa si está bien escrito, sin faltas de ortografía
         buscar_general: Haz una búsqueda más general. Ej. "Cines" o "Bares"
+        titulo_pagina_buscar: ¿Qué estás buscando?
 
     ficha:
         pedidos:

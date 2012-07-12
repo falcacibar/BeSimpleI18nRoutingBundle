@@ -20,7 +20,7 @@
 
     <div class="resultados_wrapper">
 
-        <h1 class="titulo_busqueda icono_todos">Todas las categorías en {{app.session.get('ciudad').nombre}}</h1>
+        <h1 class="titulo_busqueda icono_todos">{{'lugar.categoria.titulo_pagina'|trans}} {{app.session.get('ciudad').nombre}}</h1>
 
         {% for rama in arbol_categorias %}
         <div class="tipo_de_lugar">

@@ -838,6 +838,7 @@ $rojo: #F72121
 	border-top: 1px solid $gris_f6f
 	float: left
 	height: 160px
+	margin: 0 0 30px 0
 	width: 960px
 
 	.que_buscar
@@ -856,6 +857,12 @@ $rojo: #F72121
 		float: left
 		margin: 0 191px 30px 191px
 		width: 575px
+
+		&:hover
+			border: 1px solid $gris_444
+
+		&:focus
+			border: 1px solid $azul		
 
 		.buscador
 			border: 0px !important
@@ -883,7 +890,10 @@ $rojo: #F72121
 				cursor: pointer
 				height: 39px
 				margin: 0
-				width: 39px		
+				width: 39px
+
+				&:hover
+					background: url('../images/extras/icono_buscar_over.png') no-repeat 0 0
 
 /* Página de categorías */
 

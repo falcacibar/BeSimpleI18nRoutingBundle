@@ -7,10 +7,30 @@
 {% block meta %}
 {% endblock %}
 
-{% block ads %}
-{% endblock %}
-
 {% block javascripts %}
+<script src="{{asset('assets/js/jquery.bxSlider.min.js')}}"></script>
+<script type="text/javascript">
+$(function() {
+    $('.concursos li').css('visibility', 'visible')
+
+    var concursoSlider = $('.concursos').bxSlider({
+        displaySlideQty: $('.concursos li').length,
+        moveSlideQty: 1,
+        controls: false,
+        auto: true
+    });
+
+    $('.prev_concurso').click(function(){
+        concursoSlider.goToPreviousSlide();
+        return false;
+    });
+
+    $('.next_concurso').click(function(){
+        concursoSlider.goToNextSlide();
+        return false;
+    });
+});
+</script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -20,7 +40,7 @@
 
     <div class="pagina_buscador_box">
         <div class="que_buscar">
-            ¿Qué estás buscando?
+            {{'lugar.buscar.titulo_pagina_buscar'|trans}}
         </div>
         <form action="{{ path('_buscar', { 'slug': app.session.get('ciudad').slug }) }}">
             <div class="buscar">
@@ -32,9 +52,8 @@
         </form>
     </div>
 
-    <!-- Concursos del sitio -->
-    {# if concursos | length > 0 %}
+    {% if concursos | length > 0 %}
         {% include "LoogaresExtraBundle:Default:concursos_activos.html.twig" %}
-    {% endif #}
+    {% endif %}
 
 {% endblock %}

@@ -27,6 +27,9 @@ lugar:
             mail: You must type your E-mail address
             mails: You must type at least one E-mail address
 
+    categoria:
+        titulo_pagina: All the categories in
+
     buscar:
         titulo: Results for: %buscar%
         total_recomendaciones: review|reviews
@@ -48,6 +51,7 @@ lugar:
         buscar_zona: Search in other neighborhoods. E.g. "Santiago" o "Bellavista"
         revisa: Check for spelling mistakes and typos
         buscar_general: Broaden your search. E.g. "Bars" o "Restaurants"
+        titulo_pagina_buscar: What are you looking for?
 
     ficha:
         pedidos:
