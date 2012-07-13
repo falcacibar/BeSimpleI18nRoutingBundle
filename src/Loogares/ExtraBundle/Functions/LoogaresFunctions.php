@@ -18,7 +18,7 @@ class LoogaresFunctions
 
         $nuevo = $imagine->open("assets/images/concursos/nuevo.png");
         
-        $thumbnail->paste($preview, new \Imagine\Image\Point(8,7));
+        $thumbnail->paste($lol, new \Imagine\Image\Point(8,7));
         $thumbnail->paste($nuevo, new \Imagine\Image\Point(0,0));
 
         $thumbnail->save("assets/media/cache/mail_concursos/assets/images/blog/$filename");
