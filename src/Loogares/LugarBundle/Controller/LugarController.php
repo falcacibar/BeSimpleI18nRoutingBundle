@@ -291,7 +291,7 @@ class LugarController extends Controller{
 
         // aqui un ternario hubiese sido mejor.
         if($enLugar) {
-            $resultadosPorPagina  = 2;
+            $resultadosPorPagina  = 5;
         } else if (isset($_GET['resultados']) && in_array((int) $listaResultadosPorPagina, $_GET['resultados'], true)) {
             $resultadosPorPagina = (int) $_GET['resultados'];
         } else {

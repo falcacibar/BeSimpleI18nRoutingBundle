@@ -91,7 +91,7 @@
 	                        {{recomendacion.tags}}
 	                    </p>
 	                {% endif %}
-	             </div>
+	            </div>
 	            <div class="caja_opciones_recomendacion">
 	                <ul class="opciones_recomendacion">
 	                    {% if recomendacion.usuario.slug != false %}
@@ -150,8 +150,8 @@
         {% endif %}
     </div>
     {% else %}
-    <div style="text-align: right">
-    	<a href="{{ path('_lugarRecomendaciones',{"slug": lugar.slug}) }}">Ver más recomendaciones</a>
+    <div>
+    	<a class="ver_todas_recomendaciones" href="{{ path('_lugarRecomendaciones',{"slug": lugar.slug}) }}"></a>
     </div>
     {% endif %}
 

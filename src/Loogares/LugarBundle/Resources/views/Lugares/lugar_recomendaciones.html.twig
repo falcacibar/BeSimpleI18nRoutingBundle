@@ -1,0 +1,248 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    {{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}
+{% endblock %}
+
+{% block meta %}
+    <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
+    <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
+    <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
+    <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “{{lugar.recomendacion[0].texto|slice(0,160)}}...”{% endif %}" />
+
+    <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}{{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{ lugar.nombre }}" />
+{% endblock %}
+
+{% block ads %}
+    <script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
+    <script type='text/javascript'>
+        GS_googleAddAdSenseService("{{adsense_service}}");
+        GS_googleEnableAllServices();
+    </script>
+    <script type='text/javascript'>
+        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
+    </script>
+    <script type='text/javascript'>
+        GA_googleFetchAds();
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=AIzaSyATOJuTIR8SfADJZrSGHtbEt-EPRrqZDjc" type="text/javascript"></script>
+   <!-- <script src='{{asset('assets/js/googleMapFicha.js')}}'></script> -->
+    <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
+    <script src="{{asset('assets/js/lugar.js')}}"></script>
+
+    <script>
+        $(document).ready(function(){
+            {% if lugar.usuarioSlug != null %}
+                $('body').animate({'scrollTop': $('.recomendacion_pedida_container').offset().top}, 200);
+                recomendacionPedida("{{lugar.usuarioSlug}}");
+            {% endif %}
+        });
+    </script>
+
+    <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen">
+{% endblock %}
+
+{% block content %}
+<div id="lugar-ficha" data-id="{{lugar.id}}">
+    <!-- Mensajes de éxito -->
+    {% if app.session.hasFlash('lugar_flash') %}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans | raw }}</p>
+            </div>
+    {% endif %}
+
+    {% if app.session.hasFlash('error_flash') %}
+            <div class="mensaje_error">
+                <div class="imagen_error"></div><p class="txt_error">{{ app.session.flash('error_flash') | raw }}</p>
+            </div>
+    {% endif %}
+
+    {% if app.session.hasFlash('cerrado_flash') %}
+            <div class="mensaje_cerrado">
+                <div class="imagen_cerrado"></div><p class="txt_exito">{{ app.session.flash('cerrado_flash') | trans }}</p>
+            </div>
+    {% endif %}
+
+    <div class="contenido_central" id="lugar-info">
+        <div class="lugar_info">
+            {% if app.session.hasFlash('cerrado_flash') %}
+                <div class="overlay"></div>
+            {% endif %}
+            <h1 class="titulo_lugar">{{ lugar.totalRecomendaciones }} Recomendaciones en <a href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
+
+            <div class="multimedia_lugar">
+                <div class="foto_lugar" id="lugar-foto">
+                    {% if lugar.imagen_full != 'default.gif' %}
+                        <img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/>
+                    {% else %}
+                    <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}"><img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="datos_principales_lugar">
+                <div class="estrellas">
+                    <div data-stars="{{lugar.estrellas}}" class="star-raty estrellas_lugar"></div>
+                    <noscript>
+                        {{lugar.estrellas}} Estrellas
+                    </noscript>
+                </div>
+
+                <div class="direccion_lugar" id="lugar-direccion"><h2>{{ lugar.calle }} {{ lugar.numero }},{%- if lugar.detalle -%}{{-' '-}}{{lugar.detalle}},{%- endif -%}
+                    {{-' '-}}<a href="{{ path('_categoria_comuna', {'slug': lugar.comuna.ciudad.slug, 'comuna': lugar.comuna.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.comuna.nombre}}</a>, <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.comuna.ciudad.nombre }}</a></h2>
+                </div>
+
+                <div class="categoria_lugar">
+                    {% if lugar.categoriaLugar %}
+                        <div class="categoria_lugar_box" id="lugar-categorias">
+                            <span class="subtitulos_lugar">{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}</span>
+                            {% for categoriaLugar in lugar.categoriaLugar %}
+                                <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': categoriaLugar.categoria.slug}) }}">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if lugar.sector %}
+                        <div class="sector_lugar_box" id="lugar-sector">
+                            <span class="subtitulos_lugar">{{'lugar.ficha.datos.sector'|trans}}</span>
+                            <a href="{{ path('_categoria_sector', {'slug': lugar.comuna.ciudad.slug, 'sector': lugar.sector.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.sector.nombre }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="actividad_lugar">
+
+            {% if app.session.hasFlash('cerrado_flash') %}
+            <div class="overlay">
+                <img class="lock" src="{{ asset('assets/images/extras/lock.png') }}" height="31" width="23" />
+            </div>
+            {% endif %}
+
+            {% if lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
+                <a class="recomienda_lugar_{{app.session.get('ciudad').slug}} recomienda_lugar"></a>
+            {% else %}
+                <a class="edita_recomendacion_lugar" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': app.security.token.user.slug }) }}"></a>
+            {% endif %}
+
+            {% if lugar.accionesUsuario.2.puede == 1 %}
+            <div class="qtip_estuve_alla">
+                    <a href="#" class="recomendar_ahora_{{app.session.get('ciudad').slug}} recomienda_lugar"></a>
+                    <a href="#" class="recomendar_despues"></a>
+            </div>
+            {% endif %}
+
+            <div class="tooltip_estuve_alla estuve_alla_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
+                {% if lugar.accionesUsuario.2.puede == 1 %}
+                    <a class="estuve_alla_lugar tooltip_ya_estuve boton_accion {{(lugar.accionesUsuario.2.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></a>
+                {% else %}
+                    <p class="estuve_alla_lugar tooltip_ya_estuve boton_desactivado" data-hecho="{{lugar.accionesUsuario.2.hecho}}"></p>
+                    <!-- Qtip Ya Estuve -->
+                    {% if app.security.token.user.id is not defined %}
+                    <div class="qtip_ya_estuve">
+                        {{'lugar.ficha.qtip.ya_estuve_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('login')}}">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        <br /><br />
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('registroUsuario')}}">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                    </div>
+                    {% endif %}
+                {% endif %}
+                <p class="estuve_alla_valor conteo">{{lugar.totalAcciones.2.total}}</p>
+            </div>
+
+            <div class="tooltip_quiero_volver quiero_volver_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
+                {% if lugar.accionesUsuario.1.puede == 1 %}
+                    <a class="quiero_volver_lugar tooltip_quiero_volver boton_accion {{(lugar.accionesUsuario.1.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}} " data-hecho="{{lugar.accionesUsuario.1.hecho}}"></a>
+                {% else %}
+                    <p class="quiero_volver_lugar tooltip_quiero_volver boton_desactivado" data-hecho="{{lugar.accionesUsuario.1.hecho}}"></p>
+                    <!-- Qtip Quiero Volver -->
+                    <div class="qtip_quiero_volver">
+                        {{'lugar.ficha.qtip.volver_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('login')}}">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        <br /><br />
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('registroUsuario')}}">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                    </div>
+                {% endif %}
+                <p class="quiero_volver_valor conteo">{{lugar.totalAcciones.1.total}}</p>
+            </div>
+
+            <div class="quiero_ir_btn flota_derecha{{(is_granted('ROLE_USER') == false) ? ' not_logged' : ''}}">
+                {% if lugar.accionesUsuario.0.puede == 1 %}
+                    <a class="quiero_ir_lugar tooltip_quiero_ir boton_accion {{(lugar.accionesUsuario.0.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></a>
+                {% else %}
+                    <p class="quiero_ir_lugar tooltip_quiero_ir boton_desactivado" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></p>
+                    <!-- Qtip Quiero Ir -->
+                    {% if app.security.token.user.id is not defined %}
+                    <div class="qtip_quiero_ir">
+                        {{'lugar.ficha.qtip.quiero_ir_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('login')}}">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
+                        <br /><br />
+                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('registroUsuario')}}">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
+                    </div>
+                    {% endif %}
+                {% endif %}
+                <p class="quiero_ir_valor conteo">{{lugar.totalAcciones.0.total}}</p>
+            </div>
+            <div>
+                {% if lugar.accionesUsuario.4.puede == 1 %}
+                    <a class="recomendar_despues_lugar boton_accion" data-hecho="{{lugar.accionesUsuario.4.hecho}}"></a>
+                {% else %}
+                    <p class="recomendar_despues_lugar" data-hecho="{{lugar.accionesUsuario.0.hecho}}"></p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="caja_inferior_ficha">
+            {% if app.session.hasFlash('cerrado_flash') %}
+                <div class="overlay">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug , 'enLugar' : false}%}
+
+    <div class="sidebar">
+        <div class="mapa_sidebar" id="mapa-sidebar">
+
+            <div id="mapaOtros" style="height: 300px; width: 300px;">
+            </div>
+
+            <div id="otros-lugaresMapa">
+                <input type="hidden" id="idLugar" value="{{lugar.id}}" />
+                <input id="coordenadas0" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}">
+                <input id="coordenadasX" type="hidden" value="{{lugar.mapx}}">
+                <input id="coordenadasY" type="hidden" value="{{lugar.mapy}}">
+                <input id="puntodestacado" type="hidden" value="">
+                <input id="nombre0" type="hidden" value="{{ lugar.nombre }}">
+                <input id="direccion0" type="hidden" value="{{ lugar.calle }} {{lugar.numero}}">
+                <input id="baseurl" type="hidden" value="localhost" />
+                <input id="cantidadLugares" type="hidden" value="20" />
+            </div>
+
+            <div id="mapaAjax">
+            </div>
+
+        </div>
+
+        <div class="banner_300x250">
+            <script type='text/javascript'>
+                GA_googleFillSlot("{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
+            </script>
+        </div>
+
+        {% render "LoogaresLugarBundle:Lugar:moduloDescuentos" with {'ciudad' : lugar.comuna.ciudad.id, 'pagina' : 'lugar'}%}
+        
+    </div>
+
+</div>
+
+{% endblock %}
