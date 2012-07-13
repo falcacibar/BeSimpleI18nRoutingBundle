@@ -6,6 +6,25 @@ use Symfony\Component\Config\Loader\FileLoader;
 
 class LoogaresFunctions
 {
+    function generarTemplateNuevoMail($filename){
+        if(!is_dir('assets/media/cache/mail_concursos/assets/images/blog')) mkdir('assets/media/cache/mail_concursos/assets/images/blog', 0777, true);
+
+        $imagine = new \Imagine\Gd\Imagine();
+
+        $thumbnail = $imagine->create(new \Imagine\Image\Box(212, 122), new \Imagine\Image\Color('000', 100));
+        
+        $preview = $imagine->open("assets/images/blog/$filename");
+        $lol = $preview->thumbnail(new \Imagine\Image\Box(204, 115));
+
+        $nuevo = $imagine->open("assets/images/concursos/nuevo.png");
+        
+        $thumbnail->paste($preview, new \Imagine\Image\Point(8,7));
+        $thumbnail->paste($nuevo, new \Imagine\Image\Point(0,0));
+
+        $thumbnail->save("assets/media/cache/mail_concursos/assets/images/blog/$filename");
+
+        return "assets/media/cache/assets/mail_concursos/images/blog/$filename";
+    }
     //Funcion para generar la imagen default del Lugar
     function generarThumbnailTelefono($filename, $filter){
         //Parsing filter data
