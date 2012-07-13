@@ -613,3 +613,18 @@ function editarRecomendacion(lugar){
 function recomendacionPedida(slug){
     $('.recomendacion[data-slug="'+slug+'"]').find('.permalink_recomendacion').click();
 }
+
+if($('.estrellas_lugar_chico').length > 0){
+    var estrellasLugarChico = $('.estrellas_lugar_chico').data('stars');
+    $('.estrellas_lugar_chico').raty({
+        width: 140,
+        starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
+        starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
+        starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
+        half: true,
+        start: estrellasLugarChico,
+        readOnly: true,
+        space: false,
+        scoreName: 'estrellas'
+    });
+}
