@@ -177,30 +177,109 @@ class LugarController extends Controller{
         $data->pedidos = $pedidos;
         $data->concursos = $concursos;
         $data->usuarioSlug = $usuarioSlug;
-        
+
         //Render ALL THE VIEWS
        return $this->render('LoogaresLugarBundle:Lugares:lugar.html.twig', array('lugar' => $data));
     }
 
-    public function listadoRecomendacionesAction($slug, $usuarioSlug = null){
+
+    public function lugarRecomendacionesAction (Request $request, $slug, $usuarioSlug = false) {
+        $em    = $this->getDoctrine()->getEntityManager();
+        $lr    = $em->getRepository("LoogaresLugarBundle:Lugar");
+
+        // Lugar con slug
+        $lugar = $lr->findOneBySlug($slug);
+
+        if(!$lugar) {
+            return $this->createNotFoundException();
+        }
+
+        $idLugar    = $lugar->getId();
+
+        if($this->get('security.context')->isGranted('ROLE_USER')) {
+            $idUsuario  = $this->get('security.context')->getToken()->getUser()->getId();
+        } else {
+            $idUsuario  = 0;
+        }
+
+        // Imagen principal
+        $q = $em->createQuery("SELECT       i
+                               FROM         Loogares\LugarBundle\Entity\ImagenLugar i
+                               WHERE        i.lugar = ?1
+                                            AND i.estado != 3
+                               ORDER BY     i.fecha_creacion DESC, i.id DESC")
+                ->setMaxResults(1)
+                ->setParameter(1, $idLugar);
+
+        $imagenLugar = $q->getSingleResult();
+        unset($q);
+
+        $lugar->imagen_full  = ($imagenLugar)  ? $imagenLugar->getImagenFull() : 'default.gif';
+
+        //Query para sacar si ya recomendo
+        $q = $em->createQuery("SELECT u.id
+                               FROM Loogares\UsuarioBundle\Entity\Recomendacion u
+                               WHERE u.usuario = ?1 and u.lugar = ?2 and u.estado != 3")
+                ->setParameters(array(
+                                    1 => $idUsuario,
+                                    2 => $idLugar
+                ));
+
+        $lugar->yaRecomendo = $q->getResult();
+        unset($q);
+
+        if($idUsuario) {
+            $accionesUsuario = $lr->getAccionesUsuario($idLugar, $idUsuario);
+
+            // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
+            for($i = 0; $i < sizeof($accionesUsuario); $i++) {
+                if( $accionesUsuario[$i]['hecho'] == 1 &&
+                    ($accionesUsuario[$i]['id'] == 3 || $accionesUsuario[$i]['id'] == 5)
+                ) {
+                    $accionesUsuario[$i]['puede'] = 0;
+                } else {
+                    $accionesUsuario[$i]['puede'] = 1;
+                }
+            }
+
+            // Si el usuario ya estuvo o quiere volver, no puede querer ir
+            if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
+                $accionesUsuario[0]['puede'] = 0;
+            }
+        } else {
+            $accionesUsuario = $lr->getAccionesUsuario($lugar->getId());
+
+            for($i = 0; $i < sizeof($accionesUsuario); $i++) {
+                $accionesUsuario[$i]['puede'] = 0;
+            }
+        }
+
+        $lugar->accionesUsuario     = $accionesUsuario;
+        $lugar->totalAcciones       = $lr->getTotalAccionesLugar($idLugar);
+        $lugar->usuarioSlug         = $usuarioSlug;
+
+        return $this->render('LoogaresLugarBundle:Lugares:lugar_recomendaciones.html.twig', array(
+                'lugar'    => $lugar,
+                'slug'     => $slug
+            )
+        );
+    }
+
+    public function listadoRecomendacionesAction($slug, $usuarioSlug = null, $enLugar = false){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 
         $lugar = $lr->findOneBySlug($slug);
 
-        if(!$lugar){
-            //return 404
-        }
-
+        $recomendacionPedida = null;
+        $exclusionRecomendacionPedida = null;
         $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
         $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
         $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-        $resultadosPorPagina = (!isset($_GET['resultados']))?20:$_GET['resultados'];
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
         $params = array('slug' => $lugar->getSlug());
-        $path = '_lugar';
+        $path = '_lugarRecomendaciones';
         $fn = $this->get('fn');
-        $recomendacionPedida = null;
 
         if($_GET['orden'] == 'ultimas'){
                 $orderBy = "ORDER BY r.fecha_creacion DESC";
@@ -210,57 +289,55 @@ class LugarController extends Controller{
                 $orderBy = "ORDER BY r.estrellas desc, r.fecha_creacion DESC";
         }
 
-        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        // aqui un ternario hubiese sido mejor.
+        if($enLugar) {
+            $resultadosPorPagina  = 5;
+        } else if (isset($_GET['resultados']) && in_array((int) $listaResultadosPorPagina, $_GET['resultados'], true)) {
+            $resultadosPorPagina = (int) $_GET['resultados'];
+        } else {
+            $resultadosPorPagina = 20;
+        }
 
-        $q = $em->createQuery("SELECT count(r) FROM Loogares\UsuarioBundle\Entity\Recomendacion r
-                               WHERE r.lugar = ?1
-                               AND r.estado != ?2");
-        $q->setParameter(1, $lugar);
-        $q->setParameter(2, 3);
-        $totalRecomendaciones = $q->getSingleScalarResult();
-
-        if($usuarioSlug){
+        if($usuarioSlug) {
             //Recomendacion pedida
-            $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");           
-            $usuario = $ur->findOneByIdOrSlug($usuarioSlug); 
+            $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+            $usuario = $ur->findOneByIdOrSlug($usuarioSlug);
 
             $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r
                                    WHERE r.lugar = ?1
                                    AND r.usuario = ?2
                                    AND r.estado != ?3");
+
             $q->setParameter(1, $lugar);
             $q->setParameter(2, $usuario);
             $q->setParameter(3, 3);
             $q->setMaxResults(1);
+
             $recomendacionPedida = $q->getSingleResult();
-
-            $q = $em->createQuery("SELECT count(u) FROM Loogares\UsuarioBundle\Entity\Util u
-                                   WHERE u.recomendacion = ?1");
-            $q->setParameter(1, $recomendacionPedida->getId());
-            $q->setMaxResults(1);
-            $recomendacionPedida->apretoUtil = $q->getSingleScalarResult();
-
-            $q = $em->createQuery("SELECT t from Loogares\UsuarioBundle\Entity\Tag t
-                                   JOIN t.tag_recomendacion tr
-                                   WHERE tr.recomendacion = ?1");
-            $q->setParameter(1, $recomendacionPedida->getId());
-            $tags = $q->getResult();
-
-            $tagsBuffer = array();
-            foreach($tags as $tag){ $tagsBuffer[] = $tag->getTag(); }
-            $recomendacionPedida->tags = join(', ', $tagsBuffer );
+            $exclusionRecomendacionPedida = ' AND r.id != '.$recomendacionPedida->getId();
         }
+
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $q = $em->createQuery("SELECT count(r) FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.lugar = ?1
+                               AND r.estado != ?2 $exclusionRecomendacionPedida");
+        $q->setParameter(1, $lugar);
+        $q->setParameter(2, 3);
+        $totalRecomendaciones = $q->getSingleScalarResult();
 
         $q = $em->createQuery("SELECT r FROM Loogares\UsuarioBundle\Entity\Recomendacion r
                                WHERE r.lugar = ?1
-                               AND r.estado != ?2 $orderBy");
+                               AND r.estado != ?2 $exclusionRecomendacionPedida $orderBy");
         $q->setParameter(1, $lugar);
         $q->setParameter(2, 3);
-        $q->setMaxResults(20);
+
+        $q->setMaxResults($resultadosPorPagina);
         $q->setFirstResult($offset);
 
         $recomendaciones = $q->getResult();
-        
+
+        if($recomendacionPedida) $recomendaciones[] = &$recomendacionPedida;
+
         foreach($recomendaciones as $key => $recomendacion){
             $q = $em->createQuery("SELECT count(u) FROM Loogares\UsuarioBundle\Entity\Util u
                                    WHERE u.recomendacion = ?1");
@@ -271,6 +348,7 @@ class LugarController extends Controller{
             $q = $em->createQuery("SELECT t from Loogares\UsuarioBundle\Entity\Tag t
                                    JOIN t.tag_recomendacion tr
                                    WHERE tr.recomendacion = ?1");
+
             $q->setParameter(1, $recomendacion->getId());
             $tags = $q->getResult();
 
@@ -282,14 +360,14 @@ class LugarController extends Controller{
         $paginacion = $fn->paginacion($totalRecomendaciones, $resultadosPorPagina, $path, $params, $this->get('router') );
 
         return $this->render('LoogaresLugarBundle:Lugares:listado_recomendaciones.html.twig', array(
-            'lugar' => $lugar, 
+            'lugar' => $lugar,
             'recomendaciones' => $recomendaciones,
             'query' => $_GET,
             'paginacion' => $paginacion,
-            'recomendacionPedida' => $recomendacionPedida
-        ));            
+            'enLugar' => $enLugar
+        ));
     }
-    
+
     public function agregarAction(Request $request, $slug = null){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
@@ -404,7 +482,7 @@ class LugarController extends Controller{
                 $q = $em->createQuery("SELECT l FROM Loogares\LugarBundle\Entity\Lugar l
                                        JOIN l.comuna c
                                        JOIN c.ciudad ci
-                                       WHERE l.nombre = ?1 AND ci.slug = ?2");
+                                       WHERE l.nombre = ?1 AND c.slug = ?2");
                 $q->setParameter(1, $lugarManipulado->getNombre());
                 $q->setParameter(2, $_POST['ciudad']);
                 $lugaresConElMismoNombre = $q->getResult();

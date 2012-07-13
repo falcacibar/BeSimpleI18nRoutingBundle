@@ -64,10 +64,6 @@ class SearchController extends Controller{
 
   public function buscarAction(Request $request, $slug, $path, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
 
-    if(empty($slug) && (!isset($_GET['q']) || empty($_GET['q']))) {
-        return $this->render('LoogaresLugarBundle:Search:buscador.html.twig');
-    }
-
     $fn = $this->get('fn');
     $em = $this->getDoctrine()->getEntityManager();
     $mostrarPrecio = null;
@@ -83,6 +79,17 @@ class SearchController extends Controller{
 
     $this->get('session')->setLocale($ciudad->getPais()->getLocale());
     $this->get('session')->set('ciudad',$ciudadArray);
+
+    $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
+    //Concursos vigentes
+    $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
+    shuffle($concursos);
+
+    if(empty($categoria) && (!isset($_GET['q']) || empty($_GET['q']))) {
+        return $this->render('LoogaresLugarBundle:Search:buscador.html.twig', array(
+            'concursos' => $concursos
+        ));
+    }
 
     $idCiudad = $ciudad->getId();
     $order = null;
@@ -1254,10 +1261,6 @@ class SearchController extends Controller{
     if($path != '_buscar'){
       unset($_GET['q']);
     }
-
-    $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
-    //Concursos vigentes
-    $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
 
     $paginacion = $fn->paginacion( $resultSetSize[0]['rows'], $resultadosPorPagina, $path, $params, $this->get('router') );
 

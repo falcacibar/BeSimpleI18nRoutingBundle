@@ -1,30 +1,62 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}
-    Buscar loogares en {{app.session.get('ciudad').nombre}} | {{parent()}}
+    {{-'lugar.buscar.titulo_pagina_buscar'|trans}} | {{parent()-}}
 {% endblock %}
 
 {% block meta %}
-{% endblock %}
+    <meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Desde esta página podrás buscar los lugares de los cuales busques información, y en el caso de no encontrar lo que buscas, recuerda agregarlo para que la comunidad sepa de su existencia." />
+    
+    <meta name="keywords" content="Loogares, búsquedas, buscar, recomendaciones, ¿Qué buscas?, {{app.session.get('ciudad').nombre}}, lugares, buscador, palabras claves" />
 
-{% block ads %}
+    <!-- Metadata para FB -->
+    <meta property="og:title" content="{{'lugar.buscar.titulo_pagina_buscar'|trans}} | Loogares.com" />
+
+    <meta property="og:description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Desde esta página podrás buscar los lugares de los cuales busques información, y en el caso de no encontrar lo que buscas, recuerda agregarlo para que la comunidad sepa de su existencia." />
 {% endblock %}
 
 {% block javascripts %}
-{% endblock %}
+    <script src="{{asset('assets/js/jquery.bxSlider.min.js')}}"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('.concursos li').css('visibility', 'visible')
 
-{% block stylesheets %}
+        var concursoSlider = $('.concursos').bxSlider({
+            displaySlideQty: $('.concursos li').length,
+            moveSlideQty: 1,
+            controls: false,
+            auto: true
+        });
+
+        $('.prev_concurso').click(function(){
+            concursoSlider.goToPreviousSlide();
+            return false;
+        });
+
+        $('.next_concurso').click(function(){
+            concursoSlider.goToNextSlide();
+            return false;
+        });
+    });
+    </script>
 {% endblock %}
 
 {% block content %}
-    <div class="buscador_box">
+
+    <div class="pagina_buscador_box">
+        <h1 class="que_buscar">{{'lugar.buscar.titulo_pagina_buscar'|trans}}</h1>
         <form action="{{ path('_buscar', { 'slug': app.session.get('ciudad').slug }) }}">
             <div class="buscar">
-                    <input class="buscador" name="q" type="text" placeholder="{{'general.header.ejemplos_buscador'|trans}}" />
+                <input class="buscador" name="q" type="text" placeholder="{{'general.header.ejemplos_buscador'|trans}}" />
                 <div class="caja_icono">
                     <input type="submit" class="icono_buscar" value="" />
                 </div>
             </div>
         </form>
     </div>
+
+    {% if concursos | length > 0 %}
+        {% include "LoogaresExtraBundle:Default:concursos_activos.html.twig" %}
+    {% endif %}
+
 {% endblock %}

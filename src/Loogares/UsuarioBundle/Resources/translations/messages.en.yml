@@ -79,6 +79,7 @@ usuario:
         recomendaciones: Reviews
         fotos: Photos
         lugares: List of places
+        cupones: Gift cards
 
     actividad:
         titulo: Activity|Activity of
@@ -128,6 +129,7 @@ usuario:
         titulo: Active Gift Cards
         codigo: Gift Card code:
         imprimir: Print cupon
+        sin_cupones: You have no Gift Cards in your profile. Keep on participating!
 
     edicion:
         titulo_pag: Edit your profile

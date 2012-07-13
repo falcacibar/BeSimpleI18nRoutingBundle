@@ -1,33 +1,37 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}
-    Categorías en {{app.session.get('ciudad').nombre}} | {{parent()}}
+    {{-'lugar.categoria.titulo_pagina'|trans}} {{app.session.get('ciudad').nombre}} | {{parent()-}}
 {% endblock %}
 
 {% block meta %}
-{% endblock %}
+    <meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. En esta página encontrarás la lista de posibles categorías que puedes ver en {{app.session.get('ciudad').nombre}}" />
+    
+    <meta name="keywords" content="Loogares, recomendaciones, categorías, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, arquitectura, ropa, accesorios, entretenimiento, donde dormir, donde comer, que visitar" />
 
-{% block ads %}
-{% endblock %}
+    <!-- Metadata para FB -->
+    <meta property="og:title" content="{{'lugar.categoria.titulo_pagina'|trans}} {{app.session.get('ciudad').nombre}} | Loogares.com" />
 
-{% block javascripts %}
-{% endblock %}
-
-{% block stylesheets %}
+    <meta property="og:description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. En esta página encontrarás la lista de posibles categorías que puedes ver en {{app.session.get('ciudad').nombre}}" />
 {% endblock %}
 
 {% block content %}
-    <h1 class="titulo_busqueda">Categorías Loogares.com</h1>
-    <p class="breadcrumb">{{app.session.get('ciudad').nombre}}</p>
 
-    {% for rama in arbol_categorias %}
-    <div>
-        <div>{{ rama.tipo.nombre }}</div>
-        <ul>
-        {% for categoria in rama.categorias %}
-            <li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+    <div class="resultados_wrapper">
+
+        <h1 class="titulo_busqueda icono_todos">{{'lugar.categoria.titulo_pagina'|trans}} {{app.session.get('ciudad').nombre}}</h1>
+
+        {% for rama in arbol_categorias %}
+        <div class="tipo_de_lugar">
+            <div class="categorias categoria_{{ rama.tipo.slug }}">{{ rama.tipo.nombre }}</div>
+            <ul>
+            {% for categoria in rama.categorias %}
+                <li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+            {% endfor %}
+            </ul>
+        </div>
         {% endfor %}
-        </ul>
+
     </div>
-    {% endfor %}
+
 {% endblock %}
