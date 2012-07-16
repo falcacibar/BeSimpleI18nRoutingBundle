@@ -55,6 +55,7 @@
 				{{'blog.quedan'|trans}} <span class="tiempo_azul"></span> {{'blog.para_participar'|trans}}
 			</div>
 			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
+			<a href="{{path('participantes_concurso', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}" class="ver_todos">Ver todos los participantes</a>
 			{% if concurso.ganadores | length > 0 %}
 				<div class="ganadores">
 					<h6 class="titulo_ganadores">{{'blog.ganadores.titulo'|trans}}</h6>
@@ -146,10 +147,22 @@
 	{% endif %}
 {% endblock %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+{% endblock %}
+
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.bxSlider.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>  
-	<script src='{{asset('assets/js/jquery.countdown.min.js')}}'></script>	
+	<script src='{{asset('assets/js/jquery.countdown.min.js')}}'></script>
+	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
+	<script type="text/javascript">
+		{% if concursos|length > 0 and concursos|length <= 4%}
+			var moveConcursos = false;
+		{% else %}
+			var moveConcursos = true;
+		{% endif %}
+	</script>
 	<script src='{{asset('assets/js/concurso.js')}}'></script>
 	<script>
 		$(function(){

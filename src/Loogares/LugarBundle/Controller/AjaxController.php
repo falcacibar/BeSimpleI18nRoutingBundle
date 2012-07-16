@@ -358,4 +358,19 @@ class AjaxController extends Controller{
 
       return new Response(json_encode(array('status' => 'ok')));
     }
+
+    public function cuponGanadorAction($slug, $id, $ganador) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $gr = $em->getRepository("LoogaresBlogBundle:Ganador");
+
+        $ganador = $gr->find($ganador);
+        $usuario = $ganador->getParticipante()->getUsuario();
+        $concurso = $ganador->getParticipante()->getConcurso();
+
+        return $this->render('LoogaresLugarBundle:Lugares:cupon_ganador.html.twig', array(
+            'ganador' => $ganador,
+            'concurso' => $concurso,
+            'usuario' => $usuario
+        ));
+    }
 }

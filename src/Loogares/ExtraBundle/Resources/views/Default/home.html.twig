@@ -277,5 +277,12 @@
 	<script src="{{asset('assets/js/jquery.bxSlider.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
+	<script type="text/javascript">
+		{% if concursos|length > 0 and concursos|length <= 4%}
+			var moveConcursos = false;
+		{% else %}
+			var moveConcursos = true;
+		{% endif %}
+	</script>
 	<script src="{{asset('assets/js/home.js')}}"></script>
 {% endblock %}

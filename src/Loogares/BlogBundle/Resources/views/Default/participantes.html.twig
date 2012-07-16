@@ -1,14 +1,21 @@
 <div class="concurso_participantes">
 	{% set doce = 0 %}
-	{% for participante in concurso.participantesActivos %}
+	{% if totalParticipantes == 'all' %}
+		{% set length = concurso.participantesActivos | length %}
+	{% elseif totalParticipantes == 'short' %}
+		{% set length = 84 %}
+	{% endif %}
+
+	{% for participante in concurso.participantesActivos | slice(0, length) %}
 		{% if loop.index == 1 or (loop.index > 12 and (loop.index - 1) % 12 == 0)  %}
 			{% set doce = 0 %}
 			<ul class="listado_participantes">
 		{% endif %}
-				<li>
-					<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}" alt="{{participante.usuario.nombre}} {{participante.usuario.apellido}}" title="{{participante.usuario.nombre}} {{participante.usuario.apellido}}">
+				<li class="participante_detalle">
+					<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">
 						<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
 					</a>
+					<span class="nombre_usuario" style="display:none">{{participante.usuario.nombre}} {{participante.usuario.apellido}}</span>
 				</li>
 		{% set doce = doce + 1 %}
 		{% if doce == 12 %}
@@ -27,3 +34,36 @@
 		</div>	
 	</div>
 </div>
+
+{% if totalParticipantes == 'all' %}
+	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.participante_detalle').each(function(){
+		        $(this).qtip({
+		            content: {
+		              text: $(this).find('.nombre_usuario')
+		            },
+		            style: {
+		                classes: 'ui-tooltip-precio',
+		                tip: {
+		                    border: 0,
+		                    width: 12,
+		                    color: '#f0f',
+		                    corner: true,
+		                    offset: 85
+		                }
+		            },
+		            position: {
+		                my: 'top center', 
+		                at: 'bottom left',
+		                adjust: {
+		                    x: 6,
+		                    y: 6
+		                }
+		            }
+		        }); 
+		    });
+		});
+	</script>
+{% endif %}
