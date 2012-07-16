@@ -1,11 +1,12 @@
 {%- if lugar.totalRecomendaciones != 0 -%}
 	<div class="recomendacion_pedida_container">
 	</div>
-
+	{% if enLugar %}
 	<h3 class="titulo_recomendaciones">
 	    {{ lugar.totalRecomendaciones }}
 	    {{'lugar.ficha.recomendaciones.titulo'|transchoice(lugar.totalRecomendaciones,{'%lugar%' : lugar.nombre})}}
 	</h3>
+	{% endif %}
 
 	<ul class="ordenar_por_recomendaciones">
 	    <li>
@@ -35,6 +36,7 @@
 	        {% endif %}
 	    </li>
 	</ul>
+	{% if not enLugar %}
 	<div class="resultados_por_pagina">
 	    <select class="seleccionar_resultados_por_pagina">
 	        <option value="20">20</option>
@@ -43,6 +45,7 @@
 	    </select>
 	    <p class="resultados_por_pagina_txt">{{'general.terminos.resultados_pagina'|trans}}</p>
 	</div>
+	{% endif %}
 
 	{% for recomendacion in recomendaciones %}
 	    <div class="recomendacion" data-id="{{recomendacion.id}}" data-slug="{{recomendacion.usuario.slug}}">
@@ -84,18 +87,18 @@
 	                <p class="texto_recomendacion_usuario">{{ recomendacion.texto | raw}}</p>
 	                {% if recomendacion.tagRecomendacion | length > 0 %}
 	                    <p class="tags_recomendacion">
-	                        {{'lugar.ficha.tags'|trans}} 
+	                        {{'lugar.ficha.tags'|trans}}
 	                        {{recomendacion.tags}}
 	                    </p>
 	                {% endif %}
-	             </div>
+	            </div>
 	            <div class="caja_opciones_recomendacion">
 	                <ul class="opciones_recomendacion">
 	                    {% if recomendacion.usuario.slug != false %}
-	                        <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.usuario.slug }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
+	                        <li><a class="{% if not enLugar %} permalink_recomendacion {% endif %}" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.usuario.slug }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
 	                    {% else %}
-	                        <li><a class="permalink_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.usuario.id }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
-	                    {% endif %}   
+	                        <li><a class="{% if not enLugar %} permalink_recomendacion {% endif %}" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': recomendacion.usuario.id }) }}">{{'lugar.ficha.recomendaciones.permalink'|trans}}</a></li>
+	                    {% endif %}
 	                    <li>
 	                        <a class="compartir tooltip_compartir_recomendacion" rel="compartir_recomendacion" href="#">{{'lugar.ficha.recomendaciones.enviar'|trans}}</a>
 	                    </li>
@@ -120,7 +123,7 @@
 	                                {{'lugar.ficha.opciones.facebook'|trans}}
 	                            </a>
 	                        </li>
-	                        <li class="twitter_share_recomendacion" style="margin: 0 0 5px;">                                    
+	                        <li class="twitter_share_recomendacion" style="margin: 0 0 5px;">
 	                            {% set data_url = url('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : (recomendacion.usuario.slug != false) ? recomendacion.usuario.slug : recomendacion.usuario.id}) %}
 	                            {% set data_text = "Recomendación de "~recomendacion.usuario.nombre~" "~recomendacion.usuario.apellido~" en "~lugar.nombre~", "~lugar.comuna.ciudad.nombre %}
 	                            {% set data_via = "Loogarescom" %}
@@ -135,6 +138,8 @@
 	        </div>
 	    </div>
 	{% endfor %}
+
+	{% if not enLugar %}
     <div class="paginacion_recomendacion">
         <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{ lugar.totalRecomendaciones }}</strong>
         {% if paginacion.totalPaginas != 1 %}
@@ -144,6 +149,12 @@
             </ul>
         {% endif %}
     </div>
+    {% else %}
+    <div>
+    	<a class="ver_todas_recomendaciones" href="{{ path('_lugarRecomendaciones',{"slug": lugar.slug}) }}"></a>
+    </div>
+    {% endif %}
+
 {%- else -%}
     {% if app.session.hasFlash('cerrado_flash') == null  %}
         <div>

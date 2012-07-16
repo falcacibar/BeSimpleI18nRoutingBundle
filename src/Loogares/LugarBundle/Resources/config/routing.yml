@@ -8,7 +8,7 @@ _agregar:
 
 _lugar:
     pattern: /lugar/{slug}
-    defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugar}
 
 _editar:
     pattern: /lugar/{slug}/editar
@@ -91,9 +91,13 @@ _borrarRecomendacion:
     defaults: { _controller: LoogaresLugarBundle:Lugar:accionRecomendacion, borrar: true}
 
 
+_lugarRecomendaciones:
+    pattern: /lugar/{slug}/recomendacion
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendaciones}
+
 _recomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}
-    defaults: { _controller: LoogaresLugarBundle:Lugar:lugar }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendaciones }
 
 _reportarLugar:
     pattern: /lugar/{slug}/reportar
