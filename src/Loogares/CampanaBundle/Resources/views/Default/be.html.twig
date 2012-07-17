@@ -77,7 +77,7 @@
 								<img class="imagen_ganador" src="{{ ('assets/images/usuarios/'~ganador.participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
 								<span>{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</span>
 							</a>
-							<span> - {{'usuario.gift_card.codigo'|trans}} <strong>{{ganador.codigo}}</strong></span>
+							<span> - {{'usuario.gift_card.codigo'|trans}} <a href="{{path('_reporteLocalCupon', {'slug' : concurso.post.lugar.slug, 'id' : concurso.id, 'ganador' : ganador.id})}}" class="cupon_ganador"><strong>{{ganador.codigo}}</strong></a></span>{% if ganador.recomendo %} - <a href="{{path('_recomendacion', {'slug' : concurso.post.lugar.slug, 'usuarioSlug' : ganador.participante.usuario.slug})}}">Recomendación</a>{% endif%}
 						</li>
 					{% endfor %}
 				</ul>

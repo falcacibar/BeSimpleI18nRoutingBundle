@@ -29,8 +29,7 @@ class DefaultController extends Controller{
 		$q = $em->createQuery("SELECT count(p.id) FROM Loogares\BlogBundle\Entity\Participante p
 																		JOIN p.concurso c
 																		JOIN c.post po
-																		WHERE po.lugar = ?1
-																		GROUP BY p.usuario");
+																		WHERE po.lugar = ?1");
 		$q->setParameter(1, $lugar);
 		$seguidores = $q->getSingleScalarResult();
 
@@ -92,6 +91,7 @@ class DefaultController extends Controller{
     $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
     $dr = $em->getRepository("LoogaresUsuarioBundle:Dueno");
     $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+    $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
 
     $lugar = $lr->findOneBySlug($slug);
 
@@ -109,14 +109,28 @@ class DefaultController extends Controller{
       throw $this->createNotFoundException('');
     }
     
-    // Obtenemos ganadores si existen
-    $ganadores = $cr->getGanadoresConcurso($concurso);
-    $concurso->ganadores = $ganadores;
+     $ganadores = $cr->getGanadoresConcurso($concurso);
+
+      // Asociamos a cada ganador si el usuario ha recomendado con anterioridad o no
+      foreach($ganadores as $ganador) {
+          $usuario = $ganador->getParticipante()->getUsuario();
+          $lugar = $ganador->getParticipante()->getConcurso()->getPost()->getLugar();
+          $recomendacion = $rr->findOneBy(array('usuario' => $usuario->getId(), 'lugar' => $lugar->getId()));
+          if(!$recomendacion) {
+              $ganador->recomendo = false;
+          }
+          else {
+              $ganador->recomendo = true;
+              $ganador->recomendacion = $recomendacion;
+          }
+      }
+      $concurso->ganadores = $ganadores;
 
     return $this->render('LoogaresCampanaBundle:Default:be.html.twig', array(
         'concurso' => $concurso
     ));
 	}
+
 
 	public function seguidoresAction($slug){
 		$em = $this->getDoctrine()->getEntityManager();
