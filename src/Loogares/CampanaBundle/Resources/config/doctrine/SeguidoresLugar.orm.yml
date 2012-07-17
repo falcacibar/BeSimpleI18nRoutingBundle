@@ -1,0 +1,12 @@
+Loogares\CampanaBundle\Entity\SeguidoresLugar:
+    type: entity
+    table: seguidores_lugar
+    manyToOne:       
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }

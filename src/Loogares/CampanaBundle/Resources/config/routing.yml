@@ -1,0 +1,15 @@
+LoogaresCampanaBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: LoogaresCampanaBundle:Default:index }
+
+_reporte:
+    pattern:  /lugar/{slug}/reporte
+    defaults: { _controller: LoogaresCampanaBundle:Default:index }
+
+_reporte_campanas:
+    pattern: /lugar/{slug}/reporte/{tipo}
+    defaults: { _controller: LoogaresCampanaBundle:Default:campanas }
+
+_reporte_seguidores:
+    pattern: /lugar/{slug}/reporte/seguidores
+    defaults: { _controller: LoogaresCampanaBundle:Default:seguidores }

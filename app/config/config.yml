@@ -69,6 +69,7 @@ doctrine:
                     LoogaresLugarBundle: ~
                     LoogaresBlogBundle: ~
                     LoogaresMailBundle: ~
+                    LoogaresCampanaBundle: ~
                     StofDoctrineExtensionsBundle: ~
 
 
@@ -134,6 +135,9 @@ avalanche_imagine:
         phone_recomendaciones_thumbnail:
             type: thumbnail
             options: { size: [124, 124], mode: outbound }
+        mail_concursos_nuevo:
+            type: thumbnail
+            options: { size: [212, 122], mode: outbound }
 
 # MailChimp Configuration
 jirafe_mail_chimp:

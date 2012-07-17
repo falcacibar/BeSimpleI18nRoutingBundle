@@ -1,0 +1,87 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block content %}
+<style>
+	ul.nav{
+		padding: 0;
+		margin: 0;
+	}
+		ul.nav li{
+			display: inline-block;
+			width: 398px;
+			background: #333;
+			color: red;
+		}
+			ul li.be-concursos{
+				background: papayawhip;
+			}
+
+			ul li.gc-descuentos{
+				background: blue;
+			}
+
+	.campana_detalle{
+		margin: 0 auto;
+		display: block;
+		height: 300px;
+		background: #ff0;
+		margin-bottom: 40px;
+	}
+	.left{
+		float: left;
+		background: #f00;
+		width: 280px;
+		height: 100%;
+		display: inline-block;
+		padding: 10px;
+	}
+		.foto_fecha{
+			width: 200px;
+			margin: 0 auto;
+			height: 200px;
+			display: block;
+			background: #f1f1f1;
+		}
+
+			.fecha{
+				background: #333;
+				color: #ff0;
+			}
+
+	.right{
+		float: right;
+		background: #f0f;
+		width: 480px;
+		height: 100%;
+		display: inline-block;
+		padding: 10px;
+	}
+</style>
+
+<ul class="nav">
+	<li class="be-{{tipo}}"><a href="{{ path('_reporte_campanas', {'slug': slug, tipo: 'concursos'}) }}">Beneficios Exclusivos</a></li>
+	<li class="gc-{{tipo}}"><a href="{{ path('_reporte_campanas', {'slug': slug, tipo: 'descuentos'}) }}">Gift Cards</a></li>
+</ul>
+{% for detalle in detalles %}
+<div class="campana_detalle {{tipo}}">
+	<div class="left">
+		<div class="foto_fecha">
+			<div class="fecha">
+				{{detalle.fechaInicio|date('Y-m-d')}}
+			</div>
+			<div class="foto">
+
+			</div>
+		</div>
+	</div>
+	<div class="right">
+		<p>{{detalle.titulo}}</p>
+		<p>Validas cada una por: </p>
+		<ul>
+			<li>{{detalle.descripcion}}</li>
+		</ul>
+	</div>
+</div>
+{% endfor %}
+
+{% endblock %}

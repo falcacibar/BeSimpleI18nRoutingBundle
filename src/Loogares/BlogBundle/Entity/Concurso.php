@@ -497,4 +497,29 @@ class Concurso
     }
     
    
+    /**
+     * @var Loogares\CampanaBundle\Entity\Campana
+     */
+    private $campana;
+
+
+    /**
+     * Set campana
+     *
+     * @param Loogares\CampanaBundle\Entity\Campana $campana
+     */
+    public function setCampana(\Loogares\CampanaBundle\Entity\Campana $campana)
+    {
+        $this->campana = $campana;
+    }
+
+    /**
+     * Get campana
+     *
+     * @return Loogares\CampanaBundle\Entity\Campana 
+     */
+    public function getCampana()
+    {
+        return $this->campana;
+    }
 }

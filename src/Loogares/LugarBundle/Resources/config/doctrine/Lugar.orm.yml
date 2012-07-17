@@ -39,6 +39,8 @@ Loogares\LugarBundle\Entity\Lugar:
                 joinColumns:
                     estado:
                         referencedColumnName: id
+        dueno:
+            targetEntity: Loogares\UsuarioBundle\Entity\Dueno
     oneToMany:
         imagenes_lugar:
             targetEntity: Loogares\LugarBundle\Entity\ImagenLugar
@@ -92,10 +94,6 @@ Loogares\LugarBundle\Entity\Lugar:
         #descripcion
         descripcion:
             type: text
-            nullable: true
-        #∫tiene dueno
-        dueno_id:
-            type: integer
             nullable: true
         #mapx
         mapx: 

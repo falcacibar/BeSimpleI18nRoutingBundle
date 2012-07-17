@@ -21,7 +21,7 @@ src/Loogares/BlogBundle/Entity/*
 src/Loogares/MailBundle/Entity/*
 
 #Imagenes
-web/assets/images/*
+web/assets/images
 web/assets/media/cache/*
 web/media/cache/*
 web/assets/images
