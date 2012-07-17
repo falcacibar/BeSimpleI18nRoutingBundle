@@ -1,0 +1,75 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block content %}
+<style>
+	.reportes_header{
+		background: #f0f;
+		width: 100%;
+		display: inline-block;
+		overflow: hidden;
+		padding-bottom: 40px;
+	}
+
+	.reportes_logo{
+		background: #f0f0f0;
+		height: 100px;
+		width: 200px;
+		margin: 50px auto;
+		display: block;
+		text-align: center;
+	}
+
+	p{
+		text-align: center;
+	}
+
+	.campanas, .seguidores{
+	 display: inline-block;
+	 width: 398px;
+	 height: 200px;
+	 background: #f00;
+	 margin: 0;
+	 padding: 0;
+	}
+
+	.campanas{
+		background: #ff0;
+	}
+
+	.campanas_boton{
+	}
+
+	.campanas_boton, .seguidores_boton{
+		width: 200px;
+		height: 40px;
+		background: #000;
+		margin: 0 auto;
+	}
+
+		.campanas_boton a, .seguidores_boton a{
+			display: block;
+			height: 100%;
+			width: 100%;
+		}
+</style>
+	<div class="reportes_header">
+		<div class="reportes_logo"></div>
+		<p class="reportes_welcome">Bienvenido {{lugar.dueno.nombre}} {{lugar.dueno.apellido}}, estos son los datos de {{lugar.nombre}} en Loogares.com</p>
+
+		<div class="campanas">
+			<div class="campanas_boton"><a href="{{ path('_reporte_campanas', {'slug': lugar.slug, 'tipo': 'concursos'}) }}">Campañas</a></div>
+			<ul>
+				<li>{{concursos}} Campañas Beneficios Exclusivos</li>
+				{% if descuentos == 0 %}<li>{{descuentos}} Campañas Descuentos</li>{% endif %}
+			</ul>
+		</div>
+		<div class="seguidores">
+			<div class="seguidores_boton"></div>
+			<ul>
+				<li># (TODO) Seguidores</li>
+				<li># (TODO) Concursantes</li>
+			</ul>
+		</div>
+
+	</div>
+{% endblock %}

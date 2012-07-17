@@ -1,9 +1,6 @@
 Loogares\UsuarioBundle\Entity\Dueno:
     type: entity
     table: duenos
-    oneToOne:
-        lugar:
-            targetEntity: Loogares\LugarBundle\Entity\Lugar
     manyToOne:       
         estado:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
@@ -28,4 +25,3 @@ Loogares\UsuarioBundle\Entity\Dueno:
             type: text
         fecha:
             type: datetime
-        

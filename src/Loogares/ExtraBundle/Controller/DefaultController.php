@@ -476,7 +476,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
         $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
-	$fn = $this->get('fn');
+        $fn = $this->get('fn');
 
         $ciudad = $cr->findOneBySlugActivo($ciudad);
         $ciudadArray = array();
@@ -494,7 +494,9 @@ class DefaultController extends Controller
         $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
 
         foreach($concursos as $concurso){
-            $fn->generarTemplateNuevoMail($concurso->getPost()->getImagen());
+            if($concurso->getFechaInicio()->format('y-m-d') == new \Date('y-m-d')){
+                $fn->generarTemplateNuevoMail($concurso->getPost()->getImagen());
+            }
         }
 
         $meses = array('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');

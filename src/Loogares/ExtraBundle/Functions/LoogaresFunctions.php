@@ -8,7 +8,7 @@ class LoogaresFunctions
 {
     function generarTemplateNuevoMail($filename){
         if(!is_dir('assets/media/cache/mail_concursos_nuevo/assets/images/blog')) mkdir('assets/media/cache/mail_concursos_nuevo/assets/images/blog', 0777, true);
-	$filename = explode('.', $filename);
+        $filename = explode('.', $filename);
 
         $imagine = new \Imagine\Gd\Imagine();
 
@@ -26,6 +26,7 @@ class LoogaresFunctions
 
         return "assets/media/cache/assets/mail_concursos_nuevo/images/blog/".$filename[0]."png";
     }
+
     //Funcion para generar la imagen default del Lugar
     function generarThumbnailTelefono($filename, $filter){
         //Parsing filter data

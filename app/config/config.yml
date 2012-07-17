@@ -69,6 +69,7 @@ doctrine:
                     LoogaresLugarBundle: ~
                     LoogaresBlogBundle: ~
                     LoogaresMailBundle: ~
+                    LoogaresCampanaBundle: ~
                     StofDoctrineExtensionsBundle: ~
 
 

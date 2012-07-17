@@ -1,0 +1,19 @@
+Loogares\CampanaBundle\Entity\Campana:
+    type: entity
+    table:  campanas
+    manyToOne:
+        descuento:
+            targetEntity: Loogares\CampanaBundle\Entity\Descuento
+        estado:
+            targetEntity: Loogares\ExtraBundle\Entity\Estado
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        nombre:
+            type: string
+        fecha_inicio:
+            type: datetime
