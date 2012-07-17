@@ -2097,6 +2097,7 @@ class LugarController extends Controller{
         $em = $this->getDoctrine()->getEntityManager();
         $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
         $dr = $em->getRepository("LoogaresUsuarioBundle:Dueno");
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $formErrors = array();
 
@@ -2118,6 +2119,20 @@ class LugarController extends Controller{
 
                     // Obtenemos ganadores si existen
                     $ganadores = $cr->getGanadoresConcurso($concurso);
+
+                    // Asociamos a cada ganador si el usuario ha recomendado con anterioridad o no
+                    foreach($ganadores as $ganador) {
+                        $usuario = $ganador->getParticipante()->getUsuario();
+                        $lugar = $ganador->getParticipante()->getConcurso()->getPost()->getLugar();
+                        $recomendacion = $rr->findOneBy(array('usuario' => $usuario->getId(), 'lugar' => $lugar->getId()));
+                        if(!$recomendacion) {
+                            $ganador->recomendo = false;
+                        }
+                        else {
+                            $ganador->recomendo = true;
+                            $ganador->recomendacion = $recomendacion;
+                        }
+                    }
                     $concurso->ganadores = $ganadores;
 
                     return $this->render('LoogaresLugarBundle:Lugares:reporte_local.html.twig', array(

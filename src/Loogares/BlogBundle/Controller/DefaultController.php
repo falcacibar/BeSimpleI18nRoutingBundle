@@ -115,7 +115,8 @@ class DefaultController extends Controller
             return $this->render('LoogaresBlogBundle:Default:post_concurso.html.twig', array(
                 'post' => $post,
                 'concurso' => $concurso,
-                'concursos' => $concursos
+                'concursos' => $concursos,
+                'totalParticipantes' => 'short'
             ));
         }
 
@@ -221,7 +222,23 @@ class DefaultController extends Controller
         $concurso = $cr->find($request->request->get('concurso'));
 
         return $this->render('LoogaresBlogBundle:Default:participantes.html.twig', array(
-            'concurso' => $concurso
+            'concurso' => $concurso,
+            'totalParticipantes' => 'short'
+        ));
+    }
+
+    public function participantesAction($ciudad, $slug) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $pr = $em->getRepository("LoogaresBlogBundle:Posts");
+        $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
+
+        $post = $pr->findOneBySlug($slug);
+
+        $concurso = $cr->getConcursoPost($post);
+
+        return $this->render('LoogaresBlogBundle:Default:participantes.html.twig', array(
+            'concurso' => $concurso,
+            'totalParticipantes' => 'all'
         ));
     }
 

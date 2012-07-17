@@ -13,6 +13,10 @@ post:
     pattern:  /{ciudad}/blog/{slug}
     defaults: { _controller: LoogaresBlogBundle:Default:post, ciudad: null }
 
+participantes_concurso:
+    pattern:  /{ciudad}/blog/{slug}/participantes
+    defaults: { _controller: LoogaresBlogBundle:Default:participantes }
+
 concurso_registro:
     pattern:  /{ciudad}/blog/{slug}/concurso/registro
     defaults: { _controller: LoogaresBlogBundle:Default:registroPopUp, ciudad: null }

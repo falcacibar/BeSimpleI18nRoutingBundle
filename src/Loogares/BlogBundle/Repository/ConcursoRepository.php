@@ -124,4 +124,15 @@ class ConcursoRepository extends EntityRepository
 
         return $q->getResult();
     }
+
+    public function getPremiosAnterioresUsuario($usuario) {
+        $em = $this->getEntityManager();   
+        $q = $em->createQuery("SELECT COUNT(g)
+                               FROM Loogares\BlogBundle\Entity\Ganador g
+                               JOIN g.participante p
+                               WHERE p.usuario = ?1");
+        $q->setParameter(1, $usuario);
+
+        return $q->getSingleScalarResult();
+    }
 }

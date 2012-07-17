@@ -1,5 +1,5 @@
 $(function(){
-    $('.boton_registro').fancybox({
+    $('.boton_registro, .ver_todos').fancybox({
         hideOnContentClick : false,
         padding: 0,
         type: 'ajax',
@@ -38,6 +38,7 @@ $(function(){
                         success: function(data){
                             var concursos_html = $(data).html();
                             $('.concurso_participantes').html(concursos_html);
+                            actualizarQtip();
                         }
                     });
                 }
@@ -49,12 +50,12 @@ $(function(){
     });
 
     $('.concursos li').css('visibility', 'visible')
-
+   
     var concursoSlider = $('.concursos').bxSlider({
         displaySlideQty: $('.concursos li').length,
         moveSlideQty: 1,
         controls: false,
-        auto: true
+        auto: moveConcursos
     });
 
     $('.prev_concurso').click(function(){
@@ -65,8 +66,38 @@ $(function(){
     $('.next_concurso').click(function(){
         concursoSlider.goToNextSlide();
         return false;
-    });    
+    });
+
+    actualizarQtip();    
 })
+
+function actualizarQtip() {
+    $('.participante_detalle').each(function(){
+        $(this).qtip({
+            content: {
+              text: $(this).find('.nombre_usuario')
+            },
+            style: {
+                classes: 'ui-tooltip-precio',
+                tip: {
+                    border: 0,
+                    width: 12,
+                    color: '#f0f',
+                    corner: true,
+                    offset: 85
+                }
+            },
+            position: {
+                my: 'top center', 
+                at: 'bottom left',
+                adjust: {
+                    x: 6,
+                    y: 6
+                }
+            }
+        }); 
+    });
+}
 
 function checkEstadoConcurso(actual, termino) {
     var cerrado = $('.boton_cerrado'),
