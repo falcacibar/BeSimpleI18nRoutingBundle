@@ -84,4 +84,13 @@
 </div>
 {% endfor %}
 
+{% if detalles|length == 0 %}
+	no hay naa
+{% endif %}
+
+{% if tipo == 'concursos' %}
+	<a href="">Boton de Contactanos</a>
+{% elseif tipo == 'descuentos' %}
+	<a href="">Boton de Crear Nuevo</a>
+{% endif %}
 {% endblock %}

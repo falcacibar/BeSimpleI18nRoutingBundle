@@ -12,10 +12,13 @@
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
         <link rel="stylesheet" href="{{ asset('assets/css/compressed_reportes.css') }}" type="text/css" media="screen" />
         <style>
-            .contenido{
-                width: 800px;
+            body{
+                width: 960px;
                 margin: 0 auto;
-                background: #ff0
+            }
+
+            .contenido{
+                position: relative;
             }
         </style>
         {% block ads %}{% endblock %} 
@@ -35,5 +38,7 @@
     </div>
 
     {% include 'LoogaresCampanaBundle:Layout:footer_campanas.html.twig' %}
+    {% block javascripts %}
+    {% endblock %}
     </body>
 </html>

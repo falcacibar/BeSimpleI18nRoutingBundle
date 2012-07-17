@@ -1,0 +1,218 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
+{% endblock %}
+{% block content %}
+<style>
+	.seguidores{
+		width: 760px;
+		float: left;
+		overflow:hidden;
+		background: #f1f1f1;
+	}
+
+	.seguidor{
+		width: 237px;
+		height: 70px;
+		padding: 5px;
+		margin-left: 5px;
+		margin-top: 5px;
+		background: #0ff;
+		float: left;
+		font-size: 14px;
+	}
+
+		p{
+			margin: 0;
+			padding: 0;
+		}
+
+		input{
+			float: left
+		}
+
+		.seguidor_imagen{
+			width: 70px;
+			height: 70px;
+			background: #333;
+			float: left;
+		}
+
+		.seguidor_datos{
+			float: left;
+			width: 144px;
+			background: #f1f1f1;
+			margin-left: 5px;
+		}
+
+	.seguidores_sidebar{
+		position: absolute;
+		width: 200px;
+		background: #ff0;
+		height: 40px;
+		right: 0;
+	}
+
+		.otorgar_gift{
+			width: 200px;
+			height: 30px;
+			top: 20px;
+			position: absolute;
+			background: #3bf;
+			opacity: 1;
+		}
+
+		.seguidores_footer p{
+			color: #f1f1f1;
+		}
+</style>
+{{seguidores|length}} Seguidores en {{lugar.nombre}}
+<form>
+	<select name="comuna">
+		<option>Filtrar por Comuna</option>
+		{% for comuna in comunas %}
+			<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="filtrar">
+</form>
+
+<div class="seguidores">
+	{% for seguidor in seguidores %}
+	<div class="seguidor">
+		<input type="checkbox" class="seguidores_checkbox" />
+		<div class="seguidor_imagen">
+		</div>
+		<div class="seguidor_datos">
+			<p>{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %} </p>
+			<p>{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
+			<p>{{seguidor.usuario.recomendaciones|length}} Recomendaciones</p>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+<div class="seguidores_sidebar">
+	<p class="seleccionados"><span class="numero_seleccionados">0</span> Seleccionados</p>
+	<div class="otorgar_gift"></div>
+</div> 
+
+
+<style>
+	.fancybox-outer, .fancybox-inner{
+		background: white;
+	}
+
+	#lolbox{
+		width: 570px;
+		height: 470px;
+	}
+
+	.rango_descuentos{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		height: 200px;
+		float: left;
+	}
+
+		.rango_descuentos li{
+			width: 90px;
+			display: block;
+			margin-top: 5px;
+		}
+
+			.rango_descuentos label, .rango_descuentos input{
+				display: inline;
+			}
+
+	.step_done, .step_static{
+		height: 70px;
+		border-bottom: 1px #333 solid;
+		background: #f9f9f9;
+		width: 100%;
+		overflow: hidden;
+	}
+
+		.step_done h3{
+			text-align: left;
+			color: pink;
+		}
+
+	.step_active{
+		background: #ff0;
+		width: 500px;
+		height: 300px;
+		display: block;
+		margin-top: 20px;
+		margin-left: 35px;
+	}
+
+	.step_hidden{
+		display: none;
+	}
+
+.lolbox_siguiente{
+	background: #3bf;
+	width: 200px;
+	height: 40px;
+	display: block;
+	margin: 20px auto;
+}
+</style>
+<div style="display: none">
+<div id="lolbox">
+	<div class="step_static">
+		<p class="seleccionados"><span class="numero_seleccionados">0</span> Seleccionados</p>
+	</div>
+	<div class="step_active">
+		<h3>Selecciona el shuper descuento</h3>
+		<ul class="rango_descuentos">
+			{% for dco in [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90] %}
+			<li>
+				<label>{{dco}}%</label><input type="radio" name="dco">
+			</li>
+			{% if loop.index % 6 == 0 %}</ul><ul class="rango_descuentos">{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="step_hidden">lolololol</div>
+	<div class="lolbox_siguiente"></div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
+	<script>
+	$('.seguidores_checkbox').change(function(){
+		var $this = $(this);
+		var $seleccionados = $('.numero_seleccionados');
+		var seleccionadosCount = parseInt($seleccionados.html());
+
+		($this.is(':checked'))?seleccionadosCount++:seleccionadosCount--;
+		$seleccionados.html(seleccionadosCount)
+	});
+
+	$(".otorgar_gift").fancybox({
+    type: 'inline',
+		content: $('#lolbox'),
+		padding: 0,
+		fitToView: false
+	});
+
+	$('.otorgar_gift').click(function(){
+
+	});
+
+	$('.lolbox_siguiente').click(function(){
+		$('.step_active').addClass('step_done').removeClass('step_active');
+		$('.step_done:last').next('.step_hidden').addClass("step_active").removeClass('step_hidden');
+	});
+
+	$('.step_done').live('click', function(){
+		$('.step_active').addClass('step_hidden').removeClass('step_active')
+		$(this).addClass('step_active').removeClass('step_done');
+	});
+	</script>
+{% endblock %}

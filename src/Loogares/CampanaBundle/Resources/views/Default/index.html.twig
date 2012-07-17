@@ -30,10 +30,12 @@
 	 background: #f00;
 	 margin: 0;
 	 padding: 0;
+	 float: left;
 	}
 
 	.campanas{
 		background: #ff0;
+		margin-right: 4px;
 	}
 
 	.campanas_boton{
@@ -64,12 +66,10 @@
 			</ul>
 		</div>
 		<div class="seguidores">
-			<div class="seguidores_boton"></div>
+			<div class="seguidores_boton"><a href="{{ path('_reporte_seguidores', {'slug': lugar.slug }) }}">Seguidores</a></div>
 			<ul>
-				<li># (TODO) Seguidores</li>
-				<li># (TODO) Concursantes</li>
+				<li>{{seguidores}} Seguidores</li>
 			</ul>
 		</div>
-
 	</div>
 {% endblock %}
