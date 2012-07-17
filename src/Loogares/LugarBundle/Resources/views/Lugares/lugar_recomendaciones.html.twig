@@ -1,11 +1,11 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}
-    {{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}
+    {{- lugar.totalRecomendaciones }} {{ 'lugar.pagina_recomendacion.numero_de_recomendaciones' | trans }} {{ lugar.nombre }} - {{lugar.calle}} | {{parent()}}
 {% endblock %}
 
 {% block meta %}
-    <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
+    <meta property="og:title" content="{{ lugar.totalRecomendaciones }} {{ 'lugar.pagina_recomendacion.numero_de_recomendaciones' | trans }} {{ lugar.nombre }} - {{lugar.calle}} | Loogares.com" />
     <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
     <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “{{lugar.recomendacion[0].texto|slice(0,160)}}...”{% endif %}" />
@@ -78,7 +78,7 @@
             {% if app.session.hasFlash('cerrado_flash') %}
                 <div class="overlay"></div>
             {% endif %}
-            <h1 class="titulo_lugar">{{ lugar.totalRecomendaciones }} Recomendaciones en <a href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
+            <h1 class="titulo_lugar">{{ lugar.totalRecomendaciones }} {{ 'lugar.pagina_recomendacion.numero_de_recomendaciones' | trans }} <a href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
 
             <div class="multimedia_lugar">
                 <div class="foto_lugar" id="lugar-foto">
@@ -91,21 +91,21 @@
             </div>
 
             <div class="datos_principales_lugar">
-                <div class="estrellas">
-                    <div data-stars="{{lugar.estrellas}}" class="star-raty estrellas_lugar"></div>
+                <div class="estrellas_lugar_recomendacion">
+                    <div data-stars="{{lugar.estrellas}}" class="estrellas_lugar_chico estrellas_lugar"></div>
                     <noscript>
                         {{lugar.estrellas}} Estrellas
                     </noscript>
                 </div>
 
-                <div class="direccion_lugar" id="lugar-direccion"><h2>{{ lugar.calle }} {{ lugar.numero }},{%- if lugar.detalle -%}{{-' '-}}{{lugar.detalle}},{%- endif -%}
+                <div class="direccion_lugar_recomendacion" id="lugar-direccion"><h2>{{ lugar.calle }} {{ lugar.numero }},{%- if lugar.detalle -%}{{-' '-}}{{lugar.detalle}},{%- endif -%}
                     {{-' '-}}<a href="{{ path('_categoria_comuna', {'slug': lugar.comuna.ciudad.slug, 'comuna': lugar.comuna.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.comuna.nombre}}</a>, <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.comuna.ciudad.nombre }}</a></h2>
                 </div>
 
                 <div class="categoria_lugar">
                     {% if lugar.categoriaLugar %}
                         <div class="categoria_lugar_box" id="lugar-categorias">
-                            <span class="subtitulos_lugar">{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}</span>
+                            <span class="subtitulos_lugar">{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}:</span>
                             {% for categoriaLugar in lugar.categoriaLugar %}
                                 <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': categoriaLugar.categoria.slug}) }}">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
                             {% endfor %}
@@ -200,15 +200,16 @@
             </div>
         </div>
 
-        <div class="caja_inferior_ficha">
+        <div class="caja_inferior_ficha_recomendacion">
             {% if app.session.hasFlash('cerrado_flash') %}
                 <div class="overlay">
                 </div>
             {% endif %}
         </div>
-    </div>
 
     {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug , 'enLugar' : false}%}
+
+    </div>
 
     <div class="sidebar">
         <div class="mapa_sidebar" id="mapa-sidebar">
@@ -230,6 +231,8 @@
 
             <div id="mapaAjax">
             </div>
+
+            <!--<a class="boton_mapa_grande" href="#"></a>-->
 
         </div>
 

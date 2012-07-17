@@ -7,24 +7,24 @@ use Symfony\Component\Config\Loader\FileLoader;
 class LoogaresFunctions
 {
     function generarTemplateNuevoMail($filename){
-        if(!is_dir('assets/media/cache/mail_concursos/assets/images/blog')) mkdir('assets/media/cache/mail_concursos/assets/images/blog', 0777, true);
+        if(!is_dir('assets/media/cache/mail_concursos_nuevo/assets/images/blog')) mkdir('assets/media/cache/mail_concursos_nuevo/assets/images/blog', 0777, true);
+        $filename = explode('.', $filename);
 
-        if(!file_exists("assets/media/cache/assets/mail_concursos/images/blog/$filename")){
-            $imagine = new \Imagine\Gd\Imagine();
+        $imagine = new \Imagine\Gd\Imagine();
 
-            $thumbnail = $imagine->create(new \Imagine\Image\Box(212, 122), new \Imagine\Image\Color('000', 100));
-            
-            $preview = $imagine->open("assets/images/blog/$filename");
-            $lol = $preview->thumbnail(new \Imagine\Image\Box(204, 115));
+        $thumbnail = $imagine->create(new \Imagine\Image\Box(212, 122), new \Imagine\Image\Color('000', 100));
+        
+        $preview = $imagine->open("assets/images/blog/".$filename[0].'.'.$filename[1]);
+        $lol = $preview->thumbnail(new \Imagine\Image\Box(204, 115));
 
-            $nuevo = $imagine->open("assets/images/concursos/nuevo.png");
-            
-            $thumbnail->paste($lol, new \Imagine\Image\Point(8,7));
-            $thumbnail->paste($nuevo, new \Imagine\Image\Point(0,0));
+        $nuevo = $imagine->open("assets/images/concursos/nuevo.png");
+        
+        $thumbnail->paste($lol, new \Imagine\Image\Point(8,7));
+        $thumbnail->paste($nuevo, new \Imagine\Image\Point(0,0));
 
-            $thumbnail->save("assets/media/cache/mail_concursos/assets/images/blog/$filename");
-        }
-        return "assets/media/cache/assets/mail_concursos/images/blog/$filename";
+        $thumbnail->save("assets/media/cache/mail_concursos_nuevo/assets/images/blog/".$filename[0].".png");
+
+        return "assets/media/cache/assets/mail_concursos_nuevo/images/blog/".$filename[0]."png";
     }
 
     //Funcion para generar la imagen default del Lugar

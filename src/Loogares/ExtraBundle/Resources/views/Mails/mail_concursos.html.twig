@@ -17,9 +17,10 @@
                             <li style="padding: 40px 20px; float: left; margin: 0px;{% if i is odd %} background-color:#FAFAFC{% else %} background:#FFF;{% endif %}">
                                 <div style="float: left; width: 204px; position: relative;">
                                     {% if concurso.fechaInicio|date('d-M-y') == "now"|date('d-M-y') %}
-                                        <div style="background: url('http://www.loogares.com/assets/images/concursos/nuevo.png'); height: 72px; width: 76px; position: absolute; left: -8px; top: -7px;"></div>
-                                    {% endif %}
-                                    <img style="float: left; width: 204px;" src="http://www.loogares.com/                                    assets/media/cache/mail_concursos/assets/images/blog/{{concurso.post.imagen}}" height="115px" width="204px" />
+                                    	<img style="float: left;" src="http://www.loogares.com/assets/media/cache/mail_concursos_nuevo/assets/images/blog/{{concurso.post.imagen|slice(0,-4)}}.png" />
+                                    {% else %}
+                    					<img style="float: left;" src="http://www.loogares.com/assets/media/cache/mail_concursos/assets/images/blog/{{concurso.post.imagen}}" />
+                    				    {% endif %}	
                                 </div>
                                 <div style="float: left; width: 404px">
                                     <p style="float: left; width: 389px; margin: 0px 0px 0px 15px; color: #999; font-size: 12px;"><a href="{{url('_lugar', {'slug' : concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none; font-weight: bold;">{{concurso.post.lugar.nombre}}</a> - {{concurso.post.lugar.comuna.nombre}}</p>

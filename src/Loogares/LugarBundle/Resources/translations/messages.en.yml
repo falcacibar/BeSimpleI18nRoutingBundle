@@ -106,6 +106,9 @@ lugar:
         aun_no_eres_parte: Not a member of Loogares.com?
         registrate: To review this place, you must be loged in.
 
+    pagina_recomendacion:
+        numero_de_recomendaciones: Reviews in
+
     agregar:
         titulo: Add a place
         nombre: Name

@@ -112,6 +112,20 @@ class LugarController extends Controller{
 
         $yaRecomendoResult = $q->getResult();
 
+        $mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
+
+        if($mostrarPrecio){
+            //Precio Promedio
+            $q = $em->createQuery("SELECT SUM(r.precio) as precioSum, count(r.id) as precioTotal 
+                                   FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                                   WHERE r.lugar = ?1 and r.estado != 3");
+            $q->setParameter(1, $lugarResult[0]);
+            $preciosRecomendaciones = $q->getResult();
+
+            $precioPromedio = ($lugarResult[0]->getPrecioInicial() + $preciosRecomendaciones[0]['precioSum']) / ($preciosRecomendaciones[0]['precioTotal'] + 1);
+            $lugarResult[0]->setPrecio(round($precioPromedio));
+        }
+
         $totalAcciones = $lr->getTotalAccionesLugar($lugarResult[0]->getId());
 
         if($this->get('security.context')->isGranted('ROLE_USER')) {
@@ -168,7 +182,7 @@ class LugarController extends Controller{
         $data->horarios = $fn->generarHorario($lugarResult[0]->getHorario());
         $data->imagen_full = (isset($imagenLugarResult[0]))?$imagenLugarResult[0]->getImagenFull():'default.gif';
         $data->yaRecomendo = $yaRecomendoResult;
-        $data->mostrarPrecio = $fn->mostrarPrecio($lugarResult[0]);
+        $data->mostrarPrecio = $mostrarPrecio;
         $data->totalFotos = $totalFotosResult;
         $data->tagsPopulares = $lr->getTagsPopulares($idLugar);
         $data->totalAcciones = $totalAcciones;
@@ -202,17 +216,16 @@ class LugarController extends Controller{
             $idUsuario  = 0;
         }
 
-        // Imagen principal
-        $q = $em->createQuery("SELECT       i
-                               FROM         Loogares\LugarBundle\Entity\ImagenLugar i
-                               WHERE        i.lugar = ?1
-                                            AND i.estado != 3
-                               ORDER BY     i.fecha_creacion DESC, i.id DESC")
-                ->setMaxResults(1)
-                ->setParameter(1, $idLugar);
-
-        $imagenLugar = $q->getSingleResult();
-        unset($q);
+        //Ultima foto del Lugar
+        $q = $em->createQuery("SELECT u
+                               FROM Loogares\LugarBundle\Entity\ImagenLugar u
+                               WHERE u.lugar = ?1
+                               AND u.estado != ?2
+                               ORDER BY u.fecha_creacion DESC, u.id DESC");
+        $q->setMaxResults(1)
+          ->setParameter(1, $idLugar)
+          ->setParameter(2, 3);
+        $imagenLugar = $q->getResult();
 
         $lugar->imagen_full  = ($imagenLugar)  ? $imagenLugar->getImagenFull() : 'default.gif';
 
@@ -226,7 +239,6 @@ class LugarController extends Controller{
                 ));
 
         $lugar->yaRecomendo = $q->getResult();
-        unset($q);
 
         if($idUsuario) {
             $accionesUsuario = $lr->getAccionesUsuario($idLugar, $idUsuario);
@@ -276,6 +288,7 @@ class LugarController extends Controller{
         $_GET['pagina'] = (!isset($_GET['pagina']))?1:$_GET['pagina'];
         $_GET['orden'] = (!isset($_GET['orden']))?'ultimas':$_GET['orden'];
         $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
+        $resultadosPorPagina = ($enLugar)?5:((isset($_GET['resultados']))?$_GET['resultados']:20);
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
         $params = array('slug' => $lugar->getSlug());
         $path = '_lugarRecomendaciones';
@@ -287,15 +300,6 @@ class LugarController extends Controller{
                 $orderBy = "ORDER BY r.utiles DESC";
         }else if($_GET['orden'] == 'mejor-evaluadas'){
                 $orderBy = "ORDER BY r.estrellas desc, r.fecha_creacion DESC";
-        }
-
-        // aqui un ternario hubiese sido mejor.
-        if($enLugar) {
-            $resultadosPorPagina  = 5;
-        } else if (isset($_GET['resultados']) && in_array((int) $listaResultadosPorPagina, $_GET['resultados'], true)) {
-            $resultadosPorPagina = (int) $_GET['resultados'];
-        } else {
-            $resultadosPorPagina = 20;
         }
 
         if($usuarioSlug) {
@@ -339,9 +343,10 @@ class LugarController extends Controller{
         if($recomendacionPedida) $recomendaciones[] = &$recomendacionPedida;
 
         foreach($recomendaciones as $key => $recomendacion){
-            $q = $em->createQuery("SELECT count(u) FROM Loogares\UsuarioBundle\Entity\Util u
-                                   WHERE u.recomendacion = ?1");
+            $q = $em->createQuery("SELECT min(u.id) FROM Loogares\UsuarioBundle\Entity\Util u
+                                   WHERE u.recomendacion = ?1 and u.usuario = ?2");
             $q->setParameter(1, $recomendacion->getId());
+            $q->setParameter(2, $this->get('security.context')->getToken()->getUser());
             $q->setMaxResults(1);
             $recomendaciones[$key]->apretoUtil = $q->getSingleScalarResult();
 
@@ -482,7 +487,7 @@ class LugarController extends Controller{
                 $q = $em->createQuery("SELECT l FROM Loogares\LugarBundle\Entity\Lugar l
                                        JOIN l.comuna c
                                        JOIN c.ciudad ci
-                                       WHERE l.nombre = ?1 AND c.slug = ?2");
+                                       WHERE l.nombre = ?1 AND ci.slug = ?2");
                 $q->setParameter(1, $lugarManipulado->getNombre());
                 $q->setParameter(2, $_POST['ciudad']);
                 $lugaresConElMismoNombre = $q->getResult();

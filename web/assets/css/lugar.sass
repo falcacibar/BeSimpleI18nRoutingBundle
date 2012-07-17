@@ -714,6 +714,7 @@ $rojo: #F72121
             @include sombra_fuerte
             border: 1px solid $gris_ccc
             display: block
+            height: 130px
             float: left
             margin: 0 0 10px 0
             padding: 7px
@@ -790,8 +791,11 @@ $rojo: #F72121
         float: left
         margin: 0 0 0 10px
         width: 442px
+
+        .estrellas_lugar_recomendacion
+            margin: 0 0 10px
         
-        .direccion_lugar
+        .direccion_lugar, .direccion_lugar_recomendacion
             display: block
             float: left
             font:
@@ -804,7 +808,31 @@ $rojo: #F72121
                 @include link_azul
 
                 &:hover
-                    @include link_azul_hover                
+                    @include link_azul_hover
+
+        .direccion_lugar_recomendacion
+            font:
+                size: 12px
+            margin: 0 0 10px
+
+        .categoria_lugar
+            display: block
+            float: left
+            font:
+                size: 12px
+            width: 442px
+        
+            .categoria_lugar_box, .sector_lugar_box
+                display: block
+                float: left
+                margin: 0 0 10px 0
+                width: 442px
+
+                .subtitulos_lugar
+                    display: block
+                    font:
+                        size: 11px
+                    margin: 0 0 5px                                    
 
         .telefono_lugar
             background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -51px
@@ -1456,7 +1484,7 @@ $rojo: #F72121
             text-shadow: 1px 1px 1px $gris_444
             padding: 4px 5px 6px
 
-.caja_inferior_ficha
+.caja_inferior_ficha, .caja_inferior_ficha_recomendacion
     border-left: 1px solid $gris_f6f
     border-bottom: 1px solid $gris_f6f
     border-right: 1px solid $gris_f6f
@@ -1472,6 +1500,9 @@ $rojo: #F72121
         top: 0px
         position: absolute
         width: 640px
+
+.caja_inferior_ficha_recomendacion
+    margin: 0 0 20px 0
 
 .opciones_lugar
     border: 1px solid $gris_f6f

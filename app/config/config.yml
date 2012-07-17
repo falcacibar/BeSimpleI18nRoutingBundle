@@ -135,7 +135,7 @@ avalanche_imagine:
         phone_recomendaciones_thumbnail:
             type: thumbnail
             options: { size: [124, 124], mode: outbound }
-        mail_concursos_nuevo:
+        mail_concursos:
             type: thumbnail
             options: { size: [212, 122], mode: outbound }
 
