@@ -227,7 +227,7 @@ class LugarController extends Controller{
           ->setParameter(2, 3);
         $imagenLugar = $q->getResult();
 
-        $lugar->imagen_full  = ($imagenLugar)  ? $imagenLugar->getImagenFull() : 'default.gif';
+        $lugar->imagen_full  = ($imagenLugar)  ? $imagenLugar[0]->getImagenFull() : 'default.gif';
 
         //Query para sacar si ya recomendo
         $q = $em->createQuery("SELECT u.id
