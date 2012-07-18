@@ -2102,14 +2102,13 @@ class LugarController extends Controller{
         $formErrors = array();
 
         $lugar = $lr->findOneBySlug($slug);
-        $dueno = $dr->findOneByLugar($lugar->getId());
 
         if($request->getMethod() == 'POST') {
             if(!$request->request->get('reporte')) {
                 if($request->request->get('password') == '') {
                     $formErrors['blanco'] = "Debes especificar un password";
                 }
-                else if(sha1($request->request->get('password')) != $dueno->getPassword()) {
+                else if(sha1($request->request->get('password')) != $lugar->getDueno()->getPassword()) {
                     $formErrors['password'] = "El password no es válido";
                 }
 
