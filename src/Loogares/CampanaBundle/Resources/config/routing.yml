@@ -3,7 +3,7 @@ LoogaresCampanaBundle_homepage:
     defaults: { _controller: LoogaresCampanaBundle:Default:index }
 
 _reportes:
-    pattern:  /lugar/{slug}/reportes
+    pattern:  /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno
     defaults: { _controller: LoogaresCampanaBundle:Default:index }
 
 _reporte_seguidores:
