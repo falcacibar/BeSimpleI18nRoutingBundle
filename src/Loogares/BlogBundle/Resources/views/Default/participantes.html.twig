@@ -1,7 +1,14 @@
-<div class="concurso_participantes">
 	{% set doce = 0 %}
 	{% if totalParticipantes == 'all' %}
+		<script src="{{asset('assets/js/concurso.js')}}" type="text/javascript"></script>
+		<script>$(function(){actualizarQtip();});</script>
 		{% set length = concurso.participantesActivos | length %}
+		<div class="lightbox_participantes">
+			<div class="header_participantes">
+				{{ concurso.participantesActivos|length }} usuarios ya están participando por {{ concurso.participantesActivos[0].concurso.post.titulo }}
+			</div>
+
+			<div class="body_participantes">
 	{% elseif totalParticipantes == 'short' %}
 		{% set length = 84 %}
 	{% endif %}
@@ -23,47 +30,20 @@
 		{% endif %}
 	{% endfor %}
 
-	<div class="participantes">
-		<div class="cantidad_participantes_izq">
-		</div>							
-		<div class="cantidad_participantes">
-			<span class="numero_participantes">{{concurso.participantesActivos|length}}</span>
-			{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantesActivos|length)}}
+	{% if totalParticipantes == 'all' %}
+			</div>
 		</div>
-		<div class="cantidad_participantes_der">
-		</div>	
-	</div>
-</div>
+	{% elseif totalParticipantes == 'short' %}
+		{% set length = 84 %}
 
-{% if totalParticipantes == 'all' %}
-	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
-	<script type="text/javascript">
-		$(function(){
-			$('.participante_detalle').each(function(){
-		        $(this).qtip({
-		            content: {
-		              text: $(this).find('.nombre_usuario')
-		            },
-		            style: {
-		                classes: 'ui-tooltip-precio',
-		                tip: {
-		                    border: 0,
-		                    width: 12,
-		                    color: '#f0f',
-		                    corner: true,
-		                    offset: 85
-		                }
-		            },
-		            position: {
-		                my: 'top center', 
-		                at: 'bottom left',
-		                adjust: {
-		                    x: 6,
-		                    y: 6
-		                }
-		            }
-		        }); 
-		    });
-		});
-	</script>
-{% endif %}
+		<div class="participantes">
+			<div class="cantidad_participantes_izq">
+			</div>							
+			<div class="cantidad_participantes">
+				<span class="numero_participantes">{{concurso.participantesActivos|length}}</span>
+				{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantesActivos|length)}}
+			</div>
+			<div class="cantidad_participantes_der">
+			</div>	
+		</div>
+	{% endif %}

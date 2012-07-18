@@ -52,6 +52,7 @@ general:
         mejor_evaluadas: Mejor evaluado|Mejores evaluados
         mejores_evaluaciones: Mejores evaluaciones
         mas_recomendados: Más recomendado|Más recomendados
+        mas_recomendados_listar: Más recomendados
         mas_utiles: Más útil|Más útiles
         ultima_recomendacion: Últimos recomendados|Últimos recomendados
         alfabetico: Orden alfabético
@@ -85,13 +86,13 @@ olvidar:
 metadata:
     home:
         descripcion: Loogares.com es la guía de lugares de ocio y turismo en %ciudad%, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios.
-        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Palermo, Recoleta, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
+        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Palermo, Recoleta, barrios, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
     login:
         descripcion: Entrá a Loogares.com y empezá a escribir recomendaciones de lugares en %ciudad%. Encontrarás recomendaciones acerca de los mejores restaurantes, hoteles, museos... incluso cines y servicios.
-        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Palermo, Recoleta, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
+        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Palermo, Recoleta, barrios, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
     olvidaste:
         descripcion: Olvidaste tu password en Loogares.com. Completá los datos que pedimos y nos pondremos en contacto con vos. Pronto podrás volver a escribir recomendaciones de lugares en %ciudad%.
-        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Palermo, Recoleta, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
+        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Palermo, Recoleta, barrios, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
     registro:
         descripcion: Registrate en Loogares.com y empezá a escribir recomendaciones de lugares que conocés en %ciudad% y semanalmente ganá invitaciones a restaurantes, entradas al cine, a conciertos, fiestas y más.
-        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Palermo, Recoleta, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos
+        keywords: Loogares, recomendaciones, %ciudad%, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Palermo, Recoleta, barrios, concursos, sorteos, premios, entradas, invitaciones, notas, eventos

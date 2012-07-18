@@ -26,7 +26,7 @@
 							<p>{{post.condiciones | raw}}</p>
 						</div>
 						<div class="bloque_datos">
-							<p class="titulo_datos_cupon">{{'blog.sobre'|trans}} {{post.lugar.nombre}}</p>
+							<p class="titulo_datos_cupon"><a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{post.lugar.nombre}}</a></p>
 							<br />
 							<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
 							{% if post.lugar.telefono2 == '' or post.lugar.telefono2 == null %}
@@ -46,7 +46,6 @@
 							{% if post.lugar.twitter != ''%}
 								<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
 							{% endif %}
-							<p class="visita_ficha_lugar">{{'blog.visita_ficha'|trans}} <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{'blog.visita_ficha_aca'|trans}}</a></p>
 						</div>
 					</div>
 					<div class="imprimir_cupon">

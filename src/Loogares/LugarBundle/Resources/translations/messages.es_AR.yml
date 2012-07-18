@@ -15,7 +15,7 @@ lugar:
         agregar:
             nombre: Ingresá el nombre del lugar
             categoria: Recordá asignarle una categoría al lugar
-            comuna: Localizá la comuna del lugar
+            comuna: Localizá el barrio del lugar
             calle: Ingresá la calle del lugar
             numero: Ingresá el número del lugar
         fotos:
@@ -36,7 +36,7 @@ lugar:
         resultado_busqueda: Resultados de
         en: en
         sectores: Sectores
-        comunas: Comunas
+        comunas: Barrios
         zonas: Zonas
         categorias: Categorías
         subcategorias: Subcategorías
@@ -121,8 +121,8 @@ lugar:
         pais: País
         ciudad: Ciudad
         comuna:
-            label: Comuna
-            title: Elige una comuna
+            label: Barrio
+            title: Elige un barrio
         calle: Calle
         numero: Nº
         galeria_centro: » ¿Es parte de una galería o centro comercial?
