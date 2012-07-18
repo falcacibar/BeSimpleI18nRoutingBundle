@@ -104,11 +104,6 @@
 		background: white;
 	}
 
-	#lolbox{
-		width: 570px;
-		height: 470px;
-	}
-
 	.rango_descuentos{
 		list-style: none;
 		margin: 0;
@@ -127,31 +122,46 @@
 				display: inline;
 			}
 
-	.step_done, .step_static{
-		height: 70px;
-		border-bottom: 1px #333 solid;
-		background: #f9f9f9;
-		width: 100%;
-		overflow: hidden;
-	}
-
-		.step_done h3{
-			text-align: left;
-			color: pink;
-		}
-
-	.step_active{
-		background: #ff0;
-		width: 500px;
-		height: 300px;
+.lolbox{
+		width: 570px;
+		height: 470px;
+		background: red;   
 		display: block;
-		margin-top: 20px;
-		margin-left: 35px;
+}
+
+.step_static,.step_done{
+		background: papayawhip;
+		height: 70px;
+		display: block;   
+		width: 100%;
+    overflow: hidden;
+}
+
+.step_done small{
+	display: inline-block;
+}
+
+.step_hidden{
+	display: none;   
+}
+.step_active{
+	background: #3bf; 
+	display: block;
+	height: auto;
+	overflow: hidden;
+}
+
+	.step_active small{
+		display:none;
 	}
 
-	.step_hidden{
-		display: none;
-	}
+    .step_done h3, .step_static h3, .step_active h3{
+	    display: block;                
+	    height: 70px;
+	    width: 100%;
+	    background: green;
+	    margin-top: 0;
+    }
 
 .lolbox_siguiente{
 	background: #3bf;
@@ -162,23 +172,52 @@
 }
 </style>
 <div style="display: none">
-<div id="lolbox">
-	<div class="step_static">
-		<p class="seleccionados"><span class="numero_seleccionados">0</span> Seleccionados</p>
-	</div>
-	<div class="step_active">
-		<h3>Selecciona el shuper descuento</h3>
-		<ul class="rango_descuentos">
-			{% for dco in [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90] %}
-			<li>
-				<label>{{dco}}%</label><input type="radio" name="dco">
-			</li>
-			{% if loop.index % 6 == 0 %}</ul><ul class="rango_descuentos">{% endif %}
-			{% endfor %}
-		</ul>
-	</div>
-	<div class="step_hidden">lolololol</div>
-	<div class="lolbox_siguiente"></div>
+	<div class="lolbox">
+		<div class="step_static"><span class="numero_seleccionados">0</span> Participantes</div>
+		<div class="step_active">
+				<h3>¿Que porcentaje de descuento deseas regalar?<small></small></h3>
+				<div class="step_content">
+					<ul class="rango_descuentos">
+						{% for dco in [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90] %}
+						<li>
+							<label>{{dco}}%</label><input type="radio" value="{{dco}}" name="dco">
+						</li>
+						{% if loop.index % 6 == 0 %}</ul><ul class="rango_descuentos">{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
+		</div>
+		<div class="step_hidden">
+		    <h3>¿Cuanto tiempo quieres que dure el descuento?<small></small></h3>
+		    <div class="step_content">
+					<ul class="rango_tiempo">
+						<li>
+							<label>1 Semana</label><input type="radio" name="tiempo" />
+							<label>2 Semanas</label><input type="radio" name="tiempo" />
+							<label>3 Semanas</label><input type="radio" name="tiempo" />
+							<label>1 Mes</label><input type="radio" name="tiempo" />
+						</li>
+					</ul>		
+				</div>    
+		</div>
+		<div class="step_hidden">
+		    <h3>¿Cuales son las condiciones de uso del descuento?<small></small></h3>
+		    <div class="step_content">
+		    	<textarea>This is a text area, this is the best textarea around.</textarea>
+		    	<p>* condiciones</p>
+		    </div>
+		</div>
+		<div class="step_hidden">
+		    <h3>Preparáte...</h3>
+		    <div class="step_content">
+		    	<p>Haz click en el botón y envia tus descuentos ahora.</p>
+		    </div>
+		</div>
+		<div class="step_hidden step_final">
+		    <p>Felicitaciones, tus descuentos han sido enviados con exito.</p>
+		</div>
+		<div class="siguiente_paso">Seleccionar</div>
+	</div>​
 </div>
 {% endblock %}
 
@@ -196,23 +235,49 @@
 
 	$(".otorgar_gift").fancybox({
     type: 'inline',
-		content: $('#lolbox'),
+		content: $('.lolbox'),
 		padding: 0,
 		fitToView: false
 	});
 
-	$('.otorgar_gift').click(function(){
+	$('.siguiente_paso').click(function(){
+	    $active = $('.step_active');
+	    
+	    $active.next('div:not(.siguiente_paso)')
+	                     .removeClass('step_hidden')
+	                     .removeClass('step_done')            
+	                     .addClass('step_active');
+	                     
+	    $active.toggleClass('step_active')
+	           .toggleClass('step_done');
 
+	    if($active.find('input[type=radio]').length){
+	    	var chosenOption = $active.find('input[type=radio]:checked').prev('label').text();
+	    }else if($active.find('textarea').length){
+	    	var chosenOption = $active.find('textarea').text();
+	    }
+
+	    $active.find('h3 > small').text(chosenOption)
+
+	    if($('.step_active').next('div').hasClass('step_final')){
+	    	$('.siguiente_paso').text('Enviar')
+	    }else{
+	    	$('.siguiente_paso').text('Seleccionar')
+	    }
+
+	    if($('.step_active').hasClass('step_final')){
+	    	$('.siguiente_paso').remove();
+	    	$('.step_done, .step_static').hide();
+	    }
 	});
-
-	$('.lolbox_siguiente').click(function(){
-		$('.step_active').addClass('step_done').removeClass('step_active');
-		$('.step_done:last').next('.step_hidden').addClass("step_active").removeClass('step_hidden');
-	});
-
-	$('.step_done').live('click', function(){
-		$('.step_active').addClass('step_hidden').removeClass('step_active')
-		$(this).addClass('step_active').removeClass('step_done');
+	    
+	$('.step_done').live('click', function(){            
+	    $('.step_active')
+	        .removeClass('step_active')
+	        .addClass('step_done');
+	    $(this)
+	        .removeClass('step_done')
+	        .addClass('step_active');    
 	});
 	</script>
 {% endblock %}

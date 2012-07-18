@@ -2102,7 +2102,7 @@ class LugarController extends Controller{
         $formErrors = array();
 
         $lugar = $lr->findOneBySlug($slug);
-
+        
         if($request->getMethod() == 'POST') {
             if(!$request->request->get('reporte')) {
                 if($request->request->get('password') == '') {
