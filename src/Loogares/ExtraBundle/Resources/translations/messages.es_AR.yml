@@ -55,6 +55,7 @@ extra:
         titulo_pasados: Sorteos pasados:
         ver_todos: Ver todos los sorteos de hoy
         participantes: Loogareño participando|Loogareños participando
+        ver_todos: Ver todos los participantes
         publicar: ¿Querés publicar un Beneficio Exclusivo con nosotros? Hacé click
         publicar_link: aquí
         newsletter:

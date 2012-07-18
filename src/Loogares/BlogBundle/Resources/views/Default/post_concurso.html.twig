@@ -54,8 +54,16 @@
 			<div class="tiempo_restante">
 				{{'blog.quedan'|trans}} <span class="tiempo_azul"></span> {{'blog.para_participar'|trans}}
 			</div>
-			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
-			<a href="{{path('participantes_concurso', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}" class="ver_todos">Ver todos los participantes</a>
+			
+			<div class="concurso_participantes">
+
+				{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
+
+				<a href="{{path('participantes_concurso', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}" class="ver_todos popup_participantes">{{'extra.modulo_concursos.ver_todos' | trans }} <img src="{{ asset('assets/images/concursos/ver_todos_participantes.png') }}" width="11" height="11" /></a>
+
+			</div>
+
+
 			{% if concurso.ganadores | length > 0 %}
 				<div class="ganadores">
 					<h6 class="titulo_ganadores">{{'blog.ganadores.titulo'|trans}}</h6>
@@ -95,7 +103,7 @@
 			</div>
 
 			<div class="datos_lugar_concurso">
-				<h3 class="sobre_lugar">{{'blog.sobre'|trans}} {{post.lugar.nombre}}</h3>
+				<h3 class="sobre_lugar"><a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{post.lugar.nombre}}</a></h3>
 				<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
 				<p>{{post.lugar.telefonos|join(', ')}}</p>
 				{% if post.lugar.sitioWeb != ''%}
@@ -106,9 +114,6 @@
 				{% endif %}
 				{% if post.lugar.twitter != ''%}
 					<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
-				{% endif %}
-				{% if post.lugar.tipoLugar.id != 5 %}
-					<p class="link_ficha_lugar">{{'blog.visita_ficha'|trans}} <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{'blog.visita_ficha_aca'|trans}}</a></p>
 				{% endif %}
 			</div>
 

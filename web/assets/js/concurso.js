@@ -1,5 +1,12 @@
 $(function(){
-    $('.boton_registro, .ver_todos').fancybox({
+    $('.ver_todos').fancybox({
+        hideOnContentClick : false,
+        padding: 0,
+        type: 'ajax',
+        showCloseButton: true
+    });
+
+    $('.boton_registro').fancybox({
         hideOnContentClick : false,
         padding: 0,
         type: 'ajax',
@@ -37,7 +44,7 @@ $(function(){
                         data: dataObj,
                         success: function(data){
                             var concursos_html = $(data).html();
-                            $('.concurso_participantes').html(concursos_html);
+                            $('.concurso_participantes').html('<ul class="listado_participantes">'+concursos_html+'</ul>');
                             actualizarQtip();
                         }
                     });
@@ -84,15 +91,15 @@ function actualizarQtip() {
                     width: 12,
                     color: '#f0f',
                     corner: true,
-                    offset: 85
+                    offset: 0
                 }
             },
             position: {
-                my: 'top center', 
-                at: 'bottom left',
+                my: 'bottom center', 
+                at: 'top center',
                 adjust: {
-                    x: 6,
-                    y: 6
+                    x: 0,
+                    y: -2
                 }
             }
         }); 
