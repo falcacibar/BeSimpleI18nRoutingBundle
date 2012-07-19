@@ -1,73 +1,25 @@
 {% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
 
+{% block title %}Panel de administración de {{lugar.nombre}} {{parent()}}{% endblock %}
+
 {% block content %}
-<style>
-	.reportes_header{
-		background: #f0f;
-		width: 100%;
-		display: inline-block;
-		overflow: hidden;
-		padding-bottom: 40px;
-	}
 
-	.reportes_logo{
-		background: #f0f0f0;
-		height: 100px;
-		width: 200px;
-		margin: 50px auto;
-		display: block;
-		text-align: center;
-	}
+	<div class="reportes_index">
+		<div class="logo_local"></div>
+		<h1 class="bienvenido_dueno">Bienvenido {{lugar.dueno.nombre}} {{lugar.dueno.apellido}}</h1>
 
-	p{
-		text-align: center;
-	}
-
-	.campanas, .seguidores{
-	 display: inline-block;
-	 width: 398px;
-	 height: 200px;
-	 background: #f00;
-	 margin: 0;
-	 padding: 0;
-	 float: left;
-	}
-
-	.campanas{
-		background: #ff0;
-		margin-right: 4px;
-	}
-
-	.campanas_boton{
-	}
-
-	.campanas_boton, .seguidores_boton{
-		width: 200px;
-		height: 40px;
-		background: #000;
-		margin: 0 auto;
-	}
-
-		.campanas_boton a, .seguidores_boton a{
-			display: block;
-			height: 100%;
-			width: 100%;
-		}
-</style>
-	<div class="reportes_header">
-		<div class="reportes_logo"></div>
-		<p class="reportes_welcome">Bienvenido {{lugar.dueno.nombre}} {{lugar.dueno.apellido}}, estos son los datos de {{lugar.nombre}} en Loogares.com</p>
+		<p class="datos_lugar">Estos son los datos de {{lugar.nombre}} en Loogares.com</p>
 
 		<div class="campanas">
-			<div class="campanas_boton"><a href="{{ path('_reporte_campanas', {'slug': lugar.slug, 'tipo': 'concursos'}) }}">Campañas</a></div>
-			<ul>
+			<a class="campanas_boton" href="{{ path('_reporte_campanas', {'slug': lugar.slug, 'tipo': 'concursos'}) }}"></a>
+			<ul class="datos_rapidos">
 				<li>{{concursos}} Campañas Beneficios Exclusivos</li>
 				{% if descuentos == 0 %}<li>{{descuentos}} Campañas Descuentos</li>{% endif %}
 			</ul>
 		</div>
 		<div class="seguidores">
-			<div class="seguidores_boton"><a href="{{ path('_reporte_seguidores', {'slug': lugar.slug }) }}">Seguidores</a></div>
-			<ul>
+			<a class="seguidores_boton" href="{{ path('_reporte_seguidores', {'slug': lugar.slug }) }}"></a>
+			<ul class="datos_rapidos">
 				<li>{{seguidores}} Seguidores</li>
 			</ul>
 		</div>

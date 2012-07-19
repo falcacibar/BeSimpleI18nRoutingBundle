@@ -1,0 +1,245 @@
+/* CSS Reset */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video
+    margin: 0
+    padding: 0
+    border: 0
+    font-size: 100%
+    font: inherit
+    vertical-align: baseline
+    
+/* HTML5 display-role reset para navegadores antiguos */
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section
+    display: block
+    
+body
+    line-height: 1
+    
+ol, ul
+    list-style: none
+    
+blockquote, q
+    quotes: none
+    
+blockquote:before, blockquote:after,
+q:before, q:after
+    content: ''
+    content: none
+    
+table
+    border-collapse: collapse
+    border-spacing: 0
+
+/* Colores */
+
+$amarillo: #FFF08C
+
+$azul: #0066CC
+$azul_oscuro: #B2E5FF
+$azul_tiempo: #66CCFF
+$azul_medio: #0099FF
+$azul_claro: #66CCFF
+$azul_participantes: #D2F2FF
+
+$blanco: #FFF
+
+$gris_faf: #FAFAFC
+$gris_fac: #FAFCFF
+$gris_f6f: #F2F2F6
+$gris_eee: #EEE
+$gris_ccc: #CCC
+$gris_999: #999
+$gris_666: #666
+$gris_444: #444
+
+$rojo_claro: #FF8A8A
+$rojo_medio: #FF5353
+$rojo: #F72121
+
+/* Mixin */
+
+@mixin box_shadow_ccc
+    box-shadow: 0px 1px 1px $gris_ccc
+    -o-box-shadow: 0px 1px 1px $gris_ccc
+    -moz-box-shadow: 0px 1px 1px $gris_ccc
+    -webkit-box-shadow: 0px 1px 1px $gris_ccc
+
+@mixin box_shadow_eee
+    box-shadow: 3px 3px 2px $gris_eee
+    -o-box-shadow: 3px 3px 2px $gris_eee
+    -moz-box-shadow: 3px 3px 2px $gris_eee
+    -webkit-box-shadow: 3px 3px 2px $gris_eee
+
+@mixin borde_redondeado_grande
+    border-radius: 8px
+    -o-border-radius: 8px
+    -moz-border-radius: 8px
+    -webkit-border-radius: 8px
+
+@mixin link_azul
+    color: $azul
+    text-decoration: none
+
+@mixin link_azul_hover
+    color: $azul
+    text-decoration: underline
+
+body
+    background: url('../images/extras/fondo.gif') repeat-x $blanco
+    color: $gris_444
+    font:
+        family: Arial
+        size: 13px
+
+a
+    text-decoration: none
+
+    &:hover
+        text-decoration: underline
+
+/* Contenidos */
+
+.contenedor
+    float: left
+    padding: 90px 0px 20px
+    width: 100%
+    
+    .contenido
+        margin: 0 auto
+        width: 960px
+        position: relative
+
+.header_reporte
+    background: $gris_faf
+    border-bottom: 1px solid $gris_f6f
+    height: 50px
+    float: left
+    position: fixed
+    width: 100%
+    z-index: 10
+
+    .volver_loogares
+        color: $gris_666
+        float: left
+        margin: 20px 50px
+
+        a
+            color: $gris_666
+
+    .usuario_reporte
+        color: $gris_666
+        float: right
+        margin: 20px 50px
+
+        a
+            color: $gris_666
+
+.logo_reporte
+    margin: 0 43.8%
+    position: fixed
+    top: 10px
+    z-index: 20
+
+.contenido_reporte
+    background: $blanco
+    float: left
+    position: relative
+    top: 70px  
+    width: 100%
+
+    .contenedor_reporte
+        padding: 0px
+
+        .reportes_index
+            @include box_shadow_ccc
+            background: $gris_faf
+            float: left
+            margin: 50px 180px
+            padding: 40px 20px
+            position: relative
+            width: 540px
+
+            .logo_local
+                @include box_shadow_eee
+                background: $blanco
+                border: 1px solid $gris_f6f
+                height: 110px
+                left: 430px
+                padding: 10px
+                position: absolute
+                top: -20px
+                width: 110px
+
+            .bienvenido_dueno
+                font:
+                    size: 16px
+                    weight: bold
+                margin: 0 0 15px
+                width: 390px
+
+            .datos_lugar
+                width: 390px
+
+            .campanas, .seguidores
+                float: left
+                margin: 70px 0 0
+                width: 260px
+
+                .campanas_boton
+                    background: url('../../images/reporte/botones_panel_dueno.png') 0 0
+                    float: left
+                    height: 70px
+                    width: 260px
+
+                    &:hover
+                        background: url('../../images/reporte/botones_panel_dueno.png') 0 -70px
+
+                .seguidores_boton
+                    background: url('../../images/reporte/botones_panel_dueno.png') 260px 0
+                    float: left
+                    height: 70px
+                    width: 260px
+
+                    &:hover
+                        background: url('../../images/reporte/botones_panel_dueno.png') 260px -70px
+
+                .datos_rapidos
+                    color: $gris_999
+                    float: left
+                    font:
+                        size: 14px
+                    line-height: 20px
+                    margin: 15px 10px 0
+
+            .seguidores
+                margin: 70px 0 70px 20px
+
+.footer_reporte
+    background: $gris_faf
+    border-top: 1px solid $gris_f6f
+    height: 180px
+    float: left
+    position: relative
+    top: 120px
+    width: 100%
+
+    .loogares_copyright
+        color: $gris_999
+        font:
+            size: 11px
+        padding: 20px 0
+        text-align: center
