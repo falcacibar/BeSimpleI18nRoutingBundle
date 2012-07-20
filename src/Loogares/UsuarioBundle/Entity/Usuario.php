@@ -969,4 +969,69 @@ class Usuario implements AdvancedUserInterface, \Serializable
             $this->setFacebookUid($fbdata['id']);
         }
     }
+
+    /**
+     * Add recomendaciones
+     *
+     * @param Loogares\CampanaBundle\Entity\DescuentosUsuarios $recomendaciones
+     */
+    public function addDescuentosUsuarios(\Loogares\CampanaBundle\Entity\DescuentosUsuarios $recomendaciones)
+    {
+        $this->recomendaciones[] = $recomendaciones;
+    }
+    /**
+     * @var Loogares\CampanaBundle\Entity\DescuentosUsuarios
+     */
+    private $descuentos_usuarios;
+
+
+    /**
+     * Get descuentos_usuarios
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getDescuentosUsuarios()
+    {
+        return $this->descuentos_usuarios;
+    }
+    /**
+     * @var Loogares\BlogBundle\Entity\Participante
+     */
+    private $participante;
+
+
+    /**
+     * Add participante
+     *
+     * @param Loogares\BlogBundle\Entity\Participante $participante
+     */
+    public function addParticipante(\Loogares\BlogBundle\Entity\Participante $participante)
+    {
+        $this->participante[] = $participante;
+    }
+
+    /**
+     * Get participante
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getParticipante()
+    {
+        return $this->participante;
+    }
+    /**
+     * @var Loogares\BlogBundle\Entity\Participante
+     */
+    private $participantes;
+
+
+    /**
+     * Get participantes
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getParticipantes()
+    {
+        return $this->participantes;
+    }
 }

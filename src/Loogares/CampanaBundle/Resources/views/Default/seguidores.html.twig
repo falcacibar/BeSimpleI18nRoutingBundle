@@ -34,21 +34,26 @@
 				<img src="" height="30" width="30" />
 			</div>
 			<div class="seguidor_datos">
-				<a href="#">{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %} </a>
-				<p class="comuna">{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
+				<a href="#">{% if seguidor[0].usuario.nombre != '' %} {{seguidor[0].usuario.nombre}} {{seguidor[0].usuario.apellido}} {% else %} {{seguidor[0].usuario.slug}} {% endif %} </a>
+				<p class="comuna">{% if seguidor[0].usuario.comuna %} {{seguidor[0].usuario.comuna.nombre}} {% endif %}</p>
 			</div>
 			<div class="seguidor_iconos">
 				<div class="numero_recomendaciones">
-					<p class="valor">{{seguidor.usuario.recomendaciones|length}}</p>
+					<p class="valor">{{seguidor[0].usuario.recomendaciones|length}}</p>
 				</div>
 				<div class="numero_descuentos">
-					<p class="valor">Nº</p>
+					<p class="valor">{{seguidor[0].usuario.descuentosUsuarios|length}}</p>
 				</div>
 				<div class="numero_be">
-					<p class="valor">Nº</p>
+					{% set total = 0 %}
+					{% for participante in seguidor[0].usuario.participantes %}
+						{% if participante.ganador %}
+							{% set total = total + 1 %}
+						{% endif %}
+					{% endfor %}
+					<p class="valor">{{total}}</p>
 				</div>
-				<div class="recomendacion_lugar si">
-				</div>
+				<div class="recomendacion_lugar {% if seguidor.recomendo %}si{% else %}no{% endif %}"></div>
 			</div>
 		</div>
 		{% endfor %}
