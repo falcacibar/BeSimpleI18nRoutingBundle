@@ -3,8 +3,11 @@
 namespace Loogares\ExtraBundle\EventListener;
  
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Bundle\TwigBundle\Controller\ExceptionController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * This code gets executed everytime Kernel sends a event to a ApiBundle Controller
@@ -28,11 +31,12 @@ class BeforeControllerListener
      *
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container, $em)
+    public function __construct(ContainerInterface $container, $em, ControllerResolver $resolver)
     {
         $this->container = $container;
         $this->em = $em;
         $this->times = 0;
+        $this->resolver = $resolver;
     }
  
     /**
@@ -41,7 +45,7 @@ class BeforeControllerListener
      * @param FilterControllerEvent $event
      * @throws AccessDeniedHttpException in case token is not valid
      */
-    public function onKernelController(FilterControllerEvent $event)
+    public function onKernelController(FilterControllerEvent $event )
     {
         $this->times++;
 
@@ -62,9 +66,24 @@ class BeforeControllerListener
              */
             $controller = $controller[0];
             $controllerPath = explode('\\', get_class($controller));
-            if($controllerPath[0] == 'Loogares') {
-                $em = $this->em;
+            $em = $this->em;
 
+            if($controllerPath[1] == 'CampanaBundle'){
+                $req = $controller->getRequest();
+                $lugarRepository = $em->getRepository('LoogaresLugarBundle:Lugar');
+                $lugar = $lugarRepository->findOneBySlug($req->get('slug'));
+                $usuario = $controller->get('security.context')->getToken()->getUser();
+
+                if($usuario->getTipoUsuario()->getId() == 1){
+                }else if($lugar->getDueno() == null || $lugar->getDueno()->getUsuario() == null){
+                    $request = new Request();
+                    $request->attributes->set('_controller', 'LoogaresExtraBundle:Default:homepage');
+                    $event->setController($this->resolver->getController($request));
+                }else if($lugar->getDueno()->getUsuario()->getId() == $usuario->getId()){
+                }
+            }
+
+            if($controllerPath[0] == 'Loogares') {
                 // Si ciudad no está en la sesión, seteamos Santiago de Chile por default
                 if(!$controller->get('session')->get('ciudad')) {            
                     $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
@@ -93,7 +112,6 @@ class BeforeControllerListener
                 }
             }                 
         //}       
-        
     }
 }
 ?>

@@ -2,32 +2,58 @@
 
 {% block content %}
 
-<h1 class="titulo_seguidores">{{-seguidores|length}} seguidores de {{lugar.nombre-}}</h1>
-
-<p class="breadcrumb"><a href="#">Inicio</a> » <span class="selected">Mis seguidores</span></p>
-
-<form>
-	<select name="comuna">
-		<option>Filtrar por Comuna</option>
-		{% for comuna in comunas %}
-			<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
-		{% endfor %}
-	</select>
-	<input type="submit" value="filtrar">
-</form>
-
 <div class="seguidores">
-	{% for seguidor in seguidores %}
-	<div class="seguidor">
-		<div class="seguidor_imagen">
-		</div>
-		<div class="seguidor_datos">
-			<p>{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %} </p>
-			<p>{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
-			<p>{{seguidor.usuario.recomendaciones|length}} Recomendaciones</p>
-		</div>
+
+	<h1 class="titulo_principal">{{-seguidores|length}} seguidores de {{lugar.nombre-}}</h1>
+
+	<p class="breadcrumb"><a href="#">Inicio</a> » <span class="selected">Mis seguidores</span></p>
+
+	<div class="fitros_seguidores">
+		<ul class="ordenar_por">
+			<li class="tipos_de_orden">Ordenar por:</li>
+			<li class="tipos_de_orden"><p class="selected">Nº Recomendaciones</p> | </li>
+			<li class="tipos_de_orden"><a href="#">Recomendación lugar (#)</a> | </li>
+			<li class="tipos_de_orden"><a href="#">Premios ganados (#)</a> | </li>
+			<li class="tipos_de_orden"><a href="#">Descuentos regalados (#)</a></li>
+		</ul>
+		<form class="filtrar_por">
+			<select name="comuna">
+				<option>Filtrar por Comuna</option>
+				{% for comuna in comunas %}
+					<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
+				{% endfor %}
+			</select>
+			<input type="submit" value="filtrar">
+		</form>
 	</div>
-	{% endfor %}
+
+	<div class="caja_seguidores">
+		{% for seguidor in seguidores %}
+		<div class="seguidor">
+			<div class="seguidor_imagen">
+				<img src="" height="30" width="30" />
+			</div>
+			<div class="seguidor_datos">
+				<a href="#">{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %} </a>
+				<p class="comuna">{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
+			</div>
+			<div class="seguidor_iconos">
+				<div class="numero_recomendaciones">
+					<p class="valor">{{seguidor.usuario.recomendaciones|length}}</p>
+				</div>
+				<div class="numero_descuentos">
+					<p class="valor">Nº</p>
+				</div>
+				<div class="numero_be">
+					<p class="valor">Nº</p>
+				</div>
+				<div class="recomendacion_lugar si">
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
 </div>
 
 {% endblock %}

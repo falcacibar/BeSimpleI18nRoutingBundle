@@ -42,6 +42,7 @@ assetic:
              jar: %kernel.root_dir%/java/yuicompressor-2.4.7.ja
         yui_js:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
+        sass: ~
 
 # Doctrine Configuration
 doctrine:

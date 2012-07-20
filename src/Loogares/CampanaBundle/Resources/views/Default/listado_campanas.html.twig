@@ -1,0 +1,11 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block title %} {{parent()}}{% endblock %}
+
+{% block content %}
+<ul>
+{% for campana in campanas %}
+	<li><a href="{{ path('_reporte_concursos_listado', {'slug': slug, 'id': campana.id}) }}">{{campana.id}}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

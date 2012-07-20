@@ -99,4 +99,104 @@ class Descuento
     {
         return $this->descuento;
     }
+    /**
+     * @var datetime $fecha_termino
+     */
+    private $fecha_termino;
+
+    /**
+     * @var integer $cantidad
+     */
+    private $cantidad;
+
+
+    /**
+     * Set fecha_termino
+     *
+     * @param datetime $fechaTermino
+     */
+    public function setFechaTermino($fechaTermino)
+    {
+        $this->fecha_termino = $fechaTermino;
+    }
+
+    /**
+     * Get fecha_termino
+     *
+     * @return datetime 
+     */
+    public function getFechaTermino()
+    {
+        return $this->fecha_termino;
+    }
+
+    /**
+     * Set cantidad
+     *
+     * @param integer $cantidad
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+    }
+
+    /**
+     * Get cantidad
+     *
+     * @return integer 
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+    /**
+     * @var string $condiciones
+     */
+    private $condiciones;
+
+
+    /**
+     * Set condiciones
+     *
+     * @param string $condiciones
+     */
+    public function setCondiciones($condiciones)
+    {
+        $this->condiciones = $condiciones;
+    }
+
+    /**
+     * Get condiciones
+     *
+     * @return string 
+     */
+    public function getCondiciones()
+    {
+        return $this->condiciones;
+    }
+    /**
+     * @var Loogares\CampanaBundle\Entity\Campana
+     */
+    private $campana;
+
+
+    /**
+     * Set campana
+     *
+     * @param Loogares\CampanaBundle\Entity\Campana $campana
+     */
+    public function setCampana(\Loogares\CampanaBundle\Entity\Campana $campana)
+    {
+        $this->campana = $campana;
+    }
+
+    /**
+     * Get campana
+     *
+     * @return Loogares\CampanaBundle\Entity\Campana 
+     */
+    public function getCampana()
+    {
+        return $this->campana;
+    }
 }

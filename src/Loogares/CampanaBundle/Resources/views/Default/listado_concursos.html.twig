@@ -1,0 +1,48 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block content %}
+
+<div class="listados_campanas">
+	<p class="breadcrumb"><a href="#">Inicio</a> » <a href="#">Mis campañas</a> » <span class="selected">Beneficios Exclusivos</span></p>
+
+	<ul class="botones_campana">
+		<li class="">
+			<a href="{{ path('_reporte_campanas', {'slug': slug}) }}">
+				<div class="icono_be">Beneficios Exclusivos</div>
+			</a>
+		</li>
+		<li class="">
+			<a href="{{ path('_reporte_campanas', {'slug': slug}) }}">
+				<div class="icono_gc"><a href="{{ path('_reporte_descuentos_detalle', { 'slug':slug, 'id': id }) }}">Descuentos</a></div>
+			</a>
+		</li>
+	</ul>
+
+	{% for concurso in concursos %}
+		<div class="campana_detalle{%if concurso.estadoConcurso.id == 3%}_inactivo{% endif %}">
+			<div class="foto_fecha">
+				<div class="fecha">
+					{{-concurso.fechaInicio|date('d')-}}&nbsp;{{-meses[concurso.fechaInicio|date('n') - 1]-}}&nbsp;{{-concurso.fechaInicio|date('Y')-}}
+				</div>
+				<div class="foto">
+					<img height="115" width="205" src="http://www.loogares.com/assets/media/cache/medium_concurso/assets/images/blog/{{concurso.post.imagenHome|default('default.gif')}}" />
+				</div>
+			</div>
+			<div class="detalles_be">
+				<p class="titulo">{{concurso.titulo}}</p>
+				<p class="validez"><strong>Validas cada una por:</strong></p>
+				<p class="validez">{{concurso.descripcion}}</p>
+				<p class="participantes">{{concurso.participantesActivos|length}} Participantes</p>
+				<a class="ver_mas" href="#">Ver reporte</a>
+			</div>
+			<div class="icono_identificador"></div>
+		</div>
+	{% endfor %}
+
+	{% if concursos|length == 0 %}
+		Si no hay nada, el botón debiese estar bloquedo y no debería poder apretarse nunca.
+	{% endif %}
+
+	<a class="boton_nuevo_be" href="#">¿Quieres sortear un nuevo Beneficio Exclusivo? Haz click acá</a>
+</div>
+{% endblock %}

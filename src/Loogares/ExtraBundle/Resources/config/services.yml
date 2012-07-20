@@ -21,7 +21,7 @@ services:
 
     controllers.action_listener:
         class: Loogares\ExtraBundle\EventListener\BeforeControllerListener
-        arguments: [@service_container, @doctrine.orm.default_entity_manager]
+        arguments: [@service_container, @doctrine.orm.default_entity_manager, @controller_resolver]
         tags:
             -  { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 

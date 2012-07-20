@@ -173,7 +173,7 @@
 	</style>
 <div style="display:none">
 	<div class="lolbox">
-		<form method="post" class="nuevo_descuento" action="{{ path('_submit_descuento', {'slug': lugar.slug}) }}">
+		<form method="post" class="nuevo_descuento" action="{{ path('_reporte_descuentos_enviar', {'slug': lugar.slug, 'id': id}) }}">
 			<div class="step_static"><span class="numero_seleccionados">0</span> Participantes</div>
 			<div class="step_active">
 					<h3>¿Que porcentaje de descuento deseas regalar?<small></small></h3>

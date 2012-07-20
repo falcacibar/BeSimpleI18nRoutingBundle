@@ -1,0 +1,99 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block content %}
+<style>
+	.seguidores{
+		width: 800px;
+		float: left;
+		overflow:hidden;
+		background: #f1f1f1;
+	}
+
+	.seguidor{
+		width: 250px;
+		height: 70px;
+		padding: 5px;
+		margin-left: 5px;
+		margin-top: 5px;
+		background: #0ff;
+		float: left;
+		font-size: 14px;
+	}
+
+		p{
+			margin: 0;
+			padding: 0;
+		}
+
+		input{
+			float: left
+		}
+
+		.seguidor_imagen{
+			width: 70px;
+			height: 70px;
+			background: #333;
+			float: left;
+		}
+
+		.seguidor_datos{
+			float: left;
+			width: 158px;
+			background: #f1f1f1;
+			margin-left: 5px;
+		}
+
+	.seguidores_footer{
+		position: fixed;
+		width: 800px;
+		background: rgba(0, 0, 0, .8);
+		height: 40px;
+		bottom: 0;
+	}
+
+		.otorgar_gift{
+			width: 200px;
+			height: 30px;
+			top: 5px;
+			position: absolute;
+			right: 5px;
+			background: #3bf;
+			opacity: 1;
+		}
+
+		.seguidores_footer p{
+			color: #f1f1f1;
+		}
+</style>
+{{seguidores|length}} Seguidores en {{lugar.nombre}}
+<form>
+	<select name="comuna">
+		<option>Filtrar por Comuna</option>
+		{% for comuna in comunas %}
+			<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="filtrar">
+</form>
+
+{% include 'LoogaresCampanaBundle:Default:_partials/_lista_seguidores.html.twig' %}
+
+<div class="seguidores_footer">
+	<p><span class="numero_seleccionados">0</span> Seleccionados</p>
+	<div class="otorgar_gift"></div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+	$('.seguidores_checkbox').change(function(){
+		var $this = $(this);
+		var $seleccionados = $('.numero_seleccionados');
+		var seleccionadosCount = parseInt($seleccionados.html());
+
+		($this.is(':checked'))?seleccionadosCount++:seleccionadosCount--;
+		$seleccionados.html(seleccionadosCount)
+	});
+	</script>
+{% endblock %}
