@@ -1,96 +1,75 @@
 {% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
 
 {% block content %}
-<style>
-	ul.nav{
-		padding: 0;
-		margin: 0;
-	}
-		ul.nav li{
-			display: inline-block;
-			width: 398px;
-			background: #333;
-			color: red;
-		}
-			ul li.be-concursos{
-				background: papayawhip;
-			}
 
-			ul li.gc-descuentos{
-				background: blue;
-			}
+<div class="listados_campanas">
 
-	.campana_detalle{
-		margin: 0 auto;
-		display: block;
-		height: 300px;
-		background: #ff0;
-		margin-bottom: 40px;
-	}
-	.left{
-		float: left;
-		background: #f00;
-		width: 280px;
-		height: 100%;
-		display: inline-block;
-		padding: 10px;
-	}
-		.foto_fecha{
-			width: 200px;
-			margin: 0 auto;
-			height: 200px;
-			display: block;
-			background: #f1f1f1;
-		}
+	<p class="breadcrumb"><a href="#">Inicio</a> » <a href="#">Mis campañas</a> » <span class="selected">Beneficios Exclusivos</span></p>
 
-			.fecha{
-				background: #333;
-				color: #ff0;
-			}
+	<ul class="botones_campana">
+		<li class="be_{{tipo}}">
+			<a href="{{ path('_reporte_campanas', {'slug': slug, tipo: 'concursos'}) }}">
+				<div class="icono_be">Beneficios Exclusivos</div>
+			</a>
+		</li>
+		<li class="gc_{{tipo}}">
+			<a href="{{ path('_reporte_campanas', {'slug': slug, tipo: 'descuentos'}) }}">
+				<div class="icono_gc">Descuentos</div>
+			</a>
+		</li>
+	</ul>
 
-	.right{
-		float: right;
-		background: #f0f;
-		width: 480px;
-		height: 100%;
-		display: inline-block;
-		padding: 10px;
-	}
-</style>
-
-<ul class="nav">
-	<li class="be-{{tipo}}"><a href="{{ path('_reporte_campanas', {'slug': slug, tipo: 'concursos'}) }}">Beneficios Exclusivos</a></li>
-	<li class="gc-{{tipo}}"><a href="{{ path('_reporte_campanas', {'slug': slug, tipo: 'descuentos'}) }}">Gift Cards</a></li>
-</ul>
-{% for detalle in detalles %}
-<div class="campana_detalle {{tipo}}">
-	<div class="left">
+	{% for detalle in detalles %}
+	<div class="campana_detalle {{tipo}}">
 		<div class="foto_fecha">
 			<div class="fecha">
-				{{detalle.fechaInicio|date('Y-m-d')}}
+				{{-detalle.fechaInicio|date('d F Y')-}}
 			</div>
 			<div class="foto">
-
+				<img src="" height="115" width="205" />
 			</div>
 		</div>
+		<div class="detalles_be">
+			<p class="titulo">{{detalle.titulo}}</p>
+			<p class="validez"><strong>Validas cada una por:</strong></p>
+			<p class="validez">{{detalle.descripcion}}</p>
+			<p class="participantes">## participantes</p>
+			<a class="ver_mas" href="#">Ver reporte</a>
+		</div>
+		<div class="icono_identificador"></div>
 	</div>
-	<div class="right">
-		<p>{{detalle.titulo}}</p>
-		<p>Validas cada una por: </p>
-		<ul>
-			<li>{{detalle.descripcion}}</li>
-		</ul>
+
+	<!-- Caja con las clases de los concursos inactivos -->
+	<div class="campana_detalle {{tipo}}">
+		<div class="foto_fecha">
+			<div class="fecha inactivo">
+				{{-detalle.fechaInicio|date('d F Y')-}}
+			</div>
+			<div class="foto">
+				<img src="" height="115" width="205" />
+			</div>
+		</div>
+		<div class="detalles_be">
+			<p class="titulo">{{detalle.titulo}}</p>
+			<p class="validez"><strong>Validas cada una por:</strong></p>
+			<p class="validez">{{detalle.descripcion}}</p>
+			<p class="participantes">## participantes</p>
+			<a class="ver_mas" href="#">Ver reporte</a>
+		</div>
+		<div class="icono_identificador_inactivo"></div>
 	</div>
+	{% endfor %}
+
+	{% if detalles|length == 0 %}
+		Si no hay nada, el botón debiese estar bloquedo y no debería poder apretarse nunca.
+	{% endif %}
+
+	{% if tipo == 'concursos' %}
+		<a class="boton_nuevo_be" href="#">¿Quieres sortear un nuevo Beneficio Exclusivo? Haz click acá</a>
+	{% elseif tipo == 'descuentos' %}
+		<a href="#">Boton de Crear Nuevo</a>
+	{% endif %}
+
 </div>
-{% endfor %}
 
-{% if detalles|length == 0 %}
-	no hay naa
-{% endif %}
-
-{% if tipo == 'concursos' %}
-	<a href="">Boton de Contactanos</a>
-{% elseif tipo == 'descuentos' %}
-	<a href="">Boton de Crear Nuevo</a>
-{% endif %}
 {% endblock %}

@@ -7,6 +7,26 @@
 	<meta name="description" content="{{post.preview | striptags}}" />
 	<meta name="keywords" content="{{post.titulo}}, Concursos, Eventos, Notas, Actividades, Premios, Entradas, Invitaciones, Loogares, {{post.lugar.comuna.ciudad.nombre}}" />
 
+	<!-- Metadata Geo Tags -->
+	{# Santiago de Chile #}
+	{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+		<meta name="geo.region" content="CL" />
+		<meta name="geo.position" content="-33.46912;-70.641997" />
+		<meta name="ICBM" content="-33.46912, -70.641997" />
+	{# Valparaíso / Viña del Mar #}
+	{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+		<meta name="geo.region" content="CL-VS" />
+		<meta name="geo.placename" content="Valparaíso" />
+		<meta name="geo.position" content="-33.045646;-71.620361" />
+		<meta name="ICBM" content="-33.045646, -71.620361" />
+	{# Buenos Aires #}	
+	{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+		<meta name="geo.region" content="AR" />
+		<meta name="geo.placename" content="Buenos Aires" />
+		<meta name="geo.position" content="-34.603723;-58.381593" />
+		<meta name="ICBM" content="-34.603723, -58.381593" />
+	{% endif %}
+
 	<!-- Metadata para FB -->
 	<meta property="og:title" content="En #Loogarescom {{concurso.descripcion}} en {{post.lugar.nombre}}. Yo ya estoy participando »" />
 	<meta property="og:description" content="{{post.preview | striptags}}" />

@@ -1,0 +1,432 @@
+/* CSS Reset */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video
+    margin: 0
+    padding: 0
+    border: 0
+    font-size: 100%
+    font: inherit
+    vertical-align: baseline
+    
+/* HTML5 display-role reset para navegadores antiguos */
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section
+    display: block
+    
+body
+    line-height: 1
+    
+ol, ul
+    list-style: none
+    
+blockquote, q
+    quotes: none
+    
+blockquote:before, blockquote:after,
+q:before, q:after
+    content: ''
+    content: none
+    
+table
+    border-collapse: collapse
+    border-spacing: 0
+
+/* Colores */
+
+$amarillo: #FFF08C
+
+$azul: #0066CC
+$azul_seleccion_be: #5DCDFA
+$azul_seleccion_gc: #B2E5FF
+$azul_oscuro: #B2E5FF
+$azul_tiempo: #66CCFF
+$azul_medio: #0099FF
+$azul_claro: #66CCFF
+$azul_participantes: #D2F2FF
+
+$blanco: #FFF
+
+$gris_faf: #FAFAFC
+$gris_fac: #FAFCFF
+$gris_f6f: #F2F2F6
+$gris_eee: #EEE
+$gris_ccc: #CCC
+$gris_999: #999
+$gris_666: #666
+$gris_444: #444
+
+$rojo_claro: #FF8A8A
+$rojo_medio: #FF5353
+$rojo: #F72121
+
+/* Mixin */
+
+@mixin box_shadow_ccc
+    box-shadow: 0px 1px 1px $gris_ccc
+    -o-box-shadow: 0px 1px 1px $gris_ccc
+    -moz-box-shadow: 0px 1px 1px $gris_ccc
+    -webkit-box-shadow: 0px 1px 1px $gris_ccc
+
+@mixin box_shadow_eee
+    box-shadow: 3px 3px 2px $gris_eee
+    -o-box-shadow: 3px 3px 2px $gris_eee
+    -moz-box-shadow: 3px 3px 2px $gris_eee
+    -webkit-box-shadow: 3px 3px 2px $gris_eee
+
+@mixin borde_redondeado_grande
+    border-radius: 8px
+    -o-border-radius: 8px
+    -moz-border-radius: 8px
+    -webkit-border-radius: 8px
+
+@mixin link_azul
+    color: $azul
+    text-decoration: none
+
+@mixin link_azul_hover
+    color: $azul
+    text-decoration: underline
+
+@mixin link_blanco
+    color: $blanco
+    text-decoration: none
+
+@mixin link_blanco_hover
+    color: $blanco
+    text-decoration: underline
+
+body
+    background: url('../images/extras/fondo.gif') repeat-x $blanco
+    color: $gris_444
+    font:
+        family: Arial
+        size: 13px
+
+a
+    text-decoration: none
+
+    &:hover
+        text-decoration: underline
+
+/* Contenidos */
+
+.contenedor
+    float: left
+    padding: 90px 0px 20px
+    width: 100%
+    
+    .contenido
+        margin: 0 auto
+        width: 960px
+        position: relative
+
+.header_reporte
+    background: $gris_faf
+    border-bottom: 1px solid $gris_f6f
+    height: 50px
+    float: left
+    position: fixed
+    width: 100%
+    z-index: 10
+
+    .volver_loogares
+        color: $gris_666
+        float: left
+        margin: 20px 50px
+
+        a
+            color: $gris_666
+
+    .usuario_reporte
+        color: $gris_666
+        float: right
+        margin: 20px 50px
+
+        a
+            color: $gris_666
+
+.logo_reporte
+    margin: 0 43.8%
+    position: fixed
+    top: 10px
+    z-index: 20
+
+.contenido_reporte
+    background: $blanco
+    float: left
+    position: relative
+    top: 70px  
+    width: 100%
+
+    .contenedor_reporte
+        padding: 0px
+
+        /* Inicio Panel Locales */
+        .reportes_index
+            @include box_shadow_ccc
+            background: $gris_faf
+            float: left
+            margin: 50px 180px
+            padding: 40px 20px
+            position: relative
+            width: 540px
+
+            .logo_local
+                @include box_shadow_eee
+                background: $blanco
+                border: 1px solid $gris_f6f
+                height: 110px
+                left: 430px
+                padding: 10px
+                position: absolute
+                top: -20px
+                width: 110px
+
+            .bienvenido_dueno
+                font:
+                    size: 16px
+                    weight: bold
+                margin: 0 0 15px
+                width: 390px
+
+            .datos_lugar
+                width: 390px
+
+            .campanas, .seguidores
+                float: left
+                margin: 70px 0 0
+                width: 260px
+
+                .campanas_boton
+                    background: url('../../images/reporte/botones_panel_dueno.png') 0 0
+                    float: left
+                    height: 70px
+                    width: 260px
+
+                    &:hover
+                        background: url('../../images/reporte/botones_panel_dueno.png') 0 -70px
+
+                .seguidores_boton
+                    background: url('../../images/reporte/botones_panel_dueno.png') 260px 0
+                    float: left
+                    height: 70px
+                    width: 260px
+
+                    &:hover
+                        background: url('../../images/reporte/botones_panel_dueno.png') 260px -70px
+
+                .datos_rapidos
+                    color: $gris_999
+                    float: left
+                    font:
+                        size: 14px
+                    line-height: 20px
+                    margin: 15px 10px 0
+
+            .seguidores
+                margin: 70px 0 70px 20px
+
+        /* Breadcrumb */
+        .breadcrumb
+            color: $gris_ccc
+            font:
+                size: 11px
+            margin: 0 0 10px
+
+            a
+                color: $azul
+
+            .selected
+                color: $gris_666
+
+        /* Listado BE y Descuentos */
+        .listados_campanas
+            float: left
+            margin: 40px 180px
+            position: relative
+            width: 600px
+
+            .botones_campana
+                height: 43px
+                flaot: left
+                position: relative
+                width: 600px
+
+                .be_concursos, .be_descuentos, .gc_concursos, .gc_descuentos
+                    background: $gris_ccc
+                    float: left
+                    font:
+                        size: 18px
+                    position: absolute
+                    text:
+                        shadow: 0px -1px 0px $gris_666
+                    z-index: 1
+
+                    a
+                        @include link_blanco
+                        display: block
+                        height: 18px
+                        padding: 8px 10px 10px
+                        width: 279px
+
+                        .icono_be
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -140px
+                            height: 18px
+                            margin: 0 41px
+                            padding: 4px 0 0 25px
+                            width: 175px
+
+                        .icono_gc
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -166px
+                            height: 18px
+                            margin: 0 77px
+                            padding: 4px 0 0 25px
+                            width: 100px
+
+                .be_concursos
+                    background: $blanco
+                    border-bottom: 3px solid $azul_seleccion_be
+                    left: 0
+                    text:
+                        shadow: 0px -1px 0px $azul
+                    top: 0
+                    width: 600px
+
+                    a
+                        background: $azul_seleccion_be
+                        border-bottom: 2px solid $azul_seleccion_be
+
+                .gc_concursos
+                    left: 301px
+
+                .gc_descuentos
+                    background: $blanco
+                    border-bottom: 3px solid $azul_seleccion_gc
+                    left: 0
+                    padding: 0 0 0 301px
+                    text:
+                        shadow: 0px -1px 0px $azul_tiempo
+                    top: 0
+                    z-index: 0
+
+                    a
+                        background: $azul_seleccion_gc
+                        border-bottom: 2px solid $azul_seleccion_gc
+
+        .campana_detalle
+            @include box_shadow_ccc
+            background: $gris_faf
+            float: left
+            margin: 10px 0 0
+            padding: 20px
+            position: relative
+            width: 560px
+
+            &:hover
+                background: $gris_fac
+
+            .foto_fecha
+                float: left
+                margin: 0 15px 0 0
+                width: 205px
+
+                .fecha
+                    background: $gris_999
+                    border-bottom: 3px solid $azul_medio
+                    color: $blanco
+                    font:
+                        size: 14px
+                    padding: 5px 0
+                    text-align: center
+
+                .inactivo
+                    border-bottom: 3px solid $gris_ccc                
+
+                .foto
+                    height: 115px
+                    margin: 1px 0 0
+                    width: 205px
+
+            .detalles_be
+                float: left
+                width: 340px
+
+                .titulo
+                    float: left
+                    font:
+                        size: 18px
+                        weight: bold
+                    line-height: 22px
+                    width: 300px
+
+                .validez, .participantes
+                    color: $gris_666
+                    float: left
+                    font:
+                        size: 12px
+                    line-height: 18px
+                    margin: 10px 0 0
+                    width: 340px
+
+                .ver_mas
+                    background: url('../../images/reporte/botones_panel_dueno.png') 80px -190px
+                    color: $gris_ccc
+                    float: left
+                    margin: 0 0 0 255px
+                    padding: 0 10px 0 0
+                    text-align: right
+                    width: 75px
+
+                    &:hover
+                        background: url('../../images/reporte/botones_panel_dueno.png') 80px -204px
+                        color: $azul
+
+            .icono_identificador
+                background: url('../../images/reporte/botones_panel_dueno.png') 0 -222px
+                height: 62px
+                left: 548px
+                position: absolute
+                top: 10px
+                width: 65px
+
+            .icono_identificador_inactivo
+                background: url('../../images/reporte/botones_panel_dueno.png') 0 -289px
+                height: 62px
+                left: 548px
+                position: absolute
+                top: 10px
+                width: 65px
+
+        .boton_nuevo_be
+            float: left
+            margin: 30px 0 0
+            width: 600px
+
+.footer_reporte
+    background: $gris_faf
+    border-top: 1px solid $gris_f6f
+    height: 180px
+    float: left
+    position: relative
+    top: 120px
+    width: 100%
+
+    .loogares_copyright
+        color: $gris_999
+        font:
+            size: 11px
+        padding: 20px 0
+        text-align: center

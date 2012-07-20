@@ -3,10 +3,31 @@
 {% block title %}{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}} | {{parent()}}{% endblock %}
 
 {% block meta %}
+
 	<meta name="description" content="Loogares.com es la guía de lugares de ocio y turismo en {{app.session.get('ciudad').nombre}}, basada en las recomendaciones de la gente. Encontrarás recomendaciones acerca de restaurantes, hoteles, museos... incluso cines y servicios." />
 	
 	<meta name="keywords" content="Loogares, recomendaciones, {{app.session.get('ciudad').nombre}}, lugares, guía, ocio, turismo, restaurantes, museos, hoteles, cines, servicios, moteles, bares, Providencia, Bellavista, barrios, comunas, concursos, sorteos, premios, entradas, invitaciones, notas, eventos" />
 
+	<!-- Metadata Geo Tags -->
+	{# Santiago de Chile #}
+	{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+		<meta name="geo.region" content="CL" />
+		<meta name="geo.position" content="-33.46912;-70.641997" />
+		<meta name="ICBM" content="-33.46912, -70.641997" />
+	{# Valparaíso / Viña del Mar #}
+	{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+		<meta name="geo.region" content="CL-VS" />
+		<meta name="geo.placename" content="Valparaíso" />
+		<meta name="geo.position" content="-33.045646;-71.620361" />
+		<meta name="ICBM" content="-33.045646, -71.620361" />
+	{# Buenos Aires #}	
+	{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+		<meta name="geo.region" content="AR" />
+		<meta name="geo.placename" content="Buenos Aires" />
+		<meta name="geo.position" content="-34.603723;-58.381593" />
+		<meta name="ICBM" content="-34.603723, -58.381593" />
+	{% endif %}
+	
 	<!-- Metadata para FB -->
 	<meta property="og:title" content="{{'extra.home.actividad_reciente.titulo'|trans}} {{app.session.get('ciudad').nombre}} | Loogares.com" />
 
