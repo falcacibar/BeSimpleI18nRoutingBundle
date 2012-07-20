@@ -46,7 +46,6 @@
     <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
     <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
-
     <script>
         $(document).ready(function(){
             editarRecomendacion("{{lugar.slug}}");
@@ -513,9 +512,7 @@
                 GA_googleFillSlot("{{ad('static','ficha','bottom','medium')}}_{{app.session.get('ciudad').slug}}");
             </script>
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}

@@ -7,7 +7,7 @@ $(document).ready(function(){
 			    topPadding = 80,
 				sideBarOffset     = $sidebar.offset(),
 				compensation = ($('.mensaje_exito').length > 0)?69:0;
-	    	
+
 
 		    $window.scroll(function() {
 		    	margin = $(document).height() - 1541 - compensation;
@@ -27,6 +27,7 @@ $(document).ready(function(){
 		        }
 		    });
 	    }
+
 		var getCaracteristicas = getParameterByName('caracteristicas').split(',');
 
 		$.each(getCaracteristicas, function(i){
@@ -34,17 +35,11 @@ $(document).ready(function(){
 		});
 
 		$('.resultado-busqueda-stars-raty').each(function(){
-			var estrellas = $(this).attr('data-stars');
-			$(this).raty({
-				width: 160,
-			    starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
-			    starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
-			    starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
-			    half: true,
-			    start: estrellas,
-			    readOnly: true,
-			    space: false
-			});
+			$(this).raty($.extend(
+									true, {} ,
+									loogares.parametros.ratyEstrellas ,
+									{ 'start' : $(this).attr('data-stars') }
+			));
 		});
 
 		$('.resultado-busqueda-precio-raty').each(function(){
@@ -59,9 +54,10 @@ $(document).ready(function(){
 			    space: false
 			});
 		});
-		 
+
 		$('.filtro_precios_raty').each(function(){
 			var precio = $(this).attr('data-precio');
+
 			$(this).raty({
 				width: 140,
 		        starOff:  WEBROOT+'../assets/images/extras/precio_vacio.png',
@@ -83,7 +79,7 @@ $(document).ready(function(){
 		}else{
 			precio = getTipo('dondeDormir');
 		}
-		
+
 
 		for(i=precio.length - 1; i >= 0; i--){
 			qTipPrecio += "<p><span class='signo_precio'>";
@@ -92,7 +88,7 @@ $(document).ready(function(){
 				qTipPrecio += "$";
 			}
 
-			qTipPrecio += "</span> = "+precio[(precio.length - 1)- i]+"</p>";	
+			qTipPrecio += "</span> = "+precio[(precio.length - 1)- i]+"</p>";
 		}
 		qTipPrecio += "</div>";
 
@@ -109,7 +105,7 @@ $(document).ready(function(){
 			   }
 		   },
 		   position: {
-			my: 'top center', 
+			my: 'top center',
 			at: 'bottom center'
 		   }
 		});
@@ -129,7 +125,7 @@ $(document).ready(function(){
 				}
 			},
 			position: {
-				my: 'top center', 
+				my: 'top center',
 				at: 'bottom left',
 				adjust: {
 					x: 50
@@ -159,7 +155,7 @@ $(document).ready(function(){
 				}
 			},
 			position: {
-				my: 'top center', 
+				my: 'top center',
 				at: 'bottom left',
 				adjust: {
 					x: 50
@@ -189,7 +185,7 @@ $(document).ready(function(){
 				}
 			},
 			position: {
-				my: 'top center', 
+				my: 'top center',
 				at: 'bottom left',
 				adjust: {
 					x: 50
@@ -219,7 +215,7 @@ $(document).ready(function(){
 				}
 			},
 			position: {
-				my: 'top center', 
+				my: 'top center',
 				at: 'bottom left',
 				adjust: {
 					x: 50
@@ -256,7 +252,7 @@ $(document).ready(function(){
 		$('.qtip_caracteristicas input[type=checkbox]:checked').each(function(){
 			caracteristica += $(this).val() + ",";
 		});
-		
+
 		href += "&caracteristicas=" +  caracteristica.substring(0, caracteristica.length-1);
 		console.log(href)
 		$this.attr('href', href);
@@ -277,7 +273,7 @@ $(document).ready(function(){
 			success: function(data){
 				console.log(data)
 				$('.overlay').fadeOut(0, function(){
-					$(this).remove(); 
+					$(this).remove();
 				});
 				$('.resultados_wrapper').html(data).fadeIn(300, function(){
 					$('.qtip').remove();

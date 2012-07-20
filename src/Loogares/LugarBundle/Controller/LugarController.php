@@ -127,12 +127,12 @@ class LugarController extends Controller{
                 else if($accionesUsuario[$i]['id'] == 5 && $accionesUsuario[$i]['hecho'] == 1)
                     $accionesUsuario[$i]['puede'] = 0;
             }
+
             // Si el usuario ya estuvo o quiere volver, no puede querer ir
             if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
                 $accionesUsuario[0]['puede'] = 0;
             }
-        }
-        else {
+        } else {
             $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
              for($i = 0; $i < sizeof($accionesUsuario); $i++) {
                 $accionesUsuario[$i]['puede'] = 0;
@@ -368,8 +368,46 @@ class LugarController extends Controller{
         ));
     }
 
-    public function agregarAction(Request $request, $slug = null){
+    public function lugarMapaAction(Request $request, $slug = null) {
+        if(is_null($slug)) {
+            return $this->createNotFoundException();
+        }
+
         $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $lugar = $lr->findOneBySlug($slug);
+        $idLugar = $lugar->getId();
+
+        // Imagen principal
+        $q = $em->createQuery("SELECT       i
+                               FROM         Loogares\LugarBundle\Entity\ImagenLugar i
+                               WHERE        i.lugar = ?1
+                                            AND i.estado != 3
+                               ORDER BY     i.fecha_creacion DESC, i.id DESC")
+                ->setMaxResults(1)
+                ->setParameter(1, $idLugar);
+
+        $imagenLugar = $q->getSingleResult();
+        unset($q);
+
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $q  = $em->createQuery("SELECT count(r) FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.lugar = ?1
+                               AND r.estado != ?2 ");
+        $q->setParameters(array(1 => $lugar, 2 => 3));
+
+        $lugar->recomendaciones = $q->getSingleScalarResult();
+
+        $lugar->imagen_full  = ($imagenLugar)  ? $imagenLugar->getImagenFull() : null;
+
+        unset($lr, $rr, $em);
+        return $this->render('LoogaresLugarBundle:Lugares:lugar_mapa.html.twig', array(
+                'lugar' => $lugar
+        ));
+    }
+
+    public function agregarAction(Request $request, $slug = null){
+        $em = $this->getDoctrine()->getEnagregarActiontityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $errors = array();
         $formErrors = array();

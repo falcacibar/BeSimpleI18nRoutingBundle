@@ -4,7 +4,7 @@ oldBrowser = false, IE = '';
 if(/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){var ffx=new Number(RegExp.$1);}
 if(IE || ffx < 3.7){
     oldBrowser = true;
-    
+
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = WEBROOT+"../assets/js/legacy.js";
@@ -13,10 +13,26 @@ if(IE || ffx < 3.7){
 
 var hintListEstrellas = ['¡Argh, no me gustó nada!', 'Mmm, más o menos nomás.', 'Está bien, cumple.', 'Me gusta, me gusta.', '¡Me encanta, es el mejor de todos!'];
 
+var loogares = {
+    'parametros' : {
+      'ratyEstrellas' : {
+          width: 160,
+            starOff:  WEBROOT+'../assets/images/extras/estrella_vacia_recomendacion.png',
+            starOn:   WEBROOT+'../assets/images/extras/estrella_llena_recomendacion.png',
+            starHalf:   WEBROOT+'../assets/images/extras/estrella_media_recomendacion.png',
+            half: true,
+            readOnly: true,
+            space: false
+      }
+    }
+};
+
+
+
 /* Función para el menú desplegable */
 
 $(document).ready(function() {
-    
+
     var getResultados = getParameterByName('resultados');
 
     $('.seleccionar_resultados_por_pagina').find('option[value="'+getResultados+'"]').attr('selected', 'selected')
@@ -25,9 +41,9 @@ $(document).ready(function() {
             if( getResultados == ''){
                 if(window.location.href.match(/\?/)){
                     var location = window.location.href.replace(/pagina=\d+/, 'pagina=1');
-                    window.location = location+'&resultados='+$(this).val(); 
+                    window.location = location+'&resultados='+$(this).val();
                 }else{
-                    window.location = window.location.href+'?resultados='+$(this).val();  
+                    window.location = window.location.href+'?resultados='+$(this).val();
                 }
             }else{
                 window.location = window.location.href.replace(/resultados=\d+/, 'resultados='+$(this).val()).replace(/pagina=\d+/, 'pagina=1');
@@ -124,6 +140,6 @@ function getTipo(tipo){
           return ['Mínimo', 'Barato', 'Medio', 'Alto', 'Máximo'];
       }else if(tipo == 'nightClubs'){
           return ['Menos de $100', '$100 - $200', '$200 - $300', '$300 - $500', 'Más de $500'];
-      }  
+      }
     }
 }

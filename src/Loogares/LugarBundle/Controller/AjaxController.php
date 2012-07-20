@@ -10,46 +10,159 @@ use Loogares\UsuarioBundle\Entity\AccionUsuario;
 
 use Loogares\ExtraBundle\Entity\ActividadReciente;
 
-
 class AjaxController extends Controller{
-    public function otrosLugaresEnElAreaAction(){
+    public function lugaresGeoJSONAction() {
+        list($minx, $miny, $maxx, $maxy) = explode(',', $_GET['bbox']);
+        $id = (int) $_GET['id'];
 
-        foreach($_GET as $key => $value){
-          $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);  
+        $limit    = 20 /** round(pow((double) $_GET['scale'], 0.44)) /**/;
+        $lugares  = $this->getDoctrine()
+          ->getConnection()
+            ->fetchAll(("   SELECT  *
+                            FROM    (
+                                  SELECT
+                                          lug.mapx ,
+                                          lug.mapy ,
+                                          lug.nombre ,
+                                          lug.slug ,
+                                          lug.estrellas ,
+                                          lug.calle ,
+                                          lug.numero ,
+                                          group_concat(DISTINCT cat.nombre) as categorias_nombre ,
+                                          group_concat(DISTINCT cat.slug) as categorias_slug ,
+                                          imglug.imagen_full as imagen,
+                                          count(rec.id) as recomendaciones ,
+                                          tcat.id as tipo ,
+                                          com.nombre as comuna ,
+                                          ciu.nombre as ciudad ,
+                                          ciu.slug as ciudad_slug
+
+                              FROM        lugares lug
+
+                              LEFT JOIN   categoria_lugar catlug  ON catlug.lugar_id = lug.id
+                              LEFT JOIN   categorias      cat     ON cat.id = catlug.categoria_id
+                              LEFT JOIN   imagenes_lugar  imglug  ON imglug.lugar_id = lug.id
+                              LEFT JOIN   tipo_categoria  tcat    ON cat.tipo_categoria_id = tcat.id
+                              LEFT JOIN   comuna          com     ON com.id = lug.comuna_id
+                              LEFT JOIN   ciudad          ciu     ON com.ciudad_id = ciu.id
+                              LEFT JOIN   recomendacion   rec     ON (rec.lugar_id = lug.id
+                                                                  AND rec.estado_id != 3)
+
+                              WHERE       (mapy BETWEEN $minx AND $maxx)
+                                          AND (mapx BETWEEN $miny AND $maxy)
+                                          AND imglug.estado_id != 3
+                                          AND lug.estado_id != 3
+                                          AND lug.id != {$id}
+
+                              GROUP BY    lug.id
+                              ORDER BY    RAND()
+                              LIMIT       {$limit} ) features
+                          ORDER BY mapx DESC
+            "));
+
+        $geoJSON = array(
+                  'type'      => 'FeatureCollection' ,
+                  'features'  => array()  ,
+                  'crs'       => "EPSG:4326"
+        );
+
+        $trans  = $this->get('translator');
+        $fnMap  = function($nombre, $slug) {
+             // var_dump($nombre, $slug);
+              return array('nombre' => $nombre, 'slug' => $slug);
+        };
+
+        foreach($lugares as &$lugar) {
+          $lugar['actual']      = 'f';
+
+          $lugar['categorias']  = array_map(
+              $fnMap ,
+              explode(',', $lugar['categorias_nombre']) ,
+              explode(',', $lugar['categorias_slug'])
+          );
+
+          unset($lugar['categorias_nombre']);
+          unset($lugar['categorias_slug']);
+
+          foreach($lugar['categorias'] as &$categoria) {
+              $categoria['url'] = $this->generateUrl(
+                      '_categoria',
+                      array(
+                              'categoria' => $categoria['slug'],
+                              'slug'      => $lugar['ciudad_slug']
+                      )
+              );
+          }
+
+          $lugar['textoCategoria'] = $trans->transChoice(
+                                            'general.terminos.categorias'
+                                            , sizeof($lugar['categorias'])
+          );
+
+          $lugar['textoRecomendacion'] = $trans->transChoice(
+                                            'lugar.buscar.total_recomendaciones'
+                                            , (int) $lugar['recomendaciones']
+          );
+
+          $geoJSON['features'][] = array(
+              'type'      => 'Feature' ,
+              'geometry'  =>  array(
+                  'type'        => 'Point' ,
+                  'coordinates' => array($lugar['mapy'], $lugar['mapx'])
+              ) ,
+              'properties'  => $lugar
+          );
         }
-        
+
+        $response =  new Response(json_encode($geoJSON));
+    //    $response->headers->set('Content-Type', 'application/json');
+        $response->setStatusCode(200);
+
+        return $response;
+    }
+
+    public function otrosLugaresEnElAreaAction() {
+        foreach($_GET as $key => $value) {
+          $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
+        }
+
         list($mapxDesde, $mapyDesde) = explode(',',$_GET['southWest']);
         list($mapxHasta, $mapyHasta) = explode(',',$_GET['northEast']);
         $idLugar = $_GET['idLugar'];
 
         $otrosLugaresResult = $this->getDoctrine()->getConnection()
-        ->fetchAll("SELECT lugares.*, group_concat(DISTINCT categorias.nombre) as categorias_nombre, group_concat(DISTINCT categorias.slug) as categorias_slug, imagen_full, 
-          count(recomendacion.id) as recomendaciones, tipo_categoria.id as tipo, comuna.nombre as comuna, ciudad.nombre as ciudad, ciudad.slug as ciudad_slug
-                   FROM lugares
-                   LEFT JOIN categoria_lugar
-                   ON categoria_lugar.lugar_id = lugares.id
-                   LEFT JOIN categorias
-                   ON categorias.id = categoria_lugar.categoria_id
-                   LEFT JOIN imagenes_lugar
-                   ON imagenes_lugar.lugar_id = lugares.id
-                   LEFT JOIN tipo_categoria
-                   ON categorias.tipo_categoria_id = tipo_categoria.id
-                   LEFT JOIN comuna
-                   ON comuna.id = lugares.comuna_id
-                   LEFT JOIN ciudad
-                   ON comuna.ciudad_id = ciudad.id
-                   LEFT JOIN recomendacion
-                   ON recomendacion.lugar_id = lugares.id
-                   AND recomendacion.estado_id != 3
-                   WHERE lugares.id != $idLugar
-                   AND mapx BETWEEN $mapxDesde AND $mapxHasta
-                   AND mapy BETWEEN $mapyDesde AND $mapyHasta
-                   AND imagenes_lugar.estado_id != 3
-                   AND lugares.estado_id != 3
-                   GROUP BY lugares.id
-                   ORDER BY RAND()
-                   LIMIT 20");
-        
+          ->fetchAll("  SELECT      lugares.* ,
+                                    group_concat(DISTINCT categorias.nombre) as categorias_nombre ,
+                                    group_concat(DISTINCT categorias.slug) as categorias_slug ,
+                                    imagen_full ,
+                                    count(recomendacion.id) as recomendaciones ,
+                                    tipo_categoria.id as tipo ,
+                                    comuna.nombre as comuna ,
+                                    ciudad.nombre as ciudad ,
+                                    ciudad.slug as ciudad_slug
+
+                        FROM        lugares
+
+                        LEFT JOIN   categoria_lugar     ON categoria_lugar.lugar_id = lugares.id
+                        LEFT JOIN   categorias          ON categorias.id = categoria_lugar.categoria_id
+                        LEFT JOIN   imagenes_lugar      ON imagenes_lugar.lugar_id = lugares.id
+                        LEFT JOIN   tipo_categoria      ON categorias.tipo_categoria_id = tipo_categoria.id
+                        LEFT JOIN   comuna              ON comuna.id = lugares.comuna_id
+                        LEFT JOIN   ciudad              ON comuna.ciudad_id = ciudad.id
+                        LEFT JOIN   recomendacion       ON (recomendacion.lugar_id = lugares.id
+                                                            AND recomendacion.estado_id != 3)
+
+                        WHERE       lugares.id != $idLugar
+                                    AND mapx BETWEEN $mapxDesde AND $mapxHasta
+                                    AND mapy BETWEEN $mapyDesde AND $mapyHasta
+                                    AND imagenes_lugar.estado_id != 3
+                                    AND lugares.estado_id != 3
+
+                        GROUP BY    lugares.id
+                        ORDER BY    RAND()
+                        LIMIT       20
+          ");
+
         for($i = 0; $i < sizeOf($otrosLugaresResult); $i++){
             $otrosLugaresResult[$i]['categorias_nombre'] = explode(',', $otrosLugaresResult[$i]['categorias_nombre']);
             $otrosLugaresResult[$i]['categorias_slug'] = explode(',', $otrosLugaresResult[$i]['categorias_slug']);
@@ -64,7 +177,7 @@ class AjaxController extends Controller{
     }
 
     public function filtroDeLugaresAction(){
-        return new Response('<h1>Filtro de Lugares</h1>');    
+        return new Response('<h1>Filtro de Lugares</h1>');
     }
 
     public function sugerirUnLugarAction(){
@@ -73,8 +186,8 @@ class AjaxController extends Controller{
 
     public function generarComunasPorCiudadAction(){
 
-      $idCiudad = filter_var($_POST['ciudad'], FILTER_SANITIZE_STRING);  
-    
+      $idCiudad = filter_var($_POST['ciudad'], FILTER_SANITIZE_STRING);
+
       $em = $this->getDoctrine()->getEntityManager();
       $q = $em->createQuery('SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u where u.ciudad = ?1');
       $q->setParameter(1, $idCiudad);
@@ -85,7 +198,7 @@ class AjaxController extends Controller{
 
     public function lugarYaExisteAction(){
       foreach($_POST as $key => $value){
-        $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);  
+        $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
       }
 
       $calle = $_POST['calle'];
@@ -113,7 +226,7 @@ class AjaxController extends Controller{
     public function recomendarCalleAction(){
       $fn = $this->get('fn');
 
-      $d = filter_var($_GET['term'], FILTER_SANITIZE_STRING);  
+      $d = filter_var($_GET['term'], FILTER_SANITIZE_STRING);
       $d = preg_replace('/^[Av]?[Av\.]?[Avda]?[Avda\.]?[Avenida]?[Avenida]?[Calle]?\s/', '', $d);
       $calles = '';
       $em = $this->getDoctrine()->getEntityManager();
@@ -168,7 +281,7 @@ class AjaxController extends Controller{
       $recomendacionResult = $q->getSingleResult();
 
       return $this->render('LoogaresLugarBundle:Lugares:recomendacion.html.twig',array(
-        'recomendacion' => $recomendacionResult, 
+        'recomendacion' => $recomendacionResult,
         'lugar' => array(
           'slug' => $_POST['slug'],
           'mostrarPrecio' => $fn->mostrarPrecio($lugar)
@@ -178,8 +291,8 @@ class AjaxController extends Controller{
 
     public function accionAction(){
       foreach($_POST as $key => $value){
-        $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);  
-      }      
+        $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
+      }
       $em = $this->getDoctrine()->getEntityManager();
       $accion = $_POST['accion'];
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
@@ -225,7 +338,7 @@ class AjaxController extends Controller{
           $actividad->setTipoActividadReciente($tipoActividad);
           $actividad->setEstado($estadoActividad);
 
-          $em->persist($actividad);       
+          $em->persist($actividad);
 
         }else{
           $arr->actualizarActividadReciente($utilResult[0]->getId(), 'Loogares\UsuarioBundle\Entity\Util');
@@ -283,9 +396,9 @@ class AjaxController extends Controller{
         $accionesUsuario = $lr->getAccionesUsuario($lugar->getId(), $this->get('security.context')->getToken()->getUser()->getId());
 
         // Verificamos si el usuario puede o no realizar acciones según sus acciones actuales
-        for($i = 0; $i < sizeof($accionesUsuario); $i++) {                    
+        for($i = 0; $i < sizeof($accionesUsuario); $i++) {
             $accionesUsuario[$i]['puede'] = 1;
-            
+
             // Si el usuario ya estuvo, no puede desmarcar esta opción
             if($accionesUsuario[$i]['id'] == 3 && $accionesUsuario[$i]['hecho'] == 1)
                 $accionesUsuario[$i]['puede'] = 0;
@@ -296,18 +409,18 @@ class AjaxController extends Controller{
         if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
             $accionesUsuario[0]['puede'] = 0;
 
-        }        
+        }
         $data['totalAcciones'] = $totalAcciones;
-        $data['accionesUsuario'] = $accionesUsuario;       
+        $data['accionesUsuario'] = $accionesUsuario;
       }
 
-      
+
       return new Response(json_encode($data), 200);
     }
 
     public function utilMailAction() {
       foreach($_POST as $key => $value){
-        $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);  
+        $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
       }
       $em = $this->getDoctrine()->getEntityManager();
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
@@ -349,7 +462,7 @@ class AjaxController extends Controller{
         $mail['ganador'] = $ganador;
         $mail['concurso'] = $ganador->getParticipante()->getConcurso();
         $paths = array();
-      
+
         $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
         $message = $this->get('fn')->enviarMail($mail['asunto'], $ganador->getParticipante()->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_canje.html.twig', $this->get('templating'));
