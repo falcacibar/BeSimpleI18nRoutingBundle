@@ -58,7 +58,7 @@ class DefaultController extends Controller{
 		));
 	}
 
-	public function campanasAction($slug, $tipo){
+	public function listadoConcursosAction($slug, $id){
 		$em = $this->getDoctrine()->getEntityManager();
 		$lugarRepository = $em->getRepository('LoogaresLugarBundle:Lugar');
 		$concursoRepository = $em->getRepository('LoogaresBlogBundle:Concurso');
@@ -67,44 +67,23 @@ class DefaultController extends Controller{
 
 		$lugar = $lugarRepository->findOneBySlug($slug);
 
-		if($tipo == 'concursos'){
-			$q = $em->createQuery("SELECT c FROM Loogares\BlogBundle\Entity\Concurso c
-																										JOIN c.post p
-																										WHERE p.lugar = ?1");
-			$q->setParameter(1, $lugar);
-			$concursos = $q->getResult();
+		$q = $em->createQuery("SELECT c FROM Loogares\BlogBundle\Entity\Concurso c
+													 JOIN c.post p
+													 WHERE p.lugar = ?1");
+		$q->setParameter(1, $lugar);
+		$concursos = $q->getResult();
 
-			foreach($concursos as $concurso){
-				$detalles[]['titulo'] = $concurso->getPost()->getTitulo();
-				$detalles[sizeOf($detalles)-1]['fechaInicio'] = $concurso->getFechaInicio();
-				$detalles[sizeOf($detalles)-1]['descripcion'] = $concurso->getDescripcion();
-			}
-		}else if($tipo == 'descuentos'){
-			$q = $em->createQuery("SELECT c FROM Loogares\CampanaBundle\Entity\Campana c
-														 WHERE c.lugar = ?1 AND c.descuento != ?2");
-			$q->setParameter(1, $lugar);
-			$q->setParameter(2, 'null');
-			$descuentos = $q->getResult();
+		$meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre');
 
-			if($descuentos){
-				foreach($descuentos as $descuento){
-					$detalles[]['titulo'] = 'ID: ' . $descuento->getDescuento()->getId();
-					$detalles[sizeOf($detalles)-1]['fechaInicio'] = $descuento->getDescuento()->getFechaInicio();
-					$detalles[sizeOf($detalles)-1]['descripcion'] = 'Cantidad: ' . $descuento->getDescuento()->getCantidad();
-				}
-			}
-		}
-
-		$fn = $this->get('fn');
-
-		return $this->render('LoogaresCampanaBundle:Default:campanas.html.twig',array(
-			'detalles' => $detalles,
-			'tipo' => $tipo,
-			'slug' => $slug
+		return $this->render('LoogaresCampanaBundle:Default:listado_concursos.html.twig',array(
+			'concursos' => $concursos,
+			'slug' => $slug,
+			'meses' => $meses,
+			'id' => $id
 		));
 	}
   
-  public function reporteLocalAction($slug, $id) {
+  public function detalleConcursoAction($slug, $id) {
     $em = $this->getDoctrine()->getEntityManager();
     $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
     $dr = $em->getRepository("LoogaresUsuarioBundle:Dueno");
@@ -144,10 +123,15 @@ class DefaultController extends Controller{
       }
       $concurso->ganadores = $ganadores;
 
-    return $this->render('LoogaresCampanaBundle:Default:be.html.twig', array(
-        'concurso' => $concurso
+    return $this->render('LoogaresCampanaBundle:Default:reporte_concurso.html.twig', array(
+        'concurso' => $concurso,
+        'id' => $id
     ));
 	}
+
+	public function detalleDescuentosAction($slug, $id){
+    return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array('slug' => $slug, 'id' => $id));
+ 	}
 
 
 	public function seguidoresAction($slug){
@@ -192,7 +176,7 @@ class DefaultController extends Controller{
 		));
 	}
 
-	public function descuentosAction($slug){
+	public function nuevoDescuentoAction($slug, $id){
 		$em = $this->getDoctrine()->getEntityManager();
 		$lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 		$comuna = null;
@@ -226,9 +210,10 @@ class DefaultController extends Controller{
 		$q->setParameter(1, $lugar);
 		$comunas = $q->getResult();
 
-		return $this->render('LoogaresCampanaBundle:Default:descuentos.html.twig', array(
+		return $this->render('LoogaresCampanaBundle:Default:nuevo_descuento.html.twig', array(
 			'seguidores' => $seguidores,
 			'lugar' => $lugar,
+			'id' => $id,
 			'comunas' => $comunas,
 			'filtrado' => (isset($_GET['comuna'])?$_GET['comuna']:null) 
 		));

@@ -75,13 +75,11 @@ class BeforeControllerListener
                 $usuario = $controller->get('security.context')->getToken()->getUser();
 
                 if($usuario->getTipoUsuario()->getId() == 1){
-                    echo 'Hola Admin!';
                 }else if($lugar->getDueno() == null || $lugar->getDueno()->getUsuario() == null){
                     $request = new Request();
                     $request->attributes->set('_controller', 'LoogaresExtraBundle:Default:homepage');
                     $event->setController($this->resolver->getController($request));
                 }else if($lugar->getDueno()->getUsuario()->getId() == $usuario->getId()){
-                    echo 'Hola dueño!';
                 }
             }
 

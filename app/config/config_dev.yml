@@ -28,7 +28,7 @@ assetic:
         #     jar: %kernel.root_dir%/java/compiler.jar
         yui_css:
              jar: %kernel.root_dir%/java/yuicompressor-2.4.7.jar
-        sass: ~
+        sass: /usr/bin/sass
         compass: ~
 
 swiftmailer:

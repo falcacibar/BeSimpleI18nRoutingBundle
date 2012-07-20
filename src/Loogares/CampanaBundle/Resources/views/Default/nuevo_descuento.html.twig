@@ -1,0 +1,289 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
+{% endblock %}
+{% block content %}
+<style>
+	.seguidores{
+		width: 760px;
+		float: left;
+		overflow:hidden;
+		background: #f1f1f1;
+	}
+
+	.seguidor{
+		width: 237px;
+		height: 70px;
+		padding: 5px;
+		margin-left: 5px;
+		margin-top: 5px;
+		background: #0ff;
+		float: left;
+		font-size: 14px;
+	}
+
+		p{
+			margin: 0;
+			padding: 0;
+		}
+
+		input{
+			float: left
+		}
+
+		.seguidor_imagen{
+			width: 70px;
+			height: 70px;
+			background: #333;
+			float: left;
+		}
+
+		.seguidor_datos{
+			float: left;
+			width: 144px;
+			background: #f1f1f1;
+			margin-left: 5px;
+		}
+
+	.seguidores_sidebar{
+		position: absolute;
+		width: 200px;
+		background: #ff0;
+		height: 40px;
+		right: 0;
+	}
+
+		.otorgar_gift{
+			width: 200px;
+			height: 30px;
+			top: 20px;
+			position: absolute;
+			background: #3bf;
+			opacity: 1;
+		}
+
+		.seguidores_footer p{
+			color: #f1f1f1;
+		}
+</style>
+{{seguidores|length}} Seguidores en {{lugar.nombre}}
+<form>
+	<select name="comuna">
+		<option>Filtrar por Comuna</option>
+		{% for comuna in comunas %}
+			<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="filtrar">
+</form>
+
+	<div class="seguidores">
+		{% for seguidor in seguidores %}
+		<div class="seguidor">
+			<input type="checkbox" value="{{seguidor.usuario.slug}}" class="seguidores_checkbox" name="seguidores[]" />
+			<div class="seguidor_imagen">
+			</div>
+			<div class="seguidor_datos">
+				<p>{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %} </p>
+				<p>{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
+				<p>{{seguidor.usuario.recomendaciones|length}} Recomendaciones</p>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+	<div class="seguidores_sidebar">
+		<p class="seleccionados"><span class="numero_seleccionados">0</span> Seleccionados</p>
+		<div class="otorgar_gift"></div>
+	</div> 
+
+
+	<style>
+		.fancybox-outer, .fancybox-inner{
+			background: white;
+		}
+
+		.rango_descuentos{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			height: 200px;
+			float: left;
+		}
+
+			.rango_descuentos li{
+				width: 90px;
+				display: block;
+				margin-top: 5px;
+			}
+
+				.rango_descuentos label, .rango_descuentos input{
+					display: inline;
+				}
+
+	.lolbox{
+			width: 570px;
+			height: 470px;
+			background: red;   
+			display: block;
+	}
+
+	.step_static,.step_done{
+			background: papayawhip;
+			height: 70px;
+			display: block;   
+			width: 100%;
+	    overflow: hidden;
+	}
+
+	.step_done small{
+		display: inline-block;
+	}
+
+	.step_hidden{
+		display: none;   
+	}
+	.step_active{
+		background: #3bf; 
+		display: block;
+		height: auto;
+		overflow: hidden;
+	}
+
+		.step_active small{
+			display:none;
+		}
+
+	    .step_done h3, .step_static h3, .step_active h3{
+		    display: block;                
+		    height: 70px;
+		    width: 100%;
+		    background: green;
+		    margin-top: 0;
+	    }
+
+	.lolbox_siguiente{
+		background: #3bf;
+		width: 200px;
+		height: 40px;
+		display: block;
+		margin: 20px auto;
+	}
+	</style>
+<div style="display:none">
+	<div class="lolbox">
+		<form method="post" class="nuevo_descuento" action="{{ path('_reporte_descuentos_enviar', {'slug': lugar.slug, 'id': id}) }}">
+			<div class="step_static"><span class="numero_seleccionados">0</span> Participantes</div>
+			<div class="step_active">
+					<h3>¿Que porcentaje de descuento deseas regalar?<small></small></h3>
+					<div class="step_content">
+						<ul class="rango_descuentos">
+							{% for dco in [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90] %}
+							<li>
+								<label>{{dco}}%</label><input type="radio" value="{{dco}}" name="dco" />
+							</li>
+							{% if loop.index % 6 == 0 %}</ul><ul class="rango_descuentos">{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+			</div>
+			<div class="step_hidden">
+			    <h3>¿Cuanto tiempo quieres que dure el descuento?<small></small></h3>
+			    <div class="step_content">
+						<ul class="rango_tiempo">
+							<li>
+								<label>1 Semana</label><input type="radio" value="7" name="tiempo" />
+								<label>2 Semanas</label><input type="radio" value="14" name="tiempo" />
+								<label>3 Semanas</label><input type="radio" value="21" name="tiempo" />
+								<label>1 Mes</label><input type="radio" value="30" name="tiempo" />
+							</li>
+						</ul>		
+					</div>    
+			</div>
+			<div class="step_hidden">
+			    <h3>¿Cuales son las condiciones de uso del descuento?<small></small></h3>
+			    <div class="step_content">
+			    	<textarea name="condiciones">This is a text area, this is the best textarea around.</textarea>
+			    	<p>* condiciones</p>
+			    </div>
+			</div>
+			<div class="step_hidden">
+			    <h3>Preparáte...</h3>
+			    <div class="step_content">
+			    	<p>Haz click en el botón y envia tus descuentos ahora.</p>
+			    </div>
+			</div>
+			<div class="step_hidden step_final">
+			    <p>Felicitaciones, tus descuentos han sido enviados con exito.</p>
+			</div>
+			<input type="button" class="siguiente_paso" value="Seleccionar"/>
+		</form>
+	</div>​
+</div>
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
+	<script>
+	$('.seguidores_checkbox').change(function(){
+		var $this = $(this);
+		var $seleccionados = $('.numero_seleccionados');
+		var seleccionadosCount = parseInt($seleccionados.html());
+
+		($this.is(':checked'))?seleccionadosCount++:seleccionadosCount--;
+		$seleccionados.html(seleccionadosCount)
+	});
+
+	$(".otorgar_gift").fancybox({
+    type: 'inline',
+		content: $('.lolbox'),
+		padding: 0,
+		fitToView: false
+	});
+
+	$('.siguiente_paso').click(function(){
+	    $active = $('.step_active');
+	    
+	    $active.next('div:not(.siguiente_paso)')
+	                     .removeClass('step_hidden')
+	                     .removeClass('step_done')            
+	                     .addClass('step_active');
+	                     
+	    $active.toggleClass('step_active')
+	           .toggleClass('step_done');
+
+	    if($active.find('input[type=radio]').length){
+	    	var chosenOption = $active.find('input[type=radio]:checked').prev('label').text();
+	    }else if($active.find('textarea').length){
+	    	var chosenOption = $active.find('textarea').text();
+	    }
+
+	    $active.find('h3 > small').text(chosenOption)
+
+	    if($('.step_active').next('div').hasClass('step_final')){
+	    	$('.siguiente_paso').val('Enviar');
+	    }else{
+	    	$('.siguiente_paso').val('Seleccionar')
+	    }
+
+	    if($('.step_active').hasClass('step_final')){
+	    	$('.siguiente_paso').remove();
+	    	$('.nuevo_descuento').append($('input[class=seguidores_checkbox]:checked'))
+	    	$('.nuevo_descuento').submit()
+	    	$('.step_done, .step_static').hide();
+	    }
+	});
+	    
+	$('.step_done').live('click', function(){            
+	    $('.step_active')
+	        .removeClass('step_active')
+	        .addClass('step_done');
+	    $(this)
+	        .removeClass('step_done')
+	        .addClass('step_active');    
+	});
+
+
+	</script>
+{% endblock %}

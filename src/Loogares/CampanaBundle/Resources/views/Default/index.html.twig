@@ -11,7 +11,7 @@
 		<p class="datos_lugar">Estos son los datos de {{lugar.nombre}} en Loogares.com</p>
 
 		<div class="campanas">
-			<a class="campanas_boton" href="{{ path('_reporte_campanas', {'slug': lugar.slug, 'tipo': 'concursos'}) }}"></a>
+			<a class="campanas_boton" href="{{ path('_reporte_campanas', {'slug': lugar.slug }) }}"></a>
 			<ul class="datos_rapidos">
 				<li>{{concursos}} Campañas Beneficios Exclusivos</li>
 				{% if descuentos == 0 %}<li>{{descuentos}} Campañas Descuentos</li>{% endif %}
