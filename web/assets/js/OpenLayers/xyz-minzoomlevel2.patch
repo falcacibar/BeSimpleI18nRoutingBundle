@@ -1,0 +1,35 @@
+Index: lib/OpenLayers/Layer/XYZ.js
+===================================================================
+--- lib/OpenLayers/Layer/XYZ.js	(revision 7335)
++++ lib/OpenLayers/Layer/XYZ.js	(working copy)
+@@ -62,6 +62,9 @@
+      * options - {Object} Hashtable of extra options to tag onto the layer
+      */
+     initialize: function(name, url, options) {
++        var minZoom=0;
++        if(options.minZoomLevel)
++            minZoom=options.minZoomLevel;
+         if (options && options.sphericalMercator || this.sphericalMercator) {
+             options = OpenLayers.Util.extend({
+                 maxExtent: new OpenLayers.Bounds(
+@@ -70,8 +73,9 @@
+                     128 * 156543.03390625,
+                     128 * 156543.03390625
+                 ),
+-                maxResolution: 156543.03390625,
+-                numZoomLevels: 19,
++                maxResolution: 156543.03390625/Math.pow(2,minZoom),
++                numZoomLevels: 19 - minZoom,
++                minZoomLevel: minZoom,
+                 units: "m",
+                 projection: "EPSG:900913"
+             }, options);
+@@ -146,7 +150,7 @@
+             (res * this.tileSize.h));
+         var z = this.serverResolutions != null ?
+             OpenLayers.Util.indexOf(this.serverResolutions, res) :
+-            this.map.getZoom() + this.zoomOffset;
++            this.map.getZoom() + this.zoomOffset + this.minZoomLevel;
+ 
+         var limit = Math.pow(2, z);
+         if (this.wrapDateLine)
