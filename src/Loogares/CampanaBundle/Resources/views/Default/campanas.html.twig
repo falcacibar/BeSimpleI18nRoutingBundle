@@ -40,7 +40,7 @@
 	<!-- Caja con las clases de los concursos inactivos -->
 	<div class="campana_detalle {{tipo}}">
 		<div class="foto_fecha">
-			<div class="fecha activo">
+			<div class="fecha inactivo">
 				{{-detalle.fechaInicio|date('d F Y')-}}
 			</div>
 			<div class="foto">
@@ -54,7 +54,7 @@
 			<p class="participantes">## participantes</p>
 			<a class="ver_mas" href="#">Ver reporte</a>
 		</div>
-		<div class="icono_identificador_activo"></div>
+		<div class="icono_identificador_inactivo"></div>
 	</div>
 	{% endfor %}
 
