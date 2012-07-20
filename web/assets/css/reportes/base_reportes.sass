@@ -86,11 +86,11 @@ $rojo: #F72121
     -moz-box-shadow: 3px 3px 2px $gris_eee
     -webkit-box-shadow: 3px 3px 2px $gris_eee
 
-@mixin borde_redondeado_grande
-    border-radius: 8px
-    -o-border-radius: 8px
-    -moz-border-radius: 8px
-    -webkit-border-radius: 8px
+@mixin borde_redondeado_pequeno
+    border-radius: 2px
+    -o-border-radius: 2px
+    -moz-border-radius: 2px
+    -webkit-border-radius: 2px
 
 @mixin link_azul
     color: $azul
@@ -122,6 +122,11 @@ a
         text-decoration: underline
 
 /* Contenidos */
+
+.titulo_principal
+    font:
+        size: 20px
+    margin: 0 0 10px
 
 .contenedor
     float: left
@@ -414,6 +419,146 @@ a
             float: left
             margin: 30px 0 0
             width: 600px
+
+        /* Mis seguidores */
+        .seguidores
+            float: left
+            margin: 50px 0
+            position: relative
+            width: 960px
+
+            .fitros_seguidores
+                border-bottom: 1px solid $gris_eee
+                border-top: 1px solid $gris_eee
+                float: left
+                margin: 0 0 20px
+                padding: 10px 0
+                width: 960px
+
+                .ordenar_por
+                    float: left
+                    font:
+                        size: 12px
+
+                    .tipos_de_orden
+                        display: inline
+
+                        .selected
+                            display: inline
+                            font:
+                                weight: bold
+
+                        a
+                            @include link_azul
+
+                            &:hover
+                                @include link_azul_hover
+
+                .filtrar_por
+                    float: right
+
+            .caja_seguidores
+                float: left
+                width: 980px
+
+                .seguidor
+                    @include box_shadow_ccc
+                    border: 1px solid $gris_f6f
+                    float: left
+                    margin: 0 20px 20px 0
+                    width: 304px
+
+                    .seguidor_imagen
+                        float: left
+                        height: 30px
+                        padding: 10px
+                        width: 30px
+
+                    .seguidor_datos
+                        float: left
+                        font:
+                            size: 12px
+                        padding: 10px 10px 10px 0
+                        margin: 0 0 0 10px
+                        width: 234px
+
+                        a
+                            @include link_azul
+
+                            &:hover
+                                @include link_azul_hover
+
+                        .comuna
+                            font:
+                                size: 11px
+                            margin: 5px 0 0
+
+                    .seguidor_iconos
+                        background: $gris_faf
+                        border-top: 1px solid $gris_f6f
+                        clear: both
+                        float: left
+                        padding: 5px 10px
+                        width: 284px
+
+                        .valor
+                            @include box_shadow_ccc
+                            @include borde_redondeado_pequeno
+                            background: $gris_f6f
+                            float: left
+                            font:
+                                size: 11px
+                            padding: 2px 5px
+
+                        .recomendacion_lugar
+                            height: 15px
+                            float: left
+                            width: 28px
+
+                        .si
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -483px
+
+                        .no
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -464px
+
+                        .numero_be
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -390px
+                            color: $gris_ccc
+                            float: right
+                            margin: 0 0 0 10px
+
+                            &:hover
+                                background: url('../../images/reporte/botones_panel_dueno.png') 0 -409px
+                                color: $gris_999
+
+                            .valor
+                                margin: 0 0 0 17px
+
+                        .numero_descuentos
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -427px
+                            color: $gris_ccc
+                            float: right
+                            margin: 0 0 0 10px
+
+                            &:hover
+                                background: url('../../images/reporte/botones_panel_dueno.png') 0 -445px
+                                color: $gris_999
+
+                            .valor
+                                margin: 0 0 0 19px
+
+                        .numero_recomendaciones
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -353px
+                            color: $gris_ccc
+                            float: right
+                            margin: 0 0 0 10px
+
+                            &:hover
+                                background: url('../../images/reporte/botones_panel_dueno.png') 0 -371px
+                                color: $gris_999
+
+                            .valor
+                                margin: 0 0 0 20px
 
 .footer_reporte
     background: $gris_faf
