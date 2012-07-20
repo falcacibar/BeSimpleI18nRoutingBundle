@@ -21,6 +21,26 @@
 
     <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, galería, fotos, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}, {{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{lugar.nombre}}" />
 
+    <!-- Metadata Geo Tags -->
+    {# Santiago de Chile #}
+    {% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+        <meta name="geo.region" content="CL" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {# Valparaíso / Viña del Mar #}
+    {% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+        <meta name="geo.region" content="CL-VS" />
+        <meta name="geo.placename" content="Valparaíso" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {# Buenos Aires #}  
+    {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+        <meta name="geo.region" content="AR" />
+        <meta name="geo.placename" content="Buenos Aires" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {% endif %}
+    
 	<!-- Metadata para FB -->
 	<meta property="og:title" content="{{'fotos.galeria.title'|trans}} {{lugar.nombre}} - Foto {{imagen.id}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
 

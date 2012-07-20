@@ -96,13 +96,13 @@ _borrarRecomendacion:
     defaults: { _controller: LoogaresLugarBundle:Lugar:accionRecomendacion, borrar: true}
 
 
-_lugarRecomendaciones:
+_lugarRecomendacion:
     pattern: /lugar/{slug}/recomendacion
-    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendaciones}
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendacion}
 
 _recomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}
-    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendaciones }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendacion}
 
 _lugarMapa:
     pattern: /lugar/{slug}/mapa
@@ -123,9 +123,14 @@ _reclamarLugar:
 _enviarLugar:
     pattern: /lugar/{slug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarLugar }
+
 _reporteLocal:
     pattern: /lugar/{slug}/reportes/{id}
     defaults: { _controller: LoogaresLugarBundle:Lugar:reporteLocal }
+_reporteLocalCupon:
+    pattern: /lugar/{slug}/reportes/{id}/{ganador}
+    defaults: { _controller: LoogaresLugarBundle:Ajax:cuponGanador }
+
 _enviarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarRecomendacion }

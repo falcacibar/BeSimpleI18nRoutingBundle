@@ -9,6 +9,8 @@ Loogares\BlogBundle\Entity\Concurso:
             targetEntity: Loogares\BlogBundle\Entity\EstadoConcurso
         tipo_concurso:
             targetEntity: Loogares\BlogBundle\Entity\TipoConcurso
+        campana:
+            targetEntity: Loogares\CampanaBundle\Entity\Campana
 
     oneToMany:
         participantes:

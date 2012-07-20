@@ -27,6 +27,9 @@ lugar:
             mail: You must type your E-mail address
             mails: You must type at least one E-mail address
 
+    categoria:
+        titulo_pagina: All the categories in
+
     buscar:
         titulo: Results for: %buscar%
         total_recomendaciones: review|reviews
@@ -48,6 +51,7 @@ lugar:
         buscar_zona: Search in other neighborhoods. E.g. "Santiago" o "Bellavista"
         revisa: Check for spelling mistakes and typos
         buscar_general: Broaden your search. E.g. "Bars" o "Restaurants"
+        titulo_pagina_buscar: What are you looking for?
 
     ficha:
         pedidos:
@@ -66,7 +70,7 @@ lugar:
             aqui: here
         total_recomendaciones: review|reviews
         multimedia:
-            galeria: Show album (%total% photo)|Show album (%total% photos)
+            galeria: Show album %br%(%total% photo)|Show album %br%(%total% photos)
             agregar_foto: » Add photos
             video: Watch video
         datos:
@@ -105,6 +109,9 @@ lugar:
     mapa:
         titulo: Map and places nearby
         otros: Nearby places
+
+    pagina_recomendacion:
+        numero_de_recomendaciones: Reviews in
 
     agregar:
         titulo: Add a place

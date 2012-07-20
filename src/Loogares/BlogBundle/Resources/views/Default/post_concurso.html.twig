@@ -7,6 +7,26 @@
 	<meta name="description" content="{{post.preview | striptags}}" />
 	<meta name="keywords" content="{{post.titulo}}, Concursos, Eventos, Notas, Actividades, Premios, Entradas, Invitaciones, Loogares, {{post.lugar.comuna.ciudad.nombre}}" />
 
+	<!-- Metadata Geo Tags -->
+	{# Santiago de Chile #}
+	{% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+		<meta name="geo.region" content="CL" />
+		<meta name="geo.position" content="-33.46912;-70.641997" />
+		<meta name="ICBM" content="-33.46912, -70.641997" />
+	{# Valparaíso / Viña del Mar #}
+	{% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+		<meta name="geo.region" content="CL-VS" />
+		<meta name="geo.placename" content="Valparaíso" />
+		<meta name="geo.position" content="-33.045646;-71.620361" />
+		<meta name="ICBM" content="-33.045646, -71.620361" />
+	{# Buenos Aires #}	
+	{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+		<meta name="geo.region" content="AR" />
+		<meta name="geo.placename" content="Buenos Aires" />
+		<meta name="geo.position" content="-34.603723;-58.381593" />
+		<meta name="ICBM" content="-34.603723, -58.381593" />
+	{% endif %}
+
 	<!-- Metadata para FB -->
 	<meta property="og:title" content="En #Loogarescom {{concurso.descripcion}} en {{post.lugar.nombre}}. Yo ya estoy participando »" />
 	<meta property="og:description" content="{{post.preview | striptags}}" />
@@ -54,7 +74,16 @@
 			<div class="tiempo_restante">
 				{{'blog.quedan'|trans}} <span class="tiempo_azul"></span> {{'blog.para_participar'|trans}}
 			</div>
-			{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
+			
+			<div class="concurso_participantes">
+
+				{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
+
+				<a href="{{path('participantes_concurso', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}" class="ver_todos popup_participantes">{{'extra.modulo_concursos.ver_todos' | trans }} <img src="{{ asset('assets/images/concursos/ver_todos_participantes.png') }}" width="11" height="11" /></a>
+
+			</div>
+
+
 			{% if concurso.ganadores | length > 0 %}
 				<div class="ganadores">
 					<h6 class="titulo_ganadores">{{'blog.ganadores.titulo'|trans}}</h6>
@@ -94,7 +123,7 @@
 			</div>
 
 			<div class="datos_lugar_concurso">
-				<h3 class="sobre_lugar">{{'blog.sobre'|trans}} {{post.lugar.nombre}}</h3>
+				<h3 class="sobre_lugar"><a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{post.lugar.nombre}}</a></h3>
 				<p>{{post.lugar.calle}} {{post.lugar.numero}}, {{post.lugar.comuna.nombre}}, {{post.lugar.comuna.ciudad.nombre}}</p>
 				<p>{{post.lugar.telefonos|join(', ')}}</p>
 				{% if post.lugar.sitioWeb != ''%}
@@ -105,9 +134,6 @@
 				{% endif %}
 				{% if post.lugar.twitter != ''%}
 					<a class="twitter_lugar" href="http://{{post.lugar.twitter}}" target="blank"></a>
-				{% endif %}
-				{% if post.lugar.tipoLugar.id != 5 %}
-					<p class="link_ficha_lugar">{{'blog.visita_ficha'|trans}} <a href="{{path('_lugar', {'slug' : post.lugar.slug})}}" target="_blank">{{'blog.visita_ficha_aca'|trans}}</a></p>
 				{% endif %}
 			</div>
 
@@ -146,10 +172,22 @@
 	{% endif %}
 {% endblock %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+{% endblock %}
+
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.bxSlider.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>  
-	<script src='{{asset('assets/js/jquery.countdown.min.js')}}'></script>	
+	<script src='{{asset('assets/js/jquery.countdown.min.js')}}'></script>
+	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
+	<script type="text/javascript">
+		{% if concursos|length > 0 and concursos|length <= 4%}
+			var moveConcursos = false;
+		{% else %}
+			var moveConcursos = true;
+		{% endif %}
+	</script>
 	<script src='{{asset('assets/js/concurso.js')}}'></script>
 	<script>
 		$(function(){

@@ -7,11 +7,12 @@ var mapa = {
     'lonlat'        : {} ,
     'util'          : {} ,
     'conf'          : {
-        'compartida' : {}
+        'compartida'    : {}
     } ,
     'parametros'    : {
         'imagenLoogarPorDefecto'    : WEBROOT + '../assets/media/cache/small_lugar/assets/images/lugares/default.gif',
-        'imagenLoogarThumbDir'      : WEBROOT + '../assets/media/cache/small_lugar/assets/images/lugares/'
+        'imagenLoogarThumbDir'      : WEBROOT + '../assets/media/cache/small_lugar/assets/images/lugares/',
+        'zoomInicial'               : 6
     } ,
     'estilos'       : {
         'marcadorBase'          : {
@@ -124,7 +125,6 @@ $(function() {
                         'resFactor' : 1,
                         'ratio'     : 1,
                         'update'    : function() {
-                            console.debug("blah");
                             var $listaOtrosLugares          = $('#lista-otros-lugares').empty();
                             var $cargandoOtrosLugares       = $('#cargando-otros-lugares').show();
 
@@ -216,7 +216,7 @@ $(function() {
     ]);
 
     // Zoom y posicion inicial.
-    mapa.olMapa.zoomTo(6);
+    mapa.olMapa.zoomTo(mapa.parametros.zoomInicial);
     mapa.olMapa.panTo(mapa.lonlat.lugarActual);
 
     // Agregar capas vectores
@@ -280,6 +280,7 @@ $(function() {
                         });
                     }, 1);
 
+                    $('.olMapViewport').css('overflow', 'visible');
                     mapa.olMapa.addPopup(feature.popup);
 
                     return false;
@@ -287,6 +288,7 @@ $(function() {
                 'onUnselect'    : function(feature) {
                     var popups = mapa.olMapa.popups;
 
+                    $('.olMapViewport').css('overflow', 'hidden');
                     for(i=0;i<popups.length;i++) {
                         mapa.olMapa.removePopup(popups[i]);
                     }

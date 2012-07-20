@@ -1093,4 +1093,29 @@ class Lugar
     {
         return $this->usuario;
     }
+    /**
+     * @var Loogares\UsuarioBundle\Entity\Dueno
+     */
+    private $dueno;
+
+
+    /**
+     * Set dueno
+     *
+     * @param Loogares\UsuarioBundle\Entity\Dueno $dueno
+     */
+    public function setDueno(\Loogares\UsuarioBundle\Entity\Dueno $dueno)
+    {
+        $this->dueno = $dueno;
+    }
+
+    /**
+     * Get dueno
+     *
+     * @return Loogares\UsuarioBundle\Entity\Dueno 
+     */
+    public function getDueno()
+    {
+        return $this->dueno;
+    }
 }

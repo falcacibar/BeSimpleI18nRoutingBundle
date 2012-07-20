@@ -58,15 +58,12 @@ $(function(){
 
     $('.concursos li').css('visibility', 'visible');
 
-
-
     var concursoSlider = $('.concursos').bxSlider({
         displaySlideQty: $('.concursos li').length,
         moveSlideQty: 1,
         controls: false,
-        auto: true
+        auto: moveConcursos
     });
-
 
     $('.prev_concurso').click(function(){
         concursoSlider.goToPreviousSlide();

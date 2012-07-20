@@ -6,7 +6,7 @@ validacion_usuario:
     apellido: Apellido
     pais: País
     ciudad: Ciudad
-    comuna: Comuna
+    comuna: Barrio
 
 usuario:
     login:
@@ -158,8 +158,8 @@ usuario:
             pais_agregar: Seleccioná tu país de residencia
             ciudad: Ciudad
             ciudad_agregar: Seleccioná tu ciudad de residencia
-            comuna: Comuna
-            comuna_agregar: Seleccioná tu comuna de residencia
+            comuna: Barrio
+            comuna_agregar: Seleccioná tu barrio de residencia
             mostrar_edad: Mostrar edad
             sexo:
                 label: Sexo
@@ -262,7 +262,7 @@ usuario:
                 blanco: El campo URL propia no puede ser vacío.
                 tipo: La URL propia debe ser texto. 
             comuna:
-                blanco: El campos Comuna no puede ser vacío.
+                blanco: El campo Barrio no puede ser vacío.
             imagen:
                 tipo: Sólo JPG, GIF y PNG, máx. 5 MB.
 

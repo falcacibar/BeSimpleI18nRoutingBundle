@@ -1,16 +1,38 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}
-    {{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}
+    {{- lugar.totalRecomendaciones }} {{ 'lugar.pagina_recomendacion.numero_de_recomendaciones' | trans }} {{ lugar.nombre }} - {{lugar.calle}} | {{parent()}}
 {% endblock %}
 
 {% block meta %}
-    <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
-    <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
-    <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “{{lugar.recomendacion[0].texto|slice(0,160)}}...”{% endif %}" />
 
     <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}{{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{ lugar.nombre }}" />
+
+    <!-- Metadata Geo Tags -->
+    {# Santiago de Chile #}
+    {% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+        <meta name="geo.region" content="CL" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {# Valparaíso / Viña del Mar #}
+    {% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+        <meta name="geo.region" content="CL-VS" />
+        <meta name="geo.placename" content="Valparaíso" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {# Buenos Aires #}
+    {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+        <meta name="geo.region" content="AR" />
+        <meta name="geo.placename" content="Buenos Aires" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {% endif %}
+
+    <!-- Metadata Facebook -->
+    <meta property="og:title" content="{{ lugar.totalRecomendaciones }} {{ 'lugar.pagina_recomendacion.numero_de_recomendaciones' | trans }} {{ lugar.nombre }} - {{lugar.calle}} | Loogares.com" />
+    <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
+    <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
 {% endblock %}
 
 {% block ads %}
@@ -20,19 +42,7 @@
         GS_googleEnableAllServices();
     </script>
     <script type='text/javascript'>
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
-    </script>
-    <script type='text/javascript'>
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','concursos_medio','medium')}}_{{app.session.get('ciudad').slug}}");
-    </script>
-    <script type='text/javascript'>
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','concursos_final','medium')}}_{{app.session.get('ciudad').slug}}");
-    </script>
-    <script type='text/javascript'>
         GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
-    </script>
-    <script type='text/javascript'>
-        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','bottom','medium')}}_{{app.session.get('ciudad').slug}}");
     </script>
     <script type='text/javascript'>
         GA_googleFetchAds();
@@ -40,13 +50,13 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=AIzaSyATOJuTIR8SfADJZrSGHtbEt-EPRrqZDjc" type="text/javascript"></script>
-   <!-- <script src='{{asset('assets/js/googleMapFicha.js')}}'></script> -->
+    <!-- <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=AIzaSyATOJuTIR8SfADJZrSGHtbEt-EPRrqZDjc" type="text/javascript"></script>
+    <script src='{{asset('assets/js/googleMapFicha.js')}}'></script> -->
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
     <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
-
+    {% include 'LoogaresLugarBundle:Lugares:lugar_mapa_script.html.twig' %}
     <script>
         $(document).ready(function(){
             {% if lugar.usuarioSlug != null %}
@@ -90,27 +100,7 @@
             {% if app.session.hasFlash('cerrado_flash') %}
                 <div class="overlay"></div>
             {% endif %}
-            <h1>{{ lugar.totalRecomendaciones }} Recoendaciones en <a class="titulo_lugar" href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
-            <div class="favoritos_lugar{{(is_granted('ROLE_USER') == false) ? '' : ''}}">
-                {% if lugar.accionesUsuario.3.puede == 1 %}
-                    <a class="favoritos_lugar_icono tooltip boton_accion {{(lugar.accionesUsuario.3.hecho == 1) ? 'boton_clickeado' : 'boton_activado'}}" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></a>
-
-                    <!-- Qtip Recomendación del Día -->
-                    <div class="qtip_favoritos">
-                        {{'lugar.ficha.qtip.favoritos'|trans}}
-                    </div>
-                {% else %}
-                    <p class="favoritos_lugar_icono tooltip boton_desactivado" data-hecho="{{lugar.accionesUsuario.3.hecho}}"></p>
-
-                    <!-- Qtip Recomendación del Día -->
-                    <div class="qtip_favoritos">
-                        {{'lugar.ficha.qtip.favoritos_logeado'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('login')}}">{{'lugar.ficha.qtip.logeado'|trans}}</a>.
-                        <br /><br />
-                        {{'lugar.ficha.qtip.registro'|trans}} <a style="color: #FFF; font-weight: bold; text-decoration: none;" href="{{path('registroUsuario')}}">{{'lugar.ficha.qtip.aqui'|trans}}</a>.
-                    </div>
-                {% endif %}
-                <!-- <p class="conteo">{{lugar.totalAcciones.3.total}}</p> -->
-            </div>
+            <h1 class="titulo_lugar">{{ lugar.totalRecomendaciones }} {{ 'lugar.pagina_recomendacion.numero_de_recomendaciones' | trans }} <a href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
 
             <div class="multimedia_lugar">
                 <div class="foto_lugar" id="lugar-foto">
@@ -123,22 +113,21 @@
             </div>
 
             <div class="datos_principales_lugar">
-                <div class="estrellas">
-                    <div data-stars="{{lugar.estrellas}}" class="star-raty estrellas_lugar"></div>
+                <div class="estrellas_lugar_recomendacion">
+                    <div data-stars="{{lugar.estrellas}}" class="estrellas_lugar_chico estrellas_lugar"></div>
                     <noscript>
                         {{lugar.estrellas}} Estrellas
                     </noscript>
-                    <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}</span>
                 </div>
 
-                <div class="direccion_lugar" id="lugar-direccion"><h2>{{ lugar.calle }} {{ lugar.numero }},{%- if lugar.detalle -%}{{-' '-}}{{lugar.detalle}},{%- endif -%}
+                <div class="direccion_lugar_recomendacion" id="lugar-direccion"><h2>{{ lugar.calle }} {{ lugar.numero }},{%- if lugar.detalle -%}{{-' '-}}{{lugar.detalle}},{%- endif -%}
                     {{-' '-}}<a href="{{ path('_categoria_comuna', {'slug': lugar.comuna.ciudad.slug, 'comuna': lugar.comuna.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{lugar.comuna.nombre}}</a>, <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': lugar.categoriaLugar[0].categoria.slug}) }}">{{ lugar.comuna.ciudad.nombre }}</a></h2>
                 </div>
 
                 <div class="categoria_lugar">
                     {% if lugar.categoriaLugar %}
                         <div class="categoria_lugar_box" id="lugar-categorias">
-                            <span class="subtitulos_lugar">{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}</span>
+                            <span class="subtitulos_lugar">{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}:</span>
                             {% for categoriaLugar in lugar.categoriaLugar %}
                                 <a href="{{ path('_categoria', {'slug': lugar.comuna.ciudad.slug, 'categoria': categoriaLugar.categoria.slug}) }}">{{categoriaLugar.categoria.nombre}}</a>{% if loop.last == false %}, {% endif %}
                             {% endfor %}
@@ -233,57 +222,19 @@
             </div>
         </div>
 
-        <div class="caja_inferior_ficha">
+        <div class="caja_inferior_ficha_recomendacion">
+
             {% if app.session.hasFlash('cerrado_flash') %}
                 <div class="overlay">
                 </div>
             {% endif %}
         </div>
-    </div>
 
     {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug , 'enLugar' : false}%}
 
-    <div class="sidebar">
-        <div class="mapa_sidebar" id="mapa-sidebar">
-
-            <div id="mapaOtros" style="height: 300px; width: 300px;">
-            </div>
-
-            <div id="otros-lugaresMapa">
-                <input type="hidden" id="idLugar" value="{{lugar.id}}" />
-                <input id="coordenadas0" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}">
-                <input id="coordenadasX" type="hidden" value="{{lugar.mapx}}">
-                <input id="coordenadasY" type="hidden" value="{{lugar.mapy}}">
-                <input id="puntodestacado" type="hidden" value="">
-                <input id="nombre0" type="hidden" value="{{ lugar.nombre }}">
-                <input id="direccion0" type="hidden" value="{{ lugar.calle }} {{lugar.numero}}">
-                <input id="baseurl" type="hidden" value="localhost" />
-                <input id="cantidadLugares" type="hidden" value="20" />
-            </div>
-
-            <div id="mapaAjax">
-            </div>
-
-        </div>
-
-        <div class="banner_300x250">
-            <script type='text/javascript'>
-                GA_googleFillSlot("{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
-            </script>
-        </div>
-
-        {% render "LoogaresLugarBundle:Lugar:moduloDescuentos" with {'ciudad' : lugar.comuna.ciudad.id, 'pagina' : 'lugar'}%}
-<!--
-        <div class="otros_lugares" id="otros-lugares">
-        </div>
--->
-        <div class="banner_300x250">
-            <script type='text/javascript'>
-                GA_googleFillSlot("{{ad('static','ficha','bottom','medium')}}_{{app.session.get('ciudad').slug}}");
-            </script>
-        </div>
-
     </div>
+
+    {% include 'LoogaresLugarBundle:Lugares:lugar_sidebar.html.twig' %}>
 
 </div>
 

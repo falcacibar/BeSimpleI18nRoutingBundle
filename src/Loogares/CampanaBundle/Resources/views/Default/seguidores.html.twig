@@ -1,0 +1,33 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block content %}
+
+<h1 class="titulo_seguidores">{{-seguidores|length}} seguidores de {{lugar.nombre-}}</h1>
+
+<p class="breadcrumb"><a href="#">Inicio</a> » <span class="selected">Mis seguidores</span></p>
+
+<form>
+	<select name="comuna">
+		<option>Filtrar por Comuna</option>
+		{% for comuna in comunas %}
+			<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="filtrar">
+</form>
+
+<div class="seguidores">
+	{% for seguidor in seguidores %}
+	<div class="seguidor">
+		<div class="seguidor_imagen">
+		</div>
+		<div class="seguidor_datos">
+			<p>{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %} </p>
+			<p>{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
+			<p>{{seguidor.usuario.recomendaciones|length}} Recomendaciones</p>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock %}

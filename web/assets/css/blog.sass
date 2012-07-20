@@ -729,14 +729,14 @@ body
 					background: url('../images/extras/borde_izq_participantes.png') no-repeat 0 0
 					float: left
 					height: 26px
-					margin: 0 0 0 96px
+					margin: 0 0 0 91px
 					width: 6px
 
 				.cantidad_participantes_der
 					background: url('../images/extras/borde_der_participantes.png') no-repeat 0 0
 					float: left
 					height: 26px
-					margin: 0 96px 0 0
+					margin: 0 91px 0 0
 					width: 6px
 
 				.cantidad_participantes
@@ -748,6 +748,7 @@ body
 					height: 12px
 					padding: 7px 5px
 					text-align: center
+					width: 165px
 
 					.numero_participantes
 						background: $gris_666
@@ -757,6 +758,17 @@ body
 						-webkit-border-radius: 8px
 						color: $blanco
 						padding: 3px 6px
+
+			.popup_participantes
+				float: left
+				font:
+					size: 12px
+				margin: 10px 0 0
+				width: 355px
+
+				img
+					padding: 0 5px
+					position: absolute
 
 		.ganadores
 			background: $gris_faf
@@ -1030,6 +1042,9 @@ body
 				float: left
 				width: 298px  
 
+				&:hover
+					background: url('../images/concursos/compartir_por_redes.png') no-repeat -298px 0				
+
 				span
 					display: none
 				
@@ -1039,6 +1054,9 @@ body
 				float: left
 				width: 298px  
 
+				&:hover
+					background: url('../images/concursos/compartir_por_redes.png') no-repeat -298px -75px				
+
 	.volver
 		color: $gris_ccc
 		float: left
@@ -1047,6 +1065,51 @@ body
 			weight: normal
 		margin: 30px 0 20px
 		width: 650px
+
+/* Pop Up */
+
+.lightbox_participantes
+	background: $blanco
+	border: 1px solid $gris_999
+	border-radius: 4px
+	-o-border-radius: 4px
+	-moz-border-radius: 4px
+	-webkit-border-radius: 4px
+	color: $gris_666
+	float: left
+	font:
+		size: 19px
+		weight: bold
+	text-align: center
+	width: 570px
+
+	.header_participantes
+		background: $gris_faf
+		border-bottom: 1px solid $gris_ccc
+		float: left
+		height: 50px
+		line-height: 26px
+		padding: 20px
+		width: 530px
+
+	.body_participantes
+		float: left
+		margin: 20px
+
+		.listado_participantes
+			float: left
+			margin: 0 80px
+			width: 370px
+
+			li
+				float: left
+				height: 20px
+				margin: 5px
+				width: 20px
+
+				a
+					height: 20px
+					width: 20px
 
 .popup_compartir
 	height: 300px !important

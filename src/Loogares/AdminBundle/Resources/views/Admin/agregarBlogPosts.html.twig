@@ -235,7 +235,7 @@
 											<p class="sorteo_concurso">'~concurso.titulo~'</p>
 										</div>	
 										<div class="contenido_concurso">					
-											<img src="http://www.loogares.com/assets/images/blog/'~post.imagen~'" />
+											<img src="http://www.loogares.com/assets/media/cache/medium_concurso/assets/images/blog/'~post.imagen~'" />
 											<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
 										</div>
 									</a>'-}}
@@ -320,6 +320,7 @@
 							<th style="width: 50px; padding: 0 20px 0 0;">Id</th>
 							<th style="width: 235px; padding: 0 20px 0 0;">Nombre usuario</th>
 							<th style="width: 257px; padding: 0 20px 0 0;">Comuna, Ciudad</th>
+							<th style="width: 80px; padding: 0 20px 0 0;">Premios anteriores</th>
 							<th style="width: 80px; padding: 0 20px 0 0;">Ganadores</th>
 							<th style="width: 110px; padding: 0 10px 0 0;">Código cupones</th>
 							<th style="width: 100px;">Canjeado</th>
@@ -339,6 +340,7 @@
 									<td style="width: 257px; padding: 0 20px 0 0;text-align:left">
 										{% if participante.usuario.ciudad != null and participante.usuario.comuna != null %}{{participante.usuario.comuna.nombre}}, {{participante.usuario.ciudad.nombre}}{% elseif participante.usuario.comuna != null %}{{participante.usuario.comuna.nombre}}{% elseif participante.usuario.ciudad != null %}{{participante.usuario.ciudad.nombre}}{% endif %}
 									</td>
+									<td style="width: 80px; padding: 0 20px 0 0;">{{participante.premios}}</td>
 									<td style="width: 80px; padding: 0 20px 0 0;">
 										<input style="width: 20px; margin: 0 30px;" type="checkbox" class="ganadores_checkbox" data-participante="{{participante.id}}"{% if participante.ganador != null %}checked="checked"{% endif %} />
 									</td>

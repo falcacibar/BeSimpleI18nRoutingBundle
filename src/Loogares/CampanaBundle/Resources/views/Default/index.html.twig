@@ -1,0 +1,27 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block title %}Panel de administración de {{lugar.nombre}} {{parent()}}{% endblock %}
+
+{% block content %}
+
+	<div class="reportes_index">
+		<div class="logo_local"></div>
+		<h1 class="bienvenido_dueno">Bienvenido {{lugar.dueno.nombre}} {{lugar.dueno.apellido}}</h1>
+
+		<p class="datos_lugar">Estos son los datos de {{lugar.nombre}} en Loogares.com</p>
+
+		<div class="campanas">
+			<a class="campanas_boton" href="{{ path('_reporte_campanas', {'slug': lugar.slug, 'tipo': 'concursos'}) }}"></a>
+			<ul class="datos_rapidos">
+				<li>{{concursos}} Campañas Beneficios Exclusivos</li>
+				{% if descuentos == 0 %}<li>{{descuentos}} Campañas Descuentos</li>{% endif %}
+			</ul>
+		</div>
+		<div class="seguidores">
+			<a class="seguidores_boton" href="{{ path('_reporte_seguidores', {'slug': lugar.slug }) }}"></a>
+			<ul class="datos_rapidos">
+				<li>{{seguidores}} Seguidores</li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}

@@ -1827,6 +1827,11 @@ class AdminController extends Controller
 
             // Si existe concurso asociado, obtenemos información
             $concurso = $cor->getConcursoPost($post->getId());
+            foreach($concurso->getParticipantesActivos() as $p) {
+                $usuario = $p->getUsuario();
+                $premios = $cor->getPremiosAnterioresUsuario($usuario);
+                $p->premios = $premios;
+            }
         }else{
             $post = new Posts();
         }

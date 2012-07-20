@@ -262,7 +262,7 @@ usuario:
                 blanco: El campo URL propia no puede ser vacío.
                 tipo: La URL propia debe ser texto. 
             comuna:
-                blanco: El campos Comuna no puede ser vacío.
+                blanco: El campo Comuna no puede ser vacío.
             imagen:
                 tipo: Sólo JPG, GIF y PNG, máx. 5 MB.
 

@@ -41,7 +41,7 @@
 	               	</div>
 	               	<div style="background: #FAFAFC; float: left; padding: 0px 20px 20px; width: 608px; font-size: 12px; line-height: 25px;">
 	               		<div style="float: left; padding: 0 0 20px 0; width: 610px; border-bottom: 1px solid #E5E5E5;">
-		               		<strong>Sobre {{mail.concurso.post.lugar.nombre}}</strong>
+		               		<strong><a href="{{url('_lugar', {'slug' : mail.concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none;">{{mail.concurso.post.lugar.nombre}}</a></strong>
 		               		<br />
 		               		<br />
 		               		{{mail.concurso.post.lugar.calle}} {{mail.concurso.post.lugar.numero}}, {{mail.concurso.post.lugar.comuna.nombre}}, {{mail.concurso.post.lugar.comuna.ciudad.nombre}}
@@ -58,8 +58,6 @@
 		               		<a href="http://{{mail.concurso.post.lugar.sitioWeb}}" style="color: #0066CC; text-decoration: none;">Sitio web</a>
 		               		<br />
 		               		<a href="http://{{mail.concurso.post.lugar.facebook}}" style="color: #0066CC; text-decoration: none; margin: 0 10px 0 0;"><img src="http://www.loogares.com/assets/images/mails/facebook.png" height="16" width="16" /></a> <a href="http://{{mail.concurso.post.lugar.twitter}}" style="color: #0066CC; text-decoration: none;"><img src="http://www.loogares.com/assets/images/mails/twitter.png" height="16" width="16" /></a>
-		               		<br />
-		               		Visita su ficha en Loogares.com <a href="{{url('_lugar', {'slug' : mail.concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none;">acá</a>
 		               	</div>
 	               	</div>
 	               	<div style="background: #FAFAFC; float: left; width: 648px; font-size: 12px; line-height: 25px;">

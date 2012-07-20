@@ -1,0 +1,10 @@
+<div class="header_reporte">
+	<p class="volver_loogares"><a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">{{'general.header_locales.volver'|trans}}</a></p>
+	{% if dueno is defined %}
+		<p class="usuario_reporte">{{'general.header_locales.bienvenido'|trans}} Nombre Apellido{#{dueno.nombre}#} {#{dueno.apellido}#}</p>
+	{% endif %}
+</div>
+
+<img class="logo_reporte" src="{{ asset('assets/images/reporte/logo_reporte.png') }}" height="52" width="161" />
+
+<div class="contenido_reporte">

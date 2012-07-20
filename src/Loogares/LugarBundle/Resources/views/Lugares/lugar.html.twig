@@ -5,12 +5,35 @@
 {% endblock %}
 
 {% block meta %}
-    <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
-    <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
-    <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
     <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “{{lugar.recomendacion[0].texto|slice(0,160)}}...”{% endif %}" />
 
     <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}{{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{ lugar.nombre }}" />
+
+    <!-- Metadata Geo Tags -->
+    {# Santiago de Chile #}
+    {% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+        <meta name="geo.region" content="CL" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {# Valparaíso / Viña del Mar #}
+    {% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+        <meta name="geo.region" content="CL-VS" />
+        <meta name="geo.placename" content="Valparaíso" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {# Buenos Aires #}
+    {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+        <meta name="geo.region" content="AR" />
+        <meta name="geo.placename" content="Buenos Aires" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {% endif %}
+
+    <!-- Metadata Facebook -->
+    <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
+    <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
+    <meta property="og:image" content="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
+
 {% endblock %}
 
 {% block ads %}
@@ -40,13 +63,14 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=AIzaSyATOJuTIR8SfADJZrSGHtbEt-EPRrqZDjc" type="text/javascript"></script>
-    <script src='{{asset('assets/js/googleMapFicha.js')}}'></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
     <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
+    {% include 'LoogaresLugarBundle:Lugares:lugar_mapa_script.html.twig' %}
+    <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
     <script>
+        mapa.parametros.zoomInicial = 7;
         $(document).ready(function(){
             editarRecomendacion("{{lugar.slug}}");
             {% if lugar.usuarioSlug != null %}
@@ -55,12 +79,12 @@
             {% endif %}
         });
     </script>
-    <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen">
+
 {% endblock %}
 
 {% block content %}
@@ -115,20 +139,26 @@
                 <noscript>
                     {{lugar.estrellas}} Estrellas
                 </noscript>
-                <span class="n_recomendaciones">{{ lugar.totalRecomendaciones }} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}</span>
+                <span class="n_recomendaciones">{{ lugar.totalRecomendaciones|default(0) }} {{'lugar.ficha.total_recomendaciones'|transchoice(lugar.totalRecomendaciones)}}</span>
             </div>
             <div class="multimedia_lugar">
                 <div class="foto_lugar" id="lugar-foto">
                     {% if lugar.totalFotos == 0 %}
                         <img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/>
                     {% else %}
-                    <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}"><img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/></a>
+                    <a class="ver_galeria" href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">
+                        <div class="ver_galeria_over">
+                            {% if lugar.totalFotos > 0 %}
+                                <span class="numero_de_fotos">{{-'lugar.ficha.multimedia.galeria'|transchoice(lugar.totalFotos,{'%total%': lugar.totalFotos, '%br%': '<br />'})|raw -}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="imagen_lugar">
+                            <img src="{{ ('assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" width="130" height="130" alt="{{lugar.nombre}} | Ciudad" title="{{lugar.nombre}}"/>
+                        </div>
+                    </a>
                     {% endif %}
                 </div>
-                {% if lugar.totalFotos > 0 %}
-                <a href="{{ path( '_galeria', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.galeria'|transchoice(lugar.totalFotos,{'%total%': lugar.totalFotos}) }}</a><br />
-                {% endif %}
-                <a href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.agregar_foto'|trans}}</a>
+                <a class="agregar_foto" href="{{ path( '_agregarFotoLugar', { 'slug' : lugar.slug } )}}">{{'lugar.ficha.multimedia.agregar_foto'|trans}}</a>
                 {% if lugar.videosLugar[0].url is defined %}
                     <div class="video_lugar">
                         <a class="fancybox.iframe ver_video_lugar" href="{{lugar.videosLugar[0].url}}">{{'lugar.ficha.multimedia.video'|trans}}</a>
@@ -469,50 +499,12 @@
             </div>
         {% endif %}
 
-    {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug , 'enLugar' : true}%}
+        {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug , 'enLugar' : true}%}
 
     </div>
 
-    <div class="sidebar">
-        <div class="mapa_sidebar" id="mapa-sidebar">
+    {% include 'LoogaresLugarBundle:Lugares:lugar_sidebar.html.twig' %}
 
-            <div id="mapaOtros" style="height: 300px; width: 300px;">
-            </div>
-
-            <div id="otros-lugaresMapa">
-                <input type="hidden" id="idLugar" value="{{lugar.id}}" />
-                <input id="coordenadas0" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}">
-                <input id="coordenadasX" type="hidden" value="{{lugar.mapx}}">
-                <input id="coordenadasY" type="hidden" value="{{lugar.mapy}}">
-                <input id="puntodestacado" type="hidden" value="">
-                <input id="nombre0" type="hidden" value="{{ lugar.nombre }}">
-                <input id="direccion0" type="hidden" value="{{ lugar.calle }} {{lugar.numero}}">
-                <input id="baseurl" type="hidden" value="localhost" />
-                <input id="cantidadLugares" type="hidden" value="20" />
-            </div>
-
-            <div id="mapaAjax">
-            </div>
-
-        </div>
-
-        <div class="banner_300x250">
-            <script type='text/javascript'>
-                GA_googleFillSlot("{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
-            </script>
-        </div>
-
-        {% render "LoogaresLugarBundle:Lugar:moduloDescuentos" with {'ciudad' : lugar.comuna.ciudad.id, 'pagina' : 'lugar'}%}
-
-        <div class="otros_lugares" id="otros-lugares">
-        </div>
-
-        <div class="banner_300x250">
-            <script type='text/javascript'>
-                GA_googleFillSlot("{{ad('static','ficha','bottom','medium')}}_{{app.session.get('ciudad').slug}}");
-            </script>
-        </div>
-    </div>
 </div>
 
 {% endblock %}

@@ -34,13 +34,13 @@
 						</a>
 						<div class="contenido_concurso">	
 							<div class="caja_contenidos_concurso">								
-								<img src="{{asset('assets/images/blog/'~concurso.post.imagen)}}" width="204" height="115" / >
+								<img src="{{('assets/images/blog/'~concurso.post.imagen) | apply_filter('medium_concurso')}}" width="204" height="115" / >
 								<div class="lugar_concurso"></div>
 								<div class="participantes_concurso">
 									<div class="cantidad_participantes_izq">
 									</div>							
 									<div class="cantidad_participantes">
-										<span class="numero_participantes">{{concurso.participantesActivos|length}}</span>
+										<span class="numero_participantes">{{(concurso.participantesActivos|length > 100) ? '100+' : concurso.participantesActivos|length}}</span>
 										{{'extra.modulo_concursos.participantes'|transchoice(concurso.participantesActivos|length)}}
 									</div>
 									<div class="cantidad_participantes_der">

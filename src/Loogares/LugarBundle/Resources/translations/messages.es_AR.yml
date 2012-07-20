@@ -15,7 +15,7 @@ lugar:
         agregar:
             nombre: Ingresá el nombre del lugar
             categoria: Recordá asignarle una categoría al lugar
-            comuna: Localizá la comuna del lugar
+            comuna: Localizá el barrio del lugar
             calle: Ingresá la calle del lugar
             numero: Ingresá el número del lugar
         fotos:
@@ -27,13 +27,16 @@ lugar:
             mail: Es obligatorio que ingreses tu E-mail
             mails: Es necesario que ingreses al menos un E-mail
 
+    categoria:
+        titulo_pagina: Todas las categorías en
+
     buscar:
         titulo: Resultados para: %buscar%
         total_recomendaciones: recomendación|recomendaciones
         resultado_busqueda: Resultados de
         en: en
         sectores: Sectores
-        comunas: Comunas
+        comunas: Barrios
         zonas: Zonas
         categorias: Categorías
         subcategorias: Subcategorías
@@ -48,6 +51,7 @@ lugar:
         buscar_zona: Buscá en otra zona. Ej. "Buenos Aires", "Palermo" o "Puerto Madero"
         revisa: Revisá si está bien escrito, sin faltas de ortografía
         buscar_general: Escribí una búsqueda más general. Ej. "Cines" o "Boliches"
+        titulo_pagina_buscar: ¿Qué estás buscando?
 
     ficha:
         pedidos:
@@ -66,7 +70,7 @@ lugar:
             aqui: aquí
         total_recomendaciones: recomendación|recomendaciones
         multimedia:
-            galeria: Ver galería (%total% foto)|Ver galería (%total% fotos)
+            galeria: Ver galería %br%(%total% foto)|Ver galería %br%(%total% fotos)
             agregar_foto: » Agregá una foto
             video: Ver video
         datos:
@@ -102,6 +106,9 @@ lugar:
         aun_no_eres_parte: ¿Aún no sos parte de Loogares.com?
         registrate: Para recomendarle este lugar a otros Loogareños, tenés que registrarte antes.
 
+    pagina_recomendacion:
+        numero_de_recomendaciones: Recomendaciones en
+
     agregar:
         titulo: Agregar un Lugar
         nombre: Nombre
@@ -114,8 +121,8 @@ lugar:
         pais: País
         ciudad: Ciudad
         comuna:
-            label: Comuna
-            title: Elige una comuna
+            label: Barrio
+            title: Elige un barrio
         calle: Calle
         numero: Nº
         galeria_centro: » ¿Es parte de una galería o centro comercial?

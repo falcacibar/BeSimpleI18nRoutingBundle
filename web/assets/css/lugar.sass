@@ -714,19 +714,68 @@ $rojo: #F72121
             @include sombra_fuerte
             border: 1px solid $gris_ccc
             display: block
+            height: 130px
             float: left
-            margin: 0 0 20px 0
+            margin: 0 0 10px 0
             padding: 7px
 
-            a
+            .ver_galeria
                 display: block
                 float: left
                 height: 130px
                 width: 130px
 
-        .video_lugar
+                .ver_galeria_over
+                    float: left
+                    cursor: pointer
+                    height: 130px
+                    position: relative
+                    top: 0
+                    width: 130px
+                    z-index: 1
+
+                    &:hover
+                        background: url('../images/extras/ver_galeria.png') no-repeat 0 0
+                        color: $blanco !important
+                        text:
+                            shadow: 0px 0px 0px $blanco
+
+                    .numero_de_fotos
+                        height: 50px
+                        float: left
+                        opacity: 0
+                        padding: 80px 0 0
+                        position: relative
+                        text:
+                            align: center
+                        top: 0
+                        width: 130px
+
+                        &:hover
+                            opacity: 1
+
+                .imagen_lugar
+                    position: relative
+                    top: -130px
+
+                    img
+                        float: left
+                        height: 130px
+                        width: 130px
+
+        .agregar_foto
+            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -782px
             float: left
-            margin: 10px 0 0 0
+            padding: 0 0 5px 20px
+            width: 130px
+
+            &:hover
+                background: url('../images/extras/iconos_ficha_lugar_hover.png') no-repeat 0 -782px
+
+        .video_lugar
+            border-top: 1px solid $gris_f6f
+            float: left
+            padding: 5px 0 0 0
             width: 146px
 
             .ver_video_lugar
@@ -742,8 +791,11 @@ $rojo: #F72121
         float: left
         margin: 0 0 0 10px
         width: 442px
+
+        .estrellas_lugar_recomendacion
+            margin: 0 0 10px
         
-        .direccion_lugar
+        .direccion_lugar, .direccion_lugar_recomendacion
             display: block
             float: left
             font:
@@ -756,7 +808,31 @@ $rojo: #F72121
                 @include link_azul
 
                 &:hover
-                    @include link_azul_hover                
+                    @include link_azul_hover
+
+        .direccion_lugar_recomendacion
+            font:
+                size: 12px
+            margin: 0 0 10px
+
+        .categoria_lugar
+            display: block
+            float: left
+            font:
+                size: 12px
+            width: 442px
+        
+            .categoria_lugar_box, .sector_lugar_box
+                display: block
+                float: left
+                margin: 0 0 10px 0
+                width: 442px
+
+                .subtitulos_lugar
+                    display: block
+                    font:
+                        size: 11px
+                    margin: 0 0 5px                                    
 
         .telefono_lugar
             background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -51px
@@ -1408,7 +1484,7 @@ $rojo: #F72121
             text-shadow: 1px 1px 1px $gris_444
             padding: 4px 5px 6px
 
-.caja_inferior_ficha
+.caja_inferior_ficha, .caja_inferior_ficha_recomendacion
     border-left: 1px solid $gris_f6f
     border-bottom: 1px solid $gris_f6f
     border-right: 1px solid $gris_f6f
@@ -1424,6 +1500,9 @@ $rojo: #F72121
         top: 0px
         position: absolute
         width: 640px
+
+.caja_inferior_ficha_recomendacion
+    margin: 0 0 20px 0
 
 .opciones_lugar
     border: 1px solid $gris_f6f
@@ -1656,13 +1735,38 @@ $rojo: #F72121
                 margin: 5px 73px 0
                 width: 104px
 
+/* Botón todas las recomendaciones */
+
+.ver_todas_recomendaciones
+    background: url('../images/extras/todas_recomendaciones.png') no-repeat 0 0
+    float: left
+    height: 30px
+    margin: 10px 195px 30px
+    width: 250px
+
+    &:hover
+        background: url('../images/extras/todas_recomendaciones.png') no-repeat 0 -30px           
+
 /* Mapa ficha lugar */
 .sidebar
     .mapa_sidebar
         float: left
         height: 300px
         margin: 0 0 20px 0
+        position: relative
         width: 300px
+
+        .boton_mapa_grande
+            background: url('../images/extras/ver_mapa_grande.png') no-repeat 0 0
+            float: left
+            height: 25px
+            left: 20px
+            position: absolute
+            top: 255px
+            width: 260px
+
+            &:hover
+                background: url('../images/extras/ver_mapa_grande.png') no-repeat 0 -25px                  
 
     /* Restaurantes con descuentos en Pedidos Online */
     .caja_promociones
@@ -1751,7 +1855,7 @@ $rojo: #F72121
     float: left
     font:
         size: 14px
-    margin: 0 0 20px 0
+    margin: 20px 0
     width: 640px
 
     li

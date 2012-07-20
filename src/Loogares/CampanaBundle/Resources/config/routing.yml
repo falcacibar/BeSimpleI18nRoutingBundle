@@ -1,0 +1,25 @@
+LoogaresCampanaBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: LoogaresCampanaBundle:Default:index }
+
+_reportes:
+    pattern:  /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno
+    defaults: { _controller: LoogaresCampanaBundle:Default:index }
+
+_reporte_seguidores:
+    pattern: /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno/seguidores
+    defaults: { _controller: LoogaresCampanaBundle:Default:seguidores }
+
+_reporte_descuento:
+    pattern: /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno/descuentos/nuevo
+    defaults: { _controller: LoogaresCampanaBundle:Default:descuentos }
+
+_reporte_campanas:
+    pattern: /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno/{tipo}
+    defaults: { _controller: LoogaresCampanaBundle:Default:campanas }
+    requirements:
+      tipo: 'descuentos|concursos'
+
+_reporte_campanas_detalles:
+    pattern: /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno/{tipo}/{id}
+    defaults: { _controller: LoogaresCampanaBundle:Default:reporteLocal }

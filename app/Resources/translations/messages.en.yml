@@ -52,6 +52,7 @@ general:
         mejor_evaluadas: Highest rated|Highest rated
         mejores_evaluaciones: Best valued
         mas_recomendados: Most reviewed|Most reviewed
+        mas_recomendados_listar: Most reviewed
         mas_utiles: Most useful|Most useful
         ultima_recomendacion: Recently reviewed|Recently reviewed
         alfabetico: Name

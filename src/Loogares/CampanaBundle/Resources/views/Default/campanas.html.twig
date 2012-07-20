@@ -1,0 +1,75 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block content %}
+
+<div class="listados_campanas">
+
+	<p class="breadcrumb"><a href="#">Inicio</a> » <a href="#">Mis campañas</a> » <span class="selected">Beneficios Exclusivos</span></p>
+
+	<ul class="botones_campana">
+		<li class="be_{{tipo}}">
+			<a href="{{ path('_reporte_campanas', {'slug': slug, tipo: 'concursos'}) }}">
+				<div class="icono_be">Beneficios Exclusivos</div>
+			</a>
+		</li>
+		<li class="gc_{{tipo}}">
+			<a href="{{ path('_reporte_campanas', {'slug': slug, tipo: 'descuentos'}) }}">
+				<div class="icono_gc">Descuentos</div>
+			</a>
+		</li>
+	</ul>
+
+	{% for detalle in detalles %}
+	<div class="campana_detalle {{tipo}}">
+		<div class="foto_fecha">
+			<div class="fecha">
+				{{-detalle.fechaInicio|date('d F Y')-}}
+			</div>
+			<div class="foto">
+				<img src="" height="115" width="205" />
+			</div>
+		</div>
+		<div class="detalles_be">
+			<p class="titulo">{{detalle.titulo}}</p>
+			<p class="validez"><strong>Validas cada una por:</strong></p>
+			<p class="validez">{{detalle.descripcion}}</p>
+			<p class="participantes">## participantes</p>
+			<a class="ver_mas" href="#">Ver reporte</a>
+		</div>
+		<div class="icono_identificador"></div>
+	</div>
+
+	<!-- Caja con las clases de los concursos inactivos -->
+	<div class="campana_detalle {{tipo}}">
+		<div class="foto_fecha">
+			<div class="fecha inactivo">
+				{{-detalle.fechaInicio|date('d F Y')-}}
+			</div>
+			<div class="foto">
+				<img src="" height="115" width="205" />
+			</div>
+		</div>
+		<div class="detalles_be">
+			<p class="titulo">{{detalle.titulo}}</p>
+			<p class="validez"><strong>Validas cada una por:</strong></p>
+			<p class="validez">{{detalle.descripcion}}</p>
+			<p class="participantes">## participantes</p>
+			<a class="ver_mas" href="#">Ver reporte</a>
+		</div>
+		<div class="icono_identificador_inactivo"></div>
+	</div>
+	{% endfor %}
+
+	{% if detalles|length == 0 %}
+		Si no hay nada, el botón debiese estar bloquedo y no debería poder apretarse nunca.
+	{% endif %}
+
+	{% if tipo == 'concursos' %}
+		<a class="boton_nuevo_be" href="#">¿Quieres sortear un nuevo Beneficio Exclusivo? Haz click acá</a>
+	{% elseif tipo == 'descuentos' %}
+		<a href="#">Boton de Crear Nuevo</a>
+	{% endif %}
+
+</div>
+
+{% endblock %}

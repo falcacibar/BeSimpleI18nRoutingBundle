@@ -1,0 +1,15 @@
+Loogares\CampanaBundle\Entity\Descuento:
+    type: entity
+    table:  descuentos
+    oneToOne:
+        descuento:
+            targetEntity: Loogares\CampanaBundle\Entity\Descuento
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        nombre:
+            type: string
+        fecha_inicio:
+            type: datetime
