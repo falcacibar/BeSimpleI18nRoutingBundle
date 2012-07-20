@@ -16,7 +16,7 @@ var mapa = {
     } ,
     'estilos'       : {
         'marcadorBase'          : {
-            'pointRadius'       : 16 ,
+            'pointRadius'       : 17 ,
             'backgroundGraphic' : "http://www.google.com/mapfiles/shadow50.png",
             'backgroundXOffset' : -7 ,
             'backgroundYOffset' : -15,
@@ -305,7 +305,7 @@ $(function() {
     if(typeof(mapa.lonlat.lugarActual) != 'undefined') {
         var $botonLugarActual   = $('#mapa-botones .boton_mapa_ubicarlugar').clone().click(function(evt) {
                 mapa.olMapa.panTo(mapa.lonlat.lugarActual);
-                evt.stopInmediatePropagation();
+                evt.stopImmediatePropagation();
                 return false;
         });
 
