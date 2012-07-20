@@ -14,6 +14,11 @@ _editar:
     pattern: /lugar/{slug}/editar
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
+_lugaresGeoJSON:
+    pattern: /ajax/geo/lugares
+    defaults: { _controller: LoogaresLugarBundle:Ajax:lugaresGeoJSON}
+
+
 _otrosLugaresEnElArea:
     pattern: /ajax/{accion}
     defaults: { _controller: LoogaresLugarBundle:Ajax:otrosLugaresEnElArea }
@@ -91,13 +96,17 @@ _borrarRecomendacion:
     defaults: { _controller: LoogaresLugarBundle:Lugar:accionRecomendacion, borrar: true}
 
 
-_lugarRecomendaciones:
+_lugarRecomendacion:
     pattern: /lugar/{slug}/recomendacion
-    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendaciones}
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendacion}
 
 _recomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}
-    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendaciones }
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendacion}
+
+_lugarMapa:
+    pattern: /lugar/{slug}/mapa
+    defaults: { _controller: LoogaresLugarBundle:Lugar:lugarMapa}
 
 _reportarLugar:
     pattern: /lugar/{slug}/reportar

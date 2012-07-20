@@ -116,7 +116,7 @@ class LugarController extends Controller{
 
         if($mostrarPrecio){
             //Precio Promedio
-            $q = $em->createQuery("SELECT SUM(r.precio) as precioSum, count(r.id) as precioTotal 
+            $q = $em->createQuery("SELECT SUM(r.precio) as precioSum, count(r.id) as precioTotal
                                    FROM Loogares\UsuarioBundle\Entity\Recomendacion r
                                    WHERE r.lugar = ?1 and r.estado != 3");
             $q->setParameter(1, $lugarResult[0]);
@@ -141,17 +141,25 @@ class LugarController extends Controller{
                 else if($accionesUsuario[$i]['id'] == 5 && $accionesUsuario[$i]['hecho'] == 1)
                     $accionesUsuario[$i]['puede'] = 0;
             }
+
             // Si el usuario ya estuvo o quiere volver, no puede querer ir
             if($accionesUsuario[2]['hecho'] == 1 || $accionesUsuario[1]['hecho'] == 1) {
                 $accionesUsuario[0]['puede'] = 0;
             }
-        }
-        else {
+        } else {
             $accionesUsuario = $lr->getAccionesUsuario($lugarResult[0]->getId());
              for($i = 0; $i < sizeof($accionesUsuario); $i++) {
                 $accionesUsuario[$i]['puede'] = 0;
             }
         }
+
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $q  = $em->createQuery("SELECT count(r) FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.lugar = ?1
+                               AND r.estado != ?2 ");
+        $q->setParameters(array(1 => $lugarResult[0], 2 => 3));
+
+        $lugarResult[0]->recomendaciones = $q->getSingleScalarResult();
 
         // Revisamos si el lugar tiene pedidos asociados
         $reservas = $lr->getPedidosLugar($lugarResult[0], 1);
@@ -197,7 +205,7 @@ class LugarController extends Controller{
     }
 
 
-    public function lugarRecomendacionesAction (Request $request, $slug, $usuarioSlug = false) {
+    public function lugarRecomendacionAction (Request $request, $slug, $usuarioSlug = false) {
         $em    = $this->getDoctrine()->getEntityManager();
         $lr    = $em->getRepository("LoogaresLugarBundle:Lugar");
 
@@ -239,6 +247,14 @@ class LugarController extends Controller{
                 ));
 
         $lugar->yaRecomendo = $q->getResult();
+
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $q  = $em->createQuery("SELECT count(r) FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.lugar = ?1
+                               AND r.estado != ?2 ");
+        $q->setParameters(array(1 => $lugar, 2 => 3));
+
+        $lugar->recomendaciones = $q->getSingleScalarResult();
 
         if($idUsuario) {
             $accionesUsuario = $lr->getAccionesUsuario($idLugar, $idUsuario);
@@ -291,7 +307,7 @@ class LugarController extends Controller{
         $resultadosPorPagina = ($enLugar)?5:((isset($_GET['resultados']))?$_GET['resultados']:20);
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*$resultadosPorPagina);
         $params = array('slug' => $lugar->getSlug());
-        $path = '_lugarRecomendaciones';
+        $routePath = ($enLugar) ? '_lugar' : '_lugarRecomendacion';
         $fn = $this->get('fn');
 
         if($_GET['orden'] == 'ultimas'){
@@ -362,19 +378,58 @@ class LugarController extends Controller{
             $recomendaciones[$key]->tags = join(', ', $tagsBuffer );
         }
 
-        $paginacion = $fn->paginacion($totalRecomendaciones, $resultadosPorPagina, $path, $params, $this->get('router') );
+        $paginacion = $fn->paginacion($totalRecomendaciones, $resultadosPorPagina, $routePath, $params, $this->get('router') );
 
         return $this->render('LoogaresLugarBundle:Lugares:listado_recomendaciones.html.twig', array(
             'lugar' => $lugar,
             'recomendaciones' => $recomendaciones,
             'query' => $_GET,
             'paginacion' => $paginacion,
-            'enLugar' => $enLugar
+            'enLugar' => $enLugar ,
+            'routePath' => $routePath
+        ));
+    }
+
+    public function lugarMapaAction(Request $request, $slug = null) {
+        if(is_null($slug)) {
+            return $this->createNotFoundException();
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $lugar = $lr->findOneBySlug($slug);
+        $idLugar = $lugar->getId();
+
+        // Imagen principal
+        $q = $em->createQuery("SELECT       i
+                               FROM         Loogares\LugarBundle\Entity\ImagenLugar i
+                               WHERE        i.lugar = ?1
+                                            AND i.estado != 3
+                               ORDER BY     i.fecha_creacion DESC, i.id DESC")
+                ->setMaxResults(1)
+                ->setParameter(1, $idLugar);
+
+        $imagenLugar = $q->getSingleResult();
+        unset($q);
+
+        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+        $q  = $em->createQuery("SELECT count(r) FROM Loogares\UsuarioBundle\Entity\Recomendacion r
+                               WHERE r.lugar = ?1
+                               AND r.estado != ?2 ");
+        $q->setParameters(array(1 => $lugar, 2 => 3));
+
+        $lugar->recomendaciones = $q->getSingleScalarResult();
+
+        $lugar->imagen_full  = ($imagenLugar)  ? $imagenLugar->getImagenFull() : null;
+
+        unset($lr, $rr, $em);
+        return $this->render('LoogaresLugarBundle:Lugares:lugar_mapa.html.twig', array(
+                'lugar' => $lugar
         ));
     }
 
     public function agregarAction(Request $request, $slug = null){
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getEnagregarActiontityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $errors = array();
         $formErrors = array();
@@ -2102,7 +2157,7 @@ class LugarController extends Controller{
         $formErrors = array();
 
         $lugar = $lr->findOneBySlug($slug);
-        
+
         if($request->getMethod() == 'POST') {
             if(!$request->request->get('reporte')) {
                 if($request->request->get('password') == '') {

@@ -16,7 +16,7 @@
 	        {% if query.orden == 'mejor-evaluadas' %}
 	            <strong>{{'general.terminos.mejores_evaluaciones'|trans}}</strong>
 	        {% else %}
-	            <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejores_evaluaciones'|trans}}</a>
+	            <a href="{{ path(routePath, query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejores_evaluaciones'|trans}}</a>
 	        {% endif %}
 	    </li>
 	    <li>|</li>
@@ -24,7 +24,7 @@
 	        {% if query.orden == 'ultimas' %}
 	            <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
 	        {% else %}
-	            <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</a>
+	            <a href="{{ path(routePath, query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</a>
 	        {% endif %}
 	    </li>
 	    <li>|</li>
@@ -32,7 +32,7 @@
 	        {% if query.orden == 'mas-utiles' %}
 	            <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
 	        {% else %}
-	            <a href="{{ path("_lugar", query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
+	            <a href="{{ path(routePath, query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
 	        {% endif %}
 	    </li>
 	</ul>
@@ -151,7 +151,7 @@
     </div>
     {% else %}
     <div>
-    	<a class="ver_todas_recomendaciones" href="{{ path('_lugarRecomendaciones',{"slug": lugar.slug}) }}"></a>
+    	<a class="ver_todas_recomendaciones" href="{{ path('_lugarRecomendacion',{"slug": lugar.slug}) }}"></a>
     </div>
     {% endif %}
 

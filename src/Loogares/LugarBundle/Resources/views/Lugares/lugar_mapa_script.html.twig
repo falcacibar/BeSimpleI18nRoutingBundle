@@ -1,0 +1,91 @@
+<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+    <script src="{{asset('assets/js/OpenLayers/OpenLayers.js')}}"></script>
+    <script src="{{asset('assets/js/mapaOpenLayers.js')}}"></script>
+    <script type="text/javascript">
+    mapa.features.lugarActual   = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point({{lugar.mapy}}, {{lugar.mapx}})
+    );
+
+    mapa.lonlat.lugarActual     = (new OpenLayers.LonLat({{lugar.mapy}}, {{lugar.mapx}}))
+                                        .transform(
+                                            mapa.proyecciones.servidor,
+                                            mapa.proyecciones.cliente
+                                );
+
+    mapa.features.lugarActual.attributes = {
+        'actual'    : "t",
+        'num'       : "{{ lugar.id }}",
+        'mapx'      : "{{ lugar.mapx }}",
+        'mapy'      : "{{ lugar.mapy }}",
+        'nombre'    : "{{ lugar.nombre }}",
+        'slug'      : "{{ lugar.slug }}",
+        'estrellas' : "{{ lugar.estrellas }}",
+        'imagen'    : "{{ lugar.imagen_full }}",
+        'tipo'      : "",
+        'comuna'    : "{{ lugar.comuna.nombre }}",
+        'ciudad'    : "{{ lugar.comuna.ciudad.nombre }}",
+        'ciudad_slug'       : "{{ lugar.comuna.ciudad.slug }}",
+        'recomendaciones'   : "{{ lugar.recomendaciones }}",
+        'textoCategoria'    : "{{'general.terminos.categorias'|transchoice(lugar.categoriaLugar|length)}}",
+        'textoRecomendacion': "{{'lugar.buscar.total_recomendaciones'|transchoice(lugar.recomendaciones)}}" ,
+        'categorias': [
+        {% for categoriaLugar in lugar.categoriaLugar %}
+            {
+                'nombre'    : "{{ categoriaLugar.categoria.nombre }}",
+                'slug'      : "{{ categoriaLugar.categoria.slug }}",
+                'url'       : "{{ path('_categoria_comuna', {'slug': lugar.comuna.ciudad.slug, 'comuna': lugar.comuna.slug, 'categoria': categoriaLugar.categoria.slug}) }}"
+            },
+        {% endfor %}
+        ]
+    };
+    </script>
+    <script type="text/vnd.loogares-htmljs-template" id="plant-popup-mapa">
+        {# IMPORTANTE: Esto se procesa en javascript, favor no borrar nada en etiquetas twig ,((% y %)). #}
+        <div class="imagen_gmaps">
+                <img src="((% imagen %))" width="50" height="50" />
+        </div>
+        <ul>
+            <li class="nombre_lugar_gmaps">
+                <a href="{{ path('_lugar', {'slug': 'URLNS'}) }}">((% nombre %))</a>
+            </li>
+            <li class="estrellas_gmaps">
+                <div data-stars="((% estrellas %))" class="resultado-busqueda-stars-raty"></div>
+            </li>
+            <li class="recomendacion_gmaps">
+                ((% recomendaciones %)) ((% textoRecomendacion %))
+            </li>
+
+            <li class="data_categoria">
+                <span><strong>((% textoCategoria %)) :</strong></span>
+                {# TODO: un pequeño foreach para que se puedan manejar los anchors #}
+                ((% categorias %))
+            </li>
+        </ul>
+    </script>
+    <script type="text/vnd.loogares-htmljs-template" id="plant-lista-otros-lugares">
+        <div class="otro_lugar">
+            <a class="otro_lugar_img" href="{{ path('_lugar', {'slug': 'URLNS'}) }}}">
+
+                <img src="((% imagen %))" width="50" height="50" alt="((% nombre %)) | Ciudad" title="((% nombre %))"/>
+            </a>
+            <ul class="otro_lugar_info">
+                <li>
+                    <a class="otro_lugar_nombre" href="{{ path('_lugar', {'slug': lugar.slug}) }}">((% nombre %))</a>
+                </li>
+                <li>
+                    {# star-raty-otrosLugares{{loop.index}} #}
+                    <div id="puntuacion" class="estrellas_lugar">
+                        <div data-stars="((% estrellas %))" class="resultado-busqueda-stars-raty otro_lugar_estrellas"></div>
+                    </div>
+
+                    <p>((% recomendaciones %)) ((% textoRecomendacion %))</p>
+                </li>
+                <li class="direccion">((% calle %)) ((% numero %)), <a href="#">((% comuna %))</a></li>
+                <li class="categoria">
+                    <span><strong>((% textoCategoria %)) :</strong></span>
+                    {# TODO: un pequeño foreach para que se puedan manejar los anchors #}
+                    ((% categorias %))
+                </li>
+            </ul>
+        </div>
+    </script>

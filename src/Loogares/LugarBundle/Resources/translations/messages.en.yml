@@ -75,7 +75,7 @@ lugar:
             video: Watch video
         datos:
             precio: Price:
-            primero: First to review            
+            primero: First to review
             horario: Hours:
             sector: Neighborhood:
             subcategorias: Subcategories
@@ -105,6 +105,10 @@ lugar:
             titulo: Review
         aun_no_eres_parte: Not a member of Loogares.com?
         registrate: To review this place, you must be loged in.
+
+    mapa:
+        titulo: Map and places nearby
+        otros: Nearby places
 
     pagina_recomendacion:
         numero_de_recomendaciones: Reviews in
@@ -162,8 +166,8 @@ lugar:
         construccion: Year
         descripcion: Description
         materiales: Materials
-        caracteristicas: Features   
-        recomendacion: Review         
+        caracteristicas: Features
+        recomendacion: Review
         placeholders:
             nombre: Eg. Moe's Bar
             calle: Eg. Abbey Road
@@ -242,7 +246,7 @@ fotos:
         url: Embed a photo from a website
         url_label: URL
         agregar_foto: Add another photo (Max.
-        agregar_url: Add another URL (Max.             
+        agregar_url: Add another URL (Max.
         quitar: Remove
         descripcion: Description or URL to link image to original site.
         submit: Send
@@ -268,8 +272,8 @@ compartir:
             asunto: wants you to see a place in Loogares.com
             saludo: Hi %destinatario%!
             subtitulo: would like to tell you about a place you might like:
-            texto: He/She says: 
-        placeholder: This place is incredible!           
+            texto: He/She says:
+        placeholder: This place is incredible!
     recomendacion:
         mail:
             title: Send review of %lugar% to your friends
@@ -277,7 +281,7 @@ compartir:
             asunto: wants you to read a review in Loogares.com
             subtitulo: would like to tell you about a review of a place you might like:
             bajada: Click %open_tag%here%close_tag% to read the review of
-        placeholder: This review is amazing! 
+        placeholder: This review is amazing!
     form:
         nombre: Your name *
         mail: Your E-mail address *
@@ -307,7 +311,7 @@ reportes:
 
     mail:
         lugar:
-            asunto: Flag place:  
+            asunto: Flag place:
             titulo: Place
         imagen:
             asunto: Flag: Photo of

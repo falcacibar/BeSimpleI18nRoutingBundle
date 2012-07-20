@@ -8,7 +8,7 @@
     <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “{{lugar.recomendacion[0].texto|slice(0,160)}}...”{% endif %}" />
 
     <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}{{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{ lugar.nombre }}" />
-    
+
     <!-- Metadata Geo Tags -->
     {# Santiago de Chile #}
     {% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
@@ -21,7 +21,7 @@
         <meta name="geo.placename" content="Valparaíso" />
         <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
         <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
-    {# Buenos Aires #}  
+    {# Buenos Aires #}
     {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
         <meta name="geo.region" content="AR" />
         <meta name="geo.placename" content="Buenos Aires" />
@@ -63,14 +63,14 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=AIzaSyATOJuTIR8SfADJZrSGHtbEt-EPRrqZDjc" type="text/javascript"></script>
-    <script src='{{asset('assets/js/googleMapFicha.js')}}'></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
     <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
     <script src="{{asset('assets/js/lugar.js')}}"></script>
-
+    {% include 'LoogaresLugarBundle:Lugares:lugar_mapa_script.html.twig' %}
+    <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
     <script>
+        mapa.parametros.zoomInicial = 7;
         $(document).ready(function(){
             editarRecomendacion("{{lugar.slug}}");
             {% if lugar.usuarioSlug != null %}
@@ -79,12 +79,12 @@
             {% endif %}
         });
     </script>
-    <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen">
+
 {% endblock %}
 
 {% block content %}
@@ -503,49 +503,7 @@
 
     </div>
 
-    <div class="sidebar">
-        <div class="mapa_sidebar" id="mapa-sidebar">
-
-            <div id="mapaOtros" style="height: 300px; width: 300px;">
-            </div>
-
-            <div id="otros-lugaresMapa">
-                <input type="hidden" id="idLugar" value="{{lugar.id}}" />
-                <input id="coordenadas0" type="hidden" value="{{lugar.mapx}}, {{lugar.mapy}}">
-                <input id="coordenadasX" type="hidden" value="{{lugar.mapx}}">
-                <input id="coordenadasY" type="hidden" value="{{lugar.mapy}}">
-                <input id="puntodestacado" type="hidden" value="">
-                <input id="nombre0" type="hidden" value="{{ lugar.nombre }}">
-                <input id="direccion0" type="hidden" value="{{ lugar.calle }} {{lugar.numero}}">
-                <input id="baseurl" type="hidden" value="localhost" />
-                <input id="cantidadLugares" type="hidden" value="20" />
-            </div>
-
-            <div id="mapaAjax">
-            </div>
-
-            <a class="boton_mapa_grande" href="#"></a>
-
-        </div>
-
-        <div class="banner_300x250">
-            <script type='text/javascript'>
-                GA_googleFillSlot("{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
-            </script>
-        </div>
-
-        {% render "LoogaresLugarBundle:Lugar:moduloDescuentos" with {'ciudad' : lugar.comuna.ciudad.id, 'pagina' : 'lugar'}%}
-
-        <div class="otros_lugares" id="otros-lugares">
-        </div>
-
-        <div class="banner_300x250">
-            <script type='text/javascript'>
-                GA_googleFillSlot("{{ad('static','ficha','bottom','medium')}}_{{app.session.get('ciudad').slug}}");
-            </script>
-        </div>
-
-    </div>
+    {% include 'LoogaresLugarBundle:Lugares:lugar_sidebar.html.twig' %}
 
 </div>
 
