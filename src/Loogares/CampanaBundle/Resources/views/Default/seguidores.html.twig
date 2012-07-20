@@ -53,7 +53,9 @@
 					{% endfor %}
 					<p class="valor">{{total}}</p>
 				</div>
-				<div class="recomendacion_lugar {% if seguidor.recomendo %}si{% else %}no{% endif %}"></div>
+				<div class="recomendacion_lugar {% if seguidor.recomendo %}si{% else %}no{% endif %}">
+					<a href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor[0].usuario.slug }) }}" target="_blank"></a>
+				</div>
 			</div>
 		</div>
 		{% endfor %}
