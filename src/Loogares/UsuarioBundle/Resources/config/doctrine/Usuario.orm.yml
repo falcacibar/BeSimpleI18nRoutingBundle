@@ -18,6 +18,12 @@ Loogares\UsuarioBundle\Entity\Usuario:
         recomendaciones:
             targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
             mappedBy: usuario
+        descuentos_usuarios:
+            targetEntity: Loogares\CampanaBundle\Entity\DescuentosUsuarios
+            mappedBy: usuario
+        participantes:
+            targetEntity: Loogares\BlogBundle\Entity\Participante
+            mappedBy: usuario
         reportar_lugar:
             targetEntity: Loogares\LugarBundle\Entity\ReportarLugar
             mappedBy: usuario

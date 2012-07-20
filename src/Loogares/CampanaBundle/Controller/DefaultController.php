@@ -145,12 +145,13 @@ class DefaultController extends Controller{
     	$comuna = " AND com.slug = '" . $_GET['comuna'] . "'";
     }
 
-		$q = $em->createQuery("SELECT p 
+		$q = $em->createQuery("SELECT p, r.id as recomendo
 													 FROM Loogares\BlogBundle\Entity\Participante p
 													 JOIN p.concurso c
 													 JOIN c.post po
 													 JOIN p.usuario u
 													 JOIN u.comuna com
+													 LEFT JOIN u.recomendaciones r WITH r.lugar = {$lugar->getId()}
 													 WHERE po.lugar = ?1 $comuna
 													 GROUP BY p.usuario");
 		$q->setParameter(1, $lugar);
