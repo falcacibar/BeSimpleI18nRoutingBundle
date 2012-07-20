@@ -1,15 +1,16 @@
 Loogares\CampanaBundle\Entity\Descuento:
     type: entity
     table:  descuentos
-    oneToOne:
-        descuento:
-            targetEntity: Loogares\CampanaBundle\Entity\Descuento
     id:
         id:
             type: integer
             generator: { strategy: auto }
     fields:
-        nombre:
+        condiciones:
             type: string
         fecha_inicio:
             type: datetime
+        fecha_termino:
+            type: datetime
+        cantidad:
+            type: integer

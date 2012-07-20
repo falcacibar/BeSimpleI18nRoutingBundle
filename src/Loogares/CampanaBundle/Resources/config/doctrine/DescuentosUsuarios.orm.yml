@@ -1,0 +1,17 @@
+Loogares\CampanaBundle\Entity\DescuentosUsuarios:
+    type: entity
+    table: descuentos_usuarios
+    manyToOne:       
+        descuento:
+            targetEntity: Loogares\CampanaBundle\Entity\Descuento
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        codigo:
+            type: string
+        canjeado:
+            type: integer

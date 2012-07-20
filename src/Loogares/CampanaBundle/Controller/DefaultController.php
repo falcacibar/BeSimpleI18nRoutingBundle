@@ -3,10 +3,13 @@
 namespace Loogares\CampanaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+
+use Loogares\CampanaBundle\Entity\Descuento;
+use Loogares\CampanaBundle\Entity\DescuentosUsuarios;
 
 
 class DefaultController extends Controller{
-
 	public function indexAction($slug){
 		$em = $this->getDoctrine()->getEntityManager();
 		$lugarRepository = $em->getRepository('LoogaresLugarBundle:Lugar');
@@ -41,6 +44,20 @@ class DefaultController extends Controller{
 		));
 	}
 
+	public function listadoCampanasAction($slug){
+		$em = $this->getDoctrine()->getEntityManager();
+		$lugarRepository = $em->getRepository('LoogaresLugarBundle:Lugar');
+		$campanaRepository = $em->getRepository('LoogaresCampanaBundle:Campana');
+
+		$lugar = $lugarRepository->findOneBySlug($slug);
+		$campanas = $campanaRepository->findByLugar($lugar->getId());
+
+		return $this->render('LoogaresCampanaBundle:Default:listado_campanas.html.twig', array(
+			'slug' => $slug,
+			'campanas' => $campanas
+		));
+	}
+
 	public function campanasAction($slug, $tipo){
 		$em = $this->getDoctrine()->getEntityManager();
 		$lugarRepository = $em->getRepository('LoogaresLugarBundle:Lugar');
@@ -63,16 +80,17 @@ class DefaultController extends Controller{
 				$detalles[sizeOf($detalles)-1]['descripcion'] = $concurso->getDescripcion();
 			}
 		}else if($tipo == 'descuentos'){
-			$q = $em->createQuery("SELECT d FROM Loogares\CampanaBundle\Entity\Descuento d
-																										WHERE d.id = ?1");
-			$q->setParameter(1, 5555);
+			$q = $em->createQuery("SELECT c FROM Loogares\CampanaBundle\Entity\Campana c
+														 WHERE c.lugar = ?1 AND c.descuento != ?2");
+			$q->setParameter(1, $lugar);
+			$q->setParameter(2, 'null');
 			$descuentos = $q->getResult();
 
 			if($descuentos){
-				foreach($concursos as $concurso){
-					$detalles[]['titulo'] = $concurso->getPost()->getTitulo();
-					$detalles[sizeOf($detalles)-1]['fechaInicio'] = $concurso->getFechaInicio();
-					$detalles[sizeOf($detalles)-1]['descripcion'] = $concurso->getDescripcion();
+				foreach($descuentos as $descuento){
+					$detalles[]['titulo'] = 'ID: ' . $descuento->getDescuento()->getId();
+					$detalles[sizeOf($detalles)-1]['fechaInicio'] = $descuento->getDescuento()->getFechaInicio();
+					$detalles[sizeOf($detalles)-1]['descripcion'] = 'Cantidad: ' . $descuento->getDescuento()->getCantidad();
 				}
 			}
 		}
@@ -82,7 +100,7 @@ class DefaultController extends Controller{
 		return $this->render('LoogaresCampanaBundle:Default:campanas.html.twig',array(
 			'detalles' => $detalles,
 			'tipo' => $tipo,
-			'slug' => $lugar->getSlug()
+			'slug' => $slug
 		));
 	}
   
@@ -214,6 +232,41 @@ class DefaultController extends Controller{
 			'comunas' => $comunas,
 			'filtrado' => (isset($_GET['comuna'])?$_GET['comuna']:null) 
 		));
+	}
+
+	public function submitDescuentoAction(Request $request, $slug){
+		if ($request->getMethod() == 'POST') {
+			$em = $this->getDoctrine()->getEntityManager();
+    	$ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+    	
+    	$post = $_POST;
+   		$descuento = new Descuento();
+
+    	$descuento->setFechaInicio(new \DateTime());
+    	$descuento->setCondiciones($post['condiciones']);
+    	$descuento->setFechaTermino(new \DateTime('+5'));
+    	$descuento->setCantidad($post['cantidad']);
+
+    	$em->persist($descuento);
+    	$em->flush();
+
+    	foreach($post['seguidores'] as $seguidor){
+    		$descuentosUsuarios = new DescuentosUsuarios();
+    		
+    		$descuentosUsuarios->setDescuento($descuento);
+    		$descuentosUsuarios->setUsuario($ur->findOneBySlug($seguidor));
+    		$descuentosUsuarios->setCodigo($this->get('fn')->genRandomString(8));
+    		$descuentosUsuarios->setCanjeado(0);
+
+    		$em->persist($descuentosUsuarios);
+    	}
+    	$em->flush();
+    }
+
+
+		print_r($_POST);
+		die();
+		return new Response($lugar);
 	}
 
 }

@@ -6,8 +6,9 @@ security:
             id: sha1_login_encoder
 
     role_hierarchy:
-        ROLE_ADMIN:        ROLE_USER
+        ROLE_ADMIN:        {ROLE_USER, ROLE_OWNER}
         ROLE_COLLABORATOR: ROLE_USER
+        ROLE_OWNER: ROLE_USER
 
     providers:
         chain_provider:
@@ -57,6 +58,7 @@ security:
         - { path: /editar, roles: ROLE_USER }
         - { path: /reportar, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: /reportescampanasdeloogarescomelalbertosevaaechareldiseno, roles: ROLE_OWNER }
 
     acl:
         connection: default

@@ -4,6 +4,9 @@ Loogares\UsuarioBundle\Entity\Dueno:
     manyToOne:       
         estado:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
+    oneToOne:
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
     id:
         id:
             type: integer

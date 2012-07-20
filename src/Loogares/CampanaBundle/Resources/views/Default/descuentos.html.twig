@@ -78,145 +78,147 @@
 	<input type="submit" value="filtrar">
 </form>
 
-<div class="seguidores">
-	{% for seguidor in seguidores %}
-	<div class="seguidor">
-		<input type="checkbox" class="seguidores_checkbox" />
-		<div class="seguidor_imagen">
+	<div class="seguidores">
+		{% for seguidor in seguidores %}
+		<div class="seguidor">
+			<input type="checkbox" value="{{seguidor.usuario.slug}}" class="seguidores_checkbox" name="seguidores[]" />
+			<div class="seguidor_imagen">
+			</div>
+			<div class="seguidor_datos">
+				<p>{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %} </p>
+				<p>{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
+				<p>{{seguidor.usuario.recomendaciones|length}} Recomendaciones</p>
+			</div>
 		</div>
-		<div class="seguidor_datos">
-			<p>{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %} </p>
-			<p>{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
-			<p>{{seguidor.usuario.recomendaciones|length}} Recomendaciones</p>
-		</div>
+		{% endfor %}
 	</div>
-	{% endfor %}
-</div>
 
-<div class="seguidores_sidebar">
-	<p class="seleccionados"><span class="numero_seleccionados">0</span> Seleccionados</p>
-	<div class="otorgar_gift"></div>
-</div> 
+	<div class="seguidores_sidebar">
+		<p class="seleccionados"><span class="numero_seleccionados">0</span> Seleccionados</p>
+		<div class="otorgar_gift"></div>
+	</div> 
 
 
-<style>
-	.fancybox-outer, .fancybox-inner{
-		background: white;
-	}
-
-	.rango_descuentos{
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		height: 200px;
-		float: left;
-	}
-
-		.rango_descuentos li{
-			width: 90px;
-			display: block;
-			margin-top: 5px;
+	<style>
+		.fancybox-outer, .fancybox-inner{
+			background: white;
 		}
 
-			.rango_descuentos label, .rango_descuentos input{
-				display: inline;
+		.rango_descuentos{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			height: 200px;
+			float: left;
+		}
+
+			.rango_descuentos li{
+				width: 90px;
+				display: block;
+				margin-top: 5px;
 			}
 
-.lolbox{
-		width: 570px;
-		height: 470px;
-		background: red;   
-		display: block;
-}
+				.rango_descuentos label, .rango_descuentos input{
+					display: inline;
+				}
 
-.step_static,.step_done{
-		background: papayawhip;
-		height: 70px;
-		display: block;   
-		width: 100%;
-    overflow: hidden;
-}
-
-.step_done small{
-	display: inline-block;
-}
-
-.step_hidden{
-	display: none;   
-}
-.step_active{
-	background: #3bf; 
-	display: block;
-	height: auto;
-	overflow: hidden;
-}
-
-	.step_active small{
-		display:none;
+	.lolbox{
+			width: 570px;
+			height: 470px;
+			background: red;   
+			display: block;
 	}
 
-    .step_done h3, .step_static h3, .step_active h3{
-	    display: block;                
-	    height: 70px;
-	    width: 100%;
-	    background: green;
-	    margin-top: 0;
-    }
+	.step_static,.step_done{
+			background: papayawhip;
+			height: 70px;
+			display: block;   
+			width: 100%;
+	    overflow: hidden;
+	}
 
-.lolbox_siguiente{
-	background: #3bf;
-	width: 200px;
-	height: 40px;
-	display: block;
-	margin: 20px auto;
-}
-</style>
-<div style="display: none">
+	.step_done small{
+		display: inline-block;
+	}
+
+	.step_hidden{
+		display: none;   
+	}
+	.step_active{
+		background: #3bf; 
+		display: block;
+		height: auto;
+		overflow: hidden;
+	}
+
+		.step_active small{
+			display:none;
+		}
+
+	    .step_done h3, .step_static h3, .step_active h3{
+		    display: block;                
+		    height: 70px;
+		    width: 100%;
+		    background: green;
+		    margin-top: 0;
+	    }
+
+	.lolbox_siguiente{
+		background: #3bf;
+		width: 200px;
+		height: 40px;
+		display: block;
+		margin: 20px auto;
+	}
+	</style>
+<div style="display:none">
 	<div class="lolbox">
-		<div class="step_static"><span class="numero_seleccionados">0</span> Participantes</div>
-		<div class="step_active">
-				<h3>¿Que porcentaje de descuento deseas regalar?<small></small></h3>
-				<div class="step_content">
-					<ul class="rango_descuentos">
-						{% for dco in [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90] %}
-						<li>
-							<label>{{dco}}%</label><input type="radio" value="{{dco}}" name="dco">
-						</li>
-						{% if loop.index % 6 == 0 %}</ul><ul class="rango_descuentos">{% endif %}
-						{% endfor %}
-					</ul>
-				</div>
-		</div>
-		<div class="step_hidden">
-		    <h3>¿Cuanto tiempo quieres que dure el descuento?<small></small></h3>
-		    <div class="step_content">
-					<ul class="rango_tiempo">
-						<li>
-							<label>1 Semana</label><input type="radio" name="tiempo" />
-							<label>2 Semanas</label><input type="radio" name="tiempo" />
-							<label>3 Semanas</label><input type="radio" name="tiempo" />
-							<label>1 Mes</label><input type="radio" name="tiempo" />
-						</li>
-					</ul>		
-				</div>    
-		</div>
-		<div class="step_hidden">
-		    <h3>¿Cuales son las condiciones de uso del descuento?<small></small></h3>
-		    <div class="step_content">
-		    	<textarea>This is a text area, this is the best textarea around.</textarea>
-		    	<p>* condiciones</p>
-		    </div>
-		</div>
-		<div class="step_hidden">
-		    <h3>Preparáte...</h3>
-		    <div class="step_content">
-		    	<p>Haz click en el botón y envia tus descuentos ahora.</p>
-		    </div>
-		</div>
-		<div class="step_hidden step_final">
-		    <p>Felicitaciones, tus descuentos han sido enviados con exito.</p>
-		</div>
-		<div class="siguiente_paso">Seleccionar</div>
+		<form method="post" class="nuevo_descuento" action="{{ path('_submit_descuento', {'slug': lugar.slug}) }}">
+			<div class="step_static"><span class="numero_seleccionados">0</span> Participantes</div>
+			<div class="step_active">
+					<h3>¿Que porcentaje de descuento deseas regalar?<small></small></h3>
+					<div class="step_content">
+						<ul class="rango_descuentos">
+							{% for dco in [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90] %}
+							<li>
+								<label>{{dco}}%</label><input type="radio" value="{{dco}}" name="dco" />
+							</li>
+							{% if loop.index % 6 == 0 %}</ul><ul class="rango_descuentos">{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+			</div>
+			<div class="step_hidden">
+			    <h3>¿Cuanto tiempo quieres que dure el descuento?<small></small></h3>
+			    <div class="step_content">
+						<ul class="rango_tiempo">
+							<li>
+								<label>1 Semana</label><input type="radio" value="7" name="tiempo" />
+								<label>2 Semanas</label><input type="radio" value="14" name="tiempo" />
+								<label>3 Semanas</label><input type="radio" value="21" name="tiempo" />
+								<label>1 Mes</label><input type="radio" value="30" name="tiempo" />
+							</li>
+						</ul>		
+					</div>    
+			</div>
+			<div class="step_hidden">
+			    <h3>¿Cuales son las condiciones de uso del descuento?<small></small></h3>
+			    <div class="step_content">
+			    	<textarea name="condiciones">This is a text area, this is the best textarea around.</textarea>
+			    	<p>* condiciones</p>
+			    </div>
+			</div>
+			<div class="step_hidden">
+			    <h3>Preparáte...</h3>
+			    <div class="step_content">
+			    	<p>Haz click en el botón y envia tus descuentos ahora.</p>
+			    </div>
+			</div>
+			<div class="step_hidden step_final">
+			    <p>Felicitaciones, tus descuentos han sido enviados con exito.</p>
+			</div>
+			<input type="button" class="siguiente_paso" value="Seleccionar"/>
+		</form>
 	</div>​
 </div>
 {% endblock %}
@@ -260,13 +262,15 @@
 	    $active.find('h3 > small').text(chosenOption)
 
 	    if($('.step_active').next('div').hasClass('step_final')){
-	    	$('.siguiente_paso').text('Enviar')
+	    	$('.siguiente_paso').val('Enviar');
 	    }else{
-	    	$('.siguiente_paso').text('Seleccionar')
+	    	$('.siguiente_paso').val('Seleccionar')
 	    }
 
 	    if($('.step_active').hasClass('step_final')){
 	    	$('.siguiente_paso').remove();
+	    	$('.nuevo_descuento').append($('input[class=seguidores_checkbox]:checked'))
+	    	$('.nuevo_descuento').submit()
 	    	$('.step_done, .step_static').hide();
 	    }
 	});
@@ -279,5 +283,7 @@
 	        .removeClass('step_done')
 	        .addClass('step_active');    
 	});
+
+
 	</script>
 {% endblock %}
