@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="listados_campanas">
-	<p class="breadcrumb"><a href="#">Inicio</a> » <a href="#">Mis campañas</a> » <span class="selected">Beneficios Exclusivos</span></p>
+	<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': slug}) }}">Inicio</a> » <a href="{{ path('_reporte_campanas', {'slug': slug}) }}">Mis campañas</a> » <span class="selected">Beneficios Exclusivos</span></p>
 
 	<ul class="botones_campana_be">
 		<li class="boton_be">

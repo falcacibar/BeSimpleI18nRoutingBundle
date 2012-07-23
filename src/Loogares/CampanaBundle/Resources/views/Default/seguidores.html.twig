@@ -1,12 +1,23 @@
 {% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
+{% endblock %}
+
+{% block javascripts %}
+	    <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
+	    <script>
+	    	$('.comunas').chosen();
+	    </script>
+{% endblock %}
+
 {% block content %}
 
 <div class="seguidores">
 
 	<h1 class="titulo_principal">{{-seguidores|length}} seguidores de {{lugar.nombre-}}</h1>
 
-	<p class="breadcrumb"><a href="#">Inicio</a> » <span class="selected">Mis seguidores</span></p>
+	<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': lugar.slug}) }}">Inicio</a> » <span class="selected">Mis seguidores</span></p>
 
 	<div class="fitros_seguidores">
 		<ul class="ordenar_por">
@@ -34,8 +45,13 @@
 			</li>
 		</ul>
 		<form class="filtrar_por">
-			<select name="comuna">
-				<option>Filtrar por Comuna</option>
+			{% if recomendo == null %}
+				<a href="?recomendo">Ya recomendaron tú Lugar</a>
+			{% else %}
+				<a href="{{ path('_reporte_seguidores', {'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Todas las Recomendaciones</a>
+			{% endif %}
+			<select class="comunas" name="comuna">
+				<option value="todas">Todas</option>
 				{% for comuna in comunas %}
 					<option {% if comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.slug}}">{{comuna.nombre}}</option>
 				{% endfor %}

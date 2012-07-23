@@ -29,12 +29,18 @@ class DefaultController extends Controller{
 		$q->setParameter(2, null);
 		$descuentos = $q->getSingleScalarResult();
 
-		$q = $em->createQuery("SELECT count(p.id) FROM Loogares\BlogBundle\Entity\Participante p
-																		JOIN p.concurso c
-																		JOIN c.post po
-																		WHERE po.lugar = ?1");
-		$q->setParameter(1, $lugar);
-		$seguidores = $q->getSingleScalarResult();
+    $seguidores = $this->getDoctrine()->getConnection()
+        					->fetchAll("SELECT count(DISTINCT u.id) as seguidores
+															FROM concursos_usuario cu
+
+															INNER JOIN usuarios u ON u.id = cu.usuario_id 
+															INNER JOIN concursos c ON c.id = cu.concurso_id 
+															INNER JOIN blog_posts p ON p.id = c.post_id 
+															LEFT JOIN ganadores g ON g.participante_id = cu.id
+															LEFT JOIN descuentos_usuarios du ON du.usuario_id = u.id
+
+															WHERE p.lugar_id = {$lugar->getId()}");
+    $seguidores = $seguidores[0]['seguidores'];
 
 		return $this->render('LoogaresCampanaBundle:Default:index.html.twig', array(
 			'concursos' => $concursos,
@@ -138,6 +144,7 @@ class DefaultController extends Controller{
 		$em = $this->getDoctrine()->getEntityManager();
 		$lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 		$comuna = null;
+		$recomendo = null;
 		$orden = " ORDER BY totalRecomendaciones DESC";
 
 		$ordenFilters = array(
@@ -148,8 +155,12 @@ class DefaultController extends Controller{
 
     $lugar = $lr->findOneBySlug($slug);
 
-    if(isset($_GET['comuna'])){
+    if(isset($_GET['comuna']) && $_GET['comunas'] != 'todas'){
     	$comuna = " AND co.slug = '" . $_GET['comuna'] . "'";
+    }
+
+    if(isset($_GET['recomendo'])){
+    	$recomendo = " AND r.id != 0";
     }
 
     if(isset($_GET['orden'])){
@@ -159,21 +170,22 @@ class DefaultController extends Controller{
     }
 
     $seguidores = $this->getDoctrine()->getConnection()
-        					->fetchAll("SELECT u.id AS usuarioId, u.nombre AS usuarioNombre, u.apellido AS usuarioApellido, u.slug as usuarioSlug, 
-        											count(g.id) as totalBe, co.nombre AS comunaNombre, co.slug as comunaSlug, count(du.id) as totalDescuentos,
-														  (SELECT count(id) FROM recomendacion WHERE recomendacion.estado_id = 2 AND usuario_id = u.id) AS totalRecomendaciones,
-															(SELECT id FROM recomendacion WHERE recomendacion.estado_id = 2 AND usuario_id = u.id AND lugar_id = {$lugar->getId()}) AS recomendo
+        					->fetchAll("SELECT u.id AS usuarioId, u.nombre AS usuarioNombre, u.apellido AS usuarioApellido, u.slug AS usuarioSlug, 
+        											count(g.id) as totalBe, co.nombre AS comunaNombre, co.slug AS comunaSlug, count(du.id) AS totalDescuentos, r.id AS recomendo,
+														  (SELECT count(id) FROM recomendacion WHERE recomendacion.estado_id = 2 AND usuario_id = u.id) AS totalRecomendaciones
 															FROM concursos_usuario cu
 
 															INNER JOIN usuarios u ON u.id = cu.usuario_id 
 															LEFT JOIN comuna co ON co.id = u.comuna_id 
+															LEFT JOIN recomendacion r ON r.estado_id = 2 AND r.usuario_id = u.id AND r.lugar_id = {$lugar->getId()}
+
 
 															INNER JOIN concursos c ON c.id = cu.concurso_id 
 															INNER JOIN blog_posts p ON p.id = c.post_id 
 															LEFT JOIN ganadores g ON g.participante_id = cu.id
 															LEFT JOIN descuentos_usuarios du ON du.usuario_id = u.id
 
-															WHERE p.lugar_id = {$lugar->getId()} $comuna
+															WHERE p.lugar_id = {$lugar->getId()} $comuna $recomendo
 															GROUP BY u.id
 															$orden");
 
@@ -196,6 +208,7 @@ class DefaultController extends Controller{
 			'comunas' => $comunas,
 			'filtrado' => (isset($_GET['comuna'])?$_GET['comuna']:null),
 			'orden' => (isset($_GET['orden'])?$_GET['orden']:'recomendaciones'),
+			'recomendo' => (isset($_GET['recomendo'])?'a':null) 
 		));
 	}
 
@@ -239,7 +252,7 @@ class DefaultController extends Controller{
 			'lugar' => $lugar,
 			'id' => $id,
 			'comunas' => $comunas,
-			'filtrado' => (isset($_GET['comuna'])?$_GET['comuna']:null) 
+			'filtrado' => (isset($_GET['comuna'])?$_GET['comuna']:null),
 		));
 	}
 
