@@ -5,18 +5,20 @@
 <div class="listados_campanas">
 	<p class="breadcrumb"><a href="#">Inicio</a> » <a href="#">Mis campañas</a> » <span class="selected">Beneficios Exclusivos</span></p>
 
-	<ul class="botones_campana">
-		<li class="">
-			<a href="{{ path('_reporte_campanas', {'slug': slug}) }}">
-				<div class="icono_be">Beneficios Exclusivos</div>
-			</a>
+	<ul class="botones_campana_be">
+		<li class="boton_be">
+			<div class="icono_be">Beneficios Exclusivos</div>
 		</li>
-		<li class="">
-			<a href="{{ path('_reporte_campanas', {'slug': slug}) }}">
-				<div class="icono_gc"><a href="{{ path('_reporte_descuentos_detalle', { 'slug':slug, 'id': id }) }}">Descuentos</a></div>
+		<li class="boton_dscto">
+			<a href="{{ path('_reporte_descuentos_detalle', { 'slug':slug, 'id': id }) }}">
+				<div class="icono_gc">Descuentos</div>
 			</a>
 		</li>
 	</ul>
+
+	<div class="participantes_totales">
+		<p># Participantes totales en esta campaña</p>
+	</div>
 
 	{% for concurso in concursos %}
 		<div class="campana_detalle{%if concurso.estadoConcurso.id == 3%}_inactivo{% endif %}">
@@ -29,9 +31,9 @@
 				</div>
 			</div>
 			<div class="detalles_be">
-				<p class="titulo">{{concurso.titulo}}</p>
+				<p class="titulo">{{concurso.post.titulo}}</p>
 				<p class="validez"><strong>Validas cada una por:</strong></p>
-				<p class="validez">{{concurso.descripcion}}</p>
+				<p class="validez_detalle">{{concurso.post.detalles|striptags|raw}}</p>
 				<p class="participantes">{{concurso.participantesActivos|length}} Participantes</p>
 				<a class="ver_mas" href="#">Ver reporte</a>
 			</div>
@@ -43,6 +45,5 @@
 		Si no hay nada, el botón debiese estar bloquedo y no debería poder apretarse nunca.
 	{% endif %}
 
-	<a class="boton_nuevo_be" href="#">¿Quieres sortear un nuevo Beneficio Exclusivo? Haz click acá</a>
 </div>
 {% endblock %}

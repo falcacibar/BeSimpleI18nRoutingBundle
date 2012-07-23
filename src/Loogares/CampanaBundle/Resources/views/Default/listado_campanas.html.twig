@@ -3,9 +3,31 @@
 {% block title %} {{parent()}}{% endblock %}
 
 {% block content %}
-<ul>
-{% for campana in campanas %}
-	<li><a href="{{ path('_reporte_concursos_listado', {'slug': slug, 'id': campana.id}) }}">{{campana.id}}</a></li>
-{% endfor %}
-</ul>
+
+	<div class="listados_campanas">
+		<p class="breadcrumb"><a href="#">Inicio</a> » <span class="selected">Mis campañas</span></p>
+
+		<h1 class="titulo_campanas">Mis campañas</h1>
+
+		<ul>
+		{% for campana in campanas %}
+			<li class="{% if campana.fechaTermino|date('d-M-y') == "now"|date('d-M-y') %}activo{% else %}inactivo{% endif %}">
+				<div class="borde_izq"></div>
+				<div class="status"></div>
+				<p class="titulo">Campaña Nº {{loop.index}} - {{campana.fechaInicio|date('d-m-y')}}</p>
+				<div class="concursos_{% if campana.concursos|length > 0 %}activo{% else %}inactivo{% endif %}"></div>
+				<div class="descuentos_{% if campana.descuento %}activo{% else %}inactivo{% endif %}"></div>
+				<div class="ver_mas">
+					<a class="ver_campana" href="{{ path('_reporte_concursos_listado', {'slug': slug, 'id': campana.id}) }}">Ver campaña</a>
+				</div>
+			</li>
+		{% endfor %}
+		</ul>
+
+		<div class="caja_boton_nuevo_be">
+			<a class="boton_nuevo_be" href="#"></a>
+		</div>
+
+	</div>
+
 {% endblock %}

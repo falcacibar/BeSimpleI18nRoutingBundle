@@ -138,42 +138,64 @@ class DefaultController extends Controller{
 		$em = $this->getDoctrine()->getEntityManager();
 		$lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 		$comuna = null;
+		$orden = " ORDER BY totalRecomendaciones DESC";
+
+		$ordenFilters = array(
+			'recomendaciones' => 'totalRecomendaciones',
+			'premios' => 'totalBe',
+			'descuentos' => 'totalDescuentos'
+		);
 
     $lugar = $lr->findOneBySlug($slug);
 
     if(isset($_GET['comuna'])){
-    	$comuna = " AND com.slug = '" . $_GET['comuna'] . "'";
+    	$comuna = " AND co.slug = '" . $_GET['comuna'] . "'";
     }
 
-		$q = $em->createQuery("SELECT p, r.id as recomendo
-													 FROM Loogares\BlogBundle\Entity\Participante p
-													 JOIN p.concurso c
-													 JOIN c.post po
-													 JOIN p.usuario u
-													 JOIN u.comuna com
-													 LEFT JOIN u.recomendaciones r WITH r.lugar = {$lugar->getId()}
-													 WHERE po.lugar = ?1 $comuna
-													 GROUP BY p.usuario");
-		$q->setParameter(1, $lugar);
-		$seguidores = $q->getResult();
+    if(isset($_GET['orden'])){
+    	if(isset($ordenFilters[$_GET['orden']])){
+    		$orden = " ORDER BY {$ordenFilters[$_GET['orden']]} DESC";
+	    }
+    }
 
-		$q = $em->createQuery("SELECT p
-													 FROM Loogares\BlogBundle\Entity\Participante p
-													 JOIN p.concurso c
-													 JOIN c.post po
-													 JOIN p.usuario u
-													 JOIN u.comuna com
-													 WHERE po.lugar = ?1
-													 GROUP BY com.id
-													 ORDER BY com.nombre ASC");
-		$q->setParameter(1, $lugar);
-		$comunas = $q->getResult();
+    $seguidores = $this->getDoctrine()->getConnection()
+        					->fetchAll("SELECT u.id AS usuarioId, u.nombre AS usuarioNombre, u.apellido AS usuarioApellido, u.slug as usuarioSlug, 
+        											count(g.id) as totalBe, co.nombre AS comunaNombre, co.slug as comunaSlug, count(du.id) as totalDescuentos,
+														  (SELECT count(id) FROM recomendacion WHERE recomendacion.estado_id = 2 AND usuario_id = u.id) AS totalRecomendaciones,
+															(SELECT id FROM recomendacion WHERE recomendacion.estado_id = 2 AND usuario_id = u.id AND lugar_id = {$lugar->getId()}) AS recomendo
+															FROM concursos_usuario cu
+
+															INNER JOIN usuarios u ON u.id = cu.usuario_id 
+															LEFT JOIN comuna co ON co.id = u.comuna_id 
+
+															INNER JOIN concursos c ON c.id = cu.concurso_id 
+															INNER JOIN blog_posts p ON p.id = c.post_id 
+															LEFT JOIN ganadores g ON g.participante_id = cu.id
+															LEFT JOIN descuentos_usuarios du ON du.usuario_id = u.id
+
+															WHERE p.lugar_id = {$lugar->getId()} $comuna
+															GROUP BY u.id
+															$orden");
+
+		  $comunas = $this->getDoctrine()->getConnection()
+        				->fetchAll("SELECT co.slug AS slug, co.nombre as nombre
+        										FROM concursos_usuario cu
+
+														INNER JOIN usuarios u ON u.id = cu.usuario_id 
+        										INNER JOIN comuna co ON co.id = u.comuna_id
+
+														INNER JOIN concursos c ON c.id = cu.concurso_id 
+														INNER JOIN blog_posts p ON p.id = c.post_id 
+
+														WHERE p.lugar_id = {$lugar->getId()}
+        										GROUP BY co.id");
 
 		return $this->render('LoogaresCampanaBundle:Default:seguidores.html.twig', array(
 			'seguidores' => $seguidores,
 			'lugar' => $lugar,
 			'comunas' => $comunas,
-			'filtrado' => (isset($_GET['comuna'])?$_GET['comuna']:null) 
+			'filtrado' => (isset($_GET['comuna'])?$_GET['comuna']:null),
+			'orden' => (isset($_GET['orden'])?$_GET['orden']:'recomendaciones'),
 		));
 	}
 
@@ -196,6 +218,7 @@ class DefaultController extends Controller{
 													 JOIN u.comuna com
 													 WHERE po.lugar = ?1 $comuna
 													 GROUP BY p.usuario");
+
 		$q->setParameter(1, $lugar);
 		$seguidores = $q->getResult();
 

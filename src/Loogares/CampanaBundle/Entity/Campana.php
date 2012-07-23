@@ -149,4 +149,68 @@ class Campana
     {
         return $this->lugar;
     }
+    /**
+     * @var datetime $fecha_termino
+     */
+    private $fecha_termino;
+
+
+    /**
+     * Set fecha_termino
+     *
+     * @param datetime $fechaTermino
+     */
+    public function setFechaTermino($fechaTermino)
+    {
+        $this->fecha_termino = $fechaTermino;
+    }
+
+    /**
+     * Get fecha_termino
+     *
+     * @return datetime 
+     */
+    public function getFechaTermino()
+    {
+        return $this->fecha_termino;
+    }
+    /**
+     * @var Loogares\BlogBundle\Entity\Concursos
+     */
+    private $concursos;
+
+    public function __construct()
+    {
+        $this->concursos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add concursos
+     *
+     * @param Loogares\BlogBundle\Entity\Concursos $concursos
+     */
+    public function addConcursos(\Loogares\BlogBundle\Entity\Concursos $concursos)
+    {
+        $this->concursos[] = $concursos;
+    }
+
+    /**
+     * Get concursos
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getConcursos()
+    {
+        return $this->concursos;
+    }
+
+    /**
+     * Add concursos
+     *
+     * @param Loogares\BlogBundle\Entity\Concurso $concursos
+     */
+    public function addConcurso(\Loogares\BlogBundle\Entity\Concurso $concursos)
+    {
+        $this->concursos[] = $concursos;
+    }
 }
