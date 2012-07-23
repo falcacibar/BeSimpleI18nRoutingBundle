@@ -8,6 +8,10 @@ Loogares\CampanaBundle\Entity\Campana:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
+    oneToMany:
+        concursos:
+            targetEntity: Loogares\BlogBundle\Entity\Concurso
+            mappedBy: campana
     id:
         id:
             type: integer
@@ -16,4 +20,6 @@ Loogares\CampanaBundle\Entity\Campana:
         nombre:
             type: string
         fecha_inicio:
+            type: datetime
+        fecha_termino:
             type: datetime

@@ -5,7 +5,13 @@
 {% block content %}
 <ul>
 {% for campana in campanas %}
-	<li><a href="{{ path('_reporte_concursos_listado', {'slug': slug, 'id': campana.id}) }}">{{campana.id}}</a></li>
+	<li class="{% if campana.fechaTermino|date('d-M-y') == "now"|date('d-M-y') %}activo{% else %}inactivo{% endif %}">
+		<div class="status"></div>
+		<p>Campana Nº {{loop.index}} - {{campana.fechaInicio|date('y-m-d')}}</a></p>
+		<div class="concursos_{% if campana.concursos|length > 0 %}activo{% else %}inactivo{% endif %}"></div>
+		<div class="descuentos_{% if campana.descuento %}activo{% else %}inactivo{% endif %}"></div>
+		<a href="{{ path('_reporte_concursos_listado', {'slug': slug, 'id': campana.id}) }}">Ver campaña ></a>
+	</li>
 {% endfor %}
 </ul>
 {% endblock %}

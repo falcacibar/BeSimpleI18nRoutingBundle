@@ -11,16 +11,33 @@
 	<div class="fitros_seguidores">
 		<ul class="ordenar_por">
 			<li class="tipos_de_orden">Ordenar por:</li>
-			<li class="tipos_de_orden"><p class="selected">Nº Recomendaciones</p> | </li>
-			<li class="tipos_de_orden"><a href="#">Recomendación lugar (#)</a> | </li>
-			<li class="tipos_de_orden"><a href="#">Premios ganados (#)</a> | </li>
-			<li class="tipos_de_orden"><a href="#">Descuentos regalados (#)</a></li>
+			<li class="tipos_de_orden">
+				{% if orden == 'recomendaciones' %}
+					<p class="selected">Nº Recomendaciones</p>
+				{% else %} 
+					<a href="?orden=recomendaciones">Nº Recomendaciones (#)</a>
+				{% endif %}| 
+			</li>
+			<li class="tipos_de_orden">
+				{% if orden == 'premios' %}
+					<p class="selected">Premios ganados (#)</p>
+				{% else %} 
+					<a href="?orden=premios">Premios ganados (#)</a>
+				{% endif %}| 
+			</li>
+			<li class="tipos_de_orden">
+				{% if orden == 'descuentos' %}
+					<p class="selected">Descuentos regalados (#)</p>
+				{% else %} 
+					<a href="?orden=descuentos">Descuentos regalados (#)</a>
+				{% endif %}
+			</li>
 		</ul>
 		<form class="filtrar_por">
 			<select name="comuna">
 				<option>Filtrar por Comuna</option>
 				{% for comuna in comunas %}
-					<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
+					<option {% if comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.slug}}">{{comuna.nombre}}</option>
 				{% endfor %}
 			</select>
 			<input type="submit" value="filtrar">
@@ -34,27 +51,21 @@
 				<img src="" height="30" width="30" />
 			</div>
 			<div class="seguidor_datos">
-				<a href="#">{% if seguidor[0].usuario.nombre != '' %} {{seguidor[0].usuario.nombre}} {{seguidor[0].usuario.apellido}} {% else %} {{seguidor[0].usuario.slug}} {% endif %} </a>
-				<p class="comuna">{% if seguidor[0].usuario.comuna %} {{seguidor[0].usuario.comuna.nombre}} {% endif %}</p>
+				<a href="#">{% if seguidor.usuarioNombre != '' %} {{seguidor.usuarioNombre}} {{seguidor.usuarioApellido}} {% else %} {{seguidor.usuarioSlug}} {% endif %} </a>
+				<p class="comuna">{% if seguidor.comunaNombre %} {{seguidor.comunaNombre}} {% endif %}</p>
 			</div>
 			<div class="seguidor_iconos">
 				<div class="numero_recomendaciones">
-					<p class="valor">{{seguidor[0].usuario.recomendaciones|length}}</p>
+					<p class="valor">{{seguidor.totalRecomendaciones}}</p>
 				</div>
 				<div class="numero_descuentos">
-					<p class="valor">{{seguidor[0].usuario.descuentosUsuarios|length}}</p>
+					<p class="valor">{{seguidor.totalDescuentos}}</p>
 				</div>
 				<div class="numero_be">
-					{% set total = 0 %}
-					{% for participante in seguidor[0].usuario.participantes %}
-						{% if participante.ganador %}
-							{% set total = total + 1 %}
-						{% endif %}
-					{% endfor %}
-					<p class="valor">{{total}}</p>
+					<p class="valor">{{seguidor.totalBe}}</p>
 				</div>
 				<div class="recomendacion_lugar {% if seguidor.recomendo %}si{% else %}no{% endif %}">
-					<a href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor[0].usuario.slug }) }}" target="_blank"></a>
+					<a href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }}" target="_blank"></a>
 				</div>
 			</div>
 		</div>
