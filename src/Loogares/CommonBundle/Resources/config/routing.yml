@@ -1,3 +1,0 @@
-CommonBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: CommonBundle:Default:index }

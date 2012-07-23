@@ -268,7 +268,7 @@ class DefaultController extends Controller{
     	$descuento->setFechaInicio(new \DateTime());
     	$descuento->setCondiciones($post['condiciones']);
     	$descuento->setFechaTermino(new \DateTime('+5'));
-    	$descuento->setCantidad($post['cantidad']);
+    	$descuento->setCantidad($post['dco']);
 
     	$em->persist($descuento);
     	$em->flush();
