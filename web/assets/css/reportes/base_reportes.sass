@@ -414,6 +414,60 @@ a
                             padding: 4px 0 0 25px
                             width: 100px
 
+            .botones_campana_dscto
+                border-bottom: 3px solid $azul
+                height: 38px
+                float: left
+                position: relative
+                width: 600px
+
+                .boton_be
+                    background: $azul_seleccion_be
+                    float: left
+                    font:
+                        size: 18px
+                    position: absolute
+                    text:
+                        shadow: 0px -1px 0px $azul
+                    z-index: 1
+
+                    a
+                        @include link_blanco
+                        display: block
+                        height: 18px
+                        padding: 8px 10px 10px
+                        width: 279px
+
+                        .icono_be
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -140px
+                            height: 18px
+                            margin: 0 41px
+                            padding: 4px 0 0 25px
+                            width: 175px
+
+                .boton_dscto
+                    background: $azul
+                    border-bottom: 2px solid $azul
+                    color: $blanco
+                    float: left
+                    font:
+                        size: 18px
+                    height: 18px
+                    left: 301px
+                    padding: 8px 10px 10px
+                    position: absolute
+                    text:
+                        shadow: 0px -1px 0px $gris_444
+                    z-index: 1
+                    width: 279px
+
+                    .icono_gc
+                        background: url('../../images/reporte/botones_panel_dueno.png') 0 -166px
+                        height: 18px
+                        margin: 0 77px
+                        padding: 4px 0 0 25px
+                        width: 100px
+
             .participantes_totales
                 color: $gris_666
                 float: left
@@ -517,6 +571,39 @@ a
                     position: absolute
                     top: 10px
                     width: 65px             
+
+        /* Reporte y crea nuevo desceunto */
+        .crea_nuevo_descuento
+            @include box_shadow_ccc
+            background: $gris_faf
+            color: $gris_666
+            float: left
+            font:
+                size: 15px
+            line-height: 22px
+            margin: 10px 0 0
+            padding: 20px 20px 30px
+            position: relative
+            text:
+                align: center
+                shadow: 0px 1px 0px $blanco
+            width: 560px
+
+        .caja_boton_nuevo_dscto
+            border-top: 1px solid $gris_ccc
+            border-bottom: 1px solid $gris_ccc
+            float: left
+            margin: 50px 0 0
+            padding: 10px 0
+
+            .boton_nuevo_dscto
+                background: url('../../images/reporte/botones_panel_dueno.png') -1120px -5px
+                height: 60px
+                float: left
+                width: 600px
+
+                &:hover
+                    background: url('../../images/reporte/botones_panel_dueno.png') -1120px -75px
 
         /* Mis seguidores */
         .seguidores
