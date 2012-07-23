@@ -17,7 +17,9 @@
 	</ul>
 
 	<div class="participantes_totales">
-		<p># Participantes totales en esta campaña</p>
+		{% set participantes = 0 %}
+		{% for concurso in concursos %} {% set participantes = participantes + concurso.participantes|length %} {% endfor %}
+		<p>{{participantes}} Participantes totales en esta campaña</p>
 	</div>
 
 	{% for concurso in concursos %}
@@ -35,7 +37,7 @@
 				<p class="validez"><strong>Validas cada una por:</strong></p>
 				<p class="validez_detalle">{{concurso.post.detalles|striptags|raw}}</p>
 				<p class="participantes">{{concurso.participantesActivos|length}} Participantes</p>
-				<a class="ver_mas" href="#">Ver reporte</a>
+				<a class="ver_mas" href="{{path('_reporte_concursos_detalles', {'slug': slug, 'id': id, 'idConcurso': concurso.id})}}">Ver reporte</a>
 			</div>
 			<div class="icono_identificador"></div>
 		</div>

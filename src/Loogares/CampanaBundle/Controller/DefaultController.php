@@ -60,7 +60,8 @@ class DefaultController extends Controller{
 
 		return $this->render('LoogaresCampanaBundle:Default:listado_campanas.html.twig', array(
 			'slug' => $slug,
-			'campanas' => $campanas
+			'campanas' => $campanas,
+			'meses' => array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre')
 		));
 	}
 
@@ -89,7 +90,7 @@ class DefaultController extends Controller{
 		));
 	}
   
-  public function detalleConcursoAction($slug, $id) {
+  public function detalleConcursoAction($slug, $id, $idConcurso) {
     $em = $this->getDoctrine()->getEntityManager();
     $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
     $dr = $em->getRepository("LoogaresUsuarioBundle:Dueno");
@@ -104,7 +105,7 @@ class DefaultController extends Controller{
     											 JOIN cr.post p	
     											 WHERE p.lugar = ?1 and cr.id = ?2 AND cr.estado_concurso = 3");
     $q->setParameter(1, $lugar);
-    $q->setParameter(2, $id);
+    $q->setParameter(2, $idConcurso);
 
     $concurso = $q->getOneOrNullResult();
 
@@ -155,7 +156,7 @@ class DefaultController extends Controller{
 
     $lugar = $lr->findOneBySlug($slug);
 
-    if(isset($_GET['comuna']) && $_GET['comunas'] != 'todas'){
+    if(isset($_GET['comuna']) && $_GET['comuna'] != 'todas'){
     	$comuna = " AND co.slug = '" . $_GET['comuna'] . "'";
     }
 
@@ -267,7 +268,7 @@ class DefaultController extends Controller{
     	$descuento->setFechaInicio(new \DateTime());
     	$descuento->setCondiciones($post['condiciones']);
     	$descuento->setFechaTermino(new \DateTime('+5'));
-    	$descuento->setCantidad($post['cantidad']);
+    	$descuento->setCantidad($post['dco']);
 
     	$em->persist($descuento);
     	$em->flush();
