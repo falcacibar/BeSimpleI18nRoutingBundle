@@ -2,8 +2,79 @@
 
 {% block title %} {{parent()}}{% endblock %}
 
-{% block content %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+{% endblock %}
 
+{% block javascripts %}
+    <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
+    <script>
+    $('.concursos').qtip({
+      show:{
+          solo: true
+      },
+      content: {
+          text: $('.qtip_concursos').text()
+      },
+      style: {
+          classes: 'ui-tooltip-precio',
+          tip: {
+              border: 0,
+              width: 12,
+              color: '#f0f',
+              corner: true,
+              offset: 0
+          }
+      },
+      position: {
+          my: 'top center',
+          at: 'bottom left',
+          adjust: {
+              x: 5,
+              y: 6
+          }
+      },
+      hide: {
+          fixed: true,
+          delay: 200,
+          event: 'mouseleave'
+      }
+  	});
+    $('.descuentos').qtip({
+      show:{
+          solo: true
+      },
+      content: {
+          text: $('.qtip_descuentos').text()
+      },
+      style: {
+          classes: 'ui-tooltip-precio',
+          tip: {
+              border: 0,
+              width: 12,
+              color: '#f0f',
+              corner: true,
+              offset: 0
+          }
+      },
+      position: {
+          my: 'top center',
+          at: 'bottom left',
+          adjust: {
+              x: 5,
+              y: 6
+          }
+      },
+      hide: {
+          fixed: true,
+          delay: 200,
+          event: 'mouseleave'
+      }
+  	});
+    </script>
+{% endblock %}
+
+{% block content %}
 	<div class="listados_campanas">
 		<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': slug}) }}">Inicio</a> » <span class="selected">Mis campañas</span></p>
 
@@ -11,12 +82,14 @@
 
 		<ul>
 		{% for campana in campanas %}
-			<li class="{% if campana.fechaTermino|date('d-M-y') == "now"|date('d-M-y') %}activo{% else %}inactivo{% endif %}">
+			<li class="{% if campana.fechaTermino|date('d-M-y') > "now"|date('d-M-y') %}activo{% else %}inactivo{% endif %}">
 				<div class="borde_izq"></div>
 				<div class="status"></div>
-				<p class="titulo">Campaña Nº {{loop.index}} - {{campana.fechaInicio|date('d-m-y')}}</p>
-				<div class="concursos_{% if campana.concursos|length > 0 %}activo{% else %}inactivo{% endif %}"></div>
-				<div class="descuentos_{% if campana.descuento %}activo{% else %}inactivo{% endif %}"></div>
+				<p class="titulo">Campaña Nº {{loop.index}} - {{campana.fechaInicio|date('d')-}}&nbsp;{{-meses[campana.fechaInicio|date('n') - 1]-}}&nbsp;{{-campana.fechaInicio|date('Y')-}}</p>
+				<div class="concursos concursos_{% if campana.concursos|length > 0 %}activo{% else %}inactivo{% endif %}"></div>
+				<div class="qtip_concursos qtip">Oye este es un concurso, dale?</div>
+				<div class="descuentos descuentos_{% if campana.descuento %}activo{% else %}inactivo{% endif %}"></div>
+				<div class="qtip_descuentos qtip">Oye este es un descuento, dale?</div>
 				<div class="ver_mas">
 					<a class="ver_campana" href="{{ path('_reporte_concursos_listado', {'slug': slug, 'id': campana.id}) }}">Ver campaña</a>
 				</div>

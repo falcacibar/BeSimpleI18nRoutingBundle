@@ -60,7 +60,8 @@ class DefaultController extends Controller{
 
 		return $this->render('LoogaresCampanaBundle:Default:listado_campanas.html.twig', array(
 			'slug' => $slug,
-			'campanas' => $campanas
+			'campanas' => $campanas,
+			'meses' => array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre')
 		));
 	}
 
@@ -155,7 +156,7 @@ class DefaultController extends Controller{
 
     $lugar = $lr->findOneBySlug($slug);
 
-    if(isset($_GET['comuna']) && $_GET['comunas'] != 'todas'){
+    if(isset($_GET['comuna']) && $_GET['comuna'] != 'todas'){
     	$comuna = " AND co.slug = '" . $_GET['comuna'] . "'";
     }
 

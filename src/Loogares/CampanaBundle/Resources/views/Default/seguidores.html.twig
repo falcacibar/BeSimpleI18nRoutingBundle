@@ -2,12 +2,83 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
 {% endblock %}
 
 {% block javascripts %}
 	    <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
+	    <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 	    <script>
 	    	$('.comunas').chosen();
+
+	    	var qtipHide = {
+          fixed: true,
+          delay: 200,
+          event: 'mouseleave'
+	    	}
+
+	    	var qtipShow = {
+	    		solo: true
+	    	};
+
+	    	var qtipPosition = {
+          my: 'bottom center', 
+          at: 'top center',
+          adjust: {
+              x: -10,
+              y: -2
+          },
+        };
+
+        var qtipStyle = {
+          classes: 'ui-tooltip-precio',
+          tip: {
+	          border: 0,
+	          width: 12,
+	          color: '#f0f',
+	          corner: true,
+	          offset: 0
+			    }
+			  };
+
+				$('.numero_descuentos').qtip({
+		      show: qtipShow,
+		      content: {
+		          text: $('.qtip_descuentos').text()
+		      },
+          style: qtipStyle,
+          position: qtipPosition,
+		      hide: qtipHide
+		  	});
+
+				$('.numero_be').qtip({
+		      show: qtipShow,
+		      content: {
+		          text: $('.qtip_be').text()
+		      },
+          style: qtipStyle,
+          position: qtipPosition,
+		      hide: qtipHide
+		  	});
+
+				$('.numero_recomendaciones').qtip({
+		      show: qtipShow,
+		      content: {
+		          text: $('.qtip_recomendaciones').text()
+		      },
+          style: qtipStyle,
+          position: qtipPosition,
+		      hide: qtipHide
+		  	});
+				$('.recomendacion_lugar').qtip({
+		      show: qtipShow,
+		      content: {
+		          text: $('.qtip_recomendo').text()
+		      },
+          style: qtipStyle,
+          position: qtipPosition,
+		      hide: qtipHide
+		  	});
 	    </script>
 {% endblock %}
 
@@ -86,6 +157,10 @@
 			</div>
 		</div>
 		{% endfor %}
+		<div class="qtip_recomendo qtip">La recomendacion de este flaco en tu lugar po perro</div>
+		<div class="qtip_recomendaciones qtip">Cantidad de Recomendaciones po perro</div>
+		<div class="qtip_descuentos qtip">Cantidad de Descuentos gandaos po perro</div>
+		<div class="qtip_be qtip">Total de BE ganados en tu lugar po perro</div>
 	</div>
 
 </div>
