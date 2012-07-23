@@ -26,5 +26,36 @@
 		<a class="boton_nuevo_dscto" href="{{ path('_reporte_descuentos_nuevo', {'slug': slug, 'id': id }) }}"></a>
 	</div>
 
+	<! -- DESCUENTO INFO -->
+
+	<div class="descuento_info">
+		<div class="descuento_image"></div>
+		<div class="fecha_y_condiciones">
+			<p>Fecha de inicio y término</p>
+			<p>fecha - fecha</p>
+			<p>Condiciones:</p>
+			<ul>
+				<li>La gift card es canjeable hasta el mes mes mes</li>
+				<li>Sólo canjeable en ____, válida por _____ no incluye _______.</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="premiados">
+		<p>X Premiados</p>
+		<p>A continuación se detallan a todos los Loogareños que estarán recibiendo tus Gift Cards</p>
+		<p>Una vez que un Loogareño ha asistido, marcalo con el checkbox y haz click en Gift Card Canjeada</p>
+		{#% for ganador in ganadores %#}
+			<div class="ganador">
+				<div class="checkbox"></div>
+				<div class="imagen_usuario"></div>
+				<div clsas="usario_info">
+					<p>Nombre del pastel</p>
+					<p>Código: lolol</p>
+				</div>
+			</div>
+		{#% endfor %#}
+	</div>
+
 </div>
 {% endblock %}
