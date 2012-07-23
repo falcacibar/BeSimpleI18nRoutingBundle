@@ -154,40 +154,42 @@ $(function() {
 
                         var $listaOtrosLugares        = $('#lista-otros-lugares');
 
-                        $.each(results, function() {
-                            var self = this;
-                            var $entrada = $(mapa.util.loogarInfoParser(self, '#plant-lista-otros-lugares'));
+                        if($listaOtrosLugares.length) {
+                            $.each(results, function() {
+                                var self = this;
+                                var $entrada = $(mapa.util.loogarInfoParser(self, '#plant-lista-otros-lugares'));
 
-                            $entrada
-                                .data('feature', this)
-                                .hover(function() {
-                                    mapa.controles.seleccion.highlight($(this).data('feature'));
-                                }, function() {
-                                    mapa.controles.seleccion.unhighlight($(this).data('feature'));
-                                });
+                                $entrada
+                                    .data('feature', this)
+                                    .hover(function() {
+                                        mapa.controles.seleccion.highlight($(this).data('feature'));
+                                    }, function() {
+                                        mapa.controles.seleccion.unhighlight($(this).data('feature'));
+                                    });
 
-                            $listaOtrosLugares.append($entrada);
+                                $listaOtrosLugares.append($entrada);
 
-                            delete $entrada;
-                        })
+                                delete $entrada;
+                            })
 
-                        var $raty = $listaOtrosLugares.find('.resultado-busqueda-stars-raty').each(function() {
-                            var $this = $(this);
-                            $this.raty($.extend(
-                                        true, {} ,
-                                        loogares.parametros.ratyEstrellas ,
-                                        { 'start' : $this.attr('data-stars') }
-                            ));
+                            var $raty = $listaOtrosLugares.find('.resultado-busqueda-stars-raty').each(function() {
+                                var $this = $(this);
+                                $this.raty($.extend(
+                                            true, {} ,
+                                            loogares.parametros.ratyEstrellas ,
+                                            { 'start' : $this.attr('data-stars') }
+                                ));
 
-                            delete $this;
-                        });
+                                delete $this;
+                            });
 
-                        var $cargandoOtrosLugares       = $('#cargando-otros-lugares').detach().hide();
-                        var $otrosLugares               = $('#otros-lugares').append($cargandoOtrosLugares);
+                            var $cargandoOtrosLugares       = $('#cargando-otros-lugares').detach().hide();
+                            var $otrosLugares               = $('#otros-lugares').append($cargandoOtrosLugares);
+
+                            delete $raty, $listaOtrosLugares, $cargandoOtrosLugares;
+                        }
 
                         results.push(lugarActual);
-
-                        delete $raty, $listaOtrosLugares, $cargandoOtrosLugares;
 
                         return results;
                     },

@@ -13,11 +13,6 @@
 
         {% render "LoogaresLugarBundle:Lugar:moduloDescuentos" with {'ciudad' : lugar.comuna.ciudad.id, 'pagina' : 'lugar'}%}
 
-        <div class="otros_lugares" id="otros-lugares">
-            <div id="lista-otros-lugares"></div>
-            <div id="cargando-otros-lugares">Cargando...</div>
-        <div>
-
         <div class="banner_300x250">
             <script type='text/javascript'>
                 GA_googleFillSlot("{{ad('static','ficha','bottom','medium')}}_{{app.session.get('ciudad').slug}}");
