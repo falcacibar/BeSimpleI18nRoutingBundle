@@ -203,4 +203,14 @@ class Campana
     {
         return $this->concursos;
     }
+
+    /**
+     * Add concursos
+     *
+     * @param Loogares\BlogBundle\Entity\Concurso $concursos
+     */
+    public function addConcurso(\Loogares\BlogBundle\Entity\Concurso $concursos)
+    {
+        $this->concursos[] = $concursos;
+    }
 }
