@@ -13,7 +13,7 @@ _reporte_campanas:
 
 # CONCURSOS
 _reporte_concursos_detalles:
-    pattern: /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno/concursos/{id}
+    pattern: /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno/campanas/{id}/concursos/{idConcurso}
     defaults: { _controller: LoogaresCampanaBundle:Default:detalleConcurso }
 
 _reporte_concursos_listado:

@@ -1,12 +1,94 @@
 {% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+{% endblock %}
+
+{% block javascripts %}
+	    <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
+	    <script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
+	    <script>
+	    	$('.comunas').chosen();
+
+	    	var qtipHide = {
+          fixed: true,
+          delay: 200,
+          event: 'mouseleave'
+	    	}
+
+	    	var qtipShow = {
+	    		solo: true
+	    	};
+
+	    	var qtipPosition = {
+          my: 'bottom center', 
+          at: 'top center',
+          adjust: {
+              x: -10,
+              y: -2
+          },
+        };
+
+        var qtipStyle = {
+          classes: 'ui-tooltip-precio',
+          tip: {
+	          border: 0,
+	          width: 12,
+	          color: '#f0f',
+	          corner: true,
+	          offset: 0
+			    }
+			  };
+
+				$('.numero_descuentos').qtip({
+		      show: qtipShow,
+		      content: {
+		          text: $('.qtip_descuentos').text()
+		      },
+          style: qtipStyle,
+          position: qtipPosition,
+		      hide: qtipHide
+		  	});
+
+				$('.numero_be').qtip({
+		      show: qtipShow,
+		      content: {
+		          text: $('.qtip_be').text()
+		      },
+          style: qtipStyle,
+          position: qtipPosition,
+		      hide: qtipHide
+		  	});
+
+				$('.numero_recomendaciones').qtip({
+		      show: qtipShow,
+		      content: {
+		          text: $('.qtip_recomendaciones').text()
+		      },
+          style: qtipStyle,
+          position: qtipPosition,
+		      hide: qtipHide
+		  	});
+				$('.recomendacion_lugar').qtip({
+		      show: qtipShow,
+		      content: {
+		          text: $('.qtip_recomendo').text()
+		      },
+          style: qtipStyle,
+          position: qtipPosition,
+		      hide: qtipHide
+		  	});
+	    </script>
+{% endblock %}
+
 {% block content %}
 
 <div class="seguidores">
 
 	<h1 class="titulo_principal">{{-seguidores|length}} seguidores de {{lugar.nombre-}}</h1>
 
-	<p class="breadcrumb"><a href="#">Inicio</a> » <span class="selected">Mis seguidores</span></p>
+	<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': lugar.slug}) }}">Inicio</a> » <span class="selected">Mis seguidores</span></p>
 
 	<div class="fitros_seguidores">
 		<ul class="ordenar_por">
@@ -34,8 +116,13 @@
 			</li>
 		</ul>
 		<form class="filtrar_por">
-			<select name="comuna">
-				<option>Filtrar por Comuna</option>
+			{% if recomendo == null %}
+				<a href="?recomendo">Ya recomendaron tú Lugar</a>
+			{% else %}
+				<a href="{{ path('_reporte_seguidores', {'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Todas las Recomendaciones</a>
+			{% endif %}
+			<select class="comunas" name="comuna">
+				<option value="todas">Todas</option>
 				{% for comuna in comunas %}
 					<option {% if comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.slug}}">{{comuna.nombre}}</option>
 				{% endfor %}
@@ -70,6 +157,10 @@
 			</div>
 		</div>
 		{% endfor %}
+		<div class="qtip_recomendo qtip">La recomendacion de este flaco en tu lugar po perro</div>
+		<div class="qtip_recomendaciones qtip">Cantidad de Recomendaciones po perro</div>
+		<div class="qtip_descuentos qtip">Cantidad de Descuentos gandaos po perro</div>
+		<div class="qtip_be qtip">Total de BE ganados en tu lugar po perro</div>
 	</div>
 
 </div>

@@ -225,13 +225,13 @@ a
                         background: url('../../images/reporte/botones_panel_dueno.png') 0 -70px
 
                 .seguidores_boton
-                    background: url('../../images/reporte/botones_panel_dueno.png') 260px 0
+                    background: url('../../images/reporte/botones_panel_dueno.png') -260px 0
                     float: left
                     height: 70px
                     width: 260px
 
                     &:hover
-                        background: url('../../images/reporte/botones_panel_dueno.png') 260px -70px
+                        background: url('../../images/reporte/botones_panel_dueno.png') -260px -70px
 
                 .datos_rapidos
                     color: $gris_999
@@ -257,6 +257,102 @@ a
             .selected
                 color: $gris_666
 
+
+        /* Listado Campañas */
+        .titulo_campanas
+            font:
+                size: 18px
+                weight: bold
+            margin: 20px 0 50px
+
+        .activo, .inactivo
+            background: $gris_faf
+            border: 1px solid $gris_f6f
+            float: left
+            width: 598px
+
+            &:hover
+                background: $gris_fac
+
+            .borde_izq
+                background: $azul_tiempo
+                float: left
+                height: 34px
+                width: 10px
+
+            .titulo
+                color: $gris_444
+                float: left
+                font:
+                    size: 14px
+                    weight: bold
+                padding: 10px 0 10px 10px
+                width: 300px
+
+            .concursos_activo, .concursos_inactivo
+                background: url('../../images/reporte/botones_panel_dueno.png') 0 -503px
+                float: left
+                height: 21px
+                margin: 6px 0
+                width: 16px
+
+            .concursos_inactivo
+                background: url('../../images/reporte/botones_panel_dueno.png') -22px -503px
+
+            .descuentos_activo, .descuentos_inactivo
+                background: url('../../images/reporte/botones_panel_dueno.png') 0 -529px
+                float: left
+                height: 20px
+                margin: 7px 0 7px 20px
+                width: 20px
+
+            .descuentos_inactivo
+                background: url('../../images/reporte/botones_panel_dueno.png') -25px -529px
+
+            .ver_mas
+                float: left
+                padding: 11px 10px 11px 0
+                width: 212px
+    
+                .ver_campana
+                    background: url('../../images/reporte/botones_panel_dueno.png') 78px -192px
+                    color: $gris_999
+                    float: right
+                    font:
+                        size: 12px
+                        weight: normal
+                    width: 85px
+
+                    &:hover
+                        background: url('../../images/reporte/botones_panel_dueno.png') 78px -206px
+                        color: $azul
+                        text-decoration: none
+
+        .inactivo
+
+            .borde_izq
+                background: $gris_999
+
+            .titulo
+                color: $gris_999
+
+
+        .caja_boton_nuevo_be
+            border-top: 1px solid $gris_ccc
+            border-bottom: 1px solid $gris_ccc
+            float: left
+            margin: 50px 0 0
+            padding: 10px 0
+
+            .boton_nuevo_be
+                background: url('../../images/reporte/botones_panel_dueno.png') -520px -5px
+                height: 60px
+                float: left
+                width: 600px
+
+                &:hover
+                    background: url('../../images/reporte/botones_panel_dueno.png') -520px -75px
+
         /* Listado BE y Descuentos */
         .listados_campanas
             float: left
@@ -264,20 +360,75 @@ a
             position: relative
             width: 600px
 
-            .botones_campana
-                height: 43px
-                flaot: left
+            .botones_campana_be
+                border-bottom: 3px solid $azul_seleccion_be
+                height: 38px
+                float: left
                 position: relative
                 width: 600px
 
-                .be_concursos, .be_descuentos, .gc_concursos, .gc_descuentos
-                    background: $gris_ccc
+                .boton_be
+                    background: $azul_seleccion_be
+                    border-bottom: 2px solid $azul_seleccion_be
+                    color: $blanco
+                    float: left
+                    font:
+                        size: 18px
+                    height: 18px
+                    padding: 8px 10px 10px
+                    position: absolute
+                    text:
+                        shadow: 0px -1px 0px $azul
+                    z-index: 1
+                    width: 279px
+
+                    .icono_be
+                        background: url('../../images/reporte/botones_panel_dueno.png') 0 -140px
+                        height: 18px
+                        margin: 0 41px
+                        padding: 4px 0 0 25px
+                        width: 175px
+
+                .boton_dscto
+                    background: $azul
+                    float: left
+                    font:
+                        size: 18px
+                    left: 301px
+                    position: absolute
+                    text:
+                        shadow: 0px -1px 0px $gris_444
+                    z-index: 1
+
+                    a
+                        @include link_blanco
+                        display: block
+                        height: 18px
+                        padding: 8px 10px 10px
+                        width: 279px
+
+                        .icono_gc
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -166px
+                            height: 18px
+                            margin: 0 77px
+                            padding: 4px 0 0 25px
+                            width: 100px
+
+            .botones_campana_dscto
+                border-bottom: 3px solid $azul
+                height: 38px
+                float: left
+                position: relative
+                width: 600px
+
+                .boton_be
+                    background: $azul_seleccion_be
                     float: left
                     font:
                         size: 18px
                     position: absolute
                     text:
-                        shadow: 0px -1px 0px $gris_666
+                        shadow: 0px -1px 0px $azul
                     z-index: 1
 
                     a
@@ -294,131 +445,165 @@ a
                             padding: 4px 0 0 25px
                             width: 175px
 
-                        .icono_gc
-                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -166px
-                            height: 18px
-                            margin: 0 77px
-                            padding: 4px 0 0 25px
-                            width: 100px
-
-                .be_concursos
-                    background: $blanco
-                    border-bottom: 3px solid $azul_seleccion_be
-                    left: 0
-                    text:
-                        shadow: 0px -1px 0px $azul
-                    top: 0
-                    width: 600px
-
-                    a
-                        background: $azul_seleccion_be
-                        border-bottom: 2px solid $azul_seleccion_be
-
-                .gc_concursos
-                    left: 301px
-
-                .gc_descuentos
-                    background: $blanco
-                    border-bottom: 3px solid $azul_seleccion_gc
-                    left: 0
-                    padding: 0 0 0 301px
-                    text:
-                        shadow: 0px -1px 0px $azul_tiempo
-                    top: 0
-                    z-index: 0
-
-                    a
-                        background: $azul_seleccion_gc
-                        border-bottom: 2px solid $azul_seleccion_gc
-
-        .campana_detalle
-            @include box_shadow_ccc
-            background: $gris_faf
-            float: left
-            margin: 10px 0 0
-            padding: 20px
-            position: relative
-            width: 560px
-
-            &:hover
-                background: $gris_fac
-
-            .foto_fecha
-                float: left
-                margin: 0 15px 0 0
-                width: 205px
-
-                .fecha
-                    background: $gris_999
-                    border-bottom: 3px solid $azul_medio
+                .boton_dscto
+                    background: $azul
+                    border-bottom: 2px solid $azul
                     color: $blanco
-                    font:
-                        size: 14px
-                    padding: 5px 0
-                    text-align: center
-
-                .inactivo
-                    border-bottom: 3px solid $gris_ccc                
-
-                .foto
-                    height: 115px
-                    margin: 1px 0 0
-                    width: 205px
-
-            .detalles_be
-                float: left
-                width: 340px
-
-                .titulo
                     float: left
                     font:
                         size: 18px
-                        weight: bold
-                    line-height: 22px
-                    width: 300px
+                    height: 18px
+                    left: 301px
+                    padding: 8px 10px 10px
+                    position: absolute
+                    text:
+                        shadow: 0px -1px 0px $gris_444
+                    z-index: 1
+                    width: 279px
 
-                .validez, .participantes
-                    color: $gris_666
+                    .icono_gc
+                        background: url('../../images/reporte/botones_panel_dueno.png') 0 -166px
+                        height: 18px
+                        margin: 0 77px
+                        padding: 4px 0 0 25px
+                        width: 100px
+
+            .participantes_totales
+                color: $gris_666
+                float: left
+                font:
+                    size: 13px
+                    weight: bold
+                margin: 20px 0
+                width: 600px
+
+            .campana_detalle_activo, .campana_detalle_inactivo
+                @include box_shadow_ccc
+                background: $gris_faf
+                float: left
+                margin: 10px 0 0
+                padding: 20px
+                position: relative
+                width: 560px
+
+                &:hover
+                    background: $gris_fac
+
+                .foto_fecha
                     float: left
-                    font:
-                        size: 12px
-                    line-height: 18px
-                    margin: 10px 0 0
+                    margin: 0 15px 0 0
+                    width: 205px
+
+                    .fecha
+                        background: $gris_999
+                        border-bottom: 3px solid $azul_medio
+                        color: $blanco
+                        font:
+                            size: 14px
+                        padding: 5px 0
+                        text-align: center
+
+                    .foto
+                        height: 115px
+                        margin: 1px 0 0
+                        width: 205px
+
+                .detalles_be
+                    float: left
                     width: 340px
 
-                .ver_mas
-                    background: url('../../images/reporte/botones_panel_dueno.png') 80px -190px
-                    color: $gris_ccc
-                    float: left
-                    margin: 0 0 0 255px
-                    padding: 0 10px 0 0
-                    text-align: right
-                    width: 75px
+                    .titulo
+                        float: left
+                        font:
+                            size: 18px
+                            weight: bold
+                        line-height: 22px
+                        width: 300px
 
-                    &:hover
-                        background: url('../../images/reporte/botones_panel_dueno.png') 80px -204px
-                        color: $azul
+                    .validez, .validez_detalle, .participantes
+                        color: $gris_666
+                        float: left
+                        font:
+                            size: 12px
+                        line-height: 18px
+                        margin: 10px 0 0
+                        width: 340px
 
-            .icono_identificador
-                background: url('../../images/reporte/botones_panel_dueno.png') 0 -222px
-                height: 62px
-                left: 548px
-                position: absolute
-                top: 10px
-                width: 65px
+                    .validez_detalle
+                        margin: 5px 0 0
 
-            .icono_identificador_inactivo
-                background: url('../../images/reporte/botones_panel_dueno.png') 0 -289px
-                height: 62px
-                left: 548px
-                position: absolute
-                top: 10px
-                width: 65px
+                    .participantes
+                        margin: 20px 0 0
 
-        .boton_nuevo_be
+                    .ver_mas
+                        background: url('../../images/reporte/botones_panel_dueno.png') 80px -190px
+                        color: $gris_ccc
+                        float: left
+                        margin: 0 0 0 255px
+                        padding: 0 10px 0 0
+                        text-align: right
+                        width: 75px
+
+                        &:hover
+                            background: url('../../images/reporte/botones_panel_dueno.png') 80px -204px
+                            color: $azul
+                            text-decoration: none
+
+                .icono_identificador
+                    background: url('../../images/reporte/botones_panel_dueno.png') 0 -222px
+                    height: 62px
+                    left: 548px
+                    position: absolute
+                    top: 10px
+                    width: 65px
+
+            .campana_detalle_inactivo
+
+                .foto_fecha
+
+                    .fecha
+                        border-bottom: 3px solid $gris_ccc   
+
+                .icono_identificador
+                    background: url('../../images/reporte/botones_panel_dueno.png') 0 -289px
+                    height: 62px
+                    left: 548px
+                    position: absolute
+                    top: 10px
+                    width: 65px             
+
+        /* Reporte y crea nuevo desceunto */
+        .crea_nuevo_descuento
+            @include box_shadow_ccc
+            background: $gris_faf
+            color: $gris_666
             float: left
-            margin: 30px 0 0
-            width: 600px
+            font:
+                size: 15px
+            line-height: 22px
+            margin: 10px 0 0
+            padding: 20px 20px 30px
+            position: relative
+            text:
+                align: center
+                shadow: 0px 1px 0px $blanco
+            width: 560px
+
+        .caja_boton_nuevo_dscto
+            border-top: 1px solid $gris_ccc
+            border-bottom: 1px solid $gris_ccc
+            float: left
+            margin: 50px 0 0
+            padding: 10px 0
+
+            .boton_nuevo_dscto
+                background: url('../../images/reporte/botones_panel_dueno.png') -1120px -5px
+                height: 60px
+                float: left
+                width: 600px
+
+                &:hover
+                    background: url('../../images/reporte/botones_panel_dueno.png') -1120px -75px
 
         /* Mis seguidores */
         .seguidores
