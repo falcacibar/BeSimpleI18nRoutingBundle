@@ -1421,7 +1421,7 @@ class LugarController extends Controller{
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '' && !isset($_POST['editando'])) {
                 // Buscamos dueño del lugar
-                $owner = $em->getRepository("LoogaresUsuarioBundle:Usuario")->getDuenoLugar($recomendacion->getLugar()->getId());
+                $owner = $lugar->getDueno()->getUsuario();
 
                 $mailParam = '';
                 if($owner != null)
