@@ -4,6 +4,7 @@ namespace Loogares\CampanaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use Loogares\CampanaBundle\Entity\Descuento;
 use Loogares\CampanaBundle\Entity\DescuentosUsuarios;
@@ -137,6 +138,15 @@ class DefaultController extends Controller{
 	}
 
 	public function detalleDescuentosAction($slug, $id){
+    $em = $this->getDoctrine()->getEntityManager();
+    $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+
+    $campana = $cr->findOneById($id);
+
+    if( !$campana->getDescuento() ){
+    	return $this->render('LoogaresCampanaBundle:Default:listado_descuento.html.twig', array('slug' => $slug, 'id' => $id));
+    }
+    
     return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array('slug' => $slug, 'id' => $id));
  	}
 
@@ -216,6 +226,14 @@ class DefaultController extends Controller{
 	public function nuevoDescuentoAction($slug, $id){
 		$em = $this->getDoctrine()->getEntityManager();
 		$lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+		$cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+
+		$campana = $cr->findOneById($id);
+
+		if($campana->getDescuento()){
+			return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('slug' => $slug, 'id' => $id)));
+		}
+
 		$comuna = null;
 
     $lugar = $lr->findOneBySlug($slug);
@@ -257,13 +275,15 @@ class DefaultController extends Controller{
 		));
 	}
 
-	public function submitDescuentoAction(Request $request, $slug){
+	public function submitDescuentoAction(Request $request, $slug, $id){
 		if ($request->getMethod() == 'POST') {
 			$em = $this->getDoctrine()->getEntityManager();
     	$ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+    	$cr = $em->getRepository('LoogaresCampanaBundle:Campana');
     	
     	$post = $_POST;
    		$descuento = new Descuento();
+   		$campana = $cr->findOneById($id);
 
     	$descuento->setFechaInicio(new \DateTime());
     	$descuento->setCondiciones($post['condiciones']);
@@ -272,6 +292,9 @@ class DefaultController extends Controller{
 
     	$em->persist($descuento);
     	$em->flush();
+
+    	$campana->setDescuento($descuento);
+    	$em->persist($campana);
 
     	foreach($post['seguidores'] as $seguidor){
     		$descuentosUsuarios = new DescuentosUsuarios();
@@ -283,9 +306,9 @@ class DefaultController extends Controller{
 
     		$em->persist($descuentosUsuarios);
     	}
+
     	$em->flush();
     }
-
 
 		print_r($_POST);
 		die();
