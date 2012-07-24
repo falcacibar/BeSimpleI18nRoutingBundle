@@ -196,6 +196,9 @@ lugar:
         sugirio: sugirió
 
     recomendacion:
+        compartir:
+            facebook: He recomendado %s con %d estrellas en Loogares.com
+            twitter: He recomendado %s con %d estrellas en %s
         opcional:
             tip: ¿Deseas agregar una Recomendación?
         titulo: Recomendación
