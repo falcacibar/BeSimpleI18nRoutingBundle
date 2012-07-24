@@ -114,14 +114,16 @@
 
                 var fbfn = function() {
                     FB.ui( {
-                        method : 'feed' ,
-                        link : '{{ data_url }}'
+                        'method'	: 'feed' ,
+                        'link'		: '{{ data_url }}' ,
+			'name'		: '{{ "lugar.recomendacion.compartir.facebook"|trans|format(lugar.nombre, 0) }}',
+			'caption'	: ''
+
                     }, function(response) {
                         // TODO: si falla intentar denuevo
-                        if(!(response && response.post_id)) {
-                            if(confirm('{{ "general.facebook.reintentar"|trans }}')) {
+                        if( typeof(response) != 'undefined' && response != null && !response.post_id 
+			    && confirm('{{ "general.facebook.reintentar"|trans }}')) {
                                 fbfn();
-                            }
                         }
                     })
 
