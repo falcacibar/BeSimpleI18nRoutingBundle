@@ -13,61 +13,30 @@
 {% block javascripts %}
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     {% include 'LoogaresLugarBundle:Lugares:lugar_mapa_script.html.twig' %}
-{% endblock %}
+    <script>
 
-{% block stylesheets %}
-<style type="text/css">
-#mapa-botones {
-    display: none;
-}
-
-#mapa.grande {
-    width: 650px;
-    float: left;
-}
-
-.otros_lugares {
-    float: right !important;
-    width: 270px;
-}
-
-#mapa.grande, .otros_lugares {
-    height: 500px;
-}
-
-#otros-lugares {
-    height: 450px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-#cargando-otros-lugares {
-    display: none;
-}
-
-.boton_mapa_ubicarlugar {
-    background-color: #fff;
-    border: 1px solid #f00;
-    height: 18px;
-    width: 90px;
-    text-align: center;
-    top: 15px;
-    right: 20px;
-    position: absolute;
-    z-index: 1007;
-}
-</style>
+    </script>
 {% endblock %}
 
 {% block content %}
-<div class="titulo">{{ 'lugar.mapa.titulo' | trans }} <a href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></div>
-<div id="mapa-botones">
-    <div class="boton_mapa_ubicarlugar">Ubicar Lugar</div>
+
+<div class="caja_mapa_lugar">
+
+    <h1 class="titulo">{{ 'lugar.mapa.titulo' | trans }} <a href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
+    <div id="mapa-botones">
+        <div class="boton_mapa_ubicarlugar">
+        </div>
+    </div>
+    <div id="mapa" class="mapa_grande"></div>
+    <h2 class="otros_lugares_titulo">{{ 'lugar.mapa.otros' | trans}}</h2>
+    <div class="otros_lugares otros_lugares_mapa_grande">
+        <div id="lista-otros-lugares"></div>
+        <div id="cargando-otros-lugares">
+            Cargando lugares...
+        </div>
+    <div>
+
 </div>
-<div id="mapa" class="grande"></div>
-<div class="otros_lugares" id="otros-lugares">
-    <div class="titulo">{{ 'lugar.mapa.otros' | trans}}</div>
-    <div id="lista-otros-lugares"></div>
-    <div id="cargando-otros-lugares">Cargando...</div>
-<div>
+</div>
+
 {% endblock %}

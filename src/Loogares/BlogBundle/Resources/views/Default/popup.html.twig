@@ -77,5 +77,23 @@
 	    $('.compartir_por_twitter, .compartir_por_facebook').click(function(){
 	    	$.fancybox.close( true );
 	    })
+{% if popup == 'compartir' %}
+	var fbfn = function() {
+		FB.ui( {
+			method : 'feed' ,
+			link : '{{ data_url }}'
+		}, function(response) {
+// TODO: si falla intentar denuevo
+/*			if(response && response.post_id) {
+				if(confirm('No se pudo enviar, intentar denuevo?')) {
+					fbfn();
+				}
+			}
+*/
+		})
+	};
+
+	$('.fb_share').click(fbfn);
+{% endif %}
 	})
 </script>

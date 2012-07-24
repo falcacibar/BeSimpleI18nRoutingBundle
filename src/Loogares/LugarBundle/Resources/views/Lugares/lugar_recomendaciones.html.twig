@@ -100,7 +100,7 @@
             {% if app.session.hasFlash('cerrado_flash') %}
                 <div class="overlay"></div>
             {% endif %}
-            <h1 class="titulo_lugar">{{ lugar.totalRecomendaciones }} {{ 'lugar.pagina_recomendacion.numero_de_recomendaciones' | trans }} <a href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
+            <h1 class="titulo">{{ lugar.totalRecomendaciones }} {{ 'lugar.pagina_recomendacion.numero_de_recomendaciones' | trans }} <a href="{{path('_lugar',{'slug':lugar.slug})}}">{{ lugar.nombre }}</a></h1>
 
             <div class="multimedia_lugar">
                 <div class="foto_lugar" id="lugar-foto">

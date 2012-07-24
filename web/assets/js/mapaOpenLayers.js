@@ -305,15 +305,9 @@ $(function() {
     mapa.controles.panel = new OpenLayers.Control.Panel(null, {'autoActivate'  : true});
 
     if(typeof(mapa.lonlat.lugarActual) != 'undefined') {
-        var $botonLugarActual   = $('#mapa-botones .boton_mapa_ubicarlugar').clone().click(function(evt) {
-                mapa.olMapa.panTo(mapa.lonlat.lugarActual);
-                evt.stopImmediatePropagation();
-                return false;
-        });
-
-        var $viewport           = $('#mapa div.olMapViewport').append($botonLugarActual);
-
-        delete $viewport, $botonLugarActual;
+        $('.boton_mapa_ubicarlugar').click(function(){
+            mapa.olMapa.panTo(mapa.lonlat.lugarActual);
+        })
     }
 
 
