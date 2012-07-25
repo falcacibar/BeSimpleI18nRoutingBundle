@@ -61,6 +61,10 @@ cuponesUsuario:
     pattern:  /{param}/cupones
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:cupones }
 
+imprimirCuponUsuario:
+    pattern:  /{param}/cupones/{cupon}/imprimir
+    defaults: { _controller: LoogaresUsuarioBundle:Usuario:imprimirCupon }
+
 editarUsuario:
     pattern:  /{param}/editar
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editar }
