@@ -17,6 +17,11 @@
                 <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('publicidad_flash') | trans }}</p>
             </div>
     {% endif %}
+    {% if app.session.hasFlash('error') %}
+            <div class="mensaje_error">
+                <div class="imagen_error"></div><p class="txt_error">{{ app.session.flash('error') | trans }}</p>
+            </div>
+    {% endif %}
 	<div class="estaticas">
 
 		<div class="contenido">
@@ -35,27 +40,53 @@
 					<ul>
 						<li>
 							<label>{{'extra.estaticas.publicidad.formulario.nombre'|trans}} <span class="obligatorio">*</span></label>
-							<input type="text" name="nombre"/>
+							<input type="text" name="nombre" 
+								{%- if errors is not null %} 
+									{% if errors.nombre.error is defined %}class="input-error"{% endif %}
+									{% if errors.nombre.ok is defined %}value="{{errors.nombre.ok}}"{% endif %}
+								{% endif -%}
+							/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.publicidad.formulario.e_mail'|trans}} <span class="obligatorio">*</span></label>
-							<input type="text" name="mail"/>
+							<input type="text" name="mail"
+								{%- if errors is not null %} 
+									{% if errors.mail.error is defined %}class="input-error"{% endif %}
+									{% if errors.mail.ok is defined %}value="{{errors.mail.ok}}"{% endif %}
+									{% if errors.mail.mail is defined %}value="{{errors.mail.mail}}"{% endif %}
+								{% endif -%}
+							/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.publicidad.formulario.empresa'|trans}} <span class="obligatorio">*</span></label>
-							<input type="text" name="empresa"/>
+							<input type="text" name="empresa"
+								{%- if errors is not null %} 
+									{% if errors.empresa.error is defined %}class="input-error"{% endif %}
+									{% if errors.empresa.ok is defined %}value="{{errors.empresa.ok}}"{% endif %}
+								{% endif -%}
+							/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.publicidad.formulario.sitio_web'|trans}} <span class="obligatorio">*</span></label>
-							<input type="text" name="www"/>
+							<input type="text" name="www"
+								{%- if errors is not null %} 
+									{% if errors.www.error is defined %}class="input-error"{% endif %}
+									{% if errors.www.ok is defined %}value="{{errors.www.ok}}"{% endif %}
+								{% endif -%}
+							/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.publicidad.formulario.telefono'|trans}} <span class="obligatorio">*</span></label>
-							<input type="text" name="tel"/>
+							<input type="text" name="tel"
+								{%- if errors is not null %} 
+									{% if errors.tel.error is defined %}class="input-error"{% endif %}
+									{% if errors.tel.ok is defined %}value="{{errors.tel.ok}}"{% endif %}
+								{% endif -%}
+							/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.publicidad.formulario.info'|trans}}</label>
-							<textarea name="mensaje"></textarea>
+							<textarea name="mensaje"{% if errors is defined and errors.mensaje.error is defined %}class="input-error"{% endif %}>{% if errors is defined and errors.mensaje.ok is defined %}{{errors.mensaje.ok}}{% endif %}</textarea>
 							<span class="tip">{{'extra.estaticas.obligatorio'|trans}}</span>
 						</li>
 						<li>

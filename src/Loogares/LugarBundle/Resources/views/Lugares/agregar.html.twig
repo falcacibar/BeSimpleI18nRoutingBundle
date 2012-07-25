@@ -3,7 +3,7 @@
 {% block title %}{%if lugar.slug %}{{'lugar.editar.titulo'|trans}} {{lugar.nombre}}{% else %}{{'lugar.agregar.titulo'|trans}}{% endif %} | {{parent()}}{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.21.custom.css') }}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
     {% if lugar.slug %}
     <style>
@@ -51,7 +51,7 @@
 
 {% block javascripts %}
     <script src="{{asset('assets/js/masterObject.js')}}"></script>
-    <script src="{{asset('assets/js/jquery-ui-1.8.16.custom.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery-ui-1.8.21.custom.min.js')}}"></script>
     <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
     <script src="{{asset('assets/js/agregarLugar.js')}}"></script>

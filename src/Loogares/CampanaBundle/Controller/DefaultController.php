@@ -4,6 +4,7 @@ namespace Loogares\CampanaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use Loogares\CampanaBundle\Entity\Descuento;
 use Loogares\CampanaBundle\Entity\DescuentosUsuarios;
@@ -59,7 +60,7 @@ class DefaultController extends Controller{
 		$campanas = $campanaRepository->findByLugar($lugar->getId());
 
 		return $this->render('LoogaresCampanaBundle:Default:listado_campanas.html.twig', array(
-			'slug' => $slug,
+			'lugar' => $lugar,
 			'campanas' => $campanas,
 			'meses' => array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre')
 		));
@@ -75,18 +76,17 @@ class DefaultController extends Controller{
 		$lugar = $lugarRepository->findOneBySlug($slug);
 
 		$q = $em->createQuery("SELECT c FROM Loogares\BlogBundle\Entity\Concurso c
-													 JOIN c.post p
-													 WHERE p.lugar = ?1");
-		$q->setParameter(1, $lugar);
+													 WHERE c.campana = ?1 ORDER BY c.fecha_inicio DESC");
+		$q->setParameter(1, $id);
 		$concursos = $q->getResult();
 
 		$meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre');
 
 		return $this->render('LoogaresCampanaBundle:Default:listado_concursos.html.twig',array(
 			'concursos' => $concursos,
-			'slug' => $slug,
 			'meses' => $meses,
-			'id' => $id
+			'id' => $id,
+			'lugar' => $lugar
 		));
 	}
   
@@ -132,12 +132,26 @@ class DefaultController extends Controller{
 
     return $this->render('LoogaresCampanaBundle:Default:reporte_concurso.html.twig', array(
         'concurso' => $concurso,
-        'id' => $id
+        'id' => $id,
+        'lugar' => $lugar
     ));
 	}
 
 	public function detalleDescuentosAction($slug, $id){
-    return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array('slug' => $slug, 'id' => $id));
+    $em = $this->getDoctrine()->getEntityManager();
+    $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+
+    $campana = $cr->findOneById($id);
+
+    if( !$campana->getDescuento() ){
+    	return $this->render('LoogaresCampanaBundle:Default:listado_descuentos.html.twig', array('lugar' => $campana->getLugar(), 'id' => $id));
+    }
+    
+    return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array(
+    	'lugar' => $campana->getLugar(), 
+    	'id' => $id,
+    	'descuento' => $campana->getDescuento(),
+    ));
  	}
 
 
@@ -171,7 +185,7 @@ class DefaultController extends Controller{
     }
 
     $seguidores = $this->getDoctrine()->getConnection()
-        					->fetchAll("SELECT u.id AS usuarioId, u.nombre AS usuarioNombre, u.apellido AS usuarioApellido, u.slug AS usuarioSlug, 
+        					->fetchAll("SELECT u.id AS usuarioId, u.imagen_full AS usuarioImagen, u.nombre AS usuarioNombre, u.apellido AS usuarioApellido, u.slug AS usuarioSlug, 
         											count(g.id) as totalBe, co.nombre AS comunaNombre, co.slug AS comunaSlug, count(du.id) AS totalDescuentos, r.id AS recomendo,
 														  (SELECT count(id) FROM recomendacion WHERE recomendacion.estado_id = 2 AND usuario_id = u.id) AS totalRecomendaciones
 															FROM concursos_usuario cu
@@ -216,6 +230,14 @@ class DefaultController extends Controller{
 	public function nuevoDescuentoAction($slug, $id){
 		$em = $this->getDoctrine()->getEntityManager();
 		$lr = $em->getRepository("LoogaresLugarBundle:Lugar");
+		$cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+
+		$campana = $cr->findOneById($id);
+
+		if($campana->getDescuento()){
+			return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('lugar' => $lugar, 'id' => $id)));
+		}
+
 		$comuna = null;
 
     $lugar = $lr->findOneBySlug($slug);
@@ -257,13 +279,15 @@ class DefaultController extends Controller{
 		));
 	}
 
-	public function submitDescuentoAction(Request $request, $slug){
+	public function submitDescuentoAction(Request $request, $slug, $id){
 		if ($request->getMethod() == 'POST') {
 			$em = $this->getDoctrine()->getEntityManager();
     	$ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+    	$cr = $em->getRepository('LoogaresCampanaBundle:Campana');
     	
     	$post = $_POST;
    		$descuento = new Descuento();
+   		$campana = $cr->findOneById($id);
 
     	$descuento->setFechaInicio(new \DateTime());
     	$descuento->setCondiciones($post['condiciones']);
@@ -272,6 +296,9 @@ class DefaultController extends Controller{
 
     	$em->persist($descuento);
     	$em->flush();
+
+    	$campana->setDescuento($descuento);
+    	$em->persist($campana);
 
     	foreach($post['seguidores'] as $seguidor){
     		$descuentosUsuarios = new DescuentosUsuarios();
@@ -283,9 +310,9 @@ class DefaultController extends Controller{
 
     		$em->persist($descuentosUsuarios);
     	}
+
     	$em->flush();
     }
-
 
 		print_r($_POST);
 		die();

@@ -84,7 +84,7 @@ $(document).ready(function(){
         $.ajax({
             url: WEBROOT+'../ajax/util_mail',
             data: {'recomendacion': recomendacion},
-            type: 'post'
+            type: 'post',
         });
     }
 
@@ -96,6 +96,8 @@ $(document).ready(function(){
             data: dataObj,
             dataType: 'json',
             success: function(data){
+                                console.log(data)
+
                 var conteo = parseInt($this.prev('.conteo').text());
 
                 if($this.hasClass('boton_util')){
@@ -104,9 +106,9 @@ $(document).ready(function(){
                         $this.removeClass('boton_activado').addClass('boton_clickeado');
 
                         // Request para enviar mail a usuario de recomendación solo si es un util
-                        send_util_mail(dataObj.recomendacion);
+                        //send_util_mail(dataObj.recomendacion);
                     }
-                    else if($this.hasClass('boton_clickeado')){
+                    else if($this.hasClass('boton_clickeado') || $this.hasClass('boton_desactivado')){
                         $this.prev('.conteo').text(conteo-1);
                         $this.removeClass('boton_clickeado').addClass('boton_activado');
                     }

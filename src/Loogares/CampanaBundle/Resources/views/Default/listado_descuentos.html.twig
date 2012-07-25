@@ -1,0 +1,29 @@
+{% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
+
+{% block content %}
+
+<div class="listados_campanas">
+	<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': lugar.slug}) }}">Inicio</a> » <a href="{{ path('_reporte_campanas', {'slug': lugar.slug}) }}">Mis campañas</a> » <span class="selected">Descuentos</span></p>
+
+	<ul class="botones_campana_dscto">
+		<li class="boton_be">
+			<a href="{{ path('_reporte_concursos_listado', { 'slug': lugar.slug, 'id': id }) }}">
+				<div class="icono_be">Beneficios Exclusivos</div>
+			</a>
+		</li>
+		<li class="boton_dscto">
+			<div class="icono_gc">Descuentos</div>
+		</li>
+	</ul>
+
+	<div class="crea_nuevo_descuento">
+		<img src="{{ asset('assets/images/reporte/nuevo_dscto.png') }}" height="100" width="216" />
+		<p>Durante esta campaña no has regalado descuentos<br />
+			Haz click en el botón de abajo para que te habilitemos el sistema.</p>
+	</div>
+
+	<div class="caja_boton_nuevo_dscto">
+		<a class="boton_nuevo_dscto" href="{{ path('_reporte_descuentos_nuevo', {'slug': lugar.slug, 'id': id }) }}"></a>
+	</div>
+</div>
+{% endblock %}

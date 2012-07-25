@@ -6,7 +6,7 @@
 
 	<div class="reporte_local">
 
-		<p class="breadcrumb"><a href="#">Inicio</a> » <a href="#">Mis campañas</a> » <a href="#">Beneficios Exclusivos</a> » <span class="selected">{{'reporte_local.titulo'|trans}} {{concurso.post.lugar.nombre}}</span></p>
+	<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': lugar.slug}) }}">Inicio</a> » <a href="{{ path('_reporte_campanas', {'slug': lugar.slug, 'id': id}) }}">Mis campañas</a> » <a href="{{ path('_reporte_concursos_listado', {'slug': lugar.slug, 'id':id}) }}">Beneficios Exclusivos</a> » <span class="selected">{{'reporte_local.titulo'|trans}} {{concurso.post.lugar.nombre}}</span></p>
 
 		<div class="datos_reporte">
 			<h1 class="titulo_reporte">{{'reporte_local.titulo'|trans}} {{concurso.post.lugar.nombre}}</h1> <span class="titulo_reporte">- <a href="{{path('post', {'ciudad' : concurso.post.ciudad.slug, 'slug' : concurso.post.slug})}}" target="_blank">{{'reporte_local.link_nota'|trans}}</a></span><br />

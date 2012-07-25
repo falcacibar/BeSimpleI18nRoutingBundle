@@ -1,6 +1,10 @@
 Loogares\CampanaBundle\Entity\Descuento:
     type: entity
     table:  descuentos
+    oneToMany:
+        descontados:
+            targetEntity: Loogares\CampanaBundle\Entity\DescuentosUsuarios
+            mappedBy: descuento
     id:
         id:
             type: integer

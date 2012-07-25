@@ -15,9 +15,9 @@ class Descuento
     private $id;
 
     /**
-     * @var string $nombre
+     * @var string $condiciones
      */
-    private $nombre;
+    private $condiciones;
 
     /**
      * @var datetime $fecha_inicio
@@ -25,9 +25,14 @@ class Descuento
     private $fecha_inicio;
 
     /**
-     * @var Loogares\CampanaBundle\Entity\Descuento
+     * @var datetime $fecha_termino
      */
-    private $descuento;
+    private $fecha_termino;
+
+    /**
+     * @var integer $cantidad
+     */
+    private $cantidad;
 
 
     /**
@@ -41,23 +46,23 @@ class Descuento
     }
 
     /**
-     * Set nombre
+     * Set condiciones
      *
-     * @param string $nombre
+     * @param string $condiciones
      */
-    public function setNombre($nombre)
+    public function setCondiciones($condiciones)
     {
-        $this->nombre = $nombre;
+        $this->condiciones = $condiciones;
     }
 
     /**
-     * Get nombre
+     * Get condiciones
      *
      * @return string 
      */
-    public function getNombre()
+    public function getCondiciones()
     {
-        return $this->nombre;
+        return $this->condiciones;
     }
 
     /**
@@ -79,36 +84,6 @@ class Descuento
     {
         return $this->fecha_inicio;
     }
-
-    /**
-     * Set descuento
-     *
-     * @param Loogares\CampanaBundle\Entity\Descuento $descuento
-     */
-    public function setDescuento(\Loogares\CampanaBundle\Entity\Descuento $descuento)
-    {
-        $this->descuento = $descuento;
-    }
-
-    /**
-     * Get descuento
-     *
-     * @return Loogares\CampanaBundle\Entity\Descuento 
-     */
-    public function getDescuento()
-    {
-        return $this->descuento;
-    }
-    /**
-     * @var datetime $fecha_termino
-     */
-    private $fecha_termino;
-
-    /**
-     * @var integer $cantidad
-     */
-    private $cantidad;
-
 
     /**
      * Set fecha_termino
@@ -148,55 +123,5 @@ class Descuento
     public function getCantidad()
     {
         return $this->cantidad;
-    }
-    /**
-     * @var string $condiciones
-     */
-    private $condiciones;
-
-
-    /**
-     * Set condiciones
-     *
-     * @param string $condiciones
-     */
-    public function setCondiciones($condiciones)
-    {
-        $this->condiciones = $condiciones;
-    }
-
-    /**
-     * Get condiciones
-     *
-     * @return string 
-     */
-    public function getCondiciones()
-    {
-        return $this->condiciones;
-    }
-    /**
-     * @var Loogares\CampanaBundle\Entity\Campana
-     */
-    private $campana;
-
-
-    /**
-     * Set campana
-     *
-     * @param Loogares\CampanaBundle\Entity\Campana $campana
-     */
-    public function setCampana(\Loogares\CampanaBundle\Entity\Campana $campana)
-    {
-        $this->campana = $campana;
-    }
-
-    /**
-     * Get campana
-     *
-     * @return Loogares\CampanaBundle\Entity\Campana 
-     */
-    public function getCampana()
-    {
-        return $this->campana;
     }
 }

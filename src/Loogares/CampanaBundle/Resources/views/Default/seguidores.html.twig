@@ -144,7 +144,7 @@
 		{% for seguidor in seguidores %}
 		<div class="seguidor">
 			<div class="seguidor_imagen">
-				<img src="" height="30" width="30" />
+				<img src="{{ ('assets/images/usuarios/'~seguidor.usuarioImagen) | apply_filter('tiny_usuario')}}" height="30" width="30" />
 			</div>
 			<div class="seguidor_datos">
 				<a href="#">{% if seguidor.usuarioNombre != '' %} {{seguidor.usuarioNombre}} {{seguidor.usuarioApellido}} {% else %} {{seguidor.usuarioSlug}} {% endif %} </a>
