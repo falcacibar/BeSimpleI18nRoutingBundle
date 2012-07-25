@@ -3,11 +3,11 @@
 {% block content %}
 
 <div class="listados_campanas">
-	<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': slug}) }}">Inicio</a> » <a href="{{ path('_reporte_campanas', {'slug': slug}) }}">Mis campañas</a> » <span class="selected">Descuentos</span></p>
+	<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': lugar.slug}) }}">Inicio</a> » <a href="{{ path('_reporte_campanas', {'slug': lugar.slug}) }}">Mis campañas</a> » <span class="selected">Descuentos</span></p>
 
 	<ul class="botones_campana_dscto">
 		<li class="boton_be">
-			<a href="{{ path('_reporte_concursos_listado', { 'slug':slug, 'id': id }) }}">
+			<a href="{{ path('_reporte_concursos_listado', { 'slug':lugar.slug, 'id': id }) }}">
 				<div class="icono_be">Beneficios Exclusivos</div>
 			</a>
 		</li>
