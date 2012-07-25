@@ -67,16 +67,53 @@
 			color: #f1f1f1;
 		}
 </style>
-{{seguidores|length}} Seguidores en {{lugar.nombre}}
-<form>
-	<select name="comuna">
-		<option>Filtrar por Comuna</option>
-		{% for comuna in comunas %}
-			<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
-		{% endfor %}
-	</select>
-	<input type="submit" value="filtrar">
-</form>
+
+<div class="seguidores">
+
+	<h1 class="titulo_principal">{{seguidores|length}} seguidores de {{lugar.nombre}}</h1>
+
+	<p class="breadcrumb"><a href="#">Inicio</a> » <span class="selected">Mis seguidores</span></p>
+
+	<div class="fitros_seguidores">
+		<ul class="ordenar_por">
+			<li class="tipos_de_orden">Ordenar por:</li>
+			<li class="tipos_de_orden">
+				{#% if orden == 'recomendaciones' %#}
+					<p class="selected">Nº Recomendaciones</p>
+				{#% else %#} 
+					<a href="?orden=recomendaciones">Nº Recomendaciones</a>
+				{#% endif %#}| 
+			</li>
+			<li class="tipos_de_orden">
+				{#% if orden == 'premios' %#}
+					<p class="selected">Premios ganados</p>
+				{#% else %#} 
+					<a href="?orden=premios">Premios ganados</a>
+				{#% endif %#}| 
+			</li>
+			<li class="tipos_de_orden">
+				{#% if orden == 'descuentos' %#}
+					<p class="selected">Descuentos regalados</p>
+				{#% else %#} 
+					<a href="?orden=descuentos">Descuentos regalados</a>
+				{#% endif %#}| 
+			</li>
+		</ul>
+		<form class="filtrar_por">
+			{#% if recomendo == null %#}
+				<a class="han_recomendado" href="?recomendo">Han recomendado {{lugar.nombre-}}</a>
+			{#% else %#} 
+				<a class="han_recomendado" href="{#{ path('_reporte_seguidores', {'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }#}">Ver todos los seguidores</a>
+			{#% endif %#}| 
+			<select class="comunas" name="comuna" style="width: 220px">
+				<option value="todas">Todas</option>
+				{% for comuna in comunas %}
+					<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
+				{% endfor %}
+			</select>
+			<input type="submit" value="filtrar">
+		</form>
+	</div>
 
 	<div class="seguidores">
 		{% for seguidor in seguidores %}
