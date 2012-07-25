@@ -27,11 +27,11 @@
           }
       },
       position: {
-          my: 'top center',
-          at: 'bottom left',
+          my: 'bottom center',
+          at: 'top center',
           adjust: {
-              x: 5,
-              y: 6
+              x: 0,
+              y: -5
           }
       },
       hide: {
@@ -58,11 +58,11 @@
           }
       },
       position: {
-          my: 'top center',
-          at: 'bottom left',
+          my: 'bottom center',
+          at: 'top center',
           adjust: {
-              x: 5,
-              y: 6
+              x: 0,
+              y: -5
           }
       },
       hide: {
@@ -87,9 +87,9 @@
 				<div class="status"></div>
 				<p class="titulo">Campaña Nº {{loop.index}} - {{campana.fechaInicio|date('d')-}}&nbsp;{{-meses[campana.fechaInicio|date('n') - 1]-}}&nbsp;{{-campana.fechaInicio|date('Y')-}}</p>
 				<div class="concursos concursos_{% if campana.concursos|length > 0 %}activo{% else %}inactivo{% endif %}"></div>
-				<div class="qtip_concursos qtip">Oye este es un concurso, dale?</div>
+				<div class="qtip_concursos qtip">Beneficio Exclusivo</div>
 				<div class="descuentos descuentos_{% if campana.descuento %}activo{% else %}inactivo{% endif %}"></div>
-				<div class="qtip_descuentos qtip">Oye este es un descuento, dale?</div>
+				<div class="qtip_descuentos qtip">Descuento</div>
 				<div class="ver_mas">
 					<a class="ver_campana" href="{{ path('_reporte_concursos_listado', {'slug': slug, 'id': campana.id}) }}">Ver campaña</a>
 				</div>

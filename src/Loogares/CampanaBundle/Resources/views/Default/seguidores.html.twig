@@ -70,10 +70,19 @@
           position: qtipPosition,
 		      hide: qtipHide
 		  	});
-				$('.recomendacion_lugar').qtip({
+				$('.si').qtip({
 		      show: qtipShow,
 		      content: {
 		          text: $('.qtip_recomendo').text()
+		      },
+          style: qtipStyle,
+          position: qtipPosition,
+		      hide: qtipHide
+		  	});
+				$('.no').qtip({
+		      show: qtipShow,
+		      content: {
+		          text: $('.qtip_no_recomendo').text()
 		      },
           style: qtipStyle,
           position: qtipPosition,
@@ -97,31 +106,31 @@
 				{% if orden == 'recomendaciones' %}
 					<p class="selected">Nº Recomendaciones</p>
 				{% else %} 
-					<a href="?orden=recomendaciones">Nº Recomendaciones (#)</a>
+					<a href="?orden=recomendaciones">Nº Recomendaciones</a>
 				{% endif %}| 
 			</li>
 			<li class="tipos_de_orden">
 				{% if orden == 'premios' %}
-					<p class="selected">Premios ganados (#)</p>
+					<p class="selected">Premios ganados</p>
 				{% else %} 
-					<a href="?orden=premios">Premios ganados (#)</a>
+					<a href="?orden=premios">Premios ganados</a>
 				{% endif %}| 
 			</li>
 			<li class="tipos_de_orden">
 				{% if orden == 'descuentos' %}
-					<p class="selected">Descuentos regalados (#)</p>
+					<p class="selected">Descuentos regalados</p>
 				{% else %} 
-					<a href="?orden=descuentos">Descuentos regalados (#)</a>
+					<a href="?orden=descuentos">Descuentos regalados</a>
 				{% endif %}
 			</li>
 		</ul>
 		<form class="filtrar_por">
 			{% if recomendo == null %}
-				<a href="?recomendo">Ya recomendaron tú Lugar</a>
+				<a class="han_recomendado" href="?recomendo">Han recomendado {{lugar.nombre-}}</a>
 			{% else %}
-				<a href="{{ path('_reporte_seguidores', {'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Todas las Recomendaciones</a>
+				<a class="han_recomendado" href="{{ path('_reporte_seguidores', {'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Ver todos los seguidores</a>
 			{% endif %}
-			<select class="comunas" name="comuna">
+			<select class="comunas" name="comuna" style="width: 220px">
 				<option value="todas">Todas</option>
 				{% for comuna in comunas %}
 					<option {% if comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.slug}}">{{comuna.nombre}}</option>
@@ -157,10 +166,11 @@
 			</div>
 		</div>
 		{% endfor %}
-		<div class="qtip_recomendo qtip">La recomendacion de este flaco en tu lugar po perro</div>
-		<div class="qtip_recomendaciones qtip">Cantidad de Recomendaciones po perro</div>
-		<div class="qtip_descuentos qtip">Cantidad de Descuentos gandaos po perro</div>
-		<div class="qtip_be qtip">Total de BE ganados en tu lugar po perro</div>
+		<div class="qtip_recomendo qtip">Ha recomendado tu lugar</div>
+		<div class="qtip_no_recomendo qtip">No ha recomendado tu lugar</div>
+		<div class="qtip_recomendaciones qtip">Recomendaciones</div>
+		<div class="qtip_descuentos qtip">Descuentos recibidos</div>
+		<div class="qtip_be qtip">Premios ganados</div>
 	</div>
 
 </div>

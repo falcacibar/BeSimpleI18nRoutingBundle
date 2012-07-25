@@ -4,11 +4,12 @@
 
 {% block content %}
 
-	<img class="logo_reporte" src="{{ asset('assets/images/reporte/logo_reporte.png') }}" height="52" width="161" />
-
 	<div class="reporte_local">
+
+		<p class="breadcrumb"><a href="#">Inicio</a> » <a href="#">Mis campañas</a> » <a href="#">Beneficios Exclusivos</a> » <span class="selected">{{'reporte_local.titulo'|trans}} {{concurso.post.lugar.nombre}}</span></p>
+
 		<div class="datos_reporte">
-			<h1 class="titulo_reporte">{{'reporte_local.titulo'|trans}} {{concurso.post.lugar.nombre}}</h1> <span class="titulo_reporte">- <a href="{{path('post', {'ciudad' : concurso.post.ciudad.slug, 'slug' : concurso.post.slug})}}">{{'reporte_local.link_nota'|trans}}</a></span><br />
+			<h1 class="titulo_reporte">{{'reporte_local.titulo'|trans}} {{concurso.post.lugar.nombre}}</h1> <span class="titulo_reporte">- <a href="{{path('post', {'ciudad' : concurso.post.ciudad.slug, 'slug' : concurso.post.slug})}}" target="_blank">{{'reporte_local.link_nota'|trans}}</a></span><br />
 
 			<div class="datos">
 				<p><strong>{{'reporte_local.titulo_fecha'|trans}}</strong></p>
@@ -22,6 +23,29 @@
 			</div>
 		</div>
 
+		{% if concurso.ganadores | length > 0 %}
+			<div class="ganadores_reporte">
+				<p><strong>{{'reporte_local.ganadores'|trans}}</strong></p><br />
+				<p>{{'reporte_local.ganadores_detalle'|trans}}<br />
+				{{'reporte_local.ganadores_tip'|trans}} <strong>{{'reporte_local.ganadores_canjeada'|trans}}</strong>.</p><br />
+
+				<ul>
+					{% for ganador in concurso.ganadores %}
+						<li>
+							<input type="checkbox" class="canjes_checkbox" data-ganador="{{ganador.id}}" {% if ganador.canjeado%}disabled="disabled" checked="checked"{% endif %}/>
+							<a href="{{path('showUsuario', {'param' : ganador.participante.usuario.slug})}}" target="_blank">
+								<img class="imagen_ganador" src="{{ ('assets/images/usuarios/'~ganador.participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
+								<span>{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</span>
+							</a>
+							<span> - {{'usuario.gift_card.codigo'|trans}} <a href="{{path('_reporteLocalCupon', {'slug' : concurso.post.lugar.slug, 'id' : concurso.id, 'ganador' : ganador.id})}}" class="cupon_ganador" target="_blank"><strong>{{ganador.codigo}}</strong></a></span>{% if ganador.recomendo %} - <a href="{{path('_recomendacion', {'slug' : concurso.post.lugar.slug, 'usuarioSlug' : ganador.participante.usuario.slug})}}" target="_blank">Recomendación</a>{% endif%}
+						</li>
+					{% endfor %}
+				</ul>
+				
+				<a class="boton_canjeada"></a>
+			</div>
+		{% endif %}
+
 		<div class="participantes_reporte">
 			{% if concurso.participantesActivos | length > 0 %}
 				{% set doce = 0 %}
@@ -31,7 +55,7 @@
 						<ul class="listado_participantes">
 					{% endif %}
 					<li>
-						<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}">
+						<a href="{{path('showUsuario', {'param' : participante.usuario.slug})}}" target="_blank">
 							<img src="{{ ('assets/images/usuarios/'~participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
 						</a>
 					</li>
@@ -56,35 +80,13 @@
 
 		<div class="metricas_reporte">
 			<p><span class="azul">{{concurso.visitasHome + concurso.visitasBusquedas + concurso.visitasOtrosLocales}}</span> - {{'reporte_local.visitas_home'|trans}}</p>
-			<p><span class="azul">{{concurso.visitasPost + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="{{path('post', {'ciudad' : concurso.post.ciudad.slug, 'slug' : concurso.post.slug})}}">{{'reporte_local.nota'|trans}}</a></p>
-			<p><span class="azul">{{concurso.visitasFicha + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="{{path('_lugar', {'slug' : concurso.post.lugar.slug})}}">{{'reporte_local.ficha'|trans}}</a></p><br />
+			<p><span class="azul">{{concurso.visitasPost + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="{{path('post', {'ciudad' : concurso.post.ciudad.slug, 'slug' : concurso.post.slug})}}" target="_blank">{{'reporte_local.nota'|trans}}</a></p>
+			<p><span class="azul">{{concurso.visitasFicha + 0}}</span> - {{'reporte_local.visitas_totales'|trans}} <a href="{{path('_lugar', {'slug' : concurso.post.lugar.slug})}}" target="_blank">{{'reporte_local.ficha'|trans}}</a></p><br />
 			<p><span class="azul">{{concurso.post.lugar.totalRecomendaciones}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/recomendaciones.png') }}" height="15px" width="17px" /> {{'reporte_local.recomendaciones'|trans}}</p>
 			<p><span class="azul">{{concurso.facebookFinal - concurso.facebookInicio}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/facebook.png') }}" height="16px" width="16px" /> {{'reporte_local.facebook'|trans}}</p>
 			<p><span class="azul">{{concurso.twitterFinal - concurso.twitterInicio}}</span> - <img class="icono_metricas" src="{{ asset('assets/images/reporte/twitter.png') }}" height="16px" width="16px" /> {{'reporte_local.twitter'|trans}}</p>
 		</div>
 
-		{% if concurso.ganadores | length > 0 %}
-			<div class="ganadores_reporte">
-				<p><strong>{{'reporte_local.ganadores'|trans}}</strong></p><br />
-				<p>{{'reporte_local.ganadores_detalle'|trans}}<br />
-				{{'reporte_local.ganadores_tip'|trans}} <strong>{{'reporte_local.ganadores_canjeada'|trans}}</strong>.</p><br />
-
-				<ul>
-					{% for ganador in concurso.ganadores %}
-						<li>
-							<input type="checkbox" class="canjes_checkbox" data-ganador="{{ganador.id}}" {% if ganador.canjeado%}disabled="disabled" checked="checked"{% endif %}/>
-							<a href="{{path('showUsuario', {'param' : ganador.participante.usuario.slug})}}">
-								<img class="imagen_ganador" src="{{ ('assets/images/usuarios/'~ganador.participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
-								<span>{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</span>
-							</a>
-							<span> - {{'usuario.gift_card.codigo'|trans}} <a href="{{path('_reporteLocalCupon', {'slug' : concurso.post.lugar.slug, 'id' : concurso.id, 'ganador' : ganador.id})}}" class="cupon_ganador"><strong>{{ganador.codigo}}</strong></a></span>{% if ganador.recomendo %} - <a href="{{path('_recomendacion', {'slug' : concurso.post.lugar.slug, 'usuarioSlug' : ganador.participante.usuario.slug})}}">Recomendación</a>{% endif%}
-						</li>
-					{% endfor %}
-				</ul>
-				
-				<a class="boton_canjeada"></a>
-			</div>
-		{% endif %}
 	</div>
 
 {% endblock %}
