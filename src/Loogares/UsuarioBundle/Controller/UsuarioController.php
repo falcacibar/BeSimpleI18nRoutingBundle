@@ -369,6 +369,41 @@ class UsuarioController extends Controller
         ));
     }
 
+    public function imprimirCuponAction($param, $cupon) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $gr = $em->getRepository("LoogaresBlogBundle:Ganador");
+
+        $usuarioResult = $ur->findOneByIdOrSlug($param);
+        if(!$usuarioResult) {
+            throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
+        }
+
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
+        else
+            $loggeadoCorrecto = false;
+
+        if(!$loggeadoCorrecto)
+            return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+
+        $ganador = $gr->find($cupon);
+        $concurso = $ganador->getParticipante()->getConcurso();
+
+        $template = $this->render('LoogaresLugarBundle:Lugares:cupon_ganador.html.twig', array(
+            'ganador' => $ganador,
+            'concurso' => $concurso,
+            'usuario' => $usuarioResult
+        ));
+        $html = $template->getContent();
+
+        require(__DIR__.'/../../../../vendor/dompdf/dompdf_config.inc.php');
+        $dompdf = new \DOMPDF();
+        $dompdf->load_html($html);
+        $dompdf->render();
+        $dompdf->stream("sample.pdf", array('Attachment' => 0));
+    }
+
     public function editarAction($param) {
         return $this->forward('LoogaresUsuarioBundle:Usuario:editarCuenta', array('param' => $param));
     }
