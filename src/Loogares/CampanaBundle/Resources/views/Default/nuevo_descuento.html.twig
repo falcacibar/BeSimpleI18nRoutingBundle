@@ -5,54 +5,6 @@
 {% endblock %}
 {% block content %}
 <style>
-	.seguidores{
-		width: 760px;
-		float: left;
-		overflow:hidden;
-		background: #f1f1f1;
-	}
-
-	.seguidor{
-		width: 237px;
-		height: 70px;
-		padding: 5px;
-		margin-left: 5px;
-		margin-top: 5px;
-		background: #0ff;
-		float: left;
-		font-size: 14px;
-	}
-
-		p{
-			margin: 0;
-			padding: 0;
-		}
-
-		input{
-			float: left
-		}
-
-		.seguidor_imagen{
-			width: 70px;
-			height: 70px;
-			background: #333;
-			float: left;
-		}
-
-		.seguidor_datos{
-			float: left;
-			width: 144px;
-			background: #f1f1f1;
-			margin-left: 5px;
-		}
-
-	.seguidores_sidebar{
-		position: absolute;
-		width: 200px;
-		background: #ff0;
-		height: 40px;
-		right: 0;
-	}
 
 		.otorgar_gift{
 			width: 200px;
@@ -74,25 +26,25 @@
 
 	<p class="breadcrumb"><a href="#">Inicio</a> » <span class="selected">Mis seguidores</span></p>
 
-	<div class="fitros_seguidores">
+	<div class="fitros_seguidores fitros_seguidores_seleccion">
 		<ul class="ordenar_por">
 			<li class="tipos_de_orden">Ordenar por:</li>
 			<li class="tipos_de_orden">
-				{#% if orden == 'recomendaciones' %#}
+				{#% if orden == 'recomendaciones' %}
 					<p class="selected">Nº Recomendaciones</p>
 				{#% else %#} 
 					<a href="?orden=recomendaciones">Nº Recomendaciones</a>
 				{#% endif %#}| 
 			</li>
 			<li class="tipos_de_orden">
-				{#% if orden == 'premios' %#}
+				{#% if orden == 'premios' %}
 					<p class="selected">Premios ganados</p>
 				{#% else %#} 
 					<a href="?orden=premios">Premios ganados</a>
 				{#% endif %#}| 
 			</li>
 			<li class="tipos_de_orden">
-				{#% if orden == 'descuentos' %#}
+				{#% if orden == 'descuentos' %}
 					<p class="selected">Descuentos regalados</p>
 				{#% else %#} 
 					<a href="?orden=descuentos">Descuentos regalados</a>
@@ -102,8 +54,8 @@
 		<form class="filtrar_por">
 			{#% if recomendo == null %#}
 				<a class="han_recomendado" href="?recomendo">Han recomendado {{lugar.nombre-}}</a>
-			{#% else %#} 
-				<a class="han_recomendado" href="{#{ path('_reporte_seguidores', {'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }#}">Ver todos los seguidores</a>
+			{#% else %} 
+				<a class="han_recomendado" href="{{ path('_reporte_seguidores', {'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Ver todos los seguidores</a>
 			{#% endif %#}| 
 			<select class="comunas" name="comuna" style="width: 220px">
 				<option value="todas">Todas</option>
@@ -115,26 +67,53 @@
 		</form>
 	</div>
 
-	<div class="seguidores">
+	<div class="seleccionar_todos_ninguno">
+		<input type="checkbox" />
+		<span class="seleccionar_todos">Seleccionar todos</span>
+		<input type="checkbox" />
+		<span class="seleccionar_ninguno">Deseleccionar todos</span>
+	</div>
+
+	<div class="caja_seguidores seleccion">
 		{% for seguidor in seguidores %}
+		<input type="checkbox" value="{{seguidor.usuario.slug}}" class="seguidores_checkbox" name="seguidores[]" />
 		<div class="seguidor">
-			<input type="checkbox" value="{{seguidor.usuario.slug}}" class="seguidores_checkbox" name="seguidores[]" />
 			<div class="seguidor_imagen">
+				<img src="{#{ ('assets/images/usuarios/'~seguidor.usuarioImagen) | apply_filter('tiny_usuario')}#}" height="30" width="30" />
 			</div>
 			<div class="seguidor_datos">
-				<p>{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %} </p>
-				<p>{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
-				<p>{{seguidor.usuario.recomendaciones|length}} Recomendaciones</p>
+				<a href="#">{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %}</a>
+				<p class="comuna">{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
+			</div>
+			<div class="seguidor_iconos">
+				<div class="numero_recomendaciones">
+					<p class="valor">{{seguidor.usuario.recomendaciones|length}}</p>
+				</div>
+				<div class="numero_descuentos">
+					<p class="valor">{#{seguidor.totalDescuentos}#}</p>
+				</div>
+				<div class="numero_be">
+					<p class="valor">{#{seguidor.totalBe}#}</p>
+				</div>
+				<div class="recomendacion_lugar {#% if seguidor.recomendo %#}si{#% else %}no{% endif %#}">
+					<a href="{#{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }#}" target="_blank"></a>
+				</div>
 			</div>
 		</div>
 		{% endfor %}
 	</div>
 
-	<div class="seguidores_sidebar">
-		<p class="seleccionados"><span class="numero_seleccionados">0</span> Seleccionados</p>
-		<div class="otorgar_gift"></div>
-	</div> 
-
+	<div class="sidebar">
+		<div class="seguidores_sidebar">
+			<p class="seleccionados"><span class="numero_seleccionados">0</span> Seleccionados</p>
+			<div class="otorgar_gift"></div>
+		</div> 
+		<div class="ayuda">
+			<p class="titulo">Necesitas ayuda?</p>
+			<p>Contáctanos al <strong>+56 2 724 0993</strong><br/>
+				ó escribenos a <a href="mailto:contacto@loogares.com">contacto@loogares.com</a></p>
+		</div>
+	</div>
 
 	<style>
 		.fancybox-outer, .fancybox-inner{

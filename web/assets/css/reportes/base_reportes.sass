@@ -844,6 +844,7 @@ a
         .seguidores
             float: left
             margin: 50px 0
+            overflow: hidden
             position: relative
             width: 960px
 
@@ -881,9 +882,26 @@ a
                     .han_recomendado
                         margin: 0 10px 0 0
 
+            .fitros_seguidores_seleccion
+                margin: 0 0 10px    
+
+            .seleccionar_todos_ninguno
+                float: left
+                font:
+                    size: 12px
+                margin: 0 0 20px
+                width: 960px
+
+                .seleccionar_todos
+                    margin: 0 20px 0 0
+
             .caja_seguidores
                 float: left
                 width: 980px
+
+                .seguidores_checkbox
+                    float: left
+                    margin: 11px 5px 56px 2px
 
                 .seguidor
                     @include box_shadow_ccc
@@ -976,6 +994,62 @@ a
 
                             .valor
                                 margin: 0 0 0 20px
+
+            .seleccion
+                float: left
+                width: 690px
+
+                .seguidor_selected
+                    background: $gris_fac
+
+                    .seguidor_datos
+
+                        a
+                            font:
+                                weight: bold
+
+                    .seguidor_iconos
+
+                        .numero_be
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -409px
+                            color: $gris_999
+
+                        .numero_descuentos
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -445px
+                            color: $gris_999
+
+                        .numero_recomendaciones
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -371px
+                            color: $gris_999
+            .sidebar
+                float: left
+                position: relative
+
+                .seguidores_sidebar
+                    background: $gris_fac
+                    border-bottom: 1px solid $gris_ccc
+                    height: 80px
+                    margin: 70px 0 0 0
+                    padding: 10px
+                    position: fixed
+                    width: 250px
+
+                .ayuda
+                    background: $gris_fac
+                    border-bottom: 1px solid $gris_ccc
+                    color: $gris_666
+                    font:
+                        size: 12px
+                    line-height: 22px
+                    margin: 185px 0 0 0
+                    padding: 10px
+                    position: fixed
+                    width: 250px
+
+                    .titulo
+                        font:
+                            size: 14px
+                            weight: bold
 
 .footer_reporte
     background: $gris_faf
