@@ -88,12 +88,12 @@ class DefaultController extends Controller
             $concurso->ganadores = $ganadores;
 
             // Vemos si usuario está o no participando
-            $participa = false;
+            $participacion = array('participa' => false);
             if($this->get('security.context')->isGranted('ROLE_USER')) {
-                $participa = $conr->isUsuarioParticipando($this->get('security.context')->getToken()->getUser(), $concurso);
+                $participacion = $conr->isUsuarioParticipando($this->get('security.context')->getToken()->getUser(), $concurso);
             }
-
-            $concurso->participa = $participa;
+            
+            $concurso->participacion = $participacion;
 
             $post->getLugar()->telefonos = $telefonos;
 
@@ -195,11 +195,13 @@ class DefaultController extends Controller
         $usuario = $this->get('security.context')->getToken()->getUser();
 
         // Sólo si el usuario no estaba participando antes, se ingresa como nuevo participante
-        if(!$cr->isUsuarioParticipando($usuario, $concurso)) {
+        $participacion = $cr->isUsuarioParticipando($usuario, $concurso);
+        if(!$participacion['participa']) {
             $participante = new Participante();
             $participante->setConcurso($concurso);
             $participante->setUsuario($usuario);
 
+            $tipo = '';
             // Dejamos como pendiente o no dependiendo del tipo de concurso
             if($concurso->getTipoConcurso()->getSlug() == 'click') {
                 $participante->setPendiente(false);

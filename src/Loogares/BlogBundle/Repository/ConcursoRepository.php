@@ -92,8 +92,7 @@ class ConcursoRepository extends EntityRepository
     }
 
     public function isUsuarioParticipando($usuario, $concurso) {
-    	  $em = $this->getEntityManager();
-        //Query para obtener el total de recomendaciones del usuario        
+    	  $em = $this->getEntityManager();   
         $q = $em->createQuery("SELECT p
                                FROM Loogares\BlogBundle\Entity\Participante p
                                WHERE p.usuario = ?1
@@ -102,11 +101,16 @@ class ConcursoRepository extends EntityRepository
         $q->setParameter(2, $concurso);
         
         $participa = $q->getOneOrNullResult();
+        $participacion = array();
 
         if($participa == null) {
-        	return false;
+        	$participacion['participa'] = false;
         }
-        return true;
+        else {
+          $participacion['participa'] = true;
+          $participacion['pendiente'] = $participa->getPendiente();
+        }
+        return $participacion;
     }
 
     public function getConcursosPendientesUsuario($usuario, $ciudad) {
