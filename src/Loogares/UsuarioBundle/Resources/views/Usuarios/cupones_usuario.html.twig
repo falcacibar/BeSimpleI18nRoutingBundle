@@ -49,7 +49,7 @@
 						</div>
 					</div>
 					<div class="imprimir_cupon">
-						<a href="">{{'usuario.gift_card.imprimir'|trans}}</a>
+						<a href="{{path('imprimirCuponUsuario', {'param' : usuario.slug, 'cupon' : cupon.id})}}">{{'usuario.gift_card.imprimir'|trans}}</a>
 					</div>
 				</li>
 			{% endfor %}

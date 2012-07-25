@@ -1274,6 +1274,7 @@ class LugarController extends Controller{
         $fn = $this->get('fn');
         $lugar = $lr->findOneBySlug($slug);
 
+
         // Flag que determina si la recomendación es nueva o no
         $nueva = true;
 
@@ -1510,6 +1511,10 @@ class LugarController extends Controller{
                     $this->get('mailer')->send($message);
                 }
             }
+
+            $this->get('session')->setFlash('flash_recomendacion', $_POST['texto']);
+            $this->get('session')->setFlash('flash_recomendacion_estrellas', $_POST['recomienda-estrellas']);
+
             $flash = $this->get('translator')->trans('lugar.flash.recomendacion.agregar', array('%nombre%' => $usuario->getNombre(), '%apellido%' => $usuario->getApellido()));
             if (sizeOf($concursosPendientes) == 1) {
                 $post = $concursosPendientes[0]->getConcurso()->getPost();

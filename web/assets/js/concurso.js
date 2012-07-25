@@ -35,7 +35,7 @@ $(function(){
                         $this.replaceWith("<div class='boton_participando boton_participando_click'></div>");
                     }
                     else if($this.hasClass('boton_participar_recomendar')) {
-                        $this.replaceWith("<div class='boton_participando boton_participando_recomendar'></div>");
+                        $this.replaceWith("<div class='boton_participando boton_esperando_recomendar'></div>");
                     }                    
                     // Actualizamos los participantes
                     $.ajax({
@@ -43,8 +43,7 @@ $(function(){
                         type: 'post',
                         data: dataObj,
                         success: function(data){
-                            var concursos_html = $(data).html();
-                            $('.concurso_participantes').html('<ul class="listado_participantes">'+concursos_html+'</ul>');
+                            $('.participantes_container').html(data);
                             actualizarQtip();
                         }
                     });
