@@ -28,3 +28,5 @@ Loogares\UsuarioBundle\Entity\Dueno:
             type: text
         fecha:
             type: datetime
+        logo:
+            type: string

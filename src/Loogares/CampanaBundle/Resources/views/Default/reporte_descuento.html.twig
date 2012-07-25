@@ -17,32 +17,60 @@
 	</ul>
 
 	<div class="descuento_info">
-		<div class="descuento_image"></div>
-		<div class="fecha_y_condiciones">
-			<p>Fecha de inicio y término</p>
-			<p>fecha - fecha</p>
-			<p>Condiciones:</p>
-			<ul>
-				<li>La gift card es canjeable hasta el mes mes mes</li>
-				<li>Sólo canjeable en ____, válida por _____ no incluye _______.</li>
-			</ul>
+		<div class="descuento_image">
+			<div class="valor_descuento">15%</div>
 		</div>
+		<div class="fecha_y_condiciones">
+			<p><strong>Fecha de inicio y término</strong></p>
+			<p>Tomar la fecha desde la BD</p><br />
+			<p><strong>Condiciones:</strong></p>
+			<p>Tomar la información de las condiciones desde la BD</p>
+		</div>
+		<div class="icono_identificador"></div>
 	</div>
 
 	<div class="premiados">
-		<p>X Premiados</p>
-		<p>A continuación se detallan a todos los Loogareños que estarán recibiendo tus Gift Cards</p>
-		<p>Una vez que un Loogareño ha asistido, marcalo con el checkbox y haz click en Gift Card Canjeada</p>
+		<p># Premiados</p><br />
+		<p>A continuación se detallan todos los Loogareños que estarán recibiendo tus Gift Cards.<br />
+			Una vez que un Loogareño ha asistido, marcarlo con el checkbox y hacer click en Gift Card canjeada.</p>
+		<ul class="lista_de_ganadores">
 		{#% for ganador in ganadores %#}
-			<div class="ganador">
-				<div class="checkbox"></div>
-				<div class="imagen_usuario"></div>
-				<div clsas="usario_info">
-					<p>Nombre del pastel</p>
-					<p>Código: lolol</p>
+			<li class="ganador">
+				<input type="checkbox" class="checkbox"></input>
+				<div class="imagen_usuario">
+					<img src="" height="30" width="30" />
 				</div>
-			</div>
+				<div class="usuario_info">
+					<a href="#" target="_blank">Camila Constanza Cerda Acevedo</a>
+					<p class="codigo">Código: <strong>lolol</strong></p>
+				</div>
+			</li>
+
+			<li class="ganador">
+				<input type="checkbox" class="checkbox"></input>
+				<div class="imagen_usuario">
+					<img src="" height="30" width="30" />
+				</div>
+				<div class="usuario_info">
+					<a href="#" target="_blank">Carlos Marcías Lindstrom</a>
+					<p class="codigo">Código: <strong>lolol</strong></p>
+				</div>
+			</li>
+
+			<li class="ganador">
+				<input type="checkbox" class="checkbox"></input>
+				<div class="imagen_usuario">
+					<img src="" height="30" width="30" />
+				</div>
+				<div class="usuario_info">
+					<a href="#" target="_blank">Carla Soto</a>
+					<p class="codigo">Código: <strong>lolol</strong></p>
+				</div>
+			</li>
 		{#% endfor %#}
+		</ul>
+
+		<a class="boton_canjeada"></a>
 	</div>
 
 </div>

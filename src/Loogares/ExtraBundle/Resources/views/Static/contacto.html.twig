@@ -33,20 +33,35 @@
 					<ul>
 						<li>
 							<label>{{'extra.estaticas.contacto.formulario.nombre'|trans}} <span class="obligatorio">*</span></label>
-							<input type="text" name="nombre"/>
+							<input type="text" name="nombre"
+								{%- if errors is not null %} 
+									{% if errors.nombre.error is defined %}class="input-error"{% endif %}
+									{% if errors.nombre.ok is defined %}value="{{errors.nombre.ok}}"{% endif %}
+								{% endif -%}
+							/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.contacto.formulario.e_mail'|trans}} <span class="obligatorio">*</span></label>
-							<input type="text" name="mail"/>
+							<input type="text" name="mail"
+								{%- if errors is not null %} 
+									{% if errors.mail.error is defined %}class="input-error"{% endif %}
+									{% if errors.mail.ok is defined %}value="{{errors.mail.ok}}"{% endif %}
+									{% if errors.mail.mail is defined %}value="{{errors.mail.mail}}"{% endif %}
+								{% endif -%}
+							/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.contacto.formulario.asunto'|trans}} <span class="obligatorio">*</span></label>
-							<input type="text" name="asunto"/>
+							<input type="text" name="asunto"
+								{%- if errors is not null %} 
+									{% if errors.asunto.error is defined %}class="input-error"{% endif %}
+									{% if errors.asunto.ok is defined %}value="{{errors.asunto.ok}}"{% endif %}
+								{% endif -%}
+							/>
 						</li>
 						<li>
 							<label>{{'extra.estaticas.contacto.formulario.info'|trans}}</label>
-							<textarea name="mensaje"></textarea>
-							<span class="tip">{{'extra.estaticas.obligatorio'|trans}}</span>
+						<textarea name="mensaje"{% if errors is defined and errors.mensaje.error is defined %}class="input-error"{% endif %}>{% if errors is defined and errors.mensaje.ok is defined %}{{errors.mensaje.ok}}{% endif %}</textarea><span class="tip">{{'extra.estaticas.obligatorio'|trans}}</span>
 						</li>
 						<li>
 							<label></label>

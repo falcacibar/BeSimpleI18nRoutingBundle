@@ -328,6 +328,29 @@ class DefaultController extends Controller
     }
 
     public function contactoMailAction(){
+        $errors = array();
+        $errorFlag = false;
+        foreach($_POST as $key => $field){
+            if($key == 'mail' && $field != '' && !preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $field)){
+                $errors[$key] = array('mail' => $field);
+            }else if($field == ''){
+                $errors[$key] = array('error' => 'empty');
+                $errorFlag = true;
+            }else{
+                $errors[$key] = array('ok' => $field);
+            }
+        }
+
+        if($errorFlag == true){
+            //No se puede pasar errores a un redirect sin alterar la URL asi que mandamos los errores en un obj session comun
+            //Como lo hacian mis antepasados.
+            $_SESSION['staticerrors'] = $errors;
+            $this->get('session')->setFlash('error','Porfavor rellena todos los campos marcados con rojo y asegurate que el mail ingresado sea valido.');
+            return $this->redirect($this->generateUrl('static', array(
+                'static' => 'contacto'
+            )));
+        }
+
         $contacto['nombre'] = $_POST['nombre'];
         $contacto['asunto'] = $_POST['asunto'];
         $contacto['mail'] = $_POST['mail'];

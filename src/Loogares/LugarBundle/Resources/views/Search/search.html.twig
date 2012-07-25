@@ -505,10 +505,10 @@
 								<span>
 									<strong>
 										{{lugar.ultimaRecomendacion.fechaCreacion|date('d/m/y') }} - 
-										{% if lugar.usuario.nombre != '' %}
+										{% if lugar.ultimaRecomendacion.usuario.nombre != '' %}
 											<a href="{{ path('showUsuario', {'param': lugar.ultimaRecomendacion.usuario.slug}) }}">{{lugar.ultimaRecomendacion.usuario.nombre}} {{lugar.ultimaRecomendacion.usuario.apellido}}</a>
 										{% else %}
-											<a href="{{ path('showUsuario', {'param': lugar.ultimaRecomendacion.usuario.slug}) }}">{{lugar.ultimaRecomendacion.usuario.apellido}}</a>
+											<a href="{{ path('showUsuario', {'param': lugar.ultimaRecomendacion.usuario.slug}) }}">{{lugar.ultimaRecomendacion.usuario.slug}}</a>
 										{% endif %}
 									</strong>
 									<p>{{lugar.ultimaRecomendacion.texto|slice(0, 160)|raw}}...</p>
@@ -542,7 +542,7 @@
 		</div>
 
 	
- <div class="paginacion_listado_lugares">
+ 					<div class="paginacion_listado_lugares">
             <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{total}}</strong>
             {% if paginacion.totalPaginas != 1 %}
                  | {{'paginacion.ir_a'|trans}}

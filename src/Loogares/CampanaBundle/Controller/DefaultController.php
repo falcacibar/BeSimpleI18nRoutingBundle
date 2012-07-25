@@ -77,7 +77,7 @@ class DefaultController extends Controller{
 
 		$q = $em->createQuery("SELECT c FROM Loogares\BlogBundle\Entity\Concurso c
 													 JOIN c.post p
-													 WHERE p.lugar = ?1");
+													 WHERE p.lugar = ?1 ORDER BY c.fecha_inicio ASC");
 		$q->setParameter(1, $lugar);
 		$concursos = $q->getResult();
 
@@ -144,7 +144,7 @@ class DefaultController extends Controller{
     $campana = $cr->findOneById($id);
 
     if( !$campana->getDescuento() ){
-    	return $this->render('LoogaresCampanaBundle:Default:listado_descuento.html.twig', array('slug' => $slug, 'id' => $id));
+    	return $this->render('LoogaresCampanaBundle:Default:listado_descuentos.html.twig', array('slug' => $slug, 'id' => $id));
     }
     
     return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array('slug' => $slug, 'id' => $id));
@@ -181,7 +181,7 @@ class DefaultController extends Controller{
     }
 
     $seguidores = $this->getDoctrine()->getConnection()
-        					->fetchAll("SELECT u.id AS usuarioId, u.nombre AS usuarioNombre, u.apellido AS usuarioApellido, u.slug AS usuarioSlug, 
+        					->fetchAll("SELECT u.id AS usuarioId, u.imagen_full AS usuarioImagen, u.nombre AS usuarioNombre, u.apellido AS usuarioApellido, u.slug AS usuarioSlug, 
         											count(g.id) as totalBe, co.nombre AS comunaNombre, co.slug AS comunaSlug, count(du.id) AS totalDescuentos, r.id AS recomendo,
 														  (SELECT count(id) FROM recomendacion WHERE recomendacion.estado_id = 2 AND usuario_id = u.id) AS totalRecomendaciones
 															FROM concursos_usuario cu

@@ -429,7 +429,7 @@ class LugarController extends Controller{
     }
 
     public function agregarAction(Request $request, $slug = null){
-        $em = $this->getDoctrine()->getEnagregarActiontityManager();
+        $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $errors = array();
         $formErrors = array();
@@ -712,7 +712,7 @@ class LugarController extends Controller{
                     curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
 
                     //execute post
-                    $result = curl_exec($ch);
+                    curl_exec($ch);
 
                     curl_close($ch);
                 }

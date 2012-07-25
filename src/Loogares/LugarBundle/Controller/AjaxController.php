@@ -206,7 +206,7 @@ class AjaxController extends Controller{
       $id = $_POST['id'];
 
       $em = $this->getDoctrine()->getEntityManager();
-      $q = $em->createQuery('SELECT u FROM Loogares\LugarBundle\Entity\Lugar u where u.calle = ?3 and u.numero = ?2 and u.id != ?1 and u.estado != 3');
+      $q = $em->createQuery('SELECT u FROM Loogares\LugarBundle\Entity\Lugar u where u.calle = ?3 and u.numero = ?2 and u.id != ?1 and u.estado != 3 ORDER BY u.nombre ASC');
       $q->setParameter(1, $id);
       $q->setParameter(2, $numero);
       $q->setParameter(3, $calle);
@@ -219,7 +219,7 @@ class AjaxController extends Controller{
       }else{
         $asd[] = null;
       }
-
+      //Alto nombre de variable
       return new Response(json_encode($asd));
     }
 
@@ -323,6 +323,34 @@ class AjaxController extends Controller{
           $em->persist($util);
           $em->flush();
 
+          //Enviamos el Mail del Util
+          //set POST variables
+          $fields_string = '';
+
+          $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_utilMail');
+          $fields = array(
+              'recomendacion' => urlencode($recomendacion->getId()),
+              'usuario' => urlencode($this->get('security.context')->getToken()->getUser()->getId())
+          );
+
+          //url-ify the data for the POST
+          foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+          $fields_string = rtrim($fields_string,'&');
+
+          //open connection
+          $ch = curl_init();
+          //set the url, number of POST vars, POST data
+          curl_setopt($ch,CURLOPT_URL, $url);
+          curl_setopt($ch,CURLOPT_POST,2);
+          curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+          curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+          curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+          //execute post
+          curl_exec($ch);
+
+          curl_close($ch);
+          $data[] = 'Up to here, ok';
+
           // Agregamos a Actividad Reciente
           $actividad = new ActividadReciente();
           $actividad->setEntidad('Loogares\UsuarioBundle\Entity\Util');
@@ -339,15 +367,16 @@ class AjaxController extends Controller{
           $actividad->setEstado($estadoActividad);
 
           $em->persist($actividad);
-
+          $data[] = "Util Ok";
         }else{
           $arr->actualizarActividadReciente($utilResult[0]->getId(), 'Loogares\UsuarioBundle\Entity\Util');
           $em->remove($utilResult[0]);
+          $data[] = "Util Sacado";
         }
 
         $lr->actualizarPromedios($recomendacion->getLugar()->getSlug());
         $em->flush();
-        $data[] = ":D";
+        $data[] = "Flush Done";
       }else if($accion == 'favoritos' || $accion == 'estuve_alla' || $accion == 'quiero_ir'| $accion == 'quiero_volver'| $accion == 'recomendar_despues'){
         $lugar = $lr->find($_POST['lugar']);
         $usuario = $this->get('security.context')->getToken()->getUser();
@@ -424,8 +453,9 @@ class AjaxController extends Controller{
       }
       $em = $this->getDoctrine()->getEntityManager();
       $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
+      $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
 
-      $usuario = $this->get('security.context')->getToken()->getUser();
+      $usuario = $ur->find($_POST['usuario']);
       $recomendacion = $rr->find($_POST['recomendacion']);
 
       // Se envía mail al usuario que recomendó informándole del útil
