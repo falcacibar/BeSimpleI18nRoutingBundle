@@ -89,15 +89,20 @@
 {% block content %}
 <div id="lugar-ficha" data-id="{{lugar.id}}">
     <!-- Mensajes de éxito -->
-    {% if app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
-        {% set twitter = '@LgrsValpoVina' %}
-    {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
-        {% set twitter = '@LoogaresBA' %}
-    {% else %}
-        {% set twitter = '@Loogarescom' %}
-    {% endif %}
-    {% set twitter_text = 'lugar.recomendacion.compartir.twitter'|trans|format((lugar.twitter) ? '@'~lugar.twitter : lugar.nombre, 0, twitter) %}
-    {% set data_url = url('_recomendacion', {'slug' : lugar.slug , 'usuarioSlug' : app.security.token.user.slug}) %}
+    {% if app.session.hasFlash('lugar_flash') %}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans | raw }}</p>
+            </div>
+        {% if app.session.hasFlash('flash_recomendacion') %}
+            {% if app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+                {% set twitter = '@LgrsValpoVina' %}
+            {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+                {% set twitter = '@LoogaresBA' %}
+            {% else %}
+                {% set twitter = '@Loogarescom' %}
+            {% endif %}
+            {% set twitter_text = 'lugar.recomendacion.compartir.twitter'|trans|format((lugar.twitter) ? '@'~(lugar.twitter|slice(15)) : lugar.nombre, app.session.flash('flash_recomendacion_estrellas'), twitter) %}
+            {% set data_url = url('_recomendacion', {'slug' : lugar.slug , 'usuarioSlug' : app.security.token.user.slug}) %}
 
             <div style="display:none">
                 <div class="contenido_lightbox_compartir" id="compartir-fbox">
@@ -109,20 +114,20 @@
             $(function() {
                 $('.compartir_twitter').click(function() {
                     open(this.href, this.target, 'width=603,height=261');
+                    $.fancybox.close();
                     return false;
                 });
 
                 var fbfn = function() {
                     FB.ui( {
-                        'method'	: 'feed' ,
-                        'link'		: '{{ data_url }}' ,
-			'name'		: '{{ "lugar.recomendacion.compartir.facebook"|trans|format(lugar.nombre, 0) }}',
-			'caption'	: ''
-
+                        'method'    : 'feed' ,
+                        'link'      : '{{ data_url }}' ,
+                        'name'      : '{{ "lugar.recomendacion.compartir.facebook"|trans|format(lugar.nombre, app.session.flash("flash_recomendacion")) }}',
+                        'caption'   : '{{ app.session.flash("flash_recomendacion_estrellas") }}'
                     }, function(response) {
                         // TODO: si falla intentar denuevo
-                        if( typeof(response) != 'undefined' && response != null && !response.post_id 
-			    && confirm('{{ "general.facebook.reintentar"|trans }}')) {
+                        if( typeof(response) != 'undefined' && response != null && !response.post_id
+                && confirm('{{ "general.facebook.reintentar"|trans }}')) {
                                 fbfn();
                         }
                     })
@@ -130,19 +135,20 @@
                     return false;
                 };
 
-                $('.compartir_facebook').click(fbfn);
+                $('.compartir_facebook').click(function() {
+                    $.fancybox.close();
+                    return fbfn;
+                });
 
                 $.fancybox.open({
-                    href : '#compartir-fbox',
-                    padding : 5
+                    hideOnContentClick : false,
+                    padding: 0,
+                    showCloseButton: false ,
+                    href : '#compartir-fbox'
                 });
             });
             </script>
-
-    {% if app.session.hasFlash('lugar_flash') %}
-            <div class="mensaje_exito">
-                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('lugar_flash') | trans | raw }}</p>
-            </div>
+        {% endif %}
     {% endif %}
 
     {% if app.session.hasFlash('error_flash') %}
