@@ -1,5 +1,7 @@
 # Locale 'en' General
 general:
+    facebook:
+        reintentar: "The comment cannot be sent. Do you wish to try again?"
     header:
         usuario:
             login: Log in

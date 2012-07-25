@@ -194,6 +194,9 @@ lugar:
         sugirio: suggested
 
     recomendacion:
+        compartir:
+            facebook: I was recommended %s with %d stars via Loogares.com
+            twitter: I was recommended %s with %d stars via %s
         opcional:
             tip: You wish to write a review?
         titulo: Review

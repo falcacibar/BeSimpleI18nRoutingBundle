@@ -1,5 +1,7 @@
 # Locale 'es_cl' General
 general:
+    facebook:
+        reintentar: "¿El comentario no se ha podido enviar, deseas intentarlo nuevamente?"
     header:
         usuario:
             login: Entra

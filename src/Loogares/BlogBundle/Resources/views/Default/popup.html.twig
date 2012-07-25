@@ -11,7 +11,7 @@
 		</div>
         <a href="" class="volver">{{'blog.popup.registro.volver'|trans}}</a>
 	</div>
-{% elseif popup == 'compartir' and tipo == 'click' %}
+{% elseif popup == 'compartir' and tipo == 'click' %}h
 	<div class="popup_compartir">
 		<p class="titulo_popup">{{'blog.popup.participando.titulo'|trans}}</p>
 		<p class="compartir_por_redes_texto">{{'blog.popup.participando.texto_1'|trans}}</p>
@@ -47,7 +47,7 @@
 	 		<li class="fb_share" style="margin: 0 0 5px;">
                 <a class="compartir_por_facebook" name="fb_share" type="icon_link">{{'lugar.ficha.opciones.facebook'|trans}}</a>
             </li>
-            <li class="twitter_share" style="margin: 0 0 5px;">                    
+            <li class="twitter_share" style="margin: 0 0 5px;">
                 {% set data_url = url('_lugar', {'slug' : post.lugar.slug}) %}
                 {% set data_text = post.titulo~' '~data_url~' #Loogares.com' %}
                 {% set data_via = "Loogarescom" %}
@@ -57,8 +57,6 @@
         <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>
 	</div>
 {% endif %}
-
-<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function(){
 	    $('.volver').click(function(e){
@@ -80,16 +78,15 @@
 {% if popup == 'compartir' %}
 	var fbfn = function() {
 		FB.ui( {
-			method : 'feed' ,
-			link : '{{ data_url }}'
+			'method' 	: 'feed',
+			'link' 		: '{{ data_url }}'
 		}, function(response) {
-// TODO: si falla intentar denuevo
-/*			if(response && response.post_id) {
-				if(confirm('No se pudo enviar, intentar denuevo?')) {
+			// TODO: si falla intentar denuevo
+			if(!(response && response.post_id)) {
+				if(confirm('{{ "general.facebook.reintentar"|trans }}')) {
 					fbfn();
 				}
 			}
-*/
 		})
 	};
 
