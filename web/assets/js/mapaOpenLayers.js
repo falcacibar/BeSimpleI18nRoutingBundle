@@ -58,10 +58,9 @@ mapa.util.loogarInfoParser = function(feature, selector) {
         var imagen = mapa.parametros.imagenLoogarPorDefecto;
     }
 
-
     return $(selector)
         .text()
-            .replace(/URLNS/, feature.attributes.slug)
+            .replace(/URLNS/g, feature.attributes.slug)
             .replace(/\(\(% imagen %\)\)/g, imagen)
             .replace(/\(\(% categorias %\)\)/g, HTMLCategorias)
             .replace(/\(\(%(.*?)%\)\)/g, function(tag, variable) {
@@ -123,7 +122,7 @@ $(function() {
         'Loogares.com', {
             'strategies'    : [ new OpenLayers.Strategy.BBOX({
                         'resFactor' : 1,
-                        'ratio'     : 1,
+                        'ratio'     : 0.95,
                         'update'    : function() {
                             var $listaOtrosLugares          = $('#lista-otros-lugares').empty();
                             var $cargandoOtrosLugares       = $('#cargando-otros-lugares').show();
@@ -157,14 +156,17 @@ $(function() {
                         if($listaOtrosLugares.length) {
                             $.each(results, function() {
                                 var self = this;
-                                var $entrada = $(mapa.util.loogarInfoParser(self, '#plant-lista-otros-lugares'));
+                                var $entrada = $(mapa.util.loogarInfoParser(this, '#plant-lista-otros-lugares'));
+                                var sc =  mapa.controles.seleccion;
 
                                 $entrada
                                     .data('feature', this)
                                     .hover(function() {
-                                        mapa.controles.seleccion.highlight($(this).data('feature'));
+                                        sc.select($(this).data('feature'));
+                                        sc.highlight($(this).data('feature'));
                                     }, function() {
-                                        mapa.controles.seleccion.unhighlight($(this).data('feature'));
+                                        sc.unselect($(this).data('feature'));
+                                        sc.unhighlight($(this).data('feature'));
                                     });
 
                                 $listaOtrosLugares.append($entrada);
@@ -233,6 +235,8 @@ $(function() {
     });
 
     // Control Popup
+
+    var popuplock = false;
     mapa.olMapa.addControl(
         mapa.controles.seleccion = new OpenLayers.Control.SelectFeature(
             mapa.capas.Loogares, {
@@ -266,6 +270,11 @@ $(function() {
                                 'display'   : 'block',
                                 'width'     : '',
                                 'height'    : ''
+                        }).hover(function() {
+                            popuplock = true;
+                        }, function() {
+                            popuplock = false;
+                            mapa.controles.seleccion.onUnselect(feature);
                         });
 
                         var $raty = $div.find('.resultado-busqueda-stars-raty');
@@ -288,12 +297,17 @@ $(function() {
                     return false;
                 },
                 'onUnselect'    : function(feature) {
-                    var popups = mapa.olMapa.popups;
+                    var popup = feature.popup;
+                    setTimeout(function() {
+                        var popups = mapa.olMapa.popups;
 
-                    $('.olMapViewport').css('overflow', 'hidden');
-                    for(i=0;i<popups.length;i++) {
-                        mapa.olMapa.removePopup(popups[i]);
-                    }
+                        $('.olMapViewport').css('overflow', 'hidden');
+                        for(i=0;i<popups.length;i++) {
+                            if((popups[i] == popup && !popuplock) || (popups[i] != popup)) {
+                                mapa.olMapa.removePopup(popups[i]);
+                            }
+                        }
+                    }, 100);
                 }
             }
         )

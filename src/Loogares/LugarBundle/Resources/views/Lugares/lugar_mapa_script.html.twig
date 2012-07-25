@@ -65,12 +65,11 @@
     <script type="text/vnd.loogares-htmljs-template" id="plant-lista-otros-lugares">
         <div class="otro_lugar">
             <a class="otro_lugar_img" href="{{ path('_lugar', {'slug': 'URLNS'}) }}}">
-
                 <img src="((% imagen %))" width="50" height="50" alt="((% nombre %)) | Ciudad" title="((% nombre %))"/>
             </a>
             <ul class="otro_lugar_info">
                 <li>
-                    <a class="otro_lugar_nombre" href="{{ path('_lugar', {'slug': lugar.slug}) }}">((% nombre %))</a>
+                    <a class="otro_lugar_nombre" href="{{ path('_lugar', {'slug': 'URLNS' }) }}">((% nombre %))</a>
                 </li>
                 <li>
                     {# star-raty-otrosLugares{{loop.index}} #}
