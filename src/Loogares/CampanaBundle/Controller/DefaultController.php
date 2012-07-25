@@ -150,7 +150,7 @@ class DefaultController extends Controller{
     return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array(
     	'lugar' => $campana->getLugar(), 
     	'id' => $id,
-    	'descuento' => $campana->getDescuento()
+    	'descuento' => $campana->getDescuento(),
     ));
  	}
 
