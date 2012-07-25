@@ -45,7 +45,7 @@ class BeforeControllerListener
      * @param FilterControllerEvent $event
      * @throws AccessDeniedHttpException in case token is not valid
      */
-    public function onKernelController(FilterControllerEvent $event )
+    public function onKernelController( FilterControllerEvent $event )
     {
         $this->times++;
 
@@ -79,7 +79,8 @@ class BeforeControllerListener
                     $request = new Request();
                     $request->attributes->set('_controller', 'LoogaresExtraBundle:Default:homepage');
                     $event->setController($this->resolver->getController($request));
-                }else if($lugar->getDueno()->getUsuario()->getId() == $usuario->getId()){
+                }else if($lugar->getDueno()->getUsuario()->getId() != $usuario->getId()){
+                    //De vuelta a la ficha!
                 }
             }
 
