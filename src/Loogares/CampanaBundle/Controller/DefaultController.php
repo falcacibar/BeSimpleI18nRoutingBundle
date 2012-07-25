@@ -60,7 +60,7 @@ class DefaultController extends Controller{
 		$campanas = $campanaRepository->findByLugar($lugar->getId());
 
 		return $this->render('LoogaresCampanaBundle:Default:listado_campanas.html.twig', array(
-			'slug' => $slug,
+			'lugar' => $lugar,
 			'campanas' => $campanas,
 			'meses' => array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre')
 		));
@@ -76,18 +76,17 @@ class DefaultController extends Controller{
 		$lugar = $lugarRepository->findOneBySlug($slug);
 
 		$q = $em->createQuery("SELECT c FROM Loogares\BlogBundle\Entity\Concurso c
-													 JOIN c.post p
-													 WHERE p.lugar = ?1 ORDER BY c.fecha_inicio ASC");
-		$q->setParameter(1, $lugar);
+													 WHERE c.campana = ?1 ORDER BY c.fecha_inicio DESC");
+		$q->setParameter(1, $id);
 		$concursos = $q->getResult();
 
 		$meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre');
 
 		return $this->render('LoogaresCampanaBundle:Default:listado_concursos.html.twig',array(
 			'concursos' => $concursos,
-			'slug' => $slug,
 			'meses' => $meses,
-			'id' => $id
+			'id' => $id,
+			'lugar' => $lugar
 		));
 	}
   
@@ -133,7 +132,8 @@ class DefaultController extends Controller{
 
     return $this->render('LoogaresCampanaBundle:Default:reporte_concurso.html.twig', array(
         'concurso' => $concurso,
-        'id' => $id
+        'id' => $id,
+        'lugar' => $lugar
     ));
 	}
 
@@ -144,10 +144,14 @@ class DefaultController extends Controller{
     $campana = $cr->findOneById($id);
 
     if( !$campana->getDescuento() ){
-    	return $this->render('LoogaresCampanaBundle:Default:listado_descuentos.html.twig', array('slug' => $slug, 'id' => $id));
+    	return $this->render('LoogaresCampanaBundle:Default:listado_descuentos.html.twig', array('lugar' => $campana->getLugar(), 'id' => $id));
     }
     
-    return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array('slug' => $slug, 'id' => $id));
+    return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array(
+    	'lugar' => $campana->getLugar(), 
+    	'id' => $id,
+    	'descuento' => $campana->getDescuento(),
+    ));
  	}
 
 
@@ -231,7 +235,7 @@ class DefaultController extends Controller{
 		$campana = $cr->findOneById($id);
 
 		if($campana->getDescuento()){
-			return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('slug' => $slug, 'id' => $id)));
+			return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('lugar' => $lugar, 'id' => $id)));
 		}
 
 		$comuna = null;
