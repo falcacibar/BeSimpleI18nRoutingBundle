@@ -124,6 +124,7 @@ class Descuento
     {
         return $this->cantidad;
     }
+
     /**
      * @var Loogares\CampanaBundle\Entity\DescuentosUsuarios
      */

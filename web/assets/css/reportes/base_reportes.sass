@@ -844,6 +844,7 @@ a
         .seguidores
             float: left
             margin: 50px 0
+            overflow: hidden
             position: relative
             width: 960px
 
@@ -881,9 +882,26 @@ a
                     .han_recomendado
                         margin: 0 10px 0 0
 
+            .fitros_seguidores_seleccion
+                margin: 0 0 10px    
+
+            .seleccionar_todos_ninguno
+                float: left
+                font:
+                    size: 12px
+                margin: 0 0 20px
+                width: 960px
+
+                .seleccionar_todos
+                    margin: 0 20px 0 0
+
             .caja_seguidores
                 float: left
                 width: 980px
+
+                .seguidores_checkbox
+                    float: left
+                    margin: 11px 5px 56px 2px
 
                 .seguidor
                     @include box_shadow_ccc
@@ -903,8 +921,7 @@ a
                         font:
                             size: 12px
                         padding: 10px 10px 10px 0
-                        margin: 0 0 0 10px
-                        width: 234px
+                        width: 244px
 
                         .comuna
                             font:
@@ -977,6 +994,291 @@ a
 
                             .valor
                                 margin: 0 0 0 20px
+
+            .seleccion
+                float: left
+                width: 690px
+
+                .seguidor_selected
+                    background: $gris_fac
+
+                    .seguidor_datos
+
+                        a
+                            font:
+                                weight: bold
+
+                    .seguidor_iconos
+
+                        .numero_be
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -409px
+                            color: $gris_999
+
+                        .numero_descuentos
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -445px
+                            color: $gris_999
+
+                        .numero_recomendaciones
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -371px
+                            color: $gris_999
+            .sidebar
+                float: left
+                position: relative
+
+                .seguidores_sidebar
+                    background: $gris_fac
+                    border-bottom: 1px solid $gris_ccc
+                    height: 70px
+                    margin: 70px 0 0 0
+                    padding: 15px 10px
+                    position: fixed
+                    width: 250px
+
+                    .participantes_concurso
+                        float: left
+                        margin: 0 19px
+
+                        .cantidad_participantes_izq
+                            background: url('../../images/extras/borde_izq_participantes.png') no-repeat 0 0
+                            float: left
+                            height: 26px
+                            width: 6px
+
+                        .cantidad_participantes_der
+                            background: url('../../images/extras/borde_der_participantes.png') no-repeat 0 0
+                            float: left
+                            height: 26px
+                            width: 6px
+
+                        .cantidad_participantes
+                            background: $azul_participantes
+                            color: $gris_666
+                            font:
+                                size: 11px
+                            float: left
+                            height: 12px
+                            padding: 7px 5px
+                            text-align: center
+                            width: 190px
+
+                            .numero_participantes
+                                background: $gris_666
+                                border-radius: 8px
+                                -o-border-radius: 8px
+                                -moz-border-radius: 8px
+                                -webkit-border-radius: 8px
+                                color: $blanco
+                                padding: 3px 6px
+
+                            .seguidores_seleccionados
+                                color: $gris_444
+                                font:
+                                    size: 12px
+
+                    .otorgar_gift
+                        background: url('../../images/reporte/botones_panel_dueno.png') -1720px -5px
+                        float: left
+                        height: 29px
+                        margin: 15px 60px
+                        width: 140px
+
+                        &:hover
+                            background: url('../../images/reporte/botones_panel_dueno.png') -1720px -75px
+
+                .ayuda
+                    background: $gris_fac
+                    border-bottom: 1px solid $gris_ccc
+                    color: $gris_666
+                    font:
+                        size: 12px
+                    line-height: 22px
+                    margin: 185px 0 0 0
+                    padding: 10px
+                    position: fixed
+                    width: 250px
+
+                    .titulo
+                        font:
+                            size: 14px
+                            weight: bold
+
+                    .fondo_interrogacion
+                        background: url('../../images/reporte/botones_panel_dueno.png') 0px -668px
+                        left: 216px
+                        height: 55px
+                        position: absolute
+                        top: 0
+                        width: 90px
+
+/* Lightbox selección Dscto. */
+.fancybox-outer, .fancybox-inner
+    background: white
+
+.lolbox
+    width: 570px
+    height: 570px
+    color: $gris_444
+    background: $blanco   
+    display: block
+
+    .step_static, .step_done
+        background: #FAFAFC
+        height: 30px
+        display: block  
+        padding: 15px 0
+        width: 570px
+        overflow: hidden
+
+        .participantes_concurso
+            float: left
+            margin: 0 179px
+
+            .cantidad_participantes_izq
+                background: url('../../images/extras/borde_izq_participantes.png') no-repeat 0 0
+                float: left
+                height: 26px
+                width: 6px
+
+            .cantidad_participantes_der
+                background: url('../../images/extras/borde_der_participantes.png') no-repeat 0 0
+                float: left
+                height: 26px
+                width: 6px
+
+            .cantidad_participantes
+                background: $azul_participantes
+                color: $gris_666
+                font:
+                    size: 11px
+                float: left
+                height: 12px
+                padding: 7px 5px
+                text-align: center
+                width: 190px
+
+                .numero_participantes
+                    background: $gris_666
+                    border-radius: 8px
+                    -o-border-radius: 8px
+                    -moz-border-radius: 8px
+                    -webkit-border-radius: 8px
+                    color: $blanco
+                    padding: 3px 6px
+
+                .seguidores_seleccionados
+                    color: $gris_444
+                    font:
+                        size: 12px
+    
+    .step_active
+        display: block
+        margin: 0 60px
+        height: auto
+        overflow: hidden
+
+        h3, h4
+            font:
+                size: 16px
+                weight: bold
+            text-align: center             
+            width: 100%
+            margin: 40px 0
+
+        h4
+            margin: 40px 0 10px
+        
+        small
+            display: none
+
+        .step_content
+            height: auto
+            font:
+                size: 14px
+            color: $gris_666
+            overflow: hidden
+
+            .rango_descuentos, .rango_tiempo
+                list-style: none
+                margin: 0 0 0 35px
+                padding: 0
+                height: 160px
+                float: left
+                width: 90px
+
+                li
+                    margin: 0 0 15px
+
+                    label, input
+                        display: inline
+
+                    label
+                        margin: 0 0 0 15px
+
+            .rango_tiempo
+                margin: 0 140px
+                height: 120px
+                width: 110px
+
+            .textarea
+                border: 1px solid $gris_eee
+                height: 110px
+                width: 404px
+                line-height: 20px
+                margin: 0 20px
+
+                &:hover
+                    border: 1px solid $gris_999
+
+                &:active
+                    border: 1px solid $azul
+
+            .tip
+                font:
+                    size: 12px
+                margin: 10px 20px 0 
+                line-height: 18px
+
+            .center
+                text-align: center
+
+    .step_done
+        margin: 10px 0 0
+        padding: 23px 0
+        height: 14px
+
+        h3
+            font:
+                size: 12px
+            text-align: left             
+            width: 550px
+            margin: 0 0 0 20px
+
+        small
+            display: inline-block
+            background: $gris_666
+            color: $blanco
+            padding: 5px
+            font:
+                weight: bold
+            margin: 0 0 0 5px
+
+        .step_content
+            display: none
+
+
+    .step_hidden
+        display: none   
+
+    .lolbox_siguiente
+        background: #3bf
+        width: 200px
+        height: 40px
+        display: block
+        margin: 20px auto
+
+    .siguiente_paso
+        float: left
+        margin: 45px 247px 0
 
 .footer_reporte
     background: $gris_faf

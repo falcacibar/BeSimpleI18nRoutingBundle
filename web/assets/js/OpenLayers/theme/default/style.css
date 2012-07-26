@@ -19,11 +19,20 @@ div.olLayerDiv {
     bottom: 2px;
 }
 .olLayerGoogleV3.olLayerGoogleCopyright {
+    width: 100%;
     right: auto !important;
 }
+
+.olLayerGoogleV3.olLayerGoogleCopyright div {
+    text-align: center !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
 .olLayerGooglePoweredBy {
-    left: 2px;
-    bottom: 15px;
+    right: 2px;
+    left: auto !important;
+    top: 8px;
+    height: 24px;
 }
 .olLayerGoogleV3.olLayerGooglePoweredBy {
     bottom: 15px !important;
@@ -37,7 +46,7 @@ div.olLayerDiv {
 }
 .olControlScale {
     right: 3px;
-    bottom: 3em;
+    bottom: 5em;
     display: block;
     position: absolute;
     font-size: smaller;
@@ -46,7 +55,7 @@ div.olLayerDiv {
    display: block;
    position: absolute;
    left: 10px;
-   bottom: 15px;
+   bottom: 23px;
    font-size: xx-small;
 }
 .olControlScaleLineBottom {
