@@ -104,12 +104,17 @@
             {% set twitter_text = 'lugar.recomendacion.compartir.twitter'|trans|format((lugar.twitter) ? '@'~(lugar.twitter|slice(15)) : lugar.nombre, app.session.flash('flash_recomendacion_estrellas'), twitter) %}
             {% set data_url = url('_recomendacion', {'slug' : lugar.slug , 'usuarioSlug' : app.security.token.user.slug}) %}
 
-            <div style="display:none">
+            <div class="popup_compartir" style="display:none">
                 <div class="contenido_lightbox_compartir" id="compartir-fbox">
-                    <a class="compartir_facebook" href="#">Feisbuc</a>
-                    <a class="compartir_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&text={{twitter_text|url_encode()}}" target="_blank">Tgüitter</a>
+                    <p class="titulo_popup">¡Gracias por compartir tu experiencia!</p>
+                    <p class="compartir_por_redes_texto">¿Qué tal si ahora la compartes en otras redes?</p>
+                    <p class="compartir_por_redes">Tal vez Facebook, quizás Twitter... selecciona la que más te guste:</p>
+                    <a class="compartir_facebook compartir_por_facebook" href="#"></a>
+                    <a class="compartir_twitter compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&text={{twitter_text|url_encode()}}" target="_blank"></a>
+                    <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>
                 </div>
             </div>
+
             <script type="text/javascript">
             $(function() {
                 $('.compartir_twitter').click(function() {
