@@ -350,3 +350,68 @@ de atención del local.</p>
 	</div>​
 </div>
 {% endblock %}
+
+{% block javascripts %}
+  <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
+	<script>
+	$('.seguidores_checkbox').change(function(){
+		var $this = $(this);
+		var $seleccionados = $('.numero_seleccionados');
+		var seleccionadosCount = parseInt($seleccionados.html());
+
+		($this.is(':checked'))?seleccionadosCount++:seleccionadosCount--;
+		$seleccionados.html(seleccionadosCount)
+	});
+
+	$(".otorgar_gift").fancybox({
+    type: 'inline',
+		content: $('.lolbox'),
+		padding: 0,
+		fitToView: false
+	});
+
+	$('.siguiente_paso').click(function(){
+	    $active = $('.step_active');
+	    
+	    $active.next('div:not(.siguiente_paso)')
+	                     .removeClass('step_hidden')
+	                     .removeClass('step_done')            
+	                     .addClass('step_active');
+	                     
+	    $active.toggleClass('step_active')
+	           .toggleClass('step_done');
+
+	    if($active.find('input[type=radio]').length){
+	    	var chosenOption = $active.find('input[type=radio]:checked').next('label').text();
+	    }else if($active.find('textarea').length){
+	    	var chosenOption = $active.find('textarea').val();
+	    }
+
+	    $active.find('h3 > small').text(chosenOption)
+
+	    if($('.step_active').next('div').hasClass('step_final')){
+	    	$('.siguiente_paso').val('Enviar');
+	    }else{
+	    	$('.siguiente_paso').val('Seleccionar')
+	    }
+
+	    if($('.step_active').hasClass('step_final')){
+	    	$('.siguiente_paso').remove();
+	    	$('.nuevo_descuento').append($('input[class=seguidores_checkbox]:checked'))
+	    	//$('.nuevo_descuento').submit()
+	    	$('.step_done, .step_static').hide();
+	    }
+	});
+	    
+	$('.step_done').live('click', function(){            
+	    $('.step_active')
+	        .removeClass('step_active')
+	        .addClass('step_done');
+	    $(this)
+	        .removeClass('step_done')
+	        .addClass('step_active');    
+	});
+
+
+	</script>
+{% endblock %}
