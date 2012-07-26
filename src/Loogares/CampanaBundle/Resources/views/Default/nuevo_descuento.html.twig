@@ -120,7 +120,7 @@
 				</div>
 			</div>
 			<div class="step_active">
-					<h3>1. ¿Que tipo de descuento quieres regalar?<small></small></h3>
+					<h3>1. ¿Que tipo de descuento quieres regalar? <small></small></h3>
 					<div class="step_content">
 						<ul class="rango_descuentos">
 							{% for dco in [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90] %}
@@ -136,26 +136,23 @@
 			    <h3>2. ¿Cuanto tiempo quieres que dure el descuento? <small></small></h3>
 			    <div class="step_content">
 						<ul class="rango_tiempo">
-							<li>
-								<label>1 Semana</label><input type="radio" value="7" name="tiempo" />
-								<label>2 Semanas</label><input type="radio" value="14" name="tiempo" />
-								<label>3 Semanas</label><input type="radio" value="21" name="tiempo" />
-								<label>1 Mes</label><input type="radio" value="30" name="tiempo" />
-							</li>
+							<li><input type="radio" value="7" name="tiempo" /> <label>1 Semana</label></li>
+							<li><input type="radio" value="14" name="tiempo" /> <label>2 Semanas</label></li>
+							<li><input type="radio" value="21" name="tiempo" /> <label>3 Semanas</label></li>
+							<li><input type="radio" value="30" name="tiempo" /> <label>1 Mes</label></li>
 						</ul>		
 					</div>    
 			</div>
 			<div class="step_hidden">
 			    <h3>3. ¿Cuáles son las condiciones de uso del descuento?<small></small></h3>
 			    <div class="step_content">
-			    	<textarea name="condiciones" placeholder="*Escribe acá todas las restricciones de uso de las Gift Cards por día, tipo de producto, horarios de uso, etc.
-			    	Ej. Sólo canjeable de martes a jueves previa reserva al 2235764."></textarea>
-			    	<p>*Si se deja este campo vacio se considerara su uso dentro del horario normal 
+			    	<textarea class="textarea" name="condiciones" placeholder="* Escribe acá todas las restricciones de uso de las Gift Cards por día, tipo de producto, horarios de uso, etc.                                                                                                                           Ej. Sólo canjeable de martes a jueves previa reserva al 2235764."></textarea>
+			    	<p class="tip">* Si se deja este campo vacio se considerara su uso dentro del horario normal 
 de atención del local.</p>
 			    </div>
 			</div>
 			<div class="step_hidden">
-			    <h3>Prepárate...</h3>
+			    <h4>Prepárate...</h4>
 			    <div class="step_content">
 			    	<p>Haz click en el botón y envía tus descuentos ahora:</p>
 			    </div>
@@ -200,9 +197,9 @@ de atención del local.</p>
 	           .toggleClass('step_done');
 
 	    if($active.find('input[type=radio]').length){
-	    	var chosenOption = $active.find('input[type=radio]:checked').prev('label').text();
+	    	var chosenOption = $active.find('input[type=radio]:checked').next('label').text();
 	    }else if($active.find('textarea').length){
-	    	var chosenOption = $active.find('textarea').text();
+	    	var chosenOption = $active.find('textarea').val();
 	    }
 
 	    $active.find('h3 > small').text(chosenOption)

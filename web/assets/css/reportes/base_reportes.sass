@@ -1116,7 +1116,8 @@ a
 
 .lolbox
     width: 570px
-    height: 470px
+    height: 570px
+    color: $gris_444
     background: $blanco   
     display: block
 
@@ -1171,11 +1172,11 @@ a
     
     .step_active
         display: block
-        margin: 0 90px
+        margin: 0 60px
         height: auto
         overflow: hidden
 
-        h3
+        h3, h4
             font:
                 size: 16px
                 weight: bold
@@ -1184,7 +1185,7 @@ a
             margin: 40px 0
         
         small
-            display:none
+            display: none
 
         .step_content
             height: auto
@@ -1193,7 +1194,7 @@ a
             color: $gris_666
             overflow: hidden
 
-            .rango_descuentos
+            .rango_descuentos, .rango_tiempo
                 list-style: none
                 margin: 0 0 0 35px
                 padding: 0
@@ -1210,6 +1211,30 @@ a
                     label
                         margin: 0 0 0 15px
 
+            .rango_tiempo
+                margin: 0 140px
+                height: 120px
+                width: 110px
+
+            .textarea
+                border: 1px solid $gris_eee
+                height: 110px
+                width: 404px
+                line-height: 20px
+                margin: 0 20px
+
+                &:hover
+                    border: 1px solid $gris_999
+
+                &:active
+                    border: 1px solid $azul
+
+            .tip
+                font:
+                    size: 12px
+                margin: 10px 20px 0 
+                line-height: 18px
+
     .step_done
         margin: 10px 0 0
         padding: 23px 0
@@ -1224,6 +1249,12 @@ a
 
         small
             display: inline-block
+            background: $gris_666
+            color: $blanco
+            padding: 5px
+            font:
+                weight: bold
+            margin: 0 0 0 5px
 
         .step_content
             display: none
