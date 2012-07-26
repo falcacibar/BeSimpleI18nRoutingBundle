@@ -107,89 +107,25 @@
 		</div>
 	</div>
 
-	<style>
-		.fancybox-outer, .fancybox-inner{
-			background: white;
-		}
-
-		.rango_descuentos{
-			list-style: none;
-			margin: 0;
-			padding: 0;
-			height: 200px;
-			float: left;
-		}
-
-			.rango_descuentos li{
-				width: 90px;
-				display: block;
-				margin-top: 5px;
-			}
-
-				.rango_descuentos label, .rango_descuentos input{
-					display: inline;
-				}
-
-	.lolbox{
-			width: 570px;
-			height: 470px;
-			background: red;   
-			display: block;
-	}
-
-	.step_static,.step_done{
-			background: papayawhip;
-			height: 70px;
-			display: block;   
-			width: 100%;
-	    overflow: hidden;
-	}
-
-	.step_done small{
-		display: inline-block;
-	}
-
-	.step_hidden{
-		display: none;   
-	}
-	.step_active{
-		background: #3bf; 
-		display: block;
-		height: auto;
-		overflow: hidden;
-	}
-
-		.step_active small{
-			display:none;
-		}
-
-	    .step_done h3, .step_static h3, .step_active h3{
-		    display: block;                
-		    height: 70px;
-		    width: 100%;
-		    background: green;
-		    margin-top: 0;
-	    }
-
-	.lolbox_siguiente{
-		background: #3bf;
-		width: 200px;
-		height: 40px;
-		display: block;
-		margin: 20px auto;
-	}
-	</style>
 <div style="display:none">
 	<div class="lolbox">
 		<form method="post" class="nuevo_descuento" action="{{ path('_reporte_descuentos_enviar', {'slug': lugar.slug, 'id': id}) }}">
-			<div class="step_static"><span class="numero_seleccionados">0</span> Participantes</div>
+			<div class="step_static">
+				<div class="participantes_concurso">
+					<div class="cantidad_participantes_izq"></div>
+					<div class="cantidad_participantes seleccionados">
+						<span class="numero_participantes numero_seleccionados">0</span> <span class="seguidores_seleccionados">Loogareños seleccionados</span>
+					</div>
+					<div class="cantidad_participantes_der"></div>
+				</div>
+			</div>
 			<div class="step_active">
-					<h3>¿Que porcentaje de descuento deseas regalar?<small></small></h3>
+					<h3>1. ¿Que tipo de descuento quieres regalar?<small></small></h3>
 					<div class="step_content">
 						<ul class="rango_descuentos">
 							{% for dco in [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90] %}
 							<li>
-								<label>{{dco}}%</label><input type="radio" value="{{dco}}" name="dco" />
+								<input type="radio" value="{{dco}}" name="dco" /> <label>{{dco}}%</label>
 							</li>
 							{% if loop.index % 6 == 0 %}</ul><ul class="rango_descuentos">{% endif %}
 							{% endfor %}
@@ -197,7 +133,7 @@
 					</div>
 			</div>
 			<div class="step_hidden">
-			    <h3>¿Cuanto tiempo quieres que dure el descuento?<small></small></h3>
+			    <h3>2. ¿Cuanto tiempo quieres que dure el descuento? <small></small></h3>
 			    <div class="step_content">
 						<ul class="rango_tiempo">
 							<li>
@@ -210,20 +146,22 @@
 					</div>    
 			</div>
 			<div class="step_hidden">
-			    <h3>¿Cuales son las condiciones de uso del descuento?<small></small></h3>
+			    <h3>3. ¿Cuáles son las condiciones de uso del descuento?<small></small></h3>
 			    <div class="step_content">
-			    	<textarea name="condiciones">This is a text area, this is the best textarea around.</textarea>
-			    	<p>* condiciones</p>
+			    	<textarea name="condiciones" placeholder="*Escribe acá todas las restricciones de uso de las Gift Cards por día, tipo de producto, horarios de uso, etc.
+			    	Ej. Sólo canjeable de martes a jueves previa reserva al 2235764."></textarea>
+			    	<p>*Si se deja este campo vacio se considerara su uso dentro del horario normal 
+de atención del local.</p>
 			    </div>
 			</div>
 			<div class="step_hidden">
-			    <h3>Preparáte...</h3>
+			    <h3>Prepárate...</h3>
 			    <div class="step_content">
-			    	<p>Haz click en el botón y envia tus descuentos ahora.</p>
+			    	<p>Haz click en el botón y envía tus descuentos ahora:</p>
 			    </div>
 			</div>
 			<div class="step_hidden step_final">
-			    <p>Felicitaciones, tus descuentos han sido enviados con exito.</p>
+			    <p>¡Felicitaciones tus descuentos han sido enviados con exito!</p>
 			</div>
 			<input type="button" class="siguiente_paso" value="Seleccionar"/>
 		</form>

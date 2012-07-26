@@ -1110,6 +1110,139 @@ a
                         top: 0
                         width: 90px
 
+/* Lightbox selección Dscto. */
+.fancybox-outer, .fancybox-inner
+    background: white
+
+.lolbox
+    width: 570px
+    height: 470px
+    background: $blanco   
+    display: block
+
+    .step_static, .step_done
+        background: #FAFAFC
+        height: 30px
+        display: block  
+        padding: 15px 0
+        width: 570px
+        overflow: hidden
+
+        .participantes_concurso
+            float: left
+            margin: 0 179px
+
+            .cantidad_participantes_izq
+                background: url('../../images/extras/borde_izq_participantes.png') no-repeat 0 0
+                float: left
+                height: 26px
+                width: 6px
+
+            .cantidad_participantes_der
+                background: url('../../images/extras/borde_der_participantes.png') no-repeat 0 0
+                float: left
+                height: 26px
+                width: 6px
+
+            .cantidad_participantes
+                background: $azul_participantes
+                color: $gris_666
+                font:
+                    size: 11px
+                float: left
+                height: 12px
+                padding: 7px 5px
+                text-align: center
+                width: 190px
+
+                .numero_participantes
+                    background: $gris_666
+                    border-radius: 8px
+                    -o-border-radius: 8px
+                    -moz-border-radius: 8px
+                    -webkit-border-radius: 8px
+                    color: $blanco
+                    padding: 3px 6px
+
+                .seguidores_seleccionados
+                    color: $gris_444
+                    font:
+                        size: 12px
+    
+    .step_active
+        display: block
+        margin: 0 90px
+        height: auto
+        overflow: hidden
+
+        h3
+            font:
+                size: 16px
+                weight: bold
+            text-align: center             
+            width: 100%
+            margin: 40px 0
+        
+        small
+            display:none
+
+        .step_content
+            height: auto
+            font:
+                size: 14px
+            color: $gris_666
+            overflow: hidden
+
+            .rango_descuentos
+                list-style: none
+                margin: 0 0 0 35px
+                padding: 0
+                height: 160px
+                float: left
+                width: 90px
+
+                li
+                    margin: 0 0 15px
+
+                    label, input
+                        display: inline
+
+                    label
+                        margin: 0 0 0 15px
+
+    .step_done
+        margin: 10px 0 0
+        padding: 23px 0
+        height: 14px
+
+        h3
+            font:
+                size: 12px
+            text-align: left             
+            width: 550px
+            margin: 0 0 0 20px
+
+        small
+            display: inline-block
+
+        .step_content
+            display: none
+
+
+    .step_hidden
+        display: none   
+
+    .lolbox_siguiente
+        background: #3bf
+        width: 200px
+        height: 40px
+        display: block
+        margin: 20px auto
+
+    .siguiente_paso
+        float: left
+        margin: 45px 247px 0
+
 .footer_reporte
     background: $gris_faf
     border-top: 1px solid $gris_f6f
