@@ -1028,11 +1028,62 @@ a
                 .seguidores_sidebar
                     background: $gris_fac
                     border-bottom: 1px solid $gris_ccc
-                    height: 80px
+                    height: 70px
                     margin: 70px 0 0 0
-                    padding: 10px
+                    padding: 15px 10px
                     position: fixed
                     width: 250px
+
+                    .participantes_concurso
+                        float: left
+                        margin: 0 19px
+
+                        .cantidad_participantes_izq
+                            background: url('../../images/extras/borde_izq_participantes.png') no-repeat 0 0
+                            float: left
+                            height: 26px
+                            width: 6px
+
+                        .cantidad_participantes_der
+                            background: url('../../images/extras/borde_der_participantes.png') no-repeat 0 0
+                            float: left
+                            height: 26px
+                            width: 6px
+
+                        .cantidad_participantes
+                            background: $azul_participantes
+                            color: $gris_666
+                            font:
+                                size: 11px
+                            float: left
+                            height: 12px
+                            padding: 7px 5px
+                            text-align: center
+                            width: 190px
+
+                            .numero_participantes
+                                background: $gris_666
+                                border-radius: 8px
+                                -o-border-radius: 8px
+                                -moz-border-radius: 8px
+                                -webkit-border-radius: 8px
+                                color: $blanco
+                                padding: 3px 6px
+
+                            .seguidores_seleccionados
+                                color: $gris_444
+                                font:
+                                    size: 12px
+
+                    .otorgar_gift
+                        background: url('../../images/reporte/botones_panel_dueno.png') -1720px -5px
+                        float: left
+                        height: 29px
+                        margin: 15px 60px
+                        width: 140px
+
+                        &:hover
+                            background: url('../../images/reporte/botones_panel_dueno.png') -1720px -75px
 
                 .ayuda
                     background: $gris_fac
@@ -1050,6 +1101,14 @@ a
                         font:
                             size: 14px
                             weight: bold
+
+                    .fondo_interrogacion
+                        background: url('../../images/reporte/botones_panel_dueno.png') 0px -668px
+                        left: 216px
+                        height: 55px
+                        position: absolute
+                        top: 0
+                        width: 90px
 
 .footer_reporte
     background: $gris_faf

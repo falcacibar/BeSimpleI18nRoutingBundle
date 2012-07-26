@@ -4,21 +4,6 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
 {% endblock %}
 {% block content %}
-<style>
-
-		.otorgar_gift{
-			width: 200px;
-			height: 30px;
-			top: 20px;
-			position: absolute;
-			background: #3bf;
-			opacity: 1;
-		}
-
-		.seguidores_footer p{
-			color: #f1f1f1;
-		}
-</style>
 
 <div class="seguidores">
 
@@ -105,10 +90,17 @@
 
 	<div class="sidebar">
 		<div class="seguidores_sidebar">
-			<p class="seleccionados"><span class="numero_seleccionados">0</span> Seleccionados</p>
+			<div class="participantes_concurso">
+				<div class="cantidad_participantes_izq"></div>
+				<div class="cantidad_participantes seleccionados">
+					<span class="numero_participantes numero_seleccionados">0</span> <span class="seguidores_seleccionados">Loogareños seleccionados</span>
+				</div>
+				<div class="cantidad_participantes_der"></div>
+			</div>
 			<div class="otorgar_gift"></div>
 		</div> 
 		<div class="ayuda">
+			<div class="fondo_interrogacion"></div>
 			<p class="titulo">Necesitas ayuda?</p>
 			<p>Contáctanos al <strong>+56 2 724 0993</strong><br/>
 				ó escribenos a <a href="mailto:contacto@loogares.com">contacto@loogares.com</a></p>
