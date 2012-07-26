@@ -124,4 +124,33 @@ class Descuento
     {
         return $this->cantidad;
     }
+    /**
+     * @var Loogares\CampanaBundle\Entity\DescuentosUsuarios
+     */
+    private $descontados;
+
+    public function __construct()
+    {
+        $this->descontados = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add descontados
+     *
+     * @param Loogares\CampanaBundle\Entity\DescuentosUsuarios $descontados
+     */
+    public function addDescuentosUsuarios(\Loogares\CampanaBundle\Entity\DescuentosUsuarios $descontados)
+    {
+        $this->descontados[] = $descontados;
+    }
+
+    /**
+     * Get descontados
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getDescontados()
+    {
+        return $this->descontados;
+    }
 }

@@ -1,8 +1,178 @@
 {% extends "LoogaresCampanaBundle:Layout:base_campanas.html.twig" %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
 {% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
+	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
+	<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
+	<script>
+		$('.comunas').chosen();
+
+		var qtipHide = {
+	    fixed: true,
+	    delay: 200,
+	    event: 'mouseleave'
+		}
+
+		var qtipShow = {
+			solo: true
+		};
+
+		var qtipPosition = {
+	    my: 'bottom center', 
+	    at: 'top center',
+	    adjust: {
+	        x: -10,
+	        y: -2
+	    },
+	  };
+
+	  var qtipStyle = {
+	    classes: 'ui-tooltip-precio',
+	    tip: {
+	      border: 0,
+	      width: 12,
+	      color: '#f0f',
+	      corner: true,
+	      offset: 0
+	    }
+	  };
+
+		$('.numero_descuentos').qtip({
+	    show: qtipShow,
+	    content: {
+	        text: $('.qtip_descuentos').text()
+	    },
+	    style: qtipStyle,
+	    position: qtipPosition,
+	    hide: qtipHide
+		});
+
+		$('.numero_be').qtip({
+	    show: qtipShow,
+	    content: {
+	        text: $('.qtip_be').text()
+	    },
+	    style: qtipStyle,
+	    position: qtipPosition,
+	    hide: qtipHide
+		});
+
+		$('.numero_recomendaciones').qtip({
+	    show: qtipShow,
+	    content: {
+	        text: $('.qtip_recomendaciones').text()
+	    },
+	    style: qtipStyle,
+	    position: qtipPosition,
+	    hide: qtipHide
+		});
+		$('.si').qtip({
+	    show: qtipShow,
+	    content: {
+	        text: $('.qtip_recomendo').text()
+	    },
+	    style: qtipStyle,
+	    position: qtipPosition,
+	    hide: qtipHide
+		});
+		$('.no').qtip({
+	    show: qtipShow,
+	    content: {
+	        text: $('.qtip_no_recomendo').text()
+	    },
+	    style: qtipStyle,
+	    position: qtipPosition,
+	    hide: qtipHide
+		});
+
+		$('.seguidores_checkbox').change(function(){
+			var $this = $(this);
+			var $seleccionados = $('.numero_seleccionados');
+			var seleccionadosCount = parseInt($seleccionados.html());
+
+			($this.is(':checked'))?seleccionadosCount++:seleccionadosCount--;
+			$seleccionados.html(seleccionadosCount)
+		});
+
+		$(".otorgar_gift").fancybox({
+	    type: 'inline',
+			content: $('.lolbox'),
+			padding: 0,
+			fitToView: false
+		});
+
+		$('.siguiente_paso').click(function(){
+				$active = $('.step_active');
+				$active.find('.lolbox-error').remove();
+
+		    if($('.step_active').hasClass('step_last')){
+		    	if($('input[class=seguidores_checkbox]:checked').length == 0){
+						$active.find('h4').after('<div class="lolbox-error">Error</div>');
+						return;
+					}
+		    }
+
+				if($active.find('input[type=radio]').length > 0){
+					if($active.find('input[type=radio]:checked').length == 0){
+						$active.find('h3').after('<div class="lolbox-error">Error</div>');
+						return;
+					}
+				}
+
+				if($active.find('textarea').length == 1){
+					if($active.find('textarea').val().length == 0){
+						$active.find('h3').after('<div class="lolbox-error">Error</div>');
+						return;
+					}
+				}
+		    
+		    $active.next('div:not(.siguiente_paso)')
+		                     .removeClass('step_hidden')
+		                     .removeClass('step_done')            
+		                     .addClass('step_active');
+		                     
+		    $active.toggleClass('step_active')
+		           .toggleClass('step_done');
+
+		    if($active.find('input[type=radio]').length){
+		    	var chosenOption = $active.find('input[type=radio]:checked').next('label').text();
+		    }else if($active.find('textarea').length){
+		    	var chosenOption = $active.find('textarea').val();
+		    }
+
+		    $active.find('h3 > small').text(chosenOption)
+
+		    if($('.step_active').next('div').hasClass('step_final')){
+		    	$('.siguiente_paso').val('Enviar');
+		    }else{
+		    	$('.siguiente_paso').val('Seleccionar')
+		    }
+
+		    if($('.step_active').hasClass('step_final')){
+		    	$('.siguiente_paso').remove();
+		    	$('.step_static').append($('input[class=seguidores_checkbox]:checked'))
+		    	$('.nuevo_descuento').submit()
+		    	$('.step_done, .step_static').hide();
+		    }
+		});
+		    
+		$('.step_done').live('click', function(){            
+		    $('.step_active')
+		        .removeClass('step_active')
+		        .addClass('step_done');
+		    $(this)
+		        .removeClass('step_done')
+		        .addClass('step_active');    
+		});
+	</script>
+{% endblock %}
+
 {% block content %}
 
 <div class="seguidores">
@@ -15,37 +185,37 @@
 		<ul class="ordenar_por">
 			<li class="tipos_de_orden">Ordenar por:</li>
 			<li class="tipos_de_orden">
-				{#% if orden == 'recomendaciones' %}
+				{% if orden == 'recomendaciones' %}
 					<p class="selected">Nº Recomendaciones</p>
-				{#% else %#} 
+				{% else %} 
 					<a href="?orden=recomendaciones">Nº Recomendaciones</a>
-				{#% endif %#}| 
+				{% endif %}| 
 			</li>
 			<li class="tipos_de_orden">
-				{#% if orden == 'premios' %}
+				{% if orden == 'premios' %}
 					<p class="selected">Premios ganados</p>
-				{#% else %#} 
+				{% else %} 
 					<a href="?orden=premios">Premios ganados</a>
-				{#% endif %#}| 
+				{% endif %}| 
 			</li>
 			<li class="tipos_de_orden">
-				{#% if orden == 'descuentos' %}
+				{% if orden == 'descuentos' %}
 					<p class="selected">Descuentos regalados</p>
-				{#% else %#} 
+				{% else %} 
 					<a href="?orden=descuentos">Descuentos regalados</a>
-				{#% endif %#}| 
+				{% endif %}| 
 			</li>
 		</ul>
 		<form class="filtrar_por">
-			{#% if recomendo == null %#}
+			{% if recomendo == null %}
 				<a class="han_recomendado" href="?recomendo">Han recomendado {{lugar.nombre-}}</a>
-			{#% else %} 
+			{% else %} 
 				<a class="han_recomendado" href="{{ path('_reporte_seguidores', {'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Ver todos los seguidores</a>
-			{#% endif %#}| 
+			{% endif %}| 
 			<select class="comunas" name="comuna" style="width: 220px">
 				<option value="todas">Todas</option>
 				{% for comuna in comunas %}
-					<option {% if comuna.usuario.comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.usuario.comuna.slug}}">{{comuna.usuario.comuna.nombre}}</option>
+					<option {% if comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.slug}}">{{comuna.nombre}}</option>
 				{% endfor %}
 			</select>
 			<input type="submit" value="filtrar">
@@ -61,31 +231,36 @@
 
 	<div class="caja_seguidores seleccion">
 		{% for seguidor in seguidores %}
-		<input type="checkbox" value="{{seguidor.usuario.slug}}" class="seguidores_checkbox" name="seguidores[]" />
+		<input type="checkbox" value="{{seguidor.usuarioSlug}}" class="seguidores_checkbox" name="seguidores[]" />
 		<div class="seguidor">
 			<div class="seguidor_imagen">
-				<img src="{#{ ('assets/images/usuarios/'~seguidor.usuarioImagen) | apply_filter('tiny_usuario')}#}" height="30" width="30" />
+				<img src="{{ ('assets/images/usuarios/'~seguidor.usuarioImagen) | apply_filter('tiny_usuario')}}" height="30" width="30" />
 			</div>
 			<div class="seguidor_datos">
-				<a href="#">{% if seguidor.usuario.nombre != '' %} {{seguidor.usuario.nombre}} {{seguidor.usuario.apellido}} {% else %} {{seguidor.usuario.slug}} {% endif %}</a>
-				<p class="comuna">{% if seguidor.usuario.comuna %} {{seguidor.usuario.comuna.nombre}} {% endif %}</p>
+				<a href="#">{% if seguidor.usuarioNombre != '' %} {{seguidor.usuarioNombre}} {{seguidor.usuarioApellido}} {% else %} {{seguidor.usuarioSlug}} {% endif %}</a>
+				<p class="comuna">{% if seguidor.comunaNombre %} {{seguidor.comunaNombre}} {% endif %}</p>
 			</div>
 			<div class="seguidor_iconos">
 				<div class="numero_recomendaciones">
-					<p class="valor">{{seguidor.usuario.recomendaciones|length}}</p>
+					<p class="valor">{{seguidor.totalRecomendaciones}}</p>
 				</div>
 				<div class="numero_descuentos">
-					<p class="valor">{#{seguidor.totalDescuentos}#}</p>
+					<p class="valor">{{seguidor.totalDescuentos}}</p>
 				</div>
 				<div class="numero_be">
-					<p class="valor">{#{seguidor.totalBe}#}</p>
+					<p class="valor">{{seguidor.totalBe}}</p>
 				</div>
-				<div class="recomendacion_lugar {#% if seguidor.recomendo %#}si{#% else %}no{% endif %#}">
-					<a href="{#{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }#}" target="_blank"></a>
+				<div class="recomendacion_lugar {% if seguidor.recomendo %}si{% else %}no{% endif %}">
+					<a href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }}" target="_blank"></a>
 				</div>
 			</div>
 		</div>
 		{% endfor %}
+		<div class="qtip_recomendo qtip">Ha recomendado tu lugar</div>
+		<div class="qtip_no_recomendo qtip">No ha recomendado tu lugar</div>
+		<div class="qtip_recomendaciones qtip">Recomendaciones</div>
+		<div class="qtip_descuentos qtip">Descuentos recibidos</div>
+		<div class="qtip_be qtip">Premios ganados</div>
 	</div>
 
 	<div class="sidebar">
@@ -109,6 +284,16 @@
 
 <div style="display:none">
 	<div class="lolbox">
+		<style>
+			.lolbox-error{
+				width: 100px;
+				height: 40px;
+				display: block;
+				background: red;
+				top: 40%;
+				left: 40%;
+			}
+		</style>
 		<form method="post" class="nuevo_descuento" action="{{ path('_reporte_descuentos_enviar', {'slug': lugar.slug, 'id': id}) }}">
 			<div class="step_static">
 				<div class="participantes_concurso">
@@ -151,7 +336,7 @@
 de atención del local.</p>
 			    </div>
 			</div>
-			<div class="step_hidden">
+			<div class="step_hidden step_last">
 			    <h4>Prepárate...</h4>
 			    <div class="step_content">
 			    	<p class="tip center">Haz click en el botón y envía tus descuentos ahora:</p>

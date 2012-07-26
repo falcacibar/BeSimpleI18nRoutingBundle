@@ -1220,7 +1220,6 @@ class AdminController extends Controller
                 $lr->actualizarPromedios($lugar->getSlug());
                 $lr->actualizarPromedios($lugarAntiguo->getSlug());
                 $aur->actualizarAcccionesUsuario($lugarAntiguo->getId(), $lugar->getId(), $recomendacion->getUsuario()->getId());
-                $arr->actualizarActividadReciente($recomendacion->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
 
                 $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 and u.estado != 3 ORDER BY u.id desc");
                 $q->setMaxResults(1);
