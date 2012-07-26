@@ -149,9 +149,10 @@
 		    $active.find('h3 > small').text(chosenOption)
 
 		    if($('.step_active').next('div').hasClass('step_final')){
-		    	$('.siguiente_paso').val('Enviar');
+		    	$('.siguiente_paso')
+		    		.removeClass('siguiente_paso')
+		    		.addClass('enviar_dscto');
 		    }else{
-		    	$('.siguiente_paso').val('Seleccionar')
 		    }
 
 		    if($('.step_active').hasClass('step_final')){
@@ -169,6 +170,16 @@
 		    $(this)
 		        .removeClass('step_done')
 		        .addClass('step_active');    
+		});
+
+
+		$('.seguidores_checkbox').click(function(){
+			$this = $(this);
+			if($this.is(':checked')){
+				$this.next('.seguidor').addClass('seguidor_selected')
+			}else{
+				$this.next('.seguidor').removeClass('seguidor_selected')
+			}
 		});
 	</script>
 {% endblock %}
@@ -210,8 +221,8 @@
 			{% if recomendo == null %}
 				<a class="han_recomendado" href="?recomendo">Han recomendado {{lugar.nombre-}}</a>
 			{% else %} 
-				<a class="han_recomendado" href="{{ path('_reporte_seguidores', {'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Ver todos los seguidores</a>
-			{% endif %}| 
+				<a class="han_recomendado" href="{{ path('_reporte_descuentos_nuevo', {'id':id, 'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Ver todos los seguidores</a>
+			{% endif %}
 			<select class="comunas" name="comuna" style="width: 220px">
 				<option value="todas">Todas</option>
 				{% for comuna in comunas %}
@@ -345,73 +356,8 @@ de atención del local.</p>
 			<div class="step_hidden step_final">
 			    <p>¡Felicitaciones tus descuentos han sido enviados con exito!</p>
 			</div>
-			<input type="button" class="siguiente_paso" value="Seleccionar"/>
+			<input type="button" class="siguiente_paso" value=""/>
 		</form>
 	</div>​
 </div>
-{% endblock %}
-
-{% block javascripts %}
-  <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
-	<script>
-	$('.seguidores_checkbox').change(function(){
-		var $this = $(this);
-		var $seleccionados = $('.numero_seleccionados');
-		var seleccionadosCount = parseInt($seleccionados.html());
-
-		($this.is(':checked'))?seleccionadosCount++:seleccionadosCount--;
-		$seleccionados.html(seleccionadosCount)
-	});
-
-	$(".otorgar_gift").fancybox({
-    type: 'inline',
-		content: $('.lolbox'),
-		padding: 0,
-		fitToView: false
-	});
-
-	$('.siguiente_paso').click(function(){
-	    $active = $('.step_active');
-	    
-	    $active.next('div:not(.siguiente_paso)')
-	                     .removeClass('step_hidden')
-	                     .removeClass('step_done')            
-	                     .addClass('step_active');
-	                     
-	    $active.toggleClass('step_active')
-	           .toggleClass('step_done');
-
-	    if($active.find('input[type=radio]').length){
-	    	var chosenOption = $active.find('input[type=radio]:checked').next('label').text();
-	    }else if($active.find('textarea').length){
-	    	var chosenOption = $active.find('textarea').val();
-	    }
-
-	    $active.find('h3 > small').text(chosenOption)
-
-	    if($('.step_active').next('div').hasClass('step_final')){
-	    	$('.siguiente_paso').val('Enviar');
-	    }else{
-	    	$('.siguiente_paso').val('Seleccionar')
-	    }
-
-	    if($('.step_active').hasClass('step_final')){
-	    	$('.siguiente_paso').remove();
-	    	$('.nuevo_descuento').append($('input[class=seguidores_checkbox]:checked'))
-	    	//$('.nuevo_descuento').submit()
-	    	$('.step_done, .step_static').hide();
-	    }
-	});
-	    
-	$('.step_done').live('click', function(){            
-	    $('.step_active')
-	        .removeClass('step_active')
-	        .addClass('step_done');
-	    $(this)
-	        .removeClass('step_done')
-	        .addClass('step_active');    
-	});
-
-
-	</script>
 {% endblock %}
