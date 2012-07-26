@@ -1422,7 +1422,11 @@ class LugarController extends Controller{
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '' && !isset($_POST['editando'])) {
                 // Buscamos dueño del lugar
-                $owner = $lugar->getDueno()->getUsuario();
+                try{
+                    $owner = $lugar->getDueno();
+                }catch (\Exception $e){
+                    $owner = null;
+                }
 
                 $mailParam = '';
                 if($owner != null)
