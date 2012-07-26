@@ -1421,9 +1421,9 @@ class LugarController extends Controller{
 
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '' && !isset($_POST['editando'])) {
-                // Buscamos dueño del lugar
                 try{
                     $owner = $lugar->getDueno();
+                    $owner->getMail(); //Gatillamos el error aproposito!
                 }catch (\Exception $e){
                     $owner = null;
                 }
@@ -2166,6 +2166,7 @@ class LugarController extends Controller{
         $formErrors = array();
 
         $lugar = $lr->findOneBySlug($slug);
+        $dueno = $lugar->getDueno();
 
         if($request->getMethod() == 'POST') {
             if(!$request->request->get('reporte')) {

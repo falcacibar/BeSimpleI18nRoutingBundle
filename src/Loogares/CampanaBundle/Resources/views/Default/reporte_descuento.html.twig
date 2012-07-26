@@ -36,7 +36,7 @@
 		<ul class="lista_de_ganadores">
 		{% for descontado in descuento.descontados %}
 			<li class="ganador">
-				<input type="checkbox" class="checkbox"></input>
+				<input type="checkbox" data-ganador="{{descontado.id}}" class="canjes_checkbox" class="checkbox"></input>
 				<div class="imagen_usuario">
 					<img src="" height="30" width="30" />
 				</div>
@@ -57,4 +57,40 @@
 	</div>
 
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+	$(function(){
+		$('.boton_canjeada').click(function(){
+			if(confirm('¿Estás seguro de marcar los cupones como canjeados? Sólo se pueden asignar una sola vez')) {
+				var canjesCheckbox = $('.canjes_checkbox').filter(':checked').filter(':not(:disabled)');
+				if(canjesCheckbox.length > 0) {
+					var canjes = new Array();
+					canjesCheckbox.each(function(){
+						canjes.push($(this).attr('data-ganador'));
+					});
+
+					$.ajax({
+			            url: WEBROOT+'../ajax/cupones_canjeados',
+			            type: 'post',
+			            data: {'canjes' : canjes, 'descuentos': true},
+			            dataType: 'json',
+			            success: function(data){
+			            	if(data.status == 'ok') {
+			            		canjesCheckbox.attr('disabled', 'disabled');
+			            	}
+			            }
+        			});
+				}
+				else{
+					alert('No has seleccionado cupones para marcarlos como canjeados');
+				}
+			}
+			else {
+	    		return false;
+	    	}	
+		});
+	});
+</script>
 {% endblock %}

@@ -9,13 +9,13 @@
                     <strong>{{'admin.notificaciones.saludo'|trans({'%nombre%' : mail.usuario.nombre, '%apellido%' : mail.usuario.apellido})}}</strong>
                     <br />
                     <br />
-                    {{'admin.notificaciones.canje.supimos'|trans}} <strong><a href="{{url('_lugar', {'slug' : mail.concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none;">{{mail.concurso.post.lugar.nombre}}</a></strong>. {{'admin.notificaciones.canje.ahora'|trans|raw}} <strong>{{mail.concurso.post.lugar.nombre}}</strong> {{'admin.notificaciones.canje.feedback'|trans}}
+                    {{'admin.notificaciones.canje.supimos'|trans}} <strong><a href="{{url('_lugar', {'slug' : mail.lugar.slug})}}" style="color: #0066CC; text-decoration: none;">{{mail.lugar.nombre}}</a></strong>. {{'admin.notificaciones.canje.ahora'|trans|raw}} <strong>{{mail.lugar.nombre}}</strong> {{'admin.notificaciones.canje.feedback'|trans}}
                     <br />
                     <br />
-                    {{'admin.notificaciones.canje.entra'|trans}} <a href="{{url('_lugar', {'slug' : mail.concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none;">{{'admin.notificaciones.ganadores.perfil_link'|trans}}</a> {{'admin.notificaciones.canje.ficha'|trans}}
+                    {{'admin.notificaciones.canje.entra'|trans}} <a href="{{url('_lugar', {'slug' : mail.lugar.slug})}}" style="color: #0066CC; text-decoration: none;">{{'admin.notificaciones.ganadores.perfil_link'|trans}}</a> {{'admin.notificaciones.canje.ficha'|trans}}
                     <br />
                     <br />
-                    {{'admin.notificaciones.canje.interesado'|trans}} <a href="{{url('concursos', {'ciudad' : mail.concurso.post.lugar.comuna.ciudad.slug})}}" style="color: #0066CC; text-decoration: none;">{{'admin.notificaciones.ganadores.perfil_link'|trans}}</a>.
+                    {{'admin.notificaciones.canje.interesado'|trans}} <a href="{{url('concursos', {'ciudad' : mail.lugar.comuna.ciudad.slug})}}" style="color: #0066CC; text-decoration: none;">{{'admin.notificaciones.ganadores.perfil_link'|trans}}</a>.
                     <br />
                     <br />
                     {{'admin.notificaciones.ganadores.saludos'|trans}}

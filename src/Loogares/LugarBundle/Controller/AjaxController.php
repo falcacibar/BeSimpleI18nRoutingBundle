@@ -477,26 +477,46 @@ class AjaxController extends Controller{
 
     public function cuponesCanjeadosAction(Request $request) {
       $em = $this->getDoctrine()->getEntityManager();
-      $gr = $em->getRepository("LoogaresBlogBundle:Ganador");
+      if($request->request->get('descuentos') == true){
+        $gr = $em->getRepository("LoogaresCampanaBundle:DescuentosUsuarios");
+        $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+      }else{
+        $gr = $em->getRepository("LoogaresBlogBundle:Ganador");
+      }
+
       foreach($request->request->get('canjes') as $c) {
         $ganador = $gr->find($c);
         $ganador->setCanjeado(true);
 
         $em->persist($ganador);
-        $em->flush();
+        //$em->flush();
 
-        // Se envía mail al ganador informando el premio
         $mail = array();
-        $mail['asunto'] = $this->get('translator')->trans('extra.modulo_concursos.canjes.mail.asunto', array('%nombre%' => $ganador->getParticipante()->getConcurso()->getPost()->getLugar()->getNombre()));
-        $mail['usuario'] = $ganador->getParticipante()->getUsuario();
-        $mail['ganador'] = $ganador;
-        $mail['concurso'] = $ganador->getParticipante()->getConcurso();
         $paths = array();
-
         $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
-        $message = $this->get('fn')->enviarMail($mail['asunto'], $ganador->getParticipante()->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_canje.html.twig', $this->get('templating'));
-        $this->get('mailer')->send($message);
+        if(!$request->request->get('descuentos')){ 
+          // Se envía mail al ganador informando el premio
+          $usuario = $ganador->getParicipante()->getusuario();
+
+          $mail['asunto'] = $this->get('translator')->trans('extra.modulo_concursos.canjes.mail.asunto', array('%nombre%' => $ganador->getParticipante()->getConcurso()->getPost()->getLugar()->getNombre()));
+          $mail['usuario'] = $ganador->getParticipante()->getUsuario();
+          $mail['ganador'] = $ganador;
+          $mail['lugar'] = $ganador->getParticipante()->getConcurso()->getPost()->getLugar();
+          $message = $this->get('fn')->enviarMail($mail['asunto'], $ganador->getParticipante()->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_canje.html.twig', $this->get('templating'));
+        }else{
+        // Se envía mail al descontado informando el premio
+          $campana = $cr->findOneByDescuento($ganador->getDescuento()->getId());
+          $usuario = $ganador->getusuario();
+
+          $mail['asunto'] = $this->get('translator')->trans('extra.modulo_concursos.canjes.mail.asunto', array('%nombre%' => $campana->getLugar()->getNombre()));
+          $mail['usuario'] = $ganador->getUsuario();
+          $mail['ganador'] = $ganador;
+          $mail['lugar'] = $campana->getLugar();
+        }
+
+        $message = $this->get('fn')->enviarMail($mail['asunto'], $usuario->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_canje.html.twig', $this->get('templating'));
+        $this->get('mailer')->send($message); 
       }
 
       return new Response(json_encode(array('status' => 'ok')));

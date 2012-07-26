@@ -22,3 +22,7 @@ swiftmailer:
     transport: gmail
     username: noreply@loogares.com
     password: L0og4r3s
+
+framework:
+    session:
+        domain: ".loogares.com"
