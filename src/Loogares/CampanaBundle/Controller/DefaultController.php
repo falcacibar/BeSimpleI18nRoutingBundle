@@ -84,13 +84,28 @@ class DefaultController extends Controller{
 			return $this->forward('LoogaresCampanaBundle:Default:listadoCampanas', array('slug' => $slug, 'id' => $id));
 		}
 
+    $participantesTotales = $this->getDoctrine()->getConnection()
+        					->fetchAll("SELECT u.id as total
+															FROM concursos_usuario cu
+
+															INNER JOIN usuarios u ON u.id = cu.usuario_id 
+
+															INNER JOIN concursos c ON c.id = cu.concurso_id 
+															INNER JOIN blog_posts p ON p.id = c.post_id 
+
+															WHERE p.lugar_id = {$lugar->getId()}
+															GROUP BY u.id");
+
+    $participantesTotales = sizeOf($participantesTotales);
+
 		$meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre');
 
 		return $this->render('LoogaresCampanaBundle:Default:listado_concursos.html.twig',array(
 			'concursos' => $concursos,
 			'meses' => $meses,
 			'id' => $id,
-			'lugar' => $lugar
+			'lugar' => $lugar,
+			'participantesTotales' => $participantesTotales
 		));
 	}
   
@@ -198,7 +213,6 @@ class DefaultController extends Controller{
 															INNER JOIN usuarios u ON u.id = cu.usuario_id 
 															LEFT JOIN comuna co ON co.id = u.comuna_id 
 															LEFT JOIN recomendacion r ON r.estado_id = 2 AND r.usuario_id = u.id AND r.lugar_id = {$lugar->getId()}
-
 
 															INNER JOIN concursos c ON c.id = cu.concurso_id 
 															INNER JOIN blog_posts p ON p.id = c.post_id 
