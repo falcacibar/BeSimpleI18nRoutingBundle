@@ -121,14 +121,14 @@
 
 				if($active.find('input[type=radio]').length > 0){
 					if($active.find('input[type=radio]:checked').length == 0){
-						$active.find('h3').after('<div class="lolbox-error">Error</div>');
+						$active.find('h3').before('<div class="lolbox-error">Debes escoger una de las opciones</div>');
 						return;
 					}
 				}
 
 				if($active.find('textarea').length == 1){
 					if($active.find('textarea').val().length == 0){
-						$active.find('h3').after('<div class="lolbox-error">Error</div>');
+						$active.find('h3').before('<div class="lolbox-error">Debes escribir las condiciones del descuento</div>');
 						return;
 					}
 				}
@@ -315,16 +315,6 @@
 
 <div style="display:none">
 	<div class="lolbox">
-		<style>
-			.lolbox-error{
-				width: 100px;
-				height: 40px;
-				display: block;
-				background: red;
-				top: 40%;
-				left: 40%;
-			}
-		</style>
 		<form method="post" class="nuevo_descuento" action="{{ path('_reporte_descuentos_enviar', {'slug': lugar.slug, 'id': id}) }}">
 			<div class="step_static">
 				<div class="participantes_concurso">
