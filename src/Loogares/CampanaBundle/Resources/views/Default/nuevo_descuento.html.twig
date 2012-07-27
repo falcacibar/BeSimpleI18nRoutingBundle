@@ -111,14 +111,6 @@
 				$active = $('.step_active');
 				$active.find('.lolbox-error').remove();
 
-		    if($active.hasClass('step_last')){
-		    	if($('input[class=seguidores_checkbox]:checked').length == 0){
-						$active.find('h4').after('<div class="lolbox-error">Error</div>');
-						alert('error here')
-						return;
-					}
-		    }
-
 				if($active.find('input[type=radio]').length > 0){
 					if($active.find('input[type=radio]:checked').length == 0){
 						$active.find('h3').before('<div class="lolbox-error">Debes escoger una de las opciones</div>');
@@ -127,7 +119,7 @@
 				}
 
 				if($active.find('textarea').length == 1){
-					if($active.find('textarea').val().length == 0){
+					if($active.find('textarea').val().length == 0){		
 						$active.find('h3').before('<div class="lolbox-error">Debes escribir las condiciones del descuento</div>');
 						return;
 					}
@@ -155,13 +147,22 @@
 		    		.removeClass('siguiente_paso')
 		    		.addClass('enviar_dscto');
 		    }
+		});
 
-		    if($('.step_active').hasClass('step_final')){
-		    	$('.siguiente_paso').remove();
-		    	$('.step_static').append($('input[class=seguidores_checkbox]:checked'))
-		    	$('.nuevo_descuento').submit()
-		    	$('.step_done, .step_static').hide();
-		    }
+		$('.enviar_dscto').live('click', function(){
+			$active = $('.step_active');
+			$active.find('.lolbox-error').remove();
+
+    	if($('input[class=seguidores_checkbox]:checked').length == 0){
+				$active.find('h4').after('<div class="lolbox-error">Error</div>');
+				return;
+			}
+
+    	$(this).remove();
+    	$('.step_static').append($('input[class=seguidores_checkbox]:checked'))
+    	$('.step_final').show();
+    	$('.step_done, .step_static, .step_last').hide();
+    	setTimeout(function(){$('.nuevo_descuento').submit()}, 2000)
 		});
 		    
 		$('.step_done').live('click', function(){  

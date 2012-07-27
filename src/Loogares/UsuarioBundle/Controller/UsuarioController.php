@@ -333,7 +333,8 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
-
+        $dataCupones = array();
+        
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
