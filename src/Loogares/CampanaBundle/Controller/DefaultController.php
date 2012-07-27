@@ -59,6 +59,8 @@ class DefaultController extends Controller{
 		$lugar = $lugarRepository->findOneBySlug($slug);
 		$campanas = $campanaRepository->findByLugar($lugar->getId());
 
+		$campanas = array_reverse($campanas);
+
 		return $this->render('LoogaresCampanaBundle:Default:listado_campanas.html.twig', array(
 			'lugar' => $lugar,
 			'campanas' => $campanas,

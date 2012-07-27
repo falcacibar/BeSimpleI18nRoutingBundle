@@ -79,7 +79,7 @@ usuario:
         recomendaciones: Recomendaciones
         fotos: Fotos
         lugares: Listas de lugares
-        cupones: Gift cards
+        cupones: Premios
 
     actividad:
         titulo: Actividad|Actividad de
@@ -126,7 +126,7 @@ usuario:
             borrar: Borrar
 
     gift_card:
-        titulo: Gift Cards activadas
+        titulo: Premios y descuentos
         codigo: Código Gift Card:
         imprimir: Imprimir cupón
         sin_cupones: No tienes ninguna gift card por cobrar. ¡Participa en nuestros concursos para optar a fabulosos premios!

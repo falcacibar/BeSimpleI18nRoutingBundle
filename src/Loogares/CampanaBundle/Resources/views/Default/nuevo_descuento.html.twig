@@ -124,7 +124,6 @@
 						return;
 					}
 				}
-		    		                     console.log('test');
 
 		    $active.next('div:not(.siguiente_paso)')
 		                     .removeClass('step_hidden')
@@ -365,7 +364,10 @@ de atención del local.</p>
 			    </div>
 			</div>
 			<div class="step_hidden step_final">
-			    <p>¡Felicitaciones tus descuentos han sido enviados con exito!</p>
+			    <div class="exito_envio_dscto">
+			    	<img class="imagen_exito" src="{{ asset('assets/images/reporte/imagen_exito_envio.png') }}" height="121" width="120" />
+			    	<p>¡Felicitaciones tus descuentos han sido enviados con exito!</p>
+			   	</div>
 			</div>
 			<input type="button" class="siguiente_paso" value=""/>
 		</form>

@@ -6,15 +6,19 @@
 	<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': lugar.slug}) }}">Inicio</a> » <a href="{{ path('_reporte_campanas', {'slug': lugar.slug}) }}">Mis campañas</a> » <span class="selected">Descuentos</span></p>
 
 	<ul class="botones_campana_dscto">
-		<li class="boton_be">
-			{% if campana.concursos|length > 0 %}
+		{% if campana.concursos|length > 0 %}
+			<li class="boton_be">
 				<a href="{{ path('_reporte_concursos_listado', { 'slug': lugar.slug, 'id': id }) }}">
 						<div class="icono_be">Beneficios Exclusivos</div>
 				</a>
-			{% else %}
-				<div class="icono_be">Beneficios Exclusivos</div>
-			{% endif %}
-		</li>
+			</li>
+		{% else %}
+			<li class="boton_be_sin_link">
+				<div class="sin_link">
+					<div class="icono_be">Beneficios Exclusivos</div>
+				</div>
+			</li>
+		{% endif %}
 		<li class="boton_dscto">
 			<div class="icono_gc">Descuentos</div>
 		</li>
@@ -42,10 +46,10 @@
 			<li class="ganador">
 				<input type="checkbox" data-ganador="{{descontado.id}}" class="canjes_checkbox" class="checkbox" {% if descontado.canjeado == 1 %}disabled="disabled" checked="checked"{% endif %}></input>
 				<div class="imagen_usuario">
-					<img src="" height="30" width="30" />
+					<img src="{{ ('assets/images/usuarios/'~descontado.usuario.imagenFull) | apply_filter('tiny_usuario')}}" height="30" width="30" />
 				</div>
 				<div class="usuario_info">
-					<a href="#" target="_blank">
+					<a href="{{ path('showUsuario', {'param': descontado.usuario.slug}) }}" target="_blank">
 						{% if descontado.usuario.nombre != '' %}
 							{{ descontado.usuario.nombre }} {{ descontado.usuario.apellido }}</a>
 						{% else %}
