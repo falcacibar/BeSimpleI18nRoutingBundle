@@ -80,6 +80,10 @@ class DefaultController extends Controller{
 		$q->setParameter(1, $id);
 		$concursos = $q->getResult();
 
+		if(sizeOf($concursos) == 0){
+			return $this->forward('LoogaresCampanaBundle:Default:listadoCampanas', array('slug' => $slug, 'id' => $id));
+		}
+
 		$meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre');
 
 		return $this->render('LoogaresCampanaBundle:Default:listado_concursos.html.twig',array(
@@ -144,7 +148,7 @@ class DefaultController extends Controller{
     $campana = $cr->findOneById($id);
 
     if( !$campana->getDescuento() ){
-    	return $this->render('LoogaresCampanaBundle:Default:listado_descuentos.html.twig', array('lugar' => $campana->getLugar(), 'id' => $id));
+    	return $this->render('LoogaresCampanaBundle:Default:listado_descuentos.html.twig', array('lugar' => $campana->getLugar(), 'id' => $id, 'campana' => $campana));
     }
     
     return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array(
@@ -249,8 +253,8 @@ class DefaultController extends Controller{
 
     $lugar = $lr->findOneBySlug($slug);
 
-    if(isset($_GET['comuna'])){
-    	$comuna = " AND com.slug = '" . $_GET['comuna'] . "'";
+    if(isset($_GET['comuna']) && $_GET['comuna'] != 'todas'){
+    	$comuna = " AND co.slug = '" . $_GET['comuna'] . "'";
     }
 
     if(isset($_GET['recomendo'])){

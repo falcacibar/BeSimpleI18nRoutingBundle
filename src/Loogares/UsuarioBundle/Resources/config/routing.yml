@@ -58,7 +58,7 @@ lugaresUsuario:
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:lugares, accionLugar: visitar }
 
 cuponesUsuario:
-    pattern:  /{param}/cupones
+    pattern:  /{param}/cupones/{tipo}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:cupones }
 
 imprimirCuponUsuario:
