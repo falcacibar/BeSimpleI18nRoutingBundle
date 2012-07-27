@@ -159,7 +159,7 @@
 		    if($('.step_active').hasClass('step_final')){
 		    	$('.siguiente_paso').remove();
 		    	$('.step_static').append($('input[class=seguidores_checkbox]:checked'))
-		    	//$('.nuevo_descuento').submit()
+		    	$('.nuevo_descuento').submit()
 		    	$('.step_done, .step_static').hide();
 		    }
 		});
@@ -168,7 +168,7 @@
 				$active = $('.step_active');          
 		    if($active.hasClass('step_last')){
 		    	$active
-		    			.addClass('.step_hidden')
+		    			.addClass('step_hidden')
 		    			.removeClass('step_active');
 		    }
 
