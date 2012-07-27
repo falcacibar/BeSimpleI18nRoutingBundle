@@ -53,7 +53,27 @@
 		<!-- Opciones de login y registro de usuario -->
 		<div class="login">
 			{% if is_granted('ROLE_USER') %}
-				{% set slug = (app.security.token.user.slug != '') ? app.security.token.user.slug : app.security.token.user.id %}					
+				{% set alertaCupon = false %}
+				{% set slug = (app.security.token.user.slug != '') ? app.security.token.user.slug : app.security.token.user.id %}	
+				{# Checks para los Cupones, seria bueno cambiarlos a una tabla aparte e ir cerrandolos de alguna manera asi no hay que ciclar siempre #}
+				{% if app.security.token.user.descuentosUsuarios|length > 0 %}
+					{% for descontado in app.security.token.user.descuentosUsuarios %}
+						{% if descontado.canjeado == 0 and descontado.descuento.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}
+							{% set alertaCupon = true %}
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+
+				{% if alertaCupon == false %}
+					{% if app.security.token.user.participantes|length > 0 %}
+						{% for participante in app.security.token.user.participantes %}
+							{% if participante.ganador and participante.ganador.canjeado == 0 and participante.concurso.fechaTermino|date('y-m-d') > "now"|date('y-m-d')%}
+								{% set alertaCupon = true %}
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				{% endif %}	
+
 				<ul>
 					<li>
 						<div class="usuario_login">
@@ -63,6 +83,9 @@
 									{{app.security.token.user.slug}}
 								{% else %}
 									{{app.security.token.user.nombre}} {{app.security.token.user.apellido}}
+								{% endif %}
+								{% if alertaCupon == true %}
+									alerta premio
 								{% endif %}
 							</a>
 							<div class="flecha_ciudad"></div>

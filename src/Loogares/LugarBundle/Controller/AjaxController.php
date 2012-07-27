@@ -489,7 +489,7 @@ class AjaxController extends Controller{
         $ganador->setCanjeado(true);
 
         $em->persist($ganador);
-        //$em->flush();
+        $em->flush();
 
         $mail = array();
         $paths = array();
@@ -505,7 +505,7 @@ class AjaxController extends Controller{
           $mail['lugar'] = $ganador->getParticipante()->getConcurso()->getPost()->getLugar();
           $message = $this->get('fn')->enviarMail($mail['asunto'], $ganador->getParticipante()->getUsuario()->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_canje.html.twig', $this->get('templating'));
         }else{
-        // Se envía mail al descontado informando el premio
+          // Se envía mail al descontado informando el premio
           $campana = $cr->findOneByDescuento($ganador->getDescuento()->getId());
           $usuario = $ganador->getusuario();
 
@@ -513,6 +513,7 @@ class AjaxController extends Controller{
           $mail['usuario'] = $ganador->getUsuario();
           $mail['ganador'] = $ganador;
           $mail['lugar'] = $campana->getLugar();
+
         }
 
         $message = $this->get('fn')->enviarMail($mail['asunto'], $usuario->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresLugarBundle:Mails:mail_canje.html.twig', $this->get('templating'));

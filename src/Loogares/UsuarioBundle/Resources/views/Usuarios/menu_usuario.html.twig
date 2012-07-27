@@ -15,7 +15,7 @@
 			<a href="{{path('lugaresUsuario', { 'param': slug })}}"><li class="{{(usuario.tipo is defined and usuario.tipo == 'lugares') ? 'selected' : ''}} no-right-border">
 				{{'usuario.menu.lugares'|trans}}
 			</li></a>
-			<a href="{{path('cuponesUsuario', { 'param': slug })}}"><li class="{{(usuario.tipo is defined and usuario.tipo == 'cupones') ? 'selected' : ''}} no-right-border">
+			<a href="{{path('cuponesUsuario', { 'param': slug, 'tipo': 'concursos' })}}"><li class="{{(usuario.tipo is defined and usuario.tipo == 'cupones') ? 'selected' : ''}} no-right-border">
 				<img class="icono_menu_usuario" src="{{asset('assets/images/extras/gift_card_menu.png')}}" height="17" width="14" /><span class="texto_con_icono">{{'usuario.menu.cupones'|trans}}</span>
 			</li></a>
 		{% endif %}			

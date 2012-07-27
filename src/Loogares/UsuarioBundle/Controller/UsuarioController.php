@@ -323,14 +323,16 @@ class UsuarioController extends Controller
         ));  
     }
 
-    public function cuponesAction($param) {
+    public function cuponesAction($param, $tipo) {
         foreach($_GET as $key => $value){
             $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
         }
+
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
+        $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
 
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -349,16 +351,48 @@ class UsuarioController extends Controller
         $ppag = 5;
         $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
 
-        $cupones = $ur->getCuponesVigentesUsuario($usuarioResult, $ppag, $offset);
-        $totalCupones = $ur->getTotalCuponesVigentesUsuario($usuarioResult);
         $data = $ur->getDatosUsuario($usuarioResult);
+
+        if($tipo == 'concursos'){
+            $ganadores = $ur->getConcursosVigentesUsuario($usuarioResult, $ppag, $offset);
+            foreach($ganadores as $ganador){
+                $dataCupones[] = array(
+                    'titulo' => $ganador->getParticipante()->getConcurso()->getTitulo(),
+                    'codigo' => $ganador->getCodigo(),
+                    'detalles' => $ganador->getParticipante()->getConcurso()->getPost()->getDetalles(),
+                    'condiciones' => $ganador->getParticipante()->getConcurso()->getPost()->getCondiciones(),
+                    'lugar' => $ganador->getParticipante()->getConcurso()->getPost()->getLugar(),
+                    'id' => $ganador->getId(),
+                    'fechaTermino' => $ganador->getParticipante()->getConcurso()->getFechaTermino()
+                );
+            }
+        }else{
+            $descontados = $ur->getDescuentosVigentesUsuario($usuarioResult, $ppag, $offset);
+            foreach($descontados as $descontado){
+                $campana = $cr->findOneByDescuento($descontado->getDescuento()->getId());
+                $dataCupones[] = array(
+                    'titulo' => 'Titulo de algun lado...',
+                    'codigo' => $descontado->getCodigo(),
+                    'detalles' => 'Detalles de algun lado...',
+                    'condiciones' => $descontado->getDescuento()->getCondiciones(),
+                    'lugar' => $campana->getLugar(),
+                    'id' => $descontado->getId(),
+                    'fechaTermino' => $descontado->getDescuento()->getFechaTermino()
+                );
+            }
+        }
+
+        $totalCupones = $ur->getTotalCuponesVigentesUsuario($usuarioResult);
+        
         $data->tipo = 'cupones';
-        $data->cupones = $cupones;
+        $data->tipoPremio = $tipo;
+        $data->cupones = $dataCupones;
         $data->totalCupones = $totalCupones;
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
         $params = array(
-            'param' => $data->getSlug()
+            'param' => $data->getSlug(),
+            'tipo' => $tipo
         );
             
         $paginacion = $fn->paginacion($totalCupones, $ppag, 'cuponesUsuario', $params, $router );

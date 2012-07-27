@@ -36,7 +36,7 @@
 		<ul class="lista_de_ganadores">
 		{% for descontado in descuento.descontados %}
 			<li class="ganador">
-				<input type="checkbox" data-ganador="{{descontado.id}}" class="canjes_checkbox" class="checkbox"></input>
+				<input type="checkbox" data-ganador="{{descontado.id}}" class="canjes_checkbox" class="checkbox" {% if descontado.canjeado == 1 %}disabled="disabled" checked="checked"{% endif %}></input>
 				<div class="imagen_usuario">
 					<img src="" height="30" width="30" />
 				</div>

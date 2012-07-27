@@ -107,13 +107,14 @@
 			fitToView: false
 		});
 
-		$('.siguiente_paso').click(function(){
+		$('.siguiente_paso').live('click', function(){
 				$active = $('.step_active');
 				$active.find('.lolbox-error').remove();
 
-		    if($('.step_active').hasClass('step_last')){
+		    if($active.hasClass('step_last')){
 		    	if($('input[class=seguidores_checkbox]:checked').length == 0){
 						$active.find('h4').after('<div class="lolbox-error">Error</div>');
+						alert('error here')
 						return;
 					}
 		    }
@@ -131,12 +132,13 @@
 						return;
 					}
 				}
-		    
+		    		                     console.log('test');
+
 		    $active.next('div:not(.siguiente_paso)')
 		                     .removeClass('step_hidden')
 		                     .removeClass('step_done')            
 		                     .addClass('step_active');
-		                     
+
 		    $active.toggleClass('step_active')
 		           .toggleClass('step_done');
 
@@ -152,24 +154,35 @@
 		    	$('.siguiente_paso')
 		    		.removeClass('siguiente_paso')
 		    		.addClass('enviar_dscto');
-		    }else{
 		    }
 
 		    if($('.step_active').hasClass('step_final')){
 		    	$('.siguiente_paso').remove();
 		    	$('.step_static').append($('input[class=seguidores_checkbox]:checked'))
-		    	$('.nuevo_descuento').submit()
+		    	//$('.nuevo_descuento').submit()
 		    	$('.step_done, .step_static').hide();
 		    }
 		});
 		    
-		$('.step_done').live('click', function(){            
-		    $('.step_active')
+		$('.step_done').live('click', function(){  
+				$active = $('.step_active');          
+		    if($active.hasClass('step_last')){
+		    	$active
+		    			.addClass('.step_hidden')
+		    			.removeClass('step_active');
+		    }
+
+	    	$('.enviar_dscto')
+		    		.removeClass('enviar_dscto')
+		    		.addClass('siguiente_paso');
+
+		    $active.not('.step_last')
 		        .removeClass('step_active')
 		        .addClass('step_done');
+
 		    $(this)
 		        .removeClass('step_done')
-		        .addClass('step_active');    
+		        .addClass('step_active');
 		});
 
 
@@ -179,6 +192,15 @@
 				$this.next('.seguidor').addClass('seguidor_selected')
 			}else{
 				$this.next('.seguidor').removeClass('seguidor_selected')
+			}
+		});
+
+		$('.seleccionar_todos_checkbox').click(function(){
+			$this = $(this);
+			if($this.is(':checked')){
+				$('.seguidores_checkbox:not(:checked)').click();
+			}else{
+				$('.seguidores_checkbox:checked').click();
 			}
 		});
 	</script>
@@ -234,10 +256,8 @@
 	</div>
 
 	<div class="seleccionar_todos_ninguno">
-		<input type="checkbox" />
+		<input class="seleccionar_todos_checkbox" type="checkbox" />
 		<span class="seleccionar_todos">Seleccionar todos</span>
-		<input type="checkbox" />
-		<span class="seleccionar_ninguno">Deseleccionar todos</span>
 	</div>
 
 	<div class="caja_seguidores seleccion">
@@ -248,7 +268,7 @@
 				<img src="{{ ('assets/images/usuarios/'~seguidor.usuarioImagen) | apply_filter('tiny_usuario')}}" height="30" width="30" />
 			</div>
 			<div class="seguidor_datos">
-				<a href="#">{% if seguidor.usuarioNombre != '' %} {{seguidor.usuarioNombre}} {{seguidor.usuarioApellido}} {% else %} {{seguidor.usuarioSlug}} {% endif %}</a>
+				<a href="{{ path('showUsuario', {'param': seguidor.usuarioSlug}) }}">{% if seguidor.usuarioNombre != '' %} {{seguidor.usuarioNombre}} {{seguidor.usuarioApellido}} {% else %} {{seguidor.usuarioSlug}} {% endif %}</a>
 				<p class="comuna">{% if seguidor.comunaNombre %} {{seguidor.comunaNombre}} {% endif %}</p>
 			</div>
 			<div class="seguidor_iconos">
