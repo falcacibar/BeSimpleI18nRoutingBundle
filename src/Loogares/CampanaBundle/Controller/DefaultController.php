@@ -155,6 +155,7 @@ class DefaultController extends Controller{
     	'lugar' => $campana->getLugar(), 
     	'id' => $id,
     	'descuento' => $campana->getDescuento(),
+    	'campana' => $campana
     ));
  	}
 
@@ -323,7 +324,7 @@ class DefaultController extends Controller{
 
     	$descuento->setFechaInicio(new \DateTime());
     	$descuento->setCondiciones($post['condiciones']);
-    	$descuento->setFechaTermino(new \DateTime('+5'));
+    	$descuento->setFechaTermino(new \DateTime("+{$post['tiempo']} days"));
     	$descuento->setCantidad($post['dco']);
 
     	$em->persist($descuento);
@@ -346,9 +347,7 @@ class DefaultController extends Controller{
     	$em->flush();
     }
 
-		print_r($_POST);
-		die();
-		return new Response($lugar);
+		return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('slug' => $campana->getLugar()->getSlug(), 'id' => $id)));
 	}
 
 }

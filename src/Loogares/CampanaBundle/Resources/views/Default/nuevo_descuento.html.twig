@@ -137,7 +137,7 @@
 		    if($active.find('input[type=radio]').length){
 		    	var chosenOption = $active.find('input[type=radio]:checked').next('label').text();
 		    }else if($active.find('textarea').length){
-		    	var chosenOption = $active.find('textarea').val();
+		    	var chosenOption = $active.find('textarea').val().substr(0, 10) + '...';
 		    }
 
 		    $active.find('h3 > small').text(chosenOption)

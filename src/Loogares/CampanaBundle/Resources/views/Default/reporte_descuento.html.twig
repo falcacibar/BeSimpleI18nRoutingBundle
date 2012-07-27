@@ -7,9 +7,13 @@
 
 	<ul class="botones_campana_dscto">
 		<li class="boton_be">
-			<a href="{{ path('_reporte_concursos_listado', { 'slug':lugar.slug, 'id': id }) }}">
+			{% if campana.concursos|length > 0 %}
+				<a href="{{ path('_reporte_concursos_listado', { 'slug': lugar.slug, 'id': id }) }}">
+						<div class="icono_be">Beneficios Exclusivos</div>
+				</a>
+			{% else %}
 				<div class="icono_be">Beneficios Exclusivos</div>
-			</a>
+			{% endif %}
 		</li>
 		<li class="boton_dscto">
 			<div class="icono_gc">Descuentos</div>
