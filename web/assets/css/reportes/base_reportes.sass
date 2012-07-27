@@ -92,6 +92,12 @@ $rojo: #F72121
     -moz-border-radius: 2px
     -webkit-border-radius: 2px
 
+@mixin borde_redondeado_mediano
+    border-radius: 5px
+    -o-border-radius: 5px
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+
 @mixin link_azul
     color: $azul
     text-decoration: none
@@ -807,7 +813,7 @@ a
                         &:hover
                             @include link_azul_hover
 
-                    .checkbox
+                    .canjes_checkbox
                         float: left
                         margin: 8px 5px 9px 0
                         width: 10px
@@ -1121,11 +1127,21 @@ a
     background: $blanco   
     display: block
 
+    .lolbox-error
+        @include borde_redondeado_mediano
+        width: 430px
+        height: 14px
+        display: block
+        background: $rojo_claro
+        color: $blanco
+        padding: 10px
+
     .step_static, .step_done
         background: #FAFAFC
         height: 30px
         display: block  
         padding: 15px 0
+        margin: 0 0 20px
         width: 570px
         overflow: hidden
 
@@ -1182,7 +1198,7 @@ a
                 weight: bold
             text-align: center             
             width: 100%
-            margin: 40px 0
+            margin: 20px 0 40px
 
         h4
             margin: 40px 0 10px
@@ -1199,7 +1215,7 @@ a
 
             .rango_descuentos, .rango_tiempo
                 list-style: none
-                margin: 0 0 0 35px
+                margin: 0 0 0 51px
                 padding: 0
                 height: 160px
                 float: left
@@ -1242,7 +1258,6 @@ a
                 text-align: center
 
     .step_done
-        margin: 10px 0 0
         padding: 23px 0
         height: 14px
 
