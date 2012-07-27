@@ -248,7 +248,7 @@ class DefaultController extends Controller{
 		$campana = $cr->findOneById($id);
 
 		if($campana->getDescuento()){
-			return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('lugar' => $lugar->getLugar(), 'id' => $id)));
+			return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('lugar' => $campana->getLugar(), 'id' => $id)));
 		}
 
     $lugar = $lr->findOneBySlug($slug);
