@@ -56,10 +56,7 @@ class SearchController extends Controller{
             $data[$value->getSlug()]['categorias'] = $buff;
         }
 
-      return $this->render(
-          "LoogaresLugarBundle:Search:categorias.html.twig"
-          , array('arbol_categorias' => $data)
-      );
+      return $this->render("LoogaresLugarBundle:Search:categorias.html.twig", array('arbol_categorias' => $data));
   }
 
   public function buscarAction(Request $request, $slug, $path, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){

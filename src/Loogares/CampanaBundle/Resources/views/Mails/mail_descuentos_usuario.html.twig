@@ -2,12 +2,12 @@
     <div style="font-family: Arial; font-size: 14px;">
         <table align="center" cellpadding="0" cellspacing="0" width="650" style="width:650px">
             <tr>
-                <td width="650"><center><img style="margin: 0 0 10px;" src="{#{ assets.logo }#}" width="180" height="128" /></center></td>
+                <td width="650"><center><img style="margin: 0 0 10px;" src="{{ assets.logo }}" width="180" height="128" /></center></td>
             </tr>
             <tr>
                 <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; padding: 30px 0; width: 650px;">
                     <div style="padding: 0 20px">
-	                    <strong>¡Felicitaciones <span style="color: red">NOMBRE APELLIDO</span>!</strong>
+	                    <strong>¡Felicitaciones <span style="color: red">{{mail.usuario.nombre}} {{mail.usuario.apellido}}</span>!</strong>
 	                    <br />
 	                    <br />
 	                    Gracias a tu participación en Loogares.com resultaste ganador de {{ mail.descuento.cantidad }}% de Dscto. en {{ mail.lugar.nombre }}. Este descuento es válido para ser utilizado una sola vez y su fecha de expiración es el {{ mail.descuento.fechaTermino|date('m/d/y') }}
@@ -18,11 +18,11 @@
 	                    <br />
 	               	</div>
 	               	<div style="background: #FAFAFC; float: left; border-top: 1px solid #CCC;">
-	                    <img src="{#{ assets.concurso }#}" height="100px" width="177px" style="float: left; padding: 20px 20px 20px 0; margin: 0 0 0 20px; border-bottom: 1px solid #E5E5E5;"/>
+	                    <img src="{{ ('assets/images/usuarios/'~mail.lugar.imagenesActivasLugar[0].imagenFull) | apply_filter('blog_detalle')}}" height="100px" width="177px" style="float: left; padding: 20px 20px 20px 0; margin: 0 0 0 20px; border-bottom: 1px solid #E5E5E5;"/>
 	                    <div style="float: left; border-bottom: 1px solid #E5E5E5; height: 100px; padding: 20px 0px; font-size: 17px; font-weight: bold; line-height: 33px; width: 411px; margin: 0 20px 0 0;">
 	                    	{{ mail.descuento.cantidad }}% de Dscto. en {{ mail.lugar.nombre }}
 	                    	<br />
-	                    	Código cupón: <span style="color: red">CODIGO</span>
+	                    	Código cupón: <span style="color: red">{{ mail.codigo | default('abc')}}</span>
 	                    </div>
 	               	</div>
 	               	<div style="background: #FAFAFC; float: left; padding: 20px; width: 608px; font-size: 12px; line-height: 20px;">
