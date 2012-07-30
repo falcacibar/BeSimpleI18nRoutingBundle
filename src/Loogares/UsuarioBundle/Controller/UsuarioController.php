@@ -462,9 +462,9 @@ class UsuarioController extends Controller
         require(__DIR__.'/../../../../vendor/dompdf/dompdf_config.inc.php');
         $dompdf = new \DOMPDF();
         $dompdf->load_html($html);
-        $dompdf->set_base_path('http://localhost/loogares');
+        //$dompdf->set_base_path("http://localhost");
         $dompdf->render();
-        $dompdf->stream("sample.pdf", array('Attachment' => 0));
+        $dompdf->stream("cupon-".$usuarioResult->getSlug()."-".$cuponDetalle['codigo'].".pdf", array('Attachment' => 0));
     }
 
     public function editarAction($param) {

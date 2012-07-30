@@ -522,4 +522,29 @@ class Concurso
     {
         return $this->campana;
     }
+    /**
+     * @var datetime $fecha_termino_concurso
+     */
+    private $fecha_termino_concurso;
+
+
+    /**
+     * Set fecha_termino_concurso
+     *
+     * @param datetime $fechaTerminoConcurso
+     */
+    public function setFechaTerminoConcurso($fechaTerminoConcurso)
+    {
+        $this->fecha_termino_concurso = $fechaTerminoConcurso;
+    }
+
+    /**
+     * Get fecha_termino_concurso
+     *
+     * @return datetime 
+     */
+    public function getFechaTerminoConcurso()
+    {
+        return $this->fecha_termino_concurso;
+    }
 }
