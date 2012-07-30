@@ -1,5 +1,18 @@
 $(document).ready(function(){
 	var rebindEvents = function(){
+		
+    $('.pedido_fancybox').fancybox({
+        hideOnContentClick : false,
+        padding: 0,
+        type: 'ajax',
+        showCloseButton: false,
+        onStart: function(){
+            $.fancybox.showActivity;
+        },
+        onComplete: function(){
+            $.fancybox.hideActivity;
+        }
+    });
 
 		if($('.resultados_wrapper').height() > 2000){
 			var $sidebar   = $(".sidebar_busqueda"),

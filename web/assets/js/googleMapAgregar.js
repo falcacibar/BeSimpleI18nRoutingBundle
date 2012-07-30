@@ -2,36 +2,43 @@ var map, geocoder, marker, validMap = false;
 
 function initializeMap(position){
  	if(position == 'default'){
-    	var latlng = new google.maps.LatLng(-33.43692082916139, -70.63445091247559);
-    }else{
-    	var lat = $(".mapx").val();
+		$body = $('body');
+		if($body.hasClass('valparaiso-vina-del-mar')){
+  		var latlng = new google.maps.LatLng(-33.038555708025, -71.628670692444);
+  	}else if($body.hasClass('buenos-aires')){
+  		var latlng = new google.maps.LatLng(-34.603655367402, -58.381553385181);
+  	}else{
+  		var latlng = new google.maps.LatLng(-33.43692082916139, -70.63445091247559);
+  	}
+  }else{
+  	var lat = $(".mapx").val();
 		var lng = $(".mapy").val();
-    	var latlng = new google.maps.LatLng(lat, lng);
-    }
+  	var latlng = new google.maps.LatLng(lat, lng);
+  }
 
-    var myOptions = {
+  var myOptions = {
 		zoom: 16,
 		center: latlng,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+  };
 
-    map = new google.maps.Map(document.getElementById("mapa"), myOptions);
-    geocoder = new google.maps.Geocoder();
+  map = new google.maps.Map(document.getElementById("mapa"), myOptions);
+  geocoder = new google.maps.Geocoder();
 
-    var image = WEBROOT+"../assets/images/gmaps/puntodestacado.png";
+  var image = WEBROOT+"../assets/images/gmaps/puntodestacado.png";
 
-    marker = new google.maps.Marker({
-	    position: latlng,
-	    icon: image,
-	    draggable: true
+  marker = new google.maps.Marker({
+    position: latlng,
+    icon: image,
+    draggable: true
 	});
-	
+
 	google.maps.event.addListener(marker, "dragend", function(event) {
-        var point = marker.getPosition();
-        map.panTo(point);
-		$(".mapx").val(point.lat());
-		$(".mapy").val(point.lng());
-    });
+      var point = marker.getPosition();
+      map.panTo(point);
+	$(".mapx").val(point.lat());
+	$(".mapy").val(point.lng());
+  });
 
 	// To add the marker to the map, call setMap();
 	marker.setMap(map);
@@ -61,15 +68,15 @@ function geocodeAddress(){
 		address = ( calle + ' ' + parseInt(numero) + ', ' + comuna + ', ' + ciudad + ', ' + pais);
 	}
 
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-    	marker.setPosition(results[0].geometry.location)
-    	$(".mapx").val(results[0].geometry.location.lat());
-		$(".mapy").val(results[0].geometry.location.lng());
-		validMap = true;
-      } else {
-        alert("Debes indicar Comuna, Calle y N\u00b0 para poder cargar el mapa.");
-      }
-    });
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+  	marker.setPosition(results[0].geometry.location)
+  	$(".mapx").val(results[0].geometry.location.lat());
+	$(".mapy").val(results[0].geometry.location.lng());
+	validMap = true;
+    } else {
+      alert("Debes indicar Comuna, Calle y N\u00b0 para poder cargar el mapa.");
+    }
+  });
 }

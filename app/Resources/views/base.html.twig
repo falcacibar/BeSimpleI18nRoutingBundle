@@ -52,7 +52,7 @@
     {% block ads %}{% endblock %} 
     </head>
 
-    <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }}">
+    <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }} {{app.session.get('ciudad').slug | default('santiago-de-chile') }}">
     {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
 
     {% include '::header.html.twig' %}
