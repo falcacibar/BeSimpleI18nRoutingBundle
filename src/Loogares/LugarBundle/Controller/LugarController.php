@@ -409,7 +409,12 @@ class LugarController extends Controller{
                 ->setMaxResults(1)
                 ->setParameter(1, $idLugar);
 
-        $imagenLugar = $q->getSingleResult();
+        try {
+            $imagenLugar = $q->getSingleResult();
+        } catch(\Doctrine\Orm\NoResultException $e) {
+            $imagenLugar = null;
+        }
+
         unset($q);
 
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
@@ -1259,8 +1264,22 @@ class LugarController extends Controller{
 
     /* RECOMENDACIONES */
     public function recomendacionesAction($slug, Request $request, $curlSuperVar = false){
-        $yaRecomendo = array();
-        $em = $this->getDoctrine()->getEntityManager();
+        $yaRecomendo    = array();
+        $em             = $this->getDoctrine()->getEntityManager();
+        $session        = $this->get('session');
+
+        if(false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            $session->set('recomendacionPendiente', $_POST);
+            $session->set('alIngresarIrA', $request->getRequestUri());
+
+            return $this->redirect($this->generateUrl('registroUsuario'));
+        }
+
+        if(!is_null($rec = $session->get('recomendacionPendiente'))) {
+            $_POST = &$rec;
+            $request->server->set('REQUEST_METHOD', 'POST');
+            $session->remove('recomendacionPendiente');
+        }
 
         foreach($_POST as $key => $value){
           $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);

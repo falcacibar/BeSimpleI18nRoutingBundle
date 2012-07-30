@@ -13,27 +13,27 @@
 	        <strong>{{'general.terminos.ordenar_por'|trans}}:</strong>
 	    </li>
 	    <li>
-	        {% if query.orden == 'mejor-evaluadas' %}
+	{% if query.orden == 'mejor-evaluadas' %}
 	            <strong>{{'general.terminos.mejores_evaluaciones'|trans}}</strong>
-	        {% else %}
+	{% else %}
 	            <a href="{{ path(routePath, query|merge({'slug': lugar.slug, 'orden': 'mejor-evaluadas' })) }}">{{'general.terminos.mejores_evaluaciones'|trans}}</a>
-	        {% endif %}
+	{% endif %}
 	    </li>
 	    <li>|</li>
 	    <li>
-	        {% if query.orden == 'ultimas' %}
+	{% if query.orden == 'ultimas' %}
 	            <strong>{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</strong>
-	        {% else %}
+	{% else %}
 	            <a href="{{ path(routePath, query|merge({'slug': lugar.slug, 'orden': 'ultimas' })) }}">{{'general.terminos.ultima_recomendacion'|transchoice(2)}}</a>
-	        {% endif %}
+	{% endif %}
 	    </li>
 	    <li>|</li>
 	    <li>
-	        {% if query.orden == 'mas-utiles' %}
+	{% if query.orden == 'mas-utiles' %}
 	            <strong>{{'general.terminos.mas_utiles'|transchoice(2)}}</strong>
-	        {% else %}
+	{% else %}
 	            <a href="{{ path(routePath, query|merge({'slug': lugar.slug, 'orden': 'mas-utiles' })) }}">{{'general.terminos.mas_utiles'|transchoice(2)}}</a>
-	        {% endif %}
+	{% endif %}
 	    </li>
 	</ul>
 	{% if not enLugar %}
@@ -68,7 +68,7 @@
 	            </p>
 	            <div class="util_recomendacion">
 	                <p class="conteo conteo_util">{{ recomendacion.util|length }}</p>
-	                {%if is_granted('ROLE_USER') and app.security.token.user.id != recomendacion.usuario.id %}
+	                {% if is_granted('ROLE_USER') and app.security.token.user.id != recomendacion.usuario.id %}
 	                    {% if recomendacion.apretoUtil == 0 %}
 	                        <a data-util="{{recomendacion.id}}-{{app.security.token.user.id}}" class="boton_activado boton_util boton_accion"></a>
 	                    {% else %}
@@ -154,7 +154,6 @@
     	<a class="ver_todas_recomendaciones" href="{{ path('_lugarRecomendacion',{"slug": lugar.slug}) }}"></a>
     </div>
     {% endif %}
-
 {%- else -%}
     {% if app.session.hasFlash('cerrado_flash') == null  %}
         <div>
@@ -163,16 +162,14 @@
     {% endif %}
 {%- endif -%}
 
-{% if is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null %}
-{% if app.session.hasFlash('cerrado_flash') == null  %}
-    {% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
-{% endif %}
+{% if is_granted('ROLE_USER') == false or (is_granted('ROLE_USER') == true and lugar.yaRecomendo is defined and lugar.yaRecomendo == null) %}
 
-
-<a class="fancybox" href="#recomendacon_popup"></a>
-<div style="display:none">{% include 'LoogaresLugarBundle:Ajax:recomendacion_popup.html.twig' %}</div>
+	{% if app.session.hasFlash('cerrado_flash') == null  %}
+    	{% include 'LoogaresLugarBundle:Lugares:recomendacion.html.twig' %}
+	{% endif %}
 
 {% endif %}
+{#
 {% if is_granted('ROLE_USER') == false %}
 <div class="caja_registro_recomendacion">
     <div class="texto">
@@ -185,3 +182,4 @@
     </div>
 </div>
 {% endif %}
+#}
