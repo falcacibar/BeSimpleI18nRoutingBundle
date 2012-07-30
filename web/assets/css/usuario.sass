@@ -1544,21 +1544,27 @@ $rojo: #F72121
                                     size: 16px
                                     weight: bold
                                 margin: 0 0 30px 0
+                                width: 560px
 
                             .cupon_codigo, .cupon_fecha_termino
                                 float: left
-                                width: 510px
-
+                                width: 540px
+                
                             .ver_cupon
-                                @include link_azul
-                                float: left
+                                background: url('../images/reporte/botones_panel_dueno.png') 60px -186px
+                                color: $gris_999 !important
+                                float: right
                                 font:
                                     size: 12px
-                                text-align: right
-                                width: 100px
+                                    weight: normal
+                                height: 20px
+                                margin: 20px 0 0
+                                width: 70px
 
                                 &:hover
-                                    @inlcude link_azul_hover
+                                    background: url('../images/reporte/botones_panel_dueno.png') 60px -201px
+                                    color: $azul !important
+                                    text-decoration: none
 
                         .icono_identificador_be, .icono_identificador_gc
                             background: url('../images/reporte/botones_panel_dueno.png') 0 -222px
@@ -1570,15 +1576,39 @@ $rojo: #F72121
                         .icono_identificador_gc
                             background: url('../images/reporte/botones_panel_dueno.png') -74px -222px
 
+                .cupon_inactivo
+
+                    .bloque_premio
+
+                        .texto_cupon
+                            color: $gris_ccc
+
+                        .icono_identificador_be, .icono_identificador_gc
+                            background: url('../images/reporte/botones_panel_dueno.png') 0 -289px
+                            height: 62px
+                            left: 738px
+                            position: absolute
+                            width: 65px
+
+                        .icono_identificador_gc
+                            background: url('../images/reporte/botones_panel_dueno.png') -74px -289px
+
             .sin_cupones
-                background: $gris_fac
+                background: $gris_faf
                 color: $gris_666
+                float: left
                 font:
                     size: 15px
-                padding: 20px
+                line-height: 34px
+                padding: 40px 20px
                 text-align: center
                 width: 738px
-                                                          
+
+                .imagen_sin_cupon
+                    float: left
+                    margin: 0 320px 20px
+                    width: 80px
+                           
     .paginacion_perfil
         border-bottom: 1px solid $gris_f6f
         border-top: 1px solid $gris_f6f
@@ -1696,7 +1726,7 @@ $rojo: #F72121
     display: none
 
 .cupon_full_activo, .cupon_full_inactivo
-    background: $gris_faf
+    background: $blanco
     float: left
     width: 570px
 
@@ -1707,7 +1737,7 @@ $rojo: #F72121
         padding: 20px
 
     .bloque_premio
-        background: $gris_fac
+        background: $gris_faf
         float: left
         padding: 20px
         width: 530px

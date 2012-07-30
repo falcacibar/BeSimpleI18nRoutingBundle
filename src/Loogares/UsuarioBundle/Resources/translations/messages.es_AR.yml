@@ -128,7 +128,7 @@ usuario:
     gift_card:
         titulo: Premios y descuentos
         tipo:
-            concursos: Concursos
+            concursos: Premios Beneficios Exclusivos
             descuentos: Descuentos
         codigo: Código Gift Card:
         valido: Válido Hasta:

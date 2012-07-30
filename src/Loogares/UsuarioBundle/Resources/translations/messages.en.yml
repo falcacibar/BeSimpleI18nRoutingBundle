@@ -128,7 +128,7 @@ usuario:
     gift_card:
         titulo: Prices and discounts
         tipo:
-            concursos: Contest
+            concursos: Prices Exclusive Benefits
             descuentos: Discounts
         codigo: Gift Card code:
         valido: Valid until:

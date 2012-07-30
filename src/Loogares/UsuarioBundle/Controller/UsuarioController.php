@@ -372,12 +372,11 @@ class UsuarioController extends Controller
             foreach($descontados as $descontado){
                 $campana = $cr->findOneByDescuento($descontado->getDescuento()->getId());
                 $dataCupones[] = array(
-                    'titulo' => 'Titulo de algun lado...',
                     'codigo' => $descontado->getCodigo(),
-                    'detalles' => 'Detalles de algun lado...',
                     'condiciones' => $descontado->getDescuento()->getCondiciones(),
                     'lugar' => $campana->getLugar(),
                     'id' => $descontado->getId(),
+                    'cantidad' => $descontado->getDescuento()->getCantidad(),
                     'fechaTermino' => $descontado->getDescuento()->getFechaTermino()
                 );
             }

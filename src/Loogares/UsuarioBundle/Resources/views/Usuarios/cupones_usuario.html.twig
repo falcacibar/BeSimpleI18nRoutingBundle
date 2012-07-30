@@ -39,9 +39,16 @@
 						<div class="bloque_premio">
 							<img class="imagen_cupon" src="{{asset('assets/images/blog/'~lugar.imagenesActivasLugar[0].imagenFull)}}" height="100" width="100" />
 							<div class="texto_cupon">
-								<p class="cupon_titulo">{{cupon.titulo}}</p>
+								{% if usuario.tipoPremio != 'concursos' %}
+									<p class="cupon_titulo">{{cupon.cantidad}}% de Dscto. en {{lugar.nombre}}</p>
+								{% else %}
+									<p class="cupon_titulo">{{cupon.titulo}}</p>
+								{% endif %}
 								<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{cupon.codigo}}</p>
-								<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
+								{% if usuario.tipoPremio != 'concursos' %}
+									<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
+								{% else %}
+								{% endif %}
 								<a class="ver_cupon ver_cupon_{{cupon.id}}" href="#">{{'usuario.gift_card.ver_cupon'|trans}}</a>
 							</div>
 							<div class="icono_identificador_{% if usuario.tipoPremio != 'concursos' %}gc{% else %}be{% endif %}"></div>
@@ -60,9 +67,16 @@
 						<div class="bloque_premio">
 							<img class="imagen_cupon" src="{{asset('assets/images/blog/'~lugar.imagenesActivasLugar[0].imagenFull)}}" height="100" width="100" />
 							<div class="texto_cupon">
-								<p class="cupon_titulo">{{cupon.titulo}}</p>
+								{% if usuario.tipoPremio != 'concursos' %}
+									<p class="cupon_titulo">{{cupon.cantidad}}% de Dscto. en {{lugar.nombre}}</p>
+								{% else %}
+									<p class="cupon_titulo">{{cupon.titulo}}</p>
+								{% endif %}
 								<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{cupon.codigo}}</p>
-								<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
+								{% if usuario.tipoPremio != 'concursos' %}
+									<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
+								{% else %}
+								{% endif %}
 							</div>
 						</div>
 						<div class="bloque_detalles">
@@ -108,13 +122,13 @@
 		{% else %}
 			<li class="sin_cupones">
 				{% if usuario.tipoPremio != 'concursos' %}
-					<img src="#" />
-					{{'usuario.gift_card.sin_cupones_gc'|trans}}<br />
-					{{'usuario.gift_card.gana_uno'|trans}} <a href="">{{'usuario.gift_card.gana_uno_link'|trans}}</a>
+					<img class="imagen_sin_cupon" src="{{ asset('assets/images/reporte/dscto_icono.png') }}" height="80" width="80" />
+					<p>{{'usuario.gift_card.sin_cupones_gc'|trans}}<br />
+					{{'usuario.gift_card.gana_uno'|trans}} <a href="">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
 				{% else %}
-					<img src="#" />
-					{{'usuario.gift_card.sin_cupones_be'|trans}}<br />
-					{{'usuario.gift_card.gana_uno'|trans}} <a href="">{{'usuario.gift_card.gana_uno_link'|trans}}</a>
+					<img class="imagen_sin_cupon" src="{{ asset('assets/images/reporte/be_icono.png') }}" height="80" width="80" />
+					<p>{{'usuario.gift_card.sin_cupones_be'|trans}}<br />
+					{{'usuario.gift_card.gana_uno'|trans}} <a href="">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
 				{% endif %}
 			</li>
 		{% endif %}
