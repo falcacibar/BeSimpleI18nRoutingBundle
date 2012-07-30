@@ -9,6 +9,7 @@ $azul_claro: #66CCFF
 $blanco: #FFF
 
 $gris_faf: #FAFAFC
+$gris_fac: #FAFCFF
 $gris_f6f: #F2F2F6
 $gris_ccc: #CCC
 $gris_999: #999
@@ -32,6 +33,12 @@ $rojo: #F72121
     -o-border-radius: 8px
     -moz-border-radius: 8px
     -webkit-border-radius: 8px
+
+@mixin box_shadow_ccc
+    box-shadow: 0px 1px 1px $gris_ccc
+    -o-box-shadow: 0px 1px 1px $gris_ccc
+    -moz-box-shadow: 0px 1px 1px $gris_ccc
+    -webkit-box-shadow: 0px 1px 1px $gris_ccc
 
 @mixin gradiente_botones ($color_1, $color_2)
     background-image: linear-gradient(bottom, $color_1 30%, $color_2 70%)
@@ -1457,6 +1464,7 @@ $rojo: #F72121
                                 &:hover
                                     @include link_gris_666_hover
 
+    /* Cupones en el perfil del usuario */
     .caja_cupones_usuario
         float: left
         left: 160px
@@ -1471,13 +1479,33 @@ $rojo: #F72121
             position: relative
             top: -2px
 
-        ul
+        .tipos_de_cupones
+            color: $gris_666
+            font:
+                size: 14px
+            float: left
+            line-height: 20px
+            list-style: none
+            margin: 40px 0 0
+            padding: 0 0 20px 0
+            width: 779px
+
+            .selecciona_tipo_de_cupon
+                float: left
+                margin: 0 5px 0 0
+
+                .orden_separacion
+                    color: $gris_ccc
+                    margin: 0 5px
+
+        .listado_cupones
             color: $gris_666
             float: left
             list-style: none
             width: 780px
 
-            li
+            .caja_cupon
+                @include box_shadow_ccc
                 float: left
                 margin: 20px 0 0
 
@@ -1487,87 +1515,100 @@ $rojo: #F72121
                     &:hover
                         @include link_azul_hover
 
-                .cupon
+                .cupon_activo, .cupon_inactivo
                     background: $gris_faf
                     float: left
                     padding: 20px
 
+                    &:hover
+                        background: $gris_fac
+
                     .bloque_premio
-                        border-bottom: 1px solid $gris_f6f
                         float: left
-                        padding: 0 0 20px 0
-                        width: 740px
+                        width: 730px
 
                         .imagen_cupon
                             float: left
                             margin: 0 20px 0 0
+                            width: 100px
 
                         .texto_cupon
                             float: left
                             font:
-                                size: 17px
-                                weight: bold
-                            line-height: 33px
-                            width: 540px
-
-                    .bloque_detalles
-                        border-bottom: 1px solid $gris_f6f
-                        float: left
-                        font:
-                            size: 12px
-                        line-height: 22px
-                        padding: 20px 0
-                        width: 740px
-
-                    .bloque_datos
-                        float: left
-                        font:
-                            size: 12px
-                        line-height: 22px
-                        padding: 20px 0 0
-                        width: 740px
-
-                        .titulo_datos_cupon
-                            font:
                                 size: 14px
-                                weight: bold
+                            line-height: 22px
+                            width: 610px
 
-                        .sitio_web_lugar
-                            display: block
+                            .cupon_titulo
+                                font:
+                                    size: 16px
+                                    weight: bold
+                                margin: 0 0 30px 0
+                                width: 560px
 
-                        .facebook_lugar
-                            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
-                            display: inline-block
-                            float: left
-                            height: 16px
-                            margin: 10px 0
-                            width: 16px
+                            .cupon_codigo, .cupon_fecha_termino
+                                float: left
+                                width: 540px
+                
+                            .ver_cupon
+                                background: url('../images/reporte/botones_panel_dueno.png') 60px -186px
+                                color: $gris_999 !important
+                                float: right
+                                font:
+                                    size: 12px
+                                    weight: normal
+                                height: 20px
+                                margin: 20px 0 0
+                                width: 70px
 
-                        .twitter_lugar
-                            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
-                            display: inline-block
-                            float: left
-                            height: 16px
-                            margin: 10px 0 10px 10px
-                            width: 16px
+                                &:hover
+                                    background: url('../images/reporte/botones_panel_dueno.png') 60px -201px
+                                    color: $azul !important
+                                    text-decoration: none
 
-                        .visita_ficha_lugar
-                            float: left
-                            width: 740px
+                        .icono_identificador_be, .icono_identificador_gc
+                            background: url('../images/reporte/botones_panel_dueno.png') 0 -222px
+                            height: 62px
+                            left: 738px
+                            position: absolute
+                            width: 65px
 
-                .imprimir_cupon
-                    border-bottom: 1px solid $gris_f6f
+                        .icono_identificador_gc
+                            background: url('../images/reporte/botones_panel_dueno.png') -74px -222px
+
+                .cupon_inactivo
+
+                    .bloque_premio
+
+                        .texto_cupon
+                            color: $gris_ccc
+
+                        .icono_identificador_be, .icono_identificador_gc
+                            background: url('../images/reporte/botones_panel_dueno.png') 0 -289px
+                            height: 62px
+                            left: 738px
+                            position: absolute
+                            width: 65px
+
+                        .icono_identificador_gc
+                            background: url('../images/reporte/botones_panel_dueno.png') -74px -289px
+
+            .sin_cupones
+                background: $gris_faf
+                color: $gris_666
+                float: left
+                font:
+                    size: 15px
+                line-height: 34px
+                padding: 40px 20px
+                text-align: center
+                width: 738px
+
+                .imagen_sin_cupon
                     float: left
-                    padding: 30px 0px
-                    text-align: right
-                    width: 780px
-
-                    a
-                        color: $gris_666 !important
-                        font:
-                            size: 13px
-                            weight: bold
-                                                          
+                    margin: 0 320px 20px
+                    width: 80px
+                           
     .paginacion_perfil
         border-bottom: 1px solid $gris_f6f
         border-top: 1px solid $gris_f6f
@@ -1679,3 +1720,132 @@ $rojo: #F72121
                 line-height: 15px
                 margin: 0 0 10px 0
                 width: 180px
+
+/* Lightbox cupones */
+.cupon_full
+    display: none
+
+.cupon_full_activo, .cupon_full_inactivo
+    background: $blanco
+    float: left
+    width: 570px
+
+    .titulo_vigencia
+        font:
+            size: 20px
+            weight: bold
+        padding: 20px
+
+    .bloque_premio
+        background: $gris_faf
+        float: left
+        padding: 20px
+        width: 530px
+
+        .imagen_cupon
+            float: left
+            margin: 0 20px 0 0
+            width: 100px
+
+        .texto_cupon
+            float: left
+            font:
+                size: 14px
+            line-height: 22px
+            width: 410px
+
+            .cupon_titulo
+                font:
+                    size: 16px
+                    weight: bold
+                margin: 0 0 20px 0
+
+            .usuario_cupon
+
+            .cupon_codigo, .cupon_fecha_termino
+                float: left
+                width: 510px
+
+            .ver_cupon
+                @include link_azul
+                float: left
+                font:
+                    size: 12px
+                text-align: right
+                width: 100px
+
+                &:hover
+                    @inlcude link_azul_hover
+
+    .bloque_detalles
+        border-bottom: 1px solid $gris_f6f
+        float: left
+        font:
+            size: 12px
+        line-height: 22px
+        margin: 0 20px
+        padding: 20px 0
+        width: 530px
+
+    .bloque_datos
+        border-bottom: 1px solid $gris_f6f
+        float: left
+        font:
+            size: 12px
+        line-height: 22px
+        margin: 0 20px
+        padding: 20px 0
+        width: 530px
+
+        .titulo_datos_cupon
+            font:
+                size: 14px
+                weight: bold
+
+        .sitio_web_lugar
+            display: block
+
+        .facebook_lugar
+            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
+            display: inline-block
+            float: left
+            height: 16px
+            margin: 10px 0
+            width: 16px
+
+        .twitter_lugar
+            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
+            display: inline-block
+            float: left
+            height: 16px
+            margin: 10px 0 10px 10px
+            width: 16px
+
+        .visita_ficha_lugar
+            float: left
+            width: 740px
+
+    .imprimir_cupon
+        border-bottom: 1px solid $gris_f6f
+        color: $gris_666
+        float: left
+        font:
+            size: 12px
+        padding: 20px
+        text-align: center
+        width: 530px
+
+        a
+            background: url('../images/reporte/botones_panel_dueno.png') no-repeat 0 -759px
+            color: $gris_666 !important
+            float: left
+            font:
+                size: 13px
+            height: 19px
+            margin: 0 177px
+            text-align: left
+            padding: 7px 0 0 75px
+            width: 100px
+
+            &:hover
+                background: url('../images/reporte/botones_panel_dueno.png') no-repeat 0 -795px

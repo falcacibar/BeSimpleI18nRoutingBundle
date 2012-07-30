@@ -323,15 +323,18 @@ class UsuarioController extends Controller
         ));  
     }
 
-    public function cuponesAction($param) {
+    public function cuponesAction($param, $tipo) {
         foreach($_GET as $key => $value){
             $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
         }
+
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
-
+        $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+        $dataCupones = array();
+        
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
@@ -349,16 +352,47 @@ class UsuarioController extends Controller
         $ppag = 5;
         $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
 
-        $cupones = $ur->getCuponesVigentesUsuario($usuarioResult, $ppag, $offset);
-        $totalCupones = $ur->getTotalCuponesVigentesUsuario($usuarioResult);
         $data = $ur->getDatosUsuario($usuarioResult);
+
+        if($tipo == 'concursos'){
+            $ganadores = $ur->getConcursosVigentesUsuario($usuarioResult, $ppag, $offset);
+            foreach($ganadores as $ganador){
+                $dataCupones[] = array(
+                    'titulo' => $ganador->getParticipante()->getConcurso()->getTitulo(),
+                    'codigo' => $ganador->getCodigo(),
+                    'detalles' => $ganador->getParticipante()->getConcurso()->getPost()->getDetalles(),
+                    'condiciones' => $ganador->getParticipante()->getConcurso()->getPost()->getCondiciones(),
+                    'lugar' => $ganador->getParticipante()->getConcurso()->getPost()->getLugar(),
+                    'id' => $ganador->getId(),
+                    'fechaTermino' => $ganador->getParticipante()->getConcurso()->getFechaTermino()
+                );
+            }
+        }else{
+            $descontados = $ur->getDescuentosVigentesUsuario($usuarioResult, $ppag, $offset);
+            foreach($descontados as $descontado){
+                $campana = $cr->findOneByDescuento($descontado->getDescuento()->getId());
+                $dataCupones[] = array(
+                    'codigo' => $descontado->getCodigo(),
+                    'condiciones' => $descontado->getDescuento()->getCondiciones(),
+                    'lugar' => $campana->getLugar(),
+                    'id' => $descontado->getId(),
+                    'cantidad' => $descontado->getDescuento()->getCantidad(),
+                    'fechaTermino' => $descontado->getDescuento()->getFechaTermino()
+                );
+            }
+        }
+
+        $totalCupones = $ur->getTotalCuponesVigentesUsuario($usuarioResult);
+        
         $data->tipo = 'cupones';
-        $data->cupones = $cupones;
+        $data->tipoPremio = $tipo;
+        $data->cupones = $dataCupones;
         $data->totalCupones = $totalCupones;
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 
         $params = array(
-            'param' => $data->getSlug()
+            'param' => $data->getSlug(),
+            'tipo' => $tipo
         );
             
         $paginacion = $fn->paginacion($totalCupones, $ppag, 'cuponesUsuario', $params, $router );
@@ -369,10 +403,12 @@ class UsuarioController extends Controller
         ));
     }
 
-    public function imprimirCuponAction($param, $cupon) {
+    public function imprimirCuponAction($param, $tipo, $cupon) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $gr = $em->getRepository("LoogaresBlogBundle:Ganador");
+        $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+        $dur = $em->getRepository("LoogaresCampanaBundle:DescuentosUsuarios");
 
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -387,19 +423,46 @@ class UsuarioController extends Controller
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
 
-        $ganador = $gr->find($cupon);
+        $cuponDetalle = array();
+        if($tipo == 'concursos') {
+            $ganador = $gr->find($cupon);
+            $cuponDetalle = array(
+                'titulo' => $ganador->getParticipante()->getConcurso()->getTitulo(),
+                'codigo' => $ganador->getCodigo(),
+                'detalles' => $ganador->getParticipante()->getConcurso()->getPost()->getDetalles(),
+                'condiciones' => $ganador->getParticipante()->getConcurso()->getPost()->getCondiciones(),
+                'lugar' => $ganador->getParticipante()->getConcurso()->getPost()->getLugar(),
+                'id' => $ganador->getId(),
+                'fechaTermino' => $ganador->getParticipante()->getConcurso()->getFechaTermino()
+            );
+        }
+        else {
+            $descuento = $dur->find($cupon);
+            $campana = $cr->findOneByDescuento($descuento->getDescuento()->getId());
+            $cuponDetalle = array(
+                    'codigo' => $descuento->getCodigo(),
+                    'condiciones' => $descuento->getDescuento()->getCondiciones(),
+                    'lugar' => $campana->getLugar(),
+                    'id' => $descuento->getId(),
+                    'cantidad' => $descuento->getDescuento()->getCantidad(),
+                    'fechaTermino' => $descuento->getDescuento()->getFechaTermino()
+                );
+        }
+        
         $concurso = $ganador->getParticipante()->getConcurso();
 
-        $template = $this->render('LoogaresLugarBundle:Lugares:cupon_ganador.html.twig', array(
-            'ganador' => $ganador,
-            'concurso' => $concurso,
-            'usuario' => $usuarioResult
+        $template = $this->render('LoogaresUsuarioBundle:Usuarios:imprimir_cupon_usuario.html.twig', array(
+            'cupon' => $cuponDetalle,
+            'usuario' => $usuarioResult,
+            'tipoPremio' => $tipo
         ));
+
         $html = $template->getContent();
 
         require(__DIR__.'/../../../../vendor/dompdf/dompdf_config.inc.php');
         $dompdf = new \DOMPDF();
         $dompdf->load_html($html);
+        $dompdf->set_base_path('http://localhost/loogares');
         $dompdf->render();
         $dompdf->stream("sample.pdf", array('Attachment' => 0));
     }

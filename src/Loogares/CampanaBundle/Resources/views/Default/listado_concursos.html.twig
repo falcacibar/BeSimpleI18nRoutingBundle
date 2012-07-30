@@ -18,12 +18,11 @@
 
 	<div class="participantes_totales">
 		{% set participantes = 0 %}
-		{% for concurso in concursos %} {% set participantes = participantes + concurso.participantes|length %} {% endfor %}
-		<p>{{participantes}} Participantes totales en esta campaña</p>
+		<p>{{participantesTotales}} Participantes totales en esta campaña</p>
 	</div>
 
 	{% for concurso in concursos %}
-		<div class="campana_detalle{%if concurso.estadoConcurso.id == 3%}_inactivo{% endif %}">
+		<div class="campana_detalle{%if concurso.estadoConcurso.id == 3%}_inactivo{%elseif concurso.estadoConcurso.id == 5%}_activo{% endif %}">
 			<div class="foto_fecha">
 				<div class="fecha">
 					{{-concurso.fechaInicio|date('d')-}}&nbsp;{{-meses[concurso.fechaInicio|date('n') - 1]-}}&nbsp;{{-concurso.fechaInicio|date('Y')-}}

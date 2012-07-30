@@ -147,7 +147,7 @@
 				<img src="{{ ('assets/images/usuarios/'~seguidor.usuarioImagen) | apply_filter('tiny_usuario')}}" height="30" width="30" />
 			</div>
 			<div class="seguidor_datos">
-				<a href="#">{% if seguidor.usuarioNombre != '' %} {{seguidor.usuarioNombre}} {{seguidor.usuarioApellido}} {% else %} {{seguidor.usuarioSlug}} {% endif %} </a>
+				<a href="{{ path('showUsuario', {'param': seguidor.usuarioSlug}) }}">{% if seguidor.usuarioNombre != '' %} {{seguidor.usuarioNombre}} {{seguidor.usuarioApellido}} {% else %} {{seguidor.usuarioSlug}} {% endif %} </a>
 				<p class="comuna">{% if seguidor.comunaNombre %} {{seguidor.comunaNombre}} {% endif %}</p>
 			</div>
 			<div class="seguidor_iconos">
@@ -161,7 +161,10 @@
 					<p class="valor">{{seguidor.totalBe}}</p>
 				</div>
 				<div class="recomendacion_lugar {% if seguidor.recomendo %}si{% else %}no{% endif %}">
-					<a href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }}" target="_blank"></a>
+					{% if seguidor.recomendo %}
+						<a class="link_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }}" target="_blank"></a>
+					{% else %}
+					{% endif %}
 				</div>
 			</div>
 		</div>

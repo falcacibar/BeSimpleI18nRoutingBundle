@@ -33,6 +33,8 @@ Loogares\BlogBundle\Entity\Concurso:
             type: datetime
         fecha_termino:
             type: datetime
+        fecha_termino_concurso:
+            type: datetime
         twitter_inicio:
             type: integer
             nullable: true

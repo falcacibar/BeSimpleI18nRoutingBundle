@@ -562,6 +562,13 @@ textarea
                     display: block
                     margin: 5px
 
+                .alerta_premio
+                    background: url('../images/extras/botones_sprite.png') -119px 0
+                    height: 16px
+                    float: right
+                    margin: 4px 5px
+                    width: 18px
+
                 .flecha_ciudad
                     background: url('../images/extras/botones_sprite.png') -99px -1px
                     display: block
@@ -617,8 +624,20 @@ textarea
 
                             .numero_notificacion
                                 @include borde_redondeado_4px
-                                background: $rojo_medio
-                                border: 1px solid $rojo_claro
+                                background: $gris_999
+                                box-shadow: 0px 1px 1px $gris_444
+                                color: $blanco
+                                float: right
+                                font:
+                                    weight: bold
+                                margin: 7px 10px 0px
+                                padding: 2px 4px 3px
+                                text-shadow: 0px 1px 1px $gris_444
+
+                            .numero_notificacion_premio
+                                @include borde_redondeado_4px
+                                background: $azul_claro
+                                box-shadow: 0px 1px 1px $gris_444
                                 color: $blanco
                                 float: right
                                 font:

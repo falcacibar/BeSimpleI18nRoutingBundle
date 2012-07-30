@@ -91,7 +91,13 @@
 				<div class="descuentos descuentos_{% if campana.descuento %}activo{% else %}inactivo{% endif %}"></div>
 				<div class="qtip_descuentos qtip">Descuento</div>
 				<div class="ver_mas">
-					<a class="ver_campana" href="{{ path('_reporte_concursos_listado', {'slug': lugar.slug, 'id': campana.id}) }}">Ver campaña</a>
+					<a class="ver_campana" href="
+            {%- if campana.concursos|length > 0 -%}
+              {{- path('_reporte_concursos_listado', {'slug': lugar.slug, 'id': campana.id}) -}}
+            {%- else -%}
+              {{- path('_reporte_descuentos_detalle', {'slug': lugar.slug, 'id': campana.id}) -}}
+            {%- endif -%}
+          ">Ver campaña</a>
 				</div>
 			</li>
 		{% endfor %}

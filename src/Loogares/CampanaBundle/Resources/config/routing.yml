@@ -29,6 +29,11 @@ _reporte_descuentos_nuevo:
     pattern: /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno/campanas/{id}/descuentos/nuevo
     defaults: { _controller: LoogaresCampanaBundle:Default:nuevoDescuento }
 
+# MAILS DESCUENTOS
+_reporte_descuentos_mail:
+    pattern: /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno/mail
+    defaults: { _controller: LoogaresCampanaBundle:Default:mailDescuentosUsuario }
+
 _reporte_descuentos_enviar:
     pattern: /lugar/{slug}/reportescampanasdeloogarescomelalbertosevaaechareldiseno/campanas/{id}/descuento/enviar
     defaults: { _controller: LoogaresCampanaBundle:Default:submitDescuento }

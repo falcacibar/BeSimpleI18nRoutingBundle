@@ -1298,6 +1298,8 @@ class LugarController extends Controller{
         $nueva = true;
 
         if(!isset($_POST['curlSuperVar'])){
+            //Retrasamos el proceso 2 segundos para que no se gatille antes que el resto del agregar lugar
+            sleep(2);
           //Revisamos si el usuario tiene ya una recomendacion en este lugar
           $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u where u.usuario = ?1 and u.lugar = ?2 and u.estado = ?3");
           $q->setParameter(2, $lugar->getId())
@@ -1440,8 +1442,12 @@ class LugarController extends Controller{
 
             // Se envía mail al lugar
             if($lugar->getMail() != null && $lugar->getMail() != '' && !isset($_POST['editando'])) {
-                // Buscamos dueño del lugar
-                $owner = $lugar->getDueno()->getUsuario();
+                try{
+                    $owner = $lugar->getDueno();
+                    $owner->getMail(); //Gatillamos el error aproposito!
+                }catch (\Exception $e){
+                    $owner = null;
+                }
 
                 $mailParam = '';
                 if($owner != null)
@@ -2181,6 +2187,7 @@ class LugarController extends Controller{
         $formErrors = array();
 
         $lugar = $lr->findOneBySlug($slug);
+        $dueno = $lugar->getDueno();
 
         if($request->getMethod() == 'POST') {
             if(!$request->request->get('reporte')) {

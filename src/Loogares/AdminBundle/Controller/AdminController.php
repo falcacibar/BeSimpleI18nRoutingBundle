@@ -1220,7 +1220,6 @@ class AdminController extends Controller
                 $lr->actualizarPromedios($lugar->getSlug());
                 $lr->actualizarPromedios($lugarAntiguo->getSlug());
                 $aur->actualizarAcccionesUsuario($lugarAntiguo->getId(), $lugar->getId(), $recomendacion->getUsuario()->getId());
-                $arr->actualizarActividadReciente($recomendacion->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
 
                 $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u WHERE u.lugar = ?1 and u.estado != 3 ORDER BY u.id desc");
                 $q->setMaxResults(1);
@@ -1929,6 +1928,7 @@ class AdminController extends Controller
                     }  
                     if($request->request->get('fecha_termino') != ''){
                         $fechaTermino = new \DateTime( $request->request->get('fecha_termino') );
+                        $fechaTerminoConcurso = new \DateTime( $request->request->get('fecha_termino') . ' +30 days');
                     }
 
                     $concurso->setPost($post);
@@ -1938,6 +1938,7 @@ class AdminController extends Controller
                     $concurso->setNumeroPremios($request->request->get('numero_premios'));
                     $concurso->setFechaInicio($fechaInicio);
                     $concurso->setFechaTermino($fechaTermino);
+                    $concurso->setFechaTerminoConcurso($fechaTerminoConcurso);
                     $concurso->setFacebookInicio($request->request->get('facebook_inicio'));
                     $concurso->setFacebookFinal($request->request->get('facebook_final'));
                     $concurso->setTwitterInicio($request->request->get('twitter_inicio'));

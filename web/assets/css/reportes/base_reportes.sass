@@ -92,6 +92,18 @@ $rojo: #F72121
     -moz-border-radius: 2px
     -webkit-border-radius: 2px
 
+@mixin borde_redondeado_mediano
+    border-radius: 5px
+    -o-border-radius: 5px
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+
+@mixin borde_redondeado_grande
+    border-radius: 8px
+    -o-border-radius: 8px
+    -moz-border-radius: 8px
+    -webkit-border-radius: 8px
+
 @mixin link_azul
     color: $azul
     text-decoration: none
@@ -268,6 +280,7 @@ a
             background: $gris_faf
             border: 1px solid $gris_f6f
             float: left
+            margin: 0 0 10px
             width: 598px
 
             &:hover
@@ -439,6 +452,28 @@ a
 
                         .icono_be
                             background: url('../../images/reporte/botones_panel_dueno.png') 0 -140px
+                            height: 18px
+                            margin: 0 41px
+                            padding: 4px 0 0 25px
+                            width: 175px
+
+                .boton_be_sin_link
+                    background: $gris_f6f
+                    float: left
+                    font:
+                        size: 18px
+                    position: absolute
+                    z-index: 1
+
+                    .sin_link
+                        @include link_blanco
+                        display: block
+                        height: 18px
+                        padding: 8px 10px 10px
+                        width: 279px
+
+                        .icono_be
+                            background: url('../../images/reporte/botones_panel_dueno.png') 0 -727px
                             height: 18px
                             margin: 0 41px
                             padding: 4px 0 0 25px
@@ -807,7 +842,7 @@ a
                         &:hover
                             @include link_azul_hover
 
-                    .checkbox
+                    .canjes_checkbox
                         float: left
                         margin: 8px 5px 9px 0
                         width: 10px
@@ -949,6 +984,12 @@ a
                             height: 15px
                             float: left
                             width: 28px
+
+                            .link_recomendacion
+                                cursor: pointer
+                                float: left
+                                height: 15px
+                                width: 28px
 
                         .si
                             background: url('../../images/reporte/botones_panel_dueno.png') 0 -483px
@@ -1115,19 +1156,30 @@ a
     background: white
 
 .lolbox
-    width: 570px
-    height: 570px
-    color: $gris_444
     background: $blanco   
+    color: $gris_444
     display: block
+    height: 570px
+    width: 570px
+
+    .lolbox-error
+        @include borde_redondeado_mediano
+        background: $rojo_claro
+        color: $blanco
+        display: block
+        height: 14px
+        padding: 10px
+        width: 430px
 
     .step_static, .step_done
+        @include box_shadow_ccc
         background: #FAFAFC
-        height: 30px
         display: block  
+        height: 30px
+        margin: 0 0 20px
         padding: 15px 0
-        width: 570px
         overflow: hidden
+        width: 570px
 
         .participantes_concurso
             float: left
@@ -1157,11 +1209,8 @@ a
                 width: 190px
 
                 .numero_participantes
+                    @include borde_redondeado_grande
                     background: $gris_666
-                    border-radius: 8px
-                    -o-border-radius: 8px
-                    -moz-border-radius: 8px
-                    -webkit-border-radius: 8px
                     color: $blanco
                     padding: 3px 6px
 
@@ -1172,8 +1221,8 @@ a
     
     .step_active
         display: block
-        margin: 0 60px
         height: auto
+        margin: 0 60px
         overflow: hidden
 
         h3, h4
@@ -1181,8 +1230,8 @@ a
                 size: 16px
                 weight: bold
             text-align: center             
+            margin: 20px 0 40px
             width: 100%
-            margin: 40px 0
 
         h4
             margin: 40px 0 10px
@@ -1191,18 +1240,18 @@ a
             display: none
 
         .step_content
+            color: $gris_666
             height: auto
             font:
                 size: 14px
-            color: $gris_666
             overflow: hidden
 
             .rango_descuentos, .rango_tiempo
-                list-style: none
-                margin: 0 0 0 35px
-                padding: 0
                 height: 160px
                 float: left
+                list-style: none
+                margin: 0 0 0 51px
+                padding: 0
                 width: 90px
 
                 li
@@ -1215,16 +1264,16 @@ a
                         margin: 0 0 0 15px
 
             .rango_tiempo
-                margin: 0 140px
                 height: 120px
+                margin: 0 140px
                 width: 110px
 
             .textarea
                 border: 1px solid $gris_eee
-                height: 110px
-                width: 404px
+                height: 80px
                 line-height: 20px
                 margin: 0 20px
+                width: 404px
 
                 &:hover
                     border: 1px solid $gris_999
@@ -1242,7 +1291,6 @@ a
                 text-align: center
 
     .step_done
-        margin: 10px 0 0
         padding: 23px 0
         height: 14px
 
@@ -1250,17 +1298,17 @@ a
             font:
                 size: 12px
             text-align: left             
-            width: 550px
             margin: 0 0 0 20px
+            width: 550px
 
         small
-            display: inline-block
             background: $gris_666
             color: $blanco
-            padding: 5px
+            display: inline-block
             font:
                 weight: bold
             margin: 0 0 0 5px
+            padding: 5px
 
         .step_content
             display: none
@@ -1271,14 +1319,45 @@ a
 
     .lolbox_siguiente
         background: #3bf
-        width: 200px
-        height: 40px
         display: block
+        height: 40px
         margin: 20px auto
+        width: 200px
 
     .siguiente_paso
+        background: url('../../images/reporte/botones_panel_dueno.png') -1860px -5px
+        border: 0px
+        cursor: pointer
+        height: 30px
         float: left
-        margin: 45px 247px 0
+        margin: 45px 215px 0
+        width: 140px
+
+        &:hover
+            background: url('../../images/reporte/botones_panel_dueno.png') -1860px -75px            
+
+    .enviar_dscto
+        background: url('../../images/reporte/botones_panel_dueno.png') -2000px -5px
+        border: 0px
+        cursor: pointer
+        height: 58px
+        float: left
+        margin: 45px 183px 20px
+        width: 204px
+
+        &:hover
+            background: url('../../images/reporte/botones_panel_dueno.png') -2000px -75px
+
+    .exito_envio_dscto
+        font:
+            size: 20px
+            weight: bold
+        line-height: 30px
+        padding: 160px 120px 
+        text-align: center
+
+        .imagen_exito
+            margin: 0 0 20px 
 
 .footer_reporte
     background: $gris_faf

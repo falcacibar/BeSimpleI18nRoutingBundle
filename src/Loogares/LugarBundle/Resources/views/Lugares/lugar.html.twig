@@ -104,12 +104,17 @@
             {% set twitter_text = 'lugar.recomendacion.compartir.twitter'|trans|format((lugar.twitter) ? '@'~(lugar.twitter|slice(15)) : lugar.nombre, app.session.flash('flash_recomendacion_estrellas'), twitter) %}
             {% set data_url = url('_recomendacion', {'slug' : lugar.slug , 'usuarioSlug' : app.security.token.user.slug}) %}
 
-            <div style="display:none">
+            <div class="popup_compartir" style="display:none">
                 <div class="contenido_lightbox_compartir" id="compartir-fbox">
-                    <a class="compartir_facebook" href="#">Feisbuc</a>
-                    <a class="compartir_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&text={{twitter_text|url_encode()}}" target="_blank">Tgüitter</a>
+                    <p class="titulo_popup">¡Gracias por compartir tu experiencia!</p>
+                    <p class="compartir_por_redes_texto">¿Qué tal si ahora la compartes en otras redes?</p>
+                    <p class="compartir_por_redes">Tal vez Facebook, quizás Twitter... selecciona la que más te guste:</p>
+                    <a class="compartir_facebook compartir_por_facebook" href="#"></a>
+                    <a class="compartir_twitter compartir_por_twitter" href="https://twitter.com/share?url={{data_url|url_encode()}}&text={{twitter_text|url_encode()}}" target="_blank"></a>
+                    <a href="" class="volver">{{'blog.popup.participando.cerrar'|trans}}</a>
                 </div>
             </div>
+
             <script type="text/javascript">
             $(function() {
                 $('.compartir_twitter').click(function() {
@@ -292,14 +297,14 @@
             <div class="datos_secundarios_lugar">
                 <div class="tags_primero_lugar">
                     <div class="primero_en_recomendar_lugar">
-                        {% if lugar.recomendacion[0] is defined %}
+                        {% if lugar.recomendacionesActivas[0] is defined %}
                             <div class="primero_titulo">
                                 {{'lugar.ficha.datos.primero'|trans}}
                             </div>
                             <div class="primero_usuario">
                                 <div class="primero_usuario_img">
                                     <a href="">
-                                        <img src="{{ asset('assets/images/usuarios/'~lugar.recomendacion[0].usuario.imagenFull) }}" height="20" width="20" />
+                                        <img src="{{ asset('assets/images/usuarios/'~lugar.recomendacionesActivas[0].usuario.imagenFull) }}" height="20" width="20" />
                                     </a>
                                 </div>
                                 <div class="primero_usuario_nombre">
@@ -390,6 +395,12 @@
                     </div>
                 {% endif %}
             </div>
+            {% if lugar.descripcionLugar %}
+            <div class="descripcion_lugar">
+                {{lugar.descripcionLugar.titulo}}
+                {{lugar.descripcionLugar.texto}}
+            </div>  
+            {% endif %}
         </div>
 
         <div class="actividad_lugar">

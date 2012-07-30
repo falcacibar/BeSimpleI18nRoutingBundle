@@ -56,10 +56,7 @@ class SearchController extends Controller{
             $data[$value->getSlug()]['categorias'] = $buff;
         }
 
-      return $this->render(
-          "LoogaresLugarBundle:Search:categorias.html.twig"
-          , array('arbol_categorias' => $data)
-      );
+      return $this->render("LoogaresLugarBundle:Search:categorias.html.twig", array('arbol_categorias' => $data));
   }
 
   public function buscarAction(Request $request, $slug, $path, $subcategoria = null, $categoria = null, $sector = null, $comuna = null){
@@ -1238,6 +1235,9 @@ class SearchController extends Controller{
       $recomendacion = $bufferRec;
       $imagen = $bufferImagenLugar;
 
+      $lugar->pedidos = $lr->getPedidosLugar($lugar, 2);
+      $lugar->reservas = $lr->getPedidosLugar($lugar, 1);
+      
       $lugar->ultimaRecomendacion = $recomendacion;
       $lugar->ultimaImagen = $imagen;
       $lugar->mostrarPrecio = $fn->mostrarPrecio($lugar);

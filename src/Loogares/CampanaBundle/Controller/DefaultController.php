@@ -59,6 +59,8 @@ class DefaultController extends Controller{
 		$lugar = $lugarRepository->findOneBySlug($slug);
 		$campanas = $campanaRepository->findByLugar($lugar->getId());
 
+		$campanas = array_reverse($campanas);
+
 		return $this->render('LoogaresCampanaBundle:Default:listado_campanas.html.twig', array(
 			'lugar' => $lugar,
 			'campanas' => $campanas,
@@ -80,13 +82,32 @@ class DefaultController extends Controller{
 		$q->setParameter(1, $id);
 		$concursos = $q->getResult();
 
+		if(sizeOf($concursos) == 0){
+			return $this->forward('LoogaresCampanaBundle:Default:listadoCampanas', array('slug' => $slug, 'id' => $id));
+		}
+
+    $participantesTotales = $this->getDoctrine()->getConnection()
+        					->fetchAll("SELECT u.id as total
+															FROM concursos_usuario cu
+
+															INNER JOIN usuarios u ON u.id = cu.usuario_id 
+
+															INNER JOIN concursos c ON c.id = cu.concurso_id 
+															INNER JOIN blog_posts p ON p.id = c.post_id 
+
+															WHERE p.lugar_id = {$lugar->getId()}
+															GROUP BY u.id");
+
+    $participantesTotales = sizeOf($participantesTotales);
+
 		$meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'	, 'Diciembre');
 
 		return $this->render('LoogaresCampanaBundle:Default:listado_concursos.html.twig',array(
 			'concursos' => $concursos,
 			'meses' => $meses,
 			'id' => $id,
-			'lugar' => $lugar
+			'lugar' => $lugar,
+			'participantesTotales' => $participantesTotales
 		));
 	}
   
@@ -144,13 +165,14 @@ class DefaultController extends Controller{
     $campana = $cr->findOneById($id);
 
     if( !$campana->getDescuento() ){
-    	return $this->render('LoogaresCampanaBundle:Default:listado_descuentos.html.twig', array('lugar' => $campana->getLugar(), 'id' => $id));
+    	return $this->render('LoogaresCampanaBundle:Default:listado_descuentos.html.twig', array('lugar' => $campana->getLugar(), 'id' => $id, 'campana' => $campana));
     }
     
     return $this->render('LoogaresCampanaBundle:Default:reporte_descuento.html.twig', array(
     	'lugar' => $campana->getLugar(), 
     	'id' => $id,
     	'descuento' => $campana->getDescuento(),
+    	'campana' => $campana
     ));
  	}
 
@@ -194,7 +216,6 @@ class DefaultController extends Controller{
 															LEFT JOIN comuna co ON co.id = u.comuna_id 
 															LEFT JOIN recomendacion r ON r.estado_id = 2 AND r.usuario_id = u.id AND r.lugar_id = {$lugar->getId()}
 
-
 															INNER JOIN concursos c ON c.id = cu.concurso_id 
 															INNER JOIN blog_posts p ON p.id = c.post_id 
 															LEFT JOIN ganadores g ON g.participante_id = cu.id
@@ -231,44 +252,70 @@ class DefaultController extends Controller{
 		$em = $this->getDoctrine()->getEntityManager();
 		$lr = $em->getRepository("LoogaresLugarBundle:Lugar");
 		$cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+		$orden = " ORDER BY totalRecomendaciones DESC";
+		$comuna = null;
+		$recomendo = null;
+
+		$ordenFilters = array(
+			'recomendaciones' => 'totalRecomendaciones',
+			'premios' => 'totalBe',
+			'descuentos' => 'totalDescuentos'
+		);
 
 		$campana = $cr->findOneById($id);
 
 		if($campana->getDescuento()){
-			return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('lugar' => $lugar, 'id' => $id)));
+			return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('slug' => $campana->getLugar()->getSlug(), 'id' => $id)));
 		}
-
-		$comuna = null;
 
     $lugar = $lr->findOneBySlug($slug);
 
-    if(isset($_GET['comuna'])){
-    	$comuna = " AND com.slug = '" . $_GET['comuna'] . "'";
+    if(isset($_GET['comuna']) && $_GET['comuna'] != 'todas'){
+    	$comuna = " AND co.slug = '" . $_GET['comuna'] . "'";
     }
 
-		$q = $em->createQuery("SELECT p 
-													 FROM Loogares\BlogBundle\Entity\Participante p
-													 JOIN p.concurso c
-													 JOIN c.post po
-													 JOIN p.usuario u
-													 JOIN u.comuna com
-													 WHERE po.lugar = ?1 $comuna
-													 GROUP BY p.usuario");
+    if(isset($_GET['recomendo'])){
+    	$recomendo = " AND r.id != 0";
+    }
 
-		$q->setParameter(1, $lugar);
-		$seguidores = $q->getResult();
+    if(isset($_GET['orden'])){
+    	if(isset($ordenFilters[$_GET['orden']])){
+    		$orden = " ORDER BY {$ordenFilters[$_GET['orden']]} DESC";
+	    }
+    }
 
-		$q = $em->createQuery("SELECT p
-													 FROM Loogares\BlogBundle\Entity\Participante p
-													 JOIN p.concurso c
-													 JOIN c.post po
-													 JOIN p.usuario u
-													 JOIN u.comuna com
-													 WHERE po.lugar = ?1
-													 GROUP BY com.id
-													 ORDER BY com.nombre ASC");
-		$q->setParameter(1, $lugar);
-		$comunas = $q->getResult();
+   	$seguidores = $this->getDoctrine()->getConnection()
+        					->fetchAll("SELECT u.id AS usuarioId, u.imagen_full AS usuarioImagen, u.nombre AS usuarioNombre, u.apellido AS usuarioApellido, u.slug AS usuarioSlug, 
+        											count(g.id) as totalBe, co.nombre AS comunaNombre, co.slug AS comunaSlug, count(du.id) AS totalDescuentos, r.id AS recomendo,
+														  (SELECT count(id) FROM recomendacion WHERE recomendacion.estado_id = 2 AND usuario_id = u.id) AS totalRecomendaciones
+															FROM concursos_usuario cu
+
+															INNER JOIN usuarios u ON u.id = cu.usuario_id 
+															LEFT JOIN comuna co ON co.id = u.comuna_id 
+															LEFT JOIN recomendacion r ON r.estado_id = 2 AND r.usuario_id = u.id AND r.lugar_id = {$lugar->getId()}
+
+
+															INNER JOIN concursos c ON c.id = cu.concurso_id 
+															INNER JOIN blog_posts p ON p.id = c.post_id 
+															LEFT JOIN ganadores g ON g.participante_id = cu.id
+															LEFT JOIN descuentos_usuarios du ON du.usuario_id = u.id
+
+															WHERE p.lugar_id = {$lugar->getId()} $comuna $recomendo
+															GROUP BY u.id
+															$orden");
+
+			$comunas = $this->getDoctrine()->getConnection()
+        				->fetchAll("SELECT co.slug AS slug, co.nombre as nombre
+        										FROM concursos_usuario cu
+
+														INNER JOIN usuarios u ON u.id = cu.usuario_id 
+        										INNER JOIN comuna co ON co.id = u.comuna_id
+
+														INNER JOIN concursos c ON c.id = cu.concurso_id 
+														INNER JOIN blog_posts p ON p.id = c.post_id 
+
+														WHERE p.lugar_id = {$lugar->getId()}
+        										GROUP BY co.id");
 
 		return $this->render('LoogaresCampanaBundle:Default:nuevo_descuento.html.twig', array(
 			'seguidores' => $seguidores,
@@ -276,6 +323,8 @@ class DefaultController extends Controller{
 			'id' => $id,
 			'comunas' => $comunas,
 			'filtrado' => (isset($_GET['comuna'])?$_GET['comuna']:null),
+			'orden' => (isset($_GET['orden'])?$_GET['orden']:'recomendaciones'),
+			'recomendo' => (isset($_GET['recomendo'])?'a':null) 
 		));
 	}
 
@@ -284,14 +333,14 @@ class DefaultController extends Controller{
 			$em = $this->getDoctrine()->getEntityManager();
     	$ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
     	$cr = $em->getRepository('LoogaresCampanaBundle:Campana');
-    	
+
     	$post = $_POST;
    		$descuento = new Descuento();
    		$campana = $cr->findOneById($id);
 
     	$descuento->setFechaInicio(new \DateTime());
     	$descuento->setCondiciones($post['condiciones']);
-    	$descuento->setFechaTermino(new \DateTime('+5'));
+    	$descuento->setFechaTermino(new \DateTime("+{$post['tiempo']} days"));
     	$descuento->setCantidad($post['dco']);
 
     	$em->persist($descuento);
@@ -310,13 +359,71 @@ class DefaultController extends Controller{
 
     		$em->persist($descuentosUsuarios);
     	}
-
     	$em->flush();
-    }
+    	
+    	/*$fields_string = '';
+	    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_descuentos_mail');
+      $fields = array(
+          'seguidores' => implode(',',$post['seguidores'])
+      );
 
-		print_r($_POST);
-		die();
-		return new Response($lugar);
+      //url-ify the data for the POST
+      foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+      $fields_string = rtrim($fields_string,'&');
+
+      //open connection
+      $ch = curl_init();
+      //set the url, number of POST vars, POST data
+      curl_setopt($ch,CURLOPT_URL, $url);
+      curl_setopt($ch,CURLOPT_POST,2);
+      curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+      curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+      //execute post
+      curl_exec($ch);
+      curl_close($ch);*/
+    }
+		return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('slug' => $campana->getLugar()->getSlug(), 'id' => $id)));
 	}
 
+	public function mailDescuentosUsuarioAction(){
+		$_POST['seguidores'] = "3605, 1, 2, 3";
+		$descontados = explode(',',$_POST['seguidores']);
+
+		$em = $this->getDoctrine()->getEntityManager();
+  	$cr = $em->getRepository('LoogaresCampanaBundle:Campana');
+  	$ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+
+  	$campanaId = 1;
+  	$campana = $cr->findOneById($campanaId);
+
+  	$mail = array();
+  	$mail['lugar'] = $campana->getLugar();
+  	$mail['descuento'] = $campana->getDescuento();
+    $mail['asunto'] = 'Asunto del Mail';
+
+    $paths = array();
+    $paths['logo'] = 'assets/images/mails/logo_mails.png';
+
+  	foreach($descontados as $descontado){
+  		$usuario = $ur->findOneById($descontado);
+  		$mail['usuario'] = $usuario;
+
+  		$q = $em->createQuery("SELECT du FROM Loogares\CampanaBundle\Entity\DescuentosUsuarios du WHERE du.usuario = ?1 AND du.descuento = ?2");
+  		$q->setParameter(1, $usuario);
+  		$q->setParameter(2, $campana->getDescuento());
+  		$descuento = $q->getOneOrNullResult();
+  		if($descuento){
+  			$mail['codigo'] = $descuento[0]->getCodigo();
+  		}
+      
+      //$message = $this->get('fn')->enviarMail($mail['asunto'], $usuario->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresCampanaBundle:Mails:mail_descuentos_usuario.html.twig', $this->get('templating'));
+      //$this->get('mailer')->send($message);
+  	}
+
+		return $this->render('LoogaresCampanaBundle:Mails:mail_descuentos_usuario.html.twig', array(
+			'mail' => $mail,
+			'assets' => $paths
+		));
+	}
 }

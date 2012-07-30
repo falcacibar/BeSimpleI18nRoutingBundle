@@ -60,7 +60,8 @@
 {% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+	<link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+  <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen">
 {% endblock %}
 
 {% block javascripts %}
@@ -69,6 +70,7 @@
 	<script src="{{asset('assets/js/jquery.raty.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.pjax.js')}}"></script>
+  <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
 	<script src="{{asset('assets/js/buscar.js')}}"></script>
 {% endblock %}
 
@@ -533,6 +535,36 @@
 									<div data-precio="{{lugar.precio}}" class="resultado-busqueda-precio-raty"></div>
 								</li>
 							{% endif %}
+									{% if lugar.reservas|length > 0 or lugar.pedidos|length > 0 %}
+									<li>
+                    {% if lugar.pedidos|length > 0  and lugar.pedidos.0.promocion != null %}
+                        <div class="pedido_promocion">
+                            <span class="icono_pedido_promocion"></span>
+                            <span class="titulo_pedido_promocion">{{lugar.pedidos.0.promocion.titulo}}</span>
+                            <span class="dias_pedido_promocion">{{lugar.pedidos.0.promocion.dias}}</span>
+                            <p class="descripcion_pedido_promocion">{{lugar.pedidos.0.promocion.descripcion}}</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="pedido_reserva_lugar">
+                        {% if lugar.pedidos|length > 0 %}
+                            {% if lugar.pedidos|length == 1 %}
+                                <a class="pedido_online_lugar" href="{{lugar.pedidos.0.servicioPedido.linkBase}}{{lugar.pedidos.0.referral}}" alt="Pedido Online" target="blank"></a>
+                            {% else %}
+                                <a class="pedido_online_lugar pedido_fancybox" href="{{path('_pedidosLugar', {'slug' : lugar.slug, 'tipo' : 'pedidos'})}}" alt="Pedido Online"></a>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if lugar.reservas|length > 0 %}
+                            {% if lugar.reservas|length == 1 %}
+                                <a class="reserva_online_lugar" href="{{lugar.reservas.0.servicioPedido.linkBase}}{{lugar.reservas.0.referral}}" alt="Reserva Online" target="blank"></a>
+                            {% else %}
+                                <a class="reserva_online_lugar pedido_fancybox" href="{{path('_pedidosLugar', {'slug' : lugar.slug, 'tipo' : 'reservas'})}}" alt="Reserva Online"></a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+              </li>
 						</ul>
 					</div>
 				</div>

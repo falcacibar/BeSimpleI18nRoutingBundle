@@ -6,11 +6,19 @@
 	<p class="breadcrumb"><a href="{{ path('_reportes', {'slug': lugar.slug}) }}">Inicio</a> » <a href="{{ path('_reporte_campanas', {'slug': lugar.slug}) }}">Mis campañas</a> » <span class="selected">Descuentos</span></p>
 
 	<ul class="botones_campana_dscto">
-		<li class="boton_be">
-			<a href="{{ path('_reporte_concursos_listado', { 'slug': lugar.slug, 'id': id }) }}">
-				<div class="icono_be">Beneficios Exclusivos</div>
-			</a>
-		</li>
+		{% if campana.concursos|length > 0 %}
+			<li class="boton_be">
+				<a href="{{ path('_reporte_concursos_listado', { 'slug': lugar.slug, 'id': id }) }}">
+						<div class="icono_be">Beneficios Exclusivos</div>
+				</a>
+			</li>
+		{% else %}
+			<li class="boton_be_sin_link">
+				<div class="sin_link">
+					<div class="icono_be">Beneficios Exclusivos</div>
+				</div>
+			</li>
+		{% endif %}
 		<li class="boton_dscto">
 			<div class="icono_gc">Descuentos</div>
 		</li>

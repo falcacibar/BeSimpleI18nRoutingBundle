@@ -13,16 +13,16 @@ use Doctrine\ORM\EntityRepository;
 class ActividadRecienteRepository extends EntityRepository
 {
     public function actualizarActividadReciente($id, $entidad){
-    	$em = $this->getEntityManager();
+    		$em = $this->getEntityManager();
 
         $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ActividadReciente u WHERE u.entidad_id = ?1 and u.entidad = ?2");
         $q->setParameter(1, $id);
         $q->setParameter(2, $entidad);
         $reciente = $q->getResult();
         
-        if($reciente != null){
-            $em->remove($reciente[0]);
-        }
+      	if($reciente != null){
+          $em->remove($reciente[0]);
+      	}
     }
 
 	public function getActividadReciente($results, $ciudad=null, $usuario=null, $entity=null, $offset=null) {

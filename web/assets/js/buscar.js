@@ -1,6 +1,19 @@
 $(document).ready(function(){
 	var rebindEvents = function(){
 
+    $('.pedido_fancybox').fancybox({
+        hideOnContentClick : false,
+        padding: 0,
+        type: 'ajax',
+        showCloseButton: false,
+        onStart: function(){
+            $.fancybox.showActivity;
+        },
+        onComplete: function(){
+            $.fancybox.hideActivity;
+        }
+    });
+
 		if($('.resultados_wrapper').height() > 2000){
 			var $sidebar   = $(".sidebar_busqueda"),
 			    $window    = $(window),
@@ -271,10 +284,10 @@ $(document).ready(function(){
 				$('.resultados_wrapper').append("<div class='overlay'><div class='loader_txt'>Cargando lugares...</div></div>").fadeIn(300);
 			},
 			success: function(data){
-				console.log(data)
 				$('.overlay').fadeOut(0, function(){
 					$(this).remove();
 				});
+
 				$('.resultados_wrapper').html(data).fadeIn(300, function(){
 					$('.qtip').remove();
 					rebindEvents();
