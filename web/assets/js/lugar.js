@@ -199,6 +199,7 @@ $(document).ready(function(){
 
     $('.recomendar_ahora').click(function(e){
         e.preventDefault();
+
         if($('.recomienda_lugar_caja h3').offset().top != null)
             $('body').animate({'scrollTop': $('.recomienda_lugar_caja h3').offset().top - 20}, 200);
     });
