@@ -331,7 +331,7 @@ class DefaultController extends Controller{
 			$em = $this->getDoctrine()->getEntityManager();
     	$ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
     	$cr = $em->getRepository('LoogaresCampanaBundle:Campana');
-    	
+
     	$post = $_POST;
    		$descuento = new Descuento();
    		$campana = $cr->findOneById($id);
@@ -358,10 +358,60 @@ class DefaultController extends Controller{
     		$em->persist($descuentosUsuarios);
     	}
 
+    	/*$fields_string = '';
     	$em->flush();
-    }
+	    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_descuentos_mail');
+      $fields = array(
+          'seguidores' => implode(',',$post['seguidores'])
+      );
 
+      //url-ify the data for the POST
+      foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+      $fields_string = rtrim($fields_string,'&');
+
+      //open connection
+      $ch = curl_init();
+      //set the url, number of POST vars, POST data
+      curl_setopt($ch,CURLOPT_URL, $url);
+      curl_setopt($ch,CURLOPT_POST,2);
+      curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+      curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+      //execute post
+      curl_exec($ch);
+      curl_close($ch);*/
+    }
 		return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('slug' => $campana->getLugar()->getSlug(), 'id' => $id)));
 	}
 
+	public function mailDescuentosUsuarioAction(){
+		$_POST['seguidores'] = "3605, 1, 2, 3";
+		$descontados = explode(',',$_POST['seguidores']);
+
+		$em = $this->getDoctrine()->getEntityManager();
+  	$cr = $em->getRepository('LoogaresCampanaBundle:Campana');
+  	$ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');
+
+  	$campanaId = 1;
+  	$campana = $cr->findOneById($campanaId);
+
+  	$mail = array();
+  	$mail['lugar'] = $campana->getLugar();
+  	$mail['descuento'] = $campana->getDescuento();
+    $mail['asunto'] = 'Asunto del Mail';
+
+    $paths = array();
+    $paths['logo'] = 'assets/images/mails/logo_mails.png';
+
+  	foreach($descontados as $descontado){
+  		$usuario = $ur->findOneById($descontado);
+
+      //$message = $this->get('fn')->enviarMail($mail['asunto'], $usuario->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresCampanaBundle:Mails:mail_descuentos_usuario.html.twig', $this->get('templating'));
+      //$this->get('mailer')->send($message);
+  	}
+
+		return $this->render('LoogaresCampanaBundle:Mails:mail_descuentos_usuario.html.twig', array(
+			'mail' => $mail
+		));
+	}
 }

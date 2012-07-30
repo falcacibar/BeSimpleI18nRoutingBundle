@@ -395,6 +395,12 @@
                     </div>
                 {% endif %}
             </div>
+            {% if lugar.descripcionLugar %}
+            <div class="descripcion_lugar">
+                {{lugar.descripcionLugar.titulo}}
+                {{lugar.descripcionLugar.texto}}
+            </div>  
+            {% endif %}
         </div>
 
         <div class="actividad_lugar">

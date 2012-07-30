@@ -1,0 +1,20 @@
+Loogares\LugarBundle\Entity\DescripcionLugar:
+    type: entity
+    table: descripcion_lugar
+    oneToOne:
+        lugar:
+            targetEntity: Loogares\LugarBundle\Entity\Lugar
+            joinTable:
+                name: descripcion_lugar
+                joinColumns:
+                    lugar:
+                        referencedColumnName: id
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        titulo:
+            type: string
+        texto:
+            type: string

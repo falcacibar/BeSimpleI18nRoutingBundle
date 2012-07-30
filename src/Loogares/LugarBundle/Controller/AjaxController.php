@@ -347,9 +347,7 @@ class AjaxController extends Controller{
           curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
           //execute post
           curl_exec($ch);
-
           curl_close($ch);
-          $data[] = 'Up to here, ok';
 
           // Agregamos a Actividad Reciente
           $actividad = new ActividadReciente();

@@ -41,6 +41,10 @@ Loogares\LugarBundle\Entity\Lugar:
                         referencedColumnName: id
         dueno:
             targetEntity: Loogares\UsuarioBundle\Entity\Dueno
+    oneToOne:
+        descripcion_lugar:
+            targetEntity: Loogares\LugarBundle\Entity\DescripcionLugar
+            mappedBy: lugar
     oneToMany:
         imagenes_lugar:
             targetEntity: Loogares\LugarBundle\Entity\ImagenLugar
@@ -89,10 +93,6 @@ Loogares\LugarBundle\Entity\Lugar:
             nullable: true
         #detalle
         detalle:
-            type: text
-            nullable: true
-        #descripcion
-        descripcion:
             type: text
             nullable: true
         #mapx

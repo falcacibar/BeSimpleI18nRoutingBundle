@@ -1,3 +1,4 @@
-LoogaresMailBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: LoogaresMailBundle:Mail:index }
+# MAILS DESCUENTOS
+_descuentos_mail:
+    pattern: /mailDescuentosUsuario
+    defaults: { _controller: LoogaresMailBundle:Mail:mailDescuentosUsuario }

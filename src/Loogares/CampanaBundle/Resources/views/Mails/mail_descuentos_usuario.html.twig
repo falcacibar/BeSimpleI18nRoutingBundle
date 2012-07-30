@@ -1,0 +1,11 @@
+{{ mail.descuento.cantidad }}
+{{ mail.descuento.fechaTermino|date('m/d/y') }}
+{{ mail.descuento.condiciones }}
+{{ mail.lugar.nombre }}
+{{ mail.lugar.sitioWeb|default('') }}
+{{ mail.lugar.twitter|default('') }}
+{{ mail.lugar.facebook|default('') }}
+{{ mail.lugar.telefono1|default('') }}
+{{ mail.lugar.telefono2|default('') }}
+{{ mail.lugar.telefono3|default('') }}
+{{ mail.lugar.calle }} {{ mail.lugar.numero }} {{ mail.lugar.comuna.nombre }} {{ mail.lugar.comuna.ciudad.nombre }}

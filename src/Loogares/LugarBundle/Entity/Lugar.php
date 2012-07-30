@@ -1118,4 +1118,39 @@ class Lugar
     {
         return $this->dueno;
     }
+    /**
+     * @var Loogares\LugarBundle\Entity\DescripcionLugar
+     */
+    private $descripcion_lugar;
+
+
+    /**
+     * Set descripcion_lugar
+     *
+     * @param Loogares\LugarBundle\Entity\DescripcionLugar $descripcionLugar
+     */
+    public function setDescripcionLugar(\Loogares\LugarBundle\Entity\DescripcionLugar $descripcionLugar)
+    {
+        $this->descripcion_lugar = $descripcionLugar;
+    }
+
+    /**
+     * Get descripcion_lugar
+     *
+     * @return Loogares\LugarBundle\Entity\DescripcionLugar 
+     */
+    public function getDescripcionLugar()
+    {
+        return $this->descripcion_lugar;
+    }
+
+    /**
+     * Add descripcion_lugar
+     *
+     * @param Loogares\LugarBundle\Entity\DescripcionLugar $descripcionLugar
+     */
+    public function addDescripcionLugar(\Loogares\LugarBundle\Entity\DescripcionLugar $descripcionLugar)
+    {
+        $this->descripcion_lugar[] = $descripcionLugar;
+    }
 }

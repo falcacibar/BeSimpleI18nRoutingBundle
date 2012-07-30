@@ -45,7 +45,7 @@
 					<img src="" height="30" width="30" />
 				</div>
 				<div class="usuario_info">
-					<a href="#" target="_blank">
+					<a href="{{ path('showUsuario', { 'param': descontado.usuario.slug }) }}" target="_blank">
 						{% if descontado.usuario.nombre != '' %}
 							{{ descontado.usuario.nombre }} {{ descontado.usuario.apellido }}</a>
 						{% else %}
