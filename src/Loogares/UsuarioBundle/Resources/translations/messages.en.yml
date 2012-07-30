@@ -127,9 +127,17 @@ usuario:
 
     gift_card:
         titulo: Prices and discounts
+        tipo:
+            concursos: Prices Exclusive Benefits
+            descuentos: Discounts
         codigo: Gift Card code:
+        valido: Valid until:
+        ver_cupon: See details
         imprimir: Print cupon
-        sin_cupones: You have no Gift Cards in your profile. Keep on participating!
+        sin_cupones_gc: You still have no discounts to use.
+        sin_cupones_be: You still have no gift cards to use.
+        gana_uno: Win one participating in our fabulous contests!
+        gana_uno_link: Enter here
 
     edicion:
         titulo_pag: Edit your profile

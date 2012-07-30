@@ -1,77 +1,103 @@
 <div class="caja_cupones_usuario">
+
 	<img class="imagen_gift_card" src="{{asset('assets/images/concursos/gift_cards_titulo.png')}}" height="22" width="18" />
+
 	<h2 class="titulo_accion_usuario">{{'usuario.gift_card.titulo'|trans}}</h2>
-	<ul>
-		<li>
+
+	<ul class="tipos_de_cupones">
+		<li class="selecciona_tipo_de_cupon">
 			{% if usuario.tipoPremio != 'concursos' %}
-			<a href="{{ path('cuponesUsuario', {'param': usuario.slug, 'tipo': 'concursos'}) }}">Concursos</a>
+			<a href="{{ path('cuponesUsuario', {'param': usuario.slug, 'tipo': 'concursos'}) }}">{{'usuario.gift_card.tipo.concursos'|trans}} (#)</a> <span class="orden_separacion">|</span>
 			{% else %}
-				Concursos
+				{{'usuario.gift_card.tipo.concursos'|trans}} ({{usuario.cupones|length | default(0) }}) <span class="orden_separacion">|</span>
 			{% endif %}
 		</li>
-		<li>
+		<li class="selecciona_tipo_de_cupon">
 			{% if usuario.tipoPremio != 'descuentos' %}
-				<a href="{{ path('cuponesUsuario', {'param': usuario.slug, 'tipo': 'descuentos'}) }}">Descuentos</a></li>
+				<a href="{{ path('cuponesUsuario', {'param': usuario.slug, 'tipo': 'descuentos'}) }}">{{'usuario.gift_card.tipo.descuentos'|trans}} (#)</a></li>
 			{% else %}
-				Descuentos
+				{{'usuario.gift_card.tipo.descuentos'|trans}} ({{usuario.cupones|length | default(0) }})
 			{% endif %}
 	</ul>
 
-	<style>
-		.cupon_full{
-			display: none;
-		}
-	</style>
-	<ul>
+	<ul class="listado_cupones">
 		{% if usuario.cupones | length > 0 %}
 			{% for cupon in usuario.cupones %}
 				{% set lugar = cupon.lugar %}
-				<li>
-						<script>
-								$(function(){
-									$(".ver_cupon_{{cupon.id}}").fancybox({
-								    type: 'inline',
-										content: $('.cupon_full_{{cupon.id}}'),
-										padding: 0,
-										fitToView: false
-									});
+				<li class="caja_cupon">
+					<script>
+							$(function(){
+								$(".ver_cupon_{{cupon.id}}").fancybox({
+							    type: 'inline',
+									content: $('.cupon_full_{{cupon.id}}'),
+									padding: 0,
+									fitToView: false
 								});
-						</script>
+							});
+					</script>
 					<div class="cupon_{% if cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}activo{% else %}inactivo{% endif %}">
 						<div class="bloque_premio">
-							<img class="imagen_cupon" src="{#{asset('assets/images/blog/'~post.imagen)}#}" height="100" width="177" />
-							<p class="cupon_titulo">{{cupon.titulo}}</p>
-							<p class="cupon_codigo">{{'usuario.gift_card.codigo'|trans}} {{cupon.codigo}}</p>
-							<p class="cupon_fecha_termino">Valido Hasta: {{cupon.fechaTermino|date('d/m/y')}}</p>
-							<p class="ver_cupon_{{cupon.id}}" href="#">Ver Cupon ></p>
+							<img class="imagen_cupon" src="{{asset('assets/images/blog/'~lugar.imagenesActivasLugar[0].imagenFull)}}" height="100" width="100" />
+							<div class="texto_cupon">
+								{% if usuario.tipoPremio != 'concursos' %}
+									<p class="cupon_titulo">{{cupon.cantidad}}% de Dscto. en {{lugar.nombre}}</p>
+								{% else %}
+									<p class="cupon_titulo">{{cupon.titulo}}</p>
+								{% endif %}
+								<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{cupon.codigo}}</p>
+								{% if usuario.tipoPremio != 'concursos' %}
+									<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
+								{% else %}
+								{% endif %}
+								<a class="ver_cupon ver_cupon_{{cupon.id}}" href="#">{{'usuario.gift_card.ver_cupon'|trans}}</a>
+							</div>
+							<div class="icono_identificador_{% if usuario.tipoPremio != 'concursos' %}gc{% else %}be{% endif %}"></div>
 						</div>
+					</div>
 				</li>
 				<li class="cupon_full cupon_full_{{cupon.id}}">
 					<div class="cupon_full_{% if cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}activo{% else %}inactivo{% endif %}">
+						<div class="titulo_vigencia">
+							{% if cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}
+								Premio Vigente
+							{% else %}
+								Premio Expirado
+							{% endif %}
+						</div>
 						<div class="bloque_premio">
-							<img class="imagen_cupon" src="{#{asset('assets/images/blog/'~post.imagen)}#}" height="100" width="177" />
-							<p class="texto_cupon">
-								{{cupon.titulo}}
-								<br />
-								{{usuario.nombre}} {{usuario.apellido}}
-								<br />
-								{{'usuario.gift_card.codigo'|trans}} {{cupon.codigo}}
-							</p>
+							<img class="imagen_cupon" src="{{asset('assets/images/blog/'~lugar.imagenesActivasLugar[0].imagenFull)}}" height="100" width="100" />
+							<div class="texto_cupon">
+								{% if usuario.tipoPremio != 'concursos' %}
+									<p class="cupon_titulo">{{cupon.cantidad}}% de Dscto. en {{lugar.nombre}}</p>
+								{% else %}
+									<p class="cupon_titulo">{{cupon.titulo}}</p>
+								{% endif %}
+								<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{cupon.codigo}}</p>
+								{% if usuario.tipoPremio != 'concursos' %}
+									<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
+								{% else %}
+								{% endif %}
+							</div>
 						</div>
 						<div class="bloque_detalles">
+						{% if usuario.tipoPremio != 'concursos' %}
+							<strong>{{'blog.condiciones'|trans}}</strong><br />
+							<p>{{cupon.condiciones | raw}}</p>
+						{% else %}
 							<strong>{{'blog.detalle'|trans}}</strong><br />
 							<p>{{cupon.detalles | raw}}</p>
 							<br />
 							<strong>{{'blog.condiciones'|trans}}</strong><br />
 							<p>{{cupon.condiciones | raw}}</p>
+						{% endif %}
 						</div>
 						<div class="bloque_datos">
 							<p class="titulo_datos_cupon"><a href="{{path('_lugar', {'slug' : lugar.slug})}}" target="_blank">{{lugar.nombre}}</a></p>
 							<br />
 							<p>{{lugar.calle}} {{lugar.numero}}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}</p>
 							{% if lugar.telefono2 == '' or lugar.telefono2 == null %}
-								{% set telefonos = [post.lugar.telefono1] %}
-							{% elseif lugar.telefono3 == '' or post.lugar.telefono3 == null %}
+								{% set telefonos = [lugar.telefono1] %}
+							{% elseif lugar.telefono3 == '' or lugar.telefono3 == null %}
 								{% set telefonos = [lugar.telefono1, lugar.telefono2] %}
 							{% else %}
 								{% set telefonos = [lugar.telefono1, lugar.telefono2, lugar.telefono3] %}
@@ -87,26 +113,36 @@
 								<a class="twitter_lugar" href="http://{{lugar.twitter}}" target="blank"></a>
 							{% endif %}
 						</div>
-					</div>
-					<div class="imprimir_cupon">
-						<a href="{{path('imprimirCuponUsuario', {'param' : usuario.slug, 'cupon' : cupon.id})}}">{{'usuario.gift_card.imprimir'|trans}}</a>
+						<div class="imprimir_cupon">
+							<a href="{{path('imprimirCuponUsuario', {'param' : usuario.slug, 'cupon' : cupon.id})}}">{{'usuario.gift_card.imprimir'|trans}}</a>
+						</div>
 					</div>
 				</li>
 			{% endfor %}
 		{% else %}
-			<li>{{'usuario.gift_card.sin_cupones'|trans}}</li>
+			<li class="sin_cupones">
+				{% if usuario.tipoPremio != 'concursos' %}
+					<img class="imagen_sin_cupon" src="{{ asset('assets/images/reporte/dscto_icono.png') }}" height="80" width="80" />
+					<p>{{'usuario.gift_card.sin_cupones_gc'|trans}}<br />
+					{{'usuario.gift_card.gana_uno'|trans}} <a href="">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
+				{% else %}
+					<img class="imagen_sin_cupon" src="{{ asset('assets/images/reporte/be_icono.png') }}" height="80" width="80" />
+					<p>{{'usuario.gift_card.sin_cupones_be'|trans}}<br />
+					{{'usuario.gift_card.gana_uno'|trans}} <a href="">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
+				{% endif %}
+			</li>
 		{% endif %}
 	</ul>
 
 	{% if paginacion.totalPaginas > 1 %}
 		<div class="paginacion_perfil">
-        	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{usuario.totalCupones}}</strong>
-            {% if paginacion.totalPaginas != 1 %}
-                 | {{'paginacion.ir_a'|trans}}
-                <ul>
-                    {{ paginacion.paginacion | raw }}
-                </ul>
-            {% endif %}
-        </div>
+      	<p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{usuario.totalCupones}}</strong>
+        {% if paginacion.totalPaginas != 1 %}
+             | {{'paginacion.ir_a'|trans}}
+            <ul>
+                {{ paginacion.paginacion | raw }}
+            </ul>
+        {% endif %}
+    </div>
 	{% endif %}
 </div>
