@@ -1928,6 +1928,7 @@ class AdminController extends Controller
                     }  
                     if($request->request->get('fecha_termino') != ''){
                         $fechaTermino = new \DateTime( $request->request->get('fecha_termino') );
+                        $fechaTerminoConcurso = new \DateTime( $request->request->get('fecha_termino') . ' +30 days');
                     }
 
                     $concurso->setPost($post);
@@ -1937,6 +1938,7 @@ class AdminController extends Controller
                     $concurso->setNumeroPremios($request->request->get('numero_premios'));
                     $concurso->setFechaInicio($fechaInicio);
                     $concurso->setFechaTermino($fechaTermino);
+                    $concurso->setFechaTerminoConcurso($fechaTerminoConcurso);
                     $concurso->setFacebookInicio($request->request->get('facebook_inicio'));
                     $concurso->setFacebookFinal($request->request->get('facebook_final'));
                     $concurso->setTwitterInicio($request->request->get('twitter_inicio'));

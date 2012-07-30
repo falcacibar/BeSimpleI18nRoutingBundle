@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	var rebindEvents = function(){
-		
+
     $('.pedido_fancybox').fancybox({
         hideOnContentClick : false,
         padding: 0,
@@ -284,10 +284,10 @@ $(document).ready(function(){
 				$('.resultados_wrapper').append("<div class='overlay'><div class='loader_txt'>Cargando lugares...</div></div>").fadeIn(300);
 			},
 			success: function(data){
-				console.log(data)
 				$('.overlay').fadeOut(0, function(){
 					$(this).remove();
 				});
+
 				$('.resultados_wrapper').html(data).fadeIn(300, function(){
 					$('.qtip').remove();
 					rebindEvents();
