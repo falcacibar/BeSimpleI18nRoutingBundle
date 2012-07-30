@@ -96,8 +96,8 @@
 							<br />
 							<p>{{lugar.calle}} {{lugar.numero}}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}</p>
 							{% if lugar.telefono2 == '' or lugar.telefono2 == null %}
-								{% set telefonos = [post.lugar.telefono1] %}
-							{% elseif lugar.telefono3 == '' or post.lugar.telefono3 == null %}
+								{% set telefonos = [lugar.telefono1] %}
+							{% elseif lugar.telefono3 == '' or lugar.telefono3 == null %}
 								{% set telefonos = [lugar.telefono1, lugar.telefono2] %}
 							{% else %}
 								{% set telefonos = [lugar.telefono1, lugar.telefono2, lugar.telefono3] %}
