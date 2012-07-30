@@ -1279,6 +1279,8 @@ class LugarController extends Controller{
         $nueva = true;
 
         if(!isset($_POST['curlSuperVar'])){
+            //Retrasamos el proceso 2 segundos para que no se gatille antes que el resto del agregar lugar
+            sleep(2);
           //Revisamos si el usuario tiene ya una recomendacion en este lugar
           $q = $em->createQuery("SELECT u FROM Loogares\UsuarioBundle\Entity\Recomendacion u where u.usuario = ?1 and u.lugar = ?2 and u.estado = ?3");
           $q->setParameter(2, $lugar->getId())

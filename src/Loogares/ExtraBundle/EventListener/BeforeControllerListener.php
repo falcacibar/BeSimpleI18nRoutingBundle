@@ -80,7 +80,9 @@ class BeforeControllerListener
                     $request->attributes->set('_controller', 'LoogaresExtraBundle:Default:homepage');
                     $event->setController($this->resolver->getController($request));
                 }else if($lugar->getDueno()->getUsuario()->getId() != $usuario->getId()){
-                    //De vuelta a la ficha!
+                    $request = new Request();
+                    $request->attributes->set('_controller', 'LoogaresLugarBundle:Lugar:lugar', array('slug' => $lugar->getSlug()));
+                    $event->setController($this->resolver->getController($request));
                 }
             }
 

@@ -1238,6 +1238,9 @@ class SearchController extends Controller{
       $recomendacion = $bufferRec;
       $imagen = $bufferImagenLugar;
 
+      $lugar->pedidos = $lr->getPedidosLugar($lugar, 2);
+      $lugar->reservas = $lr->getPedidosLugar($lugar, 1);
+      
       $lugar->ultimaRecomendacion = $recomendacion;
       $lugar->ultimaImagen = $imagen;
       $lugar->mostrarPrecio = $fn->mostrarPrecio($lugar);
