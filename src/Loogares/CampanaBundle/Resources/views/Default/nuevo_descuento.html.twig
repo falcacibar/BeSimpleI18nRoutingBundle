@@ -124,7 +124,6 @@
 						return;
 					}
 				}
-		    		                     console.log('test');
 
 		    $active.next('div:not(.siguiente_paso)')
 		                     .removeClass('step_hidden')
@@ -283,7 +282,10 @@
 					<p class="valor">{{seguidor.totalBe}}</p>
 				</div>
 				<div class="recomendacion_lugar {% if seguidor.recomendo %}si{% else %}no{% endif %}">
-					<a href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }}" target="_blank"></a>
+					{% if seguidor.recomendo %}			
+						<a class="link_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }}" target="_blank"></a>
+					{% else %}
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -365,7 +367,10 @@ de atención del local.</p>
 			    </div>
 			</div>
 			<div class="step_hidden step_final">
-			    <p>¡Felicitaciones tus descuentos han sido enviados con exito!</p>
+			    <div class="exito_envio_dscto">
+			    	<img class="imagen_exito" src="{{ asset('assets/images/reporte/imagen_exito_envio.png') }}" height="121" width="120" />
+			    	<p>¡Felicitaciones tus descuentos han sido enviados con exito!</p>
+			   	</div>
 			</div>
 			<input type="button" class="siguiente_paso" value=""/>
 		</form>
