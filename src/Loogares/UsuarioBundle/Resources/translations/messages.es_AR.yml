@@ -134,7 +134,10 @@ usuario:
         valido: Válido Hasta:
         ver_cupon: Ver cupón
         imprimir: Imprimir cupón
-        sin_cupones: No tienes ninguna gift card por cobrar. ¡Participa en nuestros concursos para optar a fabulosos premios!
+        sin_cupones_gc: Aún no tenés ningún descuento por cobrar.
+        sin_cupones_be: Aún no tenés ningún gift card por cobrar.
+        gana_uno: ¡Ganá uno participando en nuestros fabulosos sorteos!
+        gana_uno_link: Entrá acá
 
     edicion:
         titulo_pag: Editá tus datos

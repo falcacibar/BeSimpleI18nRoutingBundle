@@ -1464,6 +1464,7 @@ $rojo: #F72121
                                 &:hover
                                     @include link_gris_666_hover
 
+    /* Cupones en el perfil del usuario */
     .caja_cupones_usuario
         float: left
         left: 160px
@@ -1502,9 +1503,6 @@ $rojo: #F72121
             float: left
             list-style: none
             width: 780px
-
-            .cupon_full
-                display: none
 
             .caja_cupon
                 @include box_shadow_ccc
@@ -1571,124 +1569,6 @@ $rojo: #F72121
 
                         .icono_identificador_gc
                             background: url('../images/reporte/botones_panel_dueno.png') -74px -222px
-
-            .cupon_full_activo, .cupon_full_inactivo
-                background: $gris_faf
-                float: left
-                padding: 20px
-
-                .titulo_vigencia
-                    font:
-                        size: 20px
-                        weight: bold
-                    margin: 0 0 20px
-
-                .bloque_premio
-                    float: left
-                    width: 730px
-
-                    .imagen_cupon
-                        float: left
-                        margin: 0 20px 0 0
-                        width: 100px
-
-                    .texto_cupon
-                        float: left
-                        font:
-                            size: 14px
-                        line-height: 22px
-                        width: 610px
-
-                        .cupon_titulo
-                            font:
-                                size: 16px
-                                weight: bold
-                            margin: 0 0 30px 0
-
-                        .usuario_cupon
-
-                        .cupon_codigo, .cupon_fecha_termino
-                            float: left
-                            width: 510px
-
-                        .ver_cupon
-                            @include link_azul
-                            float: left
-                            font:
-                                size: 12px
-                            text-align: right
-                            width: 100px
-
-                            &:hover
-                                @inlcude link_azul_hover
-
-                    .icono_identificador_be, .icono_identificador_gc
-                        background: url('../images/reporte/botones_panel_dueno.png') 0 -222px
-                        height: 62px
-                        left: 738px
-                        position: absolute
-                        width: 65px
-
-                    .icono_identificador_gc
-                        background: url('../images/reporte/botones_panel_dueno.png') -74px -222px
-
-                .bloque_detalles
-                    border-bottom: 1px solid $gris_f6f
-                    float: left
-                    font:
-                        size: 12px
-                    line-height: 22px
-                    padding: 20px 0
-                    width: 740px
-
-                .bloque_datos
-                    float: left
-                    font:
-                        size: 12px
-                    line-height: 22px
-                    padding: 20px 0 0
-                    width: 740px
-
-                    .titulo_datos_cupon
-                        font:
-                            size: 14px
-                            weight: bold
-
-                    .sitio_web_lugar
-                        display: block
-
-                    .facebook_lugar
-                        background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
-                        display: inline-block
-                        float: left
-                        height: 16px
-                        margin: 10px 0
-                        width: 16px
-
-                    .twitter_lugar
-                        background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
-                        display: inline-block
-                        float: left
-                        height: 16px
-                        margin: 10px 0 10px 10px
-                        width: 16px
-
-                    .visita_ficha_lugar
-                        float: left
-                        width: 740px
-
-                .imprimir_cupon
-                    border-bottom: 1px solid $gris_f6f
-                    float: left
-                    padding: 30px 0px
-                    text-align: right
-                    width: 780px
-
-                    a
-                        color: $gris_666 !important
-                        font:
-                            size: 13px
-                            weight: bold
 
             .sin_cupones
                 background: $gris_fac
@@ -1810,3 +1690,123 @@ $rojo: #F72121
                 line-height: 15px
                 margin: 0 0 10px 0
                 width: 180px
+
+/* Lightbox cupones */
+.cupon_full
+    display: none
+
+.cupon_full_activo, .cupon_full_inactivo
+    background: $gris_faf
+    float: left
+    width: 570px
+
+    .titulo_vigencia
+        font:
+            size: 20px
+            weight: bold
+        padding: 20px
+
+    .bloque_premio
+        background: $gris_fac
+        float: left
+        padding: 20px
+        width: 530px
+
+        .imagen_cupon
+            float: left
+            margin: 0 20px 0 0
+            width: 100px
+
+        .texto_cupon
+            float: left
+            font:
+                size: 14px
+            line-height: 22px
+            width: 410px
+
+            .cupon_titulo
+                font:
+                    size: 16px
+                    weight: bold
+                margin: 0 0 20px 0
+
+            .usuario_cupon
+
+            .cupon_codigo, .cupon_fecha_termino
+                float: left
+                width: 510px
+
+            .ver_cupon
+                @include link_azul
+                float: left
+                font:
+                    size: 12px
+                text-align: right
+                width: 100px
+
+                &:hover
+                    @inlcude link_azul_hover
+
+    .bloque_detalles
+        border-bottom: 1px solid $gris_f6f
+        float: left
+        font:
+            size: 12px
+        line-height: 22px
+        margin: 0 20px
+        padding: 20px 0
+        width: 530px
+
+    .bloque_datos
+        border-bottom: 1px solid $gris_f6f
+        float: left
+        font:
+            size: 12px
+        line-height: 22px
+        margin: 0 20px
+        padding: 20px 0
+        width: 530px
+
+        .titulo_datos_cupon
+            font:
+                size: 14px
+                weight: bold
+
+        .sitio_web_lugar
+            display: block
+
+        .facebook_lugar
+            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
+            display: inline-block
+            float: left
+            height: 16px
+            margin: 10px 0
+            width: 16px
+
+        .twitter_lugar
+            background: url('../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
+            display: inline-block
+            float: left
+            height: 16px
+            margin: 10px 0 10px 10px
+            width: 16px
+
+        .visita_ficha_lugar
+            float: left
+            width: 740px
+
+    .imprimir_cupon
+        border-bottom: 1px solid $gris_f6f
+        color: $gris_666
+        float: left
+        font:
+            size: 12px
+        padding: 20px
+        text-align: center
+        width: 530px
+
+        a
+            color: $gris_666 !important
+            font:
+                size: 13px
+                weight: bold
