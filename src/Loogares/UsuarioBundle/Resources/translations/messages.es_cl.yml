@@ -127,9 +127,15 @@ usuario:
 
     gift_card:
         titulo: Premios y descuentos
+        tipo:
+            concursos: Concursos
+            descuentos: Descuentos
         codigo: Código Gift Card:
+        valido: Válido Hasta:
+        ver_cupon: Ver cupón
         imprimir: Imprimir cupón
         sin_cupones: No tienes ninguna gift card por cobrar. ¡Participa en nuestros concursos para optar a fabulosos premios!
+
 
     edicion:
         titulo_pag: Edita tus datos

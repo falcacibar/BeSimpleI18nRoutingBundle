@@ -127,7 +127,12 @@ usuario:
 
     gift_card:
         titulo: Prices and discounts
+        tipo:
+            concursos: Contest
+            descuentos: Discounts
         codigo: Gift Card code:
+        valido: Valid until:
+        ver_cupon: See details
         imprimir: Print cupon
         sin_cupones: You have no Gift Cards in your profile. Keep on participating!
 
