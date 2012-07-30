@@ -37,7 +37,7 @@
 					</script>
 					<div class="cupon_{% if cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}activo{% else %}inactivo{% endif %}">
 						<div class="bloque_premio">
-							<img class="imagen_cupon" src="{{asset('assets/images/blog/'~lugar.imagenesActivasLugar[0].imagenFull)}}" height="100" width="100" />
+							<img class="imagen_cupon" src="{{('assets/images/lugares/'~lugar.imagenesActivasLugar[lugar.imagenesActivasLugar|length - 1].imagenFull) | apply_filter('medium_lugar')}}" height="100" width="100" />
 							<div class="texto_cupon">
 								{% if usuario.tipoPremio != 'concursos' %}
 									<p class="cupon_titulo">{{cupon.cantidad}}% de Dscto. en {{lugar.nombre}}</p>
@@ -65,7 +65,7 @@
 							{% endif %}
 						</div>
 						<div class="bloque_premio">
-							<img class="imagen_cupon" src="{{asset('assets/images/blog/'~lugar.imagenesActivasLugar[0].imagenFull)}}" height="100" width="100" />
+							<img class="imagen_cupon" src="{{('assets/images/lugares/'~lugar.imagenesActivasLugar[lugar.imagenesActivasLugar|length - 1].imagenFull) | apply_filter('medium_lugar')}}" height="100" width="100" />
 							<div class="texto_cupon">
 								{% if usuario.tipoPremio != 'concursos' %}
 									<p class="cupon_titulo">{{cupon.cantidad}}% de Dscto. en {{lugar.nombre}}</p>
@@ -114,7 +114,7 @@
 							{% endif %}
 						</div>
 						<div class="imprimir_cupon">
-							<a href="{{path('imprimirCuponUsuario', {'param' : usuario.slug, 'cupon' : cupon.id})}}">{{'usuario.gift_card.imprimir'|trans}}</a>
+							<a href="{{path('imprimirCuponUsuario', {'param' : usuario.slug, 'tipo' : usuario.tipoPremio, 'cupon' : cupon.id})}}" target="blank">{{'usuario.gift_card.imprimir'|trans}}</a>
 						</div>
 					</div>
 				</li>
