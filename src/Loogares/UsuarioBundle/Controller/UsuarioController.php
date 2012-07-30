@@ -403,10 +403,12 @@ class UsuarioController extends Controller
         ));
     }
 
-    public function imprimirCuponAction($param, $cupon) {
+    public function imprimirCuponAction($param, $tipo, $cupon) {
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $gr = $em->getRepository("LoogaresBlogBundle:Ganador");
+        $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+        $dur = $em->getRepository("LoogaresCampanaBundle:DescuentosUsuarios");
 
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
@@ -421,19 +423,46 @@ class UsuarioController extends Controller
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
 
-        $ganador = $gr->find($cupon);
+        $cuponDetalle = array();
+        if($tipo == 'concursos') {
+            $ganador = $gr->find($cupon);
+            $cuponDetalle = array(
+                'titulo' => $ganador->getParticipante()->getConcurso()->getTitulo(),
+                'codigo' => $ganador->getCodigo(),
+                'detalles' => $ganador->getParticipante()->getConcurso()->getPost()->getDetalles(),
+                'condiciones' => $ganador->getParticipante()->getConcurso()->getPost()->getCondiciones(),
+                'lugar' => $ganador->getParticipante()->getConcurso()->getPost()->getLugar(),
+                'id' => $ganador->getId(),
+                'fechaTermino' => $ganador->getParticipante()->getConcurso()->getFechaTermino()
+            );
+        }
+        else {
+            $descuento = $dur->find($cupon);
+            $campana = $cr->findOneByDescuento($descuento->getDescuento()->getId());
+            $cuponDetalle = array(
+                    'codigo' => $descuento->getCodigo(),
+                    'condiciones' => $descuento->getDescuento()->getCondiciones(),
+                    'lugar' => $campana->getLugar(),
+                    'id' => $descuento->getId(),
+                    'cantidad' => $descuento->getDescuento()->getCantidad(),
+                    'fechaTermino' => $descuento->getDescuento()->getFechaTermino()
+                );
+        }
+        
         $concurso = $ganador->getParticipante()->getConcurso();
 
-        $template = $this->render('LoogaresLugarBundle:Lugares:cupon_ganador.html.twig', array(
-            'ganador' => $ganador,
-            'concurso' => $concurso,
-            'usuario' => $usuarioResult
+        $template = $this->render('LoogaresUsuarioBundle:Usuarios:imprimir_cupon_usuario.html.twig', array(
+            'cupon' => $cuponDetalle,
+            'usuario' => $usuarioResult,
+            'tipoPremio' => $tipo
         ));
+
         $html = $template->getContent();
 
         require(__DIR__.'/../../../../vendor/dompdf/dompdf_config.inc.php');
         $dompdf = new \DOMPDF();
         $dompdf->load_html($html);
+        $dompdf->set_base_path('http://localhost/loogares');
         $dompdf->render();
         $dompdf->stream("sample.pdf", array('Attachment' => 0));
     }
