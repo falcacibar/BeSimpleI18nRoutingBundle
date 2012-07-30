@@ -359,9 +359,9 @@ class DefaultController extends Controller{
 
     		$em->persist($descuentosUsuarios);
     	}
-
-    	/*$fields_string = '';
     	$em->flush();
+    	
+    	/*$fields_string = '';
 	    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_descuentos_mail');
       $fields = array(
           'seguidores' => implode(',',$post['seguidores'])
