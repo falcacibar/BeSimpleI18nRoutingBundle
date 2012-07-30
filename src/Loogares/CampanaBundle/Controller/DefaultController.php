@@ -407,13 +407,23 @@ class DefaultController extends Controller{
 
   	foreach($descontados as $descontado){
   		$usuario = $ur->findOneById($descontado);
+  		$mail['usuario'] = $usuario;
 
+  		$q = $em->createQuery("SELECT du FROM Loogares\CampanaBundle\Entity\DescuentosUsuarios du WHERE du.usuario = ?1 AND du.descuento = ?2");
+  		$q->setParameter(1, $usuario);
+  		$q->setParameter(2, $campana->getDescuento());
+  		$descuento = $q->getOneOrNullResult();
+  		if($descuento){
+  			$mail['codigo'] = $descuento[0]->getCodigo();
+  		}
+      
       //$message = $this->get('fn')->enviarMail($mail['asunto'], $usuario->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresCampanaBundle:Mails:mail_descuentos_usuario.html.twig', $this->get('templating'));
       //$this->get('mailer')->send($message);
   	}
 
 		return $this->render('LoogaresCampanaBundle:Mails:mail_descuentos_usuario.html.twig', array(
-			'mail' => $mail
+			'mail' => $mail,
+			'assets' => $paths
 		));
 	}
 }
