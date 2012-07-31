@@ -188,7 +188,7 @@ $(document).ready(function(){
         hideOnContentClick : false,
         padding: 0,
         type: 'ajax',
-        showCloseButton: false,
+        closeBtn: false,
         onStart: function(){
             $.fancybox.showActivity;
         },

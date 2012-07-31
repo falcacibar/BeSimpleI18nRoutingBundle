@@ -3,14 +3,13 @@ $(function(){
         hideOnContentClick : false,
         padding: 0,
         type: 'ajax',
-        showCloseButton: true
     });
 
     $('.boton_registro').fancybox({
         hideOnContentClick : false,
         padding: 0,
         type: 'ajax',
-        showCloseButton: false
+        closeBtn: false
     });
 
     $('.boton_participar').fancybox({
@@ -18,7 +17,7 @@ $(function(){
         padding: 0,
         type: 'ajax',
         modal: true,
-        showCloseButton: false
+        closeBtn: false
     });
 
     $('.boton_participar').click(function(e){
@@ -36,7 +35,7 @@ $(function(){
                     }
                     else if($this.hasClass('boton_participar_recomendar')) {
                         $this.replaceWith("<div class='boton_participando boton_esperando_recomendar'></div>");
-                    }                    
+                    }
                     // Actualizamos los participantes
                     $.ajax({
                         url: WEBROOT+'../ajax/actualizar_participantes',
@@ -50,13 +49,13 @@ $(function(){
                 }
                 else {
                     e.preventDefault();
-                }               
+                }
             }
         });
     });
 
     $('.concursos li').css('visibility', 'visible')
-   
+
     var concursoSlider = $('.concursos').bxSlider({
         displaySlideQty: $('.concursos li').length,
         moveSlideQty: 1,
@@ -74,7 +73,7 @@ $(function(){
         return false;
     });
 
-    actualizarQtip();    
+    actualizarQtip();
 })
 
 function actualizarQtip() {
@@ -94,14 +93,14 @@ function actualizarQtip() {
                 }
             },
             position: {
-                my: 'bottom center', 
+                my: 'bottom center',
                 at: 'top center',
                 adjust: {
                     x: 0,
                     y: -2
                 }
             }
-        }); 
+        });
     });
 }
 
@@ -110,7 +109,7 @@ function checkEstadoConcurso(actual, termino) {
         participar = $('.boton_participar'),
         registro = $('.boton_registro'),
         participando = $('.boton_participando');
-    if(cerrado.length == 0 && actual > termino) {          
+    if(cerrado.length == 0 && actual > termino) {
         if(participar.length > 0) {
             participar.replaceWith("<div class='boton_cerrado'></div>");
         }
