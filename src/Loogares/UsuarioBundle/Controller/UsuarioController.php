@@ -16,14 +16,14 @@ use Mailchimp\MCAPI;
 use Loogares\MailBundle\Entity\Notificacion;
 
 class UsuarioController extends Controller
-{    
+{
     public function showAction($param) {
-        return $this->forward('LoogaresUsuarioBundle:Usuario:actividad', array('param' => $param));          
+        return $this->forward('LoogaresUsuarioBundle:Usuario:actividad', array('param' => $param));
     }
 
     public function actividadAction(Request $request, $param, $actividad_total = false) {
         foreach($_GET as $key => $value){
-            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
         }
 
         $fn = $this->get('fn');
@@ -38,7 +38,7 @@ class UsuarioController extends Controller
             $usuarioResult = $ur->findOneById($param);
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $usuarioResult->getSlug())));
         }else{
-            $usuarioResult = $ur->findOneBySlug($param); 
+            $usuarioResult = $ur->findOneBySlug($param);
         }
 
         if(!$usuarioResult) {
@@ -76,13 +76,13 @@ class UsuarioController extends Controller
                 unset($actividad[$key]);
             }
         }
-        
+
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->tipo = 'actividad';
         $data->actividad = $actividad;
         $data->pagina = $pagina;
-        
-        
+
+
         $data->offset = $offset;
         $data->filtro = $filtro;
         $data->loggeadoCorrecto = $loggeadoCorrecto;
@@ -107,7 +107,7 @@ class UsuarioController extends Controller
             $q->setMaxResults(3);
 
             $data->recientemente = $q->getResult();
-                        
+
             //Por visitar
             $q = $em->createQuery("SELECT u from Loogares\UsuarioBundle\Entity\AccionUsuario u where u.usuario = ?1 and u.accion = ?2 ORDER BY u.fecha desc");
 
@@ -130,12 +130,12 @@ class UsuarioController extends Controller
             'usuario' => $data,
             'paginacion' => $paginacion,
             'actividad_total' => $actividad_total
-        ));  
+        ));
     }
 
     public function recomendacionesAction($param, $orden=null, $pagina=null) {
         foreach($_GET as $key => $value){
-            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
         }
 
         $router = $this->get('router');
@@ -143,7 +143,7 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $porPagina = 10;
-        
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
@@ -172,7 +172,7 @@ class UsuarioController extends Controller
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*10);
 
         $recomendaciones = $ur->getUsuarioRecomendaciones($usuarioResult->getId(), $orderBy, $offset);
-        
+
         $data = $ur->getDatosUsuario($usuarioResult, $orderBy);
         $data->tipo = 'recomendaciones';
         $data->orden = $orden;
@@ -189,23 +189,23 @@ class UsuarioController extends Controller
 
         $paginacion = $fn->paginacion($data->totalRecomendaciones, $porPagina, 'recomendacionesUsuario', $extras, $router );
 
-        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data, 'paginacion' => $paginacion));  
+        return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array('usuario' => $data, 'paginacion' => $paginacion));
     }
 
     public function fotosAction($param) {
         foreach($_GET as $key => $value){
-            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
         }
         $fn = $this->get('fn');
         $router = $this->get('router');
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
-        
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
         }
-        
+
         if($this->get('security.context')->isGranted('ROLE_USER'))
             $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         else
@@ -226,7 +226,7 @@ class UsuarioController extends Controller
         $pagina = (!$this->getRequest()->query->get('pagina')) ? 1 : $this->getRequest()->query->get('pagina');
         $ppag = 30;
         $offset = ($pagina == 1) ? 0 : floor(($pagina - 1) * $ppag);
-        
+
 
         $imagenesLugar= $ur->getFotosLugaresAgregadasUsuario($usuarioResult->getId(), $orderBy, $offset);
 
@@ -244,18 +244,18 @@ class UsuarioController extends Controller
         $params = array(
             'param' => $data->getSlug()
         );
-            
+
         $paginacion = $fn->paginacion($data->totalImagenesLugar, $ppag, 'fotosLugaresUsuario', $params, $router );
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
             'usuario' => $data,
             'paginacion' => $paginacion
-        ));  
+        ));
     }
 
     public function lugaresAction($param, $accionLugar = null) {
         foreach($_GET as $key => $value){
-            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
         }
         $fn = $this->get('fn');
         $router = $this->get('router');
@@ -304,7 +304,7 @@ class UsuarioController extends Controller
             'param' => $data->getSlug(),
             'accionLugar' => $accionLugar
         );
-            
+
         $paginacion = $fn->paginacion($data->totalAcciones[$accion - 1], $ppag, 'lugaresUsuario', $params, $router );
 
         if ($this->getRequest()->isXmlHttpRequest()) {
@@ -320,12 +320,12 @@ class UsuarioController extends Controller
             'usuario' => $data,
             'paginacion' => $paginacion,
             'query' => $_GET
-        ));  
+        ));
     }
 
     public function cuponesAction($param, $tipo) {
         foreach($_GET as $key => $value){
-            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING); 
+            $_GET[$key] = filter_var($_GET[$key], FILTER_SANITIZE_STRING);
         }
 
         $fn = $this->get('fn');
@@ -334,7 +334,7 @@ class UsuarioController extends Controller
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
         $dataCupones = array();
-        
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
@@ -385,7 +385,7 @@ class UsuarioController extends Controller
         }
 
         $totalCupones = $ur->getTotalCuponesVigentesUsuario($usuarioResult);
-        
+
         $data->tipo = 'cupones';
         $data->tipoPremio = $tipo;
         $data->cupones = $dataCupones;
@@ -398,7 +398,7 @@ class UsuarioController extends Controller
             'param' => $data->getSlug(),
             'tipo' => $tipo
         );
-            
+
         $paginacion = $fn->paginacion($totalCupones, $ppag, 'cuponesUsuario', $params, $router );
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:show.html.twig', array(
@@ -475,7 +475,7 @@ class UsuarioController extends Controller
 
     public function editarCuentaAction(Request $request, $param) {
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
@@ -492,18 +492,18 @@ class UsuarioController extends Controller
         $comunas = $q->getResult();
 
         $formErrors = array();
-        
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
 
         if(!$usuarioResult)
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
-        
+
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         $rolAdmin = $this->get('security.context')->isGranted('ROLE_ADMIN');
 
         if($rolAdmin == 0 && !$loggeadoCorrecto)
-            throw new AccessDeniedException('No puedes editar información de otro usuario');      
-        
+            throw new AccessDeniedException('No puedes editar información de otro usuario');
+
         $usuario = $usuarioResult;
         $form = $this->createFormBuilder($usuario)
                      ->add('mail', 'text')
@@ -523,18 +523,18 @@ class UsuarioController extends Controller
                      ->add('web', 'text')
                      ->add('facebook', 'text')
                      ->add('twitter', 'text')
-                     ->getForm();                     
+                     ->getForm();
 
         // Guardamos mail de usuario actual
         $mail = $usuarioResult->getMail();
         $nombre = $usuarioResult->getNombre();
         $apellido = $usuarioResult->getApellido();
-        
+
         // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST'){
 
             //$usuario = $ur->findOneByMail($usuarioResult->getMail());
-            $form->bindRequest($request);            
+            $form->bindRequest($request);
 
             if(isset($_POST['pais']) && $_POST['pais'] != 'elige'){
                 //hay pais
@@ -549,7 +549,7 @@ class UsuarioController extends Controller
                         if($_POST['ciudad'] == 'valparaiso'){
                             if($_POST['comuna'] == 'elige'){
                                 $erroresLocalidad['comuna'] = "Selecciona una Comuna";
-                            }                            
+                            }
                         }
                         if($_POST['ciudad'] == 'vina-del-mar'){
                             if($_POST['comuna'] == 'elige'){
@@ -573,22 +573,22 @@ class UsuarioController extends Controller
                     $erroresLocalidad['ciudad'] = "Selecciona una Ciudad";
                 }
             }else{
-                $erroresLocalidad['pais'] = "Selecciona un País";  
+                $erroresLocalidad['pais'] = "Selecciona un País";
             }
 
             if ($form->isValid() && empty($erroresLocalidad)) {
                 if(isset($_POST['tipo_usuario'])){
                     $tipoUsuario = $tur->find($_POST['tipo_usuario']);
                     $usuarioResult->setTipoUsuario($tipoUsuario);
-                }  
+                }
 
                  // Stripeamos las URLs de http://
                 $usuarioResult->setWeb(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getWeb()));
                 $usuarioResult->setFacebook(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getFacebook()));
-                $twitter = $usuarioResult->getTwitter(); 
+                $twitter = $usuarioResult->getTwitter();
                 if(substr($twitter,0,1) == '@')
                     $usuarioResult->setTwitter(str_replace('@','www.twitter.com/',$twitter));
-                else               
+                else
                     $usuarioResult->setTwitter(preg_replace("/^https?:\/\/(.+)$/i","\\1",$usuarioResult->getTwitter()));
 
                 if(isset($_POST['pais']) && $request->request->get('pais') != 'elige'){
@@ -610,11 +610,11 @@ class UsuarioController extends Controller
                 }
 
                 $em->flush();
-                
+
                 // Mensaje de éxito en la edición
                 $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.cuenta');
-                    
-                // Redirección a vista de edición de password 
+
+                // Redirección a vista de edición de password
                 return $this->redirect($this->generateUrl('editarCuentaUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
             }
 
@@ -647,7 +647,7 @@ class UsuarioController extends Controller
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'cuenta';
-        $data->loggeadoCorrecto = $loggeadoCorrecto;       
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
             'form' => $form->createView(),
@@ -660,18 +660,18 @@ class UsuarioController extends Controller
             'paisSeleccionado' => $paisSeleccionado,
             'comunaSeleccionada' => $comunaSeleccionada,
             'ciudadSeleccionada' => $ciudadSeleccionada
-        )); 
+        ));
     }
 
     public function editarFotoAction(Request $request, $param) {
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
-        
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
@@ -680,15 +680,15 @@ class UsuarioController extends Controller
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         if(!$loggeadoCorrecto)
             throw new AccessDeniedException('No puedes editar información de otro usuario');
-        
+
         $form = $this->createFormBuilder($usuarioResult)
                      ->add('file')
                      ->add('mail','hidden')
                      ->getForm();
-        
+
         // Si el request es POST, se procesa edición de datos
-        if ($request->getMethod() == 'POST') {          
-           
+        if ($request->getMethod() == 'POST') {
+
             if($request->request->get("borrarFoto")) {
                 $usuarioResult->setImagenFull('default.gif');
                 $em->flush();
@@ -698,7 +698,7 @@ class UsuarioController extends Controller
 
                 // Verificación de selección de foto
                 if($usuarioResult->file == null) {
-                    $formErrors['valida'] = "usuario.errors.editar.foto.blanco";        
+                    $formErrors['valida'] = "usuario.errors.editar.foto.blanco";
                 }
 
                 if ($form->isValid() && sizeof($formErrors) == 0) {
@@ -708,7 +708,7 @@ class UsuarioController extends Controller
                     // Mensaje de éxito en la edición
                     $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.foto');
 
-                    // Redirección a vista de edición de foto 
+                    // Redirección a vista de edición de foto
                     return $this->redirect($this->generateUrl('editarFotoUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
                 }
             }
@@ -726,18 +726,18 @@ class UsuarioController extends Controller
             'usuario' => $data,
             'form' => $form->createView(),
             'errors' => $formErrors
-        ));  
+        ));
     }
 
     public function editarPasswordAction(Request $request, $param) {
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
-        
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
@@ -746,11 +746,11 @@ class UsuarioController extends Controller
         $loggeadoCorrecto = $this->get('security.context')->getToken()->getUser()->getId() == $usuarioResult->getId();
         if(!$loggeadoCorrecto)
             throw new AccessDeniedException('No puedes editar información de otro usuario');
-        
+
         $form = $this->createFormBuilder($usuarioResult)
                      ->add('password', 'password')
                      ->getForm();
-                     
+
 
         // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST') {
@@ -758,21 +758,21 @@ class UsuarioController extends Controller
             if($usuarioResult->getSha1password() == 0){
                 // Verificación de password actual
                 if(md5($request->request->get('passwordActual')) != $usuarioResult->getPassword()) {
-                    $formErrors['actual'] = "usuario.errors.editar.password.actual";        
+                    $formErrors['actual'] = "usuario.errors.editar.password.actual";
                 }
             }else{
                   if(sha1($request->request->get('passwordActual')) != $usuarioResult->getPassword()) {
-                    $formErrors['actual'] = "usuario.errors.editar.password.actual";        
-                }              
+                    $formErrors['actual'] = "usuario.errors.editar.password.actual";
+                }
             }
 
-            $form->bindRequest($request);           
+            $form->bindRequest($request);
 
             if ($form->isValid() && sizeof($formErrors) == 0) {
-            
+
                 // Verificación de confirmación de password
                 if($request->request->get('confirmarPassword') != $usuarioResult->getPassword()) {
-                $formErrors['confirmar'] = "usuario.errors.editar.password.confirmar";        
+                $formErrors['confirmar'] = "usuario.errors.editar.password.confirmar";
                 }
 
                 // Input correcto. Se guarda nuevo password
@@ -784,10 +784,10 @@ class UsuarioController extends Controller
 
                     // Mensaje de éxito en la edición
                     $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.password');
-                    
-                    // Redirección a vista de edición de password 
-                    return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));    
-                } 
+
+                    // Redirección a vista de edición de password
+                    return $this->redirect($this->generateUrl('editarPasswordUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+                }
             }
         }
 
@@ -803,14 +803,14 @@ class UsuarioController extends Controller
             'usuario' => $data,
             'form' => $form->createView(),
             'errors' => $formErrors
-        ));  
+        ));
     }
 
     public function editarConexionesAction(Request $request, $param) {
 
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
-        
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
@@ -836,8 +836,8 @@ class UsuarioController extends Controller
                 'method' => 'fql.query',
                 'query' => "SELECT name,email FROM user WHERE uid = ".$usuarioResult->getFacebookUid(),
                 'callback' => ''
-            )); 
-        }   
+            ));
+        }
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'conexiones';
@@ -845,7 +845,7 @@ class UsuarioController extends Controller
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
             'fbdata' => $fbdata
-        ));  
+        ));
     }
 
     public function editarNotificacionesAction(Request $request, $param){
@@ -867,7 +867,7 @@ class UsuarioController extends Controller
         if(!$loggeadoCorrecto)
             return $this->redirect($this->generateUrl('actividadUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
 
-        
+
 
         //Sacamos los tipos de notificaciones de la db
         $tipo_notificaciones = $em->createQuery("SELECT u FROM Loogares\MailBundle\Entity\TipoNotificacion u")->getResult();
@@ -903,7 +903,7 @@ class UsuarioController extends Controller
                         $notificacion->setTipoNotificacion($value);
                         $notificacion->setUsuario($usuarioResult);
                         $em->persist($notificacion);
-                    }             
+                    }
 
                 //Si el nombre del tipo de notificacion, no esta dentro del array de $_POST['notificacion'], quiere sacarlo.
                 }else{
@@ -917,7 +917,7 @@ class UsuarioController extends Controller
                         $notificacion->setActiva(false);
                         $notificacion->setTipoNotificacion($value);
                         $notificacion->setUsuario($usuarioResult);
-                        $em->persist($notificacion);                    
+                        $em->persist($notificacion);
                     }
                 }
                 $notificaciones[sizeOf($notificaciones)-1]['notificacion'] = $notificacion;
@@ -928,7 +928,7 @@ class UsuarioController extends Controller
                 }
 
                 // Mensaje de éxito en la edición
-                $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.cuenta'); 
+                $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.cuenta');
             }
             //Pasamos todo a la db
             $em->flush();
@@ -992,24 +992,24 @@ class UsuarioController extends Controller
 
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'notificaciones';
-        $data->loggeadoCorrecto = $loggeadoCorrecto;        
+        $data->loggeadoCorrecto = $loggeadoCorrecto;
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
-            'tipoNotificaciones' => $tipo_notificaciones,            
+            'tipoNotificaciones' => $tipo_notificaciones,
             'notificaciones' => $notificaciones
         ));
     }
 
     public function editarBorrarAction(Request $request, $param) {
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
-        
+
         $usuarioResult = $ur->findOneByIdOrSlug($param);
         if(!$usuarioResult) {
             throw $this->createNotFoundException('No existe usuario con el id/username: '.$param);
@@ -1035,15 +1035,15 @@ class UsuarioController extends Controller
             }
             else if($usuarioResult->getSha1password() == 1){
                 if(sha1($request->request->get('password')) != $usuarioResult->getPassword()) {
-                    $formErrors['password'] = "usuario.errors.editar.borrar.pass_incorrecto";    
-                }              
+                    $formErrors['password'] = "usuario.errors.editar.borrar.pass_incorrecto";
+                }
             }
 
             if($request->request->get('motivo') == '')
                 $formErrors['motivo'] = "usuario.errors.editar.borrar.motivo";
 
 
-            if(sizeof($formErrors) == 0) {                        
+            if(sizeof($formErrors) == 0) {
                 // Input correcto. La cuenta se deja como inactiva
                 $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
                                     ->findOneByNombre('Inactivo');
@@ -1063,7 +1063,7 @@ class UsuarioController extends Controller
                     }
                 }
                 if($mcId > 0)
-                    $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );      
+                    $mc->listUnsubscribe( $this->container->getParameter('mailchimp_list_id'), $mcId, true, false );
 
                 // Enviamos correo a administrador con la razón del cierre de la cuenta
                 $mail = array();
@@ -1083,42 +1083,42 @@ class UsuarioController extends Controller
 
                 // Mensaje de éxito en la edición
                 $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.borrar_cuenta');
-                    
-                // Redirección a vista de edición de password 
+
+                // Redirección a vista de edición de password
                 return $this->redirect($this->generateUrl('logout'));
             }
         }
-        
+
         $data = $ur->getDatosUsuario($usuarioResult);
         $data->edicion = 'borrar';
         $data->loggeadoCorrecto = $loggeadoCorrecto;
         return $this->render('LoogaresUsuarioBundle:Usuarios:editar.html.twig', array(
             'usuario' => $data,
             'errors' => $formErrors
-        ));  
+        ));
     }
 
     public function registroAction(Request $request) {
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $formErrors = array();
-        
+
         // Usuario loggeado es redirigido a su perfil
-        if($this->get('security.context')->isGranted('ROLE_USER')) 
+        if($this->get('security.context')->isGranted('ROLE_USER'))
             return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
 
         // Construcción del form del nuevo usuario, con objeto $usuario asociado
-        $usuario = new Usuario();        
+        $usuario = new Usuario();
 
         $form = $this->createFormBuilder($usuario)
                      ->add('nombre', 'text')
                      ->add('apellido', 'text')
                      ->add('mail', 'text')
-                     ->add('password', 'password')                     
+                     ->add('password', 'password')
                      ->getForm();
 
         // Si el request es POST, se procesa registro
@@ -1126,12 +1126,12 @@ class UsuarioController extends Controller
             $form->bindRequest($request);
 
             if ($form->isValid()) {
-            
+
                 // Verificación de confirmación de password
                 if($request->request->get('confirmarPassword') != $usuario->getPassword()) {
                     $formErrors['confirmar'] = "usuario.errors.validacion.confirmar_password";
                 }
-                                
+
                 else {
                     // Form válido, generamos campos requeridos
 
@@ -1143,19 +1143,19 @@ class UsuarioController extends Controller
                     }else{
                         $usuariosConElMismoSlug = false;
                     }
-                    
+
                     $slug = $fn->generarSlug($usuario->getNombre().'-'.$usuario->getApellido().$usuariosConElMismoSlug);
 
                     $repetidos = $ur->getUsuarioSlugRepetido($slug);
                     if($repetidos > 0)
-                        $slug = $slug.'-'.++$repetidos;                    
+                        $slug = $slug.'-'.++$repetidos;
                     $usuario->setSlug($slug);
                     $usuario->setImagenFull("default.gif");
                     $usuario->setFechaRegistro(new \DateTime());
 
                     // Password codificado en SHA2 (por ahora MD5 por compatibilidad)
                     $usuario->setSha1password(1);
-                    $usuario->setPassword(sha1($usuario->getPassword()));               
+                    $usuario->setPassword(sha1($usuario->getPassword()));
 
                     // Usuario queda con el estado 'Por confirmar' y se genera hash confirmación
                     $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
@@ -1199,15 +1199,15 @@ class UsuarioController extends Controller
                 $formErrors[substr($formError->getPropertyPath(), 5)] = $formError->getMessage();
             }
         }
-        
-        $this->get('session')->set(SecurityContext::AUTHENTICATION_ERROR, null);       
+
+        $this->get('session')->set(SecurityContext::AUTHENTICATION_ERROR, null);
 
         return $this->render('LoogaresUsuarioBundle:Usuarios:registro.html.twig', array(
             'form' => $form->createView(),
             'last_mail' => $this->get('session')->get(SecurityContext::LAST_USERNAME),
             'errors' => array(),
             'formErrors' => $formErrors
-            ));  
+            ));
     }
 
     public function confirmarAction($hash) {
@@ -1215,7 +1215,7 @@ class UsuarioController extends Controller
         // Verificamos que el $hash pertenezca a un usuario
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
-        
+
         $usuarioResult = $ur->findOneBy(array('hash_confirmacion' => $hash));
 
         //Si el usuario con el $hash no existe
@@ -1228,8 +1228,8 @@ class UsuarioController extends Controller
         if($usuarioResult->getEstado()->getNombre() == 'Activo') {
             $this->get('session')->setFlash('usuario_flash', 'usuario.flash.confirmar_usuario.anterioridad');
             return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
-        }    
-        
+        }
+
         // Hash correcto y usuario no confirmado
         $estadoUsuario = $em->getRepository("LoogaresExtraBundle:Estado")
                             ->findOneByNombre('Activo');
@@ -1240,14 +1240,20 @@ class UsuarioController extends Controller
         $token = new UsernamePasswordToken($usuarioResult, $usuarioResult->getPassword(),'main', $usuarioResult->getRoles());
         $this->container->get('security.context')->setToken($token);
 
+        $session = $this->get('session');
+        if($url = $session->get('alIngresarIrA')) {
+            $session->remove('alIngresarIrA');
+        } else {
+            $session->setFlash('usuario_flash', 'usuario.flash.confirmar_usuario.exito');
+            $url = $this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult)));
+        }
 
-        $this->get('session')->setFlash('usuario_flash', 'usuario.flash.confirmar_usuario.exito');
-        return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuarioResult))));
+        return $this->redirect($url);
     }
 
     public function olvidarPasswordAction(Request $request) {
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -1255,8 +1261,8 @@ class UsuarioController extends Controller
 
 
         // Usuario loggeado es redirigido a su perfil
-        if($this->get('security.context')->isGranted('ROLE_USER')) 
-            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser())))); 
+        if($this->get('security.context')->isGranted('ROLE_USER'))
+            return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
 
         $formErrors = array();
         if($request->getMethod() == 'POST') {
@@ -1284,7 +1290,7 @@ class UsuarioController extends Controller
 
                     return $this->render('LoogaresUsuarioBundle:Usuarios:mensaje_olvidar_password.html.twig');
                 }
-            }            
+            }
         }
 
 
@@ -1297,7 +1303,7 @@ class UsuarioController extends Controller
 
     public function regenerarPasswordAction(Request $request, $hash) {
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -1305,7 +1311,7 @@ class UsuarioController extends Controller
 
 
         // Usuario loggeado es redirigido a su perfil
-        if($this->get('security.context')->isGranted('ROLE_USER')) 
+        if($this->get('security.context')->isGranted('ROLE_USER'))
             return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
 
         $usuario = $ur->findOneBy(array('hash_confirmacion' => $hash));
@@ -1339,11 +1345,11 @@ class UsuarioController extends Controller
 
                     // Mensaje de éxito en la edición
                     $this->get('session')->setFlash('usuario_flash','usuario.flash.edicion.password');
-                    
+
                     // Redirección a perfil de usuario
                     return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($usuario))));
                 }
-            }            
+            }
         }
 
 
@@ -1363,12 +1369,12 @@ class UsuarioController extends Controller
         $formErrors = array();
         // Usuario loggeado es redirigido a su perfil
         if($this->get('security.context')->isGranted('ROLE_USER')){
-            
+
             return $this->redirect($this->generateUrl('showUsuario', array('param' => $ur->getIdOrSlug($this->get('security.context')->getToken()->getUser()))));
         }
         $request = $this->getRequest();
         $session = $request->getSession();
-        
+
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
         } else {
@@ -1383,7 +1389,7 @@ class UsuarioController extends Controller
             $formErrors['emptyPassword'] = 'usuario.errors.login.emptyPassword';
         else if($error != null && $error->getMessage() == 'User account is disabled.')
             $formErrors['noActivo'] = 'usuario.errors.login.noActivo';
-        
+
         return $this->render('LoogaresUsuarioBundle:Usuarios:login.html.twig', array(
             'last_mail' => $session->get(SecurityContext::LAST_USERNAME),
             'errors' => $formErrors,
@@ -1396,7 +1402,7 @@ class UsuarioController extends Controller
     }
 
     public function loginCheckFacebookAction() {
-        
+
     }
 
     public function totalAccionesPendientesAction($accion) {
@@ -1410,9 +1416,9 @@ class UsuarioController extends Controller
 
     public function forzarDatosAction(Request $request) {
         foreach($_POST as $key => $value){
-            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING); 
+            $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
         }
-        
+
         $em = $this->getDoctrine()->getEntityManager();
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
         $tnr = $em->getRepository('LoogaresMailBundle:TipoNotificacion');
@@ -1564,7 +1570,7 @@ class UsuarioController extends Controller
         }
         else {
             return new Response('');
-        }        
+        }
     }
 
 
