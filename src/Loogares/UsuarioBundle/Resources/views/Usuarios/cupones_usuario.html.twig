@@ -58,7 +58,9 @@
 				<li class="cupon_full cupon_full_{{cupon.id}}">
 					<div class="cupon_full_{% if cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}activo{% else %}inactivo{% endif %}">
 						<div class="titulo_vigencia">
-							{% if cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}
+							{% if cupon.canjeado == 1 %}
+								Premio Canjeado
+							{% elseif cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}
 								Premio Vigente
 							{% else %}
 								Premio Expirado
@@ -124,11 +126,11 @@
 				{% if usuario.tipoPremio != 'concursos' %}
 					<img class="imagen_sin_cupon" src="{{ asset('assets/images/reporte/dscto_icono.png') }}" height="80" width="80" />
 					<p>{{'usuario.gift_card.sin_cupones_gc'|trans}}<br />
-					{{'usuario.gift_card.gana_uno'|trans}} <a href="#">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
+					{{'usuario.gift_card.gana_uno'|trans}} <a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
 				{% else %}
 					<img class="imagen_sin_cupon" src="{{ asset('assets/images/reporte/be_icono.png') }}" height="80" width="80" />
 					<p>{{'usuario.gift_card.sin_cupones_be'|trans}}<br />
-					{{'usuario.gift_card.gana_uno'|trans}} <a href="#">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
+					{{'usuario.gift_card.gana_uno'|trans}} <a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
 				{% endif %}
 			</li>
 		{% endif %}
