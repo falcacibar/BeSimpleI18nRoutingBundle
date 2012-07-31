@@ -228,6 +228,14 @@ $(document).ready(function(){
         $.fancybox.close()
     });
 
+    $('.flash_editar_recomendacion').click(function() {
+        $('.edita_recomendacion').click();
+        setTimeout(function() {
+            $('body').animate({'scrollTop': $('.recomienda_lugar_caja').parents('.recomendacion').offset().top - 20}, 200);
+        }, 1000);
+        return false;
+    })
+
     $(".ver_video_lugar").fancybox({
             maxWidth    : 600,
             maxHeight   : 500,

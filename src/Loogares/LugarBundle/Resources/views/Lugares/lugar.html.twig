@@ -142,14 +142,20 @@
 
                 $('.compartir_facebook').click(function() {
                     $.fancybox.close();
-                    return fbfn;
+                    return fbfn();
+                });
+
+                $('.contenido_lightbox_compartir .volver').click(function() {
+                    $.fancybox.close();
+                    return false;
                 });
 
                 $.fancybox.open({
                     hideOnContentClick : false,
                     padding: 0,
                     showCloseButton: false ,
-                    href : '#compartir-fbox'
+                    href : '#compartir-fbox',
+                    modal : true
                 });
             });
             </script>
@@ -399,7 +405,7 @@
             <div class="descripcion_lugar">
                 {{lugar.descripcionLugar.titulo}}
                 {{lugar.descripcionLugar.texto}}
-            </div>  
+            </div>
             {% endif %}
         </div>
 

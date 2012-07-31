@@ -1272,7 +1272,7 @@ class LugarController extends Controller{
             $session->set('recomendacionPendiente', $_POST);
             $session->set('alIngresarIrA', $request->getRequestUri());
 
-            return $this->redirect($this->generateUrl('registroUsuario'));
+            return $this->redirect($this->generateUrl('login'));
         }
 
         if(!is_null($rec = $session->get('recomendacionPendiente'))) {
@@ -1555,6 +1555,35 @@ class LugarController extends Controller{
             return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
             }
         }
+
+        $this->get('session')->setFlash(
+                    'error_flash' ,
+                    $this->get('translator')->trans(
+                            'lugar.flash.recomendacion.solo_una',
+                             array(
+                                '%link_editar%'  =>
+                                '<a href="" class="flash_editar_recomendacion">' .
+                                    $this->get('translator')->trans('lugar.flash.recomendacion.link_editar') .
+                                '</a>'
+                            )
+                    ));
+        /* *
+        var_dump(
+                    $this->get('translator')->trans(
+                            'lugar.flash.recomendacion.solo_una',
+                             array(
+                                '%link_editar%'  =>
+                                '<a href="" class="edita_recomendacion" onclick="'.
+                                    "$('.edita_recomendacion').click(); return false;".'">' .
+                                    $this->get('translator')->trans('lugar.flash.recomendacion.link_editar') .
+                                '</a>'
+                            )
+                    ))
+        ;
+        die();
+
+        /**/
+        return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
     }
 
     public function accionRecomendacionAction($slug, $borrar){

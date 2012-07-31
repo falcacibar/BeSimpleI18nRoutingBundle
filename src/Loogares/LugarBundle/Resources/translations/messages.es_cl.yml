@@ -12,6 +12,8 @@ lugar:
             edicion_revision: ¡Gracias %nombre% %apellido% por tu ayuda! No sabríamos qué hacer sin ti. La información quedará bajo revisión antes de ser publicada.
             concurso_singular: ¡Buenísimo! Ya estás participando del concurso de %link%
             concurso_plural: ¡Buenísimo! Ya estás participando en los concursos en los que marcaste tu participación
+            solo_una: ¡Cabeza de pollo! Se te olvidó que sólo se recomienda una vez por lugar, intenta %link_editar% tu recomendación.
+            link_editar: editando
 
     errors:
         agregar:
