@@ -1,13 +1,13 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />
+		<link rel="stylesheet" href="http://localhost/loogares/web/assets/css/compressed.css" type="text/css" media="screen" />
 	</head>
 	<body>
 		{% set lugar = cupon.lugar %}
 		<div class="cupon_full_{% if cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}activo{% else %}inactivo{% endif %}">
 			<div class="bloque_premio">
-				<img class="imagen_cupon" src="http://localhost{{('assets/images/lugares/'~lugar.imagenesActivasLugar[lugar.imagenesActivasLugar | length - 1].imagenFull) | apply_filter('medium_lugar')}}" height="100" width="100" />
+				<img class="imagen_cupon" src="{{'http://www.loogares.com/assets/media/cache/medium_lugar/assets/images/lugares/'~lugar.imagenesActivasLugar[lugar.imagenesActivasLugar | length - 1].imagenFull}}" height="100" width="100" />
 				<div class="texto_cupon">
 					{% if tipoPremio != 'concursos' %}
 						<p class="cupon_titulo">{{cupon.cantidad}}% de Dscto. en {{lugar.nombre}}</p>
