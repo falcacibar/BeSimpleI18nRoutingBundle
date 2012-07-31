@@ -355,7 +355,7 @@ class UsuarioController extends Controller
         $data = $ur->getDatosUsuario($usuarioResult);
 
         if($tipo == 'concursos'){
-            $ganadores = $ur->getConcursosVigentesUsuario($usuarioResult, $ppag, $offset);
+            $ganadores = $ur->getConcursosUsuario($usuarioResult, $ppag, $offset);
             foreach($ganadores as $ganador){
                 $dataCupones[] = array(
                     'titulo' => $ganador->getParticipante()->getConcurso()->getTitulo(),
@@ -364,11 +364,12 @@ class UsuarioController extends Controller
                     'condiciones' => $ganador->getParticipante()->getConcurso()->getPost()->getCondiciones(),
                     'lugar' => $ganador->getParticipante()->getConcurso()->getPost()->getLugar(),
                     'id' => $ganador->getId(),
-                    'fechaTermino' => $ganador->getParticipante()->getConcurso()->getFechaTermino()
+                    'fechaTermino' => $ganador->getParticipante()->getConcurso()->getFechaTermino(),
+                    'canjeado' => $ganador->getCanjeado()
                 );
             }
         }else{
-            $descontados = $ur->getDescuentosVigentesUsuario($usuarioResult, $ppag, $offset);
+            $descontados = $ur->getDescuentosUsuario($usuarioResult, $ppag, $offset);
             foreach($descontados as $descontado){
                 $campana = $cr->findOneByDescuento($descontado->getDescuento()->getId());
                 $dataCupones[] = array(
@@ -377,6 +378,7 @@ class UsuarioController extends Controller
                     'lugar' => $campana->getLugar(),
                     'id' => $descontado->getId(),
                     'cantidad' => $descontado->getDescuento()->getCantidad(),
+                    'canjeado' => $descontado->getCanjeado(),
                     'fechaTermino' => $descontado->getDescuento()->getFechaTermino()
                 );
             }
@@ -387,6 +389,8 @@ class UsuarioController extends Controller
         $data->tipo = 'cupones';
         $data->tipoPremio = $tipo;
         $data->cupones = $dataCupones;
+        $data->descuentosActivos = sizeOf($ur->getDescuentosVigentesUsuario($usuarioResult, $ppag, 0));
+        $data->concursosActivos = sizeOf($ur->getConcursosVigentesUsuario($usuarioResult, $ppag, 0));
         $data->totalCupones = $totalCupones;
         $data->loggeadoCorrecto = $loggeadoCorrecto;
 

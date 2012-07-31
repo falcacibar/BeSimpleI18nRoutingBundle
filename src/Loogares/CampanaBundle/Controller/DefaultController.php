@@ -27,7 +27,7 @@ class DefaultController extends Controller{
 		$q = $em->createQuery('SELECT count(c) FROM Loogares\CampanaBundle\Entity\Campana c
 													 WHERE c.lugar = ?1 AND c.descuento != ?2');
 		$q->setParameter(1, $lugar);
-		$q->setParameter(2, null);
+		$q->setParameter(2, 'null');
 		$descuentos = $q->getSingleScalarResult();
 
     $seguidores = $this->getDoctrine()->getConnection()
@@ -361,7 +361,7 @@ class DefaultController extends Controller{
     	}
     	$em->flush();
     	
-    	/*$fields_string = '';
+    	$fields_string = '';
 	    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_descuentos_mail');
       $fields = array(
           'seguidores' => implode(',',$post['seguidores'])
@@ -381,7 +381,7 @@ class DefaultController extends Controller{
       curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
       //execute post
       curl_exec($ch);
-      curl_close($ch);*/
+      curl_close($ch);
     }
 		return $this->redirect($this->generateUrl('_reporte_descuentos_detalle', array('slug' => $campana->getLugar()->getSlug(), 'id' => $id)));
 	}

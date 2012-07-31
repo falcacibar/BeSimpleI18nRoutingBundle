@@ -39,6 +39,20 @@ class ConcursoRepository extends EntityRepository
         return $q->getResult();
     }
 
+    public function getConcursos($ciudad) {
+        $em = $this->getEntityManager();
+
+        $q = $em->createQuery("SELECT c, p
+                               FROM Loogares\BlogBundle\Entity\Concurso c
+                               JOIN c.post p
+                               WHERE p.ciudad = ?1
+                               AND c.estado_concurso != ?2
+                               ORDER BY c.fecha_inicio DESC");
+        $q->setParameter(1, $ciudad);
+        $q->setParameter(2, 3);
+        return $q->getResult();
+    }
+
     public function getConcursosCerrados($ciudad, $results, $offset) {
         $em = $this->getEntityManager();
 

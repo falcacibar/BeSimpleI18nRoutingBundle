@@ -130,7 +130,7 @@ function getTipo(tipo){
           return ['Menos de $3.000', '$3.000 - $7.000', '$7.000 - $12.000', '$12.000 - $18.000', 'Más de $18.000'];
       }else if(tipo == 'dondeDormir'){
           return ['Mínimo', 'Barato', 'Medio', 'Alto', 'Máximo'];
-      }else if(tipo == 'nightClubs'){
+      }else if(tipo == 'nightclub'){
         return ['Menos de $10.000', '$10.000 - $20.000', '$20.000 - $30.000', '$30.000 - $50.000', 'Más de $50.000'];
       }
     }else if($('body').hasClass('argentina')){
@@ -138,7 +138,7 @@ function getTipo(tipo){
           return ['Menos de $30', '$30 - $70', '$70 - $100', '$100 - $160', 'Más de $160'];
       }else if(tipo == 'dondeDormir'){
           return ['Mínimo', 'Barato', 'Medio', 'Alto', 'Máximo'];
-      }else if(tipo == 'nightClubs'){
+      }else if(tipo == 'nightclub'){
           return ['Menos de $100', '$100 - $200', '$200 - $300', '$300 - $500', 'Más de $500'];
       }
     }

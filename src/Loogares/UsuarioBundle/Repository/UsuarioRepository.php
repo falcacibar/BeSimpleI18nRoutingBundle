@@ -285,6 +285,22 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
         return $q->getResult();
     }
 
+    public function getConcursosUsuario($usuario, $results, $offset) {
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT g, p, c
+                               FROM Loogares\BlogBundle\Entity\Ganador g
+                               JOIN g.participante p
+                               JOIN p.concurso c
+                               WHERE p.usuario = ?1
+                               AND c.tipo_concurso = 2
+                               ORDER BY c.fecha_termino DESC");
+        $q->setMaxResults($results);
+        $q->setFirstResult($offset);
+        $q->setParameter(1, $usuario);
+
+        return $q->getResult();
+    }
+
     public function getDescuentosVigentesUsuario($usuario, $results, $offset){
         $em = $this->getEntityManager();
         $q = $em->createQuery("SELECT du
@@ -292,6 +308,20 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
                                JOIN du.descuento d
                                WHERE du.usuario = ?1
                                AND du.canjeado = false
+                               ORDER BY d.fecha_termino DESC");
+        $q->setMaxResults($results);
+        $q->setFirstResult($offset);
+        $q->setParameter(1, $usuario);
+
+        return $q->getResult();
+    }
+
+    public function getDescuentosUsuario($usuario, $results, $offset){
+        $em = $this->getEntityManager();
+        $q = $em->createQuery("SELECT du
+                               FROM Loogares\CampanaBundle\Entity\DescuentosUsuarios du
+                               JOIN du.descuento d
+                               WHERE du.usuario = ?1
                                ORDER BY d.fecha_termino DESC");
         $q->setMaxResults($results);
         $q->setFirstResult($offset);

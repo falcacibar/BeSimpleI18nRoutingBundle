@@ -395,7 +395,7 @@
                     </div>
                 {% endif %}
             </div>
-            {% if lugar.descripcionLugar %}
+            {% if lugar.tipoLugar.id == 3 and lugar.descripcionLugar %}
             <div class="descripcion_lugar">
                 {{lugar.descripcionLugar.titulo}}
                 {{lugar.descripcionLugar.texto}}
