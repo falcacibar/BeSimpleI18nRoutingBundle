@@ -58,7 +58,7 @@
 							{% endif %}
 						{% elseif concurso.tipoConcurso.slug == 'recomendacion' %}
 							{% if concurso.participacion.participa ==  true %}
-								<div class="boton_participando {% if concurso.participacion.pendiente == true %}boton_esperando_recomendar{% else %}boton_participando_recomendar{% endif %}"></div>
+								<div class="boton_participando {% if concurso.participacion.pendiente == true %}boton_esperando_recomendar_{{app.session.get('ciudad').slug}}{% else %}boton_participando_recomendar{% endif %}"></div>
 								<a href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}" class="popup_compartir" style="display:none"/>
 								<a href="{{ path('static', {'static': 'nuevo_sistema_concursos_y_be'}) }}" class="como_funciona">{{'blog.como_funciona'|trans}}</a>
 							{% else %}

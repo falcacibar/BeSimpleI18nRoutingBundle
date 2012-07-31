@@ -448,8 +448,6 @@ class UsuarioController extends Controller
                     'fechaTermino' => $descuento->getDescuento()->getFechaTermino()
                 );
         }
-        
-        $concurso = $ganador->getParticipante()->getConcurso();
 
         $template = $this->render('LoogaresUsuarioBundle:Usuarios:imprimir_cupon_usuario.html.twig', array(
             'cupon' => $cuponDetalle,
