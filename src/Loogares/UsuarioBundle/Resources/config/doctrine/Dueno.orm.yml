@@ -30,3 +30,4 @@ Loogares\UsuarioBundle\Entity\Dueno:
             type: datetime
         logo:
             type: string
+            nullable: true

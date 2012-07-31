@@ -31,13 +31,67 @@
 
 				<ul>
 					{% for ganador in concurso.ganadores %}
+						<script>
+								$(function(){
+									$(".cupon_ganador_{{ganador.codigo}}").fancybox({
+								    type: 'inline',
+										content: $('.cupon_local_{{ganador.codigo}}'),
+										padding: 0,
+										fitToView: false
+									});
+								});
+						</script>
 						<li>
 							<input type="checkbox" class="canjes_checkbox" data-ganador="{{ganador.id}}" {% if ganador.canjeado%}disabled="disabled" checked="checked"{% endif %}/>
 							<a href="{{path('showUsuario', {'param' : ganador.participante.usuario.slug})}}" target="_blank">
 								<img class="imagen_ganador" src="{{ ('assets/images/usuarios/'~ganador.participante.usuario.imagenFull) | apply_filter('tiny_usuario') }}" width="20" height="20" />
 								<span>{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</span>
 							</a>
-							<span> - {{'usuario.gift_card.codigo'|trans}} <a href="{{path('_reporteLocalCupon', {'slug' : concurso.post.lugar.slug, 'id' : concurso.id, 'ganador' : ganador.id})}}" class="cupon_ganador" target="_blank"><strong>{{ganador.codigo}}</strong></a></span>{% if ganador.recomendo %} - <a href="{{path('_recomendacion', {'slug' : concurso.post.lugar.slug, 'usuarioSlug' : ganador.participante.usuario.slug})}}" target="_blank">Recomendación</a>{% endif%}
+							<span> - {{'usuario.gift_card.codigo'|trans}} <a href="#" class="cupon_ganador_{{ganador.codigo}}"><strong>{{ganador.codigo}}</strong></a></span>{% if ganador.recomendo %} - <a href="{{path('_recomendacion', {'slug' : concurso.post.lugar.slug, 'usuarioSlug' : ganador.participante.usuario.slug})}}" target="_blank">Recomendación</a>{% endif%}
+
+							<div class="cupon_local cupon_local_{{ganador.codigo}}">
+								<div class="cupon_local_activo">
+									<div class="bloque_premio">
+										<img class="imagen_cupon" src="{{('assets/images/lugares/'~lugar.imagenesActivasLugar[lugar.imagenesActivasLugar|length - 1].imagenFull) | apply_filter('medium_lugar')}}" height="100" width="100" />
+										<div class="texto_cupon">
+											<p class="cupon_titulo">{{concurso.titulo}}</p>
+											<p class="usuario_cupon">{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</p>
+											<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{ganador.codigo}}</p>
+										</div>
+									</div>
+									<div class="bloque_detalles">
+										<strong>{{'blog.detalle'|trans}}</strong><br />
+										<p>{{concurso.post.detalles | raw}}</p>
+										<br />
+										<strong>{{'blog.condiciones'|trans}}</strong><br />
+										<p>{{concurso.post.condiciones | raw}}</p>
+									</div>
+									<div class="bloque_datos">
+										<a class="titulo_datos_cupon" href="{{path('_lugar', {'slug' : concurso.post.lugar.slug})}}" target="_blank">{{concurso.post.lugar.nombre}}</a>
+										<br />
+										<p>{{concurso.post.lugar.calle}} {{concurso.post.lugar.numero}}, {{concurso.post.lugar.comuna.nombre}}, {{concurso.post.lugar.comuna.ciudad.nombre}}</p>
+										{% if concurso.post.lugar.telefono2 == '' or concurso.post.lugar.telefono2 == null %}
+											{% set telefonos = [concurso.post.lugar.telefono1] %}
+										{% elseif concurso.post.lugar.telefono3 == '' or concurso.post.lugar.telefono3 == null %}
+											{% set telefonos = [concurso.post.lugar.telefono1, concurso.post.lugar.telefono2] %}
+										{% else %}
+											{% set telefonos = [concurso.post.lugar.telefono1, concurso.post.lugar.telefono2, concurso.post.lugar.telefono3] %}
+										{% endif %}
+										{{telefonos|join(', ')}}
+										{% if concurso.post.lugar.sitioWeb != ''%}
+											<a class="sitio_web_lugar" href="http://{{concurso.post.lugar.sitioWeb}}" target="blank">{{concurso.post.lugar.sitioWeb}}</a>
+										{% endif %}
+										{% if concurso.post.lugar.facebook != ''%}
+											<a class="facebook_lugar" href="http://{{concurso.post.lugar.facebook}}" target="blank"></a>
+										{% endif %}
+										{% if concurso.post.lugar.twitter != ''%}
+											<a class="twitter_lugar" href="http://{{concurso.post.lugar.twitter}}" target="blank"></a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+
+
 						</li>
 					{% endfor %}
 				</ul>

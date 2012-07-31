@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0 auto;
+    font-size: 12px;
+    width: 100%;
+}
+
+a {
+    color: #0066CC;
+    text-decoration: none;
+}
+
+table, tr, td {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.cupon_pdf {
+    background: white;
+    float: left;
+    margin: 0 auto;
+    width: 570px;    
+}
+
+    .bloque_premio {
+        background: #FAFAFC;
+        padding: 40px 20px 20px;
+        width: 530px;
+    }
+        
+        .imagen_cupon {
+            width: 120px;            
+        }
+
+        .texto_cupon {
+            line-height: 22px;
+            width: 410px;
+        }
+
+            .cupon_titulo {
+                font-size: 16px;
+                font-weight: bold;
+                margin: 0 0 20px 0;
+            }
+ 
+            .cupon_codigo, .cupon_fecha_termino {
+                font-size: 14px;
+                width: 410px;
+            }
+
+    .bloque_detalles {
+        border-bottom: 1px solid #F2F2F6;
+        font-size: 12px;
+        line-height: 22px;
+        margin: 0 20px;
+        padding: 20px 0;
+        width: 530px;
+    }
+
+    .bloque_datos {
+        border-bottom: 1px solid #F2F2F6;
+        font-size: 12px;
+        line-height: 22px;
+        margin: 0 20px;
+        padding: 20px 0;
+        width: 530px;
+    }
+
+        .titulo_datos_cupon {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .sitio_web_lugar {
+            display: block;
+        }
+
+        .facebook_lugar {
+            background: url('http://localhost/web/assets/images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px;
+            display: inline-block;
+            height: 16px;
+            margin: 10px 10px 10px 0;
+            width: 16px;
+        }
+
+        .twitter_lugar {
+            background: url('http://localhost/web/assets/images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px;
+            display: inline-block;
+            height: 16px;
+            margin: 10px 0;
+            width: 16px;
+        }

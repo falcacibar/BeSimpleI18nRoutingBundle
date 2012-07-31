@@ -7,16 +7,16 @@
 	<ul class="tipos_de_cupones">
 		<li class="selecciona_tipo_de_cupon">
 			{% if usuario.tipoPremio != 'concursos' %}
-			<a href="{{ path('cuponesUsuario', {'param': usuario.slug, 'tipo': 'concursos'}) }}">{{'usuario.gift_card.tipo.concursos'|trans}} (#)</a> <span class="orden_separacion">|</span>
+			<a href="{{ path('cuponesUsuario', {'param': usuario.slug, 'tipo': 'concursos'}) }}">{{'usuario.gift_card.tipo.concursos'|trans}} ({{usuario.concursosActivos}})</a> <span class="orden_separacion">|</span>
 			{% else %}
-				{{'usuario.gift_card.tipo.concursos'|trans}} ({{usuario.cupones|length | default(0) }}) <span class="orden_separacion">|</span>
+				{{'usuario.gift_card.tipo.concursos'|trans}} ({{usuario.concursosActivos}}) <span class="orden_separacion">|</span>
 			{% endif %}
 		</li>
 		<li class="selecciona_tipo_de_cupon">
 			{% if usuario.tipoPremio != 'descuentos' %}
-				<a href="{{ path('cuponesUsuario', {'param': usuario.slug, 'tipo': 'descuentos'}) }}">{{'usuario.gift_card.tipo.descuentos'|trans}} (#)</a></li>
+				<a href="{{ path('cuponesUsuario', {'param': usuario.slug, 'tipo': 'descuentos'}) }}">{{'usuario.gift_card.tipo.descuentos'|trans}} ({{usuario.descuentosActivos}})</a></li>
 			{% else %}
-				{{'usuario.gift_card.tipo.descuentos'|trans}} ({{usuario.cupones|length | default(0) }})
+				{{'usuario.gift_card.tipo.descuentos'|trans}} ({{usuario.descuentosActivos}})
 			{% endif %}
 	</ul>
 
@@ -35,7 +35,7 @@
 								});
 							});
 					</script>
-					<div class="cupon_{% if cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}activo{% else %}inactivo{% endif %}">
+					<div class="cupon_{% if cupon.canjeado == 1 %}canjeado{% elseif cupon.fechaTermino|date('y-m-d') > "now"|date('y-m-d') %}activo{% else %}inactivo{% endif %}">
 						<div class="bloque_premio">
 							<img class="imagen_cupon" src="{{('assets/images/lugares/'~lugar.imagenesActivasLugar[lugar.imagenesActivasLugar|length - 1].imagenFull) | apply_filter('medium_lugar')}}" height="100" width="100" />
 							<div class="texto_cupon">
@@ -124,11 +124,11 @@
 				{% if usuario.tipoPremio != 'concursos' %}
 					<img class="imagen_sin_cupon" src="{{ asset('assets/images/reporte/dscto_icono.png') }}" height="80" width="80" />
 					<p>{{'usuario.gift_card.sin_cupones_gc'|trans}}<br />
-					{{'usuario.gift_card.gana_uno'|trans}} <a href="">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
+					{{'usuario.gift_card.gana_uno'|trans}} <a href="#">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
 				{% else %}
 					<img class="imagen_sin_cupon" src="{{ asset('assets/images/reporte/be_icono.png') }}" height="80" width="80" />
 					<p>{{'usuario.gift_card.sin_cupones_be'|trans}}<br />
-					{{'usuario.gift_card.gana_uno'|trans}} <a href="">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
+					{{'usuario.gift_card.gana_uno'|trans}} <a href="#">{{'usuario.gift_card.gana_uno_link'|trans}}</a></p>
 				{% endif %}
 			</li>
 		{% endif %}

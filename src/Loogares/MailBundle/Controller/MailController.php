@@ -30,7 +30,16 @@ class MailController extends Controller{
     $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
   	foreach($descontados as $descontado){
-  		$usuario = $ur->findOneBySlug($descontado);
+      $usuario = $ur->findOneById($descontado);
+      $mail['usuario'] = $usuario;
+
+      $q = $em->createQuery("SELECT du FROM Loogares\CampanaBundle\Entity\DescuentosUsuarios du WHERE du.usuario = ?1 AND du.descuento = ?2");
+      $q->setParameter(1, $usuario);
+      $q->setParameter(2, $campana->getDescuento());
+      $descuento = $q->getOneOrNullResult();
+      if($descuento){
+        $mail['codigo'] = $descuento[0]->getCodigo();
+      }
 
   		if($usuario != null){
 	      $message = $this->get('fn')->enviarMail($mail['asunto'], $usuario->getMail(), 'noreply@loogares.com', $mail, $paths, 'LoogaresCampanaBundle:Mails:mail_descuentos_usuario.html.twig', $this->get('templating'));

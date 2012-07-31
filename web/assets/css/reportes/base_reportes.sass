@@ -1359,6 +1359,116 @@ a
         .imagen_exito
             margin: 0 0 20px 
 
+/* Lightbox cupones */
+.cupon_local
+    display: none
+
+.cupon_local_activo
+    background: $blanco
+    float: left
+    width: 570px
+
+    a
+        @include link_azul
+
+        &:hover
+            @include link_azul_hover
+
+    .titulo_vigencia
+        font:
+            size: 20px
+            weight: bold
+        padding: 20px
+
+    .bloque_premio
+        background: $gris_faf
+        float: left
+        padding: 20px
+        width: 530px
+
+        .imagen_cupon
+            float: left
+            margin: 0 20px 0 0
+            width: 100px
+
+        .texto_cupon
+            float: left
+            font:
+                size: 14px
+            line-height: 22px
+            width: 410px
+
+            .cupon_titulo
+                font:
+                    size: 16px
+                    weight: bold
+                margin: 0 0 20px 0
+
+            .usuario_cupon
+
+            .cupon_codigo, .cupon_fecha_termino
+                float: left
+                width: 510px
+
+            .ver_cupon
+                @include link_azul
+                float: left
+                font:
+                    size: 12px
+                text-align: right
+                width: 100px
+
+                &:hover
+                    @inlcude link_azul_hover
+
+    .bloque_detalles
+        border-bottom: 1px solid $gris_f6f
+        float: left
+        font:
+            size: 12px
+        line-height: 22px
+        margin: 0 20px
+        padding: 20px 0
+        width: 530px
+
+    .bloque_datos
+        border-bottom: 1px solid $gris_f6f
+        float: left
+        font:
+            size: 12px
+        line-height: 22px
+        margin: 0 20px
+        padding: 20px 0
+        width: 530px
+
+        .titulo_datos_cupon
+            font:
+                size: 14px
+                weight: bold
+
+        .sitio_web_lugar
+            display: block
+
+        .facebook_lugar
+            background: url('../../images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px
+            display: inline-block
+            float: left
+            height: 16px
+            margin: 10px 0
+            width: 16px
+
+        .twitter_lugar
+            background: url('../../images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px
+            display: inline-block
+            float: left
+            height: 16px
+            margin: 10px 0 10px 10px
+            width: 16px
+
+        .visita_ficha_lugar
+            float: left
+            width: 740px
+
 .footer_reporte
     background: $gris_faf
     border-top: 1px solid $gris_f6f
