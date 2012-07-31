@@ -18,8 +18,8 @@
 	                    <br />
 	               	</div>
 	               	<div style="background: #FAFAFC; float: left; border-top: 1px solid #CCC;">
-	                    <img src="{{ ('assets/images/usuarios/'~mail.lugar.imagenesActivasLugar[0].imagenFull) | apply_filter('blog_detalle')}}" height="100px" width="177px" style="float: left; padding: 20px 20px 20px 0; margin: 0 0 0 20px; border-bottom: 1px solid #E5E5E5;"/>
-	                    <div style="float: left; border-bottom: 1px solid #E5E5E5; height: 100px; padding: 20px 0px; font-size: 17px; font-weight: bold; line-height: 33px; width: 411px; margin: 0 20px 0 0;">
+	                    <img src="{{ ('assets/images/usuarios/'~mail.lugar.imagenesActivasLugar[0].imagenFull) | apply_filter('medium_lugar')}}" height="100px" width="100px" style="float: left; padding: 20px 20px 20px 0; margin: 0 0 0 20px; border-bottom: 1px solid #E5E5E5;"/>
+	                    <div style="float: left; border-bottom: 1px solid #E5E5E5; height: 100px; padding: 20px 0px; font-size: 17px; font-weight: bold; line-height: 33px; width: 488px; margin: 0 20px 0 0;">
 	                    	{{ mail.descuento.cantidad }}% de Dscto. en {{ mail.lugar.nombre }}
 	                    	<br />
 	                    	Código cupón: <span style="color: red">{{ mail.codigo | default('abc')}}</span>

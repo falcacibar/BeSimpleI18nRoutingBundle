@@ -1,10 +1,39 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}
-    Buscar loogares en {{app.session.get('ciudad').nombre}} | {{parent()}}
+    Mapa y lugares cercanos a {{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | {{parent()}}
 {% endblock %}
 
 {% block meta %}
+    <meta name="description" content="{% if lugar.totalRecomendaciones == 0 %}{{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. En Loogares.com puedes ver recomendaciones de gente que ha visitado {{ lugar.nombre }}, {{lugar.comuna.nombre}}.{% else %}{{lugar.totalRecomendaciones}} {{'general.terminos.recomendacion'|transchoice(lugar.totalRecomendaciones)}} de {{ lugar.nombre }}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}. “{{lugar.recomendacion[0].texto|slice(0,160)}}...”{% endif %}" />
+
+    <meta name="keywords" content="Loogares, recomendaciones, {{lugar.comuna.ciudad.nombre}}, lugares, {% if lugar.categoriaLugar %}{% for categoriaLugar in lugar.categoriaLugar %}{{categoriaLugar.categoria.nombre}}, {% endfor %}{% endif %}{{lugar.comuna.nombre}}, {% if lugar.sector %}{{lugar.sector.nombre}}, {% endif %}{{ lugar.nombre }}" />
+
+    <!-- Metadata Geo Tags -->
+    {# Santiago de Chile #}
+    {% if app.session.get('ciudad').slug == 'santiago-de-chile' %}
+        <meta name="geo.region" content="CL" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {# Valparaíso / Viña del Mar #}
+    {% elseif app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+        <meta name="geo.region" content="CL-VS" />
+        <meta name="geo.placename" content="Valparaíso" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {# Buenos Aires #}
+    {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+        <meta name="geo.region" content="AR" />
+        <meta name="geo.placename" content="Buenos Aires" />
+        <meta name="geo.position" content="{{lugar.mapx}};{{lugar.mapy}}" />
+        <meta name="ICBM" content="{{lugar.mapx}}, {{lugar.mapy}}" />
+    {% endif %}
+
+    <!-- Metadata Facebook -->
+    <meta property="og:title" content="{{ lugar.nombre }} - {{lugar.calle}} | {{lugar.comuna.ciudad.nombre}} | Loogares.com" />
+    <meta property="og:description" content="{{ lugar.calle }} {{ lugar.numero }}, {% if lugar.detalle %}{{lugar.detalle}},{% endif %} {{ lugar.comuna.ciudad.nombre }}" />
+    <meta property="og:image" content="{{ app.request.scheme ~  '://' ~  app.request.host ~ ('/assets/images/lugares/'~lugar.imagen_full) | apply_filter('medium_lugar')}}" />
+
 {% endblock %}
 
 {% block ads %}

@@ -19,7 +19,7 @@
 		<meta name="geo.placename" content="Valparaíso" />
 		<meta name="geo.position" content="-33.045646;-71.620361" />
 		<meta name="ICBM" content="-33.045646, -71.620361" />
-	{# Buenos Aires #}	
+	{# Buenos Aires #}
 	{% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
 		<meta name="geo.region" content="AR" />
 		<meta name="geo.placename" content="Buenos Aires" />
@@ -30,7 +30,7 @@
 	<!-- Metadata para FB -->
 	<meta property="og:title" content="En #Loogarescom {{concurso.descripcion}} en {{post.lugar.nombre}}. Yo ya estoy participando »" />
 	<meta property="og:description" content="{{post.preview | striptags}}" />
-	<meta property="og:image" content="http://{{ app.request.host ~ asset('assets/images/blog/'~post.imagen) }}" />
+	<meta property="og:image" content="{{ app.request.scheme ~  '://' ~  app.request.host ~ asset('assets/images/blog/'~post.imagen) }}" />
 {% endblock %}
 
 {% block content %}
@@ -50,19 +50,19 @@
 								<a href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}" class="popup_compartir" style="display:none"/>
 
 								<a href="{{ path('static', {'static': 'nuevo_sistema_concursos_y_be'}) }}" class="como_funciona">{{'blog.como_funciona'|trans}}</a>
-							{% else %}	
-							
-								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}	
+							{% else %}
+
+								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}
 								<a onclick="_gaq.push(['_trackPageview', '/participacion_campana'])" {% if is_granted('ROLE_USER')%}class="boton_participar boton_participar_click boton_participar_click_{{app.session.get('ciudad').slug}}" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}"{% else %}class="boton_registro boton_participar_click boton_participar_click_{{app.session.get('ciudad').slug}}" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
 								<a href="{{ path('static', {'static': 'nuevo_sistema_concursos_y_be'}) }}" class="como_funciona">{{'blog.como_funciona'|trans}}</a>
 							{% endif %}
 						{% elseif concurso.tipoConcurso.slug == 'recomendacion' %}
 							{% if concurso.participacion.participa ==  true %}
-								<div class="boton_participando {% if concurso.participacion.pendiente == true %}boton_esperando_recomendar{% else %}boton_participando_recomendar{% endif %}"></div>
+								<div class="boton_participando {% if concurso.participacion.pendiente == true %}boton_esperando_recomendar_{{app.session.get('ciudad').slug}}{% else %}boton_participando_recomendar{% endif %}"></div>
 								<a href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'click'})}}" class="popup_compartir" style="display:none"/>
 								<a href="{{ path('static', {'static': 'nuevo_sistema_concursos_y_be'}) }}" class="como_funciona">{{'blog.como_funciona'|trans}}</a>
-							{% else %}	
-								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}				
+							{% else %}
+								{# Si está loggeado, puede participar, sino, se muestra popup de registro #}
 								<a {% if is_granted('ROLE_USER')%}class="boton_participar boton_participar_recomendar boton_participar_recomendar_{{app.session.get('ciudad').slug}}" href="{{path('concurso_compartir', {'ciudad' : post.ciudad.slug, 'slug' : post.slug, 'tipo' : 'recomendacion'})}}"{% else %}class="boton_registro boton_participar_recomendar boton_participar_recomendar_{{app.session.get('ciudad').slug}}" href="{{path('concurso_registro', {'ciudad' : post.ciudad.slug, 'slug' : post.slug})}}"{% endif %}></a>
 								<a href="{{ path('static', {'static': 'nuevo_sistema_concursos_y_be'}) }}" class="como_funciona">{{'blog.como_funciona'|trans}}</a>
 							{% endif %}
@@ -74,7 +74,7 @@
 			<div class="tiempo_restante">
 				{{'blog.quedan'|trans}} <span class="tiempo_azul"></span> {{'blog.para_participar'|trans}}
 			</div>
-			
+
 			<div class="concurso_participantes">
 				<div class="participantes_container">
 					{% include "LoogaresBlogBundle:Default:participantes.html.twig"%}
@@ -101,7 +101,7 @@
 					</ul>
 					<p class="texto_ganadores">{{'blog.ganadores.segundo_texto'|trans}}</p>
 				</div>
-			{% endif %}	
+			{% endif %}
 
 			<div class="redes_sociales_concurso">
 				<h6>{{'blog.comparte'|trans}}</h6>
@@ -152,7 +152,7 @@
 		<div class="columna_der">
 
 			<img class="imagen_concurso" src="{{asset('assets/images/blog/'~post.imagen)}}" width="530" height="300"/>
-		
+
 			<div class="contenido_concurso">
 				{{post.contenido | raw}}
 			</div>
@@ -179,7 +179,7 @@
 
 {% block javascripts %}
 	<script src="{{asset('assets/js/jquery.bxSlider.min.js')}}"></script>
-	<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>  
+	<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
 	<script src='{{asset('assets/js/jquery.countdown.min.js')}}'></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 	<script type="text/javascript">
@@ -198,7 +198,7 @@
 
 			{% if app.session.get('popup_compartir') %}
 				$('.boton_participar').click();
-			{% endif %}			
-		});		
+			{% endif %}
+		});
 	</script>
 {% endblock %}

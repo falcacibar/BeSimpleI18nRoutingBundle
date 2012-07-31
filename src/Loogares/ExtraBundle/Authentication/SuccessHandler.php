@@ -6,7 +6,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse; 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Router;
 use Loogares\BlogBundle\Entity\Participante;
 
@@ -33,8 +33,8 @@ class SuccessHandler implements AuthenticationSuccessHandlerInterface
     	// Caso en que el usuario participa en un concurso
     	$session = $request->getSession();
     	if($session->get('post_slug')) {
-	        $slug = $session->get('post_slug');
-	        $ciudad = $session->get('ciudad');
+	        $slug      = $session->get('post_slug');
+	        $ciudad    = $session->get('ciudad');
 
 	        // Eliminamos la variable de post de session
 	        $session->remove('post_slug');
@@ -43,12 +43,12 @@ class SuccessHandler implements AuthenticationSuccessHandlerInterface
             $session->set('popup_compartir', '1');
 
 	        $url = $this->router->generate('post', array('ciudad' => $ciudad['slug'], 'slug' => $slug));
-    	}
-    	else {
+        } elseif($url = $session->get('alIngresarIrA')) {
+            $session->remove('alIngresarIrA');
+    	} else {
     		if ($targetPath = $session->get('_security.target_path')) {
                 $url = $targetPath;
-            }
-            else {
+            } else {
             	$url = $request->headers->get('referer');
             }
     	}

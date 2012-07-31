@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="http://localhost/web/assets/css/imprimir_pdf.css" type="text/css" media="screen" />
+	</head>
+	<body>
+		{% set lugar = cupon.lugar %}
+		<div class="cupon_pdf">
+			<table class="bloque_premio">
+				<tr>
+					<td class="imagen_cupon">
+						<img src="{{'http://www.loogares.com/assets/media/cache/medium_lugar/assets/images/lugares/'~lugar.imagenesActivasLugar[lugar.imagenesActivasLugar | length - 1].imagenFull}}" height="100" width="100" />
+					</td>
+					<td class="texto_cupon">
+						{% if tipoPremio != 'concursos' %}
+							<p class="cupon_titulo">{{cupon.cantidad}}% de Dscto. en {{lugar.nombre}}</p>
+						{% else %}
+							<p class="cupon_titulo">{{cupon.titulo}}</p>
+						{% endif %}
+						<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{cupon.codigo}}</p>
+						{% if tipoPremio != 'concursos' %}
+							<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
+						{% else %}
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+			<div class="bloque_detalles">
+			{% if tipoPremio != 'concursos' %}
+				<strong>{{'blog.condiciones'|trans}}</strong><br />
+				<p>{{cupon.condiciones | raw}}</p>
+			{% else %}
+				<strong>{{'blog.detalle'|trans}}</strong><br />
+				<p>{{cupon.detalles | raw}}</p>
+				<br />
+				<strong>{{'blog.condiciones'|trans}}</strong><br />
+				<p>{{cupon.condiciones | raw}}</p>
+			{% endif %}
+			</div>
+			<div class="bloque_datos">		
+				<p class="titulo_datos_cupon"><a href="{{url('_lugar', {'slug' : lugar.slug})}}" target="_blank">{{lugar.nombre}}</a></p>
+				<br />
+				<p>{{lugar.calle}} {{lugar.numero}}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}</p>
+				{% if lugar.telefono2 == '' or lugar.telefono2 == null %}
+					{% set telefonos = [lugar.telefono1] %}
+				{% elseif lugar.telefono3 == '' or lugar.telefono3 == null %}
+					{% set telefonos = [lugar.telefono1, lugar.telefono2] %}
+				{% else %}
+					{% set telefonos = [lugar.telefono1, lugar.telefono2, lugar.telefono3] %}
+				{% endif %}
+				{{telefonos|join(', ')}}
+				{% if lugar.sitioWeb != ''%}
+					<a class="sitio_web_lugar" href="http://{{lugar.sitioWeb}}" target="blank">{{lugar.sitioWeb}}</a>
+				{% endif %}
+				{% if lugar.facebook != ''%}
+					<a class="facebook_lugar" href="http://{{lugar.facebook}}" target="blank"></a>
+				{% endif %}
+				{% if lugar.twitter != ''%}
+					<a class="twitter_lugar" href="http://{{lugar.twitter}}" target="blank"></a>
+				{% endif %}
+			</div>
+		</div>
+	</body>
+</html>

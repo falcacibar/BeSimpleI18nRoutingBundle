@@ -43,3 +43,6 @@ web/images
 vendor/symfony/src/Symfony/Bundle/TwigBundle/Resources/views/Exception/exception_full.html.twig
 vendor/symfony/src/Symfony/Bundle/TwigBundle/Resources/views/layout.html.twig
 vendor/facebook
+
+# Log de dompdf
+vendor/dompdf/lib/fonts/log.htm
