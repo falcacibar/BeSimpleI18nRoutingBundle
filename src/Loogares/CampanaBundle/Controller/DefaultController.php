@@ -58,9 +58,11 @@ class DefaultController extends Controller{
 
 		$lugar = $lugarRepository->findOneBySlug($slug);
 		$campanas = $campanaRepository->findByLugar($lugar->getId());
+		$q = $em->createQuery("SELECT c FROM Loogares\CampanaBundle\Entity\Campana c
+													 ORDER BY c.fecha_inicio DESC ");
 
-		$campanas = array_reverse($campanas);
-
+		$campanas = $q->getResult();
+		
 		return $this->render('LoogaresCampanaBundle:Default:listado_campanas.html.twig', array(
 			'lugar' => $lugar,
 			'campanas' => $campanas,
