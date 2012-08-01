@@ -24,7 +24,6 @@
 		{% if usuario.cupones | length > 0 %}
 			{% for cupon in usuario.cupones %}
 				{% set lugar = cupon.lugar %}
-				{{cupon.fechaTermino|date('y-m-d')}}
 				<li class="caja_cupon">
 					<script>
 							$(function(){
@@ -46,10 +45,7 @@
 									<p class="cupon_titulo">{{cupon.titulo}}</p>
 								{% endif %}
 								<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{cupon.codigo}}</p>
-								{% if usuario.tipoPremio != 'concursos' %}
-									<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
-								{% else %}
-								{% endif %}
+								<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
 								<a class="ver_cupon ver_cupon_{{cupon.id}}" href="#">{{'usuario.gift_card.ver_cupon'|trans}}</a>
 							</div>
 							<div class="icono_identificador_{% if usuario.tipoPremio != 'concursos' %}gc{% else %}be{% endif %}"></div>
@@ -76,16 +72,13 @@
 									<p class="cupon_titulo">{{cupon.titulo}}</p>
 								{% endif %}
 								<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{cupon.codigo}}</p>
-								{% if usuario.tipoPremio != 'concursos' %}
-									<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
-								{% else %}
-								{% endif %}
+								<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{cupon.fechaTermino|date('d/m/y')}}</p>
 							</div>
 						</div>
 						<div class="bloque_detalles">
 						{% if usuario.tipoPremio != 'concursos' %}
 							<strong>{{'blog.condiciones'|trans}}</strong><br />
-							<p>{{cupon.condiciones | raw}}</p>
+							<p>{{cupon.condiciones | nl2br}}</p>
 						{% else %}
 							<strong>{{'blog.detalle'|trans}}</strong><br />
 							<p>{{cupon.detalles | raw}}</p>

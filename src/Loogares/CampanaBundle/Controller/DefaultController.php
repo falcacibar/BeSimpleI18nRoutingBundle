@@ -400,7 +400,7 @@ class DefaultController extends Controller{
   	$mail = array();
   	$mail['lugar'] = $campana->getLugar();
   	$mail['descuento'] = $campana->getDescuento();
-    $mail['asunto'] = 'Asunto del Mail';
+    $mail['asunto'] = "Felicitaciones acabas de ganar {$campana->getDescuento()->getCantidad()} % de Dscto. en {$campana->getLugar()->getNombre()}";
 
     $paths = array();
     $paths['logo'] = 'assets/images/mails/logo_mails.png';
