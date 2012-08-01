@@ -32,6 +32,8 @@ use Loogares\AdminBundle\Entity\TempSubcategoriaLugar;
 
 use Loogares\ExtraBundle\Entity\ActividadReciente;
 
+define('REGEXP_MAIL', '#^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$#ix');
+
 class LugarController extends Controller{
 
     public function lugarAction($slug, Request $request, $usuarioSlug = false){
@@ -1644,19 +1646,7 @@ class LugarController extends Controller{
 
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
-            foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
-            }
-
-            if(!$this->get('security.context')->isGranted('ROLE_USER')) {
-                if($request->request->get('nombre') == '')
-                $formErrors['nombre'] = "lugar.errors.enviar.nombre";
-                if($request->request->get('mail') == '')
-                $formErrors['mail'] = "lugar.errors.enviar.mail";
-            }
-
-            if($request->request->get('mails') == '')
-                $formErrors['mails'] = "lugar.errors.enviar.mails";
+            $formErrors = $this->chequearEmail($request->request);
 
             if (sizeof($formErrors) == 0) {
                 $usuario = array();
@@ -1705,6 +1695,7 @@ class LugarController extends Controller{
             'lugar' => $lugar,
             'errors' => $formErrors,
             'tipo' => $tipo,
+            'request' => $request->request
         ));
     }
 
@@ -1726,27 +1717,15 @@ class LugarController extends Controller{
 
         // Si el request es POST, se procesa el envío del mail
         if ($request->getMethod() == 'POST') {
-            foreach($_POST as $key => $value){
-                $_POST[$key] = filter_var($_POST[$key], FILTER_SANITIZE_STRING);
-            }
 
-            if(!$this->get('security.context')->isGranted('ROLE_USER')) {
-                if($request->request->get('nombre') == '')
-                $formErrors['nombre'] = "lugar.errors.enviar.nombre";
-                if($request->request->get('mail') == '')
-                $formErrors['mail'] = "lugar.errors.enviar.mail";
-            }
-
-            if($request->request->get('mails') == '')
-                $formErrors['mails'] = "lugar.errors.enviar.mails";
+            $formErrors = $this->chequearEmail($request->request);
 
             if (sizeof($formErrors) == 0) {
                 $usuario = array();
                 if(!$this->get('security.context')->isGranted('ROLE_USER')) {
                     $usuario['nombre'] = $request->request->get('nombre');
                     $usuario['mail'] = $request->request->get('mail');
-                }
-                else {
+                } else {
                     $usuario['nombre'] = $this->get('security.context')->getToken()->getUser()->getNombre().' '.$this->get('security.context')->getToken()->getUser()->getApellido();
                     $usuario['mail'] = $this->get('security.context')->getToken()->getUser()->getMail();
                 }
@@ -1789,6 +1768,7 @@ class LugarController extends Controller{
             'lugar' => $lugar,
             'errors' => $formErrors,
             'tipo' => $tipo,
+            'request' => $request->request
         ));
     }
 
@@ -2265,5 +2245,45 @@ class LugarController extends Controller{
             'id' => $id,
             'errors' => $formErrors
         ));
+    }
+
+
+    public function chequearEmail($formreq) {
+        $formErrors = array();
+
+        foreach(array_keys($_POST) as $key){
+            $_POST[$key] = trim(filter_var($_POST[$key], FILTER_SANITIZE_STRING));
+        }
+
+        if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+            if($formreq->get('nombre') == '')
+                $formErrors['nombre'] = "lugar.errors.enviar.nombre";
+
+            if($formreq->get('mail') == '')
+                $formErrors['mail'] = "lugar.errors.enviar.mail";
+            elseif(!preg_match(REGEXP_MAIL, $formreq->get('mail')))
+                $formErrors['mail'] = "lugar.errors.enviar.mail_malo";
+        }
+
+        if($formreq->get('mails') == '')
+                $formErrors['mails'] = "lugar.errors.enviar.mails";
+        elseif(strpos($formreq->get('mails'), ',') === false) {
+            if(!preg_match(REGEXP_MAIL, $formreq->get('mails')))
+                $formErrors['mails'] = "lugar.errors.enviar.mail_malo";
+        } else {
+            foreach(explode(',', $formreq->get('mails')) as $mail) {
+                $mail = trim($mail);
+                if(!preg_match(REGEXP_MAIL, $mail)) {
+                    $formErrors['mails'] = $this->get('translator')
+                                                    ->trans(
+                                                        'lugar.errors.enviar.mails_malo' ,
+                                                        array('%mail%' => $mail)
+                                                    );
+                    break;
+                }
+            }
+        }
+
+        return $formErrors;
     }
 }
