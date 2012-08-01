@@ -123,7 +123,7 @@ avalanche_imagine:
             options: { size: [96, 96], mode: outbound }
         medium_concurso:
             type:    thumbnail
-            options: { size: [204, 115], mode: outbound }
+            options: { size: [282, 155], mode: outbound }
         small_concurso:
             type:    thumbnail
             options: { size: [198, 111], mode: outbound }

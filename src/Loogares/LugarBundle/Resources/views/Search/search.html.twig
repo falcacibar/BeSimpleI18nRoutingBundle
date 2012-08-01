@@ -393,7 +393,13 @@
 	        </div>
 
 	        <div class="listado_resultados">
-	        	
+	        <!--
+	        <div class="resultado_patrocinado_busqueda">
+						Banners Concursos del sitio
+						{#% include "LoogaresExtraBundle:Default:resultados_patrocinados_banner.html.twig"%#}
+					</div>
+					-->
+					
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">
 					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
@@ -515,10 +521,7 @@
 				</div>
 			{% endfor %}
 			</div>
-			
 		</div>
-
-	
  					<div class="paginacion_listado_lugares">
             <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{total}}</strong>
             {% if paginacion.totalPaginas != 1 %}
@@ -547,12 +550,11 @@
 				<div class="concursos_slide">
 					<div class="espacio_concurso_busqueda">
 						<!-- Banners Concursos del sitio -->
-						{% include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"%}
-						<!--
+						{#% include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"%#}
+						
 						<script type='text/javascript'>
             	GA_googleFillSlot("{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
 	        	</script>
-	        -->
 					</div>
 				</div>
 			</div>

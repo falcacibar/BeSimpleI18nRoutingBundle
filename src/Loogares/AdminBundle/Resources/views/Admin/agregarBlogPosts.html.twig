@@ -230,13 +230,15 @@
 						<span class="titulo_ad_manager">Código HTML para avisos de Ad Manager</span>
 						<div class="codigo_ad_manager" style="display: none">
 								{{-'<div class="nuevo"></div>
-									<a style="float: left; height: 133px;" href="%%CLICK_URL_UNESC%%'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
+									<a style="float: left; height: 183px;" href="%%CLICK_URL_UNESC%%'~url('post', {'ciudad': ciudad.slug, 'slug': post.slug})~'">
 										<div class="roll_over_concurso">
-											<p class="sorteo_concurso">'~concurso.titulo~'</p>
+											<p class="lugar_concurso">'~post.lugar.nombre~'</p>
+											<p class="sorteo_concurso">'~concurso.descripcion~'</p>
 										</div>	
 										<div class="contenido_concurso">					
-											<img src="http://www.loogares.com/assets/media/cache/medium_concurso/assets/images/blog/'~post.imagen~'" />
+											<img src="http://www.loogares.com/assets/media/cache/medium_concurso/assets/images/blog/'~post.imagen~'" height="155" width="282" />
 											<h2 class="lugar_concurso">'~post.lugar.nombre~'</h2>
+											<p class="sorteo_concurso">'~concurso.descripcion~'</p>
 										</div>
 									</a>'-}}
 						</div>

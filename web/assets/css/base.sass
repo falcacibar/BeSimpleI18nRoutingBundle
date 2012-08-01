@@ -55,6 +55,7 @@ $azul_claro: #66CCFF
 $blanco: #FFF
 
 $gris_faf: #FAFAFC
+$gris_fac: #FAFCFF
 $gris_f2f: #F2F2F6
 $gris_f6f: #E5E5E5
 $gris_ccc: #CCC
@@ -1594,8 +1595,105 @@ textarea
     margin: 0 0 30px 0
     width: 300px
 
-/* Avisos Concursos vigentes Búsqueda - Ficha */
+/* Resultados patrocinados */
+.resultado_patrocinado_busqueda, .resultado_patrocinado_ficha_informativa
 
+    .patrocinado_titulo
+        background: url('../images/extras/titulos_pattern.gif') $blanco repeat 0 -6px
+        float: left
+        height: 26px
+        left: -1px
+        margin: 20px 0 0
+        padding: 8px 10px
+        position: relative
+        width: 582px
+
+        .titulo_patrocinado
+            background: url('../images/extras/icono_patrocinados.png') no-repeat 0 3px
+            color: $gris_666
+            float: left
+            font:
+                size: 16px
+                weight: bold
+            padding: 5px 0 5px 20px
+            width: 450px
+
+        .link_que_es_esto
+            display: block
+            font:
+                size: 11px
+            margin: 7px 0
+            text-align: right
+
+    .info_lugar_patrocinado
+        background: $gris_faf
+        border: 1px solid $gris_f6f
+        float: left
+        left: -1px
+        padding: 20px
+        position: relative
+        width: 560px
+
+        &:hover
+            background: $gris_fac
+
+        .lugar_patrocinado_imagen
+            float: left
+            margin: 0 20px 0 0
+            width: 100px
+
+        .lugar_patrocinado_principal
+            border-right: 1px solid $gris_f6f
+            float: left
+            padding: 0 20px 0 0
+            width: 250px
+
+            .nombre_patrocinado
+                @include link_gris_444
+                display: block
+                font:
+                    size: 14px
+                    weight: bold
+                margin: 0 0 20px
+
+                &:hover
+                    @include link_gris_444_hover
+
+            .categoria_patrocinado, .sector_patrocinado
+                color: $gris_666
+                display: block
+                font:
+                    size: 12px
+                margin: 0 0 10px
+
+        .lugar_patrocinado_secundario
+            float: left
+            padding: 0 0 0 20px
+            width: 149px
+
+            .direccion_patrocinado
+                color: $gris_666
+                display: block
+                font:
+                    size: 11px
+                line-height: 15px
+                margin: 0 0 20px
+
+.resultado_patrocinado_ficha_informativa
+
+    .patrocinado_titulo
+        width: 621px
+
+    .info_lugar_patrocinado
+        width: 599px
+
+        .lugar_patrocinado_principal
+            width: 278px
+
+        .lugar_patrocinado_secundario
+            width: 160px
+
+/* Avisos Concursos vigentes Búsqueda - Ficha */
 .campanas_concursos
     color: $gris_666
     float: left
@@ -1682,7 +1780,7 @@ textarea
             height: 183px
             cursor: pointer
             position: relative
-            top: 0
+            top: 3px
             width: 282px
             z-index: 1
 

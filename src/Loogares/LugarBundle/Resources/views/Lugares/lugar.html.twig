@@ -397,8 +397,9 @@
             </div>
             {% if lugar.tipoLugar.id == 6 and lugar.descripcionLugar %}
             <div class="descripcion_lugar">
-                {{lugar.descripcionLugar.titulo}}
-                {{lugar.descripcionLugar.texto}}
+                <p class="titulo_descripcion">{{lugar.descripcionLugar.titulo}}</p>
+                <a class="que_es_esto" href="#">¿Qué es esto?</a>
+                <p class="descripcion_texto">{{lugar.descripcionLugar.texto}}</p>
             </div>
             {% endif %}
         </div>
@@ -535,6 +536,13 @@
                 </ul>
             </div>
         </div>
+
+        <!--
+        <div class="resultado_patrocinado_ficha_informativa">
+            Banners Concursos del sitio
+            {#% include "LoogaresExtraBundle:Default:resultados_patrocinados_banner.html.twig"%#}
+        </div>
+        -->
 
         {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug , 'enLugar' : true}%}
 
