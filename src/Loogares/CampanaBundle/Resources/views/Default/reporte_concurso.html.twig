@@ -20,6 +20,9 @@
 
 				<p><strong>{{'reporte_local.titulo_condiciones'|trans}}</strong></p>
 				<p>{{concurso.post.condiciones | raw}}</p>
+
+				<p><strong>Fecha Termino</strong></p>
+				<p>Fecha Limite: {{ concurso.fechaTermino|date('y-m-d') }}</p>
 			</div>
 		</div>
 

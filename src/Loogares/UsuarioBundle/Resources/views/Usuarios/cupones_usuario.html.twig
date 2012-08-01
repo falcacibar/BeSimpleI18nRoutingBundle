@@ -24,6 +24,7 @@
 		{% if usuario.cupones | length > 0 %}
 			{% for cupon in usuario.cupones %}
 				{% set lugar = cupon.lugar %}
+				{{cupon.fechaTermino|date('y-m-d')}}
 				<li class="caja_cupon">
 					<script>
 							$(function(){
