@@ -169,4 +169,8 @@ ventas:
             li6: - Ofrecer Gift Cards de descuento entre los usuarios que participaron de tu campaña, para medir su efectividad y tener la posibilidad de <strong>recuperar tu inversión</strong>.
             final: ¡Envianos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!
         flash:
-            exito: ¡Hemos recibido tus datos! Te contactaremos en menos de 24 hrs. con nuestra propuesta. 
+            exito: ¡Hemos recibido tus datos! Te contactaremos en menos de 24 hrs. con nuestra propuesta.
+
+iphone_app_banner:
+    titulo: Loogares.com en tu iPhone
+    descargar: Descargala gratis acá »
