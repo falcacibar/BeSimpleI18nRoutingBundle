@@ -5,11 +5,35 @@
             <a class="boton_mapa_grande" href="{{path("_lugarMapa", {"slug" : lugar.slug})}}"></a>
         </div>
 
-        <div class="banner_300x250">
-            <script type='text/javascript'>
-                GA_googleFillSlot("{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
-            </script>
-        </div>
+        {% if lugar.concursos | length > 0 %}
+            <div class="campanas_concursos">
+                <div class="concursos_titulo">
+                    <div class="titulo">
+                        <h5 class="icono_concursos titulo_concursos_search">{{'extra.modulo_concursos.titulo_banner'|trans}}</h5>
+                    </div>
+
+                    <a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}"></a>
+                </div>
+
+                <div class="concursos_slide">
+                    <div class="espacio_concurso_ficha">
+                        <!-- Banners Concursos del sitio -->
+                        {% include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"%}
+                        <!--
+                        <script type='text/javascript'>
+                        GA_googleFillSlot("{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
+                        </script>
+                        -->
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="banner_300x250">
+                <script type='text/javascript'>
+                    GA_googleFillSlot("{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
+                </script>
+            </div>
+        {% endif %}
 
         <!-- iPhone app banner -->
         {% include "LoogaresExtraBundle:Default:iphone_app_banner.html.twig"%}
