@@ -117,6 +117,10 @@ extra:
         nuevos_concursos:
             titulo: Nuevo sistema de concursos y Beneficios Exclusivos
             boton: Nuevo sistema concursos y BE
+        iphone_app:
+            titulo: Descarga la nueva aplicación de Loogares.com para iPhone
+            bajada: La más completa guía online de recomendaciones de ocio y servicios en Chile, desde cualquier parte donde te encuentres.
+            boton: Aplicación Móvil Loogares.com
         obligatorio: Los campos con (*) son obligatorios
 
 static:
@@ -170,4 +174,8 @@ ventas:
             li6: - Ofrecer Gift Cards de descuento entre los usuarios que participaron de tu campaña, para medir su efectividad y tener la posibilidad de <strong>recuperar tu inversión</strong>.
             final: ¡Envíanos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!
         flash:
-            exito: ¡Hemos recibido tus datos! Te contactaremos en menos de 24 hrs. con nuestra propuesta. 
+            exito: ¡Hemos recibido tus datos! Te contactaremos en menos de 24 hrs. con nuestra propuesta.
+
+iphone_app_banner:
+    titulo: Loogares.com en tu iPhone
+    descargar: Descárgala gratis acá »

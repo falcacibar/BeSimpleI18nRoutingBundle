@@ -4,8 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         {% block meta %}{% endblock %}
         <title>{% block title %}Loogares.com{% endblock %}</title>
-        {# stylesheets output='assets/css/compressed.css' filter='yui_css,sass'      
-            'assets/css/*.sass' 
+        {# stylesheets output='assets/css/compressed.css' filter='yui_css,sass'
+            'assets/css/*.sass'
         #}
         {# endstylesheets #}
         {% block stylesheets %}{% endblock %}
@@ -37,7 +37,7 @@
               }
           }
     </script>
-    {% block ads %}{% endblock %} 
+    {% block ads %}{% endblock %}
     </head>
 
     <body class="{{ app.session.get('ciudad').pais.slug | default('chile') }}">
@@ -66,23 +66,24 @@
 
         <script src="{{asset('assets/js/lib.js')}}"></script>
         <script src="{{asset('assets/js/main.js')}}"></script>
-        
+
         {% if is_granted('ROLE_USER') and (app.security.token.user.nombre is empty or app.security.token.user.apellido is empty or app.security.token.user.pais is empty)%}
         <script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
         <script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
         <script>
-            $(function(){               
+            $(function(){
                 $('.datos_usuario_fancybox').fancybox({
                     padding: 0,
                     type: 'ajax',
+                    modal : true ,
                     beforeClose: function(){return false;}
                 });
                 $('.datos_usuario_fancybox').click();
-            
+
             });
         </script>
 
-        
+
         {% endif %}
         {% if is_granted('ROLE_USER') == false %}
         <script>

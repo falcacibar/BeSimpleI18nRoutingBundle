@@ -71,7 +71,8 @@
 		<div class="thumbs_galeria">
 			{% render "LoogaresLugarBundle:Ajax:paginaGaleria" with {'id': imagen.lugar.id} %}
 		</div>
-
+        <!-- iPhone app banner -->
+        {% include "LoogaresExtraBundle:Default:iphone_app_banner_chico.html.twig"%}
 		<div class="banner_300x250">
             <script type='text/javascript'>
                 GA_googleFillSlot("{{ad('static','galeria','top','medium')}}_{{app.session.get('ciudad').slug}}");

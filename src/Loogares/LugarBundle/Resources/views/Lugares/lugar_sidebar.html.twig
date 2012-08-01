@@ -11,7 +11,10 @@
             </script>
         </div>
 
-        {% render "LoogaresLugarBundle:Lugar:moduloDescuentos" with {'ciudad' : lugar.comuna.ciudad.id, 'pagina' : 'lugar'}%}
+        <!-- iPhone app banner -->
+        {% include "LoogaresExtraBundle:Default:iphone_app_banner.html.twig"%}
+
+        {#% render "LoogaresLugarBundle:Lugar:moduloDescuentos" with {'ciudad' : lugar.comuna.ciudad.id, 'pagina' : 'lugar'}%#}
 
         <div class="banner_300x250">
             <script type='text/javascript'>

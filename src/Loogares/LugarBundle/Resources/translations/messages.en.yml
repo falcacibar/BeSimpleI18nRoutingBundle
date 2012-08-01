@@ -10,6 +10,8 @@ lugar:
             agregar: %nombre% %apellido%, you are the best! Keep on reviewing and you will become our favorite Loogareño.
             agregar_revision: %nombre% %apellido%, you are great! If we awarded medals, we would surely give you one. The place you added will be temporarily revised.
             edicion_revision: %nombre% %apellido% thanks for letting us know. We will check our information as soon as possible.
+            solo_una: Ouch! Did you forgot that you already wrote a review in this place? Maybe you want to %link_editar%?
+            link_editar: edit your review
 
     errors:
         agregar:

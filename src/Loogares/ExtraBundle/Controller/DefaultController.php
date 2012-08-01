@@ -5,6 +5,7 @@ namespace Loogares\ExtraBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Date;
 use Loogares\LugarBundle\Entity\TipoCategoria;
 use Loogares\BlogBundle\Entity\Concurso;
 use Mailchimp\MCAPI;
@@ -136,7 +137,7 @@ class DefaultController extends Controller
         // Sort Random de concursos
         shuffle($concursos);
 
-        //Slider del home        
+        //Slider del home
         //$sliderCampanas = $pr->getPostsDestacados($ciudadSession['id'], 3);
 
         //Recomendacion Estrella
@@ -280,20 +281,13 @@ class DefaultController extends Controller
     public function staticAction($static){
         $path = null;
         $errors = null;
-        
+
         if(isset($_SESSION['staticerrors'])){
             $errors = $_SESSION['staticerrors'];
             unset($_SESSION['staticerrors']);
         }
 
         $paginas = array(
-            'lunes_de_pelicula' => 'Notas',
-            'beneficio_exclusivo' => 'Notas',
-            'martes_de_amanda' => 'Notas',
-            'miercoles_de_municipal' => 'Notas',
-            'jueves_de_gam' => 'Notas',
-            'sabor_platonico' => 'Notas',
-            'sanduich' => 'Notas',
             'codigos_de_conducta' => 'Static',
             'contacto' => 'Static',
             'copyright' => 'Static',
@@ -306,8 +300,8 @@ class DefaultController extends Controller
             'que_es_loogares' => 'Static',
             'terminos_de_uso' => 'Static',
             'trabaja_con_nosotros' => 'Static',
-            'hi' => 'Static',
-            'concursos_local' => 'Static'
+            'concursos_local' => 'Static',
+            'iphone_app' => 'Static'
         );
 
         foreach($paginas as $key => $value){
@@ -547,7 +541,7 @@ class DefaultController extends Controller
         $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
 
         foreach($concursos as $concurso){
-            if($concurso->getFechaInicio()->format('y-m-d') == new \Date('y-m-d')){
+            if($concurso->getFechaInicio()->format('y-m-d') == date('y-m-d')){
                 $fn->generarTemplateNuevoMail($concurso->getPost()->getImagen());
             }
         }

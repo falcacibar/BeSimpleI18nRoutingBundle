@@ -142,14 +142,20 @@
 
                 $('.compartir_facebook').click(function() {
                     $.fancybox.close();
-                    return fbfn;
+                    return fbfn();
+                });
+
+                $('.contenido_lightbox_compartir .volver').click(function() {
+                    $.fancybox.close();
+                    return false;
                 });
 
                 $.fancybox.open({
                     hideOnContentClick : false,
                     padding: 0,
                     showCloseButton: false ,
-                    href : '#compartir-fbox'
+                    href : '#compartir-fbox',
+                    modal : true
                 });
             });
             </script>
@@ -395,11 +401,11 @@
                     </div>
                 {% endif %}
             </div>
-            {% if lugar.tipoLugar.id == 3 and lugar.descripcionLugar %}
+            {% if lugar.tipoLugar.id == 6 and lugar.descripcionLugar %}
             <div class="descripcion_lugar">
                 {{lugar.descripcionLugar.titulo}}
                 {{lugar.descripcionLugar.texto}}
-            </div>  
+            </div>
             {% endif %}
         </div>
 

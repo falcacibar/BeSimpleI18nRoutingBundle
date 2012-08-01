@@ -188,7 +188,7 @@ $(document).ready(function(){
         hideOnContentClick : false,
         padding: 0,
         type: 'ajax',
-        showCloseButton: false,
+        closeBtn: false,
         onStart: function(){
             $.fancybox.showActivity;
         },
@@ -227,6 +227,14 @@ $(document).ready(function(){
         e.preventDefault();
         $.fancybox.close()
     });
+
+    $('.flash_editar_recomendacion').click(function() {
+        $('.edita_recomendacion').click();
+        setTimeout(function() {
+            $('body').animate({'scrollTop': $('.recomienda_lugar_caja').parents('.recomendacion').offset().top - 20}, 200);
+        }, 1000);
+        return false;
+    })
 
     $(".ver_video_lugar").fancybox({
             maxWidth    : 600,

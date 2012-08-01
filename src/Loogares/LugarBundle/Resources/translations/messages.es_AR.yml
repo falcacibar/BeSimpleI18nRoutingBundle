@@ -10,7 +10,8 @@ lugar:
             agregar: ¡Sos el mejor, %nombre% %apellido%! Seguí recomendando y te convertirás en nuestro Loogareño favorito.
             agregar_revision: ¡Qué grande, %nombre% %apellido%! Si tuviéramos medallas te daríamos una. El lugar que agregaste quedará temporalmente en revisión.
             edicion_revision: ¡Gracias %nombre% %apellido% por tu ayuda! No sabríamos qué hacer sin vos. La información quedará bajo revisión antes de ser publicada.
-
+            solo_una: ¡Pero cómo! ¿Olvidaste que ya habías escrito una recomendación? Tal vez querés %link_editar%.
+            link_editar: editar tu recomendación
     errors:
         agregar:
             nombre: Ingresá el nombre del lugar

@@ -122,7 +122,7 @@ $(function() {
         'Loogares.com', {
             'strategies'    : [ new OpenLayers.Strategy.BBOX({
                         'resFactor' : 1,
-                        'ratio'     : 0.95,
+                        'ratio'     : (typeof($.browser.mozilla) === 'undefined') ? 0.95 : 0.85,
                         'update'    : function() {
                             var $listaOtrosLugares          = $('#lista-otros-lugares').empty();
                             var $cargandoOtrosLugares       = $('#cargando-otros-lugares').show();
@@ -237,6 +237,8 @@ $(function() {
     // Control Popup
 
     var popuplock = false;
+    var $olMapViewport = $('.olMapViewport');
+
     mapa.olMapa.addControl(
         mapa.controles.seleccion = new OpenLayers.Control.SelectFeature(
             mapa.capas.Loogares, {
@@ -272,9 +274,11 @@ $(function() {
                                 'height'    : ''
                         }).hover(function() {
                             popuplock = true;
+                            $olMapViewport.css('overflow', 'visible');
                         }, function() {
                             popuplock = false;
                             mapa.controles.seleccion.onUnselect(feature);
+                                $olMapViewport.css('overflow', 'hidden');
                         });
 
                         var $raty = $div.find('.resultado-busqueda-stars-raty');
@@ -291,7 +295,7 @@ $(function() {
                         });
                     }, 1);
 
-                    $('.olMapViewport').css('overflow', 'visible');
+                    $olMapViewport.css('overflow', 'visible');
                     mapa.olMapa.addPopup(feature.popup);
 
                     return false;
@@ -300,13 +304,18 @@ $(function() {
                     var popup = feature.popup;
                     setTimeout(function() {
                         var popups = mapa.olMapa.popups;
+                        var r = 0 + popups.length;
 
-                        $('.olMapViewport').css('overflow', 'hidden');
                         for(i=0;i<popups.length;i++) {
                             if((popups[i] == popup && !popuplock) || (popups[i] != popup)) {
                                 mapa.olMapa.removePopup(popups[i]);
+                                --r;
                             }
                         }
+
+                        if(r === 0)
+                            $olMapViewport.css('overflow', 'hidden');
+
                     }, 100);
                 }
             }
