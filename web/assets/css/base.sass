@@ -1368,6 +1368,21 @@ textarea
         padding: 20px 20px 60px
         width: 619px
 
+        .centrado
+            color: $gris_444
+            font:
+                weight: bold
+            line:
+                height: 25px
+            text:
+                align: center
+
+        .bajada_cifra
+            font:
+                size: 16px
+            text:
+                align: center
+
         .ano
             color: $azul_claro
             font:
@@ -1429,7 +1444,44 @@ textarea
 
                         &:hover
                             background: url('../images/extras/botones_ficha_lugar.png') no-repeat -798px -30px
-                        
+        
+        .descarga_la_app
+            background: url('../images/extras/iphone_app.png') 0 0 no-repeat
+            height: 50px
+            float: left
+            margin: 20px 110px 0
+            width: 400px
+
+            &:hover
+                background: url('../images/extras/iphone_app.png') 0 -50px no-repeat
+
+        .tip_descarga
+            float: left
+            font:
+                size: 11px
+            margin: 0 110px 20px
+            width: 400px
+
+        .comparte_por_redes
+            float: left
+            height: 20px
+            margin: 0 170px
+            width: 260px
+
+            li
+                display: inline
+                float: left
+
+        .sugerencias_app
+            color: $gris_999
+            float: left
+            font:
+                size: 11px
+            margin: 50px 110px 0
+            text:
+                align: center
+            width: 400px
+
     .menu_estaticas
         @include box-sizing
         background: $gris_faf
@@ -1637,11 +1689,28 @@ textarea
             .participa
                 float: left
                 margin: 0 10px 0 0
-                width: 374px
+                width: 220px
+
+            .iphone_app
+                float: left
+                margin: 0 10px 0 0
+                width: 530px
+
+                a
+                    @include link_gris_999
+                    background: url('../images/extras/iphone_app.png') 0 -100px no-repeat
+                    height: 32px
+                    float: left
+                    margin: 13px 0 0 13px
+                    padding: 20px 0 0px 36px
+                    width: 130px
+
+                    &:hover
+                        @include link_gris_999_hover               
 
             .alianzas
                 float: left
-                width: 576px
+                width: 190px
 
                 .alianzas_img
                     display: block
@@ -1716,7 +1785,7 @@ textarea
                 weight: bold
             height: 12px
             padding: 0 0 0 12px
-            width: 12px
+            width: 220px
         
         p.footer_title_pais
             background: url("../images/extras/flecha_footer.png") no-repeat 0px 3px

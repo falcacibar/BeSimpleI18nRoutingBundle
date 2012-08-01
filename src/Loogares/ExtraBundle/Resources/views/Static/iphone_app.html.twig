@@ -1,0 +1,56 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{'extra.estaticas.iphone_app.titulo'|trans}} | {{parent()}}{% endblock %}
+
+{% block meta %}
+	<meta name="description" content="" />
+
+	<!-- Metadata para FB -->
+	<meta property="og:title" content="{{'extra.estaticas.iphone_app.titulo'|trans}} | Loogares.com" />
+
+	<meta property="og:description" content="" />
+{% endblock %}
+
+{% block content %}
+
+	<div class="estaticas">
+
+		<div class="contenido">
+			<h1 class="titulo centrado">{{'extra.estaticas.iphone_app.bajada'|trans}}</h1>
+
+			<p class="bajada_cifra">13.000 recomendaciones, 13.000 lugares, 4 ciudades.</p><br />
+
+			<img src="{{ asset('assets/images/extras/iphone_app_img.png') }}" height="395" width="620" />
+
+			<p>Encuentra los mejores lugares cerca tuyo dentro de más de 70 categorías disponibles que van desde restaurantes, bares, museos y hoteles, junto a todas las recomendaciones presentes en más de 8.000 lugares en Santiago, Valparaíso, Viña del Mar y más de 5.000 en Buenos Aires.</p><br />
+
+			<a class="descarga_la_app" href="http://itunes.apple.com/us/app/loogares.com/id544478345?l=es&ls=1&mt=8" target="_blank"></a>
+
+			<p class="tip_descarga">Disponible para Iphone y Ipod Touch en versiones IOS4 o posterior.</p>
+
+			<ul class="comparte_por_redes">
+				<li>
+					{% if app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
+                        {% set twitter = '@LgrsValpoVina' %}
+                    {% elseif app.session.get('ciudad').slug == 'buenos-aires' %}
+                        {% set twitter = '@LoogaresBA' %}
+                    {% else %}
+                        {% set twitter = '@Loogarescom' %}
+                    {% endif %}
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ url('static', {'static': 'iphone_app'}) }}" data-text="Acabo de descargar la nueva aplicación para iPhone de Loogares.com" data-lang="es">{{'general.footer.redes.tweet'|trans}}</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				</li>
+				<li>
+					<div class="fb-like" data-href="{{ url('static', {'static': 'iphone_app'}) }}" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false" data-font="arial"></div>
+				</li>
+			</ul>
+
+			<p class="sugerencias_app">¿Tienes críticas o sugerencias? Escríbenos a <a href="mailto:app@Loogares.com">app@Loogares.com</a></p>
+
+		</div>
+
+		{% include 'LoogaresExtraBundle:Static:menu.html.twig' %}
+
+	</div>
+
+{% endblock %}
