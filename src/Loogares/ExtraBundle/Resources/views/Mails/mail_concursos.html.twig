@@ -6,9 +6,10 @@
             </tr>
             <tr>
                 <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; width: 610px;">
+                    <a style="float: left; margin: 20px;" href="{{ url('static', {'static': 'iphone_app'}) }}"><img src="http://www.loogares.com/assets/images/mails/iphone_app_banner.png" height="50" width="200" /></a>
                     <p style="font-size: 12px; font-weight: bold; text-align: right; margin: 20px 20px 0px 20px">{{"now"|date('j')}} {{'extra.modulo_concursos.newsletter.de'|trans}} {{meses["now"|date('n') - 1]}} {{'extra.modulo_concursos.newsletter.de'|trans}} {{"now"|date('Y')}}</p>
                     <p style="font-size: 12px; text-align: right; margin: 5px 20px 0px 20px"><a href="{{url('concursos', {'ciudad' : app.session.get('ciudad').slug})}}" style="color: #0066CC; text-decoration: none;">{{'extra.modulo_concursos.newsletter.sorteos_hoy'|trans}}</a></p>
-                    <p style="font-size: 20px; font-weight: bold; text-align: center; margin: 20px 20px 0px 20px;">{{'extra.modulo_concursos.newsletter.recorre'|trans}} {{app.session.get('ciudad').nombre}}, {{'extra.modulo_concursos.newsletter.participando'|trans}}</p>
+                    <p style="clear: both; font-size: 20px; font-weight: bold; text-align: center; margin: 20px 20px 0px 20px;">{{'extra.modulo_concursos.newsletter.recorre'|trans}} {{app.session.get('ciudad').nombre}}, {{'extra.modulo_concursos.newsletter.participando'|trans}}</p>
                     <p style="font-size: 16px; text-align: center; margin: 10px 20px 0px 20px;">{{'extra.modulo_concursos.newsletter.entra_ahora'|trans}}</p>
 
                     <ul style="margin: 30px 0px; padding: 0px; list-style-type: none;">
@@ -20,7 +21,7 @@
                                     	<img style="float: left;" src="http://www.loogares.com/assets/media/cache/mail_concursos_nuevo/assets/images/blog/{{concurso.post.imagen|slice(0,-4)}}.png" />
                                     {% else %}
                     					<img style="float: left;" src="http://www.loogares.com/assets/media/cache/mail_concursos/assets/images/blog/{{concurso.post.imagen}}" />
-                    				    {% endif %}	
+                    				{% endif %}	
                                 </div>
                                 <div style="float: left; width: 404px">
                                     <p style="float: left; width: 389px; margin: 0px 0px 0px 15px; color: #999; font-size: 12px;"><a href="{{url('_lugar', {'slug' : concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none; font-weight: bold;">{{concurso.post.lugar.nombre}}</a> - {{concurso.post.lugar.comuna.nombre}}</p>

@@ -55,7 +55,7 @@ $azul_claro: #66CCFF
 $blanco: #FFF
 
 $gris_faf: #FAFAFC
-$gris_f6f: #F2F2F6
+$gris_f6f: #E5E5E5
 $gris_ccc: #CCC
 $gris_999: #999
 $gris_666: #666
@@ -1535,6 +1535,53 @@ textarea
 
                 &:hover
                     @include link_gris_999_hover
+
+/* Banner iPhone */
+
+.iphone_app_banner
+    float: left
+    height: 250px
+    margin: 0 0 30px 0
+    width: 300px
+
+    .encabezado_iphone
+        background: url('../images/extras/iphone_app.png') 0 -182px no-repeat
+        margin: 12px 10px
+        padding: 0 0 0 20px
+
+    .iphone_app_banner_link
+        background: url('../images/extras/iphone_app_banner_grande.png') 0 0 no-repeat
+        border: 1px solid $gris_f6f
+        height: 198px
+        float: left
+        width: 298px
+
+        &:hover
+            background: url('../images/extras/iphone_app_banner_grande.png') 0 -198px no-repeat
+
+.iphone_app_banner_chico
+    @include borde_redondeado_4px
+    background: $gris_faf
+    float: left
+    height: 30px
+    margin: 0 0 30px 0
+    padding: 10px
+    width: 280px
+
+    .imagen_iphone
+        background: url('../images/extras/iphone_app.png') 0 -152px no-repeat
+        float: left
+        height: 30px
+        width: 15px
+
+    .descarga_iphone_app
+        float: left
+        font:
+            size: 11px
+        line:
+            height: 15px
+        margin: 0 0 0 10px
+
 
 /* Banners */
 
