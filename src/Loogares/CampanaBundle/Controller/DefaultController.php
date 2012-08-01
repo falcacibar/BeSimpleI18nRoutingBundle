@@ -364,7 +364,8 @@ class DefaultController extends Controller{
     	$fields_string = '';
 	    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_descuentos_mail');
       $fields = array(
-          'seguidores' => implode(',',$post['seguidores'])
+          'seguidores' => implode(',',$post['seguidores']),
+          'campana' => $id
       );
 
       //url-ify the data for the POST
@@ -387,7 +388,6 @@ class DefaultController extends Controller{
 	}
 
 	public function mailDescuentosUsuarioAction(){
-		$_POST['seguidores'] = "3605, 1, 2, 3";
 		$descontados = explode(',',$_POST['seguidores']);
 
 		$em = $this->getDoctrine()->getEntityManager();

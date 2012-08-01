@@ -25,6 +25,8 @@
 	                    	{{mail.usuario.nombre}} {{mail.usuario.apellido}}
 	                    	<br />
 	                    	Código cupón: {{mail.ganador.codigo}}
+	                    	<br />
+	                    	Fecha Limite: {{ mail.concurso.fechaTermino|date('y-m-d') }}
 	                    </div>
 	               	</div>
 	               	<div style="background: #FAFAFC; float: left; padding: 20px; width: 608px; font-size: 12px; line-height: 20px;">
