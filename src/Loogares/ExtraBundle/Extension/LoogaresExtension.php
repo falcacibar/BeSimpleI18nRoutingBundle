@@ -47,11 +47,7 @@ class LoogaresExtension extends \Twig_Extension {
                     'top' => array(
                         'medium' => 'search_top_medium_300x250'),
                     'concursos' => array(
-                        'medium' => 'concursos_activos_search_185x132'),
-                    'concursos_medio' => array(
-                        'medium' => 'concursos_activos_search_medio_185x132'),
-                    'concursos_final' => array(
-                        'medium' => 'concursos_activos_search_final_185x132')),
+                        'medium' => 'concursos_activos_search_185x132')),
                 
                 'ficha' => array(
                     'top' => array(

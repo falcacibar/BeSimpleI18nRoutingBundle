@@ -55,6 +55,7 @@ $azul_claro: #66CCFF
 $blanco: #FFF
 
 $gris_faf: #FAFAFC
+$gris_f2f: #F2F2F6
 $gris_f6f: #E5E5E5
 $gris_ccc: #CCC
 $gris_999: #999
@@ -1595,8 +1596,6 @@ textarea
 
 /* Avisos Concursos vigentes Búsqueda */
 .espacio_aviso_busqueda_1, .espacio_aviso_busqueda_2, .espacio_aviso_busqueda_3
-    background: $gris_f6f
-    border-bottom: 1px solid $gris_ccc
 
     a
         color: $gris_666
@@ -1605,26 +1604,43 @@ textarea
             text-decoration: none
 
         .roll_over_concurso
-            height: 107px
+            height: 183px
             cursor: pointer
             position: relative
             top: 0
-            width: 185px
+            width: 282px
             z-index: 1
 
             &:hover
-                background: url('../images/home/rollover_concursos.png') no-repeat -11px -28px
+                background: url('../images/home/rollover_concursos_banner.png') no-repeat 0 -5px
                 color: $blanco !important
                 text:
                     shadow: 0px 0px 0px $blanco
-                    
+
+            .lugar_concurso
+                float: left
+                font:
+                    size: 14px
+                    weight: bold
+                opacity: 0
+                padding: 125px 0 10px
+                position: relative
+                text:
+                    align: center
+                    shadow: 1px 1px 1px $blanco
+                top: 0
+                width: 282px
+
+                &:hover
+                    opacity: 1
+
             .sorteo_concurso
-                height: 35px
+                height: 30px
                 font:
                     size: 13px
                 line-height: 18px
                 opacity: 0
-                padding: 65px 10px 7px
+                padding: 150px 10px 7px
                 position: relative
                 text:
                     align: center
@@ -1634,26 +1650,43 @@ textarea
                     opacity: 1
 
         .contenido_concurso
+            border-top: 7px solid $gris_666
             position: relative
-            top: -107px
+            top: -183px
 
             img
                 float: left
-                height: 107px
-                width: 185px
+                height: 155px
+                width: 282px
 
             .lugar_concurso
+                background: $gris_f2f
+                border-bottom: 1px solid $gris_ccc
                 float: left
                 font:
-                    size: 12px
+                    size: 14px
                     weight: bold
-                padding: 8px 0 7px
+                padding: 8px 0
                 position: relative
                 text:
                     align: center
                     shadow: 1px 1px 1px $blanco
-                top: -2px
-                width: 185px
+                top: -54px
+                width: 282px
+
+            .sorteo_concurso
+                background: $gris_faf
+                height: 30px
+                float: left
+                font:
+                    size: 13px
+                line-height: 18px
+                padding: 8px 0
+                position: relative
+                text:
+                    align: center
+                top: -54px
+                width: 282px
 
 /* Avisos Concursos vigentes Ficha */
 .espacio_aviso_ficha_1, .espacio_aviso_ficha_2, .espacio_aviso_ficha_3
