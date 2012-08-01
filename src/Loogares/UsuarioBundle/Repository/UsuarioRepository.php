@@ -293,7 +293,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
                                JOIN p.concurso c
                                WHERE p.usuario = ?1
                                AND c.tipo_concurso = 2
-                               ORDER BY g.canjeado desc, c.fecha_termino DESC");
+                               ORDER BY g.canjeado ASC, c.fecha_termino DESC");
         $q->setMaxResults($results);
         $q->setFirstResult($offset);
         $q->setParameter(1, $usuario);
@@ -322,7 +322,7 @@ class UsuarioRepository extends EntityRepository implements UserProviderInterfac
                                FROM Loogares\CampanaBundle\Entity\DescuentosUsuarios du
                                JOIN du.descuento d
                                WHERE du.usuario = ?1
-                               ORDER BY du.canjeado DESC, d.fecha_termino DESC");
+                               ORDER BY du.canjeado ASC, d.fecha_termino DESC");
         $q->setMaxResults($results);
         $q->setFirstResult($offset);
         $q->setParameter(1, $usuario);
