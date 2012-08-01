@@ -364,7 +364,7 @@ class UsuarioController extends Controller
                     'condiciones' => $ganador->getParticipante()->getConcurso()->getPost()->getCondiciones(),
                     'lugar' => $ganador->getParticipante()->getConcurso()->getPost()->getLugar(),
                     'id' => $ganador->getId(),
-                    'fechaTermino' => $ganador->getParticipante()->getConcurso()->getFechaTermino(),
+                    'fechaTermino' => $ganador->getParticipante()->getConcurso()->getFechaTerminoConcurso(),
                     'canjeado' => $ganador->getCanjeado()
                 );
             }

@@ -538,7 +538,7 @@
 	    <div class="campanas_concursos">
 				<div class="concursos_titulo">
 					<div class="titulo">
-						<h2 class="icono_concursos titulo_concursos_search">{{'extra.modulo_concursos.titulo'|trans}}</h2>
+						<h2 class="icono_concursos titulo_concursos_search">{{'extra.modulo_concursos.titulo_banner'|trans}}</h2>
 					</div>
 
 					<a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}"></a>
@@ -547,10 +547,12 @@
 				<div class="concursos_slide">
 					<div class="espacio_aviso_busqueda_1">
 						<!-- Banners Concursos del sitio -->
-						{#% include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"%#}
+						{% include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"%}
+						<!--
 						<script type='text/javascript'>
             	GA_googleFillSlot("{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
 	        	</script>
+	        -->
 					</div>
 				</div>
 			</div>

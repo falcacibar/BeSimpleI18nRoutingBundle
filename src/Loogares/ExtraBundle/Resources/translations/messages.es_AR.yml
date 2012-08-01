@@ -51,6 +51,7 @@ extra:
 
     modulo_concursos:
         titulo: Participá y ganá en los sorteos de hoy:
+        titulo_banner: Participá hoy:
         titulo_post: Otros concursos el día de hoy
         titulo_pasados: Sorteos pasados:
         ver_todos: Ver todos los sorteos de hoy

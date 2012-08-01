@@ -51,6 +51,7 @@ extra:
 
     modulo_concursos:
         titulo: Participate and win in today's contest:
+        titulo_banner: Participate today:
         titulo_post: Other contest today
         titulo_pasados: Past contest:
         ver_todos: See all contest today
