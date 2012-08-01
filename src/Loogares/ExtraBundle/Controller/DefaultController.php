@@ -554,6 +554,10 @@ class DefaultController extends Controller
         ));
     }
 
+    public function mailiPhoneAppAction() {
+        return $this->render('LoogaresExtraBundle:Mails:mail_iphone_app.html.twig');
+    }
+
     /*public function actualizarPostsAction() {
         $em = $this->getDoctrine()->getEntityManager();
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");

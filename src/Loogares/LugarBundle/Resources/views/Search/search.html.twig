@@ -41,22 +41,16 @@
 	<script type='text/javascript'>
     	GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
 	</script>
-	<script type='text/javascript'>
-    	GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','concursos_medio','medium')}}_{{app.session.get('ciudad').slug}}");
-	</script>
-	<script type='text/javascript'>
-    	GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','concursos_final','medium')}}_{{app.session.get('ciudad').slug}}");
-	</script>
-    <script type='text/javascript'>
-    	{% if categoria.slug is defined %}
-        	GA_googleAddSlot("{{adsense_service}}", "{{ad('categoria', categoria.id,'top','medium')}}_{{app.session.get('ciudad').slug}}");
-        {% else %}
-        	GA_googleAddSlot("{{adsense_service}}", "{{ad('static', 'search','top','medium')}}_{{app.session.get('ciudad').slug}}");
-        {% endif %}
-    </script>
-    <script type='text/javascript'>
-        GA_googleFetchAds();
-    </script>
+  <script type='text/javascript'>
+  	{% if categoria.slug is defined %}
+      	GA_googleAddSlot("{{adsense_service}}", "{{ad('categoria', categoria.id,'top','medium')}}_{{app.session.get('ciudad').slug}}");
+      {% else %}
+      	GA_googleAddSlot("{{adsense_service}}", "{{ad('static', 'search','top','medium')}}_{{app.session.get('ciudad').slug}}");
+      {% endif %}
+  </script>
+  <script type='text/javascript'>
+      GA_googleFetchAds();
+  </script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -399,45 +393,13 @@
 	        </div>
 
 	        <div class="listado_resultados">
-	        	{% if concursos | length > 0 %}
-		        	<div class="campanas_concursos">
-						<div class="concursos_titulo">
-							<div class="titulo">
-								<h2 class="icono_concursos titulo_concursos_search">{{'extra.modulo_concursos.titulo'|trans}}</h2>
-							</div>
-
-							<a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}"></a>
-						</div>
-
-						<div class="concursos_slide">
-							<div class="espacio_aviso_busqueda_1">
-								<!-- Banners Concursos del sitio -->
-								{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
-
-								<script type='text/javascript'>
-					            	GA_googleFillSlot("{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
-					        	</script>
-	 						</div>
-							<div class="espacio_aviso_busqueda_2">
-								<!-- Banners Concursos del sitio -->
-								{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
-
-								<script type='text/javascript'>
-					            	GA_googleFillSlot("{{ad('static','search','concursos_medio','medium')}}_{{app.session.get('ciudad').slug}}");
-					        	</script>
-	 						</div>
-							<div class="espacio_aviso_busqueda_3">
-								<!-- Banners Concursos del sitio -->
-								{# include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"#}
-
-								<script type='text/javascript'>
-					            	GA_googleFillSlot("{{ad('static','search','concursos_final','medium')}}_{{app.session.get('ciudad').slug}}");
-					        	</script>
-							</div>
-						</div>
-		        	</div>
-	        	{% endif %}
-	        	
+	        <!--
+	        <div class="resultado_patrocinado_busqueda">
+						Banners Concursos del sitio
+						{#% include "LoogaresExtraBundle:Default:resultados_patrocinados_banner.html.twig"%#}
+					</div>
+					-->
+					
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">
 					<div class="lugar_data{{loop.index - 1 }} lugar_data" data-categoria="6" data-slug="{{lugar.slug}}" data-url="{{ path('_lugar', {'slug': lugar.slug}) }}" data-coords="{{lugar.mapx}},{{lugar.mapy}}" data-cat="2">
@@ -559,10 +521,7 @@
 				</div>
 			{% endfor %}
 			</div>
-			
 		</div>
-
-	
  					<div class="paginacion_listado_lugares">
             <p><strong>{{ paginacion.mostrandoDe }}</strong> {{'paginacion.al'|trans}} <strong>{{ paginacion.mostrandoHasta }}</strong> {{'paginacion.de'|trans}} <strong>{{total}}</strong>
             {% if paginacion.totalPaginas != 1 %}
@@ -573,20 +532,44 @@
             {% endif %}
         </div>
 	<div class="sidebar_busqueda">
-        <div class="mapa_sidebar">
-            <div id="mapa_buscar" style="height: 300px; width: 300px;">
-            </div>
-        </div>
-        <div class="banner_300x250">
-			<script type='text/javascript'>
-        	    {% if categoria.slug is defined %}
-            		GA_googleFillSlot("{{ad('categoria',categoria.id,'top','medium')}}_{{app.session.get('ciudad').slug}}");
-				{% else %}
-            		GA_googleFillSlot("{{ad('static','search','top','medium')}}_{{app.session.get('ciudad').slug}}");
-				{% endif %}
-        	</script>
-        </div>
+    <div class="mapa_sidebar">
+      <div id="mapa_buscar" style="height: 300px; width: 300px;">
+      </div>
     </div>
+
+  	{% if concursos | length > 0 %}
+	    <div class="campanas_concursos">
+				<div class="concursos_titulo">
+					<div class="titulo">
+						<h2 class="icono_concursos titulo_concursos_search">{{'extra.modulo_concursos.titulo_banner'|trans}}</h2>
+					</div>
+
+					<a href="{{path('concursos', {'ciudad' : app.session.get('ciudad').slug})}}"></a>
+				</div>
+
+				<div class="concursos_slide">
+					<div class="espacio_concurso_busqueda">
+						<!-- Banners Concursos del sitio -->
+						{#% include "LoogaresExtraBundle:Default:concursos_activos_banner.html.twig"%#}
+						
+						<script type='text/javascript'>
+            	GA_googleFillSlot("{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
+	        	</script>
+					</div>
+				</div>
+			</div>
+		{% else %}
+	    <div class="banner_300x250">
+				<script type='text/javascript'>
+	  	    {% if categoria.slug is defined %}
+						GA_googleFillSlot("{{ad('categoria',categoria.id,'top','medium')}}_{{app.session.get('ciudad').slug}}");
+					{% else %}
+						GA_googleFillSlot("{{ad('static','search','top','medium')}}_{{app.session.get('ciudad').slug}}");
+					{% endif %}
+	    	</script>
+	    </div>
+    {% endif %}
+  </div>
 {% else %} <!--Fin de Lugares-->
 <div class="no_resultado">
 	<h1 class="titulo_busqueda">{{'lugar.buscar.mala_suerte'|trans}} {{term}} {{'lugar.buscar.en'|trans}} {{ciudad.nombre}}</h1>

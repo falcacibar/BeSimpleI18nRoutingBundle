@@ -55,7 +55,9 @@ $azul_claro: #66CCFF
 $blanco: #FFF
 
 $gris_faf: #FAFAFC
-$gris_f6f: #F2F2F6
+$gris_fac: #FAFCFF
+$gris_f2f: #F2F2F6
+$gris_f6f: #E5E5E5
 $gris_ccc: #CCC
 $gris_999: #999
 $gris_666: #666
@@ -1536,6 +1538,53 @@ textarea
                 &:hover
                     @include link_gris_999_hover
 
+/* Banner iPhone */
+
+.iphone_app_banner
+    float: left
+    height: 250px
+    margin: 0 0 30px 0
+    width: 300px
+
+    .encabezado_iphone
+        background: url('../images/extras/iphone_app.png') 0 -182px no-repeat
+        margin: 12px 10px
+        padding: 0 0 0 20px
+
+    .iphone_app_banner_link
+        background: url('../images/extras/iphone_app_banner_grande.png') 0 0 no-repeat
+        border: 1px solid $gris_f6f
+        height: 198px
+        float: left
+        width: 298px
+
+        &:hover
+            background: url('../images/extras/iphone_app_banner_grande.png') 0 -198px no-repeat
+
+.iphone_app_banner_chico
+    @include borde_redondeado_4px
+    background: $gris_faf
+    float: left
+    height: 30px
+    margin: 0 0 30px 0
+    padding: 10px
+    width: 280px
+
+    .imagen_iphone
+        background: url('../images/extras/iphone_app.png') 0 -152px no-repeat
+        float: left
+        height: 30px
+        width: 15px
+
+    .descarga_iphone_app
+        float: left
+        font:
+            size: 11px
+        line:
+            height: 15px
+        margin: 0 0 0 10px
+
+
 /* Banners */
 
 .banner_300x250
@@ -1546,10 +1595,180 @@ textarea
     margin: 0 0 30px 0
     width: 300px
 
-/* Avisos Concursos vigentes Búsqueda */
-.espacio_aviso_busqueda_1, .espacio_aviso_busqueda_2, .espacio_aviso_busqueda_3
-    background: $gris_f6f
-    border-bottom: 1px solid $gris_ccc
+/* Resultados patrocinados */
+.resultado_patrocinado_busqueda, .resultado_patrocinado_ficha_informativa
+
+    .patrocinado_titulo
+        background: url('../images/extras/titulos_pattern.gif') $blanco repeat 0 -6px
+        float: left
+        height: 26px
+        left: -1px
+        margin: 20px 0 0
+        padding: 8px 10px
+        position: relative
+        width: 582px
+
+        .titulo_patrocinado
+            background: url('../images/extras/icono_patrocinados.png') no-repeat 0 3px
+            color: $gris_666
+            float: left
+            font:
+                size: 16px
+                weight: bold
+            padding: 5px 0 5px 20px
+            width: 450px
+
+        .link_que_es_esto
+            display: block
+            font:
+                size: 11px
+            margin: 7px 0
+            text-align: right
+
+    .info_lugar_patrocinado
+        background: $gris_faf
+        border: 1px solid $gris_f6f
+        float: left
+        left: -1px
+        padding: 20px
+        position: relative
+        width: 560px
+
+        &:hover
+            background: $gris_fac
+
+        .lugar_patrocinado_imagen
+            float: left
+            margin: 0 20px 0 0
+            width: 100px
+
+        .lugar_patrocinado_principal
+            border-right: 1px solid $gris_f6f
+            float: left
+            padding: 0 20px 0 0
+            width: 250px
+
+            .nombre_patrocinado
+                @include link_gris_444
+                display: block
+                font:
+                    size: 14px
+                    weight: bold
+                margin: 0 0 20px
+
+                &:hover
+                    @include link_gris_444_hover
+
+            .categoria_patrocinado, .sector_patrocinado
+                color: $gris_666
+                display: block
+                font:
+                    size: 12px
+                margin: 0 0 10px
+
+        .lugar_patrocinado_secundario
+            float: left
+            padding: 0 0 0 20px
+            width: 149px
+
+            .direccion_patrocinado
+                color: $gris_666
+                display: block
+                font:
+                    size: 11px
+                line-height: 15px
+                margin: 0 0 20px
+
+.resultado_patrocinado_ficha_informativa
+
+    .patrocinado_titulo
+        width: 621px
+
+    .info_lugar_patrocinado
+        width: 599px
+
+        .lugar_patrocinado_principal
+            width: 278px
+
+        .lugar_patrocinado_secundario
+            width: 160px
+
+/* Avisos Concursos vigentes Búsqueda - Ficha */
+.campanas_concursos
+    color: $gris_666
+    float: left
+    left: -1px
+    height: 250px
+    margin: 0 0 30px
+    position: relative
+    width: 300px
+    z-index: 1 !important
+
+    .concursos_titulo
+        background: url('../images/extras/titulos_pattern.gif') $blanco repeat 0 -8px
+        float: left
+        height: 26px
+        padding: 8px 10px
+        width: 282px
+
+        .icono_concursos
+            background: url('../images/extras/botones_sprite.png') no-repeat 0 -289px
+            height: 22px
+            padding: 7px 0 0 23px
+
+        .titulo
+            float: left
+            margin: 0 20px 0 0
+            width: 122px
+
+            img
+                float: left
+                margin: 0 5px 0 0
+            
+            .titulo_concursos_search
+                font:
+                    size: 13px
+                    weight: bold
+                height: 14px
+                line-height: 10px
+
+        a
+            background: url('../images/extras/concursos_todos_search_ficha.png') no-repeat 0 0
+            float: left
+            height: 22px
+            margin: 3px 0px
+            width: 140px
+
+            &:hover
+                background: url('../images/extras/concursos_todos_search_ficha.png') no-repeat 0 -22px
+
+    .concursos_slide
+        background: $gris_faf
+        border-bottom: 1px solid $gris_f6f
+        float: left
+        height: 183px
+        padding: 12px 10px
+        width: 282px
+
+        .espacio_concurso_busqueda, .espacio_concurso_ficha
+            float: left
+            height: 183px
+            position: relative
+            width: 282px
+
+            .nuevo
+                background: url('../images/concursos/nuevo.png')
+                height: 72px
+                left: -8px
+                top: -7px
+                position: absolute
+                width: 76px
+                z-index: 406
+
+            #google_ads_div_concursos_activos_search_185x132_santiago-de-chile_ad_wrapper, #google_ads_div_concursos_activos_search_185x132_santiago-de-chile_ad_container, #google_ads_div_concursos_activos_search_185x132_valparaiso-vina-del-mar_ad_wrapper, #google_ads_div_concursos_activos_search_185x132_valparaiso-vina-del-mar_ad_container, #google_ads_div_concursos_activos_search_185x132_buenos-aires_ad_wrapper, #google_ads_div_concursos_activos_search_185x132_buenos-aires_ad_container
+                height: 133px !important
+
+.espacio_concurso_busqueda, .espacio_concurso_ficha
 
     a
         color: $gris_666
@@ -1558,117 +1777,88 @@ textarea
             text-decoration: none
 
         .roll_over_concurso
-            height: 107px
+            height: 183px
             cursor: pointer
             position: relative
-            top: 0
-            width: 185px
+            top: 3px
+            width: 282px
             z-index: 1
 
             &:hover
-                background: url('../images/home/rollover_concursos.png') no-repeat -11px -28px
+                background: url('../images/home/rollover_concursos_banner.png') no-repeat 0 -5px
                 color: $blanco !important
                 text:
                     shadow: 0px 0px 0px $blanco
-                    
-            .sorteo_concurso
-                height: 35px
+
+            .lugar_concurso, .sorteo_concurso
+                float: left
                 font:
-                    size: 13px
-                line-height: 18px
+                    size: 14px
+                    weight: bold
                 opacity: 0
-                padding: 65px 10px 7px
+                padding: 125px 0 10px
                 position: relative
                 text:
                     align: center
-                top: 0
+                top: -9px
+                width: 282px
+                z-index: 1
 
                 &:hover
                     opacity: 1
 
+            .sorteo_concurso
+                height: 30px
+                font:
+                    size: 13px
+                    weight: normal
+                line-height: 18px
+                padding: 0
+                top: -2px
+
         .contenido_concurso
+            border-top: 7px solid $gris_666
             position: relative
-            top: -107px
+            top: -183px
 
             img
                 float: left
-                height: 107px
-                width: 185px
+                height: 155px
+                width: 282px
 
             .lugar_concurso
+                background: $gris_f2f
+                border-bottom: 1px solid $gris_ccc
+                border-left: 1px solid $gris_ccc
+                border-right: 1px solid $gris_ccc
                 float: left
                 font:
-                    size: 12px
+                    size: 14px
                     weight: bold
-                padding: 8px 0 7px
+                padding: 8px 0
                 position: relative
                 text:
                     align: center
                     shadow: 1px 1px 1px $blanco
-                top: -2px
-                width: 185px
+                top: -54px
+                width: 280px
 
-/* Avisos Concursos vigentes Ficha */
-.espacio_aviso_ficha_1, .espacio_aviso_ficha_2, .espacio_aviso_ficha_3
-    background: $gris_f6f
-    border-bottom: 1px solid $gris_ccc
-
-    a
-        color: $gris_666
-
-        &:hover
-            text-decoration: none
-
-        .roll_over_concurso
-            height: 111px
-            pointer: cursor
-            position: relative
-            top: 0
-            width: 198px
-            z-index: 1
-
-            &:hover
-                background: url('../images/home/rollover_concursos.png') no-repeat -5px -28px
-                color: $blanco !important
-                text:
-                    shadow: 0px 0px 0px $blanco
-                    
             .sorteo_concurso
-                height: 35px
+                background: $gris_faf
+                border-bottom: 1px solid $gris_ccc
+                border-left: 1px solid $gris_ccc
+                border-right: 1px solid $gris_ccc
+                height: 30px
+                float: left
                 font:
                     size: 13px
                 line-height: 18px
-                opacity: 0
-                padding: 65px 10px 10px
+                padding: 8px 0
                 position: relative
                 text:
                     align: center
-                top: 0
-
-                &:hover
-                    opacity: 1
-
-        .contenido_concurso
-            position: relative
-            top: -111px
-
-            img
-                float: left
-                height: 111px
-                width: 198px
-
-            .lugar_concurso
-                float: left
-                font:
-                    size: 12px
-                    weight: bold
-                padding: 8px 0 7px
-                position: relative
-                text:
-                    align: center
-                    shadow: 1px 1px 1px $blanco
-                top: -2px
-                width: 198px
+                top: -54px
+                width: 280px
 
 /* Footer */
         

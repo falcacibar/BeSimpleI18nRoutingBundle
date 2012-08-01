@@ -24,13 +24,13 @@ class MailController extends Controller{
   	$mail = array();
   	$mail['lugar'] = $campana->getLugar();
   	$mail['descuento'] = $campana->getDescuento();
-    $mail['asunto'] = 'Asunto del Mail';
+    $mail['asunto'] = "Felicitaciones acabas de ganar {$campana->getDescuento()->getCantidad()}% de Dscto. en {$campana->getLugar()->getNombre()}";
 
     $paths = array();
     $paths['logo'] = 'assets/images/mails/logo_mails.png';
 
   	foreach($descontados as $descontado){
-      $usuario = $ur->findOneById($descontado);
+      $usuario = $ur->findOneBySlug($descontado);
       $mail['usuario'] = $usuario;
 
       $q = $em->createQuery("SELECT du FROM Loogares\CampanaBundle\Entity\DescuentosUsuarios du WHERE du.usuario = ?1 AND du.descuento = ?2");
@@ -38,7 +38,7 @@ class MailController extends Controller{
       $q->setParameter(2, $campana->getDescuento());
       $descuento = $q->getOneOrNullResult();
       if($descuento){
-        $mail['codigo'] = $descuento[0]->getCodigo();
+        $mail['codigo'] = $descuento->getCodigo();
       }
 
   		if($usuario != null){

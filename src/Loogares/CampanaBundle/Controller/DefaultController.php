@@ -58,9 +58,11 @@ class DefaultController extends Controller{
 
 		$lugar = $lugarRepository->findOneBySlug($slug);
 		$campanas = $campanaRepository->findByLugar($lugar->getId());
+		$q = $em->createQuery("SELECT c FROM Loogares\CampanaBundle\Entity\Campana c
+													 ORDER BY c.fecha_inicio DESC ");
 
-		$campanas = array_reverse($campanas);
-
+		$campanas = $q->getResult();
+		
 		return $this->render('LoogaresCampanaBundle:Default:listado_campanas.html.twig', array(
 			'lugar' => $lugar,
 			'campanas' => $campanas,
@@ -364,7 +366,8 @@ class DefaultController extends Controller{
     	$fields_string = '';
 	    $url = "http://".$_SERVER['SERVER_NAME'].$this->generateUrl('_descuentos_mail');
       $fields = array(
-          'seguidores' => implode(',',$post['seguidores'])
+          'seguidores' => implode(',',$post['seguidores']),
+          'campana' => $id
       );
 
       //url-ify the data for the POST
@@ -387,7 +390,6 @@ class DefaultController extends Controller{
 	}
 
 	public function mailDescuentosUsuarioAction(){
-		$_POST['seguidores'] = "3605, 1, 2, 3";
 		$descontados = explode(',',$_POST['seguidores']);
 
 		$em = $this->getDoctrine()->getEntityManager();
@@ -400,7 +402,7 @@ class DefaultController extends Controller{
   	$mail = array();
   	$mail['lugar'] = $campana->getLugar();
   	$mail['descuento'] = $campana->getDescuento();
-    $mail['asunto'] = 'Asunto del Mail';
+    $mail['asunto'] = "Felicitaciones acabas de ganar {$campana->getDescuento()->getCantidad()} % de Dscto. en {$campana->getLugar()->getNombre()}";
 
     $paths = array();
     $paths['logo'] = 'assets/images/mails/logo_mails.png';

@@ -51,6 +51,7 @@ extra:
 
     modulo_concursos:
         titulo: Participa y gana en los sorteos de hoy:
+        titulo_banner: Participa hoy:
         titulo_post: Otros concursos el día de hoy
         titulo_pasados: Sorteos pasados:
         ver_todos: Ver todos los sorteos de hoy
@@ -174,4 +175,12 @@ ventas:
             li6: - Ofrecer Gift Cards de descuento entre los usuarios que participaron de tu campaña, para medir su efectividad y tener la posibilidad de <strong>recuperar tu inversión</strong>.
             final: ¡Envíanos tus datos y en menos de 24 hrs. te llamaremos contándote todos los detalles!
         flash:
-            exito: ¡Hemos recibido tus datos! Te contactaremos en menos de 24 hrs. con nuestra propuesta. 
+            exito: ¡Hemos recibido tus datos! Te contactaremos en menos de 24 hrs. con nuestra propuesta.
+
+iphone_app_banner:
+    titulo: Loogares.com en tu iPhone
+    descargar: Descárgala gratis acá »
+    newsletter:
+        titulo: La más completa guía online de recomendaciones de ocio y servicios en Chile, desde cualquier parte donde te encuentres.
+        bajada: 13.000 recomendaciones, 13.000 lugares, 4 ciudades.
+        saber_mas: Si quieres saber más sobre lo que está pasando en Loogares.com, síguenos en

@@ -6,39 +6,15 @@
             </tr>
             <tr>
                 <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; width: 610px;">
-                    <a style="float: left; margin: 20px;" href="{{ url('static', {'static': 'iphone_app'}) }}"><img src="http://www.loogares.com/assets/images/mails/iphone_app_banner.png" height="50" width="200" /></a>
-                    <p style="font-size: 12px; font-weight: bold; text-align: right; margin: 20px 20px 0px 20px">{{"now"|date('j')}} {{'extra.modulo_concursos.newsletter.de'|trans}} {{meses["now"|date('n') - 1]}} {{'extra.modulo_concursos.newsletter.de'|trans}} {{"now"|date('Y')}}</p>
-                    <p style="font-size: 12px; text-align: right; margin: 5px 20px 0px 20px"><a href="{{url('concursos', {'ciudad' : app.session.get('ciudad').slug})}}" style="color: #0066CC; text-decoration: none;">{{'extra.modulo_concursos.newsletter.sorteos_hoy'|trans}}</a></p>
-                    <p style="clear: both; font-size: 20px; font-weight: bold; text-align: center; margin: 20px 20px 0px 20px;">{{'extra.modulo_concursos.newsletter.recorre'|trans}} {{app.session.get('ciudad').nombre}}, {{'extra.modulo_concursos.newsletter.participando'|trans}}</p>
-                    <p style="font-size: 16px; text-align: center; margin: 10px 20px 0px 20px;">{{'extra.modulo_concursos.newsletter.entra_ahora'|trans}}</p>
-
-                    <ul style="margin: 30px 0px; padding: 0px; list-style-type: none;">
-                        {% set i = 1 %}
-                        {% for concurso in concursos %}
-                            <li style="padding: 40px 20px; float: left; margin: 0px;{% if i is odd %} background-color:#FAFAFC{% else %} background:#FFF;{% endif %}">
-                                <div style="float: left; width: 204px; position: relative;">
-                                    {% if concurso.fechaInicio|date('d-M-y') == "now"|date('d-M-y') %}
-                                    	<img style="float: left;" src="http://www.loogares.com/assets/media/cache/mail_concursos_nuevo/assets/images/blog/{{concurso.post.imagen|slice(0,-4)}}.png" />
-                                    {% else %}
-                    					<img style="float: left;" src="http://www.loogares.com/assets/media/cache/mail_concursos/assets/images/blog/{{concurso.post.imagen}}" />
-                    				{% endif %}	
-                                </div>
-                                <div style="float: left; width: 404px">
-                                    <p style="float: left; width: 389px; margin: 0px 0px 0px 15px; color: #999; font-size: 12px;"><a href="{{url('_lugar', {'slug' : concurso.post.lugar.slug})}}" style="color: #0066CC; text-decoration: none; font-weight: bold;">{{concurso.post.lugar.nombre}}</a> - {{concurso.post.lugar.comuna.nombre}}</p>
-                                    <a href="{{ url('post', {'ciudad': concurso.post.ciudad.slug, 'slug': concurso.post.slug}) }}" style="float: left; width: 389px; margin: 5px 0px 0px 15px; font-size: 17px; font-weight: bold; color: #0066CC; text-decoration: none;">{{concurso.descripcion}}</a>
-                                    <div style="float: left; width: 389px; margin: 10px 0px 0px 15px; color: #666; font-size: 12px;">{{concurso.post.preview | raw }}</div>
-                                </div>
-                            </li>
-                            {% set i = i + 1 %}
-                        {% endfor %}
-                    </ul>
-
-                    <p style="font-size: 12px; color: #666; text-align: center;float: left;width: 648px;margin: 20px 0;">{{'extra.modulo_concursos.publicar'|trans}} <a style="color: #0066CC; text-decoration: none;" href="http://www.loogares.com/beneficio_exclusivo">{{'extra.modulo_concursos.publicar_link'|trans}}</a>.</p>
+                    <p style="font-size: 12px; font-weight: bold; text-align: right; margin: 20px 20px 0px 20px">1 de agosto de 2012</p>
+                    <p style="clear: both; font-size: 20px; font-weight: bold; text-align: center; margin: 20px 20px 0px 20px;">{{'iphone_app_banner.newsletter.titulo'|trans}}</p>
+                    <p style="font-size: 16px; text-align: center; margin: 10px 20px 0px 20px;">{{'iphone_app_banner.newsletter.bajada'|trans}}</p>
+                    <a href="{{ url('static', {'static': 'iphone_app'}) }}"><img style="padding: 20px" src="http://www.loogares.com/assets/images/mails/iphone_app_newsletter.png" height="468" width="610" /></a>
             </tr>
             <tr>
                 <td style="color: #999; font-size: 11px; padding: 20px; text-align: center;">
                     <br />
-                    <p style="font-size: 13px; color: #999; margin: 0px;">{{'extra.modulo_concursos.newsletter.siguenos'|trans}}</p>
+                    <p style="font-size: 13px; color: #999; margin: 0px;">{{'iphone_app_banner.newsletter.saber_mas'|trans}}</p>
                     {% if app.session.get('ciudad').slug == 'valparaiso-vina-del-mar' %}
                         {% set fb_text = 'facebook.com/Loogarescom.Valpo.Vina' %}
                         {% set tw_text = 'LgrsValpoVina' %}

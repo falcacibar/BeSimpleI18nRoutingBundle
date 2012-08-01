@@ -7,10 +7,10 @@
             <tr>
                 <td style="background: #FFF; border-top: 5px solid #66CCFF; border-bottom: 1px solid #FAFAFC; border-left: 1px solid #FAFAFC; border-right: 1px solid #FAFAFC; box-shadow: 0px 5px 25px #F7F7F7; color: #666; font-size: 14px; line-height: 22px; padding: 30px 0; width: 650px;">
                     <div style="padding: 0 20px">
-	                    <strong>¡Felicitaciones <span style="color: red">{{mail.usuario.nombre}} {{mail.usuario.apellido}}</span>!</strong>
+	                    <strong>¡Felicitaciones {{mail.usuario.nombre}} {{mail.usuario.apellido}}!</strong>
 	                    <br />
 	                    <br />
-	                    Gracias a tu participación en Loogares.com resultaste ganador de {{ mail.descuento.cantidad }}% de Dscto. en {{ mail.lugar.nombre }}. Este descuento es válido para ser utilizado una sola vez y su fecha de expiración es el {{ mail.descuento.fechaTermino|date('m/d/y') }}
+	                    Gracias a tu participación en Loogares.com resultaste ganador de {{ mail.descuento.cantidad }}% de Dscto. en {{ mail.lugar.nombre }}. Este descuento es válido para ser utilizado una sola vez y su fecha de expiración es el {{ mail.descuento.fechaTermino|date('d/m/y') }}
 	                    <br />
 	                    <br />
 	                    <strong>A continuación va el descuento que debes imprimir o mostrar desde tu Smartphone y detalladas sus condiciones de uso:</strong>
@@ -22,14 +22,16 @@
 	                    <div style="float: left; border-bottom: 1px solid #E5E5E5; height: 100px; padding: 20px 0px; font-size: 17px; font-weight: bold; line-height: 33px; width: 488px; margin: 0 20px 0 0;">
 	                    	{{ mail.descuento.cantidad }}% de Dscto. en {{ mail.lugar.nombre }}
 	                    	<br />
-	                    	Código cupón: <span style="color: red">{{ mail.codigo | default('abc')}}</span>
+	                    	Código cupón: {{ mail.codigo | default('abc')}}
+	                    	<br />
+	                    	Válido hasta: {{ mail.descuento.fechaTermino|date('d/m/y') }}
 	                    </div>
 	               	</div>
 	               	<div style="background: #FAFAFC; float: left; padding: 20px; width: 608px; font-size: 12px; line-height: 20px;">
 	               		<div style="float: left; padding: 0 0 20px 0; width: 610px; border-bottom: 1px solid #E5E5E5;">
 		               		<strong>Condiciones:</strong>
 		               		<br />
-		               		{{ mail.descuento.condiciones | raw}}
+		               		{{ mail.descuento.condiciones|nl2br}}
 		               	</div>
 	               	</div>
 	               	<div style="background: #FAFAFC; float: left; padding: 0px 20px 20px; width: 608px; font-size: 12px; line-height: 25px;">
