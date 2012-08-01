@@ -122,7 +122,7 @@ $(function() {
         'Loogares.com', {
             'strategies'    : [ new OpenLayers.Strategy.BBOX({
                         'resFactor' : 1,
-                        'ratio'     : 0.95,
+                        'ratio'     : (typeof($.browser.mozilla) === 'undefined') ? 0.95 : 0.85,
                         'update'    : function() {
                             var $listaOtrosLugares          = $('#lista-otros-lugares').empty();
                             var $cargandoOtrosLugares       = $('#cargando-otros-lugares').show();
