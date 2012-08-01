@@ -1594,8 +1594,83 @@ textarea
     margin: 0 0 30px 0
     width: 300px
 
-/* Avisos Concursos vigentes Búsqueda */
-.espacio_aviso_busqueda_1, .espacio_aviso_busqueda_2, .espacio_aviso_busqueda_3
+/* Avisos Concursos vigentes Búsqueda - Ficha */
+
+.campanas_concursos
+    color: $gris_666
+    float: left
+    left: -1px
+    height: 250px
+    margin: 0 0 30px
+    position: relative
+    width: 300px
+    z-index: 1 !important
+
+    .concursos_titulo
+        background: url('../images/extras/titulos_pattern.gif') $blanco repeat 0 -8px
+        float: left
+        height: 26px
+        padding: 8px 10px
+        width: 282px
+
+        .icono_concursos
+            background: url('../images/extras/botones_sprite.png') no-repeat 0 -289px
+            height: 22px
+            padding: 7px 0 0 23px
+
+        .titulo
+            float: left
+            margin: 0 20px 0 0
+            width: 122px
+
+            img
+                float: left
+                margin: 0 5px 0 0
+            
+            .titulo_concursos_search
+                font:
+                    size: 13px
+                    weight: bold
+                height: 14px
+                line-height: 10px
+
+        a
+            background: url('../images/extras/concursos_todos_search_ficha.png') no-repeat 0 0
+            float: left
+            height: 22px
+            margin: 3px 0px
+            width: 140px
+
+            &:hover
+                background: url('../images/extras/concursos_todos_search_ficha.png') no-repeat 0 -22px
+
+    .concursos_slide
+        background: $gris_faf
+        border-bottom: 1px solid $gris_f6f
+        float: left
+        height: 183px
+        padding: 12px 10px
+        width: 282px
+
+        .espacio_concurso_busqueda, .espacio_concurso_ficha
+            float: left
+            height: 183px
+            position: relative
+            width: 282px
+
+            .nuevo
+                background: url('../images/concursos/nuevo.png')
+                height: 72px
+                left: -8px
+                top: -7px
+                position: absolute
+                width: 76px
+                z-index: 406
+
+            #google_ads_div_concursos_activos_search_185x132_santiago-de-chile_ad_wrapper, #google_ads_div_concursos_activos_search_185x132_santiago-de-chile_ad_container, #google_ads_div_concursos_activos_search_185x132_valparaiso-vina-del-mar_ad_wrapper, #google_ads_div_concursos_activos_search_185x132_valparaiso-vina-del-mar_ad_container, #google_ads_div_concursos_activos_search_185x132_buenos-aires_ad_wrapper, #google_ads_div_concursos_activos_search_185x132_buenos-aires_ad_container
+                height: 133px !important
+
+.espacio_concurso_busqueda, .espacio_concurso_ficha
 
     a
         color: $gris_666
@@ -1617,7 +1692,7 @@ textarea
                 text:
                     shadow: 0px 0px 0px $blanco
 
-            .lugar_concurso
+            .lugar_concurso, .sorteo_concurso
                 float: left
                 font:
                     size: 14px
@@ -1627,9 +1702,9 @@ textarea
                 position: relative
                 text:
                     align: center
-                    shadow: 1px 1px 1px $blanco
-                top: 0
+                top: -9px
                 width: 282px
+                z-index: 1
 
                 &:hover
                     opacity: 1
@@ -1638,16 +1713,10 @@ textarea
                 height: 30px
                 font:
                     size: 13px
+                    weight: normal
                 line-height: 18px
-                opacity: 0
-                padding: 150px 10px 7px
-                position: relative
-                text:
-                    align: center
-                top: 0
-
-                &:hover
-                    opacity: 1
+                padding: 0
+                top: -2px
 
         .contenido_concurso
             border-top: 7px solid $gris_666
@@ -1662,6 +1731,8 @@ textarea
             .lugar_concurso
                 background: $gris_f2f
                 border-bottom: 1px solid $gris_ccc
+                border-left: 1px solid $gris_ccc
+                border-right: 1px solid $gris_ccc
                 float: left
                 font:
                     size: 14px
@@ -1672,10 +1743,13 @@ textarea
                     align: center
                     shadow: 1px 1px 1px $blanco
                 top: -54px
-                width: 282px
+                width: 280px
 
             .sorteo_concurso
                 background: $gris_faf
+                border-bottom: 1px solid $gris_ccc
+                border-left: 1px solid $gris_ccc
+                border-right: 1px solid $gris_ccc
                 height: 30px
                 float: left
                 font:
@@ -1686,69 +1760,7 @@ textarea
                 text:
                     align: center
                 top: -54px
-                width: 282px
-
-/* Avisos Concursos vigentes Ficha */
-.espacio_aviso_ficha_1, .espacio_aviso_ficha_2, .espacio_aviso_ficha_3
-    background: $gris_f6f
-    border-bottom: 1px solid $gris_ccc
-
-    a
-        color: $gris_666
-
-        &:hover
-            text-decoration: none
-
-        .roll_over_concurso
-            height: 111px
-            pointer: cursor
-            position: relative
-            top: 0
-            width: 198px
-            z-index: 1
-
-            &:hover
-                background: url('../images/home/rollover_concursos.png') no-repeat -5px -28px
-                color: $blanco !important
-                text:
-                    shadow: 0px 0px 0px $blanco
-                    
-            .sorteo_concurso
-                height: 35px
-                font:
-                    size: 13px
-                line-height: 18px
-                opacity: 0
-                padding: 65px 10px 10px
-                position: relative
-                text:
-                    align: center
-                top: 0
-
-                &:hover
-                    opacity: 1
-
-        .contenido_concurso
-            position: relative
-            top: -111px
-
-            img
-                float: left
-                height: 111px
-                width: 198px
-
-            .lugar_concurso
-                float: left
-                font:
-                    size: 12px
-                    weight: bold
-                padding: 8px 0 7px
-                position: relative
-                text:
-                    align: center
-                    shadow: 1px 1px 1px $blanco
-                top: -2px
-                width: 198px
+                width: 280px
 
 /* Footer */
         
