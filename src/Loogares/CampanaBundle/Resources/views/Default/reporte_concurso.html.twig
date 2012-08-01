@@ -163,9 +163,13 @@
 				            data: {'canjes' : canjes},
 				            dataType: 'json',
 				            success: function(data){
+				            	console.log(data)
 				            	if(data.status == 'ok') {
 				            		canjesCheckbox.attr('disabled', 'disabled');
 				            	}
+				            },
+				            error: function(data){
+				            	console.log(data)
 				            }
 	        			});
 					}
