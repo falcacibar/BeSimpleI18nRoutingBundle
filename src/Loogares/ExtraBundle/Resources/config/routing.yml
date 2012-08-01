@@ -49,3 +49,7 @@ _beneficio_exclusivo_mail:
 concursos_mail:
     pattern:  /{ciudad}/concursos/mail
     defaults: { _controller: LoogaresExtraBundle:Default:mailConcursos }
+
+iphone_mail:
+    pattern:  /iphone_app/mail
+    defaults: { _controller: LoogaresExtraBundle:Default:mailIphoneApp }
