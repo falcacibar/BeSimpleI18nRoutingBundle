@@ -287,13 +287,6 @@ class DefaultController extends Controller
         }
 
         $paginas = array(
-            'lunes_de_pelicula' => 'Notas',
-            'beneficio_exclusivo' => 'Notas',
-            'martes_de_amanda' => 'Notas',
-            'miercoles_de_municipal' => 'Notas',
-            'jueves_de_gam' => 'Notas',
-            'sabor_platonico' => 'Notas',
-            'sanduich' => 'Notas',
             'codigos_de_conducta' => 'Static',
             'contacto' => 'Static',
             'copyright' => 'Static',
@@ -306,8 +299,8 @@ class DefaultController extends Controller
             'que_es_loogares' => 'Static',
             'terminos_de_uso' => 'Static',
             'trabaja_con_nosotros' => 'Static',
-            'hi' => 'Static',
-            'concursos_local' => 'Static'
+            'concursos_local' => 'Static',
+            'iphone_app' => 'Static'
         );
 
         foreach($paginas as $key => $value){

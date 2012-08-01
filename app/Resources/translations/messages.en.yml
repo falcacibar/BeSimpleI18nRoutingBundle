@@ -31,6 +31,9 @@ general:
             titulo: Participate
             registro: Sign up
             agregar: Add and review a Place
+        iphone:
+            titulo: Loogares.com in your iPhone
+            descarga: Free download here
         alianzas:
             titulo: Sponsors
         loogares:

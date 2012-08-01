@@ -112,6 +112,10 @@ extra:
         nuevos_concursos:
             titulo: Nuevo sistema de concursos y Beneficios Exclusivos
             boton: Nuevo sistema concursos y BE
+        iphone_app:
+            titulo: Descargá la nueva aplicación de Loogares.com para iPhone
+            bajada: La más completa guía online de recomendaciones de ocio y servicios en Argentina, desde cualquier parte donde te encontrés.
+            boton: Aplicación Móvil Loogares.com
         obligatorio: Los campos con (*) son obligatorios
 
 static:
