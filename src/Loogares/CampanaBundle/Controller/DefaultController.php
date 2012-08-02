@@ -124,19 +124,9 @@ class DefaultController extends Controller{
 
     $lugar = $lr->findOneBySlug($slug);
 
-    $campana = $cr->find($id);
+    $concurso = $cr->findOne($idConcurso);
 
-    $q = $em->createQuery("SELECT cr FROM Loogares\BlogBundle\Entity\Concurso cr
-    											 WHERE cr.id = ?1");
-    $q->setParameter(1, $idConcurso);
-
-    $concurso = $q->getOneOrNullResult();
-
-    if(!$concurso){
-      throw $this->createNotFoundException('');
-    }
-    
-     $ganadores = $cr->getGanadoresConcurso($concurso);
+    $ganadores = $cr->getGanadoresConcurso($concurso);
 
       // Asociamos a cada ganador si el usuario ha recomendado con anterioridad o no
       foreach($ganadores as $ganador) {
