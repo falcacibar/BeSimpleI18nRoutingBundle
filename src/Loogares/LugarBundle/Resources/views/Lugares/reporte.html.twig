@@ -2,7 +2,7 @@
 
 {# Según el tipo de reporte, se generan distintos títulos y subtítulos #}
 {% if lugar is defined %}
-	{% set usuario = lugar.usuario%}
+	{% set usuario = lugar.usuario %}
 	{% set titulo_pag = 'reportes.lugar.title' %}	
 	{% set tipo_titulo = 0 %}
 	{% set subtitulo = 'reportes.lugar.subtitulo' %}
@@ -50,6 +50,17 @@
 
 		<form action="{{ ruta }}" method="post" {{ form_enctype(form) }}>
 			<ul>
+				{% if is_granted('ROLE_USER') %}
+				<li>
+					{{ form_widget(form.mailContacto, { 'attr': {hidden: true, value: app.security.token.user.mail }} ) }}			
+				</li>
+				{% else %}
+				<li>
+					{% set inputClass = (errors.mailContacto is defined) ? 'input-error' : ' '%}	
+					{{ form_label(form.mailContacto, 'mailContacto.label') }}	
+					{{ form_widget(form.mailContacto, { 'attr': {'class': inputClass }} ) }}			
+				</li>
+				{% endif %}
 				<li>
 					{% set inputClass = (errors.reporte is defined) ? 'input-error' : ' '%}					
 					{{ form_label(form.reporte, 'reportes.label') }}

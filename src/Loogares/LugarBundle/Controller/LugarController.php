@@ -1273,6 +1273,12 @@ class LugarController extends Controller{
         $em             = $this->getDoctrine()->getEntityManager();
         $session        = $this->get('session');
 
+        if(!isset($_POST['curlSuperVar']) && false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            $session->set('recomendacionPendiente', $_POST);
+            $session->set('alIngresarIrA', $request->getRequestUri());
+
+            return $this->redirect($this->generateUrl('login'));
+        }
 
         if(!is_null($rec = $session->get('recomendacionPendiente'))) {
             $_POST = &$rec;
@@ -1956,7 +1962,11 @@ class LugarController extends Controller{
 
         $lugar = $lr->findOneBySlug($slug);
 
-        $reportes = $lr->getReportesUsuarioLugar($lugar->getId(), $this->get('security.context')->getToken()->getUser(), 1);
+        if($this->get('security.context')->isGranted('ROLE_USER')){
+            $reportes = $lr->getReportesUsuarioLugar($lugar->getId(), $this->get('security.context')->getToken()->getUser()->getMail(), 1);
+        }else{
+            $reportes = $lr->getReportesUsuarioLugar($lugar->getId(), 'lol', 1);
+        }
 
         if(sizeof($reportes) > 0){
             $this->get('session')->setFlash('lugar_flash','Nos has notificado anteriormente que este lugar cerró. Aún estamos corroborando datos al respecto.');
@@ -1966,6 +1976,7 @@ class LugarController extends Controller{
 
             $form = $this->createFormBuilder($reporte)
                              ->add('reporte', 'textarea')
+                             ->add('mailContacto', 'text')
                              ->getForm();
 
             if ($request->getMethod() == 'POST') {
@@ -1978,10 +1989,6 @@ class LugarController extends Controller{
                 if ($form->isValid()) {
                     $reporte->setLugar($lugar);
                     $reporte->setFecha(new \Datetime());
-
-                    if($this->get('security.context')->isGranted('ROLE_USER')){
-                        $reporte->setMailContacto('Lolol');
-                    }
 
                     $estadoReporte = $em->getRepository("LoogaresExtraBundle:Estado")
                                         ->findOneByNombre('Por revisar');
