@@ -42,7 +42,13 @@
         GS_googleEnableAllServices();
     </script>
     <script type='text/javascript'>
+        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
+    </script>
+    <script type='text/javascript'>
         GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','top','medium')}}_{{app.session.get('ciudad').slug}}");
+    </script>
+    <script type='text/javascript'>
+        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','bottom','medium')}}_{{app.session.get('ciudad').slug}}");
     </script>
     <script type='text/javascript'>
         GA_googleFetchAds();
