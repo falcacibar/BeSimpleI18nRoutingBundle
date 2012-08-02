@@ -56,7 +56,6 @@ security:
     access_control:
         - { path: /agregar, roles: ROLE_USER }
         - { path: /editar, roles: ROLE_USER }
-        - { path: /reportar, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: /reportescampanasdeloogarescomelalbertosevaaechareldiseno, roles: ROLE_OWNER }
 

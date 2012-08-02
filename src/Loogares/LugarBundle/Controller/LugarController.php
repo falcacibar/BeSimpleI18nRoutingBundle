@@ -692,7 +692,6 @@ class LugarController extends Controller{
                         $precio = '';
                     }
 
-
                     if(isset($_POST['recomienda-estrellas'])){
                         $estrellas = $_POST['recomienda-estrellas'];
                     }else{
@@ -725,7 +724,6 @@ class LugarController extends Controller{
 
                     //execute post
                     curl_exec($ch);
-
                     curl_close($ch);
                 }
 
@@ -1275,12 +1273,6 @@ class LugarController extends Controller{
         $em             = $this->getDoctrine()->getEntityManager();
         $session        = $this->get('session');
 
-        if(false === $this->get('security.context')->isGranted('ROLE_USER')) {
-            $session->set('recomendacionPendiente', $_POST);
-            $session->set('alIngresarIrA', $request->getRequestUri());
-
-            return $this->redirect($this->generateUrl('login'));
-        }
 
         if(!is_null($rec = $session->get('recomendacionPendiente'))) {
             $_POST = &$rec;
@@ -1985,8 +1977,11 @@ class LugarController extends Controller{
 
                 if ($form->isValid()) {
                     $reporte->setLugar($lugar);
-                    $reporte->setUsuario($this->get('security.context')->getToken()->getUser());
                     $reporte->setFecha(new \Datetime());
+
+                    if($this->get('security.context')->isGranted('ROLE_USER')){
+                        $reporte->setMailContacto('Lolol');
+                    }
 
                     $estadoReporte = $em->getRepository("LoogaresExtraBundle:Estado")
                                         ->findOneByNombre('Por revisar');

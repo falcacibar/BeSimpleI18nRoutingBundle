@@ -286,15 +286,15 @@ class LugarRepository extends EntityRepository
       return $q->getResult();
     }
 
-    public function getReportesUsuarioLugar($lugar, $usuario, $estado) {
+    public function getReportesUsuarioLugar($lugar, $mailContacto, $estado) {
       $em = $this->getEntityManager();
       $q = $em->createQuery("SELECT rl
                              FROM Loogares\LugarBundle\Entity\ReportarLugar rl
                              WHERE rl.lugar = ?1
-                             AND rl.usuario = ?2
+                             AND rl.mail_contacto = ?2
                              AND rl.estado = ?3");
       $q->setParameter(1, $lugar);
-      $q->setParameter(2, $usuario);
+      $q->setParameter(2, $mailContacto);
       $q->setParameter(3, $estado);
       return $q->getResult();
     }
