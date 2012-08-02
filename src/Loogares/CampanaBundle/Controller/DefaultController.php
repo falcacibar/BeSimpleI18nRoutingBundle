@@ -128,7 +128,7 @@ class DefaultController extends Controller{
 
     $q = $em->createQuery("SELECT cr FROM Loogares\BlogBundle\Entity\Concurso cr
     											 JOIN cr.post p	
-    											 WHERE p.lugar = ?1 AND cr.estado_concurso = 3");
+    											 WHERE p.lugar = ?1 and cr.campana = ?2 AND cr.estado_concurso = 3");
     $q->setParameter(1, $lugar);
     $q->setParameter(2, $idConcurso);
 
