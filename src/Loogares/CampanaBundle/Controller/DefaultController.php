@@ -117,41 +117,31 @@ class DefaultController extends Controller{
   
   public function detalleConcursoAction($slug, $id, $idConcurso) {
     $em = $this->getDoctrine()->getEntityManager();
-    $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+    $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
     $dr = $em->getRepository("LoogaresUsuarioBundle:Dueno");
     $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
     $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
 
     $lugar = $lr->findOneBySlug($slug);
 
-    $campana = $cr->find($id);
+    $concurso = $cr->findOneById($idConcurso);
 
-    $q = $em->createQuery("SELECT cr FROM Loogares\BlogBundle\Entity\Concurso cr
-    											 WHERE cr.id = ?1");
-    $q->setParameter(1, $idConcurso);
+    $ganadores = $cr->getGanadoresConcurso($concurso);
 
-    $concurso = $q->getOneOrNullResult();
-
-    if(!$concurso){
-      throw $this->createNotFoundException('');
+    // Asociamos a cada ganador si el usuario ha recomendado con anterioridad o no
+    foreach($ganadores as $ganador) {
+        $usuario = $ganador->getParticipante()->getUsuario();
+        $lugar = $ganador->getParticipante()->getConcurso()->getPost()->getLugar();
+        $recomendacion = $rr->findOneBy(array('usuario' => $usuario->getId(), 'lugar' => $lugar->getId()));
+        if(!$recomendacion) {
+            $ganador->recomendo = false;
+        }
+        else {
+            $ganador->recomendo = true;
+            $ganador->recomendacion = $recomendacion;
+        }
     }
-    
-     $ganadores = $cr->getGanadoresConcurso($concurso);
-
-      // Asociamos a cada ganador si el usuario ha recomendado con anterioridad o no
-      foreach($ganadores as $ganador) {
-          $usuario = $ganador->getParticipante()->getUsuario();
-          $lugar = $ganador->getParticipante()->getConcurso()->getPost()->getLugar();
-          $recomendacion = $rr->findOneBy(array('usuario' => $usuario->getId(), 'lugar' => $lugar->getId()));
-          if(!$recomendacion) {
-              $ganador->recomendo = false;
-          }
-          else {
-              $ganador->recomendo = true;
-              $ganador->recomendacion = $recomendacion;
-          }
-      }
-      $concurso->ganadores = $ganadores;
+    $concurso->ganadores = $ganadores;
 
     return $this->render('LoogaresCampanaBundle:Default:reporte_concurso.html.twig', array(
         'concurso' => $concurso,
