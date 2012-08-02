@@ -115,7 +115,7 @@ extra:
             boton: Nuevo sistema concursos y BE
         iphone_app:
             titulo: Descargá la nueva aplicación de Loogares.com para iPhone
-            bajada: La más completa guía online de recomendaciones de ocio y servicios en Argentina, desde cualquier parte donde te encontrés.
+            bajada: La más completa guía online de recomendaciones de ocio y servicios del país, desde cualquier parte donde te encontrés.
             boton: Aplicación Móvil Loogares.com
         obligatorio: Los campos con (*) son obligatorios
 
@@ -176,6 +176,6 @@ iphone_app_banner:
     titulo: Loogares.com en tu iPhone
     descargar: Descargala gratis acá »
     newsletter:
-        titulo: La más completa guía online de recomendaciones de ocio y servicios en Argentina, desde cualquier parte donde te encontrés.
-        bajada: 13.000 recomendaciones, 13.000 lugares, 4 ciudades.
+        titulo: La más completa guía online de recomendaciones de ocio y servicios del país, desde cualquier parte donde te encontrés.
+        bajada: 15.000 lugares, 13.000 recomendaciones, 4 ciudades.
         saber_mas: Si querés saber más sobre lo que está pasando en Loogares.com, seguinos en

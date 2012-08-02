@@ -57,3 +57,7 @@ concursos_mail:
 iphone_mail:
     pattern:  /iphone_app/mail
     defaults: { _controller: LoogaresExtraBundle:Default:mailIphoneApp }
+
+iphone_mail_ar:
+    pattern:  /iphone_app/mail_ar
+    defaults: { _controller: LoogaresExtraBundle:Default:mailIphoneAppAr }
