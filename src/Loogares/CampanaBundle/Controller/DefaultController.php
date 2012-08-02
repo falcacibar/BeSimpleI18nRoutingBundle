@@ -124,24 +124,24 @@ class DefaultController extends Controller{
 
     $lugar = $lr->findOneBySlug($slug);
 
-    $concurso = $cr->findOne($idConcurso);
+    $concurso = $cr->findOneById($idConcurso);
 
     $ganadores = $cr->getGanadoresConcurso($concurso);
 
-      // Asociamos a cada ganador si el usuario ha recomendado con anterioridad o no
-      foreach($ganadores as $ganador) {
-          $usuario = $ganador->getParticipante()->getUsuario();
-          $lugar = $ganador->getParticipante()->getConcurso()->getPost()->getLugar();
-          $recomendacion = $rr->findOneBy(array('usuario' => $usuario->getId(), 'lugar' => $lugar->getId()));
-          if(!$recomendacion) {
-              $ganador->recomendo = false;
-          }
-          else {
-              $ganador->recomendo = true;
-              $ganador->recomendacion = $recomendacion;
-          }
-      }
-      $concurso->ganadores = $ganadores;
+    // Asociamos a cada ganador si el usuario ha recomendado con anterioridad o no
+    foreach($ganadores as $ganador) {
+        $usuario = $ganador->getParticipante()->getUsuario();
+        $lugar = $ganador->getParticipante()->getConcurso()->getPost()->getLugar();
+        $recomendacion = $rr->findOneBy(array('usuario' => $usuario->getId(), 'lugar' => $lugar->getId()));
+        if(!$recomendacion) {
+            $ganador->recomendo = false;
+        }
+        else {
+            $ganador->recomendo = true;
+            $ganador->recomendacion = $recomendacion;
+        }
+    }
+    $concurso->ganadores = $ganadores;
 
     return $this->render('LoogaresCampanaBundle:Default:reporte_concurso.html.twig', array(
         'concurso' => $concurso,
