@@ -1275,7 +1275,7 @@ class LugarController extends Controller{
         $em             = $this->getDoctrine()->getEntityManager();
         $session        = $this->get('session');
 
-        if(false === $this->get('security.context')->isGranted('ROLE_USER')) {
+        if(!isset($_POST['curlSuperVar']) && false === $this->get('security.context')->isGranted('ROLE_USER')) {
             $session->set('recomendacionPendiente', $_POST);
             $session->set('alIngresarIrA', $request->getRequestUri());
 
