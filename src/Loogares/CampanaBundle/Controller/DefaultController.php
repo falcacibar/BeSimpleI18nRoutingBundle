@@ -117,7 +117,7 @@ class DefaultController extends Controller{
   
   public function detalleConcursoAction($slug, $id, $idConcurso) {
     $em = $this->getDoctrine()->getEntityManager();
-    $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
+    $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
     $dr = $em->getRepository("LoogaresUsuarioBundle:Dueno");
     $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
     $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
