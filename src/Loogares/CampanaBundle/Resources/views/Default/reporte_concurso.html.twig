@@ -60,6 +60,7 @@
 											<p class="cupon_titulo">{{concurso.titulo}}</p>
 											<p class="usuario_cupon">{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</p>
 											<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{ganador.codigo}}</p>
+											<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{concurso.post.fechaTermino|date('d/m/y')}}</p>
 										</div>
 									</div>
 									<div class="bloque_detalles">
