@@ -26,6 +26,10 @@ locale_buenos_aires:
     pattern:  /buenos-aires
     defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : buenos-aires }
 
+locale_sao_paolo:
+    pattern:  /sao-paolo
+    defaults: { _controller: LoogaresExtraBundle:Default:homepage, slug : sao-paolo }
+
 concursos:
     pattern:  /{ciudad}/concursos
     defaults: { _controller: LoogaresExtraBundle:Default:concursos }

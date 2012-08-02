@@ -27,6 +27,8 @@ lugar:
             nombre: Es obligatorio que ingreses tu nombre
             mail: Es obligatorio que ingreses tu E-mail
             mails: Es necesario que ingreses al menos un E-mail
+            mail_malo: El E-Mail no es válido.
+            mails_malo: El E-Mail "%mail%" no es válido.
 
     categoria:
         titulo_pagina: Todas las categorías en

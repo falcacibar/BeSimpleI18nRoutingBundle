@@ -4,7 +4,7 @@
 
 {% block content %}
 
-	<!-- Mensajes de error --> 
+	<!-- Mensajes de error -->
 	{% if errors %}
 		<div class="mensaje_error">
 			<div class="imagen_error"></div>
@@ -14,12 +14,12 @@
 			    {% endfor %}
 		    </div>
 		</div>
-	{% endif %}	
+	{% endif %}
 
 	<div class="enviar_lugar">
 		<h1 class="titulo">
 			{% if tipo == 'lugar'%}
-				{{'compartir.lugar.mail.titulo'|trans}} 
+				{{'compartir.lugar.mail.titulo'|trans}}
 			{% else %}
 				{% set param = (recomendacion.usuario.slug is not empty) ? recomendacion.usuario.slug : recomendacion.usuario.id %}
 				{% trans with {'%open_tag%' : "<a href='"~path('_recomendacion', {'slug' : lugar.slug, 'usuarioSlug' : param})~"'>", '%close_tag%' : "</a>", '%usuario%' : "<a href="~path('showUsuario', {'param' : param})~">"~recomendacion.usuario.nombre~" "~recomendacion.usuario.apellido~"</a>" }%}compartir.recomendacion.mail.titulo{% endtrans %}
@@ -33,7 +33,7 @@
 					{% if not is_granted('ROLE_USER') %}
 					<li>
 						<label>{{'compartir.form.nombre'|trans}}</label>
-						<input type="text" name="nombre" class="{{errors.nombre is defined ? 'input-error' : ' '}}"/>
+						<input type="text" name="nombre" value="{{ request.get('nombre') }}" class="{{errors.nombre is defined ? 'input-error' : ' '}}"/>
 						{% if errors.nombre is defined %}
 							<small class="errors">{{errors.nombre|trans}}</small>
 						{% endif %}
@@ -41,7 +41,7 @@
 
 					<li>
 						<label>{{'compartir.form.mail'|trans}}</label>
-						<input type="text" name="mail" class="{{errors.mail is defined ? 'input-error' : ' '}}"/>
+						<input type="text" name="mail" value="{{ request.get('mail') }}" class="{{errors.mail is defined ? 'input-error' : ' '}}"/>
 						{% if errors.mail is defined %}
 							<small class="errors">{{errors.mail|trans}}</small>
 						{% endif %}
@@ -50,7 +50,7 @@
 
 					<li class="separacion_chica">
 						<label>{{'compartir.form.mails_amigos'|trans}}</label>
-						<input type="text" name="mails" class="{{errors.mails is defined ? 'input-error' : ' '}}"/>
+						<input type="text" name="mails" value="{{ request.get('mails') }}" class="{{errors.mails is defined ? 'input-error' : ' '}}"/>
 						{% if errors.mails is defined %}
 							<small class="errors">{{errors.mails|trans}}</small>
 						{% endif %}
@@ -90,9 +90,13 @@
 		$('.submit input').click(function(){
 			$('#enviar_lugar form ul li textarea').each(function(){
 				if($(this).attr('placeholder') == $(this).val()){
-					$(this).val('');
+					 $(this).val('');
 				};
 			});
 		});
+
+		$('.input-error').first().focus(function() {
+			typeof(this.select) !== 'undefined' && this.select();
+		}).focus();
 	</script>
 {% endblock %}
