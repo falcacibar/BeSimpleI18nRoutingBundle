@@ -74,7 +74,7 @@ class BeforeControllerListener
                 $lugar = $lugarRepository->findOneBySlug($req->get('slug'));
                 $usuario = $controller->get('security.context')->getToken()->getUser();
 
-                if($this->get('security.context')->isGranted('ROLE_ADMIN')){
+                if($controller->get('security.context')->isGranted('ROLE_ADMIN')){
                     //YOU ARE ALLOWED
                 }else if($lugar->getDueno() == null || $lugar->getDueno()->getUsuario() == null){
                     $request = new Request();
