@@ -41,6 +41,7 @@ class LugarController extends Controller{
 
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository('LoogaresLugarBundle:Lugar');
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
 
         $lugarResult[0] = $lr->findOneBySlug($slug);
 
@@ -69,7 +70,7 @@ class LugarController extends Controller{
         $estrellasPromedio = 0;
 
         if($lugarResult[0]->getEstado()->getId() == 4){
-          $this->get('session')->setFlash('cerrado_flash', 'Este lugar está cerrado. De reabrirse, quitaremos este mensaje. En caso contrario borraremos este lugar después de un tiempo.');
+          $this->get('session')->setFlash('cerrado_flash', 'Este lugar está cerrado. De reabrirse, quitaremos este mensaje. En caso contrario borraremos este lugar después de un tiempo.');
         }else if($lugarResult[0]->getEstado()->getId() == 1){
           $this->get('session')->setFlash('lugar_flash', 'Este lugar se encuentra en Revisión.');
         }
@@ -174,7 +175,6 @@ class LugarController extends Controller{
         $lugarResult[0]->setTwitter($fn->stripHTTP($lugarResult[0]->getTwitter()));
         $lugarResult[0]->setFacebook($fn->stripHTTP($lugarResult[0]->getFacebook()));
 
-        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
         //Concursos vigentes
         $concursos = $conr->getConcursosVigentes($lugarResult[0]->getComuna()->getCiudad()->getId());
 
@@ -208,6 +208,7 @@ class LugarController extends Controller{
     public function lugarRecomendacionAction (Request $request, $slug, $usuarioSlug = false) {
         $em    = $this->getDoctrine()->getEntityManager();
         $lr    = $em->getRepository("LoogaresLugarBundle:Lugar");
+        $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
 
         // Lugar con slug
         $lugar = $lr->findOneBySlug($slug);
@@ -282,9 +283,13 @@ class LugarController extends Controller{
             }
         }
 
+        //Concursos vigentes
+        $concursos = $conr->getConcursosVigentes($lugar->getComuna()->getCiudad()->getId());
+
         $lugar->accionesUsuario     = $accionesUsuario;
         $lugar->totalAcciones       = $lr->getTotalAccionesLugar($idLugar);
         $lugar->usuarioSlug         = $usuarioSlug;
+        $lugar->concursos           = $concursos;
 
         return $this->render('LoogaresLugarBundle:Lugares:lugar_recomendaciones.html.twig', array(
                 'lugar'    => $lugar,
