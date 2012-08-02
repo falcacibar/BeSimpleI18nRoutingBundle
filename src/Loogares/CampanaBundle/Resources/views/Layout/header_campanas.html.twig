@@ -1,6 +1,6 @@
 <div class="header_reporte">
 	<p class="volver_loogares"><a href="{{path('locale', {'slug': app.session.get('ciudad').slug})}}">{{'general.header_locales.volver'|trans}}</a></p>
-	<p class="menu_reporte"><a href="{{ path('_reporte_campanas', {'slug': lugar.slug}) }}">Mis campañas</a> | <a href="{{ path('_reporte_seguidores', {'slug': lugar.slug}) }}">Mis seguidores</a> | <a href="{{ path('logout') }}">Salir</a></p>
+	<p class="menu_reporte"><a href="{{ path('_reportes', {'slug': lugar.slug}) }}">Inicio</a> | <a href="{{ path('_reporte_campanas', {'slug': lugar.slug}) }}">Mis campañas</a> | <a href="{{ path('_reporte_seguidores', {'slug': lugar.slug}) }}">Mis seguidores</a> | <a href="{{ path('logout') }}">Salir</a></p>
 </div>
 
 <img class="logo_reporte" src="{{ asset('assets/images/reporte/logo_reporte.png') }}" height="52" width="161" />
