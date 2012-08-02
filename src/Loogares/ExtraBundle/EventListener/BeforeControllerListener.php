@@ -74,7 +74,8 @@ class BeforeControllerListener
                 $lugar = $lugarRepository->findOneBySlug($req->get('slug'));
                 $usuario = $controller->get('security.context')->getToken()->getUser();
 
-                if($usuario->getTipoUsuario()->getId() == 1){
+                if($this->get('security.context')->isGranted('ROLE_ADMIN')){
+                    //YOU ARE ALLOWED
                 }else if($lugar->getDueno() == null || $lugar->getDueno()->getUsuario() == null){
                     $request = new Request();
                     $request->attributes->set('_controller', 'LoogaresExtraBundle:Default:homepage');
