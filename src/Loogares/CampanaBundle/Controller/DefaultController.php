@@ -117,20 +117,20 @@ class DefaultController extends Controller{
   
   public function detalleConcursoAction($slug, $id, $idConcurso) {
     $em = $this->getDoctrine()->getEntityManager();
-    $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
+    $cr = $em->getRepository("LoogaresCampanaBundle:Campana");
     $dr = $em->getRepository("LoogaresUsuarioBundle:Dueno");
     $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
     $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
 
     $lugar = $lr->findOneBySlug($slug);
 
-    $concurso = $cr->find($id);
+    $campana = $cr->find($id);
 
     $q = $em->createQuery("SELECT cr FROM Loogares\BlogBundle\Entity\Concurso cr
     											 JOIN cr.post p	
-    											 WHERE p.lugar = ?1 and cr.id = ?2 AND cr.estado_concurso = 3");
+    											 WHERE p.lugar = ?1 AND cr.campana = ?2 AND cr.estado_concurso = 3");
     $q->setParameter(1, $lugar);
-    $q->setParameter(2, $concurso;
+    $q->setParameter(2, $campana);
 
     $concurso = $q->getOneOrNullResult();
 
