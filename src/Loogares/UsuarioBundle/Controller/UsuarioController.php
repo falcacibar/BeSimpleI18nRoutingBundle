@@ -506,7 +506,7 @@ class UsuarioController extends Controller
 
         $usuario = $usuarioResult;
 
-        if($usuario->facebookUid > 0) {
+        if($usuario->getFacebookUid() > 0) {
             $passwordValidator = $this->get('validator')
                     ->getMetadataFactory()
                         ->getClassMetadata('Loogares\UsuarioBundle\Entity\Usuario')
