@@ -28,7 +28,7 @@
 	{% endif %}
 
 	<!-- Metadata para FB -->
-	<meta property="og:title" content="En #Loogarescom {{concurso.descripcion}} en {{post.lugar.nombre}}. Yo ya estoy participando »" />
+	<meta property="og:title" content="{{concurso.descripcion}} en Loogares.com" />
 	<meta property="og:description" content="{{post.preview | striptags}}" />
 	<meta property="og:image" content="{{ app.request.scheme ~  '://' ~  app.request.host ~ asset('assets/images/blog/'~post.imagen) }}" />
 {% endblock %}
