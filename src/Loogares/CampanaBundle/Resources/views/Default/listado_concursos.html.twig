@@ -22,13 +22,13 @@
 	</div>
 
 	{% for concurso in concursos %}
-		<div class="campana_detalle{%if concurso.estadoConcurso.id == 3%}_inactivo{%elseif concurso.estadoConcurso.id == 5%}_activo{% endif %}">
+		<div class="campana_detalle_{%if concurso.estadoConcurso.id == 3%}inactivo{%elseif concurso.estadoConcurso.id == 5%}activo{% endif %}">
 			<div class="foto_fecha">
 				<div class="fecha">
 					{{-concurso.fechaInicio|date('d')-}}&nbsp;{{-meses[concurso.fechaInicio|date('n') - 1]-}}&nbsp;{{-concurso.fechaInicio|date('Y')-}}
 				</div>
 				<div class="foto">
-					<img height="115" width="205" src="http://www.loogares.com/assets/media/cache/medium_concurso/assets/images/blog/{{concurso.post.imagenHome|default('default.gif')}}" />
+					<img height="115" width="205" src="http://www.loogares.com/assets/media/cache/medium_concurso/assets/images/blog/{{concurso.post.imagen|default('default.gif')}}" />
 				</div>
 			</div>
 			<div class="detalles_be">

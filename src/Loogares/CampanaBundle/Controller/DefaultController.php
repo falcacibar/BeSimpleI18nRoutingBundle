@@ -59,7 +59,9 @@ class DefaultController extends Controller{
 		$lugar = $lugarRepository->findOneBySlug($slug);
 		$campanas = $campanaRepository->findByLugar($lugar->getId());
 		$q = $em->createQuery("SELECT c FROM Loogares\CampanaBundle\Entity\Campana c
-													 ORDER BY c.fecha_inicio DESC ");
+													 WHERE c.lugar = ?1
+													 ORDER BY c.fecha_inicio DESC");
+		$q->setParameter(1, $lugar);
 
 		$campanas = $q->getResult();
 		

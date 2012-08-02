@@ -505,6 +505,18 @@ class UsuarioController extends Controller
             throw new AccessDeniedException('No puedes editar información de otro usuario');
 
         $usuario = $usuarioResult;
+
+        if($usuario->facebookUid > 0) {
+            $passwordValidator = $this->get('validator')
+                    ->getMetadataFactory()
+                        ->getClassMetadata('Loogares\UsuarioBundle\Entity\Usuario')
+                            ->properties['password'];
+
+            $passwordValidator->constraints =
+            $passwordValidator->constraintsByGroup['Default'] =
+            $passwordValidator->constraintsByGroup['Usuario'] = array();
+        }
+
         $form = $this->createFormBuilder($usuario)
                      ->add('mail', 'text')
                      ->add('nombre', 'text')
@@ -575,6 +587,12 @@ class UsuarioController extends Controller
             }else{
                 $erroresLocalidad['pais'] = "Selecciona un País";
             }
+
+
+//            var_dump($form->validators);
+  //          exit();
+
+
 
             if ($form->isValid() && empty($erroresLocalidad)) {
                 if(isset($_POST['tipo_usuario'])){

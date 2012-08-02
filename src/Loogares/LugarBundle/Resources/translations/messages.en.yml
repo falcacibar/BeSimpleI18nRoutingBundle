@@ -28,6 +28,8 @@ lugar:
             nombre: You must type your name
             mail: You must type your E-mail address
             mails: You must type at least one E-mail address
+            mail_malo: The E-Mail address is not valid.
+            mails_malo: The E-Mail address "%mail%" is not valid.
 
     categoria:
         titulo_pagina: All the categories in
