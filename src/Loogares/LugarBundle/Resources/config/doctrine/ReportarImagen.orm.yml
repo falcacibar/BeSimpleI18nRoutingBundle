@@ -4,8 +4,6 @@ Loogares\LugarBundle\Entity\ReportarImagen:
     manyToOne:
         imagen_lugar:
             targetEntity: Loogares\LugarBundle\Entity\ImagenLugar
-        usuario:
-            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
         estado:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
     id:
@@ -17,3 +15,5 @@ Loogares\LugarBundle\Entity\ReportarImagen:
             type: text
         fecha:
             type: datetime
+        mail_contacto:
+            type: string
