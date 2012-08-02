@@ -1804,6 +1804,7 @@ class LugarController extends Controller{
 
         $form = $this->createFormBuilder($reporte)
                          ->add('reporte', 'textarea')
+                         ->add('mailContacto', 'text')
                          ->getForm();
 
         if ($request->getMethod() == 'POST') {
@@ -1880,10 +1881,10 @@ class LugarController extends Controller{
 
         $recomendacion = $rr->getRecomendacionUsuarioLugar($usuario->getId(),$lugar->getId());
 
-        if($this->get('security.context')->getToken()->getUser() == $recomendacion->getUsuario()) {
+        if($this->get('security.context')->isGranted('ROLE_USER') && $this->get('security.context')->getToken()->getUser() == $recomendacion->getUsuario()) {
           $this->get('session')->setFlash('error_flash', 'No puedes reportar una recomendación hecha por ti.');
           return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
-        }else{
+        }else if($this->get('security.context')->isGranted('ROLE_USER')){
             $reportes = $rr->getReportesRecomendacionUsuario($recomendacion->getId(), $this->get('security.context')->getToken()->getUser(), 1);
             if(sizeof($reportes) > 0){
               $this->get('session')->setFlash('error_flash', 'Ya has reportado esta recomendación anteriormente, y aún está en revisión. <br/>Una vez finalizado este proceso, podrás reportar la recomendación nuevamente.');
@@ -1895,6 +1896,7 @@ class LugarController extends Controller{
 
         $form = $this->createFormBuilder($reporte)
                          ->add('reporte', 'textarea')
+                        ->add('mailContacto', 'text')
                          ->getForm();
 
         if ($request->getMethod() == 'POST') {
@@ -1906,7 +1908,6 @@ class LugarController extends Controller{
 
             if ($form->isValid()) {
                 $reporte->setRecomendacion($recomendacion);
-                $reporte->setUsuario($this->get('security.context')->getToken()->getUser());
                 $reporte->setFecha(new \Datetime());
 
                 $estadoReporte = $em->getRepository("LoogaresExtraBundle:Estado")
@@ -1965,7 +1966,7 @@ class LugarController extends Controller{
         if($this->get('security.context')->isGranted('ROLE_USER')){
             $reportes = $lr->getReportesUsuarioLugar($lugar->getId(), $this->get('security.context')->getToken()->getUser()->getMail(), 1);
         }else{
-            $reportes = $lr->getReportesUsuarioLugar($lugar->getId(), 'lol', 1);
+            $reportes = $lr->getReportesUsuarioLugar($lugar->getId(), $request->request->get('mailContacto'), 1);
         }
 
         if(sizeof($reportes) > 0){
