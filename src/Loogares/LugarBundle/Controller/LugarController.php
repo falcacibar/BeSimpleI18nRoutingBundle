@@ -1572,22 +1572,7 @@ class LugarController extends Controller{
                                 '</a>'
                             )
                     ));
-        /* *
-        var_dump(
-                    $this->get('translator')->trans(
-                            'lugar.flash.recomendacion.solo_una',
-                             array(
-                                '%link_editar%'  =>
-                                '<a href="" class="edita_recomendacion" onclick="'.
-                                    "$('.edita_recomendacion').click(); return false;".'">' .
-                                    $this->get('translator')->trans('lugar.flash.recomendacion.link_editar') .
-                                '</a>'
-                            )
-                    ))
-        ;
-        die();
 
-        /**/
         return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
     }
 
