@@ -25,17 +25,12 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	
-	alert($.cookie('iThingMessage'));
-          if(/iP(od|hone|ad)/g.test(navigator.userAgent) && ($.cookie('iThingMessage') == null)) {
-              $.cookie('iThingMessage', 'true', {
-                  'domain' : '.loogares.com' ,
-                  'expires' : 2
-              });
-
-              if(confirm('{{ "general.iphone.inicio" | trans }}')) {
-                  location.href = 'itms-apps://itunes.apple.com/id/app/loogares.com/id544478345';
-              }
-          }
+            if(/iP(od|hone|ad)/g.test(navigator.userAgent) && ($.cookie('iThingMessage') == null)) {
+                $.cookie('iThingMessage', 'true', { 'domain' : '.loogares.com' , 'expires' : 2 });
+                if(confirm('{{ "general.iphone.inicio" | trans }}')) {
+                    location.href = 'itms-apps://itunes.apple.com/id/app/loogares.com/id544478345';
+                }
+            }
           })();
         </script>
         <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />

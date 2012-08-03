@@ -1,5 +1,7 @@
 # Locale 'en' General
 general:
+    iphone:
+        inicio: Are you looking for the best places?\nMaybe you like to find them with the new Loogares.com app.\nDownload now?
     facebook:
         reintentar: "The comment cannot be sent. Do you wish to try again?"
     header:
