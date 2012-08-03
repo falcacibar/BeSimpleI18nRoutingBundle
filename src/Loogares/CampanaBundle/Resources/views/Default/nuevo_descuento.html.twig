@@ -4,14 +4,41 @@
 		<link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
+    <style>
+			p{
+				height:40px;
+			}
+			
+			.section {
+
+			}
+
+				.section h3{
+					height: 40px;
+				}
+
+			.section_hidden {
+				display:none;
+			}
+
+			.section_active {
+			    height: 100px;
+			    background: yellow;
+			}​
+    </style>
 {% endblock %}
 
 {% block javascripts %}
 	<script src="{{asset('assets/js/chosen.jquery.min.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.qtip.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.fancybox.pack.js')}}"></script>
+	<script src="{{asset('assets/js/jquery.isotope.min.js')}}"></script>
 	<script>
+    $('.comunas').live('change', function(){
+    	$('.caja_seguidores').isotope({ filter: '.'+$(this).val() });
+    })
 		$('.comunas').chosen();
+
 
 		var qtipHide = {
 	    fixed: true,
@@ -107,84 +134,21 @@
 			fitToView: false
 		});
 
-		$('.siguiente_paso').live('click', function(){
-				$active = $('.step_active');
-				$active.find('.lolbox-error').remove();
-
-				if($active.find('input[type=radio]').length > 0){
-					if($active.find('input[type=radio]:checked').length == 0){
-						$active.find('h3').before('<div class="lolbox-error">Debes escoger una de las opciones</div>');
-						return;
-					}
-				}
-
-				if($active.find('textarea').length == 1){
-					if($active.find('textarea').val().length == 0){		
-						$active.find('h3').before('<div class="lolbox-error">Debes escribir las condiciones del descuento</div>');
-						return;
-					}
-				}
-
-		    $active.next('div:not(.siguiente_paso)')
-		                     .removeClass('step_hidden')
-		                     .removeClass('step_done')            
-		                     .addClass('step_active');
-
-		    $active.toggleClass('step_active')
-		           .toggleClass('step_done');
-
-		    if($active.find('input[type=radio]').length){
-		    	var chosenOption = $active.find('input[type=radio]:checked').next('label').text();
-		    }else if($active.find('textarea').length){
-		    	var chosenOption = $active.find('textarea').val().substr(0, 10) + '...';
-		    }
-
-		    $active.find('h3 > small').text(chosenOption)
-
-		    if($('.step_active').next('div').hasClass('step_final')){
-		    	$('.siguiente_paso')
-		    		.removeClass('siguiente_paso')
-		    		.addClass('enviar_dscto');
-		    }
-		});
-
 		$('.enviar_dscto').live('click', function(){
-			$active = $('.step_active');
+			$active = $('.section_active');
 			$active.find('.lolbox-error').remove();
 
     	if($('input[class=seguidores_checkbox]:checked').length == 0){
-				$active.find('h4').after('<div class="lolbox-error">Error</div>');
+				$active.find('h4').after('<div class="lolbox-error">Error, Selecciona un Seguidor</div>');
 				return;
 			}
 
     	$(this).remove();
-    	$('.step_static').append($('input[class=seguidores_checkbox]:checked'))
-    	$('.step_final').show();
-    	$('.step_done, .step_static, .step_last').hide();
+    	$('.section:first').append($('input[class=seguidores_checkbox]:checked'))
+    	$('.section_final').show();
+    	$('.section').hide();
     	setTimeout(function(){$('.nuevo_descuento').submit()}, 2000)
 		});
-		    
-		$('.step_done').live('click', function(){  
-				$active = $('.step_active');          
-		    if($active.hasClass('step_last')){
-		    	$active
-		    			.addClass('step_hidden')
-		    			.removeClass('step_active');
-		    }
-
-	    	$('.enviar_dscto')
-		    		.removeClass('enviar_dscto')
-		    		.addClass('siguiente_paso');
-
-		    $active.not('.step_last')
-		        .removeClass('step_active')
-		        .addClass('step_done');
-
-		    $(this)
-		        .removeClass('step_done')
-		        .addClass('step_active');
-		});
-
 
 		$('.seguidores_checkbox').click(function(){
 			$this = $(this);
@@ -203,6 +167,47 @@
 				$('.seguidores_checkbox:checked').click();
 			}
 		});
+
+    $('.section').on('click', function() {
+      $('.section_active').toggleClass('section_active');
+      $(this).toggleClass('section_active');
+    });
+    
+    $('.siguiente_paso').click(function(){
+			$active = $('.section_active');
+			$active.find('.lolbox-error').remove();
+
+			if($active.find('input[type=radio]').length > 0){
+				if($active.find('input[type=radio]:checked').length == 0){
+					$active.find('h3').before('<div class="lolbox-error">Debes escoger una de las opciones</div>');
+					return;
+				}
+			}
+
+			if($active.find('textarea').length == 1){
+				if($active.find('textarea').val().length == 0){		
+					$active.find('h3').before('<div class="lolbox-error">Debes escribir las condiciones del descuento</div>');
+					return;
+				}
+			}
+
+      $active.toggleClass('section_active').next('.section').toggleClass('section_active').toggleClass('section_hidden');
+
+	    if($active.find('input[type=radio]').length){
+	    	var chosenOption = $active.find('input[type=radio]:checked').next('label').text();
+	    }else if($active.find('textarea').length){
+	    	var chosenOption = $active.find('textarea').val().substr(0, 10) + '...';
+	    }
+
+	    $active.find('h3 > small').text(chosenOption)
+
+	    if($('.section_active').next('div').hasClass('section_final')){
+	    	$('.siguiente_paso')
+	    		.removeClass('siguiente_paso')
+	    		.addClass('enviar_dscto');
+	    }
+	  });
+
 	</script>
 {% endblock %}
 
@@ -239,20 +244,17 @@
 				{% endif %}| 
 			</li>
 		</ul>
-		<form class="filtrar_por">
-			{% if recomendo == null %}
-				<a class="han_recomendado" href="?recomendo">Han recomendado {{lugar.nombre-}}</a>
-			{% else %} 
-				<a class="han_recomendado" href="{{ path('_reporte_descuentos_nuevo', {'id':id, 'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Ver todos los seguidores</a>
-			{% endif %}
-			<select class="comunas" name="comuna" style="width: 220px">
-				<option value="todas">Todas</option>
-				{% for comuna in comunas %}
-					<option {% if comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.slug}}">{{comuna.nombre}}</option>
-				{% endfor %}
-			</select>
-			<input type="submit" value="filtrar">
-		</form>
+		{% if recomendo == null %}
+			<a class="han_recomendado" href="?recomendo">Han recomendado {{lugar.nombre-}}</a>
+		{% else %} 
+			<a class="han_recomendado" href="{{ path('_reporte_descuentos_nuevo', {'id':id, 'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Ver todos los seguidores</a>
+		{% endif %}
+		<select class="comunas" name="comuna" style="width: 220px">
+			<option value="todas">Todas</option>
+			{% for comuna in comunas %}
+				<option {% if comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.slug}}">{{comuna.nombre}}</option>
+			{% endfor %}
+		</select>
 	</div>
 
 	<div class="seleccionar_todos_ninguno">
@@ -262,30 +264,32 @@
 
 	<div class="caja_seguidores seleccion">
 		{% for seguidor in seguidores %}
-		<input type="checkbox" value="{{seguidor.usuarioSlug}}" class="seguidores_checkbox" name="seguidores[]" />
-		<div class="seguidor">
-			<div class="seguidor_imagen">
-				<img src="{{ ('assets/images/usuarios/'~seguidor.usuarioImagen) | apply_filter('tiny_usuario')}}" height="30" width="30" />
-			</div>
-			<div class="seguidor_datos">
-				<a href="{{ path('showUsuario', {'param': seguidor.usuarioSlug}) }}">{% if seguidor.usuarioNombre != '' %} {{seguidor.usuarioNombre}} {{seguidor.usuarioApellido}} {% else %} {{seguidor.usuarioSlug}} {% endif %}</a>
-				<p class="comuna">{% if seguidor.comunaNombre %} {{seguidor.comunaNombre}} {% endif %}</p>
-			</div>
-			<div class="seguidor_iconos">
-				<div class="numero_recomendaciones">
-					<p class="valor">{{seguidor.totalRecomendaciones}}</p>
+		<div class="seguidor_container todas {{seguidor.comunaSlug}}">
+			<input type="checkbox" value="{{seguidor.usuarioSlug}}" class="seguidores_checkbox" name="seguidores[]" />
+			<div class="seguidor">
+				<div class="seguidor_imagen">
+					<img src="{{ ('assets/images/usuarios/'~seguidor.usuarioImagen) | apply_filter('tiny_usuario')}}" height="30" width="30" />
 				</div>
-				<div class="numero_descuentos">
-					<p class="valor">{{seguidor.totalDescuentos}}</p>
+				<div class="seguidor_datos">
+					<a href="{{ path('showUsuario', {'param': seguidor.usuarioSlug}) }}">{% if seguidor.usuarioNombre != '' %} {{seguidor.usuarioNombre}} {{seguidor.usuarioApellido}} {% else %} {{seguidor.usuarioSlug}} {% endif %}</a>
+					<p class="comuna">{% if seguidor.comunaNombre %} {{seguidor.comunaNombre}} {% endif %}</p>
 				</div>
-				<div class="numero_be">
-					<p class="valor">{{seguidor.totalBe}}</p>
-				</div>
-				<div class="recomendacion_lugar {% if seguidor.recomendo %}si{% else %}no{% endif %}">
-					{% if seguidor.recomendo %}			
-						<a class="link_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }}" target="_blank"></a>
-					{% else %}
-					{% endif %}
+				<div class="seguidor_iconos">
+					<div class="numero_recomendaciones">
+						<p class="valor">{{seguidor.totalRecomendaciones}}</p>
+					</div>
+					<div class="numero_descuentos">
+						<p class="valor">{{seguidor.totalDescuentos}}</p>
+					</div>
+					<div class="numero_be">
+						<p class="valor">{{seguidor.totalBe}}</p>
+					</div>
+					<div class="recomendacion_lugar {% if seguidor.recomendo %}si{% else %}no{% endif %}">
+						{% if seguidor.recomendo %}			
+							<a class="link_recomendacion" href="{{ path('_recomendacion', {'slug': lugar.slug, 'usuarioSlug': seguidor.usuarioSlug }) }}" target="_blank"></a>
+						{% else %}
+						{% endif %}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -319,7 +323,7 @@
 <div style="display:none">
 	<div class="lolbox">
 		<form method="post" class="nuevo_descuento" action="{{ path('_reporte_descuentos_enviar', {'slug': lugar.slug, 'id': id}) }}">
-			<div class="step_static">
+			<div class="section">
 				<div class="participantes_concurso">
 					<div class="cantidad_participantes_izq"></div>
 					<div class="cantidad_participantes seleccionados">
@@ -328,7 +332,7 @@
 					<div class="cantidad_participantes_der"></div>
 				</div>
 			</div>
-			<div class="step_active">
+			<div class="section section_active">
 					<h3>1. ¿Que tipo de descuento quieres regalar? <small></small></h3>
 					<div class="step_content">
 						<ul class="rango_descuentos">
@@ -341,7 +345,7 @@
 						</ul>
 					</div>
 			</div>
-			<div class="step_hidden">
+			<div class="section section_hidden">
 			    <h3>2. ¿Cuanto tiempo quieres que dure el descuento? <small></small></h3>
 			    <div class="step_content">
 						<ul class="rango_tiempo">
@@ -352,7 +356,7 @@
 						</ul>		
 					</div>    
 			</div>
-			<div class="step_hidden">
+			<div class="section section_hidden">
 			    <h3>3. ¿Cuáles son las condiciones de uso del descuento?<small></small></h3>
 			    <div class="step_content">
 			    	<textarea class="textarea" name="condiciones" placeholder="* Escribe acá todas las restricciones de uso de las Gift Cards por día, tipo de producto, horarios de uso, etc.                                                                                                                           Ej. Sólo canjeable de martes a jueves previa reserva al 2235764."></textarea>
@@ -360,13 +364,13 @@
 de atención del local.</p>
 			    </div>
 			</div>
-			<div class="step_hidden step_last">
+			<div class="section section_hidden section_last">
 			    <h4>Prepárate...</h4>
 			    <div class="step_content">
 			    	<p class="tip center">Haz click en el botón y envía tus descuentos ahora:</p>
 			    </div>
 			</div>
-			<div class="step_hidden step_final">
+			<div class="section_hidden section_final">
 			    <div class="exito_envio_dscto">
 			    	<img class="imagen_exito" src="{{ asset('assets/images/reporte/imagen_exito_envio.png') }}" height="121" width="120" />
 			    	<p>¡Felicitaciones tus descuentos han sido enviados con exito!</p>

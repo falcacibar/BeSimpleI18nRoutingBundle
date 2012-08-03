@@ -876,6 +876,13 @@ a
                     background: url('../../images/reporte/gift_card_canjeada.png') no-repeat 0 -29px
 
         /* Mis seguidores */
+        .seguidor_container 
+            -webkit-transition-duration: 0.8s
+            -moz-transition-duration: 0.8s
+            -ms-transition-duration: 0.8s
+            -o-transition-duration: 0.8s
+            transition-duration: 0.8s
+
         .seguidores
             float: left
             margin: 50px 0
@@ -1154,6 +1161,7 @@ a
 /* Lightbox selección Dscto. */
 .fancybox-outer, .fancybox-inner
     background: white
+    overflow: hidden
 
 .lolbox
     background: $blanco   
@@ -1161,6 +1169,7 @@ a
     display: block
     height: 570px
     width: 570px
+    overflow: hidden
 
     .lolbox-error
         @include borde_redondeado_mediano
@@ -1171,59 +1180,49 @@ a
         padding: 10px
         width: 430px
 
-    .step_static, .step_done
+    .section
         @include box_shadow_ccc
         background: #FAFAFC
-        display: block  
-        height: 30px
+        display: block
         margin: 0 0 20px
         padding: 15px 0
-        overflow: hidden
         width: 570px
-
-        .participantes_concurso
-            float: left
-            margin: 0 179px
-
-            .cantidad_participantes_izq
-                background: url('../../images/extras/borde_izq_participantes.png') no-repeat 0 0
-                float: left
-                height: 26px
-                width: 6px
-
-            .cantidad_participantes_der
-                background: url('../../images/extras/borde_der_participantes.png') no-repeat 0 0
-                float: left
-                height: 26px
-                width: 6px
-
-            .cantidad_participantes
-                background: $azul_participantes
-                color: $gris_666
-                font:
-                    size: 11px
-                float: left
-                height: 12px
-                padding: 7px 5px
-                text-align: center
-                width: 190px
-
-                .numero_participantes
-                    @include borde_redondeado_grande
-                    background: $gris_666
-                    color: $blanco
-                    padding: 3px 6px
-
-                .seguidores_seleccionados
-                    color: $gris_444
-                    font:
-                        size: 12px
-    
-    .step_active
-        display: block
-        height: auto
-        margin: 0 60px
+        height: 30px
         overflow: hidden
+        -moz-transition: all .1s linear
+        -webkit-transition: all .1s linear
+        transition: all .1s linear
+
+        h3
+            font:
+                size: 12px
+            text-align: left             
+            margin: 0 0 0 20px
+            width: 550px
+            display: block
+
+        small
+            background: $gris_666
+            color: $blanco
+            display: inline-block
+            font:
+                weight: bold
+            margin: 0 0 0 5px
+            padding: 5px
+
+        .step_content
+            display: none
+
+    .section_hidden
+        display: none
+
+    .section_last
+        height: 100px
+
+    .section_active
+        box-shadow: none
+        background: white
+        height: 200px
 
         h3, h4
             font:
@@ -1232,9 +1231,11 @@ a
             text-align: center             
             margin: 20px 0 40px
             width: 100%
+            display: block
 
         h4
             margin: 40px 0 10px
+            display: block
         
         small
             display: none
@@ -1245,6 +1246,7 @@ a
             font:
                 size: 14px
             overflow: hidden
+            display: block
 
             .rango_descuentos, .rango_tiempo
                 height: 160px
@@ -1289,6 +1291,45 @@ a
 
             .center
                 text-align: center
+
+    .participantes_concurso
+        float: left
+        margin: 0 179px
+
+        .cantidad_participantes_izq
+            background: url('../../images/extras/borde_izq_participantes.png') no-repeat 0 0
+            float: left
+            height: 26px
+            width: 6px
+
+        .cantidad_participantes_der
+            background: url('../../images/extras/borde_der_participantes.png') no-repeat 0 0
+            float: left
+            height: 26px
+            width: 6px
+
+        .cantidad_participantes
+            background: $azul_participantes
+            color: $gris_666
+            font:
+                size: 11px
+            float: left
+            height: 12px
+            padding: 7px 5px
+            text-align: center
+            width: 190px
+
+            .numero_participantes
+                @include borde_redondeado_grande
+                background: $gris_666
+                color: $blanco
+                padding: 3px 6px
+
+            .seguidores_seleccionados
+                color: $gris_444
+                font:
+                    size: 12px
+
 
     .step_done
         padding: 23px 0
