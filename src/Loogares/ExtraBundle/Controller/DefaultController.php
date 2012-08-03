@@ -103,8 +103,9 @@ class DefaultController extends Controller
 
         $ciudadesHabilitadas = array(
             'santiago-de-chile' => 'santiago-de-chile',
+            'valparaiso-vina-del-mar' => 'valparaiso-vina-del-mar',
             'buenos-aires' => 'buenos-aires',
-            'valparaiso-vina-del-mar' => 'valparaiso-vina-del-mar'
+            'sao-paulo' => 'sao-paulo'
         );
 
         //Ciudad antigua
@@ -113,6 +114,8 @@ class DefaultController extends Controller
         if(!in_array($slug, $ciudadesHabilitadas)){
             if(preg_match('/Argentina|Peru/', $ipPais->getCountry())){
                 return $this->redirect($this->generateUrl('locale', array('slug' => 'buenos-aires')));
+            }else if(preg_match('/Brazil|Brasil/', $ipPais->getCountry())){
+                return $this->redirect($this->generateUrl('locale', array('slug' => 'sao-paulo')));
             }
             return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
         }
@@ -172,10 +175,11 @@ class DefaultController extends Controller
         $recomendacionDelDia = $rr->getRecomendacionDelDia($ciudad['id']);
 
         $previewRecDia = '';
-        if(strlen($recomendacionDelDia->getTexto()) > 160) {
+    
+        if($recomendacionDelDia && strlen($recomendacionDelDia->getTexto()) > 160) {
             $previewRecDia = substr($recomendacionDelDia->getTexto(),0,159).'...';
         }
-        else {
+        else if($recomendacionDelDia){
             $previewRecDia = $recomendacionDelDia->getTexto();
         }
 

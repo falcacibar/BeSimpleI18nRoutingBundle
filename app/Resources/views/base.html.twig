@@ -3,6 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta property="fb:app_id" content="251885084895009" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ app.request.uri }}" />
         {% block meta %}{% endblock %}
         <title>{% block title %}Loogares.com{% endblock %}</title>
         {% stylesheets output='assets/css/compressed.css' filter='yui_css,sass'
@@ -11,6 +13,7 @@
         {% endstylesheets %}
         {% block stylesheets %}{% endblock %}
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+        <script src="{{ asset('assets/js/jquery.cookie.js') }}"></script>
         <script type="text/javascript">
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-5287070-1']);
@@ -21,6 +24,13 @@
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	
+            if(/iP(od|hone|ad)/g.test(navigator.userAgent) && ($.cookie('iThingMessage') == null)) {
+                $.cookie('iThingMessage', 'true', { 'domain' : '.loogares.com' , 'expires' : 2 });
+                if(confirm('{{ "general.iphone.inicio" | trans }}')) {
+                    location.href = 'itms-apps://itunes.apple.com/id/app/loogares.com/id544478345';
+                }
+            }
           })();
         </script>
         <link rel="stylesheet" href="{{ asset('assets/css/compressed.css') }}" type="text/css" media="screen" />

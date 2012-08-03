@@ -43,6 +43,9 @@
         GS_googleEnableAllServices();
     </script>
     <script type='text/javascript'>
+        GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','patrocinado','largo')}}_{{app.session.get('ciudad').slug}}");
+    </script>
+    <script type='text/javascript'>
         GA_googleAddSlot("{{adsense_service}}", "{{ad('static','ficha','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
     </script>
     <script type='text/javascript'>
@@ -121,8 +124,8 @@
                     FB.ui( {
                         'method'    : 'feed' ,
                         'link'      : '{{ data_url }}' ,
-                        'name'      : '{{ "lugar.recomendacion.compartir.facebook"|trans|format(lugar.nombre, app.session.flash("flash_recomendacion")) }}',
-                        'caption'   : '{{ app.session.flash("flash_recomendacion_estrellas") }}'
+                        'name'      : '{{ "lugar.recomendacion.compartir.facebook"|trans|format(lugar.nombre, app.session.flash("flash_recomendacion_estrellas")) }}',
+                        'caption'   : '{{ app.session.flash("flash_recomendacion")|raw }}'
                     }, function(response) {
                         // TODO: si falla intentar denuevo
                         if( typeof(response) != 'undefined' && response != null && !response.post_id
@@ -537,12 +540,14 @@
             </div>
         </div>
 
-        <!--
         <div class="resultado_patrocinado_ficha_informativa">
-            Banners Concursos del sitio
+            <!-- Banners Concursos del sitio -->
             {#% include "LoogaresExtraBundle:Default:resultados_patrocinados_banner.html.twig"%#}
+
+            <script type='text/javascript'>
+                GA_googleFillSlot("{{ad('static','ficha','patrocinado','largo')}}_{{app.session.get('ciudad').slug}}");
+            </script>
         </div>
-        -->
 
         {% render 'LoogaresLugarBundle:Lugar:listadoRecomendaciones' with {'slug': lugar.slug, 'usuarioSlug': lugar.usuarioSlug , 'enLugar' : true}%}
 

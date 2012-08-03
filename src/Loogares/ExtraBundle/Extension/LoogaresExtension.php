@@ -46,6 +46,8 @@ class LoogaresExtension extends \Twig_Extension {
                 'search' => array(
                     'top' => array(
                         'medium' => 'search_top_medium_300x250'),
+                    'patrocinado' => array(
+                        'largo' => 'busquedas_top_largo_602x184'),
                     'concursos' => array(
                         'medium' => 'concursos_activos_search_185x132')),
                 
@@ -54,6 +56,8 @@ class LoogaresExtension extends \Twig_Extension {
                         'medium' => 'ficha_top_medium_300x250'),
                     'bottom' => array(
                         'medium' => 'ficha_bottom_medium_300x250'),
+                    'patrocinado' => array(
+                        'largo' => 'fichaslugar_top_largo_640x184'),
                     'concursos' => array(
                         'medium' => 'concursos_activos_ficha_198x136')),
                 

@@ -141,5 +141,13 @@ function getTipo(tipo){
       }else if(tipo == 'nightclub'){
           return ['Menos de $100', '$100 - $200', '$200 - $300', '$300 - $500', 'Más de $500'];
       }
+    }else if($('body').hasClass('brasil')){
+      if(tipo == 'dondeComer'){
+          return ['Menos de R$26', 'R$26 - R$70', 'R$70 - R$100', 'R$100 - R$160', 'Más de R$160'];
+      }else if(tipo == 'dondeDormir'){
+          return ['Mínimo', 'Barato', 'Medio', 'Alto', 'Máximo'];
+      }else if(tipo == 'nightclub'){
+          return ['Menos de R$100', 'R$100 - R$200', 'R$200 - R$300', 'R$300 - R$500', 'Más de R$500'];
+      }
     }
 }

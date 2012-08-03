@@ -41,6 +41,9 @@
 	<script type='text/javascript'>
     	GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','concursos','medium')}}_{{app.session.get('ciudad').slug}}");
 	</script>
+	<script type='text/javascript'>
+    	GA_googleAddSlot("{{adsense_service}}", "{{ad('static','search','patrocinado','largo')}}_{{app.session.get('ciudad').slug}}");
+	</script>
   <script type='text/javascript'>
   	{% if categoria.slug is defined %}
       	GA_googleAddSlot("{{adsense_service}}", "{{ad('categoria', categoria.id,'top','medium')}}_{{app.session.get('ciudad').slug}}");
@@ -393,12 +396,14 @@
 	        </div>
 
 	        <div class="listado_resultados">
-	        <!--
 	        <div class="resultado_patrocinado_busqueda">
-						Banners Concursos del sitio
+            <!-- Banners Concursos del sitio -->
 						{#% include "LoogaresExtraBundle:Default:resultados_patrocinados_banner.html.twig"%#}
+
+						<script type='text/javascript'>
+								GA_googleFillSlot("{{ad('static','search','patrocinado','largo')}}_{{app.session.get('ciudad').slug}}");
+			    	</script>
 					</div>
-					-->
 					
 			{% for lugar in lugares %}
 				<div class="resultado-busqueda">
