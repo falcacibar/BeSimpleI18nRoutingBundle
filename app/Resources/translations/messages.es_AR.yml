@@ -1,5 +1,7 @@
 # Locale 'es_ar' General
 general:
+    iphone:
+        inicio:¿Buscás los mejores lugares en tu ciudad?\nTal vez querés buscarlos desde la nueva app de Loogares.com\n¿Descargar ahora?
     facebook:
         reintentar: "¿El comentario no se ha podido enviar, deseas intentarlo nuevamente?"
     header:

@@ -124,8 +124,8 @@
                     FB.ui( {
                         'method'    : 'feed' ,
                         'link'      : '{{ data_url }}' ,
-                        'name'      : '{{ "lugar.recomendacion.compartir.facebook"|trans|format(lugar.nombre, app.session.flash("flash_recomendacion")) }}',
-                        'caption'   : '{{ app.session.flash("flash_recomendacion_estrellas") }}'
+                        'name'      : '{{ "lugar.recomendacion.compartir.facebook"|trans|format(lugar.nombre, app.session.flash("flash_recomendacion_estrellas")) }}',
+                        'caption'   : '{{ app.session.flash("flash_recomendacion")|raw }}'
                     }, function(response) {
                         // TODO: si falla intentar denuevo
                         if( typeof(response) != 'undefined' && response != null && !response.post_id
