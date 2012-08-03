@@ -378,6 +378,8 @@ $(document).ready(function(){
         var paisSeleccionado = $('.pais option:selected').text();
             if(paisSeleccionado == 'Argentina'){
                 $('.codigo_area').text('+54');
+            }else if(paisSeleccionado == 'Brasil'){
+                $('.codigo_area').text('+55');
             }else{
                 $('.codigo_area').text('+56');
             }

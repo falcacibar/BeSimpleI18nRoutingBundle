@@ -7,6 +7,8 @@ function initializeMap(position){
   		var latlng = new google.maps.LatLng(-33.038555708025, -71.628670692444);
   	}else if($body.hasClass('buenos-aires')){
   		var latlng = new google.maps.LatLng(-34.603655367402, -58.381553385181);
+  	}else if($body.hasClass('sao-paulo')){
+  		var latlng = new google.maps.LatLng(-23.548943, -46.638818);
   	}else{
   		var latlng = new google.maps.LatLng(-33.43692082916139, -70.63445091247559);
   	}
