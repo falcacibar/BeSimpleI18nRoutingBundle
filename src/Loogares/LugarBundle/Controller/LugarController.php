@@ -2195,67 +2195,6 @@ class LugarController extends Controller{
         ));
     }
 
-    public function reporteLocalAction(Request $request, $slug, $id) {
-        $em = $this->getDoctrine()->getEntityManager();
-        $cr = $em->getRepository("LoogaresBlogBundle:Concurso");
-        $dr = $em->getRepository("LoogaresUsuarioBundle:Dueno");
-        $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
-        $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
-        $formErrors = array();
-
-        $lugar = $lr->findOneBySlug($slug);
-        $dueno = $lugar->getDueno();
-
-        if($request->getMethod() == 'POST') {
-            if(!$request->request->get('reporte')) {
-                if($request->request->get('password') == '') {
-                    $formErrors['blanco'] = "Debes especificar un password";
-                }
-                else if(sha1($request->request->get('password')) != $lugar->getDueno()->getPassword()) {
-                    $formErrors['password'] = "El password no es válido";
-                }
-
-                if(sizeOf($formErrors) == 0) {
-                    // Está todo bien, redireccionamos a reporte correspondiente
-                    $concurso = $cr->find($id);
-
-                    // Obtenemos ganadores si existen
-                    $ganadores = $cr->getGanadoresConcurso($concurso);
-
-                    // Asociamos a cada ganador si el usuario ha recomendado con anterioridad o no
-                    foreach($ganadores as $ganador) {
-                        $usuario = $ganador->getParticipante()->getUsuario();
-                        $lugar = $ganador->getParticipante()->getConcurso()->getPost()->getLugar();
-                        $recomendacion = $rr->findOneBy(array('usuario' => $usuario->getId(), 'lugar' => $lugar->getId()));
-                        if(!$recomendacion) {
-                            $ganador->recomendo = false;
-                        }
-                        else {
-                            $ganador->recomendo = true;
-                            $ganador->recomendacion = $recomendacion;
-                        }
-                    }
-                    $concurso->ganadores = $ganadores;
-
-                    return $this->render('LoogaresLugarBundle:Lugares:reporte_local.html.twig', array(
-                        'concurso' => $concurso,
-                        'dueno' => $dueno
-                    ));
-                }
-            }
-            else {
-
-            }
-        }
-
-        return $this->render('LoogaresLugarBundle:Lugares:reporte_autenticacion.html.twig', array(
-            'lugar' => $lugar,
-            'id' => $id,
-            'errors' => $formErrors
-        ));
-    }
-
-
     public function chequearEmail($formreq) {
         $formErrors = array();
 
