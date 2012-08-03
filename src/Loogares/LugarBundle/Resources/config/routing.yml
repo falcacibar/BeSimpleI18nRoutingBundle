@@ -18,7 +18,6 @@ _lugaresGeoJSON:
     pattern: /ajax/geo/lugares
     defaults: { _controller: LoogaresLugarBundle:Ajax:lugaresGeoJSON}
 
-
 _otrosLugaresEnElArea:
     pattern: /ajax/{accion}
     defaults: { _controller: LoogaresLugarBundle:Ajax:otrosLugaresEnElArea }
@@ -95,7 +94,6 @@ _borrarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/borrar
     defaults: { _controller: LoogaresLugarBundle:Lugar:accionRecomendacion, borrar: true}
 
-
 _lugarRecomendacion:
     pattern: /lugar/{slug}/recomendacion
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendacion}
@@ -111,44 +109,40 @@ _lugarMapa:
 _reportarLugar:
     pattern: /lugar/{slug}/reportar
     defaults: { _controller: LoogaresLugarBundle:Lugar:reportarLugar }
+
 _reportarFoto:
     pattern: /lugar/{slug}/galeria/{id}/reportar
     defaults: { _controller: LoogaresLugarBundle:Lugar:reportarFoto }
+
 _reportarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/reportar
     defaults: { _controller: LoogaresLugarBundle:Lugar:reportarRecomendacion }
+
 _reclamarLugar:
     pattern: /lugar/{slug}/dueno
     defaults: { _controller: LoogaresLugarBundle:Lugar:reclamarLugar }
+
 _enviarLugar:
     pattern: /lugar/{slug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarLugar }
 
-_reporteLocal:
-    pattern: /lugar/{slug}/reportes/{id}
-    defaults: { _controller: LoogaresLugarBundle:Lugar:reporteLocal }
-_reporteLocalCupon:
-    pattern: /lugar/{slug}/reportes/{id}/{ganador}
-    defaults: { _controller: LoogaresLugarBundle:Ajax:cuponGanador }
-
 _enviarRecomendacion:
     pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/enviar
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarRecomendacion }
+
 _pedidosLugar:
     pattern: /lugar/{slug}/{tipo}
     defaults: { _controller: LoogaresLugarBundle:Lugar:pedidosLugar }
     requirements:
         tipo: reservas|pedidos
 
-
 #
-
 # NAVEGACION
 #
+
 _buscar:
     pattern: /{slug}/buscar
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _buscar }
-
 
 _categoria_subcategoria_sector:
     pattern: /{slug}/sector/{sector}/categoria/{categoria}/{subcategoria}
@@ -185,6 +179,7 @@ _subcategoria:
 _comuna:
     pattern: /{slug}/comuna/{term}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esComuna: true }
+
 _sector:
     pattern: /{slug}/sector/{term}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esSector: true }
