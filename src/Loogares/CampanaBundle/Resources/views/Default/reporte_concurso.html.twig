@@ -19,10 +19,10 @@
 				<p>{{concurso.descripcion}}</p><br />
 
 				<p><strong>{{'reporte_local.titulo_condiciones'|trans}}</strong></p>
-				<p>{{concurso.post.condiciones | raw}}</p>
+				<p>{{concurso.post.condiciones | raw}}</p><br />
 
-				<p><strong>Fecha Termino</strong></p>
-				<p>Fecha Limite: {{ concurso.fechaTermino|date('y-m-d') }}</p>
+				<p><strong>Válido hasta</strong></p>
+				<p>{{concurso.fechaTerminoConcurso | date('d/m/Y')}}</p>
 			</div>
 		</div>
 
@@ -60,7 +60,7 @@
 											<p class="cupon_titulo">{{concurso.titulo}}</p>
 											<p class="usuario_cupon">{{ganador.participante.usuario.nombre}} {{ganador.participante.usuario.apellido}}</p>
 											<p class="cupon_codigo"><strong>{{'usuario.gift_card.codigo'|trans}}</strong> {{ganador.codigo}}</p>
-											<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{concurso.post.fechaTermino|date('d/m/y')}}</p>
+											<p class="cupon_fecha_termino"><strong>{{'usuario.gift_card.valido'|trans}}</strong> {{concurso.fechaTerminoConcurso | date('d/m/Y')}}</p>
 										</div>
 									</div>
 									<div class="bloque_detalles">
