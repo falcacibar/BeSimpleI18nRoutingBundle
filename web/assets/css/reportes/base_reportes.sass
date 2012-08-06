@@ -261,6 +261,7 @@ a
             color: $gris_ccc
             font:
                 size: 11px
+            height: 12px
             margin: 0 0 10px
 
             a
@@ -941,6 +942,10 @@ a
                 float: left
                 width: 980px
 
+                .seguidor_container
+                    float: left
+                    width: 345px
+
                 .seguidores_checkbox
                     float: left
                     margin: 11px 5px 56px 2px
@@ -962,6 +967,7 @@ a
                         float: left
                         font:
                             size: 12px
+                        height: 30px
                         padding: 10px 10px 10px 0
                         width: 244px
 
@@ -1008,6 +1014,7 @@ a
                             background: url('../../images/reporte/botones_panel_dueno.png') 0 -390px
                             color: $gris_ccc
                             float: right
+                            height: 15px
                             margin: 0 0 0 10px
 
                             &:hover
@@ -1015,12 +1022,14 @@ a
                                 color: $gris_999
 
                             .valor
+                                height: 11px
                                 margin: 0 0 0 17px
 
                         .numero_descuentos
                             background: url('../../images/reporte/botones_panel_dueno.png') 0 -427px
                             color: $gris_ccc
                             float: right
+                            height: 15px
                             margin: 0 0 0 10px
 
                             &:hover
@@ -1028,12 +1037,14 @@ a
                                 color: $gris_999
 
                             .valor
+                                height: 11px
                                 margin: 0 0 0 19px
 
                         .numero_recomendaciones
                             background: url('../../images/reporte/botones_panel_dueno.png') 0 -353px
                             color: $gris_ccc
                             float: right
+                            height: 15px
                             margin: 0 0 0 10px
 
                             &:hover
@@ -1041,6 +1052,7 @@ a
                                 color: $gris_999
 
                             .valor
+                                height: 11px
                                 margin: 0 0 0 20px
 
             .seleccion
@@ -1177,6 +1189,7 @@ a
         color: $blanco
         display: block
         height: 14px
+        margin: 0 60px
         padding: 10px
         width: 430px
 
@@ -1184,7 +1197,7 @@ a
         @include box_shadow_ccc
         background: #FAFAFC
         display: block
-        margin: 0 0 20px
+        margin: 0 0 10px
         padding: 15px 0
         width: 570px
         height: 30px
@@ -1193,7 +1206,7 @@ a
         -webkit-transition: all .1s linear
         transition: all .1s linear
 
-        h3
+        h3, h4
             font:
                 size: 12px
             text-align: left             
@@ -1216,20 +1229,17 @@ a
     .section_hidden
         display: none
 
-    .section_last
-        height: 100px
-
     .section_active
         box-shadow: none
         background: white
-        height: 200px
+        height: 235px
 
         h3, h4
             font:
                 size: 16px
                 weight: bold
             text-align: center             
-            margin: 20px 0 40px
+            margin: 10px 0 30px
             width: 100%
             display: block
 
@@ -1252,7 +1262,7 @@ a
                 height: 160px
                 float: left
                 list-style: none
-                margin: 0 0 0 51px
+                margin: 0 0 0 85px
                 padding: 0
                 width: 90px
 
@@ -1267,14 +1277,14 @@ a
 
             .rango_tiempo
                 height: 120px
-                margin: 0 140px
+                margin: 0 230px
                 width: 110px
 
             .textarea
                 border: 1px solid $gris_eee
                 height: 80px
                 line-height: 20px
-                margin: 0 20px
+                margin: 0 80px
                 width: 404px
 
                 &:hover
@@ -1285,12 +1295,15 @@ a
 
             .tip
                 font:
-                    size: 12px
-                margin: 10px 20px 0 
+                    size: 11px
+                margin: 5px 80px 0 
                 line-height: 18px
 
             .center
                 text-align: center
+
+    .section_last
+        height: 90px !important
 
     .participantes_concurso
         float: left
@@ -1330,12 +1343,11 @@ a
                 font:
                     size: 12px
 
-
     .step_done
         padding: 23px 0
         height: 14px
 
-        h3
+        h3, h4
             font:
                 size: 12px
             text-align: left             
@@ -1353,7 +1365,6 @@ a
 
         .step_content
             display: none
-
 
     .step_hidden
         display: none   
