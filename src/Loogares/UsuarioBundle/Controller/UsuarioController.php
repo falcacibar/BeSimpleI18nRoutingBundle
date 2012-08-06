@@ -459,14 +459,22 @@ class UsuarioController extends Controller
             'tipoPremio' => $tipo
         ));
 
+        // return $template;
         $html = $template->getContent();
 
         require(__DIR__.'/../../../../vendor/dompdf/dompdf_config.inc.php');
         $dompdf = new \DOMPDF();
         $dompdf->load_html($html);
-        //$dompdf->set_base_path("http://localhost");
+        // $dompdf->set_base_path("http://localhost");
         $dompdf->render();
-        $dompdf->stream("cupon-".$usuarioResult->getSlug()."-".$cuponDetalle['codigo'].".pdf", array('Attachment' => 0));
+        # $dompdf->stream("cupon-".$usuarioResult->getSlug()."-".$cuponDetalle['codigo'].".pdf", array('Attachment' => 0));
+        $pdfout = $dompdf->output();
+
+        return new Response(&$pdfout, 200, array(
+                        'Content-Type'          => 'application/pdf' ,
+                        'Content-Disposition'   =>  'inline; filename="'.$cuponDetalle['codigo'].'.pdf' ,
+                        'Content-Length'        => (string) mb_strlen($pdfout, '8bit')
+        ));
     }
 
     public function editarAction($param) {
