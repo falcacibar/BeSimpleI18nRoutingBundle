@@ -111,22 +111,6 @@
 			fitToView: false
 		});
 
-		$('.enviar_dscto').on('click', function(){
-			$active = $('.section_active');
-			$active.find('.lolbox-error').remove();
-
-    	if($('input[class=seguidores_checkbox]:checked').length == 0){
-				$active.find('h4').after('<div class="lolbox-error">Debes seleccionar usuarios para enviar el descuento</div>');
-				return;
-			}
-
-    	$(this).remove();
-    	$('.section:first').append($('input[class=seguidores_checkbox]:checked'))
-    	$('.section_final').show();
-    	$('.section').hide();
-    	setTimeout(function(){$('.nuevo_descuento').submit()}, 2000)
-		});
-
 		$('.seguidores_checkbox').click(function(){
 			$this = $(this);
 			if($this.is(':checked')){
@@ -160,14 +144,14 @@
 					return;
 				}
 			}
-
+/*
 			if($active.find('textarea').length == 1){
 				if($active.find('textarea').val().length == 0){		
 					$active.find('h3').before('<div class="lolbox-error">Debes escribir las condiciones del descuento</div>');
 					return;
 				}
 			}
-
+*/
       $active.toggleClass('section_active').next('.section').toggleClass('section_active').toggleClass('section_hidden');
 
 	    if($active.find('input[type=radio]').length){
@@ -181,7 +165,22 @@
 	    if($('.section_active').next('div').hasClass('section_final')){
 	    	$('.siguiente_paso')
 	    		.removeClass('siguiente_paso')
-	    		.addClass('enviar_dscto');
+	    		.addClass('enviar_dscto')
+					.on('click', function(){
+						$active = $('.section_active');
+						$active.find('.lolbox-error').remove();
+
+			    	if($('input[class=seguidores_checkbox]:checked').length == 0){
+							$active.find('h4').after('<div class="lolbox-error">Debes seleccionar usuarios para enviar el descuento</div>');
+							return;
+						}
+
+			    	$(this).remove();
+			    	$('.section:first').append($('input[class=seguidores_checkbox]:checked'))
+			    	$('.section_final').show();
+			    	$('.section').hide();
+			    	setTimeout(function(){$('.nuevo_descuento').submit()}, 2000)
+					});
 	    }
 	  });
 
@@ -336,7 +335,7 @@
 					</div>    
 			</div>
 			<div class="section section_hidden">
-			    <h3>3. ¿Cuáles son las condiciones de uso del descuento?<small></small></h3>
+			    <h3>3. ¿Cuáles son las condiciones de uso del descuento?</h3>
 			    <div class="step_content">
 			    	<textarea class="textarea" name="condiciones" placeholder="* Escribe acá todas las restricciones de uso de las Gift Cards por día, tipo de producto, horarios de uso, etc.                                                                                                                           Ej. Sólo canjeable de martes a jueves previa reserva al 2235764."></textarea>
 			    	<p class="tip">* Si se deja este campo vacio se considerara su uso dentro del horario normal 
