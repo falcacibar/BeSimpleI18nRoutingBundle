@@ -4,28 +4,6 @@
 		<link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.css') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('assets/css/chosen.css') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.qtip.css') }}" type="text/css" media="screen">
-    <style>
-			p{
-				height:40px;
-			}
-			
-			.section {
-
-			}
-
-				.section h3{
-					height: 40px;
-				}
-
-			.section_hidden {
-				display:none;
-			}
-
-			.section_active {
-			    height: 100px;
-			    background: yellow;
-			}​
-    </style>
 {% endblock %}
 
 {% block javascripts %}
@@ -38,7 +16,6 @@
     	$('.caja_seguidores').isotope({ filter: '.'+$(this).val() });
     })
 		$('.comunas').chosen();
-
 
 		var qtipHide = {
 	    fixed: true,
@@ -134,12 +111,12 @@
 			fitToView: false
 		});
 
-		$('.enviar_dscto').live('click', function(){
+		$('.enviar_dscto').on('click', function(){
 			$active = $('.section_active');
 			$active.find('.lolbox-error').remove();
 
     	if($('input[class=seguidores_checkbox]:checked').length == 0){
-				$active.find('h4').after('<div class="lolbox-error">Error, Selecciona un Seguidor</div>');
+				$active.find('h4').after('<div class="lolbox-error">Debes seleccionar usuarios para enviar el descuento</div>');
 				return;
 			}
 
@@ -241,20 +218,22 @@
 					<p class="selected">Descuentos regalados</p>
 				{% else %} 
 					<a href="?orden=descuentos">Descuentos regalados</a>
-				{% endif %}| 
+				{% endif %}
 			</li>
 		</ul>
-		{% if recomendo == null %}
-			<a class="han_recomendado" href="?recomendo">Han recomendado {{lugar.nombre-}}</a>
-		{% else %} 
-			<a class="han_recomendado" href="{{ path('_reporte_descuentos_nuevo', {'id':id, 'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Ver todos los seguidores</a>
-		{% endif %}
-		<select class="comunas" name="comuna" style="width: 220px">
-			<option value="todas">Todas</option>
-			{% for comuna in comunas %}
-				<option {% if comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.slug}}">{{comuna.nombre}}</option>
-			{% endfor %}
-		</select>
+		<div class="filtrar_por">
+			{% if recomendo == null %}
+				<a class="han_recomendado" href="?recomendo">Han recomendado {{lugar.nombre-}}</a>
+			{% else %} 
+				<a class="han_recomendado" href="{{ path('_reporte_descuentos_nuevo', {'id':id, 'slug': lugar.slug, 'comuna': comuna|default(null), 'orden': orden}) }}">Ver todos los seguidores</a>
+			{% endif %}
+			<select class="comunas" name="comuna" style="width: 220px">
+				<option value="todas">Todas</option>
+				{% for comuna in comunas %}
+					<option {% if comuna.slug == filtrado %}selected="selected"{% endif %}value="{{comuna.slug}}">{{comuna.nombre}}</option>
+				{% endfor %}
+			</select>
+		</div>
 	</div>
 
 	<div class="seleccionar_todos_ninguno">
@@ -365,7 +344,7 @@ de atención del local.</p>
 			    </div>
 			</div>
 			<div class="section section_hidden section_last">
-			    <h4>Prepárate...</h4>
+			    <h4><strong>4. Prepárate...</strong></h4>
 			    <div class="step_content">
 			    	<p class="tip center">Haz click en el botón y envía tus descuentos ahora:</p>
 			    </div>
