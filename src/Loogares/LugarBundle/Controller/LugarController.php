@@ -1870,6 +1870,7 @@ class LugarController extends Controller{
           $this->get('session')->setFlash('error_flash', 'No puedes reportar una recomendación hecha por ti.');
           return $this->redirect($this->generateUrl('_lugar', array('slug' => $lugar->getSlug())));
         }else if($this->get('security.context')->isGranted('ROLE_USER')){
+
             $reportes = $rr->getReportesRecomendacionUsuario($recomendacion->getId(), $this->get('security.context')->getToken()->getUser(), 1);
             if(sizeof($reportes) > 0){
               $this->get('session')->setFlash('error_flash', 'Ya has reportado esta recomendación anteriormente, y aún está en revisión. <br/>Una vez finalizado este proceso, podrás reportar la recomendación nuevamente.');

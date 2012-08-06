@@ -6,6 +6,14 @@ Loogares\LugarBundle\Entity\ReportarRecomendacion:
             targetEntity: Loogares\UsuarioBundle\Entity\Recomendacion
         estado:
             targetEntity: Loogares\ExtraBundle\Entity\Estado
+        usuario:
+            targetEntity: Loogares\UsuarioBundle\Entity\Usuario
+            joinTable:
+                name: reportar_recomendacion
+                joinColumns:
+                    sector:
+                        referencedColumnName: id
+                        nullable: true
     id:
         id:
             type: integer
