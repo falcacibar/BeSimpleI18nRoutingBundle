@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="http://localhost/web/assets/css/imprimir_pdf.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="http://{{ app.request.host ~ asset('assets/css/imprimir_pdf.css') }}" type="text/css" media="screen" />
 	</head>
 	<body>
 		{% set lugar = cupon.lugar %}
@@ -34,7 +34,7 @@
 				<p>{{cupon.condiciones | raw}}</p>
 			{% endif %}
 			</div>
-			<div class="bloque_datos">		
+			<div class="bloque_datos">
 				<p class="titulo_datos_cupon"><a href="{{url('_lugar', {'slug' : lugar.slug})}}" target="_blank">{{lugar.nombre}}</a></p>
 				<br />
 				<p>{{lugar.calle}} {{lugar.numero}}, {{lugar.comuna.nombre}}, {{lugar.comuna.ciudad.nombre}}</p>

@@ -7,6 +7,7 @@ body {
     margin: 0 auto;
     font-size: 12px;
     width: 100%;
+    font-family: arial;
 }
 
 a {
@@ -24,7 +25,7 @@ table, tr, td {
     background: white;
     float: left;
     margin: 0 auto;
-    width: 570px;    
+    width: 570px;
 }
 
     .bloque_premio {
@@ -32,9 +33,9 @@ table, tr, td {
         padding: 40px 20px 20px;
         width: 530px;
     }
-        
+
         .imagen_cupon {
-            width: 120px;            
+            width: 120px;
         }
 
         .texto_cupon {
@@ -47,7 +48,7 @@ table, tr, td {
                 font-weight: bold;
                 margin: 0 0 20px 0;
             }
- 
+
             .cupon_codigo, .cupon_fecha_termino {
                 font-size: 14px;
                 width: 410px;
@@ -81,7 +82,7 @@ table, tr, td {
         }
 
         .facebook_lugar {
-            background: url('http://localhost/web/assets/images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px;
+            background: url('http://www.loogares.com/assets/images/extras/iconos_ficha_lugar.png') no-repeat 0 -71px;
             display: inline-block;
             height: 16px;
             margin: 10px 10px 10px 0;
@@ -89,7 +90,7 @@ table, tr, td {
         }
 
         .twitter_lugar {
-            background: url('http://localhost/web/assets/images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px;
+            background: url('http://www.loogares.com/assets/images/extras/iconos_ficha_lugar.png') no-repeat 0 -92px;
             display: inline-block;
             height: 16px;
             margin: 10px 0;
