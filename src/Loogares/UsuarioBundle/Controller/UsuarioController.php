@@ -470,7 +470,7 @@ class UsuarioController extends Controller
         # $dompdf->stream("cupon-".$usuarioResult->getSlug()."-".$cuponDetalle['codigo'].".pdf", array('Attachment' => 0));
         $pdfout = $dompdf->output();
 
-        return new Response(&$pdfout, 200, array(
+        return new Response($pdfout, 200, array(
                         'Content-Type'          => 'application/pdf' ,
                         'Content-Disposition'   =>  'inline; filename="'.$cuponDetalle['codigo'].'.pdf' ,
                         'Content-Length'        => (string) mb_strlen($pdfout, '8bit')
