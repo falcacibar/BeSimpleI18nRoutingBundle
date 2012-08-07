@@ -5,8 +5,11 @@ Loogares\BlogBundle\Entity\TipoCategoria:
         id:
             type: integer
             generator: { strategy: auto }
-    fields:      
+    fields:
         nombre:
             type: string
         slug:
             type: string
+    indexes:
+        idx_blog_tipo_categoria_slug:
+            columns: ["slug"]

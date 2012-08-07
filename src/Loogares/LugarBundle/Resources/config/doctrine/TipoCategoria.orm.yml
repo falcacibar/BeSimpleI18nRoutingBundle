@@ -23,3 +23,6 @@ Loogares\LugarBundle\Entity\TipoCategoria:
                 - translatable
         prioridad_web:
             type: string
+    indexes:
+        idx_tipo_categoria_slug:
+            columns: ["slug"]

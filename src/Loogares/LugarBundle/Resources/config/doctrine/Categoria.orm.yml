@@ -32,3 +32,6 @@ Loogares\LugarBundle\Entity\Categoria:
             type: smallint
         mostrar_categoria:
             type: smallint
+    indexes:
+        idx_categoria_slug:
+            columns: ["slug"]

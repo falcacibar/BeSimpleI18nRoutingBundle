@@ -2,7 +2,7 @@ Loogares\BlogBundle\Entity\Posts:
     type: entity
     repositoryClass: Loogares\BlogBundle\Repository\PostRepository
     table: blog_posts
-    manyToOne:       
+    manyToOne:
         lugar:
             targetEntity: Loogares\LugarBundle\Entity\Lugar
         ciudad:
@@ -19,7 +19,7 @@ Loogares\BlogBundle\Entity\Posts:
         id:
             type: integer
             generator: { strategy: auto }
-    fields:      
+    fields:
         titulo:
             type: string
         slug:
@@ -67,6 +67,9 @@ Loogares\BlogBundle\Entity\Posts:
             type: smallint
         posicion_home:
             type: smallint
+    indexes:
+        idx_blog_posts_slug:
+            columns: ["slug"]
 
     lifecycleCallbacks:
         prePersist: [ preUpload ]

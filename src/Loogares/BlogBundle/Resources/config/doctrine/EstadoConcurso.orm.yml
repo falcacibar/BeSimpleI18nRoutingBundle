@@ -5,7 +5,7 @@ Loogares\BlogBundle\Entity\EstadoConcurso:
         id:
             type: integer
             generator: { strategy: auto }
-    fields:      
+    fields:
         nombre:
             type: string
         slug:
@@ -13,3 +13,6 @@ Loogares\BlogBundle\Entity\EstadoConcurso:
         clase:
             type: string
             nullable: true
+    indexes:
+        idx_estado_concurso_slug:
+            columns: ["slug"]

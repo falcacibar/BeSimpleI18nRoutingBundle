@@ -14,3 +14,6 @@ Loogares\UsuarioBundle\Entity\Tag:
             type: string
         slug:
             type: string
+    indexes:
+        idx_tag_slug:
+            columns: ["slug"]

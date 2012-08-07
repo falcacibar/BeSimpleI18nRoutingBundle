@@ -5,8 +5,11 @@ Loogares\BlogBundle\Entity\Estado:
         id:
             type: integer
             generator: { strategy: auto }
-    fields:      
+    fields:
         nombre:
             type: string
         slug:
             type: string
+    indexes:
+        idx_blog_estado_slug:
+            columns: ["slug"]

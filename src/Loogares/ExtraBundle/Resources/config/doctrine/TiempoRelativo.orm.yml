@@ -13,3 +13,6 @@ Loogares\ExtraBundle\Entity\TiempoRelativo:
             type: string
         locale:
             type: string
+    indexes:
+        idx_tiempo_relativo_slug:
+            columns: ["slug"]

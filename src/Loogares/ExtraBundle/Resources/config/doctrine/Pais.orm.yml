@@ -19,3 +19,6 @@ Loogares\ExtraBundle\Entity\Pais:
             type: string
         mostrar_lugar:
             type: smallint
+    indexes:
+        idx_pais_slug:
+            columns: ["slug"]

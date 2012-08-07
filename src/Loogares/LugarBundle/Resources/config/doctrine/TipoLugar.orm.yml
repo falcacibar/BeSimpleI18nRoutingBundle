@@ -12,3 +12,6 @@ Loogares\LugarBundle\Entity\TipoLugar:
             type: string
         prioridad_web:
             type: smallint
+    indexes:
+        idx_tipo_lugar_slug:
+            columns: ["slug"]

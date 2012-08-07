@@ -96,7 +96,7 @@ Loogares\LugarBundle\Entity\Lugar:
             type: text
             nullable: true
         #mapx
-        mapx: 
+        mapx:
             type: float
         #mapy
         mapy:
@@ -112,14 +112,14 @@ Loogares\LugarBundle\Entity\Lugar:
             length: 50
             nullable: true
         #materiales
-        materiales: 
+        materiales:
             type: string
             length: 255
             nullable: true
         #sitio web
         sitio_web:
             type: string
-            length: 100 
+            length: 100
             nullable: true
         #facebook
         facebook:
@@ -127,12 +127,12 @@ Loogares\LugarBundle\Entity\Lugar:
             length: 100
             nullable: true
         #twitter
-        twitter: 
+        twitter:
             type: string
             length: 100
             nullable: true
         #mail
-        mail: 
+        mail:
             type: string
             length: 100
             nullable: true
@@ -180,3 +180,6 @@ Loogares\LugarBundle\Entity\Lugar:
         prioridad_web:
             type: integer
             nullable: true
+    indexes:
+        idx_lugar_slug:
+            columns: ["slug"]

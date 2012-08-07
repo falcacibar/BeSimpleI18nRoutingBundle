@@ -24,3 +24,6 @@ Loogares\LugarBundle\Entity\SubCategoria:
             type: string
             gedmo:
                 - translatable
+    indexes:
+        idx_subcategoria_slug:
+            columns: ["slug"]

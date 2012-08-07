@@ -25,3 +25,6 @@ Loogares\LugarBundle\Entity\Caracteristica:
             type: string
         orden:
             type: string
+    indexes:
+        idx_caracteristica_slug:
+            columns: ["slug"]

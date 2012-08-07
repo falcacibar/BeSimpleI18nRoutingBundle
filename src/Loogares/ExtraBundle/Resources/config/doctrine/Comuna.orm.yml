@@ -22,3 +22,6 @@ Loogares\ExtraBundle\Entity\Comuna:
             type: string
         mostrar_lugar:
             type: smallint
+    indexes:
+        idx_comuna_slug:
+            columns: ["slug"]

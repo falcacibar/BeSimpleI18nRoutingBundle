@@ -1,14 +1,14 @@
 Loogares\BlogBundle\Entity\Categoria:
     type: entity
     table: blog_categoria
-    manyToOne:       
+    manyToOne:
         blog_tipo_post:
             targetEntity: Loogares\BlogBundle\Entity\TipoPost
     id:
         id:
             type: integer
             generator: { strategy: auto }
-    fields:      
+    fields:
         nombre:
             type: string
         slug:
@@ -19,3 +19,6 @@ Loogares\BlogBundle\Entity\Categoria:
         clase:
             type: string
             nullable: true
+    indexes:
+        idx_blog_categoria_slug:
+            columns: ["slug"]

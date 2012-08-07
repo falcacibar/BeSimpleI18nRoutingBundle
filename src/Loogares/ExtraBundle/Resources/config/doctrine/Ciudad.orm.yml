@@ -30,3 +30,6 @@ Loogares\ExtraBundle\Entity\Ciudad:
             type: string
         mostrar_lugar:
             type: string
+    indexes:
+        idx_ciudad_slug:
+            columns: ["slug"]

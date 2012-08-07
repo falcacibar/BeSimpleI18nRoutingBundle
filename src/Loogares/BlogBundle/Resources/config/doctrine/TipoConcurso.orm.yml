@@ -10,3 +10,6 @@ Loogares\BlogBundle\Entity\TipoConcurso:
             type: string
         slug:
             type: string
+    indexes:
+        idx_tipo_concurso_slug:
+            columns: ["slug"]

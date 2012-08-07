@@ -54,7 +54,7 @@ Loogares\UsuarioBundle\Entity\Usuario:
         sexo:
             type: string
             nullable: true
-        web: 
+        web:
             type: string
             nullable: true
         facebook:
@@ -99,6 +99,9 @@ Loogares\UsuarioBundle\Entity\Usuario:
             nullable: true
         salt:
             type: string
+    indexes:
+        idx_usuarios_slug:
+            columns: ["slug"]
 
     lifecycleCallbacks:
         preUpdate: [ preUpload ]

@@ -24,3 +24,6 @@ Loogares\ExtraBundle\Entity\Sector:
             type: integer
         mostrar_lugar:
             type: integer
+    indexes:
+        idx_sector_slug:
+            columns: ["slug"]
