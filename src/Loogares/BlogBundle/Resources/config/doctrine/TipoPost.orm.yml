@@ -5,7 +5,7 @@ Loogares\BlogBundle\Entity\TipoPost:
         id:
             type: integer
             generator: { strategy: auto }
-    fields:      
+    fields:
         nombre:
             type: string
         slug:
@@ -14,3 +14,6 @@ Loogares\BlogBundle\Entity\TipoPost:
             type: string
         clase:
             type: string
+    indexes:
+        idx_blog_tipo_post_slug:
+            columns: ["slug"]
