@@ -58,7 +58,7 @@ class FacebookProvider implements UserProviderInterface
         }
 
         if (!empty($fbdata)) {
-            
+
             if (empty($user)) {
 
                 if($this->facebook->getSession()->has('_security_secured_area')) {
@@ -74,7 +74,7 @@ class FacebookProvider implements UserProviderInterface
                     if (isset($fbdata['email'])) {
                         $user = $ur->findOneByMail($fbdata['email']);
                     }
-                    
+
                     // Si en este punto el usuario no existe, entonces debemos registrarlo
                     if (empty($user)) {
                         //$user = new Usuario();
@@ -97,7 +97,7 @@ class FacebookProvider implements UserProviderInterface
                         $slug = $fn->generarSlug($user->getNombre().'-'.$user->getApellido());
                         $repetidos = $ur->getUsuarioSlugRepetido($slug);
                         if($repetidos > 0)
-                            $slug = $slug.'-'.++$repetidos;                    
+                            $slug = $slug.'-'.++$repetidos;
                         $user->setSlug($slug);
 
                         if(isset($fbdata['id'])) {
@@ -107,7 +107,7 @@ class FacebookProvider implements UserProviderInterface
                                 'callback' => ''
                             ));
                         }
-                       
+
                         $user->setImagenFull("default.gif");
                         $user->setFechaRegistro(new \DateTime());
                         $user->setNewsletterActivo(1);
@@ -137,32 +137,32 @@ class FacebookProvider implements UserProviderInterface
                         $u = explode('.',$fbimg[0]['pic_big']);
                         $ext = array_pop($u);
                         $fn = time().'.jpg';
-                        if(file_put_contents('assets/images/temp/'.$fn, $result)) {                        
+                        if(file_put_contents('assets/images/temp/'.$fn, $result)) {
                             if(getimagesize('assets/images/temp/'.$fn)) {
                                 $fln = new LoogaresFunctions();
                                 $filename = $fln->generarSlug($user->getNombre().'-'.$user->getApellido().'-'.$user->getId());
-                                $user->setImagenFull($filename.'.jpg');  
+                                $user->setImagenFull($filename.'.jpg');
                                 if(file_put_contents('assets/images/usuarios/'.$filename.'.jpg', $result)) {
                                     $em->flush();
                                     unlink('assets/images/temp/'.$fn);
-                                }                            
-                            }                        
+                                }
+                            }
                         }
                     }
                 }
 
                 $user->setFBData($fbdata);
 
-                if($user->getNombre() == '' || $user->getApellido() == '') {                    
+                if($user->getNombre() == '' || $user->getApellido() == '') {
                     if (isset($fbdata['first_name'])) {
                         $user->setNombre($fbdata['first_name']);
                     }
                     if (isset($fbdata['last_name'])) {
                         $user->setApellido($fbdata['last_name']);
                     }
-                }        
+                }
             }
-            
+
             $em->flush();
         }
 

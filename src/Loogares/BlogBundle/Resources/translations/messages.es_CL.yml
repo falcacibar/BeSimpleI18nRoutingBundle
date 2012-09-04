@@ -1,0 +1,40 @@
+# Locale 'es_CL' BlogBundle
+blog:
+    como_funciona: ¿Cómo funciona?
+    quedan: Quedan
+    para_participar: para participar
+    ganadores:
+        titulo: ¡Ganadores!
+        primer_texto: Los afortunados Loogareños que participaron del concurso y resultaron ganadores son:
+        segundo_texto: Los contactaremos vía E-mail. ¡Felicitaciones! ¡Gracias a todos los que participaron y sigan escribiendo recomendaciones para los próximos concursos!
+    comparte: Comparte este concurso con tus amigos
+    detalle: Detalles del premio:
+    condiciones: Condiciones:
+    como_concursar:
+        titulo: ¿Cómo participar?
+        p1: - Premiaremos a los Loogareños que escriban las mejores recomendaciones durante el día de hoy, sobre cualquier lugar de la ciudad a la que está enmarcado este concurso y al cual efectivamente haya ido.
+        p2: Mientras más recomendaciones hagan, más posibilidades tienen de ganar
+        p3: - Los Loogareños con foto de perfil tienen más posibilidades de ganar.
+        p4: - No entrarán en el sorteo aquellas recomendaciones que no estén basadas en hechos reales, experiencias personales del autor, o que tengan relación con el lugar que se está recomendando.
+
+    popup:
+        registro:
+            titulo: ¡Estás a un segundo de participar, regístrate ahora!
+            o: o
+            registro: regístrate con tu E-mail
+            volver: Volver
+            registrado: ¿Ya estás registrado?
+            apertura: ¡
+            entra: Entra acá
+            y_estaras: y estarás participando!
+        participando:
+            titulo: ¡Ya estás participando!
+            texto_1: Ahora solamente tienes que esperar al día que cierre el concurso para ver si ganaste...
+            texto_2: Cuéntale a tus amigos sobre este concurso para que ellos también participen:
+            cerrar: No, gracias
+        participando_alianza:
+            titulo: ¡Ahora escribe una recomendación!
+            bajada: Empieza haciendo click acá
+            texto_1: Recuerda que mientras más y mejores recomendaciones escribas, más posibilidades tienes de ganar.
+            cuentale: Cuéntale a tus amigos sobre este concurso para que ellos también participen:
+            cerrar: No, gracias

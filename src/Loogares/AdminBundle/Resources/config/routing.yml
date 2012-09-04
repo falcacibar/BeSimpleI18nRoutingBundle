@@ -191,3 +191,8 @@ LoogaresAdminBundle_borrarPedido:
 LoogaresAdminBundle_borrarPromocion:
     pattern:  /lugares/{ciudad}/{slug}/pedidos/borrar/{id}/promocion
     defaults: { _controller: LoogaresAdminBundle:AdminAjax:borrarPromocion }
+
+
+LoogaresAdminBundle_traducciones:
+    pattern: /traducciones
+    defaults: { _controller: LoogaresAdminBundle:Admin:traducciones }

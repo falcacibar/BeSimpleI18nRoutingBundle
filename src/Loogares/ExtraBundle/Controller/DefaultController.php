@@ -28,26 +28,52 @@ class DefaultController extends Controller
 
         foreach($tipoCategoria as $key => $value){
             $id = $value->getId();
-            $buff = $this->getDoctrine()
-            ->getConnection()->fetchAll("SELECT count(categorias.id) as total, categorias.nombre as categoria_nombre, categorias.slug as categoria_slug, tipo_categoria.nombre, tipo_categoria.slug
-                                         FROM lugares
+            $q = $em->createQuery('  SELECT         COUNT(cat.id) as total,
+                                                    cat.id,
+                                                    tcat.nombre,
+                                                    tcat.slug
 
-                                         JOIN comuna
-                                         ON comuna.id = lugares.comuna_id
+                                      FROM          Loogares\LugarBundle\Entity\Lugar lug
+                                      INNER JOIN    lug.categoria_lugar catlug
+                                      INNER JOIN    catlug.categoria cat
+                                      INNER JOIN    cat.tipo_categoria tcat
+                                      INNER JOIN    lug.comuna com
+                                      INNER JOIN    com.ciudad ciu
+                                      INNER JOIN    lug.estado est
 
-                                         LEFT JOIN categoria_lugar
-                                         ON categoria_lugar.lugar_id = lugares.id
+                                      WHERE         tcat.id =  :id
+                                                    AND ciu.id = :idCiudad
+                                                    AND est.id != 3
 
-                                         JOIN categorias
-                                         ON categorias.id = categoria_lugar.categoria_id
+                                      GROUP BY      cat.id
+                                      ORDER BY      tcat.id, cat.nombre ASC
+            ')
+                ->setParameters(compact('id', 'idCiudad'));
 
-                                         LEFT JOIN tipo_categoria
-                                         ON tipo_categoria.id = categorias.tipo_categoria_id
+            $buff = $q->getResult();
+            $ids = array();
 
-                                         WHERE tipo_categoria.id = $id AND comuna.ciudad_id = $idCiudad AND lugares.estado_id != 3
+            foreach($buff as &$row) {
+                $ids[] = $row['id'];
+            }
 
-                                         GROUP BY categorias.id
-                                         ORDER BY tipo_categoria.id, categorias.nombre asc");
+            unset($q);
+            $q = $em->createQuery(' SELECT  c
+                                    FROM    \Loogares\LugarBundle\Entity\Categoria c
+                                    WHERE   c.id IN ('.join(',', $ids).')');
+
+            $ebuff = $q->getResult();
+
+            for($c=sizeof($buff),$i=0;$i<$c;$i++) {
+                $buff[$i]['categoria_nombre']   = $ebuff[$i]->getNombre();
+                $buff[$i]['categoria_slug']     = $ebuff[$i]->getSlug();
+
+                unset($ebuff[$i]);
+            }
+
+            unset($ebuff);
+            unset($q, $ids);
+
             $data[$value->getSlug()]['tipo'] = $tipoCategoria[$key];
             $data[$value->getSlug()]['categorias'] = $buff;
         }
@@ -71,7 +97,8 @@ class DefaultController extends Controller
         $ciudad = $cr->findOneBySlug($slug);
 
         // Seteamos el locale correspondiente a la ciudad en la sesión
-        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+        if(!$this->getRequest()->cookies->get('loogares_locale'))
+            $this->get('session')->setLocale($ciudad->getPais()->getLocale());
 
         $ciudadArray = array();
         $ciudadArray['id'] = $ciudad->getId();
@@ -84,7 +111,7 @@ class DefaultController extends Controller
 
         $root = "root_".preg_replace('/-/', '_', $slug);
 
-        $this->get('session')->set('ciudad',$ciudadArray);
+        $this->get('session')->set('ciudad', $ciudadArray);
 
         // Redirección a vista de login
         return new Response('ok');
@@ -112,9 +139,9 @@ class DefaultController extends Controller
         $ciudadSession = $this->get('session')->get('ciudad');
 
         if(!in_array($slug, $ciudadesHabilitadas)){
-            if(preg_match('/Argentina|Peru/', $ipPais->getCountry())){
+            if(preg_match('/Argentina|Peru/i', $ipPais->getCountry())){
                 return $this->redirect($this->generateUrl('locale', array('slug' => 'buenos-aires')));
-            }else if(preg_match('/Brazil|Brasil/', $ipPais->getCountry())){
+            }else if(preg_match('/Bra[zs]il/i', $ipPais->getCountry())){
                 return $this->redirect($this->generateUrl('locale', array('slug' => 'sao-paulo')));
             }
             return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
@@ -491,7 +518,9 @@ class DefaultController extends Controller
         $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
         $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
 
-        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+        if(!$this->getRequest()->cookies->get('loogares_locale'))
+            $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+
         $this->get('session')->set('ciudad',$ciudadArray);
 
         $pagina = (!$request->query->get('pagina')) ? 1 : $request->query->get('pagina');
@@ -539,7 +568,9 @@ class DefaultController extends Controller
         $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
         $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
 
-        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+        if(!$this->getRequest()->cookies->get('loogares_locale'))
+            $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+
         $this->get('session')->set('ciudad',$ciudadArray);
 
         // Concursos vigentes

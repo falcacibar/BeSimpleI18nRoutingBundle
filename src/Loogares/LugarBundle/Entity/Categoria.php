@@ -55,7 +55,7 @@ class Categoria implements Translatable
         $this->categoria_lugar = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subcategorias = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Set id
      *
@@ -69,7 +69,7 @@ class Categoria implements Translatable
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -89,7 +89,7 @@ class Categoria implements Translatable
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -109,7 +109,7 @@ class Categoria implements Translatable
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -129,7 +129,7 @@ class Categoria implements Translatable
     /**
      * Get mostrar_precio
      *
-     * @return smallint 
+     * @return smallint
      */
     public function getMostrarPrecio()
     {
@@ -149,7 +149,7 @@ class Categoria implements Translatable
     /**
      * Get tipo_categoria_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getTipoCategoriaId()
     {
@@ -169,7 +169,7 @@ class Categoria implements Translatable
     /**
      * Get categoria_lugar
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getCategoriaLugar()
     {
@@ -189,7 +189,7 @@ class Categoria implements Translatable
     /**
      * Get tipo_categoria
      *
-     * @return Loogares\LugarBundle\Entity\TipoCategoria 
+     * @return Loogares\LugarBundle\Entity\TipoCategoria
      */
     public function getTipoCategoria()
     {
@@ -222,7 +222,7 @@ class Categoria implements Translatable
     /**
      * Get mostrar_categoria
      *
-     * @return smallint 
+     * @return smallint
      */
     public function getMostrarCategoria()
     {
@@ -247,7 +247,7 @@ class Categoria implements Translatable
     /**
      * Get subcategorias
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getSubcategorias()
     {

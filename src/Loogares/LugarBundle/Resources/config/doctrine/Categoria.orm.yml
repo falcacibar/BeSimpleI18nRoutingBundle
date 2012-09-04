@@ -14,7 +14,6 @@ Loogares\LugarBundle\Entity\Categoria:
         subcategorias:
             targetEntity: Loogares\LugarBundle\Entity\SubCategoria
             mappedBy: categoria
-
     id:
         id:
             type: integer

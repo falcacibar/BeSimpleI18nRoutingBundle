@@ -74,7 +74,9 @@ class SearchController extends Controller{
     $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
     $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
 
-    $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+    if(!$this->getRequest()->cookies->get('loogares_locale'))
+       $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+
     $this->get('session')->set('ciudad',$ciudadArray);
 
     $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
@@ -1237,7 +1239,7 @@ class SearchController extends Controller{
 
       $lugar->pedidos = $lr->getPedidosLugar($lugar, 2);
       $lugar->reservas = $lr->getPedidosLugar($lugar, 1);
-      
+
       $lugar->ultimaRecomendacion = $recomendacion;
       $lugar->ultimaImagen = $imagen;
       $lugar->mostrarPrecio = $fn->mostrarPrecio($lugar);

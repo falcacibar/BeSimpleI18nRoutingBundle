@@ -1,101 +1,149 @@
 registroUsuario:
-    pattern: /registro
+    locales:
+        es: /usuario/registro
+        en: /user/signup
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:registro }
 
 confirmarUsuario:
-    pattern:  /confirmar/{hash}
+    locales:
+        es: /usuario/confirmar/{hash}
+        en: /user/confirm/{hash}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:confirmar }
 
 olvidarPassword:
-    pattern:  /olvidar_password
+    locales:
+        es: /usuario/olvidar_password
+        en: /user/forget_password
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:olvidarPassword }
 
 regenerarPassword:
-    pattern:  /regenerar_password/{hash}
+    locales:
+        es: /usuario/regenerar_password/{hash}
+        en: /user/regenerate_password/{hash}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:regenerarPassword }
 
 login:
-    pattern:   /
+    locales:
+        es: /usuario
+        en: /user
     defaults:  { _controller: LoogaresUsuarioBundle:Usuario:login }
 
 login_check:
-    pattern:   /login_check
+    locales:
+        es: /usuario/login_check
+        en: /user/login_check
     defaults:  { _controller: LoogaresUsuarioBundle:Usuario:loginCheck }
 
 login_check_facebook:
-    pattern:  /login_check_facebook
+    locales:
+        es: /usuario/login_check_facebook
+        en: /user/login_check_facebook
     defaults:  { _controller: LoogaresUsuarioBundle:Usuario:loginCheckFacebook }
 
 logout:
+    locales:
+        es: /usuario
+        en: /user
     pattern:   /logout
 
 forzarDatosUsuario:
-    pattern:  /forzar_datos
+    locales:
+        es: /usuario/forzar_datos
+        en: /user/force_data
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:forzarDatos }
 
 showUsuario:
-    pattern:  /{param}
+    locales:
+        es: /usuario/{param}
+        en: /user/{param}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:show }
 
 actividadUsuario:
-    pattern:  /{param}
+    locales:
+        es: /usuario/{param}
+        en: /user/{param}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:actividad }
 
 actividadUsuario_total:
-    pattern:  /{param}/actividad
+    locales:
+        es: /usuario/{param}/actividad
+        en: /user/{param}/activity
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:actividad, actividad_total: true }
 
 recomendacionesUsuario:
-    pattern:  /{param}/recomendaciones
+    locales:
+        es: /usuario/{param}/recomendaciones
+        en: /user/{param}/reviews
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:recomendaciones }
 
 fotosLugaresUsuario:
-    pattern:  /{param}/fotos
+    locales:
+        es: /usuario/{param}/fotos
+        en: /user/{param}/photo
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:fotos }
 
 lugaresUsuario:
-    pattern:  /{param}/lugares/{accionLugar}
+    locales:
+        es: /usuario/{param}/lugares/{accionLugar}
+        en: /user/{param}/places/{accionLugar}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:lugares, accionLugar: visitar }
 
 cuponesUsuario:
-    pattern:  /{param}/cupones/{tipo}
+    locales:
+        es:  /{param}/cupones/{tipo}
+        en:  /{param}/coupons/{tipo}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:cupones }
 
-imprimirCuponUsuario:
-    pattern:  /{param}/cupones/{tipo}/{cupon}/imprimir
+inprimirCuponUsuario:
+    locales:
+        es: /usuario/{param}/cupones/{tipo}/{cupon}/imprimir
+        en: /user/{param}/coupons/{tipo}/{cupon}/print
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:imprimirCupon }
 
 editarUsuario:
-    pattern:  /{param}/editar
+    locales:
+        es: /usuario/{param}/editar
+        en: /user/{param}/edit
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editar }
 
 editarCuentaUsuario:
-    pattern:  /{param}/editar/cuenta
+    locales:
+        es: /usuario/{param}/editar/cuenta
+        en: /user/{param}/edit/account
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarCuenta }
 
 editarFotoUsuario:
-    pattern:  /{param}/editar/foto
+    locales:
+        es: /usuario/{param}/editar/foto
+        en: /user/{param}/edit/photo
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarFoto }
 
 editarPasswordUsuario:
-    pattern:  /{param}/editar/password
+    locales:
+        es: /usuario/{param}/editar/password
+        en: /user/{param}/edit/password
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarPassword }
 
 editarNotificacionesUsuario:
-    pattern:  /{param}/editar/notificaciones
+    locales:
+        es: /usuario/{param}/editar/notificaciones
+        en: /user/{param}/edit/notifications
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarNotificaciones }
 
 editarConexionesUsuario:
-    pattern:  /{param}/editar/conectar
+    locales:
+        es: /usuario/{param}/editar/conectar
+        en: /user/{param}/edit/connect
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarConexiones }
 
 editarBorrarUsuario:
-    pattern:  /{param}/editar/borrar
+    locales:
+        es: /usuario/{param}/editar/borrar
+        en: /user/{param}/edit/delete
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:editarBorrar }
 
 accionesPendientes:
-    pattern:  /acciones_pendientes/{accion}
+    locales:
+        es: /usuario/acciones_pendientes/{accion}
+        en: /user/pending_actions/{accion}
     defaults: { _controller: LoogaresUsuarioBundle:Usuario:totalAccionesPendientes }
-
-
-

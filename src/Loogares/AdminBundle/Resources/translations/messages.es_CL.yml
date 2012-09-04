@@ -1,0 +1,77 @@
+# Locale 'es_CL' Administrador
+admin:
+    notificaciones:
+        saludo: %nombre% %apellido%
+        lugar:            
+            aprobar:
+                asunto: ha sido agregado a Loogares.com
+                primero: Te escribimos para notificar que el lugar %lugar% que agregaste a Loogares.com ha sido aprobado sin problemas.
+            despedida: Esperamos seguir contando con tu ayuda y que continúes agregando lugares al sitio.
+            rechazar:
+                asunto: El lugar que agregaste no fue publicado
+                primero: lamentablemente no se pudo agregar el lugar %lugar%. Después de revisarlo con detención, se decidió no aceptar la solicitud para agregarlo al no cumplir con las políticas para la publicación de lugares. Entre ellas están: el lugar ya no existe o se encuentra cerrado, ya está presente en nuestra base de datos, no pertenece a alguna de las categorías en el sitio, o al área de cobertura geográfica. Estas políticas las puedes ver en los %open_tag%Términos de uso%close_tag%.
+                segundo: Asegúrate de cumplir con estos requisitos antes de agregar nuevos lugares.
+                tercero: Te agradecemos tu comprensión y buena onda.   
+            borrar:
+                asunto: ha sido eliminado de Loogares.com
+                primero: Te escribimos para notificar que el lugar %lugar%, agregado por ti, ha sido eliminado de nuestros registros.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que el lugar no existe o ya fue agregado al sitio.
+            cerrar:
+                asunto: ha sido cerrado
+                primero: Te escribimos para notificar que el lugar %lugar%, agregado por ti, ha cerrado sus puertas.
+                segundo: Mantendremos en nuestros registros tu constante participación y la tomaremos en cuenta para eventuales premios y beneficios.
+            comprension: Te agradecemos tu comprensión y buena onda.
+        imagen:
+            aprobar:
+                asunto: La foto agregada al lugar %lugar% ha sido aprobada
+                primero: Te escribimos para notificar que la foto que agregaste al lugar %lugar% ha sido aprobada sin problemas.   
+            mover:
+                asunto: La foto del lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%
+                primero: Te escribimos para notificar que la %open_tag%foto%close_tag% que agregaste al lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que tu foto correspondía a otro lugar. 
+            borrar:
+                asunto: La foto agregada al lugar %lugar% ha sido eliminada
+                primero: Te escribimos para notificar que la foto que agregaste al lugar %lugar% ha sido eliminada.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que tu foto puede estar mostrando otro lugar, o porque muestra contenido que infringe los %open_tag%Términos de uso%close_tag%.
+            despedida: Esperamos seguir contando con tu ayuda y que continúes agregando fotos al sitio.
+        recomendacion:
+            aprobar:
+                asunto: Tu recomendación en el lugar %lugar% ha sido aprobada
+                primero: Te escribimos para notificar que la recomendación que escribiste en el lugar %lugar% ha sido aprobada sin problemas.
+            mover:
+                asunto: La recomendación del lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%
+                primero: Te escribimos para notificar que la %open_tag%recomendación%close_tag% que agregaste al lugar %old_lugar% ha sido reubicada en el lugar %new_lugar%.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que tu recomendación correspondía a otro lugar.
+            borrar:
+                asunto: La recomendación agregada al lugar %lugar% ha sido eliminada
+                primero: Te escribimos para notificar que la recomendación que agregaste al lugar %lugar% ha sido eliminada.
+                segundo: Las razones por las cuales hemos tomado esta decisión se deben principalmente a que tu recomendación infringe los %open_tag%Términos de uso%close_tag%.
+            despedida: ¡Esperamos que sigas recomendando lugares y contando tu experiencia a la comunidad!
+
+        ganadores:
+            felicitaciones: ¡Felicitaciones
+            gracias_a: Gracias a tu participación en Loogares.com resultaste ganador del concurso de
+            en: en
+            premio_unico: Este premio es único, válido para ser utilizado una sola vez.
+            cupon: A continuación va el cupón y detalladas sus condiciones de uso:
+            codigo: Código cupón:
+            detalle: Detalle del premio:
+            condiciones: Condiciones:
+            sobre: Sobre
+            visita: Visita su ficha en Loogares.com
+            visita_link: acá
+            perfil: Tu cupón queda guardado en tu perfil de usuario mientras esté vigente, entra
+            perfil_link: acá
+            perfil_verlo: para verlo.
+            sugerencia_recomendacion: Una vez que hayas cobrado tu premio, <strong>te sugerimos escribir una recomendación en la ficha de</strong>
+            sugerencia_feedback: para que ellos tengan feedback de tu experiencia y así poder mejorar su servicio.
+            disfruta: ¡Disfruta tu premio, Loogareño!
+            saludos: Muchos saludos
+
+        canje:
+            supimos: Supimos que canjeaste tu premio en
+            ahora: Ahora <strong>te sugerimos escribir una recomendación en la ficha de</strong>
+            feedback: para que ellos tengan feedback de tu experiencia y así poder mejorar su servicio.
+            entra: Entra
+            ficha: para ir a su ficha.
+            interesado: Si estás interesado en los concursos de hoy y seguir participando, entra

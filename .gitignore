@@ -46,3 +46,7 @@ vendor/facebook
 
 # Log de dompdf
 vendor/dompdf/lib/fonts/log.htm
+
+st
+#AptanaStudio
+.project

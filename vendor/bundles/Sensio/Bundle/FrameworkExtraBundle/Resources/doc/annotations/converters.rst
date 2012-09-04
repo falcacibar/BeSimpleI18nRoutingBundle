@@ -50,7 +50,7 @@ Doctrine Converter
 ~~~~~~~~~~~~~~~~~~
 
 By default, the Doctrine converter uses the *default* entity manager. This can
-configured with the ``entity_manager`` option::
+be configured with the ``entity_manager`` option::
 
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -98,4 +98,4 @@ on the request attributes, it should set an attribute named
 
 .. tip::
 
-   Use the ``DoctrineConverter`` class as a template for your own converters.
+   Use the ``DoctrineParamConverter`` class as a template for your own converters.

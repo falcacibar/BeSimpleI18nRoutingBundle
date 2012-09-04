@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Loogares\UsuarioBundle\Entity\Usuario
  */
-class Usuario implements AdvancedUserInterface, \Serializable 
+class Usuario implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer $id
@@ -74,7 +74,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     private $imagen_full;
 
     /**
-     * Propiedad virtual para referenciar imagenes 
+     * Propiedad virtual para referenciar imagenes
      */
     public $file;
 
@@ -173,6 +173,10 @@ class Usuario implements AdvancedUserInterface, \Serializable
      */
     private $ciudad;
 
+    /**
+     * @var string $locale
+     */
+    private $locale;
 
     public function __construct()
     {
@@ -182,7 +186,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -202,7 +206,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -222,7 +226,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get apellido
      *
-     * @return string 
+     * @return string
      */
     public function getApellido()
     {
@@ -242,7 +246,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -262,7 +266,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -282,7 +286,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get mail
      *
-     * @return string 
+     * @return string
      */
     public function getMail()
     {
@@ -302,7 +306,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -322,7 +326,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get sexo
      *
-     * @return string 
+     * @return string
      */
     public function getSexo()
     {
@@ -342,7 +346,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get web
      *
-     * @return string 
+     * @return string
      */
     public function getWeb()
     {
@@ -362,7 +366,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get facebook
      *
-     * @return string 
+     * @return string
      */
     public function getFacebook()
     {
@@ -382,7 +386,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get twitter
      *
-     * @return string 
+     * @return string
      */
     public function getTwitter()
     {
@@ -402,7 +406,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get imagen_full
      *
-     * @return string 
+     * @return string
      */
     public function getImagenFull()
     {
@@ -422,7 +426,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get fecha_nacimiento
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getFechaNacimiento()
     {
@@ -442,7 +446,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get mostrar_edad
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMostrarEdad()
     {
@@ -462,7 +466,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get fecha_registro
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getFechaRegistro()
     {
@@ -482,7 +486,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get fecha_ultima_actividad
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getFechaUltimaActividad()
     {
@@ -502,7 +506,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get newsletter_activo
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getNewsletterActivo()
     {
@@ -522,7 +526,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get hash_confirmacion
      *
-     * @return string 
+     * @return string
      */
     public function getHashConfirmacion()
     {
@@ -542,7 +546,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get cookie
      *
-     * @return string 
+     * @return string
      */
     public function getCookie()
     {
@@ -562,7 +566,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get facebook_uid
      *
-     * @return integer 
+     * @return integer
      */
     public function getFacebookUid()
     {
@@ -582,7 +586,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get facebook_no_publicar
      *
-     * @return smallint 
+     * @return smallint
      */
     public function getFacebookNoPublicar()
     {
@@ -602,7 +606,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get facebook_data
      *
-     * @return string 
+     * @return string
      */
     public function getFacebookData()
     {
@@ -622,7 +626,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get fecha_facebook_ultima_actividad
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getFechaFacebookUltimaActividad()
     {
@@ -642,7 +646,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get salt
      *
-     * @return string 
+     * @return string
      */
     public function getSalt(){ return $this->getMail();}
 
@@ -659,7 +663,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get tipo_usuario
      *
-     * @return Loogares\UsuarioBundle\Entity\TipoUsuario 
+     * @return Loogares\UsuarioBundle\Entity\TipoUsuario
      */
     public function getTipoUsuario()
     {
@@ -679,7 +683,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get estado
      *
-     * @return Loogares\ExtraBundle\Entity\Estado 
+     * @return Loogares\ExtraBundle\Entity\Estado
      */
     public function getEstado()
     {
@@ -699,13 +703,13 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get comuna
      *
-     * @return Loogares\ExtraBundle\Entity\Comuna 
+     * @return Loogares\ExtraBundle\Entity\Comuna
      */
     public function getComuna()
     {
         return $this->comuna;
     }
-    
+
     /**
      * Add recomendaciones
      *
@@ -719,7 +723,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get recomendaciones
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getRecomendaciones()
     {
@@ -750,7 +754,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get pais
      *
-     * @return Loogares\ExtraBundle\Entity\Pais 
+     * @return Loogares\ExtraBundle\Entity\Pais
      */
     public function getPais()
     {
@@ -770,11 +774,31 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get ciudad
      *
-     * @return Loogares\ExtraBundle\Entity\Ciudad 
+     * @return Loogares\ExtraBundle\Entity\Ciudad
      */
     public function getCiudad()
     {
         return $this->ciudad;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 
      /**
@@ -790,7 +814,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get sha1password
      *
-     * @return string 
+     * @return string
      */
     public function getSha1password()
     {
@@ -815,7 +839,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get reportar_lugar
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getReportarLugar()
     {
@@ -827,7 +851,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     */
 
     public function eraseCredentials(){
-        
+
     }
 
     public function getRoles(){
@@ -847,8 +871,8 @@ class Usuario implements AdvancedUserInterface, \Serializable
             if($user->getMail() != $this->mail) {
                 return false;
             }
-        }       
-       
+        }
+
         return true;
     }
 
@@ -882,7 +906,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     {
        return serialize($this->getId());
     }
-    
+
     public function unserialize($data)
     {
         $this->id = unserialize($data);
@@ -945,7 +969,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
         // Eliminamos thumbnails
         if(file_exists(__DIR__.'/../../../../web/assets/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
             unlink(__DIR__.'/../../../../web/assets/media/cache/medium_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
-            
+
         if(file_exists(__DIR__.'/../../../../web/assets/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull()))
             unlink(__DIR__.'/../../../../web/assets/media/cache/small_usuario/'.$this->getUploadDir().'/'.$this->getImagenFull());
 
@@ -988,7 +1012,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get descuentos_usuarios
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getDescuentosUsuarios()
     {
@@ -1013,7 +1037,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get participante
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getParticipante()
     {
@@ -1028,7 +1052,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Get participantes
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getParticipantes()
     {

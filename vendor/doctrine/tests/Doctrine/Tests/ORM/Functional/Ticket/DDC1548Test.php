@@ -30,7 +30,7 @@ class DDC1548Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
 
         $obt = $this->_em->find(__NAMESPACE__ . '\DDC1548Rel', $rel->id);
-        
+
         $this->assertNull($obt->e2);
     }
 }
@@ -46,6 +46,7 @@ class DDC1548E1
      */
     public $rel;
 }
+
 /**
  * @Entity
  */

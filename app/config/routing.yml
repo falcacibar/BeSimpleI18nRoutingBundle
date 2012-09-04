@@ -20,11 +20,13 @@ _imagine:
 
 LoogaresUsuarioBundle:
     resource: "@LoogaresUsuarioBundle/Resources/config/routing.yml"
-    prefix:   /usuario
+    prefix: /
+    type: be_simple_i18n
 
 LoogaresLugarBundle:
     resource: "@LoogaresLugarBundle/Resources/config/routing.yml"
     prefix:   /
+    type: be_simple_i18n
 
 LoogaresAdminBundle:
     resource: "@LoogaresAdminBundle/Resources/config/routing.yml"

@@ -17,18 +17,18 @@ class LegacyUserReference
 
     /**
      * @Id
-     * @ManyToOne(targetEntity="LegacyUser", inversedBy="_references")
+     * @ManyToOne(targetEntity="LegacyUser")
      * @JoinColumn(name="iUserIdTarget", referencedColumnName="iUserId")
      */
     private $_target;
 
     /**
-     * @column(type="string")
+     * @column(type="string", name="description")
      */
     private $_description;
 
     /**
-     * @column(type="datetime")
+     * @column(type="datetime", name="created")
      */
     private $_created;
 

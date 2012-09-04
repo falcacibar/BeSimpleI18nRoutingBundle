@@ -525,6 +525,23 @@ class UsuarioController extends Controller
             $passwordValidator->constraintsByGroup['Usuario'] = array();
         }
 
+        $ql = $em->createQuery("    SELECT      l10n
+                                    FROM        Loogares\ExtraBundle\Entity\i18nLocales l10n
+                                    WHERE       l10n.estado = 1
+                                    ORDER BY    l10n.nombre ASC
+
+        ");
+
+        $res = $ql->getResult();
+        $locales = array();
+
+        foreach($res as &$locale) {
+            $locales[$locale->getLocale()] = $locale->getNombre();
+            unset($locale);
+        }
+
+        unset($res, $ql);
+
         $form = $this->createFormBuilder($usuario)
                      ->add('mail', 'text')
                      ->add('nombre', 'text')
@@ -543,6 +560,10 @@ class UsuarioController extends Controller
                      ->add('web', 'text')
                      ->add('facebook', 'text')
                      ->add('twitter', 'text')
+                     ->add('locale', 'choice', array(
+                                'choices' => &$locales ,
+                                'preferred_choices' => array($this->get('session')->getLocale())
+                     ))
                      ->getForm();
 
         // Guardamos mail de usuario actual
@@ -552,6 +573,11 @@ class UsuarioController extends Controller
 
         // Si el request es POST, se procesa edición de datos
         if ($request->getMethod() == 'POST'){
+
+            if($locale = $request->request->get('locale')) {
+                $this->container->get('http.communication_listener')->localeCookie = $locale;
+                $request->cookies->set('loogares_locale', $locale);
+            }
 
             //$usuario = $ur->findOneByMail($usuarioResult->getMail());
             $form->bindRequest($request);

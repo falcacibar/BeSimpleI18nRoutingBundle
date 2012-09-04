@@ -7,9 +7,25 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 require_once __DIR__ . '/../../../TestInit.php';
- 
+
 class PostgreSqlSchemaManagerTest extends SchemaManagerFunctionalTestCase
 {
+    public function tearDown()
+    {
+        parent::tearDown();
+        $this->_conn->getConfiguration()->setFilterSchemaAssetsExpression(null);
+    }
+    /**
+     * @group DBAL-177
+     */
+    public function testGetSearchPath()
+    {
+        $params = $this->_conn->getParams();
+
+        $paths = $this->_sm->getSchemaSearchPaths();
+        $this->assertEquals(array($params['user'], 'public'), $paths);
+    }
+
     /**
      * @group DBAL-21
      */
@@ -116,7 +132,7 @@ class PostgreSqlSchemaManagerTest extends SchemaManagerFunctionalTestCase
         $column->setAutoincrement(true);
         $nestedSchemaTable->setPrimaryKey(array('id'));
         $nestedSchemaTable->addUnnamedForeignKeyConstraint($nestedRelatedTable, array('id'), array('id'));
-        
+
         $this->_sm->createTable($nestedRelatedTable);
         $this->_sm->createTable($nestedSchemaTable);
 
@@ -149,11 +165,32 @@ class PostgreSqlSchemaManagerTest extends SchemaManagerFunctionalTestCase
 
         $this->assertEquals(
             array(
-                "CREATE TABLE dbal91_something (id INT NOT NULL, table INT DEFAULT NULL, PRIMARY KEY(id))",
+                "CREATE TABLE dbal91_something (id INT NOT NULL, \"table\" INT DEFAULT NULL, PRIMARY KEY(id))",
                 "CREATE INDEX IDX_A9401304ECA7352B ON dbal91_something (\"table\")",
             ),
             $this->_conn->getDatabasePlatform()->getCreateTableSQL($table)
         );
+    }
+
+    /**
+     * @group DBAL-204
+     */
+    public function testFilterSchemaExpression()
+    {
+        $testTable = new \Doctrine\DBAL\Schema\Table('dbal204_test_prefix');
+        $column = $testTable->addColumn('id', 'integer');
+        $this->_sm->createTable($testTable);
+        $testTable = new \Doctrine\DBAL\Schema\Table('dbal204_without_prefix');
+        $column = $testTable->addColumn('id', 'integer');
+        $this->_sm->createTable($testTable);
+
+        $this->_conn->getConfiguration()->setFilterSchemaAssetsExpression('^dbal204_');
+        $names = $this->_sm->listTableNames();
+        $this->assertEquals(2, count($names));
+
+        $this->_conn->getConfiguration()->setFilterSchemaAssetsExpression('^dbal204_test');
+        $names = $this->_sm->listTableNames();
+        $this->assertEquals(1, count($names));
     }
 }
 

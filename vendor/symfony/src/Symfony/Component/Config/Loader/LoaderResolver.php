@@ -50,9 +50,12 @@ class LoaderResolver implements LoaderResolverInterface
     public function resolve($resource, $type = null)
     {
         foreach ($this->loaders as $loader) {
+//	var_dump(get_class($loader));
             if ($loader->supports($resource, $type)) {
+//	var_dump("$type => $resource => yes");
                 return $loader;
             }
+//	var_dump("$type => $resource => no");
         }
 
         return false;

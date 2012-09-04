@@ -23,7 +23,7 @@ $(document).ready(function(){
     });
 
     $( "#form_calle" ).autocomplete({
-        source: WEBROOT+"../ajax/recomendarCalle",
+        source: WEBROOT+"../ajax/recomendar-calle",
         minLength: 2,
         delay: 0
     });
@@ -52,7 +52,7 @@ $(document).ready(function(){
     });
 
     $('.display-next-li').click(function(e){
-        e.preventDefault(); 
+        e.preventDefault();
         $(this).parent().parent().next('li').fadeIn().css('display', 'block');
         $(this).parent().fadeOut();
     });
@@ -67,7 +67,7 @@ $(document).ready(function(){
 
     $('.display-more-info').click(function(e){
         e.preventDefault();
-        
+
         var $this = $(this),
             rel = $this.attr('rel');
             count = parseInt($this.find('span').text()) - 1;
@@ -79,7 +79,7 @@ $(document).ready(function(){
                 if(count == 1){
                 $('.'+rel+':first').parent().next('li:hidden').fadeIn().css('display', 'block');
                 }else{
-                  $('.'+rel+':first').parent().next('li').next('li:hidden').fadeIn().css('display', 'block');  
+                  $('.'+rel+':first').parent().next('li').next('li:hidden').fadeIn().css('display', 'block');
                 }
                 $this.find('span').text(count);
             }
@@ -98,7 +98,7 @@ $(document).ready(function(){
         $('.categoria').not($this).each(function(){
             //Deshabilitamos en el resto de los dropdowns el valor que seleccionamos recien
             $(this).find('option[value="'+$this.val()+'"]').attr('disabled', 'disabled').addClass(categoria);
-            
+
             //Habilitamos el valor anterior
             $(this).find('option[value="'+selected[$this.attr('id')]+'"]').removeAttr('disabled');
             $(this).trigger("liszt:updated");
@@ -162,7 +162,7 @@ $(document).ready(function(){
             }else if(label == 'nightClubs'){
                 $('.precio-li').show();
                 $('.recomienda-precio-li').show();
-                precioAgregar(stars, 'nightClubs');                
+                precioAgregar(stars, 'nightClubs');
             }
         }else{
             $('.precio-li').hide();
@@ -200,11 +200,11 @@ $(document).ready(function(){
             $.each(deshabilitar, function(j){
                 $('.categoria').not($this).each(function(i){
                     $(this).find('option[value="'+deshabilitar[j]+'"]').attr('disabled', 'disabled').addClass(val);
-                }); 
+                });
             });
             $(this).trigger("liszt:updated");
         });
-        
+
         //Seteamos el valor previo correspondiente al ID del dropdown que cambiamos
         selected[$this.attr('id')] = $this.val();
         $('.categoria').trigger("liszt:updated");
@@ -264,11 +264,11 @@ $(document).ready(function(){
                     $('.numero').after('<small class="errors">'+$this.attr('title')+'</small>');
                 }else if($this.is('select') && $this.not('.secundaria')){
                     $this.next('.chzn-container').find('.chzn-single').addClass('chzn-error');
-                    $this.after('<small class="errors">'+$this.attr('title')+'</small>'); 
+                    $this.after('<small class="errors">'+$this.attr('title')+'</small>');
                 }else{
-                   $this.after('<small class="errors">'+$this.attr('title')+'</small>'); 
+                   $this.after('<small class="errors">'+$this.attr('title')+'</small>');
                 }
-                
+
             }else{
                 $this.removeClass('input-error');
             }
@@ -294,7 +294,7 @@ $(document).ready(function(){
 
         if($('input[name="precio"]').val() == '' && $('.precio').is(':visible')){
             errores += "<p>¡Debes agregar el precio!</p>";
-            $('input[name="precio"]').after('<small class="errors">Seleccione un precio.</small>'); 
+            $('input[name="precio"]').after('<small class="errors">Seleccione un precio.</small>');
         }
 
         if(validMap == false){
@@ -303,7 +303,7 @@ $(document).ready(function(){
                 $('.mapa_info').before('<small class="errors">¡Espera! Acordate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</small>');
             }else{
                 errores += "<p>¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</p>";
-                $('.mapa_info').before('<small class="errors">¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</small>');                
+                $('.mapa_info').before('<small class="errors">¡Espera! Acuérdate de ubicar el lugar en el mapa, ya sea cargando el mapa o arrastrando el icono a su posición.</small>');
             }
         }
 
@@ -332,14 +332,14 @@ $(document).ready(function(){
         if(!$('#form_calle').val().match('Ej') && !$('#form_numero').val().match('Ej')){
             $.ajax({
                 url: WEBROOT+'../ajax/lugarYaExiste',
-                type: 'post', 
+                type: 'post',
                 dataType: 'json',
                 data: "calle="+$('#form_calle').val()+"&numero="+$('#form_numero').val()+"&id="+$('.id').val(),
                 success: function(data){
                     if(data.lugar){
                         $('.lugar-existe').append('<h5>Hay otros lugares con la misma dirección. Asegúrate de no agregar uno que ya esté.</5>')
                         $.each(data.lugar, function(i){
-                           $('.lugar-existe').append("<p>"+data.lugar[i]+"</p>"); 
+                           $('.lugar-existe').append("<p>"+data.lugar[i]+"</p>");
                         })
                         $('.lugar-existe').fadeIn();
                     }

@@ -1,21 +1,33 @@
 LoogaresLugarBundle_homepage:
-    pattern:  /agregar
+#    pattern:  /agregar
+    locales:
+        es : /agregar
+        en : /add
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
 _agregar:
-    pattern: /lugar/agregar
+    locales:
+        es : /lugar/agregar
+        en : /place/add
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
 _lugar:
-    pattern: /lugar/{slug}
+    locales:
+        es : /lugar/{slug}
+        en : /place/{slug}
+    pattern:
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugar}
 
 _editar:
-    pattern: /lugar/{slug}/editar
+    locales:
+        es : /lugar/{slug}/editar
+        en : /place/{slug}/edit
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregar }
 
 _lugaresGeoJSON:
-    pattern: /ajax/geo/lugares
+    locales:
+        es: /ajax/geo/lugares
+        en: /ajax/geo/places
     defaults: { _controller: LoogaresLugarBundle:Ajax:lugaresGeoJSON}
 
 _otrosLugaresEnElArea:
@@ -43,15 +55,21 @@ _sugerirUnLugar:
         accion: sugerirUnLugar
 
 _recomendarCalle:
-    pattern: /ajax/recomendarCalle
+    locales:
+        es: /ajax/recomendar-calle
+        en: /ajax/review-street
     defaults: { _controller: LoogaresLugarBundle:Ajax:recomendarCalle }
 
 _moduloRecomendacion:
-    pattern: /ajax/recomendacion
+    locales:
+        es: /ajax/recomendacion
+        en: /ajax/review
     defaults: { _controller: LoogaresLugarBundle:Ajax:recomendacion }
 
 _util:
-    pattern: /ajax/accion
+    locales:
+        es: /ajax/accion
+        en: /ajax/action
     defaults: { _controller: LoogaresLugarBundle:Ajax:accion }
 
 _utilMail:
@@ -59,79 +77,117 @@ _utilMail:
     defaults: { _controller: LoogaresLugarBundle:Ajax:utilMail }
 
 _cuponesCanjeados:
-    pattern: /ajax/cupones_canjeados
+    locales:
+        es: /ajax/cupones_canjeados
+        en: /ajax/payed_coupons
     defaults: { _controller: LoogaresLugarBundle:Ajax:cuponesCanjeados }
 
 _galeria:
-    pattern: /lugar/{slug}/galeria
+    locales:
+        es: /lugar/{slug}/galeria
+        en: /place/{slug}/gallery
     defaults: { _controller: LoogaresLugarBundle:Lugar:galeria }
 
 _agregarFotoLugar:
-    pattern: /lugar/{slug}/galeria/agregar
+    locales:
+        es: /lugar/{slug}/galeria/agregar
+        en: /place/{slug}/gallery/add
     defaults: { _controller: LoogaresLugarBundle:Lugar:agregarFoto }
 
 _editarFotoLugar:
-    pattern: /lugar/{slug}/galeria/{id}/editar
+    locales:
+        es: /lugar/{slug}/galeria/{id}/editar
+        en: /place/{slug}/gallery/{id}/edit
     defaults: { _controller: LoogaresLugarBundle:Lugar:editarFoto }
 
 _eliminarFotoLugar:
-    pattern: /lugar/{slug}/galeria/{id}/borrar
+    locales:
+        es: /lugar/{slug}/galeria/{id}/borrar
+        en: /place/{slug}/gallery/{id}/delete
     defaults: { _controller: LoogaresLugarBundle:Lugar:eliminarFoto }
 
 _fotoGaleria:
-    pattern: /lugar/{slug}/galeria/{id}
+    locales:
+        es: /lugar/{slug}/galeria/{id}
+        en: /place/{slug}/gallery/{id}
     defaults: { _controller: LoogaresLugarBundle:Lugar:fotoGaleria }
 
 _paginaGaleria:
-    pattern: /ajax/galeria/{id}/pagina
+    locales:
+        es: /ajax/galeria/{id}/pagina
+        en: /ajax/gallery/{id}/page
     defaults: { _controller: LoogaresLugarBundle:Ajax:paginaGaleria }
 
 _recomienda:
-    pattern: /lugar/{slug}/recomienda
+    locales:
+        es: /lugar/{slug}/recomienda
+        en: /places/{slug}/reviewit
     defaults: { _controller: LoogaresLugarBundle:Lugar:recomendaciones }
 
 _borrarRecomendacion:
-    pattern: /lugar/{slug}/recomendacion/borrar
+    locales:
+        es: /lugar/{slug}/recomendacion/borrar
+        en: /place/{slug}/review/delete
     defaults: { _controller: LoogaresLugarBundle:Lugar:accionRecomendacion, borrar: true}
 
 _lugarRecomendacion:
-    pattern: /lugar/{slug}/recomendacion
+    locales:
+        es: /lugar/{slug}/recomendacion
+        en: /place/{slug}/review
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendacion}
 
 _recomendacion:
-    pattern: /lugar/{slug}/recomendacion/{usuarioSlug}
+    locales:
+        es: /lugar/{slug}/recomendacion/{usuarioSlug}
+        en: /place/{slug}/review/{usuarioSlug}
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugarRecomendacion}
 
 _lugarMapa:
-    pattern: /lugar/{slug}/mapa
+    locales:
+        es: /lugar/{slug}/mapa
+        en: /place/{slug}/map
     defaults: { _controller: LoogaresLugarBundle:Lugar:lugarMapa}
 
 _reportarLugar:
-    pattern: /lugar/{slug}/reportar
+    locales:
+        es: /lugar/{slug}/reportar
+        en: /place/{slug}/report
     defaults: { _controller: LoogaresLugarBundle:Lugar:reportarLugar }
 
 _reportarFoto:
-    pattern: /lugar/{slug}/galeria/{id}/reportar
+    locales:
+        es: /lugar/{slug}/galeria/{id}/reportar
+        en: /place/{slug}/gallery/{id}/report
     defaults: { _controller: LoogaresLugarBundle:Lugar:reportarFoto }
 
 _reportarRecomendacion:
-    pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/reportar
+    locales:
+        es: /lugar/{slug}/recomendacion/{usuarioSlug}/reportar
+        en: /place/{slug}/review/{usuarioSlug}/report
     defaults: { _controller: LoogaresLugarBundle:Lugar:reportarRecomendacion }
 
 _reclamarLugar:
-    pattern: /lugar/{slug}/dueno
+    locales:
+        es: /lugar/{slug}/dueno
+        en: /place/{slug}/owner
     defaults: { _controller: LoogaresLugarBundle:Lugar:reclamarLugar }
 
 _enviarLugar:
-    pattern: /lugar/{slug}/enviar
+    locales:
+        es: /lugar/{slug}/enviar
+        en: /place/{slug}/send
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarLugar }
 
 _enviarRecomendacion:
-    pattern: /lugar/{slug}/recomendacion/{usuarioSlug}/enviar
+    locales:
+        es: /lugar/{slug}/recomendacion/{usuarioSlug}/enviar
+        en: /place/{slug}/review/{usuarioSlug}/send
     defaults: { _controller: LoogaresLugarBundle:Lugar:enviarRecomendacion }
 
 _pedidosLugar:
-    pattern: /lugar/{slug}/{tipo}
+    locales:
+        es: /lugar/{slug}/{tipo}
+        en: /place/{slug}/{tipo}
     defaults: { _controller: LoogaresLugarBundle:Lugar:pedidosLugar }
     requirements:
         tipo: reservas|pedidos
@@ -141,45 +197,67 @@ _pedidosLugar:
 #
 
 _buscar:
-    pattern: /{slug}/buscar
+    locales:
+        es: /{slug}/buscar
+        en: /{slug}/search
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _buscar }
 
 _categoria_subcategoria_sector:
-    pattern: /{slug}/sector/{sector}/categoria/{categoria}/{subcategoria}
+    locales:
+        es: /{slug}/sector/{sector}/categoria/{categoria}/{subcategoria}
+        en: /{slug}/neighborhood/{sector}/category/{categoria}/{subcategoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria_subcategoria }
 
 _categoria_subcategoria_comuna:
-    pattern: /{slug}/comuna/{comuna}/categoria/{categoria}/{subcategoria}
+    locales:
+        es: /{slug}/comuna/{comuna}/categoria/{categoria}/{subcategoria}
+        en: /{slug}/county/{comuna}/category/{categoria}/{subcategoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria_subcategoria }
 
 _categoria_subcategoria:
-    pattern: /{slug}/categoria/{categoria}/{subcategoria}
+    locales:
+        es: /{slug}/categoria/{categoria}/{subcategoria}
+        en: /{slug}/category/{categoria}/{subcategoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria_subcategoria }
 
 _categoria_sector:
-    pattern: /{slug}/sector/{sector}/categoria/{categoria}
+    locales:
+        es: /{slug}/sector/{sector}/categoria/{categoria}
+        en: /{slug}/neighborhood/{sector}/category/{categoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria }
 
 _categoria_comuna:
-    pattern: /{slug}/comuna/{comuna}/categoria/{categoria}
+    locales:
+        es: /{slug}/comuna/{comuna}/categoria/{categoria}
+        en: /{slug}/county/{comuna}/category/{categoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria }
 
 _categoria_sola:
-    pattern: /{slug}/categoria
+    locales:
+        es: /{slug}/categoria
+        es: /{slug}/category
     defaults: { _controller: LoogaresLugarBundle:Search:categoria, path: _categoria }
 
 _categoria:
-    pattern: /{slug}/categoria/{categoria}
+    locales:
+        es: /{slug}/categoria/{categoria}
+        en: /{slug}/category/{categoria}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, path: _categoria }
 
 _subcategoria:
-    pattern: /{slug}/subcategoria/{subcategoria}
+    locales:
+        es: /{slug}/subcategoria/{subcategoria}
+        en: /{slug}/subcategory/{subcategoria}
     defaults: { _controller: LoogaresLugarBundle:Search:subcategoria, path: _subcategoria }
 
 _comuna:
-    pattern: /{slug}/comuna/{term}
+    locales:
+        es: /{slug}/comuna/{term}
+        en: /{slug}/county/{term}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esComuna: true }
 
 _sector:
-    pattern: /{slug}/sector/{term}
+    locales:
+        es: /{slug}/sector/{term}
+        en: /{slug}/heighborhood/{term}
     defaults: { _controller: LoogaresLugarBundle:Search:buscar, esBusqueda: false, esSector: true }

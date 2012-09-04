@@ -19,6 +19,12 @@ Loogares\ExtraBundle\Entity\Pais:
             type: string
         mostrar_lugar:
             type: smallint
+        codigo_iso2c:
+            type: string
+            length: 2
+        cctld:
+            type: string
+            length: 6
     indexes:
         idx_pais_slug:
             columns: ["slug"]

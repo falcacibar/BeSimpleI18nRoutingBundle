@@ -6,7 +6,7 @@ use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
 use Doctrine\DBAL\Types\Type;
 
 require_once __DIR__ . '/../../TestInit.php';
- 
+
 class PostgreSqlPlatformTest extends AbstractPlatformTestCase
 {
     public function createPlatform()
@@ -35,6 +35,9 @@ class PostgreSqlPlatformTest extends AbstractPlatformTestCase
             'ALTER TABLE mytable ALTER bar TYPE VARCHAR(255)',
             "ALTER TABLE mytable ALTER bar SET  DEFAULT 'def'",
             'ALTER TABLE mytable ALTER bar SET NOT NULL',
+            'ALTER TABLE mytable ALTER bloo TYPE BOOLEAN',
+            "ALTER TABLE mytable ALTER bloo SET  DEFAULT 'false'",
+            'ALTER TABLE mytable ALTER bloo SET NOT NULL',
             'ALTER TABLE mytable RENAME TO userlist',
         );
     }
@@ -46,7 +49,7 @@ class PostgreSqlPlatformTest extends AbstractPlatformTestCase
 
     public function getGenerateForeignKeySql()
     {
-        return 'ALTER TABLE test ADD FOREIGN KEY (fk_name_id) REFERENCES other_table(id) NOT DEFERRABLE INITIALLY IMMEDIATE';
+        return 'ALTER TABLE test ADD FOREIGN KEY (fk_name_id) REFERENCES other_table (id) NOT DEFERRABLE INITIALLY IMMEDIATE';
     }
 
     public function testGeneratesForeignKeySqlForNonStandardOptions()
@@ -55,7 +58,7 @@ class PostgreSqlPlatformTest extends AbstractPlatformTestCase
                 array('foreign_id'), 'my_table', array('id'), 'my_fk', array('onDelete' => 'CASCADE')
         );
         $this->assertEquals(
-            "CONSTRAINT my_fk FOREIGN KEY (foreign_id) REFERENCES my_table(id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE",
+            "CONSTRAINT my_fk FOREIGN KEY (foreign_id) REFERENCES my_table (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE",
             $this->_platform->getForeignKeyDeclarationSQL($foreignKey)
         );
     }

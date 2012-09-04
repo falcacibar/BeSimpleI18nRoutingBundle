@@ -1,20 +1,20 @@
 <div class="menu_categorias">
 	<ul>
 		{% for menu in menu %}
-			<li><a class="tipo_categoria">{{menu.tipo.nombre}}</a>
+			<li><a class="tipo_categoria">{{(menu.tipo.nombre)|trans}}</a>
 				{% if menu.categorias|length <= 15 %}
 				<div class="cajas_menu">
 					<ul>
 					{% for categoria in menu.categorias %}
-						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre|trans}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
 					{% endfor %}
 					</ul>
 				</div>
-				{% elseif menu.categorias|length >= 16 and menu.categorias|length <= 19 %}		
-				<div class="cajas_menu dos_columnas">	
+				{% elseif menu.categorias|length >= 16 and menu.categorias|length <= 19 %}
+				<div class="cajas_menu dos_columnas">
 					<ul>
 					{% for categoria in menu.categorias %}
-						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre|trans}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
 						{% if loop.index == 0 or loop.index % 10 == 0 %}
 							</ul><ul>
 						{% endif %}
@@ -25,7 +25,7 @@
 				<div class="cajas_menu dos_columnas">
 					<ul>
 					{% for categoria in menu.categorias %}
-						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
+						<li><a href="{{path( '_categoria',{'slug': app.session.get('ciudad').slug, 'categoria':categoria.categoria_slug} )}}">{{categoria.categoria_nombre|trans}} <span class="numero_de_lugares_categoria">({{categoria.total}})</span></a></li>
 						{% if loop.index == 0 or loop.index % 15 == 0 %}
 							</ul><ul>
 						{% endif %}

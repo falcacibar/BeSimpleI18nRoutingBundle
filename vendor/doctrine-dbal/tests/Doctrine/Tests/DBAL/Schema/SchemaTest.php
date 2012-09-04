@@ -12,7 +12,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
 {
     public function testAddTable()
     {
-        $tableName = "foo";
+        $tableName = "public.foo";
         $table = new Table($tableName);
 
         $schema = new Schema(array($table));
@@ -107,7 +107,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Doctrine\DBAL\Schema\Sequence', $schema->getSequence("a_seq"));
 
         $sequences = $schema->getSequences();
-        $this->assertArrayHasKey('a_seq', $sequences);
+        $this->assertArrayHasKey('public.a_seq', $sequences);
     }
 
     public function testSequenceAccessCaseInsensitive()
@@ -145,7 +145,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Doctrine\DBAL\Schema\Sequence', $schema->getSequence("a_seq"));
 
         $sequences = $schema->getSequences();
-        $this->assertArrayHasKey('a_seq', $sequences);
+        $this->assertArrayHasKey('public.a_seq', $sequences);
     }
 
     public function testDropSequence()
@@ -207,5 +207,18 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
         $fk = $schemaNew->getTable('bar')->getForeignKeys();
         $fk = current($fk);
         $this->assertSame($schemaNew->getTable('bar'), $this->readAttribute($fk, '_localTable'));
+    }
+
+    /**
+     * @group DBAL-219
+     */
+    public function testHasTableForQuotedAsset()
+    {
+        $schema = new Schema();
+
+        $tableA = $schema->createTable('foo');
+        $tableA->addColumn('id', 'integer');
+
+        $this->assertTrue($schema->hasTable('`foo`'));
     }
 }

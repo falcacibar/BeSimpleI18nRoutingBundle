@@ -44,7 +44,7 @@ class LugarRepository extends EntityRepository
         $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
         $idCiudad = $cr->findOneBySlug($ciudad);
 
-        $q = $em->createQuery("SELECT count(u) 
+        $q = $em->createQuery("SELECT count(u)
                                FROM Loogares\LugarBundle\Entity\Lugar u
                                LEFT JOIN u.comuna c
                                WHERE c.ciudad = ?1");
@@ -58,7 +58,7 @@ class LugarRepository extends EntityRepository
         $em = $this->getEntityManager();
         $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Lugar u WHERE u.nombre = ?1");
         $q->setParameter(1, $nombre);
-        
+
         $lugarResult = $q->getResult();
 
         return $lugarResult;
@@ -67,11 +67,11 @@ class LugarRepository extends EntityRepository
     public function getCategorias($slug = null){
         $em = $this->getEntityManager();
         if($slug){
-           $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u where u.slug = '$slug' and u.mostrar_categoria = 1 order by u.nombre asc");  
+           $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u where u.slug = '$slug' and u.mostrar_categoria = 1 order by u.nombre asc");
         }else{
-          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u where u.mostrar_categoria = 1 order by u.nombre asc"); 
+          $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\Categoria u where u.mostrar_categoria = 1 order by u.nombre asc");
         }
-       
+
         $categoriasResult = $q->getResult();
 
         return $categoriasResult;
@@ -96,7 +96,7 @@ class LugarRepository extends EntityRepository
     public function getCiudades($slug = null){
         $em = $this->getEntityManager();
         if($slug){
-          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where (u.mostrar_lugar = 1 or u.mostrar_lugar = 3) and u.slug = '$slug' order by u.nombre asc"); 
+          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where (u.mostrar_lugar = 1 or u.mostrar_lugar = 3) and u.slug = '$slug' order by u.nombre asc");
         }else{
           $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Ciudad u  where (u.mostrar_lugar = 1 or u.mostrar_lugar = 3) order by u.nombre asc");
         }
@@ -118,7 +118,7 @@ class LugarRepository extends EntityRepository
         if($comuna){
           $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
           $ciudad = $cr->findOneBySlug($ciudad);
-          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u where u.slug = '$comuna' and u.ciudad = ?1 order by u.nombre asc"); 
+          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u where u.slug = '$comuna' and u.ciudad = ?1 order by u.nombre asc");
           $q->setParameter(1, $ciudad->getId());
         }else{
           $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Comuna u order by u.nombre asc");
@@ -131,7 +131,7 @@ class LugarRepository extends EntityRepository
     public function getSectores($slug = null){
       $em = $this->getEntityManager();
         if($slug){
-          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Sector u where u.slug = '$slug' order by u.nombre asc"); 
+          $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Sector u where u.slug = '$slug' order by u.nombre asc");
         }else{
           $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\Sector u order by u.nombre asc");
         }
@@ -171,7 +171,7 @@ class LugarRepository extends EntityRepository
       $q->setParameter(1, $nombre);
 
       $caracteristicaResult = $q->getResult();
-      return $caracteristicaResult;      
+      return $caracteristicaResult;
     }
 
     public function getSubcategoriaPorNombre($nombre){
@@ -180,7 +180,7 @@ class LugarRepository extends EntityRepository
       $q->setParameter(1, $nombre);
 
       $subCategoriaResult = $q->getResult();
-      return $subCategoriaResult;      
+      return $subCategoriaResult;
     }
 
     public function getSubCategorias($slug = null){
@@ -189,11 +189,11 @@ class LugarRepository extends EntityRepository
         $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\SubCategoria u where u.slug = ?1");
         $q->setParameter(1, $slug);
       }else{
-        $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\SubCategoria u");  
+        $q = $em->createQuery("SELECT u FROM Loogares\LugarBundle\Entity\SubCategoria u");
       }
 
       $subCategoriaResult = $q->getResult();
-      return $subCategoriaResult;    
+      return $subCategoriaResult;
     }
 
     public function getTipoCategoriaPorPrioridad() {
@@ -216,12 +216,12 @@ class LugarRepository extends EntityRepository
     public function getTagsPopulares($id){
       return $this->_em
              ->getConnection()
-             ->fetchAll("select DISTINCT tag.tag as nombre, count(tag_recomendacion.tag_id) as freq from tag_recomendacion 
+             ->fetchAll("select DISTINCT tag.tag as nombre, count(tag_recomendacion.tag_id) as freq from tag_recomendacion
 
                         left join recomendacion
                         on tag_recomendacion.recomendacion_id = recomendacion.id
 
-                        left join tag 
+                        left join tag
                         on tag_recomendacion.tag_id = tag.id
 
                         where recomendacion.lugar_id = $id
@@ -312,7 +312,7 @@ class LugarRepository extends EntityRepository
     }
 
     public function getAccionesUsuario($lugar, $usuario=null) {
-      
+
       $em = $this->getEntityManager();
       $sq = "SELECT count(au.id)
              FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
@@ -324,25 +324,25 @@ class LugarRepository extends EntityRepository
       }
       $q = $em->createQuery("SELECT a.id, a.nombre,
                              (" . $sq . ") hecho
-                             FROM Loogares\UsuarioBundle\Entity\Accion a");          
+                             FROM Loogares\UsuarioBundle\Entity\Accion a");
       if($usuario) {
-        $q->setParameter(1, $lugar);      
+        $q->setParameter(1, $lugar);
         $q->setParameter(2, $usuario);
-      }    
+      }
       return $q->getResult();
     }
 
-    public function getAccionUsuarioLugar($lugar, $usuario, $accion) {   
+    public function getAccionUsuarioLugar($lugar, $usuario, $accion) {
       if($accion == 'quiero_ir'){ $accion = 1; }
       else if($accion == 'quiero_volver'){ $accion = 2; }
       else if($accion == 'estuve_alla'){ $accion = 3; }
       else if($accion == 'favoritos'){ $accion = 4; }
       else if($accion == 'recomendar_despues'){ $accion = 5; }
-        
+
       $em = $this->getEntityManager();
-      $q = $em->createQuery("SELECT au 
-                        FROM Loogares\UsuarioBundle\Entity\AccionUsuario au 
-                        WHERE au.lugar = ?1 
+      $q = $em->createQuery("SELECT au
+                        FROM Loogares\UsuarioBundle\Entity\AccionUsuario au
+                        WHERE au.lugar = ?1
                         AND au.usuario = ?2
                         AND au.accion = ?3");
       $q->setParameter(1, $lugar);
@@ -380,7 +380,7 @@ class LugarRepository extends EntityRepository
                              GROUP BY l.id");
       $q->setParameter(1, $ciudad);
       $q->setParameter(2, 3);
-      
+
       return $q->getResult();
     }
 
@@ -437,8 +437,8 @@ class LugarRepository extends EntityRepository
         $ur = $em->getRepository('LoogaresUsuarioBundle:Util');
 
         $lugar = $lr->findOneBySlug($slug);
-        $q = $em->createQuery("SELECT u, count(u.id) as total, avg(u.estrellas) as avgestrellas, sum(u.precio) as precio 
-        FROM Loogares\UsuarioBundle\Entity\Recomendacion u 
+        $q = $em->createQuery("SELECT u, count(u.id) as total, avg(u.estrellas) as avgestrellas, sum(u.precio) as precio
+        FROM Loogares\UsuarioBundle\Entity\Recomendacion u
         where u.lugar = ?1 AND u.estado != ?2");
         $q->setParameter(1, $lugar->getId());
         $q->setParameter(2, 3);
@@ -451,7 +451,7 @@ class LugarRepository extends EntityRepository
         $lugar->setEstrellas($avg[0]['avgestrellas']);
         $lugar->setTotalRecomendaciones($avg[0]['total']);
 
-        $q = $em->createQuery("SELECT u, count(u.id) as utiles FROM Loogares\UsuarioBundle\Entity\Util u 
+        $q = $em->createQuery("SELECT u, count(u.id) as utiles FROM Loogares\UsuarioBundle\Entity\Util u
                               LEFT JOIN u.recomendacion r
                               where r.lugar = ?1");
         $q->setParameter(1, $lugar->getId());

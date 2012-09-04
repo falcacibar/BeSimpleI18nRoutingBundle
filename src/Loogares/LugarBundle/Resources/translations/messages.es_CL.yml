@@ -1,0 +1,356 @@
+# Locale 'es_CL' LugarBundle
+lugar:
+    flash:
+        foto:
+            agregar: ¡Ese es el espíritu, %nombre% %apellido%! Si sigues subiendo fotos, cuando tengamos un hijo le pondremos tu nombre.
+            borrar: Tu foto acaba de ser borrada. Agrega otra cuando quieras.
+        compartir:
+            mail: ¡Buenísimo! Acabas de compartir un lugar con tus amigos. Ahora deberías exigirles una salida... ¡todo incluido!
+        recomendacion:
+            agregar: ¡Eres el mejor, %nombre% %apellido%! Sigue recomendando y te convertirás en nuestro Loogareño favorito.
+            agregar_revision: ¡Qué grande, %nombre% %apellido%! Si tuviéramos medallas te daríamos una. El lugar que agregaste quedará temporalmente en revisión.
+            edicion_revision: ¡Gracias %nombre% %apellido% por tu ayuda! No sabríamos qué hacer sin ti. La información quedará bajo revisión antes de ser publicada.
+            concurso_singular: ¡Buenísimo! Ya estás participando del concurso de %link%
+            concurso_plural: ¡Buenísimo! Ya estás participando en los concursos en los que marcaste tu participación
+            solo_una: ¡Pero cómo! ¿Te olvidaste que ya habías escrito una recomendación? Tal vez quieras %link_editar%.
+            link_editar: editar tu recomendación
+
+    errors:
+        agregar:
+            nombre: Ingresa el nombre del lugar
+            categoria: Recuerda asignarle una categoría al lugar
+            comuna: Localiza la comuna del lugar
+            calle: Ingresa la calle del lugar
+            numero: Ingresa el número del lugar
+        fotos:
+            no_imagen: Ocurrió un error con la carga de una o más imágenes. Inténtalo de nuevo, o prueba con otras.
+            valida: No tienes seleccionado ningún archivo. Por favor, elige uno.
+            titulo_pag: Agrega una Foto
+        enviar:
+            nombre: Es obligatorio que ingreses tu nombre
+            mail: Es obligatorio que ingreses tu E-mail
+            mails: Es necesario que ingreses al menos un E-mail
+            mail_malo: El E-Mail no es válido.
+            mails_malo: El E-Mail "%mail%" no es válido.
+
+    categoria:
+        titulo_pagina: Todas las categorías enenviarLugarAction
+
+    buscar:
+        titulo: Resultados para: %buscar%
+        total_recomendaciones: recomendación|recomendaciones
+        resultado_busqueda: Resultados de
+        en: en
+        sectores: Sectores
+        comunas: Comunas
+        zonas: Zonas
+        categorias: Categorías
+        subcategorias: Subcategorías
+        precios: Precios
+        caracteristicas: Características
+        ver_todas: Ver Todas
+        no_encontraste: ¿No encontraste el Lugar que buscabas?
+        agregalo: ¡Entonces agrégalo y sé el primero en recomendarlo!
+        mala_suerte: ¡Mala suerte!... No encontramos
+        en: en
+        prueba: Prueba lo siguiente para mejorar tu búsqueda:
+        buscar_zona: Busca en otra zona. Ej. "Santiago", "Ñuñoa" o "Bellavista"
+        revisa: Revisa si está bien escrito, sin faltas de ortografía
+        buscar_general: Haz una búsqueda más general. Ej. "Cines" o "Bares"
+        titulo_pagina_buscar: ¿Qué estás buscando?
+
+    ficha:
+        pedidos:
+            cerrar: Cerrar
+            elige: Elige el servicio que quieres usar:
+        otros:
+            titulo: Otros Lugares en el área
+        qtip:
+            favoritos: Agregar a Favoritos
+            favoritos_logeado: Si quieres agregar este lugar como Favorito, debes estar
+            ya_estuve_logeado: Si quieres marcar este lugar como que ya estuviste, debes estar
+            volver_logeado: Si quieres marcar este lugar para volver, debes estar
+            quiero_ir_logeado: Si quieres marcar este lugar para ir después, debes estar
+            logeado: logeado
+            registro: Aún no eres usuario, regístrate
+            aqui: aquí
+        total_recomendaciones: recomendación|recomendaciones
+        multimedia:
+            galeria: Ver galería %br%(%total% foto)|Ver galería %br%(%total% fotos)
+            agregar_foto: » Agrega una foto
+            video: Ver video
+        datos:
+            precio: Precio:
+            primero: Primero en recomendar
+            horario: Horario:
+            sector: Sector:
+            subcategorias: Subcategorías
+            profesional: Profesional
+            agnoConstruccion: Año de construcción
+            materiales: Materiales
+        opciones:
+            owner: ¿Eres dueño de este Lugar?
+            owner_reclamado: Reclamado por su dueño
+            editar: Edita los datos
+            cerro: ¿Este Lugar cerró? Avísanos
+            enviar: Enviar
+            imprimir: Imprimir
+            twittear: Twitter
+            facebook: Facebook
+            e_mail: E-mail
+        recomendaciones:
+            titulo: Recomendación en %lugar%|Recomendaciones en %lugar%
+            titulo_0: 0 Recomendaciones en
+            enviar: Compartir
+            permalink: Link a esta recomendación
+            editar: Edita tu recomendación
+            borrar: Borra tu recomendación
+            reportar: Reporta esta recomendación
+        tags: Tags:
+        recomienda:
+            titulo: Recomienda
+        aun_no_eres_parte: ¿Aún no eres parte de Loogares.com?
+        registrate: Para recomendarle este lugar a otros Loogareños, tienes que registrarte antes.
+
+    mapa:
+        titulo: Mapa y lugares cercanos a
+        otros: Lugares cercanos
+
+    pagina_recomendacion:
+        numero_de_recomendaciones: Recomendaciones en
+
+    agregar:
+        titulo: Agregar un Lugar
+        nombre: Nombre
+        categorias:
+            label: Categorías
+            principal: Elige una Categoría Principal
+            secundaria: Elige una Categoría Secundaria
+            agregar: » Agrega una categoría secundaria (Máx.
+        subcategorias: Subcategorías * (Máx. 3)
+        pais: País
+        ciudad: Ciudad
+        comuna:
+            label: Comuna
+            title: Elige una comuna
+        calle: Calle
+        numero: Nº
+        galeria_centro: » ¿Es parte de una galería o centro comercial?
+        detalle: Detalle
+        cargar_mapa: Cargar mapa
+        sector:
+            label: Sector
+            title: ¿Está en un sector popular? Elígelo aquí
+        telefono:
+            label: Teléfono
+            agregar: » ¿Más teléfonos? (Máx.
+        precio: Precio
+        web: Sitio web
+        mail: E-mail
+        horario:
+            label: Horario
+            tip: ¿Sabes los horarios de atención? Agrégalos
+            dias:
+                lunes: Lunes
+                martes: Martes
+                miercoles: Miércoles
+                jueves: Jueves
+                viernes: Viernes
+                sabado: Sábado
+                domingo: Domingo
+            jornadas:
+                primera: Jornada 1
+                segunda: Jornada 2
+                abre: Abre
+                cierra: Cierra
+                cerrado: Cerrado
+                doble: ¿Tiene jornada doble?
+            recordatorio:
+                primero: Si no se indica ningún horario para un determinado día, se entenderá que ese día está cerrado.
+                segundo: Si un día se indican los datos de Jornada 1, pero no los de Jornada 2, se entenderá que ese día opera en jornada única.
+        profesional: Profesional
+        construccion: Año de construcción
+        descripcion: Descripción
+        materiales: Materiales
+        caracteristicas: Características
+        recomendacion: Recomendación
+        placeholders:
+            nombre: Ej. Bar El Tufo
+            calle: Ej. Tarapallá
+            numero: Ej. 1949 o s/n
+            detalle: Ej. A, Local 45, Piso 9, Centro Comercial Matta
+            telefono: Ej. 2 2130894
+            web: Ej. http://www.bareltufo.cl
+            facebook: Ej. http://www.facebook.com/pages/bareltufo
+            twitter: Ej. http://www.twitter.com/barelfuto
+            mail: Ej. usuario@loogares.com
+            profesional: Ej. Nombre del Arquitecto, Paisajista, etc
+            construccion: Ej. 1985, Siglo XX
+            descripcion: Ej. Breve descripción del lugar
+            materiales: Ej. Cobre, Granito, etc
+        quitar: Quitar
+        obligatorio: Los campos con (*) son obligatorios
+        submit: Guardar los datos
+        mapa:
+            titulo: Ubicación en el mapa
+            texto: Una vez cargado el mapa, puedes arrastrar el ícono para corregir su posición.
+
+    editar:
+        titulo: Edita los datos de
+        sugirio: sugirió
+
+    recomendacion:
+        compartir:
+            facebook: He recomendado %s con %d estrellas en Loogares.com
+            twitter: He recomendado %s con %d estrellas en %s
+        opcional:
+            tip: ¿Deseas agregar una Recomendación?
+        titulo: Recomendación
+        maximo: Máx.
+        llevas: Llevas
+        evaluacion: Evaluación
+        tags: Tags
+        tagsPopulares: Tags Populares
+        precio: Precio
+        placeholders:
+            textarea: ¡Este es tu espacio! Tómate un tiempo en compartir tu experiencia, sea buena o mala, a través de una recomendación honesta, útil y de calidad. \n\nSé creativo en tu recomendación. Escríbela como una canción, de forma graciosa o como el mejor de los poemas… ¡queremos recomendaciones notables! \n\nA partir de hoy eres un crítico profesional…
+            tags: Ej. bar, buena música, ondeo, hasta las 5 am
+        meta:
+            title: Recomendación de %usuario% en %lugar%
+        error_estrellas: Este campo es obligatorio. Por favor, complétalo.
+        error_precio: Este campo es obligatorio. Por favor, complétalo.
+        error_recomendacion: Debes escribir al menos 255 caracteres para poder publicar tu recomendación.
+
+    notificaciones:
+        nueva_recomendacion:
+            mail:
+                asunto: ¡Acaban de escribir sobre %lugar% en Loogares.com!
+                titulo: ¡Hola!
+                subtitulo: Te contamos que una persona acaba de escribir una recomendación sobre %lugar% en %loogares%. ¡Léela a continuación!
+                leer_mas: Leer más »
+                subsubtitulo: ¿Quieres que más gente conozca %lugar% en Loogares.com?
+                primero: Loogares.com es una guía online de recomendaciones de lugares de ocio y turismo en la ciudad, donde miles de nuestros usuarios "Loogareños" diariamente comparten sus experiencias escribiendo recomendaciones de lugares que conocen.
+                segundo: Ellos seguramente tienen mucho que contar acerca de tu negocio, por eso te proponemos una interesante alianza comercial para que nuestros Loogareños escriban más recomendaciones en %lugar% y seas más visible en Loogares.com. Te invitamos a que hagas click sobre el botón y en menos de 48 horas te enviaremos nuestra propuesta.
+                propuesta: ¡Quiero recibir la propuesta!
+        util_recomendacion:
+            mail:
+                asunto: %usuario% encuentra útil tu recomendación en %lugar%
+                primero: ¡Eres muy bacán! %usuario% encuentra útil tu %open_rec%recomendación%close_rec% en %lugar%
+                segundo: ¡Haz click %open_tag%acá%close_tag% para verla!
+        despues_recomendacion:
+            mail:
+                asunto: %usuario% escribió una recomendación en %lugar% después de ti
+                primero: %usuario% acaba de escribir una recomendación en %lugar% justo después de la tuya.
+                segundo: ¡Haz click %open_tag%acá%close_tag% para leerla!
+
+fotos:
+    agregar:
+        title: Agregar foto a
+        titulo: Agrega una foto en
+        subtitulo: Puedes agregar una o más fotos a la galería de fotos de %lugar% en sólo 2 pasos:
+        primer_paso: Cargar fotos desde tu computador /
+        primer_paso_tips: Máximo 5 MB, sólo JPG, GIF y PNG
+        segundo_paso: 2. Ya cargaste %imagenes% foto. Ahora puedes agregarle links o una descripción.|2. Ya cargaste %imagenes% fotos. Ahora puedes agregar links o descripción a cada una.
+        computador: Subir foto
+        url: Cargar fotos desde un sitio web
+        url_label: Dirección (URL)
+        agregar_foto: Agregar otra foto (Máx.
+        agregar_url: Agregar otra URL (Máx.
+        quitar: Quitar
+        descripcion: Descripción o dirección URL para linkear a la imagen a su sitio original.
+        submit: Enviar
+    editar:
+        titulo_pag: Editar foto en
+        titulo: Edita tu foto en
+        cancelar: Cancelar
+    galeria:
+        title: Galería de fotos de
+        titulo: Galería de fotos de
+        autor: Agregada por
+        editar: Edita tu foto
+        borrar: Borra tu foto
+        reportar: Reporta esta foto
+        anterior: Anterior
+        siguiente: Siguiente
+
+compartir:
+    lugar:
+        mail:
+            title: Enviar %lugar% a tus amigos
+            titulo: Cuéntale a tus amigos sobre
+            asunto: quiere que veas un Lugar en Loogares.com
+            saludo: ¡Hola %destinatario%!
+            subtitulo: quiere contarte sobre un Lugar que te puede gustar:
+            texto: Lo que te dice:
+        placeholder: ¡Este lugar es increíble!
+    recomendacion:
+        mail:
+            title: Enviar recomendación en %lugar% a tus amigos
+            titulo: Cuéntale a tus amigos sobre la %open_tag%recomendación%close_tag% de %usuario% en
+            asunto: quiere mostrarte una recomendación en Loogares.com
+            subtitulo: quiere contarte sobre una recomendación de un Lugar que te puede gustar:
+            bajada: Haz clic %open_tag%acá%close_tag% para ver la recomendación de
+        placeholder: ¡Esta recomendación está increíble!
+    form:
+        nombre: Tu Nombre *
+        mail: Tu E-mail *
+        mails_amigos: E-mails de tus amigos *
+        cuerpo: ¿Y qué les vas a contar?
+        tips:
+            comas: Para enviar a más de una dirección de E-mail, sepáralas por una coma (,)
+            obligatorio: Los campos con (*) son obligatorios
+
+reportes:
+    titulo: "{0} Reportar %lugar%|{1} Reportar la recomendación de %usuario% en %lugar%|]1,Inf] Reportar la foto de %usuario% en %lugar%"
+    lugar:
+        title: Reportar %lugar%
+        subtitulo: ¿Este lugar ya no existe? ¿O está repetido? Recuerda que puedes editar los datos de los lugares que tengan errores en su información. Para cualquier otro problema no dudes en avisarnos.
+    imagen:
+        title: Reportar foto en %lugar%
+        subtitulo: ¿Algo malo con esta foto? Si tiene contenido ofensivo, con derechos reservados o crees que no cumple con los Términos de uso de Loogares.com no dudes en avisarnos.
+    recomendacion:
+        title: Reportar recomendación en %lugar%
+        subtitulo: ¿Algo malo con esta recomendación? Si tiene contenido ofensivo, con derechos reservados o crees que no cumple con los Términos de uso de Loogares.com no dudes en avisarnos.
+    label: Escríbenos el porqué de tu reporte *
+    tip:
+        gracias: Te agradecemos tu ayuda
+        obligatorio: Los campos con (*) son obligatorios
+
+    flash: Gracias por avisarnos. Lo revisaremos lo antes posible.
+
+    mail:
+        lugar:
+            asunto: Reportar lugar:
+            titulo: Lugar
+        imagen:
+            asunto: Reporte: Foto de
+            titulo: Imagen
+        recomendacion:
+            asunto: Reporte: Recomendación de
+            titulo: Recomendación
+        usuario: Usuario
+        observacion: Observación
+        nombre: Nombre
+        e_mail: E-mail
+        telefono: Teléfono
+        comprobar_dueno: ¿Cómo comprobar que eres dueño?
+        nombre_lugar: Lugar
+
+reporte_local:
+    title: Reporte
+    titulo: Métricas campaña Beneficios Exclusivos
+    link_nota: Ir a la nota
+    titulo_fecha: Fecha de inicio y término:
+    titulo_be: Beneficio Exclusivo:
+    titulo_condiciones: Condiciones:
+    visitas_home: Vistas totales página de inicio y páginas interiores
+    visitas_totales: Vistas totales
+    nota: nota
+    ficha: ficha informativa
+    recomendaciones: Recomendaciones en ficha informativa
+    facebook: Aumento de fans en Facebook
+    twitter: Aumento de fans en Twitter
+    ganadores: Ganadores
+    ganadores_detalle: A continuación se detallan los ganadores de la campaña.
+    ganadores_tip: Una vez que un Loogareño ha asistido al local, marcar el checkbox y hacer click en
+    ganadores_canjeada: Gift Card canjeada

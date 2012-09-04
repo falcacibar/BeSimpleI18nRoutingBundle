@@ -9,6 +9,9 @@ use Doctrine\Tests\Models\CMS\CmsArticle,
 
 require_once __DIR__ . '/../../../TestInit.php';
 
+/**
+ * @group locking
+ */
 class LockTest extends \Doctrine\Tests\OrmFunctionalTestCase {
     protected function setUp() {
         $this->useModelSet('cms');
@@ -71,7 +74,7 @@ class LockTest extends \Doctrine\Tests\OrmFunctionalTestCase {
     public function testLockUnmanagedEntity_ThrowsException() {
         $article = new CmsArticle();
 
-        $this->setExpectedException('InvalidArgumentException', 'Entity is not MANAGED.');
+        $this->setExpectedException('InvalidArgumentException', 'Entity Doctrine\Tests\Models\CMS\CmsArticle');
         $this->_em->lock($article, LockMode::OPTIMISTIC, $article->version + 1);
     }
 
@@ -139,7 +142,6 @@ class LockTest extends \Doctrine\Tests\OrmFunctionalTestCase {
 
     /**
      * @group DDC-178
-     * @group locking
      */
     public function testLockPessimisticRead() {
         $readLockSql = $this->_em->getConnection()->getDatabasePlatform()->getReadLockSql();
@@ -165,5 +167,18 @@ class LockTest extends \Doctrine\Tests\OrmFunctionalTestCase {
 
         $query = array_pop( $this->_sqlLoggerStack->queries );
         $this->assertContains($readLockSql, $query['sql']);
+    }
+
+    /**
+     * @group DDC-1693
+     */
+    public function testLockOptimisticNonVersionedThrowsExceptionInDQL()
+    {
+        $dql = "SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.username = 'gblanco'";
+
+        $this->setExpectedException('Doctrine\ORM\OptimisticLockException', 'The optimistic lock on an entity failed.');
+        $sql = $this->_em->createQuery($dql)->setHint(
+            \Doctrine\ORM\Query::HINT_LOCK_MODE, \Doctrine\DBAL\LockMode::OPTIMISTIC
+        )->getSQL();
     }
 }

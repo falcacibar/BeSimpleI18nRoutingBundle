@@ -4,6 +4,7 @@ namespace Doctrine\Tests\ORM\Functional;
 use Doctrine\Tests\Models\Navigation\NavCountry;
 use Doctrine\Tests\Models\Navigation\NavPointOfInterest;
 use Doctrine\Tests\Models\Navigation\NavTour;
+use Doctrine\Tests\Models\Navigation\NavPhotos;
 
 require_once __DIR__ . '/../../TestInit.php';
 
@@ -42,13 +43,32 @@ class CompositePrimaryKeyTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testPersistCompositePkEntity()
     {
         $this->putGermanysBrandenburderTor();
-        
+
         $poi = $this->_em->find('Doctrine\Tests\Models\Navigation\NavPointOfInterest', array('lat' => 100, 'long' => 200));
 
         $this->assertInstanceOf('Doctrine\Tests\Models\Navigation\NavPointOfInterest', $poi);
         $this->assertEquals(100, $poi->getLat());
         $this->assertEquals(200, $poi->getLong());
         $this->assertEquals('Brandenburger Tor', $poi->getName());
+    }
+
+    /**
+     * @group DDC-1651
+     */
+    public function testSetParameterCompositeKeyObject()
+    {
+        $this->putGermanysBrandenburderTor();
+
+        $poi = $this->_em->find('Doctrine\Tests\Models\Navigation\NavPointOfInterest', array('lat' => 100, 'long' => 200));
+        $photo = new NavPhotos($poi, "asdf");
+        $this->_em->persist($photo);
+        $this->_em->flush();
+        $this->_em->clear();
+
+        $dql = 'SELECT t FROM Doctrine\Tests\Models\Navigation\NavPhotos t WHERE t.poi = ?1';
+
+        $this->setExpectedException('Doctrine\ORM\Query\QueryException', 'A single-valued association path expression to an entity with a composite primary key is not supported.');
+        $sql = $this->_em->createQuery($dql)->getSQL();
     }
 
     public function testManyToManyCompositeRelation()
@@ -71,7 +91,7 @@ class CompositePrimaryKeyTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $tours = $this->_em->createQuery($dql)->getResult();
 
         $this->assertEquals(1, count($tours));
-        
+
         $pois = $tours[0]->getPointOfInterests();
 
         $this->assertEquals(1, count($pois));
@@ -91,5 +111,11 @@ class CompositePrimaryKeyTest extends \Doctrine\Tests\OrmFunctionalTestCase
                            ->getResult();
 
         $this->assertEquals(1, count($tours));
+    }
+
+    public function testSpecifiyUnknownIdentifierPrimaryKeyFails()
+    {
+        $this->setExpectedException('Doctrine\ORM\ORMException', 'The identifier long is missing for a query of Doctrine\Tests\Models\Navigation\NavPointOfInterest');
+        $poi = $this->_em->find('Doctrine\Tests\Models\Navigation\NavPointOfInterest', array('key1' => 100));
     }
 }

@@ -11,7 +11,7 @@ class SqliteSchemaManagerTest extends SchemaManagerFunctionalTestCase
     /**
      * SQLITE does not support databases.
      *
-     * @expectedException Doctrine\DBAL\DBALException
+     * @expectedException \Doctrine\DBAL\DBALException
      */
     public function testListDatabases()
     {
@@ -29,10 +29,18 @@ class SqliteSchemaManagerTest extends SchemaManagerFunctionalTestCase
     }
 
     /**
-     * @expectedException Doctrine\DBAL\DBALException
+     * @expectedException \Doctrine\DBAL\DBALException
      */
     public function testRenameTable()
     {
         $this->_sm->renameTable('oldname', 'newname');
+    }
+
+    public function testAutoincrementDetection()
+    {
+      $this->markTestSkipped(
+          'There is currently no reliable way to determine whether an SQLite column is marked as '
+          . 'auto-increment. So, while it does support a single identity column, we cannot with '
+          . 'certainty determine which it is.');
     }
 }

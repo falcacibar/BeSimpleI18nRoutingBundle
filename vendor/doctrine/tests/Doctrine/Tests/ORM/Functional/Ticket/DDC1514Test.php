@@ -57,6 +57,8 @@ class DDC1514Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $dql = "SELECT a, b, ba, c FROM " . __NAMESPACE__ . "\DDC1514EntityA AS a LEFT JOIN a.entitiesB AS b LEFT JOIN b.entityATo AS ba LEFT JOIN a.entityC AS c";
         $results = $this->_em->createQuery($dql)->getResult();
 
+        $this->assertInternalType('array', $results);
+        $this->assertTrue(count($results) >= 1, "At least one result expected in array");
         $this->assertEquals($c->title, $results[1]->entityC->title);
     }
 }
@@ -74,7 +76,7 @@ class DDC1514EntityA
     public $entitiesB;
     /** @ManyToOne(targetEntity="DDC1514EntityC") */
     public $entityC;
-    
+
     public function __construct()
     {
         $this->entitiesB = new ArrayCollection();

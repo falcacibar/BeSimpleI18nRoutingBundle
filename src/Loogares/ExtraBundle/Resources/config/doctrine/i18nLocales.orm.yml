@@ -1,0 +1,18 @@
+Loogares\ExtraBundle\Entity\i18nLocales:
+    type: entity
+    table: i18n_locales
+    id:
+        id:
+            type: integer
+            generator: { strategy: auto }
+    fields:
+        locale:
+            type: string
+            length: 14
+        nombre:
+            type: string
+            length: 128
+        estado:
+            type: boolean
+            nullable: false
+            default: 0

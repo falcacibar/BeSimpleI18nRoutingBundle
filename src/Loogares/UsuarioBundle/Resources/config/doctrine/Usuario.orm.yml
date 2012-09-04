@@ -99,6 +99,10 @@ Loogares\UsuarioBundle\Entity\Usuario:
             nullable: true
         salt:
             type: string
+        locale:
+            type: string
+            length: 5
+            nullable: true
     indexes:
         idx_usuarios_slug:
             columns: ["slug"]

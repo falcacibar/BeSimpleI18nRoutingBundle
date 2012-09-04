@@ -3,6 +3,15 @@ parameters:
     loogares_facebook_provider.class: Loogares\UsuarioBundle\Security\User\FacebookProvider
 
 services:
+    gedmo.listener.translatable:
+        class: Gedmo\Translatable\TranslationListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]
+            - [ setDefaultLocale, [ %locale% ] ]
+            - [ setTranslationFallback, [ true ] ]
+
     fn:
         class: %loogares_fn.class%
 
@@ -24,6 +33,13 @@ services:
         arguments: [@service_container, @doctrine.orm.default_entity_manager, @controller_resolver]
         tags:
             -  { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    http.communication_listener:
+        class: Loogares\ExtraBundle\EventListener\HttpCommunicationListener
+        arguments: [@service_container, @doctrine.orm.default_entity_manager]
+        tags:
+            -  { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+            -  { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
     sha1_login_encoder:
         class: Loogares\ExtraBundle\Encoder\Encoder

@@ -5,6 +5,8 @@ namespace Doctrine\Tests\DBAL\Functional\Schema;
 use Doctrine\DBAL\Types\Type,
     Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Events;
 
 require_once __DIR__ . '/../../../TestInit.php';
 
@@ -15,17 +17,23 @@ class SchemaManagerFunctionalTestCase extends \Doctrine\Tests\DbalFunctionalTest
      */
     protected $_sm;
 
+	protected function getPlatformName()
+	{
+	    $class = get_class($this);
+        $e = explode('\\', $class);
+        $testClass = end($e);
+        $dbms = strtolower(str_replace('SchemaManagerTest', null, $testClass));
+        return $dbms;
+	}
+
     protected function setUp()
     {
         parent::setUp();
 
-        $class = get_class($this);
-        $e = explode('\\', $class);
-        $testClass = end($e);
-        $dbms = strtolower(str_replace('SchemaManagerTest', null, $testClass));
+        $dbms = $this->getPlatformName();
 
         if ($this->_conn->getDatabasePlatform()->getName() !== $dbms) {
-            $this->markTestSkipped('The ' . $testClass .' requires the use of ' . $dbms);
+            $this->markTestSkipped(get_class($this) . ' requires the use of ' . $dbms);
         }
 
         $this->_sm = $this->_conn->getSchemaManager();
@@ -111,7 +119,7 @@ class SchemaManagerFunctionalTestCase extends \Doctrine\Tests\DbalFunctionalTest
     {
         $table = new \Doctrine\DBAL\Schema\Table('list_table_columns');
         $table->addColumn('id', 'integer', array('notnull' => true));
-        $table->addColumn('test', 'string', array('length' => 255, 'notnull' => false));
+        $table->addColumn('test', 'string', array('length' => 255, 'notnull' => false, 'default' => 'expected default'));
         $table->addColumn('foo', 'text', array('notnull' => true));
         $table->addColumn('bar', 'decimal', array('precision' => 10, 'scale' => 4, 'notnull' => false));
         $table->addColumn('baz1', 'datetime');
@@ -143,7 +151,7 @@ class SchemaManagerFunctionalTestCase extends \Doctrine\Tests\DbalFunctionalTest
         $this->assertEquals(255,    $columns['test']->getlength());
         $this->assertEquals(false,  $columns['test']->getfixed());
         $this->assertEquals(false,  $columns['test']->getnotnull());
-        $this->assertEquals(null,   $columns['test']->getdefault());
+        $this->assertEquals('expected default',   $columns['test']->getdefault());
         $this->assertInternalType('array',  $columns['test']->getPlatformOptions());
 
         $this->assertEquals('foo',  strtolower($columns['foo']->getname()));
@@ -184,6 +192,54 @@ class SchemaManagerFunctionalTestCase extends \Doctrine\Tests\DbalFunctionalTest
         $this->assertInternalType('array',  $columns['baz3']->getPlatformOptions());
     }
 
+    public function testListTableColumnsDispatchEvent()
+    {
+        $table = $this->createListTableColumns();
+
+        $this->_sm->dropAndCreateTable($table);
+
+        $listenerMock = $this->getMock('ListTableColumnsDispatchEventListener', array('onSchemaColumnDefinition'));
+        $listenerMock
+            ->expects($this->exactly(7))
+            ->method('onSchemaColumnDefinition');
+
+        $oldEventManager = $this->_sm->getDatabasePlatform()->getEventManager();
+
+        $eventManager = new EventManager();
+        $eventManager->addEventListener(array(Events::onSchemaColumnDefinition), $listenerMock);
+
+        $this->_sm->getDatabasePlatform()->setEventManager($eventManager);
+
+        $this->_sm->listTableColumns('list_table_columns');
+
+        $this->_sm->getDatabasePlatform()->setEventManager($oldEventManager);
+    }
+
+    public function testListTableIndexesDispatchEvent()
+    {
+        $table = $this->getTestTable('list_table_indexes_test');
+        $table->addUniqueIndex(array('test'), 'test_index_name');
+        $table->addIndex(array('id', 'test'), 'test_composite_idx');
+
+        $this->_sm->dropAndCreateTable($table);
+
+        $listenerMock = $this->getMock('ListTableIndexesDispatchEventListener', array('onSchemaIndexDefinition'));
+        $listenerMock
+            ->expects($this->exactly(3))
+            ->method('onSchemaIndexDefinition');
+
+        $oldEventManager = $this->_sm->getDatabasePlatform()->getEventManager();
+
+        $eventManager = new EventManager();
+        $eventManager->addEventListener(array(Events::onSchemaIndexDefinition), $listenerMock);
+
+        $this->_sm->getDatabasePlatform()->setEventManager($eventManager);
+
+        $this->_sm->listTableIndexes('list_table_indexes_test');
+
+        $this->_sm->getDatabasePlatform()->setEventManager($oldEventManager);
+    }
+
     public function testDiffListTableColumns()
     {
         if ($this->_sm->getDatabasePlatform()->getName() == 'oracle') {
@@ -201,18 +257,18 @@ class SchemaManagerFunctionalTestCase extends \Doctrine\Tests\DbalFunctionalTest
 
     public function testListTableIndexes()
     {
-        $table = $this->getTestTable('list_table_indexes_test');
+        $table = $this->getTestCompositeTable('list_table_indexes_test');
         $table->addUniqueIndex(array('test'), 'test_index_name');
         $table->addIndex(array('id', 'test'), 'test_composite_idx');
 
-        $this->_sm->createTable($table);
+        $this->_sm->dropAndCreateTable($table);
 
         $tableIndexes = $this->_sm->listTableIndexes('list_table_indexes_test');
 
         $this->assertEquals(3, count($tableIndexes));
 
         $this->assertArrayHasKey('primary', $tableIndexes, 'listTableIndexes() has to return a "primary" array key.');
-        $this->assertEquals(array('id'), array_map('strtolower', $tableIndexes['primary']->getColumns()));
+        $this->assertEquals(array('id', 'other_id'), array_map('strtolower', $tableIndexes['primary']->getColumns()));
         $this->assertTrue($tableIndexes['primary']->isUnique());
         $this->assertTrue($tableIndexes['primary']->isPrimary());
 
@@ -310,7 +366,6 @@ class SchemaManagerFunctionalTestCase extends \Doctrine\Tests\DbalFunctionalTest
         $this->createTestTable('test_table');
 
         $schema = $this->_sm->createSchema();
-
         $this->assertTrue($schema->hasTable('test_table'));
     }
 
@@ -498,6 +553,20 @@ class SchemaManagerFunctionalTestCase extends \Doctrine\Tests\DbalFunctionalTest
     }
 
     /**
+     * @group DBAL-197
+     */
+    public function testListTableWithBlob()
+    {
+        $table = new \Doctrine\DBAL\Schema\Table('test_blob_table');
+        $table->addColumn('id', 'integer', array('comment' => 'This is a comment'));
+        $table->addColumn('binarydata', 'blob', array());
+        $table->setPrimaryKey(array('id'));
+
+        $this->_sm->createTable($table);
+        $blobTable = $this->_sm->listTableDetails('test_blob_table');
+    }
+
+    /**
      * @param string $name
      * @param array $data
      */
@@ -524,6 +593,17 @@ class SchemaManagerFunctionalTestCase extends \Doctrine\Tests\DbalFunctionalTest
         return $table;
     }
 
+    protected function getTestCompositeTable($name)
+    {
+        $table = new \Doctrine\DBAL\Schema\Table($name, array(), array(), array(), false, array());
+        $table->setSchemaConfig($this->_sm->createSchemaConfig());
+        $table->addColumn('id', 'integer', array('notnull' => true));
+        $table->addColumn('other_id', 'integer', array('notnull' => true));
+        $table->setPrimaryKey(array('id', 'other_id'));
+        $table->addColumn('test', 'string', array('length' => 255));
+        return $table;
+    }
+
     protected function assertHasTable($tables, $tableName)
     {
         $foundTable = false;
@@ -535,5 +615,28 @@ class SchemaManagerFunctionalTestCase extends \Doctrine\Tests\DbalFunctionalTest
         }
         $this->assertTrue($foundTable, "Could not find new table");
     }
-}
 
+    public function testListForeignKeysComposite()
+    {
+        if(!$this->_conn->getDatabasePlatform()->supportsForeignKeyConstraints()) {
+            $this->markTestSkipped('Does not support foreign key constraints.');
+        }
+
+        $this->_sm->createTable($this->getTestTable('test_create_fk3'));
+        $this->_sm->createTable($this->getTestCompositeTable('test_create_fk4'));
+
+        $foreignKey = new \Doctrine\DBAL\Schema\ForeignKeyConstraint(
+            array('id', 'foreign_key_test'), 'test_create_fk4', array('id', 'other_id'), 'foreign_key_test_fk'
+        );
+
+        $this->_sm->createForeignKey($foreignKey, 'test_create_fk3');
+
+        $fkeys = $this->_sm->listTableForeignKeys('test_create_fk3');
+
+        $this->assertEquals(1, count($fkeys), "Table 'test_create_fk3' has to have one foreign key.");
+
+        $this->assertInstanceOf('Doctrine\DBAL\Schema\ForeignKeyConstraint', $fkeys[0]);
+        $this->assertEquals(array('id', 'foreign_key_test'), array_map('strtolower', $fkeys[0]->getLocalColumns()));
+        $this->assertEquals(array('id', 'other_id'),         array_map('strtolower', $fkeys[0]->getForeignColumns()));
+    }
+}

@@ -59,9 +59,9 @@ class HttpKernel extends BaseHttpKernel
     /**
      * Forwards the request to another controller.
      *
-     * @param  string  $controller The controller name (a string like BlogBundle:Post:index)
-     * @param  array   $attributes An array of request attributes
-     * @param  array   $query      An array of request query parameters
+     * @param string $controller The controller name (a string like BlogBundle:Post:index)
+     * @param array  $attributes An array of request attributes
+     * @param array  $query      An array of request query parameters
      *
      * @return Response A Response instance
      */
@@ -140,6 +140,7 @@ class HttpKernel extends BaseHttpKernel
 
             $options['attributes']['_route'] = '_internal';
             $subRequest = $request->duplicate($options['query'], null, $options['attributes']);
+            $subRequest->setMethod('GET');
         }
 
         $level = ob_get_level();
@@ -189,14 +190,14 @@ class HttpKernel extends BaseHttpKernel
             return $controller;
         }
 
-        $path = http_build_query($attributes);
+        $path = http_build_query($attributes, '', '&');
         $uri = $this->container->get('router')->generate('_internal', array(
             'controller' => $controller,
             'path'       => $path ?: 'none',
             '_format'    => $this->container->get('request')->getRequestFormat(),
         ));
 
-        if ($queryString = http_build_query($query)) {
+        if ($queryString = http_build_query($query, '', '&')) {
             $uri .= '?'.$queryString;
         }
 

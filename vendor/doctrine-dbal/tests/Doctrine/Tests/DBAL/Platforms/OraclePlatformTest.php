@@ -6,7 +6,7 @@ use Doctrine\DBAL\Platforms\OraclePlatform;
 use Doctrine\DBAL\Types\Type;
 
 require_once __DIR__ . '/../../TestInit.php';
- 
+
 class OraclePlatformTest extends AbstractPlatformTestCase
 {
     public function createPlatform()
@@ -31,7 +31,7 @@ class OraclePlatformTest extends AbstractPlatformTestCase
     {
         return array(
             'ALTER TABLE mytable ADD (quota NUMBER(10) DEFAULT NULL)',
-            "ALTER TABLE mytable MODIFY (baz  VARCHAR2(255) DEFAULT 'def' NOT NULL)",
+            "ALTER TABLE mytable MODIFY (baz  VARCHAR2(255) DEFAULT 'def' NOT NULL, bloo  NUMBER(1) DEFAULT '0' NOT NULL)",
             "ALTER TABLE mytable DROP (foo)",
             "ALTER TABLE mytable RENAME TO userlist",
         );
@@ -94,7 +94,7 @@ class OraclePlatformTest extends AbstractPlatformTestCase
 
     public function testDropTable()
     {
-        $this->assertEquals('DROP TABLE foobar', $this->_platform->getDropTableSQL('foobar'));        
+        $this->assertEquals('DROP TABLE foobar', $this->_platform->getDropTableSQL('foobar'));
     }
 
     public function testGeneratesTypeDeclarationForIntegers()
@@ -145,9 +145,9 @@ class OraclePlatformTest extends AbstractPlatformTestCase
 
     public function testSupportsSavePoints()
     {
-        $this->assertTrue($this->_platform->supportsSavepoints());   
+        $this->assertTrue($this->_platform->supportsSavepoints());
     }
-    
+
     public function getGenerateIndexSql()
     {
         return 'CREATE INDEX my_idx ON mytable (user_name, last_login)';
@@ -160,7 +160,7 @@ class OraclePlatformTest extends AbstractPlatformTestCase
 
     public function getGenerateForeignKeySql()
     {
-        return 'ALTER TABLE test ADD FOREIGN KEY (fk_name_id) REFERENCES other_table(id)';
+        return 'ALTER TABLE test ADD FOREIGN KEY (fk_name_id) REFERENCES other_table (id)';
     }
 
     public function testModifyLimitQuery()
@@ -211,5 +211,17 @@ class OraclePlatformTest extends AbstractPlatformTestCase
             "COMMENT ON COLUMN mytable.quota IS 'A comment'",
             "COMMENT ON COLUMN mytable.baz IS 'B comment'",
         );
+    }
+
+    public function getBitAndComparisonExpressionSql($value1, $value2)
+    {
+        return 'BITAND('.$value1 . ', ' . $value2 . ')';
+    }
+
+    public function getBitOrComparisonExpressionSql($value1, $value2)
+    {
+        return '(' . $value1 . '-' .
+                $this->getBitAndComparisonExpressionSql($value1, $value2)
+                . '+' . $value2 . ')';
     }
 }

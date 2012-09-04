@@ -45,7 +45,7 @@ class AdminController extends Controller
             'paises' => $paisesResult,
             'ciudades' => $ciudadesResult
         ));
-    }   
+    }
 
     public function administrarLugaresAction($ciudad){
         $em = $this->getDoctrine()->getEntityManager();
@@ -53,18 +53,18 @@ class AdminController extends Controller
         $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
         $ciudad = $cr->findOneBySlug($ciudad);
         $idCiudad = $ciudad;
-    
+
         //Total Lugares por $ciudad
-        $q = $em->createQuery("SELECT count(u) 
-                                FROM Loogares\LugarBundle\Entity\Lugar u 
+        $q = $em->createQuery("SELECT count(u)
+                                FROM Loogares\LugarBundle\Entity\Lugar u
                                 LEFT JOIN u.comuna c
                                 where c.ciudad = ?1");
         $q->setParameter(1, $idCiudad);
         $totalLugaresResult = $q->getSingleScalarResult();
 
         //Total Lugares por $ciudad reportados
-        $q = $em->createQuery("SELECT count(u) 
-                                FROM Loogares\LugarBundle\Entity\Lugar u 
+        $q = $em->createQuery("SELECT count(u)
+                                FROM Loogares\LugarBundle\Entity\Lugar u
                                 LEFT JOIN u.comuna c
                                 where c.ciudad = ?1
                                 and u.estado = ?2");
@@ -73,8 +73,8 @@ class AdminController extends Controller
         $totalLugaresReportadosResult = $q->getSingleScalarResult();
 
         //Total Lugares por $ciudad sin revisar
-        $q = $em->createQuery("SELECT count(u) 
-                                FROM Loogares\LugarBundle\Entity\Lugar u 
+        $q = $em->createQuery("SELECT count(u)
+                                FROM Loogares\LugarBundle\Entity\Lugar u
                                 LEFT JOIN u.comuna c
                                 where c.ciudad = ?1
                                 and u.estado = ?2");
@@ -83,8 +83,8 @@ class AdminController extends Controller
         $totalLugaresPorRevisarResult = $q->getSingleScalarResult();
 
         //Total Lugares por $ciudad sin revisar
-        $q = $em->createQuery("SELECT count(u) 
-                                FROM Loogares\LugarBundle\Entity\Lugar u 
+        $q = $em->createQuery("SELECT count(u)
+                                FROM Loogares\LugarBundle\Entity\Lugar u
                                 LEFT JOIN u.comuna c
                                 where c.ciudad = ?1
                                 and u.estado = ?2");
@@ -93,8 +93,8 @@ class AdminController extends Controller
         $totalLugaresEliminadosResult = $q->getSingleScalarResult();
 
         //Total Lugares por $ciudad sin revisar
-        $q = $em->createQuery("SELECT count(u) 
-                                FROM Loogares\LugarBundle\Entity\Lugar u 
+        $q = $em->createQuery("SELECT count(u)
+                                FROM Loogares\LugarBundle\Entity\Lugar u
                                 LEFT JOIN u.comuna c
                                 where c.ciudad = ?1
                                 and u.estado = ?2");
@@ -110,7 +110,7 @@ class AdminController extends Controller
         $q->setParameter(1, 1);
         $q->setParameter(2, $idCiudad);
         $totalLugaresConRevisionResult = $q->getSingleScalarResult();
-        
+
         //Total de fotos por $ciudad
         $q = $em->createQuery("SELECT count(il)
                              FROM Loogares\LugarBundle\Entity\ImagenLugar il
@@ -167,7 +167,7 @@ class AdminController extends Controller
                              WHERE c.ciudad = ?1 and r.estado = 2");
         $q->setParameter(1, $idCiudad);
         $totalRecomendacionesAprobadasResult = $q->getSingleScalarResult();
-    
+
         //Total recomendaciones reportadas por $ciudad
         $q = $em->createQuery("SELECT count(r)
                              FROM Loogares\UsuarioBundle\Entity\Recomendacion r
@@ -277,7 +277,7 @@ class AdminController extends Controller
             'pcomuna' => 'comuna.nombre',
             'psector' => 'sector.nombre',
             'pestrellas' => 'estrellas',
-            'putiles' => 'utiles', 
+            'putiles' => 'utiles',
             'pprecio' => 'precio',
             'pcaracteristica' => 'caracteristicas',
             'pwww' => 'sitio_web',
@@ -290,7 +290,7 @@ class AdminController extends Controller
         );
 
         $listadoFilters = array(
-            'id' => 'lugares.id', 
+            'id' => 'lugares.id',
             'nombre' => 'lugares.nombre',
             'usuario' => 'usuarios.slug',
             'categoria' => 'categorias',
@@ -352,45 +352,46 @@ class AdminController extends Controller
         $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
 
         $ih8doctrine = $this->getDoctrine()->getConnection()
-        ->fetchAll("SELECT straight_join SQL_CALC_FOUND_ROWS 
-                    lugares.*, 
-                    usuarios.slug as usuarioSlug, 
-                    comuna.nombre as comunaNombre, 
+        ->fetchAll(
+            "SELECT straight_join SQL_CALC_FOUND_ROWS
+                    lugares.*,
+                    usuarios.slug as usuarioSlug,
+                    comuna.nombre as comunaNombre,
                     (select sector.nombre from sector where lugares.sector_id = sector.id) as sectorNombre,
                     (select estado.nombre from estado where estado.id = lugares.estado_id) as estado,
-                    cast(AVG(recomendacion.estrellas) as signed) as estrellas, 
+                    cast(AVG(recomendacion.estrellas) as signed) as estrellas,
                     count(distinct recomendacion.id) as recomendaciones,
-                    (select count(util.id) from util where util.recomendacion_id = recomendacion.id) as utiles, 
-                    (select count(imagenes_lugar.id) from imagenes_lugar where lugares.id = imagenes_lugar.lugar_id) as imagenes, 
-                    group_concat(distinct categorias.nombre) as categorias, 
-                    group_concat(distinct subcategoria.nombre) as subcategorias, 
-                    group_concat(distinct caracteristica.nombre) as caracteristicas FROM lugares left join usuarios on usuarios.id = lugares.usuario_id 
+                    (select count(util.id) from util where util.recomendacion_id = recomendacion.id) as utiles,
+                    (select count(imagenes_lugar.id) from imagenes_lugar where lugares.id = imagenes_lugar.lugar_id) as imagenes,
+                    group_concat(distinct categorias.nombre) as categorias,
+                    group_concat(distinct subcategoria.nombre) as subcategorias,
+                    group_concat(distinct caracteristica.nombre) as caracteristicas FROM lugares left join usuarios on usuarios.id = lugares.usuario_id
 
-                    left join comuna 
-                    on comuna.id = lugares.comuna_id 
+                    left join comuna
+                    on comuna.id = lugares.comuna_id
 
-                    left join ciudad 
-                    on comuna.ciudad_id = ciudad.id 
+                    left join ciudad
+                    on comuna.ciudad_id = ciudad.id
 
-                    left join recomendacion 
-                    on recomendacion.lugar_id = lugares.id 
+                    left join recomendacion
+                    on recomendacion.lugar_id = lugares.id
 
-                    left join categoria_lugar 
-                    on categoria_lugar.lugar_id = lugares.id 
+                    left join categoria_lugar
+                    on categoria_lugar.lugar_id = lugares.id
 
-                    left join categorias 
-                    on categorias.id = categoria_lugar.categoria_id 
+                    left join categorias
+                    on categorias.id = categoria_lugar.categoria_id
 
-                    left join subcategoria_lugar 
-                    on subcategoria_lugar.lugar_id = lugares.id 
+                    left join subcategoria_lugar
+                    on subcategoria_lugar.lugar_id = lugares.id
 
-                    left join subcategoria 
-                    on subcategoria.categoria_id = categorias.id and subcategoria.id = subcategoria_lugar.subcategoria_id 
-                    left join caracteristica_lugar 
-                    on caracteristica_lugar.lugar_id = lugares.id 
+                    left join subcategoria
+                    on subcategoria.categoria_id = categorias.id and subcategoria.id = subcategoria_lugar.subcategoria_id
+                    left join caracteristica_lugar
+                    on caracteristica_lugar.lugar_id = lugares.id
 
-                    left join caracteristica 
-                    on caracteristica.id = caracteristica_lugar.caracteristica_id 
+                    left join caracteristica
+                    on caracteristica.id = caracteristica_lugar.caracteristica_id
 
                     $where
                     GROUP BY lugares.id
@@ -419,7 +420,7 @@ class AdminController extends Controller
         $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_listadoLugares', $params, $router, $options);
 
         return $this->render('LoogaresAdminBundle:Admin:listadoLugares.html.twig', array(
-            'lugares' => $ih8doctrine, 
+            'lugares' => $ih8doctrine,
             'filters' => $filters,
             'query' => $_GET,
             'paginacion' => $paginacion,
@@ -461,14 +462,58 @@ class AdminController extends Controller
             'lugares' => $ih8doctrine,
             'ciudad' => $ciudad,
             'type' => 'listado-lugares-revision'
-        ));        
+        ));
+    }
+
+    public function traduccionesAction() {
+        $em = $this->getDoctrine()->getEntityManager();
+        $rs = $this->getDoctrine()->getConnection()->fetchAll(
+              " SELECT      object_class
+                FROM        ext_translations
+                GROUP BY    object_class
+                ORDER BY    object_class ASC"
+        );
+
+        $entidadesTraducidas = array_map(function($row) {
+            return $row['object_class'];
+        }, $rs);
+
+        unset($rs);
+        var_dump($this->container->get('gedmo.listener.translatable'));
+
+        $rs = $this->getDoctrine()->getConnection()->fetchAll(
+              " SELECT      locale
+                            , nombre
+                FROM        i18n_locales
+                WHERE       estado = 1
+                            AND locale != '".$this->container->getParameter('locale')."'
+                ORDER BY    nombre DESC"
+        );
+
+        $locales = array_map(function($row) {
+                return (object) $row;
+            } ,
+            $rs
+        );
+
+        unset($rs);
+
+//        var_dump($em->getClassMetadata($entidadesTraducidas[0]));
+        die();
+
+        return $this->render(
+            'LoogaresAdminBundle:Admin:traducciones.html.twig'
+            ,array(
+                'locales'   => $locales ,
+                'entidades' => $entidadesTraducidas
+        ));
     }
 
     public function revisionLugaresAction($slug, $ciudad){
         $em = $this->getDoctrine()->getEntityManager();
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
-        $ciudad = $cr->findOneBySlug($ciudad); 
+        $ciudad = $cr->findOneBySlug($ciudad);
 
         $lugar = $lr->findOneBySlug($slug);
         $tempLugares = $lr->getLugaresPorRevisar($lugar->getId(), 1);
@@ -502,7 +547,7 @@ class AdminController extends Controller
             $itemsABorrar[] = $vars;
         }
 
-        foreach($itemsABorrar as $item){  
+        foreach($itemsABorrar as $item){
             $lugar = $lr->find($item);
             $mail = array();
             $mail['lugar'] = $lugar;
@@ -517,19 +562,19 @@ class AdminController extends Controller
                 }
                 // Lugar eliminado
                 else {
-                    $mail['asunto'] = $lugar->getNombre().' '.$this->get('translator')->trans('admin.notificaciones.lugar.borrar.asunto');                
+                    $mail['asunto'] = $lugar->getNombre().' '.$this->get('translator')->trans('admin.notificaciones.lugar.borrar.asunto');
                     $mail['tipo'] = "borrar";
-                }               
+                }
 
             }else if($cerrar == true){
-                $estado = $lr->getEstado(4);                
+                $estado = $lr->getEstado(4);
                 $mail['asunto'] = $lugar->getNombre().' '.$this->get('translator')->trans('admin.notificaciones.lugar.cerrar.asunto');
-                $mail['tipo'] = "cerrar";                
+                $mail['tipo'] = "cerrar";
 
             }else if($habilitar == true){
                 $estado = $lr->getEstado(2);
                 $mail['asunto'] = $lugar->getNombre().' '.$this->get('translator')->trans('admin.notificaciones.lugar.aprobar.asunto');
-                $mail['tipo'] = "aprobar";    
+                $mail['tipo'] = "aprobar";
             }
 
             // Se envía mail a usuario que agregó el lugar
@@ -540,7 +585,7 @@ class AdminController extends Controller
             $this->get('mailer')->send($message);
 
             $lugar->setEstado($estado);
-            
+
             $ar->actualizarActividadReciente($lugar->getId(), 'Loogares\LugarBundle\Entity\Lugar');
 
             $em->persist($lugar);
@@ -581,7 +626,7 @@ class AdminController extends Controller
         );
 
         $listadoFilters = array(
-            'id' => 'usuarios.id', 
+            'id' => 'usuarios.id',
             'nombre' => 'usuarios.nombre',
             'apellido' => 'usuarios.apellido',
             'mail' => 'usuarios.mail',
@@ -644,7 +689,7 @@ class AdminController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
         $usuarios = $this->getDoctrine()->getConnection()
-        ->fetchAll("select SQL_CALC_FOUND_ROWS usuarios.*, 
+        ->fetchAll("select SQL_CALC_FOUND_ROWS usuarios.*,
                     (select count(distinct imagenes_lugar.id) from imagenes_lugar where usuarios.id = imagenes_lugar.usuario_id and imagenes_lugar.estado_id != 5) as imagenes,
                     (select count(distinct lugares.id) from lugares where usuarios.id = lugares.usuario_id) as lugares,
                     (select count(distinct recomendacion.id) from recomendacion where usuarios.id = recomendacion.usuario_id) as recomendaciones,
@@ -652,9 +697,9 @@ class AdminController extends Controller
                     estado.nombre as estadoNombre,
                     comuna.nombre as comunaNombre,
                     tipo_usuario.descripcion as tipoUsuarioNombre
-                                         
+
                     from usuarios
-                                        
+
                     left join estado
                     on estado.id = usuarios.estado_id
 
@@ -662,7 +707,7 @@ class AdminController extends Controller
                     on comuna.id = usuarios.comuna_id
 
                     left join tipo_usuario
-                    on usuarios.tipo_usuario_id = tipo_usuario.id   
+                    on usuarios.tipo_usuario_id = tipo_usuario.id
 
                     $where
                     GROUP BY usuarios.id
@@ -711,14 +756,14 @@ class AdminController extends Controller
             $itemsAEditar[] = $vars;
         }
 
-        foreach($itemsAEditar as $item){    
+        foreach($itemsAEditar as $item){
             $usuario = $ur->findOneById($item);
             if($activar == true){
                 $estado = $lr->getEstado(7);
             }else if($desactivar == true){
                 $estado = $lr->getEstado(8);
             }
-            
+
             $usuario->setEstado($estado[0]);
             $em->persist($usuario);
         }
@@ -748,7 +793,7 @@ class AdminController extends Controller
             $where = "where il.lugar_id = " . $lugar->getId();
             $nombre = $lugar->getNombre();
         }
-        
+
         $order = null;
         $like = null;
         $offset = 0;
@@ -796,7 +841,7 @@ class AdminController extends Controller
             if($where != null){
                 $where .= " and fecha_creacion between '$desde' and '$hasta'";
             }else{
-               $where .= "WHERE fecha_creacion between '$desde' and '$hasta'"; 
+               $where .= "WHERE fecha_creacion between '$desde' and '$hasta'";
             }
         }
 
@@ -883,14 +928,14 @@ class AdminController extends Controller
             $itemsABorrar[] = $vars;
         }
 
-        foreach($itemsABorrar as $item){    
+        foreach($itemsABorrar as $item){
             $imagen = $ilr->findOneById($item);
             $mail = array();
             $mail['imagen'] = $imagen;
             $mail['usuario'] = $imagen->getUsuario();
             if($borrar == true){
                 $estado = $lr->getEstado(3);
-                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.imagen.borrar.asunto', array('%lugar%' => $imagen->getLugar()->getNombre()));                
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.imagen.borrar.asunto', array('%lugar%' => $imagen->getLugar()->getNombre()));
                 $mail['tipo'] = "borrar";
 
             }else if($aprobar == true){
@@ -906,7 +951,7 @@ class AdminController extends Controller
             $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
             $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_foto.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
             $this->get('mailer')->send($message);
-            
+
             $imagen->setEstado($estado);
             $em->persist($imagen);
         }
@@ -975,7 +1020,7 @@ class AdminController extends Controller
             if($where != null){
                 $where .= " and fecha_creacion between '$desde' and '$hasta'";
             }else{
-               $where .= "WHERE fecha_creacion between '$desde' and '$hasta'"; 
+               $where .= "WHERE fecha_creacion between '$desde' and '$hasta'";
             }
         }
 
@@ -994,12 +1039,12 @@ class AdminController extends Controller
         }
 
         $paginaActual = (isset($_GET['pagina']))?$_GET['pagina']:1;
-        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);        
-                
+        $offset = ($paginaActual == 1)?0:floor(($paginaActual-1)*30);
+
         $recomendacionesResult = $this->getDoctrine()->getConnection()
-        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, LEFT(r.texto, 140) as texto, 
+        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, LEFT(r.texto, 140) as texto,
                     lugares.nombre as lugarNombre, lugares.slug as lugarSlug,
-                    usuarios.nombre as usuarioNombre, usuarios.sexo as usuarioSexo, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
+                    usuarios.nombre as usuarioNombre, usuarios.sexo as usuarioSexo, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug,
                     count(util.id) as util,
                     (select estado.nombre from estado where r.estado_id = estado.id) as estado,
                     GROUP_CONCAT(DISTINCT tag.tag) as tags
@@ -1104,8 +1149,8 @@ class AdminController extends Controller
 
             return $this->redirect($this->generateUrl('LoogaresAdminBundle_listadoRecomendaciones', $args));
         }
-        
-        foreach($itemsABorrar as $item){    
+
+        foreach($itemsABorrar as $item){
             $recomendacion = $rr->findOneById($item);
 
             $mail = array();
@@ -1113,7 +1158,7 @@ class AdminController extends Controller
             $mail['usuario'] = $recomendacion->getUsuario();
             if($borrar == true){
                 $estado = $lr->getEstado(3);
-                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.borrar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));                
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.borrar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));
                 $mail['tipo'] = "borrar";
 
                 $recomendacion->setEstado($estado);
@@ -1123,13 +1168,13 @@ class AdminController extends Controller
                 $aur->borrarAccionesUsuario($recomendacion->getLugar()->getId(), $recomendacion->getUsuario()->getId());
                 $arr->actualizarActividadReciente($recomendacion->getId(), 'Loogares\UsuarioBundle\Entity\Recomendacion');
             }else if($habilitar == true){
-                $estado = $lr->getEstado(2); 
-                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.aprobar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));                
-                $mail['tipo'] = "aprobar";      
+                $estado = $lr->getEstado(2);
+                $mail['asunto'] = $this->get('translator')->trans('admin.notificaciones.recomendacion.aprobar.asunto', array('%lugar%' => $recomendacion->getLugar()->getNombre()));
+                $mail['tipo'] = "aprobar";
 
                 $recomendacion->setEstado($estado);
                 $em->persist($recomendacion);
-                $em->flush();             
+                $em->flush();
             }
 
             $message = \Swift_Message::newInstance()
@@ -1154,7 +1199,7 @@ class AdminController extends Controller
             }else{
               $fechaUltimaRecomendacion = null;
             }
-            
+
             $recomendacion->getLugar()->setFechaUltimaRecomendacion($fechaUltimaRecomendacion);
             $em->persist($recomendacion->getLugar());
             $em->flush();
@@ -1172,7 +1217,7 @@ class AdminController extends Controller
         $arr = $em->getRepository("LoogaresExtraBundle:ActividadReciente");
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $aur = $em->getRepository("LoogaresUsuarioBundle:AccionUsuario");
-        
+
         $fn = $this->get('fn');
         $lugarAntiguo = null;
         $ciudad = $cr->findOneBySlug($ciudad);
@@ -1191,7 +1236,7 @@ class AdminController extends Controller
             if(isset($_POST['lugar_id'])){
                 $_POST['lugar_id'] = preg_replace('/\(/', '', $_POST['lugar_id']);
                 $_POST['lugar_id'] = preg_replace('/\)/', '', $_POST['lugar_id']);
-                
+
                 $lugar = $lr->findOneById($_POST['lugar_id']);
                 $lugarAntiguo = $recomendacion->getLugar();
                 $recomendacion->setLugar($lugar);
@@ -1209,7 +1254,7 @@ class AdminController extends Controller
                         ->setTo($mail['usuario']->getMail());
                 $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_recomendacion.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                $this->get('mailer')->send($message);   
+                $this->get('mailer')->send($message);
             }
 
             $em->persist($recomendacion);
@@ -1252,9 +1297,9 @@ class AdminController extends Controller
         }
 
         $recomendacionResult = $this->getDoctrine()->getConnection()
-        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, r.texto as texto, 
+        ->fetchAll("SELECT STRAIGHT_JOIN SQL_CALC_FOUND_ROWS r.id, r.fecha_creacion, r.estrellas, r.precio, r.texto as texto,
                     lugares.nombre as lugarNombre, lugares.slug as lugarSlug, lugares.id as lugarId,
-                    usuarios.nombre as usuarioNombre, usuarios.sexo as usuarioSexo, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug, 
+                    usuarios.nombre as usuarioNombre, usuarios.sexo as usuarioSexo, usuarios.apellido as usuarioApellido, usuarios.slug as usuarioSlug,
                     count(util.id) as util,
                     (select estado.nombre from estado where r.estado_id = estado.id) as estado,
                     GROUP_CONCAT(DISTINCT tag.tag) as tags
@@ -1336,7 +1381,7 @@ class AdminController extends Controller
                         ->setTo($mail['usuario']->getMail());
                 $logo = $message->embed(\Swift_Image::fromPath('assets/images/mails/logo_mails.png'));
                 $message->setBody($this->renderView('LoogaresAdminBundle:Mails:mail_accion_foto.html.twig', array('mail' => $mail, 'logo' => $logo)), 'text/html');
-                $this->get('mailer')->send($message);                
+                $this->get('mailer')->send($message);
             }
             $em->persist($imagen);
             $em->flush();
@@ -1377,10 +1422,10 @@ class AdminController extends Controller
 
         $ciudad = $cr->findOneBySlug($ciudad);
         $idCiudad = $ciudad->getId();
-        
+
         $order = null;
         $like = null;
-        $offset = 0;       
+        $offset = 0;
 
         $filters = array(
             'pservicio' => 'servicio',
@@ -1475,7 +1520,7 @@ class AdminController extends Controller
             'slug'=> $slug,
             'ciudad' => $ciudad->getSlug()
         );
-            
+
         $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_pedidosLugar', $params, $this->get('router'));
 
         return $this->render('LoogaresAdminBundle:Admin:listadoPedidos.html.twig', array(
@@ -1496,7 +1541,7 @@ class AdminController extends Controller
         $tpr = $em->getRepository("LoogaresLugarBundle:TipoPedido");
         $lr = $em->getRepository("LoogaresLugarBundle:Lugar");
         $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
-        $ciudad = $cr->findOneBySlug($ciudad); 
+        $ciudad = $cr->findOneBySlug($ciudad);
         $servicios = $spr->findAll();
         $tipos = $tpr->findAll();
 
@@ -1507,7 +1552,7 @@ class AdminController extends Controller
             $pedido->setTipoPedido($tpr->find($request->request->get('tipo')));
             $pedido->setPrioridad($request->request->get('prioridad'));
             $pedido->setReferral($request->request->get('referral'));
-            
+
             if($request->request->get('habilitar_promocion')) {
                 // Agregamos la promoción
                 $promocion = new Promocion();
@@ -1608,7 +1653,7 @@ class AdminController extends Controller
         }else{
             $items[] = $vars;
         }
-        foreach($items as $item){    
+        foreach($items as $item){
             $pedido = $plr->find($item);
 
             if($borrar == true){
@@ -1622,9 +1667,9 @@ class AdminController extends Controller
         $em->flush();
 
         if(sizeof($items) == 1)
-            $this->get('session')->setFlash('accionPedido','Pedido eliminado');    
+            $this->get('session')->setFlash('accionPedido','Pedido eliminado');
         else if(sizeof($items) > 1)
-            $this->get('session')->setFlash('accionPedido','Pedidos eliminados');       
+            $this->get('session')->setFlash('accionPedido','Pedidos eliminados');
 
         $args = array(
             'ciudad' => $ciudad,
@@ -1633,7 +1678,7 @@ class AdminController extends Controller
         $args = array_merge($args, $_GET);
         unset($args['id']);
 
-        return $this->redirect($this->generateUrl('LoogaresAdminBundle_pedidosLugar', $args));    
+        return $this->redirect($this->generateUrl('LoogaresAdminBundle_pedidosLugar', $args));
     }
 
     public function listadoBlogPostsAction($ciudad){
@@ -1687,7 +1732,7 @@ class AdminController extends Controller
             if($where != null){
                 $where .= " and fecha between '$desde' and '$hasta'";
             }else{
-               $where .= "WHERE fecha between '$desde' and '$hasta'"; 
+               $where .= "WHERE fecha between '$desde' and '$hasta'";
             }
         }
 
@@ -1741,7 +1786,7 @@ class AdminController extends Controller
         $params = array(
             'ciudad' => $ciudad->getSlug()
         );
-            
+
         $paginacion = $fn->paginacion($resultSetSize[0]['rows'], 30, 'LoogaresAdminBundle_listadoBlogPosts', $params, $this->get('router'));
 
         return $this->render('LoogaresAdminBundle:Admin:listadoBlogPosts.html.twig', array(
@@ -1775,16 +1820,16 @@ class AdminController extends Controller
         }else{
             $itemsABorrar[] = $vars;
         }
-        
-        foreach($itemsABorrar as $item){    
+
+        foreach($itemsABorrar as $item){
             $post = $pr->findOneById($item);
 
             if($borrar == true){
                 $estado = $ber->findOneByNombre('Post Eliminado');
             }else if($publicar == true){
-                $estado = $ber->findOneByNombre('Post Publicado');                               
+                $estado = $ber->findOneByNombre('Post Publicado');
             }else if($borrador == true){
-                $estado = $ber->findOneByNombre('Post Borrador');  
+                $estado = $ber->findOneByNombre('Post Borrador');
             }
             $post->setBlogEstado($estado);
             $em->persist($post);
@@ -1858,7 +1903,7 @@ class AdminController extends Controller
 
             if($request->get('fecha_publicacion') != ''){
                 $fechaPublicacion = new \DateTime( $request->get('fecha_publicacion') );
-            }                   
+            }
 
             if($request->get('nueva_categoria') != ''){
                 $nuevaCategoria = new Categoria();
@@ -1876,11 +1921,11 @@ class AdminController extends Controller
                 $categoria = $bcr->findOneById($request->get('categoria'));
             }
 
-            if ($form->isValid()) {               
+            if ($form->isValid()) {
 
                 $post->setCiudad($cr->findOneBySlug($request->get('ciudad')));
-                $post->setTitulo(trim($request->get('titulo'))); 
-                $post->setSlug(trim($request->get('slug')));                
+                $post->setTitulo(trim($request->get('titulo')));
+                $post->setSlug(trim($request->get('slug')));
                 $post->setBlogCategoria($categoria);
                 $post->setContenido($request->get('contenido'));
                 $post->setDetalles($request->get('detalle'));
@@ -1888,7 +1933,7 @@ class AdminController extends Controller
                 $post->setCondiciones($request->get('condiciones'));
                 $post->setBlogEstado($ber->findOneById($request->get('estado')));
                 $post->setFecha(new \DateTime());
-                $post->setFechaPublicacion($fechaPublicacion);                
+                $post->setFechaPublicacion($fechaPublicacion);
                 $post->setTituloHome($request->get('titulo_home'));
                 $post->setDescripcionHome($request->get('descripcion_home'));
                 $post->setDestacadoHome($request->get('destacado_home'));
@@ -1925,14 +1970,14 @@ class AdminController extends Controller
                     $fechaTermino = null;
                     if($request->request->get('fecha_inicio') != ''){
                         $fechaInicio = new \DateTime( $request->request->get('fecha_inicio') );
-                    }  
+                    }
                     if($request->request->get('fecha_termino') != ''){
                         $fechaTermino = new \DateTime( $request->request->get('fecha_termino') );
                         $fechaTerminoConcurso = new \DateTime( $request->request->get('fecha_termino') . ' +30 days');
                     }
 
                     $concurso->setPost($post);
-                    $concurso->setTipoConcurso($tipoConcurso);                    
+                    $concurso->setTipoConcurso($tipoConcurso);
                     $concurso->setTitulo($request->request->get('titulo_concurso'));
                     $concurso->setDescripcion($request->request->get('descripcion_concurso'));
                     $concurso->setNumeroPremios($request->request->get('numero_premios'));
@@ -1948,7 +1993,7 @@ class AdminController extends Controller
                     $concurso->setVisitasOtrosLocales($request->request->get('visitas_otros_locales'));
                     $concurso->setVisitasPost($request->request->get('visitas_post'));
                     $concurso->setVisitasFicha($request->request->get('visitas_ficha'));
-                    
+
 
                     if(isset($nuevoConcurso) && $nuevoConcurso) {
                         $em->persist($concurso);
@@ -1960,7 +2005,7 @@ class AdminController extends Controller
                     'ciudad' => $ciudad->getSlug(),
                     'post' => $post->getSlug()
                 )));
-            }            
+            }
         }
 
         return $this->render('LoogaresAdminBundle:Admin:agregarBlogPosts.html.twig', array(
@@ -1976,7 +2021,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function uploaderAction(){     
+    public function uploaderAction(){
         return $this->render('LoogaresAdminBundle:Admin:uploader.html.twig', array());
     }
 
@@ -1990,7 +2035,7 @@ class AdminController extends Controller
         $result = $uploader->handleUpload(__DIR__.'/../../../../web/assets/images/blog/uploads/');
 
             $this->get('imagine.controller')->filter('assets/images/blog/uploads/'.$result['fileName'], "thumb_uploader");
-            
+
         $result['thumb'] = 'web/assets/media/cache/thumb_uploader/assets/images/blog/uploads/'.$result['fileName'];
 
         return new Response(json_encode($result));
@@ -1999,7 +2044,7 @@ class AdminController extends Controller
     public function testMailAction($tipo) {
         if($tipo == '1') {
             return $this->render('LoogaresAdminBundle:Mails:test_mail_ganador.html.twig');
-        }        
+        }
 
         return $this->render('LoogaresAdminBundle:Mails:test_mail_canje.html.twig');
     }

@@ -10,12 +10,12 @@ use Loogares\BlogBundle\Entity\Participante;
 
 class DefaultController extends Controller
 {
-    
+
     public function indexAction(){
-        return $this->render('LoogaresBlogBundle:Default:index.html.twig' );
+        return $this->render('LoogaresBlogBundle:Default:index.html.tloowig' );
     }
 
-    public function postAction($ciudad = null, $slug){
+    public function postAction($ciudad = null, $slug) {
     	$em = $this->getDoctrine()->getEntityManager();
         $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
@@ -29,7 +29,7 @@ class DefaultController extends Controller
                 'slug' => $slug
             )));
         }
-        
+
         $ciudad = $cr->findOneBySlug($ciudad);
         $ciudadArray = array();
         $ciudadArray['id'] = $ciudad->getId();
@@ -39,13 +39,15 @@ class DefaultController extends Controller
         $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
         $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
 
-        $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+        if(!$this->getRequest()->cookies->get('loogares_locale'))
+            $this->get('session')->setLocale($ciudad->getPais()->getLocale());
+
         $this->get('session')->set('ciudad',$ciudadArray);
 
         $anteriores = null;
         $fn = $this->get('fn');
 
-        $q = $em->createQuery('SELECT u FROM Loogares\BlogBundle\Entity\Posts u 
+        $q = $em->createQuery('SELECT u FROM Loogares\BlogBundle\Entity\Posts u
                               WHERE u.slug = ?1');
         $q->setParameter(1, $slug);
         $q->setMaxResults(1);
@@ -58,7 +60,7 @@ class DefaultController extends Controller
         if($post->getBlogEstado()->getNombre() != 'Post Publicado' && !$this->get('security.context')->isGranted('ROLE_ADMIN')){
             throw $this->createNotFoundException('');
         }else if($post->getBlogEstado()->getNombre() == 'Post Borrador'){
-            $this->get('session')->setFlash('post_flash', 'Este es un Borradooooooooooooooooooooooooooooor');
+            $this->get('session')->setFlash('post_flash', 'Este es un Borradooor');
         }else if($post->getBlogEstado()->getNombre() == 'Post Eliminado'){
             $this->get('session')->setFlash('post_flash', 'Este Post fue Borrado');
         }else if($post->getBlogEstado()->getNombre() == 'Post Agendado'){
@@ -92,7 +94,7 @@ class DefaultController extends Controller
             if($this->get('security.context')->isGranted('ROLE_USER')) {
                 $participacion = $conr->isUsuarioParticipando($this->get('security.context')->getToken()->getUser(), $concurso);
             }
-            
+
             $concurso->participacion = $participacion;
 
             $post->getLugar()->telefonos = $telefonos;
@@ -107,10 +109,10 @@ class DefaultController extends Controller
                 $post->twitterLocal = '';
             }
 
-            // Se limpian variables de session de concurso si es que existen                
+            // Se limpian variables de session de concurso si es que existen
             if($this->get('session')->get('post_slug')) {
                 $this->get('session')->remove('post_slug');
-            }      
+            }
 
             return $this->render('LoogaresBlogBundle:Default:post_concurso.html.twig', array(
                 'post' => $post,
@@ -123,11 +125,11 @@ class DefaultController extends Controller
         if($post->getLugar()){
             $post->getLugar()->setSitioWeb($fn->stripHTTP($post->getLugar()->getSitioWeb()));
             $post->getLugar()->setTwitter($fn->stripHTTP($post->getLugar()->getTwitter()));
-            $post->getLugar()->setFacebook($fn->stripHTTP($post->getLugar()->getFacebook()));            
+            $post->getLugar()->setFacebook($fn->stripHTTP($post->getLugar()->getFacebook()));
         }
 
         if(gettype($post) == 'object'){
-            $q = $em->createQuery('SELECT u FROM Loogares\BlogBundle\Entity\Posts u 
+            $q = $em->createQuery('SELECT u FROM Loogares\BlogBundle\Entity\Posts u
                                   WHERE u.blog_categoria = ?1 and u.ciudad = ?2 and u.id != ?3');
             $q->setParameter(1, $post->getBlogCategoria()->getId());
             $q->setParameter(2, $ciudad->getId());
@@ -212,7 +214,7 @@ class DefaultController extends Controller
 
             $em->persist($participante);
             $em->flush();
-        }       
+        }
 
         return new Response(json_encode(array('status' => 'ok')));
     }

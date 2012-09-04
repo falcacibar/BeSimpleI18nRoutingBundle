@@ -1,0 +1,145 @@
+% block title %}{{'ventas.beneficio_exclusivo.title'|trans}} | {{parent()}}{% endblock %}
+
+{% block content %}
+
+<div class="contenedor contenedor_reporte">
+	<div class="contenido">
+		<img class="logo_reporte" src="{{ asset('assets/images/reporte/logo_reporte.png') }}" height="52" width="161" />
+		{% if app.session.hasFlash('beneficios_flash') %}
+            <div class="mensaje_exito">
+                <div class="imagen_exito"></div><p class="txt_exito">{{ app.session.flash('beneficios_flash') | trans }}</p>
+            </div>
+	    {% endif %}
+		<a name="promociona_tu_negocio"></a>
+		<div class="que_es">
+			<div class="promociona_tu_negocio">
+				<h1 class="titulo_promociona">{{'ventas.beneficio_exclusivo.titulo'|trans}}</h1>
+				<span class="texto_promociona">{{'ventas.beneficio_exclusivo.bajada'|trans}}</span>
+			</div>
+			<div class="promociona_tu_negocio_boton">
+				<span class="titulo_promociona_boton">{{'ventas.beneficio_exclusivo.promociona'|trans}}</span>
+				<a class="boton_promociona_{{app.session.get('ciudad').slug}}" href="#somos_los_buena_onda"></a>
+			</div>
+			<div class="llega_a_clientes">
+				<img class="imagen_que_es" src="{{ asset('assets/images/concursos/sortea_un_premio.png') }}" height="210px" width="253px" />
+				<h4 class="titulos_que_es">{{'ventas.beneficio_exclusivo.potenciales_clientes'|trans}}</h4>
+				<span class="texto_que_es">{{'ventas.beneficio_exclusivo.potenciales_clientes_texto'|trans}}</span>
+			</div>
+			<div class="destaca_sobre_tu_competencia">
+				<img class="imagen_que_es" src="{{ asset('assets/images/concursos/destacate_sobre_competencia.png') }}" height="210px" width="253px" />
+				<h5 class="titulos_que_es">{{'ventas.beneficio_exclusivo.destacate_sobre_competencia'|trans}}</h5>
+				<span class="texto_que_es">{{'ventas.beneficio_exclusivo.destacate_sobre_competencia_texto'|trans}}</span>
+			</div>
+			<div class="lleva_gente">
+				<img class="imagen_que_es" src="{{ asset('assets/images/concursos/lleva_gente.png') }}" height="210px" width="253px" />
+				<h6 class="titulos_que_es">{{'ventas.beneficio_exclusivo.lleva_gente'|trans}}</h6>
+				<span class="texto_que_es">{{'ventas.beneficio_exclusivo.lleva_gente_texto'|trans}}</span>
+			</div>
+		</div>
+
+    </div>
+
+</div>
+
+<a name="lo_que_dicen"></a>
+<div class="contenedor contenedor_reporte fondo_total_celeste">
+
+	<div class="contenido">
+
+		<div class="lo_que_dicen">
+			<h2 class="titulo_lo_que_dicen">{{'ventas.beneficio_exclusivo.lo_que_dicen'|trans}}</h2>
+			<div class="columna_izquierda">
+				<p>“ {{'ventas.beneficio_exclusivo.santapizza.p1'|trans}}<br /><br />
+				{{'ventas.beneficio_exclusivo.santapizza.p2'|trans}} ”</p>
+				<div class="autor">
+					<p><strong>{{'ventas.beneficio_exclusivo.santapizza.autor'|trans}}</strong></p>
+					<p>{{'ventas.beneficio_exclusivo.santapizza.cargo'|trans}}</p>
+					<a href="{{path('_lugar', {'slug' : 'santapizza-santiago-de-chile'})}}">{{'ventas.beneficio_exclusivo.santapizza.link'|trans}}</a>
+				</div>
+				<div class="logo_local">
+					<img src="{{ asset('assets/images/concursos/logo_santa_pizza.png') }}" height="75px" width="140px" />
+				</div>
+			</div>
+			<div class="columna_derecha">
+				<p>“ {{'ventas.beneficio_exclusivo.hogs.p1'|trans}}<br /><br />
+				{{'ventas.beneficio_exclusivo.hogs.p2'|trans}} ”</p>
+				<div class="autor">
+					<p><strong>{{'ventas.beneficio_exclusivo.hogs.autor'|trans}}</strong></p>
+					<p>{{'ventas.beneficio_exclusivo.hogs.cargo'|trans}}</p>
+					<a href="{{path('_lugar', {'slug' : 'hogs-santiago-de-chile'})}}">{{'ventas.beneficio_exclusivo.hogs.link'|trans}}</a>
+				</div>
+				<div class="logo_local">
+					<img src="{{ asset('assets/images/concursos/logo_hogs.png') }}" height="75px" width="140px" />
+				</div>
+			</div>
+			<img class="imagen_garantia" src="{{ asset('assets/images/concursos/garantia.png') }}" height="124px" width="123px" />
+		</div>
+
+    </div>
+
+</div>
+
+<a name="somos_los_buena_onda"></a>
+<div class="contenedor contenedor_reporte">
+
+	<div class="contenido">
+		<form action="{{path('_beneficio_exclusivo_mail')}}" method="POST">
+			<div class="buena_onda_form">
+				<h3 class="titulo_buena_onda">{{'ventas.beneficio_exclusivo.buena_onda'|trans}}</h3>
+				<p class="bajada_buena_onda">{{'ventas.beneficio_exclusivo.precio_conveniente'|trans}}<br /><br />
+				{{'ventas.beneficio_exclusivo.que_esperas'|trans}}</p>
+				<div class="columna_izquierda">
+					<form>
+						<ul>
+							<li>
+								<span>{{'ventas.beneficio_exclusivo.form.lugar'|trans}}</span>
+								<input name="lugar" class="input_largo" type="text" placeholder="" />
+							</li>
+							<li>
+								<span>{{'ventas.beneficio_exclusivo.form.nombre'|trans}}</span>
+								<input name="nombre" class="input_corto" type="text" placeholder="" />
+								<span class="span_corto">{{'ventas.beneficio_exclusivo.form.apellido'|trans}}</span>
+								<input name="apellido" class="input_corto" type="text" placeholder="" />
+							</li>
+							<li>
+								<span>{{'ventas.beneficio_exclusivo.form.mail'|trans}}</span>
+								<input name="mail" class="input_largo" type="text" placeholder="" />
+							</li>
+							<li>
+								<span>{{'ventas.beneficio_exclusivo.form.telefono'|trans}}</span>
+								<input name="telefono" class="input_largo" type="text" placeholder="" />
+							</li>
+							<li>
+								<span>{{'ventas.beneficio_exclusivo.form.comprobante'|trans}}</span>
+								<textarea name="comprobar" class="input_area" rows="10"></textarea>
+							</li>
+							<li>
+								<input class="boton_enviar_local" type="submit" value="" />
+							</li>
+						</ul>
+					</form>
+				</div>
+				<div class="columna_derecha">
+					<p><strong>{{'ventas.beneficio_exclusivo.explicacion.encabezado'|trans}}</strong></p><br />
+					<ul>
+						<li>{{'ventas.beneficio_exclusivo.explicacion.li1'|trans}}</li>
+						<li>{{'ventas.beneficio_exclusivo.explicacion.li2'|trans}}</li>
+						<li>{{'ventas.beneficio_exclusivo.explicacion.li3'|trans}}</li>
+						<li>{{'ventas.beneficio_exclusivo.explicacion.li4'|trans}}</li>
+						<li>{{'ventas.beneficio_exclusivo.explicacion.li5'|trans}}</li>
+						<li>{{'ventas.beneficio_exclusivo.explicacion.li6'|trans | raw}}</li>
+					</ul>
+					<p class="envianos">{{'ventas.beneficio_exclusivo.explicacion.final'|trans}}</p>
+					<img class="flecha_boton" src="{{ asset('assets/images/concursos/flecha_boton.png') }}" height="33px" width="105px" />
+				</div>
+
+				<img class="carita_feliz" src="{{ asset('assets/images/concursos/carita_feliz.png') }}" height="20px" width="20px" />
+
+			</div>
+		</form>
+
+    </div>
+
+</div>
+
+{% endblock %}

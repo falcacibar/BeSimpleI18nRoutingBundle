@@ -1,10 +1,10 @@
 [symfony]
     git=http://github.com/symfony/symfony.git
-    version=v2.0.12
+    version=v2.0.16
 
 [twig]
     git=http://github.com/fabpot/Twig.git
-    version=v1.6.2
+    version=v1.8.2
 
 [monolog]
     git=http://github.com/Seldaek/monolog.git
@@ -12,19 +12,19 @@
 
 [doctrine-common]
     git=http://github.com/doctrine/common.git
-    version=2.1.2
+    version=2.2.2
 
 [doctrine-dbal]
     git=http://github.com/doctrine/dbal.git
-    version=2.1.6
+    version=2.2.2
 
 [doctrine]
     git=http://github.com/doctrine/doctrine2.git
-    version=2.1.6
+    version=2.2.2
 
 [swiftmailer]
     git=http://github.com/swiftmailer/swiftmailer.git
-    version=v4.1.5
+    version=v4.2.0
 
 [assetic]
     git=http://github.com/kriswallsmith/assetic.git
@@ -40,6 +40,7 @@
 [SensioFrameworkExtraBundle]
     git=http://github.com/sensio/SensioFrameworkExtraBundle.git
     target=/bundles/Sensio/Bundle/FrameworkExtraBundle
+    version=origin/2.0
 
 [JMSSecurityExtraBundle]
     git=http://github.com/schmittjoh/JMSSecurityExtraBundle.git
@@ -49,22 +50,23 @@
 [SensioDistributionBundle]
     git=http://github.com/sensio/SensioDistributionBundle.git
     target=/bundles/Sensio/Bundle/DistributionBundle
-    version=origin/1.0
+    version=origin/2.0
 
 [SensioGeneratorBundle]
     git=http://github.com/sensio/SensioGeneratorBundle.git
     target=/bundles/Sensio/Bundle/GeneratorBundle
+    version=origin/2.0
 
 [AsseticBundle]
     git=http://github.com/symfony/AsseticBundle.git
     target=/bundles/Symfony/Bundle/AsseticBundle
-    version=v1.0.1
+    version=origin/2.0
 
-[Mailchimp]    
+[Mailchimp]
     git=git://github.com/switzer/mailchimp.git
     target = /mailchimp
 
-[MailChimpBundle]    
+[MailChimpBundle]
     git=git://github.com/whiteoctober/MailChimpBundle.git
     target = /bundles/Jirafe/Bundle/MailChimpBundle
 
@@ -75,9 +77,13 @@
 
 [gedmo-doctrine-extensions]
     git=http://github.com/l3pp4rd/DoctrineExtensions.git
-    version=v2.1.0
+    version=v2.2.3
 
 [DoctrineExtensionsBundle]
     git=http://github.com/stof/StofDoctrineExtensionsBundle.git
     target=/bundles/Stof/DoctrineExtensionsBundle
-    version=1.0.0
+
+[BeSimpleI18nRoutingBundle]
+    git=git://github.com/BeSimple/BeSimpleI18nRoutingBundle.git
+    target=/bundles/BeSimple/I18nRoutingBundle
+    version=origin/2.0

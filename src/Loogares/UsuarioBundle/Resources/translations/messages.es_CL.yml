@@ -1,0 +1,337 @@
+# Locale 'es_CL' UsuarioBundle
+validacion_usuario:
+    titulo: Para mejorar el uso del sitio, necesitamos que ingreses algunos datos
+    texto: Hemos detectado que no has ingresado cierta información. Estamos haciendo un esfuerzo por saber más de ti y brindarte un mejor servicio. Por favor ingresa los siguientes datos:
+    nombre: Nombre
+    apellido: Apellido
+    pais: País
+    ciudad: Ciudad
+    comuna: Comuna
+
+usuario:
+    login:
+        titulo: Entra a Loogares.com y empieza a recomendar
+        form:
+            mail: E-mail
+            password: Password
+            olvidar_password: ¿Olvidaste tu password?
+            recordar_sesion: Recordar sesión
+            submit: Entrar
+        registro:
+            titulo: ¿Aún no eres parte de Loogares.com? ¡Regístrate!
+            texto: Regístrate y escribe recomendaciones de lugares que conoces en tu ciudad para ganar increíbles premios. Desde invitaciones a restaurantes hasta entradas al cine, conciertos, fiestas y más.
+            o: o
+            mail: regístrate con tu E-mail
+            boton: ¡Regístrate!
+
+    registro:
+        mensaje: Escribe recomendaciones de lugares que conoces en tu ciudad y semanalmente gana invitaciones a restaurantes, entradas al cine, a conciertos, fiestas y más.
+        title: Regístrate en Loogares.com
+        titulo: ¡O regístrate con tu E-mail en Loogares.com!
+        form:
+            nombre: Nombre
+            apellido: Apellido
+            mail: E-mail
+            password: Password
+            confirmar_password: Confirmar password
+            placeholders:
+                nombre: Ej. Juan
+                apellido: Ej. Valdéz
+                mail: Ej. juanito@empresa.com
+            tip:
+                password: El password debe tener un mínimo de 6 caracteres.
+                terminos: Al hacer click en <strong>Registrar</strong> confirmo ser mayor de 14 años y acepto los %open_a%Términos de uso%close_a% de Loogares.com
+            submit: Registrar
+
+        facebook:
+            titulo: ¡Regístrate rápidamente con tu Facebook!
+            texto: Haz click en el botón de abajo y regístrate en un solo paso con tu cuenta de Facebook.
+        login:
+            titulo: ¿Ya eres parte de Loogares.com? ¡Entra ahora!
+        confirmar:
+            titulo_pag: Confirma tu cuenta
+            titulo: ¡Estás a sólo segundos de convertirte en Loogareño!
+            texto: Confírmanos tu cuenta en el E-mail que acabamos de mandarte y estarás listo.<br />¡Te esperamos!
+            link: Volver a la %open_a%Página de inicio%close_a%
+            mail:
+                titulo: ¡Felicitaciones %nombre% %apellido%!
+                texto: Estás a punto de convertirte en un Loogareño, clickea el botón para confirmar tu cuenta.
+                texto_bajada: ¿Estás preparado para lo que viene? ¡No te arrepentirás!
+                texto_plano: Estás a punto de convertirte en un Loogareño. Para confirmar tu cuenta, ingresa el siguiente link en tu navegador:
+                asunto: Confírma tu cuenta en Loogares.com
+    perfil:
+        titulo_pag: Perfil De 
+    datos:
+        edad: año|años
+        recomendaciones: recomendación|recomendaciones
+        primeras_recomendaciones: primera recomendación|primeras recomendaciones
+        lugares_agregados: lugar agregado|lugares agregados
+        fotos_agregadas: foto agregada|fotos agregadas
+        por_visitar: lugar para visitar|lugares para visitar
+        visitados: lugar visitado|lugares visitados
+        por_recomendar: lugar por recomendar|lugares por recomendar
+        favoritos: lugar favorito|lugares favoritos
+        desde: Loogareño desde:
+        editar: Edita los datos de tu perfil
+
+    menu:
+        actividad: Actividad
+        recomendaciones: Recomendaciones
+        fotos: Fotos
+        lugares: Listas de lugares
+        cupones: Premios
+
+    actividad:
+        titulo: Actividad|Actividad de
+        filtrar: Filtrar por:
+
+    recomendaciones:
+        titulo: Recomendación|Recomendaciones
+        orden:
+            texto: Ordenar por:
+            mejores: Mejores evaluaciones
+            ultimas: Últimas recomendaciones
+            alfabetico: Orden alfabético
+        recomendacion:
+            categorias: Categorías:
+            tags: Tags:
+        lista:
+            editar: Edita esta recomendación
+            borrar: Borra esta recomendación
+    fotos:
+        titulo: Foto|Fotos
+        orden:
+            texto: Ordenar por:
+            ultimas: Últimas fotos
+            alfabetico: Orden alfabético
+        lista:
+            editar: Edita tu foto
+            borrar: Borra tu foto
+
+    lugares:
+        titulo:
+            1: Lugares para visitar
+            2: Lugares para volver
+            3: Lugares visitados
+            4: Favoritos
+            5: Lugares por recomendar
+        orden:
+            texto: Ordenar por:
+            visitados: Visitados
+            favoritos: Favoritos
+            por_visitar: Para visitar
+            por_volver: Para volver
+            por_recomendar: Por recomendar
+        lista:
+            borrar: Borrar
+
+    gift_card:
+        titulo: Premios y descuentos
+        tipo:
+            concursos: Premios Beneficios Exclusivos
+            descuentos: Descuentos
+        codigo: Código Gift Card:
+        valido: Válido Hasta:
+        ver_cupon: Ver cupón
+        imprimir: Imprimir cupón
+        sin_cupones_gc: Aún no tienes ningún descuento por cobrar.
+        sin_cupones_be: Aún no tienes ningún gift card por cobrar.
+        gana_uno: ¡Gana uno participando en nuestros fabulosos sorteos!
+        gana_uno_link: Entra acá
+
+    edicion:
+        titulo_pag: Edita tus datos
+        titulo: Edita los datos de tu perfil
+        menu:
+            cuenta: Cuenta
+            foto: Foto de perfil
+            password: Password
+            connect: Conectar
+            notificaciones: Notificaciones
+            borrar: Borrar cuenta
+
+        cuenta:
+            nombre: Nombre *
+            tipo: Tipo de Usuario
+            apellido: Apellido *
+            mail: E-mail *
+            slug: URL propia
+            url_propia: http://www.loogares.com/
+            nacimiento:
+                label: Fecha de nacimiento
+                day: Día
+                month: Mes
+                year: Año
+            pais: País
+            pais_agregar: Selecciona tu país de residencia
+            ciudad: Ciudad
+            ciudad_agregar: Selecciona tu ciudad de residencia
+            comuna: Comuna
+            comuna_agregar: Selecciona tu comuna de residencia
+            mostrar_edad: Mostrar edad
+            sexo:
+                label: Sexo
+                hombre: Hombre
+                mujer: Mujer
+                ninguno: No quiero definir
+            web: Sitio web
+            newsletter: Recibir newsletter por E-mail
+            submit: Guardar
+        foto:
+            subir: Subir foto
+            tip:
+                maximo: Máximo 5 MB
+                formato: Sólo JPG, GIF y PNG
+                ajuste: La imagen será ajustada a 100x100 px si tiene un tamaño distinto
+            mypictr: » Crea tu foto de perfil con Mypictr
+            submit: Guardar
+            borrar: Borra tu foto
+        password:
+            actual: Password actual *
+            nuevo: Password nuevo *
+            confirmar: Confirmar password *
+            submit: Guardar
+        conexiones:
+            facebook:
+                no_conectado:
+                    texto: En este momento no tienes Facebook asociado a tu cuenta
+                    texto_link: Conéctate con Facebook
+                conectado:
+                    texto: Actualmente tienes Facebook conectado a la cuenta de %nombre%, y con el E-mail %mail%
+                    texto_link: Desconéctate de Facebook
+        notificaciones:
+            recibir_newsletter: Recibir el newsletter de:
+        borrar:
+            password: Password *
+            motivo: ¿Por qué te vas? *
+            detalle: Cuéntanos el motivo de tu salida.
+            submit: Borrar cuenta
+            mail:
+                nombre: Nombre
+                mail: E-mail
+                fecha_registro: Fecha de registro
+                motivo: Motivo
+                asunto: Usuario eliminado
+    olvidar:
+        titulo_pag: ¿Olvidaste tu password?
+        titulo: ¿Olvidaste tu password?... ¡Pero cómo!
+        subtitulo: Mándanos tu dirección de E-mail con la que entras a Loogares.com y te enviaremos un correo con un link para que resetees tu password. ¡Las pasas para la memoria las compras tú!
+        form:
+            e_mail: E-mail
+            mail: Debes ingresar tu E-mail
+
+        flash:
+            usuario_no_existe: El E-mail especificado no corresponde a ningún usuario.
+        mail:
+            asunto: Tu nuevo password en Loogares.com
+            titulo: Hola %usuario%,
+            primero: haz click %open_tag%acá%close_tag% para crear el nuevo password de tu cuenta de Loogares.com
+            segundo: ¡Y para la próxima, acuérdate de las pasas!
+        mensaje:
+            titulo_pag: Cambio de password
+            titulo: ¡Cabeza de pollo!
+            subtitulo: Te acabamos de enviar un correo para que resetees el password de tu cuenta en Loogares.com.<br />Revisa tu casilla de E-mail
+            inicio: Volver a la %open_tag%Página de Inicio%close_tag%
+    regenerar:
+        titulo_pag: Ingresa tu nuevo password
+        titulo: Cambiar password 
+        form:
+            usuario: Usuario
+            password_nuevo: Password nuevo
+            errors:
+                nuevo: Debes ingresar tu nuevo password
+                confirmar: Debes confirmar el nuevo password
+        flash:
+            hash_incorrecto: El usuario con el hash especificado no existe
+
+    errors:
+        login:
+            completo: Debes completar ambos campos
+            password: Los campos de E-mail y Password no coinciden. Por favor, corrígelos.
+            emptyPassword: El campo Password es obligatorio. Por favor, complétalo.
+            noActivo: La cuenta de usuario no se encuentra activa.
+        validacion:
+            nombre:
+                blanco: El campo Nombre no puede ser vacío.
+                tipo: El nombre debe ser texto.
+            apellido:
+                blanco: El campo Apellido no puede ser vacío.
+                tipo: El apellido debe ser texto. 
+            mail:
+                unico: La dirección de E-mail está repetida. Por favor, prueba con otra.
+                blanco: El campo E-mail no puede ser vacío.
+                invalido: Email inválido.
+            password:
+                blanco: El campo Password no puede ser vacío.
+                minimo: El password debe tener un mínimo de 6 caracteres.:
+            confirmar_password: Los passwords no coinciden. Por favor, corrígelos.
+            slug:
+                unico: La URL propia está repetida. Por favor, prueba con otra.
+                blanco: El campo URL propia no puede ser vacío.
+                tipo: La URL propia debe ser texto. 
+            comuna:
+                blanco: El campo Comuna no puede ser vacío.
+            imagen:
+                tipo: Sólo JPG, GIF y PNG, máx. 5 MB.
+
+        editar:
+            foto:
+                blanco: No tienes seleccionado ningún archivo. Por favor, elige uno.
+            password:
+                actual: Password actual incorrecto
+                confirmar: Debes escribir el mismo password nuevo
+            borrar:
+                pass_obligatorio: El campo password es obligatorio. Por favor, complétalo.
+                pass_incorrecto: Los passwords no coinciden. Por favor, corrígelos.
+                motivo: Queremos saber por qué te vas. Por favor, completa el campo.
+    flash:
+        confirmar_usuario:
+            incorrecto: Código de confirmación incorrecto
+            anterioridad: Confirmación realizada con anterioridad
+            exito: ¡Bienvenido! Has confirmado tu cuenta exitosamente. ¿Algún Lugar para recomendar?
+        edicion:
+            cuenta: ¡Tu perfil acaba de actualizarse con los nuevos cambios!
+            foto: Cambiaste tu foto de perfil. ¡Nada de mal!
+            password: ¡Ahora tienes un nuevo password! No lo olvides, lo necesitarás para entrar al sitio.
+            borrar_cuenta: Tu cuenta acaba de ser borrada. Fue bonito mientras duró.
+
+    mail:
+        usuario: te escribió desde %open_tag%%mail%%close_tag%
+        equipo: Enviado por el equipo de %open_tag%Loogares.com%close_tag%
+        contacto: Por favor no respondas a este mail automático. Si quieres contactarnos escríbenos a %open_a%contacto@loogares.com%close_a%
+        contacto_plano: Si quieres contactarnos escríbenos a contacto@loogares.com
+        firma: 2012. Loogares.com
+
+dueno:
+    errors:
+        validacion:
+            nombre:
+                blanco: El campo Nombre no puede ser vacío.
+            apellido:
+                blanco: El campo Apellido no puede ser vacío.
+            mail:
+                blanco: El campo E-mail no puede ser vacío.
+            telefono:
+                blanco: El campo Teléfono no puede ser vacío.
+            texto:
+                blanco: Desde propocionar una forma de comprobar que eres el dueño.
+    reclamar:
+        titulo: ¿Eres el dueño de %lugar%?
+        subtitulo: Si lo eres... ¡entonces tenemos una propuesta que hacerte! Envíanos el formulario con tus datos y en menos de 48 horas te contactaremos para contarte de qué se trata.
+        form:
+            nombre: Nombre *
+            apellido: Apellido *
+            mail: E-mail *
+            telefono: Teléfono *
+            texto: ¿Cómo comprobar que eres el dueño? *
+
+        mail:
+            asunto: Reporte: Dueño de
+            nombre: Nombre
+            mail: E-mail
+            telefono: Teléfono
+            texto: ¿Cómo comprobar que eres dueño?
+            lugar: Lugar
+        flash:
+            existe: Este lugar ya fue reclamado por su dueño anteriormente. Lo sentimos.
+            nuevo: En menos de 48 horas sabrás nuestra propuesta. ¡Grandes cosas están por llegar!... y no es la pizza que pedimos hace 25 minutos.
