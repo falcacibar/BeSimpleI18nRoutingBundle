@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+rootdir="$(dirname $(readlink -f $(dirname $0)))"
+cd $rootdir
+php app/console doctrine:generate:entities Loogares\LugarBundle
+php app/console doctrine:generate:entities Loogares\UsuarioBundle
+php app/console doctrine:generate:entities Loogares\CampanaBundle
+php app/console doctrine:generate:entities Loogares\ExtraBundle
+php app/console doctrine:generate:entities Loogares\AdminBundle
+php app/console doctrine:generate:entities Loogares\BlogBundle
+php app/console doctrine:generate:entities Loogares\MailBundle
+php app/console doctrine:schema:update --force
+echo -ne "\033[1;33m" 
+echo "INFO: En la carpeta db hay archivos importantes para el sistema,"
+echo "si deseas mas info usa el comando, bin/dbscripts info"
+echo -ne "\033[0m"
+php app/console cache:clear
+

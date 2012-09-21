@@ -1,0 +1,8 @@
+#!/bin/sh
+rootdir="$(dirname $(readlink -f $(dirname $0)))"
+if [ "$#" -eq "0" ]; then
+	echo "usage: $0 info"
+	exit 0
+elif [ "$1" = "info" ]; then
+	grep -RH '[-]- @info' ./db | sort | sed -e 's/-- @info//g'
+fi
