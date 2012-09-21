@@ -7,7 +7,7 @@
 				{% for ciudad in ciudades %}
 					{% set route = (ciudad.slug|replace({'-':'_'})) %}
 
-					<a href="{{path('locale_'~route, {'slug': ciudad.slug})}}">
+					<a href="{{path('locale', {'slug': ciudad.slug})}}">
 						<li {% if ciudad.id == app.session.get('ciudad').id %}class="selected"{% endif %}>{{ciudad.nombre}}</li>
 					</a>
 				{% endfor %}

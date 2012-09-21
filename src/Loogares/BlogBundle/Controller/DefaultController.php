@@ -31,18 +31,7 @@ class DefaultController extends Controller
         }
 
         $ciudad = $cr->findOneBySlug($ciudad);
-        $ciudadArray = array();
-        $ciudadArray['id'] = $ciudad->getId();
-        $ciudadArray['nombre'] = $ciudad->getNombre();
-        $ciudadArray['slug'] = $ciudad->getSlug();
-        $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
-        $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
-        $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
-
-        if(!$this->getRequest()->cookies->get('loogares_locale'))
-            $this->get('session')->setLocale($ciudad->getPais()->getLocale());
-
-        $this->get('session')->set('ciudad',$ciudadArray);
+        $ciudadArray = $this->get('session')->get('ciudad');
 
         $anteriores = null;
         $fn = $this->get('fn');

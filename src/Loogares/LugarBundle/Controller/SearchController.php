@@ -64,22 +64,11 @@ class SearchController extends Controller{
     $fn = $this->get('fn');
     $em = $this->getDoctrine()->getEntityManager();
     $mostrarPrecio = null;
-    $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
-    $ciudad = $cr->findOneBySlug($slug);
-    $ciudadArray = array();
-    $ciudadArray['id'] = $ciudad->getId();
-    $ciudadArray['nombre'] = $ciudad->getNombre();
-    $ciudadArray['slug'] = $ciudad->getSlug();
-    $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
-    $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
-    $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
 
-    if(!$this->getRequest()->cookies->get('loogares_locale'))
-       $this->get('session')->setLocale($ciudad->getPais()->getLocale());
-
-    $this->get('session')->set('ciudad',$ciudadArray);
-
+    $ciudadArray = $this->get('session')->get('ciudad');
+    $ciudad = $conr = $em->getRepository("LoogaresExtraBundle:Ciudad")->findOneById($ciudadArray['id']);
     $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
+
     //Concursos vigentes
     $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
     shuffle($concursos);

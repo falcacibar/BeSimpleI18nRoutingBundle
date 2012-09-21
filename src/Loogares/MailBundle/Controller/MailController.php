@@ -14,7 +14,7 @@ class MailController extends Controller{
 		}else{
       return $this->redirect($this->generateUrl('locale_santiago_de_chile'));
 		}
-		
+
 		$em = $this->getDoctrine()->getEntityManager();
   	$cr = $em->getRepository('LoogaresCampanaBundle:Campana');
   	$ur = $em->getRepository('LoogaresUsuarioBundle:Usuario');

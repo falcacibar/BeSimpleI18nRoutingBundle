@@ -22,6 +22,9 @@ class HttpCommunicationListener
     private $entityManager;
 
     public  $localeCookie = null;
+    public  $ciudadCookie = null;
+
+    public  $periodo = 31536000;
 
 
     public function __construct(ContainerInterface $container, \Doctrine\ORM\EntityManager $entityManager)
@@ -40,13 +43,25 @@ class HttpCommunicationListener
      */
     public function onKernelResponse(FilterResponseEvent $event)
     {
-        if(!is_null($this->localeCookie)) {
-            $sp = $this->container->parameters['session.storage.options'];
+        $sp = $this->container->parameters['session.storage.options'];
 
+        if(!is_null($this->localeCookie)) {
             $event->getResponse()->headers->setCookie(new Cookie(
                 'loogares.locale' , // nombre
                 $this->localeCookie, // valor
-                time() + 31536000 , // periodo (1 año)
+                time() + $this->periodo , // periodo (1 año)
+                '/', // ruta
+                (isset($sp['domain']) ? $sp['domain'] : null) , // dominio
+                false , // segura
+                true // sólo http
+            ));
+        }
+
+        if(!is_null($this->ciudadCookie)) {
+            $event->getResponse()->headers->setCookie(new Cookie(
+                'loogares.ciudad' , // nombre
+                $this->ciudadCookie, // valor
+                time() + $this->periodo , // periodo (1 año)
                 '/', // ruta
                 (isset($sp['domain']) ? $sp['domain'] : null) , // dominio
                 false , // segura

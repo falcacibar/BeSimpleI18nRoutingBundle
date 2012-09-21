@@ -30,7 +30,7 @@ $(document).ready(function(){
     $( "#fecha-hasta-ph" ).datepicker( "option", "altFormat", "dd-mm-yy" );
     $( "#fecha-hasta-ph" ).datepicker( "option", "altField", '#fecha-hasta' );
 
-    // Configuración de timepicker
+    // Configuración de timepicker$('table').eq(1)
     var datetimes = $( "#fecha-desde-c-ph, #fecha-hasta-c-ph" ).datetimepicker({
         defaultDate: "+1w",
         changeMonth: true,
@@ -73,7 +73,7 @@ $(document).ready(function(){
         e.preventDefault();
         $('input[name="id[]"]').click().attr('checked', 'checked');
     });
-    
+
     $('.deseleccionar-todo').click(function(e){
         e.preventDefault();
         $('input[name="id[]"]').click().removeAttr('checked', 'checked');

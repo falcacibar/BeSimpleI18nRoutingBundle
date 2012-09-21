@@ -84,6 +84,6 @@
     target=/bundles/Stof/DoctrineExtensionsBundle
 
 [BeSimpleI18nRoutingBundle]
-    git=git://github.com/BeSimple/BeSimpleI18nRoutingBundle.git
+    git=git://github.com/falcacibar/BeSimpleI18nRoutingBundle.git
     target=/bundles/BeSimple/I18nRoutingBundle
     version=origin/2.0

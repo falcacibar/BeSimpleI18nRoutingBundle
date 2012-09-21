@@ -190,6 +190,7 @@ _pedidosLugar:
         en: /place/{slug}/{tipo}
     defaults: { _controller: LoogaresLugarBundle:Lugar:pedidosLugar }
     requirements:
+# @todo Traduccion reservas/pedidos
         tipo: reservas|pedidos
 
 #
@@ -235,7 +236,7 @@ _categoria_comuna:
 _categoria_sola:
     locales:
         es: /{slug}/categoria
-        es: /{slug}/category
+        en: /{slug}/category
     defaults: { _controller: LoogaresLugarBundle:Search:categoria, path: _categoria }
 
 _categoria:

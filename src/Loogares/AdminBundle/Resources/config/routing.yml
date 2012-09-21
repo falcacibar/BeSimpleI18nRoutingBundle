@@ -13,7 +13,12 @@ LoogaresAdminBundle_sugerirLugar:
 LoogaresAdminBundle_sugerirUsuario:
     pattern:  /ajax/sugerirUsuario
     defaults: { _controller: LoogaresAdminBundle:AdminAjax:sugerirUsuario }
-
+LoogaresAdminBundle_tablaTraducciones:
+    pattern: /ajax/tablaTraducciones
+    defaults: { _controller : LoogaresAdminBundle:AdminAjax:tablaTraducciones }
+LoogaresAdminBundle_traducir:
+    pattern: /ajax/traducir
+    defaults: { _controller : LoogaresAdminBundle:AdminAjax:traducir }
 #
 #
 #Rutas del Adminsitrador de Recomendaciones

@@ -3,25 +3,182 @@
 {% block title %}Lugares | {{ parent() }}{% endblock %}
 {% block content %}
 
+<style type="text/css">
+table.tabla_traducciones {
+	width: 100%;
+	margin: 0 auto;
+	border-collapse: collapse;
+	margin-top: 30px;
+}
+
+table.tabla_traducciones td ,
+table.tabla_traducciones th {
+	border: 1.5px solid #000;
+	text-align: center;
+	vertical-align: middle;
+}
+
+table.tabla_traducciones td input.textbox {
+	border: 1px solid #000;
+	width: 100%;
+}
+
+table.tabla_traducciones td input.textbox.translated {
+	background-color: #F3FAF1;
+	border-color:#0BB716;
+}
+
+table.tabla_traducciones td input.textbox.notranslated {
+	background-color: #FAF1F1;
+	border-color: #FBA3A3;
+}
+
+</style>
+
 <h1 class="titulo_admin">Lugares | traducciones</h1>
 
-<select id="entidad">
+<select id="sentidad">
 {% for entidad in entidades %}
-	<option value="{{ entidad }}">{{ entidad }}</option>
+	<option value="{{ entidad }}">{{ entidad }}</option>$rs[$i]['tr:'.$f]
 {% endfor %}
 </select>
-
-<select id="locale">
+<select id="slocale">
 {% for locale in locales %}
 	<option {{ (locale.locale == app.session.locale ? 'selected="selected" ' : '')}}value="{{ locale.locale}}">{{ locale.nombre }}</option>
 {% endfor %}
 </select>
-<button id="ver">Traducir</button>
 
+<button id="ver">Ver Tabla</button>
 
-
-<table cellpadding="0" cellspacing="0" border="0">
-	<thead id="thead"></thead>
-	<tbody id="tbody"></tbody>
+<table class="tabla_traducciones" cellpadding="0" cellspacing="0" border="0">
+	<thead><tr></tr></thead>
+	<tbody></tbody>
 </table>
+
+<script src="{{asset('assets/js/jquery.func.js')}}"></script>
+<script src="{{asset('assets/js/jquery.dom.js')}}"></script>
+<script src="{{asset('assets/js/jquery.jsonrpc.js')}}"></script>
+<script type="text/javascript">
+var locale, entidad;
+$(function() {
+	var ts;
+
+	$('table.tablescroll_head')
+		.addClass('tabla_traducciones')
+		.append( $('table.tablescroll_body > *'))
+		.removeClass('tablescroll_head')
+		.detach()
+		.insertBefore(
+			(ts = $('.tablescroll'))
+		)[0].style.width  = '';
+	;
+
+	ts.detach().empty().remove();
+
+ 	var thead = $('.tabla_traducciones thead tr') ,
+		tbody = $('.tabla_traducciones tbody') ,
+		sentidad = $('#sentidad') ,
+		slocale = $('#slocale')
+	;
+
+	var txboxSendFn = function()  {
+		$this = $(this);
+
+		if($this.val() !== $this.data('oldval')) {
+			$.postJsonrpc(
+					WEBROOT + '../admin/ajax/traducir',
+					{
+						'entidad' 	: entidad ,
+						'locale' 	: locale ,
+						'campo' 	: $this.data('campo') ,
+						'texto'		: $this.val() ,
+						'id'		: $this.data('id')
+					},
+					function(res) {
+						if(res == true)	 {
+							$this
+								.data('oldval', $this.val())
+								.removeClass('notranslated')
+								.addClass('translated');
+
+						}
+
+						delete $this;
+					} , function(err) {
+						alert(err);
+
+						delete $this;
+					}
+			);
+		} else delete $this;
+	}
+
+	var txboxKeyFn = function(evt) {
+		if(evt.keyCode == 13)
+			txboxSendFn.call(this);
+		else if(evt.keyCode == 27) {
+			$this = $(this);
+			$this.val($this.data('oldval'));
+			delete $this;
+		}
+	}
+
+
+	$('#ver').click(function(evt) {
+		locale  = slocale.val();
+		entidad = sentidad.val();
+
+		thead.empty();
+		tbody.empty();
+
+		$.postJsonrpc(
+						WEBROOT + '../admin/ajax/tablaTraducciones',
+						{ 'entidad' : entidad , 'locale' : locale },
+						function(res) {
+							for(var i=0;i<res.columns.length;i++) {
+								thead.appendTh(null).text(res.columns[i]);
+							}
+
+							while(row=res.data.shift()) {
+								var tr = tbody.appendTr(null);
+
+								for(i=0;i<res.columns.length;i++) {
+									var td = tr.appendTd(null);
+
+									if(res.i18nfields.indexOf(res.columns[i]) !== -1)
+										td.appendInput({
+											'type' 	:'text' ,
+											'class' : 'textbox ' + (
+													(row['tr:'+res.columns[i]])
+														? ''  : 'no'
+													) + 'translated'
+										}).val(row[res.columns[i]])
+										.keyup(txboxKeyFn)
+										.blur(txboxSendFn)
+										.data({
+											'oldval'	: row[res.columns[i]] ,
+											'campo'		: res.columns[i] ,
+											'id'		: row[res.identity]
+										});
+									else
+										td.text(row[res.columns[i]]);
+
+									delete td;
+								}
+
+								delete tr;
+							}
+						},
+						function() {
+
+						}
+		);
+
+		evt.stopImmediatePropagation();
+		return false;
+	}).click();
+
+
+})
+</script>
 {% endblock %}

@@ -1,7 +1,7 @@
 security:
     factories:
         - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
-    encoders: 
+    encoders:
         Loogares\UsuarioBundle\Entity\Usuario:
             id: sha1_login_encoder
 
@@ -13,7 +13,7 @@ security:
     providers:
         chain_provider:
             providers: [main, facebook]
-        main:           
+        main:
             entity: { class: Loogares\UsuarioBundle\Entity\Usuario }
         facebook:
             id: my.facebook.user
@@ -29,10 +29,10 @@ security:
 
         secured_area:
             pattern:    ^/
-            anonymous: ~            
+            anonymous: ~
             form_login:
-                check_path: /usuario/login_check
-                login_path: /usuario
+                check_path: login_check
+                login_path: login
                 username_parameter: _mail
                 default_target_path: /usuario
                 provider: main
@@ -40,19 +40,19 @@ security:
             fos_facebook:
                 app_url: "http://new.loogares.com"
                 server_url: "http://new.loogares.com"
-                check_path: /usuario/login_check_facebook
-                login_path: /usuario
+                check_path: login_check_facebook
+                login_path: login
                 default_target_path: /usuario
                 provider: facebook
                 success_handler: auth_success_handler
             logout:
-                path:   /usuario/logout
+                path: logout
                 target: /
             remember_me:
                 key: _remember_me
                 lifetime: 1209600
                 path:     /
-                domain:   ~       
+                domain:   ~
     access_control:
         - { path: /agregar, roles: ROLE_USER }
         - { path: /editar, roles: ROLE_USER }

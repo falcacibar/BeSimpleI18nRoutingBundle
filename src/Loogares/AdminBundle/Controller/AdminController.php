@@ -479,7 +479,6 @@ class AdminController extends Controller
         }, $rs);
 
         unset($rs);
-        var_dump($this->container->get('gedmo.listener.translatable'));
 
         $rs = $this->getDoctrine()->getConnection()->fetchAll(
               " SELECT      locale
@@ -496,10 +495,7 @@ class AdminController extends Controller
             $rs
         );
 
-        unset($rs);
-
-//        var_dump($em->getClassMetadata($entidadesTraducidas[0]));
-        die();
+       unset($rs);
 
         return $this->render(
             'LoogaresAdminBundle:Admin:traducciones.html.twig'

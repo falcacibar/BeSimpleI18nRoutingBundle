@@ -8,8 +8,12 @@ Loogares\LugarBundle\Entity\TipoLugar:
     fields:
         nombre:
             type: string
+            gedmo:
+                - translatable
         slug:
             type: string
+            gedmo:
+                - translatable
         prioridad_web:
             type: smallint
     indexes:

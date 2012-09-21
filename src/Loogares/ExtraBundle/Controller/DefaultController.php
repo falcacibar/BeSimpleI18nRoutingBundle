@@ -91,63 +91,14 @@ class DefaultController extends Controller
         return $this->render('::ciudad.html.twig', array('ciudades' => $data));
     }
 
-    public function localeAction($slug) {
-        $em = $this->getDoctrine()->getEntityManager();
-        $cr = $em->getRepository("LoogaresExtraBundle:Ciudad");
-        $ciudad = $cr->findOneBySlug($slug);
-
-        // Seteamos el locale correspondiente a la ciudad en la sesión
-        if(!$this->getRequest()->cookies->get('loogares_locale'))
-            $this->get('session')->setLocale($ciudad->getPais()->getLocale());
-
-        $ciudadArray = array();
-        $ciudadArray['id'] = $ciudad->getId();
-        $ciudadArray['nombre'] = $ciudad->getNombre();
-        $ciudadArray['slug'] = $ciudad->getSlug();
-
-        $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
-        $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
-        $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
-
-        $root = "root_".preg_replace('/-/', '_', $slug);
-
-        $this->get('session')->set('ciudad', $ciudadArray);
-
-        // Redirección a vista de login
-        return new Response('ok');
-    }
-
     public function homepageAction($slug = null){
-        $em = $this->getDoctrine()->getEntityManager();
-        $fn = $this->get('fn');
-        $ip = $fn->ip2int($_SERVER['REMOTE_ADDR']);
-
-        //Comprobamos de donde es la IP
-        $q = $em->createQuery("SELECT u FROM Loogares\ExtraBundle\Entity\ip2loc u WHERE u.range_to >= ?1");
-        $q->setParameter(1, $ip);
-        $q->setMaxResults(1);
-        $ipPais = $q->getOneOrNullResult();
-
-        $ciudadesHabilitadas = array(
-            'santiago-de-chile' => 'santiago-de-chile',
-            'valparaiso-vina-del-mar' => 'valparaiso-vina-del-mar',
-            'buenos-aires' => 'buenos-aires',
-            'sao-paulo' => 'sao-paulo'
-        );
-
-        //Ciudad antigua
+        //Ciudad Nueva
         $ciudadSession = $this->get('session')->get('ciudad');
 
-        if(!in_array($slug, $ciudadesHabilitadas)){
-            if(preg_match('/Argentina|Peru/i', $ipPais->getCountry())){
-                return $this->redirect($this->generateUrl('locale', array('slug' => 'buenos-aires')));
-            }else if(preg_match('/Bra[zs]il/i', $ipPais->getCountry())){
-                return $this->redirect($this->generateUrl('locale', array('slug' => 'sao-paulo')));
-            }
-            return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
-        }
+        if(is_null($slug) && !is_null($ciudadSession))
+            return $this->redirect($this->generateUrl('locale', array('slug' => $ciudadSession['slug'])), 302);
 
-        $this->localeAction($slug);
+        $em = $this->getDoctrine()->getEntityManager();
 
         $rr = $em->getRepository("LoogaresUsuarioBundle:Recomendacion");
         $ur = $em->getRepository("LoogaresUsuarioBundle:Usuario");
@@ -157,9 +108,6 @@ class DefaultController extends Controller
         $trr = $em->getRepository("LoogaresExtraBundle:TiempoRelativo");
         $pr = $em->getRepository("LoogaresBlogBundle:Posts");
         $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
-
-        //Ciudad Nueva
-        $ciudadSession = $this->get('session')->get('ciudad');
 
         //Concursos vigentes
         $concursos = $conr->getConcursosVigentes($ciudadSession['id']);
@@ -510,18 +458,8 @@ class DefaultController extends Controller
             // Redireccionar a home de Santiago de Chile
             return $this->redirect($this->generateUrl('locale', array('slug' => 'santiago-de-chile')));
         }
-        $ciudadArray = array();
-        $ciudadArray['id'] = $ciudad->getId();
-        $ciudadArray['nombre'] = $ciudad->getNombre();
-        $ciudadArray['slug'] = $ciudad->getSlug();
-        $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
-        $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
-        $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
 
-        if(!$this->getRequest()->cookies->get('loogares_locale'))
-            $this->get('session')->setLocale($ciudad->getPais()->getLocale());
-
-        $this->get('session')->set('ciudad',$ciudadArray);
+        $ciudadArray = $this->get('session')->get('ciudad');
 
         $pagina = (!$request->query->get('pagina')) ? 1 : $request->query->get('pagina');
         $ppag = 12;
@@ -555,23 +493,10 @@ class DefaultController extends Controller
 
     public function mailConcursosAction($ciudad) {
         $em = $this->getDoctrine()->getEntityManager();
-        $cr = $em->getRepository('LoogaresExtraBundle:Ciudad');
         $conr = $em->getRepository("LoogaresBlogBundle:Concurso");
         $fn = $this->get('fn');
 
-        $ciudad = $cr->findOneBySlugActivo($ciudad);
-        $ciudadArray = array();
-        $ciudadArray['id'] = $ciudad->getId();
-        $ciudadArray['nombre'] = $ciudad->getNombre();
-        $ciudadArray['slug'] = $ciudad->getSlug();
-        $ciudadArray['pais']['id'] = $ciudad->getPais()->getId();
-        $ciudadArray['pais']['nombre'] = $ciudad->getPais()->getNombre();
-        $ciudadArray['pais']['slug'] = $ciudad->getPais()->getSlug();
-
-        if(!$this->getRequest()->cookies->get('loogares_locale'))
-            $this->get('session')->setLocale($ciudad->getPais()->getLocale());
-
-        $this->get('session')->set('ciudad',$ciudadArray);
+        $ciudadArray = $this->get('session')->get('ciudad');
 
         // Concursos vigentes
         $concursos = $conr->getConcursosVigentes($ciudadArray['id']);
@@ -588,6 +513,10 @@ class DefaultController extends Controller
             'concursos' => $concursos,
             'meses' => $meses
         ));
+    }
+
+    public function redirectorAction(Request $request, $url) {
+        return $this->redirect($url);
     }
 
     public function mailiPhoneAppAction() {
